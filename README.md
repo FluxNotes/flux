@@ -9,7 +9,7 @@ text field. Users can enter text into the text field which has a vertical scroll
 ## Getting Started
 
 * Git clone the repository
-* Check out flux-capture-nicole branch
+* Check out the master branch (or the branch you want to work in)
 * In a terminal navigate into the flux folder (stay at the project root)
 * Enter 'npm install'
 * Enter 'yarn start' to open a browser to view the application
