@@ -26,8 +26,8 @@ class AppTopWithDrawer extends Component {
         <Drawer 
           containerStyle={{'top': '64px'}} 
           open={this.state.open}>
-          <MenuItem>Menu Item</MenuItem>
-          <MenuItem>Menu Item 2</MenuItem>
+          <MenuItem>Patients</MenuItem>
+          <MenuItem>Templates</MenuItem>
         </Drawer>
       </div>
     );
