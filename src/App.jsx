@@ -1,17 +1,16 @@
+// React Imports: 
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-
+// Material UI components:
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+// Application components:
 import AppTopWithDrawer from './AppTopWithDrawer';
+import DemographicSummary from './DemographicSummary';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
-import GridTest from './Gridbox';
 
-
-// import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -59,8 +58,13 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <AppTopWithDrawer />
-          <Grid fluid className="App-content">
+          <Grid className="App-content">
             <Row>
+              <Col xs={12}>
+                <DemographicSummary />
+              </Col>
+            </Row>
+            <Row center="xs">
               <Col sm={3}>
                 <DataSummary 
                   onHER2StatusChange={this.changeHER2Status}

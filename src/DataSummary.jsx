@@ -8,7 +8,10 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
-// Application component imports
+
+// Styling
+import './DataSummary.css';
+
 
 class DataSummary extends Component {
 
@@ -34,7 +37,7 @@ class DataSummary extends Component {
   	const PRCheckboxChecked = (this.props.PRStatus !== "");
 
     return (
-      <div style={{padding: 30}}>
+      <div id="data-summary">
         <List>
            <Subheader>Summary of Key Data</Subheader>
            <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked} />} />

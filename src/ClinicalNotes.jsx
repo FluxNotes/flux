@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // Material UI component imports
 import TextField from 'material-ui/TextField';
-// Application component imports
+
+// Styling
+import './ClinicalNotes.css';
 
 class ClinicalNotes extends Component {
 
@@ -59,13 +61,14 @@ class ClinicalNotes extends Component {
 
   render() {
     return (
-      <div>
+      <div id="clinical-notes">
         <TextField
               hintText="Message Field"
               floatingLabelText="MultiLine and FloatingLabel"
               multiLine={true}
               rows={2}
               rowsMax={25}
+              fullWidth={true}
               onChange={this.handleTextChange}
             />
       </div>
