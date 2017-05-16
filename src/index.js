@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'es6-shim';
+
 import App from './App';
 import './index.css';
 

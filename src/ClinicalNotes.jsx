@@ -1,8 +1,9 @@
 // React imports
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// Material UI component imports
-import TextField from 'material-ui/TextField';
+
+// Application Components:
+import RichEditor from './RichEditor';
 
 // Styling
 import './ClinicalNotes.css';
@@ -62,15 +63,10 @@ class ClinicalNotes extends Component {
   render() {
     return (
       <div id="clinical-notes">
-        <TextField
-              hintText="Message Field"
-              floatingLabelText="MultiLine and FloatingLabel"
-              multiLine={true}
-              rows={2}
-              rowsMax={25}
-              fullWidth={true}
-              onChange={this.handleTextChange}
-            />
+        <h1>Clinical Notes</h1>
+        <div className="editor">
+          <RichEditor />
+        </div>
       </div>
     );
   }
