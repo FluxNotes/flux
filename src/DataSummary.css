@@ -2,3 +2,7 @@
 	padding: 30px;
 	text-align: left;
 }
+
+#staging-sub-elements-checkbox {
+	margin-left: 56px !important;
+}
