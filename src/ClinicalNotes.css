@@ -1,3 +1,7 @@
 #clinical-notes {  
 	text-align: left;
 }
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}

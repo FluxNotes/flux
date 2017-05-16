@@ -2,10 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // Material UI component imports
-import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import Toggle from 'material-ui/Toggle';
 
