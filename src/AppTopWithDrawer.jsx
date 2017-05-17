@@ -22,7 +22,7 @@ class AppTopWithDrawer extends Component {
       <div>
         <AppBar 
           onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)} 
-          title="Flux Data Curator"/>
+          title="Flux Notes"/>
         <Drawer 
           containerStyle={{'top': '64px'}} 
           open={this.state.open}>
