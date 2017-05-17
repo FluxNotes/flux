@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "draft-js": "^0.10.1",
+    "draft-js-mention-plugin": "^2.0.0-beta11",
+    "draft-js-plugins-editor": "^2.0.0-beta1",
     "es6-shim": "^0.35.3",
     "material-ui": "^0.18.0",
     "react": "^15.5.4",

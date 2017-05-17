@@ -1,14 +1,29 @@
 // React imports
 import React, { Component } from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {EditorState, RichUtils} from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
+import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin'; // eslint-disable-line import/no-unresolved
+
 // Application Components: 
 import StyleButton from './StyleButton'
 import BlockStyleControls from './BlockStyleControls'
 import InlineStyleControls from './InlineStyleControls'
+import mentions from './mentions'; // This is where the autocomplete suggestions are located
+
 
 // Styling
 import 'draft-js/dist/Draft.css';
+import 'draft-js-mention-plugin/lib/plugin.css';
 import './RichEditor.css';
+
+
+const mentionPlugin = createMentionPlugin({
+  mentions,
+  mentionTrigger: "."
+
+});
+const { MentionSuggestions } = mentionPlugin;
+const plugins = [mentionPlugin];
 
 
 // Custom overrides for "code" style.
@@ -34,16 +49,36 @@ function getBlockStyle(block) {
 class RichEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      suggestions: mentions
+    };
 
-    this.focus = () => this.refs.editor.focus();
-    this.onChange = (editorState) => this.setState({editorState});
+    this.onChange = (editorState) => {
+      console.log(editorState.getCurrentContent());
+      var record = window.record = editorState; 
+      this.setState({editorState})
+    };
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.onTab = (e) => this._onTab(e);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
   }
+
+  onSearchChange = ({ value }) => {
+    this.setState({
+      suggestions: defaultSuggestionsFilter(value, mentions),
+    });
+  };
+
+  onAddMention = () => {
+    // get the mention object selected
+  }; 
+
+  focus = () => {
+    this.editor.focus();
+  };
 
   _handleKeyCommand(command) {
     const {editorState} = this.state;
@@ -110,8 +145,14 @@ class RichEditor extends Component {
             onChange={this.onChange}
             onTab={this.onTab}
             placeholder="Tell a story..."
-            ref="editor"
+            plugins={plugins}
+            ref={(element) => { this.editor = element; }}
             spellCheck={true}
+          />
+          <MentionSuggestions
+            onSearchChange={this.onSearchChange}
+            suggestions={this.state.suggestions}
+            onAddMention={this.onAddMention}
           />
         </div>
       </div>
