@@ -1,8 +1,8 @@
 #data-summary { 
-	padding: 30px;
+	/*padding: 30px;*/
 	text-align: left;
 }
 
-#staging-subelements {
-	/*margin-left: 56px !important;*/
+.sub-list {
+	margin-left: 56px !important;
 }

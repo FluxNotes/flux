@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Checkbox from 'material-ui/Checkbox';
+import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
 
 // Styling
@@ -47,20 +48,25 @@ class DataSummary extends Component {
         // Event Dates
         const DiagnosisDateString = 'Diagnosis: 05/16/2012';
         const DiagnosisString = 'Breast Cancer - Stage IIA';
+        const DiagnosisCheckboxChecked = (this.props.DiagnosisStatus !== "");
         const SurgeryDateString = 'Surgery: 06/20/2012';
         const SurgeryString = 'Lumpectomy/sentinel/lymph node biopsy';
+        const SurgeryCheckboxChecked = (this.props.SurgeryStatus !== "");
         const RecurrenceDateString = 'Recurrence: 08/02/2015';
+        const RecurrenceCheckboxChecked = (this.props.RecurrenceStatus !== "");
 
 
         return (
             <div id="data-summary">
+                <h1>Patient Summary</h1>
                 <List>
-                    <Subheader>Current Staging</Subheader>
+                    <h3>Current Staging</h3>
                     <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
-                    <ListItem id="staging-subelements" primaryText={StageSubElementsString}/>
+                    <ListItem className="sub-list" primaryText={StageSubElementsString}/>
                 </List>
+                <Divider />
                 <List>
-                    <Subheader>Pathology Results</Subheader>
+                    <h3>Pathology Results</h3>
                     <ListItem primaryText={HGAString} leftCheckbox={<Checkbox checked={true}/>}/>
                     <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
                     <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
@@ -69,13 +75,14 @@ class DataSummary extends Component {
                     {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
                     {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
                 </List>
+                <Divider />
                 <List>
-                    <Subheader>Event Dates</Subheader>
-                    <ListItem primaryText={DiagnosisDateString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    <ListItem id="diagnosis" primaryText={DiagnosisString}/>
-                    <ListItem primaryText={SurgeryDateString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    <ListItem primaryText={SurgeryString}/>
-                    <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={true}/>}/>
+                    <h3>Event Dates</h3>
+                    <ListItem primaryText={DiagnosisDateString} leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
+                    <ListItem className="sub-list" primaryText={DiagnosisString}/>
+                    <ListItem primaryText={SurgeryDateString} leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
+                    <ListItem className="sub-list" primaryText={SurgeryString}/>
+                    <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}/>
                 </List>
             </div>
         );
@@ -88,6 +95,9 @@ DataSummary.propTypes = {
     ERStatus: PropTypes.string,
     PRStatus: PropTypes.string,
     onHER2StatusChange: PropTypes.func.isRequired,
+    DiagnosisStatus: PropTypes.string,
+    SurgeryStatus: PropTypes.string,
+    RecurrenceStatus: PropTypes.string,
 
 }
 
