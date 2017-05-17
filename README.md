@@ -1,9 +1,9 @@
-# Flux Capture Prototype
+# Flux Notes Prototype
 
 ## Features
-This prototype lays out the main sections for the prototype. There is a load button that inserts hardcoded text into the
-text field. Users can enter text into the text field which has a vertical scroll bar when the amount of text exceeds the
- size of the field
+This prototype lays out the main sections of the prototype. The left section displays patient summary information. The
+middle section shows the text field area where clinical notes are entered. The right section is a place holder for template
+information for the key data elements.
 
 
 ## Getting Started
@@ -18,5 +18,6 @@ text field. Users can enter text into the text field which has a vertical scroll
 
 * React.js (https://facebook.github.io/react/)
 * Material UI (http://www.material-ui.com/#/)
+* React-FlexBox-Grid (https://roylee0704.github.io/react-flexbox-grid/)
 
 
