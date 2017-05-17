@@ -52,7 +52,7 @@ class DataSummary extends Component {
         const SurgeryDateString = 'Surgery: 06/20/2012';
         const SurgeryString = 'Lumpectomy/sentinel/lymph node biopsy';
         const SurgeryCheckboxChecked = (this.props.SurgeryStatus !== "");
-        const RecurrenceDateString = 'Recurrence: 08/02/2015';
+        const RecurrenceDateString = 'Recurrence: ';
         const RecurrenceCheckboxChecked = (this.props.RecurrenceStatus !== "");
 
 
@@ -82,7 +82,7 @@ class DataSummary extends Component {
                     <ListItem className="sub-list" primaryText={DiagnosisString}/>
                     <ListItem primaryText={SurgeryDateString} leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
                     <ListItem className="sub-list" primaryText={SurgeryString}/>
-                    <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}/>
+                    <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={false}/>}/>
                 </List>
             </div>
         );
