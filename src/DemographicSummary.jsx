@@ -26,7 +26,7 @@ class DemographicSummary extends Component {
       <div id="demographic-summary">
         <Paper zDepth={1}>
 		<Grid><Row middle="sm">
-          <Col><img src={this.patient.photo} /></Col>
+          <Col><img src={this.patient.photo} alt={this.patient.name} /></Col>
 		  <Col xs={11} sm={4} md={5} lg={5}><h1>{this.patient.name}</h1></Col>
 		  <Col xs={11} sm={2} md={2} lg={2}>Date of Birth (Age):<br />{this.patient.dateOfBirth} ({calculateAge(this.patient.dateOfBirth)})</Col>
 		  <Col xs={11} sm={3} md={3} lg={3}>Administrative Gender:<br />{this.patient.administrativeGender}</Col>
