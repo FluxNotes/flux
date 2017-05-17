@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "draft-js": "^0.10.1",
     "draft-js-mention-plugin": "^2.0.0-beta11",
     "draft-js-plugins-editor": "^2.0.0-beta1",

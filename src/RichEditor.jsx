@@ -19,8 +19,14 @@ import './RichEditor.css';
 
 const mentionPlugin = createMentionPlugin({
   mentions,
-  mentionTrigger: "."
-
+  mentionTrigger: ".",
+  mentionComponent: (props) => (
+     <span
+       className={props.className} // eslint-disable-next-line no-alert
+     >
+       {props.mention.get('placeholder')}
+     </span>
+   ),
 });
 const { MentionSuggestions } = mentionPlugin;
 const plugins = [mentionPlugin];
@@ -35,7 +41,7 @@ const styleMap = {
     padding: 2,
   },
 };
-
+  
 
 // Get blockquote styling 
 function getBlockStyle(block) {
@@ -72,8 +78,9 @@ class RichEditor extends Component {
     });
   };
 
-  onAddMention = () => {
+  onAddMention = (mention) => {
     // get the mention object selected
+    //  Just a callback -- doesn't change the mention object significantly before it gets added
   }; 
 
   focus = () => {
