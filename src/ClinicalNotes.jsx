@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Application Components:
-import RichEditor from './RichEditor';
+import MyEditor from './MyEditor';
 
 // Styling
 import './ClinicalNotes.css';
@@ -65,7 +65,7 @@ class ClinicalNotes extends Component {
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
-          <RichEditor />
+          <MyEditor />
         </div>
       </div>
     );
