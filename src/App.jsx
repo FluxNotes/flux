@@ -8,7 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
-import ClinicalNotes from './ClinicalNotes';
+import ClinicalNotes from './ClinicalNotes2';
 import DataSummary from './DataSummary';
 
 import './App.css';
@@ -27,7 +27,7 @@ class App extends Component {
 
   }
 
-  changeHER2Status(newStatus) { 
+  changeHER2Status(newStatus) {
     (newStatus !== "") && this.setState({
       HER2Status: newStatus
     })
