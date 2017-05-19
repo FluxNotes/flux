@@ -35,12 +35,12 @@ class DataSummary extends Component {
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
-        const HER2StatusString = `HER2 Status: +`;
-        const ERStatusString = `ER Status: +`;
-        const PRStatusString = `PR Status: +`;
-        // const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
-        // const ERStatusString = `ER Status: ${this.props.ERStatus}`;
-        // const PRStatusString = `PR Status: ${this.props.PRStatus}`;
+        // const HER2StatusString = `HER2 Status: +`;
+        // const ERStatusString = `ER Status: +`;
+        // const PRStatusString = `PR Status: +`;
+        const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
+        const ERStatusString = `ER Status: ${this.props.ERStatus}`;
+        const PRStatusString = `PR Status: ${this.props.PRStatus}`;
         const HER2CheckboxChecked = (this.props.HER2Status !== "");
         const ERCheckboxChecked = (this.props.ERStatus !== "");
         const PRCheckboxChecked = (this.props.PRStatus !== "");
@@ -68,12 +68,12 @@ class DataSummary extends Component {
                 <List>
                     <h3>Pathology Results</h3>
                     <ListItem primaryText={HGAString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                    {/*<ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>*/}
-                    {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
-                    {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
+                    {/*<ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>*/}
+                    {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>*/}
+                    {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>*/}
+                    <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>
+                    <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>
+                    <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>
                 </List>
                 <Divider />
                 <List>

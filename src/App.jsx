@@ -20,6 +20,12 @@ class App extends Component {
       HER2Status: '+',
       ERStatus:   '',
       PRStatus:   ''
+
+// TODO: Finish building this data object
+      // data: {
+      //   staging: {state: 'IIA', t: '2', n: '0', m: '0'},
+      //   pathology: {}
+      // }
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);

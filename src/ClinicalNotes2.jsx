@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Application Components:
 import RichEditor from './RichEditor';
+// import TextField from 'material-ui/TextField';
 
 // Styling
 import './ClinicalNotes2.css';
@@ -67,6 +68,14 @@ class ClinicalNotes2 extends Component {
         <div className="editor">
           <RichEditor />
         </div>
+        {/*// <TextField*/}
+        {/*//              hintText="Message Field"*/}
+        {/*//              floatingLabelText="MultiLine and FloatingLabel"*/}
+        {/*//               multiLine={true}*/}
+        {/*//               rows={2}*/}
+                      {/*rowsMax={25}*/}
+                      {/*onChange={this.handleTextChange}*/}
+                    {/*/>*/}
       </div>
     );
   }
