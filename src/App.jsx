@@ -64,7 +64,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <AppTopWithDrawer />
-          <Grid className="App-content">
+          <Grid fluid className="App-content">
             <Row>
               <Col xs={12}>
                 <DemographicSummary />
