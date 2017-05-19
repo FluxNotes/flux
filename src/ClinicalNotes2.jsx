@@ -88,7 +88,7 @@ ClinicalNotes2.propTypes = {
     onHER2StatusChange:  PropTypes.func.isRequired,
     onERStatusChange:  PropTypes.func.isRequired,
     onPRStatusChange:  PropTypes.func.isRequired,
-
+    onItemSelected: PropTypes.func.isRequired,
 }
 
 export default ClinicalNotes2;

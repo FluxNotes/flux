@@ -19,11 +19,19 @@ class DataSummary extends Component {
         super(props);
 
         this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
+        // this.handleItemSelected = this.handleItemSelected.bind(this) // did the binding with => down in the html. this is redundant
     }
 
     handleHER2StatusChange(newStatus) {
         console.log(this);
         this.props.onHER2StatusChange(newStatus);
+    }
+
+    handleItemSelected(e, itemString) {
+        console.log("handleItemSelected called");
+        console.log(itemString);
+        console.log(this);
+        this.props.onItemSelected(itemString);
     }
 
 
@@ -62,17 +70,16 @@ class DataSummary extends Component {
         return (
             <Paper zDepth={1}>
                 <div id="data-summary">
-
                     <h1>Patient Summary</h1>
                     <List>
                         <h3>Current Staging</h3>
-                        <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
+                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString)}>{StageString}</span>} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
                         <ListItem className="sub-list" primaryText={StageSubElementsString}/>
                     </List>
                     <Divider />
                     <List>
                         <h3>Pathology Results</h3>
-                        <ListItem primaryText={HGAString} leftCheckbox={<Checkbox checked={true}/>}/>
+                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} leftCheckbox={<Checkbox checked={true}/>}/>
                         <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
                         <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
                         <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
@@ -110,7 +117,7 @@ DataSummary.propTypes = {
     SurgeryStatus: PropTypes.string,
     RadiationStatus: PropTypes.string,
     RecurrenceStatus: PropTypes.string,
-
+    onItemSelected: PropTypes.func.isRequired
 }
 
 export default DataSummary;

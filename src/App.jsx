@@ -8,7 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
-import ClinicalNotes from './ClinicalNotes2';
+import ClinicalNotes2 from './ClinicalNotes2';
 import DataSummary from './DataSummary';
 
 import './App.css';
@@ -19,7 +19,8 @@ class App extends Component {
     this.state = { 
       HER2Status: '+',
       ERStatus:   '',
-      PRStatus:   ''
+      PRStatus:   '',
+      keyData: ''
 
 // TODO: Finish building this data object
       // data: {
@@ -30,6 +31,7 @@ class App extends Component {
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
+    this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
 
   }
 
@@ -59,6 +61,13 @@ class App extends Component {
     })
   }
 
+  handleSummaryUpdate(itemString) {
+    console.log("inside handle summary update");
+    (itemString !== "") && this.setState({
+      keyData: itemString
+    });
+    console.log("key data: " + this.state.keyData);
+  }
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -79,16 +88,18 @@ class App extends Component {
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  onItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
               <Col sm={6}>
-                <ClinicalNotes 
+                <ClinicalNotes2
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  onItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
               <Col sm={3}>
