@@ -1,12 +1,10 @@
 // React imports
 import React, { Component } from 'react';
-// Our components
-import ToggleButtonGroup from './ToggleButtonGroup';
 // material-ui
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 // Flexbox
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Grid, Row } from 'react-flexbox-grid';
 // Styling
 import './StagingForm.css';
 
@@ -84,13 +82,13 @@ class StagingForm extends Component {
     );
   }
 
+  _currentlySelected(item, i) {
+    return (item === i ? true : false);
+  }
+
   _handleTumorSizeClick(e, i) {
     e.preventDefault();
     this.setState({t: i});
-  }
-
-  _currentlySelected(item, i) {
-    return (item === i ? true : false);
   }
 
   _handleNodeClick(e, i) {
