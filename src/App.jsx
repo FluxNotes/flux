@@ -1,4 +1,4 @@
-// React Imports: 
+// React Imports:
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 // Material UI components:
@@ -10,13 +10,14 @@ import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
+import FormsPanel from './FormsPanel';
 
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       HER2Status: '+',
       ERStatus:   '',
       PRStatus:   ''
@@ -27,27 +28,27 @@ class App extends Component {
 
   }
 
-  changeHER2Status(newStatus) { 
+  changeHER2Status(newStatus) {
     (newStatus !== "") && this.setState({
       HER2Status: newStatus
     })
   }
 
-  changeERStatus(newStatus) { 
+  changeERStatus(newStatus) {
     console.log('newStatus ' + newStatus);
     (newStatus !== "") && this.setState({
       ERStatus: newStatus
     })
   }
 
-  componentDidUpdate(a, b) { 
+  componentDidUpdate(a, b) {
     console.log('did update')
     console.log(a)
     console.log(b)
     console.log(this)
   }
 
-  changePRStatus(newStatus) { 
+  changePRStatus(newStatus) {
     (newStatus !== "") && this.setState({
       PRStatus: newStatus
     })
@@ -58,7 +59,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <AppTopWithDrawer />
-          <Grid fluid className="App-content">
+          <Grid className="App-content" fluid>
             <Row>
               <Col xs={12}>
                 <DemographicSummary />
@@ -66,7 +67,7 @@ class App extends Component {
             </Row>
             <Row center="xs">
               <Col sm={3}>
-                <DataSummary 
+                <DataSummary
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
@@ -76,7 +77,7 @@ class App extends Component {
                 />
               </Col>
               <Col sm={6}>
-                <ClinicalNotes 
+                <ClinicalNotes
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
@@ -86,11 +87,11 @@ class App extends Component {
                 />
               </Col>
               <Col sm={3}>
-                <p> Placeholder </p>
+                <FormsPanel />
               </Col>
             </Row>
-          </Grid> 
-        </div>  
+          </Grid>
+        </div>
       </MuiThemeProvider>
     );
   }
