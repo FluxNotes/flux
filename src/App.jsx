@@ -59,11 +59,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <AppTopWithDrawer />
-<<<<<<< HEAD
-          <Grid fluid className="App-content">
-=======
           <Grid className="App-content" fluid>
->>>>>>> Added Staging Form Component
             <Row>
               <Col xs={12}>
                 <DemographicSummary />

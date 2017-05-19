@@ -9,7 +9,6 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import './FormsPanel.css';
 // Our components
 import StagingForm from './StagingForm';
-import ToggleButtonGroup from './ToggleButtonGroup';
 
 class FormsPanel extends Component {
   constructor(props) {
