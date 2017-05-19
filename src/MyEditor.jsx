@@ -1,98 +1,85 @@
-// React imports
-import React from 'react';
-import {CompositeDecorator, Editor, EditorState} from 'draft-js';
+// Import React!
+import React from 'react'
+import { Editor, Raw } from 'slate'
+import AutoReplace from 'slate-auto-replace'
 
-// Styling
-import 'draft-js/dist/Draft.css';
-import './MyEditor.css';
+const initialState = Raw.deserialize({
+  nodes: [
+    {
+      kind: 'block',
+      type: 'paragraph',
+      nodes: [
+        {
+          kind: 'text',
+          text: 'A line of text in a paragraph.'
+        }
+      ]
+    }
+  ]
+}, { terse: true })
 
-const styles = {
-  period: {
-    color: 'rgba(98, 177, 254, 1.0)',
-    direction: 'ltr',
-    unicodeBidi: 'bidi-override',
-  },
-};
-
-// Summary: Returns the corresponsing dot-notation regular expression 
-//          for finding a given element in text.  
-// Args: elem, str: the string we are searching nfor
-// Returns: RegExp object: the regular expression object that will find '.elem '.
-const PERIOD_REGEX = (elem) => {
-  return new RegExp(`\.${elem}\\s`,"g");
+// Custom code block
+function CodeNode(props) {
+  return <pre {...props.attributes}><code>{props.children}</code></pre>
 }
 
-// This is a lookup table containing all of the dot-notation strings 
-// and their corresponding replacements. 
-const lookupTable = {
-  'stage': "Stage:_ with TMN scoring T_M_N_",
-  'her2': "HER2 Status:_"
-}
-const allCases = Object.keys(lookupTable)
+// Add the plugin to your set of plugins...
+const plugins = [
+  AutoReplace({
+    trigger: 'space',
+    before: /^(\.stage)$/,
+    transform: (transform, e, data, matches) => {
+      return transform.insertText("Staging Information: T_N_M_").wrapBlock({type: 'div'})
+    }
+  })
+]
 
-// How we should find any of the period elements. 
-function periodStrategy(contentBlock, callback, contentState) {
-  for (const eachCase of allCases) { 
-      findWithRegex(PERIOD_REGEX(eachCase), contentBlock, callback);
-  }
-}
-
-// Search the content block for the given regex.
-function findWithRegex(regex, contentBlock, callback) {
-  const text = contentBlock.getText();
-  let matchArr, start;
-  while ((matchArr = regex.exec(text)) !== null) {
-    start = matchArr.index;
-    callback(start, start + matchArr[0].length);
-  }
-}
-
-// Turn the trigger into it's corresponding text
-const determineText = (currentTrigger) => {
-  return lookupTable[currentTrigger.decoratedText.split('.')[1].split(' ')[0]];
-}
-
-// Dot-notation span element to place when searched element is found.
-const periodSpan = (props) => {
-  console.log(props);
-  console.log(props.children);
-  const text = determineText(props);
-  return (
-    <span
-      style={styles.period}
-      data-offset-key={props.offsetKey}
-    >
-      {text}
-    </span>
-  );
-};
-
+// Define our app...
 class MyEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    const compositeDecorator = new CompositeDecorator([
-      {
-        strategy: periodStrategy,
-        component: periodSpan,
-      },
-    ]);
-    this.state = {editorState: EditorState.createEmpty(compositeDecorator)};
-    this.focus = () => this.refs.editor.focus();
-    this.onChange = (editorState) => this.setState({editorState});
+
+  // Set the initial state when the app is first constructed.
+  state = {
+    state: initialState,
+    schema: {
+      nodes: {
+        code: CodeNode
+      }
+    }
   }
 
-  render() {
+  // On change, update the app's React state with the new editor state.
+  onChange = (state) => {
+    this.setState({ state })
+  }
+
+  onKeyDown = (event, data, state) => {
+     // Return with no changes if it's not the "`" key with cmd/ctrl pressed.
+     if (event.which != 192 || !event.metaKey) return
+
+     // Prevent the "`" from being inserted by default.
+     event.preventDefault()
+
+     // Otherwise, set the currently selected blocks type to "code".
+     return state
+       .transform()
+       .setBlock('code')
+       .apply()
+   }
+
+  // Render the editor.
+  render = () => {
     return (
       <div className="MyEditor-root">
-        <Editor 
-          editorState={this.state.editorState} 
-          onChange={this.onChange} 
-          ref="editor"
-          spellCheck={true}
+        <Editor
+          state={this.state.state}
+          onChange={this.onChange}
+          plugins={plugins}
+
         />
       </div>
-    );
+    )
   }
+
 }
 
 export default MyEditor;
