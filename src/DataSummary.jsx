@@ -32,8 +32,10 @@ class DataSummary extends Component {
     render() {
 
         // Current Staging
-        const StageString = 'Stage: IIA';
-        const StageSubElementsString = 'T2, N0, M0';
+        // const StageString = 'Stage: IIA';
+        // const StageSubElementsString = 'T2, N0, M0';
+        const StageString = 'Stage:';
+        const StageSubElementsString = 'T: N: M: ';
         const StageCheckboxChecked = (this.props.StageStatus !== "");
 
         // Pathology Results
@@ -57,7 +59,9 @@ class DataSummary extends Component {
         const SurgeryCheckboxChecked = (this.props.SurgeryStatus !== "");
         const RadiationString = 'Radiation: 07/12/2012 - 08/16/2012';
         const RadiationCheckboxChecked = (this.props.RadiationStatus !== "");
-        const RecurrenceDateString = 'Recurrence: ';
+        const TamoxifenString = 'Tamoxifen: 09/01/2012 - 07/01/2014';
+        const TamoxifenCheckboxChecked = (this.props.TamoxifenStatus !== "");
+        const RecurrenceDateString = 'Recurrence: 08/02/2015';
         const RecurrenceCheckboxChecked = (this.props.RecurrenceStatus !== "");
 
 
@@ -71,7 +75,7 @@ class DataSummary extends Component {
                                 <Paper zDepth={1}>
                                     <List className="summary-content">
                                         <h3>Current Staging</h3>
-                                        <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
+                                        <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={false}/>}/>
                                         <ListItem className="sub-list" primaryText={StageSubElementsString}/>
                                     </List>
                                 </Paper>
@@ -106,7 +110,10 @@ class DataSummary extends Component {
                                         <ListItem className="sub-list" primaryText={SurgeryString}/>
                                         <ListItem primaryText={RadiationString}
                                                   leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
-                                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={false}/>}/>
+                                        <ListItem primaryText={TamoxifenString}
+                                                  leftCheckbox={<Checkbox checked={TamoxifenCheckboxChecked}/>}/>
+                                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}/>
+
                                     </List>
                                 </Paper>
                             </Col>
@@ -127,6 +134,7 @@ DataSummary.propTypes = {
     DiagnosisStatus: PropTypes.string,
     SurgeryStatus: PropTypes.string,
     RadiationStatus: PropTypes.string,
+    TamoxifenStatus: PropTypes.string,
     RecurrenceStatus: PropTypes.string,
 
 }
