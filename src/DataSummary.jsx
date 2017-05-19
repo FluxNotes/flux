@@ -8,6 +8,8 @@ import Subheader from 'material-ui/Subheader';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
+// Flexbox
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 // Styling
 import './DataSummary.css';
@@ -60,42 +62,58 @@ class DataSummary extends Component {
 
 
         return (
-            <Paper zDepth={1}>
             <div id="data-summary">
-
-                    <h1>Patient Summary</h1>
-                    <List>
-                        <h3>Current Staging</h3>
-                        <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={StageSubElementsString}/>
-                    </List>
-                    <Divider />
-                    <List>
-                        <h3>Pathology Results</h3>
-                        <ListItem primaryText={HGAString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        {/*<ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>*/}
-                        {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
-                        {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
-                    </List>
-                    <Divider />
-                    <List>
-                        <h3>Event Dates</h3>
-                        <ListItem primaryText={DiagnosisDateString}
-                                  leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={DiagnosisString}/>
-                        <ListItem primaryText={SurgeryDateString}
-                                  leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={SurgeryString}/>
-                        <ListItem primaryText={RadiationString}
-                                  leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
-                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={false}/>}/>
-                    </List>
-
+                <h1>Patient Summary</h1>
+                <Paper zDepth={1}>
+                    <Grid fluid id="summary-panels">
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Current Staging</h3>
+                                        <ListItem primaryText={StageString} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
+                                        <ListItem className="sub-list" primaryText={StageSubElementsString}/>
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Pathology Results</h3>
+                                        <ListItem primaryText={HGAString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        {/*<ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>*/}
+                                        {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
+                                        {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Event Dates</h3>
+                                        <ListItem primaryText={DiagnosisDateString}
+                                                  leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
+                                        <ListItem className="sub-list" primaryText={DiagnosisString}/>
+                                        <ListItem primaryText={SurgeryDateString}
+                                                  leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
+                                        <ListItem className="sub-list" primaryText={SurgeryString}/>
+                                        <ListItem primaryText={RadiationString}
+                                                  leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
+                                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={false}/>}/>
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </Paper>
             </div>
-            </Paper>
         );
     }
 }
