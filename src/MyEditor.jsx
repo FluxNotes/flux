@@ -19,7 +19,10 @@ const styles = {
 // Args: elem, str: the string we are searching nfor
 // Returns: RegExp object: the regular expression object that will find '.elem '.
 const PERIOD_REGEX = (elem) => {
-  return new RegExp(`\.${elem}\\s`,"g");
+  // With space 
+  // return new RegExp(`\.${elem}\\s`,"g");
+  // Without space  
+  return new RegExp(`\.${elem}`,"g");
 }
 
 // This is a lookup table containing all of the dot-notation strings 
@@ -35,6 +38,7 @@ function periodStrategy(contentBlock, callback, contentState) {
   for (const eachCase of allCases) { 
       findWithRegex(PERIOD_REGEX(eachCase), contentBlock, callback);
   }
+  changeContentState(contentState);
 }
 
 // Search the content block for the given regex.
@@ -47,6 +51,12 @@ function findWithRegex(regex, contentBlock, callback) {
   }
 }
 
+function changeContentState(state) { 
+  console.log(state.getSelectionBefore().getStartOffset());
+  console.log(state.getSelectionAfter().getStartOffset());
+}
+
+
 // Turn the trigger into it's corresponding text
 const determineText = (currentTrigger) => {
   return lookupTable[currentTrigger.decoratedText.split('.')[1].split(' ')[0]];
@@ -55,14 +65,16 @@ const determineText = (currentTrigger) => {
 // Dot-notation span element to place when searched element is found.
 const periodSpan = (props) => {
   console.log(props);
-  console.log(props.children);
-  const text = determineText(props);
+  console.log(props.children[0].props.text);
+  props.children[0].props.text = determineText(props);
+  props.children
   return (
     <span
       style={styles.period}
       data-offset-key={props.offsetKey}
     >
-      {text}
+
+    {props.children}  
     </span>
   );
 };
