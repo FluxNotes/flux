@@ -8,6 +8,8 @@ import Subheader from 'material-ui/Subheader';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
+// Flexbox
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 // Styling
 import './DataSummary.css';
@@ -38,8 +40,10 @@ class DataSummary extends Component {
     render() {
 
         // Current Staging
-        const StageString = 'Stage: IIA';
-        const StageSubElementsString = 'T2, N0, M0';
+        // const StageString = 'Stage: IIA';
+        // const StageSubElementsString = 'T2, N0, M0';
+        const StageString = 'Stage:';
+        const StageSubElementsString = 'T: N: M: ';
         const StageCheckboxChecked = (this.props.StageStatus !== "");
 
         // Pathology Results
@@ -63,46 +67,69 @@ class DataSummary extends Component {
         const SurgeryCheckboxChecked = (this.props.SurgeryStatus !== "");
         const RadiationString = 'Radiation: 07/12/2012 - 08/16/2012';
         const RadiationCheckboxChecked = (this.props.RadiationStatus !== "");
-        const RecurrenceDateString = 'Recurrence: ';
+        const TamoxifenString = 'Tamoxifen: 09/01/2012 - 07/01/2014';
+        const TamoxifenCheckboxChecked = (this.props.TamoxifenStatus !== "");
+        const RecurrenceDateString = 'Recurrence: 08/02/2015';
         const RecurrenceCheckboxChecked = (this.props.RecurrenceStatus !== "");
 
 
         return (
-            <Paper zDepth={1}>
-                <div id="data-summary">
-                    <h1>Patient Summary</h1>
-                    <List>
-                        <h3>Current Staging</h3>
-                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString)}>{StageString}</span>} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={StageSubElementsString}/>
-                    </List>
-                    <Divider />
-                    <List>
-                        <h3>Pathology Results</h3>
-                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
-                        {/*<ListItem primaryText={HER2StatusString}*/}
-                                  {/*leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>*/}
-                        {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
-                        {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
-                    </List>
-                    <Divider />
-                    <List>
-                        <h3>Event Dates</h3>
-                        <ListItem primaryText={DiagnosisDateString}
-                                  leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={DiagnosisString}/>
-                        <ListItem primaryText={SurgeryDateString}
-                                  leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
-                        <ListItem className="sub-list" primaryText={SurgeryString}/>
-                        <ListItem primaryText={RadiationString}
-                                  leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
-                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={false}/>}/>
-                    </List>
-                </div>
-            </Paper>
+            <div id="data-summary">
+                <h1>Patient Summary</h1>
+                <Paper zDepth={1}>
+                    <Grid fluid id="summary-panels">
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Current Staging</h3>
+                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString)}>{StageString}</span>} leftCheckbox={<Checkbox checked={false}/>}/>
+                                        <ListItem className="sub-list" primaryText={StageSubElementsString}/>
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Pathology Results</h3>
+                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        <ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={true}/>}/>
+                                        {/*<ListItem primaryText={HER2StatusString} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>*/}
+                                        {/*<ListItem primaryText={ERStatusString} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>*/}
+                                        {/*<ListItem primaryText={PRStatusString} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>*/}
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                        <Row className="summary-panel">
+                            <Col sm={12}>
+                                <Paper zDepth={1}>
+                                    <List className="summary-content">
+                                        <h3>Event Dates</h3>
+                                        <ListItem primaryText={DiagnosisDateString}
+                                                  leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
+                                        <ListItem className="sub-list" primaryText={DiagnosisString}/>
+                                        <ListItem primaryText={SurgeryDateString}
+                                                  leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
+                                        <ListItem className="sub-list" primaryText={SurgeryString}/>
+                                        <ListItem primaryText={RadiationString}
+                                                  leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
+                                        <ListItem primaryText={TamoxifenString}
+                                                  leftCheckbox={<Checkbox checked={TamoxifenCheckboxChecked}/>}/>
+                                        <ListItem primaryText={RecurrenceDateString} leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}/>
+
+                                    </List>
+                                </Paper>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </Paper>
+            </div>
+
         );
     }
 }
@@ -116,6 +143,7 @@ DataSummary.propTypes = {
     DiagnosisStatus: PropTypes.string,
     SurgeryStatus: PropTypes.string,
     RadiationStatus: PropTypes.string,
+    TamoxifenStatus: PropTypes.string,
     RecurrenceStatus: PropTypes.string,
     onItemSelected: PropTypes.func.isRequired
 }
