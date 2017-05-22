@@ -19,21 +19,15 @@ class App extends Component {
     super(props);
     this.state = {
       HER2Status: '+',
-      ERStatus:   '',
-      PRStatus:   '',
-      keyData: ''
+      ERStatus:   '+',
+      PRStatus:   '+',
+      SummaryKeyData: ''
 
-// TODO: Finish building this data object
-      // data: {
-      //   staging: {state: 'IIA', t: '2', n: '0', m: '0'},
-      //   pathology: {}
-      // }
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
     this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
-
   }
 
   changeHER2Status(newStatus) {
@@ -43,9 +37,14 @@ class App extends Component {
   }
 
   changeERStatus(newStatus) {
-    console.log('newStatus ' + newStatus);
     (newStatus !== "") && this.setState({
       ERStatus: newStatus
+    })
+  }
+
+  changePRStatus(newStatus) {
+    (newStatus !== "") && this.setState({
+      PRStatus: newStatus
     })
   }
 
@@ -55,19 +54,16 @@ class App extends Component {
     console.log(b)
     console.log(this)
   }
+  handleSummaryUpdate(itemString, subItemString) {
 
-  changePRStatus(newStatus) {
-    (newStatus !== "") && this.setState({
-      PRStatus: newStatus
-    })
-  }
-
-  handleSummaryUpdate(itemString) {
-    console.log("inside handle summary update");
-    (itemString !== "") && this.setState({
-      keyData: itemString
+    (itemString !== "") && (subItemString !== "") && this.setState({
+      SummaryKeyData: itemString + ", " + subItemString
     });
-    console.log("key data: " + this.state.keyData);
+
+    (itemString !== "") && (subItemString === "") && this.setState({
+      SummaryKeyData: itemString
+    });
+
   }
   render() {
     return (
@@ -89,7 +85,7 @@ class App extends Component {
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
-                  onItemSelected={this.handleSummaryUpdate}
+                  onSummaryItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
               <Col sm={6}>
@@ -100,7 +96,7 @@ class App extends Component {
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
-                  onItemSelected={this.handleSummaryUpdate}
+                  itemToBeEntered = {this.state.SummaryKeyData}
                 />
               </Col>
               <Col sm={3}>

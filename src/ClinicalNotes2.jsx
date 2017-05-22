@@ -44,16 +44,13 @@ class ClinicalNotes2 extends Component {
     } else { 
       this.handlePRStatusChange("")
     }
-
   }
 
   handleHER2StatusChange (newStatus) { 
     this.props.onHER2StatusChange(newStatus);
   }
 
-  handleERStatusChange (newStatus) { 
-    console.log(this);
-    console.log(newStatus)
+  handleERStatusChange (newStatus) {
     this.props.onERStatusChange(newStatus);
   }
 
@@ -62,20 +59,22 @@ class ClinicalNotes2 extends Component {
   }
 
   render() {
+    var message;
+    if (this.props.itemToBeEntered !== '') {
+      message = <p id="notes-message">The following information from the summary panel is inserted into the clinical notes: <span id="data">{this.props.itemToBeEntered}</span></p>
+    } else {
+      message = <p id="notes-message"></p>
+    }
     return (
+
       <div id="clinical-notes2">
         <h1>Clinical Notes2</h1>
         <div className="editor">
           <RichEditor />
         </div>
-        {/*// <TextField*/}
-        {/*//              hintText="Message Field"*/}
-        {/*//              floatingLabelText="MultiLine and FloatingLabel"*/}
-        {/*//               multiLine={true}*/}
-        {/*//               rows={2}*/}
-                      {/*rowsMax={25}*/}
-                      {/*onChange={this.handleTextChange}*/}
-                    {/*/>*/}
+        <div>
+          {message}
+        </div>
       </div>
     );
   }
@@ -88,7 +87,7 @@ ClinicalNotes2.propTypes = {
     onHER2StatusChange:  PropTypes.func.isRequired,
     onERStatusChange:  PropTypes.func.isRequired,
     onPRStatusChange:  PropTypes.func.isRequired,
-    onItemSelected: PropTypes.func.isRequired,
+    itemToBeEntered:     PropTypes.string,
 }
 
 export default ClinicalNotes2;
