@@ -8,7 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
-import ClinicalNotes2 from './ClinicalNotes2';
+import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
 import FormsPanel from './FormsPanel';
 
@@ -89,7 +89,7 @@ class App extends Component {
                 />
               </Col>
               <Col sm={6}>
-                <ClinicalNotes2
+                <ClinicalNotes
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
