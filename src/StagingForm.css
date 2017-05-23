@@ -1,0 +1,21 @@
+.staging-form {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+.btn.tumor-size {
+  min-width: 20% !important;
+}
+
+.btn.node {
+  min-width: 18% !important;
+}
+
+.btn.metastasis {
+  min-width: 40% !important;
+}
+
+.stage {
+  font-size: 26px !important;
+  margin-bottom: 20px;
+}

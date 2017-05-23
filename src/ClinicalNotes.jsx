@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // Application Components:
 import MyEditor from './MyEditor';
 
+
 // Styling
 import './ClinicalNotes.css';
 
@@ -43,7 +44,6 @@ class ClinicalNotes extends Component {
     } else { 
       this.handlePRStatusChange("")
     }
-
   }
 
   handleHER2StatusChange (newStatus) { 
@@ -51,8 +51,6 @@ class ClinicalNotes extends Component {
   }
 
   handleERStatusChange (newStatus) { 
-    console.log(this);
-    console.log(newStatus)
     this.props.onERStatusChange(newStatus);
   }
 
@@ -61,11 +59,20 @@ class ClinicalNotes extends Component {
   }
 
   render() {
+    var message;
+    if (this.props.itemToBeEntered !== '') {
+      message = <p id="notes-message">The following information from the summary panel is inserted into the clinical notes: <span id="data">{this.props.itemToBeEntered}</span></p>
+    } else {
+      message = <p id="notes-message"></p>
+    }
     return (
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
           <MyEditor />
+        </div>
+        <div>
+          {message}
         </div>
       </div>
     );
@@ -77,9 +84,9 @@ ClinicalNotes.propTypes = {
     ERStatus:            PropTypes.string,
     PRStatus:            PropTypes.string,
     onHER2StatusChange:  PropTypes.func.isRequired,
-    onERStatusChange:  PropTypes.func.isRequired,
-    onPRStatusChange:  PropTypes.func.isRequired,
-
+    onERStatusChange:    PropTypes.func.isRequired,
+    onPRStatusChange:    PropTypes.func.isRequired,
+    itemToBeEntered:     PropTypes.string,
 }
 
 export default ClinicalNotes;

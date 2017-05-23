@@ -1,4 +1,4 @@
-// React Imports: 
+// React Imports:
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 // Material UI components:
@@ -10,55 +10,67 @@ import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
+import FormsPanel from './FormsPanel';
 
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       HER2Status: '+',
-      ERStatus:   '',
-      PRStatus:   ''
+      ERStatus:   '+',
+      PRStatus:   '+',
+      SummaryKeyData: ''
+
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
-
+    this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
   }
 
-  changeHER2Status(newStatus) { 
+  changeHER2Status(newStatus) {
     (newStatus !== "") && this.setState({
       HER2Status: newStatus
     })
   }
 
-  changeERStatus(newStatus) { 
-    console.log('newStatus ' + newStatus);
+  changeERStatus(newStatus) {
     (newStatus !== "") && this.setState({
       ERStatus: newStatus
     })
   }
 
-  componentDidUpdate(a, b) { 
-    console.log('did update')
-    console.log(a)
-    console.log(b)
-    console.log(this)
-  }
-
-  changePRStatus(newStatus) { 
+  changePRStatus(newStatus) {
     (newStatus !== "") && this.setState({
       PRStatus: newStatus
     })
   }
 
+  componentDidUpdate(a, b) {
+    console.log('did update')
+    console.log(a)
+    console.log(b)
+    console.log(this)
+  }
+  handleSummaryUpdate(itemString, subItemString) {
+
+    (itemString !== "") && (subItemString !== "") && this.setState({
+      SummaryKeyData: itemString + ", " + subItemString
+    });
+
+    (itemString !== "") && (subItemString === "") && this.setState({
+      SummaryKeyData: itemString
+    });
+
+  }
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <AppTopWithDrawer />
-          <Grid className="App-content">
+          <Grid className="App-content" fluid>
             <Row>
               <Col xs={12}>
                 <DemographicSummary />
@@ -66,31 +78,33 @@ class App extends Component {
             </Row>
             <Row center="xs">
               <Col sm={3}>
-                <DataSummary 
+                <DataSummary
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  onSummaryItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
               <Col sm={6}>
-                <ClinicalNotes 
+                <ClinicalNotes
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  itemToBeEntered = {this.state.SummaryKeyData}
                 />
               </Col>
               <Col sm={3}>
-                <p> Placeholder </p>
+                <FormsPanel />
               </Col>
             </Row>
-          </Grid> 
-        </div>  
+          </Grid>
+        </div>
       </MuiThemeProvider>
     );
   }
