@@ -1,7 +1,18 @@
-#clinical-notes {  
-	text-align: left;
+#clinical-notes2 {
+    text-align: left;
 }
 
 .editor :global(.public-DraftEditor-content) {
   min-height: 140px;
+}
+
+#notes-message {
+    text-align: center;
+    color: #00bcd4;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#data {
+    color: black;
 }

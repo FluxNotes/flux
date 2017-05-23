@@ -19,13 +19,15 @@ class App extends Component {
     super(props);
     this.state = {
       HER2Status: '+',
-      ERStatus:   '',
-      PRStatus:   ''
+      ERStatus:   '+',
+      PRStatus:   '+',
+      SummaryKeyData: ''
+
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
-
+    this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
   }
 
   changeHER2Status(newStatus) {
@@ -35,9 +37,14 @@ class App extends Component {
   }
 
   changeERStatus(newStatus) {
-    console.log('newStatus ' + newStatus);
     (newStatus !== "") && this.setState({
       ERStatus: newStatus
+    })
+  }
+
+  changePRStatus(newStatus) {
+    (newStatus !== "") && this.setState({
+      PRStatus: newStatus
     })
   }
 
@@ -47,13 +54,17 @@ class App extends Component {
     console.log(b)
     console.log(this)
   }
+  handleSummaryUpdate(itemString, subItemString) {
 
-  changePRStatus(newStatus) {
-    (newStatus !== "") && this.setState({
-      PRStatus: newStatus
-    })
+    (itemString !== "") && (subItemString !== "") && this.setState({
+      SummaryKeyData: itemString + ", " + subItemString
+    });
+
+    (itemString !== "") && (subItemString === "") && this.setState({
+      SummaryKeyData: itemString
+    });
+
   }
-
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -74,6 +85,7 @@ class App extends Component {
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  onSummaryItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
               <Col sm={6}>
@@ -84,6 +96,7 @@ class App extends Component {
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
+                  itemToBeEntered = {this.state.SummaryKeyData}
                 />
               </Col>
               <Col sm={3}>
