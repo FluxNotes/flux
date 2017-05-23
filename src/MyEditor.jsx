@@ -61,7 +61,7 @@ const bl = Block.create({
 const plugins = [
   AutoReplace({
     trigger: 'space',
-    before: /(\.stage)/,
+    before: /(\.staging)/,
     transform: (transform, e, data, matches) => {
       const newTrans = transform.insertBlock(bl).extendToStartOf(tBlock);
       return newTrans;
