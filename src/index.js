@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'es6-shim';
+import 'babel-polyfill'
 
 import App from './App';
 import './index.css';
