@@ -31,21 +31,21 @@ function StageNode(props) {
 const stagingText = Text.createFromString('Staging information ');
 const tText = Text.createFromString('T:_');
 const tBlock = Inline.create({
-  isVoid: false,  
+  isVoid: false,
   key: 'T-staging',
   type: 'div',
   nodes: List([tText])
 });
 const nText = Text.createFromString('N:_')
 const nBlock = Inline.create({
-  isVoid: false,  
+  isVoid: false,
   key: 'N-staging',
   type: 'div',
   nodes: List([nText])
 });
 const mText = Text.createFromString('M:_')
 const mBlock = Inline.create({
-  isVoid: false,  
+  isVoid: false,
   key: 'M-staging',
   type: 'div',
   nodes: List([mText])
@@ -56,18 +56,6 @@ const bl = Block.create({
   type: "paragraph",
   nodes:  List([stagingText, tBlock, nBlock, mBlock])
 });
-
-// Add the plugin to your set of plugins...
-const plugins = [
-  AutoReplace({
-    trigger: 'space',
-    before: /(\.staging)/,
-    transform: (transform, e, data, matches) => {
-      const newTrans = transform.insertBlock(bl).extendToStartOf(tBlock);
-      return newTrans;
-    }
-  })
-]
 
 const BLOCK_TAGS = {
   p: 'paragraph',
@@ -130,7 +118,7 @@ class MyEditor extends React.Component {
         'heading-two': props => <h2 {...props.attributes}> {props.children} </h2>,
         'stage': StageNode
       },
-      marks: { 
+      marks: {
         'bold': props => <strong>{props.children}</strong>,
         'italic': props => <em>{props.children}</em>,
         'underline': props => <u>{props.children}</u>,
@@ -158,7 +146,7 @@ class MyEditor extends React.Component {
           .toggleMark('bold')
           .apply()
       }
-      case 65: {  
+      case 65: {
         // event.preventDefault()
         // const alternativeState =  serializer.deserialize(`<p>The Slate editor gives you <em>complete</em> control over the logic you can add.</p>
         // <p>In its simplest form, when representing plain text, Slate is a glorified <code>&laquo;textarea&raquo;</code>. But you can augment it to be much more than that.</p>
@@ -171,7 +159,7 @@ class MyEditor extends React.Component {
         //   .apply();
         break;
       }
-      default: { 
+      default: {
 
       }
     }
@@ -179,6 +167,42 @@ class MyEditor extends React.Component {
 
   // Render the editor.
   render = () => {
+    // Add the plugin to your set of plugins...
+    const plugins = [
+      AutoReplace({
+        trigger: 'space',
+        before: /(\.staging)/,
+        transform: (transform, e, data, matches) => {
+          const newTrans = transform.insertBlock(bl).extendToStartOf(tBlock);
+          return newTrans;
+        }
+      }),
+      AutoReplace({
+        trigger: 'space',
+        before: /(\.NAME)/i,
+        transform: (transform, e, data, matches) => {
+          const newTrans = transform.insertText(`${this.props.data.patient.name} `);
+          return newTrans;
+        }
+      }),
+      AutoReplace({
+        trigger: 'space',
+        before: /(\.AGE)/i,
+        transform: (transform, e, data, matches) => {
+          const newTrans = transform.insertText(`${this.props.data.patient.age} year-old `);
+          return newTrans;
+        }
+      }),
+      AutoReplace({
+        trigger: 'space',
+        before: /(\.GENDER)/i,
+        transform: (transform, e, data, matches) => {
+          const newTrans = transform.insertText(`${this.props.data.patient.gender} `);
+          return newTrans;
+        }
+      })
+    ];
+
     return (
       <div className="MyEditor-root">
         <Editor
