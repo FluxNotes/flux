@@ -20,41 +20,41 @@ class ClinicalNotes extends Component {
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
   }
 
-  handleTextChange(e, val) { 
-    if(val.includes("HER2+")) { 
+  handleTextChange(e, val) {
+    if(val.includes("HER2+")) {
       this.handleHER2StatusChange("+")
-    } else if(val.includes("HER2-")) { 
+    } else if(val.includes("HER2-")) {
       this.handleHER2StatusChange("-")
-    } else { 
+    } else {
       this.handleHER2StatusChange("")
-    } 
+    }
 
-    if(val.includes("ER+")) { 
+    if(val.includes("ER+")) {
       this.handleERStatusChange("+")
-    } else if(val.includes("ER-")) { 
+    } else if(val.includes("ER-")) {
       this.handleERStatusChange("-")
-    } else { 
+    } else {
       this.handleERStatusChange("")
     }
 
-    if(val.includes("PR+")) { 
+    if(val.includes("PR+")) {
       this.handlePRStatusChange("+")
-    } else if(val.includes("PR-")) { 
+    } else if(val.includes("PR-")) {
       this.handlePRStatusChange("-")
-    } else { 
+    } else {
       this.handlePRStatusChange("")
     }
   }
 
-  handleHER2StatusChange (newStatus) { 
+  handleHER2StatusChange (newStatus) {
     this.props.onHER2StatusChange(newStatus);
   }
 
-  handleERStatusChange (newStatus) { 
+  handleERStatusChange (newStatus) {
     this.props.onERStatusChange(newStatus);
   }
 
-  handlePRStatusChange (newStatus) { 
+  handlePRStatusChange (newStatus) {
     this.props.onPRStatusChange(newStatus);
   }
 
@@ -69,7 +69,7 @@ class ClinicalNotes extends Component {
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
-          <MyEditor />
+          <MyEditor data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
           {message}
@@ -79,7 +79,7 @@ class ClinicalNotes extends Component {
   }
 }
 
-ClinicalNotes.propTypes = { 
+ClinicalNotes.propTypes = {
     HER2Status:          PropTypes.string,
     ERStatus:            PropTypes.string,
     PRStatus:            PropTypes.string,

@@ -26,25 +26,7 @@ function charListFromString(str) {
   }
   return List(arr);
 }
-const test = Raw.deserialize(staging, { terse: true });
-
-
-// Add the plugin to your set of plugins...
-const plugins = [
-  AutoReplace({
-    trigger: 'space',
-    before: /(\.staging)/,
-    transform: (transform, e, data, matches) => {
-      console.log(staging);
-      const stagingBlock = test.document.nodes.get(0);
-      const tNode = getNodeById(stagingBlock.nodes, 't-staging');
-      const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
-              .moveStart(1)
-              .moveEnd(-1);
-      return newTrans;
-    }
-  })
-]
+const test = Raw.deserialize(staging, { terse: true });``
 
 const initialState = Raw.deserialize({
   nodes: [
@@ -70,7 +52,6 @@ const initialState = Raw.deserialize({
     }
   ]
 }, { terse: true })
-
 
 // Given a list of nodes and an id, check to see if there 
 // is a (shallow) node in that list with that id
@@ -106,11 +87,10 @@ function addKeysForNode(curNode, keys) {
 
 // The list of special keys we want to trigger special beahvior
 // TODO: link these keys with the specific changes in behavior
-const stagingKeys = ['T','N','M']
+const stagingKeys = ['T','N','M'];
 
 // Define our app...
 class MyEditor extends React.Component {
-
   // Set the initial state when the app is first constructed.
   state = {
     state: initialState,
@@ -132,11 +112,49 @@ class MyEditor extends React.Component {
         'bold':          props => <strong>{props.children}</strong>,
         'italic':        props => <em>{props.children}</em>,
         'underline':     props => <u>{props.children}</u>,
-        'strikethrough': props => <del>{props.children}</del>,
-        'code':          props => <code>{props.children}</code>,
       }
     }
   }
+  // Add the plugin to your set of plugins...
+  plugins = [
+    AutoReplace({
+      trigger: 'space',
+      before: /(\.staging)/,
+      transform: (transform, e, data, matches) => {
+        console.log(staging);
+        const stagingBlock = test.document.nodes.get(0);
+        const tNode = getNodeById(stagingBlock.nodes, 't-staging');
+        const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
+                .moveStart(1)
+                .moveEnd(-1);
+        return newTrans;
+      }
+    }),
+    AutoReplace({
+      trigger: 'space',
+      before: /(\.NAME)/i,
+      transform: (transform, e, data, matches) => {
+        const newTrans = transform.insertText(`${this.props.data.patient.name} `);
+        return newTrans;
+      }
+    }),
+    AutoReplace({
+      trigger: 'space',
+      before: /(\.AGE)/i,
+      transform: (transform, e, data, matches) => {
+        const newTrans = transform.insertText(`${this.props.data.patient.age} year-old `);
+        return newTrans;
+      }
+    }),
+    AutoReplace({
+      trigger: 'space',
+      before: /(\.GENDER)/i,
+      transform: (transform, e, data, matches) => {
+        const newTrans = transform.insertText(`${this.props.data.patient.gender} `);
+        return newTrans;
+      }
+    })
+  ];
 
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
@@ -285,7 +303,7 @@ class MyEditor extends React.Component {
           state={this.state.state}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
-          plugins={plugins}
+          plugins={this.plugins}
         />
       </div>
     )
