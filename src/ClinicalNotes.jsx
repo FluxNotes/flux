@@ -69,7 +69,7 @@ class ClinicalNotes extends Component {
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
-          <MyEditor data={{patient: {name: 'Debra', age: '51', gender: 'female'}}} />
+          <MyEditor data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
           {message}

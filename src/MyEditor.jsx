@@ -179,7 +179,7 @@ class MyEditor extends React.Component {
       }),
       AutoReplace({
         trigger: 'space',
-        before: /(\.NAME)/,
+        before: /(\.NAME)/i,
         transform: (transform, e, data, matches) => {
           const newTrans = transform.insertText(`${this.props.data.patient.name} `);
           return newTrans;
@@ -187,7 +187,7 @@ class MyEditor extends React.Component {
       }),
       AutoReplace({
         trigger: 'space',
-        before: /(\.AGE)/,
+        before: /(\.AGE)/i,
         transform: (transform, e, data, matches) => {
           const newTrans = transform.insertText(`${this.props.data.patient.age} year-old `);
           return newTrans;
@@ -195,7 +195,7 @@ class MyEditor extends React.Component {
       }),
       AutoReplace({
         trigger: 'space',
-        before: /(\.GENDER)/,
+        before: /(\.GENDER)/i,
         transform: (transform, e, data, matches) => {
           const newTrans = transform.insertText(`${this.props.data.patient.gender} `);
           return newTrans;
