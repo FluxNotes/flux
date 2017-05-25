@@ -103,7 +103,10 @@ const plugins = [
     before: /(\.staging)/,
     transform: (transform, e, data, matches) => {
       const stagingBlock = test.document.nodes.get(0);
-      const newTrans = transform.insertBlock(stagingBlock);
+      const tNode = getNodeById(stagingBlock.nodes, 't-staging');
+      const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
+              .moveStart(1)
+              .moveEnd(-1);
       return newTrans;
     }
   })
@@ -136,6 +139,16 @@ const initialState = Raw.deserialize({
       nodes: [
         {
           kind: 'text',
+          text: 'This is wher clinical notes go...'
+        }
+      ]
+    }, 
+    {
+      kind: 'block',
+      type: 'paragraph',
+      nodes: [
+        {
+          kind: 'text',
           text: '.staging'
         }
       ]
@@ -154,20 +167,23 @@ function getNodeById(nodes, id) {
   });
 }
 
-function getKeysForNode(curNode, keys) { 
+function addKeysForNode(curNode, keys) { 
   console.log(curNode);
+  // Get this key
   if(curNode.key) { 
-    console.log(`new key: ${curNode.key}`)
     keys.push(curNode.key)
   }
+  //For all children
   if (curNode.nodes) { 
-    for(const child of curNode.nodes) { 
-      console.log(`Checking child node: ${child}`);
-      keys = getKeysForNode(child, keys);
+    for(const child of curNode.nodes) {
+      // update keys to include all the child's added to current collection  
+      keys = addKeysForNode(child, keys);
     }
   }
   return keys;
 }
+
+const stagingKeys = ['T','N','M']
 
 // Define our app...
 class MyEditor extends React.Component {
@@ -207,7 +223,7 @@ class MyEditor extends React.Component {
     // if (state.document.nodes.find(function(val, k, iter) { console.log(val); console.log(k); return val===bl; })) {
     //   console.log('abile to find');
     // }
-    // state = state.transform().moveToRangeOf(nBlock).moveStart(2).moveEnd(-1).apply()
+    // state = state.transform().moveToRangeOf(nBlock).moveStart(1).moveEnd(-1).apply()
     // console.log(state)
     // console.log(state.selection)
     // console.log(state.selection.startKey)
@@ -232,15 +248,61 @@ class MyEditor extends React.Component {
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-      if(tNode) { 
-        const tKeys = getKeysForNode(tNode, []);
-        console.log(tKeys)
-        // console.log(tNode.key)
-        // console.log(state.selection.startKey)
-        if (state.selection.startKey in tKeys) { 
-          console.log('success')
-        }
-      }
+      if(tNode && nNode && mNode) { 
+        const tKeys = addKeysForNode(tNode, []);
+        const nKeys = addKeysForNode(nNode, []);
+        const mKeys = addKeysForNode(mNode, []);
+        if (tKeys.includes(state.selection.startKey)) { 
+          if(event.keyCode >= 48 && event.keyCode <=57) {
+            event.preventDefault()
+            return state
+              .transform()
+              .moveToRangeOf(tNode)
+              .moveStart(1)
+              .moveEnd(-1)
+              .deleteForward()
+              .insertText(String.fromCharCode(event.keyCode))
+              .moveToRangeOf(nNode)
+              .moveStart(1)
+              .moveEnd(-1)
+              .apply();
+          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+            console.log('this is a character that we care about') 
+          }
+        } else if (nKeys.includes(state.selection.startKey)) { 
+          if(event.keyCode >= 48 && event.keyCode <=57) {
+            event.preventDefault()
+            return state
+              .transform()
+              .moveToRangeOf(nNode)
+              .moveStart(1)
+              .moveEnd(-1)
+              .deleteForward()
+              .insertText(String.fromCharCode(event.keyCode))
+              .moveToRangeOf(mNode)
+              .moveStart(1)
+              .moveEnd(-1)
+              .apply();
+          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+            console.log('this is a character that we care about') 
+          }
+        } else if (mKeys.includes(state.selection.startKey))  { 
+          if(event.keyCode >= 48 && event.keyCode <=57) {
+            event.preventDefault()
+            return state
+              .transform()
+              .moveToRangeOf(mNode)
+              .moveStart(1)
+              .moveEnd(-1)
+              .deleteForward()
+              .insertText(String.fromCharCode(event.keyCode))
+              .collapseToEndOf(mNode)
+              .apply();
+          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+            console.log('this is a character that we care about') 
+          }
+        } 
+      } 
     }
     
   }
