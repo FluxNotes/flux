@@ -36,7 +36,7 @@ const initialState = Raw.deserialize({
       nodes: [
         {
           kind: 'text',
-          text: 'This is wher clinical notes go...'
+          text: 'Begin typing your clinical notes below.'
         }
       ]
     }, 
@@ -46,7 +46,7 @@ const initialState = Raw.deserialize({
       nodes: [
         {
           kind: 'text',
-          text: '.staging'
+          text: 'Add a space at the end of this line to trigger a inline template: .staging'
         }
       ]
     }
