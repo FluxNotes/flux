@@ -10,7 +10,7 @@ import AppTopWithDrawer from './AppTopWithDrawer';
 import DemographicSummary from './DemographicSummary';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
-import FormsPanel from './FormsPanel';
+import RightPanel from './RightPanel';
 
 import './App.css';
 
@@ -21,15 +21,31 @@ class App extends Component {
       HER2Status: '+',
       ERStatus:   '+',
       PRStatus:   '+',
-      SummaryKeyData: ''
+      SummaryKeyData: '',
+	  WithinStructuredField: null,
 
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
     this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
+    this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
+    this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
   }
-
+  
+  handleStructuredFieldEntered(field) {
+	console.log("structured field entered: " + field);
+	this.setState({
+		WithinStructuredField: field
+	})
+  }
+  handleStructuredFieldExited(field) {
+	console.log("structured field exited: " + field);
+	this.setState({
+		WithinStructuredField: null
+	})
+  }
+  
   changeHER2Status(newStatus) {
     (newStatus !== "") && this.setState({
       HER2Status: newStatus
@@ -69,7 +85,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
-          <AppTopWithDrawer />
+          <AppTopWithDrawer onStructuredFieldEntered={this.handleStructuredFieldEntered} onStructuredFieldExited={this.handleStructuredFieldExited} />
           <Grid className="App-content" fluid>
             <Row>
               <Col xs={12}>
@@ -100,7 +116,8 @@ class App extends Component {
                 />
               </Col>
               <Col sm={3}>
-                <FormsPanel />
+				<RightPanel 
+					withinStructuredField={this.state.WithinStructuredField} />
               </Col>
             </Row>
           </Grid>

@@ -17,6 +17,20 @@ class AppTopWithDrawer extends Component {
     })
   }
   
+  handleEnterStaging() {
+    this.setState({
+      open: false
+    });
+	this.props.onStructuredFieldEntered("staging");
+  }
+  
+  handleExitStaging() {
+    this.setState({
+      open: false
+    });
+	this.props.onStructuredFieldExited("staging");
+  }
+    
   render() {
     return (
       <div>
@@ -26,8 +40,8 @@ class AppTopWithDrawer extends Component {
         <Drawer 
           containerStyle={{'top': '64px'}} 
           open={this.state.open}>
-          <MenuItem>Patients</MenuItem>
-          <MenuItem>Templates</MenuItem>
+          <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
+          <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
         </Drawer>
       </div>
     );
