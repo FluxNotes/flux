@@ -267,7 +267,30 @@ class MyEditor extends React.Component {
               .moveEnd(-1)
               .apply();
           } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
-            console.log('this is a character that we care about') 
+            event.preventDefault();
+            switch(String.fromCharCode(event.keyCode)) { 
+              case "T": 
+                return state
+                 .transform()
+                 .moveToRangeOf(tNode)
+                 .moveStart(1)
+                 .moveEnd(-1)
+                 .apply();
+              case "N":
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              case "M":
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+            } 
           }
         } else if (nKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
@@ -284,7 +307,30 @@ class MyEditor extends React.Component {
               .moveEnd(-1)
               .apply();
           } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
-            console.log('this is a character that we care about') 
+            event.preventDefault();
+            switch(String.fromCharCode(event.keyCode)) { 
+              case "T": 
+                return state
+                 .transform()
+                 .moveToRangeOf(tNode)
+                 .moveStart(1)
+                 .moveEnd(-1)
+                 .apply();
+              case "N":
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              case "M":
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+            } 
           }
         } else if (mKeys.includes(state.selection.startKey))  { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
@@ -299,7 +345,30 @@ class MyEditor extends React.Component {
               .collapseToEndOf(mNode)
               .apply();
           } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
-            console.log('this is a character that we care about') 
+            event.preventDefault();
+            switch(String.fromCharCode(event.keyCode)) { 
+              case "T": 
+                return state
+                 .transform()
+                 .moveToRangeOf(tNode)
+                 .moveStart(1)
+                 .moveEnd(-1)
+                 .apply();
+              case "N":
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              case "M":
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+            } 
           }
         } 
       } 
