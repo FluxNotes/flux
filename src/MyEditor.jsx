@@ -3,7 +3,9 @@ import React from 'react'
 import { Editor, Block, Inline, Transform , Raw, Text, Html } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List , Map } from 'immutable'
-
+//TODO: make this a one line destructuring 
+import structuredDataRaw from './structuredDataRaw';
+const {staging}  = structuredDataRaw;
 // Styling
 import './MyEditor.css';
 
@@ -24,76 +26,7 @@ function charListFromString(str) {
   }
   return List(arr);
 }
-const test = Raw.deserialize({
-  "nodes": [
-    {
-      "kind": "block",
-      "type": "paragraph",
-      "isVoid": false,
-      "nodes": [
-        {
-          "kind": "text",
-          "ranges": [
-            {
-              "text": "Staging "
-            }
-          ]
-        },
-        {
-          "kind": "inline",
-          "type": "structured-span",
-          "data": {
-            "id": "t-staging",
-          },
-          "nodes": [
-            {
-              "kind": "text",
-              "ranges": [
-                {
-                  "text": "T_ "
-                }
-              ]
-            }
-          ]
-        }, 
-        {
-          "kind": "inline",
-          "type": "structured-span",
-          "data": {
-            "id": "n-staging",
-          },
-          "nodes": [
-            {
-              "kind": "text",
-              "ranges": [
-                {
-                  "text": "N_ "
-                }
-              ]
-            }
-          ]
-        }, 
-        {
-          "kind": "inline",
-          "type": "structured-span",
-          "data": {
-            "id": "m-staging",
-          },
-          "nodes": [
-            {
-              "kind": "text",
-              "ranges": [
-                {
-                  "text": "M_ "
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}, { terse: true });
+const test = Raw.deserialize(staging, { terse: true });
 
 
 // Add the plugin to your set of plugins...
@@ -102,6 +35,7 @@ const plugins = [
     trigger: 'space',
     before: /(\.staging)/,
     transform: (transform, e, data, matches) => {
+      console.log(staging);
       const stagingBlock = test.document.nodes.get(0);
       const tNode = getNodeById(stagingBlock.nodes, 't-staging');
       const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
@@ -112,25 +46,6 @@ const plugins = [
   })
 ]
 
-// const BLOCK_TAGS = {
-//   p: 'paragraph',
-//   span: 'span',
-//   div: 'div',
-//   li: 'list-item',
-//   ul: 'bulleted-list',
-//   ol: 'numbered-list',
-//   blockquote: 'quote',
-//   h1: 'heading-one',
-//   h2: 'heading-two',
-// }
-
-// const MARK_TAGS = {
-//   strong: 'bold',
-//   em: 'italic',
-//   u: 'underline',
-//   s: 'strikethrough',
-//   code: 'code'
-// }
 const initialState = Raw.deserialize({
   nodes: [
     {
@@ -157,6 +72,9 @@ const initialState = Raw.deserialize({
 }, { terse: true })
 
 
+// Given a list of nodes and an id, check to see if there 
+// is a (shallow) node in that list with that id
+// AGAIN: Not a deep search
 function getNodeById(nodes, id) { 
   return nodes.find(function(v, k, iter) {
     if (v.data) {
@@ -167,6 +85,9 @@ function getNodeById(nodes, id) {
   });
 }
 
+// Given a current node and an array of keys,
+// add the key of this node and the keys of all its children 
+// to the array.
 function addKeysForNode(curNode, keys) { 
   console.log(curNode);
   // Get this key
@@ -183,6 +104,8 @@ function addKeysForNode(curNode, keys) {
   return keys;
 }
 
+// The list of special keys we want to trigger special beahvior
+// TODO: link these keys with the specific changes in behavior
 const stagingKeys = ['T','N','M']
 
 // Define our app...
@@ -217,32 +140,10 @@ class MyEditor extends React.Component {
 
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
-    // console.log('in change')
-    // console.log(state.document.nodes)
-    // console.log(Raw.serialize(state))    
-    // if (state.document.nodes.find(function(val, k, iter) { console.log(val); console.log(k); return val===bl; })) {
-    //   console.log('abile to find');
-    // }
-    // state = state.transform().moveToRangeOf(nBlock).moveStart(1).moveEnd(-1).apply()
-    // console.log(state)
-    // console.log(state.selection)
-    // console.log(state.selection.startKey)
-    // console.log(state.selection.startOffset)
-
-    // const docBlock = state.document.nodes.get(1);
-    // if(tNode) { 
-    //   console.log('in this transform')
-    // const nNode = getNodeById(docBlock.nodes, 'n-staging');
-    // const mNode = getNodeById(docBlock.nodes, 'm-staging');
-
-    //   state = state.transform().moveToRangeOf(tNode).moveStart(1).moveEnd(-1).apply();
-    // }
-
     this.setState({ state })
   }
 
   onKeyDown = (event, data, state) => {
-    console.log('\n\nlooping...')
     for(const parentNode of state.document.nodes) { 
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
@@ -343,6 +244,7 @@ class MyEditor extends React.Component {
               .deleteForward()
               .insertText(String.fromCharCode(event.keyCode))
               .collapseToEndOf(mNode)
+              .insertBlock(Block.create({'type': 'span', 'nodes': List([Text.createFromString('  ')])}))
               .apply();
           } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
@@ -370,10 +272,9 @@ class MyEditor extends React.Component {
                   .apply();
             } 
           }
-        } 
+        }
       } 
     }
-    
   }
   // Render the editor.
   render = () => {
