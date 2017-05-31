@@ -18,16 +18,15 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            prognosticState: '',
-            tumorSize: '',
-            nodeSize: '',
-            metastasis: '',
+            prognosticState: 0,
+            tumorSize: 0,
+            nodeSize: 0,
+            metastasis: 0,
             HER2Status: '+',
             ERStatus: '+',
             PRStatus: '+',
             SummaryKeyData: '',
             WithinStructuredField: null,
-
         };
         this.changeHER2Status = this.changeHER2Status.bind(this);
         this.changeERStatus = this.changeERStatus.bind(this);
@@ -35,7 +34,7 @@ class App extends Component {
         this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-        this.handleStagingUpdateFromRightPanelInput = this.handleStagingUpdateFromRightPanelInput.bind(this);
+        // this.handleStagingUpdateFromRightPanelInput = this.handleStagingUpdateFromRightPanelInput.bind(this);
     }
 
     handleStructuredFieldEntered(field) {
@@ -89,17 +88,24 @@ class App extends Component {
 
     }
 
-    handleStagingUpdateFromRightPanelInput(t, n, m, stage) {
-        // this.setState({
-        //     tumorSize: t
-        // })
+    handleStagingUpdateFromRightPanelInput = (t, n, m, stage) => {
+        this.setState({
+            prognosticState: stage,
+            tumorSize: t,
+            nodeSize: n,
+            metastasis: m,
+        })
 
         console.log("in App");
-        console.log("t: " + this.state.tumorSize);
+        console.log("t: " + t);
         console.log("n: " + n);
         console.log("m: " + m);
         console.log("stage: " + stage);
-
+        console.log('after set state')
+        console.log("t: " + this.state.tumorSize);
+        console.log("n: " + this.state.nodeSize);
+        console.log("m: " + this.state.metastasis);
+        console.log("stage: " + this.state.prognosticState);
     }
 
     render() {
@@ -139,8 +145,12 @@ class App extends Component {
                             </Col>
                             <Col sm={3}>
                                 <RightPanel
+                                    stage={this.state.prognosticState}
+                                    t={this.state.tumorSize}
+                                    n={this.state.nodeSize}
+                                    m={this.state.metastasis}
                                     withinStructuredField={this.state.WithinStructuredField}
-                                    onStagingUpdateFromRightPanelInput={this.handleStagingUpdateFromRightPanelInput}
+                                    onStagingUpdateFromRightPanelInput={(t, n, m, stage)=> this.handleStagingUpdateFromRightPanelInput(t, n, m, stage)}
                                 />
                             </Col>
                         </Row>

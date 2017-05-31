@@ -15,16 +15,23 @@ class StagingForm extends Component {
 
       this.state = {
         tumorSizes: ['T0', 'T1', 'T2', 'T3', 'T4'],
-        nodes: ['N0', 'N1MI', 'N1', 'N2', 'N3'],
+        nodes: ['N0', 'N1', 'N2', 'N3'],
+        // nodes: ['N0', 'N1MI', 'N1', 'N2', 'N3'],
         metastases: ['M0', 'M1'],
-        t: this.props.t,
-        n: this.props.n,
-        m: this.props.m,
-        stage: ''
       };
   }
 
+  componentDidMount() {
+    console.log("in componentDidMount");
+    console.log("t: " + this.props.t);
+    console.log("m: " + this.props.m);
+    console.log("n: " + this.props.n);
+    console.log("stage: " + this.props.stage);
+    // this._prognosticStage(this.props.t, this.props.n, this.props.m);
+  }
+
   render() {
+    console.log("in render. t: " + this.props.t);
     return (
       <Paper className="staging-form">
         <Grid fluid>
@@ -39,7 +46,7 @@ class StagingForm extends Component {
                   key={i}
                   label={t}
                   onClick={(e) => this._handleTumorSizeClick(e, i)}
-                  disabled={this._currentlySelected(this.state.t, i)}
+                  disabled={this._currentlySelected(this.props.t, i)}
                 />);
             })}
           </Row>
@@ -54,7 +61,7 @@ class StagingForm extends Component {
                   key={i}
                   label={n}
                   onClick={(e) => this._handleNodeClick(e, i)}
-                  disabled={this._currentlySelected(this.state.n, i)}
+                  disabled={this._currentlySelected(this.props.n, i)}
                 />);
             })}
           </Row>
@@ -69,7 +76,7 @@ class StagingForm extends Component {
                   key={i}
                   label={m}
                   onClick={(e) => this._handleMetastasisClick(e, i)}
-                  disabled={this._currentlySelected(this.state.m, i)}
+                  disabled={this._currentlySelected(this.props.m, i)}
                 />);
             })}
           </Row>
@@ -77,7 +84,7 @@ class StagingForm extends Component {
             <h4>Prognostic Stage</h4>
           </Row>
           <Row>
-            <div className="stage">{this._prognosticStage()}</div>
+            <div className="stage">{this.props.stage}</div>
           </Row>
         </Grid>
       </Paper>
@@ -85,43 +92,56 @@ class StagingForm extends Component {
   }
 
   _currentlySelected(item, i) {
+
+    //Todo: find the item in the lookup table, and use the returned index
+    // to figure out which item is currently selected
     return (item === i ? true : false);
   }
 
-  _handleTumorSizeClick(e, i) {
+  _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
-    this.setState({t: i});
+    console.log("i: " + i);
+    this._prognosticStage(i, this.props.n, this.props.m,);
   }
 
-  _handleNodeClick(e, i) {
+  _handleNodeClick = (e, i) => {
     e.preventDefault();
-    this.setState({n: i});
+    this._prognosticStage(this.props.t, i, this.props.m);
   }
 
-  _handleMetastasisClick(e, i) {
+  _handleMetastasisClick = (e, i) => {
     e.preventDefault();
-    this.setState({m: i});
+    this._prognosticStage(this.props.t, this.props.n, i);
   }
 
-  _prognosticStage() {
+  _prognosticStage= (t, n, m) =>  {
     // Metastisized cancer is always Stage IV
-    if (this.state.m === 1) {
+    if (m === 1) {
       var stage = 'IV';
-      this.props.onStagingUpdateFromStagingForm(this.state.tumorSizes[this.state.t], this.state.nodes[this.state.n], this.state.metastases[this.state.m], stage);
+      this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
       return 'IV';
     }
 
     // Lookup the rest based on T and N:
     const lookup = [
-      ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
-      ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
-      ['IIA', 'IIB', 'IIB', 'IIIA', 'IIIC'], // T2
-      ['IIB', 'IIIA', 'IIIA', 'IIIA', 'IIIC'], // T3
-      ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
+      ['0', 'IIA', 'IIIA', 'IIIC'], // T0
+      ['IA', 'IIA', 'IIIA', 'IIIC'], // T1
+      ['IIA', 'IIB', 'IIIA', 'IIIC'], // T2
+      ['IIB', 'IIIA', 'IIIA', 'IIIC'], // T3
+      ['IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
     ];
 
-    var stage = lookup[this.state.t][this.state.n];
-    this.props.onStagingUpdateFromStagingForm(this.state.tumorSizes[this.state.t], this.state.nodes[this.state.n], this.state.metastases[this.state.m], stage);
+    // With N1M1 Values
+    // const lookup = [
+    //   ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
+    //   ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
+    //   ['IIA', 'IIB', 'IIB', 'IIIA', 'IIIC'], // T2
+    //   ['IIB', 'IIIA', 'IIIA', 'IIIA', 'IIIC'], // T3
+    //   ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
+    // ];
+
+    var stage = lookup[t][n];
+    this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
     return stage;
   }
 }

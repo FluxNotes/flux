@@ -21,23 +21,23 @@ class RightPanel extends Component {
 
 	handleStagingUpdateFromStagingForm(t, n, m, stage) {
 
-		// console.log("in right panel: ");
-		// console.log(t);
-		// console.log(n);
-		// console.log(m);
-		// console.log(stage);
+		console.log("in right panel: ");
+		console.log(t);
+		console.log(n);
+		console.log(m);
+		console.log(stage);
 
 		this.props.onStagingUpdateFromRightPanelInput(t, n, m, stage);
 	}
-    
+
   showingStaging = ( <div id="forms-panel">
 			<h1>Select Staging</h1>
 			<Paper zDepth={1}>
 			  <Grid fluid>
 				<Row className='form-row'>
 				  <Col sm={12}>
-					<StagingForm onStagingUpdateFromStagingForm={(t,n,m,stage) => this.handleStagingUpdateFromStagingForm(t,n,m,stage)} t={0} n={0} m={0} stage={0} />
-					  {/*<StagingForm onStagingUpdateFromStagingForm={this.handleStagingUpdateFromStagingForm} t={0} n={0} m={0} stage={0} />*/}
+					<StagingForm onStagingUpdateFromStagingForm={(t,n,m,stage) => this.handleStagingUpdateFromStagingForm(t,n,m,stage)} t={this.props.t} n={this.props.n} m={this.props.m} stage={this.props.stage} />
+					  {/*<StagingForm onStagingUpdateFromStagingForm={(t,n,m,stage) => this.handleStagingUpdateFromStagingForm(t,n,m,stage)} />*/}
 				    </Col>
 				</Row>
 			  </Grid>
