@@ -19,6 +19,9 @@ class ClinicalNotes extends Component {
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
     this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
     this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+    this.handleTValueChange = this.handleTValueChange.bind(this);
+    this.handleNValueChange = this.handleNValueChange.bind(this);
+    this.handleMValueChange = this.handleMValueChange.bind(this);
 
   }
 
@@ -32,6 +35,18 @@ class ClinicalNotes extends Component {
 
   handlePRStatusChange (newStatus) {
     this.props.onPRStatusChange(newStatus);
+  }
+
+  handleTValueChange (newVal) {
+    this.props.onTValueChange(newVal);
+  }
+
+  handleNValueChange (newVal) {
+    this.props.onNValueChange(newVal);
+  }
+
+  handleMValueChange (newVal) {
+    this.props.onMValueChange(newVal);
   }
 
   handleStructuredFieldEntered (currentFocus) { 
@@ -56,6 +71,11 @@ class ClinicalNotes extends Component {
           <MyEditor 
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
+
+            onTValueChange = {this.handleTValueChange}
+            onNValueChange = {this.handleNValueChange}
+            onMValueChange = {this.handleMValueChange}
+
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
@@ -73,6 +93,9 @@ ClinicalNotes.propTypes = {
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
     itemToBeEntered:          PropTypes.string,
+    onTValueChange:           PropTypes.func.isRequired,
+    onNValueChange:           PropTypes.func.isRequired,
+    onMValueChange:           PropTypes.func.isRequired
 }
 
 export default ClinicalNotes;

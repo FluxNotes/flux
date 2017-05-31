@@ -72,30 +72,35 @@ const stagingKeyChars = ['T','N','M'];
 
 // Define our app...
 class MyEditor extends React.Component {
-  // Set the initial state when the app is first constructed.
-  state = {
-    state: initialState,
-    schema: {
-      nodes: {
-        'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
-        'structured-span':          (props) => {
-          const id = (props.node) ? props.node.data.get('id') : '';
-          return <span id={id} {...props.attributes}>{props.children}</span>;
+  constructor(props) {
+    super(props);
+
+    // Set the initial state when the app is first constructed.
+    this.state = {
+      state: initialState,
+      schema: {
+        nodes: {
+          'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
+          'structured-span':          (props) => {
+            const id = (props.node) ? props.node.data.get('id') : '';
+            return <span id={id} {...props.attributes}>{props.children}</span>;
+          },
+          'span':           props => <span {...props.attributes}>{props.children}</span>,
+          'div':           props => <div {...props.attributes}>{props.children}</div>,
+          'list-item':     props => <li {...props.attributes}>{props.children}</li>,
+          'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
+          'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
+          'block-quote':   props => <blockquote {...props.attributes}>{props.children}</blockquote>
         },
-        'span':           props => <span {...props.attributes}>{props.children}</span>,
-        'div':           props => <div {...props.attributes}>{props.children}</div>,
-        'list-item':     props => <li {...props.attributes}>{props.children}</li>,
-        'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
-        'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
-        'block-quote':   props => <blockquote {...props.attributes}>{props.children}</blockquote>
-      },
-      marks: { 
-        'bold':          props => <strong>{props.children}</strong>,
-        'italic':        props => <em>{props.children}</em>,
-        'underline':     props => <u>{props.children}</u>,
+        marks: { 
+          'bold':          props => <strong>{props.children}</strong>,
+          'italic':        props => <em>{props.children}</em>,
+          'underline':     props => <u>{props.children}</u>,
+        }
       }
     }
   }
+  
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
@@ -139,17 +144,26 @@ class MyEditor extends React.Component {
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
-    console.log('stagingcheck');
     if(!stagingNode) { 
-      console.log('no staging');
       this.props.onStructuredFieldExited(null)
       this.setState({ state })
     } else { 
      const stagingKeys = addKeysForNode(stagingNode, []);
-     console.log('there is staging');
      (stagingKeys.includes(state.selection.startKey)) ?  this.props.onStructuredFieldEntered('staging') : this.props.onStructuredFieldExited('staging');
      this.setState({ state })
     }
+  }
+
+  handleTValueChange = (newVal) => {
+    this.props.onTValueChange(newVal);
+  }
+
+  handleNValueChange = (newVal) => {
+    this.props.onNValueChange(newVal);
+  }
+
+  handleMValueChange = (newVal) => {
+    this.props.onMValueChange(newVal);
   }
 
   onKeyDown = (event, data, state) => {
@@ -164,6 +178,9 @@ class MyEditor extends React.Component {
         const mKeys = addKeysForNode(mNode, []);
         if (tKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleTValueChange(val)
+
             event.preventDefault()
             return state
               .transform()
@@ -204,6 +221,9 @@ class MyEditor extends React.Component {
           }
         } else if (nKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleNValueChange(val)
+
             event.preventDefault()
             return state
               .transform()
@@ -244,6 +264,9 @@ class MyEditor extends React.Component {
           }
         } else if (mKeys.includes(state.selection.startKey))  { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleMValueChange(val)
+
             event.preventDefault()
             return state
               .transform()
