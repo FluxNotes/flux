@@ -1,5 +1,6 @@
 // React imports
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // material-ui
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -14,11 +15,12 @@ class StagingForm extends Component {
 
       this.state = {
         tumorSizes: ['T0', 'T1', 'T2', 'T3', 'T4'],
-        nodes: ['N0', 'N1mi', 'N1', 'N2', 'N3'],
+        nodes: ['N0', 'N1MI', 'N1', 'N2', 'N3'],
         metastases: ['M0', 'M1'],
         t: this.props.t,
         n: this.props.n,
-        m: this.props.m
+        m: this.props.m,
+        stage: ''
       };
   }
 
@@ -104,6 +106,8 @@ class StagingForm extends Component {
   _prognosticStage() {
     // Metastisized cancer is always Stage IV
     if (this.state.m === 1) {
+      var stage = 'IV';
+      this.props.onStagingUpdateFromStagingForm(this.state.tumorSizes[this.state.t], this.state.nodes[this.state.n], this.state.metastases[this.state.m], stage);
       return 'IV';
     }
 
@@ -116,7 +120,13 @@ class StagingForm extends Component {
       ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
     ];
 
-    return lookup[this.state.t][this.state.n];
+    var stage = lookup[this.state.t][this.state.n];
+    this.props.onStagingUpdateFromStagingForm(this.state.tumorSizes[this.state.t], this.state.nodes[this.state.n], this.state.metastases[this.state.m], stage);
+    return stage;
   }
+}
+
+StagingForm.propTypes = {
+  onStagingUpdateFromStagingForm: PropTypes.func.isRequired
 }
 export default StagingForm;
