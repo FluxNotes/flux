@@ -4,6 +4,9 @@ import MenuItem from 'material-ui/MenuItem';
 
 import AppBar from 'material-ui/AppBar'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 class AppTopWithDrawer extends Component {
 
   constructor(props) {

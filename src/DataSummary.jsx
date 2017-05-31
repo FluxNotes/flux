@@ -25,16 +25,16 @@ class DataSummary extends Component {
         // this.handleItemSelected = this.handleItemSelected.bind(this) // did the binding with => down in the html. this is redundant
     }
 
-    handleHER2StatusChange(newStatus) {
-        this.props.onHER2StatusChange(newStatus);
+    handleHER2StatusChange (newStatus) {
+      this.props.onKeyStatusChange('HER2Status', newStatus);
     }
 
-    handleERStatusChange(newStatus) {
-        this.props.onERStatusChange(newStatus);
+    handleERStatusChange (newStatus) {
+      this.props.onKeyStatusChange('ERStatus', newStatus);
     }
 
-    handlePRStatusChange(newStatus) {
-        this.props.onPRStatusChange(newStatus);
+    handlePRStatusChange (newStatus) {
+      this.props.onKeyStatusChange('PRStatus', newStatus);
     }
     handleItemSelected(e, itemString, subItemString) {
         if (subItemString) {
@@ -57,12 +57,12 @@ class DataSummary extends Component {
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
-        const HER2StatusString = `HER2 Status: +`;
-        const ERStatusString = `ER Status: +`;
-        const PRStatusString = `PR Status: +`;
-        // const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
-        // const ERStatusString = `ER Status: ${this.props.ERStatus}`;
-        // const PRStatusString = `PR Status: ${this.props.PRStatus}`;
+        // const HER2StatusString = `HER2 Status: +`;
+        // const ERStatusString = `ER Status: +`;
+        // const PRStatusString = `PR Status: +`;
+        const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
+        const ERStatusString = `ER Status: ${this.props.ERStatus}`;
+        const PRStatusString = `PR Status: ${this.props.PRStatus}`;
         const HGACheckboxChecked = (this.props.HGAStatus !== "");
         const HER2CheckboxChecked = (this.props.HER2Status !== "");
         const ERCheckboxChecked = (this.props.ERStatus !== "");
@@ -146,9 +146,7 @@ DataSummary.propTypes = {
     HER2Status: PropTypes.string,
     ERStatus: PropTypes.string,
     PRStatus: PropTypes.string,
-    onHER2StatusChange: PropTypes.func.isRequired,
-    onERStatusChange: PropTypes.func.isRequired,
-    onPRStatusChange: PropTypes.func.isRequired,
+    onKeyStatusChange: PropTypes.func.isRequired,
     DiagnosisStatus: PropTypes.string,
     SurgeryStatus: PropTypes.string,
     RadiationStatus: PropTypes.string,

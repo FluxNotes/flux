@@ -21,47 +21,22 @@ class App extends Component {
       HER2Status: '+',
       ERStatus:   '+',
       PRStatus:   '+',
+      t: "",
+      n: "",
+      m: "",
       SummaryKeyData: '',
-	  WithinStructuredField: null,
-
+  	  StructuredField: null,
     };
-    this.changeHER2Status = this.changeHER2Status.bind(this);
-    this.changeERStatus = this.changeERStatus.bind(this);
-    this.changePRStatus = this.changePRStatus.bind(this);
+    this.changeKeyStatus = this.changeKeyStatus.bind(this);
     this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
-    this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-    this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-  }
-  
-  handleStructuredFieldEntered(field) {
-	console.log("structured field entered: " + field);
-	this.setState({
-		WithinStructuredField: field
-	})
-  }
-  handleStructuredFieldExited(field) {
-	console.log("structured field exited: " + field);
-	this.setState({
-		WithinStructuredField: null
-	})
-  }
-  
-  changeHER2Status(newStatus) {
-    (newStatus !== "") && this.setState({
-      HER2Status: newStatus
-    })
   }
 
-  changeERStatus(newStatus) {
-    (newStatus !== "") && this.setState({
-      ERStatus: newStatus
-    })
-  }
-
-  changePRStatus(newStatus) {
-    (newStatus !== "") && this.setState({
-      PRStatus: newStatus
-    })
+  changeKeyStatus(key, newStatus) { 
+    if (newStatus !== "")  { 
+      let newVal = {};
+      newVal[key] = newStatus;
+      this.setState(newVal);
+    }
   }
 
   componentDidUpdate(a, b) {
@@ -95,9 +70,7 @@ class App extends Component {
             <Row center="xs">
               <Col sm={3}>
                 <DataSummary
-                  onHER2StatusChange={this.changeHER2Status}
-                  onERStatusChange={this.changeERStatus}
-                  onPRStatusChange={this.changePRStatus}
+                  onKeyStatusChange={this.changeKeyStatus}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
@@ -106,9 +79,7 @@ class App extends Component {
               </Col>
               <Col sm={6}>
                 <ClinicalNotes
-                  onHER2StatusChange={this.changeHER2Status}
-                  onERStatusChange={this.changeERStatus}
-                  onPRStatusChange={this.changePRStatus}
+                  onKeyStatusChange={this.changeKeyStatus}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
@@ -116,8 +87,9 @@ class App extends Component {
                 />
               </Col>
               <Col sm={3}>
-				<RightPanel 
-					withinStructuredField={this.state.WithinStructuredField} />
+        				<RightPanel 
+        					StructuredField={this.state.StructuredField} 
+                />
               </Col>
             </Row>
           </Grid>

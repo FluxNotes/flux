@@ -36,7 +36,7 @@ class RightPanel extends Component {
 
   render() {
     console.log(this.props);
-	if (this.props.withinStructuredField == null) {
+	if (this.props.StructuredField == null) {
 		return (
 		  <div id="forms-panel">
 			<h1>Templates</h1>

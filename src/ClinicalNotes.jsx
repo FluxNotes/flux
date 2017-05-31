@@ -14,48 +14,26 @@ class ClinicalNotes extends Component {
   constructor(props) {
     super(props);
 
-    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
     this.handleERStatusChange = this.handleERStatusChange.bind(this);
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
-  }
-
-  handleTextChange(e, val) {
-    if(val.includes("HER2+")) {
-      this.handleHER2StatusChange("+")
-    } else if(val.includes("HER2-")) {
-      this.handleHER2StatusChange("-")
-    } else {
-      this.handleHER2StatusChange("")
-    }
-
-    if(val.includes("ER+")) {
-      this.handleERStatusChange("+")
-    } else if(val.includes("ER-")) {
-      this.handleERStatusChange("-")
-    } else {
-      this.handleERStatusChange("")
-    }
-
-    if(val.includes("PR+")) {
-      this.handlePRStatusChange("+")
-    } else if(val.includes("PR-")) {
-      this.handlePRStatusChange("-")
-    } else {
-      this.handlePRStatusChange("")
-    }
+    this.handleCurrentStructuredFocus = this.handleCurrentStructuredFocus.bind(this);
   }
 
   handleHER2StatusChange (newStatus) {
-    this.props.onHER2StatusChange(newStatus);
+    this.props.onKeyStatusChange('HER2Status', newStatus);
   }
 
   handleERStatusChange (newStatus) {
-    this.props.onERStatusChange(newStatus);
+    this.props.onKeyStatusChange('ERStatus', newStatus);
   }
 
   handlePRStatusChange (newStatus) {
-    this.props.onPRStatusChange(newStatus);
+    this.props.onKeyStatusChange('PRStatus', newStatus);
+  }
+
+  handleCurrentStructuredFocus (currentFocus) { 
+      this.props.onKeyStatusChange('StructuredField', currentFocus);
   }
 
   render() {
@@ -69,7 +47,9 @@ class ClinicalNotes extends Component {
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
-          <MyEditor data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
+          <MyEditor 
+            onStructuredFocus={this.handleCurrentStructuredFocus}
+            data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
           {message}
@@ -83,9 +63,7 @@ ClinicalNotes.propTypes = {
     HER2Status:          PropTypes.string,
     ERStatus:            PropTypes.string,
     PRStatus:            PropTypes.string,
-    onHER2StatusChange:  PropTypes.func.isRequired,
-    onERStatusChange:    PropTypes.func.isRequired,
-    onPRStatusChange:    PropTypes.func.isRequired,
+    onKeyStatusChange:   PropTypes.func.isRequired,
     itemToBeEntered:     PropTypes.string,
 }
 
