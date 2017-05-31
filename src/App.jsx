@@ -21,9 +21,11 @@ class App extends Component {
       HER2Status: '+',
       ERStatus:   '+',
       PRStatus:   '+',
+      t: "",
+      n: "",
+      m: "",
       SummaryKeyData: '',
-	  WithinStructuredField: null,
-
+  	  withinStructuredField: null,
     };
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
@@ -34,16 +36,17 @@ class App extends Component {
   }
   
   handleStructuredFieldEntered(field) {
-	console.log("structured field entered: " + field);
-	this.setState({
-		WithinStructuredField: field
-	})
+    console.log("structured field entered: " + field);
+    this.setState({
+      withinStructuredField: field
+    });
   }
+  
   handleStructuredFieldExited(field) {
-	console.log("structured field exited: " + field);
-	this.setState({
-		WithinStructuredField: null
-	})
+    console.log("structured field exited: " + field);
+    this.setState({
+      withinStructuredField: null
+    })
   }
   
   changeHER2Status(newStatus) {
@@ -85,7 +88,10 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
-          <AppTopWithDrawer onStructuredFieldEntered={this.handleStructuredFieldEntered} onStructuredFieldExited={this.handleStructuredFieldExited} />
+          <AppTopWithDrawer 
+            onStructuredFieldEntered={this.handleStructuredFieldEntered} 
+            onStructuredFieldExited={this.handleStructuredFieldExited}
+          />
           <Grid className="App-content" fluid>
             <Row>
               <Col xs={12}>
@@ -109,6 +115,8 @@ class App extends Component {
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
+                  onStructuredFieldEntered={this.handleStructuredFieldEntered} 
+                  onStructuredFieldExited={this.handleStructuredFieldExited}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
@@ -116,8 +124,9 @@ class App extends Component {
                 />
               </Col>
               <Col sm={3}>
-				<RightPanel 
-					withinStructuredField={this.state.WithinStructuredField} />
+        				<RightPanel 
+        					withinStructuredField={this.state.withinStructuredField}
+                />
               </Col>
             </Row>
           </Grid>

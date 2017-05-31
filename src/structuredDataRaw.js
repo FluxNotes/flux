@@ -3,7 +3,10 @@ const structuredDataRaw = {
     "nodes": [
       {
         "kind": "block",
-        "type": "span",
+        "type": "structured-span",
+        "data": {
+          "id": "staging",
+        },
         "isVoid": false,
         "nodes": [
           {

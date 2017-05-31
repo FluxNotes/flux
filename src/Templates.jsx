@@ -21,20 +21,18 @@ class Templates extends Component {
     return (
       //<Paper className="templates">
         <Grid fluid>
-            {this.state.templates.map((t, i) => {
-              return (
-				<div>
-				  <Row>
-					<RaisedButton
-						className="btn_template"
-						key={i}
-						label={t}
-						onClick={(e) => this._insertTemplate(e, i)}
-					/>
-				</Row>
-			  </div>);
-		  })}
-
+          {this.state.templates.map((t, i) => {
+            return (
+      				<div key={i}>
+      				  <Row>
+      					<RaisedButton
+      						className="btn_template"
+      						label={t}
+      						onClick={(e) => this._insertTemplate(e, i)}
+      					/>
+      				</Row>
+      			  </div>);
+      		  })}
         </Grid>
       //</Paper>
     );

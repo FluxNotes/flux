@@ -14,36 +14,12 @@ class ClinicalNotes extends Component {
   constructor(props) {
     super(props);
 
-    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
     this.handleERStatusChange = this.handleERStatusChange.bind(this);
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
-  }
+    this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
+    this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
 
-  handleTextChange(e, val) {
-    if(val.includes("HER2+")) {
-      this.handleHER2StatusChange("+")
-    } else if(val.includes("HER2-")) {
-      this.handleHER2StatusChange("-")
-    } else {
-      this.handleHER2StatusChange("")
-    }
-
-    if(val.includes("ER+")) {
-      this.handleERStatusChange("+")
-    } else if(val.includes("ER-")) {
-      this.handleERStatusChange("-")
-    } else {
-      this.handleERStatusChange("")
-    }
-
-    if(val.includes("PR+")) {
-      this.handlePRStatusChange("+")
-    } else if(val.includes("PR-")) {
-      this.handlePRStatusChange("-")
-    } else {
-      this.handlePRStatusChange("")
-    }
   }
 
   handleHER2StatusChange (newStatus) {
@@ -58,6 +34,14 @@ class ClinicalNotes extends Component {
     this.props.onPRStatusChange(newStatus);
   }
 
+  handleStructuredFieldEntered (currentFocus) { 
+    this.props.onStructuredFieldEntered("staging");
+  }
+
+  handleStructuredFieldExited (currentFocus) { 
+    this.props.onStructuredFieldExited("staging");
+  }
+
   render() {
     var message;
     if (this.props.itemToBeEntered !== '') {
@@ -69,7 +53,10 @@ class ClinicalNotes extends Component {
       <div id="clinical-notes">
         <h1>Clinical Notes</h1>
         <div className="editor">
-          <MyEditor data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
+          <MyEditor 
+            onStructuredFieldEntered={this.handleStructuredFieldEntered}
+            onStructuredFieldExited={this.handleStructuredFieldExited}
+            data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
           {message}
@@ -80,13 +67,12 @@ class ClinicalNotes extends Component {
 }
 
 ClinicalNotes.propTypes = {
-    HER2Status:          PropTypes.string,
-    ERStatus:            PropTypes.string,
-    PRStatus:            PropTypes.string,
-    onHER2StatusChange:  PropTypes.func.isRequired,
-    onERStatusChange:    PropTypes.func.isRequired,
-    onPRStatusChange:    PropTypes.func.isRequired,
-    itemToBeEntered:     PropTypes.string,
+    HER2Status:               PropTypes.string,
+    ERStatus:                 PropTypes.string,
+    PRStatus:                 PropTypes.string,
+    onStructuredFieldExited:  PropTypes.func.isRequired,
+    onStructuredFieldEntered: PropTypes.func.isRequired,
+    itemToBeEntered:          PropTypes.string,
 }
 
 export default ClinicalNotes;
