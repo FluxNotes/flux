@@ -36,6 +36,7 @@ class DataSummary extends Component {
     handlePRStatusChange (newStatus) {
       this.props.onPRStatusChange(newStatus);
     }
+    
     handleItemSelected(e, itemString, subItemString) {
         if (subItemString) {
             this.props.onSummaryItemSelected(itemString, subItemString);

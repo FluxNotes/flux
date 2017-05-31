@@ -30,20 +30,23 @@ class App extends Component {
     this.changeHER2Status = this.changeHER2Status.bind(this);
     this.changeERStatus = this.changeERStatus.bind(this);
     this.changePRStatus = this.changePRStatus.bind(this);
+    this.changeTValue = this.changeTValue.bind(this);
+    this.changeNValue = this.changeNValue.bind(this);
+    this.changeMValue = this.changeMValue.bind(this);
     this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
     this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
     this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
   }
   
   handleStructuredFieldEntered(field) {
-    console.log("structured field entered: " + field);
+    // console.log("structured field entered: " + field);
     this.setState({
       withinStructuredField: field
     });
   }
   
   handleStructuredFieldExited(field) {
-    console.log("structured field exited: " + field);
+    // console.log("structured field exited: " + field);
     this.setState({
       withinStructuredField: null
     })
@@ -67,11 +70,29 @@ class App extends Component {
     })
   }
 
+  changeTValue(newVal) { 
+    console.log(`t value updated: ${newVal}`);
+    (newVal !== "") && this.setState({
+      t: newVal
+    })
+  }
+
+  changeNValue(newVal) { 
+    console.log(`n value updated: ${newVal}`);
+    (newVal !== "") && this.setState({
+      n: newVal
+    })
+  }
+
+  changeMValue(newVal) { 
+    console.log(`m value updated: ${newVal}`);
+    (newVal !== "") && this.setState({
+      m: newVal
+    })
+  }
+
   componentDidUpdate(a, b) {
-    console.log('did update')
-    console.log(a)
-    console.log(b)
-    console.log(this)
+    // Nothing right now 
   }
   handleSummaryUpdate(itemString, subItemString) {
 
@@ -104,6 +125,10 @@ class App extends Component {
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
+
+                  // t={this.state.t}
+                  // n={this.state.n}
+                  // m={this.state.m}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
@@ -112,11 +137,18 @@ class App extends Component {
               </Col>
               <Col sm={6}>
                 <ClinicalNotes
+                  onTValueChange={this.changeTValue}
+                  onNValueChange={this.changeNValue}
+                  onMValueChange={this.changeMValue}
                   onHER2StatusChange={this.changeHER2Status}
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
                   onStructuredFieldEntered={this.handleStructuredFieldEntered} 
                   onStructuredFieldExited={this.handleStructuredFieldExited}
+
+                  t={this.state.t}
+                  n={this.state.n}
+                  m={this.state.m}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
