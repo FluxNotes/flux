@@ -17,23 +17,29 @@ class ClinicalNotes extends Component {
     this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
     this.handleERStatusChange = this.handleERStatusChange.bind(this);
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
-    this.handleCurrentStructuredFocus = this.handleCurrentStructuredFocus.bind(this);
+    this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
+    this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+
   }
 
   handleHER2StatusChange (newStatus) {
-    this.props.onKeyStatusChange('HER2Status', newStatus);
+    this.props.onHER2StatusChange(newStatus);
   }
 
   handleERStatusChange (newStatus) {
-    this.props.onKeyStatusChange('ERStatus', newStatus);
+    this.props.onERStatusChange(newStatus);
   }
 
   handlePRStatusChange (newStatus) {
-    this.props.onKeyStatusChange('PRStatus', newStatus);
+    this.props.onPRStatusChange(newStatus);
   }
 
-  handleCurrentStructuredFocus (currentFocus) { 
-      this.props.onKeyStatusChange('StructuredField', currentFocus);
+  handleStructuredFieldEntered (currentFocus) { 
+    this.props.onStructuredFieldEntered("staging");
+  }
+
+  handleStructuredFieldExited (currentFocus) { 
+    this.props.onStructuredFieldExited("staging");
   }
 
   render() {
@@ -48,7 +54,8 @@ class ClinicalNotes extends Component {
         <h1>Clinical Notes</h1>
         <div className="editor">
           <MyEditor 
-            onStructuredFocus={this.handleCurrentStructuredFocus}
+            onStructuredFieldEntered={this.handleStructuredFieldEntered}
+            onStructuredFieldExited={this.handleStructuredFieldExited}
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
         <div>
@@ -60,11 +67,12 @@ class ClinicalNotes extends Component {
 }
 
 ClinicalNotes.propTypes = {
-    HER2Status:          PropTypes.string,
-    ERStatus:            PropTypes.string,
-    PRStatus:            PropTypes.string,
-    onKeyStatusChange:   PropTypes.func.isRequired,
-    itemToBeEntered:     PropTypes.string,
+    HER2Status:               PropTypes.string,
+    ERStatus:                 PropTypes.string,
+    PRStatus:                 PropTypes.string,
+    onStructuredFieldExited:  PropTypes.func.isRequired,
+    onStructuredFieldEntered: PropTypes.func.isRequired,
+    itemToBeEntered:          PropTypes.string,
 }
 
 export default ClinicalNotes;

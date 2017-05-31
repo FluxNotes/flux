@@ -139,12 +139,15 @@ class MyEditor extends React.Component {
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
+    console.log('stagingcheck');
     if(!stagingNode) { 
-      this.props.onStructuredFocus(null)
+      console.log('no staging');
+      this.props.onStructuredFieldExited(null)
       this.setState({ state })
     } else { 
      const stagingKeys = addKeysForNode(stagingNode, []);
-     (stagingKeys.includes(state.selection.startKey)) ?  this.props.onStructuredFocus('staging') : this.props.onStructuredFocus(null);
+     console.log('there is staging');
+     (stagingKeys.includes(state.selection.startKey)) ?  this.props.onStructuredFieldEntered('staging') : this.props.onStructuredFieldExited('staging');
      this.setState({ state })
     }
   }
