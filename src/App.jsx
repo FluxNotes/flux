@@ -60,7 +60,7 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
-          <AppTopWithDrawer onStructuredFieldEntered={this.handleStructuredFieldEntered} onStructuredFieldExited={this.handleStructuredFieldExited} />
+          <AppTopWithDrawer onKeyStatusChange={this.changeKeyStatus} />
           <Grid className="App-content" fluid>
             <Row>
               <Col xs={12}>

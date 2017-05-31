@@ -21,14 +21,14 @@ class AppTopWithDrawer extends Component {
     this.setState({
       open: false
     });
-	this.props.onStructuredFieldEntered("staging");
+	  this.props.onKeyStatusChange('StructuredField', "staging");
   }
   
   handleExitStaging() {
     this.setState({
       open: false
     });
-	this.props.onStructuredFieldExited("staging");
+	  this.props.onKeyStatusChange("StructuredField", null);
   }
     
   render() {
