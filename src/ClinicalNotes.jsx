@@ -1,7 +1,11 @@
 // React imports
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+// Material UI component imports
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+// Flexbox
+import { Grid, Row, Col } from 'react-flexbox-grid';
 // Application Components:
 import MyEditor from './MyEditor';
 
@@ -66,8 +70,33 @@ class ClinicalNotes extends Component {
     }
     return (
       <div id="clinical-notes">
-        <h1>Clinical Notes</h1>
-        <div className="editor">
+        <Paper>
+          <div id="note-description">
+            <Row>
+              <Col xs={5}>
+                <h1 id="note-title">Name of Note</h1>
+              </Col>
+              <Col xs={2}>
+                <p className="note-description-detail-name">Date</p>
+                <p className="note-description-detail-value">20 May 2011</p>
+              </Col>
+              <Col xs={2}>
+                <p className="note-description-detail-name">Source</p>
+                <p className="note-description-detail-value">Context about note</p>
+              </Col>
+              <Col xs={3}>
+                <p className="note-description-detail-name">Signed By</p>
+                <p className="note-description-detail-value">Dr. Some One</p>
+              </Col>
+            </Row> 
+          </div>
+
+          <Row center="xs">
+              <Col xs={11}>
+                  <Divider />
+              </Col>
+          </Row>
+
           <MyEditor 
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
@@ -77,11 +106,12 @@ class ClinicalNotes extends Component {
             onMValueChange = {this.handleMValueChange}
 
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
-        </div>
-        <div>
-          {message}
-        </div>
+          <div>
+            {message}
+          </div>
+        </Paper>
       </div>
+        
     );
   }
 }

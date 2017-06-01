@@ -21,9 +21,9 @@ class App extends Component {
       HER2Status: '+',
       ERStatus:   '+',
       PRStatus:   '+',
-      t: "",
-      n: "",
-      m: "",
+      t: 2,
+      n: 0,
+      m: 0,
       SummaryKeyData: '',
   	  withinStructuredField: null,
     };
@@ -114,11 +114,6 @@ class App extends Component {
             onStructuredFieldExited={this.handleStructuredFieldExited}
           />
           <Grid className="App-content" fluid>
-            <Row>
-              <Col xs={12}>
-                <DemographicSummary />
-              </Col>
-            </Row>
             <Row center="xs">
               <Col sm={3}>
                 <DataSummary
@@ -126,16 +121,16 @@ class App extends Component {
                   onERStatusChange={this.changeERStatus}
                   onPRStatusChange={this.changePRStatus}
 
-                  // t={this.state.t}
-                  // n={this.state.n}
-                  // m={this.state.m}
+                  t={this.state.t}
+                  n={this.state.n}
+                  m={this.state.m}
                   HER2Status={this.state.HER2Status}
                   ERStatus={this.state.ERStatus}
                   PRStatus={this.state.PRStatus}
                   onSummaryItemSelected={this.handleSummaryUpdate}
                 />
               </Col>
-              <Col sm={6}>
+              <Col sm={5}>
                 <ClinicalNotes
                   onTValueChange={this.changeTValue}
                   onNValueChange={this.changeNValue}

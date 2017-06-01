@@ -3,11 +3,12 @@ import React from 'react'
 import { Editor, Block, Inline, Transform , Raw, Text, Html } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List , Map } from 'immutable'
+// Styling
+import './MyEditor.css';
+
 //TODO: make this a one line destructuring 
 import structuredDataRaw from './structuredDataRaw';
 const {staging}  = structuredDataRaw;
-// Styling
-import './MyEditor.css';
 
 
 const stagingState = Raw.deserialize(staging, { terse: true });
