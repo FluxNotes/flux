@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 // material-ui
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
 // Flexbox
-import { Grid, Row } from 'react-flexbox-grid';
+import { Grid, Row, Col} from 'react-flexbox-grid';
 // Styling
 import './Templates.css';
 
@@ -19,22 +20,35 @@ class Templates extends Component {
 
   render() {
     return (
-      //<Paper className="templates">
-        <Grid fluid>
-          {this.state.templates.map((t, i) => {
-            return (
-      				<div key={i}>
-      				  <Row>
-      					<RaisedButton
-      						className="btn_template"
-      						label={t}
-      						onClick={(e) => this._insertTemplate(e, i)}
-      					/>
-      				</Row>
-      			  </div>);
-      		  })}
-        </Grid>
-      //</Paper>
+        <div id="forms-panel">
+            <Paper zDepth={1}>
+                <div id="templates-heading">
+                    <h1> Available Templates</h1>
+                </div>
+
+                <Row center="xs">
+                    <Col xs={11}>
+                        <Divider />
+                    </Col>
+                </Row>
+
+                <div id="templates-options">
+                    {this.state.templates.map((t, i) => {
+                        return (
+                            <Row key={i}>
+                                <Col>
+                                    <RaisedButton
+                                        className="btn_template"
+                                        label={t}
+                                        onClick={(e) => this._insertTemplate(e, i)}
+                                    />
+                                </Col>
+                            </Row>
+                        );
+                    })}
+                </div>
+            </Paper>
+        </div>  
     );
   }
 

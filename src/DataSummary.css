@@ -1,25 +1,69 @@
 #data-summary { 
+    margin: 20px 10px;
 	text-align: left;
 }
+#data-summary hr{ 
 
-#summary-panels { 
-    /*Needs the 1 px so the children margins will hit it*/
-    padding: 1px 30px;
+}   
+
+#data-summary #summary-heading { 
+   padding: 30px;
 }
 
-.summary-panel { 
-    margin: 30px 0;
- }
-
-.summary-panel .summary-content{ 
-    padding-right: 2rem !important;
-    padding-left: 2rem !important;
+#data-summary #summary-heading h1 { 
+     font-size:1.25rem;
+     margin-bottom: 25px;
 }
 
-.sub-list {
-	margin-left: 56px !important;
+#data-summary #summary-heading p { 
+    margin: 0px;
+    font-size:.8rem;
 }
 
-.summary-panel h3{ 
-    
+#data-summary #summary-heading p.summary-heading-detail-name { 
+    color: #919191;
+}
+
+#data-summary #summary-heading p.summary-heading-detail-value { 
+    color: rgb(0, 188, 212);
+    font-weight: bold
+}
+
+#data-summary #summary-condition-overview { 
+    padding: 20px;
+}
+
+#data-summary #summary-condition-details { 
+    padding: 15px 30px;
+}
+
+#data-summary #summary-condition-details h3 { 
+    font-size: 1rem;
+    margin-bottom: 0px;
+}
+
+#data-summary #summary-condition-details ul.summary-section { 
+    margin: 0;
+    padding-left: 0;
+    list-style: none
+}
+
+#data-summary #summary-condition-details ul.summary-section li{ 
+    background-color: #F3F3F3;
+    padding: 0 10px;
+    font-size:.8rem;
+}
+
+#data-summary #summary-condition-details ul.summary-section li:first-child{ 
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#data-summary #summary-condition-details ul.summary-section li:last-child{ 
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+#data-summary #summary-condition-details ul.summary-section li.sub-list{ 
+    padding-left: 20px;
 }
