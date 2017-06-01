@@ -1,7 +1,21 @@
-.templates {
-  margin-top: 30px !important;
-  margin-bottom: 30px !important;
+#forms-panel {
+  margin: 20px 10px;
+  text-align: left;
 }
+
+#templates-heading { 
+    padding: 30px 30px 10px 30px;
+}
+
+#templates-heading h1 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+#templates-options { 
+    padding: 15px 30px;
+}
+
 .btn_template {
   font-size: 26px !important;
   margin: 12px;

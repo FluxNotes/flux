@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // material-ui
 import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 // Flexbox
-import { Grid, Row } from 'react-flexbox-grid';
+import {Row, Col } from 'react-flexbox-grid';
 // Styling
 import './StagingForm.css';
 
@@ -21,73 +22,76 @@ class StagingForm extends Component {
       };
   }
 
-  // For testing purposes. comonentDidMount() gets called after render
-  // componentDidMount() {
-  //   console.log("in componentDidMount");
-  //   console.log("t: " + this.props.t);
-  //   console.log("m: " + this.props.m);
-  //   console.log("n: " + this.props.n);
-  //   console.log("stage: " + this.props.stage);
-  // }
-
   render() {
     // console.log("in render. t: " + this.props.t);
     return (
-      <Paper className="staging-form">
-        <Grid fluid>
-          <Row>
-            <h4>Tumor Size</h4>
-          </Row>
-          <Row>
-            {this.state.tumorSizes.map((t, i) => {
-              return (
-                <RaisedButton
-                  className="btn tumor-size"
-                  key={i}
-                  label={t}
-                  onClick={(e) => this._handleTumorSizeClick(e, i)}
-                  disabled={this._currentlySelected(this.props.t, i)}
-                />);
-            })}
-          </Row>
-          <Row>
-            <h4>Node</h4>
-          </Row>
-          <Row>
-            {this.state.nodes.map((n, i) => {
-              return (
-                <RaisedButton
-                  className="btn node"
-                  key={i}
-                  label={n}
-                  onClick={(e) => this._handleNodeClick(e, i)}
-                  disabled={this._currentlySelected(this.props.n, i)}
-                />);
-            })}
-          </Row>
-          <Row>
-            <h4>Metastasis</h4>
-          </Row>
-          <Row>
-            {this.state.metastases.map((m, i) => {
-              return (
-                <RaisedButton
-                  className="btn metastasis"
-                  key={i}
-                  label={m}
-                  onClick={(e) => this._handleMetastasisClick(e, i)}
-                  disabled={this._currentlySelected(this.props.m, i)}
-                />);
-            })}
-          </Row>
-          <Row>
-            <h4>Prognostic Stage</h4>
-          </Row>
-          <Row>
-            <div className="stage">{this.props.stage}</div>
-          </Row>
-        </Grid>
-      </Paper>
+      <div id="forms-panel">
+            <Paper zDepth={1}>
+                <div id="staging-form-heading">
+                    <h1>Current Stage</h1>
+                </div>
+                <Row center="xs">
+                    <Col xs={11}>
+                        <Divider />
+                    </Col>
+                </Row>
+                <div id="staging-form-contents">
+                    <Row>
+                        <h4>Tumor Size</h4>
+                    </Row>
+                    <Row>
+                        {this.state.tumorSizes.map((t, i) => {
+                            return (
+                                <RaisedButton
+                                    className="btn tumor-size"
+                                    key={i}
+                                    label={t}
+                                    onClick={(e) => this._handleTumorSizeClick(e, i)}
+                                    disabled={this._currentlySelected(this.props.tumorSize, i)}
+                                />
+                            );
+                        })}
+                    </Row>
+                    <Row>
+                        <h4>Node</h4>
+                    </Row>
+                    <Row>
+                        {this.state.nodes.map((n, i) => {
+                            return (
+                                <RaisedButton
+                                    className="btn node"
+                                    key={i}
+                                    label={n}
+                                    onClick={(e) => this._handleNodeClick(e, i)}
+                                    disabled={this._currentlySelected(this.props.nodeSize, i)}
+                                />
+                            );
+                        })}
+                    </Row>
+                    <Row>
+                        <h4>Metastasis</h4>
+                    </Row>
+                    <Row>
+                        {this.state.metastases.map((m, i) => {
+                            return (
+                                <RaisedButton
+                                    className="btn metastasis"
+                                    key={i}
+                                    label={m}
+                                    onClick={(e) => this._handleMetastasisClick(e, i)}
+                                    disabled={this._currentlySelected(this.props.metastasis, i)}
+                                />);
+                        })}
+                    </Row>
+                    <Row>
+                        <h4>Prognostic Stage</h4>
+                    </Row>
+                    <Row>
+                        <div className="stage">{this.props.stage}</div>
+                    </Row>
+                </div>
+            </Paper>
+        </div>
     );
   }
 
@@ -98,22 +102,22 @@ class StagingForm extends Component {
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleTumorSizeClick T=" + i);
-    var stage = this._prognosticStage(i, this.props.n, this.props.m,);
-	this.props.onStagingTUpdate(i, stage);
+    var stage = this._prognosticStage(i, this.props.nodeSizen, this.props.metastasis);
+    this.props.onStagingTUpdate(i, stage);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleNodeClick N=" + i);
-    var stage = this._prognosticStage(this.props.t, i, this.props.m);
-	this.props.onStagingNUpdate(i, stage);
+    var stage = this._prognosticStage(this.props.tumorSize, i, this.props.metastasis);
+    this.props.onStagingNUpdate(i, stage);
   }
-
+  
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleMetastasisClick M=" + i);
-    var stage = this._prognosticStage(this.props.t, this.props.n, i);
-	this.props.onStagingMUpdate(i, stage);
+    var stage = this._prognosticStage(this.props.tumorSize, this.props.nodeSize, i);
+    this.props.onStagingMUpdate(i, stage);
   }
 
   _prognosticStage= (t, n, m) =>  {

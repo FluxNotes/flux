@@ -156,9 +156,9 @@ class App extends Component {
                             <Col sm={3}>
                                 <RightPanel
                                     stage={this.state.prognosticState}
-                                    t={this.state.tumorSize}
-                                    n={this.state.nodeSize}
-                                    m={this.state.metastasis}
+                                    tumorSize={this.state.tumorSize}
+                                    nodeSize={this.state.nodeSize}
+                                    metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
