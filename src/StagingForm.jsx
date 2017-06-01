@@ -100,25 +100,30 @@ class StagingForm extends Component {
 
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
-    console.log("i: " + i);
-    this._prognosticStage(i, this.props.n, this.props.m,);
+    console.log("StagingForm._handleTumorSizeClick T=" + i);
+	this.props.onStagingTUpdate(i, stage);
+    var stage = this._prognosticStage(i, this.props.n, this.props.m,);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
-    this._prognosticStage(this.props.t, i, this.props.m);
+    console.log("StagingForm._handleNodeClick N=" + i);
+	this.props.onStagingNUpdate(i, stage);
+    var stage = this._prognosticStage(this.props.t, i, this.props.m);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
-    this._prognosticStage(this.props.t, this.props.n, i);
+    console.log("StagingForm._handleMetastasisClick M=" + i);
+	this.props.onStagingMUpdate(i, stage);
+    var stage = this._prognosticStage(this.props.t, this.props.n, i);
   }
 
   _prognosticStage= (t, n, m) =>  {
     // Metastisized cancer is always Stage IV
     if (m === 1) {
       var stage = 'IV';
-      this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
+      //this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
       return 'IV';
     }
 
@@ -141,12 +146,14 @@ class StagingForm extends Component {
     // ];
 
     var stage = lookup[t][n];
-    this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
+    //this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
     return stage;
   }
 }
 
+/*
 StagingForm.propTypes = {
   onStagingUpdateFromStagingForm: PropTypes.func.isRequired
-}
+}*/
+
 export default StagingForm;

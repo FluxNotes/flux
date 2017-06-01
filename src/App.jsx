@@ -19,7 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             prognosticState: 0,
-            tumorSize: 0,
+            tumorSize: 1,
             nodeSize: 0,
             metastasis: 0,
             HER2Status: '+',
@@ -34,6 +34,9 @@ class App extends Component {
         this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+		this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
+		this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);		
+		this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
         // this.handleStagingUpdateFromRightPanelInput = this.handleStagingUpdateFromRightPanelInput.bind(this);
     }
 
@@ -88,26 +91,28 @@ class App extends Component {
 
     }
 
-    handleStagingUpdateFromRightPanelInput = (t, n, m, stage) => {
+	handleStagingTUpdate(t, stage) {
+		console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
         this.setState({
-            prognosticState: stage,
             tumorSize: t,
-            nodeSize: n,
-            metastasis: m,
+            prognosticState: stage,
         })
-
-        console.log("in App");
-        console.log("t: " + t);
-        console.log("n: " + n);
-        console.log("m: " + m);
-        console.log("stage: " + stage);
-        console.log('after set state')
-        console.log("t: " + this.state.tumorSize);
-        console.log("n: " + this.state.nodeSize);
-        console.log("m: " + this.state.metastasis);
-        console.log("stage: " + this.state.prognosticState);
-    }
-
+	}
+	handleStagingNUpdate(n, stage) {
+		console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
+        this.setState({
+            nodeSize: n,
+            prognosticState: stage,
+        })
+	}
+	handleStagingMUpdate(m, stage) {
+		console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
+	    this.setState({
+            metastasis: m,
+            prognosticState: stage,
+        })
+	}
+	
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -150,7 +155,9 @@ class App extends Component {
                                     n={this.state.nodeSize}
                                     m={this.state.metastasis}
                                     withinStructuredField={this.state.WithinStructuredField}
-                                    onStagingUpdateFromRightPanelInput={(t, n, m, stage)=> this.handleStagingUpdateFromRightPanelInput(t, n, m, stage)}
+									onStagingTUpdate={this.handleStagingTUpdate}
+									onStagingNUpdate={this.handleStagingNUpdate}
+									onStagingMUpdate={this.handleStagingMUpdate}
                                 />
                             </Col>
                         </Row>
