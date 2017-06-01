@@ -18,6 +18,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            hasStagingData: false,
             prognosticState: 0,
             tumorSize: 0,
             nodeSize: 0,
@@ -90,6 +91,7 @@ class App extends Component {
 	handleStagingTUpdate(t, stage) {
 		console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
         (t !== "") && this.setState({
+            hasStagingData: true,
             tumorSize: t,
             prognosticState: stage,
         })
@@ -97,6 +99,7 @@ class App extends Component {
 	handleStagingNUpdate(n, stage) {
 		console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
         (n !== "") && this.setState({
+            hasStagingData: true,
             nodeSize: n,
             prognosticState: stage,
         })
@@ -104,6 +107,7 @@ class App extends Component {
 	handleStagingMUpdate(m, stage) {
 		console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
         (m !== "") && this.setState({
+            hasStagingData: true,
             metastasis: m,
             prognosticState: stage,
         })
@@ -131,6 +135,11 @@ class App extends Component {
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
                                     onSummaryItemSelected={this.handleSummaryUpdate}
+                                    hasStagingData={this.state.hasStagingData}
+                                    stage={this.state.prognosticState}
+                                    tumorSize={this.state.tumorSize}
+                                    nodeSize={this.state.nodeSize}
+                                    metastasis={this.state.metastasis}
                                 />
                             </Col>
                             <Col sm={6}>

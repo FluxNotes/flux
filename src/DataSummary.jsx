@@ -22,7 +22,6 @@ class DataSummary extends Component {
         this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
         this.handleERStatusChange   = this.handleERStatusChange.bind(this)
         this.handlePRStatusChange   = this.handlePRStatusChange.bind(this)
-        // this.handleItemSelected = this.handleItemSelected.bind(this) // did the binding with => down in the html. this is redundant
     }
 
     handleHER2StatusChange (newStatus) {
@@ -49,18 +48,12 @@ class DataSummary extends Component {
 
         // Current Staging
 
-        const StageString = 'Stage: IIA';
-        const StageSubElementsString = 'T2, N0, M0';
-        // const StageCheckboxChecked = (this.props.StageStatus !== "");
-        // const StageString = 'Stage:';
-        // const StageSubElementsString = 'T: N: M: ';
-        const StageCheckboxChecked = false;
+        const StageString = 'Prognostic Stage: ' + this.props.stage;
+        const StageSubElementsString = 'T: ' + this.props.tumorSize + ', ' + 'N: ' + this.props.nodeSize + ', ' + 'M: ' + this.props.metastasis;
+        const StageCheckboxChecked = this.props.hasStagingData;
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
-        // const HER2StatusString = `HER2 Status: +`;
-        // const ERStatusString = `ER Status: +`;
-        // const PRStatusString = `PR Status: +`;
         const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
         const ERStatusString = `ER Status: ${this.props.ERStatus}`;
         const PRStatusString = `PR Status: ${this.props.PRStatus}`;
@@ -93,8 +86,8 @@ class DataSummary extends Component {
                                 <Paper zDepth={1}>
                                     <List className="summary-content">
                                         <h3>Current Staging</h3>
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>} 
+                                        <ListItem
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>}
                                             leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}
                                         />
                                         <ListItem 
