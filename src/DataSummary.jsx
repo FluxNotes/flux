@@ -1,13 +1,14 @@
 // React imports
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
 // Material UI component imports
+import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
+import Avatar from 'material-ui/Avatar';
 // Flexbox
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
@@ -15,6 +16,15 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import './DataSummary.css';
 
 class DataSummary extends Component {
+
+    patient = {
+        photo: "./DebraHernandez672.jpg",
+        name: "Debra Hernandez672",
+        dateOfBirth: "05 APR 1966",
+        administrativeSex: "Female",
+        city: "Boston",
+        state: "MA"
+    }
 
     constructor(props) {
         super(props);
@@ -78,93 +88,114 @@ class DataSummary extends Component {
 
         return (
             <div id="data-summary">
-                <h1>Patient Summary</h1>
                 <Paper zDepth={1}>
-                    <Grid fluid id="summary-panels">
-                        <Row className="summary-panel">
-                            <Col sm={12}>
-                                <Paper zDepth={1}>
-                                    <List className="summary-content">
-                                        <h3>Current Staging</h3>
-                                        <ListItem
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>}
-                                            leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            className="sub-list" 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>}
-                                        />
-                                    </List>
-                                </Paper>
+                    <div id="summary-heading">
+                        <Row center="xs">
+                            <Col xs={6}>
+                                <Avatar
+                                    src={this.patient.photo}
+                                    size={70}
+                                />
+                                <h1>{this.patient.name}</h1>
                             </Col>
                         </Row>
-                        <Row className="summary-panel">
-                            <Col sm={12}>
-                                <Paper zDepth={1}>
-                                    <List className="summary-content">
-                                        <h3>Pathology Results</h3>
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} 
-                                            leftCheckbox={<Checkbox checked={HGACheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>} 
-                                            leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>} 
-                                            leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>} 
-                                            leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}
-                                        />
-                                    </List>
-                                </Paper>
+                        <Row>
+                            <Col xs={4}>
+                                <p className="summary-heading-detail-name">DOB</p>
+                                <p className="summary-heading-detail-value">{this.patient.dateOfBirth} ({calculateAge(this.patient.dateOfBirth)})</p>
+                            </Col>
+                            <Col xs={4}>
+                                <p className="summary-heading-detail-name">Administrative Sex:</p>
+                                <p className="summary-heading-detail-value">{this.patient.administrativeSex}</p>
+                            </Col>
+                            <Col xs={4}>
+                                <p className="summary-heading-detail-name">Location</p>
+                                <p className="summary-heading-detail-value">{this.patient.city}, {this.patient.state}</p>
                             </Col>
                         </Row>
-                        <Row className="summary-panel">
-                            <Col sm={12}>
-                                <Paper zDepth={1}>
-                                    <List className="summary-content">
-                                        <h3>Event Dates</h3>
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>}
-                                            leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            className="sub-list" 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>}
-                                            leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            className="sub-list" 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>}
-                                            leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>}
-                                            leftCheckbox={<Checkbox checked={TamoxifenCheckboxChecked}/>}
-                                        />
-                                        <ListItem 
-                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>} 
-                                            leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}
-                                        />
-                                    </List>
-                                </Paper>
+                    </div>
+                    <Row center="xs">
+                        <Col xs={11}>
+                            <Divider />
+                        </Col>
+                    </Row>
+
+                    <div id="summary-condition-details">
+                        <Row>
+                            <Col xs={6}>
+                                <h3>Current Staging</h3>
+                                <ul className="summary-section" id="summary-staging">
+                                    <div className="summary-details">
+                                        <li>
+                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>
+                                        </li>
+                                        <li className="sub-list">
+                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </Col>
+                            <Col xs={6}>
+                                <h3>Pathology Results</h3>
+                                <ul className="summary-section" id="summary-pathology">
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>
+                                    </li>
+                                </ul>
                             </Col>
                         </Row>
-                    </Grid>
+                        <Row>
+                            <Col xs={12}>
+                                <h3>Event Dates</h3>
+                                <ul className="summary-section" id="summary-dates">
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>
+                                    </li>
+                                    <li className="sub-list" >
+                                       <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>
+                                    </li>
+                                    <li>
+                                       <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>
+                                    </li>
+                                    <li className="sub-list" >
+                                       <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>
+                                    </li>
+                                    <li>
+                                        <span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>}
+                                    </li>
+                                </ul>
+                            </Col>
+                        </Row>
+                    </div>
                 </Paper>
             </div>
         );
     }
+}
+function calculateAge(dateOfBirth) {
+    var today = new Date();
+    var birthDate = new Date(dateOfBirth);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 DataSummary.propTypes = {

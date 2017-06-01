@@ -32,23 +32,24 @@ class App extends Component {
         this.changeHER2Status = this.changeHER2Status.bind(this);
         this.changeERStatus = this.changeERStatus.bind(this);
         this.changePRStatus = this.changePRStatus.bind(this);
+        this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
+        this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
+        this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
         this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-		this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-		this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-		this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
+
     }
 
     handleStructuredFieldEntered(field) {
-        console.log("structured field entered: " + field);
+        // console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited(field) {
-        console.log("structured field exited: " + field);
+        // console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
@@ -77,15 +78,12 @@ class App extends Component {
     }
 
     handleSummaryUpdate(itemString, subItemString) {
-
         (itemString !== "") && (subItemString !== "") && this.setState({
             SummaryKeyData: itemString + ", " + subItemString
         });
-
         (itemString !== "") && (subItemString === "") && this.setState({
             SummaryKeyData: itemString
         });
-
     }
 
 	handleStagingTUpdate(t, stage) {
@@ -117,32 +115,30 @@ class App extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="App">
-                    <AppTopWithDrawer onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                                      onStructuredFieldExited={this.handleStructuredFieldExited}/>
+                    <AppTopWithDrawer
+                        onStructuredFieldEntered={this.handleStructuredFieldEntered}
+                        onStructuredFieldExited={this.handleStructuredFieldExited}
+                    />
                     <Grid className="App-content" fluid>
-                        <Row>
-                            <Col xs={12}>
-                                <DemographicSummary />
-                            </Col>
-                        </Row>
                         <Row center="xs">
                             <Col sm={3}>
                                 <DataSummary
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
-                                    HER2Status={this.state.HER2Status}
-                                    ERStatus={this.state.ERStatus}
-                                    PRStatus={this.state.PRStatus}
-                                    onSummaryItemSelected={this.handleSummaryUpdate}
                                     hasStagingData={this.state.hasStagingData}
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
+                                    HER2Status={this.state.HER2Status}
+                                    ERStatus={this.state.ERStatus}
+                                    PRStatus={this.state.PRStatus}
+                                    onSummaryItemSelected={this.handleSummaryUpdate}
+
                                 />
                             </Col>
-                            <Col sm={6}>
+                            <Col sm={5}>
                                 <ClinicalNotes
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
@@ -152,6 +148,7 @@ class App extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
+
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
@@ -165,9 +162,9 @@ class App extends Component {
                             <Col sm={3}>
                                 <RightPanel
                                     stage={this.state.prognosticState}
-                                    t={this.state.tumorSize}
-                                    n={this.state.nodeSize}
-                                    m={this.state.metastasis}
+                                    tumorSize={this.state.tumorSize}
+                                    nodeSize={this.state.nodeSize}
+                                    metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}

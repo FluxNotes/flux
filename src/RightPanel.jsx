@@ -18,45 +18,25 @@ class RightPanel extends Component {
   }
 
   /*
-	need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
-	to the correct entry form for the structured field. on exit, set to null.
+    need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
+    to the correct entry form for the structured field. on exit, set to null.
   */
 
   render() {
-	if (this.props.withinStructuredField == null) {
-		return (
-		  <div id="forms-panel">
-			<h1>Templates</h1>
-			<Paper zDepth={1}>
-			  <Grid fluid>
-				<Row className='form-row'>
-				  <Col sm={12}>
-					<Templates />
-				  </Col>
-				</Row>
-			  </Grid>
-			</Paper>
-		  </div>
-		);
-	} else {
-		return ( <div id="forms-panel">
-			<h1>Select Staging</h1>
-			<Paper zDepth={1}>
-			  <Grid fluid>
-				<Row className='form-row'>
-				  <Col sm={12}>
-					<StagingForm 
-						t={this.props.t} n={this.props.n} m={this.props.m} stage={this.props.stage}
-						onStagingTUpdate={this.props.onStagingTUpdate}
-						onStagingNUpdate={this.props.onStagingNUpdate}
-						onStagingMUpdate={this.props.onStagingMUpdate}
-						/>
-				    </Col>
-				</Row>
-			  </Grid>
-			</Paper>
-		  </div> );
-	}
+    if (this.props.withinStructuredField == null) {
+        return (
+            <Templates />
+        );  
+    } else {
+        return ( 
+            <StagingForm 
+                tumorSize={this.props.tumorSize} nodeSize={this.props.nodeSize} metastasis={this.props.metastasis} stage={this.props.stage}
+                onStagingTUpdate={this.props.onStagingTUpdate}
+                onStagingNUpdate={this.props.onStagingNUpdate}
+                onStagingMUpdate={this.props.onStagingMUpdate}
+            />
+        );
+    }
   }
 }
 
