@@ -155,16 +155,16 @@ class MyEditor extends React.Component {
     }
   }
 
-  handleTValueChange = (newVal) => {
-    this.props.onTValueChange(newVal);
+  handleStagingTUpdate = (newVal) => {
+    this.props.onStagingTUpdate(newVal);
   }
 
-  handleNValueChange = (newVal) => {
-    this.props.onNValueChange(newVal);
+  handleStagingNUpdate = (newVal) => {
+    this.props.onStagingNUpdate(newVal);
   }
 
-  handleMValueChange = (newVal) => {
-    this.props.onMValueChange(newVal);
+  handleStagingMUpdate = (newVal) => {
+    this.props.onStagingMUpdate(newVal);
   }
 
   onKeyDown = (event, data, state) => {
@@ -180,7 +180,7 @@ class MyEditor extends React.Component {
         if (tKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleTValueChange(val)
+            this.handleStagingTUpdate(val)
 
             event.preventDefault()
             return state
@@ -223,10 +223,11 @@ class MyEditor extends React.Component {
         } else if (nKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleNValueChange(val)
+            this.handleStagingNUpdate(val)
 
             event.preventDefault()
             return state
+
               .transform()
               .moveToRangeOf(nNode)
               .moveStart(1)
@@ -266,7 +267,7 @@ class MyEditor extends React.Component {
         } else if (mKeys.includes(state.selection.startKey))  { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleMValueChange(val)
+            this.handleStagingMUpdate(val)
 
             event.preventDefault()
             return state

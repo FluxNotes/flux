@@ -58,9 +58,8 @@ class DataSummary extends Component {
     render() {
 
         // Current Staging
-
-        const StageString = 'Stage: IIA';
-        const StageSubElementsString = `T${this.props.t} N${this.props.n} M${this.props.m}`;
+        const StageString = `Stage: ${this.props.stage}`;
+        const StageSubElementsString = `T${this.props.tumorSize} N${this.props.nodeSize} M${this.props.metastasis}`;
         // const StageCheckboxChecked = (this.props.StageStatus !== "");
         // const StageString = 'Stage:';
         // const StageSubElementsString = 'T: N: M: ';
