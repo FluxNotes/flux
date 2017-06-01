@@ -19,9 +19,9 @@ class ClinicalNotes extends Component {
     this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
     this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
     this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-    this.handleTValueChange = this.handleTValueChange.bind(this);
-    this.handleNValueChange = this.handleNValueChange.bind(this);
-    this.handleMValueChange = this.handleMValueChange.bind(this);
+    this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
+    this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
+    this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
 
   }
 
@@ -37,16 +37,16 @@ class ClinicalNotes extends Component {
     this.props.onPRStatusChange(newStatus);
   }
 
-  handleTValueChange (newVal) {
-    this.props.onTValueChange(newVal);
+  handleStagingTUpdate (newVal) {
+    this.props.onStagingTUpdate(newVal);
   }
 
-  handleNValueChange (newVal) {
-    this.props.onNValueChange(newVal);
+  handleStagingNUpdate (newVal) {
+    this.props.onStagingNUpdate(newVal);
   }
 
-  handleMValueChange (newVal) {
-    this.props.onMValueChange(newVal);
+  handleStagingMUpdate (newVal) {
+    this.props.onStagingMUpdate(newVal);
   }
 
   handleStructuredFieldEntered (currentFocus) { 
@@ -72,9 +72,9 @@ class ClinicalNotes extends Component {
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
 
-            onTValueChange = {this.handleTValueChange}
-            onNValueChange = {this.handleNValueChange}
-            onMValueChange = {this.handleMValueChange}
+            onStagingTUpdate = {this.handleStagingTUpdate}
+            onStagingNUpdate = {this.handleStagingNUpdate}
+            onStagingMUpdate = {this.handleStagingMUpdate}
 
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
         </div>
@@ -93,9 +93,9 @@ ClinicalNotes.propTypes = {
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
     itemToBeEntered:          PropTypes.string,
-    onTValueChange:           PropTypes.func.isRequired,
-    onNValueChange:           PropTypes.func.isRequired,
-    onMValueChange:           PropTypes.func.isRequired
+    onStagingTUpdate:           PropTypes.func.isRequired,
+    onStagingNUpdate:           PropTypes.func.isRequired,
+    onStagingMUpdate:           PropTypes.func.isRequired
 }
 
 export default ClinicalNotes;

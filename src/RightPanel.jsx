@@ -1,5 +1,6 @@
 // React imports
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 // Material UI component imports
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,20 +16,7 @@ class RightPanel extends Component {
   constructor(props) {
     super(props);
   }
-    
-  showingStaging = ( <div id="forms-panel">
-			<h1>Select Staging</h1>
-			<Paper zDepth={1}>
-			  <Grid fluid>
-				<Row className='form-row'>
-				  <Col sm={12}>
-					<StagingForm t={0} n={0} m={0} />
-				  </Col>
-				</Row>
-			  </Grid>
-			</Paper>
-		  </div> );
-  
+
   /*
 	need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
 	to the correct entry form for the structured field. on exit, set to null.
@@ -51,7 +39,23 @@ class RightPanel extends Component {
 		  </div>
 		);
 	} else {
-		return this.showingStaging;
+		return ( <div id="forms-panel">
+			<h1>Select Staging</h1>
+			<Paper zDepth={1}>
+			  <Grid fluid>
+				<Row className='form-row'>
+				  <Col sm={12}>
+					<StagingForm 
+						t={this.props.t} n={this.props.n} m={this.props.m} stage={this.props.stage}
+						onStagingTUpdate={this.props.onStagingTUpdate}
+						onStagingNUpdate={this.props.onStagingNUpdate}
+						onStagingMUpdate={this.props.onStagingMUpdate}
+						/>
+				    </Col>
+				</Row>
+			  </Grid>
+			</Paper>
+		  </div> );
 	}
   }
 }
