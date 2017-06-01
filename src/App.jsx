@@ -19,7 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             prognosticState: 0,
-            tumorSize: 1,
+            tumorSize: 0,
             nodeSize: 0,
             metastasis: 0,
             HER2Status: '+',
@@ -37,7 +37,6 @@ class App extends Component {
 		this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
 		this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);		
 		this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-        // this.handleStagingUpdateFromRightPanelInput = this.handleStagingUpdateFromRightPanelInput.bind(this);
     }
 
     handleStructuredFieldEntered(field) {
@@ -112,7 +111,8 @@ class App extends Component {
             prognosticState: stage,
         })
 	}
-	
+
+
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>

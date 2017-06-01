@@ -21,17 +21,17 @@ class StagingForm extends Component {
       };
   }
 
-  componentDidMount() {
-    console.log("in componentDidMount");
-    console.log("t: " + this.props.t);
-    console.log("m: " + this.props.m);
-    console.log("n: " + this.props.n);
-    console.log("stage: " + this.props.stage);
-    // this._prognosticStage(this.props.t, this.props.n, this.props.m);
-  }
+  // For testing purposes. comonentDidMount() gets called after render
+  // componentDidMount() {
+  //   console.log("in componentDidMount");
+  //   console.log("t: " + this.props.t);
+  //   console.log("m: " + this.props.m);
+  //   console.log("n: " + this.props.n);
+  //   console.log("stage: " + this.props.stage);
+  // }
 
   render() {
-    console.log("in render. t: " + this.props.t);
+    // console.log("in render. t: " + this.props.t);
     return (
       <Paper className="staging-form">
         <Grid fluid>
@@ -92,39 +92,36 @@ class StagingForm extends Component {
   }
 
   _currentlySelected(item, i) {
-
-    //Todo: find the item in the lookup table, and use the returned index
-    // to figure out which item is currently selected
     return (item === i ? true : false);
   }
 
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleTumorSizeClick T=" + i);
-	this.props.onStagingTUpdate(i, stage);
     var stage = this._prognosticStage(i, this.props.n, this.props.m,);
+	this.props.onStagingTUpdate(i, stage);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleNodeClick N=" + i);
-	this.props.onStagingNUpdate(i, stage);
     var stage = this._prognosticStage(this.props.t, i, this.props.m);
+	this.props.onStagingNUpdate(i, stage);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleMetastasisClick M=" + i);
-	this.props.onStagingMUpdate(i, stage);
     var stage = this._prognosticStage(this.props.t, this.props.n, i);
+	this.props.onStagingMUpdate(i, stage);
   }
 
   _prognosticStage= (t, n, m) =>  {
+    var stage;
     // Metastisized cancer is always Stage IV
     if (m === 1) {
-      var stage = 'IV';
-      //this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
-      return 'IV';
+      stage = 'IV';
+      return stage;
     }
 
     // Lookup the rest based on T and N:
@@ -145,15 +142,9 @@ class StagingForm extends Component {
     //   ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
     // ];
 
-    var stage = lookup[t][n];
-    //this.props.onStagingUpdateFromStagingForm(t,n,m, stage);
+    stage = lookup[t][n];
     return stage;
   }
 }
-
-/*
-StagingForm.propTypes = {
-  onStagingUpdateFromStagingForm: PropTypes.func.isRequired
-}*/
 
 export default StagingForm;
