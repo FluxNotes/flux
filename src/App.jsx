@@ -160,9 +160,9 @@ class App extends Component {
                                     n={this.state.nodeSize}
                                     m={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
-									onStagingTUpdate={this.handleStagingTUpdate}
-									onStagingNUpdate={this.handleStagingNUpdate}
-									onStagingMUpdate={this.handleStagingMUpdate}
+                                    onStagingTUpdate={this.handleStagingTUpdate}
+                                    onStagingNUpdate={this.handleStagingNUpdate}
+                                    onStagingMUpdate={this.handleStagingMUpdate}
                                 />
                             </Col>
                         </Row>
