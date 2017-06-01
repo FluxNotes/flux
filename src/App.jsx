@@ -26,7 +26,7 @@ class App extends Component {
             ERStatus: '+',
             PRStatus: '+',
             SummaryKeyData: '',
-            WithinStructuredField: null,
+            withinStructuredField: null,
         };
         this.changeHER2Status = this.changeHER2Status.bind(this);
         this.changeERStatus = this.changeERStatus.bind(this);
@@ -35,21 +35,21 @@ class App extends Component {
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
 		this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-		this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);		
+		this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
 		this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
     }
 
     handleStructuredFieldEntered(field) {
         console.log("structured field entered: " + field);
         this.setState({
-            WithinStructuredField: field
+            withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited(field) {
         console.log("structured field exited: " + field);
         this.setState({
-            WithinStructuredField: null
+            withinStructuredField: null
         })
     }
 
@@ -72,10 +72,7 @@ class App extends Component {
     }
 
     componentDidUpdate(a, b) {
-        console.log('did update')
-        console.log(a)
-        console.log(b)
-        console.log(this)
+        // Nothing right now
     }
 
     handleSummaryUpdate(itemString, subItemString) {
@@ -92,26 +89,25 @@ class App extends Component {
 
 	handleStagingTUpdate(t, stage) {
 		console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
-        this.setState({
+        (t !== "") && this.setState({
             tumorSize: t,
             prognosticState: stage,
         })
 	}
 	handleStagingNUpdate(n, stage) {
 		console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
-        this.setState({
+        (n !== "") && this.setState({
             nodeSize: n,
             prognosticState: stage,
         })
 	}
 	handleStagingMUpdate(m, stage) {
 		console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
-	    this.setState({
+        (m !== "") && this.setState({
             metastasis: m,
             prognosticState: stage,
         })
 	}
-
 
     render() {
         return (
@@ -139,9 +135,18 @@ class App extends Component {
                             </Col>
                             <Col sm={6}>
                                 <ClinicalNotes
+                                    onStagingTUpdate={this.handleStagingTUpdate}
+                                    onStagingNUpdate={this.handleStagingNUpdate}
+                                    onStagingMUpdate={this.handleStagingMUpdate}
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
+                                    onStructuredFieldEntered={this.handleStructuredFieldEntered}
+                                    onStructuredFieldExited={this.handleStructuredFieldExited}
+                                    stage={this.state.prognosticState}
+                                    tumorSize={this.state.tumorSize}
+                                    nodeSize={this.state.nodeSize}
+                                    metastasis={this.state.metastasis}
                                     HER2Status={this.state.HER2Status}
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
@@ -154,7 +159,7 @@ class App extends Component {
                                     t={this.state.tumorSize}
                                     n={this.state.nodeSize}
                                     m={this.state.metastasis}
-                                    withinStructuredField={this.state.WithinStructuredField}
+                                    withinStructuredField={this.state.withinStructuredField}
 									onStagingTUpdate={this.handleStagingTUpdate}
 									onStagingNUpdate={this.handleStagingNUpdate}
 									onStagingMUpdate={this.handleStagingMUpdate}

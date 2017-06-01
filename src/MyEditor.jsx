@@ -10,23 +10,7 @@ const {staging}  = structuredDataRaw;
 import './MyEditor.css';
 
 
-function textFromStringAndKey(str, key) { 
-  return Text.create({
-    key: key,
-    characters: charListFromString(str)
-  });
-}
-function charListFromString(str) { 
-  let arr = [];
-  for (const c of str) {
-    arr.push({
-      marks: List([]),
-      text: c
-    });
-  }
-  return List(arr);
-}
-const test = Raw.deserialize(staging, { terse: true });``
+const stagingState = Raw.deserialize(staging, { terse: true });
 
 const initialState = Raw.deserialize({
   nodes: [
@@ -53,8 +37,7 @@ const initialState = Raw.deserialize({
   ]
 }, { terse: true })
 
-// Given a list of nodes and an id, check to see if there 
-// is a (shallow) node in that list with that id
+// Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
 function getNodeById(nodes, id) { 
   return nodes.find(function(v, k, iter) {
@@ -66,11 +49,9 @@ function getNodeById(nodes, id) {
   });
 }
 
-// Given a current node and an array of keys,
-// add the key of this node and the keys of all its children 
+// Given a current node and an array of keys, add the key of this node and the keys of all its children 
 // to the array.
 function addKeysForNode(curNode, keys) { 
-  console.log(curNode);
   // Get this key
   if(curNode.key) { 
     keys.push(curNode.key)
@@ -87,42 +68,46 @@ function addKeysForNode(curNode, keys) {
 
 // The list of special keys we want to trigger special beahvior
 // TODO: link these keys with the specific changes in behavior
-const stagingKeys = ['T','N','M'];
+const stagingKeyChars = ['T','N','M'];
 
 // Define our app...
 class MyEditor extends React.Component {
-  // Set the initial state when the app is first constructed.
-  state = {
-    state: initialState,
-    schema: {
-      nodes: {
-        'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
-        'structured-span':          (props) => {
-          const id = (props.node) ? props.node.data.get('id') : '';
-          return <span id={id} {...props.attributes}>{props.children}</span>;
+  constructor(props) {
+    super(props);
+
+    // Set the initial state when the app is first constructed.
+    this.state = {
+      state: initialState,
+      schema: {
+        nodes: {
+          'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
+          'structured-span':          (props) => {
+            const id = (props.node) ? props.node.data.get('id') : '';
+            return <span id={id} {...props.attributes}>{props.children}</span>;
+          },
+          'span':           props => <span {...props.attributes}>{props.children}</span>,
+          'div':           props => <div {...props.attributes}>{props.children}</div>,
+          'list-item':     props => <li {...props.attributes}>{props.children}</li>,
+          'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
+          'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
+          'block-quote':   props => <blockquote {...props.attributes}>{props.children}</blockquote>
         },
-        'span':           props => <span {...props.attributes}>{props.children}</span>,
-        'div':           props => <div {...props.attributes}>{props.children}</div>,
-        'list-item':     props => <li {...props.attributes}>{props.children}</li>,
-        'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
-        'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
-        'block-quote':   props => <blockquote {...props.attributes}>{props.children}</blockquote>
-      },
-      marks: { 
-        'bold':          props => <strong>{props.children}</strong>,
-        'italic':        props => <em>{props.children}</em>,
-        'underline':     props => <u>{props.children}</u>,
+        marks: { 
+          'bold':          props => <strong>{props.children}</strong>,
+          'italic':        props => <em>{props.children}</em>,
+          'underline':     props => <u>{props.children}</u>,
+        }
       }
     }
   }
+  
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
       trigger: 'space',
-      before: /(\.staging)/,
+      before: /(\.staging)/i,
       transform: (transform, e, data, matches) => {
-        console.log(staging);
-        const stagingBlock = test.document.nodes.get(0);
+        const stagingBlock = stagingState.document.nodes.get(0);
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
         const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
                 .moveStart(1)
@@ -158,7 +143,27 @@ class MyEditor extends React.Component {
 
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
-    this.setState({ state })
+    const stagingNode = getNodeById(state.document.nodes, 'staging');
+    if(!stagingNode) { 
+      this.props.onStructuredFieldExited(null)
+      this.setState({ state })
+    } else { 
+     const stagingKeys = addKeysForNode(stagingNode, []);
+     (stagingKeys.includes(state.selection.startKey)) ?  this.props.onStructuredFieldEntered('staging') : this.props.onStructuredFieldExited('staging');
+     this.setState({ state })
+    }
+  }
+
+  handleStagingTUpdate = (newVal) => {
+    this.props.onStagingTUpdate(newVal);
+  }
+
+  handleStagingNUpdate = (newVal) => {
+    this.props.onStagingNUpdate(newVal);
+  }
+
+  handleStagingMUpdate = (newVal) => {
+    this.props.onStagingMUpdate(newVal);
   }
 
   onKeyDown = (event, data, state) => {
@@ -173,6 +178,9 @@ class MyEditor extends React.Component {
         const mKeys = addKeysForNode(mNode, []);
         if (tKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleStagingTUpdate(val)
+
             event.preventDefault()
             return state
               .transform()
@@ -185,7 +193,7 @@ class MyEditor extends React.Component {
               .moveStart(1)
               .moveEnd(-1)
               .apply();
-          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
             switch(String.fromCharCode(event.keyCode)) { 
               case "T": 
@@ -213,8 +221,12 @@ class MyEditor extends React.Component {
           }
         } else if (nKeys.includes(state.selection.startKey)) { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleStagingNUpdate(val)
+
             event.preventDefault()
             return state
+
               .transform()
               .moveToRangeOf(nNode)
               .moveStart(1)
@@ -225,7 +237,7 @@ class MyEditor extends React.Component {
               .moveStart(1)
               .moveEnd(-1)
               .apply();
-          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
             switch(String.fromCharCode(event.keyCode)) { 
               case "T": 
@@ -253,6 +265,9 @@ class MyEditor extends React.Component {
           }
         } else if (mKeys.includes(state.selection.startKey))  { 
           if(event.keyCode >= 48 && event.keyCode <=57) {
+            const val = event.keyCode - 48;
+            this.handleStagingMUpdate(val)
+
             event.preventDefault()
             return state
               .transform()
@@ -264,7 +279,7 @@ class MyEditor extends React.Component {
               .collapseToEndOf(mNode)
               .insertBlock(Block.create({'type': 'span', 'nodes': List([Text.createFromString('  ')])}))
               .apply();
-          } else if (stagingKeys.includes(String.fromCharCode(event.keyCode))) {
+          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
             switch(String.fromCharCode(event.keyCode)) { 
               case "T": 

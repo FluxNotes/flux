@@ -20,22 +20,23 @@ class DataSummary extends Component {
         super(props);
 
         this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
-        this.handleERStatusChange = this.handleERStatusChange.bind(this)
-        this.handlePRStatusChange = this.handlePRStatusChange.bind(this)
+        this.handleERStatusChange   = this.handleERStatusChange.bind(this)
+        this.handlePRStatusChange   = this.handlePRStatusChange.bind(this)
         // this.handleItemSelected = this.handleItemSelected.bind(this) // did the binding with => down in the html. this is redundant
     }
 
-    handleHER2StatusChange(newStatus) {
-        this.props.onHER2StatusChange(newStatus);
+    handleHER2StatusChange (newStatus) {
+      this.props.onHER2StatusChange(newStatus);
     }
 
-    handleERStatusChange(newStatus) {
-        this.props.onERStatusChange(newStatus);
+    handleERStatusChange (newStatus) {
+      this.props.onERStatusChange(newStatus);
     }
 
-    handlePRStatusChange(newStatus) {
-        this.props.onPRStatusChange(newStatus);
+    handlePRStatusChange (newStatus) {
+      this.props.onPRStatusChange(newStatus);
     }
+    
     handleItemSelected(e, itemString, subItemString) {
         if (subItemString) {
             this.props.onSummaryItemSelected(itemString, subItemString);
@@ -57,12 +58,12 @@ class DataSummary extends Component {
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
-        const HER2StatusString = `HER2 Status: +`;
-        const ERStatusString = `ER Status: +`;
-        const PRStatusString = `PR Status: +`;
-        // const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
-        // const ERStatusString = `ER Status: ${this.props.ERStatus}`;
-        // const PRStatusString = `PR Status: ${this.props.PRStatus}`;
+        // const HER2StatusString = `HER2 Status: +`;
+        // const ERStatusString = `ER Status: +`;
+        // const PRStatusString = `PR Status: +`;
+        const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
+        const ERStatusString = `ER Status: ${this.props.ERStatus}`;
+        const PRStatusString = `PR Status: ${this.props.PRStatus}`;
         const HGACheckboxChecked = (this.props.HGAStatus !== "");
         const HER2CheckboxChecked = (this.props.HER2Status !== "");
         const ERCheckboxChecked = (this.props.ERStatus !== "");
@@ -92,8 +93,14 @@ class DataSummary extends Component {
                                 <Paper zDepth={1}>
                                     <List className="summary-content">
                                         <h3>Current Staging</h3>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>} leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}/>
-                                        <ListItem className="sub-list" primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>}/>
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>} 
+                                            leftCheckbox={<Checkbox checked={StageCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            className="sub-list" 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>}
+                                        />
                                     </List>
                                 </Paper>
                             </Col>
@@ -103,10 +110,22 @@ class DataSummary extends Component {
                                 <Paper zDepth={1}>
                                     <List className="summary-content">
                                         <h3>Pathology Results</h3>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} leftCheckbox={<Checkbox checked={HGACheckboxChecked}/>}/>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>} leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}/>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>} leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}/>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>} leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}/>
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>} 
+                                            leftCheckbox={<Checkbox checked={HGACheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>} 
+                                            leftCheckbox={<Checkbox checked={HER2CheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>} 
+                                            leftCheckbox={<Checkbox checked={ERCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>} 
+                                            leftCheckbox={<Checkbox checked={PRCheckboxChecked}/>}
+                                        />
                                     </List>
                                 </Paper>
                             </Col>
@@ -116,19 +135,34 @@ class DataSummary extends Component {
                                 <Paper zDepth={1}>
                                     <List className="summary-content">
                                         <h3>Event Dates</h3>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>}
-                                                  leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}/>
-                                        <ListItem className="sub-list" primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>}/>
-
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>}
-                                                  leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}/>
-                                        <ListItem className="sub-list" primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>}/>
-
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>}
-                                                  leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}/>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>}
-                                                  leftCheckbox={<Checkbox checked={TamoxifenCheckboxChecked}/>}/>
-                                        <ListItem primaryText={<span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>} leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}/>
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>}
+                                            leftCheckbox={<Checkbox checked={DiagnosisCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            className="sub-list" 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>}
+                                            leftCheckbox={<Checkbox checked={SurgeryCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            className="sub-list" 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>}
+                                            leftCheckbox={<Checkbox checked={RadiationCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>}
+                                            leftCheckbox={<Checkbox checked={TamoxifenCheckboxChecked}/>}
+                                        />
+                                        <ListItem 
+                                            primaryText={<span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>} 
+                                            leftCheckbox={<Checkbox checked={RecurrenceCheckboxChecked}/>}
+                                        />
                                     </List>
                                 </Paper>
                             </Col>

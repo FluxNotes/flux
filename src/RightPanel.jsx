@@ -18,12 +18,11 @@ class RightPanel extends Component {
   }
 
   /*
-	need to listen for enterStructuredField and exitStructuredField events. when get an enter, set the showing state
+	need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
 	to the correct entry form for the structured field. on exit, set to null.
   */
 
   render() {
-    console.log(this.props);
 	if (this.props.withinStructuredField == null) {
 		return (
 		  <div id="forms-panel">
