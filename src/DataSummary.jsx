@@ -24,7 +24,9 @@ class DataSummary extends Component {
         administrativeSex: "Female",
         city: "Boston",
         state: "MA"
-    }
+    };
+
+     missingInfoString = '';
 
     constructor(props) {
         super(props);
@@ -60,7 +62,13 @@ class DataSummary extends Component {
 
         const StageString = 'Prognostic Stage: ' + this.props.stage;
         const StageSubElementsString = 'T: ' + this.props.tumorSize + ', ' + 'N: ' + this.props.nodeSize + ', ' + 'M: ' + this.props.metastasis;
-        const StageCheckboxChecked = this.props.hasStagingData;
+        const showMissingString = this.props.hasStagingData;
+
+        if (showMissingString) {
+            this.missingInfoString = '';
+        } else {
+            this.missingInfoString = '*Missing Information';
+        }
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
@@ -133,6 +141,7 @@ class DataSummary extends Component {
                                             <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>
                                         </li>
                                     </div>
+                                    <span id="staging-missing-warning">{this.missingInfoString}</span>
                                 </ul>
                             </Col>
                             <Col xs={6}>
