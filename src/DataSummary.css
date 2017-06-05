@@ -45,7 +45,8 @@
 #data-summary #summary-condition-details ul.summary-section { 
     margin: 0;
     padding-left: 0;
-    list-style: none
+    list-style: none;
+
 }
 
 #data-summary #summary-condition-details ul.summary-section li{ 
@@ -66,4 +67,9 @@
 
 #data-summary #summary-condition-details ul.summary-section li.sub-list{ 
     padding-left: 20px;
+}
+
+#data-summary #summary-condition-details #staging-missing-warning {
+    font-size: 12px;
+    color: red;
 }

@@ -16,29 +16,31 @@ import './App.css';
 
 class App extends Component {
     constructor(props) {
-       super(props);
-       this.state = {
-         prognosticState: 0,
-         tumorSize: 0,
-         nodeSize: 0,
-         metastasis: 0,
-         HER2Status: '+',
-         ERStatus: '+',
-         PRStatus: '+',
-         SummaryKeyData: '',
-         withinStructuredField: null,
-       };
-       this.changeHER2Status = this.changeHER2Status.bind(this);
-       this.changeERStatus = this.changeERStatus.bind(this);
-       this.changePRStatus = this.changePRStatus.bind(this);
-       this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-       this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-       this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-       this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
-       this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-       this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+        super(props);
+        this.state = {
+            hasStagingData: false,
+            prognosticState: 0,
+            tumorSize: 0,
+            nodeSize: 0,
+            metastasis: 0,
+            HER2Status: '+',
+            ERStatus: '+',
+            PRStatus: '+',
+            SummaryKeyData: '',
+            withinStructuredField: null,
+        };
+        this.changeHER2Status = this.changeHER2Status.bind(this);
+        this.changeERStatus = this.changeERStatus.bind(this);
+        this.changePRStatus = this.changePRStatus.bind(this);
+        this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
+        this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
+        this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
+        this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
+        this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
+        this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+
     }
-  
+
     handleStructuredFieldEntered(field) {
         // console.log("structured field entered: " + field);
         this.setState({
@@ -84,33 +86,36 @@ class App extends Component {
         });
     }
 
-    handleStagingTUpdate(t, stage) {
-      console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
-          (t !== "") && this.setState({
-              tumorSize: t,
-              prognosticState: stage,
-          })
-    }
-    handleStagingNUpdate(n, stage) {
-      console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
-          (n !== "") && this.setState({
-              nodeSize: n,
-              prognosticState: stage,
-          })
-    }
-    handleStagingMUpdate(m, stage) {
-      console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
-          (m !== "") && this.setState({
-              metastasis: m,
-              prognosticState: stage,
-          })
-    }
+	handleStagingTUpdate(t, stage) {
+		console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
+        (t !== "") && this.setState({
+            hasStagingData: true,
+            tumorSize: t,
+            prognosticState: stage,
+        })
+	}
+	handleStagingNUpdate(n, stage) {
+		console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
+        (n !== "") && this.setState({
+            hasStagingData: true,
+            nodeSize: n,
+            prognosticState: stage,
+        })
+	}
+	handleStagingMUpdate(m, stage) {
+		console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
+        (m !== "") && this.setState({
+            hasStagingData: true,
+            metastasis: m,
+            prognosticState: stage,
+        })
+	}
 
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="App">
-                    <AppTopWithDrawer 
+                    <AppTopWithDrawer
                         onStructuredFieldEntered={this.handleStructuredFieldEntered}
                         onStructuredFieldExited={this.handleStructuredFieldExited}
                     />
@@ -121,7 +126,7 @@ class App extends Component {
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
-
+                                    hasStagingData={this.state.hasStagingData}
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
@@ -130,6 +135,7 @@ class App extends Component {
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
                                     onSummaryItemSelected={this.handleSummaryUpdate}
+
                                 />
                             </Col>
                             <Col sm={5}>

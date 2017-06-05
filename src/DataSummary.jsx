@@ -24,7 +24,9 @@ class DataSummary extends Component {
         administrativeSex: "Female",
         city: "Boston",
         state: "MA"
-    }
+    };
+
+     missingInfoString = '';
 
     constructor(props) {
         super(props);
@@ -32,7 +34,6 @@ class DataSummary extends Component {
         this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
         this.handleERStatusChange   = this.handleERStatusChange.bind(this)
         this.handlePRStatusChange   = this.handlePRStatusChange.bind(this)
-        // this.handleItemSelected = this.handleItemSelected.bind(this) // did the binding with => down in the html. this is redundant
     }
 
     handleHER2StatusChange (newStatus) {
@@ -58,18 +59,19 @@ class DataSummary extends Component {
     render() {
 
         // Current Staging
-        const StageString = `Stage: ${this.props.stage}`;
-        const StageSubElementsString = `T${this.props.tumorSize} N${this.props.nodeSize} M${this.props.metastasis}`;
-        // const StageCheckboxChecked = (this.props.StageStatus !== "");
-        // const StageString = 'Stage:';
-        // const StageSubElementsString = 'T: N: M: ';
-        const StageCheckboxChecked = false;
+
+        const StageString = 'Prognostic Stage: ' + this.props.stage;
+        const StageSubElementsString = 'T: ' + this.props.tumorSize + ', ' + 'N: ' + this.props.nodeSize + ', ' + 'M: ' + this.props.metastasis;
+        const showMissingString = this.props.hasStagingData;
+
+        if (showMissingString) {
+            this.missingInfoString = '';
+        } else {
+            this.missingInfoString = '*Missing Information';
+        }
 
         // Pathology Results
         const HGAString = 'HGA: HG2';
-        // const HER2StatusString = `HER2 Status: +`;
-        // const ERStatusString = `ER Status: +`;
-        // const PRStatusString = `PR Status: +`;
         const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
         const ERStatusString = `ER Status: ${this.props.ERStatus}`;
         const PRStatusString = `PR Status: ${this.props.PRStatus}`;
@@ -98,8 +100,8 @@ class DataSummary extends Component {
                     <div id="summary-heading">
                         <Row center="xs">
                             <Col xs={6}>
-                                <Avatar 
-                                    src={this.patient.photo} 
+                                <Avatar
+                                    src={this.patient.photo}
                                     size={70}
                                 />
                                 <h1>{this.patient.name}</h1>
@@ -126,70 +128,63 @@ class DataSummary extends Component {
                         </Col>
                     </Row>
 
-                    {/*<div id="summary-condition-overview">                        
-                    </div>
-                    <Row center="xs">
-                        <Col xs={11}>
-                            <Divider />
-                        </Col>
-                    </Row>*/}
-                    
                     <div id="summary-condition-details">
-                        <Row> 
-                            <Col xs={6}> 
+                        <Row>
+                            <Col xs={6}>
                                 <h3>Current Staging</h3>
                                 <ul className="summary-section" id="summary-staging">
                                     <div className="summary-details">
-                                        <li> 
+                                        <li>
                                             <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>
                                         </li>
-                                        <li className="sub-list"> 
+                                        <li className="sub-list">
                                             <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>
                                         </li>
-                                    </div>  
+                                    </div>
+                                    <span id="staging-missing-warning">{this.missingInfoString}</span>
                                 </ul>
                             </Col>
-                            <Col xs={6}> 
+                            <Col xs={6}>
                                 <h3>Pathology Results</h3>
                                 <ul className="summary-section" id="summary-pathology">
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>
                                     </li>
                                     <li>
                                         <span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>
                                     </li>
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span> 
+                                        <span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>
                                     </li>
                                 </ul>
                             </Col>
-                        </Row> 
-                        <Row> 
+                        </Row>
+                        <Row>
                             <Col xs={12}>
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>
                                     </li>
-                                    <li className="sub-list" > 
+                                    <li className="sub-list" >
                                        <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>
                                     </li>
-                                    <li> 
+                                    <li>
                                        <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>
                                     </li>
-                                    <li className="sub-list" > 
+                                    <li className="sub-list" >
                                        <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>
                                     </li>
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>
                                     </li>
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>
                                     </li>
-                                    <li> 
+                                    <li>
                                         <span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>}
                                     </li>
                                 </ul>

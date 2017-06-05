@@ -102,7 +102,7 @@ class StagingForm extends Component {
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
     console.log("StagingForm._handleTumorSizeClick T=" + i);
-    var stage = this._prognosticStage(i, this.props.nodeSizen, this.props.metastasis);
+    var stage = this._prognosticStage(i, this.props.nodeSize, this.props.metastasis);
     this.props.onStagingTUpdate(i, stage);
   }
 
