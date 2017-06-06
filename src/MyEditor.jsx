@@ -108,7 +108,6 @@ class MyEditor extends React.Component {
       trigger: 'space',
       before: /(\.staging)/i,
       transform: (transform, e, data, matches) => {
-        console.log(stagingState)
         const stagingBlock = stagingState.document.nodes.get(0);
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
         const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
@@ -170,7 +169,6 @@ class MyEditor extends React.Component {
 
   onKeyDown = (event, data, state) => {
     if (event.keyCode == 13) { 
-        console.log('triggered')
         event.preventDefault();
         return state
         .transform()

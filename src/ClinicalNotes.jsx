@@ -97,6 +97,10 @@ class ClinicalNotes extends Component {
           </Row>
 
           <MyEditor 
+            tumorSize={this.props.tumorSize}
+            nodeSize={this.props.nodeSize}
+            metastasis={this.props.metastasis}
+
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
 
