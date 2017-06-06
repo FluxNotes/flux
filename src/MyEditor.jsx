@@ -277,7 +277,7 @@ class MyEditor extends React.Component {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
             this.handleStagingMUpdate(val)
-            const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('11111111')])});
+            const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
             const emptyBlockKey = emptyBlock.key;
             const afterEmpty = parseInt(emptyBlock.key) + 2;
             event.preventDefault()
