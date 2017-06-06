@@ -1,6 +1,6 @@
 // Import React!
 import React from 'react'
-import { Editor, Block, Inline, Transform , Raw, Text, Html } from 'slate'
+import { Editor, Block, Document, Inline, Transform , Raw, Text, Html } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List , Map } from 'immutable'
 // Styling
@@ -86,7 +86,7 @@ class MyEditor extends React.Component {
             const id = (props.node) ? props.node.data.get('id') : '';
             return <span id={id} {...props.attributes}>{props.children}</span>;
           },
-          'span':           props => <span {...props.attributes}>{props.children}</span>,
+          'span':          props => <span {...props.attributes}>{props.children}</span>,
           'div':           props => <div {...props.attributes}>{props.children}</div>,
           'list-item':     props => <li {...props.attributes}>{props.children}</li>,
           'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
@@ -108,6 +108,7 @@ class MyEditor extends React.Component {
       trigger: 'space',
       before: /(\.staging)/i,
       transform: (transform, e, data, matches) => {
+        console.log(stagingState)
         const stagingBlock = stagingState.document.nodes.get(0);
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
         const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
@@ -168,6 +169,14 @@ class MyEditor extends React.Component {
   }
 
   onKeyDown = (event, data, state) => {
+    if (event.keyCode == 13) { 
+        console.log('triggered')
+        event.preventDefault();
+        return state
+        .transform()
+        .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
+        .apply();
+    }
     for(const parentNode of state.document.nodes) { 
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
@@ -268,7 +277,9 @@ class MyEditor extends React.Component {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
             this.handleStagingMUpdate(val)
-
+            const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('11111111')])});
+            const emptyBlockKey = emptyBlock.key;
+            const afterEmpty = parseInt(emptyBlock.key) + 2;
             event.preventDefault()
             return state
               .transform()
@@ -278,7 +289,8 @@ class MyEditor extends React.Component {
               .deleteForward()
               .insertText(String.fromCharCode(event.keyCode))
               .collapseToEndOf(mNode)
-              .insertBlock(Block.create({'type': 'span', 'nodes': List([Text.createFromString('  ')])}))
+              .insertBlock(emptyBlock)
+              .removeNodeByKey(afterEmpty.toString())
               .apply();
           } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
