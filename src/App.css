@@ -6,3 +6,7 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.dashboard-panel { 
+    height:600px;
+}

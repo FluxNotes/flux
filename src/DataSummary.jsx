@@ -96,7 +96,7 @@ class DataSummary extends Component {
 
         return (
             <div id="data-summary">
-                <Paper zDepth={1}>
+                <Paper zDepth={1} className={this.props.className}>
                     <div id="summary-heading">
                         <Row center="xs">
                             <Col xs={6}>

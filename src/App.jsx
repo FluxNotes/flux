@@ -7,7 +7,6 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import AppTopWithDrawer from './AppTopWithDrawer';
-import DemographicSummary from './DemographicSummary';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
 import RightPanel from './RightPanel';
@@ -123,10 +122,14 @@ class App extends Component {
                         <Row center="xs">
                             <Col sm={3}>
                                 <DataSummary
+                                    className="dashboard-panel"
+                                    
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
+                                    onSummaryItemSelected={this.handleSummaryUpdate}
                                     hasStagingData={this.state.hasStagingData}
+
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
@@ -134,12 +137,12 @@ class App extends Component {
                                     HER2Status={this.state.HER2Status}
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
-                                    onSummaryItemSelected={this.handleSummaryUpdate}
-
                                 />
                             </Col>
                             <Col sm={5}>
                                 <ClinicalNotes
+                                    className="dashboard-panel"
+
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
@@ -161,6 +164,8 @@ class App extends Component {
                             </Col>
                             <Col sm={3}>
                                 <RightPanel
+                                    className="dashboard-panel"
+
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
