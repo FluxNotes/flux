@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 // Flexbox
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 // Application Components:
 import MyEditor from './MyEditor';
 
@@ -104,9 +104,9 @@ class ClinicalNotes extends Component {
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
 
-            onStagingTUpdate = {this.handleStagingTUpdate}
-            onStagingNUpdate = {this.handleStagingNUpdate}
-            onStagingMUpdate = {this.handleStagingMUpdate}
+            onStagingTUpdate={this.handleStagingTUpdate}
+            onStagingNUpdate={this.handleStagingNUpdate}
+            onStagingMUpdate={this.handleStagingMUpdate}
 
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
           <div>

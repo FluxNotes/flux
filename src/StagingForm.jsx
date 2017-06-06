@@ -1,6 +1,5 @@
 // React imports
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 // material-ui
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';

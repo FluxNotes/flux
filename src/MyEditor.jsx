@@ -1,8 +1,8 @@
 // Import React!
 import React from 'react'
-import { Editor, Block, Document, Inline, Transform , Raw, Text, Html } from 'slate'
+import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
-import { List , Map } from 'immutable'
+import { List } from 'immutable'
 // Styling
 import './MyEditor.css';
 
@@ -168,7 +168,7 @@ class MyEditor extends React.Component {
   }
 
   onKeyDown = (event, data, state) => {
-    if (event.keyCode == 13) { 
+    if (event.keyCode === 13) { 
         event.preventDefault();
         return state
         .transform()
@@ -225,6 +225,8 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
+              default: 
+                return state;
             } 
           }
         } else if (nKeys.includes(state.selection.startKey)) { 
@@ -234,7 +236,6 @@ class MyEditor extends React.Component {
 
             event.preventDefault()
             return state
-
               .transform()
               .moveToRangeOf(nNode)
               .moveStart(1)
@@ -269,6 +270,8 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
+              default: 
+                return state;
             } 
           }
         } else if (mKeys.includes(state.selection.startKey))  { 
@@ -277,7 +280,7 @@ class MyEditor extends React.Component {
             this.handleStagingMUpdate(val)
             const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
             const emptyBlockKey = emptyBlock.key;
-            const afterEmpty = parseInt(emptyBlock.key) + 2;
+            const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
             event.preventDefault()
             return state
               .transform()
@@ -314,6 +317,8 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
+              default: 
+                return state;
             } 
           }
         }
