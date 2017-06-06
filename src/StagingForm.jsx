@@ -26,7 +26,7 @@ class StagingForm extends Component {
     // console.log("in render. t: " + this.props.t);
     return (
       <div id="forms-panel">
-            <Paper zDepth={1}>
+            <Paper zDepth={1}  className={this.props.className}>
                 <div id="staging-form-heading">
                     <h1>Current Stage</h1>
                 </div>

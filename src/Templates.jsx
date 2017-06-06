@@ -11,17 +11,17 @@ import './Templates.css';
 
 class Templates extends Component {
   constructor(props) {
-      super(props);
-
-      this.state = {
-        templates: ['op note', 'follow-up', 'consult note'],
-      };
+        super(props);
+  
+        this.state = {
+          templates: ['op note', 'follow-up', 'consult note'],
+        };
   }
 
   render() {
     return (
         <div id="forms-panel">
-            <Paper zDepth={1}>
+            <Paper zDepth={1}  className={this.props.className}>
                 <div id="templates-heading">
                     <h1> Available Templates</h1>
                 </div>

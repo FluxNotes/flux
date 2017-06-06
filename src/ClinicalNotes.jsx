@@ -69,7 +69,7 @@ class ClinicalNotes extends Component {
     }
     return (
       <div id="clinical-notes">
-        <Paper>
+        <Paper className={this.props.className}>
           <div id="note-description">
             <Row>
               <Col xs={5}>

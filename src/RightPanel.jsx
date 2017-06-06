@@ -25,11 +25,14 @@ class RightPanel extends Component {
   render() {
     if (this.props.withinStructuredField == null) {
         return (
-            <Templates />
+            <Templates 
+              className={this.props.className}
+            />
         );  
     } else {
         return ( 
             <StagingForm 
+                className={this.props.className}
                 tumorSize={this.props.tumorSize} nodeSize={this.props.nodeSize} metastasis={this.props.metastasis} stage={this.props.stage}
                 onStagingTUpdate={this.props.onStagingTUpdate}
                 onStagingNUpdate={this.props.onStagingNUpdate}
