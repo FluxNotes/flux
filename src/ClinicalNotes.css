@@ -25,9 +25,10 @@
     margin: 0;
 }
 
-.editor :global(.public-DraftEditor-content) {
-  min-height: 140px;
+#clinical-notes hr { 
+    margin: 0!important;
 }
+
 
 #notes-message {
     text-align: center;
