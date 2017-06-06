@@ -1,12 +1,12 @@
 .App {
-  height: 100vh; 
+    height: 100vh; 
 }
 
 .App-content { 
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .dashboard-panel { 
-    height:600px;
+    min-height:600px;
 }
