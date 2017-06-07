@@ -56,30 +56,30 @@ class DataSummary extends Component {
 
         // Current Staging
 
-        const StageString = `Prognostic Stage: ${this.props.stage}`;
-        const StageSubElementsString = `T: ${this.props.tumorSize}, N: ${this.props.nodeSize}, M: ${this.props.metastasis}`;
-        const showMissingString = this.props.hasStagingData;
-
-        if (showMissingString) {
+        const Stage = `${this.props.stage}`;
+        const StageSubElements = `T${this.props.tumorSize} N${this.props.nodeSize} M${this.props.metastasis}`;
+        // Check to see if example data is missing
+        if (this.props.hasStagingData) {
             this.missingInfoString = '';
         } else {
             this.missingInfoString = '*Missing Information';
         }
 
         // Pathology Results
-        const HGAString = 'HGA: HG2';
-        const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
-        const ERStatusString = `ER Status: ${this.props.ERStatus}`;
-        const PRStatusString = `PR Status: ${this.props.PRStatus}`;
+        const HGA = 'HG2';
+        const HER2Status = `${this.props.HER2Status}`;
+        const ERStatus = `${this.props.ERStatus}`;
+        const PRStatus = ` ${this.props.PRStatus}`;
 
         // Event Dates
-        const DiagnosisDateString = 'Diagnosis: 05/16/2012';
-        const DiagnosisString = 'Breast Cancer - Stage IIA';
-        const SurgeryDateString = 'Surgery: 06/20/2012';
-        const SurgeryString = 'Lumpectomy/sentinel/lymph node biopsy';
-        const RadiationDateString = 'Radiation: 07/12/2012 - 08/16/2012';
-        const TamoxifenDateString = 'Tamoxifen: 09/01/2012 - 07/01/2014';
-        const RecurrenceDateString = 'Recurrence: 08/02/2015';
+        const DiagnosisDate = '05/16/2012';
+        const Diagnosis = 'Breast Cancer - Stage IIA';
+        const SurgeryDate = '06/20/2012';
+        const Surgery = 'Lumpectomy/sentinel/lymph node biopsy';
+        const RadiationDate = '07/12/2012 - 08/16/2012';
+        const TamoxifenDate = '09/01/2012 - 07/01/2014';
+        const RecurrenceDate = '08/02/2015';
+
 
         return (
             <div id="data-summary">
@@ -122,10 +122,10 @@ class DataSummary extends Component {
                                 <ul className="summary-section" id="summary-staging">
                                     <div className="summary-details">
                                         <li>
-                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>
+                                            Prognostic Stage: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{Stage}</span>
                                         </li>
                                         <li className="sub-list">
-                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>
+                                            <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{StageSubElements}</span>
                                         </li>
                                     </div>
                                     <span id="staging-missing-warning">{this.missingInfoString}</span>
@@ -135,16 +135,16 @@ class DataSummary extends Component {
                                 <h3>Pathology Results</h3>
                                 <ul className="summary-section" id="summary-pathology">
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>
+                                        HGA: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, HGA)}>{HGA}</span>
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>
+                                        HER2 Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, HER2Status)}>{HER2Status}</span>
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>
+                                        ER Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, ERStatus)}>{ERStatus}</span>
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>
+                                        PR Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, PRStatus)}>{PRStatus}</span>
                                     </li>
                                 </ul>
                             </Col>
@@ -154,25 +154,25 @@ class DataSummary extends Component {
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>
+                                        Diagnosis: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, DiagnosisDate, Diagnosis)}>{DiagnosisDate}</span>
                                     </li>
-                                    <li className="sub-list" >
-                                       <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>
+                                        <li className="sub-list" >
+                                           <span onClick={(e) => this.handleItemSelected(e, DiagnosisDate, Diagnosis)}>{Diagnosis}</span>
+                                        </li>
+                                    <li>
+                                       Surgery: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, SurgeryDate, Surgery)}>{SurgeryDate}</span>
+                                    </li>
+                                        <li className="sub-list" >
+                                           <span onClick={(e) => this.handleItemSelected(e, SurgeryDate, Surgery)}>{Surgery}</span>
+                                        </li>
+                                    <li>
+                                        RadiationDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, RadiationDate)}>{RadiationDate}</span>
                                     </li>
                                     <li>
-                                       <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>
-                                    </li>
-                                    <li className="sub-list" >
-                                       <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>
+                                        TamoxifenDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, TamoxifenDate)}>{TamoxifenDate}</span>
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>
-                                    </li>
-                                    <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>
-                                    </li>
-                                    <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>}
+                                        RecurrenceDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, RecurrenceDate)}>{RecurrenceDate}</span>
                                     </li>
                                 </ul>
                             </Col>
