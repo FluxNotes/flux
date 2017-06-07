@@ -127,6 +127,20 @@ class DataSummary extends Component {
                             <Divider />
                         </Col>
                     </Row>
+                    <div id="summary-disease-heading">
+                        <Row >
+                            <Col xs={12}>
+                                <p>Current Diagnosis</p>
+                                <p>Lobular carcinoma of the breast</p>
+                            </Col>
+
+                        </Row>
+                    </div>
+                    <Row center="xs">
+                        <Col xs={11}>
+                            <Divider />
+                        </Col>
+                    </Row>
 
                     <div id="summary-condition-details">
                         <Row>
