@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 // Flexbox
-import { Grid, Row, Col} from 'react-flexbox-grid';
+import { Row, Col} from 'react-flexbox-grid';
 // Styling
 import './Templates.css';
 

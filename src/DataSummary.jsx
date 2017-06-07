@@ -3,14 +3,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 // Material UI component imports
 import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
-import Toggle from 'material-ui/Toggle';
 import Avatar from 'material-ui/Avatar';
 // Flexbox
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
 
 // Styling
 import './DataSummary.css';
@@ -60,8 +56,8 @@ class DataSummary extends Component {
 
         // Current Staging
 
-        const StageString = 'Prognostic Stage: ' + this.props.stage;
-        const StageSubElementsString = 'T: ' + this.props.tumorSize + ', ' + 'N: ' + this.props.nodeSize + ', ' + 'M: ' + this.props.metastasis;
+        const StageString = `Prognostic Stage: ${this.props.stage}`;
+        const StageSubElementsString = `T: ${this.props.tumorSize}, N: ${this.props.nodeSize}, M: ${this.props.metastasis}`;
         const showMissingString = this.props.hasStagingData;
 
         if (showMissingString) {
@@ -75,24 +71,15 @@ class DataSummary extends Component {
         const HER2StatusString = `HER2 Status: ${this.props.HER2Status}`;
         const ERStatusString = `ER Status: ${this.props.ERStatus}`;
         const PRStatusString = `PR Status: ${this.props.PRStatus}`;
-        const HGACheckboxChecked = (this.props.HGAStatus !== "");
-        const HER2CheckboxChecked = (this.props.HER2Status !== "");
-        const ERCheckboxChecked = (this.props.ERStatus !== "");
-        const PRCheckboxChecked = (this.props.PRStatus !== "");
 
         // Event Dates
         const DiagnosisDateString = 'Diagnosis: 05/16/2012';
         const DiagnosisString = 'Breast Cancer - Stage IIA';
-        const DiagnosisCheckboxChecked = (this.props.DiagnosisStatus !== "");
         const SurgeryDateString = 'Surgery: 06/20/2012';
         const SurgeryString = 'Lumpectomy/sentinel/lymph node biopsy';
-        const SurgeryCheckboxChecked = (this.props.SurgeryStatus !== "");
         const RadiationDateString = 'Radiation: 07/12/2012 - 08/16/2012';
-        const RadiationCheckboxChecked = (this.props.RadiationStatus !== "");
         const TamoxifenDateString = 'Tamoxifen: 09/01/2012 - 07/01/2014';
-        const TamoxifenCheckboxChecked = (this.props.TamoxifenStatus !== "");
         const RecurrenceDateString = 'Recurrence: 08/02/2015';
-        const RecurrenceCheckboxChecked = (this.props.RecurrenceStatus !== "");
 
         return (
             <div id="data-summary">
