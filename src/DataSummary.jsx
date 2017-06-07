@@ -122,10 +122,10 @@ class DataSummary extends Component {
                                 <ul className="summary-section" id="summary-staging">
                                     <div className="summary-details">
                                         <li>
-                                            Prognostic Stage: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{Stage}</span>
+                                            Prognostic Stage: <span onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{Stage}</span>
                                         </li>
                                         <li className="sub-list">
-                                            <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{StageSubElements}</span>
+                                            <span onClick={(e) => this.handleItemSelected(e, Stage, StageSubElements)}>{StageSubElements}</span>
                                         </li>
                                     </div>
                                     <span id="staging-missing-warning">{this.missingInfoString}</span>
@@ -135,16 +135,16 @@ class DataSummary extends Component {
                                 <h3>Pathology Results</h3>
                                 <ul className="summary-section" id="summary-pathology">
                                     <li>
-                                        HGA: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, HGA)}>{HGA}</span>
+                                        HGA: <span onClick={(e) => this.handleItemSelected(e, HGA)}>{HGA}</span>
                                     </li>
                                     <li>
-                                        HER2 Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, HER2Status)}>{HER2Status}</span>
+                                        HER2 Status: <span onClick={(e) => this.handleItemSelected(e, HER2Status)}>{HER2Status}</span>
                                     </li>
                                     <li>
-                                        ER Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, ERStatus)}>{ERStatus}</span>
+                                        ER Status: <span onClick={(e) => this.handleItemSelected(e, ERStatus)}>{ERStatus}</span>
                                     </li>
                                     <li>
-                                        PR Status: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, PRStatus)}>{PRStatus}</span>
+                                        PR Status: <span onClick={(e) => this.handleItemSelected(e, PRStatus)}>{PRStatus}</span>
                                     </li>
                                 </ul>
                             </Col>
@@ -154,25 +154,25 @@ class DataSummary extends Component {
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
                                     <li>
-                                        Diagnosis: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, DiagnosisDate, Diagnosis)}>{DiagnosisDate}</span>
+                                        Diagnosis: <span onClick={(e) => this.handleItemSelected(e, DiagnosisDate, Diagnosis)}>{DiagnosisDate}</span>
                                     </li>
                                         <li className="sub-list" >
                                            <span onClick={(e) => this.handleItemSelected(e, DiagnosisDate, Diagnosis)}>{Diagnosis}</span>
                                         </li>
                                     <li>
-                                       Surgery: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, SurgeryDate, Surgery)}>{SurgeryDate}</span>
+                                       Surgery: <span onClick={(e) => this.handleItemSelected(e, SurgeryDate, Surgery)}>{SurgeryDate}</span>
                                     </li>
                                         <li className="sub-list" >
                                            <span onClick={(e) => this.handleItemSelected(e, SurgeryDate, Surgery)}>{Surgery}</span>
                                         </li>
                                     <li>
-                                        RadiationDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, RadiationDate)}>{RadiationDate}</span>
+                                        RadiationDate: <span onClick={(e) => this.handleItemSelected(e, RadiationDate)}>{RadiationDate}</span>
                                     </li>
                                     <li>
-                                        TamoxifenDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, TamoxifenDate)}>{TamoxifenDate}</span>
+                                        TamoxifenDate: <span onClick={(e) => this.handleItemSelected(e, TamoxifenDate)}>{TamoxifenDate}</span>
                                     </li>
                                     <li>
-                                        RecurrenceDate: <span className="highlighted-value" onClick={(e) => this.handleItemSelected(e, RecurrenceDate)}>{RecurrenceDate}</span>
+                                        RecurrenceDate: <span onClick={(e) => this.handleItemSelected(e, RecurrenceDate)}>{RecurrenceDate}</span>
                                     </li>
                                 </ul>
                             </Col>
