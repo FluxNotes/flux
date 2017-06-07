@@ -55,6 +55,10 @@
     font-size:.8rem;
 }
 
+#data-summary #summary-condition-details ul.summary-section li .highlighted-value{ 
+    color: #00bcd4;
+}
+
 #data-summary #summary-condition-details ul.summary-section li:first-child{ 
     margin-top: 10px;
     padding-top: 10px;

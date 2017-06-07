@@ -1,6 +1,5 @@
 // React imports
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 // material-ui
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -26,7 +25,7 @@ class StagingForm extends Component {
     // console.log("in render. t: " + this.props.t);
     return (
       <div id="forms-panel">
-            <Paper zDepth={1}>
+            <Paper zDepth={1}  className={this.props.className}>
                 <div id="staging-form-heading">
                     <h1>Current Stage</h1>
                 </div>
