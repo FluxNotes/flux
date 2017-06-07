@@ -5,8 +5,12 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
 // Flexbox
 import { Row, Col } from 'react-flexbox-grid';
+//font awesome
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 // Styling
 import './DataSummary.css';
@@ -115,13 +119,26 @@ class DataSummary extends Component {
                         </Col>
                     </Row>
                     <div id="summary-disease-heading">
-                        <Row >
+
+                            <RaisedButton className="summary-disease-heading-button">
+                                <i className="fa fa-arrow-left"></i>
+                            </RaisedButton>
+                            <RaisedButton className="summary-disease-heading-button">
+                                <i className="fa fa-arrow-right"></i>
+                            </RaisedButton>
+
+
+                        {/*<Row>*/}
+                        {/*<IconButton iconClassName="fa fa-arrow-left"/>*/}
+                        {/*<IconButton iconClassName="fa fa-arrow-right"/>*/}
+                        {/*</Row>*/}
+
                             <Col xs={12}>
-                                <p>Current Diagnosis</p>
-                                <p>Lobular carcinoma of the breast</p>
+                                <p className="summary-disease-heading-name">Current Diagnosis</p>
+                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
                             </Col>
 
-                        </Row>
+
                     </div>
                     <Row center="xs">
                         <Col xs={11}>
