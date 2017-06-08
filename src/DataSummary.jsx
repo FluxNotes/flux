@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
-import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 // Flexbox
 import { Row, Col } from 'react-flexbox-grid';
@@ -120,23 +119,22 @@ class DataSummary extends Component {
                     </Row>
                     <div id="summary-disease-heading">
 
-                            <RaisedButton className="summary-disease-heading-button">
-                                <i className="fa fa-arrow-left"></i>
-                            </RaisedButton>
-                            <RaisedButton className="summary-disease-heading-button">
-                                <i className="fa fa-arrow-right"></i>
-                            </RaisedButton>
+                            <Row>
+                                <Col xs={9}> 
+                                    <p className="summary-disease-heading-name">Current Diagnosis</p>
+                                </Col> 
+                                <Col xsOffset={1} xs={2}>
+                                    <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
+                                    <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
+                                </Col>
+                            </Row>
 
 
-                        {/*<Row>*/}
-                        {/*<IconButton iconClassName="fa fa-arrow-left"/>*/}
-                        {/*<IconButton iconClassName="fa fa-arrow-right"/>*/}
-                        {/*</Row>*/}
-
-                            <Col xs={12}>
-                                <p className="summary-disease-heading-name">Current Diagnosis</p>
-                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
-                            </Col>
+                            <Row>   
+                                <Col xs={12}>
+                                    <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
+                                </Col>
+                            </Row>
 
 
                     </div>
