@@ -118,25 +118,29 @@ class DataSummary extends Component {
                         </Col>
                     </Row>
                     <div id="summary-disease-heading">
-
-                            <Row>
-                                <Col xs={9}> 
-                                    <p className="summary-disease-heading-name">Current Diagnosis</p>
-                                </Col> 
-                                <Col xsOffset={1} xs={2}>
-                                    <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
-                                    <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
-                                </Col>
-                            </Row>
-
-
-                            <Row>   
-                                <Col xs={12}>
-                                    <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
-                                </Col>
-                            </Row>
-
-
+                        <Row>
+                            <Col xs={10}> 
+                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
+                            </Col> 
+                            <Col xs={2}>
+                                <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
+                                <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
+                            </Col>
+                        </Row>
+{/*                        <Row>
+                            <Col xs={9}> 
+                                <p className="summary-disease-heading-name">Current Diagnosis</p>
+                            </Col> 
+                            <Col xsOffset={1} xs={2}>
+                                <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
+                                <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
+                            </Col>
+                        </Row>
+                        <Row>   
+                            <Col xs={12}>
+                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
+                            </Col>
+                        </Row>*/}
                     </div>
                     <Row center="xs">
                         <Col xs={11}>
