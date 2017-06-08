@@ -29,6 +29,38 @@
     font-weight: bold
 }
 
+#data-summary #summary-disease-heading {
+    padding: 5px 30px;
+}
+
+#data-summary #summary-disease-heading p.summary-disease-heading-name{
+    color: #919191;
+    margin: 1px;
+    margin-top: 15px;
+    font-size: .8rem;
+}
+
+#data-summary #summary-disease-heading p.summary-disease-heading-value{
+    font-size: 1.2rem;
+    margin:7px 0px 15px 0;
+    font-weight: bold;
+}
+
+#data-summary #summary-disease-heading .summary-disease-heading-button .fa {
+    font-size:.6rem!important;
+}
+#data-summary #summary-disease-heading .summary-disease-heading-button {
+    height: auto!important;
+    width: auto!important;
+    padding:5px!important;
+    margin-top: 10px!important;
+}
+
+
+#data-summary #summary-disease-heading .fa {
+    font-size: 15px;
+}
+
 #data-summary #summary-condition-overview { 
     padding: 20px;
 }
@@ -74,6 +106,6 @@
 }
 
 #data-summary #summary-condition-details #staging-missing-warning {
-    font-size: 12px;
+    font-size: .8rem;
     color: red;
 }

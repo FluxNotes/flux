@@ -5,8 +5,11 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
 // Flexbox
 import { Row, Col } from 'react-flexbox-grid';
+//font awesome
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 // Styling
 import './DataSummary.css';
@@ -108,6 +111,36 @@ class DataSummary extends Component {
                                 <p className="summary-heading-detail-value">{this.patient.city}, {this.patient.state}</p>
                             </Col>
                         </Row>
+                    </div>
+                    <Row center="xs">
+                        <Col xs={11}>
+                            <Divider />
+                        </Col>
+                    </Row>
+                    <div id="summary-disease-heading">
+                        <Row>
+                            <Col xs={10}> 
+                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
+                            </Col> 
+                            <Col xs={2}>
+                                <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
+                                <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
+                            </Col>
+                        </Row>
+{/*                        <Row>
+                            <Col xs={9}> 
+                                <p className="summary-disease-heading-name">Current Diagnosis</p>
+                            </Col> 
+                            <Col xsOffset={1} xs={2}>
+                                <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
+                                <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
+                            </Col>
+                        </Row>
+                        <Row>   
+                            <Col xs={12}>
+                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
+                            </Col>
+                        </Row>*/}
                     </div>
                     <Row center="xs">
                         <Col xs={11}>
