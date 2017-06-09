@@ -343,6 +343,26 @@ class MyEditor extends React.Component {
   render = () => {
     return (
       <div className="MyEditor-root">
+        <div className="menu toolbar-menu">
+          <span className="button" data-active="false">
+            <i className="fa fa-bold fa-fw" aria-hidden="true"></i>
+          </span>
+          <span className="button" data-active="false">
+            <i className="fa fa-underline fa-fw" aria-hidden="true"></i>
+          </span>
+          <span className="button" data-active="false">
+            <i className="fa fa-italic fa-fw" aria-hidden="true"></i>
+          </span>
+          <span className="button" data-active="false">
+            <i className="fa fa-code fa-fw" aria-hidden="true"></i>
+          </span>
+          <span className="button" data-active="false">
+            <i className="fa fa-list fa-fw" aria-hidden="true"></i>
+          </span>
+          <span className="button" data-active="false">
+            <i className="fa fa-list-ol fa-fw" aria-hidden="true"></i>
+          </span>
+        </div>
         <Editor
           schema={this.state.schema}
           state={this.state.state}
