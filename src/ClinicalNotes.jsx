@@ -15,49 +15,44 @@ import './ClinicalNotes.css';
 
 class ClinicalNotes extends Component {
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+  // }
 
-    this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
-    this.handleERStatusChange = this.handleERStatusChange.bind(this);
-    this.handlePRStatusChange = this.handlePRStatusChange.bind(this);
-    this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-    this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-    this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-    this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-    this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-  }
-
-  handleHER2StatusChange (newStatus) {
+  handleHER2StatusChange = (newStatus) => {
     this.props.onHER2StatusChange(newStatus);
   }
 
-  handleERStatusChange (newStatus) {
+  handleERStatusChange = (newStatus) => {
     this.props.onERStatusChange(newStatus);
   }
 
-  handlePRStatusChange (newStatus) {
+  handlePRStatusChange = (newStatus) => {
     this.props.onPRStatusChange(newStatus);
   }
 
-  handleStagingTUpdate (newVal) {
-    this.props.onStagingTUpdate(newVal, this.props.stage);
+  handleStagingTUpdate = (newVal) => {
+    this.props.onStagingTUpdate(newVal);
   }
 
-  handleStagingNUpdate (newVal) {
-    this.props.onStagingNUpdate(newVal, this.props.stage);
+  handleStagingNUpdate = (newVal) => {
+    this.props.onStagingNUpdate(newVal);
   }
 
-  handleStagingMUpdate (newVal) {
-    this.props.onStagingMUpdate(newVal, this.props.stage);
+  handleStagingMUpdate = (newVal) => {
+    this.props.onStagingMUpdate(newVal);
   }
 
-  handleStructuredFieldEntered (currentFocus) { 
-    this.props.onStructuredFieldEntered("staging");
+  handleStageUpdate = (newVal) => { 
+    this.props.onStageUpdate(newVal)
   }
 
-  handleStructuredFieldExited (currentFocus) { 
-    this.props.onStructuredFieldExited("staging");
+  handleStructuredFieldEntered = (currentFocus) => { 
+    this.props.onStructuredFieldEntered(currentFocus);
+  }
+
+  handleStructuredFieldExited = (currentFocus) => { 
+    this.props.onStructuredFieldExited(currentFocus);
   }
 
   render() {
@@ -97,17 +92,19 @@ class ClinicalNotes extends Component {
           </Row>
 
           <MyEditor 
-            tumorSize={this.props.tumorSize}
-            nodeSize={this.props.nodeSize}
-            metastasis={this.props.metastasis}
-
+            // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
-
             onStagingTUpdate={this.handleStagingTUpdate}
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
-
+            onStageUpdate={this.handleStageUpdate}
+            // Helper functions
+            calculateStage={this.props.calculateStage}
+            // Properties
+            tumorSize={this.props.tumorSize}
+            nodeSize={this.props.nodeSize}
+            metastasis={this.props.metastasis}
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
           <div>
             {message}

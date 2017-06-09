@@ -21,6 +21,34 @@ class StagingForm extends Component {
       };
   }
 
+  _currentlySelected(item, i) {
+    return (item === i ? true : false);
+  }
+
+  _handleTumorSizeClick = (e, i) => {
+    e.preventDefault();
+    console.log("StagingForm._handleTumorSizeClick T=" + i);
+    var stage = this.props.calculateStage(i, this.props.nodeSize, this.props.metastasis);
+    this.props.onStagingTUpdate(i);
+    this.props.onStageUpdate(stage);
+  }
+
+  _handleNodeClick = (e, i) => {
+    e.preventDefault();
+    console.log("StagingForm._handleNodeClick N=" + i);
+    var stage = this.props.calculateStage(this.props.tumorSize, i, this.props.metastasis);
+    this.props.onStagingNUpdate(i);
+    this.props.onStageUpdate(stage);
+  }
+  
+  _handleMetastasisClick = (e, i) => {
+    e.preventDefault();
+    console.log("StagingForm._handleMetastasisClick M=" + i);
+    var stage = this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, i);
+    this.props.onStagingMUpdate(i);
+    this.props.onStageUpdate(stage);
+  }
+
   render() {
     // console.log("in render. t: " + this.props.t);
     return (
@@ -92,61 +120,6 @@ class StagingForm extends Component {
             </Paper>
         </div>
     );
-  }
-
-  _currentlySelected(item, i) {
-    return (item === i ? true : false);
-  }
-
-  _handleTumorSizeClick = (e, i) => {
-    e.preventDefault();
-    console.log("StagingForm._handleTumorSizeClick T=" + i);
-    var stage = this._prognosticStage(i, this.props.nodeSize, this.props.metastasis);
-    this.props.onStagingTUpdate(i, stage);
-  }
-
-  _handleNodeClick = (e, i) => {
-    e.preventDefault();
-    console.log("StagingForm._handleNodeClick N=" + i);
-    var stage = this._prognosticStage(this.props.tumorSize, i, this.props.metastasis);
-    this.props.onStagingNUpdate(i, stage);
-  }
-  
-  _handleMetastasisClick = (e, i) => {
-    e.preventDefault();
-    console.log("StagingForm._handleMetastasisClick M=" + i);
-    var stage = this._prognosticStage(this.props.tumorSize, this.props.nodeSize, i);
-    this.props.onStagingMUpdate(i, stage);
-  }
-
-  _prognosticStage= (t, n, m) =>  {
-    var stage;
-    // Metastisized cancer is always Stage IV
-    if (m === 1) {
-      stage = 'IV';
-      return stage;
-    }
-
-    // Lookup the rest based on T and N:
-    const lookup = [
-      ['0', 'IIA', 'IIIA', 'IIIC'], // T0
-      ['IA', 'IIA', 'IIIA', 'IIIC'], // T1
-      ['IIA', 'IIB', 'IIIA', 'IIIC'], // T2
-      ['IIB', 'IIIA', 'IIIA', 'IIIC'], // T3
-      ['IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
-    ];
-
-    // With N1M1 Values
-    // const lookup = [
-    //   ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
-    //   ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
-    //   ['IIA', 'IIB', 'IIB', 'IIIA', 'IIIC'], // T2
-    //   ['IIB', 'IIIA', 'IIIA', 'IIIA', 'IIIC'], // T3
-    //   ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
-    // ];
-
-    stage = lookup[t][n];
-    return stage;
   }
 }
 

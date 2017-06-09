@@ -34,6 +34,7 @@ class App extends Component {
         this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
         this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
         this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
+        this.handleStageUpdate = this.handleStageUpdate.bind(this);
         this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
@@ -110,6 +111,43 @@ class App extends Component {
         })
 	}
 
+    calculateStage(t, n, m) { 
+        let stage;
+        // Metastisized cancer is always Stage IV
+        if (m === 1) {
+            stage = 'IV';
+        } else { 
+            // Lookup the rest based on T and N:
+            const lookup = [
+              ['0', 'IIA', 'IIIA', 'IIIC'], // T0
+              ['IA', 'IIA', 'IIIA', 'IIIC'], // T1
+              ['IIA', 'IIB', 'IIIA', 'IIIC'], // T2
+              ['IIB', 'IIIA', 'IIIA', 'IIIC'], // T3
+              ['IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
+            ];
+
+            // With N1M1 Values
+            // const lookup = [
+            //   ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
+            //   ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
+            //   ['IIA', 'IIB', 'IIB', 'IIIA', 'IIIC'], // T2
+            //   ['IIB', 'IIIA', 'IIIA', 'IIIA', 'IIIC'], // T3
+            //   ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
+            // ];
+
+            stage = lookup[t][n];
+        }
+        return stage;
+    }
+
+    handleStageUpdate(stage) {
+        console.log("App.handleStageUpdate. stage=" + stage);
+        (stage !== "") && this.setState({
+            hasStagingData: true,
+            prognosticState: stage,
+        })
+    }
+
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -123,13 +161,14 @@ class App extends Component {
                             <Col sm={3}>
                                 <DataSummary
                                     className="dashboard-panel"
-                                    
+                                    // Update functions
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
                                     onSummaryItemSelected={this.handleSummaryUpdate}
+                                    // Helper functions
                                     hasStagingData={this.state.hasStagingData}
-
+                                    // Properties
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
@@ -142,16 +181,19 @@ class App extends Component {
                             <Col sm={5}>
                                 <ClinicalNotes
                                     className="dashboard-panel"
-
+                                    // Update functions
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
+                                    onStageUpdate={this.handleStageUpdate}
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
-
+                                    // Helper functions
+                                    calculateStage={this.calculateStage}
+                                    // Properties
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
@@ -164,16 +206,20 @@ class App extends Component {
                             </Col>
                             <Col sm={3}>
                                 <RightPanel
-                                    className="dashboard-panel"
-
+                                    className="dashboard-panel" 
+                                    // Update functions
+                                    onStagingTUpdate={this.handleStagingTUpdate}
+                                    onStagingNUpdate={this.handleStagingNUpdate}
+                                    onStagingMUpdate={this.handleStagingMUpdate}
+                                    onStageUpdate={this.handleStageUpdate}
+                                    // Helper functions
+                                    calculateStage={this.calculateStage}
+                                    // Properties
                                     stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
-                                    onStagingTUpdate={this.handleStagingTUpdate}
-                                    onStagingNUpdate={this.handleStagingNUpdate}
-                                    onStagingMUpdate={this.handleStagingMUpdate}
                                 />
                             </Col>
                         </Row>
