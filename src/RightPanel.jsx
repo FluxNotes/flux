@@ -24,10 +24,18 @@ class RightPanel extends Component {
         return ( 
             <StagingForm 
                 className={this.props.className}
-                tumorSize={this.props.tumorSize} nodeSize={this.props.nodeSize} metastasis={this.props.metastasis} stage={this.props.stage}
+                // Update functions
                 onStagingTUpdate={this.props.onStagingTUpdate}
                 onStagingNUpdate={this.props.onStagingNUpdate}
                 onStagingMUpdate={this.props.onStagingMUpdate}
+                onStageUpdate={this.props.onStageUpdate}
+                // Helper functions
+                calculateStage={this.props.calculateStage}
+                // Properties
+                tumorSize={this.props.tumorSize} 
+                nodeSize={this.props.nodeSize} 
+                metastasis={this.props.metastasis} 
+                stage={this.props.stage}
             />
         );
     }

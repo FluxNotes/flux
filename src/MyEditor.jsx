@@ -10,7 +10,6 @@ import './MyEditor.css';
 import structuredDataRaw from './structuredDataRaw';
 const {staging}  = structuredDataRaw;
 
-
 const stagingState = Raw.deserialize(staging, { terse: true });
 
 const initialState = Raw.deserialize({
@@ -146,11 +145,11 @@ class MyEditor extends React.Component {
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
     if(!stagingNode) { 
-      this.props.onStructuredFieldExited(null)
+      this.handleStructuredFieldExited(null)
       this.setState({ state })
     } else { 
      const stagingKeys = addKeysForNode(stagingNode, []);
-     (stagingKeys.includes(state.selection.startKey)) ?  this.props.onStructuredFieldEntered('staging') : this.props.onStructuredFieldExited('staging');
+     (stagingKeys.includes(state.selection.startKey)) ?  this.handleStructuredFieldEntered('staging') : this.handleStructuredFieldExited('staging');
      this.setState({ state })
     }
   }
@@ -165,6 +164,18 @@ class MyEditor extends React.Component {
 
   handleStagingMUpdate = (newVal) => {
     this.props.onStagingMUpdate(newVal);
+  }
+
+  handleStageUpdate = (newVal) => {
+    this.props.onStageUpdate(newVal);
+  }
+
+  handleStructuredFieldEntered = (currentFocus) => { 
+    this.props.onStructuredFieldEntered(currentFocus);
+  }
+
+  handleStructuredFieldExited = (currentFocus) => { 
+    this.props.onStructuredFieldExited(currentFocus);
   }
 
   onKeyDown = (event, data, state) => {
@@ -188,6 +199,7 @@ class MyEditor extends React.Component {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
             this.handleStagingTUpdate(val)
+            this.handleStageUpdate(this.props.calculateStage(val, this.props.nodeSize, this.props.metastasis))
 
             event.preventDefault()
             return state
@@ -233,6 +245,7 @@ class MyEditor extends React.Component {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
             this.handleStagingNUpdate(val)
+            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis))
 
             event.preventDefault()
             return state
@@ -278,6 +291,7 @@ class MyEditor extends React.Component {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
             this.handleStagingMUpdate(val)
+            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, val))
             const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
             const emptyBlockKey = emptyBlock.key;
             const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
