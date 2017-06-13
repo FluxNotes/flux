@@ -56,12 +56,12 @@ class ClinicalNotes extends Component {
   }
 
   render() {
-    var message;
-    if (this.props.itemToBeEntered !== '') {
-      message = <p id="notes-message">The following information from the summary panel is inserted into the clinical notes: <span id="data">{this.props.itemToBeEntered}</span></p>
-    } else {
-      message = <p id="notes-message"></p>
-    }
+    // var message;
+    // if (this.props.itemToBeEntered !== '') {
+    //   message = <p id="notes-message">The following information from the summary panel is inserted into the clinical notes: <span id="data">{this.props.itemToBeEntered}</span></p>
+    // } else {
+    //   message = <p id="notes-message"></p>
+    // }
     return (
       <div id="clinical-notes">
         <Paper className={this.props.className}>
@@ -99,16 +99,20 @@ class ClinicalNotes extends Component {
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
+
             // Helper functions
             calculateStage={this.props.calculateStage}
             // Properties
             tumorSize={this.props.tumorSize}
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}
-            data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}} />
-          <div>
-            {message}
-          </div>
+            data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}}
+            insertedDataFromSummary = {this.props.itemToBeEntered}
+
+          />
+          {/*<div>*/}
+            {/*{message}*/}
+          {/*</div>*/}
         </Paper>
       </div>
         

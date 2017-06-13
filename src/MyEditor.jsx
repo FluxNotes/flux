@@ -37,7 +37,7 @@ const initialState = Raw.deserialize({
   ]
 }, { terse: true })
 
-const DEFAULT_NODE = 'paragraph'
+const DEFAULT_NODE = 'paragraph';
 
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
@@ -111,7 +111,8 @@ class MyEditor extends React.Component {
              textDecoration: 'underline'
           }
         }
-      }
+      },
+      insertedDataFromSummaryPrevious: ''
     }
   }
   
@@ -184,6 +185,10 @@ class MyEditor extends React.Component {
     this.props.onStageUpdate(newVal);
   }
 
+  // handleSummaryDataUpdate = (newVal) => {
+  //
+  // }
+
   handleStructuredFieldEntered = (currentFocus) => { 
     this.props.onStructuredFieldEntered(currentFocus);
   }
@@ -191,6 +196,7 @@ class MyEditor extends React.Component {
   handleStructuredFieldExited = (currentFocus) => { 
     this.props.onStructuredFieldExited(currentFocus);
   }
+
 
   onKeyDown = (event, data, state) => {
     if (data.isMod) { 
@@ -230,6 +236,23 @@ class MyEditor extends React.Component {
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+      // If button has been clicked in summary to insert, insert some text
+      if(this.props.insertedDataFromSummary !== "") {
+        // console.log("previous: " + this.state.insertedDataFromSummaryPrevious);
+        // console.log(this.props.insertedDataFromSummary);
+        if (this.state.insertedDataFromSummaryPrevious !== this.props.insertedDataFromSummary) {
+          this.setState({
+            insertedDataFromSummaryPrevious: this.props.insertedDataFromSummary
+          })
+
+          return state
+              .transform()
+              // .insertText(String.fromCharCode(event.keyCode))
+              .insertText(this.props.insertedDataFromSummary)
+              .apply();
+        }
+      }
 
       if(tNode && nNode && mNode) { 
         const tKeys = addKeysForNode(tNode, []);
