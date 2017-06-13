@@ -219,7 +219,13 @@ class MyEditor extends React.Component {
         .toggleMark(mark)
         .apply()
     }
-
+    if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) { 
+        event.preventDefault();
+        return state
+        .transform()
+        .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
+        .apply();
+    }
     for(const parentNode of state.document.nodes) { 
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');

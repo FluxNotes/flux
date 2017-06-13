@@ -6,8 +6,8 @@
 .MyEditor-root .toolbar-menu {
     padding: 1px 0 17px 18px;
     margin: 0 -20px;
-    border-bottom: 1px solid #eee;
     margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
 }
 .menu > * + * {
     margin-left: 15px;
