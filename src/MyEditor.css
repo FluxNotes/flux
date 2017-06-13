@@ -2,3 +2,23 @@
     font-family: 'Georgia', serif;
     padding: 15px 30px 15px 30px;
 }
+
+.MyEditor-root .toolbar-menu {
+    padding: 1px 0 17px 18px;
+    margin: 0 -20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+.menu > * + * {
+    margin-left: 15px;
+}
+.menu > * {
+    display: inline-block;
+}
+.MyEditor-root .toolbar-menu .button {
+    color: #ccc;
+    cursor: pointer;
+}
+.MyEditor-root .toolbar-menu .button[data-active="true"] {
+  color: black;
+}
