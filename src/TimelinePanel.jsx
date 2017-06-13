@@ -49,8 +49,8 @@ class TimelinePanel extends Component {
             defaultTimeEnd={this.state.defaultTimeEnd}
             rightSidebarWidth={0}
             rightSidebarContent={null}
-            leftSidebarWidth={0}
-            leftSidebarContent={null}
+            sidebarWidth={0}
+            sidebarContent={null}
             timeSteps={this.state.timeSteps}
         />
       </Paper>
