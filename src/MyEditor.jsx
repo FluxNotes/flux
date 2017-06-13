@@ -37,6 +37,8 @@ const initialState = Raw.deserialize({
   ]
 }, { terse: true })
 
+const DEFAULT_NODE = 'paragraph'
+
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
 function getNodeById(nodes, id) { 
@@ -92,10 +94,22 @@ class MyEditor extends React.Component {
           'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
           'block-quote':   props => <blockquote {...props.attributes}>{props.children}</blockquote>
         },
-        marks: { 
-          'bold':          props => <strong>{props.children}</strong>,
-          'italic':        props => <em>{props.children}</em>,
-          'underline':     props => <u>{props.children}</u>,
+        marks: {
+          bold: {
+            fontWeight: 'bold'
+          },
+          code: {
+            fontFamily: 'monospace',
+            backgroundColor: '#eee',
+            padding: '3px',
+            borderRadius: '4px'
+          },
+          italic: {
+            fontStyle: 'italic'
+          },
+          underlined: {
+             textDecoration: 'underline'
+          }
         }
       }
     }
@@ -179,13 +193,33 @@ class MyEditor extends React.Component {
   }
 
   onKeyDown = (event, data, state) => {
-    if (event.keyCode === 13) { 
-        event.preventDefault();
-        return state
+    if (data.isMod) { 
+      let mark
+
+      switch (data.key) {
+        case 'b':
+          mark = 'bold'
+          break
+        case 'i':
+          mark = 'italic'
+          break
+        case 'u':
+          mark = 'underlined'
+          break
+        case '`':
+          mark = 'code'
+          break
+        default:
+          return
+      }
+    
+      event.preventDefault()
+      return state
         .transform()
-        .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
-        .apply();
+        .toggleMark(mark)
+        .apply()
     }
+
     for(const parentNode of state.document.nodes) { 
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
@@ -339,30 +373,122 @@ class MyEditor extends React.Component {
       } 
     }
   }
+
+  /**
+   * Check if the current selection has a mark with `type` in it.
+   */
+  hasMark = (type) => {
+    const { state } = this.state
+    return state.marks.some(mark => mark.type === type)
+  }
+
+  /**
+   * Check if the any of the currently selected blocks are of `type`.
+   */
+  hasBlock = (type) => {
+    const { state } = this.state
+    return state.blocks.some(node => node.type === type)
+  }
+
+  /**
+   * When a mark button is clicked, toggle the current mark.
+   */
+  onClickMark = (e, type) => {
+    e.preventDefault()
+    let { state } = this.state
+    state = state
+      .transform()
+      .toggleMark(type)
+      .apply()
+    this.setState({ state })
+  }
+
+  /**
+   * When a block button is clicked, toggle the block type.
+   */
+  onClickBlock = (e, type) => {
+    e.preventDefault()
+    let { state } = this.state
+    const transform = state.transform()
+    const { document } = state
+
+    // Handle list buttons.
+    if (type === 'bulleted-list' || type === 'numbered-list') {
+      const isList = this.hasBlock('list-item')
+      const isType = state.blocks.some((block) => {
+        return !!document.getClosest(block.key, parent => parent.type === type)
+      })
+
+      if (isList && isType) {
+        transform
+          .setBlock(DEFAULT_NODE)
+          .unwrapBlock('bulleted-list')
+          .unwrapBlock('numbered-list')
+      } else if (isList) {
+        transform
+          .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
+          .wrapBlock(type)
+      } else {
+        transform
+          .setBlock('list-item')
+          .wrapBlock(type)
+      }
+    } else { 
+      // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
+    }
+
+    state = transform.apply()
+    this.setState({ state })
+  }
+
+  /**
+   * Render a mark-toggling toolbar button.
+   */
+  renderMarkButton = (type, icon) => {
+    const isActive = this.hasMark(type)
+    const onMouseDown = e => this.onClickMark(e, type)
+
+    return (
+      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
+        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
+      </span>
+    )
+  }
+
+  /**
+   * Render a block-toggling toolbar button.
+   */
+  renderBlockButton = (type, icon) => {
+    const isActive = this.hasBlock(type)
+    const onMouseDown = e => this.onClickBlock(e, type)
+
+    return (
+      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
+        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
+      </span> 
+    )
+  }
+
+  /**
+   * Render the toolbar.
+   */
+  renderToolbar = () => {
+    return (
+      <div className="menu toolbar-menu">
+        {this.renderMarkButton('bold', 'fa-bold ')}
+        {this.renderMarkButton('italic', 'fa-italic')}
+        {this.renderMarkButton('underlined', 'fa-underline')}
+        {this.renderMarkButton('code', 'fa-code')}
+        {this.renderBlockButton('bulleted-list', 'fa-list')}
+        {this.renderBlockButton('numbered-list', 'fa-list-ol')}
+      </div>
+    )
+  }
   // Render the editor.
   render = () => {
     return (
       <div className="MyEditor-root">
-        <div className="menu toolbar-menu">
-          <span className="button" data-active="false">
-            <i className="fa fa-bold fa-fw" aria-hidden="true"></i>
-          </span>
-          <span className="button" data-active="false">
-            <i className="fa fa-underline fa-fw" aria-hidden="true"></i>
-          </span>
-          <span className="button" data-active="false">
-            <i className="fa fa-italic fa-fw" aria-hidden="true"></i>
-          </span>
-          <span className="button" data-active="false">
-            <i className="fa fa-code fa-fw" aria-hidden="true"></i>
-          </span>
-          <span className="button" data-active="false">
-            <i className="fa fa-list fa-fw" aria-hidden="true"></i>
-          </span>
-          <span className="button" data-active="false">
-            <i className="fa fa-list-ol fa-fw" aria-hidden="true"></i>
-          </span>
-        </div>
+        {this.renderToolbar()}
         <Editor
           schema={this.state.schema}
           state={this.state.state}

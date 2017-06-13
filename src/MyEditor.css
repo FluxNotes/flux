@@ -19,3 +19,6 @@
     color: #ccc;
     cursor: pointer;
 }
+.MyEditor-root .toolbar-menu .button[data-active="true"] {
+  color: black;
+}
