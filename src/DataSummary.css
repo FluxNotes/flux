@@ -105,6 +105,18 @@
     padding-left: 20px;
 }
 
+#data-summary #summary-condition-details .summary-condition-button .fa {
+    font-size:.8rem!important;
+    color: #00d6b2 !important;
+}
+#data-summary #summary-condition-details .summary-condition-button {
+    height: auto!important;
+    width: auto!important;
+    padding:5px!important;
+    /*margin-top: 10px!important;*/
+}
+
+
 #data-summary #summary-condition-details #staging-missing-warning {
     font-size: .8rem;
     color: red;

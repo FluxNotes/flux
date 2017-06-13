@@ -179,10 +179,20 @@ class DataSummary extends Component {
                                 <ul className="summary-section" id="summary-staging">
                                     <div className="summary-details">
                                         <li>
-                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageString}</span>
+                                            <span>{StageString}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}
+                                            />
                                         </li>
                                         <li className="sub-list">
-                                            <span onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}>{StageSubElementsString}</span>
+                                            <span>{StageSubElementsString}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}
+                                            />
                                         </li>
                                     </div>
                                     <span id="staging-missing-warning">{this.missingInfoString}</span>
@@ -192,16 +202,36 @@ class DataSummary extends Component {
                                 <h3>Pathology Results</h3>
                                 <ul className="summary-section" id="summary-pathology">
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, HGAString)}>{HGAString}</span>
+                                        <span>{HGAString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, HGAString)}
+                                        />
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, HER2StatusString)}>{HER2StatusString}</span>
+                                        <span>{HER2StatusString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, HER2StatusString)}
+                                        />
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, ERStatusString)}>{ERStatusString}</span>
+                                        <span>{ERStatusString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, ERStatusString)}
+                                        />
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, PRStatusString)}>{PRStatusString}</span>
+                                        <span>{PRStatusString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, PRStatusString)}
+                                        />
                                     </li>
                                 </ul>
                             </Col>
@@ -211,25 +241,60 @@ class DataSummary extends Component {
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisDateString}</span>
+                                        <span>{DiagnosisDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}
+                                        />
                                     </li>
                                         <li className="sub-list" >
-                                           <span onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}>{DiagnosisString}</span>
+                                           <span>{DiagnosisString}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}
+                                            />
                                         </li>
                                     <li>
-                                       <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryDateString}</span>
+                                       <span>{SurgeryDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}
+                                        />
                                     </li>
                                         <li className="sub-list" >
-                                           <span onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}>{SurgeryString}</span>
+                                           <span>{SurgeryString}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}
+                                            />
                                         </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, RadiationDateString)}>{RadiationDateString}</span>
+                                        <span>{RadiationDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, RadiationDateString)}
+                                        />
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}>{TamoxifenDateString}</span>
+                                        <span>{TamoxifenDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}
+                                        />
                                     </li>
                                     <li>
-                                        <span onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}>{RecurrenceDateString}</span>
+                                        <span>{RecurrenceDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}
+                                        />
                                     </li>
                                 </ul>
                             </Col>
