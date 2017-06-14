@@ -79,7 +79,11 @@ class MyEditor extends React.Component {
 
     // Set the initial state when the app is first constructed.
     this.state = {
+      inAutocomplete: false,
+      autocompleteText: "",
       state: initialState,
+      // TODO: Clean up options and load them from an external source
+      autocompleteOptions: [{label: 'staging'}, {label: 'stage'}, {label:'receptor-status'}],
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
@@ -193,190 +197,221 @@ class MyEditor extends React.Component {
   }
 
   onKeyDown = (event, data, state) => {
-    if (data.isMod) { 
-      let mark
-
-      switch (data.key) {
-        case 'b':
-          mark = 'bold'
-          break
-        case 'i':
-          mark = 'italic'
-          break
-        case 'u':
-          mark = 'underlined'
-          break
-        case '`':
-          mark = 'code'
-          break
-        default:
-          return
+    // Continue handling autocompletes    
+    if(this.state.inAutocomplete) {
+      switch (event.keyCode) { 
+        case 32: // Deactivate on spacebar 
+          this.setState({
+            inAutocomplete: false, 
+            autocompleteText: "",
+          });
+          break;
+        case 13: // Handle enter clicks to insert text
+          break;
+        case 8:  // Handle deletions by updating the autocompleteText
+          const textLength = this.state.autocompleteText.length;
+          (textLength > 0) ? this.setState({ autocompleteText: this.state.autocompleteText.slice(0, textLength -1)}) : this.setState({ inAutocomplete: false, autocompleteText: ""});
+          break;
+        default: // Continue growing autocompleteText and offering updated suggestions
+          const newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
+          this.setState({
+              autocompleteText: newText,
+          })
+          break;
       }
-    
-      event.preventDefault()
-      return state
-        .transform()
-        .toggleMark(mark)
-        .apply()
-    }
-    if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) { 
-        event.preventDefault();
-        return state
-        .transform()
-        .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
-        .apply();
-    }
-    for(const parentNode of state.document.nodes) { 
-      const tNode = getNodeById(parentNode.nodes, 't-staging');
-      const nNode = getNodeById(parentNode.nodes, 'n-staging');
-      const mNode = getNodeById(parentNode.nodes, 'm-staging');
-
-      if(tNode && nNode && mNode) { 
-        const tKeys = addKeysForNode(tNode, []);
-        const nKeys = addKeysForNode(nNode, []);
-        const mKeys = addKeysForNode(mNode, []);
-        if (tKeys.includes(state.selection.startKey)) { 
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingTUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(val, this.props.nodeSize, this.props.metastasis))
-
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(tNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .moveToRangeOf(nNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default: 
-                return state;
-            } 
-          }
-        } else if (nKeys.includes(state.selection.startKey)) { 
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingNUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis))
-
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(nNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .moveToRangeOf(mNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default: 
-                return state;
-            } 
-          }
-        } else if (mKeys.includes(state.selection.startKey))  { 
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingMUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, val))
-            const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
-            const emptyBlockKey = emptyBlock.key;
-            const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(mNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .collapseToEndOf(mNode)
-              .insertBlock(emptyBlock)
-              .removeNodeByKey(afterEmpty.toString())
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default: 
-                return state;
-            } 
-          }
+    } else { 
+      if (event.keyCode === 190) {
+        // Trigger autocomplete mode if a '.' is typed 
+        this.setState({
+          inAutocomplete: true,
+          autocompleteText: ""
+        });
+      } else if (data.isMod) { 
+        // Handle ctrl-b and other shortkeys for format switching 
+        let mark
+        switch (data.key) {
+          case 'b':
+            mark = 'bold'
+            break
+          case 'i':
+            mark = 'italic'
+            break
+          case 'u':
+            mark = 'underlined'
+            break
+          case '`':
+            mark = 'code'
+            break
+          default:
+            return
         }
-      } 
+        event.preventDefault()
+        return state
+          .transform()
+          .toggleMark(mark)
+          .apply()
+      } else if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
+          // Handle new lines in the case where we aren't in a list 
+          event.preventDefault();
+          return state
+          .transform()
+          .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
+          .apply();
+      } else {
+        // Search all nodes to find if structured nodes that need checking 
+        for(const parentNode of state.document.nodes) { 
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          if(tNode && nNode && mNode) { 
+            const tKeys = addKeysForNode(tNode, []);
+            const nKeys = addKeysForNode(nNode, []);
+            const mKeys = addKeysForNode(mNode, []);
+            if (tKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingTUpdate(val)
+                this.handleStageUpdate(this.props.calculateStage(val, this.props.nodeSize, this.props.metastasis))
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
+                event.preventDefault();
+                switch(String.fromCharCode(event.keyCode)) { 
+                  case "T": 
+                    return state
+                     .transform()
+                     .moveToRangeOf(tNode)
+                     .moveStart(1)
+                     .moveEnd(-1)
+                     .apply();
+                  case "N":
+                    return state
+                      .transform()
+                      .moveToRangeOf(nNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  case "M":
+                    return state
+                      .transform()
+                      .moveToRangeOf(mNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  default: 
+                    return state;
+                } 
+              }
+            } else if (nKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingNUpdate(val)
+                this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis))
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
+                event.preventDefault();
+                switch(String.fromCharCode(event.keyCode)) { 
+                  case "T": 
+                    return state
+                     .transform()
+                     .moveToRangeOf(tNode)
+                     .moveStart(1)
+                     .moveEnd(-1)
+                     .apply();
+                  case "N":
+                    return state
+                      .transform()
+                      .moveToRangeOf(nNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  case "M":
+                    return state
+                      .transform()
+                      .moveToRangeOf(mNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  default: 
+                    return state;
+                } 
+              }
+            } else if (mKeys.includes(state.selection.startKey))  { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingMUpdate(val)
+                this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, val))
+                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
+                const emptyBlockKey = emptyBlock.key;
+                const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .collapseToEndOf(mNode)
+                  .insertBlock(emptyBlock)
+                  .removeNodeByKey(afterEmpty.toString())
+                  .apply();
+              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
+                event.preventDefault();
+                switch(String.fromCharCode(event.keyCode)) { 
+                  case "T": 
+                    return state
+                     .transform()
+                     .moveToRangeOf(tNode)
+                     .moveStart(1)
+                     .moveEnd(-1)
+                     .apply();
+                  case "N":
+                    return state
+                      .transform()
+                      .moveToRangeOf(nNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  case "M":
+                    return state
+                      .transform()
+                      .moveToRangeOf(mNode)
+                      .moveStart(1)
+                      .moveEnd(-1)
+                      .apply();
+                  default: 
+                    return state;
+                } 
+              }
+            }
+          }
+        } 
+      }
     }
   }
 
@@ -448,6 +483,40 @@ class MyEditor extends React.Component {
   }
 
   /**
+   *  Lifecycle Methods
+   */
+  // componentDidUpdate = (prevProps, prevState) => { 
+  //   window.state = this.state.state;
+  //   console.log(this.state.state);
+  //   var re2 = /\s\.(\w(\w*-?\w*)+)/g;
+  //   for(const txt of this.state.state.texts) { 
+  //     const shorthand = txt.text.match(re2)
+  //     if (shorthand) {
+  //       console.log(shorthand)
+
+  //     }
+  //   }
+  // }
+  determineAutocompleteMatches = (autocompleteText) => {
+    let matches = []; 
+    const regexFromAutocompleteText = new RegExp(autocompleteText, 'i');
+    for (const opt of this.state.autocompleteOptions) { 
+      if(opt.label.match(regexFromAutocompleteText))  { 
+        matches.push(opt.label);
+      }
+    }
+    return matches.length > 5 ? matches.slice(0,5) : matches;
+  }
+  componentDidUpdate = (prevProps, prevState) => { 
+    console.log(this.state.state);
+    if (this.state.inAutocomplete) { 
+      const matches = this.determineAutocompleteMatches(this.state.autocompleteText);
+      console.log(matches);
+      
+    }
+  }
+
+  /**
    * Render a mark-toggling toolbar button.
    */
   renderMarkButton = (type, icon) => {
@@ -460,7 +529,6 @@ class MyEditor extends React.Component {
       </span>
     )
   }
-
   /**
    * Render a block-toggling toolbar button.
    */
@@ -474,7 +542,6 @@ class MyEditor extends React.Component {
       </span> 
     )
   }
-
   /**
    * Render the toolbar.
    */
@@ -492,6 +559,7 @@ class MyEditor extends React.Component {
   }
   // Render the editor.
   render = () => {
+    console.log(this.state)
     return (
       <div className="MyEditor-root">
         {this.renderToolbar()}
