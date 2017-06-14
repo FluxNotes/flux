@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 // Material UI components:
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
 // Timeline components:
 import Timeline from 'react-calendar-timeline';
 import moment from 'moment';
@@ -29,8 +28,8 @@ class TimelinePanel extends Component {
             {id: 5, group: 5, title: 'Coumadin', start_time: moment("20150805"), end_time: moment("20150805").add(4, 'months')},
             {id: 6, group: 6, title: 'Aromaysin25', start_time: moment("20161220"), end_time: moment()}
         ],
-        defaultTimeStart: moment("20110501"),
-        defaultTimeEnd: moment().add(1, 'month'),
+        defaultTimeStart: moment("20130501"),
+        defaultTimeEnd: moment().add(1, 'year'),
         timeSteps: {
           day: 1,
           month: 1,
