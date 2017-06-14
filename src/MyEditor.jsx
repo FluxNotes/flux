@@ -81,6 +81,7 @@ class MyEditor extends React.Component {
     this.state = {
       inAutocomplete: false,
       autocompleteText: "",
+      autocompleteMatches: [],
       state: initialState,
       // TODO: Clean up options and load them from an external source
       autocompleteOptions: [{label: 'staging'}, {label: 'stage'}, {label:'receptor-status'}],
@@ -214,8 +215,18 @@ class MyEditor extends React.Component {
           break;
         default: // Continue growing autocompleteText and offering updated suggestions
           const newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
+          const matches = this.determineAutocompleteMatches(newText);
+          const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+          if (closestDOMElement) {
+            const cursorPosition = closestDOMElement.getBoundingClientRect()
+            console.log(cursorPosition)
+
+          } else { 
+            console.log(`couldn't find dom element at key ${this.state.state.anchorKey}`);  
+          }
           this.setState({
               autocompleteText: newText,
+              autocompleteMatches: matches,
           })
           break;
       }
@@ -508,12 +519,7 @@ class MyEditor extends React.Component {
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
   componentDidUpdate = (prevProps, prevState) => { 
-    console.log(this.state.state);
-    if (this.state.inAutocomplete) { 
-      const matches = this.determineAutocompleteMatches(this.state.autocompleteText);
-      console.log(matches);
-      
-    }
+    //Nothing now
   }
 
   /**
@@ -557,12 +563,32 @@ class MyEditor extends React.Component {
       </div>
     )
   }
-  // Render the editor.
+  /**
+   * Render the dropdown of suggestions.
+   */
+  renderDropdown = () => { 
+    return (
+      <div className="menu hover-menu">
+        {this.state.autocompleteMatches.map((match, index) => {
+          return (
+              <div className="menuItem" key={index} >
+                {match}
+              </div>
+          );}
+        )}
+      </div> 
+    )
+  }
+
+  /**
+   * Render the editor, toolbar and dropdown when needed.
+   */
   render = () => {
     console.log(this.state)
     return (
       <div className="MyEditor-root">
         {this.renderToolbar()}
+        {this.renderDropdown()}
         <Editor
           schema={this.state.schema}
           state={this.state.state}
