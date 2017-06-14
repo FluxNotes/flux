@@ -1,5 +1,10 @@
 .timeline-paper {
-  padding: 20px !important;
+  padding: 30px !important;
+}
+
+/* Timeline bounding box */
+.rct-outer {
+  border-bottom: 1px solid #ddd !important;
 }
 
 /* Date labels */
@@ -35,6 +40,19 @@
 /* Items */
 .rct-item {
   color: #333 !important;
+  font-size: 14px !important;
+}
+
+.medication-item {
   background-color: #b6daf7 !important;
   border-color: #b6daf7 !important;
+}
+
+.radiation-item {
+  background-color: #fa9f8f !important;
+  border-color: #fa9f8f !important;
+}
+
+.bold-item {
+  font-weight: bolder !important;
 }

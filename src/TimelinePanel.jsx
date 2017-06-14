@@ -13,23 +13,24 @@ class TimelinePanel extends Component {
 
     this.state = {
         groups: [
-            {id: 1, title: 'Adriamycin', canMove: false, canResize: false, canChangeGroup: false},
-            {id: 2, title: 'Cytoxin', canMove: false, canResize: false, canChangeGroup: false},
-            {id: 3, title: 'Tamoxifen', canMove: false, canResize: false, canChangeGroup: false},
-            {id: 4, title: 'Letrozole', canMove: false, canResize: false, canChangeGroup: false},
-            {id: 5, title: 'Coumadin', canMove: false, canResize: false, canChangeGroup: false},
-            {id: 6, title: 'Aromaysin25', canMove: false, canResize: false, canChangeGroup: false}
+            {id: 1, title: 'med1', canMove: false, canResize: false, canChangeGroup: false},
+            {id: 2, title: 'med2', canMove: false, canResize: false, canChangeGroup: false},
+            {id: 3, title: 'med3', canMove: false, canResize: false, canChangeGroup: false}
         ],
         items: [
-            {id: 1, group: 1, title: 'Adriamycin', start_time: moment("20110501"), end_time: moment("20110501").add(1, 'year')},
-            {id: 2, group: 2, title: 'Cytoxin', start_time: moment("20110501"), end_time: moment("20110501").add(1, 'year')},
-            {id: 3, group: 3, title: 'Tamoxifen', start_time: moment("20131101"), end_time: moment("20160813")},
-            {id: 4, group: 4, title: 'Letrozole', start_time: moment("20150110"), end_time: moment("20150110").add(1, 'year')},
-            {id: 5, group: 5, title: 'Coumadin', start_time: moment("20150805"), end_time: moment("20150805").add(4, 'months')},
-            {id: 6, group: 6, title: 'Aromaysin25', start_time: moment("20161220"), end_time: moment()}
+            // Initial treatment regimen
+            {id: 1, group: 1, title: 'Adriamycin', 'details': '60mg/m2 once every 28 days', className: 'medication-item', start_time: moment("20110901"), end_time: moment("20120820")},
+            {id: 2, group: 2, title: 'Cytoxin', 'details': '10mg/kg once every 10 days', className: 'medication-item', start_time: moment("20110901"), end_time: moment("20120820")},
+            {id: 7, group: 3, title: 'Radiation', className: 'radiation-item', start_time: moment("20120712"), end_time: moment("20120816")},
+
+            // Treatment for recurrence
+            {id: 3, group: 2, title: 'Tamoxifen', 'details': '20mg once daily', className: 'medication-item', start_time: moment("20131101"), end_time: moment("20160813")},
+            {id: 4, group: 3, title: 'Letrozole', 'details': '2.5mg once daily', className: 'medication-item', start_time: moment("20150110"), end_time: moment("20150110").add(1, 'year')},
+            {id: 5, group: 1, title: 'Coumadin', 'details': '2mg once daily', className: 'medication-item', start_time: moment("20150905"), end_time: moment("20170601")},
+            {id: 6, group: 3, title: 'Aromaysin', 'details': '25mg once daily', className: 'medication-item', start_time: moment("20170605"), end_time: moment("20180101")}
         ],
-        defaultTimeStart: moment("20130501"),
-        defaultTimeEnd: moment().add(1, 'year'),
+        defaultTimeStart: moment().add(-40, 'months'),
+        defaultTimeEnd: moment().add(17, 'months'),
         timeSteps: {
           day: 1,
           month: 1,
@@ -51,6 +52,9 @@ class TimelinePanel extends Component {
             sidebarWidth={0}
             sidebarContent={null}
             timeSteps={this.state.timeSteps}
+            lineHeight={40}
+            itemHeightRatio={0.7}
+            itemRenderer={Item}
         />
       </Paper>
     )
@@ -58,3 +62,21 @@ class TimelinePanel extends Component {
 }
 
 export default TimelinePanel;
+
+// Item provides custom rendering of the the content of a timeline item
+class Item extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    if (this.props.item.details) {
+      return (
+        <span><strong>{this.props.item.title}</strong> &nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>
+      )
+    }
+    return (
+      <span><strong>{this.props.item.title}</strong></span>
+    )
+  }
+};

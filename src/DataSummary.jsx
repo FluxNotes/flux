@@ -46,7 +46,7 @@ class DataSummary extends Component {
     handlePRStatusChange (newStatus) {
       this.props.onPRStatusChange(newStatus);
     }
-    
+
     handleItemSelected(e, itemString, subItemString) {
         if (subItemString) {
             this.props.onSummaryItemSelected(itemString, subItemString);
@@ -82,13 +82,13 @@ class DataSummary extends Component {
         const PRStatusString = ` PR Status: ${PRStatus}`;
 
         // Event Dates
-        const DiagnosisDate = '05/16/2012';
+        const DiagnosisDate = '08/11/2011';
         const Diagnosis = 'Breast Cancer - Stage IIA';
-        const SurgeryDate = '06/20/2012';
+        const SurgeryDate = '09/20/2012';
         const Surgery = 'Lumpectomy/sentinel/lymph node biopsy';
         const RadiationDate = '07/12/2012 - 08/16/2012';
-        const TamoxifenDate = '09/01/2012 - 07/01/2014';
-        const RecurrenceDate = '08/02/2015';
+        const TamoxifenDate = '11/03/2013 - 08/12/2016';
+        const RecurrenceDate = '10/28/2013';
 
         const DiagnosisDateString = `Diagnosis: ${DiagnosisDate}`;
         const DiagnosisString = `${Diagnosis}`;
@@ -134,33 +134,33 @@ class DataSummary extends Component {
                     </Row>
                     <div id="summary-disease-heading">
                         <Row>
-                            <Col xs={9}> 
+                            <Col xs={9}>
                                 <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
-                            </Col> 
+                            </Col>
                             <Col xs={3}>
-                                <IconButton 
-                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}} 
-                                    className="summary-disease-heading-button" 
+                                <IconButton
+                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}}
+                                    className="summary-disease-heading-button"
                                     iconClassName="fa fa-arrow-left"
                                 />
-                                <IconButton 
-                                    disabled={true} 
-                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}} 
-                                    className="summary-disease-heading-button" 
+                                <IconButton
+                                    disabled={true}
+                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}}
+                                    className="summary-disease-heading-button"
                                     iconClassName="fa fa-arrow-right"
                                 />
                             </Col>
                         </Row>
 {/*                        <Row>
-                            <Col xs={9}> 
+                            <Col xs={9}>
                                 <p className="summary-disease-heading-name">Current Diagnosis</p>
-                            </Col> 
+                            </Col>
                             <Col xsOffset={1} xs={2}>
                                 <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
                                 <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
                             </Col>
                         </Row>
-                        <Row>   
+                        <Row>
                             <Col xs={12}>
                                 <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
                             </Col>
@@ -281,19 +281,19 @@ class DataSummary extends Component {
                                         />
                                     </li>
                                     <li>
-                                        <span>{TamoxifenDateString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}
-                                        />
-                                    </li>
-                                    <li>
                                         <span>{RecurrenceDateString}</span>
                                         <IconButton
                                             className="summary-condition-button"
                                             iconClassName="fa fa-plus-square"
                                             onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}
+                                        />
+                                    </li>
+                                    <li>
+                                        <span>{TamoxifenDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}
                                         />
                                     </li>
                                 </ul>
