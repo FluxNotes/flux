@@ -82,7 +82,7 @@ class DataSummary extends Component {
         const PRStatusString = ` PR Status: ${PRStatus}`;
 
         // Event Dates
-        const DiagnosisDate = '08/11/2011';
+        const DiagnosisDate = '01/13/2012';
         const Diagnosis = 'Breast Cancer - Stage IIA';
         const SurgeryDate = '09/20/2012';
         const Surgery = 'Lumpectomy/sentinel/lymph node biopsy';
@@ -240,7 +240,7 @@ class DataSummary extends Component {
                             <Col xs={12}>
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
-                                    <li>
+                                    <li className="summary-item">
                                         <span>{DiagnosisDateString}</span>
                                         <IconButton
                                             className="summary-condition-button"
@@ -256,7 +256,15 @@ class DataSummary extends Component {
                                                 onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}
                                             />
                                         </li>
-                                    <li>
+                                    <li className="summary-item">
+                                        <span>{RadiationDateString}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, RadiationDateString)}
+                                        />
+                                    </li>
+                                    <li className="summary-item">
                                        <span>{SurgeryDateString}</span>
                                         <IconButton
                                             className="summary-condition-button"
@@ -272,15 +280,7 @@ class DataSummary extends Component {
                                                 onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}
                                             />
                                         </li>
-                                    <li>
-                                        <span>{RadiationDateString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, RadiationDateString)}
-                                        />
-                                    </li>
-                                    <li>
+                                    <li className="summary-item">
                                         <span>{RecurrenceDateString}</span>
                                         <IconButton
                                             className="summary-condition-button"
@@ -288,7 +288,7 @@ class DataSummary extends Component {
                                             onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}
                                         />
                                     </li>
-                                    <li>
+                                    <li className="summary-item">
                                         <span>{TamoxifenDateString}</span>
                                         <IconButton
                                             className="summary-condition-button"

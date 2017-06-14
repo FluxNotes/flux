@@ -19,8 +19,8 @@ class TimelinePanel extends Component {
         ],
         items: [
             // Initial treatment regimen
-            {id: 1, group: 1, title: 'Adriamycin', 'details': '60mg/m2 once every 28 days', className: 'medication-item', start_time: moment("20110901"), end_time: moment("20120820")},
-            {id: 2, group: 2, title: 'Cytoxin', 'details': '10mg/kg once every 10 days', className: 'medication-item', start_time: moment("20110901"), end_time: moment("20120820")},
+            {id: 1, group: 1, title: 'Adriamycin', 'details': '6 cycles of 60mg/m2', className: 'medication-item', start_time: moment("20120210"), end_time: moment("20120820")},
+            {id: 2, group: 2, title: 'Cytoxin', 'details': '6 cycles of 10mg/kg', className: 'medication-item', start_time: moment("20120210"), end_time: moment("20120820")},
             {id: 7, group: 3, title: 'Radiation', className: 'radiation-item', start_time: moment("20120712"), end_time: moment("20120816")},
 
             // Treatment for recurrence
