@@ -10,6 +10,7 @@ import AppTopWithDrawer from './AppTopWithDrawer';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
 import RightPanel from './RightPanel';
+import TimelinePanel from './TimelinePanel';
 
 import './App.css';
 
@@ -25,7 +26,7 @@ class App extends Component {
             HER2Status: '+',
             ERStatus: '+',
             PRStatus: '+',
-            SummaryKeyData: '',
+            SummaryItemToInsert: '',
             withinStructuredField: null,
         };
         this.changeHER2Status = this.changeHER2Status.bind(this);
@@ -35,10 +36,9 @@ class App extends Component {
         this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
         this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
         this.handleStageUpdate = this.handleStageUpdate.bind(this);
-        this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
+        this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-
     }
 
     handleStructuredFieldEntered(field) {
@@ -77,12 +77,12 @@ class App extends Component {
         // Nothing right now
     }
 
-    handleSummaryUpdate(itemString, subItemString) {
+    handleSummaryItemSelected(itemString, subItemString) {
         (itemString !== "") && (subItemString !== "") && this.setState({
-            SummaryKeyData: itemString + ", " + subItemString
+            SummaryItemToInsert: itemString + ", " + subItemString
         });
         (itemString !== "") && (subItemString === "") && this.setState({
-            SummaryKeyData: itemString
+            SummaryItemToInsert: itemString
         });
     }
 
@@ -111,12 +111,12 @@ class App extends Component {
         })
 	}
 
-    calculateStage(t, n, m) { 
+    calculateStage(t, n, m) {
         let stage;
         // Metastisized cancer is always Stage IV
         if (m === 1) {
             stage = 'IV';
-        } else { 
+        } else {
             // Lookup the rest based on T and N:
             const lookup = [
               ['0', 'IIA', 'IIIA', 'IIIC'], // T0
@@ -165,7 +165,7 @@ class App extends Component {
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
-                                    onSummaryItemSelected={this.handleSummaryUpdate}
+                                    onSummaryItemSelected={this.handleSummaryItemSelected}
                                     // Helper functions
                                     hasStagingData={this.state.hasStagingData}
                                     // Properties
@@ -201,12 +201,12 @@ class App extends Component {
                                     HER2Status={this.state.HER2Status}
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
-                                    itemToBeEntered={this.state.SummaryKeyData}
+                                    itemToBeInserted={this.state.SummaryItemToInsert}
                                 />
                             </Col>
                             <Col sm={3}>
                                 <RightPanel
-                                    className="dashboard-panel" 
+                                    className="dashboard-panel"
                                     // Update functions
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
@@ -221,6 +221,11 @@ class App extends Component {
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
                                 />
+                            </Col>
+                        </Row>
+                        <Row center="xs">
+                            <Col sm={11}>
+                                <TimelinePanel />
                             </Col>
                         </Row>
                     </Grid>

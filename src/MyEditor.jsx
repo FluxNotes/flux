@@ -38,7 +38,7 @@ const initialState = Raw.deserialize({
   ]
 }, { terse: true })
 
-const DEFAULT_NODE = 'paragraph'
+const DEFAULT_NODE = 'paragraph';
 
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
@@ -117,10 +117,21 @@ class MyEditor extends React.Component {
              textDecoration: 'underline'
           }
         }
-      }
+      },
     }
   }
-  
+
+  // This gets called when the state receives new updates 
+  componentWillReceiveProps(nextProps) {
+    // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
+    // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
+
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+    }
+  }
+
+
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
@@ -190,6 +201,15 @@ class MyEditor extends React.Component {
     this.props.onStageUpdate(newVal);
   }
 
+  handleSummaryUpdate = (itemToBeInserted) => {
+    const currentState = this.state.state;
+    const state = currentState
+        .transform()
+        .insertText(itemToBeInserted)
+        .apply();
+    this.setState({ state: state })
+  }
+
   handleStructuredFieldEntered = (currentFocus) => { 
     this.props.onStructuredFieldEntered(currentFocus);
   }
@@ -197,6 +217,7 @@ class MyEditor extends React.Component {
   handleStructuredFieldExited = (currentFocus) => { 
     this.props.onStructuredFieldExited(currentFocus);
   }
+
 
   onKeyDown = (event, data, state) => {
     // Continue handling autocompletes    
@@ -234,6 +255,7 @@ class MyEditor extends React.Component {
               autocompleteMatches: matches,
           })
           break;
+
       }
     } else { 
       if (event.keyCode === 190) {
@@ -576,7 +598,8 @@ class MyEditor extends React.Component {
       <div className="menu autocomplete-menu">
         {this.state.autocompleteMatches.map((match, index) => {
           return (
-              <div className="menu-item" key={index} >
+              <div className="menu-item" 
+                   key={index} >
                 {match}
               </div>
           );}

@@ -4,6 +4,8 @@ import MenuItem from 'material-ui/MenuItem';
 
 import AppBar from 'material-ui/AppBar'
 
+import './AppTopWithDrawer.css';
+
 class AppTopWithDrawer extends Component {
 
   constructor(props) {
@@ -16,29 +18,30 @@ class AppTopWithDrawer extends Component {
       open: !this.state.open
     })
   }
-  
+
   handleEnterStaging() {
     this.setState({
       open: false
     });
     this.props.onStructuredFieldEntered("staging");
   }
-    
+
   handleExitStaging() {
     this.setState({
       open: false
     });
     this.props.onStructuredFieldExited("staging");
-  } 
-  
+  }
+
   render() {
     return (
       <div>
-        <AppBar 
-          onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)} 
+        <AppBar
+          className="navbar"
+          onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
           title="Flux Notes"/>
-        <Drawer 
-          containerStyle={{'top': '64px'}} 
+        <Drawer
+          containerStyle={{'top': '64px'}}
           open={this.state.open}>
           <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
           <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
