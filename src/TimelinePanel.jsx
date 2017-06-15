@@ -7,6 +7,22 @@ import moment from 'moment';
 
 import './TimelinePanel.css';
 
+// Item provides custom rendering of the the content of a timeline item
+class Item extends Component {
+
+  render() {
+    if (this.props.item.details) {
+      return (
+        <span><strong>{this.props.item.title}</strong> &nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>
+      )
+    }
+    return (
+      <span><strong>{this.props.item.title}</strong></span>
+    )
+  }
+};
+
+// Timeline provides
 class TimelinePanel extends Component {
   constructor(props) {
     super(props);
@@ -62,21 +78,3 @@ class TimelinePanel extends Component {
 }
 
 export default TimelinePanel;
-
-// Item provides custom rendering of the the content of a timeline item
-class Item extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.item.details) {
-      return (
-        <span><strong>{this.props.item.title}</strong> &nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>
-      )
-    }
-    return (
-      <span><strong>{this.props.item.title}</strong></span>
-    )
-  }
-};

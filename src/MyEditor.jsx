@@ -112,20 +112,16 @@ class MyEditor extends React.Component {
           }
         }
       },
-      itemToBeInserted: this.props.itemToBeInserted
     }
   }
 
-  // This gets called when the state changes
-  componentDidUpdate() {
-    // console.log("[componentDidUpdate] this.state.itemToBeInserted: " + this.state.itemToBeInserted);
+  // This gets called when the state receives new updates 
+  componentWillReceiveProps(nextProps) {
     // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
+    // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
 
-    if (this.state.itemToBeInserted !== this.props.itemToBeInserted) {
-      this.setState({
-        itemToBeInserted: this.props.itemToBeInserted
-      })
-      this.handleSummaryUpdate();
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
     }
   }
 
@@ -199,14 +195,11 @@ class MyEditor extends React.Component {
     this.props.onStageUpdate(newVal);
   }
 
-  handleSummaryUpdate = () => {
-    // console.log("[handle summary update]this.state.itemToBeInserted: " + this.state.itemToBeInserted);
-
+  handleSummaryUpdate = (itemToBeInserted) => {
     const currentState = this.state.state;
     const state = currentState
         .transform()
-        // .insertText(this.state.itemToBeInserted) //This line uses state instead of props for insertText
-        .insertText(this.props.itemToBeInserted)
+        .insertText(itemToBeInserted)
         .apply();
     this.setState({ state: state })
   }
