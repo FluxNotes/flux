@@ -60,12 +60,6 @@ class ClinicalNotes extends Component {
   }
 
   render() {
-    // var message;
-    // if (this.props.itemToBeEntered !== '') {
-    //   message = <p id="notes-message">The following information from the summary panel is inserted into the clinical notes: <span id="data">{this.props.itemToBeEntered}</span></p>
-    // } else {
-    //   message = <p id="notes-message"></p>
-    // }
     return (
       <div id="clinical-notes">
         <Paper className={this.props.className}>
@@ -112,15 +106,11 @@ class ClinicalNotes extends Component {
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}}
-            itemToBeInserted = {this.props.itemToBeInserted}
+            itemToBeInserted={this.props.itemToBeInserted}
 
           />
-          {/*<div>*/}
-            {/*{message}*/}
-          {/*</div>*/}
         </Paper>
       </div>
-        
     );
   }
 }
@@ -131,11 +121,9 @@ ClinicalNotes.propTypes = {
     PRStatus:                 PropTypes.string,
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
-
     onStagingTUpdate:           PropTypes.func.isRequired,
     onStagingNUpdate:           PropTypes.func.isRequired,
     onStagingMUpdate:           PropTypes.func.isRequired
-
 }
 
 export default ClinicalNotes;

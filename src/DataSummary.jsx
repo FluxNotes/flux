@@ -188,11 +188,6 @@ class DataSummary extends Component {
                                         </li>
                                         <li className="sub-list">
                                             <span>{StageSubElementsString}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}
-                                            />
                                         </li>
                                     </div>
                                     <span id="staging-missing-warning">{this.missingInfoString}</span>
@@ -250,11 +245,6 @@ class DataSummary extends Component {
                                     </li>
                                         <li className="sub-list" >
                                            <span>{DiagnosisString}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}
-                                            />
                                         </li>
                                     <li>
                                        <span>{SurgeryDateString}</span>
@@ -266,11 +256,6 @@ class DataSummary extends Component {
                                     </li>
                                         <li className="sub-list" >
                                            <span>{SurgeryString}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}
-                                            />
                                         </li>
                                     <li>
                                         <span>{RadiationDateString}</span>

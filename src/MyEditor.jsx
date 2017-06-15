@@ -112,21 +112,16 @@ class MyEditor extends React.Component {
           }
         }
       },
-      itemToBeInserted: this.props.itemToBeInserted,
-      insertedDataFromSummaryPrevious: ''
+      itemToBeInserted: this.props.itemToBeInserted
     }
   }
 
+  // This gets called when the state changes
   componentDidUpdate() {
+    // console.log("[componentDidUpdate] this.state.itemToBeInserted: " + this.state.itemToBeInserted);
+    // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
 
-    console.log("this.state.itemToBeInserted: " + this.state.itemToBeInserted);
-    console.log("this.props.itemToBeInserted: " + this.props.itemToBeInserted);
-
-    if (this.state.itemToBeInserted === this.props.itemToBeInserted) {
-      console.log("Same value");
-    }
-    else {
-      console.log("Different Value");
+    if (this.state.itemToBeInserted !== this.props.itemToBeInserted) {
       this.setState({
         itemToBeInserted: this.props.itemToBeInserted
       })
@@ -205,15 +200,12 @@ class MyEditor extends React.Component {
   }
 
   handleSummaryUpdate = () => {
-    // If button has been clicked in summary to insert, insert some text
-
-  console.log("in handle summary update");
-    console.log(this.state.itemToBeInserted);
+    // console.log("[handle summary update]this.state.itemToBeInserted: " + this.state.itemToBeInserted);
 
     const currentState = this.state.state;
     const state = currentState
         .transform()
-        // .insertText(this.state.itemToBeInserted) //TODO: use state instead props
+        // .insertText(this.state.itemToBeInserted) //This line uses state instead of props for insertText
         .insertText(this.props.itemToBeInserted)
         .apply();
     this.setState({ state: state })
@@ -268,24 +260,7 @@ class MyEditor extends React.Component {
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-      // // If button has been clicked in summary to insert, insert some text
-      // if(this.state.itemToBeInserted !== "") {
-      //   console.log("previous: " + this.state.insertedDataFromSummaryPrevious);
-      //   console.log(this.state.itemToBeInserted);
-      //   if (this.state.insertedDataFromSummaryPrevious !== this.state.itemToBeInserted) {
-      //     this.setState({
-      //       insertedDataFromSummaryPrevious: this.state.itemToBeInserted
-      //     })
-      //
-      //     return state
-      //         .transform()
-      //         // .insertText(String.fromCharCode(event.keyCode))
-      //         .insertText(this.state.itemToBeInserted)
-      //         .apply();
-      //   }
-      // }
-
-      if(tNode && nNode && mNode) { 
+      if(tNode && nNode && mNode) {
         const tKeys = addKeysForNode(tNode, []);
         const nKeys = addKeysForNode(nNode, []);
         const mKeys = addKeysForNode(mNode, []);
