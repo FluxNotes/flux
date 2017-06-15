@@ -47,6 +47,10 @@ class ClinicalNotes extends Component {
     this.props.onStageUpdate(newVal)
   }
 
+  handleSummaryUpdate = (newVal) => {
+      this.props.onSummaryUpdate(newVal)
+  }
+
   handleStructuredFieldEntered = (currentFocus) => { 
     this.props.onStructuredFieldEntered(currentFocus);
   }
@@ -99,6 +103,7 @@ class ClinicalNotes extends Component {
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
+            onSummaryUpdate={this.handleSummaryUpdate}
 
             // Helper functions
             calculateStage={this.props.calculateStage}
@@ -107,7 +112,7 @@ class ClinicalNotes extends Component {
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}}
-            insertedDataFromSummary = {this.props.itemToBeEntered}
+            itemToBeInserted = {this.props.itemToBeInserted}
 
           />
           {/*<div>*/}
@@ -126,10 +131,11 @@ ClinicalNotes.propTypes = {
     PRStatus:                 PropTypes.string,
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
-    itemToBeEntered:          PropTypes.string,
+
     onStagingTUpdate:           PropTypes.func.isRequired,
     onStagingNUpdate:           PropTypes.func.isRequired,
     onStagingMUpdate:           PropTypes.func.isRequired
+
 }
 
 export default ClinicalNotes;

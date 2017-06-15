@@ -112,10 +112,29 @@ class MyEditor extends React.Component {
           }
         }
       },
+      itemToBeInserted: this.props.itemToBeInserted,
       insertedDataFromSummaryPrevious: ''
     }
   }
-  
+
+  componentDidUpdate() {
+
+    console.log("this.state.itemToBeInserted: " + this.state.itemToBeInserted);
+    console.log("this.props.itemToBeInserted: " + this.props.itemToBeInserted);
+
+    if (this.state.itemToBeInserted === this.props.itemToBeInserted) {
+      console.log("Same value");
+    }
+    else {
+      console.log("Different Value");
+      this.setState({
+        itemToBeInserted: this.props.itemToBeInserted
+      })
+      this.handleSummaryUpdate();
+    }
+  }
+
+
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
@@ -185,9 +204,20 @@ class MyEditor extends React.Component {
     this.props.onStageUpdate(newVal);
   }
 
-  // handleSummaryDataUpdate = (newVal) => {
-  //
-  // }
+  handleSummaryUpdate = () => {
+    // If button has been clicked in summary to insert, insert some text
+
+  console.log("in handle summary update");
+    console.log(this.state.itemToBeInserted);
+
+    const currentState = this.state.state;
+    const state = currentState
+        .transform()
+        // .insertText(this.state.itemToBeInserted) //TODO: use state instead props
+        .insertText(this.props.itemToBeInserted)
+        .apply();
+    this.setState({ state: state })
+  }
 
   handleStructuredFieldEntered = (currentFocus) => { 
     this.props.onStructuredFieldEntered(currentFocus);
@@ -199,6 +229,7 @@ class MyEditor extends React.Component {
 
 
   onKeyDown = (event, data, state) => {
+
     if (data.isMod) { 
       let mark
 
@@ -237,22 +268,22 @@ class MyEditor extends React.Component {
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-      // If button has been clicked in summary to insert, insert some text
-      if(this.props.insertedDataFromSummary !== "") {
-        // console.log("previous: " + this.state.insertedDataFromSummaryPrevious);
-        // console.log(this.props.insertedDataFromSummary);
-        if (this.state.insertedDataFromSummaryPrevious !== this.props.insertedDataFromSummary) {
-          this.setState({
-            insertedDataFromSummaryPrevious: this.props.insertedDataFromSummary
-          })
-
-          return state
-              .transform()
-              // .insertText(String.fromCharCode(event.keyCode))
-              .insertText(this.props.insertedDataFromSummary)
-              .apply();
-        }
-      }
+      // // If button has been clicked in summary to insert, insert some text
+      // if(this.state.itemToBeInserted !== "") {
+      //   console.log("previous: " + this.state.insertedDataFromSummaryPrevious);
+      //   console.log(this.state.itemToBeInserted);
+      //   if (this.state.insertedDataFromSummaryPrevious !== this.state.itemToBeInserted) {
+      //     this.setState({
+      //       insertedDataFromSummaryPrevious: this.state.itemToBeInserted
+      //     })
+      //
+      //     return state
+      //         .transform()
+      //         // .insertText(String.fromCharCode(event.keyCode))
+      //         .insertText(this.state.itemToBeInserted)
+      //         .apply();
+      //   }
+      // }
 
       if(tNode && nNode && mNode) { 
         const tKeys = addKeysForNode(tNode, []);
