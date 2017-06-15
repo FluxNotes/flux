@@ -26,8 +26,8 @@ class App extends Component {
             HER2Status: '+',
             ERStatus: '+',
             PRStatus: '+',
-            SummaryKeyData: '',
-            withinStructuredField: null
+            SummaryItemToInsert: '',
+            withinStructuredField: null,
         };
         this.changeHER2Status = this.changeHER2Status.bind(this);
         this.changeERStatus = this.changeERStatus.bind(this);
@@ -36,10 +36,9 @@ class App extends Component {
         this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
         this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
         this.handleStageUpdate = this.handleStageUpdate.bind(this);
-        this.handleSummaryUpdate = this.handleSummaryUpdate.bind(this);
+        this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-
     }
 
     handleStructuredFieldEntered(field) {
@@ -78,12 +77,12 @@ class App extends Component {
         // Nothing right now
     }
 
-    handleSummaryUpdate(itemString, subItemString) {
+    handleSummaryItemSelected(itemString, subItemString) {
         (itemString !== "") && (subItemString !== "") && this.setState({
-            SummaryKeyData: itemString + ", " + subItemString
+            SummaryItemToInsert: itemString + ", " + subItemString
         });
         (itemString !== "") && (subItemString === "") && this.setState({
-            SummaryKeyData: itemString
+            SummaryItemToInsert: itemString
         });
     }
 
@@ -166,7 +165,7 @@ class App extends Component {
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
-                                    onSummaryItemSelected={this.handleSummaryUpdate}
+                                    onSummaryItemSelected={this.handleSummaryItemSelected}
                                     // Helper functions
                                     hasStagingData={this.state.hasStagingData}
                                     // Properties
@@ -202,7 +201,7 @@ class App extends Component {
                                     HER2Status={this.state.HER2Status}
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
-                                    itemToBeEntered={this.state.SummaryKeyData}
+                                    itemToBeInserted={this.state.SummaryItemToInsert}
                                 />
                             </Col>
                             <Col sm={3}>

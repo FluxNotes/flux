@@ -37,7 +37,7 @@ const initialState = Raw.deserialize({
   ]
 }, { terse: true })
 
-const DEFAULT_NODE = 'paragraph'
+const DEFAULT_NODE = 'paragraph';
 
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
@@ -111,10 +111,21 @@ class MyEditor extends React.Component {
              textDecoration: 'underline'
           }
         }
-      }
+      },
     }
   }
-  
+
+  // This gets called when the state receives new updates 
+  componentWillReceiveProps(nextProps) {
+    // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
+    // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
+
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+    }
+  }
+
+
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
@@ -184,6 +195,15 @@ class MyEditor extends React.Component {
     this.props.onStageUpdate(newVal);
   }
 
+  handleSummaryUpdate = (itemToBeInserted) => {
+    const currentState = this.state.state;
+    const state = currentState
+        .transform()
+        .insertText(itemToBeInserted)
+        .apply();
+    this.setState({ state: state })
+  }
+
   handleStructuredFieldEntered = (currentFocus) => { 
     this.props.onStructuredFieldEntered(currentFocus);
   }
@@ -192,7 +212,9 @@ class MyEditor extends React.Component {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
+
   onKeyDown = (event, data, state) => {
+
     if (data.isMod) { 
       let mark
 
@@ -231,7 +253,7 @@ class MyEditor extends React.Component {
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-      if(tNode && nNode && mNode) { 
+      if(tNode && nNode && mNode) {
         const tKeys = addKeysForNode(tNode, []);
         const nKeys = addKeysForNode(nNode, []);
         const mKeys = addKeysForNode(mNode, []);
