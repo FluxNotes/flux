@@ -8,6 +8,8 @@ import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 // Flexbox
 import { Row, Col } from 'react-flexbox-grid';
+// Libraries
+import staging from '../lib/staging';
 //font awesome
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
@@ -64,8 +66,12 @@ class DataSummary extends Component {
         }
 
         // Current Staging
-        const Stage = `${this.props.stage}`;
-        const StageSubElements = `T${this.props.tumorSize} N${this.props.nodeSize} M${this.props.metastasis}`;
+        const t = this.props.tumorSize || 'T?';
+        const n = this.props.nodeSize || 'N?';
+        const m = this.props.metastasis || 'M?';
+
+        const Stage = `${staging.breastCancerPrognosticStage(t, n, m) || 'Undefined'}`;
+        const StageSubElements = `${t} ${n} ${m}`;
         const StageSubElementsString = `${StageSubElements}`;
 
         // Pathology Results

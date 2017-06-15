@@ -18,11 +18,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasStagingData: false,
-            prognosticState: 0,
-            tumorSize: 0,
-            nodeSize: 0,
-            metastasis: 0,
+            tumorSize: '',
+            nodeSize: '',
+            metastasis: '',
             HER2Status: '+',
             ERStatus: '+',
             PRStatus: '+',
@@ -35,7 +33,6 @@ class App extends Component {
         this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
         this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
         this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-        this.handleStageUpdate = this.handleStageUpdate.bind(this);
         this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
@@ -86,67 +83,20 @@ class App extends Component {
         });
     }
 
-	handleStagingTUpdate(t, stage) {
-		console.log("App.handleStagingTUpdate. t=" + t + " stage=" + stage);
-        (t !== "") && this.setState({
-            hasStagingData: true,
-            tumorSize: t,
-            prognosticState: stage,
-        })
-	}
-	handleStagingNUpdate(n, stage) {
-		console.log("App.handleStagingNUpdate. n=" + n + " stage=" + stage);
-        (n !== "") && this.setState({
-            hasStagingData: true,
-            nodeSize: n,
-            prognosticState: stage,
-        })
-	}
-	handleStagingMUpdate(m, stage) {
-		console.log("App.handleStagingMUpdate. m=" + m + " stage=" + stage);
-        (m !== "") && this.setState({
-            hasStagingData: true,
-            metastasis: m,
-            prognosticState: stage,
-        })
-	}
+  	handleStagingTUpdate(t) {
+  		console.log("App.handleStagingTUpdate. t=" + t);
+          (t !== "") && this.setState({tumorSize: t});
+  	}
 
-    calculateStage(t, n, m) {
-        let stage;
-        // Metastisized cancer is always Stage IV
-        if (m === 1) {
-            stage = 'IV';
-        } else {
-            // Lookup the rest based on T and N:
-            const lookup = [
-              ['0', 'IIA', 'IIIA', 'IIIC'], // T0
-              ['IA', 'IIA', 'IIIA', 'IIIC'], // T1
-              ['IIA', 'IIB', 'IIIA', 'IIIC'], // T2
-              ['IIB', 'IIIA', 'IIIA', 'IIIC'], // T3
-              ['IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
-            ];
+  	handleStagingNUpdate(n) {
+  		console.log("App.handleStagingNUpdate. n=" + n);
+          (n !== "") && this.setState({nodeSize: n});
+  	}
 
-            // With N1M1 Values
-            // const lookup = [
-            //   ['0', 'IB', 'IIA', 'IIIA', 'IIIC'], // T0
-            //   ['IA', 'IB', 'IIA', 'IIIA', 'IIIC'], // T1
-            //   ['IIA', 'IIB', 'IIB', 'IIIA', 'IIIC'], // T2
-            //   ['IIB', 'IIIA', 'IIIA', 'IIIA', 'IIIC'], // T3
-            //   ['IIIB', 'IIIB', 'IIIB', 'IIIB', 'IIIC'] // T4
-            // ];
-
-            stage = lookup[t][n];
-        }
-        return stage;
-    }
-
-    handleStageUpdate(stage) {
-        console.log("App.handleStageUpdate. stage=" + stage);
-        (stage !== "") && this.setState({
-            hasStagingData: true,
-            prognosticState: stage,
-        })
-    }
+  	handleStagingMUpdate(m, stage) {
+  		console.log("App.handleStagingMUpdate. m=" + m);
+          (m !== "") && this.setState({metastasis: m});
+  	}
 
     render() {
         return (
@@ -166,10 +116,7 @@ class App extends Component {
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
                                     onSummaryItemSelected={this.handleSummaryItemSelected}
-                                    // Helper functions
-                                    hasStagingData={this.state.hasStagingData}
                                     // Properties
-                                    stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -185,16 +132,12 @@ class App extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onStageUpdate={this.handleStageUpdate}
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
-                                    // Helper functions
-                                    calculateStage={this.calculateStage}
-                                    // Properties
-                                    stage={this.state.prognosticState}
+                                    // Propertiess
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -211,11 +154,7 @@ class App extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onStageUpdate={this.handleStageUpdate}
-                                    // Helper functions
-                                    calculateStage={this.calculateStage}
                                     // Properties
-                                    stage={this.state.prognosticState}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

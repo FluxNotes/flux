@@ -6,7 +6,7 @@ import { List } from 'immutable'
 // Styling
 import './MyEditor.css';
 
-//TODO: make this a one line destructuring 
+//TODO: make this a one line destructuring
 import structuredDataRaw from './structuredDataRaw';
 const {staging}  = structuredDataRaw;
 
@@ -23,7 +23,7 @@ const initialState = Raw.deserialize({
           text: 'Begin typing your clinical notes below.'
         }
       ]
-    }, 
+    },
     {
       kind: 'block',
       type: 'paragraph',
@@ -41,27 +41,27 @@ const DEFAULT_NODE = 'paragraph';
 
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
-function getNodeById(nodes, id) { 
+function getNodeById(nodes, id) {
   return nodes.find(function(v, k, iter) {
     if (v.data) {
       return v.data.get('id') === id;
-    } else { 
+    } else {
       return false;
     }
   });
 }
 
-// Given a current node and an array of keys, add the key of this node and the keys of all its children 
+// Given a current node and an array of keys, add the key of this node and the keys of all its children
 // to the array.
-function addKeysForNode(curNode, keys) { 
+function addKeysForNode(curNode, keys) {
   // Get this key
-  if(curNode.key) { 
+  if(curNode.key) {
     keys.push(curNode.key)
   }
   //For all children
-  if (curNode.nodes) { 
+  if (curNode.nodes) {
     for(const child of curNode.nodes) {
-      // update keys to include all the child's added to current collection  
+      // update keys to include all the child's added to current collection
       keys = addKeysForNode(child, keys);
     }
   }
@@ -115,7 +115,7 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the state receives new updates 
+  // This gets called when the state receives new updates
   componentWillReceiveProps(nextProps) {
     // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
     // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
@@ -169,10 +169,10 @@ class MyEditor extends React.Component {
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
-    if(!stagingNode) { 
+    if(!stagingNode) {
       this.handleStructuredFieldExited(null)
       this.setState({ state })
-    } else { 
+    } else {
      const stagingKeys = addKeysForNode(stagingNode, []);
      (stagingKeys.includes(state.selection.startKey)) ?  this.handleStructuredFieldEntered('staging') : this.handleStructuredFieldExited('staging');
      this.setState({ state })
@@ -191,10 +191,6 @@ class MyEditor extends React.Component {
     this.props.onStagingMUpdate(newVal);
   }
 
-  handleStageUpdate = (newVal) => {
-    this.props.onStageUpdate(newVal);
-  }
-
   handleSummaryUpdate = (itemToBeInserted) => {
     const currentState = this.state.state;
     const state = currentState
@@ -204,18 +200,18 @@ class MyEditor extends React.Component {
     this.setState({ state: state })
   }
 
-  handleStructuredFieldEntered = (currentFocus) => { 
+  handleStructuredFieldEntered = (currentFocus) => {
     this.props.onStructuredFieldEntered(currentFocus);
   }
 
-  handleStructuredFieldExited = (currentFocus) => { 
+  handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
 
   onKeyDown = (event, data, state) => {
 
-    if (data.isMod) { 
+    if (data.isMod) {
       let mark
 
       switch (data.key) {
@@ -234,21 +230,21 @@ class MyEditor extends React.Component {
         default:
           return
       }
-    
+
       event.preventDefault()
       return state
         .transform()
         .toggleMark(mark)
         .apply()
     }
-    if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) { 
+    if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
         event.preventDefault();
         return state
         .transform()
         .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
         .apply();
     }
-    for(const parentNode of state.document.nodes) { 
+    for(const parentNode of state.document.nodes) {
       const tNode = getNodeById(parentNode.nodes, 't-staging');
       const nNode = getNodeById(parentNode.nodes, 'n-staging');
       const mNode = getNodeById(parentNode.nodes, 'm-staging');
@@ -257,11 +253,10 @@ class MyEditor extends React.Component {
         const tKeys = addKeysForNode(tNode, []);
         const nKeys = addKeysForNode(nNode, []);
         const mKeys = addKeysForNode(mNode, []);
-        if (tKeys.includes(state.selection.startKey)) { 
+        if (tKeys.includes(state.selection.startKey)) {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleStagingTUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(val, this.props.nodeSize, this.props.metastasis))
+            this.handleStagingTUpdate('T' + val.toString());
 
             event.preventDefault()
             return state
@@ -277,8 +272,8 @@ class MyEditor extends React.Component {
               .apply();
           } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
+            switch(String.fromCharCode(event.keyCode)) {
+              case "T":
                 return state
                  .transform()
                  .moveToRangeOf(tNode)
@@ -299,15 +294,14 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
-              default: 
+              default:
                 return state;
-            } 
+            }
           }
-        } else if (nKeys.includes(state.selection.startKey)) { 
+        } else if (nKeys.includes(state.selection.startKey)) {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleStagingNUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis))
+            this.handleStagingNUpdate('N' + val.toString());
 
             event.preventDefault()
             return state
@@ -323,8 +317,8 @@ class MyEditor extends React.Component {
               .apply();
           } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
+            switch(String.fromCharCode(event.keyCode)) {
+              case "T":
                 return state
                  .transform()
                  .moveToRangeOf(tNode)
@@ -345,15 +339,14 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
-              default: 
+              default:
                 return state;
-            } 
+            }
           }
-        } else if (mKeys.includes(state.selection.startKey))  { 
+        } else if (mKeys.includes(state.selection.startKey))  {
           if(event.keyCode >= 48 && event.keyCode <=57) {
             const val = event.keyCode - 48;
-            this.handleStagingMUpdate(val)
-            this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, val))
+            this.handleStagingMUpdate('M' + val.toString());
             const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
             const emptyBlockKey = emptyBlock.key;
             const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
@@ -371,8 +364,8 @@ class MyEditor extends React.Component {
               .apply();
           } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
             event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) { 
-              case "T": 
+            switch(String.fromCharCode(event.keyCode)) {
+              case "T":
                 return state
                  .transform()
                  .moveToRangeOf(tNode)
@@ -393,12 +386,12 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
-              default: 
+              default:
                 return state;
-            } 
+            }
           }
         }
-      } 
+      }
     }
   }
 
@@ -461,7 +454,7 @@ class MyEditor extends React.Component {
           .setBlock('list-item')
           .wrapBlock(type)
       }
-    } else { 
+    } else {
       // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
     }
 
@@ -493,7 +486,7 @@ class MyEditor extends React.Component {
     return (
       <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
         <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span> 
+      </span>
     )
   }
 
