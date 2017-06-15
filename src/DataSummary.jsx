@@ -59,11 +59,11 @@ class DataSummary extends Component {
 
     render() {
         // Check to see if example data is missing
-        if (this.props.hasStagingData) {
-            this.missingInfoString = '';
-        } else {
-            this.missingInfoString = '*Missing Information';
-        }
+        if (!this.props.tumorSize || !this.props.nodeSize || !this.props.metastasis) {
+          this.missingInfoString = '*Missing Information';
+      } else {
+          this.missingInfoString = '';
+      }
 
         // Current Staging
         const t = this.props.tumorSize || 'T?';
