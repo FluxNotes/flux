@@ -1,0 +1,58 @@
+.timeline-paper {
+  padding: 30px !important;
+}
+
+/* Timeline bounding box */
+.rct-outer {
+  border-bottom: 1px solid #ddd !important;
+}
+
+/* Date labels */
+.rct-label-group {
+  color: #333 !important;
+  background-color: #ddd !important;
+  border-left: 2px solid #aaa !important;
+}
+
+.rct-label {
+  background: #fefefe !important;
+  border-bottom: 1px solid #bbb !important;
+}
+
+/* Horizontal lines */
+.rct-horizontal-lines .rct-hl-even, .rct-hl-odd {
+  border: none !important;
+}
+
+.rct-horizontal-lines .rct-hl-odd {
+  background: none !important;
+}
+
+/* Vertical lines */
+.rct-vertical-lines .rct-vl {
+  border-left: 1px solid #ddd !important;
+}
+
+.rct-vertical-lines .rct-vl-first {
+  border-left: 2px solid #aaa !important;
+}
+
+/* Items */
+.rct-item {
+  color: #333 !important;
+  font-size: 14px !important;
+}
+
+.medication-item {
+  background-color: #b6daf7 !important;
+  border-color: #b6daf7 !important;
+}
+
+.radiation-item {
+  background-color: #fa9f8f !important;
+  border-color: #fa9f8f !important;
+}
+
+.bold-item {
+  font-weight: bolder !important;
+}

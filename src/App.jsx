@@ -10,6 +10,7 @@ import AppTopWithDrawer from './AppTopWithDrawer';
 import ClinicalNotes from './ClinicalNotes';
 import DataSummary from './DataSummary';
 import RightPanel from './RightPanel';
+import TimelinePanel from './TimelinePanel';
 
 import './App.css';
 
@@ -110,12 +111,12 @@ class App extends Component {
         })
 	}
 
-    calculateStage(t, n, m) { 
+    calculateStage(t, n, m) {
         let stage;
         // Metastisized cancer is always Stage IV
         if (m === 1) {
             stage = 'IV';
-        } else { 
+        } else {
             // Lookup the rest based on T and N:
             const lookup = [
               ['0', 'IIA', 'IIIA', 'IIIC'], // T0
@@ -188,7 +189,6 @@ class App extends Component {
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}
                                     onPRStatusChange={this.changePRStatus}
-
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     // Helper functions
@@ -206,7 +206,7 @@ class App extends Component {
                             </Col>
                             <Col sm={3}>
                                 <RightPanel
-                                    className="dashboard-panel" 
+                                    className="dashboard-panel"
                                     // Update functions
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
@@ -221,6 +221,11 @@ class App extends Component {
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
                                 />
+                            </Col>
+                        </Row>
+                        <Row center="xs">
+                            <Col sm={11}>
+                                <TimelinePanel />
                             </Col>
                         </Row>
                     </Grid>
