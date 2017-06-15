@@ -8,6 +8,7 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.18.0",
+    "positions": "^1.6.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-flexbox-grid": "^1.1.3",

@@ -1,8 +1,9 @@
-// Import React!
+// Import React and other libraries
 import React from 'react'
 import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
+import getOffsets from 'positions'
 // Styling
 import './MyEditor.css';
 
@@ -217,10 +218,14 @@ class MyEditor extends React.Component {
           const newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
           const matches = this.determineAutocompleteMatches(newText);
           const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+          const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
+
+          const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom left')
+          menuEl.style.top = `${offset.top}px`
+          menuEl.style.left = `${offset.left}px`
           if (closestDOMElement) {
             const cursorPosition = closestDOMElement.getBoundingClientRect()
             console.log(cursorPosition)
-
           } else { 
             console.log(`couldn't find dom element at key ${this.state.state.anchorKey}`);  
           }
@@ -568,10 +573,10 @@ class MyEditor extends React.Component {
    */
   renderDropdown = () => { 
     return (
-      <div className="menu hover-menu">
+      <div className="menu autocomplete-menu">
         {this.state.autocompleteMatches.map((match, index) => {
           return (
-              <div className="menuItem" key={index} >
+              <div className="menu-item" key={index} >
                 {match}
               </div>
           );}
