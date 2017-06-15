@@ -28,6 +28,10 @@ describe('breastCancerPrognosticStage', () => {
     assert.equal(staging.breastCancerPrognosticStage('T1','N1mi','m0'), 'IB');
     assert.equal(staging.breastCancerPrognosticStage('t0','n1mI','M0'), 'IB');
   });
+
+  it('should reject invalid M values', () => {
+    assert.equal(staging.breastCancerPrognosticStage('T1', 'N1', 'M?'), null);
+  });
 });
 
 
