@@ -66,15 +66,13 @@ class DataSummary extends Component {
         // Current Staging
         const Stage = `${this.props.stage}`;
         const StageSubElements = `T${this.props.tumorSize} N${this.props.nodeSize} M${this.props.metastasis}`;
-
-        const StageString = `Prognostic Stage: ${Stage}`;
         const StageSubElementsString = `${StageSubElements}`;
 
         // Pathology Results
         const HGA = `HG2`;
         const HER2Status = `${this.props.HER2Status}`;
         const ERStatus = `${this.props.ERStatus}`;
-        const PRStatus = ` ${this.props.PRStatus}`;
+        const PRStatus = `${this.props.PRStatus}`;
 
         const HGAString = `HGA: ${HGA}`;
         const HER2StatusString = `HER2 Status: ${HER2Status}`;
@@ -83,20 +81,13 @@ class DataSummary extends Component {
 
         // Event Dates
         const DiagnosisDate = '01/13/2012';
-        const Diagnosis = 'Breast Cancer - Stage IIA';
+        const Diagnosis = 'Breast Cancer';
+        const DiagnosisStage = 'Stage IIA';
         const SurgeryDate = '09/20/2012';
         const Surgery = 'Lumpectomy/sentinel/lymph node biopsy';
         const RadiationDate = '07/12/2012 - 08/16/2012';
         const TamoxifenDate = '11/03/2013 - 08/12/2016';
         const RecurrenceDate = '10/28/2013';
-
-        const DiagnosisDateString = `Diagnosis: ${DiagnosisDate}`;
-        const DiagnosisString = `${Diagnosis}`;
-        const SurgeryDateString = `Surgery: ${SurgeryDate}`;
-        const SurgeryString = `${Surgery}`;
-        const RadiationDateString = `RadiationDate: ${RadiationDate}`;
-        const TamoxifenDateString = `TamoxifenDate: ${TamoxifenDate}`;
-        const RecurrenceDateString = `RecurrenceDate: ${RecurrenceDate}`;
 
 
         return (
@@ -179,15 +170,20 @@ class DataSummary extends Component {
                                 <ul className="summary-section" id="summary-staging">
                                     <div className="summary-details">
                                         <li>
-                                            <span>{StageString}</span>
+                                            <span>Prognostic Stage: {Stage}</span>
                                             <IconButton
                                                 className="summary-condition-button"
                                                 iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, StageString, StageSubElementsString)}
+                                                onClick={(e) => this.handleItemSelected(e, Stage)}
                                             />
                                         </li>
                                         <li className="sub-list">
                                             <span>{StageSubElementsString}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, StageSubElementsString)}
+                                            />
                                         </li>
                                     </div>
                                     <span id="staging-missing-warning">{this.missingInfoString}</span>
@@ -236,49 +232,68 @@ class DataSummary extends Component {
                                 <h3>Event Dates</h3>
                                 <ul className="summary-section" id="summary-dates">
                                     <li className="summary-item">
-                                        <span>{DiagnosisDateString}</span>
+                                        <span>Diagnosis: {DiagnosisDate}</span>
                                         <IconButton
                                             className="summary-condition-button"
                                             iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, DiagnosisDateString, DiagnosisString)}
+                                            onClick={(e) => this.handleItemSelected(e, DiagnosisDate)}
+                                        />
+                                    </li>
+                                    <li className="sub-list" >
+                                        <span>{Diagnosis}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, Diagnosis)}
+                                        />
+                                    </li>
+                                    <li className="sub-list" >
+                                        <span>{DiagnosisStage}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, DiagnosisStage)}
+                                        />
+                                    </li>
+
+                                    <li className="summary-item">
+                                        <span>Radiation Date: {RadiationDate}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, RadiationDate)}
+                                        />
+                                    </li>
+                                    <li className="summary-item">
+                                       <span>Surgery: {SurgeryDate}</span>
+                                        <IconButton
+                                            className="summary-condition-button"
+                                            iconClassName="fa fa-plus-square"
+                                            onClick={(e) => this.handleItemSelected(e, SurgeryDate)}
                                         />
                                     </li>
                                         <li className="sub-list" >
-                                           <span>{DiagnosisString}</span>
+                                           <span>{Surgery}</span>
+                                            <IconButton
+                                                className="summary-condition-button"
+                                                iconClassName="fa fa-plus-square"
+                                                onClick={(e) => this.handleItemSelected(e, Surgery)}
+                                            />
                                         </li>
                                     <li className="summary-item">
-                                        <span>{RadiationDateString}</span>
+                                        <span>Recurrence Date: {RecurrenceDate}</span>
                                         <IconButton
                                             className="summary-condition-button"
                                             iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, RadiationDateString)}
+                                            onClick={(e) => this.handleItemSelected(e, RecurrenceDate)}
                                         />
                                     </li>
                                     <li className="summary-item">
-                                       <span>{SurgeryDateString}</span>
+                                        <span>Tamoxifen Date: {TamoxifenDate}</span>
                                         <IconButton
                                             className="summary-condition-button"
                                             iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, SurgeryDateString, SurgeryString)}
-                                        />
-                                    </li>
-                                        <li className="sub-list" >
-                                           <span>{SurgeryString}</span>
-                                        </li>
-                                    <li className="summary-item">
-                                        <span>{RecurrenceDateString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, RecurrenceDateString)}
-                                        />
-                                    </li>
-                                    <li className="summary-item">
-                                        <span>{TamoxifenDateString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDateString)}
+                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDate)}
                                         />
                                     </li>
                                 </ul>
