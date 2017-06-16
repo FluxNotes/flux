@@ -108,7 +108,7 @@ class App extends Component {
                     />
                     <Grid className="App-content" fluid>
                         <Row center="xs">
-                            <Col sm={3}>
+                            <Col sm={4}>
                                 <DataSummary
                                     className="dashboard-panel"
                                     // Update functions
@@ -163,7 +163,7 @@ class App extends Component {
                             </Col>
                         </Row>
                         <Row center="xs">
-                            <Col sm={11}>
+                            <Col sm={12}>
                                 <TimelinePanel />
                             </Col>
                         </Row>

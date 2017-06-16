@@ -18,23 +18,23 @@ import './DataSummary.css';
 
 class DataSummary extends Component {
 
-    patient = {
-        photo: "./DebraHernandez672.jpg",
-        name: "Debra Hernandez672",
-        dateOfBirth: "05 APR 1966",
-        administrativeSex: "Female",
-        city: "Boston",
-        state: "MA"
-    };
-
-     missingInfoString = '';
-
     constructor(props) {
         super(props);
 
-        this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
-        this.handleERStatusChange   = this.handleERStatusChange.bind(this)
-        this.handlePRStatusChange   = this.handlePRStatusChange.bind(this)
+        this.state = {
+            patient: {
+                photo: "./DebraHernandez672.jpg",
+                name: "Debra Hernandez672",
+                dateOfBirth: "05 APR 1966",
+                administrativeSex: "Female",
+                city: "Boston",
+                state: "MA"
+            }
+        };
+
+        this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
+        this.handleERStatusChange   = this.handleERStatusChange.bind(this);
+        this.handlePRStatusChange   = this.handlePRStatusChange.bind(this);
     }
 
     handleHER2StatusChange (newStatus) {
@@ -58,21 +58,44 @@ class DataSummary extends Component {
     }
 
     render() {
-        // Check to see if example data is missing
-        if (!this.props.tumorSize || !this.props.nodeSize || !this.props.metastasis) {
-          this.missingInfoString = '*Missing Information';
-      } else {
-          this.missingInfoString = '';
-      }
-
         // Current Staging
-        const t = this.props.tumorSize || 'T?';
-        const n = this.props.nodeSize || 'N?';
-        const m = this.props.metastasis || 'M?';
+        const t = this.props.tumorSize;
+        const n = this.props.nodeSize;
+        const m = this.props.metastasis;
+        const stage = staging.breastCancerPrognosticStage(t,n,m);
+        let stagingBlock = null;
 
-        const Stage = `${staging.breastCancerPrognosticStage(t, n, m) || 'Undefined'}`;
-        const StageSubElements = `${t} ${n} ${m}`;
-        const StageSubElementsString = `${StageSubElements}`;
+        if (stage) {
+            stagingBlock = (
+                <ul className="summary-section" id="summary-staging">
+                    <div className="summary-details">
+                        <li>
+                            <span>Prognostic Stage: {stage}</span>
+                            <IconButton
+                                className="summary-condition-button"
+                                iconClassName="fa fa-plus-square"
+                                onClick={(e) => this.handleItemSelected(e, stage)}
+                            />
+                        </li>
+                        <li className="sub-list">
+                            <span>{t} {n} {m}</span>
+                            <IconButton
+                                className="summary-condition-button"
+                                iconClassName="fa fa-plus-square"
+                                onClick={(e) => this.handleItemSelected(e, `${t} ${n} ${m}`)}
+                            />
+                        </li>
+                    </div>
+                </ul>
+            );
+        } else {
+            stagingBlock = (
+                <div className="missing-data">
+                    <span>Missing staging information</span>
+                </div>
+            );
+        }
+
 
         // Pathology Results
         const HGA = `HG2`;
@@ -95,7 +118,6 @@ class DataSummary extends Component {
         const TamoxifenDate = '11/03/2013 - 08/12/2016';
         const RecurrenceDate = '10/28/2013';
 
-
         return (
             <div id="data-summary">
                 <Paper zDepth={1} className={this.props.className}>
@@ -103,24 +125,24 @@ class DataSummary extends Component {
                         <Row center="xs">
                             <Col xs={6}>
                                 <Avatar
-                                    src={this.patient.photo}
+                                    src={this.state.patient.photo}
                                     size={70}
                                 />
-                                <h1>{this.patient.name}</h1>
+                                <h1>{this.state.patient.name}</h1>
                             </Col>
                         </Row>
                         <Row>
                             <Col xs={4}>
                                 <p className="summary-heading-detail-name">DOB</p>
-                                <p className="summary-heading-detail-value">{this.patient.dateOfBirth} ({calculateAge(this.patient.dateOfBirth)})</p>
+                                <p className="summary-heading-detail-value">{this.state.dateOfBirth} ({calculateAge(this.state.dateOfBirth)})</p>
                             </Col>
                             <Col xs={4}>
                                 <p className="summary-heading-detail-name">Administrative Sex:</p>
-                                <p className="summary-heading-detail-value">{this.patient.administrativeSex}</p>
+                                <p className="summary-heading-detail-value">{this.state.administrativeSex}</p>
                             </Col>
                             <Col xs={4}>
                                 <p className="summary-heading-detail-name">Location</p>
-                                <p className="summary-heading-detail-value">{this.patient.city}, {this.patient.state}</p>
+                                <p className="summary-heading-detail-value">{this.state.city}, {this.state.state}</p>
                             </Col>
                         </Row>
                     </div>
@@ -173,27 +195,7 @@ class DataSummary extends Component {
                         <Row>
                             <Col xs={6}>
                                 <h3>Current Staging</h3>
-                                <ul className="summary-section" id="summary-staging">
-                                    <div className="summary-details">
-                                        <li>
-                                            <span>Prognostic Stage: {Stage}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, Stage)}
-                                            />
-                                        </li>
-                                        <li className="sub-list">
-                                            <span>{StageSubElementsString}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, StageSubElementsString)}
-                                            />
-                                        </li>
-                                    </div>
-                                    <span id="staging-missing-warning">{this.missingInfoString}</span>
-                                </ul>
+                                {stagingBlock}
                             </Col>
                             <Col xs={6}>
                                 <h3>Pathology Results</h3>

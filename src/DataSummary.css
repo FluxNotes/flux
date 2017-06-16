@@ -124,3 +124,9 @@
 .summary-item {
    margin-top: 10px;
 }
+
+.missing-data {
+   margin-top: 10px;
+   padding: 5px !important;
+   background-color: #fa9f8f !important;
+}

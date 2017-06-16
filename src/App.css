@@ -2,11 +2,6 @@
     height: 100vh;
 }
 
-.App-content {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .dashboard-panel {
     min-height: 760px;
 }
