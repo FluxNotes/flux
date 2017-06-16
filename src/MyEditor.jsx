@@ -543,13 +543,27 @@ class MyEditor extends React.Component {
   }
 
   insertBlockAtLocation  = (block, location="") => { 
-    let newState;
+    let newStateTransform = this.state.state
+        .transform();
+    for(const char of this.state.autocompleteText) { 
+      newStateTransform.deleteBackward();
+    }
+    // Delete once more for period
+    newStateTransform.deleteBackward();
     if (location === "") {
-      newState = this.state.state
-        .transform()
+      newStateTransform
+        .insertBlock(block);
+    }  else { 
+      newStateTransform = this.state.state
+        .transform();
+      for(const char of this.state.autocompleteText) { 
+        newState.deleteBackward();
+      }
+      newStateTransform
         .insertBlock(block)
-        .apply()
-    } 
+        .apply();
+    }
+    const newState = newStateTransform.apply();
     this.setState({ 
       state: newState,
     });
@@ -577,19 +591,23 @@ class MyEditor extends React.Component {
       currentAutocompleteMatch: key
     });
   }
+
   determineAutocompleteMatches = (autocompleteText) => {
     let matches = []; 
     const regexFromAutocompleteText = new RegExp(autocompleteText, 'i');
-    for (const opt of this.state.autocompleteOptions) { 
-      if(opt.label.match(regexFromAutocompleteText))  { 
-        matches.push(opt.label);
+    if (autocompleteText !== "") { 
+      for (const opt of this.state.autocompleteOptions) { 
+        if(opt.label.match(regexFromAutocompleteText))  { 
+          matches.push(opt.label);
+        }
       }
-    }
+    } 
     this.setState({ 
       currentAutocompleteMatch: 0
     })
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
+
   componentDidUpdate = (prevProps, prevState) => { 
     //Nothing now
   }
