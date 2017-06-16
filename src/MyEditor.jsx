@@ -226,22 +226,20 @@ class MyEditor extends React.Component {
       let matches = [];
 
       switch (event.keyCode) {
-        // Left and up move up 
+        // Left and up move up -- decrease index or wrap
         case 37: 
         case 38:
           event.preventDefault();
-          console.log(this.state.currentAutocompleteMatch)
           if (this.state.autocompleteMatches.length > 0) { 
             this.setState({
               currentAutocompleteMatch: (this.state.autocompleteMatches.length + (this.state.currentAutocompleteMatch - 1)) % this.state.autocompleteMatches.length,
             });
           }
           break;
-        // Right and down move down  
+        // Right and down move down -- increase index or wrap  
         case 39: 
         case 40:
           event.preventDefault();
-          console.log(this.state.currentAutocompleteMatch)
           if (this.state.autocompleteMatches.length > 0) { 
             this.setState({
               currentAutocompleteMatch: (this.state.currentAutocompleteMatch + 1) % this.state.autocompleteMatches.length,
