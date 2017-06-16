@@ -65,6 +65,8 @@ class StagingForm extends Component {
                     <Row>
                         {this.state.tumorSizes.map((t, i) => {
                             return (
+                                <div className="tooltip">
+                                    <span className="tooltiptext">some text</span>
                                 <RaisedButton
                                     className="btn tumor-size"
                                     key={i}
@@ -72,6 +74,8 @@ class StagingForm extends Component {
                                     onClick={(e) => this._handleTumorSizeClick(e, i)}
                                     disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
                                 />
+                                </div>
+
                             );
                         })}
                     </Row>
