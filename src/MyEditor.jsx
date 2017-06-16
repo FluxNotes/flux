@@ -68,7 +68,7 @@ function addKeysForNode(curNode, keys) {
   return keys;
 }
 
-// The list of special keys we want to trigger special beahvior
+// The list of special keys we want to trigger special behavior
 // TODO: link these keys with the specific changes in behavior
 const stagingKeyChars = ['T','N','M'];
 
@@ -115,16 +115,64 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the state receives new updates
+  // This gets called when the before the component receives new properties
   componentWillReceiveProps(nextProps) {
-    // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
-    // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
 
     if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
       this.handleSummaryUpdate(nextProps.itemToBeInserted);
     }
-  }
 
+    // Check if staging block exists in the editor
+    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+
+    // If it exists, populate the fields with the updated staging values
+      if (stagingNode) {
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          // Set t value
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
+
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(nNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.nodeSize)
+                .apply();
+            this.setState({ state: state })
+          }
+
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
+          }
+        }
+      }
+  }
 
   // Add the plugin to your set of plugins...
   plugins = [
