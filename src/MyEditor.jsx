@@ -68,7 +68,7 @@ function addKeysForNode(curNode, keys) {
   return keys;
 }
 
-// The list of special keys we want to trigger special beahvior
+// The list of special keys we want to trigger special behavior
 // TODO: link these keys with the specific changes in behavior
 const stagingKeyChars = ['T','N','M'];
 
@@ -117,27 +117,23 @@ class MyEditor extends React.Component {
 
   // This gets called when the before the component receives new properties
   componentWillReceiveProps(nextProps) {
-    console.log("[componentWillReceiveProps] t: " + nextProps.tumorSize);
-    console.log("[componentWillReceiveProps] n: " + nextProps.nodeSize);
-    console.log("[componentWillReceiveProps] m: " + nextProps.metastasis);
 
     if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
       this.handleSummaryUpdate(nextProps.itemToBeInserted);
     }
 
-    // Check if staging block exists
+    // Check if staging block exists in the editor
     const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
 
+    // If it exists, populate the fields with the updated staging values
       if (stagingNode) {
-       console.log("exists");
-        // if it exists, populate the fields with the updated staging values
         for(const parentNode of this.state.state.document.nodes) {
           const tNode = getNodeById(parentNode.nodes, 't-staging');
           const nNode = getNodeById(parentNode.nodes, 'n-staging');
           const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
+          // Set t value
           if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
-
               const currentState = this.state.state;
               const state = currentState
                   .transform()
@@ -148,8 +144,9 @@ class MyEditor extends React.Component {
                   .apply();
               this.setState({ state: state })
           }
-          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
 
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
             const currentState = this.state.state;
             const state = currentState
                 .transform()
@@ -160,8 +157,9 @@ class MyEditor extends React.Component {
                 .apply();
             this.setState({ state: state })
           }
-          if(mNode && this.props.metastasis !== nextProps.metastasis) {
 
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
             const currentState = this.state.state;
             const state = currentState
                 .transform()
@@ -174,10 +172,6 @@ class MyEditor extends React.Component {
           }
         }
       }
-      else {
-        console.log("doesn't exist")
-      }
-
   }
 
   // Add the plugin to your set of plugins...
