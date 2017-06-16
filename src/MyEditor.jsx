@@ -561,10 +561,7 @@ class MyEditor extends React.Component {
     const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteKey);
     const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
     const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteKey);
-    console.log(currentAutocompleteOption);
-    console.log(autocompleteState);
-    console.log(autocompleteKey);
-    console.log(autocompleteBlock);
+    
     this.deleteCurrentAutocompleteText(); 
     this.insertBlockAtLocation(autocompleteBlock);
     this.setState({
