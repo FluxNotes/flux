@@ -115,7 +115,7 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the state receives properties
+  // This gets called when the before the component receives new properties
   componentWillReceiveProps(nextProps) {
     console.log("[componentWillReceiveProps] t: " + nextProps.tumorSize);
     console.log("[componentWillReceiveProps] n: " + nextProps.nodeSize);
@@ -127,18 +127,16 @@ class MyEditor extends React.Component {
 
     // Check if staging block exists
     const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
-    if (this.props.tumorSize !== nextProps.tumorSize) { 
-      if (stagingNode) {
-       console.log("exists")
-        // if it exists, populate the fields with the updated staging values
 
+      if (stagingNode) {
+       console.log("exists");
+        // if it exists, populate the fields with the updated staging values
         for(const parentNode of this.state.state.document.nodes) {
           const tNode = getNodeById(parentNode.nodes, 't-staging');
           const nNode = getNodeById(parentNode.nodes, 'n-staging');
           const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-          if(tNode) {
-              console.log("trying to update value");
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
 
               const currentState = this.state.state;
               const state = currentState
@@ -150,12 +148,36 @@ class MyEditor extends React.Component {
                   .apply();
               this.setState({ state: state })
           }
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(nNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.nodeSize)
+                .apply();
+            this.setState({ state: state })
+          }
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
+          }
         }
       }
       else {
         console.log("doesn't exist")
       }
-    }
+
   }
 
   // Add the plugin to your set of plugins...
