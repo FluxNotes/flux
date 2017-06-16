@@ -548,6 +548,9 @@ class MyEditor extends React.Component {
   //     }
   //   }
   // }
+  deleteCurrentAutocompleteText = () => {
+
+  }
 
   insertTextAtLocation = (text, location="") => { 
     let newState;
@@ -556,16 +559,16 @@ class MyEditor extends React.Component {
         .transform()
         .insertText(text)
         .apply()
-    } else { 
-
-
-    }
+    } 
+    this.setState({ 
+      state: newState,
+    });
   }
 
 
   insertCurrentAutocompleteMatch = () => {
     this.deleteCurrentAutocompleteText(); 
-    this.insertTextInCurrentLocation();
+    this.insertTextInCurrentLocation(this.state.autocompleteText);
     this.setState({
       currentAutocompleteMatch : null,
       inAutocomplete: false,
