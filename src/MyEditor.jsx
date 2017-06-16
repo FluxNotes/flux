@@ -83,9 +83,14 @@ class MyEditor extends React.Component {
       inAutocomplete: false,
       autocompleteText: "",
       autocompleteMatches: [],
+      currentAutocompleteMatch: null,
       state: initialState,
       // TODO: Clean up options and load them from an external source
-      autocompleteOptions: [{label: 'staging'}, {label: 'stage'}, {label:'receptor-status'}],
+      autocompleteOptions: [
+        {label: 'staging'}, 
+        {label: 'stage'}, 
+        {label:'receptor-status'}
+      ],
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
@@ -222,6 +227,9 @@ class MyEditor extends React.Component {
   onKeyDown = (event, data, state) => {
     // Continue handling autocompletes    
     if(this.state.inAutocomplete) {
+      let newText = "";
+      let matches = [];
+
       switch (event.keyCode) { 
         case 32: // Deactivate on spacebar 
           this.setState({
@@ -233,14 +241,19 @@ class MyEditor extends React.Component {
           break;
         case 8:  // Handle deletions by updating the autocompleteText
           const textLength = this.state.autocompleteText.length;
-          (textLength > 0) ? this.setState({ autocompleteText: this.state.autocompleteText.slice(0, textLength -1)}) : this.setState({ inAutocomplete: false, autocompleteText: ""});
+          newText = (textLength > 0) ? this.state.autocompleteText.slice(0, textLength -1) : "" ;
+          matches = this.determineAutocompleteMatches(newText);
+          this.setState({
+              autocompleteText: newText,
+              inAutocomplete: (newText !== ""),
+              autocompleteMatches: matches,
+          })
           break;
         default: // Continue growing autocompleteText and offering updated suggestions
-          const newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
-          const matches = this.determineAutocompleteMatches(newText);
+          newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
+          matches = this.determineAutocompleteMatches(newText);
           const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
           const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
-
           const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom left')
           menuEl.style.top = `${offset.top}px`
           menuEl.style.left = `${offset.left}px`
@@ -535,6 +548,21 @@ class MyEditor extends React.Component {
   //     }
   //   }
   // }
+
+  insertCurrentAutocompleteMatch = () => { 
+    this.setState({
+      currentAutocompleteMatch : null,
+      inAutocomplete: false,
+      autocompleteText: "",
+      autocompleteMatches: [],
+    });
+  }
+
+  updateCurrentAutocompleteMatch = (key) => { 
+    this.setState({
+      currentAutocompleteMatch: key
+    });
+  }
   determineAutocompleteMatches = (autocompleteText) => {
     let matches = []; 
     const regexFromAutocompleteText = new RegExp(autocompleteText, 'i');
@@ -543,6 +571,9 @@ class MyEditor extends React.Component {
         matches.push(opt.label);
       }
     }
+    this.setState({ 
+      currentAutocompleteMatch: 0
+    })
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
   componentDidUpdate = (prevProps, prevState) => { 
@@ -597,9 +628,10 @@ class MyEditor extends React.Component {
     return (
       <div className="menu autocomplete-menu">
         {this.state.autocompleteMatches.map((match, index) => {
+          const isActive = (this.state.currentAutocompleteMatch === index); 
+
           return (
-              <div className="menu-item" 
-                   key={index} >
+              <div className="menu-item" key={index} data-active={isActive} onMouseOver={ () => { this.updateCurrentAutocompleteMatch(index)}} onClick={() => this.insertCurrentAutocompleteMatch()}>
                 {match}
               </div>
           );}

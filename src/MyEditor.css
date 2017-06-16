@@ -43,6 +43,6 @@
     padding: 7px 10px;
 }
 
-.MyEditor-root .autocomplete-menu .menu-item:hover {
+.MyEditor-root .autocomplete-menu .menu-item[data-active="true"] {
     background-color: rgba(0,0,0,0.1);
 }
