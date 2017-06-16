@@ -225,7 +225,29 @@ class MyEditor extends React.Component {
       let newText = "";
       let matches = [];
 
-      switch (event.keyCode) { 
+      switch (event.keyCode) {
+        // Left and up move up 
+        case 37: 
+        case 38:
+          event.preventDefault();
+          console.log(this.state.currentAutocompleteMatch)
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.autocompleteMatches.length + (this.state.currentAutocompleteMatch - 1)) % this.state.autocompleteMatches.length,
+            });
+          }
+          break;
+        // Right and down move down  
+        case 39: 
+        case 40:
+          event.preventDefault();
+          console.log(this.state.currentAutocompleteMatch)
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.currentAutocompleteMatch + 1) % this.state.autocompleteMatches.length,
+            });
+          } 
+          break;
         case 32: // Deactivate on spacebar 
           this.setState({
             inAutocomplete: false, 
@@ -233,8 +255,10 @@ class MyEditor extends React.Component {
           });
           break;
         case 13: // Handle enter clicks to insert text
+          event.preventDefault(); 
+          return this.insertCurrentAutocompleteMatch();
           break;
-        case 8:  // Handle deletions by updating the autocompleteText
+        case 8:  // Handle deletions by updating the autocompleteText and suggestions
           const textLength = this.state.autocompleteText.length;
           newText = (textLength > 0) ? this.state.autocompleteText.slice(0, textLength -1) : "" ;
           matches = this.determineAutocompleteMatches(newText);
@@ -263,7 +287,9 @@ class MyEditor extends React.Component {
     } else { 
       if (event.keyCode === 190) {
         // Trigger autocomplete mode if a '.' is typed 
+        const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
         this.setState({
+          state: newState, 
           inAutocomplete: true,
           autocompleteText: ""
         });
@@ -538,60 +564,74 @@ class MyEditor extends React.Component {
   //     }
   //   }
   // }
-  deleteCurrentAutocompleteText = () => {
 
-  }
-
-  insertBlockAtLocation  = (block, location="") => { 
-    let newStateTransform = this.state.state
-        .transform();
+  /* 
+   * Deletes a number of characters corresponding to the number of chars in 
+   * the states autocomplete buffer plus one for the dot that triggered it
+   */   
+  deleteCurrentAutocompleteText = (newStateTransform) => {
     for(const char of this.state.autocompleteText) { 
       newStateTransform.deleteBackward();
     }
     // Delete once more for period
     newStateTransform.deleteBackward();
-    if (location === "") {
+    return newStateTransform
+  }
+
+  
+  /**
+   * Insert a block at a specified location or at the selection current location
+   */
+  insertBlockAtLocation  = (newStateTransform, block, location="") => { 
+    if (location !== "") {
+      //  Need to do something with location
       newStateTransform
         .insertBlock(block);
-    }  else { 
-      newStateTransform = this.state.state
-        .transform();
-      for(const char of this.state.autocompleteText) { 
-        newStateTransform.deleteBackward();
-      }
+    } else { 
       newStateTransform
         .insertBlock(block)
-        .apply();
     }
-    const newState = newStateTransform.apply();
-    this.setState({ 
-      state: newState,
-    });
+    return newStateTransform
   }
 
 
+  /**
+   * Inserts the current autocomplete match onto the page
+   */
   insertCurrentAutocompleteMatch = () => {
     const autocompleteKey = this.state.autocompleteMatches[this.state.currentAutocompleteMatch];
     const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteKey);
     const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
     const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteKey);
     
-    this.deleteCurrentAutocompleteText(); 
-    this.insertBlockAtLocation(autocompleteBlock);
+    let newStateTransform = this.state.state.transform();
+
+    newStateTransform = this.deleteCurrentAutocompleteText(newStateTransform); 
+    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock);
+    const newState = newStateTransform.apply();
     this.setState({
       currentAutocompleteMatch : null,
       inAutocomplete: false,
       autocompleteText: "",
       autocompleteMatches: [],
+      state: newState,
     });
+    return newState;
   }
 
+  /**
+   * Updates the current autocomplete match based on the new key provided
+   */
   updateCurrentAutocompleteMatch = (key) => { 
     this.setState({
       currentAutocompleteMatch: key
     });
   }
 
+  /**
+   * Determines new autocomplete matches based on the current 
+   * autocomplete text typed
+   */
   determineAutocompleteMatches = (autocompleteText) => {
     let matches = []; 
     const regexFromAutocompleteText = new RegExp(autocompleteText, 'i');
@@ -608,6 +648,9 @@ class MyEditor extends React.Component {
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
 
+  /**
+   * Lifecycle method that triggers after updates to the component
+   */
   componentDidUpdate = (prevProps, prevState) => { 
     //Nothing now
   }
