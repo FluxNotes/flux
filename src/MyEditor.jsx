@@ -7,7 +7,7 @@ import getOffsets from 'positions'
 // Styling
 import './MyEditor.css';
 
-//TODO: make this a one line destructuring 
+//TODO: make this a one line destructuring
 import structuredDataRaw from './structuredDataRaw';
 const staging = structuredDataRaw.find((element, index, array) => element.label === 'staging')
 const stagingState = Raw.deserialize(staging.block, { terse: true });
@@ -23,7 +23,7 @@ const initialState = Raw.deserialize({
           text: 'Begin typing your clinical notes below.'
         }
       ]
-    }, 
+    },
     {
       kind: 'block',
       type: 'paragraph',
@@ -41,34 +41,34 @@ const DEFAULT_NODE = 'paragraph';
 
 // Given a list of nodes and an id, check to see if there is a (shallow) node in that list with that id
 // AGAIN: Not a deep search
-function getNodeById(nodes, id) { 
+function getNodeById(nodes, id) {
   return nodes.find(function(v, k, iter) {
     if (v.data) {
       return v.data.get('id') === id;
-    } else { 
+    } else {
       return false;
     }
   });
 }
 
-// Given a current node and an array of keys, add the key of this node and the keys of all its children 
+// Given a current node and an array of keys, add the key of this node and the keys of all its children
 // to the array.
-function addKeysForNode(curNode, keys) { 
+function addKeysForNode(curNode, keys) {
   // Get this key
-  if(curNode.key) { 
+  if(curNode.key) {
     keys.push(curNode.key)
   }
   //For all children
-  if (curNode.nodes) { 
+  if (curNode.nodes) {
     for(const child of curNode.nodes) {
-      // update keys to include all the child's added to current collection  
+      // update keys to include all the child's added to current collection
       keys = addKeysForNode(child, keys);
     }
   }
   return keys;
 }
 
-// The list of special keys we want to trigger special beahvior
+// The list of special keys we want to trigger special behavior
 // TODO: link these keys with the specific changes in behavior
 const stagingKeyChars = ['T','N','M'];
 
@@ -121,16 +121,64 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the state receives new updates 
+  // This gets called when the before the component receives new properties
   componentWillReceiveProps(nextProps) {
-    // console.log("[componentDidUpdate] this.props.itemToBeInserted: " + this.props.itemToBeInserted);
-    // console.log("[componentDidUpdate] nextProps.itemToBeInserted: " + nextProps.itemToBeInserted);
 
     if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
       this.handleSummaryUpdate(nextProps.itemToBeInserted);
     }
-  }
 
+    // Check if staging block exists in the editor
+    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+
+    // If it exists, populate the fields with the updated staging values
+      if (stagingNode) {
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          // Set t value
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
+
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(nNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.nodeSize)
+                .apply();
+            this.setState({ state: state })
+          }
+
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
+          }
+        }
+      }
+  }
 
   // Add the plugin to your set of plugins...
   plugins = [
@@ -175,10 +223,10 @@ class MyEditor extends React.Component {
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
-    if(!stagingNode) { 
+    if(!stagingNode) {
       this.handleStructuredFieldExited(null)
       this.setState({ state })
-    } else { 
+    } else {
      const stagingKeys = addKeysForNode(stagingNode, []);
      (stagingKeys.includes(state.selection.startKey)) ?  this.handleStructuredFieldEntered('staging') : this.handleStructuredFieldExited('staging');
      this.setState({ state })
@@ -197,10 +245,6 @@ class MyEditor extends React.Component {
     this.props.onStagingMUpdate(newVal);
   }
 
-  handleStageUpdate = (newVal) => {
-    this.props.onStageUpdate(newVal);
-  }
-
   handleSummaryUpdate = (itemToBeInserted) => {
     const currentState = this.state.state;
     const state = currentState
@@ -210,11 +254,11 @@ class MyEditor extends React.Component {
     this.setState({ state: state })
   }
 
-  handleStructuredFieldEntered = (currentFocus) => { 
+  handleStructuredFieldEntered = (currentFocus) => {
     this.props.onStructuredFieldEntered(currentFocus);
   }
 
-  handleStructuredFieldExited = (currentFocus) => { 
+  handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
@@ -280,7 +324,6 @@ class MyEditor extends React.Component {
               autocompleteMatches: matches,
           })
           break;
-
       }
     } else { 
       if (event.keyCode === 190) {
@@ -336,8 +379,7 @@ class MyEditor extends React.Component {
             if (tKeys.includes(state.selection.startKey)) { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingTUpdate(val)
-                this.handleStageUpdate(this.props.calculateStage(val, this.props.nodeSize, this.props.metastasis))
+                this.handleStagingTUpdate('T' + val.toString());
 
                 event.preventDefault()
                 return state
@@ -382,8 +424,7 @@ class MyEditor extends React.Component {
             } else if (nKeys.includes(state.selection.startKey)) { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingNUpdate(val)
-                this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis))
+                this.handleStagingNUpdate('N' + val.toString());
 
                 event.preventDefault()
                 return state
@@ -428,8 +469,7 @@ class MyEditor extends React.Component {
             } else if (mKeys.includes(state.selection.startKey))  { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingMUpdate(val)
-                this.handleStageUpdate(this.props.calculateStage(this.props.tumorSize, this.props.nodeSize, val))
+                this.handleStagingMUpdate('M' + val.toString());
                 const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
                 const emptyBlockKey = emptyBlock.key;
                 const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
@@ -539,7 +579,7 @@ class MyEditor extends React.Component {
           .setBlock('list-item')
           .wrapBlock(type)
       }
-    } else { 
+    } else {
       // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
     }
 
@@ -676,7 +716,7 @@ class MyEditor extends React.Component {
     return (
       <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
         <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span> 
+      </span>
     )
   }
   /**
