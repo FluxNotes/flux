@@ -549,7 +549,23 @@ class MyEditor extends React.Component {
   //   }
   // }
 
-  insertCurrentAutocompleteMatch = () => { 
+  insertTextAtLocation = (text, location="") => { 
+    let newState;
+    if (location === "") {
+      newState = this.state.state
+        .transform()
+        .insertText(text)
+        .apply()
+    } else { 
+
+
+    }
+  }
+
+
+  insertCurrentAutocompleteMatch = () => {
+    this.deleteCurrentAutocompleteText(); 
+    this.insertTextInCurrentLocation();
     this.setState({
       currentAutocompleteMatch : null,
       inAutocomplete: false,
