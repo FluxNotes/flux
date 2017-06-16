@@ -557,7 +557,7 @@ class MyEditor extends React.Component {
       newStateTransform = this.state.state
         .transform();
       for(const char of this.state.autocompleteText) { 
-        newState.deleteBackward();
+        newStateTransform.deleteBackward();
       }
       newStateTransform
         .insertBlock(block)
