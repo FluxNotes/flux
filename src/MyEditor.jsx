@@ -117,9 +117,9 @@ class MyEditor extends React.Component {
 
   // This gets called when the state receives properties
   componentWillReceiveProps(nextProps) {
-    // console.log("[componentWillReceiveProps] t: " + nextProps.tumorSize);
-    // console.log("[componentWillReceiveProps] n: " + nextProps.nodeSize);
-    // console.log("[componentWillReceiveProps] m: " + nextProps.metastasis);
+    console.log("[componentWillReceiveProps] t: " + nextProps.tumorSize);
+    console.log("[componentWillReceiveProps] n: " + nextProps.nodeSize);
+    console.log("[componentWillReceiveProps] m: " + nextProps.metastasis);
 
     if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
       this.handleSummaryUpdate(nextProps.itemToBeInserted);
@@ -127,37 +127,36 @@ class MyEditor extends React.Component {
 
     // Check if staging block exists
     const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+    if (this.props.tumorSize !== nextProps.tumorSize) { 
+      if (stagingNode) {
+       console.log("exists")
+        // if it exists, populate the fields with the updated staging values
 
-    if (stagingNode) {
-     console.log("exists")
-      // if it exists, populate the fields with the updated staging values
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-      for(const parentNode of this.state.state.document.nodes) {
-        const tNode = getNodeById(parentNode.nodes, 't-staging');
-        const nNode = getNodeById(parentNode.nodes, 'n-staging');
-        const mNode = getNodeById(parentNode.nodes, 'm-staging');
+          if(tNode) {
+              console.log("trying to update value");
 
-        if(tNode) {
-            console.log("trying to update value");
-
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(tNode)
-                .moveStart(1)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.tumorSize)
-                .apply();
-            this.setState({ state: state })
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
         }
       }
-    }
-    else {
-      console.log("doesn't exist")
+      else {
+        console.log("doesn't exist")
+      }
     }
   }
-
 
   // Add the plugin to your set of plugins...
   plugins = [
