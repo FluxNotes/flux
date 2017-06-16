@@ -3,21 +3,21 @@
   text-align: left;
 }
 
-#staging-form-heading { 
+#staging-form-heading {
     padding: 30px;
 }
 
-#staging-form-heading h1 { 
+#staging-form-heading h1 {
     margin: 0;
     font-size: 1.25rem;
 }
 
-#staging-form-contents { 
+#staging-form-contents {
     padding: 15px 30px;
 }
 
 .btn.tumor-size {
-  min-width: 20% !important;
+  min-width: 16% !important;
 }
 
 .btn.node {
