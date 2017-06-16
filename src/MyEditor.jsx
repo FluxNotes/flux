@@ -9,9 +9,8 @@ import './MyEditor.css';
 
 //TODO: make this a one line destructuring 
 import structuredDataRaw from './structuredDataRaw';
-const {staging}  = structuredDataRaw;
-
-const stagingState = Raw.deserialize(staging, { terse: true });
+const staging = structuredDataRaw.find((element, index, array) => element.label === 'staging')
+const stagingState = Raw.deserialize(staging.block, { terse: true });
 
 const initialState = Raw.deserialize({
   nodes: [
@@ -86,11 +85,7 @@ class MyEditor extends React.Component {
       currentAutocompleteMatch: null,
       state: initialState,
       // TODO: Clean up options and load them from an external source
-      autocompleteOptions: [
-        {label: 'staging'}, 
-        {label: 'stage'}, 
-        {label:'receptor-status'}
-      ],
+      autocompleteOptions: structuredDataRaw,
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
@@ -143,7 +138,7 @@ class MyEditor extends React.Component {
       trigger: 'space',
       before: /(\.staging)/i,
       transform: (transform, e, data, matches) => {
-        const stagingBlock = stagingState.document.nodes.get(0);
+        const stagingBlock = getNodeById(stagingState.blocks, 'staging')
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
         const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
                 .moveStart(1)
@@ -257,12 +252,7 @@ class MyEditor extends React.Component {
           const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom left')
           menuEl.style.top = `${offset.top}px`
           menuEl.style.left = `${offset.left}px`
-          if (closestDOMElement) {
-            const cursorPosition = closestDOMElement.getBoundingClientRect()
-            console.log(cursorPosition)
-          } else { 
-            console.log(`couldn't find dom element at key ${this.state.state.anchorKey}`);  
-          }
+          
           this.setState({
               autocompleteText: newText,
               autocompleteMatches: matches,
@@ -552,12 +542,12 @@ class MyEditor extends React.Component {
 
   }
 
-  insertTextAtLocation = (text, location="") => { 
+  insertBlockAtLocation  = (block, location="") => { 
     let newState;
     if (location === "") {
       newState = this.state.state
         .transform()
-        .insertText(text)
+        .insertBlock(block)
         .apply()
     } 
     this.setState({ 
@@ -567,8 +557,16 @@ class MyEditor extends React.Component {
 
 
   insertCurrentAutocompleteMatch = () => {
+    const autocompleteKey = this.state.autocompleteMatches[this.state.currentAutocompleteMatch];
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteKey);
+    const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
+    const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteKey);
+    console.log(currentAutocompleteOption);
+    console.log(autocompleteState);
+    console.log(autocompleteKey);
+    console.log(autocompleteBlock);
     this.deleteCurrentAutocompleteText(); 
-    this.insertTextInCurrentLocation(this.state.autocompleteText);
+    this.insertBlockAtLocation(autocompleteBlock);
     this.setState({
       currentAutocompleteMatch : null,
       inAutocomplete: false,
@@ -663,7 +661,6 @@ class MyEditor extends React.Component {
    * Render the editor, toolbar and dropdown when needed.
    */
   render = () => {
-    console.log(this.state)
     return (
       <div className="MyEditor-root">
         {this.renderToolbar()}
