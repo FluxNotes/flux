@@ -16,7 +16,7 @@ const initialState = Raw.deserialize({
   nodes: [
     {
       kind: 'block',
-      type: 'paragraph',
+      type: 'paragraph-span',
       nodes: [
         {
           kind: 'text',
@@ -26,7 +26,7 @@ const initialState = Raw.deserialize({
     },
     {
       kind: 'block',
-      type: 'paragraph',
+      type: 'paragraph-span',
       nodes: [
         {
           kind: 'text',
@@ -89,13 +89,13 @@ class MyEditor extends React.Component {
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
-          'paragraph-clear':     (props) => {
+          'paragraph-span': (props) => {
             return (
-              <div> 
-                <div className="clear"></div>
+              <span>
+                <div className="clear"></div> 
                 <p {...props.attributes}>{props.children}</p>
-              </div>
-            )
+              </span>
+              )
           },
           'structured-span':          (props) => {
             const id = (props.node) ? props.node.data.get('id') : '';
@@ -373,7 +373,7 @@ class MyEditor extends React.Component {
           return state
           .transform()
           // Paste a block containing a zero width space 
-          .insertBlock(Block.create({'type': 'paragraph-clear', 'nodes': List([Text.createFromString('​')])}))
+          .insertBlock(Block.create({'type': 'paragraph-span', 'nodes': List([Text.createFromString('​')])}))
           .apply();
       } else {
         // Search all nodes to find if structured nodes that need checking 
@@ -702,6 +702,8 @@ class MyEditor extends React.Component {
    */
   componentDidUpdate = (prevProps, prevState) => { 
     //Nothing now
+    console.log(this.state.state.selection.anchorKey)
+    console.log(this.state.state.selection.anchorOffset)
   }
 
   /**

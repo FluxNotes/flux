@@ -48,15 +48,18 @@
 }
 
 .MyEditor-root p {
-    display: inline-block;
+    display: inline;
+    margin:0;
 }
-.MyEditor-root span { 
-    margin: 16px 0;
+
+.MyEditor-root span {
+    display: inline;
 }
 
 .clear{
   clear: both;
   display: block;  
   content: "";
+  margin: 10px 0;
   width: 100%;  
 }
