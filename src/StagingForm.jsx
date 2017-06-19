@@ -65,7 +65,7 @@ class StagingForm extends Component {
                     <Row>
                         {this.state.tumorSizes.map((t, i) => {
                             return (
-                                <div className="tooltip">
+                                <div key={t} className="tooltip">
                                     <span className="tooltiptext">some text</span>
                                 <RaisedButton
                                     className="btn tumor-size"

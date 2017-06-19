@@ -69,4 +69,5 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+    transition-delay: 0.5s;
 }
