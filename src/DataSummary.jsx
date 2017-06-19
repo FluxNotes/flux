@@ -87,7 +87,7 @@ class DataSummary extends Component {
 
         // Event Dates
         const DiagnosisDate = '01/13/2012';
-        const Diagnosis = 'Breast Cancer';
+        const Diagnosis = 'Lobular carcinoma of the breast';
         const DiagnosisStage = 'Stage IIA';
         const SurgeryDate = '09/20/2012';
         const Surgery = 'Lumpectomy/sentinel/lymph node biopsy';
