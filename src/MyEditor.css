@@ -47,8 +47,11 @@
     background-color: rgba(0,0,0,0.1);
 }
 
-/*.MyEditor-root p {
+.MyEditor-root p {
     display: inline-block;
+}
+.MyEditor-root span { 
+    margin: 16px 0;
 }
 
 .clear{
@@ -56,4 +59,4 @@
   display: block;  
   content: "";
   width: 100%;  
-}*/
+}

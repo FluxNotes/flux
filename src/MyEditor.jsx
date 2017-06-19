@@ -89,6 +89,14 @@ class MyEditor extends React.Component {
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
+          'paragraph-clear':     (props) => {
+            return (
+              <div> 
+                <div className="clear"></div>
+                <p {...props.attributes}>{props.children}</p>
+              </div>
+            )
+          },
           'structured-span':          (props) => {
             const id = (props.node) ? props.node.data.get('id') : '';
             return <span id={id} {...props.attributes}>{props.children}</span>;
@@ -365,7 +373,7 @@ class MyEditor extends React.Component {
           return state
           .transform()
           // Paste a block containing a zero width space 
-          .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString('​')])}))
+          .insertBlock(Block.create({'type': 'paragraph-clear', 'nodes': List([Text.createFromString('​')])}))
           .apply();
       } else {
         // Search all nodes to find if structured nodes that need checking 
@@ -473,7 +481,7 @@ class MyEditor extends React.Component {
                 const val = event.keyCode - 48;
                 this.handleStagingMUpdate('M' + val.toString());
                 // Create a block with a zero-width space 
-                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​as')])});
+                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
                 const emptyBlockKey = emptyBlock.key;
                 const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
                 event.preventDefault()
