@@ -59,7 +59,7 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn tumor-size"
                         key={i}
-                        label={t}
+                        label={titlecase(t)}
                         onClick={(e) => this._handleTumorSizeClick(e, i)}
                         disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
                     />
@@ -72,7 +72,7 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn node"
                         key={i}
-                        label={n}
+                        label={titlecase(n)}
                         onClick={(e) => this._handleNodeClick(e, i)}
                         disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i])}
                     />
@@ -85,7 +85,7 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn metastasis"
                         key={i}
-                        label={m}
+                        label={titlecase(m)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
                         disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i])}
                     />);
@@ -99,3 +99,10 @@ class StagingForm extends Component {
 }
 
 export default StagingForm;
+
+
+function titlecase(label) {
+  return label.toLowerCase().split(' ').map(function(word) {
+    return word.replace(word[0], word[0].toUpperCase());
+  }).join(' ');
+}
