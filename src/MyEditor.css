@@ -46,3 +46,14 @@
 .MyEditor-root .autocomplete-menu .menu-item[data-active="true"] {
     background-color: rgba(0,0,0,0.1);
 }
+
+/*.MyEditor-root p {
+    display: inline-block;
+}
+
+.clear{
+  clear: both;
+  display: block;  
+  content: "";
+  width: 100%;  
+}*/

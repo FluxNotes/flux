@@ -293,6 +293,7 @@ class MyEditor extends React.Component {
         case 32: // Deactivate on spacebar 
           this.setState({
             inAutocomplete: false, 
+            autocompleteMatches: [],
             autocompleteText: "",
           });
           break;
@@ -313,11 +314,6 @@ class MyEditor extends React.Component {
         default: // Continue growing autocompleteText and offering updated suggestions
           newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
           matches = this.determineAutocompleteMatches(newText);
-          const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
-          const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
-          const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom left')
-          menuEl.style.top = `${offset.top}px`
-          menuEl.style.left = `${offset.left}px`
           
           this.setState({
               autocompleteText: newText,
@@ -329,6 +325,11 @@ class MyEditor extends React.Component {
       if (event.keyCode === 190) {
         // Trigger autocomplete mode if a '.' is typed 
         const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+        const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+        const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
+        const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+        menuEl.style.top = `${offset.top}px`
+        menuEl.style.left = `${offset.left}px`
         this.setState({
           state: newState, 
           inAutocomplete: true,
@@ -363,7 +364,8 @@ class MyEditor extends React.Component {
           event.preventDefault();
           return state
           .transform()
-          .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
+          // Paste a block containing a zero width space 
+          .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString('​')])}))
           .apply();
       } else {
         // Search all nodes to find if structured nodes that need checking 
@@ -470,7 +472,8 @@ class MyEditor extends React.Component {
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
                 this.handleStagingMUpdate('M' + val.toString());
-                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
+                // Create a block with a zero-width space 
+                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​as')])});
                 const emptyBlockKey = emptyBlock.key;
                 const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
                 event.preventDefault()
