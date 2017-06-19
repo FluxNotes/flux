@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 // Our components
 import StagingForm from './StagingForm';
-import Templates from './Templates';
+import TemplateForm from './TemplateForm';
 // Styling
-import './RightPanel.css';
+import './FormTray.css';
 
-class RightPanel extends Component {
+class FormTray extends Component {
   /*
     need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
     to the correct entry form for the structured field. on exit, set to null.
@@ -16,7 +16,7 @@ class RightPanel extends Component {
     let panelContent = null;
     if (this.props.withinStructuredField == null) {
         panelContent = (
-            <Templates />
+            <TemplateForm />
         );
     } else {
         panelContent = (
@@ -44,4 +44,4 @@ class RightPanel extends Component {
   }
 }
 
-export default RightPanel;
+export default FormTray;

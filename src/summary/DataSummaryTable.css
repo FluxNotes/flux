@@ -1,0 +1,35 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+table, tr, td {
+    font-size: 0.65rem;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+td {
+    padding: 8px 10px;
+}
+
+td:first-child {
+    width: 40%;
+    color: #999;
+}
+
+td:last-child {
+    width: 60%;
+}
+
+.missing {
+    color: #fff;
+    background-color: #fa9f8f;
+}
+
+.captured {
+    color: #333;
+    background-color: #d9ebf9;
+}

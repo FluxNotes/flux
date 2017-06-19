@@ -4,11 +4,9 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
-// Flexbox
-import { Grid, Row, Col } from 'react-flexbox-grid';
 // Libraries
-import staging from '../lib/staging';
-import lookup from '../lib/staging_lookup';
+import staging from '../../lib/staging';
+import lookup from '../../lib/staging_lookup';
 // Styling
 import './StagingForm.css';
 
@@ -54,7 +52,7 @@ class StagingForm extends Component {
         <Paper className="panel-content trio">
             <h1>Current Staging</h1>
             <Divider className="divider" />
-            
+
             <h4>Tumor Size</h4>
             {this.state.tumorSizes.map((t, i) => {
                 return (

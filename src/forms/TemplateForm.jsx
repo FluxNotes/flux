@@ -5,9 +5,9 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 // Styling
-import './Templates.css';
+import './TemplateForm.css';
 
-class Templates extends Component {
+class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
@@ -43,4 +43,4 @@ class Templates extends Component {
   }
 
 }
-export default Templates;
+export default TemplateForm;

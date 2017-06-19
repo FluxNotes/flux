@@ -2,6 +2,11 @@
     height: 100vh;
 }
 
+/* Restricts app to max fixed width for very wide screens. */
+.App-content {
+    max-width: 1400px;
+}
+
 .container-fluid {
     padding-left: 12px;
     padding-right: 12px;
