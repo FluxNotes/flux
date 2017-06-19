@@ -69,8 +69,6 @@ function addKeysForNode(curNode, keys) {
 }
 
 // The list of special keys we want to trigger special behavior
-// TODO: link these keys with the specific changes in behavior
-const stagingKeyChars = ['T','N','M'];
 
 // Define our app...
 class MyEditor extends React.Component {
@@ -129,63 +127,27 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the before the component receives new properties
-  componentWillReceiveProps(nextProps) {
-
-    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
-      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+  /**
+   * Insert a block at a specified location or at the current location, and after insertion
+   * either move the selection to the next block with offsets or leave selection as-is
+   */
+  insertBlockAtLocation  = (newStateTransform, block, nextBlock={}, nextBlockStartOffset=0, nextBlockEndOffset=0, location="") => { 
+    if (location !== "") {
+      //  Need to do something with location
+      newStateTransform
+        .insertBlock(block);
+    } else { 
+      newStateTransform
+        .insertBlock(block);
     }
 
-    // Check if staging block exists in the editor
-    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+    if (nextBlock !== {}) { 
+      newStateTransform.moveToRangeOf(nextBlock)
+      .moveStart(nextBlockStartOffset)
+      .moveEnd(nextBlockEndOffset);
+    }
 
-    // If it exists, populate the fields with the updated staging values
-      if (stagingNode) {
-        for(const parentNode of this.state.state.document.nodes) {
-          const tNode = getNodeById(parentNode.nodes, 't-staging');
-          const nNode = getNodeById(parentNode.nodes, 'n-staging');
-          const mNode = getNodeById(parentNode.nodes, 'm-staging');
-
-          // Set t value
-          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
-              const currentState = this.state.state;
-              const state = currentState
-                  .transform()
-                  .moveToRangeOf(tNode)
-                  .moveEnd(-1)
-                  .deleteForward()
-                  .insertText(nextProps.tumorSize)
-                  .apply();
-              this.setState({ state: state })
-          }
-
-          // Set n value
-          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(nNode)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.nodeSize)
-                .apply();
-            this.setState({ state: state })
-          }
-
-          // Set m value
-          if(mNode && this.props.metastasis !== nextProps.metastasis) {
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(mNode)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.metastasis)
-                .apply();
-            this.setState({ state: state })
-          }
-        }
-      }
+    return newStateTransform
   }
 
   // Add the plugin to your set of plugins...
@@ -196,9 +158,8 @@ class MyEditor extends React.Component {
       transform: (transform, e, data, matches) => {
         const stagingBlock = getNodeById(stagingState.blocks, 'staging')
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
-        const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
-                .moveStart(1)
-                .moveEnd(-1);
+        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, 1, -1); 
+
         return newTrans;
       }
     }),
@@ -397,40 +358,12 @@ class MyEditor extends React.Component {
                   .moveToRangeOf(tNode)
                   .moveStart(1)
                   .moveEnd(-1)
-                  .deleteForward()
                   .insertText(String.fromCharCode(event.keyCode))
                   .moveToRangeOf(nNode)
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
-              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-                event.preventDefault();
-                switch(String.fromCharCode(event.keyCode)) { 
-                  case "T": 
-                    return state
-                     .transform()
-                     .moveToRangeOf(tNode)
-                     .moveStart(1)
-                     .moveEnd(-1)
-                     .apply();
-                  case "N":
-                    return state
-                      .transform()
-                      .moveToRangeOf(nNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  case "M":
-                    return state
-                      .transform()
-                      .moveToRangeOf(mNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  default: 
-                    return state;
-                } 
-              }
+              } 
             } else if (nKeys.includes(state.selection.startKey)) { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
@@ -442,40 +375,12 @@ class MyEditor extends React.Component {
                   .moveToRangeOf(nNode)
                   .moveStart(1)
                   .moveEnd(-1)
-                  .deleteForward()
                   .insertText(String.fromCharCode(event.keyCode))
                   .moveToRangeOf(mNode)
                   .moveStart(1)
                   .moveEnd(-1)
                   .apply();
-              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-                event.preventDefault();
-                switch(String.fromCharCode(event.keyCode)) { 
-                  case "T": 
-                    return state
-                     .transform()
-                     .moveToRangeOf(tNode)
-                     .moveStart(1)
-                     .moveEnd(-1)
-                     .apply();
-                  case "N":
-                    return state
-                      .transform()
-                      .moveToRangeOf(nNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  case "M":
-                    return state
-                      .transform()
-                      .moveToRangeOf(mNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  default: 
-                    return state;
-                } 
-              }
+              } 
             } else if (mKeys.includes(state.selection.startKey))  { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
@@ -490,40 +395,12 @@ class MyEditor extends React.Component {
                   .moveToRangeOf(mNode)
                   .moveStart(1)
                   .moveEnd(-1)
-                  .deleteForward()
                   .insertText(String.fromCharCode(event.keyCode))
                   .collapseToEndOf(mNode)
                   .insertBlock(emptyBlock)
                   .removeNodeByKey(afterEmpty.toString())
                   .apply();
-              } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-                event.preventDefault();
-                switch(String.fromCharCode(event.keyCode)) { 
-                  case "T": 
-                    return state
-                     .transform()
-                     .moveToRangeOf(tNode)
-                     .moveStart(1)
-                     .moveEnd(-1)
-                     .apply();
-                  case "N":
-                    return state
-                      .transform()
-                      .moveToRangeOf(nNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  case "M":
-                    return state
-                      .transform()
-                      .moveToRangeOf(mNode)
-                      .moveStart(1)
-                      .moveEnd(-1)
-                      .apply();
-                  default: 
-                    return state;
-                } 
-              }
+              } 
             }
           }
         } 
@@ -602,19 +479,18 @@ class MyEditor extends React.Component {
    *  Lifecycle Methods
    */
   // componentDidUpdate = (prevProps, prevState) => { 
-  //   window.state = this.state.state;
-  //   console.log(this.state.state);
-  //   var re2 = /\s\.(\w(\w*-?\w*)+)/g;
-  //   for(const txt of this.state.state.texts) { 
-  //     const shorthand = txt.text.match(re2)
-  //     if (shorthand) {
-  //       console.log(shorthand)
-
-  //     }
-  //   }
   // }
 
   /* 
+   * For a given autocomplete key, use lookup table to find the next block to be selected
+   */
+  getNextSelectionBlock = (autocompleteBlock, autocompleteId) => {
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
+
+    return getNodeById(autocompleteBlock.nodes, currentAutocompleteOption.firstSelection)
+  }
+  
+  /** 
    * Deletes a number of characters corresponding to the number of chars in 
    * the states autocomplete buffer plus one for the dot that triggered it
    */   
@@ -627,36 +503,21 @@ class MyEditor extends React.Component {
     return newStateTransform
   }
 
-  
-  /**
-   * Insert a block at a specified location or at the selection current location
-   */
-  insertBlockAtLocation  = (newStateTransform, block, location="") => { 
-    if (location !== "") {
-      //  Need to do something with location
-      newStateTransform
-        .insertBlock(block);
-    } else { 
-      newStateTransform
-        .insertBlock(block)
-    }
-    return newStateTransform
-  }
-
-
   /**
    * Inserts the current autocomplete match onto the page
    */
   insertCurrentAutocompleteMatch = () => {
-    const autocompleteKey = this.state.autocompleteMatches[this.state.currentAutocompleteMatch];
-    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteKey);
+    const autocompleteId = this.state.autocompleteMatches[this.state.currentAutocompleteMatch];
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
     const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
-    const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteKey);
-    
-    let newStateTransform = this.state.state.transform();
+    const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteId);
+    console.log(autocompleteId)
 
+    let newStateTransform = this.state.state.transform();
     newStateTransform = this.deleteCurrentAutocompleteText(newStateTransform); 
-    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock);
+    const nextBlock = this.getNextSelectionBlock(autocompleteBlock, autocompleteId);
+    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock, nextBlock, 1, -1);
+
     const newState = newStateTransform.apply();
     this.setState({
       currentAutocompleteMatch : null,
@@ -702,9 +563,69 @@ class MyEditor extends React.Component {
    */
   componentDidUpdate = (prevProps, prevState) => { 
     //Nothing now
-    console.log(this.state.state.selection.anchorKey)
-    console.log(this.state.state.selection.anchorOffset)
+    // console.log(this.state.state.selection.anchorKey)
+    // console.log(this.state.state.selection.anchorOffset)
   }
+
+  // This gets called when the before the component receives new properties
+  componentWillReceiveProps = (nextProps) => {
+
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+    }
+
+    // Check if staging block exists in the editor
+    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+
+    // If it exists, populate the fields with the updated staging values
+      if (stagingNode) {
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          // Set t value
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
+
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(nNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.nodeSize)
+                .apply();
+            this.setState({ state: state })
+          }
+
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
+          }
+        }
+      }
+  }
+
 
   /**
    * Render a mark-toggling toolbar button.

@@ -1,6 +1,7 @@
 const structuredDataRaw = [
   {
     "label": "staging",
+    "firstSelection": "t-staging",
     "block": {
       "nodes": [
         {
@@ -76,6 +77,7 @@ const structuredDataRaw = [
     } 
   }, {
     "label": "stage",
+    "firstSelection": "stage-value",
     "block": {
       "nodes": [
         {
@@ -90,16 +92,34 @@ const structuredDataRaw = [
               "kind": "text",
               "ranges": [
                 {
-                  "text": "Stage _"
+                  "text": "Stage"
                 }
               ]
-            }
+            },
+            {
+              "kind": "inline",
+              "type": "structured-span",
+              "data": {
+                "id": "stage-value",
+              },
+              "nodes": [
+                {
+                  "kind": "text",
+                  "ranges": [
+                    {
+                      "text": "_ "
+                    }
+                  ]
+                }
+              ]
+            } 
           ]
         }
       ]
     }
   }, {
     "label": "er-receptor-status",
+    "firstSelection": "er-value",
     "block": {
       "nodes": [
         {
@@ -114,7 +134,24 @@ const structuredDataRaw = [
               "kind": "text",
               "ranges": [
                 {
-                  "text": "ER _"
+                  "text": "ER"
+                }
+              ]
+            },
+            {
+              "kind": "inline",
+              "type": "structured-span",
+              "data": {
+                "id": "er-value",
+              },
+              "nodes": [
+                {
+                  "kind": "text",
+                  "ranges": [
+                    {
+                      "text": "_ "
+                    }
+                  ]
                 }
               ]
             }
