@@ -65,12 +65,12 @@ class StagingForm extends Component {
                     <Row>
                         {this.state.tumorSizes.map((t, i) => {
                             return (
-                                <div key={t} className="tooltip">
-                                    <span className="tooltiptext">some text</span>
+                                <div key={t.name} className="tooltip">
+                                    <span className="tooltiptext">{t.description}</span>
                                 <RaisedButton
                                     className="btn tumor-size"
                                     key={i}
-                                    label={t}
+                                    label={t.name}
                                     onClick={(e) => this._handleTumorSizeClick(e, i)}
                                     disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
                                 />
