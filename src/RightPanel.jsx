@@ -1,11 +1,10 @@
 // React imports
 import React, { Component } from 'react';
-
-// Styling
-import './RightPanel.css';
 // Our components
 import StagingForm from './StagingForm';
 import Templates from './Templates';
+// Styling
+import './RightPanel.css';
 
 class RightPanel extends Component {
   /*
@@ -14,16 +13,14 @@ class RightPanel extends Component {
   */
 
   render() {
+    let panelContent = null;
     if (this.props.withinStructuredField == null) {
-        return (
-            <Templates 
-              className={this.props.className}
-            />
-        );  
+        panelContent = (
+            <Templates />
+        );
     } else {
-        return ( 
-            <StagingForm 
-                className={this.props.className}
+        panelContent = (
+            <StagingForm
                 // Update functions
                 onStagingTUpdate={this.props.onStagingTUpdate}
                 onStagingNUpdate={this.props.onStagingNUpdate}
@@ -32,13 +29,18 @@ class RightPanel extends Component {
                 // Helper functions
                 calculateStage={this.props.calculateStage}
                 // Properties
-                tumorSize={this.props.tumorSize} 
-                nodeSize={this.props.nodeSize} 
-                metastasis={this.props.metastasis} 
+                tumorSize={this.props.tumorSize}
+                nodeSize={this.props.nodeSize}
+                metastasis={this.props.metastasis}
                 stage={this.props.stage}
             />
         );
     }
+    return (
+      <div id="forms-panel" className="dashboard-panel">
+        {panelContent}
+      </div>
+    )
   }
 }
 

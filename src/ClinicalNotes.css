@@ -1,34 +1,15 @@
-#clinical-notes {
-    text-align: left;
-    margin: 20px 10px;
-}
-
-#clinical-notes #note-description { 
-    padding: 30px 30px 10px 30px;    
-}
-
-#clinical-notes #note-description #note-title { 
-    font-size: 1.25rem;
-    margin:0;
-}
-
-#clinical-notes #note-description p.note-description-detail-name { 
+#clinical-notes #note-description p.note-description-detail-name {
     padding-bottom:2px;
     color: #919191;
     font-size: .9rem;
     margin: 0;
 }
 
-#clinical-notes #note-description p.note-description-detail-value { 
-    padding-top:0;   
+#clinical-notes #note-description p.note-description-detail-value {
+    padding-top:0;
     font-size: .9rem;
     margin: 0;
 }
-
-#clinical-notes hr { 
-    margin: 0!important;
-}
-
 
 #notes-message {
     text-align: center;

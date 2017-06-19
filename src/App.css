@@ -2,6 +2,42 @@
     height: 100vh;
 }
 
+.container-fluid {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
 .dashboard-panel {
-    min-height: 760px;
+    margin-top: 16px;
+    text-align: left;
+}
+
+.trio {
+    min-height: 650px !important;
+}
+
+.panel-content {
+    padding: 30px;
+}
+
+.divider {
+    margin: 20px 0px !important;
+    clear: both;
+}
+
+h1 {
+    margin: 0px;
+    font-size: 1.25rem;
+}
+
+h2 {
+    margin: 0px;
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+
+h3 {
+    margin: 0px;
+    font-size: 0.8rem;
+    font-weight: lighter;
 }

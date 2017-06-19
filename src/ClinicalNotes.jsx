@@ -43,7 +43,7 @@ class ClinicalNotes extends Component {
     this.props.onStagingMUpdate(newVal);
   }
 
-  handleStageUpdate = (newVal) => { 
+  handleStageUpdate = (newVal) => {
     this.props.onStageUpdate(newVal)
   }
 
@@ -51,18 +51,18 @@ class ClinicalNotes extends Component {
       this.props.onSummaryUpdate(newVal)
   }
 
-  handleStructuredFieldEntered = (currentFocus) => { 
+  handleStructuredFieldEntered = (currentFocus) => {
     this.props.onStructuredFieldEntered(currentFocus);
   }
 
-  handleStructuredFieldExited = (currentFocus) => { 
+  handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
   render() {
     return (
-      <div id="clinical-notes">
-        <Paper className={this.props.className}>
+      <div id="clinical-notes" className="dashboard-panel">
+        <Paper className="panel-content trio">
           <div id="note-description">
             <Row>
               <Col xs={5}>
@@ -80,16 +80,12 @@ class ClinicalNotes extends Component {
                 <p className="note-description-detail-name">Signed By</p>
                 <p className="note-description-detail-value">Dr. Brenda Zeiweger</p>
               </Col>
-            </Row> 
+            </Row>
           </div>
 
-          <Row center="xs">
-              <Col xs={11}>
-                  <Divider />
-              </Col>
-          </Row>
+          <Divider className="divider" />
 
-          <MyEditor 
+          <MyEditor
             // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}

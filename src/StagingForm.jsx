@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 // Flexbox
-import {Row, Col } from 'react-flexbox-grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 // Libraries
 import staging from '../lib/staging';
 import lookup from '../lib/staging_lookup';
@@ -51,83 +51,51 @@ class StagingForm extends Component {
   render() {
     // console.log("in render. t: " + this.props.t);
     return (
-      <div id="forms-panel">
-            <Paper zDepth={1}  className={this.props.className}>
-                <div id="staging-form-heading">
-                    <h1>Current Stage</h1>
-                </div>
-                <Row center="xs">
-                    <Col xs={11}>
-                        <Divider />
-                    </Col>
-                </Row>
-                <div id="staging-form-contents">
-                    <Row>
-                        <h4>Tumor Size</h4>
-                    </Row>
-                    <Row>
-                        {this.state.tumorSizes.map((t, i) => {
-                            return (
-                                <div key={t.name} className="tooltip">
-                                    <span id={t.name} className="tooltiptext">{t.description}</span>
-                                <RaisedButton
-                                    className="btn tumor-size"
-                                    key={i}
-                                    label={t.name}
-                                    onClick={(e) => this._handleTumorSizeClick(e, i)}
-                                    disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
-                                />
-                                </div>
-                            );
-                        })}
-                    </Row>
-                    <Row>
-                        <h4>Node</h4>
-                    </Row>
-                    <Row>
-                        {this.state.nodes.map((n, i) => {
-                            return (
-                                <div key={n.name} className="tooltip">
-                                    <span id={n.name} className="tooltiptext">{n.description}</span>
-                                <RaisedButton
-                                    className="btn node"
-                                    key={i}
-                                    label={n.name}
-                                    onClick={(e) => this._handleNodeClick(e, i)}
-                                    disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i].name)}
-                                />
-                                </div>
-                            );
-                        })}
-                    </Row>
-                    <Row>
-                        <h4>Metastasis</h4>
-                    </Row>
-                    <Row>
-                        {this.state.metastases.map((m, i) => {
-                            return (
-                                <div key={m.name} className="tooltip">
-                                    <span id={m.name} className="tooltiptext">{m.description}</span>
-                                <RaisedButton
-                                    className="btn metastasis"
-                                    key={i}
-                                    label={m.name}
-                                    onClick={(e) => this._handleMetastasisClick(e, i)}
-                                    disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i].name)}
-                                />
-                                </div>
-                            );
-                        })}
-                    </Row>
-                    <Row>
-                        <h4>Prognostic Stage</h4>
-                    </Row>
-                    <Row>
-                        <div className="stage">{staging.breastCancerPrognosticStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis) || 'Undefined'}</div>
-                    </Row>
-                </div>
-            </Paper>
-        </div>
+        <Paper className="panel-content trio">
+            <h1>Current Staging</h1>
+            <Divider className="divider" />
+            
+            <h4>Tumor Size</h4>
+            {this.state.tumorSizes.map((t, i) => {
+                return (
+                    <RaisedButton
+                        className="btn tumor-size"
+                        key={i}
+                        label={t}
+                        onClick={(e) => this._handleTumorSizeClick(e, i)}
+                        disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
+                    />
+                );
+            })}
+
+            <h4>Node</h4>
+            {this.state.nodes.map((n, i) => {
+                return (
+                    <RaisedButton
+                        className="btn node"
+                        key={i}
+                        label={n}
+                        onClick={(e) => this._handleNodeClick(e, i)}
+                        disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i])}
+                    />
+                );
+            })}
+
+            <h4>Metastasis</h4>
+            {this.state.metastases.map((m, i) => {
+                return (
+                    <RaisedButton
+                        className="btn metastasis"
+                        key={i}
+                        label={m}
+                        onClick={(e) => this._handleMetastasisClick(e, i)}
+                        disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i])}
+                    />);
+            })}
+
+            <h4>Prognostic Stage</h4>
+            <div className="stage">{staging.breastCancerPrognosticStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis) || 'Undefined'}</div>
+        </Paper>
     );
   }
 }

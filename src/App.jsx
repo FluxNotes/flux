@@ -26,6 +26,15 @@ class App extends Component {
             PRStatus: '+',
             SummaryItemToInsert: '',
             withinStructuredField: null,
+            patient: {
+                photo: "./DebraHernandez672.jpg",
+                name: "Debra Hernandez672",
+                mrn: "026-DH-678944",
+                dateOfBirth: "05 APR 1966",
+                administrativeSex: "Female",
+                city: "Boston",
+                state: "MA"
+            }
         };
         this.changeHER2Status = this.changeHER2Status.bind(this);
         this.changeERStatus = this.changeERStatus.bind(this);
@@ -111,6 +120,7 @@ class App extends Component {
                             <Col sm={4}>
                                 <DataSummary
                                     className="dashboard-panel"
+                                    patient={this.state.patient}
                                     // Update functions
                                     onHER2StatusChange={this.changeHER2Status}
                                     onERStatusChange={this.changeERStatus}

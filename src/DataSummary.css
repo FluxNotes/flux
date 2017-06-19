@@ -1,132 +1,104 @@
-#data-summary {
-    margin: 20px 10px;
-	text-align: left;
-}
-#data-summary hr{
-
+/* Basic patient info */
+.basic-info h2, h3 {
+    color: #999;
 }
 
-#data-summary #summary-heading {
-   padding: 30px;
-}
-
-#data-summary #summary-heading h1 {
-     font-size:1.25rem;
-     margin-bottom: 25px;
-}
-
-#data-summary #summary-heading p {
-    margin: 0px;
-    font-size:.8rem;
-}
-
-#data-summary #summary-heading p.summary-heading-detail-name {
-    color: #919191;
-}
-
-#data-summary #summary-heading p.summary-heading-detail-value {
-    color: rgb(0, 188, 212);
-    font-weight: bold
-}
-
-#data-summary #summary-disease-heading {
-    padding: 5px 30px;
-}
-
-#data-summary #summary-disease-heading p.summary-disease-heading-name{
-    color: #919191;
-    margin: 1px;
-    margin-top: 15px;
-    font-size: .8rem;
-}
-
-#data-summary #summary-disease-heading p.summary-disease-heading-value{
-    font-size: 1.2rem;
-    margin:7px 0px 15px 0;
-    font-weight: bold;
-}
-
-#data-summary #summary-disease-heading .summary-disease-heading-button .fa {
-    font-size:.6rem!important;
-}
-#data-summary #summary-disease-heading .summary-disease-heading-button {
-    height: auto!important;
-    width: auto!important;
-    padding:5px!important;
-    margin-top: 10px!important;
-}
-
-
-#data-summary #summary-disease-heading .fa {
-    font-size: 15px;
-}
-
-#data-summary #summary-condition-overview {
-    padding: 20px;
-}
-
-#data-summary #summary-condition-details {
-    padding: 15px 30px;
-}
-
-#data-summary #summary-condition-details h3 {
-    font-size: 1rem;
-    margin-bottom: 0px;
-}
-
-#data-summary #summary-condition-details ul.summary-section {
-    margin: 0;
-    padding-left: 0;
-    list-style: none;
-    background-color: #F3F3F3;
-}
-
-#data-summary #summary-condition-details ul.summary-section li{
-    padding: 0 10px;
-    font-size:.8rem;
-}
-
-#data-summary #summary-condition-details ul.summary-section li .highlighted-value{
-    color: #00bcd4;
-}
-
-#data-summary #summary-condition-details ul.summary-section li:first-child{
-    margin-top: 10px;
-    padding-top: 10px;
-}
-
-#data-summary #summary-condition-details ul.summary-section li:last-child{
+.basic-info-name {
     margin-bottom: 10px;
-    padding-bottom: 10px;
 }
 
-#data-summary #summary-condition-details ul.summary-section li.sub-list{
-    padding-left: 20px;
+.basic-info-item {
+    min-width: 33% !important;
+    max-width: 33% !important;
+    float: left;
 }
 
-#data-summary #summary-condition-details .summary-condition-button .fa {
-    font-size:.8rem!important;
-    color: #00d6b2 !important;
-}
-#data-summary #summary-condition-details .summary-condition-button {
-    height: auto!important;
-    width: auto!important;
-    padding:5px!important;
-    /*margin-top: 10px!important;*/
+.basic-info-item span {
+    font-size: 13px;
 }
 
-
-#data-summary #summary-condition-details #staging-missing-warning {
-    font-size: .8rem;
-    color: red;
+.divider .basic-info {
+    margin-bottom: 5px;
 }
 
-.summary-item {
-   margin-top: 10px;
+/* Disease selection */
+.divider {
+    clear: both !important;
 }
 
-.missing-data {
-   margin-top: 10px;
-   padding: 5px !important;
-   background-color: #fa9f8f !important;
+.selected-disease {
+    min-height: 14px;
+}
+
+.disease-title {
+    float: left;
+    min-width: 84% !important;
+    max-width: 84% !important;
+}
+
+/* Disease selection arrows */
+.arrow {
+    float: left;
+    text-align: right;
+    min-width: 8% !important;
+    max-width: 8% !important;
+    font-size: 14px !important;
+}
+
+.arrow a {
+    text-decoration: none;
+}
+
+.arrow a:link {
+    color: #333;
+}
+
+.arrow a:visited {
+    color: #333;
+}
+
+.arrow a:hover {
+    color: #666;
+}
+
+/* Disable right arrow */
+#right-arrow a {
+    color: #999;
+    pointer-events: none;
+}
+
+/* Data summary tables */
+.summary-list table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.summary-list table, tr, td {
+    font-size: 12px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.summary-list td {
+    padding: 8px 10px;
+}
+
+.summary-list td:first-child {
+    width: 40%;
+    color: #999;
+}
+
+.summary-list td:last-child {
+    width: 60%;
+}
+
+.summary-list .missing {
+    color: #fff;
+    background-color: #fa9f8f;
+}
+
+.summary-list .captured {
+    background-color: #d9ebf9;
 }
