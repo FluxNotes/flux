@@ -174,7 +174,7 @@ class App extends Component {
         const ps = staging.breastCancerPrognosticStage(t, n, m);
 
         if (ps) {
-            diagnosis[1].display = `${t} | ${n} | ${m}  Stage ${ps}`;
+            diagnosis[1].display = `${titlecase(t)} | ${titlecase(n)} | ${titlecase(m)}  Stage ${ps}`;
         } else {
             diagnosis[1].display = "";
         }
@@ -246,3 +246,9 @@ class App extends Component {
 }
 
 export default App;
+
+function titlecase(label) {
+  return label.toLowerCase().split(' ').map(function(word) {
+    return word.replace(word[0], word[0].toUpperCase());
+  }).join(' ');
+}
