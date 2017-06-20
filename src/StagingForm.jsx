@@ -29,13 +29,15 @@ class StagingForm extends Component {
 
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
-    // console.log("StagingForm._handleTumorSizeClick T=" + i);
-    this.props.onStagingTUpdate(this.state.tumorSizes[i]);
+    console.log("StagingForm._handleTumorSizeClick T=" + i);
+      console.log(this.state.tumorSizes);
+      console.log(this.state.tumorSizes[i]);
+    this.props.onStagingTUpdate(this.state.tumorSizes[i].name);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
-    // console.log("StagingForm._handleNodeClick N=" + i);
+    console.log("StagingForm._handleNodeClick N=" + i);
     this.props.onStagingNUpdate(this.state.nodes[i]);
   }
 
@@ -72,7 +74,7 @@ class StagingForm extends Component {
                                     key={i}
                                     label={t.name}
                                     onClick={(e) => this._handleTumorSizeClick(e, i)}
-                                    disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
+                                    disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
                                 />
                                 </div>
 
