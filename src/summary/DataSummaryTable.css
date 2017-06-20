@@ -1,8 +1,9 @@
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 98%;
     margin-top: 10px;
     margin-bottom: 20px;
+
 }
 
 table, tr, td {
@@ -33,3 +34,4 @@ td:last-child {
     color: #333;
     background-color: #d9ebf9;
 }
+    
