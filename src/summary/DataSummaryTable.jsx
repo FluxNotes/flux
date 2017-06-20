@@ -15,23 +15,23 @@ class DataSummaryTable extends Component {
           <tbody>
               {this.props.items.map((item, i) => {
 
+                let rowClass = "";
                 let itemClass = "";
+                let itemText = "";
+
                 if (item.display) {
+                  rowClass = "captured";
                   itemClass = "captured";
+                  itemText = item.display;
+
                 } else {
                   itemClass = "missing";
-                }
-
-                let itemText = "";
-                if (item.display) {
-                  itemText = item.display;
-                } else {
                   itemText = `Missing ${item.name}`;
                 }
 
                 return (
-                  <tr key={i}>
-                      <td>{item.name}</td><td onClick={(e) => this.props.onItemClicked(item)} className={itemClass}>{itemText}</td>
+                  <tr key={i} className={rowClass}>
+                      <td>{item.name}</td><td className={itemClass}>{itemText}</td><td onClick={(e) => this.props.onItemClicked(item)}><i className="fa fa-plus-square fa-lg"></i></td>
                   </tr>
                 );
               })}
