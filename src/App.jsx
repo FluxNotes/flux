@@ -49,16 +49,6 @@ class App extends Component {
                             display: "Infiltrating lobular carcinoma of breast"
                         }
                     ]
-                },
-                {
-                    name: "Hypertension",
-                    codes: [
-                        {
-                            system: "SNOMED-CT",
-                            code: "59621000",
-                            display: "Essential hypertension"
-                        }
-                    ]
                 }
             ],
             diagnosis: [
@@ -69,6 +59,30 @@ class App extends Component {
                 {
                     name: "Stage",
                     display: ""
+                }
+            ],
+            keyDates: [
+              {
+                  name: "Diagnosis Date",
+                  display: "01/13/2012"
+              },
+              {
+                  name: "Radiation Date",
+                  display: "07/12/2012 - 08/16/2012"
+              },
+              {
+                  name: "Recurrence Date",
+                  display: "10/28/2013"
+              }
+            ],
+            surgery: [
+                {
+                    name: "Surgery Date",
+                    display: "09/20/2012"
+                },
+                {
+                    name: "Surgery",
+                    display: "Lumpectomy/sentinel/lymph node biopsy"
                 }
             ],
             pathology: [
@@ -174,7 +188,7 @@ class App extends Component {
         const ps = staging.breastCancerPrognosticStage(t, n, m);
 
         if (ps) {
-            diagnosis[1].display = `${titlecase(t)} | ${titlecase(n)} | ${titlecase(m)}  Stage ${ps}`;
+            diagnosis[1].display = `${titlecase(t)} | ${titlecase(n)} | ${titlecase(m)} / Stage ${ps}`;
         } else {
             diagnosis[1].display = "";
         }
@@ -193,6 +207,8 @@ class App extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
+                                    keyDates={this.state.keyDates}
+                                    surgery={this.state.surgery}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
                                     onItemClicked={this.handleSummaryItemSelected}

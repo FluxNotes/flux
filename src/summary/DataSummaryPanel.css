@@ -5,5 +5,5 @@
 /* Scrolling behavior */
 .summary-list {
     overflow-y: scroll;
-    height: 400px;
+    height: 500px;
 }
