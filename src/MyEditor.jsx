@@ -1,22 +1,22 @@
-// Import React!
+// Import React and other libraries
 import React from 'react'
 import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
+import getOffsets from 'positions'
 // Styling
 import './MyEditor.css';
 
 //TODO: make this a one line destructuring
 import structuredDataRaw from './structuredDataRaw';
-const {staging}  = structuredDataRaw;
-
-const stagingState = Raw.deserialize(staging, { terse: true });
+const staging = structuredDataRaw.find((element, index, array) => element.label === 'staging')
+const stagingState = Raw.deserialize(staging.block, { terse: true });
 
 const initialState = Raw.deserialize({
   nodes: [
     {
       kind: 'block',
-      type: 'paragraph',
+      type: 'paragraph-span',
       nodes: [
         {
           kind: 'text',
@@ -26,7 +26,7 @@ const initialState = Raw.deserialize({
     },
     {
       kind: 'block',
-      type: 'paragraph',
+      type: 'paragraph-span',
       nodes: [
         {
           kind: 'text',
@@ -69,8 +69,6 @@ function addKeysForNode(curNode, keys) {
 }
 
 // The list of special keys we want to trigger special behavior
-// TODO: link these keys with the specific changes in behavior
-const stagingKeyChars = ['T','N','M'];
 
 // Define our app...
 class MyEditor extends React.Component {
@@ -79,10 +77,24 @@ class MyEditor extends React.Component {
 
     // Set the initial state when the app is first constructed.
     this.state = {
+      inAutocomplete: false,
+      autocompleteText: "",
+      autocompleteMatches: [],
+      currentAutocompleteMatch: null,
       state: initialState,
+      // TODO: Clean up options and load them from an external source
+      autocompleteOptions: structuredDataRaw,
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
+          'paragraph-span': (props) => {
+            return (
+              <span>
+                <div className="clear"></div> 
+                <p {...props.attributes}>{props.children}</p>
+              </span>
+              )
+          },
           'structured-span':          (props) => {
             const id = (props.node) ? props.node.data.get('id') : '';
             return <span id={id} {...props.attributes}>{props.children}</span>;
@@ -115,63 +127,27 @@ class MyEditor extends React.Component {
     }
   }
 
-  // This gets called when the before the component receives new properties
-  componentWillReceiveProps(nextProps) {
-
-    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
-      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+  /**
+   * Insert a block at a specified location or at the current location, and after insertion
+   * either move the selection to the next block with offsets or leave selection as-is
+   */
+  insertBlockAtLocation  = (newStateTransform, block, nextBlock={}, nextBlockStartOffset=0, nextBlockEndOffset=0, location="") => { 
+    if (location !== "") {
+      //  Need to do something with location
+      newStateTransform
+        .insertBlock(block);
+    } else { 
+      newStateTransform
+        .insertBlock(block);
     }
 
-    // Check if staging block exists in the editor
-    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+    if (nextBlock !== {}) { 
+      newStateTransform.moveToRangeOf(nextBlock)
+      .moveStart(nextBlockStartOffset)
+      .moveEnd(nextBlockEndOffset);
+    }
 
-    // If it exists, populate the fields with the updated staging values
-      if (stagingNode) {
-        for(const parentNode of this.state.state.document.nodes) {
-          const tNode = getNodeById(parentNode.nodes, 't-staging');
-          const nNode = getNodeById(parentNode.nodes, 'n-staging');
-          const mNode = getNodeById(parentNode.nodes, 'm-staging');
-
-          // Set t value
-          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
-              const currentState = this.state.state;
-              const state = currentState
-                  .transform()
-                  .moveToRangeOf(tNode)
-                  .moveEnd(-1)
-                  .deleteForward()
-                  .insertText(nextProps.tumorSize)
-                  .apply();
-              this.setState({ state: state })
-          }
-
-          // Set n value
-          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(nNode)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.nodeSize)
-                .apply();
-            this.setState({ state: state })
-          }
-
-          // Set m value
-          if(mNode && this.props.metastasis !== nextProps.metastasis) {
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(mNode)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.metastasis)
-                .apply();
-            this.setState({ state: state })
-          }
-        }
-      }
+    return newStateTransform
   }
 
   // Add the plugin to your set of plugins...
@@ -180,11 +156,10 @@ class MyEditor extends React.Component {
       trigger: 'space',
       before: /(\.staging)/i,
       transform: (transform, e, data, matches) => {
-        const stagingBlock = stagingState.document.nodes.get(0);
+        const stagingBlock = getNodeById(stagingState.blocks, 'staging')
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
-        const newTrans = transform.insertBlock(stagingBlock).moveToRangeOf(tNode)
-                .moveStart(1)
-                .moveEnd(-1);
+        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, 1, -1); 
+
         return newTrans;
       }
     }),
@@ -258,187 +233,177 @@ class MyEditor extends React.Component {
 
 
   onKeyDown = (event, data, state) => {
+    // Continue handling autocompletes    
+    if(this.state.inAutocomplete) {
+      let newText = "";
+      let matches = [];
 
-    if (data.isMod) {
-      let mark
-
-      switch (data.key) {
-        case 'b':
-          mark = 'bold'
-          break
-        case 'i':
-          mark = 'italic'
-          break
-        case 'u':
-          mark = 'underlined'
-          break
-        case '`':
-          mark = 'code'
-          break
-        default:
-          return
+      switch (event.keyCode) {
+        // Left and up move up -- decrease index or wrap
+        case 37: 
+        case 38:
+          event.preventDefault();
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.autocompleteMatches.length + (this.state.currentAutocompleteMatch - 1)) % this.state.autocompleteMatches.length,
+            });
+          }
+          break;
+        // Right and down move down -- increase index or wrap  
+        case 39: 
+        case 40:
+          event.preventDefault();
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.currentAutocompleteMatch + 1) % this.state.autocompleteMatches.length,
+            });
+          } 
+          break;
+        case 32: // Deactivate on spacebar 
+          this.setState({
+            inAutocomplete: false, 
+            autocompleteMatches: [],
+            autocompleteText: "",
+          });
+          break;
+        case 13: // Handle enter clicks to insert text
+          event.preventDefault(); 
+          return this.insertCurrentAutocompleteMatch();
+          break;
+        case 8:  // Handle deletions by updating the autocompleteText and suggestions
+          const textLength = this.state.autocompleteText.length;
+          newText = (textLength > 0) ? this.state.autocompleteText.slice(0, textLength -1) : "" ;
+          matches = this.determineAutocompleteMatches(newText);
+          this.setState({
+              autocompleteText: newText,
+              inAutocomplete: (newText !== ""),
+              autocompleteMatches: matches,
+          })
+          break;
+        default: // Continue growing autocompleteText and offering updated suggestions
+          newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
+          matches = this.determineAutocompleteMatches(newText);
+          
+          this.setState({
+              autocompleteText: newText,
+              autocompleteMatches: matches,
+          })
+          break;
       }
-
-      event.preventDefault()
-      return state
-        .transform()
-        .toggleMark(mark)
-        .apply()
-    }
-    if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
-        event.preventDefault();
-        return state
-        .transform()
-        .insertBlock(Block.create({'type': 'paragraph', 'nodes': List([Text.createFromString(' ')])}))
-        .apply();
-    }
-    for(const parentNode of state.document.nodes) {
-      const tNode = getNodeById(parentNode.nodes, 't-staging');
-      const nNode = getNodeById(parentNode.nodes, 'n-staging');
-      const mNode = getNodeById(parentNode.nodes, 'm-staging');
-
-      if(tNode && nNode && mNode) {
-        const tKeys = addKeysForNode(tNode, []);
-        const nKeys = addKeysForNode(nNode, []);
-        const mKeys = addKeysForNode(mNode, []);
-        if (tKeys.includes(state.selection.startKey)) {
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingTUpdate('T' + val.toString());
-
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(tNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .moveToRangeOf(nNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) {
-              case "T":
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default:
-                return state;
-            }
-          }
-        } else if (nKeys.includes(state.selection.startKey)) {
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingNUpdate('N' + val.toString());
-
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(nNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .moveToRangeOf(mNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) {
-              case "T":
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default:
-                return state;
-            }
-          }
-        } else if (mKeys.includes(state.selection.startKey))  {
-          if(event.keyCode >= 48 && event.keyCode <=57) {
-            const val = event.keyCode - 48;
-            this.handleStagingMUpdate('M' + val.toString());
-            const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('')])});
-            const emptyBlockKey = emptyBlock.key;
-            const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
-            event.preventDefault()
-            return state
-              .transform()
-              .moveToRangeOf(mNode)
-              .moveStart(1)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(String.fromCharCode(event.keyCode))
-              .collapseToEndOf(mNode)
-              .insertBlock(emptyBlock)
-              .removeNodeByKey(afterEmpty.toString())
-              .apply();
-          } else if (stagingKeyChars.includes(String.fromCharCode(event.keyCode))) {
-            event.preventDefault();
-            switch(String.fromCharCode(event.keyCode)) {
-              case "T":
-                return state
-                 .transform()
-                 .moveToRangeOf(tNode)
-                 .moveStart(1)
-                 .moveEnd(-1)
-                 .apply();
-              case "N":
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              case "M":
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              default:
-                return state;
-            }
-          }
+    } else { 
+      if (event.keyCode === 190) {
+        // Trigger autocomplete mode if a '.' is typed 
+        const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+        const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+        const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
+        const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+        menuEl.style.top = `${offset.top}px`
+        menuEl.style.left = `${offset.left}px`
+        this.setState({
+          state: newState, 
+          inAutocomplete: true,
+          autocompleteText: ""
+        });
+      } else if (data.isMod) { 
+        // Handle ctrl-b and other shortkeys for format switching 
+        let mark
+        switch (data.key) {
+          case 'b':
+            mark = 'bold'
+            break
+          case 'i':
+            mark = 'italic'
+            break
+          case 'u':
+            mark = 'underlined'
+            break
+          case '`':
+            mark = 'code'
+            break
+          default:
+            return
         }
+        event.preventDefault()
+        return state
+          .transform()
+          .toggleMark(mark)
+          .apply()
+      } else if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
+          // Handle new lines in the case where we aren't in a list 
+          event.preventDefault();
+          return state
+          .transform()
+          // Paste a block containing a zero width space 
+          .insertBlock(Block.create({'type': 'paragraph-span', 'nodes': List([Text.createFromString('​')])}))
+          .apply();
+      } else {
+        // Search all nodes to find if structured nodes that need checking 
+        for(const parentNode of state.document.nodes) { 
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          if(tNode && nNode && mNode) { 
+            const tKeys = addKeysForNode(tNode, []);
+            const nKeys = addKeysForNode(nNode, []);
+            const mKeys = addKeysForNode(mNode, []);
+            if (tKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingTUpdate('T' + val.toString());
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } 
+            } else if (nKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingNUpdate('N' + val.toString());
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } 
+            } else if (mKeys.includes(state.selection.startKey))  { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingMUpdate('M' + val.toString());
+                // Create a block with a zero-width space 
+                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
+                const emptyBlockKey = emptyBlock.key;
+                const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .collapseToEndOf(mNode)
+                  .insertBlock(emptyBlock)
+                  .removeNodeByKey(afterEmpty.toString())
+                  .apply();
+              } 
+            }
+          }
+        } 
       }
     }
   }
@@ -511,6 +476,158 @@ class MyEditor extends React.Component {
   }
 
   /**
+   *  Lifecycle Methods
+   */
+  // componentDidUpdate = (prevProps, prevState) => { 
+  // }
+
+  /* 
+   * For a given autocomplete key, use lookup table to find the next block to be selected
+   */
+  getNextSelectionBlock = (autocompleteBlock, autocompleteId) => {
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
+
+    return getNodeById(autocompleteBlock.nodes, currentAutocompleteOption.firstSelection)
+  }
+  
+  /** 
+   * Deletes a number of characters corresponding to the number of chars in 
+   * the states autocomplete buffer plus one for the dot that triggered it
+   */   
+  deleteCurrentAutocompleteText = (newStateTransform) => {
+    for(const char of this.state.autocompleteText) { 
+      newStateTransform.deleteBackward();
+    }
+    // Delete once more for period
+    newStateTransform.deleteBackward();
+    return newStateTransform
+  }
+
+  /**
+   * Inserts the current autocomplete match onto the page
+   */
+  insertCurrentAutocompleteMatch = () => {
+    const autocompleteId = this.state.autocompleteMatches[this.state.currentAutocompleteMatch];
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
+    const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
+    const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteId);
+    console.log(autocompleteId)
+
+    let newStateTransform = this.state.state.transform();
+    newStateTransform = this.deleteCurrentAutocompleteText(newStateTransform); 
+    const nextBlock = this.getNextSelectionBlock(autocompleteBlock, autocompleteId);
+    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock, nextBlock, 1, -1);
+
+    const newState = newStateTransform.apply();
+    this.setState({
+      currentAutocompleteMatch : null,
+      inAutocomplete: false,
+      autocompleteText: "",
+      autocompleteMatches: [],
+      state: newState,
+    });
+    return newState;
+  }
+
+  /**
+   * Updates the current autocomplete match based on the new key provided
+   */
+  updateCurrentAutocompleteMatch = (key) => { 
+    this.setState({
+      currentAutocompleteMatch: key
+    });
+  }
+
+  /**
+   * Determines new autocomplete matches based on the current 
+   * autocomplete text typed
+   */
+  determineAutocompleteMatches = (autocompleteText) => {
+    let matches = []; 
+    const regexFromAutocompleteText = new RegExp(autocompleteText, 'i');
+    if (autocompleteText !== "") { 
+      for (const opt of this.state.autocompleteOptions) { 
+        if(opt.label.match(regexFromAutocompleteText))  { 
+          matches.push(opt.label);
+        }
+      }
+    } 
+    this.setState({ 
+      currentAutocompleteMatch: 0
+    })
+    return matches.length > 5 ? matches.slice(0,5) : matches;
+  }
+
+  /**
+   * Lifecycle method that triggers after updates to the component
+   */
+  componentDidUpdate = (prevProps, prevState) => { 
+    //Nothing now
+    // console.log(this.state.state.selection.anchorKey)
+    // console.log(this.state.state.selection.anchorOffset)
+  }
+
+  // This gets called when the before the component receives new properties
+  componentWillReceiveProps = (nextProps) => {
+
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+    }
+
+    // Check if staging block exists in the editor
+    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+
+    // If it exists, populate the fields with the updated staging values
+      if (stagingNode) {
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+
+          // Set t value
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
+
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(nNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.nodeSize)
+                .apply();
+            this.setState({ state: state })
+          }
+
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
+          }
+        }
+      }
+  }
+
+
+  /**
    * Render a mark-toggling toolbar button.
    */
   renderMarkButton = (type, icon) => {
@@ -523,7 +640,6 @@ class MyEditor extends React.Component {
       </span>
     )
   }
-
   /**
    * Render a block-toggling toolbar button.
    */
@@ -537,7 +653,6 @@ class MyEditor extends React.Component {
       </span>
     )
   }
-
   /**
    * Render the toolbar.
    */
@@ -553,11 +668,33 @@ class MyEditor extends React.Component {
       </div>
     )
   }
-  // Render the editor.
+  /**
+   * Render the dropdown of suggestions.
+   */
+  renderDropdown = () => { 
+    return (
+      <div className="menu autocomplete-menu">
+        {this.state.autocompleteMatches.map((match, index) => {
+          const isActive = (this.state.currentAutocompleteMatch === index); 
+
+          return (
+              <div className="menu-item" key={index} data-active={isActive} onMouseOver={ () => { this.updateCurrentAutocompleteMatch(index)}} onClick={() => this.insertCurrentAutocompleteMatch()}>
+                {match}
+              </div>
+          );}
+        )}
+      </div> 
+    )
+  }
+
+  /**
+   * Render the editor, toolbar and dropdown when needed.
+   */
   render = () => {
     return (
       <div className="MyEditor-root">
         {this.renderToolbar()}
+        {this.renderDropdown()}
         <Editor
           schema={this.state.schema}
           state={this.state.state}

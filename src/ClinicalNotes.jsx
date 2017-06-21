@@ -66,19 +66,19 @@ class ClinicalNotes extends Component {
           <div id="note-description">
             <Row>
               <Col xs={5}>
-                <h1 id="note-title">Name of Note</h1>
+                <h1 id="note-title">Pathology Assessment</h1>
               </Col>
               <Col xs={2}>
                 <p className="note-description-detail-name">Date</p>
-                <p className="note-description-detail-value">20 May 2011</p>
+                <p className="note-description-detail-value">20 June 2017</p>
               </Col>
               <Col xs={2}>
                 <p className="note-description-detail-name">Source</p>
-                <p className="note-description-detail-value">Context about note</p>
+                <p className="note-description-detail-value">Pathology Report</p>
               </Col>
               <Col xs={3}>
                 <p className="note-description-detail-name">Signed By</p>
-                <p className="note-description-detail-value">Dr. Some One</p>
+                <p className="note-description-detail-value">Dr. Brenda Zeiweger</p>
               </Col>
             </Row> 
           </div>
