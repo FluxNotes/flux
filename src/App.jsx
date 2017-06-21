@@ -82,7 +82,7 @@ class App extends Component {
                 },
                 {
                     name: "Surgery",
-                    display: "Lumpectomy/sentinel/lymph node biopsy"
+                    display: "Lumpectomy / sentinel / lymph node biopsy"
                 }
             ],
             pathology: [
@@ -159,7 +159,7 @@ class App extends Component {
 
     handleSummaryItemSelected(item) {
         if (item.display) {
-            this.setState({SummaryItemToInsert: item.name + ': ' + item.display});
+            this.setState({SummaryItemToInsert: item.display});
         }
     }
 

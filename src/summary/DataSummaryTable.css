@@ -27,7 +27,6 @@ td {
 }
 
 td:first-child {
-    width: 40%;
     color: #999;
 }
 
@@ -38,7 +37,7 @@ td:last-child {
     color: #fefefe;
 }
 
-tr.captured:hover td:last-child {
+tr.captured td:last-child {
     color: #888;
 }
 

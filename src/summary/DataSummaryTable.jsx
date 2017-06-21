@@ -31,7 +31,7 @@ class DataSummaryTable extends Component {
 
                 return (
                   <tr key={i} className={rowClass}>
-                      <td>{item.name}</td><td className={itemClass}>{itemText}</td><td onClick={(e) => this.props.onItemClicked(item)}><i className="fa fa-plus-square fa-lg"></i></td>
+                      <td width="40%">{item.name}</td><td width="55%" className={itemClass}>{itemText}</td><td width="5%" onClick={(e) => this.props.onItemClicked(item)}><i className="fa fa-plus-square fa-lg"></i></td>
                   </tr>
                 );
               })}
