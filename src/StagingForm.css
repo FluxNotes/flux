@@ -56,6 +56,10 @@
     font-size: .8rem;
 }
 
+.tooltip #T4, .tooltip #N1, .tooltip #N2, .tooltip #N3, .tooltip #M1 {
+    width: 200px !important;
+}
+
 .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
