@@ -269,7 +269,7 @@ class MyEditor extends React.Component {
           });
           break;
         case 13: // Handle enter clicks to insert text
-          if (this.state.autocompleteMatches) {
+          if (this.state.autocompleteMatches.length > 0) {
             event.preventDefault(); 
             return this.insertCurrentAutocompleteMatch();
           }
