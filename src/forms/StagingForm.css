@@ -39,7 +39,6 @@
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    left: 50%;
     margin-left: -60px;
     opacity: 0;
     transition: opacity 1s;
@@ -47,7 +46,8 @@
 }
 
 .tooltip #T4, .tooltip #N1, .tooltip #N2, .tooltip #N3, .tooltip #M1 {
-    width: 200px !important;
+    width: 220px;
+    margin-left: -95px;
 }
 
 .tooltip .tooltiptext::after {
