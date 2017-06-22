@@ -18,23 +18,12 @@ import './DataSummary.css';
 
 class DataSummary extends Component {
 
-    patient = {
-        photo: "./DebraHernandez672.jpg",
-        name: "Debra Hernandez672",
-        dateOfBirth: "05 APR 1966",
-        administrativeSex: "Female",
-        city: "Boston",
-        state: "MA"
-    };
-
-     missingInfoString = '';
-
     constructor(props) {
         super(props);
 
-        this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this)
-        this.handleERStatusChange   = this.handleERStatusChange.bind(this)
-        this.handlePRStatusChange   = this.handlePRStatusChange.bind(this)
+        this.handleHER2StatusChange = this.handleHER2StatusChange.bind(this);
+        this.handleERStatusChange   = this.handleERStatusChange.bind(this);
+        this.handlePRStatusChange   = this.handlePRStatusChange.bind(this);
     }
 
     handleHER2StatusChange (newStatus) {
@@ -58,21 +47,44 @@ class DataSummary extends Component {
     }
 
     render() {
-        // Check to see if example data is missing
-        if (!this.props.tumorSize || !this.props.nodeSize || !this.props.metastasis) {
-          this.missingInfoString = '*Missing Information';
-      } else {
-          this.missingInfoString = '';
-      }
-
         // Current Staging
-        const t = this.props.tumorSize || 'T?';
-        const n = this.props.nodeSize || 'N?';
-        const m = this.props.metastasis || 'M?';
+        const t = this.props.tumorSize;
+        const n = this.props.nodeSize;
+        const m = this.props.metastasis;
+        const stage = staging.breastCancerPrognosticStage(t,n,m);
+        let stagingBlock = null;
 
-        const Stage = `${staging.breastCancerPrognosticStage(t, n, m) || 'Undefined'}`;
-        const StageSubElements = `${t} ${n} ${m}`;
-        const StageSubElementsString = `${StageSubElements}`;
+        if (stage) {
+            stagingBlock = (
+                <ul className="summary-section" id="summary-staging">
+                    <div className="summary-details">
+                        <li>
+                            <span>Prognostic Stage: {stage}</span>
+                            <IconButton
+                                className="summary-condition-button"
+                                iconClassName="fa fa-plus-square"
+                                onClick={(e) => this.handleItemSelected(e, stage)}
+                            />
+                        </li>
+                        <li className="sub-list">
+                            <span>{t} {n} {m}</span>
+                            <IconButton
+                                className="summary-condition-button"
+                                iconClassName="fa fa-plus-square"
+                                onClick={(e) => this.handleItemSelected(e, `${t} ${n} ${m}`)}
+                            />
+                        </li>
+                    </div>
+                </ul>
+            );
+        } else {
+            stagingBlock = (
+                <div className="missing-data">
+                    <span>Missing staging information</span>
+                </div>
+            );
+        }
+
 
         // Pathology Results
         const HGA = `HG2`;
@@ -95,216 +107,93 @@ class DataSummary extends Component {
         const TamoxifenDate = '11/03/2013 - 08/12/2016';
         const RecurrenceDate = '10/28/2013';
 
-
         return (
-            <div id="data-summary">
-                <Paper zDepth={1} className={this.props.className}>
+            <div id="data-summary" className="dashboard-panel">
+                <Paper className="panel-content trio">
                     <div id="summary-heading">
-                        <Row center="xs">
-                            <Col xs={6}>
+                        <Row>
+                            <Col xs={3}>
                                 <Avatar
-                                    src={this.patient.photo}
+                                    src={this.props.patient.photo}
                                     size={70}
                                 />
-                                <h1>{this.patient.name}</h1>
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={4}>
-                                <p className="summary-heading-detail-name">DOB</p>
-                                <p className="summary-heading-detail-value">{this.patient.dateOfBirth} ({calculateAge(this.patient.dateOfBirth)})</p>
-                            </Col>
-                            <Col xs={4}>
-                                <p className="summary-heading-detail-name">Administrative Sex:</p>
-                                <p className="summary-heading-detail-value">{this.patient.administrativeSex}</p>
-                            </Col>
-                            <Col xs={4}>
-                                <p className="summary-heading-detail-name">Location</p>
-                                <p className="summary-heading-detail-value">{this.patient.city}, {this.patient.state}</p>
-                            </Col>
-                        </Row>
-                    </div>
-                    <Row center="xs">
-                        <Col xs={11}>
-                            <Divider />
-                        </Col>
-                    </Row>
-                    <div id="summary-disease-heading">
-                        <Row>
                             <Col xs={9}>
-                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
-                            </Col>
-                            <Col xs={3}>
-                                <IconButton
-                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}}
-                                    className="summary-disease-heading-button"
-                                    iconClassName="fa fa-arrow-left"
-                                />
-                                <IconButton
-                                    disabled={true}
-                                    hoveredStyle={{"backgroundColor": "#EEEEEE"}}
-                                    className="summary-disease-heading-button"
-                                    iconClassName="fa fa-arrow-right"
-                                />
-                            </Col>
-                        </Row>
-{/*                        <Row>
-                            <Col xs={9}>
-                                <p className="summary-disease-heading-name">Current Diagnosis</p>
-                            </Col>
-                            <Col xsOffset={1} xs={2}>
-                                <IconButton hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-left"/>
-                                <IconButton disabled={true} hoveredStyle={{"backgroundColor": "#EEEEEE"}} className="summary-disease-heading-button" iconClassName="fa fa-arrow-right"/>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={12}>
-                                <p className="summary-disease-heading-value">Lobular carcinoma of the breast</p>
-                            </Col>
-                        </Row>*/}
-                    </div>
-                    <Row center="xs">
-                        <Col xs={11}>
-                            <Divider />
-                        </Col>
-                    </Row>
-
-                    <div id="summary-condition-details">
-                        <Row>
-                            <Col xs={6}>
-                                <h3>Current Staging</h3>
-                                <ul className="summary-section" id="summary-staging">
-                                    <div className="summary-details">
-                                        <li>
-                                            <span>Prognostic Stage: {Stage}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, Stage)}
-                                            />
-                                        </li>
-                                        <li className="sub-list">
-                                            <span>{StageSubElementsString}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, StageSubElementsString)}
-                                            />
-                                        </li>
+                                <div className="basic-info">
+                                    <div className="basic-info-name">
+                                        <h1>{this.props.patient.name}</h1>
+                                        <h2>MRN: {this.props.patient.mrn}</h2>
                                     </div>
-                                    <span id="staging-missing-warning">{this.missingInfoString}</span>
-                                </ul>
-                            </Col>
-                            <Col xs={6}>
-                                <h3>Pathology Results</h3>
-                                <ul className="summary-section" id="summary-pathology">
-                                    <li>
-                                        <span>{HGAString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, HGAString)}
-                                        />
-                                    </li>
-                                    <li>
-                                        <span>{HER2StatusString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, HER2StatusString)}
-                                        />
-                                    </li>
-                                    <li>
-                                        <span>{ERStatusString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, ERStatusString)}
-                                        />
-                                    </li>
-                                    <li>
-                                        <span>{PRStatusString}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, PRStatusString)}
-                                        />
-                                    </li>
-                                </ul>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={12}>
-                                <h3>Event Dates</h3>
-                                <ul className="summary-section" id="summary-dates">
-                                    <li className="summary-item">
-                                        <span>Diagnosis: {DiagnosisDate}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, DiagnosisDate)}
-                                        />
-                                    </li>
-                                    <li className="sub-list" >
-                                        <span>{Diagnosis}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, Diagnosis)}
-                                        />
-                                    </li>
-                                    <li className="sub-list" >
-                                        <span>{DiagnosisStage}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, DiagnosisStage)}
-                                        />
-                                    </li>
+                                </div>
 
-                                    <li className="summary-item">
-                                        <span>Radiation Date: {RadiationDate}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, RadiationDate)}
-                                        />
-                                    </li>
-                                    <li className="summary-item">
-                                       <span>Surgery: {SurgeryDate}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, SurgeryDate)}
-                                        />
-                                    </li>
-                                        <li className="sub-list" >
-                                           <span>{Surgery}</span>
-                                            <IconButton
-                                                className="summary-condition-button"
-                                                iconClassName="fa fa-plus-square"
-                                                onClick={(e) => this.handleItemSelected(e, Surgery)}
-                                            />
-                                        </li>
-                                    <li className="summary-item">
-                                        <span>Recurrence Date: {RecurrenceDate}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, RecurrenceDate)}
-                                        />
-                                    </li>
-                                    <li className="summary-item">
-                                        <span>Tamoxifen Date: {TamoxifenDate}</span>
-                                        <IconButton
-                                            className="summary-condition-button"
-                                            iconClassName="fa fa-plus-square"
-                                            onClick={(e) => this.handleItemSelected(e, TamoxifenDate)}
-                                        />
-                                    </li>
-                                </ul>
+                                <div className="basic-info-items">
+                                    <div className="basic-info-item">
+                                        <h3>DOB:</h3>
+                                        <span>{this.props.patient.dateOfBirth}</span>
+                                    </div>
+                                    <div className="basic-info-item">
+                                        <h3>Admin. Sex:</h3>
+                                        <span>{this.props.patient.administrativeSex}</span>
+                                    </div>
+                                    <div className="basic-info-item">
+                                        <h3>Location:</h3>
+                                        <span>{this.props.patient.city}, {this.props.patient.state}</span>
+                                    </div>
+                                </div>
                             </Col>
                         </Row>
+                    </div>
+
+                    <Divider className="divider" />
+                    <div className="selected-disease">
+                        <span className="disease-title">Lobular carcinoma of the breast</span>
+                        <span id="left-arrow" className="arrow">
+                            <a href="#"><i className="fa fa-arrow-left"></i></a>
+                        </span>
+                        <span id="right-arrow" className="arrow">
+                            <a href="#"><i className="fa fa-arrow-right"></i></a>
+                        </span>
+                    </div>
+                    <Divider className="divider" />
+
+                    <div className="summary-list">
+                        <h2>Current Diagnosis:</h2>
+                        <table>
+                            <tr>
+                                <td>Name</td><td className="captured">Lobular carcinoma of the breast</td>
+                            </tr>
+                            <tr>
+                                <td>Stage</td><td className="captured">T2 | N0 | M0 &nbsp;Stage IIIA</td>
+                            </tr>
+                        </table>
+
+                        <h2>Pathology Results (Initial Diagnosis):</h2>
+                        <table>
+                            <tr>
+                                <td>Color</td><td className="missing">Missing color</td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td><td className="missing">Missing weight</td>
+                            </tr>
+                            <tr>
+                                <td>Size</td><td className="missing">Missing size</td>
+                            </tr>
+                            <tr>
+                                <td>Tumor Margins</td><td className="missing">Missing margins</td>
+                            </tr>
+                            <tr>
+                                <td>Histological Grade</td><td className="captured">HG2</td>
+                            </tr>
+                            <tr>
+                                <td>Receptor Status: ER</td><td className="captured">+</td>
+                            </tr>
+                            <tr>
+                                <td>Receptor Status: PR</td><td className="captured">+</td>
+                            </tr>
+                            <tr>
+                                <td>Receptor Status: HER2</td><td className="missing">Missing receptor status</td>
+                            </tr>
+                        </table>
                     </div>
                 </Paper>
             </div>

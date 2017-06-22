@@ -4,9 +4,9 @@ import MenuItem from 'material-ui/MenuItem';
 
 import AppBar from 'material-ui/AppBar'
 
-import './AppTopWithDrawer.css';
+import './NavBar.css';
 
-class AppTopWithDrawer extends Component {
+class NavBar extends Component {
 
   constructor(props) {
     super(props);
@@ -51,4 +51,4 @@ class AppTopWithDrawer extends Component {
   }
 }
 
-export default AppTopWithDrawer;
+export default NavBar;

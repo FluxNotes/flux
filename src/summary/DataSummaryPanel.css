@@ -1,0 +1,9 @@
+.summary-list h2 {
+  color: #333;
+}
+
+/* Scrolling behavior */
+.summary-list {
+    overflow-y: scroll;
+    height: 500px;
+}

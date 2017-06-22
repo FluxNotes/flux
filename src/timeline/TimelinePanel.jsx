@@ -57,22 +57,24 @@ class TimelinePanel extends Component {
 
   render() {
     return (
-      <Paper className="timeline-paper">
-        <Timeline
-            groups={this.state.groups}
-            items={this.state.items}
-            defaultTimeStart={this.state.defaultTimeStart}
-            defaultTimeEnd={this.state.defaultTimeEnd}
-            rightSidebarWidth={0}
-            rightSidebarContent={null}
-            sidebarWidth={0}
-            sidebarContent={null}
-            timeSteps={this.state.timeSteps}
-            lineHeight={40}
-            itemHeightRatio={0.7}
-            itemRenderer={Item}
-        />
-      </Paper>
+      <div id="timeline" className="dashboard-panel">
+        <Paper className="panel-content">
+          <Timeline
+              groups={this.state.groups}
+              items={this.state.items}
+              defaultTimeStart={this.state.defaultTimeStart}
+              defaultTimeEnd={this.state.defaultTimeEnd}
+              rightSidebarWidth={0}
+              rightSidebarContent={null}
+              sidebarWidth={0}
+              sidebarContent={null}
+              timeSteps={this.state.timeSteps}
+              lineHeight={40}
+              itemHeightRatio={0.7}
+              itemRenderer={Item}
+          />
+        </Paper>
+      </div>
     )
   }
 }

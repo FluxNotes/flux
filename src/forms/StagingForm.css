@@ -1,19 +1,9 @@
-#forms-panel {
-  margin: 20px 10px;
-  text-align: left;
+.btn {
+  border-right: 1px solid #eee;
 }
 
-#staging-form-heading {
-    padding: 30px;
-}
-
-#staging-form-heading h1 {
-    margin: 0;
-    font-size: 1.25rem;
-}
-
-#staging-form-contents {
-    padding: 15px 30px;
+.btn span {
+  text-transform: none !important;
 }
 
 .btn.tumor-size {
@@ -29,7 +19,7 @@
 }
 
 .stage {
-  font-size: 26px !important;
+  font-size: 24px !important;
   margin-bottom: 20px;
 }
 

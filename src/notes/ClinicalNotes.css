@@ -1,0 +1,23 @@
+#clinical-notes #note-description p.note-description-detail-name {
+    padding-bottom:2px;
+    color: #919191;
+    font-size: .9rem;
+    margin: 0;
+}
+
+#clinical-notes #note-description p.note-description-detail-value {
+    padding-top:0;
+    font-size: .9rem;
+    margin: 0;
+}
+
+#notes-message {
+    text-align: center;
+    color: #00bcd4;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#data {
+    color: black;
+}

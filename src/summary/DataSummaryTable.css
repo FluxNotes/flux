@@ -1,0 +1,53 @@
+table {
+    border-collapse: collapse;
+    width: 98%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+}
+
+table, tr, td {
+    font-size: 0.8rem;
+
+}
+
+/* Include the bottom border on the last row of the table */
+tr:last-child td {
+    border-bottom: 1px solid #ccc;
+}
+
+tr:last-child td:last-child {
+    border-bottom: 0;
+}
+
+/* Most table elements only have a top border */
+td {
+    border-top: 1px solid #ccc;
+    padding: 8px 10px;
+}
+
+td:first-child {
+    color: #999;
+}
+
+/* Omit the borders from the icon column in the table */
+td:last-child {
+    border-top: 0;
+    border-bottom: 0;
+    color: #fefefe;
+}
+
+tr.captured td:last-child {
+    color: #888;
+}
+
+td.missing {
+    color: #fff;
+    background-color: #fa9f8f;
+}
+
+td.captured {
+    color: #333;
+    background-color: #d9ebf9;
+}
+    

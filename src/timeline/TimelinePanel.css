@@ -1,5 +1,5 @@
-.timeline-paper {
-  padding: 30px !important;
+#timeline {
+  margin-bottom: 10px !important;
 }
 
 /* Timeline bounding box */
@@ -44,8 +44,8 @@
 }
 
 .medication-item {
-  background-color: #b6daf7 !important;
-  border-color: #b6daf7 !important;
+  background-color: #d9ebf9 !important;
+  border-color: #d9ebf9 !important;
 }
 
 .radiation-item {

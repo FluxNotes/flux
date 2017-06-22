@@ -1,0 +1,40 @@
+.selected-condition {
+    min-height: 14px;
+}
+
+.title {
+    float: left;
+    font-size: 0.9rem;
+    min-width: 84%;
+    max-width: 84%;
+}
+
+.arrow {
+    float: left;
+    text-align: right;
+    min-width: 8%;
+    max-width: 8%;
+    font-size: 14px;
+}
+
+.arrow a {
+    text-decoration: none;
+}
+
+.arrow a:link {
+    color: #333;
+}
+
+.arrow a:visited {
+    color: #333;
+}
+
+.arrow a:hover {
+    color: #666;
+}
+
+/* Disable arrow */
+.disabled a {
+    color: #999;
+    pointer-events: none;
+}
