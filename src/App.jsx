@@ -25,7 +25,6 @@ class App extends Component {
             tumorSize: '',
             nodeSize: '',
             metastasis: '',
-
             SummaryItemToInsert: '',
             withinStructuredField: null,
             patient: {

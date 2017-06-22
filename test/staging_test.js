@@ -111,7 +111,7 @@ function metastaticPermute(ts, ns) {
   let values = [];
   ts.forEach((t) => {
     ns.forEach((n) => {
-      values.push([t, n, 'M1']);
+      values.push([t.name, n.name, 'M1']);
     });
   });
   return values;

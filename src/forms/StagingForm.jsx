@@ -17,10 +17,7 @@ class StagingForm extends Component {
       this.state = {
         tumorSizes: lookup.getTsForEdition(7),
         nodes: lookup.getNsForEdition(7),
-        metastases: [
-            {name: 'M0', description: 'No clinical or radiographic evidence of distant metastases'},
-            {name: 'M1', description: 'Distant detectable metastases as determined by classic clinical and radiographic means and/or histologically proven larger than 0.2 mm'}
-        ]
+        metastases: lookup.getMsForEdition(7)
       };
   }
 
@@ -59,9 +56,9 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn tumor-size"
                         key={i}
-                        label={titlecase(t)}
+                        label={titlecase(t.name)}
                         onClick={(e) => this._handleTumorSizeClick(e, i)}
-                        disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i])}
+                        disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
                     />
                 );
             })}
@@ -72,9 +69,9 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn node"
                         key={i}
-                        label={titlecase(n)}
+                        label={titlecase(n.name)}
                         onClick={(e) => this._handleNodeClick(e, i)}
-                        disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i])}
+                        disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i].name)}
                     />
                 );
             })}
@@ -85,9 +82,9 @@ class StagingForm extends Component {
                     <RaisedButton
                         className="btn metastasis"
                         key={i}
-                        label={titlecase(m)}
+                        label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
-                        disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i])}
+                        disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i].name)}
                     />);
             })}
 
