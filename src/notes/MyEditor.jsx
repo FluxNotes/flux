@@ -269,8 +269,10 @@ class MyEditor extends React.Component {
           });
           break;
         case 13: // Handle enter clicks to insert text
-          event.preventDefault(); 
-          return this.insertCurrentAutocompleteMatch();
+          if (this.state.autocompleteMatches) {
+            event.preventDefault(); 
+            return this.insertCurrentAutocompleteMatch();
+          }
           break;
         case 8:  // Handle deletions by updating the autocompleteText and suggestions
           const textLength = this.state.autocompleteText.length;
