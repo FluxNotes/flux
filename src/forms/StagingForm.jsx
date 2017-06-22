@@ -53,39 +53,49 @@ class StagingForm extends Component {
             <h4>Tumor Size</h4>
             {this.state.tumorSizes.map((t, i) => {
                 return (
-                    <RaisedButton
-                        className="btn tumor-size"
-                        key={i}
-                        label={titlecase(t.name)}
-                        onClick={(e) => this._handleTumorSizeClick(e, i)}
-                        disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
-                    />
+                  <div key={t.name} className="tooltip">
+                     <span id={t.name} className="tooltiptext">{t.description}</span>
+                      <RaisedButton
+                          className="btn tumor-size"
+                          key={i}
+                          label={titlecase(t.name)}
+                          onClick={(e) => this._handleTumorSizeClick(e, i)}
+                          disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
+                      />
+                  </div>
                 );
             })}
 
             <h4>Node</h4>
             {this.state.nodes.map((n, i) => {
                 return (
-                    <RaisedButton
-                        className="btn node"
-                        key={i}
-                        label={titlecase(n.name)}
-                        onClick={(e) => this._handleNodeClick(e, i)}
-                        disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i].name)}
-                    />
+                  <div key={n.name} className="tooltip">
+                     <span id={n.name} className="tooltiptext">{n.description}</span>
+                      <RaisedButton
+                          className="btn node"
+                          key={i}
+                          label={titlecase(n.name)}
+                          onClick={(e) => this._handleNodeClick(e, i)}
+                          disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i].name)}
+                      />
+                  </div>
                 );
             })}
 
             <h4>Metastasis</h4>
             {this.state.metastases.map((m, i) => {
                 return (
+                  <div key={m.name} className="tooltip">
+                   <span id={m.name} className="tooltiptext">{m.description}</span>
                     <RaisedButton
                         className="btn metastasis"
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
                         disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i].name)}
-                    />);
+                    />
+                  </div>
+                );
             })}
 
             <h4>Prognostic Stage</h4>
