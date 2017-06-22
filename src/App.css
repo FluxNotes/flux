@@ -4,7 +4,7 @@
 
 /* Restricts app to max fixed width for very wide screens. */
 .App-content {
-    max-width: 1400px;
+    max-width: 1600px;
 }
 
 .container-fluid {
