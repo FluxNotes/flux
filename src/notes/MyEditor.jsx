@@ -287,7 +287,7 @@ class MyEditor extends React.Component {
           matches = this.determineAutocompleteMatches(newText);
           this.setState({
               autocompleteText: newText,
-              inAutocomplete: (newText !== ""),
+              inAutocomplete: (textLength !== 0),
               autocompleteMatches: matches,
           })
           break;
@@ -345,7 +345,7 @@ class MyEditor extends React.Component {
           matches = this.determineShorthandMatches(newText);
           this.setState({
               shorthandText: newText,
-              inShorthand: (newText !== ""),
+              inShorthand: (textLength !== 0),
               shorthandMatches: matches,
           })
           break;
