@@ -1,5 +1,9 @@
+.tabs-container div .tab{
+    color: black !important;
+}
+
 .summary-list h2 {
-  color: #333;
+    color: #333;
 }
 
 /* Scrolling behavior */
@@ -8,17 +12,56 @@
     height: 500px;
     margin-top: 20px;
 }
+.previous-notes {
+    overflow-y: scroll;
+    height: 500px;
+    margin-top: 20px;
+}
 
-.tabs-container {
+.previous-notes h2 {
+    color: #333;
+}
+
+table.existing-notes {
+    border-collapse: collapse;
+    width: 98%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+table.existing-notes, tr.existing-note-entry, td.existing-note-date, td.existing-note-metadata {
+    font-size: 0.8rem;
+}
+
+/* Most table elements only have a top border */
+td.existing-note-date td.existing-note-metadata {
+    padding: 8px 10px;
+}
+
+td.existing-note-metadata {
+    color: #333333;
+}
+
+td.existing-note-date {
+    color: #999;
+}
+
+td span#existing-note-subject {
+    font-weight: bold;
+    font-size: 1rem;
 
 }
 
-.tabs-container div {
+td.existing-note-btn {
+    /*color: #000000;*/
 
 }
 
-.tabs-container div .tab{
-    color: black !important;
-
+/*Explicitly add in top and bottom border for last cell in row because it is removed in the Data Summary Table css*/
+tr.existing-note-entry td:last-child {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
+
+
 

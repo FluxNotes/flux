@@ -8,6 +8,7 @@ import DataSummaryTable from './DataSummaryTable';
 // Material UI component imports
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //font awesome
 import 'font-awesome/css/font-awesome.min.css';
@@ -16,7 +17,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-
 
     render() {
         return (
@@ -71,7 +71,32 @@ class DataSummaryPanel extends Component {
                             </div>
                         </Tab>
                         <Tab className="tab" label="Clinical Notes">
-
+                            <div className="previous-notes">
+                                <h2>Previous Clinical Notes</h2>
+                                <table className="existing-notes">
+                                    <tbody>
+                                    {this.props.patient.previousNotes.map((item, i) => {
+                                        return (
+                                            <tr className="existing-note-entry" key={i}>
+                                                <td className="existing-note-date" width="15%">{item.date}</td>
+                                                <td className="existing-note-metadata" width="55%">
+                                                    <span id="existing-note-subject">{item.subject}</span> <br/>
+                                                    <span>{item.hospital}</span> <br/>
+                                                    <span>{item.clinician}</span>
+                                                </td>
+                                                <td className="existing-note-button" width="30%">
+                                                    <RaisedButton
+                                                        className="existing-note-btn"
+                                                        label="View Note"
+                                                        key={i}
+                                                    />
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                    </tbody>
+                                </table>
+                            </div>
                         </Tab>
                     </Tabs>
                 </Paper>
