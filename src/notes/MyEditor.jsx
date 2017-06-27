@@ -689,7 +689,7 @@ class MyEditor extends React.Component {
   /**
    * Updates the current shorthand match based on the new key provided
    */
-  updateCurrentShorthandeMatch = (key) => { 
+  updateCurrentShorthandMatch = (key) => {
     this.setState({
       currentShorthandMatch: key
     });
