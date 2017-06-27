@@ -2,6 +2,8 @@ const structuredDataRaw = [
   {
     "label": "staging",
     "firstSelection": "t-staging",
+    "selectionAnchorOffset": 1,
+    "selectionFocusOffset": -1,
     "block": {
       "nodes": [
         {
@@ -78,6 +80,8 @@ const structuredDataRaw = [
   }, {
     "label": "stage",
     "firstSelection": "stage-value",
+    "selectionAnchorOffset": 0,
+    "selectionFocusOffset": 0,
     "block": {
       "nodes": [
         {
@@ -107,7 +111,7 @@ const structuredDataRaw = [
                   "kind": "text",
                   "ranges": [
                     {
-                      "text": "_ "
+                      "text": "__"
                     }
                   ]
                 }
@@ -120,6 +124,8 @@ const structuredDataRaw = [
   }, {
     "label": "er-receptor-status",
     "firstSelection": "er-value",
+    "selectionAnchorOffset": 0,
+    "selectionFocusOffset": 0,
     "block": {
       "nodes": [
         {
@@ -150,6 +156,67 @@ const structuredDataRaw = [
                   "ranges": [
                     {
                       "text": "_ "
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }, {
+    "label": "progression-status",
+    "firstSelection": "progression-value",
+    "selectionAnchorOffset": 0,
+    "selectionFocusOffset": 0,
+    "block": {
+      "nodes": [
+        {
+          "kind": "block",
+          "type": "structured-span",
+          "data": {
+            "id": "progression-status",
+          },
+          "isVoid": false,
+          "nodes": [
+            {
+              "kind": "inline",
+              "type": "structured-span",
+              "data": {
+                "id": "progression-value",
+              },
+              "nodes": [
+                {
+                  "kind": "text",
+                  "ranges": [
+                    {
+                      "text": "__"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "ranges": [
+                {
+                  "text": " based on "
+                }
+              ]
+            },
+            {
+              "kind": "inline",
+              "type": "structured-span",
+              "data": {
+                "id": "progression-cause",
+              },
+              "nodes": [
+                {
+                  "kind": "text",
+                  "ranges": [
+                    {
+                      "text": "__"
                     }
                   ]
                 }

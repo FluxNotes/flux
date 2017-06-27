@@ -4,8 +4,8 @@ import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
-//font awesome
-import 'font-awesome/css/font-awesome.min.css';
+// Application Components:
+import EditorToolbar from './EditorToolbar';
 // Styling
 import './MyEditor.css';
 
@@ -233,6 +233,71 @@ class MyEditor extends React.Component {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
+  /**
+   * Check if the current selection has a mark with `type` in it.
+   */
+  handleMarkCheck = (type) => {
+    const { state } = this.state;
+    return state.marks.some(mark => mark.type === type);
+  }
+
+  /**
+   * Check if the any of the currently selected blocks are of `type`.
+   */
+  handleBlockCheck = (type) => {
+    const { state } = this.state;
+    return state.blocks.some(node => node.type === type);
+  }
+
+  /**
+   * Handle any changes to the current mark type.
+   */
+  handleMarkUpdate = (type) =>  {
+    let { state } = this.state
+    state = state
+      .transform()
+      .toggleMark(type)
+      .apply()
+    this.setState({ state });
+  }
+
+  /**
+   * Handle any changes to the current block type.
+   */
+  handlBlockUpdate = (type) =>  {
+    let { state } = this.state;
+    const transform = state.transform();
+    const { document } = state;
+
+    // Handle list buttons.
+    if (type === 'bulleted-list' || type === 'numbered-list') {
+      const isList = this.hasBlock('list-item')
+      const isType = state.blocks.some((block) => {
+        return !!document.getClosest(block.key, parent => parent.type === type)
+      })
+
+      if (isList && isType) {
+        transform
+          .setBlock(DEFAULT_NODE)
+          .unwrapBlock('bulleted-list')
+          .unwrapBlock('numbered-list')
+      } else if (isList) {
+        transform
+          .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
+          .wrapBlock(type)
+      } else {
+        transform
+          .setBlock('list-item')
+          .wrapBlock(type)
+      }
+    } else {
+      // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
+    }
+
+    state = transform.apply()
+    this.setState({ state });
+    
+  }
 
   onKeyDown = (event, data, state) => {
     // Continue handling autocompletes    
@@ -280,7 +345,7 @@ class MyEditor extends React.Component {
           matches = this.determineAutocompleteMatches(newText);
           this.setState({
               autocompleteText: newText,
-              inAutocomplete: (newText !== ""),
+              inAutocomplete: (textLength !== 0),
               autocompleteMatches: matches,
           })
           break;
@@ -303,7 +368,7 @@ class MyEditor extends React.Component {
         const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
         menuEl.style.top = `${offset.top}px`
         menuEl.style.left = `${offset.left}px`
-        this.setState({
+          this.setState({
           state: newState, 
           inAutocomplete: true,
           autocompleteText: ""
@@ -413,85 +478,25 @@ class MyEditor extends React.Component {
   }
 
   /**
-   * Check if the current selection has a mark with `type` in it.
-   */
-  hasMark = (type) => {
-    const { state } = this.state
-    return state.marks.some(mark => mark.type === type)
-  }
-
-  /**
-   * Check if the any of the currently selected blocks are of `type`.
-   */
-  hasBlock = (type) => {
-    const { state } = this.state
-    return state.blocks.some(node => node.type === type)
-  }
-
-  /**
-   * When a mark button is clicked, toggle the current mark.
-   */
-  onClickMark = (e, type) => {
-    e.preventDefault()
-    let { state } = this.state
-    state = state
-      .transform()
-      .toggleMark(type)
-      .apply()
-    this.setState({ state })
-  }
-
-  /**
-   * When a block button is clicked, toggle the block type.
-   */
-  onClickBlock = (e, type) => {
-    e.preventDefault()
-    let { state } = this.state
-    const transform = state.transform()
-    const { document } = state
-
-    // Handle list buttons.
-    if (type === 'bulleted-list' || type === 'numbered-list') {
-      const isList = this.hasBlock('list-item')
-      const isType = state.blocks.some((block) => {
-        return !!document.getClosest(block.key, parent => parent.type === type)
-      })
-
-      if (isList && isType) {
-        transform
-          .setBlock(DEFAULT_NODE)
-          .unwrapBlock('bulleted-list')
-          .unwrapBlock('numbered-list')
-      } else if (isList) {
-        transform
-          .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
-          .wrapBlock(type)
-      } else {
-        transform
-          .setBlock('list-item')
-          .wrapBlock(type)
-      }
-    } else {
-      // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
-    }
-
-    state = transform.apply()
-    this.setState({ state })
-  }
-
-  /**
    *  Lifecycle Methods
    */
   // componentDidUpdate = (prevProps, prevState) => { 
   // }
 
   /* 
-   * For a given autocomplete key, use lookup table to find the next block to be selected
+   * For a given autocomplete block, use lookup table to find the next block to be selected
    */
   getNextSelectionBlock = (autocompleteBlock, autocompleteId) => {
     const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
-
     return getNodeById(autocompleteBlock.nodes, currentAutocompleteOption.firstSelection)
+  }
+
+  /* 
+   * For a given autocomplete id, use lookup table to find it and retrieve the offsets needed for selection
+   */
+  getNextSelectionOffsets = (autocompleteId) => {
+    const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
+    return [currentAutocompleteOption.selectionAnchorOffset, currentAutocompleteOption.selectionFocusOffset];
   }
   
   /** 
@@ -515,12 +520,12 @@ class MyEditor extends React.Component {
     const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
     const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
     const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteId);
-    console.log(autocompleteId)
 
     let newStateTransform = this.state.state.transform();
     newStateTransform = this.deleteCurrentAutocompleteText(newStateTransform); 
     const nextBlock = this.getNextSelectionBlock(autocompleteBlock, autocompleteId);
-    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock, nextBlock, 1, -1);
+    const [startOffset, endOffset] = this.getNextSelectionOffsets(autocompleteId);
+    newStateTransform = this.insertBlockAtLocation(newStateTransform, autocompleteBlock, nextBlock, startOffset, endOffset);
 
     const newState = newStateTransform.apply();
     this.setState({
@@ -582,96 +587,54 @@ class MyEditor extends React.Component {
     const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
 
     // If it exists, populate the fields with the updated staging values
-      if (stagingNode) {
-        for(const parentNode of this.state.state.document.nodes) {
-          const tNode = getNodeById(parentNode.nodes, 't-staging');
-          const nNode = getNodeById(parentNode.nodes, 'n-staging');
-          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+    if (stagingNode) {
+      for(const parentNode of this.state.state.document.nodes) {
+        const tNode = getNodeById(parentNode.nodes, 't-staging');
+        const nNode = getNodeById(parentNode.nodes, 'n-staging');
+        const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-          // Set t value
-          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
-              const currentState = this.state.state;
-              const state = currentState
-                  .transform()
-                  .moveToRangeOf(tNode)
-                  .moveEnd(-1)
-                  .deleteForward()
-                  .insertText(nextProps.tumorSize)
-                  .apply();
-              this.setState({ state: state })
-          }
-
-          // Set n value
-          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+        // Set t value
+        if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
             const currentState = this.state.state;
             const state = currentState
                 .transform()
-                .moveToRangeOf(nNode)
+                .moveToRangeOf(tNode)
                 .moveEnd(-1)
                 .deleteForward()
-                .insertText(nextProps.nodeSize)
+                .insertText(nextProps.tumorSize)
                 .apply();
             this.setState({ state: state })
-          }
+        }
 
-          // Set m value
-          if(mNode && this.props.metastasis !== nextProps.metastasis) {
-            const currentState = this.state.state;
-            const state = currentState
-                .transform()
-                .moveToRangeOf(mNode)
-                .moveEnd(-1)
-                .deleteForward()
-                .insertText(nextProps.metastasis)
-                .apply();
-            this.setState({ state: state })
-          }
+        // Set n value
+        if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+          const currentState = this.state.state;
+          const state = currentState
+              .transform()
+              .moveToRangeOf(nNode)
+              .moveEnd(-1)
+              .deleteForward()
+              .insertText(nextProps.nodeSize)
+              .apply();
+          this.setState({ state: state })
+        }
+
+        // Set m value
+        if(mNode && this.props.metastasis !== nextProps.metastasis) {
+          const currentState = this.state.state;
+          const state = currentState
+              .transform()
+              .moveToRangeOf(mNode)
+              .moveEnd(-1)
+              .deleteForward()
+              .insertText(nextProps.metastasis)
+              .apply();
+          this.setState({ state: state })
         }
       }
+    }
   }
 
-
-  /**
-   * Render a mark-toggling toolbar button.
-   */
-  renderMarkButton = (type, icon) => {
-    const isActive = this.hasMark(type)
-    const onMouseDown = e => this.onClickMark(e, type)
-
-    return (
-      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span>
-    )
-  }
-  /**
-   * Render a block-toggling toolbar button.
-   */
-  renderBlockButton = (type, icon) => {
-    const isActive = this.hasBlock(type)
-    const onMouseDown = e => this.onClickBlock(e, type)
-
-    return (
-      <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
-        <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
-      </span>
-    )
-  }
-  /**
-   * Render the toolbar.
-   */
-  renderToolbar = () => {
-    return (
-      <div className="menu toolbar-menu">
-        {this.renderMarkButton('bold', 'fa-bold ')}
-        {this.renderMarkButton('italic', 'fa-italic')}
-        {this.renderMarkButton('underlined', 'fa-underline')}
-        {this.renderMarkButton('code', 'fa-code')}
-        {this.renderBlockButton('bulleted-list', 'fa-list')}
-        {this.renderBlockButton('numbered-list', 'fa-list-ol')}
-      </div>
-    )
-  }
   /**
    * Render the dropdown of suggestions.
    */
@@ -697,7 +660,13 @@ class MyEditor extends React.Component {
   render = () => {
     return (
       <div className="MyEditor-root">
-        {this.renderToolbar()}
+        <EditorToolbar
+          onMarkCheck={this.handleMarkCheck} 
+          onBlockCheck={this.handleBlockCheck}
+
+          onMarkUpdate={this.handleMarkUpdate} 
+          onBlockUpdate={this.handleBlockUpdate}
+        />
         {this.renderDropdown()}
         <Editor
           schema={this.state.schema}
