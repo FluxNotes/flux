@@ -2,32 +2,35 @@ import React, {Component} from 'react';
 // Material UI components:
 import Paper from 'material-ui/Paper';
 // Timeline components:
+import Legend from './TimelineLegend';
 import Timeline from 'react-calendar-timeline';
+import moment from 'moment';
 
 import './TimelinePanel.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-// Item provides custom rendering of the the content of a timeline item
+// Item provides custom rendering of the the content of a timeline item.
+// Items may have any combination of:
+// icon - a font-awesome icon to display before the title
+// title - a title to display
+// details - additional information to display next to the title
 class Item extends Component {
 
   render() {
+
+    let icon = null;
+    let details = null;
+
     if (this.props.item.icon) {
-      // Render this item with a font-awesome icon
-      let details = null;
-      if (this.props.item.name) {
-        details = ' &nbsp;&nbsp;|&nbsp;&nbsp; ' + this.props.item.name;
-      }
-      return (
-        <span><i className={'point fa fa-' + this.props.item.icon}></i>{details}</span>
-      );
+      icon = (<span><i className={'point fa fa-' + this.props.item.icon}></i></span>);
     }
+
     if (this.props.item.details) {
-      return (
-        <span><strong>{this.props.item.title}</strong> &nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>
-      );
+      details = (<span>&nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>);
     }
+
     return (
-      <span><strong>{this.props.item.title}</strong></span>
+      <div>{icon}<strong>{this.props.item.title}</strong>{details}</div>
     );
   }
 };
@@ -58,11 +61,8 @@ class TimelinePanel extends Component {
     }
 
     // Define the bounds of the timeline
-    const now = new Date();
-    const defaultTimeStart = new Date();
-    defaultTimeStart.setDate(now.getDate() - 3 * 365);  // 3 years ago
-    const defaultTimeEnd = new Date();
-    defaultTimeEnd.setDate(now.getDate() + 120); // 3 months from now
+    const defaultTimeStart = moment().add(-3, 'years');  // 3 years ago
+    const defaultTimeEnd = moment().add(3, 'months'); // 3 months from now
 
     this.state = {
         items: items,
@@ -73,7 +73,11 @@ class TimelinePanel extends Component {
           day: 1,
           month: 1,
           year: 1
-        }
+        },
+        legendItems: [
+          {icon: 'hospital-o', description: 'Key medical events (e.g. surgery, radiation)'},
+          {icon: 'heartbeat', description: 'Progression observations'}
+        ]
     };
   }
 
@@ -94,6 +98,12 @@ class TimelinePanel extends Component {
               lineHeight={40}
               itemHeightRatio={0.7}
               itemRenderer={Item}
+              canMove={false}
+              canResize={false}
+              canSelect={false}
+          />
+          <Legend
+            items={this.state.legendItems}
           />
         </Paper>
       </div>
@@ -130,8 +140,7 @@ class TimelinePanel extends Component {
 
       items.push({
         group: assignedGroup,
-        title: '',
-        icon: event.icon,
+        icon: 'hospital-o',
         className: 'event-item',
         start_time: event.startDate,
         end_time: event.endDate
@@ -150,7 +159,7 @@ class TimelinePanel extends Component {
 
       items.push({
         group: assignedGroup,
-        icon: prog.icon,
+        icon: 'heartbeat',
         className: 'progression-item',
         start_time: prog.startDate,
         end_time: prog.endDate
@@ -196,12 +205,7 @@ class TimelinePanel extends Component {
     // extract the group IDs
     let groups = [];
     for (let i = 0; i < numGroups; i++) {
-      groups.push({
-        id: i+1,
-        canChangeGroup: false,
-        canMove: false,
-        canResize: false
-      });
+      groups.push({id: i+1});
     }
     return groups;
   }

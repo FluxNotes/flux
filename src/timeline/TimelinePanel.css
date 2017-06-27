@@ -42,7 +42,7 @@
   color: #333 !important;
   font-size: 14px !important;
   /* force min width so point-in-time icons are visible at any zoom level */
-  /*min-width: 30px !important;*/
+  min-width: 30px !important;
 }
 
 .medication-item {

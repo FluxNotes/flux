@@ -13,6 +13,7 @@ import FormTray from './forms/FormTray';
 import TimelinePanel from './timeline/TimelinePanel';
 
 import staging from '../lib/staging';
+import moment from 'moment';
 
 import './App.css';
 
@@ -154,63 +155,64 @@ class App extends Component {
                     display: ""
                 }
             ],
+            // NOTE: moment.js time objects are used for all timeline items because
+            // native Date() objects cause a strange issue where timeline items do not
+            // disappear from the left side of the timeline as you scroll.
             progression: [
                 {
                     icon: "heartbeat",
-                    startDate: new Date('2012-02-10'),
-                    endDate: new Date('2012-02-11')
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-02-11')
                 }
             ],
             medications: [
                 {
                     name: "Adriamycin",
                     dosage: "6 cycles of 60mg/m2",
-                    startDate: new Date('2012-02-10'),
-                    endDate: new Date('2012-08-20')
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-08-20')
                 },
                 {
                     name: "Cytoxin",
                     dosage: "6 cycles of 10mg/kg",
-                    startDate: new Date('2012-02-10'),
-                    endDate: new Date('2012-08-20')
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-08-20')
                 },
                 {
                     name: "Tamoxifen",
                     dosage: "20mg once daily",
-                    startDate: new Date('2013-11-01'),
-                    endDate: new Date('2016-08-13')
+                    startDate: moment('2013-11-01'),
+                    endDate: moment('2016-08-13')
                 },
                 {
                     name: "Letrozole",
                     dosage: "2.5mg once daily",
-                    startDate: new Date('2015-01-10'),
-                    endDate: new Date('2016-01-10')
+                    startDate: moment('2015-01-10'),
+                    endDate: moment('2016-01-10')
                 },
                 {
                     name: "Coumadin",
                     dosage: "2mg once daily",
-                    startDate: new Date('2015-09-05'),
-                    endDate: new Date('2017-06-01')
+                    startDate: moment('2015-09-05'),
+                    endDate: moment('2017-06-01')
                 },
                 {
                     name: "Aromaysin",
                     dosage: "25mg once daily",
-                    startDate: new Date('2017-06-05'),
-                    endDate: new Date('2018-01-01')
+                    startDate: moment('2017-06-05'),
+                    endDate: moment('2018-01-01')
                 }
             ],
             timelineEvents: [
                 {
                     name: 'Radiation',
-                    icon: 'hospital-o',
-                    startDate: new Date('2012-07-12'),
-                    endDate: new Date('2012-08-16')
+                    startDate: moment('2012-07-12'),
+                    endDate: moment('2012-08-16')
                 },
                 {
                     name: 'Surgery',
-                    icon: 'hospital-o',
-                    startDate: new Date('2012-09-20'),
-                    endDate: new Date('2012-09-21')
+                    startDate: moment('2012-09-20'),
+                    endDate: moment('2012-09-21')
                 }
             ]
         };
