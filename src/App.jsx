@@ -153,6 +153,65 @@ class App extends Component {
                     name: "Genetic testing",
                     display: ""
                 }
+            ],
+            progression: [
+                {
+                    icon: "heartbeat",
+                    startDate: new Date('2012-02-10'),
+                    endDate: new Date('2012-02-11')
+                }
+            ],
+            medications: [
+                {
+                    name: "Adriamycin",
+                    dosage: "6 cycles of 60mg/m2",
+                    startDate: new Date('2012-02-10'),
+                    endDate: new Date('2012-08-20')
+                },
+                {
+                    name: "Cytoxin",
+                    dosage: "6 cycles of 10mg/kg",
+                    startDate: new Date('2012-02-10'),
+                    endDate: new Date('2012-08-20')
+                },
+                {
+                    name: "Tamoxifen",
+                    dosage: "20mg once daily",
+                    startDate: new Date('2013-11-01'),
+                    endDate: new Date('2016-08-13')
+                },
+                {
+                    name: "Letrozole",
+                    dosage: "2.5mg once daily",
+                    startDate: new Date('2015-01-10'),
+                    endDate: new Date('2016-01-10')
+                },
+                {
+                    name: "Coumadin",
+                    dosage: "2mg once daily",
+                    startDate: new Date('2015-09-05'),
+                    endDate: new Date('2017-06-01')
+                },
+                {
+                    name: "Aromaysin",
+                    dosage: "25mg once daily",
+                    startDate: new Date('2017-06-05'),
+                    endDate: new Date('2018-01-01')
+                }
+            ],
+            timelineEvents: [
+                {
+                    name: 'Radiation',
+                    icon: 'hospital-o',
+                    startDate: new Date('2012-07-12'),
+                    endDate: new Date('2012-08-16')
+                },
+                {
+                    name: 'Surgery',
+                    icon: 'hospital-o',
+                    startDate: new Date('2012-09-20'),
+                    endDate: new Date('2012-09-21')
+                }
             ]
         };
 
@@ -276,7 +335,11 @@ class App extends Component {
                         </Row>
                         <Row center="xs">
                             <Col sm={12}>
-                                <TimelinePanel />
+                                <TimelinePanel
+                                    medications={this.state.medications}
+                                    events={this.state.timelineEvents}
+                                    progression={this.state.progression}
+                                />
                             </Col>
                         </Row>
                     </Grid>

@@ -41,6 +41,8 @@
 .rct-item {
   color: #333 !important;
   font-size: 14px !important;
+  /* force min width so point-in-time icons are visible at any zoom level */
+  /*min-width: 30px !important;*/
 }
 
 .medication-item {
@@ -48,9 +50,14 @@
   border-color: #d9ebf9 !important;
 }
 
-.radiation-item {
+.event-item {
   background-color: #fa9f8f !important;
   border-color: #fa9f8f !important;
+}
+
+.progression-item {
+  background-color: #6bda60 !important;
+  border-color: #6bda60 !important;
 }
 
 .bold-item {
