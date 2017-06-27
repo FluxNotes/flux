@@ -79,13 +79,20 @@ class MyEditor extends React.Component {
 
     // Set the initial state when the app is first constructed.
     this.state = {
+      // Autocomplete config
       inAutocomplete: false,
       autocompleteText: "",
       autocompleteMatches: [],
       currentAutocompleteMatch: null,
-      state: initialState,
-      // TODO: Clean up options and load them from an external source
       autocompleteOptions: structuredDataRaw,
+      // Shorthand config
+      inShorthand: false,
+      shorthandText: "",
+      shorthandMatches: [],
+      currentShorthandMatch: null,
+      shorthandOptions: Object.keys(this.props.data.patient).map((elem) => {const newObj = {}; newObj["label"] = elem; newObj["value"] = this.props.data.patient[elem]; return newObj}) ,
+      // State of editor config
+      state: initialState,
       schema: {
         nodes: {
           'paragraph':     props => <p {...props.attributes}>{props.children}</p>,
@@ -167,7 +174,7 @@ class MyEditor extends React.Component {
     }),
     AutoReplace({
       trigger: 'space',
-      before: /(\.NAME)/i,
+      before: /(@NAME)/i,
       transform: (transform, e, data, matches) => {
         const newTrans = transform.insertText(`${this.props.data.patient.name} `);
         return newTrans;
@@ -175,7 +182,7 @@ class MyEditor extends React.Component {
     }),
     AutoReplace({
       trigger: 'space',
-      before: /(\.AGE)/i,
+      before: /(@AGE)/i,
       transform: (transform, e, data, matches) => {
         const newTrans = transform.insertText(`${this.props.data.patient.age} year-old `);
         return newTrans;
@@ -183,7 +190,7 @@ class MyEditor extends React.Component {
     }),
     AutoReplace({
       trigger: 'space',
-      before: /(\.GENDER)/i,
+      before: /(@GENDER)/i,
       transform: (transform, e, data, matches) => {
         const newTrans = transform.insertText(`${this.props.data.patient.gender} `);
         return newTrans;
@@ -294,6 +301,64 @@ class MyEditor extends React.Component {
           })
           break;
       }
+    } else if (this.state.inShorthand) {
+      let newText = "";
+      let matches = [];
+
+      switch (event.keyCode) {
+        // Left and up move up -- decrease index or wrap
+        case 37: 
+        case 38:
+          event.preventDefault();
+          if (this.state.shorthandMatches.length > 0) { 
+            this.setState({
+              currentShorthandMatch: (this.state.shorthandMatches.length + (this.state.currentShorthandMatch - 1)) % this.state.shorthandMatches.length,
+            });
+          }
+          break;
+        // Right and down move down -- increase index or wrap  
+        case 39: 
+        case 40:
+          event.preventDefault();
+          if (this.state.shorthandMatches.length > 0) { 
+            this.setState({
+              currentShorthandMatch: (this.state.currentShorthandMatch + 1) % this.state.shorthandMatches.length,
+            });
+          } 
+          break;
+        case 32: // Deactivate on spacebar 
+          this.setState({
+            inShorthand: false, 
+            shorthandMatches: [],
+            shorthandText: "",
+          });
+          break;
+        case 13: // Handle enter clicks to insert text
+          if (this.state.shorthandMatches.length > 0) {
+            event.preventDefault(); 
+            return this.insertCurrentShorthandMatch();
+          }
+          break;
+        case 8:  // Handle deletions by updating the shorthandText and suggestions
+          const textLength = this.state.shorthandText.length;
+          newText = (textLength > 0) ? this.state.shorthandText.slice(0, textLength -1) : "" ;
+          matches = this.determineShorthandMatches(newText);
+          this.setState({
+              shorthandText: newText,
+              inShorthand: (newText !== ""),
+              shorthandMatches: matches,
+          })
+          break;
+        default: // Continue growing ShorthandText and offering updated suggestions
+          newText = this.state.shorthandText +  String.fromCharCode(event.keyCode);  
+          matches = this.determineShorthandMatches(newText);
+          
+          this.setState({
+              shorthandText: newText,
+              shorthandMatches: matches,
+          })
+          break;
+      }
     } else { 
       if (event.keyCode === 190) {
         // Trigger autocomplete mode if a '.' is typed 
@@ -308,10 +373,41 @@ class MyEditor extends React.Component {
           inAutocomplete: true,
           autocompleteText: ""
         });
+      } else if (data.isShift) { 
+        switch (data.key) {
+          case '2': 
+            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
+            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+            menuEl.style.top = `${offset.top}px`
+            menuEl.style.left = `${offset.left}px`
+            this.setState({
+              state: newState, 
+              inShorthand: true,
+              shorthandText: ""
+            });
+            return;
+          default:
+            return; 
+        } 
       } else if (data.isMod) { 
         // Handle ctrl-b and other shortkeys for format switching 
         let mark
         switch (data.key) {
+          case '2': 
+            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
+            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+            menuEl.style.top = `${offset.top}px`
+            menuEl.style.left = `${offset.left}px`
+            this.setState({
+              state: newState, 
+              inShorthand: true,
+              shorthandText: ""
+            });
+            return;
           case 'b':
             mark = 'bold'
             break
@@ -479,12 +575,6 @@ class MyEditor extends React.Component {
     this.setState({ state })
   }
 
-  /**
-   *  Lifecycle Methods
-   */
-  // componentDidUpdate = (prevProps, prevState) => { 
-  // }
-
   /* 
    * For a given autocomplete key, use lookup table to find the next block to be selected
    */
@@ -515,7 +605,6 @@ class MyEditor extends React.Component {
     const currentAutocompleteOption = this.state.autocompleteOptions.find((element, index, array) => element.label === autocompleteId);
     const autocompleteState = Raw.deserialize(currentAutocompleteOption.block,{terse:true});
     const autocompleteBlock = getNodeById(autocompleteState.blocks, autocompleteId);
-    console.log(autocompleteId)
 
     let newStateTransform = this.state.state.transform();
     newStateTransform = this.deleteCurrentAutocompleteText(newStateTransform); 
@@ -558,6 +647,70 @@ class MyEditor extends React.Component {
     } 
     this.setState({ 
       currentAutocompleteMatch: 0
+    })
+    return matches.length > 5 ? matches.slice(0,5) : matches;
+  }
+
+  /** 
+   * Deletes a number of characters corresponding to the number of chars in 
+   * the states shorthand buffer plus one for the dot that triggered it
+   */   
+  deleteCurrentShorthandText = (newStateTransform) => {
+    for(const char of this.state.shorthandText) { 
+      newStateTransform.deleteBackward();
+    }
+    // Delete once more for period
+    newStateTransform.deleteBackward();
+    return newStateTransform
+  }
+
+  /**
+   * Inserts the current shorthand match onto the page
+   */
+  insertCurrentShorthandMatch = () => {
+    const shorthandId = this.state.shorthandMatches[this.state.currentShorthandMatch];
+    const currentShorthandOption = this.state.shorthandOptions.find((element, index, array) => element.label === shorthandId);
+
+    let newStateTransform = this.state.state.transform();
+    newStateTransform = this.deleteCurrentShorthandText(newStateTransform); 
+    newStateTransform = newStateTransform.insertText(currentShorthandOption.value)
+
+    const newState = newStateTransform.apply();
+    this.setState({
+      currentShorthandMatch : null,
+      inShorthand: false,
+      shorthandText: "",
+      shorthandMatches: [],
+      state: newState,
+    });
+    return newState;
+  }
+
+  /**
+   * Updates the current shorthand match based on the new key provided
+   */
+  updateCurrentShorthandMatch = (key) => {
+    this.setState({
+      currentShorthandMatch: key
+    });
+  }
+
+  /**
+   * Determines new autocomplete matches based on the current 
+   * autocomplete text typed
+   */
+  determineShorthandMatches = (shorthandText) => {
+    let matches = []; 
+    const regexFromShorthandText = new RegExp(shorthandText, 'i');
+    if (shorthandText !== "") { 
+      for (const opt of this.state.shorthandOptions) { 
+        if(opt.label.match(regexFromShorthandText))  { 
+          matches.push(opt.label);
+        }
+      }
+    } 
+    this.setState({ 
+      currentShorthandMatch: 0
     })
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
@@ -692,6 +845,25 @@ class MyEditor extends React.Component {
   }
 
   /**
+   * Render the dropdown of shorthand suggestions.
+   */
+  renderShorthandDropdown = () => { 
+    return (
+      <div className="menu shorthand-menu">
+        {this.state.shorthandMatches.map((match, index) => {
+          const isActive = (this.state.currentShorthandMatch === index); 
+
+          return (
+              <div className="menu-item" key={index} data-active={isActive} onMouseOver={ () => { this.updateCurrentShorthandMatch(index)}} onClick={() => this.insertCurrentShorthandMatch()}>
+                {match}
+              </div>
+          );}
+        )}
+      </div> 
+    )
+  }
+
+  /**
    * Render the editor, toolbar and dropdown when needed.
    */
   render = () => {
@@ -699,6 +871,7 @@ class MyEditor extends React.Component {
       <div className="MyEditor-root">
         {this.renderToolbar()}
         {this.renderDropdown()}
+        {this.renderShorthandDropdown()}
         <Editor
           schema={this.state.schema}
           state={this.state.state}
