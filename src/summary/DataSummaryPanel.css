@@ -6,18 +6,19 @@
 .summary-list {
     overflow-y: scroll;
     height: 500px;
+    margin-top: 20px;
 }
 
 .tabs-container {
-    /*background-color: white;*/
+
 }
 
 .tabs-container div {
-    /*background-color: white !important;*/
+
 }
 
 .tabs-container div .tab{
     color: black !important;
-    /*border-bottom-color: steelblue !important;*/
+
 }
 
