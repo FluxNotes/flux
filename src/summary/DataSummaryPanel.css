@@ -7,3 +7,17 @@
     overflow-y: scroll;
     height: 500px;
 }
+
+.tabs-container {
+    /*background-color: white;*/
+}
+
+.tabs-container div {
+    /*background-color: white !important;*/
+}
+
+.tabs-container div .tab{
+    color: black !important;
+    /*border-bottom-color: steelblue !important;*/
+}
+
