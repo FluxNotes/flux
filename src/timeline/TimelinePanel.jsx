@@ -85,6 +85,7 @@ class TimelinePanel extends Component {
     return (
       <div id="timeline" className="dashboard-panel">
         <Paper className="panel-content">
+          {/* {this.renderHoverItems()} */}
           <Timeline
               groups={this.state.groups}
               items={this.state.items}
@@ -138,12 +139,19 @@ class TimelinePanel extends Component {
     events.forEach((event) => {
       const assignedGroup = this._assignItemToGroup(items, event, groupStartIndex);
 
+      let classes = 'event-item';
+      let endDate = event.endDate;
+      if (!endDate) {
+        endDate = event.startDate.add(1, 'day');
+        classes += ' point-in-time';
+      }
+
       items.push({
         group: assignedGroup,
         icon: 'hospital-o',
-        className: 'event-item',
+        className: classes,
         start_time: event.startDate,
-        end_time: event.endDate
+        end_time: endDate
       });
     });
     return items;
@@ -157,12 +165,19 @@ class TimelinePanel extends Component {
     progs.forEach((prog) => {
       const assignedGroup = this._assignItemToGroup(items, prog, groupStartIndex);
 
+      let classes = 'progression-item';
+      let endDate = prog.endDate;
+      if (!endDate) {
+        endDate = prog.startDate.add(1, 'day');
+        classes += ' point-in-time';
+      }
+
       items.push({
         group: assignedGroup,
         icon: 'heartbeat',
-        className: 'progression-item',
+        className: classes,
         start_time: prog.startDate,
-        end_time: prog.endDate
+        end_time: endDate
       });
     });
     return items;

@@ -87,25 +87,7 @@ class App extends Component {
                     display: ""
                 }
             ],
-            keyDates: [
-              {
-                  name: "Diagnosis Date",
-                  display: "01/13/2012"
-              },
-              {
-                  name: "Radiation Date",
-                  display: "07/12/2012 - 08/16/2012"
-              },
-              {
-                  name: "Recurrence Date",
-                  display: "10/28/2013"
-              }
-            ],
             surgery: [
-                {
-                    name: "Surgery Date",
-                    display: "09/20/2012"
-                },
                 {
                     name: "Surgery",
                     display: "Lumpectomy / sentinel / lymph node biopsy"
@@ -158,13 +140,6 @@ class App extends Component {
             // NOTE: moment.js time objects are used for all timeline items because
             // native Date() objects cause a strange issue where timeline items do not
             // disappear from the left side of the timeline as you scroll.
-            progression: [
-                {
-                    icon: "heartbeat",
-                    startDate: moment('2012-02-10'),
-                    endDate: moment('2012-02-11')
-                }
-            ],
             medications: [
                 {
                     name: "Adriamycin",
@@ -203,7 +178,7 @@ class App extends Component {
                     endDate: moment('2018-01-01')
                 }
             ],
-            timelineEvents: [
+            events: [
                 {
                     name: 'Radiation',
                     startDate: moment('2012-07-12'),
@@ -211,8 +186,21 @@ class App extends Component {
                 },
                 {
                     name: 'Surgery',
-                    startDate: moment('2012-09-20'),
-                    endDate: moment('2012-09-21')
+                    startDate: moment('2012-09-20')
+                }
+            ],
+            progression: [
+                {
+                    name: 'Diagnosis',
+                    startDate: moment('2012-01-13')
+                },
+                {
+                    name: 'Stable',
+                    startDate: moment('2012-06-13')
+                },
+                {
+                    name: 'Recurrence',
+                    startDate: moment('2013-10-12')
                 }
             ]
         };
@@ -243,9 +231,9 @@ class App extends Component {
         // Nothing right now
     }
 
-    handleSummaryItemSelected(item) {
-        if (item.display) {
-            this.setState({SummaryItemToInsert: item.display});
+    handleSummaryItemSelected(itemText) {
+        if (itemText) {
+            this.setState({SummaryItemToInsert: itemText});
         }
     }
 
@@ -279,6 +267,9 @@ class App extends Component {
             diagnosis[1].display = "";
         }
 
+        const summaryEvents = this.state.progression.concat(this.state.events);
+        summaryEvents.sort(this._timeSorter);
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="App">
@@ -293,7 +284,7 @@ class App extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    keyDates={this.state.keyDates}
+                                    events={summaryEvents}
                                     surgery={this.state.surgery}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
@@ -339,7 +330,7 @@ class App extends Component {
                             <Col sm={12}>
                                 <TimelinePanel
                                     medications={this.state.medications}
-                                    events={this.state.timelineEvents}
+                                    events={this.state.events}
                                     progression={this.state.progression}
                                 />
                             </Col>
@@ -348,6 +339,16 @@ class App extends Component {
                 </div>
             </MuiThemeProvider>
         );
+    }
+
+    _timeSorter(a, b) {
+        if (a.startDate < b.startDate) {
+            return -1;
+        }
+        if (a.startDate > b.startDate) {
+            return 1;
+        }
+        return 0;
     }
 }
 

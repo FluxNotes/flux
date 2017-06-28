@@ -7,8 +7,6 @@ import ConditionSelection from './ConditionSelection';
 import DataSummaryTable from './DataSummaryTable';
 // Material UI component imports
 import Paper from 'material-ui/Paper';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import RaisedButton from 'material-ui/RaisedButton';
 
 //font awesome
 import 'font-awesome/css/font-awesome.min.css';
@@ -45,11 +43,11 @@ class DataSummaryPanel extends Component {
                                     onItemClicked={this.props.onItemClicked}
                                 />
 
-                                <h2>Key Dates:</h2>
-                                <DataSummaryTable
-                                    items={this.props.keyDates}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
+                        <h2>Key Dates:</h2>
+                        <DataSummaryTable
+                            items={this.props.events}
+                            onItemClicked={this.props.onItemClicked}
+                        />
 
                                 <h2>Surgery:</h2>
                                 <DataSummaryTable

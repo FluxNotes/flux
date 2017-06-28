@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Paper from 'material-ui/Paper';
 
 import './TimelineLegend.css';
 
@@ -10,7 +11,7 @@ class Legend extends Component {
         {this.props.items.map((item, i) => {
           return (
             <div key={i}><i className={'legend-icon fa fa-' + item.icon}></i>:&nbsp;{item.description}</div>
-          )
+          );
         })}
       </div>
     );
