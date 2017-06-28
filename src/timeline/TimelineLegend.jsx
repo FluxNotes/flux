@@ -10,7 +10,7 @@ class Legend extends Component {
       <div className="legend">
         {this.props.items.map((item, i) => {
           return (
-            <div key={i}><i className={'legend-icon fa fa-' + item.icon}></i>:&nbsp;{item.description}</div>
+            <div key={i}><i className={'legend-icon fa fa-' + item.icon}></i>:&nbsp;&nbsp;{item.description}</div>
           );
         })}
       </div>

@@ -3,8 +3,10 @@ import React, {Component} from 'react';
 import Paper from 'material-ui/Paper';
 // Timeline components:
 import Legend from './TimelineLegend';
+import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import moment from 'moment';
+import getOffsets from 'positions';
 
 import './TimelinePanel.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -17,7 +19,6 @@ import 'font-awesome/css/font-awesome.min.css';
 class Item extends Component {
 
   render() {
-
     let icon = null;
     let details = null;
 
@@ -29,8 +30,10 @@ class Item extends Component {
       details = (<span>&nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>);
     }
 
+    const itemId = `timeline-item-${this.props.item.id}`;
+
     return (
-      <div>{icon}<strong>{this.props.item.title}</strong>{details}</div>
+      <div id={itemId} className="item">{icon}<strong>{this.props.item.title}</strong>{details}</div>
     );
   }
 };
@@ -55,9 +58,14 @@ class TimelinePanel extends Component {
     // Create groups for the items
     const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
-    // Assign every item an ID
+    // Assign every item an ID and onClick handler
     for (let i = 0; i < items.length; i++) {
-      items[i]['id'] = i + 1;
+      const id = i + 1;
+      items[i]['id'] = id;
+      items[i]['itemProps'] = {
+        onMouseEnter: (e) => this._enterItemHover(e, id),
+        onMouseLeave: (e) => this._leaveItemHover(e)
+      };
     }
 
     // Define the bounds of the timeline
@@ -77,15 +85,55 @@ class TimelinePanel extends Component {
         legendItems: [
           {icon: 'hospital-o', description: 'Key medical events (e.g. surgery, radiation)'},
           {icon: 'heartbeat', description: 'Progression observations'}
-        ]
+        ],
+        hoverItem: {
+          title: '',
+          details: '',
+          style: {bottom: 0, left: 0, display: 'none'}
+        }
     };
+  }
+
+  _enterItemHover(e, id) {
+    // Get position of this item on the screen
+    e.preventDefault();
+    const hoverItem = document.querySelector('[id="hover-item"]');
+    const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
+    const offset = getOffsets(hoverItem, 'bottom left', targetItem, 'top left');
+    const item = this.state.items[id-1];
+    const style = {
+      top: `${offset.top + 160}px`,
+      left: `${offset.left}px`,
+      display: null
+    }
+
+    const hoverItemState = {
+      title: item.hoverTitle,
+      text: item.hoverText,
+      style: style
+    };
+    this.setState({'hoverItem': hoverItemState});
+  }
+
+  _leaveItemHover(e) {
+    e.preventDefault();
+    const defaultHoverItemState = {
+      style: {
+        display: 'none'
+      }
+    };
+    this.setState({'hoverItem': defaultHoverItemState});
   }
 
   render() {
     return (
       <div id="timeline" className="dashboard-panel">
         <Paper className="panel-content">
-          {/* {this.renderHoverItems()} */}
+          <HoverItem
+            title={this.state.hoverItem.title}
+            text={this.state.hoverItem.text}
+            style={this.state.hoverItem.style}
+          />
           <Timeline
               groups={this.state.groups}
               items={this.state.items}
@@ -123,6 +171,8 @@ class TimelinePanel extends Component {
         group: assignedGroup,
         title: med.name,
         details: med.dosage,
+        hoverTitle: med.name,
+        hoverText: med.dosage,
         className: 'medication-item',
         start_time: med.startDate,
         end_time: med.endDate
@@ -141,7 +191,12 @@ class TimelinePanel extends Component {
 
       let classes = 'event-item';
       let endDate = event.endDate;
-      if (!endDate) {
+      let hoverText = '';
+
+      if (event.endDate) {
+        hoverText = `${event.startDate.format('MM/DD/YYYY')} ― ${event.endDate.format('MM/DD/YYYY')}`;
+      } else {
+        hoverText = `${event.startDate.format('MM/DD/YYYY')}`;
         endDate = event.startDate.add(1, 'day');
         classes += ' point-in-time';
       }
@@ -150,6 +205,8 @@ class TimelinePanel extends Component {
         group: assignedGroup,
         icon: 'hospital-o',
         className: classes,
+        hoverTitle: event.name,
+        hoverText: hoverText,
         start_time: event.startDate,
         end_time: endDate
       });
@@ -167,7 +224,12 @@ class TimelinePanel extends Component {
 
       let classes = 'progression-item';
       let endDate = prog.endDate;
-      if (!endDate) {
+      let hoverText = '';
+
+      if (prog.endDate) {
+        hoverText = `${prog.startDate.format('MM/DD/YYYY')} ― ${prog.endDate.format('MM/DD/YYYY')}`;
+      } else {
+        hoverText = `${prog.startDate.format('MM/DD/YYYY')}`;
         endDate = prog.startDate.add(1, 'day');
         classes += ' point-in-time';
       }
@@ -176,6 +238,8 @@ class TimelinePanel extends Component {
         group: assignedGroup,
         icon: 'heartbeat',
         className: classes,
+        hoverTitle: prog.name,
+        hoverText: hoverText,
         start_time: prog.startDate,
         end_time: endDate
       });

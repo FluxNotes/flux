@@ -180,6 +180,10 @@ class App extends Component {
             ],
             events: [
                 {
+                    name: 'Mammogram',
+                    startDate: moment('2012-01-13')
+                },
+                {
                     name: 'Radiation',
                     startDate: moment('2012-07-12'),
                     endDate: moment('2012-08-16')
@@ -187,6 +191,10 @@ class App extends Component {
                 {
                     name: 'Surgery',
                     startDate: moment('2012-09-20')
+                },
+                {
+                    name: 'Mammogram',
+                    startDate: moment('2013-10-04')
                 }
             ],
             progression: [
@@ -195,12 +203,36 @@ class App extends Component {
                     startDate: moment('2012-01-13')
                 },
                 {
-                    name: 'Stable',
+                    name: 'Responding Disease',
                     startDate: moment('2012-06-13')
+                },
+                {
+                    name: 'Disease Free',
+                    startDate: moment('2012-11-01')
                 },
                 {
                     name: 'Recurrence',
                     startDate: moment('2013-10-12')
+                },
+                {
+                    name: 'Progressing Disease',
+                    startDate: moment('2014-04-17')
+                },
+                {
+                    name: 'Responding Disease',
+                    startDate: moment('2014-07-03')
+                },
+                {
+                    name: 'Stable',
+                    startDate: moment('2015-06-14')
+                },
+                {
+                    name: 'Stable',
+                    startDate: moment('2016-08-11')
+                },
+                {
+                    name: 'Progressing Disease',
+                    startDate: moment('2017-05-15')
                 }
             ]
         };
