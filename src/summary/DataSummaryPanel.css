@@ -2,38 +2,17 @@
     color: black !important;
 }
 
-.summary-list h2 {
+.table-list h2 {
     color: #333;
 }
 
 /* Scrolling behavior */
-.summary-list {
-    overflow-y: scroll;
-    height: 500px;
-    margin-top: 20px;
-}
-.previous-notes {
+.table-list {
     overflow-y: scroll;
     height: 500px;
     margin-top: 20px;
 }
 
-.previous-notes h2 {
-    color: #333;
-}
-
-table.existing-notes {
-    border-collapse: collapse;
-    width: 98%;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-table.existing-notes, tr.existing-note-entry, td.existing-note-date, td.existing-note-metadata {
-    font-size: 0.8rem;
-}
-
-/* Most table elements only have a top border */
 table.existing-notes td {
     padding: 20px 10px;
 }
@@ -49,12 +28,6 @@ td.existing-note-date {
 td span#existing-note-subject {
     font-weight: bold;
     font-size: 1rem;
-
-}
-
-td.existing-note-btn {
-    /*color: #000000;*/
-
 }
 
 /*Explicitly add in top and bottom border for last cell in row because it is removed in the Data Summary Table css*/

@@ -38,7 +38,7 @@ class DataSummaryPanel extends Component {
 
                     <Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}} tabItemContainerStyle={{background: 'white'}}>
                         <Tab className="tab" label="Problem Summary">
-                            <div className="summary-list">
+                            <div className="table-list" id="summary-list">
                                 <h2>Current Diagnosis:</h2>
                                 <DataSummaryTable
                                     items={this.props.diagnosis}
@@ -71,7 +71,7 @@ class DataSummaryPanel extends Component {
                             </div>
                         </Tab>
                         <Tab className="tab" label="Clinical Notes">
-                            <div className="previous-notes">
+                            <div className="table-list" id="previous-notes">
                                 <h2>Previous Clinical Notes</h2>
                                 <table className="existing-notes">
                                     <tbody>
