@@ -34,8 +34,8 @@ table.existing-notes, tr.existing-note-entry, td.existing-note-date, td.existing
 }
 
 /* Most table elements only have a top border */
-td.existing-note-date td.existing-note-metadata {
-    padding: 8px 10px;
+table.existing-notes td {
+    padding: 20px 10px;
 }
 
 td.existing-note-metadata {

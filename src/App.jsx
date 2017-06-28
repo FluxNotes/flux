@@ -49,11 +49,20 @@ class App extends Component {
                         subject: "Consult",
                         hospital: "Dana Farber Cancer Institute",
                         clinician: "Dr. Zheng"
+                    },
+                    {
+                        date: "20.JUN.2012",
+                        subject: "Clinical post-op",
+                        hospital: "Brigham and Women's Hospital",
+                        clinician: "Dr. Smith"
+                    },
+                    {
+                        date: "16.MAY.2012",
+                        subject: "Clinical follow-up",
+                        hospital: "Dana Farber Cancer Institute",
+                        clinician: "Dr. Strauss"
                     }
                 ]
-
-
-
             },
             conditions: [
                 {
