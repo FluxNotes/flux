@@ -45,7 +45,7 @@
     font-size: .8rem;
 }
 
-.tooltip #T4, .tooltip #N1, .tooltip #N2, .tooltip #N3, .tooltip #M1 {
+.tooltip .large {
     width: 220px;
     margin-left: -95px;
 }
