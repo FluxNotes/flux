@@ -33,7 +33,7 @@ const initialState = Raw.deserialize({
       nodes: [
         {
           kind: 'text',
-          text: 'Add a space at the end of this line to trigger a inline template: .staging'
+          text: 'Add a space at the end of this line to trigger a inline template: #staging'
         }
       ]
     }
