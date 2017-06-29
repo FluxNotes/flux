@@ -13,6 +13,7 @@ import FormTray from './forms/FormTray';
 import TimelinePanel from './timeline/TimelinePanel';
 
 import staging from '../lib/staging';
+import moment from 'moment';
 
 import './App.css';
 
@@ -86,30 +87,6 @@ class App extends Component {
                     display: ""
                 }
             ],
-            keyDates: [
-              {
-                  name: "Diagnosis Date",
-                  display: "01/13/2012"
-              },
-              {
-                  name: "Radiation Date",
-                  display: "07/12/2012 - 08/16/2012"
-              },
-              {
-                  name: "Recurrence Date",
-                  display: "10/28/2013"
-              }
-            ],
-            surgery: [
-                {
-                    name: "Surgery Date",
-                    display: "09/20/2012"
-                },
-                {
-                    name: "Surgery",
-                    display: "Lumpectomy / sentinel / lymph node biopsy"
-                }
-            ],
             pathology: [
                 {
                     name: "Color",
@@ -153,6 +130,107 @@ class App extends Component {
                     name: "Genetic testing",
                     display: ""
                 }
+            ],
+            // NOTE: moment.js time objects are used for all timeline items because
+            // native Date() objects cause a strange issue where timeline items do not
+            // disappear from the left side of the timeline as you scroll.
+            medications: [
+                {
+                    name: "Adriamycin",
+                    dosage: "6 cycles of 60mg/m2",
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-08-20')
+                },
+                {
+                    name: "Cytoxin",
+                    dosage: "6 cycles of 10mg/kg",
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-08-20')
+                },
+                {
+                    name: "Tamoxifen",
+                    dosage: "20mg once daily",
+                    startDate: moment('2013-11-01'),
+                    endDate: moment('2016-08-13')
+                },
+                {
+                    name: "Letrozole",
+                    dosage: "2.5mg once daily",
+                    startDate: moment('2015-01-10'),
+                    endDate: moment('2016-01-10')
+                },
+                {
+                    name: "Coumadin",
+                    dosage: "2mg once daily",
+                    startDate: moment('2015-09-05'),
+                    endDate: moment('2017-06-01')
+                },
+                {
+                    name: "Aromaysin",
+                    dosage: "25mg once daily",
+                    startDate: moment('2017-06-05'),
+                    endDate: moment('2018-01-01')
+                }
+            ],
+            procedures: [
+                {
+                    name: 'Mammogram',
+                    startDate: moment('2012-01-13')
+                },
+                {
+                    name: 'Radiation',
+                    startDate: moment('2012-07-12'),
+                    endDate: moment('2012-08-16')
+                },
+                {
+                    name: 'Surgery',
+                    startDate: moment('2012-09-20'),
+                    display: "Lumpectomy / sentinel / lymph node biopsy"
+                },
+                {
+                    name: 'Mammogram',
+                    startDate: moment('2013-10-04')
+                }
+            ],
+            keyDates: [
+                {
+                    name: 'Diagnosis',
+                    startDate: moment('2012-01-13')
+                },
+                {
+                    name: 'Recurrence',
+                    startDate: moment('2013-10-12')
+                }
+            ],
+            progression: [
+                {
+                    name: 'Responding Disease',
+                    startDate: moment('2012-06-13')
+                },
+                {
+                    name: 'Disease Free',
+                    startDate: moment('2012-11-01')
+                },
+                {
+                    name: 'Progressing Disease',
+                    startDate: moment('2014-04-17')
+                },
+                {
+                    name: 'Responding Disease',
+                    startDate: moment('2014-07-03')
+                },
+                {
+                    name: 'Stable',
+                    startDate: moment('2015-06-14')
+                },
+                {
+                    name: 'Stable',
+                    startDate: moment('2016-08-11')
+                },
+                {
+                    name: 'Progressing Disease',
+                    startDate: moment('2017-05-15')
+                }
             ]
         };
 
@@ -182,9 +260,9 @@ class App extends Component {
         // Nothing right now
     }
 
-    handleSummaryItemSelected(item) {
-        if (item.display) {
-            this.setState({SummaryItemToInsert: item.display});
+    handleSummaryItemSelected(itemText) {
+        if (itemText) {
+            this.setState({SummaryItemToInsert: itemText});
         }
     }
 
@@ -218,6 +296,9 @@ class App extends Component {
             diagnosis[1].display = "";
         }
 
+        // Timeline events are a mix of key dates and progression
+        const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="App">
@@ -233,7 +314,7 @@ class App extends Component {
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
                                     keyDates={this.state.keyDates}
-                                    surgery={this.state.surgery}
+                                    procedures={this.state.procedures}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
                                     onItemClicked={this.handleSummaryItemSelected}
@@ -276,13 +357,27 @@ class App extends Component {
                         </Row>
                         <Row center="xs">
                             <Col sm={12}>
-                                <TimelinePanel />
+                                <TimelinePanel
+                                    medications={this.state.medications}
+                                    procedures={this.state.procedures}
+                                    events={timelineEvents}
+                                />
                             </Col>
                         </Row>
                     </Grid>
                 </div>
             </MuiThemeProvider>
         );
+    }
+
+    _timeSorter(a, b) {
+        if (a.startDate < b.startDate) {
+            return -1;
+        }
+        if (a.startDate > b.startDate) {
+            return 1;
+        }
+        return 0;
     }
 }
 
