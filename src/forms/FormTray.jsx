@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 // Our components
 import StagingForm from './StagingForm';
+import ProgressionForm from './ProgressionForm';
 import TemplateForm from './TemplateForm';
 // Styling
 import './FormTray.css';
@@ -14,11 +15,11 @@ class FormTray extends Component {
 
   render() {
     let panelContent = null;
-    if (this.props.withinStructuredField == null) {
+    if (this.props.withinStructuredField === null) {
         panelContent = (
             <TemplateForm />
         );
-    } else {
+    } else if (this.props.withinStructuredField === "staging") {
         panelContent = (
             <StagingForm
                 // Update functions
@@ -33,6 +34,15 @@ class FormTray extends Component {
                 nodeSize={this.props.nodeSize}
                 metastasis={this.props.metastasis}
                 stage={this.props.stage}
+            />
+        );
+    } else if (this.props.withinStructuredField === "progression") { 
+        panelContent = (
+            <ProgressionForm
+                // Update functions
+                onProgressionUpdate={this.handleProgressionUpdate}
+                // Properties
+                progression={this.props.progression}
             />
         );
     }

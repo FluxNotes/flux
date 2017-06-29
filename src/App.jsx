@@ -43,7 +43,7 @@ class App extends Component {
                 {
                     id: Date.now(),
                     icon: "heartbeat",
-                    status: "stable",
+                    status: "Stable Disease",
                     reason: [
                         "physical exam",
                     ],
@@ -297,10 +297,12 @@ class App extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
+                                    onProgressionUpdate={this.handleProgressionUpdate}
                                     // Properties
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
+                                    progression={this.state.progression[0]}
                                     withinStructuredField={this.state.withinStructuredField}
                                 />
                             </Col>
