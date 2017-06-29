@@ -4,6 +4,7 @@ import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
+import moment from 'moment';
 // Application Components:
 import EditorToolbar from './EditorToolbar';
 // Styling
@@ -91,6 +92,8 @@ class MyEditor extends React.Component {
       shorthandMatches: [],
       currentShorthandMatch: null,
       shorthandOptions: Object.keys(this.props.data.patient).map((elem) => {const newObj = {}; newObj["label"] = elem; newObj["value"] = this.props.data.patient[elem]; return newObj}) ,
+      // Tracking progression
+      progression: {},
       // State of editor config
       state: initialState,
       schema: {
@@ -163,7 +166,7 @@ class MyEditor extends React.Component {
   plugins = [
     AutoReplace({
       trigger: 'space',
-      before: /(\.staging)/i,
+      before: /(#staging)/i,
       transform: (transform, e, data, matches) => {
         const stagingBlock = getNodeById(stagingState.blocks, 'staging')
         const tNode = getNodeById(stagingBlock.nodes, 't-staging');
@@ -223,6 +226,9 @@ class MyEditor extends React.Component {
     this.props.onStagingMUpdate(newVal);
   }
 
+  /*
+   * Handle updates when we have a new
+   */
   handleSummaryUpdate = (itemToBeInserted) => {
     const currentState = this.state.state;
     const state = currentState
@@ -232,14 +238,94 @@ class MyEditor extends React.Component {
     this.setState({ state: state })
   }
 
+  /*
+   * Handle when we enter our current structured field
+   */
   handleStructuredFieldEntered = (currentFocus) => {
     this.props.onStructuredFieldEntered(currentFocus);
   }
 
+  /*
+   * Handle when we exit our current structured field
+   */
   handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
+  /*
+   * Handle updates to the current progression status
+   */
+  handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
+    let newProgression = this.state.progression;
+    newProgression['status'] = newStatusValue;
+
+    if (newStatusValue === "stable" || newStatusValue === "progressing") { 
+
+      const stateTransform = this.state.state.transform();
+      const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
+
+      this.setState({
+        progression: newProgression,
+        state: newStateSelection
+      });
+
+      this.props.onProgressionUpdate(newProgression);
+    } else { 
+      console.log('doesnt contain status');
+      console.log(newProgression.status.split(', '))
+    }
+  }
+
+  /*
+   * Handle updates to the current progression reasons 
+   */
+  handleProgressionReasonUpdate = (newProgressionReasons, currentNode) => {
+    // Find what new values have been added, 
+    // validate, and determine if we should proceed.
+
+    // copy old progression and add on 
+    let newProgression = this.state.progression;
+    const oldProgressionReasons = new Set(this.state.progression['reason']);
+    const newProgressionReasonsSet = new Set(newProgressionReasons);
+
+    const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
+    const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
+    if (uniqueValidNewReasons.length > 0) { 
+      newProgression['reason'] = newProgressionReasons;
+      this.setState({
+        progression: newProgression, 
+      });
+
+      console.log(newProgressionReasons);
+      console.log('contains valid value');
+      this.props.onProgressionUpdate(newProgression);
+    } else { 
+      console.log('doesnt contain reason');
+      console.log(newProgressionReasons);
+    }
+  }
+
+  validateProgressionReasons = (possibleReasons) => { 
+    const validReasons = ['physical exam', 'imaging', 'pathology', 'symptoms', 'markers'];
+    return possibleReasons.filter(x => validReasons.includes(x));
+  }
+
+  handleNewProgression = (newProgression) => {
+    this.setState({
+      progression: newProgression
+    });
+
+    if (newProgression.status === "stable" || newProgression.status === "progressing") { 
+      this.props.onNewProgression(newProgression);
+      return true;
+    } else if (newProgression.reason.split(', ').includes("physical exam") || newProgression.reason.split(', ').includes("imaging")){
+      console.log(newProgression.reason.split(', '))
+      console.log('contains valid value') 
+      this.props.onNewProgression(newProgression);
+    } else { 
+      return false;
+    }
+  }
   /**
    * Check if the current selection has a mark with `type` in it.
    */
@@ -306,279 +392,6 @@ class MyEditor extends React.Component {
     
   }
 
-  onKeyDown = (event, data, state) => {
-    // Continue handling autocompletes    
-    if(this.state.inAutocomplete) {
-      let newText = "";
-      let matches = [];
-
-      switch (event.keyCode) {
-        // Left and up move up -- decrease index or wrap
-        case 37: 
-        case 38:
-          event.preventDefault();
-          if (this.state.autocompleteMatches.length > 0) { 
-            this.setState({
-              currentAutocompleteMatch: (this.state.autocompleteMatches.length + (this.state.currentAutocompleteMatch - 1)) % this.state.autocompleteMatches.length,
-            });
-          }
-          break;
-        // Right and down move down -- increase index or wrap  
-        case 39: 
-        case 40:
-          event.preventDefault();
-          if (this.state.autocompleteMatches.length > 0) { 
-            this.setState({
-              currentAutocompleteMatch: (this.state.currentAutocompleteMatch + 1) % this.state.autocompleteMatches.length,
-            });
-          } 
-          break;
-        case 32: // Deactivate on spacebar 
-          this.setState({
-            inAutocomplete: false, 
-            autocompleteMatches: [],
-            autocompleteText: "",
-          });
-          break;
-        case 13: // Handle enter clicks to insert text
-          if (this.state.autocompleteMatches.length > 0) {
-            event.preventDefault(); 
-            return this.insertCurrentAutocompleteMatch();
-          }
-          break;
-        case 8:  // Handle deletions by updating the autocompleteText and suggestions
-          const textLength = this.state.autocompleteText.length;
-          newText = (textLength > 0) ? this.state.autocompleteText.slice(0, textLength -1) : "" ;
-          matches = this.determineAutocompleteMatches(newText);
-          this.setState({
-              autocompleteText: newText,
-              inAutocomplete: (textLength !== 0),
-              autocompleteMatches: matches,
-          })
-          break;
-        default: // Continue growing autocompleteText and offering updated suggestions
-          newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
-          matches = this.determineAutocompleteMatches(newText);
-          
-          this.setState({
-              autocompleteText: newText,
-              autocompleteMatches: matches,
-          })
-          break;
-      }
-    } else if (this.state.inShorthand) {
-      let newText = "";
-      let matches = [];
-
-      switch (event.keyCode) {
-        // Left and up move up -- decrease index or wrap
-        case 37: 
-        case 38:
-          event.preventDefault();
-          if (this.state.shorthandMatches.length > 0) { 
-            this.setState({
-              currentShorthandMatch: (this.state.shorthandMatches.length + (this.state.currentShorthandMatch - 1)) % this.state.shorthandMatches.length,
-            });
-          }
-          break;
-        // Right and down move down -- increase index or wrap  
-        case 39: 
-        case 40:
-          event.preventDefault();
-          if (this.state.shorthandMatches.length > 0) { 
-            this.setState({
-              currentShorthandMatch: (this.state.currentShorthandMatch + 1) % this.state.shorthandMatches.length,
-            });
-          } 
-          break;
-        case 32: // Deactivate on spacebar 
-          this.setState({
-            inShorthand: false, 
-            shorthandMatches: [],
-            shorthandText: "",
-          });
-          break;
-        case 13: // Handle enter clicks to insert text
-          if (this.state.shorthandMatches.length > 0) {
-            event.preventDefault(); 
-            return this.insertCurrentShorthandMatch();
-          }
-          break;
-        case 8:  // Handle deletions by updating the shorthandText and suggestions
-          const textLength = this.state.shorthandText.length;
-          newText = (textLength > 0) ? this.state.shorthandText.slice(0, textLength -1) : "" ;
-          matches = this.determineShorthandMatches(newText);
-          this.setState({
-              shorthandText: newText,
-              inShorthand: (newText !== ""),
-              shorthandMatches: matches,
-          })
-          break;
-        default: // Continue growing ShorthandText and offering updated suggestions
-          newText = this.state.shorthandText +  String.fromCharCode(event.keyCode);  
-          matches = this.determineShorthandMatches(newText);
-          
-          this.setState({
-              shorthandText: newText,
-              shorthandMatches: matches,
-          })
-          break;
-      }
-    } else { 
-      if (event.keyCode === 190) {
-        // Trigger autocomplete mode if a '.' is typed 
-        const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
-        const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
-        const menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
-        const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
-        menuEl.style.top = `${offset.top}px`
-        menuEl.style.left = `${offset.left}px`
-          this.setState({
-          state: newState, 
-          inAutocomplete: true,
-          autocompleteText: ""
-        });
-      } else if (data.isShift) { 
-        switch (data.key) {
-          case '2': 
-            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
-            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
-            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
-            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
-            menuEl.style.top = `${offset.top}px`
-            menuEl.style.left = `${offset.left}px`
-            this.setState({
-              state: newState, 
-              inShorthand: true,
-              shorthandText: ""
-            });
-            return;
-          default:
-            return; 
-        } 
-      } else if (data.isMod) { 
-        // Handle ctrl-b and other shortkeys for format switching 
-        let mark
-        switch (data.key) {
-          case '2': 
-            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
-            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
-            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
-            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
-            menuEl.style.top = `${offset.top}px`
-            menuEl.style.left = `${offset.left}px`
-            this.setState({
-              state: newState, 
-              inShorthand: true,
-              shorthandText: ""
-            });
-            return;
-          case 'b':
-            mark = 'bold'
-            break
-          case 'i':
-            mark = 'italic'
-            break
-          case 'u':
-            mark = 'underlined'
-            break
-          case '`':
-            mark = 'code'
-            break
-          default:
-            return
-        }
-        event.preventDefault()
-        return state
-          .transform()
-          .toggleMark(mark)
-          .apply()
-      } else if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
-          // Handle new lines in the case where we aren't in a list 
-          event.preventDefault();
-          return state
-          .transform()
-          // Paste a block containing a zero width space 
-          .insertBlock(Block.create({'type': 'paragraph-span', 'nodes': List([Text.createFromString('​')])}))
-          .apply();
-      } else {
-        // Search all nodes to find if structured nodes that need checking 
-        for(const parentNode of state.document.nodes) { 
-          const tNode = getNodeById(parentNode.nodes, 't-staging');
-          const nNode = getNodeById(parentNode.nodes, 'n-staging');
-          const mNode = getNodeById(parentNode.nodes, 'm-staging');
-
-          if(tNode && nNode && mNode) { 
-            const tKeys = addKeysForNode(tNode, []);
-            const nKeys = addKeysForNode(nNode, []);
-            const mKeys = addKeysForNode(mNode, []);
-            if (tKeys.includes(state.selection.startKey)) { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-                this.handleStagingTUpdate('T' + val.toString());
-
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(tNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              } 
-            } else if (nKeys.includes(state.selection.startKey)) { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-                this.handleStagingNUpdate('N' + val.toString());
-
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              } 
-            } else if (mKeys.includes(state.selection.startKey))  { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-                this.handleStagingMUpdate('M' + val.toString());
-                // Create a block with a zero-width space 
-                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
-                const emptyBlockKey = emptyBlock.key;
-                const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .collapseToEndOf(mNode)
-                  .insertBlock(emptyBlock)
-                  .removeNodeByKey(afterEmpty.toString())
-                  .apply();
-              } 
-            }
-          }
-        } 
-      }
-    }
-  }
-
-  /**
-   *  Lifecycle Methods
-   */
-  // componentDidUpdate = (prevProps, prevState) => { 
-  // }
-  
   /* 
    * For a given autocomplete block, use lookup table to find the next block to be selected
    */
@@ -600,11 +413,11 @@ class MyEditor extends React.Component {
    * the states autocomplete buffer plus one for the dot that triggered it
    */   
   deleteCurrentAutocompleteText = (newStateTransform) => {
-    for(const char of this.state.autocompleteText) { 
+      for(const char of this.state.autocompleteText) { 
+        newStateTransform.deleteBackward();
+      }
+      // Delete once more for period
       newStateTransform.deleteBackward();
-    }
-    // Delete once more for period
-    newStateTransform.deleteBackward();
     return newStateTransform
   }
 
@@ -727,13 +540,319 @@ class MyEditor extends React.Component {
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
 
+  onKeyDown = (event, data, state) => {
+    // Continue handling autocompletes    
+    if(this.state.inAutocomplete) {
+      let newText = "";
+      let matches = [];
+
+      switch (event.keyCode) {
+        // Left and up move up -- decrease index or wrap
+        case 37: 
+        case 38:
+          event.preventDefault();
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.autocompleteMatches.length + (this.state.currentAutocompleteMatch - 1)) % this.state.autocompleteMatches.length,
+            });
+          }
+          break;
+        // Right and down move down -- increase index or wrap  
+        case 39: 
+        case 40:
+          event.preventDefault();
+          if (this.state.autocompleteMatches.length > 0) { 
+            this.setState({
+              currentAutocompleteMatch: (this.state.currentAutocompleteMatch + 1) % this.state.autocompleteMatches.length,
+            });
+          } 
+          break;
+        case 32: // Deactivate on spacebar 
+          this.setState({
+            inAutocomplete: false, 
+            autocompleteMatches: [],
+            autocompleteText: "",
+          });
+          break;
+        case 13: // Handle enter clicks to insert text
+          if (this.state.autocompleteMatches.length > 0) {
+            event.preventDefault(); 
+            return this.insertCurrentAutocompleteMatch();
+          }
+          break;
+        case 8:  // Handle deletions by updating the autocompleteText and suggestions
+          const textLength = this.state.autocompleteText.length;
+          newText = (textLength > 0) ? this.state.autocompleteText.slice(0, textLength -1) : "" ;
+          matches = this.determineAutocompleteMatches(newText);
+          this.setState({
+              autocompleteText: newText,
+              inAutocomplete: (textLength !== 0),
+              autocompleteMatches: matches,
+          })
+          break;
+        default: // Continue growing autocompleteText and offering updated suggestions
+          newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
+          matches = this.determineAutocompleteMatches(newText);
+          
+          this.setState({
+              autocompleteText: newText,
+              autocompleteMatches: matches,
+          })
+          break;
+      }
+    } else if (this.state.inShorthand) {
+      let newText = "";
+      let matches = [];
+
+      switch (event.keyCode) {
+        // Left and up move up -- decrease index or wrap
+        case 37: 
+        case 38:
+          event.preventDefault();
+          if (this.state.shorthandMatches.length > 0) { 
+            this.setState({
+              currentShorthandMatch: (this.state.shorthandMatches.length + (this.state.currentShorthandMatch - 1)) % this.state.shorthandMatches.length,
+            });
+          }
+          break;
+        // Right and down move down -- increase index or wrap  
+        case 39: 
+        case 40:
+          event.preventDefault();
+          if (this.state.shorthandMatches.length > 0) { 
+            this.setState({
+              currentShorthandMatch: (this.state.currentShorthandMatch + 1) % this.state.shorthandMatches.length,
+            });
+          } 
+          break;
+        case 32: // Deactivate on spacebar 
+          this.setState({
+            inShorthand: false, 
+            shorthandMatches: [],
+            shorthandText: "",
+          });
+          break;
+        case 13: // Handle enter clicks to insert text
+          if (this.state.shorthandMatches.length > 0) {
+            event.preventDefault(); 
+            return this.insertCurrentShorthandMatch();
+          }
+          break;
+        case 8:  // Handle deletions by updating the shorthandText and suggestions
+          const textLength = this.state.shorthandText.length;
+          newText = (textLength > 0) ? this.state.shorthandText.slice(0, textLength -1) : "" ;
+          matches = this.determineShorthandMatches(newText);
+          this.setState({
+              shorthandText: newText,
+              inShorthand: (newText !== ""),
+              shorthandMatches: matches,
+          })
+          break;
+        default: // Continue growing ShorthandText and offering updated suggestions
+          newText = this.state.shorthandText +  String.fromCharCode(event.keyCode);  
+          matches = this.determineShorthandMatches(newText);
+          
+          this.setState({
+              shorthandText: newText,
+              shorthandMatches: matches,
+          })
+          break;
+      }
+    } else { 
+       if (data.isShift) { 
+        let newState;
+        let closestDOMElement;
+        let menuEl;
+        let offset;
+        switch (data.key) {
+          case '2': 
+            newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+            closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+            menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
+            offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+            menuEl.style.top = `${offset.top}px`
+            menuEl.style.left = `${offset.left}px`
+            this.setState({
+              state: newState, 
+              inShorthand: true,
+              shorthandText: ""
+            });
+            return;
+          case '3': 
+            // Trigger autocomplete mode if a '#' is typed 
+            newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+            closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+            menuEl = window.document.getElementsByClassName("autocomplete-menu")[0]
+            offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+            menuEl.style.top = `${offset.top}px`
+            menuEl.style.left = `${offset.left}px`
+              this.setState({
+              state: newState, 
+              inAutocomplete: true,
+              autocompleteText: ""
+            });
+          default:
+            return; 
+        } 
+      } else if (data.isMod) { 
+        // Handle ctrl-b and other shortkeys for format switching 
+        let mark
+        switch (data.key) {
+          case '2': 
+            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
+            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
+            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
+            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
+            menuEl.style.top = `${offset.top}px`
+            menuEl.style.left = `${offset.left}px`
+            this.setState({
+              state: newState, 
+              inShorthand: true,
+              shorthandText: ""
+            });
+            return;
+          case 'b':
+            mark = 'bold'
+            break
+          case 'i':
+            mark = 'italic'
+            break
+          case 'u':
+            mark = 'underlined'
+            break
+          case '`':
+            mark = 'code'
+            break
+          default:
+            return
+        }
+        event.preventDefault()
+        return state
+          .transform()
+          .toggleMark(mark)
+          .apply()
+      } else if (event.keyCode === 13 && !(state.blocks.some(node => (node.type === "list-item") || (node.type ==="bulleted-list") || (node.type ==="numbered-list")))) {
+          // Handle new lines in the case where we aren't in a list 
+          event.preventDefault();
+          return state
+          .transform()
+          // Paste a block containing a zero width space 
+          .insertBlock(Block.create({'type': 'paragraph-span', 'nodes': List([Text.createFromString('​')])}))
+          .apply();
+      } else {
+        // Search all nodes to find if structured nodes that need checking 
+        for(const parentNode of state.document.nodes) { 
+          // Handle staging structured data 
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
+          if(tNode && nNode && mNode) { 
+            const tKeys = addKeysForNode(tNode, []);
+            const nKeys = addKeysForNode(nNode, []);
+            const mKeys = addKeysForNode(mNode, []);
+            if (tKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingTUpdate('T' + val.toString());
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } 
+            } else if (nKeys.includes(state.selection.startKey)) { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingNUpdate('N' + val.toString());
+
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(nNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .apply();
+              } 
+            } else if (mKeys.includes(state.selection.startKey))  { 
+              if(event.keyCode >= 48 && event.keyCode <=57) {
+                const val = event.keyCode - 48;
+                this.handleStagingMUpdate('M' + val.toString());
+                // Create a block with a zero-width space 
+                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
+                const emptyBlockKey = emptyBlock.key;
+                const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
+                event.preventDefault()
+                return state
+                  .transform()
+                  .moveToRangeOf(mNode)
+                  .moveStart(1)
+                  .moveEnd(-1)
+                  .insertText(String.fromCharCode(event.keyCode))
+                  .collapseToEndOf(mNode)
+                  .insertBlock(emptyBlock)
+                  .removeNodeByKey(afterEmpty.toString())
+                  .apply();
+              } 
+            }
+          }
+        } 
+      }
+    }
+  }
+  
+
   /**
    * Lifecycle method that triggers after updates to the component
    */
   componentDidUpdate = (prevProps, prevState) => { 
-    //Nothing now
-    // console.log(this.state.state.selection.anchorKey)
-    // console.log(this.state.state.selection.anchorOffset)
+
+    // Handle progression structured data
+    for(const parentNode of this.state.state.document.nodes) {
+
+      const curProgressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
+      const curProgressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');     
+      if (curProgressionStatusNode && curProgressionReasonNode) {
+        let prevProgressionStatusNode = null; 
+        let prevProgressionReasonNode = null;
+        // Check to see if these nodes exists in old set
+        for(const parentNode of prevState.state.document.nodes) {
+          prevProgressionStatusNode = !!(getNodeById(parentNode.nodes, 'progression-value')) ? getNodeById(parentNode.nodes, 'progression-value') : prevProgressionStatusNode;
+          prevProgressionReasonNode = !!(getNodeById(parentNode.nodes, 'progression-cause')) ? getNodeById(parentNode.nodes, 'progression-cause') : prevProgressionReasonNode;
+        }          
+        // If both of these nodes are new, make a new progression value 
+        if (! (prevProgressionStatusNode || prevProgressionReasonNode)) {
+          this.handleNewProgression({
+            id: Date.now(),
+            status: "",
+            reason: "",
+            startDate: moment(new Date()),
+            endDate: moment('2012-02-11')
+          });
+        } else { 
+          // If these nodes are old, update progression value if applicable
+          if (prevProgressionStatusNode.text !== curProgressionStatusNode.text) {
+            // Handle progression status update and pass off next node
+            this.handleProgressionStatusUpdate(curProgressionStatusNode.text, curProgressionReasonNode) 
+          } 
+          if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
+            console.log(prevProgressionReasonNode.text)
+            console.log(curProgressionReasonNode.text)
+            this.handleProgressionReasonUpdate(curProgressionReasonNode.text.split(', '), curProgressionReasonNode) 
+          }  
+        }
+      }
+    }
   }
 
   // This gets called when the before the component receives new properties

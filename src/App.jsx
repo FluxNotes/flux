@@ -13,6 +13,7 @@ import FormTray from './forms/FormTray';
 import TimelinePanel from './timeline/TimelinePanel';
 
 import staging from '../lib/staging';
+import moment from 'moment';
 
 import './App.css';
 
@@ -38,6 +39,18 @@ class App extends Component {
                     state: "MA"
                 }
             },
+            progression: [
+                {
+                    id: Date.now(),
+                    icon: "heartbeat",
+                    status: "stable",
+                    reason: [
+                        "physical exam",
+                    ],
+                    startDate: moment('2012-02-10'),
+                    endDate: moment('2012-02-11')
+                }
+            ],
             conditions: [
                 {
                     name: "Lobular carcinoma of the breast",
@@ -129,53 +142,95 @@ class App extends Component {
                 }
             ]
         };
+    }
+    
+    /* 
+     * Add a progression event to the current array of progression events
+     */ 
+    addProgressionEvent = (progressionEvent) => { 
+        // Make sure this event doesn't already exist in the app
+        if (! this.state.progression.some((event) => event.id === progressionEvent.id)) { 
+            console.log(`in addProgressionEvent; this is a new event; adding to array`);
+            const newProgression = this.state.progression;
+            newProgression.push(progressionEvent);
+            console.log(newProgression)
 
-        this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-        this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-        this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-        this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
-        this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-        this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+            this.setState({
+                progression: newProgression
+            });
+        } 
+        // else do nothing
     }
 
-    handleStructuredFieldEntered(field) {
+    updateProgressionEvent = (progressionEvent) => { 
+        // If we can find an event that shares the current id, update it
+        const oldEventIndex = this.state.progression.findIndex((event) => event.id === progressionEvent.id)
+        if (oldEventIndex !== -1) {
+            console.log('in updateProgressionEvent; we found an equiv event; updating');
+            let newProgression = this.state.progression;
+            newProgression[oldEventIndex] = progressionEvent;
+            this.setState({
+                progression: newProgression
+            });
+        }
+    }
+
+    handleStructuredFieldEntered = (field) => {
         // console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
-    handleStructuredFieldExited(field) {
+    handleStructuredFieldExited = (field) => {
         // console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
     }
 
-    componentDidUpdate(a, b) {
-        // Nothing right now
-    }
-
-    handleSummaryItemSelected(item) {
+    handleSummaryItemSelected = (item) => {
         if (item.display) {
             this.setState({SummaryItemToInsert: item.display});
         }
     }
 
-  	handleStagingTUpdate(t) {
-        console.log(`Updated: ${t}`);
+  	handleStagingTUpdate = (t) => {
+        // console.log(`Updated: ${t}`);
         (t !== "") && this.setState({tumorSize: t});
   	}
 
-  	handleStagingNUpdate(n) {
-        console.log(`Updated: ${n}`);
+  	handleStagingNUpdate = (n) => {
+        // console.log(`Updated: ${n}`);
         (n !== "") && this.setState({nodeSize: n});
   	}
 
-  	handleStagingMUpdate(m) {
-        console.log(`Updated: ${m}`);
+  	handleStagingMUpdate = (m) => {
+        // console.log(`Updated: ${m}`);
         (m !== "") && this.setState({metastasis: m});
   	}
+
+    handleProgressionUpdate = (p) => { 
+        console.log(`Updated progression:`);
+        console.log(p);
+        if (p !== "" && this.state.progression.some(existingProgression => existingProgression.id === p.id)) {
+            console.log("this is an updated event");
+            this.updateProgressionEvent(p.id, p);
+        } else if (p !== "") { 
+            console.log("this is a new progression event");
+            this.addProgressionEvent(p)
+        }
+        // else do nothing
+    }
+
+    handleNewProgression = (p) => { 
+        console.log(`This is a new progression`);
+        (p !== "") && this.addProgressionEvent(p)
+    }
+
+    componentDidUpdate = (a, b) => {
+        // Nothing right now
+    }
 
     render() {
         let diagnosis = this.state.diagnosis;
@@ -224,6 +279,8 @@ class App extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
+                                    onProgressionUpdate={this.handleProgressionUpdate}
+                                    onNewProgression={this.handleNewProgression}
                                     // Propertiess
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
