@@ -6,7 +6,6 @@ import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import moment from 'moment';
-import getOffsets from 'positions';
 
 import './TimelinePanel.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -89,7 +88,7 @@ class TimelinePanel extends Component {
         hoverItem: {
           title: '',
           details: '',
-          style: {bottom: 0, left: 0, display: 'none'}
+          style: {top: 0, left: 0, display: 'none'}
         }
     };
   }
@@ -97,16 +96,15 @@ class TimelinePanel extends Component {
   _enterItemHover(e, id) {
     // Get position of this item on the screen
     e.preventDefault();
-    const hoverItem = document.querySelector('[id="hover-item"]');
     const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
-    const offset = getOffsets(hoverItem, 'bottom left', targetItem, 'top left');
-    const item = this.state.items[id-1];
+    const rect = targetItem.getBoundingClientRect();
     const style = {
-      top: `${offset.top + 160}px`,
-      left: `${offset.left}px`,
+      top: `${rect.top - 65}px`,
+      left: `${rect.left}px`,
       display: null
     }
 
+    const item = this.state.items[id-1];
     const hoverItemState = {
       title: item.hoverTitle,
       text: item.hoverText,
