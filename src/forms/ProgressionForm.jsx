@@ -6,8 +6,7 @@ import Divider from 'material-ui/Divider';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 // Libraries
-import staging from '../../lib/progression';
-import lookup from '../../lib/progression';
+import progression from '../../lib/progression_lookup';
 // Styling
 import './ProgressionForm.css';
 
@@ -91,9 +90,6 @@ class ProgressionForm extends Component {
                   </div>
                 );
             })}
-
-            <h4>Prognostic Stage</h4>
-            <div className="stage">{staging.breastCancerPrognosticStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis) || 'Undefined'}</div>
         </Paper>
     );
   }
