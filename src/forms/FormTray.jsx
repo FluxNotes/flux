@@ -40,7 +40,7 @@ class FormTray extends Component {
         panelContent = (
             <ProgressionForm
                 // Update functions
-                onProgressionUpdate={this.handleProgressionUpdate}
+                onProgressionUpdate={this.props.onProgressionUpdate}
                 // Properties
                 progression={this.props.progression}
             />
