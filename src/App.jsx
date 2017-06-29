@@ -36,7 +36,33 @@ class App extends Component {
                 address: {
                     city: "Boston",
                     state: "MA"
-                }
+                },
+                previousNotes: [
+                    {
+                        date: "02.AUG.2015",
+                        subject: "Clinical follow-up",
+                        hospital: "Dana Farber Cancer Institute",
+                        clinician: "Dr. Smith"
+                    },
+                    {
+                        date: "12.JUL.2012",
+                        subject: "Consult",
+                        hospital: "Dana Farber Cancer Institute",
+                        clinician: "Dr. Zheng"
+                    },
+                    {
+                        date: "20.JUN.2012",
+                        subject: "Clinical post-op",
+                        hospital: "Brigham and Women's Hospital",
+                        clinician: "Dr. Smith"
+                    },
+                    {
+                        date: "16.MAY.2012",
+                        subject: "Clinical follow-up",
+                        hospital: "Dana Farber Cancer Institute",
+                        clinician: "Dr. Strauss"
+                    }
+                ]
             },
             conditions: [
                 {
@@ -224,7 +250,7 @@ class App extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
-                                    // Propertiess
+                                    // Properties
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
