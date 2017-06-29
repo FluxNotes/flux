@@ -19,7 +19,7 @@ class DataSummaryTable extends Component {
                 let itemClass = "";
                 let itemText = "";
 
-                if (item.display) {
+                if (item.display  && !item.startDate) {
                   rowClass = "captured";
                   itemClass = "captured";
                   itemText = item.display;
@@ -30,7 +30,11 @@ class DataSummaryTable extends Component {
                 }
 
                 if (item.startDate && !itemText) {
-                  itemText = item.startDate.format('MM/DD/YYYY');
+                  itemText = `${item.startDate.format('MM/DD/YYYY')}`;
+
+                  if (item.display) {
+                    itemText += ` : ${item.display}`;
+                  }
                 }
 
                 if (itemText) {

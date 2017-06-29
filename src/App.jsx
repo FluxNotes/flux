@@ -87,12 +87,6 @@ class App extends Component {
                     display: ""
                 }
             ],
-            surgery: [
-                {
-                    name: "Surgery",
-                    display: "Lumpectomy / sentinel / lymph node biopsy"
-                }
-            ],
             pathology: [
                 {
                     name: "Color",
@@ -178,7 +172,7 @@ class App extends Component {
                     endDate: moment('2018-01-01')
                 }
             ],
-            events: [
+            procedures: [
                 {
                     name: 'Mammogram',
                     startDate: moment('2012-01-13')
@@ -190,18 +184,25 @@ class App extends Component {
                 },
                 {
                     name: 'Surgery',
-                    startDate: moment('2012-09-20')
+                    startDate: moment('2012-09-20'),
+                    display: "Lumpectomy / sentinel / lymph node biopsy"
                 },
                 {
                     name: 'Mammogram',
                     startDate: moment('2013-10-04')
                 }
             ],
-            progression: [
+            keyDates: [
                 {
                     name: 'Diagnosis',
                     startDate: moment('2012-01-13')
                 },
+                {
+                    name: 'Recurrence',
+                    startDate: moment('2013-10-12')
+                }
+            ],
+            progression: [
                 {
                     name: 'Responding Disease',
                     startDate: moment('2012-06-13')
@@ -209,10 +210,6 @@ class App extends Component {
                 {
                     name: 'Disease Free',
                     startDate: moment('2012-11-01')
-                },
-                {
-                    name: 'Recurrence',
-                    startDate: moment('2013-10-12')
                 },
                 {
                     name: 'Progressing Disease',
@@ -299,8 +296,8 @@ class App extends Component {
             diagnosis[1].display = "";
         }
 
-        const summaryEvents = this.state.progression.concat(this.state.events);
-        summaryEvents.sort(this._timeSorter);
+        // Timeline events are a mix of key dates and progression
+        const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -316,8 +313,8 @@ class App extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    events={summaryEvents}
-                                    surgery={this.state.surgery}
+                                    keyDates={this.state.keyDates}
+                                    procedures={this.state.procedures}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
                                     onItemClicked={this.handleSummaryItemSelected}
@@ -362,8 +359,8 @@ class App extends Component {
                             <Col sm={12}>
                                 <TimelinePanel
                                     medications={this.state.medications}
-                                    events={this.state.events}
-                                    progression={this.state.progression}
+                                    procedures={this.state.procedures}
+                                    events={timelineEvents}
                                 />
                             </Col>
                         </Row>

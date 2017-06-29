@@ -49,10 +49,10 @@ class TimelinePanel extends Component {
     items = items.concat(this._createMedicationItems(this.props.medications));
 
     // Events
-    items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
+    items = items.concat(this._createProcedureItems(this.props.procedures, this._getMaxGroup(items) + 1));
 
     // Progression
-    items = items.concat(this._createProgressionItems(this.props.progression, this._getMaxGroup(items) + 1));
+    items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
 
     // Create groups for the items
     const groups = this._createGroupsForItems(this._getMaxGroup(items));
@@ -82,8 +82,8 @@ class TimelinePanel extends Component {
           year: 1
         },
         legendItems: [
-          {icon: 'hospital-o', description: 'Key medical events (e.g. surgery, radiation)'},
-          {icon: 'heartbeat', description: 'Progression observations'}
+          {icon: 'hospital-o', description: 'Medical procedures'},
+          {icon: 'heartbeat', description: 'Key events and disease progression'}
         ],
         hoverItem: {
           title: '',
@@ -180,7 +180,7 @@ class TimelinePanel extends Component {
   }
 
 
-  _createEventItems(events, groupStartIndex) {
+  _createProcedureItems(events, groupStartIndex) {
     let items = [];
 
     events.sort(this._timeSorter);
@@ -199,6 +199,10 @@ class TimelinePanel extends Component {
         classes += ' point-in-time';
       }
 
+      if (event.display) {
+        hoverText += ` : ${event.display}`;
+      }
+
       items.push({
         group: assignedGroup,
         icon: 'hospital-o',
@@ -213,7 +217,7 @@ class TimelinePanel extends Component {
   }
 
 
-  _createProgressionItems(progs, groupStartIndex) {
+  _createEventItems(progs, groupStartIndex) {
     let items = [];
 
     progs.sort(this._timeSorter);
