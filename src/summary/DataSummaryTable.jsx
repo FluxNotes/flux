@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-
+import moment from 'moment';
 import './DataSummaryTable.css';
 
 /*
@@ -38,12 +38,35 @@ class DataSummaryTable extends Component {
 
                   if (item.reason) {
                     itemText += ' : ' + item.reason.join(", ");
+
+                    {/*console.log("current date in moment: " + moment(currentDate));*/}
+                    {/*console.log("current date: " + currentDate);*/}
+                    {/*console.log("progression date: " + item.startDate);*/}
+                    {/*console.log("6 months ago in moment: " + sixMonthsAgoDate);*/}
+                    {/*console.log("6 months ago: " + moment(sixMonthsAgoDate).toDate());*/}
                   }
                 }
 
                 if (itemText) {
-                  rowClass = "captured";
-                  itemClass = "captured";
+
+                  if (item.reason) {
+                    {/*const currentDate = new  Date();*/}
+                    const sixMonthsAgoDate = moment().subtract(6, 'months');
+
+                    if (item.startDate < sixMonthsAgoDate) {
+                      itemClass = "missing";
+                      itemText = `Missing recent progression`;
+
+                    } else {
+                      rowClass = "captured";
+                      itemClass = "captured";
+                    }
+
+                  } else {
+                    rowClass = "captured";
+                    itemClass = "captured";
+                  }
+
                 } else {
                   itemClass = "missing";
                   itemText = `Missing ${item.name}`;
