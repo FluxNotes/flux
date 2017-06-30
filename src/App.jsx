@@ -205,7 +205,8 @@ class App extends Component {
             progression: [
                 {
                     name: 'Responding Disease',
-                    startDate: moment('2012-06-13')
+                    startDate: moment('2012-06-13'),
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
                 },
                 {
                     name: 'Disease Free',
