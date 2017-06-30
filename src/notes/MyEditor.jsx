@@ -139,6 +139,12 @@ class MyEditor extends React.Component {
     }
   }
 
+  /* 
+   * Returns a new empty block  
+   */
+  createEmptyBlock = () => { 
+    return Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
+  }
   /**
    * Insert a block at a specified location or at the current location, and after insertion
    * either move the selection to the next block with offsets or leave selection as-is
@@ -165,7 +171,7 @@ class MyEditor extends React.Component {
   // Add the plugin to your set of plugins...
   plugins = [
     AutoReplace({
-      trigger: 'space',
+      trigger: '[',
       before: /(#staging)/i,
       transform: (transform, e, data, matches) => {
         const stagingBlock = getNodeById(stagingState.blocks, 'staging')
@@ -303,6 +309,14 @@ class MyEditor extends React.Component {
       console.log('doesnt contain reason');
       console.log(newProgressionReasons);
     }
+  }
+
+  handleProgressionFinish = (state) => { 
+    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression-status')
+
+    this.setState({ 
+      state: state.state.transform().collapseToEndOf(progressionNode).insertBlock(this.createEmptyBlock()).apply()
+    })
   }
 
   validateProgressionReasons = (possibleReasons) => { 
@@ -644,7 +658,7 @@ class MyEditor extends React.Component {
           matches = this.determineShorthandMatches(newText);
           this.setState({
               shorthandText: newText,
-              inShorthand: (newText !== ""),
+              inShorthand: (textLength !== 0),
               shorthandMatches: matches,
           })
           break;
@@ -698,19 +712,6 @@ class MyEditor extends React.Component {
         // Handle ctrl-b and other shortkeys for format switching 
         let mark
         switch (data.key) {
-          case '2': 
-            const newState = this.state.state.transform().setBlockAtRange(this.state.state.selection,{data: {"id": "autocomplete-block"}}).apply()
-            const closestDOMElement = window.document.querySelector(`[data-key="${this.state.state.anchorKey}"]`)
-            const menuEl = window.document.getElementsByClassName("shorthand-menu")[0]
-            const offset = getOffsets(menuEl, 'top left', closestDOMElement, 'bottom right')
-            menuEl.style.top = `${offset.top}px`
-            menuEl.style.left = `${offset.left}px`
-            this.setState({
-              state: newState, 
-              inShorthand: true,
-              shorthandText: ""
-            });
-            return;
           case 'b':
             mark = 'bold'
             break
@@ -746,6 +747,8 @@ class MyEditor extends React.Component {
           const tNode = getNodeById(parentNode.nodes, 't-staging');
           const nNode = getNodeById(parentNode.nodes, 'n-staging');
           const mNode = getNodeById(parentNode.nodes, 'm-staging');
+          const stagingNode = getNodeById(state.document.nodes, 'staging');
+
           if(tNode && nNode && mNode) { 
             const tKeys = addKeysForNode(tNode, []);
             const nKeys = addKeysForNode(nNode, []);
@@ -789,9 +792,6 @@ class MyEditor extends React.Component {
                 const val = event.keyCode - 48;
                 this.handleStagingMUpdate('M' + val.toString());
                 // Create a block with a zero-width space 
-                const emptyBlock = Block.create({'type': 'span', 'nodes': List([Text.createFromString('​')])});
-                const emptyBlockKey = emptyBlock.key;
-                const afterEmpty = parseInt(emptyBlockKey, 10) + 2;
                 event.preventDefault()
                 return state
                   .transform()
@@ -799,9 +799,8 @@ class MyEditor extends React.Component {
                   .moveStart(1)
                   .moveEnd(-1)
                   .insertText(String.fromCharCode(event.keyCode))
-                  .collapseToEndOf(mNode)
-                  .insertBlock(emptyBlock)
-                  .removeNodeByKey(afterEmpty.toString())
+                  .collapseToEndOf(stagingNode)
+                  .insertBlock(this.createEmptyBlock())
                   .apply();
               } 
             }
@@ -835,7 +834,7 @@ class MyEditor extends React.Component {
           this.handleNewProgression({
             id: Date.now(),
             status: "",
-            reason: "",
+            reason: [],
             startDate: moment(new Date()),
             endDate: moment('2012-02-11')
           });
@@ -846,9 +845,12 @@ class MyEditor extends React.Component {
             this.handleProgressionStatusUpdate(curProgressionStatusNode.text, curProgressionReasonNode) 
           } 
           if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
-            console.log(prevProgressionReasonNode.text)
-            console.log(curProgressionReasonNode.text)
-            this.handleProgressionReasonUpdate(curProgressionReasonNode.text.split(', '), curProgressionReasonNode) 
+            if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
+
+              this.handleProgressionFinish(prevState);
+            }  else { 
+              this.handleProgressionReasonUpdate(curProgressionReasonNode.text.split(', '), curProgressionReasonNode) 
+            }
           }  
         }
       }
