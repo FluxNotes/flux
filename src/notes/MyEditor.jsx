@@ -332,9 +332,7 @@ class MyEditor extends React.Component {
     if (newProgression.status === "stable" || newProgression.status === "progressing") { 
       this.props.onNewProgression(newProgression);
       return true;
-    } else if (newProgression.reason.split(', ').includes("physical exam") || newProgression.reason.split(', ').includes("imaging")){
-      console.log(newProgression.reason.split(', '))
-      console.log('contains valid value') 
+    } else if (newProgression.reason.length > 0 && this.validateProgressionReasons(newProgression.reason.split(', ')).length > 0){
       this.props.onNewProgression(newProgression);
     } else { 
       return false;
