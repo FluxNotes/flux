@@ -350,6 +350,7 @@ class FullApp extends Component {
                                     ERStatus={this.state.ERStatus}
                                     PRStatus={this.state.PRStatus}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
+                                    patient={this.state.patient}
                                 />
                             </Col>
                             <Col sm={3}>
