@@ -306,6 +306,9 @@ class App extends Component {
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 
+        // Grab most recent entry for progression
+        const recentProgression = [this._getMostRecentProgression(this.state.progression)];
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="App">
@@ -320,7 +323,7 @@ class App extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    progression={this.state.progression}
+                                    progression={recentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
@@ -376,6 +379,12 @@ class App extends Component {
                 </div>
             </MuiThemeProvider>
         );
+    }
+
+    _getMostRecentProgression(progressionList) {
+        const sortedProgressionList = progressionList.sort(this._timeSorter);
+        const length = sortedProgressionList.length;
+        return(sortedProgressionList[length - 1]);
     }
 
     _timeSorter(a, b) {
