@@ -1,9 +1,9 @@
-.App {
+.SlimApp {
     height: 100vh;
 }
 
 /* Restricts app to max fixed width for very wide screens. */
-.App-content {
+.SlimApp-content {
     max-width: 1600px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .trio {
-    min-height: 750px !important;
+    min-height: 810px !important;
 }
 
 .panel-content {
@@ -48,16 +48,16 @@ h3 {
 }
 
 
-.App-content ::-webkit-scrollbar {
+.SlimApp-content ::-webkit-scrollbar {
     width: 12px;
 }
 
-.App-content ::-webkit-scrollbar-track {
+.SlimApp-content ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);
     border-radius: 10px;
 }
 
-.App-content ::-webkit-scrollbar-thumb {
+.SlimApp-content ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }

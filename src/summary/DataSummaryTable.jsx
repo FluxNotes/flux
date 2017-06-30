@@ -19,11 +19,27 @@ class DataSummaryTable extends Component {
                 let itemClass = "";
                 let itemText = "";
 
-                if (item.display) {
+                if (item.display  && !item.startDate) {
                   rowClass = "captured";
                   itemClass = "captured";
                   itemText = item.display;
+                }
 
+                if (item.endDate) {
+                  itemText = `${item.startDate.format('MM/DD/YYYY')} ― ${item.endDate.format('MM/DD/YYYY')}`;
+                }
+
+                if (item.startDate && !itemText) {
+                  itemText = `${item.startDate.format('MM/DD/YYYY')}`;
+
+                  if (item.display) {
+                    itemText += ` : ${item.display}`;
+                  }
+                }
+
+                if (itemText) {
+                  rowClass = "captured";
+                  itemClass = "captured";
                 } else {
                   itemClass = "missing";
                   itemText = `Missing ${item.name}`;
@@ -31,7 +47,7 @@ class DataSummaryTable extends Component {
 
                 return (
                   <tr key={i} className={rowClass}>
-                      <td width="40%">{item.name}</td><td width="55%" className={itemClass}>{itemText}</td><td width="5%" onClick={(e) => this.props.onItemClicked(item)}><i className="fa fa-plus-square fa-lg"></i></td>
+                      <td width="40%">{item.name}</td><td width="55%" className={itemClass}>{itemText}</td><td width="5%" onClick={(e) => this.props.onItemClicked(itemText)}><i className="fa fa-plus-square fa-lg"></i></td>
                   </tr>
                 );
               })}
