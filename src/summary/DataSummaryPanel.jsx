@@ -45,11 +45,17 @@ class DataSummaryPanel extends Component {
                                     onItemClicked={this.props.onItemClicked}
                                 />
 
-                        <h2>Key Dates:</h2>
-                        <DataSummaryTable
-                            items={this.props.keyDates}
-                            onItemClicked={this.props.onItemClicked}
-                        />
+                                <h2>Progression:</h2>
+                                <DataSummaryTable
+                                    items={this.props.progression}
+                                    onItemClicked={this.props.onItemClicked}
+                                />
+
+                                <h2>Key Dates:</h2>
+                                <DataSummaryTable
+                                    items={this.props.keyDates}
+                                    onItemClicked={this.props.onItemClicked}
+                                />
 
                                 <h2>Procedures:</h2>
                                 <DataSummaryTable

@@ -210,27 +210,33 @@ class App extends Component {
                 },
                 {
                     name: 'Disease Free',
-                    startDate: moment('2012-11-01')
+                    startDate: moment('2012-11-01'),
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
                 },
                 {
                     name: 'Progressing Disease',
-                    startDate: moment('2014-04-17')
+                    startDate: moment('2014-04-17'),
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
                 },
                 {
                     name: 'Responding Disease',
-                    startDate: moment('2014-07-03')
+                    startDate: moment('2014-07-03'),
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
                 },
                 {
                     name: 'Stable',
-                    startDate: moment('2015-06-14')
+                    startDate: moment('2015-06-14'),
+                    reason: ["Physical Exam"]
                 },
                 {
                     name: 'Stable',
-                    startDate: moment('2016-08-11')
+                    startDate: moment('2016-08-11'),
+                    reason: ["Physical Exam"]
                 },
                 {
                     name: 'Progressing Disease',
-                    startDate: moment('2017-05-15')
+                    startDate: moment('2017-05-15'),
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
                 }
             ]
         };
@@ -314,6 +320,7 @@ class App extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
+                                    progression={this.state.progression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}

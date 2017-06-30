@@ -35,6 +35,10 @@ class DataSummaryTable extends Component {
                   if (item.display) {
                     itemText += ` : ${item.display}`;
                   }
+
+                  if (item.reason) {
+                    itemText += ' : ' + item.reason.join(", ");
+                  }
                 }
 
                 if (itemText) {
