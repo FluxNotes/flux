@@ -60,9 +60,13 @@ class ClinicalNotes extends Component {
   }
 
   render() {
-    return (
-      <div id="clinical-notes" className="dashboard-panel">
-        <Paper className="panel-content trio">
+  
+  
+    let noteDescriptionContent = null;
+    if (this.props.patient == null) {
+        noteDescriptionContent = "";
+    } else {
+        noteDescriptionContent = (
           <div id="note-description">
             <Row>
               <Col xs={5}>
@@ -81,9 +85,15 @@ class ClinicalNotes extends Component {
                 <p className="note-description-detail-value">Dr. Brenda Zeiweger</p>
               </Col>
             </Row>
+  
+			<Divider className="divider" />
           </div>
-
-          <Divider className="divider" />
+        );
+    }
+    return (
+      <div id="clinical-notes" className="dashboard-panel">
+        <Paper className="panel-content trio">
+		  {noteDescriptionContent}
 
           <MyEditor
             // Update functions
