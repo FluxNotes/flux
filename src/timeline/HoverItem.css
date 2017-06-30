@@ -1,0 +1,15 @@
+.hover-item {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  padding: 10px;
+  min-width: 150px;
+  z-index: 50;
+}
+
+.hover-item p {
+  margin: 0;
+  margin-top: 5px;
+  padding: 0;
+  font-size: 14px;
+}

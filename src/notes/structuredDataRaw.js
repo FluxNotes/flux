@@ -18,7 +18,7 @@ const structuredDataRaw = [
               "kind": "text",
               "ranges": [
                 {
-                  "text": "Staging "
+                  "text": "#staging["
                 }
               ]
             },
@@ -72,7 +72,15 @@ const structuredDataRaw = [
                   ]
                 }
               ]
-            }
+            }, 
+            {
+              "kind": "text",
+              "ranges": [
+                {
+                  "text": "]"
+                }
+              ]
+            },
           ]
         }
       ]
@@ -181,6 +189,14 @@ const structuredDataRaw = [
           "isVoid": false,
           "nodes": [
             {
+              "kind": "text",
+              "ranges": [
+                {
+                  "text": "#progression["
+                }
+              ]
+            },
+            {
               "kind": "inline",
               "type": "structured-span",
               "data": {
@@ -219,6 +235,14 @@ const structuredDataRaw = [
                       "text": "__"
                     }
                   ]
+                }
+              ]
+            }, 
+            {
+              "kind": "text",
+              "ranges": [
+                {
+                  "text": "]"
                 }
               ]
             }

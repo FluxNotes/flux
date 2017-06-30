@@ -1,9 +1,40 @@
-.summary-list h2 {
-  color: #333;
+.tabs-container div .tab{
+    color: black !important;
+}
+
+.table-list h2 {
+    color: #333;
 }
 
 /* Scrolling behavior */
-.summary-list {
+.table-list {
     overflow-y: scroll;
     height: 500px;
+    margin-top: 20px;
 }
+
+table.existing-notes td {
+    padding: 20px 10px;
+}
+
+td.existing-note-metadata {
+    color: #333333;
+}
+
+td.existing-note-date {
+    color: #999;
+}
+
+td span#existing-note-subject {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/*Explicitly add in top and bottom border for last cell in row because it is removed in the Data Summary Table css*/
+tr.existing-note-entry td:last-child {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
