@@ -10,7 +10,10 @@ class NavBar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {
+      open: false,
+      openDataCapture: false
+    };
   }
 
   toggleDrawer() {
@@ -33,6 +36,20 @@ class NavBar extends Component {
     this.props.onStructuredFieldExited("staging");
   }
 
+  handleEnterDataCapture() {
+    this.setState({
+      openDataCapture: false
+    });
+    this.props.onStructuredFieldEntered("dataCapture");
+  }
+
+  handleExitDataCapture() {
+    this.setState({
+      openDataCapture: false
+    });
+    this.props.onStructuredFieldExited("dataCapture");
+  }
+
   render() {
     return (
       <div>
@@ -42,9 +59,12 @@ class NavBar extends Component {
           title="Flux Notes"/>
         <Drawer
           containerStyle={{'top': '64px'}}
-          open={this.state.open}>
+          open={this.state.open}
+          openDataCapture={this.state.openDataCapture}>
           <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
           <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
+          <MenuItem onTouchTap={this.handleEnterDataCapture.bind(this)}>Enter Data Capture</MenuItem>
+          <MenuItem onTouchTap={this.handleExitDataCapture.bind(this)}>Exit Data Capture</MenuItem>
         </Drawer>
       </div>
     );

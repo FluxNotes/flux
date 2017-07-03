@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // Our components
 import StagingForm from './StagingForm';
 import TemplateForm from './TemplateForm';
+import DataCaptureForm from './DataCaptureForm';
 // Styling
 import './FormTray.css';
 
@@ -19,22 +20,29 @@ class FormTray extends Component {
             <TemplateForm />
         );
     } else {
-        panelContent = (
-            <StagingForm
-                // Update functions
-                onStagingTUpdate={this.props.onStagingTUpdate}
-                onStagingNUpdate={this.props.onStagingNUpdate}
-                onStagingMUpdate={this.props.onStagingMUpdate}
-                onStageUpdate={this.props.onStageUpdate}
-                // Helper functions
-                calculateStage={this.props.calculateStage}
-                // Properties
-                tumorSize={this.props.tumorSize}
-                nodeSize={this.props.nodeSize}
-                metastasis={this.props.metastasis}
-                stage={this.props.stage}
-            />
-        );
+
+        if (this.props.withinStructuredField === "staging") {
+            panelContent = (
+                <StagingForm
+                    // Update functions
+                    onStagingTUpdate={this.props.onStagingTUpdate}
+                    onStagingNUpdate={this.props.onStagingNUpdate}
+                    onStagingMUpdate={this.props.onStagingMUpdate}
+                    onStageUpdate={this.props.onStageUpdate}
+                    // Helper functions
+                    calculateStage={this.props.calculateStage}
+                    // Properties
+                    tumorSize={this.props.tumorSize}
+                    nodeSize={this.props.nodeSize}
+                    metastasis={this.props.metastasis}
+                    stage={this.props.stage}
+                />
+            );
+        } else {
+            panelContent = (
+              <DataCaptureForm/>
+            );
+        }
     }
     return (
       <div id="forms-panel" className="dashboard-panel">
