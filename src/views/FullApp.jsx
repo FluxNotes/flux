@@ -206,22 +206,22 @@ class FullApp extends Component {
                 {
                     name: 'Responding Disease',
                     startDate: moment('2012-06-13'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    reason: ["Pathology", "Imaging", "Symptoms"]
                 },
                 {
                     name: 'Disease Free',
                     startDate: moment('2012-11-01'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    reason: ["Pathology", "Imaging", "Bio Marker"]
                 },
                 {
                     name: 'Progressing Disease',
                     startDate: moment('2014-04-17'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam"]
                 },
                 {
                     name: 'Responding Disease',
                     startDate: moment('2014-07-03'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    reason: ["Pathology", "Imaging", "Symptoms"]
                 },
                 {
                     name: 'Stable',
