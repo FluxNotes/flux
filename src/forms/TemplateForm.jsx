@@ -11,9 +11,15 @@ class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
-        this.state = {
-          templates: ['op note', 'follow-up', 'consult note'],
-        };
+		if (this.props.patient == null) {
+			this.state = {
+			  templates: ['progression', 'toxicity'],
+			};
+		} else {
+			this.state = {
+			  templates: ['op note', 'follow-up', 'consult note'],
+			};
+		}
 
         this._insertTemplate = this._insertTemplate.bind(this);
   }
