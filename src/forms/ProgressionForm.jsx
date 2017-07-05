@@ -35,13 +35,21 @@ class ProgressionForm extends Component {
   }
 
   handleReasonSelection = (reason, isChecked) => {
+    console.log(this.state.currentReasons)
     const reasonIndex = this.state.currentReasons.findIndex((r) => r === reason.name);
     if (isChecked) {
       // Index should be -1; if it isn't don't add to array
       if (reasonIndex === -1) {
+        console.log('about to add');
+        console.log(this.state.currentReasons);
+        const newReasons = this.state.currentReasons;
+        newReasons.push(reason.name);
+        const newProgression = this.props.progression; 
+        newProgression["reason"] = newReasons;
         this.setState({
-          currentReasons: this.state.currentReasons.push(reason.name);
+          currentReasons: newReasons
         })
+        this.props.onProgressionUpdate(newProgression);
       } else { 
         // Nothing -- the element is already in there
         console.log('This is odd; the element shouldnt have been in our current reasons');
@@ -49,10 +57,15 @@ class ProgressionForm extends Component {
     } else { 
       // Index shouldn't be -1; if it is, don't remove it again;
       if(reasonIndex !== -1) { 
+        console.log('about to remove');
+        console.log(this.state.currentReasons);
         const filteredReasons = this.state.currentReasons.filter((r) => r !== reason.name);
+        const newProgression = this.props.progression; 
+        newProgression["reason"] = filteredReasons;
         this.setState({
-          currentReasons: filteredReasons;
-        })
+          currentReasons: filteredReasons
+        });
+        this.props.onProgressionUpdate(newProgression);
       } else { 
         // Nothing -- the element is already removed from the array;
         console.log('Odd: the element should be in our current reasons');
