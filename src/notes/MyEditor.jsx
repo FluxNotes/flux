@@ -14,6 +14,8 @@ import './MyEditor.css';
 import structuredDataRaw from './structuredDataRaw';
 const staging = structuredDataRaw.find((element, index, array) => element.label === 'staging')
 const stagingState = Raw.deserialize(staging.block, { terse: true });
+const progression = structuredDataRaw.find((element, index, array) => element.label === 'progression')
+const progressionState = Raw.deserialize(progression.block, { terse: true });
 
 const initialState = Raw.deserialize({
   nodes: [
@@ -175,8 +177,19 @@ class MyEditor extends React.Component {
       before: /(#staging)/i,
       transform: (transform, e, data, matches) => {
         const stagingBlock = getNodeById(stagingState.blocks, 'staging')
-        const tNode = getNodeById(stagingBlock.nodes, 't-staging');
-        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, 1, -1); 
+        const tNode = getNodeById(stagingBlock.nodes, staging.firstSelection);
+        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, staging.selectionAnchorOffset, staging.selectionFocusOffset); 
+
+        return newTrans;
+      }
+    }),
+    AutoReplace({
+      trigger: '[',
+      before: /(#progression)/i,
+      transform: (transform, e, data, matches) => {
+        const progressionBlock = getNodeById(progressionState.blocks, 'progression')
+        const nextSelection = getNodeById(progressionBlock.nodes, progression.firstSelection);
+        const newTrans = this.insertBlockAtLocation(transform, progressionBlock, nextSelection, progression.selectionAnchorOffset, progression.selectionFocusOffset); 
 
         return newTrans;
       }
@@ -265,7 +278,7 @@ class MyEditor extends React.Component {
     let newProgression = this.state.progression;
     newProgression['status'] = newStatusValue;
 
-    if (newStatusValue === "stable" || newStatusValue === "progressing") { 
+    if (newStatusValue.toLowerCase() === "stable" || newStatusValue.toLowerCase() === "progressing") { 
 
       const stateTransform = this.state.state.transform();
       const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
@@ -312,7 +325,7 @@ class MyEditor extends React.Component {
   }
 
   handleProgressionFinish = (state) => { 
-    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression-status')
+    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression')
 
     this.setState({ 
       state: state.state.transform().collapseToEndOf(progressionNode).insertBlock(this.createEmptyBlock()).apply()
@@ -843,6 +856,7 @@ class MyEditor extends React.Component {
             this.handleProgressionStatusUpdate(curProgressionStatusNode.text, curProgressionReasonNode) 
           } 
           if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
+            console.log(curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1])
             if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
 
               this.handleProgressionFinish(prevState);

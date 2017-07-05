@@ -123,38 +123,38 @@ class TimelinePanel extends Component {
     this.setState({'hoverItem': defaultHoverItemState});
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if (this.props !== nextProps) {
-      // Create groups and items to display on the timeline
-      let items = [];
+  // componentWillReceiveProps = (nextProps) => {
+  //   if (this.props !== nextProps) {
+  //     // Create groups and items to display on the timeline
+  //     let items = [];
 
-      // Medications come first
-      items = items.concat(this._createMedicationItems(this.props.medications));
+  //     // Medications come first
+  //     items = items.concat(this._createMedicationItems(this.props.medications));
 
-      // Events
-      items = items.concat(this._createProcedureItems(this.props.procedures, this._getMaxGroup(items) + 1));
+  //     // Events
+  //     items = items.concat(this._createProcedureItems(this.props.procedures, this._getMaxGroup(items) + 1));
 
-      // Progression
-      items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
+  //     // Progression
+  //     items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
 
-      // Create groups for the items
-      const groups = this._createGroupsForItems(this._getMaxGroup(items));
+  //     // Create groups for the items
+  //     const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
-      // Assign every item an ID and onClick handler
-      for (let i = 0; i < items.length; i++) {
-        const id = i + 1;
-        items[i]['id'] = id;
-        items[i]['itemProps'] = {
-          onMouseEnter: (e) => this._enterItemHover(e, id),
-          onMouseLeave: (e) => this._leaveItemHover(e)
-        };
-      }
-      this.setState({
-        items: items,
-        groups: groups
-      });
-    } 
-  }
+  //     // Assign every item an ID and onClick handler
+  //     for (let i = 0; i < items.length; i++) {
+  //       const id = i + 1;
+  //       items[i]['id'] = id;
+  //       items[i]['itemProps'] = {
+  //         onMouseEnter: (e) => this._enterItemHover(e, id),
+  //         onMouseLeave: (e) => this._leaveItemHover(e)
+  //       };
+  //     }
+  //     this.setState({
+  //       items: items,
+  //       groups: groups
+  //     });
+  //   } 
+  // }
 
   render() {
     return (
