@@ -204,43 +204,43 @@ class FullApp extends Component {
             ],
             progression: [
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Responding Disease',
                     startDate: moment('2012-06-13'),
                     reason: ["Pathology", "Imaging", "Symptoms"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Disease Free',
                     startDate: moment('2012-11-01'),
                     reason: ["Pathology", "Imaging", "Bio Marker"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Progressing Disease',
                     startDate: moment('2014-04-17'),
                     reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Responding Disease',
                     startDate: moment('2014-07-03'),
                     reason: ["Pathology", "Imaging", "Symptoms"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Stable',
                     startDate: moment('2015-06-14'),
                     reason: ["Physical Exam"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Stable',
                     startDate: moment('2016-08-11'),
                     reason: ["Physical Exam"]
                 },
                 {
-                    id: Math.floor(Math.random() * Date.now())
+                    id: Math.floor(Math.random() * Date.now()),
                     name: 'Progressing Disease',
                     startDate: moment('2017-05-15'),
                     reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
