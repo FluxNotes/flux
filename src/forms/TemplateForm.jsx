@@ -11,9 +11,17 @@ class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
-        this.state = {
-          templates: ['op note', 'follow-up', 'consult note'],
-        };
+		if (this.props.patient == null) {
+			this.state = {
+			  heading : "Data Items",
+			  templates: ['progression', 'toxicity'],
+			};
+		} else {
+			this.state = {
+			  heading : "Available Templates",
+			  templates: ['op note', 'follow-up', 'consult note'],
+			};
+		}
 
         this._insertTemplate = this._insertTemplate.bind(this);
   }
@@ -21,7 +29,7 @@ class TemplateForm extends Component {
   render() {
     return (
         <Paper className="panel-content trio">
-            <h1> Available Templates</h1>
+            <h1>{this.state.heading}</h1>
             <Divider className="divider"/>
             {this.state.templates.map((t, i) => {
                 return (

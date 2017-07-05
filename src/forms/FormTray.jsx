@@ -16,7 +16,9 @@ class FormTray extends Component {
     let panelContent = null;
     if (this.props.withinStructuredField == null) {
         panelContent = (
-            <TemplateForm />
+            <TemplateForm 
+				patient={this.props.patient}
+			/>
         );
     } else {
         panelContent = (

@@ -442,6 +442,7 @@ class FullApp extends Component {
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
+                                    patient={this.state.patient}
                                 />
                             </Col>
                         </Row>
