@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 // material-ui
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 import Divider from 'material-ui/Divider';
 // Styling
 import './DataCaptureForm.css';
@@ -10,9 +12,8 @@ import './DataCaptureForm.css';
 class DataCaptureForm extends Component {
   constructor(props) {
         super(props);
-
         this.state = {
-
+            dropdownValue: 1
         };
   }
 
