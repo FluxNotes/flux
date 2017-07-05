@@ -205,45 +205,64 @@ class FullApp extends Component {
             progression: [
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Responding Disease',
-                    startDate: moment('2012-06-13'),
-                    reason: ["Pathology", "Imaging", "Symptoms"]
+                    status: 'Responding Disease',
+                    reason: [
+                        "physical exam"
+                    ],
+                    startDate: moment('2012-06-13')
+
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Disease Free',
+                    status: 'Disease Free',
+                    reason: [
+                        "imaging",
+                        "physical exam"],
                     startDate: moment('2012-11-01'),
-                    reason: ["Pathology", "Imaging", "Bio Marker"]
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
                     name: 'Progressing Disease',
+                    reason: [
+                        "imaging"
+                    ],
                     startDate: moment('2014-04-17'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam"]
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
                     name: 'Responding Disease',
+                    reason: [
+                        "pathology"
+                    ],
                     startDate: moment('2014-07-03'),
-                    reason: ["Pathology", "Imaging", "Symptoms"]
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
                     name: 'Stable',
+                    reason: [
+                        "pathology",
+                        "symptoms"
+                    ],
                     startDate: moment('2015-06-14'),
-                    reason: ["Physical Exam"]
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
                     name: 'Stable',
+                    reason: [
+                        "physical exam",
+                        "symptoms"
+                    ],
                     startDate: moment('2016-08-11'),
-                    reason: ["Physical Exam"]
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Progressing Disease',
-                    startDate: moment('2017-05-15'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    status: 'Progressing Disease',
+                    reason: [
+                        "pathology",
+                        "imaging",
+                        "symptoms"
+                    ],
+                    startDate: moment('2017-05-15')
                 }
             ]
         };

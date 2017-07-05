@@ -15,9 +15,6 @@ class DataSummaryTable extends Component {
           <tbody>
               {this.props.items.map((item, i) => {
 
-                console.log("item");
-                console.log(item);
-
                 let rowClass = "";
                 let itemClass = "";
                 let itemText = "";
@@ -28,20 +25,22 @@ class DataSummaryTable extends Component {
                   itemText = item.display;
                 }
 
+                  if (item.value) {
+                      rowClass = "captured";
+                      itemClass = "captured";
+                      itemText = item.value;
+                  }
+
+                  if (item.name === "Reasons") {
+                      itemText = item.value.join(", ");
+                  }
+
                 if (item.endDate) {
                   itemText = `${item.startDate.format('MM/DD/YYYY')} ― ${item.endDate.format('MM/DD/YYYY')}`;
                 }
 
                 if (item.startDate && !itemText) {
                   itemText = `${item.startDate.format('MM/DD/YYYY')}`;
-
-                  if (item.name === "Progression Value") {
-                    itemText = item.value;
-                  }
-
-                  if (item.name === "Reasons") {
-                    itemText = item.value.join(", ");
-                  }
 
                   if (item.display) {
                     itemText += ` : ${item.display}`;
