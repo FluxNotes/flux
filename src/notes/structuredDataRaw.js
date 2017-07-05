@@ -174,7 +174,7 @@ const structuredDataRaw = [
       ]
     }
   }, {
-    "label": "progression-status",
+    "label": "progression",
     "firstSelection": "progression-value",
     "selectionAnchorOffset": 0,
     "selectionFocusOffset": 0,
@@ -184,7 +184,7 @@ const structuredDataRaw = [
           "kind": "block",
           "type": "structured-span",
           "data": {
-            "id": "progression-status",
+            "id": "progression",
           },
           "isVoid": false,
           "nodes": [

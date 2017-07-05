@@ -14,6 +14,8 @@ import './MyEditor.css';
 import structuredDataRaw from './structuredDataRaw';
 const staging = structuredDataRaw.find((element, index, array) => element.label === 'staging')
 const stagingState = Raw.deserialize(staging.block, { terse: true });
+const progression = structuredDataRaw.find((element, index, array) => element.label === 'progression')
+const progressionState = Raw.deserialize(progression.block, { terse: true });
 
 const initialState = Raw.deserialize({
   nodes: [
@@ -175,8 +177,19 @@ class MyEditor extends React.Component {
       before: /(#staging)/i,
       transform: (transform, e, data, matches) => {
         const stagingBlock = getNodeById(stagingState.blocks, 'staging')
-        const tNode = getNodeById(stagingBlock.nodes, 't-staging');
-        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, 1, -1); 
+        const tNode = getNodeById(stagingBlock.nodes, staging.firstSelection);
+        const newTrans = this.insertBlockAtLocation(transform, stagingBlock, tNode, staging.selectionAnchorOffset, staging.selectionFocusOffset); 
+
+        return newTrans;
+      }
+    }),
+    AutoReplace({
+      trigger: '[',
+      before: /(#progression)/i,
+      transform: (transform, e, data, matches) => {
+        const progressionBlock = getNodeById(progressionState.blocks, 'progression')
+        const nextSelection = getNodeById(progressionBlock.nodes, progression.firstSelection);
+        const newTrans = this.insertBlockAtLocation(transform, progressionBlock, nextSelection, progression.selectionAnchorOffset, progression.selectionFocusOffset); 
 
         return newTrans;
       }
