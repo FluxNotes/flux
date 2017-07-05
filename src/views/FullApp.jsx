@@ -166,7 +166,7 @@ class FullApp extends Component {
                     endDate: moment('2017-06-01')
                 },
                 {
-                    name: "Aromaysin",
+                    name: "Aromasin",
                     dosage: "25mg once daily",
                     startDate: moment('2017-06-05'),
                     endDate: moment('2018-01-01')

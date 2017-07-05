@@ -19,30 +19,58 @@ class ProgressionForm extends Component {
         statusOptions: progressionLookup.getStatusOptions(),
         reasonOptions: progressionLookup.getReasonOptions(),
         currentStatus: this.props.progression.status,
+        // Values stored here are reason names, not reason objects
         currentReasons: []
       };
   }
 
-  _handleStatusSelecion = (e, i) => {
+  handleStatusSelecion = (e, i) => {
     e.preventDefault();
     const newStatus = this.state.statusOptions[i].name; 
-    console.log(`ProgressionForm._handleStatusSelecion Reason #${i} ${newStatus}`);
+    console.log(`ProgressionForm.handleStatusSelecion Reason #${i} ${newStatus}`);
     const newProgression = this.props.progression; 
     newProgression["status"] = newStatus;
     this.setState({currentStatus: newStatus});
     this.props.onProgressionUpdate(newProgression);
   }
 
-  _handleReasonSelection = (e, i) => {
-    e.preventDefault();
-    const newStatus = this.state.reasonOptions[i].name; 
-    console.log(`ProgressionForm._handleReasonSelection Reason #${i} ${this.state.reasonOptions[i].name}`);
-    const newProgression = this.props.progression; 
-    newProgression["reason"] = newStatus;
-    this.props.onProgressionUpdate(newProgression);
+  handleReasonSelection = (reason, isChecked) => {
+    const reasonIndex = this.state.currentReasons.findIndex((r) => r === reason.name);
+    if (isChecked) {
+      // Index should be -1; if it isn't don't add to array
+      if (reasonIndex === -1) {
+        this.setState({
+          currentReasons: this.state.currentReasons.push(reason.name);
+        })
+      } else { 
+        // Nothing -- the element is already in there
+        console.log('This is odd; the element shouldnt have been in our current reasons');
+      }
+    } else { 
+      // Index shouldn't be -1; if it is, don't remove it again;
+      if(reasonIndex !== -1) { 
+        const filteredReasons = this.state.currentReasons.filter((r) => r !== reason.name);
+        this.setState({
+          currentReasons: filteredReasons;
+        })
+      } else { 
+        // Nothing -- the element is already removed from the array;
+        console.log('Odd: the element should be in our current reasons');
+      }
+    }
+    // const newReason = this.state.reasonOptions[i].name; 
+    // console.log(`ProgressionForm.handleReasonSelection Reason #${i} ${this.state.reasonOptions[i].name}`);
+    // const newProgression = this.props.progression; 
+    // newProgression["reason"].findIndex(e.)
+
+    // if(elemIndex !== -1) {
+
+
+    // }
+    // this.props.onProgressionUpdate(newProgression);
   }
 
-  _renderStatusMenuItem = (status) => { 
+  renderStatusMenuItem = (status) => { 
     return (
       <MenuItem 
         key={status.name} 
@@ -52,9 +80,11 @@ class ProgressionForm extends Component {
     ) 
   }
 
-  _renderReasonCheckbox = (reason) => {
+  renderReasonCheckbox = (reason, i) => {
     return (
       <Checkbox
+        key={i}
+        onCheck={(e, isChecked) => this.handleReasonSelection(reason, isChecked)}
         label={reason.name}
       />
     )
@@ -71,16 +101,16 @@ class ProgressionForm extends Component {
             <SelectField
               floatingLabelText="Frequency"
               value={this.props.progression.status}
-              onChange={this._handleStatusSelecion}
+              onChange={this.handleStatusSelecion}
             >
               {this.state.statusOptions.map((status, i) => {
-                  return this._renderStatusMenuItem(status)
+                  return this.renderStatusMenuItem(status)
               })}
             </SelectField>
 
             <h4>Progression Reasons</h4>
             {this.state.reasonOptions.map((reason, i) => { 
-              return this._renderReasonCheckbox(reason)
+              return this.renderReasonCheckbox(reason, i)
             })}
         </Paper>
     );
