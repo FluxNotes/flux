@@ -42,7 +42,21 @@ class FormTray extends Component {
             );
         } else {
             panelContent = (
-              <DataCaptureForm/>
+              <DataCaptureForm
+
+                  // Staging Form data
+                  onStagingTUpdate={this.props.onStagingTUpdate}
+                  onStagingNUpdate={this.props.onStagingNUpdate}
+                  onStagingMUpdate={this.props.onStagingMUpdate}
+                  onStageUpdate={this.props.onStageUpdate}
+
+                  calculateStage={this.props.calculateStage}
+
+                  tumorSize={this.props.tumorSize}
+                  nodeSize={this.props.nodeSize}
+                  metastasis={this.props.metastasis}
+                  stage={this.props.stage}
+              />
             );
         }
     }
