@@ -19,13 +19,12 @@ import './DataSummaryPanel.css';
 class DataSummaryPanel extends Component {
 
     render() {
-        console.log(this.props.currentProgression);
-        console.log("array");
 
+        // Format the current progression entry for the data summary table component
         const currentProgressionArray = [
             {
-               name: "Progression Value",
-               value: this.props.currentProgression[0].status,
+                name: "Progression Value",
+                value: this.props.currentProgression[0].status,
                 startDate: this.props.currentProgression[0].startDate
             },
             {
@@ -35,8 +34,6 @@ class DataSummaryPanel extends Component {
             }
         ];
 
-        console.log(currentProgressionArray);
-        console.log(this.props.keyDates);
         return (
 
             <div className="dashboard-panel">
