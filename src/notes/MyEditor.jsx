@@ -278,7 +278,7 @@ class MyEditor extends React.Component {
     let newProgression = this.state.progression;
     newProgression['status'] = newStatusValue;
 
-    if (newStatusValue === "stable" || newStatusValue === "progressing") { 
+    if (newStatusValue.toLowerCase() === "stable" || newStatusValue.toLowerCase() === "progressing") { 
 
       const stateTransform = this.state.state.transform();
       const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
@@ -325,7 +325,7 @@ class MyEditor extends React.Component {
   }
 
   handleProgressionFinish = (state) => { 
-    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression-status')
+    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression')
 
     this.setState({ 
       state: state.state.transform().collapseToEndOf(progressionNode).insertBlock(this.createEmptyBlock()).apply()
@@ -856,6 +856,7 @@ class MyEditor extends React.Component {
             this.handleProgressionStatusUpdate(curProgressionStatusNode.text, curProgressionReasonNode) 
           } 
           if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
+            console.log(curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1])
             if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
 
               this.handleProgressionFinish(prevState);
