@@ -19,6 +19,7 @@ import './DataSummaryPanel.css';
 class DataSummaryPanel extends Component {
 
     render() {
+
         return (
 
             <div className="dashboard-panel">
@@ -44,8 +45,7 @@ class DataSummaryPanel extends Component {
                                     items={this.props.diagnosis}
                                     onItemClicked={this.props.onItemClicked}
                                 />
-
-                                <h2>Progression:</h2>
+                                <h2>Current Progression as of {this.props.progression[0].startDate.format('MM/DD/YYYY')}:</h2>
                                 <DataSummaryTable
                                     items={this.props.progression}
                                     onItemClicked={this.props.onItemClicked}
