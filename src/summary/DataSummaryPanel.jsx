@@ -1,6 +1,7 @@
 // React imports
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 // Components
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
@@ -19,6 +20,31 @@ import './DataSummaryPanel.css';
 class DataSummaryPanel extends Component {
 
     render() {
+
+        // Format the current progression entry for the data summary table component
+        const currentProgressionArray = [
+            {
+                name: "Progression Value",
+                value: this.props.currentProgression[0].status,
+                startDate: this.props.currentProgression[0].startDate
+            },
+            {
+                name: "Reasons",
+                value: this.props.currentProgression[0].reason,
+                startDate: this.props.currentProgression[0].startDate
+            }
+        ];
+
+        let progressionHeader = null;
+        const sixMonthsAgoDate = moment().subtract(6, 'months');
+
+        // Check if start date is longer than 6 months from today's date and set the progression header accordingly
+        if (this.props.currentProgression[0].startDate < sixMonthsAgoDate) {
+            progressionHeader = "Current Progression";
+        } else {
+            progressionHeader = "Current Progression as of " + this.props.currentProgression[0].startDate.format('MM/DD/YYYY') + ":";
+        }
+
         return (
 
             <div className="dashboard-panel">
@@ -36,7 +62,8 @@ class DataSummaryPanel extends Component {
                         conditions={this.props.conditions}
                     />
 
-                    <Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}} tabItemContainerStyle={{background: 'white'}}>
+                    <Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
+                          tabItemContainerStyle={{background: 'white'}}>
                         <Tab className="tab" label="Problem Summary">
                             <div className="table-list" id="summary-list">
                                 <h2>Current Diagnosis:</h2>
@@ -44,12 +71,17 @@ class DataSummaryPanel extends Component {
                                     items={this.props.diagnosis}
                                     onItemClicked={this.props.onItemClicked}
                                 />
+                                <h2>{progressionHeader}</h2>
+                                <DataSummaryTable
+                                    items={currentProgressionArray}
+                                    onItemClicked={this.props.onItemClicked}
+                                />
 
-                        <h2>Key Dates:</h2>
-                        <DataSummaryTable
-                            items={this.props.keyDates}
-                            onItemClicked={this.props.onItemClicked}
-                        />
+                                <h2>Key Dates:</h2>
+                                <DataSummaryTable
+                                    items={this.props.keyDates}
+                                    onItemClicked={this.props.onItemClicked}
+                                />
 
                                 <h2>Procedures:</h2>
                                 <DataSummaryTable
