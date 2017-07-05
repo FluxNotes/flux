@@ -19,7 +19,24 @@ import './DataSummaryPanel.css';
 class DataSummaryPanel extends Component {
 
     render() {
+        console.log(this.props.currentProgression);
+        console.log("array");
 
+        const currentProgressionArray = [
+            {
+               name: "Progression Value",
+               value: this.props.currentProgression[0].status,
+                startDate: this.props.currentProgression[0].startDate
+            },
+            {
+                name: "Reasons",
+                value: this.props.currentProgression[0].reason,
+                startDate: this.props.currentProgression[0].startDate
+            }
+        ];
+
+        console.log(currentProgressionArray);
+        console.log(this.props.keyDates);
         return (
 
             <div className="dashboard-panel">
@@ -45,9 +62,9 @@ class DataSummaryPanel extends Component {
                                     items={this.props.diagnosis}
                                     onItemClicked={this.props.onItemClicked}
                                 />
-                                <h2>Current Progression as of {this.props.progression[0].startDate.format('MM/DD/YYYY')}:</h2>
+                                <h2>Current Progression as of {this.props.currentProgression[0].startDate.format('MM/DD/YYYY')}:</h2>
                                 <DataSummaryTable
-                                    items={this.props.progression}
+                                    items={currentProgressionArray}
                                     onItemClicked={this.props.onItemClicked}
                                 />
 

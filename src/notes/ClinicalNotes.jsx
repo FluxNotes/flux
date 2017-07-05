@@ -59,6 +59,14 @@ class ClinicalNotes extends Component {
     this.props.onStructuredFieldExited(currentFocus);
   }
 
+  handleProgressionUpdate = (newProgression) => {
+    this.props.onProgressionUpdate(newProgression);
+  }
+
+  handleNewProgression = (newProgression) => {
+    this.props.onNewProgression(newProgression);
+  }
+
   render() {
   
   
@@ -104,6 +112,8 @@ class ClinicalNotes extends Component {
             onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
             onSummaryUpdate={this.handleSummaryUpdate}
+            onProgressionUpdate={this.handleProgressionUpdate}
+            onNewProgression={this.handleNewProgression}
 
             // Helper functions
             calculateStage={this.props.calculateStage}

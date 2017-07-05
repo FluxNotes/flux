@@ -15,6 +15,9 @@ class DataSummaryTable extends Component {
           <tbody>
               {this.props.items.map((item, i) => {
 
+                console.log("item");
+                console.log(item);
+
                 let rowClass = "";
                 let itemClass = "";
                 let itemText = "";
@@ -32,18 +35,22 @@ class DataSummaryTable extends Component {
                 if (item.startDate && !itemText) {
                   itemText = `${item.startDate.format('MM/DD/YYYY')}`;
 
-                  if (item.display) {
-                    itemText += ` : ${item.display}`;
+                  if (item.name === "Progression Value") {
+                    itemText = item.value;
                   }
 
-                  if (item.reason) {
-                    itemText += ' : ' + item.reason.join(", ");
+                  if (item.name === "Reasons") {
+                    itemText = item.value.join(", ");
+                  }
+
+                  if (item.display) {
+                    itemText += ` : ${item.display}`;
                   }
                 }
 
                 if (itemText) {
 
-                  if (item.reason) {
+                  if (item.name === "Progression Value" || item.name === "Reasons") {
                     const sixMonthsAgoDate = moment().subtract(6, 'months');
 
                     if (item.startDate < sixMonthsAgoDate) {
@@ -69,6 +76,7 @@ class DataSummaryTable extends Component {
                   <tr key={i} className={rowClass}>
                       <td width="40%">{item.name}</td><td width="55%" className={itemClass}>{itemText}</td><td width="5%" onClick={(e) => this.props.onItemClicked(itemText)}><i className="fa fa-plus-square fa-lg"></i></td>
                   </tr>
+
                 );
               })}
           </tbody>

@@ -204,39 +204,67 @@ class FullApp extends Component {
             ],
             progression: [
                 {
-                    name: 'Responding Disease',
-                    startDate: moment('2012-06-13'),
-                    reason: ["Pathology", "Imaging", "Symptoms"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Responding Disease',
+                    reason: [
+                        "physical exam",
+                    ],
+                    startDate: moment('2012-06-13')
+
                 },
                 {
-                    name: 'Disease Free',
-                    startDate: moment('2012-11-01'),
-                    reason: ["Pathology", "Imaging", "Bio Marker"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Disease Free',
+                    reason: [
+                        "imaging",
+                        "physical exam"
+                    ],
+
+                    startDate: moment('2012-11-01')
                 },
                 {
-                    name: 'Progressing Disease',
-                    startDate: moment('2014-04-17'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Progressing Disease',
+                    reason: [
+                        "imaging",
+                    ],
+                    startDate: moment('2014-04-17')
                 },
                 {
-                    name: 'Responding Disease',
-                    startDate: moment('2014-07-03'),
-                    reason: ["Pathology", "Imaging", "Symptoms"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Responding Disease',
+                    reason: [
+                        "pathology",
+                    ],
+                    startDate: moment('2014-07-03')
                 },
                 {
-                    name: 'Stable',
-                    startDate: moment('2015-06-14'),
-                    reason: ["Physical Exam"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Stable',
+                    reason: [
+                        "pathology",
+                        "symptoms"
+                    ],
+                    startDate: moment('2015-06-14')
                 },
                 {
-                    name: 'Stable',
-                    startDate: moment('2016-08-11'),
-                    reason: ["Physical Exam"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Stable',
+                    reason: [
+                        "physical exam",
+                        "symptoms"
+                    ],
+                    startDate: moment('2016-08-11')
                 },
                 {
-                    name: 'Progressing Disease',
-                    startDate: moment('2017-05-15'),
-                    reason: ["Pathology", "Imaging", "Symptoms", "Physical Exam", "Bio Marker"]
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Progressing Disease',
+                    reason: [
+                        "pathology",
+                        "imaging",
+                        "symptoms"
+                    ],
+                    startDate: moment('2016-05-15')
                 }
             ]
         };
@@ -247,6 +275,39 @@ class FullApp extends Component {
         this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+    }
+    /*
+     * Add a progression event to the current array of progression events
+     */
+    addProgressionEvent = (progressionEvent) => {
+        // Make sure this event doesn't already exist in the app
+        if (! this.state.progression.some((event) => event.id === progressionEvent.id)) {
+            console.log(`in addProgressionEvent; this is a new event; adding to array`);
+            const newProgression = this.state.progression;
+            newProgression.push(progressionEvent);
+            console.log(newProgression)
+
+            this.setState({
+                progression: newProgression
+            });
+        }
+        // else do nothing
+    }
+
+    /*
+     * update a progression event if it's in the current array of progression events
+     */
+    updateProgressionEvent = (progressionEvent) => {
+        // If we can find an event that shares the current id, update it
+        const oldEventIndex = this.state.progression.findIndex((event) => event.id === progressionEvent.id)
+        if (oldEventIndex !== -1) {
+            console.log('in updateProgressionEvent; we found an equiv event; updating');
+            let newProgression = this.state.progression;
+            newProgression[oldEventIndex] = progressionEvent;
+            this.setState({
+                progression: newProgression
+            });
+        }
     }
 
     handleStructuredFieldEntered(field) {
@@ -288,6 +349,25 @@ class FullApp extends Component {
         (m !== "") && this.setState({metastasis: m});
   	}
 
+
+    handleProgressionUpdate = (p) => {
+        console.log(`Updated progression:`);
+        console.log(p);
+        if (p !== "" && this.state.progression.some(existingProgression => existingProgression.id === p.id)) {
+            console.log("this is an updated event");
+            this.updateProgressionEvent(p.id, p);
+        } else if (p !== "") {
+            console.log("this is a new progression event");
+            this.addProgressionEvent(p)
+        }
+        // else do nothing
+    }
+
+    handleNewProgression = (p) => {
+        console.log(`This is a new progression`);
+        (p !== "") && this.addProgressionEvent(p)
+    }
+
     render() {
         let diagnosis = this.state.diagnosis;
 
@@ -307,7 +387,7 @@ class FullApp extends Component {
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 
         // Grab most recent entry for progression
-        const recentProgression = [this._getMostRecentProgression(this.state.progression)];
+        const currentProgression = [this._getMostRecentProgression(this.state.progression)];
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -323,7 +403,7 @@ class FullApp extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    progression={recentProgression}
+                                    currentProgression={currentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
@@ -342,6 +422,8 @@ class FullApp extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
+                                    onProgressionUpdate={this.handleProgressionUpdate}
+                                    onNewProgression={this.handleNewProgression}
                                     // Properties
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
