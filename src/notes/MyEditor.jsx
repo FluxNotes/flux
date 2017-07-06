@@ -1,6 +1,6 @@
 // Import React and other libraries
 import React from 'react'
-import { Editor, Block , Raw, Text } from 'slate'
+import { Editor, Block , Raw, Text, Selection } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
@@ -269,6 +269,10 @@ class MyEditor extends React.Component {
    */
   handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
+  }
+  
+  handleSelectionChange = (selectedText) => {
+	this.props.onSelectionChange(selectedText);
   }
 
   /*
@@ -565,6 +569,17 @@ class MyEditor extends React.Component {
     return matches.length > 5 ? matches.slice(0,5) : matches;
   }
 
+  onSelectionChange = (selection, state) => {
+	//console.log(selection.startOffset + " to " + selection.endOffset);
+	if (selection.startOffset != selection.endOffset) {
+		var currentContentBlock = state.document.getClosestBlock(selection.anchorKey);
+		var selectedText = currentContentBlock.getText().slice(selection.startOffset, selection.endOffset);
+		this.handleSelectionChange(selectedText);
+	} else {
+		this.handleSelectionChange(null);
+	}
+  }
+  
   onKeyDown = (event, data, state) => {
     // Continue handling autocompletes    
     if(this.state.inAutocomplete) {
@@ -986,6 +1001,7 @@ class MyEditor extends React.Component {
           state={this.state.state}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
+		  onSelectionChange={this.onSelectionChange}
           plugins={this.plugins}
         />
       </div>
