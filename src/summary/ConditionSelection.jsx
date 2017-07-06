@@ -36,10 +36,10 @@ class ConditionSelection extends Component {
         <Divider className="divider" />
           <div className="selected-condition">
               <span className="title">{activeCondition.name}</span>
-              <span id="left-arrow" className={leftArrowClass}>
+              <span id="left-arrow" className={leftArrowClass} style={{cursor:'pointer'}}>
                   <a onClick={(e) => this.previousCondition(e)}><i className="fa fa-arrow-left"></i></a>
               </span>
-              <span id="right-arrow" className={rightArrowClass}>
+              <span id="right-arrow" className={rightArrowClass} style={{cursor:'pointer'}}>
                   <a onClick={(e) => this.nextCondition(e)}><i className="fa fa-arrow-right"></i></a>
               </span>
           </div>
