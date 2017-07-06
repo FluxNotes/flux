@@ -878,6 +878,7 @@ class MyEditor extends React.Component {
 
     // Check if staging block exists in the editor
     const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression');
 
     // If it exists, populate the fields with the updated staging values
     if (stagingNode) {
@@ -925,6 +926,10 @@ class MyEditor extends React.Component {
           this.setState({ state: state })
         }
       }
+    } else if (progressionNode) {  
+      for(const parentNode of this.state.state.document.nodes) {
+        
+      } 
     }
   }
 
