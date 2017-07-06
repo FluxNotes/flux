@@ -1,6 +1,6 @@
 // Import React and other libraries
 import React from 'react'
-import { Editor, Block , Raw, Text, Selection } from 'slate'
+import { Editor, Block , Raw, Text } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
@@ -571,10 +571,8 @@ class MyEditor extends React.Component {
 
   onSelectionChange = (selection, state) => {
 	//console.log(selection.startOffset + " to " + selection.endOffset);
-	if (selection.startOffset != selection.endOffset) {
-		var currentContentBlock = state.document.getClosestBlock(selection.anchorKey);
-		var selectedText = currentContentBlock.getText().slice(selection.startOffset, selection.endOffset);
-		this.handleSelectionChange(selectedText);
+	if (selection.startOffset !== selection.endOffset) {
+		this.handleSelectionChange(state.document.getFragmentAtRange(selection).getText());
 	} else {
 		this.handleSelectionChange(null);
 	}
