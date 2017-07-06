@@ -28,7 +28,7 @@ class TemplateForm extends Component {
 
   render() {
     return (
-        <Paper className="panel-content trio">
+       <div>
             <h1>{this.state.heading}</h1>
             <Divider className="divider"/>
             {this.state.templates.map((t, i) => {
@@ -41,7 +41,7 @@ class TemplateForm extends Component {
                     />
                 );
             })}
-        </Paper>
+        </div>
     );
   }
 

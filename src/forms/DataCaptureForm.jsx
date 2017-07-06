@@ -54,7 +54,7 @@ class DataCaptureForm extends Component {
         }
 
         return (
-            <Paper className="panel-content trio">
+            <div>
                 <h1>Data Capture</h1>
                 <Divider className="divider"/>
                 <div>
@@ -72,7 +72,8 @@ class DataCaptureForm extends Component {
                 </div>
                 <Divider className="divider"/>
                 {content}
-            </Paper>
+            </div>
+
 
         );
     }

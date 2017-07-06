@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 import StagingForm from './StagingForm';
 import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
+// material-ui
+import Paper from 'material-ui/Paper';
 // Styling
 import './FormTray.css';
 
@@ -23,7 +25,6 @@ class FormTray extends Component {
 
                 panelContent = (
                     <DataCaptureForm
-
                         // Staging Form data
                         onStagingTUpdate={this.props.onStagingTUpdate}
                         onStagingNUpdate={this.props.onStagingNUpdate}
@@ -67,7 +68,9 @@ class FormTray extends Component {
         }
         return (
             <div id="forms-panel" className="dashboard-panel">
+                <Paper className="panel-content trio">
                 {panelContent}
+                </Paper>
             </div>
         )
     }
