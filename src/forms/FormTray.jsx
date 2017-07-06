@@ -16,9 +16,17 @@ class FormTray extends Component {
   render() {
     let panelContent = null;
     if (this.props.withinStructuredField === null) {
-        panelContent = (
-            <TemplateForm />
-        );
+        if (this.props.selectedText != null) {
+            panelContent = (
+                <h1>GOT IT {this.props.selectedText}</h1>
+            );
+        } else {
+            panelContent = (
+                <TemplateForm 
+                    patient={this.props.patient}
+                />
+            );
+        }
     } else if (this.props.withinStructuredField === "staging") {
         panelContent = (
             <StagingForm

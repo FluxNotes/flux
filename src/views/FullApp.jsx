@@ -28,6 +28,7 @@ class FullApp extends Component {
             metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
+			selectedText: null,
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -207,7 +208,7 @@ class FullApp extends Component {
                     id: Math.floor(Math.random() * Date.now()),
                     status: 'Responding Disease',
                     reason: [
-                        "physical exam",
+                        "physical exam"
                     ],
                     startDate: moment('2012-06-13')
 
@@ -217,50 +218,48 @@ class FullApp extends Component {
                     status: 'Disease Free',
                     reason: [
                         "imaging",
-                        "physical exam"
-                    ],
-
-                    startDate: moment('2012-11-01')
+                        "physical exam"],
+                    startDate: moment('2012-11-01'),
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Progressing Disease',
+                    name: 'Progressing Disease',
                     reason: [
-                        "imaging",
+                        "imaging"
                     ],
-                    startDate: moment('2014-04-17')
+                    startDate: moment('2014-04-17'),
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Responding Disease',
+                    name: 'Responding Disease',
+                    reason: [
+                        "pathology"
+                    ],
+                    startDate: moment('2014-07-03'),
+                },
+                {
+                    id: Math.floor(Math.random() * Date.now()),
+                    name: 'Stable',
                     reason: [
                         "pathology",
-                    ],
-                    startDate: moment('2014-07-03')
-                },
-                {
-                    id: Math.floor(Math.random() * Date.now()),
-                    status: 'Stable',
-                    reason: [
-                        "pathology", 
                         "symptoms"
                     ],
-                    startDate: moment('2015-06-14')
+                    startDate: moment('2015-06-14'),
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Stable',
+                    name: 'Stable',
                     reason: [
                         "physical exam",
                         "symptoms"
                     ],
-                    startDate: moment('2016-08-11')
+                    startDate: moment('2016-08-11'),
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
                     status: 'Progressing Disease',
                     reason: [
-                        "pathology", 
+                        "pathology",
                         "imaging",
                         "symptoms"
                     ],
@@ -268,6 +267,7 @@ class FullApp extends Component {
                 }
             ]
         };
+
     }
     /* 
      * Add a progression event to the current array of progression events
@@ -316,6 +316,13 @@ class FullApp extends Component {
             withinStructuredField: null
         })
     }
+	
+	handleSelectionChange = (selectedText) => {
+		//console.log("FullApp. selectedText: " + selectedText);
+		this.setState({
+			selectedText: selectedText
+		})
+	}
 
     componentDidUpdate = (a, b) => {
         // Nothing right now
@@ -379,6 +386,9 @@ class FullApp extends Component {
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 
+        // Grab most recent entry for progression
+        const currentProgression = [this._getMostRecentProgression(this.state.progression)];
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
@@ -393,6 +403,7 @@ class FullApp extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
+                                    currentProgression={currentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
@@ -411,6 +422,7 @@ class FullApp extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
+									onSelectionChange={this.handleSelectionChange}
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
                                     // Properties
@@ -437,6 +449,8 @@ class FullApp extends Component {
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
+									selectedText={this.state.selectedText}
+                                    patient={this.state.patient}
                                 />
                             </Col>
                         </Row>
@@ -453,6 +467,11 @@ class FullApp extends Component {
                 </div>
             </MuiThemeProvider>
         );
+    }
+    _getMostRecentProgression(progressionList) {
+        const sortedProgressionList = progressionList.sort(this._timeSorter);
+        const length = sortedProgressionList.length;
+        return(sortedProgressionList[length - 1]);
     }
 
     _timeSorter(a, b) {
