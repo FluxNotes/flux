@@ -1,7 +1,6 @@
 // React imports
 import React, { Component } from 'react';
 // material-ui
-import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
@@ -46,7 +45,7 @@ class StagingForm extends Component {
   render() {
     // console.log("in render. t: " + this.props.t);
     return (
-        <Paper className="panel-content trio">
+       <div>
             <h1>Current Staging</h1>
             <Divider className="divider" />
 
@@ -100,7 +99,7 @@ class StagingForm extends Component {
 
             <h4>Prognostic Stage</h4>
             <div className="stage">{staging.breastCancerPrognosticStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis) || 'Undefined'}</div>
-        </Paper>
+        </div>
     );
   }
 }

@@ -10,7 +10,9 @@ class NavBar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {
+      open: false
+    };
   }
 
   toggleDrawer() {
@@ -42,7 +44,8 @@ class NavBar extends Component {
           title="Flux Notes"/>
         <Drawer
           containerStyle={{'top': '64px'}}
-          open={this.state.open}>
+          open={this.state.open}
+         >
           <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
           <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
         </Drawer>
