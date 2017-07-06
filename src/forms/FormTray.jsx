@@ -1,5 +1,5 @@
 // React imports
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
 import TemplateForm from './TemplateForm';
@@ -8,22 +8,46 @@ import DataCaptureForm from './DataCaptureForm';
 import './FormTray.css';
 
 class FormTray extends Component {
-  /*
-    need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
-    to the correct entry form for the structured field. on exit, set to null.
-  */
+    /*
+     need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
+     to the correct entry form for the structured field. on exit, set to null.
+     */
 
-  render() {
-    let panelContent = null;
-    if (this.props.withinStructuredField == null) {
-        panelContent = (
-            <TemplateForm 
-				patient={this.props.patient}
-			/>
-        );
-    } else {
+    render() {
+        let panelContent = null;
+        if (this.props.withinStructuredField == null) {
+            //console.log("FormTray. selectedText = " + this.props.selectedText);
 
-        if (this.props.withinStructuredField === "staging") {
+            // When select text in the notes section, change the panel content
+            if (this.props.selectedText != null) {
+
+                panelContent = (
+                    <DataCaptureForm
+
+                        // Staging Form data
+                        onStagingTUpdate={this.props.onStagingTUpdate}
+                        onStagingNUpdate={this.props.onStagingNUpdate}
+                        onStagingMUpdate={this.props.onStagingMUpdate}
+                        onStageUpdate={this.props.onStageUpdate}
+
+                        calculateStage={this.props.calculateStage}
+
+                        tumorSize={this.props.tumorSize}
+                        nodeSize={this.props.nodeSize}
+                        metastasis={this.props.metastasis}
+                        stage={this.props.stage}
+                    />
+                );
+
+            } else {
+                panelContent = (
+                    <TemplateForm
+                        patient={this.props.patient}
+                    />
+                );
+            }
+        } else {
+
             panelContent = (
                 <StagingForm
                     // Update functions
@@ -40,32 +64,13 @@ class FormTray extends Component {
                     stage={this.props.stage}
                 />
             );
-        } else {
-            panelContent = (
-              <DataCaptureForm
-
-                  // Staging Form data
-                  onStagingTUpdate={this.props.onStagingTUpdate}
-                  onStagingNUpdate={this.props.onStagingNUpdate}
-                  onStagingMUpdate={this.props.onStagingMUpdate}
-                  onStageUpdate={this.props.onStageUpdate}
-
-                  calculateStage={this.props.calculateStage}
-
-                  tumorSize={this.props.tumorSize}
-                  nodeSize={this.props.nodeSize}
-                  metastasis={this.props.metastasis}
-                  stage={this.props.stage}
-              />
-            );
         }
+        return (
+            <div id="forms-panel" className="dashboard-panel">
+                {panelContent}
+            </div>
+        )
     }
-    return (
-      <div id="forms-panel" className="dashboard-panel">
-        {panelContent}
-      </div>
-    )
-  }
 }
 
 export default FormTray;
