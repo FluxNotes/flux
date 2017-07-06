@@ -294,7 +294,7 @@ class FullApp extends Component {
         const oldEventIndex = this.state.progression.findIndex((event) => event.id === id)
         if (oldEventIndex !== -1) {
             console.log('in updateProgressionEvent; we found an equiv event; updating');
-            let newProgression = this.state.progression;
+            let newProgression = [...this.state.progression];
             newProgression[oldEventIndex] = progressionEvent;
             this.setState({
                 progression: newProgression
@@ -425,7 +425,7 @@ class FullApp extends Component {
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
                                     // Properties
-                                    progression={this.state.progression[0]}
+                                    progression={currentProgression[0]}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -444,7 +444,7 @@ class FullApp extends Component {
                                     onStagingMUpdate={this.handleStagingMUpdate}
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     // Properties
-                                    progression={this.state.progression[0]}
+                                    progression={currentProgression[0]}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

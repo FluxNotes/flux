@@ -20,7 +20,7 @@ class ProgressionForm extends Component {
         reasonOptions: progressionLookup.getReasonOptions(),
         currentStatus: this.props.progression.status,
         // Values stored here are reason names, not reason objects
-        currentReasons: []
+        currentReasons: this.props.progression.reason
       };
   }
 
@@ -28,7 +28,7 @@ class ProgressionForm extends Component {
     e.preventDefault();
     const newStatus = this.state.statusOptions[i].name; 
     console.log(`ProgressionForm.handleStatusSelecion Reason #${i} ${newStatus}`);
-    const newProgression = this.props.progression; 
+    const newProgression = { ...this.props.progression}; 
     newProgression["status"] = newStatus;
     this.setState({currentStatus: newStatus});
     this.props.onProgressionUpdate(newProgression);
@@ -44,7 +44,7 @@ class ProgressionForm extends Component {
         console.log(this.state.currentReasons);
         const newReasons = this.state.currentReasons;
         newReasons.push(reason.name);
-        const newProgression = this.props.progression; 
+        const newProgression = { ...this.props.progression}; 
         newProgression["reason"] = newReasons;
         this.setState({
           currentReasons: newReasons
@@ -60,7 +60,7 @@ class ProgressionForm extends Component {
         console.log('about to remove');
         console.log(this.state.currentReasons);
         const filteredReasons = this.state.currentReasons.filter((r) => r !== reason.name);
-        const newProgression = this.props.progression; 
+        const newProgression = { ...this.props.progression}; 
         newProgression["reason"] = filteredReasons;
         this.setState({
           currentReasons: filteredReasons
@@ -84,9 +84,16 @@ class ProgressionForm extends Component {
   }
 
   renderReasonCheckbox = (reason, i) => {
+    
+    console.log(this.state.currentReasons);
+    console.log(reason);
+
+    const isChecked = this.state.currentReasons.some((curReason) => curReason === reason.name);
+    console.log(isChecked)  
     return (
       <Checkbox
         key={i}
+        checked={isChecked}
         onCheck={(e, isChecked) => this.handleReasonSelection(reason, isChecked)}
         label={reason.name}
       />
