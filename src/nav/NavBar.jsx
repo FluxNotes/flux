@@ -35,20 +35,6 @@ class NavBar extends Component {
     this.props.onStructuredFieldExited("staging");
   }
 
-  handleEnterDataCapture() {
-    this.setState({
-      open: false
-    });
-    this.props.onStructuredFieldEntered("dataCapture");
-  }
-
-  handleExitDataCapture() {
-    this.setState({
-      open: false
-    });
-    this.props.onStructuredFieldExited("dataCapture");
-  }
-
   render() {
     return (
       <div>
@@ -62,8 +48,6 @@ class NavBar extends Component {
          >
           <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
           <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
-          <MenuItem onTouchTap={this.handleEnterDataCapture.bind(this)}>Enter Data Capture</MenuItem>
-          <MenuItem onTouchTap={this.handleExitDataCapture.bind(this)}>Exit Data Capture</MenuItem>
         </Drawer>
       </div>
     );
