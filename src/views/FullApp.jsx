@@ -28,6 +28,7 @@ class FullApp extends Component {
             metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
+			selectedText: null,
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -273,6 +274,7 @@ class FullApp extends Component {
         this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
         this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
         this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
+		this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
     /* 
      * Add a progression event to the current array of progression events
@@ -321,6 +323,13 @@ class FullApp extends Component {
             withinStructuredField: null
         })
     }
+	
+	handleSelectionChange(selectedText) {
+		//console.log("FullApp. selectedText: " + selectedText);
+		this.setState({
+			selectedText: selectedText
+		})
+	}
 
     componentDidUpdate(a, b) {
         // Nothing right now
@@ -420,6 +429,7 @@ class FullApp extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
+									onSelectionChange={this.handleSelectionChange}
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
                                     // Properties
@@ -444,6 +454,7 @@ class FullApp extends Component {
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
+									selectedText={this.state.selectedText}
                                     patient={this.state.patient}
                                 />
                             </Col>

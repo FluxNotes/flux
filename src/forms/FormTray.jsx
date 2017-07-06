@@ -15,28 +15,35 @@ class FormTray extends Component {
   render() {
     let panelContent = null;
     if (this.props.withinStructuredField == null) {
-        panelContent = (
-            <TemplateForm 
-				patient={this.props.patient}
-			/>
-        );
+		//console.log("FormTray. selectedText = " + this.props.selectedText);
+		if (this.props.selectedText != null) {
+			panelContent = (
+				<h1>GOT IT {this.props.selectedText}</h1>
+			);
+		} else {
+			panelContent = (
+				<TemplateForm 
+					patient={this.props.patient}
+				/>
+			);
+		}
     } else {
-        panelContent = (
-            <StagingForm
-                // Update functions
-                onStagingTUpdate={this.props.onStagingTUpdate}
-                onStagingNUpdate={this.props.onStagingNUpdate}
-                onStagingMUpdate={this.props.onStagingMUpdate}
-                onStageUpdate={this.props.onStageUpdate}
-                // Helper functions
-                calculateStage={this.props.calculateStage}
-                // Properties
-                tumorSize={this.props.tumorSize}
-                nodeSize={this.props.nodeSize}
-                metastasis={this.props.metastasis}
-                stage={this.props.stage}
-            />
-        );
+		panelContent = (
+			<StagingForm
+				// Update functions
+				onStagingTUpdate={this.props.onStagingTUpdate}
+				onStagingNUpdate={this.props.onStagingNUpdate}
+				onStagingMUpdate={this.props.onStagingMUpdate}
+				onStageUpdate={this.props.onStageUpdate}
+				// Helper functions
+				calculateStage={this.props.calculateStage}
+				// Properties
+				tumorSize={this.props.tumorSize}
+				nodeSize={this.props.nodeSize}
+				metastasis={this.props.metastasis}
+				stage={this.props.stage}
+			/>
+		);
     }
     return (
       <div id="forms-panel" className="dashboard-panel">

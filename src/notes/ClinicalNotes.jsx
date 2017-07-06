@@ -58,6 +58,13 @@ class ClinicalNotes extends Component {
   handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
+  
+  handleSelectionChange = (selectedText) => {
+    if (this.props.onSelectionChange != null) {
+		//console.log("ClinicalNotes selectedText=" + selectedText);
+		this.props.onSelectionChange(selectedText);
+	}
+  }
 
   handleProgressionUpdate = (newProgression) => {
     this.props.onProgressionUpdate(newProgression);
@@ -107,6 +114,7 @@ class ClinicalNotes extends Component {
             // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
+			onSelectionChange={this.handleSelectionChange}
             onStagingTUpdate={this.handleStagingTUpdate}
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
