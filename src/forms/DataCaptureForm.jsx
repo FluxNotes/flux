@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
 // material-ui
-import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -73,10 +72,7 @@ class DataCaptureForm extends Component {
                 <Divider className="divider"/>
                 {content}
             </div>
-
-
         );
     }
-
 }
 export default DataCaptureForm;
