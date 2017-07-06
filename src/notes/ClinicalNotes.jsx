@@ -114,7 +114,7 @@ class ClinicalNotes extends Component {
             // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
-			onSelectionChange={this.handleSelectionChange}
+      			onSelectionChange={this.handleSelectionChange}
             onStagingTUpdate={this.handleStagingTUpdate}
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
@@ -126,6 +126,7 @@ class ClinicalNotes extends Component {
             // Helper functions
             calculateStage={this.props.calculateStage}
             // Properties
+            progression={this.props.progression}
             tumorSize={this.props.tumorSize}
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}

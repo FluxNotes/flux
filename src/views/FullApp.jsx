@@ -223,7 +223,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Progressing Disease',
+                    status: 'Progressing Disease',
                     reason: [
                         "imaging"
                     ],
@@ -231,7 +231,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Responding Disease',
+                    status: 'Responding Disease',
                     reason: [
                         "pathology"
                     ],
@@ -239,7 +239,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Stable',
+                    status: 'Stable',
                     reason: [
                         "pathology",
                         "symptoms"
@@ -248,7 +248,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Stable',
+                    status: 'Stable',
                     reason: [
                         "physical exam",
                         "symptoms"
@@ -278,8 +278,7 @@ class FullApp extends Component {
             console.log(`in addProgressionEvent; this is a new event; adding to array`);
             const newProgression = this.state.progression;
             newProgression.push(progressionEvent);
-            console.log(newProgression)
-
+            newProgression.sort(this._timeSorter);
             this.setState({
                 progression: newProgression
             });
@@ -290,9 +289,9 @@ class FullApp extends Component {
     /* 
      * update a progression event if it's in the current array of progression events
      */ 
-    updateProgressionEvent = (progressionEvent) => { 
+    updateProgressionEvent = (id, progressionEvent) => { 
         // If we can find an event that shares the current id, update it
-        const oldEventIndex = this.state.progression.findIndex((event) => event.id === progressionEvent.id)
+        const oldEventIndex = this.state.progression.findIndex((event) => event.id === id)
         if (oldEventIndex !== -1) {
             console.log('in updateProgressionEvent; we found an equiv event; updating');
             let newProgression = this.state.progression;
@@ -426,6 +425,7 @@ class FullApp extends Component {
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
                                     // Properties
+                                    progression={this.state.progression[0]}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

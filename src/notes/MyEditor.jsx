@@ -7,6 +7,7 @@ import getOffsets from 'positions'
 import moment from 'moment';
 // Application Components:
 import EditorToolbar from './EditorToolbar';
+import progressionLookup from '../../lib/progression_lookup';
 // Styling
 import './MyEditor.css';
 
@@ -96,6 +97,8 @@ class MyEditor extends React.Component {
       shorthandOptions: Object.keys(this.props.data.patient).map((elem) => {const newObj = {}; newObj["label"] = elem; newObj["value"] = this.props.data.patient[elem]; return newObj}) ,
       // Tracking progression
       progression: {},
+      statusOptions: progressionLookup.getStatusOptions(),
+      reasonOptions: progressionLookup.getReasonOptions(),
       // State of editor config
       state: initialState,
       schema: {
@@ -223,14 +226,19 @@ class MyEditor extends React.Component {
   // On change, update the app's React state with the new editor state.
   onChange = (state) => {
     const stagingNode = getNodeById(state.document.nodes, 'staging');
-    if(!stagingNode) {
+    const stagingKeys = (stagingNode) ? addKeysForNode(stagingNode, []) : [];
+
+    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression')
+    const progressionKeys = (progressionNode)? addKeysForNode(progressionNode, []) : [];
+
+    if (stagingNode && stagingKeys.includes(state.selection.startKey)) {
+      this.handleStructuredFieldEntered('staging')
+    } else if (progressionNode && progressionKeys.includes(state.selection.startKey))  {
+      this.handleStructuredFieldEntered('progression')
+    } else { 
       this.handleStructuredFieldExited(null)
-      this.setState({ state })
-    } else {
-     const stagingKeys = addKeysForNode(stagingNode, []);
-     (stagingKeys.includes(state.selection.startKey)) ?  this.handleStructuredFieldEntered('staging') : this.handleStructuredFieldExited('staging');
-     this.setState({ state })
     }
+    this.setState({ state })
   }
 
   handleStagingTUpdate = (newVal) => {
@@ -271,19 +279,21 @@ class MyEditor extends React.Component {
     this.props.onStructuredFieldExited(currentFocus);
   }
   
+  /*
+   * Handle when we make a new selection
+   */
   handleSelectionChange = (selectedText) => {
-	this.props.onSelectionChange(selectedText);
+	  this.props.onSelectionChange(selectedText);
   }
 
   /*
    * Handle updates to the current progression status
    */
   handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
-    let newProgression = this.state.progression;
-    newProgression['status'] = newStatusValue;
-
-    if (newStatusValue.toLowerCase() === "stable" || newStatusValue.toLowerCase() === "progressing") { 
-
+    if (progressionLookup.isValidStatus(newStatusValue)) { 
+      console.log('is valid')
+      const newProgression = {...this.state.progression};
+      newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
       const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
 
@@ -294,8 +304,7 @@ class MyEditor extends React.Component {
 
       this.props.onProgressionUpdate(newProgression);
     } else { 
-      console.log('doesnt contain status');
-      console.log(newProgression.status.split(', '))
+      console.log('doesnt contain valid status');
     }
   }
 
@@ -303,11 +312,8 @@ class MyEditor extends React.Component {
    * Handle updates to the current progression reasons 
    */
   handleProgressionReasonUpdate = (newProgressionReasons, currentNode) => {
-    // Find what new values have been added, 
-    // validate, and determine if we should proceed.
-
-    // copy old progression and add on 
-    let newProgression = this.state.progression;
+    // Avoid deep copy
+    let newProgression = {...this.state.progression};
     const oldProgressionReasons = new Set(this.state.progression['reason']);
     const newProgressionReasonsSet = new Set(newProgressionReasons);
 
@@ -318,7 +324,6 @@ class MyEditor extends React.Component {
       this.setState({
         progression: newProgression, 
       });
-
       console.log(newProgressionReasons);
       console.log('contains valid value');
       this.props.onProgressionUpdate(newProgression);
@@ -328,6 +333,9 @@ class MyEditor extends React.Component {
     }
   }
 
+  /*
+   * Handle the completion of updates to progression
+   */
   handleProgressionFinish = (state) => { 
     const progressionNode = getNodeById(this.state.state.document.nodes, 'progression')
 
@@ -336,24 +344,18 @@ class MyEditor extends React.Component {
     })
   }
 
+  /*
+   * Handle updates to the current progression reasons 
+   */
   validateProgressionReasons = (possibleReasons) => { 
-    const validReasons = ['physical exam', 'imaging', 'pathology', 'symptoms', 'markers'];
-    return possibleReasons.filter(x => validReasons.includes(x));
+    return possibleReasons.filter(x => progressionLookup.isValidReason(x));
   }
 
   handleNewProgression = (newProgression) => {
     this.setState({
       progression: newProgression
     });
-
-    if (newProgression.status === "stable" || newProgression.status === "progressing") { 
-      this.props.onNewProgression(newProgression);
-      return true;
-    } else if (newProgression.reason.length > 0 && this.validateProgressionReasons(newProgression.reason.split(', ')).length > 0){
-      this.props.onNewProgression(newProgression);
-    } else { 
-      return false;
-    }
+    this.props.onNewProgression(newProgression);
   }
   /**
    * Check if the current selection has a mark with `type` in it.
@@ -858,14 +860,14 @@ class MyEditor extends React.Component {
         }          
         // If both of these nodes are new, make a new progression value 
         if (! (prevProgressionStatusNode || prevProgressionReasonNode)) {
+          console.log('first prog')
           this.handleNewProgression({
             id: Date.now(),
             status: "",
             reason: [],
-            startDate: moment(new Date()),
-            endDate: moment('2012-02-11')
+            startDate: moment(new Date())
           });
-        } else { 
+        } else {
           // If these nodes are old, update progression value if applicable
           if (prevProgressionStatusNode.text !== curProgressionStatusNode.text) {
             // Handle progression status update and pass off next node
@@ -943,9 +945,20 @@ class MyEditor extends React.Component {
         }
       }
     } else if (progressionNode) {  
-      for(const parentNode of this.state.state.document.nodes) {
-        
-      } 
+      // for(const parentNode of this.state.state.document.nodes) {
+      //   console.log(nextProps.progression.)
+      //   const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
+      //   const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
+      //   if (progressionStatusNode && nextProps.progression.status !== "" && (this.state.progression.status !== nextProps.progression.status)) { 
+      //     const currentState = this.state.state;
+      //     const state = currentState
+      //         .transform()
+      //         .moveToRangeOf(progressionStatusNode)
+      //         .insertText(nextProps.progression.status)
+      //         .apply();
+      //   this.setState({ state: state, progression: nextProps.progression})
+      //   }
+      // } 
     }
   }
 

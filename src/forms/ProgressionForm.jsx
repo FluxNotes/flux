@@ -71,16 +71,6 @@ class ProgressionForm extends Component {
         console.log('Odd: the element should be in our current reasons');
       }
     }
-    // const newReason = this.state.reasonOptions[i].name; 
-    // console.log(`ProgressionForm.handleReasonSelection Reason #${i} ${this.state.reasonOptions[i].name}`);
-    // const newProgression = this.props.progression; 
-    // newProgression["reason"].findIndex(e.)
-
-    // if(elemIndex !== -1) {
-
-
-    // }
-    // this.props.onProgressionUpdate(newProgression);
   }
 
   renderStatusMenuItem = (status) => { 
