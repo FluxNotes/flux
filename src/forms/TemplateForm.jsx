@@ -1,7 +1,6 @@
 // React imports
 import React, { Component } from 'react';
 // material-ui
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 // Styling
@@ -11,7 +10,7 @@ class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
-		if (this.props.patient == null) {
+		if (!this.props.patient) {
 			this.state = {
 			  heading : "Data Items",
 			  templates: ['progression', 'toxicity'],
@@ -28,7 +27,7 @@ class TemplateForm extends Component {
 
   render() {
     return (
-        <Paper className="panel-content trio">
+       <div>
             <h1>{this.state.heading}</h1>
             <Divider className="divider"/>
             {this.state.templates.map((t, i) => {
@@ -41,7 +40,7 @@ class TemplateForm extends Component {
                     />
                 );
             })}
-        </Paper>
+        </div>
     );
   }
 

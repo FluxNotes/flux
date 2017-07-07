@@ -1,6 +1,6 @@
 // Import React and other libraries
 import React from 'react'
-import { Editor, Block, Raw, Text } from 'slate'
+import { Editor, Block, Raw, Text, Plain } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
@@ -18,7 +18,8 @@ const stagingState = Raw.deserialize(staging.block, { terse: true });
 const progression = structuredDataRaw.find((element, index, array) => element.label === 'progression')
 const progressionState = Raw.deserialize(progression.block, { terse: true });
 
-const initialState = Raw.deserialize({
+const initialState = Plain.deserialize('');
+/*const initialState = Raw.deserialize({
   nodes: [
     {
       kind: 'block',
@@ -41,7 +42,7 @@ const initialState = Raw.deserialize({
       ]
     }
   ]
-}, { terse: true })
+}, { terse: true })*/
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -81,6 +82,12 @@ class MyEditor extends React.Component {
   constructor(props) {
     super(props);
 
+	if (!this.props.patient) {
+		this.placeholder = "Create your data item here then copy and paste it into your EHR Notes entry area";
+	} else {
+		this.placeholder = "Enter your clinical note here identifying key data items using # shortcuts such as #progression or #toxicity...";
+	}
+	
     // Set the initial state when the app is first constructed.
     this.state = {
       // Autocomplete config
@@ -294,6 +301,7 @@ class MyEditor extends React.Component {
       const newProgression = {...this.props.progression};
       newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
+      console.log(nextNode)
       const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
 
       this.setState({
@@ -440,7 +448,7 @@ class MyEditor extends React.Component {
    * the states autocomplete buffer plus one for the dot that triggered it
    */   
   deleteCurrentAutocompleteText = (newStateTransform) => {
-      for(const char of this.state.autocompleteText) { 
+      for(let i = 0; i < this.state.autocompleteText.length; i++) { 
         newStateTransform.deleteBackward();
       }
       // Delete once more for period
@@ -505,10 +513,10 @@ class MyEditor extends React.Component {
 
   /** 
    * Deletes a number of characters corresponding to the number of chars in 
-   * the states shorthand buffer plus one for the dot that triggered it
+   * the states shorthand buffer plus one for the char that triggered it
    */   
   deleteCurrentShorthandText = (newStateTransform) => {
-    for(const char of this.state.shorthandText) { 
+    for(let i = 0; i < this.state.shorthandText.length; i++) { 
       newStateTransform.deleteBackward();
     }
     // Delete once more for period
@@ -868,11 +876,11 @@ class MyEditor extends React.Component {
           if (prevProgressionStatusNode.text !== curProgressionStatusNode.text) {
             // Handle progression status update and pass off next node
             this.handleProgressionStatusUpdate(curProgressionStatusNode.text, curProgressionReasonNode) 
+            return;
           } 
           if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
             console.log(curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1])
             if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
-
               this.handleProgressionFinish(prevState);
             }  else { 
               this.handleProgressionReasonUpdate(curProgressionReasonNode.text.split(', '), curProgressionReasonNode) 
@@ -950,6 +958,7 @@ class MyEditor extends React.Component {
               .transform()
               .moveToRangeOf(progressionStatusNode)
               .insertText(nextProps.progression.status)
+              .moveToRangeOf(progressionReasonNode)
               .apply();
           this.setState({ state: state, progression: nextProps.progression})
         } else if (progressionReasonNode && nextProps.progression.reason.length !== 0 && !this.arrayEquality(this.props.progression.reason, nextProps.progression.reason)) {  
@@ -967,6 +976,7 @@ class MyEditor extends React.Component {
               .transform()
               .moveToRangeOf(progressionReasonNode)
               .insertText(reasonText)
+              .collapseToEndOf(progressionReasonNode)
               .apply();
           this.setState({ state: state, progression: nextProps.progression})
         } 
@@ -1039,10 +1049,12 @@ class MyEditor extends React.Component {
 
           onMarkUpdate={this.handleMarkUpdate} 
           onBlockUpdate={this.handleBlockUpdate}
+          patient={this.props.patient}
         />
         {this.renderDropdown()}
         {this.renderShorthandDropdown()}
         <Editor
+		  placeholder={this.placeholder}
           schema={this.state.schema}
           state={this.state.state}
           onChange={this.onChange}

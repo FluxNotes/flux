@@ -86,7 +86,7 @@ class ProgressionForm extends Component {
 
   render() {
     return (
-        <Paper className="panel-content trio">
+        <div>
             <h1>Patient Progression</h1>
             <Divider className="divider" />
 
@@ -105,7 +105,7 @@ class ProgressionForm extends Component {
             {this.state.reasonOptions.map((reason, i) => { 
               return this.renderReasonCheckbox(reason, i)
             })}
-        </Paper>
+        </div>
     );
   }
 }

@@ -57,3 +57,11 @@
   margin: 10px 0;
   width: 100%;  
 }
+
+#copy-button a {
+    color: #ccc;
+}
+
+#copy-button a:hover {
+    color: black;
+}
