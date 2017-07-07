@@ -14,7 +14,6 @@ class DataSummaryTable extends Component {
             <table>
                 <tbody>
                 {this.props.items.map((item, i) => {
-
                     let rowClass = "";
                     let itemClass = "";
                     let itemText = "";
@@ -59,8 +58,18 @@ class DataSummaryTable extends Component {
                                 itemText = `Missing recent progression`;
                                 rowClass = "missing";
                             } else {
-                                rowClass = "captured";
-                                itemClass = "captured";
+                                if (item.name === "Progression Value" && item.value === "") { 
+                                    itemClass = "missing";
+                                    itemText = `Missing recent progression`;
+                                    rowClass = "missing";
+                                } else if (item.name === "Reasons" && item.value.length === 0)  { 
+                                    itemClass = "missing";
+                                    itemText = `Missing recent progression`;
+                                    rowClass = "missing";
+                                } else {
+                                    rowClass = "captured";
+                                    itemClass = "captured"; 
+                                }
                             }
                         } else {
                             rowClass = "captured";

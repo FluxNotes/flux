@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
+import ProgressionForm from './ProgressionForm';
 import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
 // material-ui
@@ -22,21 +23,28 @@ class FormTray extends Component {
 
             // When highlighting text in the notes section, change the panel content to display the data capture form
             if (this.props.selectedText != null) {
-
+                console.log(this.props);
                 panelContent = (
                     <DataCaptureForm
                         // Staging Form data
+                        // Update functions
                         onStagingTUpdate={this.props.onStagingTUpdate}
                         onStagingNUpdate={this.props.onStagingNUpdate}
                         onStagingMUpdate={this.props.onStagingMUpdate}
                         onStageUpdate={this.props.onStageUpdate}
-
+                        // Helper functions
                         calculateStage={this.props.calculateStage}
-
+                        // Properties
                         tumorSize={this.props.tumorSize}
                         nodeSize={this.props.nodeSize}
                         metastasis={this.props.metastasis}
                         stage={this.props.stage}
+                        
+                        // Progression data
+                        // Update functions
+                        onProgressionUpdate={this.props.onProgressionUpdate}
+                        // Properties
+                        progression={this.props.progression}
                     />
                 );
 
@@ -47,8 +55,7 @@ class FormTray extends Component {
                     />
                 );
             }
-        } else {
-
+        } else if (this.props.withinStructuredField === "staging") {
             panelContent = (
                 <StagingForm
                     // Update functions
@@ -65,11 +72,20 @@ class FormTray extends Component {
                     stage={this.props.stage}
                 />
             );
+        } else if (this.props.withinStructuredField === "progression") { 
+            panelContent = (
+                <ProgressionForm
+                    // Update functions
+                    onProgressionUpdate={this.props.onProgressionUpdate}
+                    // Properties
+                    progression={this.props.progression}
+                />
+            );
         }
         return (
             <div id="forms-panel" className="dashboard-panel">
                 <Paper className="panel-content trio">
-                {panelContent}
+                    {panelContent}
                 </Paper>
             </div>
         )

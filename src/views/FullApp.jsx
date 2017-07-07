@@ -167,7 +167,7 @@ class FullApp extends Component {
                     endDate: moment('2017-06-01')
                 },
                 {
-                    name: "Aromaysin",
+                    name: "Aromasin",
                     dosage: "25mg once daily",
                     startDate: moment('2017-06-05'),
                     endDate: moment('2018-01-01')
@@ -223,7 +223,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Progressing Disease',
+                    status: 'Progressing Disease',
                     reason: [
                         "imaging"
                     ],
@@ -231,7 +231,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Responding Disease',
+                    status: 'Responding Disease',
                     reason: [
                         "pathology"
                     ],
@@ -239,7 +239,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Stable',
+                    status: 'Stable',
                     reason: [
                         "pathology",
                         "symptoms"
@@ -248,7 +248,7 @@ class FullApp extends Component {
                 },
                 {
                     id: Math.floor(Math.random() * Date.now()),
-                    name: 'Stable',
+                    status: 'Stable',
                     reason: [
                         "physical exam",
                         "symptoms"
@@ -268,13 +268,6 @@ class FullApp extends Component {
             ]
         };
 
-        this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-        this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-        this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-        this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
-        this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-        this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
-		this.handleSelectionChange = this.handleSelectionChange.bind(this);
     }
     /* 
      * Add a progression event to the current array of progression events
@@ -285,8 +278,7 @@ class FullApp extends Component {
             console.log(`in addProgressionEvent; this is a new event; adding to array`);
             const newProgression = this.state.progression;
             newProgression.push(progressionEvent);
-            console.log(newProgression)
-
+            newProgression.sort(this._timeSorter);
             this.setState({
                 progression: newProgression
             });
@@ -297,12 +289,12 @@ class FullApp extends Component {
     /* 
      * update a progression event if it's in the current array of progression events
      */ 
-    updateProgressionEvent = (progressionEvent) => { 
+    updateProgressionEvent = (id, progressionEvent) => { 
         // If we can find an event that shares the current id, update it
-        const oldEventIndex = this.state.progression.findIndex((event) => event.id === progressionEvent.id)
+        const oldEventIndex = this.state.progression.findIndex((event) => event.id === id)
         if (oldEventIndex !== -1) {
             console.log('in updateProgressionEvent; we found an equiv event; updating');
-            let newProgression = this.state.progression;
+            let newProgression = [...this.state.progression];
             newProgression[oldEventIndex] = progressionEvent;
             this.setState({
                 progression: newProgression
@@ -310,48 +302,48 @@ class FullApp extends Component {
         }
     }
 
-    handleStructuredFieldEntered(field) {
+    handleStructuredFieldEntered = (field) => {
         // console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
-    handleStructuredFieldExited(field) {
+    handleStructuredFieldExited = (field) => {
         // console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
     }
 	
-	handleSelectionChange(selectedText) {
+	handleSelectionChange = (selectedText) => {
 		//console.log("FullApp. selectedText: " + selectedText);
 		this.setState({
 			selectedText: selectedText
 		})
 	}
 
-    componentDidUpdate(a, b) {
+    componentDidUpdate = (a, b) => {
         // Nothing right now
     }
 
-    handleSummaryItemSelected(itemText) {
+    handleSummaryItemSelected = (itemText) =>{
         if (itemText) {
             this.setState({SummaryItemToInsert: itemText});
         }
     }
 
-  	handleStagingTUpdate(t) {
+  	handleStagingTUpdate = (t) => {
         console.log(`Updated: ${t}`);
         (t !== "") && this.setState({tumorSize: t});
   	}
 
-  	handleStagingNUpdate(n) {
+  	handleStagingNUpdate = (n) => {
         console.log(`Updated: ${n}`);
         (n !== "") && this.setState({nodeSize: n});
   	}
 
-  	handleStagingMUpdate(m) {
+  	handleStagingMUpdate = (m) => {
         console.log(`Updated: ${m}`);
         (m !== "") && this.setState({metastasis: m});
   	}
@@ -433,6 +425,7 @@ class FullApp extends Component {
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
                                     // Properties
+                                    progression={currentProgression[0]}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -449,7 +442,9 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
+                                    onProgressionUpdate={this.handleProgressionUpdate}
                                     // Properties
+                                    progression={currentProgression[0]}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

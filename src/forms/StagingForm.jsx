@@ -51,9 +51,10 @@ class StagingForm extends Component {
 
             <h4>Tumor Size</h4>
             {this.state.tumorSizes.map((t, i) => {
+                const buttonClass = (t.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={t.name} className="tooltip">
-                     <span id={t.name} className="tooltiptext">{t.description}</span>
+                     <span id={t.name} className={buttonClass}>{t.description}</span>
                       <RaisedButton
                           className="btn tumor-size"
                           key={i}
@@ -67,9 +68,10 @@ class StagingForm extends Component {
 
             <h4>Node</h4>
             {this.state.nodes.map((n, i) => {
+                const buttonClass = (n.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={n.name} className="tooltip">
-                     <span id={n.name} className="tooltiptext">{n.description}</span>
+                     <span id={n.name} className={buttonClass}>{n.description}</span>
                       <RaisedButton
                           className="btn node"
                           key={i}
@@ -83,9 +85,10 @@ class StagingForm extends Component {
 
             <h4>Metastasis</h4>
             {this.state.metastases.map((m, i) => {
+                const buttonClass = (m.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={m.name} className="tooltip">
-                   <span id={m.name} className="tooltiptext">{m.description}</span>
+                   <span id={m.name} className={buttonClass}>{m.description}</span>
                     <RaisedButton
                         className="btn metastasis"
                         key={i}

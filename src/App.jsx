@@ -4,6 +4,7 @@ import FullApp from './views/FullApp';
 import SlimApp from './views/SlimApp';
 
 class App extends Component {
+
   render() {
     return (
       <Router>

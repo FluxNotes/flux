@@ -3,14 +3,10 @@ import React from 'react'
 // Font awesome for icons
 import 'font-awesome/css/font-awesome.min.css';
 // material-ui
-import RaisedButton from 'material-ui/RaisedButton';
 // Styling
 import './EditorToolbar.css';
 
 class EditorToolbar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleMarkCheck = (type) => {
         return this.props.onMarkCheck(type);

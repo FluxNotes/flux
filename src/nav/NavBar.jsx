@@ -25,14 +25,14 @@ class NavBar extends Component {
     this.setState({
       open: false
     });
-    this.props.onStructuredFieldEntered("staging");
+    this.props.onStructuredFieldEntered("progression");
   }
 
   handleExitStaging() {
     this.setState({
       open: false
     });
-    this.props.onStructuredFieldExited("staging");
+    this.props.onStructuredFieldExited("progression");
   }
 
   render() {
