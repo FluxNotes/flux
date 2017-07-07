@@ -131,7 +131,8 @@ class ClinicalNotes extends Component {
             metastasis={this.props.metastasis}
             data={{patient: {name: 'Debra Hernandez672', age: '51', gender: 'female'}}}
             itemToBeInserted={this.props.itemToBeInserted}
-			patient={this.props.patient}
+            patient={this.props.patient}
+
           />
         </Paper>
       </div>
