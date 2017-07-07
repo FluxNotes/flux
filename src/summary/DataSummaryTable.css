@@ -50,4 +50,8 @@ td.captured {
     color: #333;
     background-color: #d9ebf9;
 }
-    
+
+span.button-hover {
+    cursor: pointer;
+}
+
