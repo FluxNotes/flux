@@ -75,7 +75,7 @@ class DataSummaryTable extends Component {
                         <tr key={i} className={rowClass}>
                             <td width="40%">{item.name}</td>
                             <td width="55%" className={itemClass}>{itemText}</td>
-                            <td width="5%" onClick={(e) => this.props.onItemClicked(itemText)}><i className="fa fa-plus-square fa-lg"></i></td>
+                            <td width="5%" onClick={(e) => this.props.onItemClicked(itemText)}><span className="button-hover"><i className="fa fa-plus-square fa-lg"></i></span></td>
                         </tr>
                     );
                 })}
