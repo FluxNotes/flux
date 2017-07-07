@@ -81,7 +81,7 @@ class MyEditor extends React.Component {
   constructor(props) {
     super(props);
 
-	if (this.props.patient == null) {
+	if (!this.props.patient) {
 		this.placeholder = "Create your data item here then copy and paste it into your EHR Notes entry area";
 	} else {
 		this.placeholder = "Enter your clinical note here identifying key data items using # shortcuts such as #progression or #toxicity...";
