@@ -327,9 +327,6 @@ class MyEditor extends React.Component {
     const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
     if (uniqueValidNewReasons.length > 0) { 
       newProgression['reason'] = newProgressionReasons;
-      this.setState({
-        progression: newProgression, 
-      });
       this.props.onProgressionUpdate(newProgression);
     } else { 
       console.log('doesnt contain reason');
@@ -356,9 +353,6 @@ class MyEditor extends React.Component {
   }
 
   handleNewProgression = (newProgression) => {
-    this.setState({
-      progression: newProgression
-    });
     this.props.onNewProgression(newProgression);
   }
   /**
@@ -883,6 +877,7 @@ class MyEditor extends React.Component {
             if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
               this.handleProgressionFinish(prevState);
             }  else { 
+              console.log(`updating progression based on update because ${prevProgressionReasonNode.text} doesn't equal ${curProgressionReasonNode.text}`)
               this.handleProgressionReasonUpdate(curProgressionReasonNode.text.split(', '), curProgressionReasonNode) 
             }
           }  
@@ -960,25 +955,31 @@ class MyEditor extends React.Component {
               .insertText(nextProps.progression.status)
               .moveToRangeOf(progressionReasonNode)
               .apply();
-          this.setState({ state: state, progression: nextProps.progression})
-        } else if (progressionReasonNode && nextProps.progression.reason.length !== 0 && !this.arrayEquality(this.props.progression.reason, nextProps.progression.reason)) {  
+          this.setState({ state: state})
+        } else if (progressionReasonNode && !this.arrayEquality(this.props.progression.reason, nextProps.progression.reason)) {  
+          if(this.props.progression.startDate.format() === "2017-05-16T00:00:00-04:00") {
+            return;
+          }
           // Process reason text into proper format
           let reasonText = "";
           const reasonLength = nextProps.progression.reason.length;
-          for (let i = 0; i < reasonLength - 1; i++) {
-             reasonText += nextProps.progression.reason[i];
-             reasonText += ', ';
-           } 
-          reasonText += nextProps.progression.reason[reasonLength - 1];
+          if (reasonLength > 0) { 
+            for (let i = 0; i < reasonLength - 1; i++) {
+               reasonText += nextProps.progression.reason[i];
+               reasonText += ', ';
+             } 
+            reasonText += nextProps.progression.reason[reasonLength - 1];
+          } else { 
+            reasonText = "__ "
+          }
           console.log(reasonText);
           const currentState = this.state.state;
           const state = currentState
               .transform()
               .moveToRangeOf(progressionReasonNode)
               .insertText(reasonText)
-              .collapseToEndOf(progressionReasonNode)
               .apply();
-          this.setState({ state: state, progression: nextProps.progression})
+          this.setState({ state: state})
         } 
       }
     }
@@ -1059,7 +1060,7 @@ class MyEditor extends React.Component {
           state={this.state.state}
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
-		  onSelectionChange={this.onSelectionChange}
+          onSelectionChange={this.onSelectionChange}
           plugins={this.plugins}
         />
       </div>

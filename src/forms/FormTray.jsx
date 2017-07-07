@@ -23,7 +23,7 @@ class FormTray extends Component {
 
             // When highlighting text in the notes section, change the panel content to display the data capture form
             if (this.props.selectedText != null) {
-
+                console.log(this.props);
                 panelContent = (
                     <DataCaptureForm
                         // Staging Form data
@@ -39,7 +39,7 @@ class FormTray extends Component {
                         nodeSize={this.props.nodeSize}
                         metastasis={this.props.metastasis}
                         stage={this.props.stage}
-
+                        
                         // Progression data
                         // Update functions
                         onProgressionUpdate={this.props.onProgressionUpdate}
