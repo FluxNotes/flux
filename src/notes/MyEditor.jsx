@@ -96,7 +96,6 @@ class MyEditor extends React.Component {
       currentShorthandMatch: null,
       shorthandOptions: Object.keys(this.props.data.patient).map((elem) => {const newObj = {}; newObj["label"] = elem; newObj["value"] = this.props.data.patient[elem]; return newObj}) ,
       // Tracking progression
-      progression: {},
       statusOptions: progressionLookup.getStatusOptions(),
       reasonOptions: progressionLookup.getReasonOptions(),
       // State of editor config
@@ -291,20 +290,19 @@ class MyEditor extends React.Component {
    */
   handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
     if (progressionLookup.isValidStatus(newStatusValue)) { 
-      console.log('is valid')
-      const newProgression = {...this.state.progression};
+      console.log(`is a valid progression status; updating with new value ${newStatusValue}`)
+      const newProgression = {...this.props.progression};
       newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
       const newStateSelection = stateTransform.moveToRangeOf(nextNode).apply();
 
       this.setState({
-        progression: newProgression,
         state: newStateSelection
       });
 
       this.props.onProgressionUpdate(newProgression);
     } else { 
-      console.log('doesnt contain valid status');
+      console.log(`trying to update with invalid status ${newStatusValue}`);
     }
   }
 
@@ -313,8 +311,8 @@ class MyEditor extends React.Component {
    */
   handleProgressionReasonUpdate = (newProgressionReasons, currentNode) => {
     // Avoid deep copy
-    let newProgression = {...this.state.progression};
-    const oldProgressionReasons = new Set(this.state.progression['reason']);
+    let newProgression = {...this.props.progression};
+    const oldProgressionReasons = new Set(this.props.progression['reason']);
     const newProgressionReasonsSet = new Set(newProgressionReasons);
 
     const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
@@ -324,8 +322,6 @@ class MyEditor extends React.Component {
       this.setState({
         progression: newProgression, 
       });
-      console.log(newProgressionReasons);
-      console.log('contains valid value');
       this.props.onProgressionUpdate(newProgression);
     } else { 
       console.log('doesnt contain reason');
@@ -945,20 +941,51 @@ class MyEditor extends React.Component {
         }
       }
     } else if (progressionNode) {  
-      // for(const parentNode of this.state.state.document.nodes) {
-      //   console.log(nextProps.progression.)
-      //   const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
-      //   const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
-      //   if (progressionStatusNode && nextProps.progression.status !== "" && (this.state.progression.status !== nextProps.progression.status)) { 
-      //     const currentState = this.state.state;
-      //     const state = currentState
-      //         .transform()
-      //         .moveToRangeOf(progressionStatusNode)
-      //         .insertText(nextProps.progression.status)
-      //         .apply();
-      //   this.setState({ state: state, progression: nextProps.progression})
-      //   }
-      // } 
+      for(const parentNode of this.state.state.document.nodes) {
+        const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
+        const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
+        if (progressionStatusNode && nextProps.progression.status !== ""  && (this.props.progression.status !== nextProps.progression.status)) { 
+          const currentState = this.state.state;
+          const state = currentState
+              .transform()
+              .moveToRangeOf(progressionStatusNode)
+              .insertText(nextProps.progression.status)
+              .apply();
+          this.setState({ state: state, progression: nextProps.progression})
+        } else if (progressionReasonNode && nextProps.progression.reason.length !== 0 && !this.arrayEquality(this.props.progression.reason, nextProps.progression.reason)) {  
+          // Process reason text into proper format
+          let reasonText = "";
+          const reasonLength = nextProps.progression.reason.length;
+          for (let i = 0; i < reasonLength - 1; i++) {
+             reasonText += nextProps.progression.reason[i];
+             reasonText += ', ';
+           } 
+          reasonText += nextProps.progression.reason[reasonLength - 1];
+          console.log(reasonText);
+          const currentState = this.state.state;
+          const state = currentState
+              .transform()
+              .moveToRangeOf(progressionReasonNode)
+              .insertText(reasonText)
+              .apply();
+          this.setState({ state: state, progression: nextProps.progression})
+        } 
+      }
+    }
+  }
+
+  /**
+   * Perform a rough equality check.
+   */
+  arrayEquality = (a1, a2) => { 
+    if (a1.length !== a2.length) {
+      return false;
+    } else { 
+      let isEqual = true;
+      for(const arrElement of a1) { 
+        isEqual = isEqual && a2.includes(arrElement);
+      }
+      return isEqual
     }
   }
 
