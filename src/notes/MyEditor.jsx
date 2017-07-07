@@ -991,6 +991,7 @@ class MyEditor extends React.Component {
 
           onMarkUpdate={this.handleMarkUpdate} 
           onBlockUpdate={this.handleBlockUpdate}
+          patient={this.props.patient}
         />
         {this.renderDropdown()}
         {this.renderShorthandDropdown()}
