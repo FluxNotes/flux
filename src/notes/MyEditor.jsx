@@ -1,6 +1,6 @@
 // Import React and other libraries
 import React from 'react'
-import { Editor, Block , Raw, Text } from 'slate'
+import { Editor, Block , Raw, Text, Plain } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
@@ -17,7 +17,8 @@ const stagingState = Raw.deserialize(staging.block, { terse: true });
 const progression = structuredDataRaw.find((element, index, array) => element.label === 'progression')
 const progressionState = Raw.deserialize(progression.block, { terse: true });
 
-const initialState = Raw.deserialize({
+const initialState = Plain.deserialize('');
+/*const initialState = Raw.deserialize({
   nodes: [
     {
       kind: 'block',
@@ -40,7 +41,7 @@ const initialState = Raw.deserialize({
       ]
     }
   ]
-}, { terse: true })
+}, { terse: true })*/
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -80,6 +81,12 @@ class MyEditor extends React.Component {
   constructor(props) {
     super(props);
 
+	if (!this.props.patient) {
+		this.placeholder = "Create your data item here then copy and paste it into your EHR Notes entry area";
+	} else {
+		this.placeholder = "Enter your clinical note here identifying key data items using # shortcuts such as #progression or #toxicity...";
+	}
+	
     // Set the initial state when the app is first constructed.
     this.state = {
       // Autocomplete config
@@ -996,6 +1003,7 @@ class MyEditor extends React.Component {
         {this.renderDropdown()}
         {this.renderShorthandDropdown()}
         <Editor
+		  placeholder={this.placeholder}
           schema={this.state.schema}
           state={this.state.state}
           onChange={this.onChange}

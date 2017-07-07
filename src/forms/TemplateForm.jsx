@@ -10,7 +10,7 @@ class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
-		if (this.props.patient == null) {
+		if (!this.props.patient) {
 			this.state = {
 			  heading : "Data Items",
 			  templates: ['progression', 'toxicity'],
