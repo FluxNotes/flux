@@ -11,12 +11,12 @@ class ShortcutViewer extends Component {
     render() {
         let string = "";
 
-        if (this.props.currentDataItem == null) {
+        if (this.props.currentShortcut == null) {
             string = "Choose a template from the left panel";
         }
         else {
-            if(this.props.currentDataItem.shortcut) {
-                string = this.props.currentDataItem.shortcut;
+            if(this.props.currentShortcut) {
+                string = this.props.currentShortcut.getAsString();
             }
         }
         return (
