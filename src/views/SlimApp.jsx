@@ -24,7 +24,9 @@ class SlimApp extends Component {
             SummaryItemToInsert: '',
             withinStructuredField: null,
             patient: null,
-            currentDataItem: null
+            currentDataItem: {
+                shortcut: "place holder string for shortcut"
+            }
         };
 
         this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
@@ -98,9 +100,9 @@ class SlimApp extends Component {
                                 />
                             </Col>
                             <Col sm={7}>
-                               <ShortcutViewer
-                                   currentDataItem={this.state.currentDataItem}
-                               />
+                                <ShortcutViewer
+                                    currentDataItem={this.state.currentDataItem}
+                                />
                             </Col>
                         </Row>
                     </Grid>

@@ -9,19 +9,21 @@ import './ShortcutViewer.css';
 class ShortcutViewer extends Component {
 
     render() {
+        let string = "";
 
         if (this.props.currentDataItem == null) {
-            console.log("current data item is null");
+            string = "Choose a template from the left panel";
         }
         else {
-            console.log("current data is not null");
-            console.log(this.props.currentDataItem);
+            if(this.props.currentDataItem.shortcut) {
+                string = this.props.currentDataItem.shortcut;
+            }
         }
         return (
             <div id="shortcut-viewer" className="dashboard-panel">
                 <Paper className="panel-content trio">
                     <div>
-                        This is where the shortcut preview goes
+                        {string}
                     </div>
                 </Paper>
             </div>
