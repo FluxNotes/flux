@@ -50,8 +50,8 @@ class SlimApp extends Component {
     }
 
     render() {
-        const curProgression = new Progression();
-        console.log(curProgression.getAsString());
+/*        const curProgression = new Progression();
+        console.log(curProgression.getAsString());*/
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
