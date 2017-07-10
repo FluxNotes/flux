@@ -70,7 +70,6 @@ class SlimApp extends Component {
                                 <ShortcutViewer
                                     currentShortcut={this.state.currentShortcut}
                                 />
-                                <button onClick={(e) => {this.changeShortcut("progression");}}>Test</button>
                             </Col>
                         </Row>
                     </Grid>
