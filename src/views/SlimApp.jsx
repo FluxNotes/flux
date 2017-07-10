@@ -7,7 +7,7 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import NavBar from '../nav/NavBar';
-import ClinicalNotes from '../notes/ClinicalNotes';
+import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormTray from '../forms/FormTray';
 
 import './SlimApp.css';
@@ -23,7 +23,8 @@ class SlimApp extends Component {
             metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
-            patient: null
+            patient: null,
+            currentDataItem: null
         };
 
         this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
@@ -58,20 +59,20 @@ class SlimApp extends Component {
         }
     }
 
-  	handleStagingTUpdate(t) {
+    handleStagingTUpdate(t) {
         console.log(`Updated: ${t}`);
         (t !== "") && this.setState({tumorSize: t});
-  	}
+    }
 
-  	handleStagingNUpdate(n) {
+    handleStagingNUpdate(n) {
         console.log(`Updated: ${n}`);
         (n !== "") && this.setState({nodeSize: n});
-  	}
+    }
 
-  	handleStagingMUpdate(m) {
+    handleStagingMUpdate(m) {
         console.log(`Updated: ${m}`);
         (m !== "") && this.setState({metastasis: m});
-  	}
+    }
 
     render() {
         return (
@@ -83,39 +84,23 @@ class SlimApp extends Component {
                     />
                     <Grid className="SlimApp-content" fluid>
                         <Row center="xs">
-                           <Col sm={4}>
-                              <FormTray
-                                   // Update functions
-                                   onStagingTUpdate={this.handleStagingTUpdate}
-                                   onStagingNUpdate={this.handleStagingNUpdate}
-                                   onStagingMUpdate={this.handleStagingMUpdate}
-                                   // Properties
-                                   tumorSize={this.state.tumorSize}
-                                   nodeSize={this.state.nodeSize}
-                                   metastasis={this.state.metastasis}
-                                   withinStructuredField={this.state.withinStructuredField}
-                              />
-                           </Col>
-                            <Col sm={7}>
-                                <ClinicalNotes
+                            <Col sm={4}>
+                                <FormTray
                                     // Update functions
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onHER2StatusChange={this.changeHER2Status}
-                                    onERStatusChange={this.changeERStatus}
-                                    onPRStatusChange={this.changePRStatus}
-                                    onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                                    onStructuredFieldExited={this.handleStructuredFieldExited}
                                     // Properties
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
-                                    HER2Status={this.state.HER2Status}
-                                    ERStatus={this.state.ERStatus}
-                                    PRStatus={this.state.PRStatus}
-                                    itemToBeInserted={this.state.SummaryItemToInsert}
+                                    withinStructuredField={this.state.withinStructuredField}
                                 />
+                            </Col>
+                            <Col sm={7}>
+                               <ShortcutViewer
+                                   currentDataItem={this.state.currentDataItem}
+                               />
                             </Col>
                         </Row>
                     </Grid>
