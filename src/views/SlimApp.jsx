@@ -29,30 +29,28 @@ class SlimApp extends Component {
 
     changeShortcut(shortcutType) {
         // console.log("structured field entered: " + field);
-        if (Lang.isNull(shortcutType)) {
+        if (Lang.isNull(shortcutType)) {   
             this.setState({
                 currentShortcut: null
             });
-        } else {
-            switch (shortcutType.toLowerCase()) {
-                case "progression":
+        } else { 
+            switch (shortcutType.toLowerCase()) { 
+                case "progression": 
                     this.setState({
                         currentShortcut: new Progression()
                     });
-                case "toxicity":
+                case "toxicity": 
                     this.setState({
                         currentShortcut: new Toxicity()
                     });
-                default:
+                default: 
                     console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
             }
         }
     }
 
     render() {
-
         const curProgression = new Progression();
-        console.log(curProgression.getAsString());
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
