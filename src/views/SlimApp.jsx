@@ -62,7 +62,10 @@ class SlimApp extends Component {
                               <FormTray />
                            </Col>
                             <Col sm={7}>
-                                <Paper style={{minWidth: "100%", minHeight: "100%", marginTop: "16px"}}/>
+                                <Paper style={{minWidth: "100%", minHeight: "100%", marginTop: "16px"}}> 
+                                    <button onClick={(e) => { curProgression.updateAttr("status", "Stable"); console.log(curProgression.getAsString()); }}>
+                                    </button>
+                                </Paper>
                             </Col>
                         </Row>
                     </Grid>
