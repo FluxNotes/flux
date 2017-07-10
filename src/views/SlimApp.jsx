@@ -5,9 +5,9 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Paper from 'material-ui/Paper';
 // Application components:
 import NavBar from '../nav/NavBar';
+import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormTray from '../forms/FormTray';
 // Shortcut Classes
 import Progression from '../../lib/progression_shortcut.js'
@@ -23,11 +23,13 @@ class SlimApp extends Component {
         super(props);
 
         this.state = {
-            shortcut: null
+            currentShortcut: null
         };
     }
 
     changeShortcut(shortcutType) {
+        console.log("shortcut type");
+        console.log(shortcutType);
         // console.log("structured field entered: " + field);
         if (Lang.isNull(shortcutType)) {   
             this.setState({
@@ -54,8 +56,7 @@ class SlimApp extends Component {
     }
 
     render() {
-/*        const curProgression = new Progression();
-        console.log(curProgression.getAsString());*/
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
@@ -66,10 +67,10 @@ class SlimApp extends Component {
                               <FormTray />
                            </Col>
                             <Col sm={7}>
-                                <Paper style={{minWidth: "100%", minHeight: "100%", marginTop: "16px"}}> 
-{/*                                    <button onClick={(e) => { curProgression.updateAttr("status", "Stable"); console.log(curProgression.getAsString()); }}>
-                                    </button>*/}
-                                </Paper>
+                                <ShortcutViewer
+                                    currentShortcut={this.state.currentShortcut}
+                                />
+                                <button onClick={(e) => {this.changeShortcut("progression");}}>Test</button>
                             </Col>
                         </Row>
                     </Grid>
