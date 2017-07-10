@@ -9,6 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import NavBar from '../nav/NavBar';
 import ClinicalNotes from '../notes/ClinicalNotes';
 import FormTray from '../forms/FormTray';
+import Progression from '../../lib/progression_shortcut.js'
 
 import './SlimApp.css';
 
@@ -25,13 +26,6 @@ class SlimApp extends Component {
             withinStructuredField: null,
             patient: null
         };
-
-        this.handleStagingTUpdate = this.handleStagingTUpdate.bind(this);
-        this.handleStagingNUpdate = this.handleStagingNUpdate.bind(this);
-        this.handleStagingMUpdate = this.handleStagingMUpdate.bind(this);
-        this.handleSummaryItemSelected = this.handleSummaryItemSelected.bind(this);
-        this.handleStructuredFieldEntered = this.handleStructuredFieldEntered.bind(this);
-        this.handleStructuredFieldExited = this.handleStructuredFieldExited.bind(this);
     }
 
     handleStructuredFieldEntered(field) {
@@ -48,32 +42,9 @@ class SlimApp extends Component {
         })
     }
 
-    componentDidUpdate(a, b) {
-        // Nothing right now
-    }
-
-    handleSummaryItemSelected(itemText) {
-        if (itemText) {
-            this.setState({SummaryItemToInsert: itemText});
-        }
-    }
-
-  	handleStagingTUpdate(t) {
-        console.log(`Updated: ${t}`);
-        (t !== "") && this.setState({tumorSize: t});
-  	}
-
-  	handleStagingNUpdate(n) {
-        console.log(`Updated: ${n}`);
-        (n !== "") && this.setState({nodeSize: n});
-  	}
-
-  	handleStagingMUpdate(m) {
-        console.log(`Updated: ${m}`);
-        (m !== "") && this.setState({metastasis: m});
-  	}
-
     render() {
+        const curProgression = new Progression();
+        console.log(curProgression.getShortcut());
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
@@ -83,39 +54,11 @@ class SlimApp extends Component {
                     />
                     <Grid className="SlimApp-content" fluid>
                         <Row center="xs">
-                           <Col sm={4}>
-                              <FormTray
-                                   // Update functions
-                                   onStagingTUpdate={this.handleStagingTUpdate}
-                                   onStagingNUpdate={this.handleStagingNUpdate}
-                                   onStagingMUpdate={this.handleStagingMUpdate}
-                                   // Properties
-                                   tumorSize={this.state.tumorSize}
-                                   nodeSize={this.state.nodeSize}
-                                   metastasis={this.state.metastasis}
-                                   withinStructuredField={this.state.withinStructuredField}
-                              />
+                           <Col sm={5}>
+                              <FormTray />
                            </Col>
                             <Col sm={7}>
-                                <ClinicalNotes
-                                    // Update functions
-                                    onStagingTUpdate={this.handleStagingTUpdate}
-                                    onStagingNUpdate={this.handleStagingNUpdate}
-                                    onStagingMUpdate={this.handleStagingMUpdate}
-                                    onHER2StatusChange={this.changeHER2Status}
-                                    onERStatusChange={this.changeERStatus}
-                                    onPRStatusChange={this.changePRStatus}
-                                    onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                                    onStructuredFieldExited={this.handleStructuredFieldExited}
-                                    // Properties
-                                    tumorSize={this.state.tumorSize}
-                                    nodeSize={this.state.nodeSize}
-                                    metastasis={this.state.metastasis}
-                                    HER2Status={this.state.HER2Status}
-                                    ERStatus={this.state.ERStatus}
-                                    PRStatus={this.state.PRStatus}
-                                    itemToBeInserted={this.state.SummaryItemToInsert}
-                                />
+                                <ClinicalNotes />
                             </Col>
                         </Row>
                     </Grid>

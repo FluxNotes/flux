@@ -1,7 +1,6 @@
 // React imports
 import React, { Component } from 'react';
 // material-ui
-import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
