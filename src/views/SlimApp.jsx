@@ -28,6 +28,8 @@ class SlimApp extends Component {
     }
 
     changeShortcut(shortcutType) {
+        console.log("shortcut type");
+        console.log(shortcutType);
         // console.log("structured field entered: " + field);
         if (Lang.isNull(shortcutType)) {   
             this.setState({
@@ -39,10 +41,14 @@ class SlimApp extends Component {
                     this.setState({
                         currentShortcut: new Progression()
                     });
+                    break;
+
                 case "toxicity": 
                     this.setState({
                         currentShortcut: new Toxicity()
                     });
+                    break;
+
                 default: 
                     console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
             }
@@ -50,7 +56,7 @@ class SlimApp extends Component {
     }
 
     render() {
-      
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
@@ -64,8 +70,7 @@ class SlimApp extends Component {
                                 <ShortcutViewer
                                     currentShortcut={this.state.currentShortcut}
                                 />
-                                <button onClick={(e) => {this.changeShortcut("progression"); }}>Test
-                                </button>
+                                <button onClick={(e) => {this.changeShortcut("progression");}}>Test</button>
                             </Col>
                         </Row>
                     </Grid>
