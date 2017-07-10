@@ -23,7 +23,7 @@ class SlimApp extends Component {
         super(props);
 
         this.state = {
-            shortcut: null
+            currentShortcut: null
         };
     }
 
