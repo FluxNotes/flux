@@ -39,10 +39,14 @@ class SlimApp extends Component {
                     this.setState({
                         currentShortcut: new Progression()
                     });
+                    break;
+
                 case "toxicity": 
                     this.setState({
                         currentShortcut: new Toxicity()
                     });
+                    break;
+
                 default: 
                     console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
             }
