@@ -91,7 +91,6 @@ class ProgressionForm extends Component {
 
             <h4>Progression Status</h4>
             <SelectField
-              floatingLabelText="Frequency"
               value={this.props.progression.status}
               onChange={this.handleStatusSelecion}
             >
