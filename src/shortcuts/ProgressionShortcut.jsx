@@ -18,9 +18,7 @@ class ProgressionShortcut extends Shortcut {
                     startDate: new Date()
                 });
 		}
-		this.state = {
-		  progression: progression,
-		};
+        this.progression = progression;
 		this.onUpdate = onUpdate;
 		this.handleProgressionUpdate = this.handleProgressionUpdate.bind(this);
         console.log(`constructor for a new Progression object`)
@@ -28,32 +26,32 @@ class ProgressionShortcut extends Shortcut {
     }
 	
     getAsString() { 
-        if(Lang.isNull(this.state.progression.status) || Lang.isUndefined(this.state.progression.status)) { 
+        if(Lang.isNull(this.progression.status) || Lang.isUndefined(this.progression.status)) { 
             // 1. No status -- this case we just want a hash 
             return `#progression`;
         } else { 
             let reasonString = ""; 
-			if (!Lang.isUndefined(this.state.progression.reason)) {
-				console.log(this.state.progression.reason);
-				const numReasons = this.state.progression.reason.length;
+			if (!Lang.isUndefined(this.progression.reason)) {
+				console.log(this.progression.reason);
+				const numReasons = this.progression.reason.length;
 				if (numReasons > 0) { 
 					reasonString = " based on ";
 					for (let i = 0; i < numReasons - 1; i++) { 
-						reasonString += this.state.progression.reason[i];
+						reasonString += this.progression.reason[i];
 						reasonString += `, `;
 					}
-					reasonString += this.state.progression.reason[numReasons - 1];
+					reasonString += this.progression.reason[numReasons - 1];
 				} 
 			}
             const today = new Date();
 			var dateString;
-			if (!Lang.isUndefined(this.state.progression.startDate)) {
-				dateString = (this.state.progression.startDate.getDate() === today.getDate()) ? `` : ` as of ${this.state.progression.startDate}`;
+			if (!Lang.isUndefined(this.progression.startDate)) {
+				dateString = (this.progression.startDate.getDate() === today.getDate()) ? `` : ` as of ${this.progression.startDate}`;
 			} else {
 				dateString = "";
 			}
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#progression[${this.state.progression.status}${reasonString}${dateString}]`;
+            return `#progression[${this.progression.status}${reasonString}${dateString}]`;
         }
     }
 	
@@ -63,7 +61,7 @@ class ProgressionShortcut extends Shortcut {
 				// Update functions
 				onProgressionUpdate={this.handleProgressionUpdate}
 				// Properties
-				progression={this.state.progression}
+				progression={this.progression}
 			/>
 		);		
 	}
@@ -71,13 +69,13 @@ class ProgressionShortcut extends Shortcut {
 	handleProgressionUpdate = (p) => { 
         console.log(`Updated progression:`);
         console.log(p);
-		this.state.progression.status = p.status;
-		this.state.progression.reason = p.reason;
-		this.state.progression.startDate = p.startDate;
+		this.progression.status = p.status;
+		this.progression.reason = p.reason;
+		this.progression.startDate = p.startDate;
 		this.onUpdate(this);
-		//console.log(this.state.progression);
+		//console.log(this.progression);
 
- /*if (p !== "" && this.state.progression.some(existingProgression => existingProgression.id === p.id)) {
+ /*if (p !== "" && this.progression.some(existingProgression => existingProgression.id === p.id)) {
             console.log("this is an updated event");
             this.updateProgressionEvent(p.id, p);
         } else if (p !== "") { 
