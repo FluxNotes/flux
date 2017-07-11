@@ -77,6 +77,7 @@ class SlimApp extends Component {
                         <Row center="xs">
                            <Col sm={5}>
                               <FormTray
+									shortcuts={['progression', 'toxicity']}
                                     currentShortcut={this.state.currentShortcut}
 									changeShortcut={this.changeShortcut}
                                 />

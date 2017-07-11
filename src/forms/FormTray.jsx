@@ -19,8 +19,6 @@ class FormTray extends Component {
 	constructor(props) {
         super(props);
 		
-		this.slimshortcuts = ['progression', 'toxicity'];
-		
 		this._newShortcut = this._newShortcut.bind(this);
 		this._insertTemplate = this._insertTemplate.bind(this);
 	}
@@ -34,7 +32,7 @@ class FormTray extends Component {
 					<TemplateForm
 						patient={this.props.patient}
 						heading="Shortcuts"
-						templates={this.slimshortcuts}
+						templates={this.props.shortcuts}
 						handleClick={this._newShortcut}
 					/>
 				);
@@ -122,7 +120,7 @@ class FormTray extends Component {
 	}
 	_newShortcut(i) {
 		console.log(`new shortcut ${i}`);
-		this.props.changeShortcut(this.slimshortcuts[i]);
+		this.props.changeShortcut(this.props.shortcuts[i]);
 	}
 }
 
