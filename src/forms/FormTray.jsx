@@ -7,6 +7,8 @@ import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
 // material-ui
 import Paper from 'material-ui/Paper';
+// Lodash component
+import Lang from 'lodash'
 // Styling
 import './FormTray.css';
 
@@ -22,10 +24,18 @@ class FormTray extends Component {
 		this._newShortcut = this._newShortcut.bind(this);
 		this._insertTemplate = this._insertTemplate.bind(this);
 	}
+
+	_insertTemplate(i) {
+		console.log(`Inserting template ${i}`);
+	}
+	_newShortcut(i) {
+		console.log(`new shortcut ${i}`);
+		this.props.changeShortcut(this.props.shortcuts[i]);
+	}
 	render() {
         let panelContent = null;
-		if (!this.props.patient) {
-			if (this.props.currentShortcut) {
+		if (Lang.isUndefined(this.props.patient)) {
+			if (!Lang.isNull(this.props.currentShortcut)) {
 				panelContent = this.props.currentShortcut.getForm();
 			} else {
 				panelContent = (
@@ -114,14 +124,6 @@ class FormTray extends Component {
             </div>
         )
     }
-	
-	_insertTemplate(i) {
-		console.log(`Inserting template ${i}`);
-	}
-	_newShortcut(i) {
-		console.log(`new shortcut ${i}`);
-		this.props.changeShortcut(this.props.shortcuts[i]);
-	}
 }
 
 export default FormTray;
