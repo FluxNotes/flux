@@ -1,7 +1,7 @@
 // React Imports:
-import React, {Component} from 'react';
+//import React, {Component} from 'react';
 import Shortcut from './Shortcut';
-import Lang from 'lodash'
+//import Lang from 'lodash'
 
 class ToxicityShortcut extends Shortcut {
     constructor(status="", reasons=[], observationDate=new Date()) {

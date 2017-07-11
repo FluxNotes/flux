@@ -3,7 +3,7 @@ import React from 'react';
 import Shortcut from './Shortcut';
 import ProgressionForm from '../forms/ProgressionForm';
 import Lang from 'lodash'
-import moment from 'moment';
+//import moment from 'moment';
 
 class ProgressionShortcut extends Shortcut {
     constructor(onUpdate, progression) {

@@ -111,9 +111,9 @@ class ProgressionForm extends Component {
 
 export default ProgressionForm;
 
-
+/*
 function titlecase(label) {
   return label.toLowerCase().split(' ').map(function(word) {
     return word.replace(word[0], word[0].toUpperCase());
   }).join(' ');
-}
+}*/
