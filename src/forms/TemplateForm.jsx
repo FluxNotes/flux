@@ -10,43 +10,31 @@ class TemplateForm extends Component {
   constructor(props) {
         super(props);
 
-		if (!this.props.patient) {
-			this.state = {
-			  heading : "Data Items",
-			  templates: ['progression', 'toxicity'],
-			};
-		} else {
-			this.state = {
-			  heading : "Available Templates",
-			  templates: ['op note', 'follow-up', 'consult note'],
-			};
-		}
-
-        this._insertTemplate = this._insertTemplate.bind(this);
+        this._handleClick = this._handleClick.bind(this);
   }
 
   render() {
     return (
        <div>
-            <h1>{this.state.heading}</h1>
+            <h1>{this.props.heading}</h1>
             <Divider className="divider"/>
-            {this.state.templates.map((t, i) => {
+            {this.props.templates.map((t, i) => {
                 return (
                     <RaisedButton
                         className="btn_template"
                         label={t}
                         key={i}
-                        onClick={(e) => this._insertTemplate(e, i)}
+                        onClick={(e) => this._handleClick(e, i)}
                     />
-                );
+                ); //this._insertTemplate(e, i)
             })}
         </div>
     );
   }
 
-  _insertTemplate(e, i) {
+  _handleClick(e, i) {
     e.preventDefault();
-    console.log(`Inserting template ${this.state.templates[i]}`);
+    this.props.handleClick(i);
   }
 
 }

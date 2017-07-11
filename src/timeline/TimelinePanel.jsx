@@ -260,6 +260,7 @@ class TimelinePanel extends Component {
       let classes = 'progression-item';
       let endDate = prog.endDate;
       let hoverText = '';
+	  let hoverTitle = '';
 
       if (prog.endDate) {
         hoverText = `${prog.startDate.format('MM/DD/YYYY')} ― ${prog.endDate.format('MM/DD/YYYY')}`;
@@ -268,12 +269,18 @@ class TimelinePanel extends Component {
         endDate = prog.startDate.add(1, 'day');
         classes += ' point-in-time';
       }
+	  
+	  if (prog.status) {
+		hoverTitle = prog.status;
+	  } else {
+		hoverTitle = prog.name;
+	  }
 
       items.push({
         group: assignedGroup,
         icon: 'heartbeat',
         className: classes,
-        hoverTitle: prog.status,
+        hoverTitle: hoverTitle,
         hoverText: hoverText,
         start_time: prog.startDate,
         end_time: endDate

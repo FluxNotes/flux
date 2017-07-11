@@ -23,7 +23,7 @@ class ProgressionForm extends Component {
   handleStatusSelecion = (e, i) => {
     e.preventDefault();
     const newStatus = this.state.statusOptions[i].name; 
-    console.log(`ProgressionForm.handleStatusSelecion Reason #${i} ${newStatus}`);
+    console.log(`ProgressionForm.handleStatusSelecion Status #${i} ${newStatus}`);
     const newProgression = { ...this.props.progression}; 
     newProgression["status"] = newStatus;
     this.props.onProgressionUpdate(newProgression);
@@ -111,9 +111,9 @@ class ProgressionForm extends Component {
 
 export default ProgressionForm;
 
-
+/*
 function titlecase(label) {
   return label.toLowerCase().split(' ').map(function(word) {
     return word.replace(word[0], word[0].toUpperCase());
   }).join(' ');
-}
+}*/
