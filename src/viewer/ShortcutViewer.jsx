@@ -33,8 +33,8 @@ class ShortcutViewer extends Component {
 
                         <RaisedButton
                             className="btn_viewer"
-                            label="Restart"
-                            onClick={(e) => this._handleClick(e)}
+                            label="Reset"
+                            onClick={(e) => this._handleResetClick(e)}
                         />
 
 
@@ -51,6 +51,11 @@ class ShortcutViewer extends Component {
         console.log("clicked a button")
     }
 
+    _handleResetClick(e) {
+        e.preventDefault
+        console.log("clicked reset button");
+        this.props.onShortcutUpdate(null);
+    }
 }
 
 export default ShortcutViewer;

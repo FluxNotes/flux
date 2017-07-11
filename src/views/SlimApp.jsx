@@ -67,6 +67,11 @@ class SlimApp extends Component {
 		});
 	}
 
+	handleShortcutUpdate = (s) =>{
+	    console.log(`Updated: ${s}`);
+        (s !== "") && this.setState({currentShortcut: s});
+    }
+
     render() {
 	
         return (
@@ -85,6 +90,7 @@ class SlimApp extends Component {
                             <Col sm={7}>
                                 <ShortcutViewer
                                     currentShortcut={this.state.currentShortcut}
+                                    onShortcutUpdate={this.handleShortcutUpdate}
                                 />
                             </Col>
                         </Row>
