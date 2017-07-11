@@ -10,8 +10,10 @@ import NavBar from '../nav/NavBar';
 import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormTray from '../forms/FormTray';
 // Shortcut Classes
-import Progression from '../../lib/progression_shortcut.js'
-import Toxicity from '../../lib/toxicity_shortcut.js'
+//import Progression from '../../lib/progression_shortcut.js'
+//import Toxicity from '../../lib/toxicity_shortcut.js'
+import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
+import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
 // Lodash component
 import Lang from 'lodash'
 
@@ -25,8 +27,11 @@ class SlimApp extends Component {
         this.state = {
             currentShortcut: null
         };
+		
+		this.changeShortcut = this.changeShortcut.bind(this);
+		this.handleUpdate = this.handleUpdate.bind(this);
     }
-
+	
     changeShortcut(shortcutType) {
         console.log("shortcut type");
         console.log(shortcutType);
@@ -39,13 +44,13 @@ class SlimApp extends Component {
             switch (shortcutType.toLowerCase()) { 
                 case "progression": 
                     this.setState({
-                        currentShortcut: new Progression()
+                        currentShortcut: new ProgressionShortcut(this.handleUpdate)
                     });
                     break;
 
                 case "toxicity": 
                     this.setState({
-                        currentShortcut: new Toxicity()
+                        currentShortcut: new ToxicityShortcut(this.handleUpdate)
                     });
                     break;
 
@@ -54,9 +59,15 @@ class SlimApp extends Component {
             }
         }
     }
+	
+	handleUpdate(shortcut) {
+		this.setState({
+			currentShortcut: shortcut
+		});
+	}
 
     render() {
-
+	
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
@@ -64,7 +75,10 @@ class SlimApp extends Component {
                     <Grid className="SlimApp-content" fluid>
                         <Row center="xs">
                            <Col sm={5}>
-                              <FormTray />
+                              <FormTray
+                                    currentShortcut={this.state.currentShortcut}
+									changeShortcut={this.changeShortcut}
+                                />
                            </Col>
                             <Col sm={7}>
                                 <ShortcutViewer
