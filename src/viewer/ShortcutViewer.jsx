@@ -24,19 +24,19 @@ class ShortcutViewer extends Component {
         return (
             <div id="shortcut-viewer" className="dashboard-panel">
                 <Paper className="panel-content trio">
-                    <div id="viewer-buttons">
+
                         <RaisedButton
-                            className="btn_template"
+                            className="btn_viewer"
                             label="Copy"
                             onClick={(e) => this._handleClick(e)}
                         />
 
                         <RaisedButton
-                            className="btn_template"
+                            className="btn_viewer"
                             label="Restart"
                             onClick={(e) => this._handleClick(e)}
                         />
-                    </div>
+
 
                     <Divider className="divider"/>
                     <div>
