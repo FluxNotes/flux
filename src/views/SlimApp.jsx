@@ -61,6 +61,7 @@ class SlimApp extends Component {
     }
 	
 	handleUpdate(shortcut) {
+		// force UI to refresh
 		this.setState({
 			currentShortcut: shortcut
 		});

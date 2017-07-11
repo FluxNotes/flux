@@ -6,6 +6,8 @@ import Lang from 'lodash'
 //import moment from 'moment';
 
 class ProgressionShortcut extends Shortcut {
+	// onUpdate is passed from React components that need to be notified when the progression value(s) change
+	// progression is optional and specifies an existing progression value being edited. Not used in no-patient mode
     constructor(onUpdate, progression) {
         super();
 		if (typeof progression === 'undefined') { 

@@ -1,5 +1,5 @@
 // React Imports:
-//import React, {Component} from 'react';
+import React from 'react';
 
 class Shortcut {
     constructor() {
@@ -9,11 +9,11 @@ class Shortcut {
     }
 
     getAsString () { 
-        return "Shortcut goes here"; 
+        return "#null"; 
     }
 
     getForm () { 
-        return null;
+        return (<h2>No additional values for current shortcut</h2>);
     }
 }
 
