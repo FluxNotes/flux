@@ -8,12 +8,6 @@ class Shortcut {
         }
     }
 
-    updateAttr (name, value) {
-        if(name !== undefined && value !== undefined) {
-            this[name] = value; 
-        }
-    }
-
     getAsString () { 
         return "Shortcut goes here"; 
     }
