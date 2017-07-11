@@ -52,7 +52,7 @@ class ShortcutViewer extends Component {
     }
 
     _handleResetClick(e) {
-        e.preventDefault
+        e.preventDefault();
         this.props.onShortcutUpdate(null);
     }
 }
