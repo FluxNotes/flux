@@ -48,12 +48,11 @@ class ShortcutViewer extends Component {
     }
 
     _handleClick(e) {
-        console.log("clicked a button")
+        console.log("clicked copy button")
     }
 
     _handleResetClick(e) {
         e.preventDefault
-        console.log("clicked reset button");
         this.props.onShortcutUpdate(null);
     }
 }
