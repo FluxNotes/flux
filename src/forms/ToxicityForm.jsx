@@ -95,7 +95,7 @@ class ToxicityForm extends Component {
    */
   handleGradeSelecion = (e, i) => {
     e.preventDefault();
-    const newGrade = this.state.gradeOptions[i].name; 
+    const newGrade = this.state.gradeOptions[i].value; 
     console.log(`ToxicityForm.handleGradeSelecion Grade #${i} ${newGrade}`);
     let newToxicity;
     if(Lang.isNull(this.state.potentialToxicity)) { 
@@ -170,7 +170,6 @@ class ToxicityForm extends Component {
               filter={AutoComplete.fuzzyFilter}
               openOnFocus={true}
               fullWidth={true}
-
 
               searchText={this.state.searchText}
               onUpdateInput={this.handleUpdateAdverseEventInput}
