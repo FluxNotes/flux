@@ -1,5 +1,6 @@
 // React imports
 import React, {Component} from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 // material-ui
 import Paper from 'material-ui/Paper';
@@ -25,11 +26,13 @@ class ShortcutViewer extends Component {
             <div id="shortcut-viewer" className="dashboard-panel">
                 <Paper className="panel-content trio">
 
+					<CopyToClipboard text={string}>
                         <RaisedButton
                             className="btn_viewer"
                             label="Copy"
                             onClick={(e) => this._handleClick(e)}
                         />
+					</CopyToClipboard>
 
                         <RaisedButton
                             className="btn_viewer"
