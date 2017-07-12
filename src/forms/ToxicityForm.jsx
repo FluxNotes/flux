@@ -95,7 +95,7 @@ class ToxicityForm extends Component {
    */
   handleGradeSelecion = (e, i) => {
     e.preventDefault();
-    const newGrade = this.state.gradeOptions[i].value; 
+    const newGrade = this.state.gradeOptions[i].name; 
     console.log(`ToxicityForm.handleGradeSelecion Grade #${i} ${newGrade}`);
     let newToxicity;
     if(Lang.isNull(this.state.potentialToxicity)) { 
@@ -147,6 +147,7 @@ class ToxicityForm extends Component {
 
   render() {
     const potentialToxicity = (Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity);
+    console.log(potentialToxicity.grade);
     return (
         <div>
             <h1>Patient Toxicity</h1>
