@@ -3,6 +3,15 @@
     margin-bottom: 0px;
  }
 */
+
+#bottom-buttons{ 
+
+}
+
+.toxicity-button {
+    margin-left: 5px;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;

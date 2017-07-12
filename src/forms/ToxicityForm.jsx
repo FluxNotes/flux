@@ -5,8 +5,11 @@ import Divider from 'material-ui/Divider';
 import SelectField from 'material-ui/SelectField';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
 import toxicityLookup from '../../lib/toxicity_lookup';
+// Import Lodash libraries
+import Lang from 'lodash'
 // Styling
 import './ToxicityForm.css';
 
@@ -21,19 +24,91 @@ class ToxicityForm extends Component {
           text: 'name',
           value: 'name',
         },
-        searchText: ''
+        searchText: '',
+        potentialToxicity: null
       };
   }
 
+  /* 
+   * Update potential toxicity value
+   */
+  updatePotentialToxicity = (newToxicity) => { 
+    this.setState({ 
+      potentialToxicity: newToxicity
+    })
+  }
+
+  /* 
+   * Reset potential toxicity 
+   */
+  resetPotentialToxicity = () => { 
+    this.setState({
+      potentialToxicity: null,
+      searchText: ""
+    })
+  }
+
+  /* 
+   * Add potential toxicity to parent's list of toxicities 
+   */
+  addToxicity = () => {
+    const oldToxicities = Lang.clone(this.props.toxicity);
+    // Only add potentialToxicity if value is non-null
+    if(!Lang.isNull(this.state.potentialToxicity)) { 
+      oldToxicities.push(this.state.potentialToxicity)
+      this.props.onToxicityUpdate(oldToxicities);
+      this.resetPotentialToxicity();
+    } 
+  }
+
+  /* 
+   * Remove most recent tox from parent's list of toxicities 
+   */
+  removeToxicity = () => {
+    const oldToxicities = Lang.clone(this.props.toxicity);
+    // Only remove last value if oldToxicities is non-empty
+    if(!Lang.isEmpty(oldToxicities)) {
+      oldToxicities.pop()
+      this.props.onToxicityUpdate(oldToxicities);
+    } 
+  }
+
+  /* 
+   * When a valid grade is selected, update potential toxicity 
+   */
   handleGradeSelecion = (e, i) => {
     e.preventDefault();
     const newGrade = this.state.gradeOptions[i].name; 
     console.log(`ToxicityForm.handleGradeSelecion Grade #${i} ${newGrade}`);
-    const newToxicity = { ...this.props.toxicity}; 
+    let newToxicity;
+    if(Lang.isNull(this.state.potentialToxicity)) { 
+      newToxicity = {};
+    } else { 
+      newToxicity = { ...this.state.potentialToxicity}; 
+    }
     newToxicity["grade"] = newGrade;
-    this.props.onToxicityUpdate(newToxicity);
+    this.updatePotentialToxicity(newToxicity);
   }
 
+  /* 
+   * When a valid adverse event is selected, update potential toxicity 
+   */
+  handleAdverseEventSelection = (newAdverseEvent) => {
+    console.log(`ToxicityForm.handleAdverseEventSelecion AdverseEvent ${newAdverseEvent}`);
+    let newToxicity 
+    if(Lang.isNull(this.state.potentialToxicity)) { 
+      newToxicity = {};
+    } else { 
+      newToxicity = { ...this.state.potentialToxicity}; 
+    }
+    newToxicity["adverseEvent"] = newAdverseEvent;
+    this.updatePotentialToxicity(newToxicity);
+  }
+
+  /* 
+   * When new text is available for AE selection, update search text 
+   *  and also update potential toxicity when valid
+   */
   handleUpdateAdverseEventInput = (searchText) => {
     this.setState({
       searchText: searchText,
@@ -41,13 +116,6 @@ class ToxicityForm extends Component {
     if(toxicityLookup.isValidAdverseEvent(searchText)) { 
       this.handleAdverseEventSelection(searchText)
     }
-  }
-
-  handleAdverseEventSelection = (newAdverseEvent) => {
-    console.log(`ToxicityForm.handleAdverseEventSelecion AdverseEvent ${newAdverseEvent}`);
-    const newToxicity = { ...this.props.toxicity}; 
-    newToxicity["adverseEvent"] = newAdverseEvent;
-    this.props.onToxicityUpdate(newToxicity);
   }
 
   renderGradeMenuItem = (grade) => { 
@@ -61,6 +129,7 @@ class ToxicityForm extends Component {
   }
 
   render() {
+    const potentialToxicity = (Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity);
     return (
         <div>
             <h1>Patient Toxicity</h1>
@@ -69,7 +138,7 @@ class ToxicityForm extends Component {
             <h4>Toxicity Grade</h4>
             <SelectField
               floatingLabelText="Grade"
-              value={this.props.toxicity.grade}
+              value={potentialToxicity.grade}
               onChange={this.handleGradeSelecion}
             >
               {this.state.gradeOptions.map((grade, i) => {
@@ -90,6 +159,18 @@ class ToxicityForm extends Component {
               dataSource={this.state.adverseEventOptions}
               dataSourceConfig={this.state.dataSourceConfig}
             />
+            <div id="bottom-buttons">
+              <RaisedButton
+                  className="toxicity-button"
+                  label="Add Current"
+                  onClick={(e) => this.addToxicity(e)}
+              />
+              <RaisedButton
+                  className="toxicity-button"
+                  label="Remove Recent"
+                  onClick={(e) => this.removeToxicity(e)}
+              />
+            </div> 
         </div>
     );
   }
