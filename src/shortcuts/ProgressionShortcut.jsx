@@ -34,6 +34,7 @@ class ProgressionShortcut extends Shortcut {
         } else { 
             statusString = `${curProgression.status}`
         }
+        return statusString;
     }
 
     /* 
@@ -42,7 +43,6 @@ class ProgressionShortcut extends Shortcut {
     getReasonString(curProgression) { 
         let reasonString = ""; 
         if (!Lang.isUndefined(curProgression.reason)) {
-            console.log(.reason);
             const numReasons = curProgression.reason.length;
             if (numReasons > 0) { 
                 reasonString = `based on `;
