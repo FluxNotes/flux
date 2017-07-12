@@ -1339,6 +1339,12 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
+copy-to-clipboard@^3:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.0.6.tgz#13c09bfea0408a5dc5bb987fee3b3986518c9d69"
+  dependencies:
+    toggle-selection "^1.0.3"
+
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -4398,6 +4404,13 @@ react-calendar-timeline@^0.14.0:
     interact.js "^1.2.6"
     react-pure-render "^1.0.2"
 
+react-copy-to-clipboard@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.0.tgz#23ccdd7c4d9ec2cc763839e2a55b1220aeb4f33d"
+  dependencies:
+    copy-to-clipboard "^3"
+    prop-types "^15.5.8"
+
 react-dev-utils@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.5.2.tgz#50d0b962d3a94b6c2e8f2011ed6468e4124bc410"
@@ -5252,6 +5265,10 @@ to-arraybuffer@^1.0.0:
 to-fast-properties@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+toggle-selection@^1.0.3:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.5.tgz#726c703de607193a73c32c7df49cd24950fc574f"
 
 toposort@^1.0.0:
   version "1.0.3"
