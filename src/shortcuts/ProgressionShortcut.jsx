@@ -22,40 +22,85 @@ class ProgressionShortcut extends Shortcut {
         this.onUpdate = onUpdate;
         this.handleProgressionUpdate = this.handleProgressionUpdate.bind(this);
         console.log(`constructor for a new Progression object`)
-        // more Progression-specific stuff here, maybe
+    }
+
+    /* 
+     * Translate progression status into a string 
+     */
+    getStatusString(curProgression) { 
+        let statusString = ``;
+        if (Lang.isNull(curProgression.status) || Lang.isUndefined(curProgression.status)) { 
+            statusString = `?`;
+        } else { 
+            statusString = `${curProgression.status}`
+        }
+        return statusString;
+    }
+
+    /* 
+     * Translate progression reasons into a string 
+     */
+    getReasonString(curProgression) { 
+        let reasonString = ""; 
+        if (!Lang.isUndefined(curProgression.reason)) {
+            const numReasons = curProgression.reason.length;
+            if (numReasons > 0) { 
+                reasonString = `based on `;
+                for (let i = 0; i < numReasons - 1; i++) { 
+                    reasonString += curProgression.reason[i];
+                    reasonString += `, `;
+                }
+                reasonString += curProgression.reason[numReasons - 1];
+            } 
+        }
+        return reasonString
+    }
+
+    /* 
+     * Translate progression date into a string 
+     */
+    getDateString(curProgression) { 
+        const today = new Date();
+        let dateString;
+        if (!Lang.isUndefined(curProgression.startDate)) {
+            dateString = (curProgression.startDate.getDate() === today.getDate()) ? `` : `as of ${this.progression.startDate}`;
+        } else {
+            dateString = ``;
+        }
+        return dateString
     }
     
+    /* 
+     * Translate the current shortcut into a string
+     */
     getAsString() { 
         if(Lang.isNull(this.progression.status) || Lang.isUndefined(this.progression.status)) { 
-            // 1. No status -- this case we just want a hash 
-            return `#progression`;
+            // 1. No status -- this case we just want a hash
+            if(Lang.isEmpty(this.progression.reason)) { 
+                return `#progression`;
+            } else {    
+                // No status but reasons -- show what we can and provide blank for status 
+                const statusString = this.getStatusString(this.progression);
+                let reasonString   = this.getReasonString(this.progression);
+                if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
+                let dateString     = this.getDateString(this.progression);
+                if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
+                return `#progression[${statusString}${reasonString}${dateString}]`;
+            } 
         } else { 
-            const statusString = `${this.progression.status}`;
-            let reasonString = ""; 
-            if (!Lang.isUndefined(this.progression.reason)) {
-                console.log(this.progression.reason);
-                const numReasons = this.progression.reason.length;
-                if (numReasons > 0) { 
-                    reasonString = " based on ";
-                    for (let i = 0; i < numReasons - 1; i++) { 
-                        reasonString += this.progression.reason[i];
-                        reasonString += `, `;
-                    }
-                    reasonString += this.progression.reason[numReasons - 1];
-                } 
-            }
-            const today = new Date();
-            let dateString;
-            if (!Lang.isUndefined(this.progression.startDate)) {
-                dateString = (this.progression.startDate.getDate() === today.getDate()) ? `` : ` as of ${this.progression.startDate}`;
-            } else {
-                dateString = "";
-            }
+            const statusString = this.getStatusString(this.progression);
+            let reasonString   = this.getReasonString(this.progression);
+            if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
+            let dateString     = this.getDateString(this.progression);
+            if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
             return `#progression[${statusString}${reasonString}${dateString}]`;
         }
     }
     
+    /* 
+     * Return the form for progression
+     */
     getForm() {
         return (
             <ProgressionForm
