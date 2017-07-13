@@ -93,9 +93,9 @@ class ToxicityForm extends Component {
   /* 
    * When a valid grade is selected, update potential toxicity 
    */
-  handleGradeSelecion = (e, i) => {
+  handleGradeSelecion = (e, i, payload) => {
     e.preventDefault();
-    const newGrade = this.state.gradeOptions[i].name; 
+    const newGrade = payload; 
     console.log(`ToxicityForm.handleGradeSelecion Grade #${i} ${newGrade}`);
     let newToxicity;
     if(Lang.isNull(this.state.potentialToxicity)) { 
@@ -119,6 +119,11 @@ class ToxicityForm extends Component {
       newToxicity = { ...this.state.potentialToxicity}; 
     }
     newToxicity["adverseEvent"] = newAdverseEvent;
+    // Make sure grade is possible with given new tox
+    const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(newToxicity.grade, newAdverseEvent)) ? newToxicity.grade : null;
+    if(Lang.isNull(potentialGrade)) { 
+      delete newToxicity.grade;
+    }
     this.updatePotentialToxicity(newToxicity);
   }
 
@@ -135,33 +140,38 @@ class ToxicityForm extends Component {
     }
   }
 
-  renderGradeMenuItem = (grade) => { 
+  /* 
+   * Render the grade menu item for the given grade object, 
+   *  Update grade description if there is a current adverse event 
+   */
+  renderGradeMenuItem = (grade, adverseEventName) => { 
+    const currentGradeLevel = grade.name;
+    let gradeDescription = "";
+    if(Lang.isUndefined(adverseEventName)) { 
+      gradeDescription = grade.description;
+    } else { 
+      const currentAdverseEvent = Array.find(this.state.adverseEventOptions, {name: adverseEventName})
+      gradeDescription = currentAdverseEvent[currentGradeLevel];
+    }
+    const gradeText=`${currentGradeLevel} - ${gradeDescription}`
+
     return (
       <MenuItem 
         key={grade.name} 
         value={grade.name} 
-        primaryText={grade.name} 
+        primaryText={gradeText} 
       />
     ) 
   }
 
   render() {
-    const potentialToxicity = (Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity);
+    let potentialToxicity = (Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity);
+    const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent)) ? potentialToxicity.grade : null;
+    // TODO: 
     return (
         <div>
             <h1>Patient Toxicity</h1>
             <Divider className="divider" />
-
-            <h4>Toxicity Grade</h4>
-            <SelectField
-              floatingLabelText="Grade"
-              value={potentialToxicity.grade}
-              onChange={this.handleGradeSelecion}
-            >
-              {this.state.gradeOptions.map((grade, i) => {
-                  return this.renderGradeMenuItem(grade)
-              })}
-            </SelectField>
 
             <h4>Adverse Event</h4>
             <AutoComplete
@@ -171,13 +181,35 @@ class ToxicityForm extends Component {
               openOnFocus={true}
               fullWidth={true}
 
-
               searchText={this.state.searchText}
               onUpdateInput={this.handleUpdateAdverseEventInput}
 
               dataSource={this.state.adverseEventOptions}
               dataSourceConfig={this.state.dataSourceConfig}
             />
+
+            <h4>Toxicity Grade</h4>
+            <SelectField
+              floatingLabelText="Grade"
+              // Value should be potential grade, assuming it's valid
+              value={potentialGrade}
+              onChange={this.handleGradeSelecion}
+              fullWidth={true}
+            >
+              {this.state.gradeOptions.map((grade, i) => {
+                  if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
+                      return this.renderGradeMenuItem(grade)                      
+                  } else { 
+                      if (toxicityLookup.isValidGradeForAdverseEvent(grade.name, potentialToxicity.adverseEvent)) {
+                        return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
+                      } else {
+                        // return nothing -- don't render this as an option
+                        return null;
+                      }
+                  }
+              })}
+            </SelectField>
+
             <div id="bottom-buttons">
               <RaisedButton
                   className="toxicity-button"
@@ -195,13 +227,11 @@ class ToxicityForm extends Component {
             <h4>Current Toxicities</h4>
             <List>
               {this.props.toxicity.map((toxElem, i) => { 
-                console.log(toxElem)
                 return(
                     <ListItem 
                       primaryText={this.props.getToxAsString(toxElem)} 
                       key={i}
                       onTouchTap={ (e) => {
-                        console.log(toxElem)
                         this.changePotentialToxicity(toxElem)
                       }}/>
                   )

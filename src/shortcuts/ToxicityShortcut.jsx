@@ -28,7 +28,7 @@ class ToxicityShortcut extends Shortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        const gradeString = `Grade ${curToxicity.grade}`;
+        const gradeString = `${curToxicity.grade}`;
         return gradeString;
     }
 
