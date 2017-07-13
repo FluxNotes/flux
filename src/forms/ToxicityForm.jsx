@@ -118,8 +118,13 @@ class ToxicityForm extends Component {
     } else { 
       newToxicity = { ...this.state.potentialToxicity}; 
     }
-    newToxicity["adverseEvent"] = newAdverseEvent;
-    // Make sure grade is possible with given new tox
+    // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
+    if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)){ 
+      delete newToxicity.adverseEvent;
+    } else { 
+      newToxicity["adverseEvent"] = newAdverseEvent;
+      // Make sure grade is possible with given new tox
+    }
     const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(newToxicity.grade, newAdverseEvent)) ? newToxicity.grade : null;
     if(Lang.isNull(potentialGrade)) { 
       delete newToxicity.grade;
@@ -137,6 +142,8 @@ class ToxicityForm extends Component {
     });
     if(toxicityLookup.isValidAdverseEvent(searchText)) { 
       this.handleAdverseEventSelection(searchText)
+    } else if (!toxicityLookup.isValidAdverseEvent(searchText) && toxicityLookup.isValidAdverseEvent(this.state.potentialToxicity.adverseEvent)) { 
+      this.handleAdverseEventSelection(null)
     }
   }
 
@@ -165,9 +172,12 @@ class ToxicityForm extends Component {
   }
 
   render() {
-    let potentialToxicity = (Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity);
-    const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent)) ? potentialToxicity.grade : null;
-    // TODO: 
+    let potentialToxicity = Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity;
+    
+    const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
+    const cannotAddCurrent = Lang.isEmpty(potentialToxicity) || Lang.isUndefined(potentialToxicity.grade) || Lang.isUndefined(potentialToxicity.adverseEvent);
+    const cannotRemove = Lang.isEmpty(potentialToxicity) || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)
+
     return (
         <div>
             <h1>Patient Toxicity</h1>
@@ -214,12 +224,13 @@ class ToxicityForm extends Component {
               <RaisedButton
                   className="toxicity-button"
                   label="Add Current"
+                  disabled={cannotAddCurrent}
                   onClick={(e) => this.addToxicity(e)}
               />
               <RaisedButton
                   className="toxicity-button"
                   label="Remove Current"
-                  disabled={(Lang.isNull(this.state.potentialToxicity)) || (Array.findIndex(this.props.toxicity, this.state.potentialToxicity) === -1)}
+                  disabled={cannotRemove}
                   onClick={(e) => this.removeCurrentToxicity(e)}
               />
             </div>
