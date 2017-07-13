@@ -151,11 +151,12 @@ class ToxicityForm extends Component {
   }
 
   render() {
-    let potentialToxicity = Lang.isNull(this.state.potentialToxicity ? {} : this.state.potentialToxicity);
+    let potentialToxicity = Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity;
+    
     const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
-    const cannotAddCurrent = Lang.isEmpty(potentialToxicity) || Lang.isUndefined(potentialToxicity.grade) || Lang.isUndefined(potentialToxicity.status);
+    const cannotAddCurrent = Lang.isEmpty(potentialToxicity) || Lang.isUndefined(potentialToxicity.grade) || Lang.isUndefined(potentialToxicity.adverseEventOptions);
     const cannotRemove = Lang.isEmpty(potentialToxicity) || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)
-    // TODO: 
+
     return (
         <div>
             <h1>Patient Toxicity</h1>
