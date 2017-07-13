@@ -118,8 +118,13 @@ class ToxicityForm extends Component {
     } else { 
       newToxicity = { ...this.state.potentialToxicity}; 
     }
-    newToxicity["adverseEvent"] = newAdverseEvent;
-    // Make sure grade is possible with given new tox
+    // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
+    if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)){ 
+      delete newToxicity.adverseEvent;
+    } else { 
+      newToxicity["adverseEvent"] = newAdverseEvent;
+      // Make sure grade is possible with given new tox
+    }
     const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(newToxicity.grade, newAdverseEvent)) ? newToxicity.grade : null;
     if(Lang.isNull(potentialGrade)) { 
       delete newToxicity.grade;
@@ -137,6 +142,8 @@ class ToxicityForm extends Component {
     });
     if(toxicityLookup.isValidAdverseEvent(searchText)) { 
       this.handleAdverseEventSelection(searchText)
+    } else if (!toxicityLookup.isValidAdverseEvent(searchText) && toxicityLookup.isValidAdverseEvent(this.state.potentialToxicity.adverseEvent)) { 
+      this.handleAdverseEventSelection(null)
     }
   }
 
