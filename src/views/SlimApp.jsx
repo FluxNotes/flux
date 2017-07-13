@@ -33,8 +33,6 @@ class SlimApp extends Component {
     }
 	
     changeShortcut(shortcutType) {
-        console.log("shortcut type");
-        console.log(shortcutType);
         // console.log("structured field entered: " + field);
         if (Lang.isNull(shortcutType)) {   
             this.setState({
