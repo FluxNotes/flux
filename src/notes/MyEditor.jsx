@@ -215,7 +215,7 @@ class MyEditor extends React.Component {
       trigger: 'space',
       before: /(@AGE)/i,
       transform: (transform, e, data, matches) => {
-        const newTrans = transform.insertText(`${this.props.data.patient.age} year-old `);
+        const newTrans = transform.insertText(`${this.props.data.patient.age}`);
         return newTrans;
       }
     }),
