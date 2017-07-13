@@ -140,12 +140,26 @@ class ToxicityForm extends Component {
     }
   }
 
-  renderGradeMenuItem = (grade) => { 
+  /* 
+   * Render the grade menu item for the given grade object, 
+   *  Update grade description if there is a current adverse event 
+   */
+  renderGradeMenuItem = (grade, adverseEventName) => { 
+    const currentGradeLevel = grade.name;
+    let gradeDescription = "";
+    if(Lang.isUndefined(adverseEventName)) { 
+      gradeDescription = grade.description;
+    } else { 
+      const currentAdverseEvent = Array.find(this.state.adverseEventOptions, {name: adverseEventName})
+      gradeDescription = currentAdverseEvent[currentGradeLevel];
+    }
+    const gradeText=`${currentGradeLevel} - ${gradeDescription}`
+
     return (
       <MenuItem 
         key={grade.name} 
         value={grade.name} 
-        primaryText={grade.name} 
+        primaryText={gradeText} 
       />
     ) 
   }
@@ -183,13 +197,14 @@ class ToxicityForm extends Component {
               // Value should be potential grade, assuming it's valid
               value={potentialGrade}
               onChange={this.handleGradeSelecion}
+              fullWidth={true}
             >
               {this.state.gradeOptions.map((grade, i) => {
                   if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
                       return this.renderGradeMenuItem(grade)                      
                   } else { 
                       if (toxicityLookup.isValidGradeForAdverseEvent(grade.name, potentialToxicity.adverseEvent)) {
-                        return this.renderGradeMenuItem(grade);
+                        return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
                       } else {
                         // return nothing -- don't render this as an option
                         return null;
