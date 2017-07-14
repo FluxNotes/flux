@@ -58,9 +58,12 @@ class ToxicityForm extends Component {
     // Only add potentialToxicity if value is non-null
     if(!Lang.isNull(this.state.potentialToxicity)) {
       if (!Lang.isUndefined(this.state.potentialToxicity.grade) && !Lang.isUndefined(this.state.potentialToxicity.adverseEvent)) {
-        oldToxicities.push(Lang.clone(this.state.potentialToxicity))
-        this.props.onToxicityUpdate(oldToxicities);
-        this.resetPotentialToxicity();        
+        // Only add the element if it's a new Tox
+        if (Array.findIndex(oldToxicities, this.state.potentialToxicity) === -1) { 
+          oldToxicities.push(Lang.clone(this.state.potentialToxicity))
+          this.props.onToxicityUpdate(oldToxicities);
+          this.resetPotentialToxicity();        
+        }
       }
     } 
   }
@@ -173,11 +176,15 @@ class ToxicityForm extends Component {
 
   render() {
     let potentialToxicity = Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity;
-    
     const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
-    const cannotAddCurrent = Lang.isEmpty(potentialToxicity) || Lang.isUndefined(potentialToxicity.grade) || Lang.isUndefined(potentialToxicity.adverseEvent);
-    const cannotRemove = Lang.isEmpty(potentialToxicity) || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)
+    
+    const cannotAddCurrent = Lang.isEmpty(potentialToxicity)                                  // Cannot add if there is no elem
+                          || Lang.isUndefined(potentialToxicity.grade)                        // Cannot add if there's not a grade
+                          || Lang.isUndefined(potentialToxicity.adverseEvent)                 // Cannot add if there's not an adverse event
+                          || Array.findIndex(this.props.toxicity, potentialToxicity) !== -1;  // Cannot add if it's a duplicate
 
+    const cannotRemove = Lang.isEmpty(potentialToxicity)                                      // Cannot remove if there's nothing to remove
+                      || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)     // Cannot remove if it cannot be found 
     return (
         <div>
             <h1>Patient Toxicity</h1>
