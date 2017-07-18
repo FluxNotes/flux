@@ -35,7 +35,7 @@ class FullApp extends Component {
             withinStructuredField: null,
 			selectedText: null,
             // Current shortcutting: 
-            progressionShortcut: new ProgressionShortcut(this.handleUpdate, {
+            progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
                     status: 'Responding Disease',
                     reason: [
@@ -308,13 +308,13 @@ class FullApp extends Component {
             switch (shortcutType.toLowerCase()) { 
                 case "progression": 
                     this.setState({
-                        progressionShortcut: new ProgressionShortcut(this.handleUpdate)
+                        progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
                 case "toxicity": 
                     this.setState({
-                        progressionShortcut: new ToxicityShortcut(this.handleUpdate)
+                        progressionShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
@@ -510,8 +510,11 @@ class FullApp extends Component {
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
                                     onProgressionUpdate={this.handleProgressionUpdate}
+                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
+                                    changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
                                     progression={currentProgression[0]}
+                                    progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

@@ -54,8 +54,11 @@ class DataCaptureForm extends Component {
                 <ProgressionForm
                     // Update functions
                     onProgressionUpdate={this.props.onProgressionUpdate}
+                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
+                    changeProgressionShortcut={this.changeProgressionShortcut}
                     // Properties
                     progression={this.props.progression}
+                    progressionShortcut={this.state.progressionShortcut}
                 />
             );
         } else {

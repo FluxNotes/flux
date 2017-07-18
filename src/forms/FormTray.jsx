@@ -74,7 +74,7 @@ class FormTray extends Component {
                             // Update functions
                             onProgressionUpdate={this.props.onProgressionUpdate}
                             // Properties
-                            progression={this.props.progression}
+                            on={this.props.progression}
                         />
                     );
 
@@ -106,14 +106,7 @@ class FormTray extends Component {
                     />
                 );
             } else if (this.props.withinStructuredField === "progression") { 
-                panelContent = (
-                    <ProgressionForm
-                        // Update functions
-                        onProgressionUpdate={this.props.onProgressionUpdate}
-                        // Properties
-                        progression={this.props.progression}
-                    />
-                );
+                panelContent = this.props.progressionShortcut.getForm();
             }
         }
         return (
