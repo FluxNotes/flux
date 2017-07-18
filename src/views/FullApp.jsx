@@ -35,7 +35,14 @@ class FullApp extends Component {
             withinStructuredField: null,
 			selectedText: null,
             // Current shortcutting: 
-            progressionShortcut: null,
+            progressionShortcut: new ProgressionShortcut(this.handleUpdate, {
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Responding Disease',
+                    reason: [
+                        "physical exam"
+                    ],
+                    startDate: moment('2017-06-13')
+                }),
             // Patient data
             patient: {
                 photo: "./DebraHernandez672.jpg",
@@ -464,7 +471,6 @@ class FullApp extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    currentProgression={currentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}

@@ -28,20 +28,20 @@ class DataSummaryPanel extends Component {
         let currentProgressionArray = [];
 
         // If there is a progression shortcut to include 
-        const progShortcut = this.props.progressionShortcut
+        const progressionShortcut = this.props.progressionShortcut
         if (!Lang.isNull(this.props.progressionShortcut)) { 
             currentProgressionArray = [
                 {
                     name: "Progression Value",
-                    display: progShortcut.status,
-                    value: progShortcut.status,
-                    startDate: progShortcut.startDate
+                    display: progressionShortcut.progression.status,
+                    value: progressionShortcut.progression.status,
+                    startDate: progressionShortcut.progression.startDate
                 },
                 {
                     name: "Reasons",
-                    display: progShortcut.reason.join(", "),
-                    value: progShortcut.reason,
-                    startDate: progShortcut.startDate
+                    display: progressionShortcut.progression.reason.join(", "),
+                    value: progressionShortcut.progression.reason,
+                    startDate: progressionShortcut.progression.startDate
                 }
             ];
         } else { 
@@ -62,10 +62,10 @@ class DataSummaryPanel extends Component {
         }
 
         // Check if start date is longer than 6 months from today's date and set the progression header accordingly
-        if (Lang.isNull(this.props.progressionShortcut) || this.props.progressionShortcut.startDate < sixMonthsAgoDate) {
+        if (Lang.isNull(this.props.progressionShortcut) || this.props.progressionShortcut.progression.startDate < sixMonthsAgoDate) {
             progressionHeader = "Current Progression";
         } else {
-            progressionHeader = "Current Progression as of " + this.props.progressionShortcut.startDate.format('MM/DD/YYYY') + ":";
+            progressionHeader = "Current Progression as of " + this.props.progressionShortcut.progression.startDate.format('MM/DD/YYYY') + ":";
         }
         return (
             <div className="dashboard-panel">
