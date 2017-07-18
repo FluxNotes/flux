@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
-import ProgressionForm from './ProgressionForm';
 import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
 // material-ui

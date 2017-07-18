@@ -58,21 +58,33 @@ class ClinicalNotes extends Component {
   handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
-  
+
   handleSelectionChange = (selectedText) => {
     if (this.props.onSelectionChange != null) {
-		//console.log("ClinicalNotes selectedText=" + selectedText);
-		this.props.onSelectionChange(selectedText);
-	}
+      //console.log("ClinicalNotes selectedText=" + selectedText);
+      this.props.onSelectionChange(selectedText);
+    }
   }
 
+  
+  // Old progression updates
   handleProgressionUpdate = (newProgression) => {
     this.props.onProgressionUpdate(newProgression);
   }
-
   handleNewProgression = (newProgression) => {
     this.props.onNewProgression(newProgression);
   }
+  // 
+
+  // New Progression updates
+  handleProgressionShortcutUpdate = (newProgression) => {
+    this.props.onProgressionShortcutUpdate(newProgression);
+  }
+  hangeProgressionShortcut = (newProgression) => {
+    this.props.changeProgressionShortcut(newProgression);
+  }
+  //
+
 
   render() {
   
@@ -101,27 +113,33 @@ class ClinicalNotes extends Component {
               </Col>
             </Row>
   
-			<Divider className="divider" />
+      <Divider className="divider" />
           </div>
         );
     }
     return (
       <div id="clinical-notes" className="dashboard-panel">
         <Paper className="panel-content trio">
-		  {noteDescriptionContent}
+      {noteDescriptionContent}
 
           <MyEditor
             // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
-      			onSelectionChange={this.handleSelectionChange}
+            onSelectionChange={this.handleSelectionChange}
             onStagingTUpdate={this.handleStagingTUpdate}
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
             onSummaryUpdate={this.handleSummaryUpdate}
+            // Old
             onProgressionUpdate={this.handleProgressionUpdate}
             onNewProgression={this.handleNewProgression}
+            //
+            // New
+            onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
+            changeProgressionShortcut={this.changeProgressionShortcut}
+            //
 
             // Helper functions
             calculateStage={this.props.calculateStage}
