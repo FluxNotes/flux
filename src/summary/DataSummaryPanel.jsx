@@ -10,7 +10,8 @@ import DataSummaryTable from './DataSummaryTable';
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
-
+// Lodash component
+import Lang from 'lodash'
 //font awesome
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -20,33 +21,53 @@ import './DataSummaryPanel.css';
 class DataSummaryPanel extends Component {
 
     render() {
-
-        // Format the current progression entry for the data summary table component
-        const currentProgressionArray = [
-            {
-                name: "Progression Value",
-                value: this.props.currentProgression[0].status,
-                startDate: this.props.currentProgression[0].startDate
-            },
-            {
-                name: "Reasons",
-                value: this.props.currentProgression[0].reason,
-                startDate: this.props.currentProgression[0].startDate
-            }
-        ];
-
-        let progressionHeader = null;
+        let progressionHeader = "";
         const sixMonthsAgoDate = moment().subtract(6, 'months');
 
-        // Check if start date is longer than 6 months from today's date and set the progression header accordingly
-        if (this.props.currentProgression[0].startDate < sixMonthsAgoDate) {
-            progressionHeader = "Current Progression";
-        } else {
-            progressionHeader = "Current Progression as of " + this.props.currentProgression[0].startDate.format('MM/DD/YYYY') + ":";
+        // Format the current progression entry for the data summary table component
+        let currentProgressionArray = [];
+
+        // If there is a progression shortcut to include 
+        const progShortcut = this.props.progressionShortcut
+        if (!Lang.isNull(this.props.progressionShortcut)) { 
+            currentProgressionArray = [
+                {
+                    name: "Progression Value",
+                    display: progShortcut.status,
+                    value: progShortcut.status,
+                    startDate: progShortcut.startDate
+                },
+                {
+                    name: "Reasons",
+                    display: progShortcut.reason.join(", "),
+                    value: progShortcut.reason,
+                    startDate: progShortcut.startDate
+                }
+            ];
+        } else { 
+            currentProgressionArray = [
+                {
+                    name: "Progression Value",
+                    value: "",
+                    display: "", 
+                    startDate: "",
+                },
+                {
+                    name: "Reasons",
+                    value: [],
+                    display: "", 
+                    startDate: "",
+                }
+            ];
         }
 
+        // Check if start date is longer than 6 months from today's date and set the progression header accordingly
+        if (Lang.isNull(this.props.progressionShortcut) || this.props.progressionShortcut.startDate < sixMonthsAgoDate) {
+            progressionHeader = "Current Progression";
+        } else {
+            progressionHeader = "Current Progression as of " + this.props.progressionShortcut.startDate.format('MM/DD/YYYY') + ":";
+        }
         return (
-
             <div className="dashboard-panel">
                 <Paper className="panel-content trio">
                     <SummaryHeader

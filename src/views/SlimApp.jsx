@@ -10,8 +10,6 @@ import NavBar from '../nav/NavBar';
 import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormTray from '../forms/FormTray';
 // Shortcut Classes
-//import Progression from '../../lib/progression_shortcut.js'
-//import Toxicity from '../../lib/toxicity_shortcut.js'
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
 // Lodash component
@@ -27,12 +25,12 @@ class SlimApp extends Component {
         this.state = {
             currentShortcut: null
         };
-		
-		this.changeShortcut = this.changeShortcut.bind(this);
-		this.handleUpdate = this.handleUpdate.bind(this);
     }
 	
-    changeShortcut(shortcutType) {
+    /* 
+     * Change the current shortcut to be the new type of shortcut  
+     */
+    changeShortcut = (shortcutType) => {
         // console.log("structured field entered: " + field);
         if (Lang.isNull(shortcutType)) {   
             this.setState({
@@ -42,13 +40,13 @@ class SlimApp extends Component {
             switch (shortcutType.toLowerCase()) { 
                 case "progression": 
                     this.setState({
-                        currentShortcut: new ProgressionShortcut(this.handleUpdate)
+                        currentShortcut: new ProgressionShortcut(this.handleShortcutUpdate)
                     });
                     break;
 
                 case "toxicity": 
                     this.setState({
-                        currentShortcut: new ToxicityShortcut(this.handleUpdate)
+                        currentShortcut: new ToxicityShortcut(this.handleShortcutUpdate)
                     });
                     break;
 
@@ -58,13 +56,9 @@ class SlimApp extends Component {
         }
     }
 	
-	handleUpdate(shortcut) {
-		// force UI to refresh
-		this.setState({
-			currentShortcut: shortcut
-		});
-	}
-
+    /* 
+     * Change the current shortcut to be the new type of shortcut  
+     */
 	handleShortcutUpdate = (s) =>{
 	    console.log(`Updated: ${s}`);
         (s !== "") && this.setState({currentShortcut: s});
