@@ -68,8 +68,8 @@ class TimelinePanel extends Component {
     }
 
     // Define the bounds of the timeline
-    const defaultTimeStart = moment().add(-3, 'years');  // 3 years ago
-    const defaultTimeEnd = moment().add(3, 'months'); // 3 months from now
+    const defaultTimeStart = moment().clone().add(-3, 'years');  // 3 years ago
+    const defaultTimeEnd = moment().clone().add(3, 'months'); // 3 months from now
 
     this.state = {
         items: items,
@@ -123,38 +123,38 @@ class TimelinePanel extends Component {
     this.setState({'hoverItem': defaultHoverItemState});
   }
 
-  // componentWillReceiveProps = (nextProps) => {
-  //   if (this.props !== nextProps) {
-  //     // Create groups and items to display on the timeline
-  //     let items = [];
+  componentWillReceiveProps = (nextProps) => {
+    if (this.props !== nextProps) {
+      // Create groups and items to display on the timeline
+      let items = [];
 
-  //     // Medications come first
-  //     items = items.concat(this._createMedicationItems(this.props.medications));
+      // Medications come first
+      items = items.concat(this._createMedicationItems(nextProps.medications));
 
-  //     // Events
-  //     items = items.concat(this._createProcedureItems(this.props.procedures, this._getMaxGroup(items) + 1));
+      // Events
+      items = items.concat(this._createProcedureItems(nextProps.procedures, this._getMaxGroup(items) + 1));
 
-  //     // Progression
-  //     items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
+      // Progression
+      items = items.concat(this._createEventItems(nextProps.events, this._getMaxGroup(items) + 1));
 
-  //     // Create groups for the items
-  //     const groups = this._createGroupsForItems(this._getMaxGroup(items));
+      // Create groups for the items
+      const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
-  //     // Assign every item an ID and onClick handler
-  //     for (let i = 0; i < items.length; i++) {
-  //       const id = i + 1;
-  //       items[i]['id'] = id;
-  //       items[i]['itemProps'] = {
-  //         onMouseEnter: (e) => this._enterItemHover(e, id),
-  //         onMouseLeave: (e) => this._leaveItemHover(e)
-  //       };
-  //     }
-  //     this.setState({
-  //       items: items,
-  //       groups: groups
-  //     });
-  //   } 
-  // }
+      // Assign every item an ID and onClick handler
+      for (let i = 0; i < items.length; i++) {
+        const id = i + 1;
+        items[i]['id'] = id;
+        items[i]['itemProps'] = {
+          onMouseEnter: (e) => this._enterItemHover(e, id),
+          onMouseLeave: (e) => this._leaveItemHover(e)
+        };
+      }
+      this.setState({
+        items: items,
+        groups: groups
+      });
+    } 
+  }
 
   render() {
     return (
@@ -228,7 +228,7 @@ class TimelinePanel extends Component {
         hoverText = `${event.startDate.format('MM/DD/YYYY')} ― ${event.endDate.format('MM/DD/YYYY')}`;
       } else {
         hoverText = `${event.startDate.format('MM/DD/YYYY')}`;
-        endDate = event.startDate.add(1, 'day');
+        endDate = event.startDate.clone().add(1, 'day');
         classes += ' point-in-time';
       }
 
@@ -266,7 +266,7 @@ class TimelinePanel extends Component {
         hoverText = `${prog.startDate.format('MM/DD/YYYY')} ― ${prog.endDate.format('MM/DD/YYYY')}`;
       } else {
         hoverText = `${prog.startDate.format('MM/DD/YYYY')}`;
-        endDate = prog.startDate.add(1, 'day');
+        endDate = prog.startDate.clone().add(1, 'day');
         classes += ' point-in-time';
       }
 	  
