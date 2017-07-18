@@ -299,7 +299,6 @@ class FullApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     changeProgressionShortcut = (shortcutType) => {
-        // console.log("structured field entered: " + field);
         if (Lang.isNull(shortcutType)) {   
             this.setState({
                 progressionShortcut: null
@@ -427,7 +426,10 @@ class FullApp extends Component {
 
     handleNewProgression = (p) => { 
         console.log(`This is a new progression`);
-        (p !== "") && this.addProgressionEvent(p)
+        if (p !== "") {
+            this.addProgressionEvent(p)
+
+        }
     }
 
     render() {
@@ -494,7 +496,6 @@ class FullApp extends Component {
                                     onNewProgression={this.handleNewProgression}
                                     // 
                                     // New Prog
-                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
                                     changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
                                     progression={currentProgression[0]}
@@ -515,7 +516,6 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
                                     changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}

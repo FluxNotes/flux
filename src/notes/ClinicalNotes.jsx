@@ -80,7 +80,7 @@ class ClinicalNotes extends Component {
   handleProgressionShortcutUpdate = (newProgression) => {
     this.props.onProgressionShortcutUpdate(newProgression);
   }
-  hangeProgressionShortcut = (newProgression) => {
+  changeProgressionShortcut = (newProgression) => {
     this.props.changeProgressionShortcut(newProgression);
   }
   //
@@ -135,16 +135,17 @@ class ClinicalNotes extends Component {
             // Old
             onProgressionUpdate={this.handleProgressionUpdate}
             onNewProgression={this.handleNewProgression}
+            progression={this.props.progression}
             //
             // New
-            onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
             changeProgressionShortcut={this.changeProgressionShortcut}
+            progressionShortcut={this.props.progressionShortcut}
             //
 
             // Helper functions
             calculateStage={this.props.calculateStage}
             // Properties
-            progression={this.props.progression}
+
             tumorSize={this.props.tumorSize}
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}

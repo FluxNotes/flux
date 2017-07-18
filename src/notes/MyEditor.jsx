@@ -4,7 +4,6 @@ import { Editor, Block, Raw, Text, Plain } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
-import moment from 'moment';
 // Application Components:
 import EditorToolbar from './EditorToolbar';
 import progressionLookup from '../../lib/progression_lookup';
@@ -19,30 +18,6 @@ const progression = structuredDataRaw.find((element, index, array) => element.la
 const progressionState = Raw.deserialize(progression.block, { terse: true });
 
 const initialState = Plain.deserialize('');
-/*const initialState = Raw.deserialize({
-  nodes: [
-    {
-      kind: 'block',
-      type: 'paragraph-span',
-      nodes: [
-        {
-          kind: 'text',
-          text: 'Begin typing your clinical notes below.'
-        }
-      ]
-    },
-    {
-      kind: 'block',
-      type: 'paragraph-span',
-      nodes: [
-        {
-          kind: 'text',
-          text: 'Add a space at the end of this line to trigger a inline template: #staging'
-        }
-      ]
-    }
-  ]
-}, { terse: true })*/
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -298,7 +273,7 @@ class MyEditor extends React.Component {
   handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
     if (progressionLookup.isValidStatus(newStatusValue)) { 
       console.log(`is a valid progression status; updating with new value ${newStatusValue}`)
-      const newProgression = {...this.props.progression};
+      const newProgression = {...this.props.progressionShortcut.progression};
       newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
       console.log(nextNode)
@@ -308,7 +283,7 @@ class MyEditor extends React.Component {
         state: newStateSelection
       });
 
-      this.props.onProgressionUpdate(newProgression);
+      this.props.progressionShortcut.handleProgressionUpdate(newProgression);
     } else { 
       console.log(`trying to update with invalid status ${newStatusValue}`);
     }
@@ -319,15 +294,15 @@ class MyEditor extends React.Component {
    */
   handleProgressionReasonUpdate = (newProgressionReasons, currentNode) => {
     // Avoid deep copy
-    let newProgression = {...this.props.progression};
-    const oldProgressionReasons = new Set(this.props.progression['reason']);
+    let newProgression = {...this.props.progressionShortcut.progression};
+    const oldProgressionReasons = new Set(this.props.progressionShortcut.progression['reason']);
     const newProgressionReasonsSet = new Set(newProgressionReasons);
 
     const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
     const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
     if (uniqueValidNewReasons.length > 0) { 
       newProgression['reason'] = newProgressionReasons;
-      this.props.onProgressionUpdate(newProgression);
+      this.props.progressionShortcut.handleProgressionUpdate(newProgression);
     } else { 
       console.log('doesnt contain reason');
       console.log(newProgressionReasons);
@@ -859,12 +834,7 @@ class MyEditor extends React.Component {
         // If both of these nodes are new, make a new progression value 
         if (! (prevProgressionStatusNode || prevProgressionReasonNode)) {
           console.log('first prog')
-          this.handleNewProgression({
-            id: Date.now(),
-            status: "",
-            reason: [],
-            startDate: moment(new Date())
-          });
+          this.props.changeProgressionShortcut("progression")
         } else {
           // If these nodes are old, update progression value if applicable
           if (prevProgressionStatusNode.text !== curProgressionStatusNode.text) {
@@ -947,28 +917,28 @@ class MyEditor extends React.Component {
       for(const parentNode of this.state.state.document.nodes) {
         const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
         const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
-        if (progressionStatusNode && nextProps.progression.status !== ""  && (this.props.progression.status !== nextProps.progression.status)) { 
+        if (progressionStatusNode && nextProps.progressionShortcut.progression.status !== "" && (this.props.progressionShortcut.progression.status !== nextProps.progressionShortcut.progression.status)) { 
           const currentState = this.state.state;
           const state = currentState
               .transform()
               .moveToRangeOf(progressionStatusNode)
-              .insertText(nextProps.progression.status)
+              .insertText(nextProps.progressionShortcut.progression.status)
               .moveToRangeOf(progressionReasonNode)
               .apply();
           this.setState({ state: state})
-        } else if (progressionReasonNode && !this.arrayEquality(this.props.progression.reason, nextProps.progression.reason)) {  
-          if(this.props.progression.startDate.format() === "2017-05-16T00:00:00-04:00") {
+        } else if (progressionReasonNode && !this.arrayEquality(this.props.progressionShortcut.progression.reason, nextProps.progressionShortcut.progression.reason)) {  
+          if(this.props.progressionShortcut.progression.startDate.format() === "2017-05-16T00:00:00-04:00") {
             return;
           }
           // Process reason text into proper format
           let reasonText = "";
-          const reasonLength = nextProps.progression.reason.length;
+          const reasonLength = nextProps.progressionShortcut.progression.reason.length;
           if (reasonLength > 0) { 
             for (let i = 0; i < reasonLength - 1; i++) {
-               reasonText += nextProps.progression.reason[i];
+               reasonText += nextProps.progressionShortcut.progression.reason[i];
                reasonText += ', ';
              } 
-            reasonText += nextProps.progression.reason[reasonLength - 1];
+            reasonText += nextProps.progressionShortcut.progression.reason[reasonLength - 1];
           } else { 
             reasonText = "__ "
           }
