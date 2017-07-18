@@ -33,7 +33,7 @@ class FullApp extends Component {
             metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
-			selectedText: null,
+            selectedText: null,
             // Current shortcutting: 
             progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
@@ -378,13 +378,13 @@ class FullApp extends Component {
             withinStructuredField: null
         })
     }
-	
-	handleSelectionChange = (selectedText) => {
-		//console.log("FullApp. selectedText: " + selectedText);
-		this.setState({
-			selectedText: selectedText
-		})
-	}
+    
+    handleSelectionChange = (selectedText) => {
+        //console.log("FullApp. selectedText: " + selectedText);
+        this.setState({
+            selectedText: selectedText
+        })
+    }
 
     componentDidUpdate = (a, b) => {
         // Nothing right now
@@ -396,20 +396,20 @@ class FullApp extends Component {
         }
     }
 
-  	handleStagingTUpdate = (t) => {
+    handleStagingTUpdate = (t) => {
         console.log(`Updated: ${t}`);
         (t !== "") && this.setState({tumorSize: t});
-  	}
+    }
 
-  	handleStagingNUpdate = (n) => {
+    handleStagingNUpdate = (n) => {
         console.log(`Updated: ${n}`);
         (n !== "") && this.setState({nodeSize: n});
-  	}
+    }
 
-  	handleStagingMUpdate = (m) => {
+    handleStagingMUpdate = (m) => {
         console.log(`Updated: ${m}`);
         (m !== "") && this.setState({metastasis: m});
-  	}
+    }
 
 
     handleProgressionUpdate = (p) => { 
@@ -488,11 +488,17 @@ class FullApp extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
-									onSelectionChange={this.handleSelectionChange}
+                                    onSelectionChange={this.handleSelectionChange}
+                                    // Old Prog
                                     onProgressionUpdate={this.handleProgressionUpdate}
                                     onNewProgression={this.handleNewProgression}
+                                    // 
+                                    // New Prog
+                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
+                                    changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
                                     progression={currentProgression[0]}
+                                    progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -509,17 +515,15 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onProgressionUpdate={this.handleProgressionUpdate}
                                     onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
                                     changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
-                                    progression={currentProgression[0]}
                                     progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
-									selectedText={this.state.selectedText}
+                                    selectedText={this.state.selectedText}
                                     patient={this.state.patient}
                                 />
                             </Col>
