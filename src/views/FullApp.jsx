@@ -37,11 +37,13 @@ class FullApp extends Component {
             // Current shortcutting: 
             progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Responding Disease',
+                    status: 'Progressing Disease',
                     reason: [
-                        "physical exam"
+                        "Pathology",
+                        "Imaging",
+                        "Symptoms"
                     ],
-                    startDate: moment('2017-06-13')
+                    startDate: moment('2017-05-15')
                 }),
             // Patient data
             patient: {

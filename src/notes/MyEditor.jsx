@@ -6,7 +6,10 @@ import { List } from 'immutable'
 import getOffsets from 'positions'
 // Application Components:
 import EditorToolbar from './EditorToolbar';
+import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import progressionLookup from '../../lib/progression_lookup';
+// Lodash component
+import Lang from 'lodash'
 // Styling
 import './MyEditor.css';
 
@@ -80,6 +83,8 @@ class MyEditor extends React.Component {
       // Tracking progression
       statusOptions: progressionLookup.getStatusOptions(),
       reasonOptions: progressionLookup.getReasonOptions(),
+      // Shortcut tracking 
+      previousProgressionShortcut: null,
       // State of editor config
       state: initialState,
       schema: {
@@ -290,23 +295,31 @@ class MyEditor extends React.Component {
   }
 
   /*
-   * Handle updates to the current progression reasons 
+   * Handle updates to the current progression reasons based on what's been typed
    */
   handleProgressionReasonUpdate = (newProgressionReasons, currentNode) => {
     // Avoid deep copy
     let newProgression = {...this.props.progressionShortcut.progression};
-    const oldProgressionReasons = new Set(this.props.progressionShortcut.progression['reason']);
-    const newProgressionReasonsSet = new Set(newProgressionReasons);
-
-    const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
-    const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
-    if (uniqueValidNewReasons.length > 0) { 
-      newProgression['reason'] = newProgressionReasons;
+    // get a list of new valid reasons, 
+    const validNewProgressionReasons = this.validateProgressionReasons(newProgressionReasons)
+    if(!this.arrayEquality(this.props.progressionShortcut.progression.reason,validNewProgressionReasons)) { 
+      newProgression['reason'] = validNewProgressionReasons;
+      this.state.previousProgressionShortcut.handleProgressionUpdate(newProgression);
       this.props.progressionShortcut.handleProgressionUpdate(newProgression);
-    } else { 
-      console.log('doesnt contain reason');
-      console.log(newProgressionReasons);
     }
+    // const oldProgressionReasons = new Set(this.props.progressionShortcut.progression['reason']);
+    // const newProgressionReasonsSet = new Set(newProgressionReasons);
+
+    // const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
+    // const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
+    // if (uniqueValidNewReasons.length > 0) { 
+    //   newProgression['reason'] = newProgressionReasons;
+    //   this.state.previousProgressionShortcut.handleProgressionUpdate(newProgression);
+    //   this.props.progressionShortcut.handleProgressionUpdate(newProgression);
+    // } else { 
+    //   console.log('doesnt contain reason');
+    //   console.log(newProgressionReasons);
+    // }
   }
 
   /*
@@ -862,95 +875,119 @@ class MyEditor extends React.Component {
     if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
       this.handleSummaryUpdate(nextProps.itemToBeInserted);
     }
+    if (Lang.isNull(nextProps.progressionShortcut) && Lang.isNull(this.state.previousProgressionShortcut)) { 
+      //Do nothing 
+    } else if (!Lang.isNull(nextProps.progressionShortcut) && Lang.isNull(this.state.previousProgressionShortcut)) { 
+      console.log('should trigger on first insert')
+      this.setState({
+        previousProgressionShortcut: new ProgressionShortcut(() => {}, nextProps.progressionShortcut.progression)
+      })
+    } else if (Lang.isNull(nextProps.progressionShortcut) && !Lang.isNull(this.state.previousProgressionShortcut)) { 
+      this.setState({
+        previousProgressionShortcut: null
+      });
+    } else { 
+      // Check if staging block exists in the editor
+      const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
+      const progressionNode = getNodeById(this.state.state.document.nodes, 'progression');
 
-    // Check if staging block exists in the editor
-    const stagingNode = getNodeById(this.state.state.document.nodes, 'staging');
-    const progressionNode = getNodeById(this.state.state.document.nodes, 'progression');
+      // If it exists, populate the fields with the updated staging values
+      if (stagingNode) {
+        for(const parentNode of this.state.state.document.nodes) {
+          const tNode = getNodeById(parentNode.nodes, 't-staging');
+          const nNode = getNodeById(parentNode.nodes, 'n-staging');
+          const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
-    // If it exists, populate the fields with the updated staging values
-    if (stagingNode) {
-      for(const parentNode of this.state.state.document.nodes) {
-        const tNode = getNodeById(parentNode.nodes, 't-staging');
-        const nNode = getNodeById(parentNode.nodes, 'n-staging');
-        const mNode = getNodeById(parentNode.nodes, 'm-staging');
+          // Set t value
+          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+              const currentState = this.state.state;
+              const state = currentState
+                  .transform()
+                  .moveToRangeOf(tNode)
+                  .moveEnd(-1)
+                  .deleteForward()
+                  .insertText(nextProps.tumorSize)
+                  .apply();
+              this.setState({ state: state })
+          }
 
-        // Set t value
-        if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+          // Set n value
+          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
             const currentState = this.state.state;
             const state = currentState
                 .transform()
-                .moveToRangeOf(tNode)
+                .moveToRangeOf(nNode)
                 .moveEnd(-1)
                 .deleteForward()
-                .insertText(nextProps.tumorSize)
+                .insertText(nextProps.nodeSize)
                 .apply();
             this.setState({ state: state })
-        }
-
-        // Set n value
-        if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
-          const currentState = this.state.state;
-          const state = currentState
-              .transform()
-              .moveToRangeOf(nNode)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(nextProps.nodeSize)
-              .apply();
-          this.setState({ state: state })
-        }
-
-        // Set m value
-        if(mNode && this.props.metastasis !== nextProps.metastasis) {
-          const currentState = this.state.state;
-          const state = currentState
-              .transform()
-              .moveToRangeOf(mNode)
-              .moveEnd(-1)
-              .deleteForward()
-              .insertText(nextProps.metastasis)
-              .apply();
-          this.setState({ state: state })
-        }
-      }
-    } else if (progressionNode) {  
-      for(const parentNode of this.state.state.document.nodes) {
-        const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
-        const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
-        if (progressionStatusNode && nextProps.progressionShortcut.progression.status !== "" && (this.props.progressionShortcut.progression.status !== nextProps.progressionShortcut.progression.status)) { 
-          const currentState = this.state.state;
-          const state = currentState
-              .transform()
-              .moveToRangeOf(progressionStatusNode)
-              .insertText(nextProps.progressionShortcut.progression.status)
-              .moveToRangeOf(progressionReasonNode)
-              .apply();
-          this.setState({ state: state})
-        } else if (progressionReasonNode && !this.arrayEquality(this.props.progressionShortcut.progression.reason, nextProps.progressionShortcut.progression.reason)) {  
-          if(this.props.progressionShortcut.progression.startDate.format() === "2017-05-16T00:00:00-04:00") {
-            return;
           }
-          // Process reason text into proper format
-          let reasonText = "";
-          const reasonLength = nextProps.progressionShortcut.progression.reason.length;
-          if (reasonLength > 0) { 
-            for (let i = 0; i < reasonLength - 1; i++) {
-               reasonText += nextProps.progressionShortcut.progression.reason[i];
-               reasonText += ', ';
-             } 
-            reasonText += nextProps.progressionShortcut.progression.reason[reasonLength - 1];
-          } else { 
-            reasonText = "__ "
+
+          // Set m value
+          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(mNode)
+                .moveEnd(-1)
+                .deleteForward()
+                .insertText(nextProps.metastasis)
+                .apply();
+            this.setState({ state: state })
           }
-          console.log(reasonText);
-          const currentState = this.state.state;
-          const state = currentState
-              .transform()
-              .moveToRangeOf(progressionReasonNode)
-              .insertText(reasonText)
-              .apply();
-          this.setState({ state: state})
-        } 
+        }
+      } else if (progressionNode) {  
+        for(const parentNode of this.state.state.document.nodes) {
+          const progressionStatusNode = getNodeById(parentNode.nodes, 'progression-value');
+          const progressionReasonNode = getNodeById(parentNode.nodes, 'progression-cause');
+          console.log(nextProps.progressionShortcut === this.state.previousProgressionShortcut)
+          console.log(nextProps.progressionShortcut)
+          console.log(this.state.previousProgressionShortcut)
+          if (progressionStatusNode && !Lang.isEmpty(nextProps.progressionShortcut.progression.status) && (this.state.previousProgressionShortcut.progression.status !== nextProps.progressionShortcut.progression.status)) { 
+            console.log('changed the Progression status')
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(progressionStatusNode)
+                .insertText(nextProps.progressionShortcut.progression.status)
+                .moveToRangeOf(progressionReasonNode)
+                .apply();
+            this.setState(
+              { 
+                state: state, 
+                previousProgressionShortcut: new ProgressionShortcut(() => {}, nextProps.progressionShortcut.progression)
+              }
+            );
+          } else if (progressionReasonNode && !this.arrayEquality(this.state.previousProgressionShortcut.progression.reason, nextProps.progressionShortcut.progression.reason)) {  
+            console.log(`changing progression node`)
+            // Process reason text into proper format
+            let reasonText = "";
+            const reasonLength = nextProps.progressionShortcut.progression.reason.length;
+            if (reasonLength > 0) { 
+              for (let i = 0; i < reasonLength - 1; i++) {
+                 reasonText += nextProps.progressionShortcut.progression.reason[i];
+                 reasonText += ', ';
+               } 
+              reasonText += nextProps.progressionShortcut.progression.reason[reasonLength - 1];
+            } else { 
+              reasonText = "__ "
+            }
+            console.log(reasonText);
+            const currentState = this.state.state;
+            const state = currentState
+                .transform()
+                .moveToRangeOf(progressionReasonNode)
+                .insertText(reasonText)
+                .apply();
+            this.setState(
+              { 
+                state: state, 
+                previousProgressionShortcut: new ProgressionShortcut(() => {}, nextProps.progressionShortcut.progression)
+              }
+            );
+          } 
+        }
       }
     }
   }
@@ -1025,7 +1062,7 @@ class MyEditor extends React.Component {
         {this.renderDropdown()}
         {this.renderShorthandDropdown()}
         <Editor
-		  placeholder={this.placeholder}
+		      placeholder={this.placeholder}
           schema={this.state.schema}
           state={this.state.state}
           onChange={this.onChange}

@@ -20,7 +20,7 @@ class ProgressionShortcut extends Shortcut {
                 startDate: moment(new Date())
             });
         }
-        this.progression = progression;
+        this.progression = Lang.clone(progression);
         this.onUpdate = onUpdate;
         console.log(`constructor for a new Progression shortcut object`)
     }
