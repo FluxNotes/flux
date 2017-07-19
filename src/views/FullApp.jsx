@@ -451,10 +451,6 @@ class FullApp extends Component {
 
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
-
-        // Grab most recent entry for progression
-        const currentProgression = [this._getMostRecentProgression(this.state.progression)];
-
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
@@ -493,14 +489,9 @@ class FullApp extends Component {
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
-                                    // Old Prog
-                                    onProgressionUpdate={this.handleProgressionUpdate}
-                                    onNewProgression={this.handleNewProgression}
-                                    // 
                                     // New Prog
                                     changeProgressionShortcut={this.changeProgressionShortcut}
                                     // Properties
-                                    progression={currentProgression[0]}
                                     progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
