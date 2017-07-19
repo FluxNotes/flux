@@ -7,6 +7,7 @@ In addition, a no-patient version of the above concept has been created for situ
 
 ## Getting Started
 
+* Ensure that Node.js and Yarn are both installed.
 * Git clone the repository
 * Check out the master branch (or the branch you want to work in)
 * In a terminal navigate into the flux folder (stay at the project root)
