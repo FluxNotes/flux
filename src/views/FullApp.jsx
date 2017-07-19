@@ -14,6 +14,7 @@ import TimelinePanel from '../timeline/TimelinePanel';
 // Shortcut Classes
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+import StagingShortcut from '../shortcuts/ProgressionShortcut';
 // Lodash component
 import Lang from 'lodash'
 
@@ -46,6 +47,11 @@ class FullApp extends Component {
                     startDate: moment('2017-05-15')
                 }),
             // Patient data
+            stagingShortcut: new ProgressionShortcut(this.handleStagingShortcutUpdate, { 
+                tumorSize: '',
+                nodeSize: '',
+                metastasis: '',
+            })
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -300,7 +306,7 @@ class FullApp extends Component {
     /* 
      * Change the current shortcut to be the new type of shortcut  
      */
-    changeProgressionShortcut = (shortcutType) => {
+    changeCurrentShortcut = (shortcutType) => {
         if (Lang.isNull(shortcutType)) {   
             this.setState({
                 progressionShortcut: null
@@ -319,6 +325,11 @@ class FullApp extends Component {
                     });
                     break;
 
+                case "staging": 
+                    this.setState({
+                        stagingShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
+                    });
+                    break;
                 default: 
                     console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
             }
@@ -326,11 +337,18 @@ class FullApp extends Component {
     }
 
     /* 
-     * Change the current shortcut to be the new type of shortcut  
+     * Update the current Progression Shortcut
      */
     handleProgressionShortcutUpdate = (s) =>{
-        console.log(`Updated: ${s}`);
+        console.log(`Updated Progression: ${s}`);
         (s !== "") && this.setState({progressionShortcut: s});
+    }
+    /* 
+     * Update the current Staging Shortcut  
+     */
+    handleStagingShortcutUpdate = (s) =>{
+        console.log(`Updated Staging: ${s}`);
+        (s !== "") && this.setState({stagingShortcut: s});
     }
 
     /* 
@@ -465,7 +483,7 @@ class FullApp extends Component {
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
                                     onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
                                     patient={this.state.patient}
@@ -490,7 +508,7 @@ class FullApp extends Component {
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
                                     // New Prog
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
@@ -509,9 +527,11 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
+                                    stagingShortcut={this.state.stagingShortcut}
+
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}

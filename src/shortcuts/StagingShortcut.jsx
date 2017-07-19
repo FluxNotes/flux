@@ -17,7 +17,7 @@ class StagingShortcut extends Shortcut {
 				metastasis: ''
             });
         }
-        this.staging = staging;
+        this.staging = Lang.clone(staging);
         this.onUpdate = onUpdate;
         this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
         console.log(`constructor for a new Staging object`)
@@ -66,8 +66,8 @@ class StagingShortcut extends Shortcut {
      * Translate the current shortcut into a string
      */
     getAsString() { 
-        if((Lang.isNull(this.staging.tumorSize) || Lang.isUndefined(this.staging.tumorSize)) &&
-           (Lang.isNull(this.staging.nodeSize) || Lang.isUndefined(this.staging.nodeSize)) &&
+        if((Lang.isNull(this.staging.tumorSize)  || Lang.isUndefined(this.staging.tumorSize)) &&
+           (Lang.isNull(this.staging.nodeSize)   || Lang.isUndefined(this.staging.nodeSize)) &&
 		   (Lang.isNull(this.staging.metastasis) || Lang.isUndefined(this.staging.metastasis))
 		{
 			return `#staging`;
