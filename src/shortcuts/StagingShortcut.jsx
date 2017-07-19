@@ -1,7 +1,9 @@
 // React Imports:
 import React from 'react';
 import Shortcut from './Shortcut';
+// Application Imports
 import StagingForm from '../forms/StagingForm';
+// Lodash
 import Lang from 'lodash'
 
 class StagingShortcut extends Shortcut {
@@ -66,17 +68,19 @@ class StagingShortcut extends Shortcut {
      * Translate the current shortcut into a string
      */
     getAsString() { 
-        if((Lang.isNull(this.staging.tumorSize)  || Lang.isUndefined(this.staging.tumorSize)) &&
-           (Lang.isNull(this.staging.nodeSize)   || Lang.isUndefined(this.staging.nodeSize)) &&
-		   (Lang.isNull(this.staging.metastasis) || Lang.isUndefined(this.staging.metastasis))
-		{
-			return `#staging`;
-        } else { 
-            const tString = this.getTumorSizeString(this.staging);
-            const nString = this.getNodeSizeString(this.staging);
-            const mString = this.getMetastasisString(this.staging);
-            // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#staging[T${tString}N${nString}M${mString}]`;
+        if(!Lang.isNull(this.staging)) { 
+            if((Lang.isNull(this.staging.tumorSize)  || Lang.isUndefined(this.staging.tumorSize)) &&
+               (Lang.isNull(this.staging.nodeSize)   || Lang.isUndefined(this.staging.nodeSize)) &&
+               (Lang.isNull(this.staging.metastasis) || Lang.isUndefined(this.staging.metastasis)))
+            {
+                return `#staging`;
+            } else { 
+                const tString = this.getTumorSizeString(this.staging);
+                const nString = this.getNodeSizeString(this.staging);
+                const mString = this.getMetastasisString(this.staging);
+                // Don't put any spaces -- the spaces should be dictated by the current reason and date
+                return `#staging[T${tString}N${nString}M${mString}]`;
+            }
         }
     }
     

@@ -14,7 +14,7 @@ import TimelinePanel from '../timeline/TimelinePanel';
 // Shortcut Classes
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
-import StagingShortcut from '../shortcuts/ProgressionShortcut';
+import StagingShortcut from '../shortcuts/StagingShortcut';
 // Lodash component
 import Lang from 'lodash'
 
@@ -47,11 +47,11 @@ class FullApp extends Component {
                     startDate: moment('2017-05-15')
                 }),
             // Patient data
-            stagingShortcut: new ProgressionShortcut(this.handleStagingShortcutUpdate, { 
+            stagingShortcut: new StagingShortcut(this.handleStagingShortcutUpdate, { 
                 tumorSize: '',
                 nodeSize: '',
                 metastasis: '',
-            })
+            }),
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -456,9 +456,10 @@ class FullApp extends Component {
         let diagnosis = this.state.diagnosis;
 
         /* update staging if captured */
-        const t = this.state.tumorSize;
-        const n = this.state.nodeSize;
-        const m = this.state.metastasis;
+        const currentStaging = Lang.isNull(this.state.stagingShortcut) ? {} : this.state.stagingShortcut.staging;
+        const t = currentStaging.tumorSize;
+        const n = currentStaging.nodeSize;
+        const m = currentStaging.metastasis;
         const ps = staging.breastCancerPrognosticStage(t, n, m);
 
         if (ps) {
@@ -486,6 +487,8 @@ class FullApp extends Component {
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
+                                    stagingShortcut={this.state.stagingShortcut}
+
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
@@ -524,20 +527,15 @@ class FullApp extends Component {
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    onStagingTUpdate={this.handleStagingTUpdate}
-                                    onStagingNUpdate={this.handleStagingNUpdate}
-                                    onStagingMUpdate={this.handleStagingMUpdate}
+                                    
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
-
-                                    tumorSize={this.state.tumorSize}
-                                    nodeSize={this.state.nodeSize}
-                                    metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
                                     selectedText={this.state.selectedText}
                                     patient={this.state.patient}
+
+                                    progressionShortcut={this.state.progressionShortcut}
+                                    stagingShortcut={this.state.stagingShortcut}
                                 />
                             </Col>
                         </Row>

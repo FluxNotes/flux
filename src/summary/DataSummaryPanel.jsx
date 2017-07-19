@@ -27,9 +27,11 @@ class DataSummaryPanel extends Component {
         // Format the current progression entry for the data summary table component
         let currentProgressionArray = [];
 
+        // Format Progression
+        //
         // If there is a progression shortcut to include 
         const progressionShortcut = this.props.progressionShortcut
-        if (!Lang.isNull(this.props.progressionShortcut)) { 
+        if (!Lang.isNull(progressionShortcut)) { 
             currentProgressionArray = [
                 {
                     name: "Progression Value",
@@ -60,13 +62,14 @@ class DataSummaryPanel extends Component {
                 }
             ];
         }
-
         // Check if start date is longer than 6 months from today's date and set the progression header accordingly
-        if (Lang.isNull(this.props.progressionShortcut) || this.props.progressionShortcut.progression.startDate < sixMonthsAgoDate) {
+        if (Lang.isNull(progressionShortcut) || progressionShortcut.progression.startDate < sixMonthsAgoDate) {
             progressionHeader = "Current Progression";
         } else {
-            progressionHeader = "Current Progression as of " + this.props.progressionShortcut.progression.startDate.format('MM/DD/YYYY') + ":";
+            progressionHeader = "Current Progression as of " + progressionShortcut.progression.startDate.format('MM/DD/YYYY') + ":";
         }
+
+
         return (
             <div className="dashboard-panel">
                 <Paper className="panel-content trio">

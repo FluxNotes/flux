@@ -218,6 +218,7 @@ class MyEditor extends React.Component {
     const progressionKeys = (progressionNode)? addKeysForNode(progressionNode, []) : [];
 
     if (stagingNode && stagingKeys.includes(state.selection.startKey)) {
+      console.log('entering staging')
       this.handleStructuredFieldEntered('staging')
     } else if (progressionNode && progressionKeys.includes(state.selection.startKey))  {
       this.handleStructuredFieldEntered('progression')
