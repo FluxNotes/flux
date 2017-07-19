@@ -847,7 +847,7 @@ class MyEditor extends React.Component {
         // If both of these nodes are new, make a new progression value 
         if (! (prevProgressionStatusNode || prevProgressionReasonNode)) {
           console.log('first prog')
-          this.props.changeProgressionShortcut("progression")
+          this.props.changeCurrentShortcut("progression")
         } else {
           // If these nodes are old, update progression value if applicable
           if (prevProgressionStatusNode.text !== curProgressionStatusNode.text) {

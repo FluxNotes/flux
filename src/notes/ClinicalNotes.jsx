@@ -80,8 +80,8 @@ class ClinicalNotes extends Component {
   handleProgressionShortcutUpdate = (newProgression) => {
     this.props.onProgressionShortcutUpdate(newProgression);
   }
-  changeProgressionShortcut = (newProgression) => {
-    this.props.changeProgressionShortcut(newProgression);
+  changeCurrentShortcut = (newProgression) => {
+    this.props.changeCurrentShortcut(newProgression);
   }
   //
 
@@ -138,7 +138,7 @@ class ClinicalNotes extends Component {
             progression={this.props.progression}
             //
             // New
-            changeProgressionShortcut={this.changeProgressionShortcut}
+            changeCurrentShortcut={this.changeCurrentShortcut}
             progressionShortcut={this.props.progressionShortcut}
             //
 

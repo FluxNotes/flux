@@ -71,9 +71,9 @@ class FormTray extends Component {
                             
                             // Progression data
                             // Update functions
-                            onProgressionUpdate={this.props.onProgressionUpdate}
+                            changeCurrentShortcut={this.changeCurrentShortcut}
                             // Properties
-                            on={this.props.progression}
+                            progressionShortcut={this.props.progressionShortcut}
                         />
                     );
 
