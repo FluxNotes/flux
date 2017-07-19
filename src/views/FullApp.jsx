@@ -300,7 +300,7 @@ class FullApp extends Component {
     /* 
      * Change the current shortcut to be the new type of shortcut  
      */
-    changeProgressionShortcut = (shortcutType) => {
+    changeCurrentShortcut = (shortcutType) => {
         if (Lang.isNull(shortcutType)) {   
             this.setState({
                 progressionShortcut: null
@@ -465,7 +465,7 @@ class FullApp extends Component {
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
                                     onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
                                     patient={this.state.patient}
@@ -490,7 +490,7 @@ class FullApp extends Component {
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
                                     // New Prog
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
@@ -509,7 +509,7 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    changeProgressionShortcut={this.changeProgressionShortcut}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
