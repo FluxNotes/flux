@@ -66,16 +66,6 @@ class ClinicalNotes extends Component {
     }
   }
 
-  
-  // Old progression updates
-  handleProgressionUpdate = (newProgression) => {
-    this.props.onProgressionUpdate(newProgression);
-  }
-  handleNewProgression = (newProgression) => {
-    this.props.onNewProgression(newProgression);
-  }
-  // 
-
   // New Progression updates
   handleProgressionShortcutUpdate = (newProgression) => {
     this.props.onProgressionShortcutUpdate(newProgression);
