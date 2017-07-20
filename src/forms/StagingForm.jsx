@@ -5,7 +5,7 @@ import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
 import staging from '../../lib/staging';
-import lookup from '../../lib/staging_lookup';
+import stagingLookup from '../../lib/staging_lookup';
 // Lodash
 import Lang from 'lodash'
 // Styling
@@ -16,9 +16,9 @@ class StagingForm extends Component {
       super(props);
 
       this.state = {
-        tumorValues: lookup.getTsForEdition(7),
-        nodeValues: lookup.getNsForEdition(7),
-        metastasisValues: lookup.getMsForEdition(7)
+        tumorValues: stagingLookup.getTsForEdition(7),
+        nodeValues: stagingLookup.getNsForEdition(7),
+        metastasisValues: stagingLookup.getMsForEdition(7)
       };
   }
 

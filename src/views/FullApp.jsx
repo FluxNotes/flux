@@ -311,25 +311,25 @@ class FullApp extends Component {
     changeCurrentShortcut = (shortcutType) => {
         if (Lang.isNull(shortcutType)) {   
             this.setState({
-                progressionShortcut: null
+                currentShortcut: null
             });
         } else { 
             switch (shortcutType.toLowerCase()) { 
                 case "progression": 
                     this.setState({
-                        progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
+                        currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
                 case "toxicity": 
                     this.setState({
-                        progressionShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
+                        currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
                 case "staging": 
                     this.setState({
-                        stagingShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
+                        currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
                     });
                     break;
                 default: 
@@ -513,8 +513,7 @@ class FullApp extends Component {
                                     // New Prog
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
 
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}

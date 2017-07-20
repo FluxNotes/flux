@@ -87,6 +87,7 @@ class FormTray extends Component {
                     );
                 }
             } else if (this.props.withinStructuredField === "staging") {
+                console.log(this.props)
                 if (!Lang.isNull(this.props.currentShortcut)) { 
                     if (this.props.currentShortcut.getShortcutType() === "staging") { 
                         panelContent = this.props.currentShortcut.getForm();
