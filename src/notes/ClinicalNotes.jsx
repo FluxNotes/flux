@@ -314,12 +314,12 @@ class ClinicalNotes extends Component {
    */
   handleStagingMUpdate = (newMValue, editorState) => {
     if (stagingLookup.isValidM(newMValue)) { 
-      const stagingNode = getNodeById(editorState.state.document.nodes, 'progression')
+      const stagingNode = getNodeById(editorState.document.nodes, 'staging')
 
       console.log(`is a valid M value; updating with new value ${newMValue}`)
       const newStaging = Lang.clone(this.props.currentShortcut.staging);
       newStaging['metastasis'] = newMValue;  
-      const stateTransform = editorState.state.transform();
+      const stateTransform = editorState.transform();
       const newStateSelection = stateTransform.collapseToEndOf(stagingNode).insertBlock(this.createEmptyBlock()).apply()
       this.setState({
         state: newStateSelection
@@ -811,86 +811,7 @@ class ClinicalNotes extends Component {
           // Paste a block containing a zero width space 
           .insertBlock(Block.create({'type': 'paragraph-span', 'nodes': List([Text.createFromString('​')])}))
           .apply();
-      } else {
-        // Search all nodes to find if structured nodes that need checking 
-        for(const parentNode of state.document.nodes) { 
-          // Handle staging structured data 
-          const tNode = getNodeById(parentNode.nodes, 't-staging');
-          const nNode = getNodeById(parentNode.nodes, 'n-staging');
-          const mNode = getNodeById(parentNode.nodes, 'm-staging');
-          const stagingNode = getNodeById(state.document.nodes, 'staging');
-
-          if(tNode && nNode && mNode) { 
-            const tKeys = addKeysForNode(tNode, []);
-            const nKeys = addKeysForNode(nNode, []);
-            const mKeys = addKeysForNode(mNode, []);
-            if (tKeys.includes(state.selection.startKey)) { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-
-                let newStaging = Lang.clone(this.state.previousShortcut.staging);
-
-
-                newStaging["tumorSize"] = 'T' + val.toString();
-                console.log()
-                this.state.previousShortcut.handleStagingUpdate(newStaging);
-                this.props.currentShortcut.handleStagingUpdate(newStaging)
-
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(tNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              } 
-            } else if (nKeys.includes(state.selection.startKey)) { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-                let newStaging = Lang.clone(this.state.previousShortcut.staging);
-                newStaging["nodeSize"] = 'N' + val.toString();
-                this.state.previousShortcut.handleStagingUpdate(newStaging);
-                this.props.currentShortcut.handleStagingUpdate(newStaging)
-
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(nNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .apply();
-              } 
-            } else if (mKeys.includes(state.selection.startKey))  { 
-              if(event.keyCode >= 48 && event.keyCode <=57) {
-                const val = event.keyCode - 48;
-                let newStaging = Lang.clone(this.state.previousShortcut.staging);
-                newStaging["metastasis"] = 'M' + val.toString();
-                this.state.previousShortcut.handleStagingUpdate(newStaging);
-                this.props.currentShortcut.handleStagingUpdate(newStaging)
-
-                event.preventDefault()
-                return state
-                  .transform()
-                  .moveToRangeOf(mNode)
-                  .moveStart(1)
-                  .moveEnd(-1)
-                  .insertText(String.fromCharCode(event.keyCode))
-                  .collapseToEndOf(stagingNode)
-                  .insertBlock(this.createEmptyBlock())
-                  .apply();
-              } 
-            }
-          }
-        } 
-      }
+      } 
     }
   }
   
@@ -980,12 +901,12 @@ class ClinicalNotes extends Component {
     }
     if (Lang.isNull(nextProps.currentShortcut) && Lang.isNull(this.state.previousShortcut)) { 
       //Do nothing 
-    } else if (!Lang.isNull(nextProps.currentShortcut) && nextProps.currentShortcut.getShortcutType() === "progression" && Lang.isNull(this.state.previousShortcut)) { 
+    } else if (!Lang.isNull(nextProps.currentShortcut) && nextProps.currentShortcut.getShortcutType() === "progression" && (Lang.isNull(this.state.previousShortcut) || this.state.previousShortcut.getShortcutType() === "staging")) { 
       console.log('should trigger on first insert of progression')
       this.setState({
         previousShortcut: new ProgressionShortcut(() => {}, nextProps.currentShortcut.progression)
       })
-    } else if (!Lang.isNull(nextProps.currentShortcut) && nextProps.currentShortcut.getShortcutType() === "staging" && Lang.isNull(this.state.previousShortcut)) { 
+    } else if (!Lang.isNull(nextProps.currentShortcut) && nextProps.currentShortcut.getShortcutType() === "staging" && (Lang.isNull(this.state.previousShortcut) || this.state.previousShortcut.getShortcutType() === "progression")) { 
       console.log('should trigger on first insert of staging')
       this.setState({
         previousShortcut: new StagingShortcut(() => {}, nextProps.currentShortcut.staging)
