@@ -40,7 +40,7 @@ class FullApp extends Component {
             // Old Shortcutting
             progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Progressing Disease',
+                    status: 'Progressing',
                     reason: [
                         "Pathology",
                         "Imaging",
@@ -530,8 +530,7 @@ class FullApp extends Component {
                                     selectedText={this.state.selectedText}
                                     patient={this.state.patient}
 
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
                                 />
                             </Col>
                         </Row>

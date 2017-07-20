@@ -28,7 +28,7 @@ class FormTray extends Component {
     }
     _newShortcut(i) {
         console.log(`new shortcut ${i}`);
-        this.props.changeShortcut(this.props.shortcuts[i]);
+        this.props.changeCurrentShortcut(this.props.shortcuts[i]);
     }
     render() {
         let panelContent = null;
@@ -72,7 +72,7 @@ class FormTray extends Component {
                             // Update functions
                             changeCurrentShortcut={this.changeCurrentShortcut}
                             // Properties
-                            progressionShortcut={this.props.progressionShortcut}
+                            currentShortcut={this.props.currentShortcut}
                         />
                     );
 
@@ -87,12 +87,27 @@ class FormTray extends Component {
                     );
                 }
             } else if (this.props.withinStructuredField === "staging") {
-                console.log('trying to get staging form')
-                console.log(this.props.stagingShortcut)
-                panelContent = this.props.stagingShortcut.getForm();
+                if (!Lang.isNull(this.props.currentShortcut)) { 
+                    if (this.props.currentShortcut.getShortcutType() === "staging") { 
+                        panelContent = this.props.currentShortcut.getForm();
+                    } else { 
+                        console.error("In FormTray, supposed to be within Staging structured field but the currentShortcut is not type staging, is instead");
+                        console.error(this.props.currentShortcut);
+                    }
+                } else { 
+                    console.error("In FormTray, supposed to be within Staging structured field but there is no currentShortcut");
+                }
             } else if (this.props.withinStructuredField === "progression") { 
-                console.log('trying to get progression form')
-                panelContent = this.props.progressionShortcut.getForm();
+                if (!Lang.isNull(this.props.currentShortcut)) { 
+                    if (this.props.currentShortcut.getShortcutType() === "progression") { 
+                        panelContent = this.props.currentShortcut.getForm();
+                    } else { 
+                        console.error("In FormTray, supposed to be within Progression structured field but the currentShortcut is not type staging, is instead");
+                        console.error(this.props.currentShortcut);
+                    }
+                } else { 
+                    console.error("In FormTray, supposed to be within Progression structured field but there is no currentShortcut");
+                }
             }
         }
         return (
