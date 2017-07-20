@@ -8,6 +8,8 @@ import getOffsets from 'positions'
 import EditorToolbar from './EditorToolbar';
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import progressionLookup from '../../lib/progression_lookup';
+import StagingShortcut from '../shortcuts/StagingShortcut';
+
 // Lodash component
 import Lang from 'lodash'
 // Styling
@@ -85,6 +87,7 @@ class MyEditor extends React.Component {
       reasonOptions: progressionLookup.getReasonOptions(),
       // Shortcut tracking 
       previousProgressionShortcut: null,
+      previousStagingShortcut: null,
       // State of editor config
       state: initialState,
       schema: {
@@ -279,7 +282,7 @@ class MyEditor extends React.Component {
   handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
     if (progressionLookup.isValidStatus(newStatusValue)) { 
       console.log(`is a valid progression status; updating with new value ${newStatusValue}`)
-      const newProgression = {...this.props.progressionShortcut.progression};
+      const newProgression = Lang.clone(this.props.progressionShortcut.progression);
       newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
       console.log(nextNode)
@@ -308,19 +311,6 @@ class MyEditor extends React.Component {
       this.state.previousProgressionShortcut.handleProgressionUpdate(newProgression);
       this.props.progressionShortcut.handleProgressionUpdate(newProgression);
     }
-    // const oldProgressionReasons = new Set(this.props.progressionShortcut.progression['reason']);
-    // const newProgressionReasonsSet = new Set(newProgressionReasons);
-
-    // const uniqueNewReasons = [...newProgressionReasonsSet].filter(x => !oldProgressionReasons.has(x));
-    // const uniqueValidNewReasons = this.validateProgressionReasons(uniqueNewReasons);
-    // if (uniqueValidNewReasons.length > 0) { 
-    //   newProgression['reason'] = newProgressionReasons;
-    //   this.state.previousProgressionShortcut.handleProgressionUpdate(newProgression);
-    //   this.props.progressionShortcut.handleProgressionUpdate(newProgression);
-    // } else { 
-    //   console.log('doesnt contain reason');
-    //   console.log(newProgressionReasons);
-    // }
   }
 
   /*
@@ -772,7 +762,13 @@ class MyEditor extends React.Component {
             if (tKeys.includes(state.selection.startKey)) { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingTUpdate('T' + val.toString());
+                let newStaging = Lang.clone(this.state.previousStagingShortcut.staging);
+                console.log(this.state.previousStagingShortcut);
+                console.log(this.state.previousStagingShortcut.staging);  
+                newStaging["tumorSize"] = 'T' + val.toString();
+                console.log()
+                this.state.previousStagingShortcut.handleStagingUpdate(newStaging);
+                this.props.stagingShortcut.handleStagingUpdate(newStaging)
 
                 event.preventDefault()
                 return state
@@ -789,7 +785,10 @@ class MyEditor extends React.Component {
             } else if (nKeys.includes(state.selection.startKey)) { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingNUpdate('N' + val.toString());
+                let newStaging = Lang.clone(this.state.previousStagingShortcut.staging);
+                newStaging["nodeSize"] = 'N' + val.toString();
+                this.state.previousStagingShortcut.handleStagingUpdate(newStaging);
+                this.props.stagingShortcut.handleStagingUpdate(newStaging)
 
                 event.preventDefault()
                 return state
@@ -806,8 +805,11 @@ class MyEditor extends React.Component {
             } else if (mKeys.includes(state.selection.startKey))  { 
               if(event.keyCode >= 48 && event.keyCode <=57) {
                 const val = event.keyCode - 48;
-                this.handleStagingMUpdate('M' + val.toString());
-                // Create a block with a zero-width space 
+                let newStaging = Lang.clone(this.state.previousStagingShortcut.staging);
+                newStaging["metastasis"] = 'M' + val.toString();
+                this.state.previousStagingShortcut.handleStagingUpdate(newStaging);
+                this.props.stagingShortcut.handleStagingUpdate(newStaging)
+
                 event.preventDefault()
                 return state
                   .transform()
@@ -879,13 +881,22 @@ class MyEditor extends React.Component {
     if (Lang.isNull(nextProps.progressionShortcut) && Lang.isNull(this.state.previousProgressionShortcut)) { 
       //Do nothing 
     } else if (!Lang.isNull(nextProps.progressionShortcut) && Lang.isNull(this.state.previousProgressionShortcut)) { 
-      console.log('should trigger on first insert')
+      console.log('should trigger on first insert of progression')
       this.setState({
         previousProgressionShortcut: new ProgressionShortcut(() => {}, nextProps.progressionShortcut.progression)
       })
     } else if (Lang.isNull(nextProps.progressionShortcut) && !Lang.isNull(this.state.previousProgressionShortcut)) { 
       this.setState({
         previousProgressionShortcut: null
+      });
+    } else if (!Lang.isNull(nextProps.stagingShortcut) && Lang.isNull(this.state.previousStagingShortcut)) { 
+      console.log('should trigger on first insert of staging')
+      this.setState({
+        previousStagingShortcut: new StagingShortcut(() => {}, nextProps.stagingShortcut.staging)
+      })
+    } else if (Lang.isNull(nextProps.stagingShortcut) && !Lang.isNull(this.state.previousStagingShortcut)) { 
+      this.setState({
+        previousStagingShortcut: null
       });
     } else { 
       // Check if staging block exists in the editor
@@ -900,40 +911,41 @@ class MyEditor extends React.Component {
           const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
           // Set t value
-          if(tNode && this.props.tumorSize !== nextProps.tumorSize) {
+
+          if (tNode && !Lang.isEmpty(nextProps.stagingShortcut.staging.tumorSize) && (this.state.previousStagingShortcut.staging.tumorSize !== nextProps.stagingShortcut.staging.tumorSize)) { 
               const currentState = this.state.state;
               const state = currentState
                   .transform()
                   .moveToRangeOf(tNode)
                   .moveEnd(-1)
                   .deleteForward()
-                  .insertText(nextProps.tumorSize)
+                  .insertText(nextProps.stagingShortcut.staging.tumorSize)
                   .apply();
               this.setState({ state: state })
           }
 
           // Set n value
-          if(nNode && this.props.nodeSize !== nextProps.nodeSize) {
+          if (nNode && !Lang.isEmpty(nextProps.stagingShortcut.staging.nodeSize) && (this.state.previousStagingShortcut.staging.nodeSize !== nextProps.stagingShortcut.staging.nodeSize)) { 
             const currentState = this.state.state;
             const state = currentState
                 .transform()
                 .moveToRangeOf(nNode)
                 .moveEnd(-1)
                 .deleteForward()
-                .insertText(nextProps.nodeSize)
+                .insertText(nextProps.stagingShortcut.staging.nodeSize)
                 .apply();
             this.setState({ state: state })
           }
 
           // Set m value
-          if(mNode && this.props.metastasis !== nextProps.metastasis) {
+          if (mNode && !Lang.isEmpty(nextProps.stagingShortcut.staging.metastasis) && (this.state.previousStagingShortcut.staging.metastasis !== nextProps.stagingShortcut.staging.metastasis)) { 
             const currentState = this.state.state;
             const state = currentState
                 .transform()
                 .moveToRangeOf(mNode)
                 .moveEnd(-1)
                 .deleteForward()
-                .insertText(nextProps.metastasis)
+                .insertText(nextProps.stagingShortcut.staging.metastasis)
                 .apply();
             this.setState({ state: state })
           }

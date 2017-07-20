@@ -19,18 +19,6 @@ class ClinicalNotes extends Component {
   //   super(props);
   // }
 
-  handleHER2StatusChange = (newStatus) => {
-    this.props.onHER2StatusChange(newStatus);
-  }
-
-  handleERStatusChange = (newStatus) => {
-    this.props.onERStatusChange(newStatus);
-  }
-
-  handlePRStatusChange = (newStatus) => {
-    this.props.onPRStatusChange(newStatus);
-  }
-
   handleStagingTUpdate = (newVal) => {
     this.props.onStagingTUpdate(newVal);
   }
@@ -117,9 +105,6 @@ class ClinicalNotes extends Component {
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
             onSelectionChange={this.handleSelectionChange}
-            onStagingTUpdate={this.handleStagingTUpdate}
-            onStagingNUpdate={this.handleStagingNUpdate}
-            onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
             onSummaryUpdate={this.handleSummaryUpdate}
             // Old
@@ -130,15 +115,16 @@ class ClinicalNotes extends Component {
             // New
             changeCurrentShortcut={this.changeCurrentShortcut}
             progressionShortcut={this.props.progressionShortcut}
-            //
+            stagingShortcut={this.props.stagingShortcut}
 
-            // Helper functions
-            calculateStage={this.props.calculateStage}
             // Properties
-
+            onStagingTUpdate={this.handleStagingTUpdate}
+            onStagingNUpdate={this.handleStagingNUpdate}
+            onStagingMUpdate={this.handleStagingMUpdate}
             tumorSize={this.props.tumorSize}
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}
+
             data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
             itemToBeInserted={this.props.itemToBeInserted}
             patient={this.props.patient}
@@ -151,9 +137,6 @@ class ClinicalNotes extends Component {
 }
 
 ClinicalNotes.propTypes = {
-    HER2Status:               PropTypes.string,
-    ERStatus:                 PropTypes.string,
-    PRStatus:                 PropTypes.string,
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
     onStagingTUpdate:           PropTypes.func.isRequired,

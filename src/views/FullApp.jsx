@@ -483,7 +483,6 @@ class FullApp extends Component {
                                 <DataSummaryPanel
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
-                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
@@ -504,9 +503,6 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onHER2StatusChange={this.changeHER2Status}
-                                    onERStatusChange={this.changeERStatus}
-                                    onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
@@ -514,12 +510,11 @@ class FullApp extends Component {
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     progressionShortcut={this.state.progressionShortcut}
+                                    stagingShortcut={this.state.stagingShortcut}
+
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
-                                    HER2Status={this.state.HER2Status}
-                                    ERStatus={this.state.ERStatus}
-                                    PRStatus={this.state.PRStatus}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
                                 />
@@ -527,7 +522,6 @@ class FullApp extends Component {
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     withinStructuredField={this.state.withinStructuredField}
