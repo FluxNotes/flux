@@ -385,7 +385,7 @@ class FullApp extends Component {
     }
 
     handleStructuredFieldEntered = (field) => {
-        // console.log("structured field entered: " + field);
+        console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
@@ -500,9 +500,6 @@ class FullApp extends Component {
                             <Col sm={5}>
                                 <ClinicalNotes
                                     // Update functions
-                                    onStagingTUpdate={this.handleStagingTUpdate}
-                                    onStagingNUpdate={this.handleStagingNUpdate}
-                                    onStagingMUpdate={this.handleStagingMUpdate}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
@@ -512,9 +509,6 @@ class FullApp extends Component {
                                     progressionShortcut={this.state.progressionShortcut}
                                     stagingShortcut={this.state.stagingShortcut}
 
-                                    tumorSize={this.state.tumorSize}
-                                    nodeSize={this.state.nodeSize}
-                                    metastasis={this.state.metastasis}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
                                     data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}

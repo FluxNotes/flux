@@ -54,7 +54,7 @@ class StagingForm extends Component {
   }
 
   render() {
-    // console.log("in render. t: " + this.props.t);
+    // console.log("in render. of Staging form")
     return (
        <div>
             <h1>Current Staging</h1>

@@ -16,8 +16,8 @@ import Divider from 'material-ui/Divider';
 // Application Components:
 import EditorToolbar from './EditorToolbar';
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
-import progressionLookup from '../../lib/progression_lookup';
 import StagingShortcut from '../shortcuts/StagingShortcut';
+import progressionLookup from '../../lib/progression_lookup';
 
 // Lodash component
 import Lang from 'lodash'
@@ -1119,9 +1119,6 @@ class ClinicalNotes extends Component {
 ClinicalNotes.propTypes = {
     onStructuredFieldExited:  PropTypes.func.isRequired,
     onStructuredFieldEntered: PropTypes.func.isRequired,
-    onStagingTUpdate:           PropTypes.func.isRequired,
-    onStagingNUpdate:           PropTypes.func.isRequired,
-    onStagingMUpdate:           PropTypes.func.isRequired
 }
 
 export default ClinicalNotes;

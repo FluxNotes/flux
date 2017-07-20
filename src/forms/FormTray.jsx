@@ -46,8 +46,8 @@ class FormTray extends Component {
                 );
             }
         } else {
-            if (this.props.withinStructuredField == null) {
-                //console.log("FormTray. selectedText = " + this.props.selectedText);
+            if (Lang.isNull(this.props.withinStructuredField)) {
+                console.log("FormTray. selectedText = " + this.props.selectedText);
 
                 // When highlighting text in the notes section, change the panel content to display the data capture form
                 if (this.props.selectedText != null) {
