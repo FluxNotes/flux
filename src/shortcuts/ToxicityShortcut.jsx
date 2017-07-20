@@ -23,7 +23,12 @@ class ToxicityShortcut extends Shortcut {
         this.onUpdate = onUpdate;
         console.log(`constructor for a new Toxicity object`)
     }
-
+    /* 
+     * Returns "toxicity"
+     */
+    getShortcutType() { 
+        return "toxicity";
+    }
     /* 
      * Get grade string for given toxicity
      */

@@ -24,9 +24,14 @@ class StagingShortcut extends Shortcut {
         this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
         console.log(`constructor for a new Staging object`)
     }
-
     /* 
-     * Translate staging tumor size into a string 
+     * Returns "staging"
+     */
+    getShortcutType() { 
+        return "staging";
+    }
+    /* 
+     * Translate staging Staging information into a string 
      */
     getTumorSizeString(curStaging) { 
         let tString = ``;

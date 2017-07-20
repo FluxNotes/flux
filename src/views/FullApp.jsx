@@ -36,6 +36,8 @@ class FullApp extends Component {
             withinStructuredField: null,
             selectedText: null,
             // Current shortcutting: 
+            currentShortcut: null,
+            // Old Shortcutting
             progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
                     status: 'Progressing Disease',
@@ -456,7 +458,13 @@ class FullApp extends Component {
         let diagnosis = this.state.diagnosis;
 
         /* update staging if captured */
-        const currentStaging = Lang.isNull(this.state.stagingShortcut) ? {} : this.state.stagingShortcut.staging;
+        const isCurrentShortcut = (!Lang.isNull(this.state.currentShortcut));
+        let isStagingShortcut = false;
+        if (isCurrentShortcut) {
+            isStagingShortcut = (this.state.currentShortcut.getShortcutType() === "staging");
+        }
+
+        const currentStaging = (!isStagingShortcut) ? {} : this.state.currentShortcut.staging;
         const t = currentStaging.tumorSize;
         const n = currentStaging.nodeSize;
         const m = currentStaging.metastasis;
@@ -485,8 +493,7 @@ class FullApp extends Component {
                                     onItemClicked={this.handleSummaryItemSelected}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
 
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
