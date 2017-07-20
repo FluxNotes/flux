@@ -517,6 +517,7 @@ class FullApp extends Component {
                                     metastasis={this.state.metastasis}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
+                                    data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
                                 />
                             </Col>
                             <Col sm={3}>
