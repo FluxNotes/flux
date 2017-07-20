@@ -664,6 +664,11 @@ class ClinicalNotes extends Component {
               autocompleteMatches: matches,
           })
           break;
+        case 16: // Handle Ctrl, Alt, Shift, Caps Lock by doing nothing
+        case 17:
+        case 18:
+        case 20:
+          break; 
         default: // Continue growing autocompleteText and offering updated suggestions
           newText = this.state.autocompleteText +  String.fromCharCode(event.keyCode);  
           matches = this.determineAutocompleteMatches(newText);
@@ -722,6 +727,11 @@ class ClinicalNotes extends Component {
               shorthandMatches: matches,
           })
           break;
+        case 16: // Handle Ctrl, Alt, Shift, Caps Lock by doing nothing
+        case 17:
+        case 18:
+        case 20:
+          break; 
         default: // Continue growing ShorthandText and offering updated suggestions
           newText = this.state.shorthandText +  String.fromCharCode(event.keyCode);  
           matches = this.determineShorthandMatches(newText);
