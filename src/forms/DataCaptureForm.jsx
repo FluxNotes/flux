@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
-import ProgressionForm from './ProgressionForm';
 // material-ui
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -50,14 +49,7 @@ class DataCaptureForm extends Component {
                 />
             );
         } else if (this.state.value === 3) {
-            content = (
-                <ProgressionForm
-                    // Update functions
-                    onProgressionUpdate={this.props.onProgressionUpdate}
-                    // Properties
-                    progression={this.props.progression}
-                />
-            );
+            content = this.props.progressionShortcut.getForm();
         } else {
             content = <p>Nothing to show</p>
         }

@@ -255,11 +255,11 @@ class TimelinePanel extends Component {
 
     progs.sort(this._timeSorter);
     progs.forEach((prog) => {
-      const assignedGroup = this._assignItemToGroup(items, prog, groupStartIndex);
+    const assignedGroup = this._assignItemToGroup(items, prog, groupStartIndex);
 
-      let classes = 'progression-item';
-      let endDate = prog.endDate;
-      let hoverText = '';
+    let classes = 'progression-item';
+    let endDate = prog.endDate;
+    let hoverText = '';
 	  let hoverTitle = '';
 
       if (prog.endDate) {

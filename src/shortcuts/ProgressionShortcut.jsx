@@ -3,6 +3,8 @@ import React from 'react';
 import Shortcut from './Shortcut';
 import ProgressionForm from '../forms/ProgressionForm';
 import Lang from 'lodash'
+import moment from 'moment';
+
 //import moment from 'moment';
 
 class ProgressionShortcut extends Shortcut {
@@ -13,15 +15,14 @@ class ProgressionShortcut extends Shortcut {
         if (Lang.isUndefined(progression)) { 
             progression = ({
                 id: Math.floor(Math.random() * Date.now()),
-                status: null,
+                status: "",
                 reason: [],
-                startDate: new Date()
+                startDate: moment(new Date())
             });
         }
-        this.progression = progression;
+        this.progression = Lang.clone(progression);
         this.onUpdate = onUpdate;
-        this.handleProgressionUpdate = this.handleProgressionUpdate.bind(this);
-        console.log(`constructor for a new Progression object`)
+        console.log(`constructor for a new Progression shortcut object`)
     }
 
     /* 
@@ -29,7 +30,7 @@ class ProgressionShortcut extends Shortcut {
      */
     getStatusString(curProgression) { 
         let statusString = ``;
-        if (Lang.isNull(curProgression.status) || Lang.isUndefined(curProgression.status)) { 
+        if (Lang.isEmpty(curProgression.status) || Lang.isUndefined(curProgression.status)) { 
             statusString = `?`;
         } else { 
             statusString = `${curProgression.status}`
@@ -60,10 +61,10 @@ class ProgressionShortcut extends Shortcut {
      * Translate progression date into a string 
      */
     getDateString(curProgression) { 
-        const today = new Date();
+        const today = moment(new Date());
         let dateString;
         if (!Lang.isUndefined(curProgression.startDate)) {
-            dateString = (curProgression.startDate.getDate() === today.getDate()) ? `` : `as of ${this.progression.startDate}`;
+            dateString = (curProgression.startDate.format('D') === today.format('D')) ? `` : `as of ${this.progression.startDate}`;
         } else {
             dateString = ``;
         }
@@ -74,7 +75,7 @@ class ProgressionShortcut extends Shortcut {
      * Translate the current shortcut into a string
      */
     getAsString() { 
-        if(Lang.isNull(this.progression.status) || Lang.isUndefined(this.progression.status)) { 
+        if(Lang.isEmpty(this.progression.status) || Lang.isUndefined(this.progression.status)) { 
             // 1. No status -- this case we just want a hash
             if(Lang.isEmpty(this.progression.reason)) { 
                 return `#progression`;

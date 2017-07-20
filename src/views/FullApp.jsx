@@ -11,6 +11,11 @@ import ClinicalNotes from '../notes/ClinicalNotes';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import FormTray from '../forms/FormTray';
 import TimelinePanel from '../timeline/TimelinePanel';
+// Shortcut Classes
+import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
+import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+// Lodash component
+import Lang from 'lodash'
 
 import staging from '../../lib/staging';
 import moment from 'moment';
@@ -28,7 +33,19 @@ class FullApp extends Component {
             metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
-			selectedText: null,
+            selectedText: null,
+            // Current shortcutting: 
+            progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
+                    id: Math.floor(Math.random() * Date.now()),
+                    status: 'Progressing Disease',
+                    reason: [
+                        "Pathology",
+                        "Imaging",
+                        "Symptoms"
+                    ],
+                    startDate: moment('2017-05-15')
+                }),
+            // Patient data
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -139,36 +156,42 @@ class FullApp extends Component {
                 {
                     name: "Adriamycin",
                     dosage: "6 cycles of 60mg/m2",
+                    display: "02/10/2012 - 08/20/2012",
                     startDate: moment('2012-02-10'),
                     endDate: moment('2012-08-20')
                 },
                 {
                     name: "Cytoxin",
                     dosage: "6 cycles of 10mg/kg",
+                    display: "02/10/2012 - 08/20/2012",
                     startDate: moment('2012-02-10'),
                     endDate: moment('2012-08-20')
                 },
                 {
                     name: "Tamoxifen",
                     dosage: "20mg once daily",
+                    display: "11/01/2013 - 08/13/2016",
                     startDate: moment('2013-11-01'),
                     endDate: moment('2016-08-13')
                 },
                 {
                     name: "Letrozole",
                     dosage: "2.5mg once daily",
+                    display: "01/10/2015 - 01/10/2016",
                     startDate: moment('2015-01-10'),
                     endDate: moment('2016-01-10')
                 },
                 {
                     name: "Coumadin",
                     dosage: "2mg once daily",
+                    display: "09/05/2015 - 06/01/2017",
                     startDate: moment('2015-09-05'),
                     endDate: moment('2017-06-01')
                 },
                 {
                     name: "Aromasin",
                     dosage: "25mg once daily",
+                    display: "06/05/2017 - 01/01/2018",
                     startDate: moment('2017-06-05'),
                     endDate: moment('2018-01-01')
                 }
@@ -176,31 +199,36 @@ class FullApp extends Component {
             procedures: [
                 {
                     name: 'Mammogram',
-                    startDate: moment('2012-01-13')
+                    startDate: moment('2012-01-13'),
+                    display: "01/13/2012"
                 },
                 {
                     name: 'Radiation',
                     startDate: moment('2012-07-12'),
-                    endDate: moment('2012-08-16')
+                    endDate: moment('2012-08-16'),
+                    display: "07/12/2012 - 08/16/2012"
                 },
                 {
                     name: 'Surgery',
                     startDate: moment('2012-09-20'),
-                    display: "Lumpectomy / sentinel / lymph node biopsy"
+                    display: "09/20/2012: Lumpectomy / sentinel / lymph node biopsy"
                 },
                 {
                     name: 'Mammogram',
-                    startDate: moment('2013-10-04')
+                    startDate: moment('2013-10-04'),
+                    display: "10/04/2013"
                 }
             ],
             keyDates: [
                 {
                     name: 'Diagnosis',
-                    startDate: moment('2012-01-13')
+                    startDate: moment('2012-01-13'),
+                    display: "01/13/2012"
                 },
                 {
                     name: 'Recurrence',
-                    startDate: moment('2013-10-12')
+                    startDate: moment('2013-10-12'),
+                    display: "10/12/2013"
                 }
             ],
             progression: [
@@ -267,8 +295,44 @@ class FullApp extends Component {
                 }
             ]
         };
-
     }
+
+    /* 
+     * Change the current shortcut to be the new type of shortcut  
+     */
+    changeCurrentShortcut = (shortcutType) => {
+        if (Lang.isNull(shortcutType)) {   
+            this.setState({
+                progressionShortcut: null
+            });
+        } else { 
+            switch (shortcutType.toLowerCase()) { 
+                case "progression": 
+                    this.setState({
+                        progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
+                    });
+                    break;
+
+                case "toxicity": 
+                    this.setState({
+                        progressionShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
+                    });
+                    break;
+
+                default: 
+                    console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
+            }
+        }
+    }
+
+    /* 
+     * Change the current shortcut to be the new type of shortcut  
+     */
+    handleProgressionShortcutUpdate = (s) =>{
+        console.log(`Updated: ${s}`);
+        (s !== "") && this.setState({progressionShortcut: s});
+    }
+
     /* 
      * Add a progression event to the current array of progression events
      */ 
@@ -315,13 +379,13 @@ class FullApp extends Component {
             withinStructuredField: null
         })
     }
-	
-	handleSelectionChange = (selectedText) => {
-		//console.log("FullApp. selectedText: " + selectedText);
-		this.setState({
-			selectedText: selectedText
-		})
-	}
+    
+    handleSelectionChange = (selectedText) => {
+        //console.log("FullApp. selectedText: " + selectedText);
+        this.setState({
+            selectedText: selectedText
+        })
+    }
 
     componentDidUpdate = (a, b) => {
         // Nothing right now
@@ -333,20 +397,20 @@ class FullApp extends Component {
         }
     }
 
-  	handleStagingTUpdate = (t) => {
+    handleStagingTUpdate = (t) => {
         console.log(`Updated: ${t}`);
         (t !== "") && this.setState({tumorSize: t});
-  	}
+    }
 
-  	handleStagingNUpdate = (n) => {
+    handleStagingNUpdate = (n) => {
         console.log(`Updated: ${n}`);
         (n !== "") && this.setState({nodeSize: n});
-  	}
+    }
 
-  	handleStagingMUpdate = (m) => {
+    handleStagingMUpdate = (m) => {
         console.log(`Updated: ${m}`);
         (m !== "") && this.setState({metastasis: m});
-  	}
+    }
 
 
     handleProgressionUpdate = (p) => { 
@@ -364,7 +428,10 @@ class FullApp extends Component {
 
     handleNewProgression = (p) => { 
         console.log(`This is a new progression`);
-        (p !== "") && this.addProgressionEvent(p)
+        if (p !== "") {
+            this.addProgressionEvent(p)
+
+        }
     }
 
     render() {
@@ -384,10 +451,6 @@ class FullApp extends Component {
 
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
-
-        // Grab most recent entry for progression
-        const currentProgression = [this._getMostRecentProgression(this.state.progression)];
-
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
@@ -399,15 +462,19 @@ class FullApp extends Component {
                         <Row center="xs">
                             <Col sm={4}>
                                 <DataSummaryPanel
+                                    // Handle updates
+                                    onItemClicked={this.handleSummaryItemSelected}
+                                    onProgressionShortcutUpdate={this.handleProgressionShortcutUpdate}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
+                                    // Properties
+                                    progressionShortcut={this.state.progressionShortcut}
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    currentProgression={currentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
-                                    onItemClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
                             <Col sm={5}>
@@ -421,11 +488,11 @@ class FullApp extends Component {
                                     onPRStatusChange={this.changePRStatus}
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
-									onSelectionChange={this.handleSelectionChange}
-                                    onProgressionUpdate={this.handleProgressionUpdate}
-                                    onNewProgression={this.handleNewProgression}
+                                    onSelectionChange={this.handleSelectionChange}
+                                    // New Prog
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progression={currentProgression[0]}
+                                    progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
@@ -442,14 +509,14 @@ class FullApp extends Component {
                                     onStagingTUpdate={this.handleStagingTUpdate}
                                     onStagingNUpdate={this.handleStagingNUpdate}
                                     onStagingMUpdate={this.handleStagingMUpdate}
-                                    onProgressionUpdate={this.handleProgressionUpdate}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progression={currentProgression[0]}
+                                    progressionShortcut={this.state.progressionShortcut}
                                     tumorSize={this.state.tumorSize}
                                     nodeSize={this.state.nodeSize}
                                     metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
-									selectedText={this.state.selectedText}
+                                    selectedText={this.state.selectedText}
                                     patient={this.state.patient}
                                 />
                             </Col>

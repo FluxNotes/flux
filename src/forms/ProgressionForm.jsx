@@ -72,7 +72,7 @@ class ProgressionForm extends Component {
   renderReasonCheckbox = (reason, i) => {
     
 
-    const isChecked = this.props.progression.reason.some((curReason) => curReason === reason.name);
+    const isChecked = this.props.progression.reason.some((curReason) => curReason.toLowerCase() === reason.name.toLowerCase());
     return (
       <Checkbox
         key={i}

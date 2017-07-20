@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 // Our components
 import StagingForm from './StagingForm';
-import ProgressionForm from './ProgressionForm';
 import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
 // material-ui
@@ -72,9 +71,9 @@ class FormTray extends Component {
                             
                             // Progression data
                             // Update functions
-                            onProgressionUpdate={this.props.onProgressionUpdate}
+                            changeCurrentShortcut={this.changeCurrentShortcut}
                             // Properties
-                            progression={this.props.progression}
+                            progressionShortcut={this.props.progressionShortcut}
                         />
                     );
 
@@ -106,14 +105,7 @@ class FormTray extends Component {
                     />
                 );
             } else if (this.props.withinStructuredField === "progression") { 
-                panelContent = (
-                    <ProgressionForm
-                        // Update functions
-                        onProgressionUpdate={this.props.onProgressionUpdate}
-                        // Properties
-                        progression={this.props.progression}
-                    />
-                );
+                panelContent = this.props.progressionShortcut.getForm();
             }
         }
         return (

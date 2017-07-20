@@ -58,21 +58,33 @@ class ClinicalNotes extends Component {
   handleStructuredFieldExited = (currentFocus) => {
     this.props.onStructuredFieldExited(currentFocus);
   }
-  
+
   handleSelectionChange = (selectedText) => {
     if (this.props.onSelectionChange != null) {
-		//console.log("ClinicalNotes selectedText=" + selectedText);
-		this.props.onSelectionChange(selectedText);
-	}
+      //console.log("ClinicalNotes selectedText=" + selectedText);
+      this.props.onSelectionChange(selectedText);
+    }
   }
 
+  
+  // Old progression updates
   handleProgressionUpdate = (newProgression) => {
     this.props.onProgressionUpdate(newProgression);
   }
-
   handleNewProgression = (newProgression) => {
     this.props.onNewProgression(newProgression);
   }
+  // 
+
+  // New Progression updates
+  handleProgressionShortcutUpdate = (newProgression) => {
+    this.props.onProgressionShortcutUpdate(newProgression);
+  }
+  changeCurrentShortcut = (newProgression) => {
+    this.props.changeCurrentShortcut(newProgression);
+  }
+  //
+
 
   render() {
   
@@ -101,32 +113,39 @@ class ClinicalNotes extends Component {
               </Col>
             </Row>
   
-			<Divider className="divider" />
+      <Divider className="divider" />
           </div>
         );
     }
     return (
       <div id="clinical-notes" className="dashboard-panel">
         <Paper className="panel-content trio">
-		  {noteDescriptionContent}
+      {noteDescriptionContent}
 
           <MyEditor
             // Update functions
             onStructuredFieldEntered={this.handleStructuredFieldEntered}
             onStructuredFieldExited={this.handleStructuredFieldExited}
-      			onSelectionChange={this.handleSelectionChange}
+            onSelectionChange={this.handleSelectionChange}
             onStagingTUpdate={this.handleStagingTUpdate}
             onStagingNUpdate={this.handleStagingNUpdate}
             onStagingMUpdate={this.handleStagingMUpdate}
             onStageUpdate={this.handleStageUpdate}
             onSummaryUpdate={this.handleSummaryUpdate}
+            // Old
             onProgressionUpdate={this.handleProgressionUpdate}
             onNewProgression={this.handleNewProgression}
+            progression={this.props.progression}
+            //
+            // New
+            changeCurrentShortcut={this.changeCurrentShortcut}
+            progressionShortcut={this.props.progressionShortcut}
+            //
 
             // Helper functions
             calculateStage={this.props.calculateStage}
             // Properties
-            progression={this.props.progression}
+
             tumorSize={this.props.tumorSize}
             nodeSize={this.props.nodeSize}
             metastasis={this.props.metastasis}
