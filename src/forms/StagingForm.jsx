@@ -6,6 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
 import staging from '../../lib/staging';
 import lookup from '../../lib/staging_lookup';
+// Lodash
+import Lang from 'lodash'
 // Styling
 import './StagingForm.css';
 
@@ -14,9 +16,9 @@ class StagingForm extends Component {
       super(props);
 
       this.state = {
-        tumorSizes: lookup.getTsForEdition(7),
-        nodes: lookup.getNsForEdition(7),
-        metastases: lookup.getMsForEdition(7)
+        tumorValues: lookup.getTsForEdition(7),
+        nodeValues: lookup.getNsForEdition(7),
+        metastasisValues: lookup.getMsForEdition(7)
       };
   }
 
@@ -26,31 +28,40 @@ class StagingForm extends Component {
 
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
-    // console.log("StagingForm._handleTumorSizeClick T=" + i);
-    this.props.onStagingTUpdate(this.state.tumorSizes[i].name);
+    console.log("StagingForm._handleTumorSizeClick T=" + i);
+    
+    let newStaging = Lang.clone(this.props.staging);
+    newStaging.tumorSize = this.state.tumorValues[i].name
+    this.props.onStagingUpdate(newStaging);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
-    // console.log("StagingForm._handleNodeClick N=" + i);
-    this.props.onStagingNUpdate(this.state.nodes[i].name);
+    console.log("StagingForm._handleNodeClick N=" + i);
+
+    let newStaging = Lang.clone(this.props.staging);
+    newStaging.nodeSize = this.state.nodeValues[i].name;
+    this.props.onStagingUpdate(newStaging);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
-    // console.log("StagingForm._handleMetastasisClick M=" + i);
-    this.props.onStagingMUpdate(this.state.metastases[i].name);
+    console.log("StagingForm._handleMetastasisClick M=" + i);
+    
+    let newStaging = Lang.clone(this.props.staging);
+    newStaging.metastasis = this.state.metastasisValues[i].name;
+    this.props.onStagingUpdate(newStaging);
   }
 
   render() {
-    // console.log("in render. t: " + this.props.t);
+    // console.log("in render. of Staging form")
     return (
        <div>
             <h1>Current Staging</h1>
             <Divider className="divider" />
 
-            <h4>Tumor Size</h4>
-            {this.state.tumorSizes.map((t, i) => {
+            <h4>Tumor Size</h4> 
+            {this.state.tumorValues.map((t, i) => {
                 const buttonClass = (t.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={t.name} className="tooltip">
@@ -60,14 +71,14 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
-                          disabled={this._currentlySelected(this.props.tumorSize, this.state.tumorSizes[i].name)}
+                          disabled={this._currentlySelected(this.props.staging.tumorSize, this.state.tumorValues[i].name)}
                       />
                   </div>
                 );
             })}
 
             <h4>Node</h4>
-            {this.state.nodes.map((n, i) => {
+            {this.state.nodeValues.map((n, i) => {
                 const buttonClass = (n.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={n.name} className="tooltip">
@@ -77,14 +88,14 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
-                          disabled={this._currentlySelected(this.props.nodeSize, this.state.nodes[i].name)}
+                          disabled={this._currentlySelected(this.props.staging.nodeSize, this.state.nodeValues[i].name)}
                       />
                   </div>
                 );
             })}
 
             <h4>Metastasis</h4>
-            {this.state.metastases.map((m, i) => {
+            {this.state.metastasisValues.map((m, i) => {
                 const buttonClass = (m.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
                   <div key={m.name} className="tooltip">
@@ -94,14 +105,14 @@ class StagingForm extends Component {
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
-                        disabled={this._currentlySelected(this.props.metastasis, this.state.metastases[i].name)}
+                        disabled={this._currentlySelected(this.props.staging.metastasis, this.state.metastasisValues[i].name)}
                     />
                   </div>
                 );
             })}
 
             <h4>Prognostic Stage</h4>
-            <div className="stage">{staging.breastCancerPrognosticStage(this.props.tumorSize, this.props.nodeSize, this.props.metastasis) || 'Undefined'}</div>
+            <div className="stage">{staging.breastCancerPrognosticStage(this.props.staging.tumorSize, this.props.staging.nodeSize, this.props.staging.metastasis) || 'Undefined'}</div>
         </div>
     );
   }
