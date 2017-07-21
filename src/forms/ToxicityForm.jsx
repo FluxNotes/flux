@@ -160,7 +160,9 @@ class ToxicityForm extends Component {
     if(Lang.isUndefined(adverseEventName)) { 
       gradeDescription = grade.description;
     } else { 
-      const currentAdverseEvent = Array.find(this.state.adverseEventOptions, {name: adverseEventName})
+      let adverseEventNameLowerCase = adverseEventName.toLowerCase();
+      let adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { elem.name = elem.name.toLowerCase(); return elem; });
+      const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
       gradeDescription = currentAdverseEvent[currentGradeLevel];
     }
     const gradeText=`${currentGradeLevel} - ${gradeDescription}`
