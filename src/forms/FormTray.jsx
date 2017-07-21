@@ -1,7 +1,6 @@
 // React imports
 import React, {Component} from 'react';
 // Our components
-import StagingForm from './StagingForm';
 import TemplateForm from './TemplateForm';
 import DataCaptureForm from './DataCaptureForm';
 // material-ui
@@ -47,8 +46,8 @@ class FormTray extends Component {
                 );
             }
         } else {
-            if (this.props.withinStructuredField == null) {
-                //console.log("FormTray. selectedText = " + this.props.selectedText);
+            if (Lang.isNull(this.props.withinStructuredField)) {
+                // console.log("FormTray. selectedText = " + this.props.selectedText);
 
                 // When highlighting text in the notes section, change the panel content to display the data capture form
                 if (this.props.selectedText != null) {
@@ -88,23 +87,11 @@ class FormTray extends Component {
                     );
                 }
             } else if (this.props.withinStructuredField === "staging") {
-                panelContent = (
-                    <StagingForm
-                        // Update functions
-                        onStagingTUpdate={this.props.onStagingTUpdate}
-                        onStagingNUpdate={this.props.onStagingNUpdate}
-                        onStagingMUpdate={this.props.onStagingMUpdate}
-                        onStageUpdate={this.props.onStageUpdate}
-                        // Helper functions
-                        calculateStage={this.props.calculateStage}
-                        // Properties
-                        tumorSize={this.props.tumorSize}
-                        nodeSize={this.props.nodeSize}
-                        metastasis={this.props.metastasis}
-                        stage={this.props.stage}
-                    />
-                );
+                console.log('trying to get staging form')
+                console.log(this.props.stagingShortcut)
+                panelContent = this.props.stagingShortcut.getForm();
             } else if (this.props.withinStructuredField === "progression") { 
+                console.log('trying to get progression form')
                 panelContent = this.props.progressionShortcut.getForm();
             }
         }
