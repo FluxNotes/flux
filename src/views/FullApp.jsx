@@ -389,14 +389,14 @@ class FullApp extends Component {
     handleStructuredFieldEntered = (field) => {
         console.log("structured field entered: " + field);
         this.setState({
-            withinStructuredField: field
+            currentShortcut: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
         // console.log("structured field exited: " + field);
         this.setState({
-            withinStructuredField: null
+            currentShortcut: null
         })
     }
     
@@ -481,10 +481,7 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
-                    <NavBar
-                        onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                        onStructuredFieldExited={this.handleStructuredFieldExited}
-                    />
+                    <NavBar />
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
@@ -523,7 +520,7 @@ class FullApp extends Component {
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
+                                    changeShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     withinStructuredField={this.state.withinStructuredField}
                                     selectedText={this.state.selectedText}

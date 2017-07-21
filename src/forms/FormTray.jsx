@@ -28,11 +28,11 @@ class FormTray extends Component {
     }
     _newShortcut(i) {
         console.log(`new shortcut ${i}`);
-        this.props.changeCurrentShortcut(this.props.shortcuts[i]);
+        this.props.changeShortcut(this.props.shortcuts[i]);
     }
     render() {
         let panelContent = null;
-        if (Lang.isUndefined(this.props.patient)) {
+        if (Lang.isUndefined(this.props.patient)) { // NO PATIENT MODE
             if (!Lang.isNull(this.props.currentShortcut)) {
                 panelContent = this.props.currentShortcut.getForm();
             } else {
@@ -45,14 +45,12 @@ class FormTray extends Component {
                     />
                 );
             }
-        } else {
-            if (Lang.isNull(this.props.withinStructuredField)) {
-                // console.log("FormTray. selectedText = " + this.props.selectedText);
-
-                // When highlighting text in the notes section, change the panel content to display the data capture form
-                if (this.props.selectedText != null) {
-                    console.log(this.props);
-                    panelContent = (
+        } else { // PATIENT MODE
+            if (!Lang.isNull(this.props.currentShortcut)) {
+                panelContent = this.props.currentShortcut.getForm();
+			} else if (this.props.selectedText != null) {
+                console.log(this.props);
+                panelContent = (
                         <DataCaptureForm
                             // Staging Form data
                             // Update functions
@@ -74,41 +72,16 @@ class FormTray extends Component {
                             // Properties
                             currentShortcut={this.props.currentShortcut}
                         />
-                    );
-
-                } else {
-                    panelContent = (
+                );
+            } else {
+                panelContent = (
                         <TemplateForm
                             patient={this.props.patient}
                             heading="Available Templates"
                             templates={['op note', 'follow-up', 'consult note']}
                             handleClick={this._insertTemplate}
                         />
-                    );
-                }
-            } else if (this.props.withinStructuredField === "staging") {
-                console.log(this.props)
-                if (!Lang.isNull(this.props.currentShortcut)) { 
-                    if (this.props.currentShortcut.getShortcutType() === "staging") { 
-                        panelContent = this.props.currentShortcut.getForm();
-                    } else { 
-                        console.error("In FormTray, supposed to be within Staging structured field but the currentShortcut is not type staging, is instead");
-                        console.error(this.props.currentShortcut);
-                    }
-                } else { 
-                    console.error("In FormTray, supposed to be within Staging structured field but there is no currentShortcut");
-                }
-            } else if (this.props.withinStructuredField === "progression") { 
-                if (!Lang.isNull(this.props.currentShortcut)) { 
-                    if (this.props.currentShortcut.getShortcutType() === "progression") { 
-                        panelContent = this.props.currentShortcut.getForm();
-                    } else { 
-                        console.error("In FormTray, supposed to be within Progression structured field but the currentShortcut is not type staging, is instead");
-                        console.error(this.props.currentShortcut);
-                    }
-                } else { 
-                    console.error("In FormTray, supposed to be within Progression structured field but there is no currentShortcut");
-                }
+                );
             }
         }
         return (
