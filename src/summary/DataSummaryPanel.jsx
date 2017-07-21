@@ -19,56 +19,36 @@ import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
+    _getMostRecentProgression(progressionList) {
+        const sortedProgressionList = progressionList.sort(this._timeSorter);
+        const length = sortedProgressionList.length;
+        return(sortedProgressionList[length - 1]);
+    }
+
+    _timeSorter(a, b) {
+        if (a.startDate < b.startDate) {
+            return -1;
+        }
+        if (a.startDate > b.startDate) {
+            return 1;
+        }
+        return 0;
+    }
 
     render() {
         let progressionHeader = "";
         const sixMonthsAgoDate = moment().subtract(6, 'months');
 
         // Format the current progression entry for the data summary table component
-        let currentProgressionArray = [];
+        const currentProgressionArray = [this._getMostRecentProgression(this.props.progression)];
 
-        // Format Progression
-        //
-        // If there is a progression shortcut to include 
-        const progressionShortcut = this.props.progressionShortcut
-        if (!Lang.isNull(progressionShortcut)) { 
-            currentProgressionArray = [
-                {
-                    name: "Progression Value",
-                    display: progressionShortcut.progression.status,
-                    value: progressionShortcut.progression.status,
-                    startDate: progressionShortcut.progression.startDate
-                },
-                {
-                    name: "Reasons",
-                    display: progressionShortcut.progression.reason.join(", "),
-                    value: progressionShortcut.progression.reason,
-                    startDate: progressionShortcut.progression.startDate
-                }
-            ];
-        } else { 
-            currentProgressionArray = [
-                {
-                    name: "Progression Value",
-                    value: "",
-                    display: "", 
-                    startDate: "",
-                },
-                {
-                    name: "Reasons",
-                    value: [],
-                    display: "", 
-                    startDate: "",
-                }
-            ];
-        }
         // Check if start date is longer than 6 months from today's date and set the progression header accordingly
-        if (Lang.isNull(progressionShortcut) || progressionShortcut.progression.startDate < sixMonthsAgoDate) {
+        if (Lang.isNull(currentProgressionArray) || currentProgressionArray.length === 0 || currentProgressionArray[0].startDate < sixMonthsAgoDate) {
             progressionHeader = "Current Progression";
         } else {
-            progressionHeader = "Current Progression as of " + progressionShortcut.progression.startDate.format('MM/DD/YYYY') + ":";
+            progressionHeader = "Current Progression as of " + currentProgressionArray[0].startDate.format('MM/DD/YYYY') + ":";
+			currentProgressionArray[0].display = currentProgressionArray[0].status.concat(" based on ").concat(currentProgressionArray[0].reason.join());
         }
-
 
         return (
             <div className="dashboard-panel">

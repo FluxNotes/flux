@@ -10,12 +10,12 @@ const KEY_BACKSPACE = 'backspace';
 const KEY_DOWN      = 'down';
 const KEY_UP        = 'up';
 
-const initialState = Slate.Plain.deserialize('');
-/*const initialState = Slate.Raw.deserialize(
+//const initialState = Slate.Plain.deserialize('');
+const initialState = Slate.Raw.deserialize(
 	{     "nodes": [
         {
             "kind": "block",
-            "type": "paragraph",
+            "type": "inline",
             "nodes": [
                 {
                     "kind": "text",
@@ -27,7 +27,7 @@ const initialState = Slate.Plain.deserialize('');
                 }
             ]
         }
-	]}, { terse: true });*/
+	]}, { terse: true });
 
 const structuredFieldPlugin = StructuredField();
 

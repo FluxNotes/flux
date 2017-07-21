@@ -483,10 +483,7 @@ class FullApp extends Component {
                                 <DataSummaryPanel
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
 
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
@@ -495,6 +492,7 @@ class FullApp extends Component {
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
+									progression={this.state.progression}
                                 />
                             </Col>
                             <Col sm={5}>

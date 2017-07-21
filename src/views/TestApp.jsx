@@ -388,16 +388,10 @@ class TestApp extends Component {
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 
-        // Grab most recent entry for progression
-        const currentProgression = [this._getMostRecentProgression(this.state.progression)];
-
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="TestApp">
-                    <NavBar
-                        onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                        onStructuredFieldExited={this.handleStructuredFieldExited}
-                    />
+                    <NavBar />
                     <Grid className="TestApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
@@ -405,11 +399,11 @@ class TestApp extends Component {
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    currentProgression={currentProgression}
                                     keyDates={this.state.keyDates}
                                     procedures={this.state.procedures}
                                     pathology={this.state.pathology}
                                     genetics={this.state.genetics}
+									progression={this.state.progression}
                                     onItemClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
@@ -419,18 +413,14 @@ class TestApp extends Component {
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    onStagingTUpdate={this.handleStagingTUpdate}
-                                    onStagingNUpdate={this.handleStagingNUpdate}
-                                    onStagingMUpdate={this.handleStagingMUpdate}
-                                    onProgressionUpdate={this.handleProgressionUpdate}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progression={currentProgression[0]}
-                                    tumorSize={this.state.tumorSize}
-                                    nodeSize={this.state.nodeSize}
-                                    metastasis={this.state.metastasis}
                                     withinStructuredField={this.state.withinStructuredField}
-									selectedText={this.state.selectedText}
+                                    selectedText={this.state.selectedText}
                                     patient={this.state.patient}
+
+                                    progressionShortcut={this.state.progressionShortcut}
+                                    stagingShortcut={this.state.stagingShortcut}
                                 />
                             </Col>
                         </Row>
@@ -447,11 +437,6 @@ class TestApp extends Component {
                 </div>
             </MuiThemeProvider>
         );
-    }
-    _getMostRecentProgression(progressionList) {
-        const sortedProgressionList = progressionList.sort(this._timeSorter);
-        const length = sortedProgressionList.length;
-        return(sortedProgressionList[length - 1]);
     }
 
     _timeSorter(a, b) {
