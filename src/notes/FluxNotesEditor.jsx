@@ -1,6 +1,7 @@
 import React from 'react';
-import Slate from 'slate'
-//import PluginEditTable from './lib/';
+import Slate from 'slate';
+import Lang from 'lodash'
+import { Set } from 'immutable'
 
 import './FluxNotesEditor.css';
 
@@ -9,19 +10,20 @@ const KEY_TAB       = 'tab';
 const KEY_BACKSPACE = 'backspace';
 const KEY_DOWN      = 'down';
 const KEY_UP        = 'up';
+const KEY_LEFT		= 'left';
+const KEY_RIGHT		= 'right';
 
-//const initialState = Slate.Plain.deserialize('');
 const initialState = Slate.Raw.deserialize(
-	{     "nodes": [
+	{     nodes: [
         {
-            "kind": "block",
-            "type": "inline",
-            "nodes": [
+            kind: 'block',
+            type: 'inline',
+            nodes: [
                 {
-                    "kind": "text",
-                    "ranges": [
+                    kind: 'text',
+                    ranges: [
                         {
-                            "text": ""
+                            'text': ""
                         }
                     ]
                 }
@@ -117,6 +119,9 @@ function onBackspace(event, data, state, opts) {
         .apply();*/
 }
 
+function onLeftRight(event, data, state, opts) {
+}
+
 function onUpDown(event, data, state, opts) {
 /*
     const direction = data.key === 'up' ? -1 : +1;
@@ -149,6 +154,16 @@ function createSubfield_Dropdown(opts, spec) {
 	});
 }
 
+function createSubfield_StaticText(opts, text) {
+	return Slate.Inline.create({
+		type: opts.typeSubfieldStaticText,
+		data: {
+			text: text
+		},
+		isVoid: true
+	});
+}
+
 /**
  * Create a structured field
  *
@@ -159,22 +174,43 @@ function createSubfield_Dropdown(opts, spec) {
  */
 function createStructuredField(opts, type) {
     const nodes = [
+		createSubfield_StaticText(opts, '#staging['),
 		createSubfield_Dropdown(opts, { values: ['T0', 'T1', 'T2', 'T3']}),
 		createSubfield_Dropdown(opts, { values: ['N0', 'N1', 'N2', 'N3']}),
 		createSubfield_Dropdown(opts, { values: ['M0', 'M1']}),
+		createSubfield_StaticText(opts, ']')
 	];
-//        .map(i => createRow(opts, columns, textGetter ? textGetter.bind(null, i) : null))
-//        .toList();
 	const shortcut = {};
     return Slate.Block.create({
         type:  opts.typeStructuredField,
         nodes: nodes,
         data: {
-            shortcut,
+            shortcut
+        }
+    });
+	/* after shortcut in data:
+				,
 			startText: "#staging[",
 			endText: "]"
-        },
+	*/
+}
+
+/*function createParagraphBlock() {
+    return Slate.Block.create({
+        type:  'paragraph'
     });
+}*/
+
+function createInlineBlock(text = '') {
+	let nodes = [];
+	if (text.length > 0) {
+		console.log("got text");
+		nodes.push(Slate.Text.create( { "characters": [ Slate.Character.create( {marks: Set() , text: text } ) ] } ));
+	}
+	return Slate.Block.create({
+		type: 'inline',
+		nodes: nodes
+	});
 }
 
 /**
@@ -186,36 +222,56 @@ function createStructuredField(opts, type) {
  */
 function insertStructuredField(opts, transform) {
     const { state } = transform;
-	console.log("insertStructuredField: " + state.selection.startKey);
+	//console.log("insertStructuredField: " + state.selection.startKey);
     if (!state.selection.startKey) return false;
 
     // Create the structured-field node
     const sf = createStructuredField(opts, 'staging');
 
-    return transform
-        .insertBlock(sf);
+	if (sf.kind === 'block') {
+		return transform
+			.insertBlock(sf);
+	} else {
+		return transform
+			.insertInline(sf);
+	}
 }
 
 function StructuredField(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
     opts.typeSubfieldDropdown = opts.typeSubfieldDropdown || 'sf_subfield_dropdown';
+	opts.typeSubfieldStaticText = opts.typeSubfieldStaticText || 'sf_subfield_statictext';
 
     /**
      * Is the selection in a structured field
      */
     function isSelectionInStructuredField(state) {
+		//console.log(state.selection.startKey);
         if (!state.selection.startKey) return false;
 
         const { startBlock } = state;
 
         // Only handle events in cells
-        return (startBlock.type === opts.typeSubfieldDropdown);
+		//console.log(startBlock.type + " ?= " + opts.typeSubfieldDropdown + " ?= " + opts.typeStructuredField);
+        return (startBlock.type === opts.typeSubfieldDropdown || startBlock.type === opts.typeSubfieldStaticText || startBlock.type === opts.typeStructuredField); // return true;
+		//const parent = state.document.getParent(startBlock.key);
+		//console.log("parent = " + parent);
+		//return (!Lang.isNull(parent) && parent.type === opts.typeStructuredField);
     }
 
 	function onKeyDown(event, data, state) {
         // Only handle events in cells
         if (!isSelectionInStructuredField(state)) {
+			if (data.key === KEY_ENTER) {
+				const newState = state
+					.transform()
+					.insertText('\n')
+					.apply();
+				console.log('not in structured field and ENTER');
+				return newState;
+			}
+			console.log("not in structured field (" + state.startBlock.type + ") and not ENTER");
             return;
         }
 
@@ -235,15 +291,68 @@ function StructuredField(opts) {
         case KEY_DOWN:
         case KEY_UP:
             return onUpDown(...args);
+		case KEY_LEFT:
+		case KEY_RIGHT:
+			return onLeftRight(...args);
+		default:
+			//console.log("onKeyDown: " + data.key);
+			console.log(state.selection);
+			event.preventDefault();
+			const subfield = state.startBlock;
+			console.log(subfield.type + " => " + subfield.key);
+			console.log(state.selection.type + " => " + state.selection.key);
+			let sf = null;
+			if (subfield.type === opts.typeStructuredField) {
+				sf = subfield;
+			} else {
+				//console.log("subfield key = " + subfield.key);
+				sf = state.document.getParent(subfield.key);
+				//console.log("subfield parent: " + sf);
+				//console.log(sf.type + " --> key=" + sf.key);
+			}
+			let nextSibling = state.document.getNextSibling(sf.key);
+			//console.log("nextSibling = " + nextSibling);
+			if (Lang.isUndefined(nextSibling)) {
+				nextSibling = createInlineBlock(data.key);
+				console.log(nextSibling + " insert at " + state.document.nodes.size);
+				const newState = state
+					.transform()
+					//.collapseToEndOf(state.document)
+					.insertNodeByKey(state.document.key, state.document.nodes.size, nextSibling)
+					//.insertNodeByKey(sf.key, sf.nodes.size, nextSibling)
+					//.insertBlock(nextSibling)
+					.collapseToEndOf(nextSibling).focus()
+					.apply();
+				//newState = newState.transform().collapseToEndOf(nextSibling).focus().apply();
+				return newState;
+			} else {
+				// TODO
+				// insertTextAtRange
+				const newState = state
+					.transform()
+					.collapseToStartOf(nextSibling).focus()
+					.insertText(data.key)
+					.apply();
+				console.log('found next sibling and inserted text at start of it');
+				return newState;
+			}
+			
+			//return;
         }
+		
 	}
 
 	const schema = {
 		nodes: {
 			structured_field:      props => {
-				let starttext = props.node.get('data').get('startText') || '';
-				let endtext = props.node.get('data').get('endText') || '';
-				return <span className='structured-field' {...props.attributes}>{starttext}{props.children}{endtext}</span>;
+				//let starttext = props.node.get('data').get('startText') || '';
+				//let endtext = props.node.get('data').get('endText') || '';
+				//return <span className='structured-field' {...props.attributes}>{starttext}{props.children}{endtext}</span>;
+				return <span className='structured-field' {...props.attributes}>{props.children}</span>;
+			},
+			sf_subfield_statictext:  props => {
+				let text = props.node.get('data').get('text') || '';
+				return <span className='sf_subfield_statictext' {...props.attributes}>{text}</span>; //props.children
 			},
 			sf_subfield_dropdown:    props => {
 				let values = props.node.get('data').get('values');
@@ -254,9 +363,23 @@ function StructuredField(opts) {
 						})}</select></span>
 					);
 			}
-		}
+		},
+		rules: [
+			{
+				match: (node) => {
+					return node.kind === 'block' && node.type === 'inline'
+				},
+				render: (props) => {
+					return (
+						<span {...props.attributes} style={{ position: 'relative' }}>
+							{props.children}
+						</span>
+					);
+				}
+			}
+		]
 	};
-    
+	    
 	return {
         onKeyDown,
 
@@ -279,7 +402,7 @@ class FluxNotesEditor extends React.Component {
 		// Set the initial state when the app is first constructed.
 		this.state = {
 			state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
-		}
+		}		
     }
 
     onChange = (state) => {
@@ -307,8 +430,7 @@ class FluxNotesEditor extends React.Component {
 
     render = () => {
         let { state } = this.state;
-        let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
-		//let isTable = false;
+        //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
 
                 //{isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
         return (
