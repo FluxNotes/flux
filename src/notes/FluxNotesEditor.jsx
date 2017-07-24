@@ -1,6 +1,8 @@
 import React from 'react';
 import Slate from 'slate';
 import Lang from 'lodash'
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import { Set } from 'immutable'
 
 import './FluxNotesEditor.css';
@@ -48,6 +50,7 @@ const schema = {
 };
 
 function onEnter(event, data, state, opts) {
+	console.log('onEnter');
 /*    event.preventDefault();
 
     return insertRow(opts, state.transform())
@@ -59,6 +62,7 @@ function onEnter(event, data, state, opts) {
  * and select the whole text
  */
 function onTab(event, data, state, opts) {
+	console.log('onTab');
 /*    event.preventDefault();
     const direction = (data.isShift ? -1 : +1);
     let transform = state.transform();
@@ -80,6 +84,7 @@ function onTab(event, data, state, opts) {
 }
 
 function onBackspace(event, data, state, opts) {
+	console.log('onBackspace');
 /*    const { startBlock, startOffset,
         isCollapsed, endBlock } = state;
 
@@ -120,9 +125,11 @@ function onBackspace(event, data, state, opts) {
 }
 
 function onLeftRight(event, data, state, opts) {
+	console.log('onLeftRight');
 }
 
 function onUpDown(event, data, state, opts) {
+	console.log('onUpDown');
 /*
     const direction = data.key === 'up' ? -1 : +1;
     const pos = TablePosition.create(state, state.startBlock);
@@ -149,7 +156,8 @@ function createSubfield_Dropdown(opts, spec) {
 	return Slate.Block.create({
 		type: opts.typeSubfieldDropdown,
 		data: {
-			values: spec.values
+			value: spec.value,
+			items: spec.items
 		}
 	});
 }
@@ -173,14 +181,14 @@ function createSubfield_StaticText(opts, text) {
  * @return {State.Block}
  */
 function createStructuredField(opts, type) {
+	const shortcut = {tumorSize: null, nodeSize: null, metastasis: null};
     const nodes = [
 		createSubfield_StaticText(opts, '#staging['),
-		createSubfield_Dropdown(opts, { values: ['T0', 'T1', 'T2', 'T3']}),
-		createSubfield_Dropdown(opts, { values: ['N0', 'N1', 'N2', 'N3']}),
-		createSubfield_Dropdown(opts, { values: ['M0', 'M1']}),
+		createSubfield_Dropdown(opts, { items: ['T0', 'T1', 'T2', 'T3'], value: shortcut.tumorSize }),
+		createSubfield_Dropdown(opts, { items: ['N0', 'N1', 'N2', 'N3'], value: shortcut.nodeSize }),
+		createSubfield_Dropdown(opts, { items: ['M0', 'M1'], value: shortcut.metastasis}),
 		createSubfield_StaticText(opts, ']')
 	];
-	const shortcut = {};
     return Slate.Block.create({
         type:  opts.typeStructuredField,
         nodes: nodes,
@@ -188,11 +196,6 @@ function createStructuredField(opts, type) {
             shortcut
         }
     });
-	/* after shortcut in data:
-				,
-			startText: "#staging[",
-			endText: "]"
-	*/
 }
 
 /*function createParagraphBlock() {
@@ -295,7 +298,7 @@ function StructuredField(opts) {
 		case KEY_RIGHT:
 			return onLeftRight(...args);
 		default:
-			//console.log("onKeyDown: " + data.key);
+			console.log("onKeyDown: " + data.key);
 			console.log(state.selection);
 			event.preventDefault();
 			const subfield = state.startBlock;
@@ -355,12 +358,25 @@ function StructuredField(opts) {
 				return <span className='sf_subfield_statictext' {...props.attributes}>{text}</span>; //props.children
 			},
 			sf_subfield_dropdown:    props => {
-				let values = props.node.get('data').get('values');
+				//console.log(props);
+				let items = props.node.get('data').get('items');
+				let value = props.node.get('data').get('value');
 				return (
 					<span className='sf-subfield' {...props.attributes}><select>
-						{values.map(function(value, index) {
-							return <option key={value} value={value}>{value}</option>
+						{items.map(function(item, index) {
+							return <option key={item} value={item}>{item}</option>;
 						})}</select></span>
+					);
+			},
+			sf_subfield_dropdown2:    props => {
+				//console.log(props);
+				let items = props.node.get('data').get('items');
+				let value = props.node.get('data').get('value');
+				return (
+					<span className='sf-subfield' {...props.attributes}><DropDownMenu value={value} onChange={(event, index, value) => value={value}} >
+						{items.map(function(item, index) {
+							return <MenuItem key={item} value={item} primaryText={item}/>
+						})}</DropDownMenu></span>
 					);
 			}
 		},
