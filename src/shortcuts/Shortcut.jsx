@@ -12,6 +12,10 @@ class Shortcut {
         return "#null"; 
     }
 
+    getShortcutType() { 
+        throw new TypeError("Primitive shortcut has no type")
+    }
+
     getForm () { 
         return (<h2>No additional values for current shortcut</h2>);
     }
