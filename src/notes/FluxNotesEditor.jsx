@@ -298,12 +298,14 @@ function StructuredField(opts) {
 		case KEY_RIGHT:
 			return onLeftRight(...args);
 		default:
-			console.log("onKeyDown: " + data.key);
-			console.log(state.selection);
+			//let chr = String.fromCharCode((96 <= data.code) ? (data.code - 48 * Math.floor(data.code / 48)) : data.code);
+			//console.log("onKeyDown: " + data.key + " / " + chr);
+			console.log(data);
+			//console.log(state.selection);
 			event.preventDefault();
 			const subfield = state.startBlock;
-			console.log(subfield.type + " => " + subfield.key);
-			console.log(state.selection.type + " => " + state.selection.key);
+			//console.log(subfield.type + " => " + subfield.key);
+			//console.log(state.selection.type + " => " + state.selection.key);
 			let sf = null;
 			if (subfield.type === opts.typeStructuredField) {
 				sf = subfield;
@@ -331,13 +333,22 @@ function StructuredField(opts) {
 			} else {
 				// TODO
 				// insertTextAtRange
-				const newState = state
-					.transform()
-					.collapseToStartOf(nextSibling).focus()
-					.insertText(data.key)
-					.apply();
-				console.log('found next sibling and inserted text at start of it');
-				return newState;
+				if ((data.code > 47 && data.code < 58)   || // number keys
+					data.code === 32 || data.code === 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+					(data.code > 64 && data.code < 91)   || // letter keys
+					(data.code > 95 && data.code < 112)  || // numpad keys
+					(data.code > 185 && data.code < 193) || // ;=,-./` (in order)
+					(data.code > 218 && data.code < 223)) {
+					const newState = state
+						.transform()
+						.collapseToStartOf(nextSibling).focus()
+						.insertText(String.fromCharCode(data.code))
+						.apply();
+					console.log('found next sibling and inserted text at start of it');
+					return newState;
+				} else {
+					return;
+				}
 			}
 			
 			//return;
@@ -360,7 +371,7 @@ function StructuredField(opts) {
 			sf_subfield_dropdown:    props => {
 				//console.log(props);
 				let items = props.node.get('data').get('items');
-				let value = props.node.get('data').get('value');
+				//let value = props.node.get('data').get('value');
 				return (
 					<span className='sf-subfield' {...props.attributes}><select>
 						{items.map(function(item, index) {
@@ -426,7 +437,7 @@ class FluxNotesEditor extends React.Component {
             state: state
         });
     }
-
+	
     onInsertStructuredField = () => {
         let { state } = this.state;
 
