@@ -1,12 +1,11 @@
 // React imports
 import React, {Component} from 'react';
-// Our components
-import StagingForm from './StagingForm';
 // material-ui
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-
 import Divider from 'material-ui/Divider';
+// Lodash component
+import Lang from 'lodash'
 // Styling
 import './DataCaptureForm.css';
 
@@ -31,26 +30,22 @@ class DataCaptureForm extends Component {
 
     render() {
         let content = null;
-
-        if (this.state.value === 2) {
-            content = (
-                <StagingForm
-                    onStagingTUpdate={this.props.onStagingTUpdate}
-                    onStagingNUpdate={this.props.onStagingNUpdate}
-                    onStagingMUpdate={this.props.onStagingMUpdate}
-                    onStageUpdate={this.props.onStageUpdate}
-
-                    calculateStage={this.props.calculateStage}
-
-                    tumorSize={this.props.tumorSize}
-                    nodeSize={this.props.nodeSize}
-                    metastasis={this.props.metastasis}
-                    stage={this.props.stage}
-                />
-            );
-        } else if (this.state.value === 3) {
-            content = this.props.progressionShortcut.getForm();
-        } else {
+        const isCurrentShortcut = (!Lang.isNull(this.props.currentShortcut));
+        let currentShortcutType = "";
+        if (isCurrentShortcut) {
+            currentShortcutType = this.props.currentShortcut.getShortcutType()
+        }
+        if (this.state.value === "") {
+        } else if (this.state.value === "staging" && this.state.value === currentShortcutType) {            
+            content = this.props.currentShortcut.getForm();
+        } else if (this.state.value === "progression" && this.state.value === currentShortcutType) {
+            content = this.props.currentShortcut.getForm();
+        } else if (this.state.value === "toxicity" && this.state.value === currentShortcutType) {
+            content = this.props.currentShortcut.getForm();
+        } else if (this.state.value === "staging" || this.state.value === "progression" || this.state.value === "toxicity") {
+            console.log('We might want to figure out how to change currentShortcut from this position')
+            content = <p>Nothing to show</p>
+        } else { 
             content = <p>Nothing to show</p>
         }
 
@@ -65,10 +60,10 @@ class DataCaptureForm extends Component {
                         style={styles.customWidth}
                         autoWidth={false}
                     >
-                        <MenuItem value={1} primaryText="<Select Missing Data>"/>
-                        <MenuItem value={2} primaryText="Staging"/>
-                        <MenuItem value={3} primaryText="Progression"/>
-                        <MenuItem value={4} primaryText="Toxicity"/>
+                        <MenuItem value={""} primaryText="<Select Missing Data>"/>
+                        <MenuItem value={"staging"} primaryText="Staging"/>
+                        <MenuItem value={"progression"} primaryText="Progression"/>
+                        <MenuItem value={"toxicity"} primaryText="Toxicity"/>
                     </DropDownMenu>
                 </div>
                 <Divider className="divider"/>

@@ -32,7 +32,7 @@ class FormTray extends Component {
     }
     render() {
         let panelContent = null;
-        if (Lang.isUndefined(this.props.patient)) {
+        if (Lang.isUndefined(this.props.patient)) { // NO PATIENT MODE
             if (!Lang.isNull(this.props.currentShortcut)) {
                 panelContent = this.props.currentShortcut.getForm();
             } else {
@@ -45,14 +45,12 @@ class FormTray extends Component {
                     />
                 );
             }
-        } else {
-            if (Lang.isNull(this.props.withinStructuredField)) {
-                // console.log("FormTray. selectedText = " + this.props.selectedText);
-
-                // When highlighting text in the notes section, change the panel content to display the data capture form
-                if (this.props.selectedText != null) {
-                    console.log(this.props);
-                    panelContent = (
+        } else { // PATIENT MODE
+            if (!Lang.isNull(this.props.currentShortcut)) {
+                panelContent = this.props.currentShortcut.getForm();
+			} else if (this.props.selectedText != null) {
+                console.log(this.props);
+                panelContent = (
                         <DataCaptureForm
                             // Staging Form data
                             // Update functions
@@ -72,27 +70,18 @@ class FormTray extends Component {
                             // Update functions
                             changeCurrentShortcut={this.changeCurrentShortcut}
                             // Properties
-                            progressionShortcut={this.props.progressionShortcut}
+                            currentShortcut={this.props.currentShortcut}
                         />
-                    );
-
-                } else {
-                    panelContent = (
+                );
+            } else {
+                panelContent = (
                         <TemplateForm
                             patient={this.props.patient}
                             heading="Available Templates"
                             templates={['op note', 'follow-up', 'consult note']}
                             handleClick={this._insertTemplate}
                         />
-                    );
-                }
-            } else if (this.props.withinStructuredField === "staging") {
-                console.log('trying to get staging form')
-                console.log(this.props.stagingShortcut)
-                panelContent = this.props.stagingShortcut.getForm();
-            } else if (this.props.withinStructuredField === "progression") { 
-                console.log('trying to get progression form')
-                panelContent = this.props.progressionShortcut.getForm();
+                );
             }
         }
         return (

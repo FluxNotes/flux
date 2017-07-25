@@ -24,7 +24,12 @@ class ProgressionShortcut extends Shortcut {
         this.onUpdate = onUpdate;
         console.log(`constructor for a new Progression shortcut object`)
     }
-
+    /* 
+     * Returns "progression"
+     */
+    getShortcutType() { 
+        return "progression";
+    }
     /* 
      * Translate progression status into a string 
      */
