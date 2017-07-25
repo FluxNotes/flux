@@ -15,7 +15,7 @@ import EditorToolbar from './EditorToolbar';
 // Shortcut components
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import StagingShortcut from '../shortcuts/StagingShortcut';
-import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+// import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
 // Lookup libraries 
 import progressionLookup from '../../lib/progression_lookup';
 import stagingLookup from '../../lib/staging_lookup';
