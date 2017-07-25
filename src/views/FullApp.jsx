@@ -392,7 +392,6 @@ class FullApp extends Component {
                                 <DataSummaryPanel
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
                                     conditions={this.state.conditions}

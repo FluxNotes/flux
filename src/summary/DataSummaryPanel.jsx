@@ -19,7 +19,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-
     render() {
         let progressionHeader = "";
         const sixMonthsAgoDate = moment().subtract(6, 'months');
