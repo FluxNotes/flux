@@ -36,9 +36,11 @@ class FullApp extends Component {
             withinStructuredField: null,
             selectedText: null,
             // Current shortcutting: 
+            currentShortcut: null,
+            // Old Shortcutting
             progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
                     id: Math.floor(Math.random() * Date.now()),
-                    status: 'Progressing Disease',
+                    status: 'Progressing',
                     reason: [
                         "Pathology",
                         "Imaging",
@@ -309,25 +311,25 @@ class FullApp extends Component {
     changeCurrentShortcut = (shortcutType) => {
         if (Lang.isNull(shortcutType)) {   
             this.setState({
-                progressionShortcut: null
+                currentShortcut: null
             });
         } else { 
             switch (shortcutType.toLowerCase()) { 
                 case "progression": 
                     this.setState({
-                        progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
+                        currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
                 case "toxicity": 
                     this.setState({
-                        progressionShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
+                        currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
                     });
                     break;
 
                 case "staging": 
                     this.setState({
-                        stagingShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
+                        currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
                     });
                     break;
                 default: 
@@ -387,14 +389,14 @@ class FullApp extends Component {
     handleStructuredFieldEntered = (field) => {
         console.log("structured field entered: " + field);
         this.setState({
-            withinStructuredField: field
+            currentShortcut: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
         // console.log("structured field exited: " + field);
         this.setState({
-            withinStructuredField: null
+            currentShortcut: null
         })
     }
     
@@ -456,7 +458,13 @@ class FullApp extends Component {
         let diagnosis = this.state.diagnosis;
 
         /* update staging if captured */
-        const currentStaging = Lang.isNull(this.state.stagingShortcut) ? {} : this.state.stagingShortcut.staging;
+        const isCurrentShortcut = (!Lang.isNull(this.state.currentShortcut));
+        let isStagingShortcut = false;
+        if (isCurrentShortcut) {
+            isStagingShortcut = (this.state.currentShortcut.getShortcutType() === "staging");
+        }
+
+        const currentStaging = (!isStagingShortcut) ? {} : this.state.currentShortcut.staging;
         const t = currentStaging.tumorSize;
         const n = currentStaging.nodeSize;
         const m = currentStaging.metastasis;
@@ -473,10 +481,7 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
-                    <NavBar
-                        onStructuredFieldEntered={this.handleStructuredFieldEntered}
-                        onStructuredFieldExited={this.handleStructuredFieldExited}
-                    />
+                    <NavBar />
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
@@ -485,8 +490,7 @@ class FullApp extends Component {
                                     onItemClicked={this.handleSummaryItemSelected}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
 
                                     patient={this.state.patient}
                                     conditions={this.state.conditions}
@@ -506,8 +510,7 @@ class FullApp extends Component {
                                     // New Prog
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
 
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
@@ -517,14 +520,13 @@ class FullApp extends Component {
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
+                                    changeShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     withinStructuredField={this.state.withinStructuredField}
                                     selectedText={this.state.selectedText}
                                     patient={this.state.patient}
 
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    currentShortcut={this.state.currentShortcut}
                                 />
                             </Col>
                         </Row>
