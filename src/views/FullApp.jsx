@@ -29,9 +29,6 @@ class FullApp extends Component {
 
         this.state = {
             /* staging */
-            tumorSize: '',
-            nodeSize: '',
-            metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
             selectedText: null,
