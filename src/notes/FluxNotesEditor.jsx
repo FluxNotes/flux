@@ -3,7 +3,7 @@ import Slate from 'slate';
 import Lang from 'lodash'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { Set } from 'immutable'
+import { Set, List } from 'immutable'
 
 import './FluxNotesEditor.css';
 
@@ -15,22 +15,24 @@ const KEY_UP        = 'up';
 const KEY_LEFT		= 'left';
 const KEY_RIGHT		= 'right';
 
+
+// This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Raw.deserialize(
 	{     nodes: [
-        {
-            kind: 'block',
-            type: 'inline',
-            nodes: [
-                {
-                    kind: 'text',
-                    ranges: [
-                        {
-                            'text': ""
-                        }
-                    ]
-                }
-            ]
-        }
+		{
+			kind: 'block',
+			type: 'inline',
+			nodes: [
+				{
+					kind: 'text',
+					ranges: [
+						{
+							'text': ""
+						}
+					]
+				}
+			]
+		}
 	]}, { terse: true });
 
 const structuredFieldPlugin = StructuredField();
@@ -48,6 +50,7 @@ const schema = {
 		bold: (props) => <strong>{props.children}</strong>
 	}
 };
+
 
 function onEnter(event, data, state, opts) {
 	console.log('onEnter');
@@ -85,43 +88,76 @@ function onTab(event, data, state, opts) {
 
 function onBackspace(event, data, state, opts) {
 	console.log('onBackspace');
-/*    const { startBlock, startOffset,
+
+    const { startBlock, startOffset,
         isCollapsed, endBlock } = state;
+    //
+    // // If a cursor is collapsed at the start of the block, do nothing
+    // if (startOffset === 0 && isCollapsed) {
+    //     event.preventDefault();
+    //     return state;
+    // }
+    //
+    // // If "normal" deletion, we continue
+    // if (startBlock === endBlock) {
+    //     return;
+    // }
+    //
+    // // If cursor is between multiple blocks,
+    // // we clear the content of the cells
+    // event.preventDefault();
+    //
+    // const { blocks, focusBlock } = state;
+    // const transform = blocks.reduce(
+    //     (tr, block) => {
+    //         if (block.type !== opts.typeCell) {
+    //             return transform;
+    //         }
+    //
+    //         const cellRange = Slate.Selection.create()
+    //             .moveToRangeOf(block);
+    //
+    //         return tr.deleteAtRange(cellRange);
+    //     },
+    //     state.transform()
+    // );
+    //
+    // // Clear selected cells
+    // return transform
+    //     .collapseToStartOf(focusBlock)
+    //     .apply();
 
-    // If a cursor is collapsed at the start of the block, do nothing
-    if (startOffset === 0 && isCollapsed) {
-        event.preventDefault();
-        return state;
-    }
+	console.log("[onBackspace] state] " + state);
 
-    // If "normal" deletion, we continue
-    if (startBlock === endBlock) {
-        return;
-    }
+	// const newState = state.transform()
+	// 	.removeNodeByKey(state.blocks._tail.array[0].key)
+	// 	.apply()
+    //
+	// return newState;
 
-    // If cursor is between multiple blocks,
-    // we clear the content of the cells
-    event.preventDefault();
+	const subfield = state.startBlock;
 
-    const { blocks, focusBlock } = state;
-    const transform = blocks.reduce(
-        (tr, block) => {
-            if (block.type !== opts.typeCell) {
-                return transform;
-            }
+	let sf = null;
 
-            const cellRange = Slate.Selection.create()
-                .moveToRangeOf(block);
+	if (subfield.type === opts.typeStructuredField) {
+		sf = subfield;
 
-            return tr.deleteAtRange(cellRange);
-        },
-        state.transform()
-    );
+		console.log("in structured field. sf: ");
+		console.log(sf);
+	} else {
 
-    // Clear selected cells
-    return transform
-        .collapseToStartOf(focusBlock)
-        .apply();*/
+		sf = state.document.getParent(subfield.key);
+
+		console.log("not in structured field. sf: ");
+		console.log(sf);
+	}
+
+	const newState = state.transform()
+		// .moveToRangeOf(state.blocks._tail.array[0])
+		.moveToRangeOf(sf)
+		.delete()
+		.apply()
+	return newState;
 }
 
 function onLeftRight(event, data, state, opts) {
@@ -189,13 +225,22 @@ function createStructuredField(opts, type) {
 		createSubfield_Dropdown(opts, { items: ['M0', 'M1'], value: shortcut.metastasis}),
 		createSubfield_StaticText(opts, ']')
 	];
-    return Slate.Block.create({
+
+    let sf = Slate.Block.create({
         type:  opts.typeStructuredField,
         nodes: nodes,
         data: {
             shortcut
         }
     });
+
+	// console.log("sf size: " + sf.nodes.size);
+	// // delete first
+	// sf.nodes = sf.nodes.delete(0).delete(sf.nodes.size -1);
+    //
+	// console.log("sf size: " + sf.nodes.size);
+
+	return sf;
 }
 
 /*function createParagraphBlock() {
@@ -231,12 +276,13 @@ function insertStructuredField(opts, transform) {
     // Create the structured-field node
     const sf = createStructuredField(opts, 'staging');
 
+	console.log("[insertStructuredField] sf");
+	console.log(sf);
+
 	if (sf.kind === 'block') {
-		return transform
-			.insertBlock(sf);
+		return [transform.insertBlock(sf), sf.key];
 	} else {
-		return transform
-			.insertInline(sf);
+		return [transform.insertInline(sf), sf.key];
 	}
 }
 
@@ -309,9 +355,16 @@ function StructuredField(opts) {
 			let sf = null;
 			if (subfield.type === opts.typeStructuredField) {
 				sf = subfield;
+
+				console.log("in structured field. sf: " + sf);
 			} else {
 				//console.log("subfield key = " + subfield.key);
+
+
 				sf = state.document.getParent(subfield.key);
+
+				console.log("not in structured field. sf: " + sf);
+
 				//console.log("subfield parent: " + sf);
 				//console.log(sf.type + " --> key=" + sf.key);
 			}
@@ -366,6 +419,7 @@ function StructuredField(opts) {
 			},
 			sf_subfield_statictext:  props => {
 				let text = props.node.get('data').get('text') || '';
+
 				return <span className='sf_subfield_statictext' {...props.attributes}>{text}</span>; //props.children
 			},
 			sf_subfield_dropdown:    props => {
@@ -429,8 +483,13 @@ class FluxNotesEditor extends React.Component {
 		// Set the initial state when the app is first constructed.
 		this.state = {
 			state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
-		}		
-    }
+		}
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		console.log("component did update");
+		console.log(this.state.state.document);
+	}
 
     onChange = (state) => {
         this.setState({
@@ -441,10 +500,25 @@ class FluxNotesEditor extends React.Component {
     onInsertStructuredField = () => {
         let { state } = this.state;
 
+		let  result = structuredFieldPlugin.transforms.insertStructuredField(state.transform());
+
+		//let sf = result[0].state.document.getDescendant(result[1]);
+
+		//let sf_firstChild = sf.nodes.get(0).key;
+
+		console.log("[onInsertStructuredField] result");
+		console.log(result[0]);
+
+		// Attempt to delete remove structured field first child but this did not work. First child is the $#8202 unicode and for some reason
+		// this gets added when structured field is created. When delete structured field, this character remains as part of the structured field
+		// result[0].removeNodeByKey(sf_firstChild);
+
+		let finalResult = result[0].apply();
+
         this.onChange(
-            structuredFieldPlugin.transforms.insertStructuredField(state.transform())
-                .apply()
+			finalResult
         );
+
     }
 
     renderNormalToolbar = () => {
