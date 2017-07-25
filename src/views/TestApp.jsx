@@ -7,13 +7,16 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import NavBar from '../nav/NavBar';
-//import TestEditor from '../test/TestEditor';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
-//import Example from '../test/Example';
-//import ClinicalNotes from '../notes/ClinicalNotes';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import FormTray from '../forms/FormTray';
 import TimelinePanel from '../timeline/TimelinePanel';
+// Shortcut Classes
+import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
+import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+import StagingShortcut from '../shortcuts/StagingShortcut';
+// Lodash component
+import Lang from 'lodash'
 
 import staging from '../../lib/staging';
 import moment from 'moment';
@@ -26,12 +29,11 @@ class TestApp extends Component {
 
         this.state = {
             /* staging */
-            tumorSize: '',
-            nodeSize: '',
-            metastasis: '',
             SummaryItemToInsert: '',
             withinStructuredField: null,
-			selectedText: null,
+            selectedText: null,
+            // Current shortcutting: 
+            currentShortcut: null,
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -142,36 +144,42 @@ class TestApp extends Component {
                 {
                     name: "Adriamycin",
                     dosage: "6 cycles of 60mg/m2",
+                    display: "02/10/2012 - 08/20/2012",
                     startDate: moment('2012-02-10'),
                     endDate: moment('2012-08-20')
                 },
                 {
                     name: "Cytoxin",
                     dosage: "6 cycles of 10mg/kg",
+                    display: "02/10/2012 - 08/20/2012",
                     startDate: moment('2012-02-10'),
                     endDate: moment('2012-08-20')
                 },
                 {
                     name: "Tamoxifen",
                     dosage: "20mg once daily",
+                    display: "11/01/2013 - 08/13/2016",
                     startDate: moment('2013-11-01'),
                     endDate: moment('2016-08-13')
                 },
                 {
                     name: "Letrozole",
                     dosage: "2.5mg once daily",
+                    display: "01/10/2015 - 01/10/2016",
                     startDate: moment('2015-01-10'),
                     endDate: moment('2016-01-10')
                 },
                 {
                     name: "Coumadin",
                     dosage: "2mg once daily",
+                    display: "09/05/2015 - 06/01/2017",
                     startDate: moment('2015-09-05'),
                     endDate: moment('2017-06-01')
                 },
                 {
                     name: "Aromasin",
                     dosage: "25mg once daily",
+                    display: "06/05/2017 - 01/01/2018",
                     startDate: moment('2017-06-05'),
                     endDate: moment('2018-01-01')
                 }
@@ -179,31 +187,36 @@ class TestApp extends Component {
             procedures: [
                 {
                     name: 'Mammogram',
-                    startDate: moment('2012-01-13')
+                    startDate: moment('2012-01-13'),
+                    display: "01/13/2012"
                 },
                 {
                     name: 'Radiation',
                     startDate: moment('2012-07-12'),
-                    endDate: moment('2012-08-16')
+                    endDate: moment('2012-08-16'),
+                    display: "07/12/2012 - 08/16/2012"
                 },
                 {
                     name: 'Surgery',
                     startDate: moment('2012-09-20'),
-                    display: "Lumpectomy / sentinel / lymph node biopsy"
+                    display: "09/20/2012: Lumpectomy / sentinel / lymph node biopsy"
                 },
                 {
                     name: 'Mammogram',
-                    startDate: moment('2013-10-04')
+                    startDate: moment('2013-10-04'),
+                    display: "10/04/2013"
                 }
             ],
             keyDates: [
                 {
                     name: 'Diagnosis',
-                    startDate: moment('2012-01-13')
+                    startDate: moment('2012-01-13'),
+                    display: "01/13/2012"
                 },
                 {
                     name: 'Recurrence',
-                    startDate: moment('2013-10-12')
+                    startDate: moment('2013-10-12'),
+                    display: "10/12/2013"
                 }
             ],
             progression: [
@@ -270,64 +283,73 @@ class TestApp extends Component {
                 }
             ]
         };
-
-    }
-    /* 
-     * Add a progression event to the current array of progression events
-     */ 
-    addProgressionEvent = (progressionEvent) => { 
-        // Make sure this event doesn't already exist in the app
-        if (! this.state.progression.some((event) => event.id === progressionEvent.id)) { 
-            console.log(`in addProgressionEvent; this is a new event; adding to array`);
-            const newProgression = this.state.progression;
-            newProgression.push(progressionEvent);
-            newProgression.sort(this._timeSorter);
-            this.setState({
-                progression: newProgression
-            });
-        } 
-        // else do nothing
     }
 
     /* 
-     * update a progression event if it's in the current array of progression events
-     */ 
-    updateProgressionEvent = (id, progressionEvent) => { 
-        // If we can find an event that shares the current id, update it
-        const oldEventIndex = this.state.progression.findIndex((event) => event.id === id)
-        if (oldEventIndex !== -1) {
-            console.log('in updateProgressionEvent; we found an equiv event; updating');
-            let newProgression = [...this.state.progression];
-            newProgression[oldEventIndex] = progressionEvent;
+     * Change the current shortcut to be the new type of shortcut  
+     */
+    changeCurrentShortcut = (shortcutType) => {
+        if (Lang.isNull(shortcutType)) {   
             this.setState({
-                progression: newProgression
+                currentShortcut: null
             });
+        } else { 
+            switch (shortcutType.toLowerCase()) { 
+            case "progression":
+                this.setState({
+                    currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
+                });
+                break;
+            case "toxicity":
+                this.setState({
+                    currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
+                });
+                break;
+            case "staging":
+                this.setState({
+                    currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
+                });
+                break;
+            default:
+                console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
+            }
         }
     }
 
+    /* 
+     * Update the current Progression Shortcut
+     */
+    handleProgressionShortcutUpdate = (s) =>{
+        console.log(`Updated Progression: ${s}`);
+        (s !== "") && this.setState({progressionShortcut: s});
+    }
+    /* 
+     * Update the current Staging Shortcut  
+     */
+    handleStagingShortcutUpdate = (s) =>{
+        console.log(`Updated Staging: ${s}`);
+        (s !== "") && this.setState({stagingShortcut: s});
+    }
+
     handleStructuredFieldEntered = (field) => {
-        // console.log("structured field entered: " + field);
+        console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
-        // console.log("structured field exited: " + field);
+        console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
     }
-	
-	handleSelectionChange = (selectedText) => {
-		//console.log("TestApp. selectedText: " + selectedText);
-		this.setState({
-			selectedText: selectedText
-		})
-	}
-
-    componentDidUpdate = (a, b) => {
-        // Nothing right now
+    
+    handleSelectionChange = (selectedText) => {
+        //console.log("TestApp. selectedText: " + selectedText);
+        this.setState({
+            selectedText: selectedText
+        })
     }
 
     handleSummaryItemSelected = (itemText) =>{
@@ -336,47 +358,20 @@ class TestApp extends Component {
         }
     }
 
-  	handleStagingTUpdate = (t) => {
-        console.log(`Updated: ${t}`);
-        (t !== "") && this.setState({tumorSize: t});
-  	}
-
-  	handleStagingNUpdate = (n) => {
-        console.log(`Updated: ${n}`);
-        (n !== "") && this.setState({nodeSize: n});
-  	}
-
-  	handleStagingMUpdate = (m) => {
-        console.log(`Updated: ${m}`);
-        (m !== "") && this.setState({metastasis: m});
-  	}
-
-
-    handleProgressionUpdate = (p) => { 
-        console.log(`Updated progression:`);
-        console.log(p);
-        if (p !== "" && this.state.progression.some(existingProgression => existingProgression.id === p.id)) {
-            console.log("this is an updated event");
-            this.updateProgressionEvent(p.id, p);
-        } else if (p !== "") { 
-            console.log("this is a new progression event");
-            this.addProgressionEvent(p)
-        }
-        // else do nothing
-    }
-
-    handleNewProgression = (p) => { 
-        console.log(`This is a new progression`);
-        (p !== "") && this.addProgressionEvent(p)
-    }
-
     render() {
         let diagnosis = this.state.diagnosis;
 
         /* update staging if captured */
-        const t = this.state.tumorSize;
-        const n = this.state.nodeSize;
-        const m = this.state.metastasis;
+        const isCurrentShortcut = (!Lang.isNull(this.state.currentShortcut));
+        let isStagingShortcut = false;
+        if (isCurrentShortcut) {
+            isStagingShortcut = (this.state.currentShortcut.getShortcutType() === "staging");
+        }
+
+        const currentStaging = (!isStagingShortcut) ? {} : this.state.currentShortcut.staging;
+        const t = currentStaging.tumorSize;
+        const n = currentStaging.nodeSize;
+        const m = currentStaging.metastasis;
         const ps = staging.breastCancerPrognosticStage(t, n, m);
 
         if (ps) {
@@ -387,7 +382,6 @@ class TestApp extends Component {
 
         // Timeline events are a mix of key dates and progression
         const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
-
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="TestApp">
@@ -396,40 +390,51 @@ class TestApp extends Component {
                         <Row center="xs">
                             <Col sm={4}>
                                 <DataSummaryPanel
-                                    patient={this.state.patient}
+                                    // Handle updates
+                                    onItemClicked={this.handleSummaryItemSelected}
+                                    // Properties
+                                    currentShortcut={this.state.currentShortcut}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    keyDates={this.state.keyDates}
-                                    procedures={this.state.procedures}
-                                    pathology={this.state.pathology}
                                     genetics={this.state.genetics}
-									progression={this.state.progression}
-                                    onItemClicked={this.handleSummaryItemSelected}
+                                    keyDates={this.state.keyDates}
+                                    patient={this.state.patient}
+                                    pathology={this.state.pathology}
+                                    procedures={this.state.procedures}
                                 />
                             </Col>
                             <Col sm={5}>
-								<FluxNotesEditor />
+                                <FluxNotesEditor
+                                    // Update functions
+                                    onStructuredFieldEntered={this.handleStructuredFieldEntered}
+                                    onStructuredFieldExited={this.handleStructuredFieldExited}
+                                    onSelectionChange={this.handleSelectionChange}
+                                    changeCurrentShortcut={this.changeCurrentShortcut}
+                                    // Properties
+                                    currentShortcut={this.state.currentShortcut}
+                                    data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
+                                    itemToBeInserted={this.state.SummaryItemToInsert}
+                                    patient={this.state.patient}
+                                />
                             </Col>
                             <Col sm={3}>
                                 <FormTray
                                     // Update functions
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
+                                    changeShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    withinStructuredField={this.state.withinStructuredField}
-                                    selectedText={this.state.selectedText}
+                                    currentShortcut={this.state.currentShortcut}
                                     patient={this.state.patient}
-
-                                    progressionShortcut={this.state.progressionShortcut}
-                                    stagingShortcut={this.state.stagingShortcut}
+                                    selectedText={this.state.selectedText}
+                                    withinStructuredField={this.state.withinStructuredField}
                                 />
                             </Col>
                         </Row>
                         <Row center="xs">
                             <Col sm={12}>
                                 <TimelinePanel
+                                    events={timelineEvents}
                                     medications={this.state.medications}
                                     procedures={this.state.procedures}
-                                    events={timelineEvents}
                                 />
                             </Col>
                         </Row>
@@ -437,6 +442,11 @@ class TestApp extends Component {
                 </div>
             </MuiThemeProvider>
         );
+    }
+    _getMostRecentProgression(progressionList) {
+        const sortedProgressionList = progressionList.sort(this._timeSorter);
+        const length = sortedProgressionList.length;
+        return(sortedProgressionList[length - 1]);
     }
 
     _timeSorter(a, b) {

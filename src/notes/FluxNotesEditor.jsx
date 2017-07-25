@@ -3,7 +3,7 @@ import Slate from 'slate';
 import Lang from 'lodash'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { Set, List } from 'immutable'
+import { Set } from 'immutable'
 
 import './FluxNotesEditor.css';
 
