@@ -19,22 +19,6 @@ import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-    _getMostRecentProgression(progressionList) {
-        const sortedProgressionList = progressionList.sort(this._timeSorter);
-        const length = sortedProgressionList.length;
-        return(sortedProgressionList[length - 1]);
-    }
-
-    _timeSorter(a, b) {
-        if (a.startDate < b.startDate) {
-            return -1;
-        }
-        if (a.startDate > b.startDate) {
-            return 1;
-        }
-        return 0;
-    }
-
     render() {
         let progressionHeader = "";
         const sixMonthsAgoDate = moment().subtract(6, 'months');
