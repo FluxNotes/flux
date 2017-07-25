@@ -37,23 +37,6 @@ class FullApp extends Component {
             selectedText: null,
             // Current shortcutting: 
             currentShortcut: null,
-            // Old Shortcutting
-            progressionShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate, {
-                    id: Math.floor(Math.random() * Date.now()),
-                    status: 'Progressing',
-                    reason: [
-                        "Pathology",
-                        "Imaging",
-                        "Symptoms"
-                    ],
-                    startDate: moment('2017-05-15')
-                }),
-            // Patient data
-            stagingShortcut: new StagingShortcut(this.handleStagingShortcutUpdate, { 
-                tumorSize: '',
-                nodeSize: '',
-                metastasis: '',
-            }),
             patient: {
                 photo: "./DebraHernandez672.jpg",
                 name: "Debra Hernandez672",
@@ -315,25 +298,23 @@ class FullApp extends Component {
             });
         } else { 
             switch (shortcutType.toLowerCase()) { 
-                case "progression": 
-                    this.setState({
-                        currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
-                    });
-                    break;
-
-                case "toxicity": 
-                    this.setState({
-                        currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
-                    });
-                    break;
-
-                case "staging": 
-                    this.setState({
-                        currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
-                    });
-                    break;
-                default: 
-                    console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
+            case "progression":
+                this.setState({
+                    currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
+                });
+                break;
+            case "toxicity":
+                this.setState({
+                    currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
+                });
+                break;
+            case "staging":
+                this.setState({
+                    currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
+                });
+                break;
+            default:
+                console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
             }
         }
     }
@@ -353,50 +334,17 @@ class FullApp extends Component {
         (s !== "") && this.setState({stagingShortcut: s});
     }
 
-    /* 
-     * Add a progression event to the current array of progression events
-     */ 
-    addProgressionEvent = (progressionEvent) => { 
-        // Make sure this event doesn't already exist in the app
-        if (! this.state.progression.some((event) => event.id === progressionEvent.id)) { 
-            console.log(`in addProgressionEvent; this is a new event; adding to array`);
-            const newProgression = this.state.progression;
-            newProgression.push(progressionEvent);
-            newProgression.sort(this._timeSorter);
-            this.setState({
-                progression: newProgression
-            });
-        } 
-        // else do nothing
-    }
-
-    /* 
-     * update a progression event if it's in the current array of progression events
-     */ 
-    updateProgressionEvent = (id, progressionEvent) => { 
-        // If we can find an event that shares the current id, update it
-        const oldEventIndex = this.state.progression.findIndex((event) => event.id === id)
-        if (oldEventIndex !== -1) {
-            console.log('in updateProgressionEvent; we found an equiv event; updating');
-            let newProgression = [...this.state.progression];
-            newProgression[oldEventIndex] = progressionEvent;
-            this.setState({
-                progression: newProgression
-            });
-        }
-    }
-
     handleStructuredFieldEntered = (field) => {
         console.log("structured field entered: " + field);
         this.setState({
-            currentShortcut: field
+            withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
-        // console.log("structured field exited: " + field);
+        console.log("structured field exited: " + field);
         this.setState({
-            currentShortcut: null
+            withinStructuredField: null
         })
     }
     
@@ -407,50 +355,9 @@ class FullApp extends Component {
         })
     }
 
-    componentDidUpdate = (a, b) => {
-        // Nothing right now
-    }
-
     handleSummaryItemSelected = (itemText) =>{
         if (itemText) {
             this.setState({SummaryItemToInsert: itemText});
-        }
-    }
-
-    handleStagingTUpdate = (t) => {
-        console.log(`Updated: ${t}`);
-        (t !== "") && this.setState({tumorSize: t});
-    }
-
-    handleStagingNUpdate = (n) => {
-        console.log(`Updated: ${n}`);
-        (n !== "") && this.setState({nodeSize: n});
-    }
-
-    handleStagingMUpdate = (m) => {
-        console.log(`Updated: ${m}`);
-        (m !== "") && this.setState({metastasis: m});
-    }
-
-
-    handleProgressionUpdate = (p) => { 
-        console.log(`Updated progression:`);
-        console.log(p);
-        if (p !== "" && this.state.progression.some(existingProgression => existingProgression.id === p.id)) {
-            console.log("this is an updated event");
-            this.updateProgressionEvent(p.id, p);
-        } else if (p !== "") { 
-            console.log("this is a new progression event");
-            this.addProgressionEvent(p)
-        }
-        // else do nothing
-    }
-
-    handleNewProgression = (p) => { 
-        console.log(`This is a new progression`);
-        if (p !== "") {
-            this.addProgressionEvent(p)
-
         }
     }
 
@@ -491,14 +398,13 @@ class FullApp extends Component {
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
-
-                                    patient={this.state.patient}
                                     conditions={this.state.conditions}
                                     diagnosis={diagnosis}
-                                    keyDates={this.state.keyDates}
-                                    procedures={this.state.procedures}
-                                    pathology={this.state.pathology}
                                     genetics={this.state.genetics}
+                                    keyDates={this.state.keyDates}
+                                    patient={this.state.patient}
+                                    pathology={this.state.pathology}
+                                    procedures={this.state.procedures}
                                 />
                             </Col>
                             <Col sm={5}>
@@ -507,14 +413,12 @@ class FullApp extends Component {
                                     onStructuredFieldEntered={this.handleStructuredFieldEntered}
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
-                                    // New Prog
                                     changeCurrentShortcut={this.changeCurrentShortcut}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
-
+                                    data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
-                                    data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
                                 />
                             </Col>
                             <Col sm={3}>
@@ -522,20 +426,19 @@ class FullApp extends Component {
                                     // Update functions
                                     changeShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    withinStructuredField={this.state.withinStructuredField}
-                                    selectedText={this.state.selectedText}
-                                    patient={this.state.patient}
-
                                     currentShortcut={this.state.currentShortcut}
+                                    patient={this.state.patient}
+                                    selectedText={this.state.selectedText}
+                                    withinStructuredField={this.state.withinStructuredField}
                                 />
                             </Col>
                         </Row>
                         <Row center="xs">
                             <Col sm={12}>
                                 <TimelinePanel
+                                    events={timelineEvents}
                                     medications={this.state.medications}
                                     procedures={this.state.procedures}
-                                    events={timelineEvents}
                                 />
                             </Col>
                         </Row>

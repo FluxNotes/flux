@@ -1,25 +1,24 @@
 // Import React 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 // Other libraries
 import { Editor, Block, Raw, Text, Plain } from 'slate'
 import AutoReplace from 'slate-auto-replace'
 import { List } from 'immutable'
 import getOffsets from 'positions'
 import { Row, Col } from 'react-flexbox-grid';
-
 // Material UI component imports
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-
 // Application Components:
 import EditorToolbar from './EditorToolbar';
+// Shortcut components
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import StagingShortcut from '../shortcuts/StagingShortcut';
+import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+// Lookup libraries 
 import progressionLookup from '../../lib/progression_lookup';
 import stagingLookup from '../../lib/staging_lookup';
-
 // Lodash component
 import Lang from 'lodash'
 // Styling
@@ -227,7 +226,6 @@ class ClinicalNotes extends Component {
     const progressionKeys = (progressionNode)? addKeysForNode(progressionNode, []) : [];
 
     if (stagingNode && stagingKeys.includes(state.selection.startKey)) {
-      console.log('entering staging')
       this.handleStructuredFieldEntered('staging')
     } else if (progressionNode && progressionKeys.includes(state.selection.startKey))  {
       this.handleStructuredFieldEntered('progression')
@@ -274,9 +272,8 @@ class ClinicalNotes extends Component {
    * Handle updates to the current T value based on newly typed values
    */
   handleStagingTUpdate = (newTValue, nextNode) => {
-    console.log(newTValue)
     if (stagingLookup.isValidT(newTValue)) { 
-      console.log(`is a valid T value; updating with new value ${newTValue}`)
+      // console.log(`is a valid T value; updating with new value ${newTValue}`)
       const newStaging = Lang.clone(this.props.currentShortcut.staging);
       newStaging['tumorSize'] = newTValue;  
       const stateTransform = this.state.state.transform();
@@ -295,7 +292,7 @@ class ClinicalNotes extends Component {
    */
   handleStagingNUpdate = (newNValue, nextNode) => {
     if (stagingLookup.isValidN(newNValue)) { 
-      console.log(`is a valid N value; updating with new value ${newNValue}`)
+      // console.log(`is a valid N value; updating with new value ${newNValue}`)
       const newStaging = Lang.clone(this.props.currentShortcut.staging);
       newStaging['nodeSize'] = newNValue;  
       const stateTransform = this.state.state.transform();
@@ -314,10 +311,10 @@ class ClinicalNotes extends Component {
    */
   handleStagingMUpdate = (newMValue, editorState) => {
     if (stagingLookup.isValidM(newMValue)) { 
+      // console.log(`is a valid M value; updating with new value ${newMValue}`)
+      const newStaging = Lang.clone(this.props.currentShortcut.staging);
       const stagingNode = getNodeById(editorState.document.nodes, 'staging')
 
-      console.log(`is a valid M value; updating with new value ${newMValue}`)
-      const newStaging = Lang.clone(this.props.currentShortcut.staging);
       newStaging['metastasis'] = newMValue;  
       const stateTransform = editorState.transform();
       const newStateSelection = stateTransform.collapseToEndOf(stagingNode).insertBlock(this.createEmptyBlock()).apply()
@@ -336,7 +333,7 @@ class ClinicalNotes extends Component {
    */
   handleProgressionStatusUpdate = (newStatusValue, nextNode) => {
     if (progressionLookup.isValidStatus(newStatusValue)) { 
-      console.log(`is a valid progression status; updating with new value ${newStatusValue}`)
+      // console.log(`is a valid progression status; updating with new value ${newStatusValue}`)
       const newProgression = Lang.clone(this.props.currentShortcut.progression);
       newProgression['status'] = newStatusValue;  
       const stateTransform = this.state.state.transform();
@@ -349,7 +346,7 @@ class ClinicalNotes extends Component {
       this.state.previousShortcut.handleProgressionUpdate(newProgression);
       this.props.currentShortcut.handleProgressionUpdate(newProgression);
     } else { 
-      console.log(`trying to update with invalid status ${newStatusValue}`);
+      console.error(`trying to update with invalid status ${newStatusValue}`);
     }
   }
 
@@ -845,7 +842,6 @@ class ClinicalNotes extends Component {
             return;
           } 
           if (prevProgressionReasonNode.text !== curProgressionReasonNode.text) {
-            console.log(curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1])
             if (curProgressionReasonNode.text[curProgressionReasonNode.text.length - 1] === "]") {
               this.handleProgressionFinish(prevState);
             }  else { 
@@ -876,7 +872,6 @@ class ClinicalNotes extends Component {
         } else {
           // If these nodes are old, update values where applicable
           if (curTNode.text !== prevTNode.text) { 
-            console.log(curTNode.text)
             this.handleStagingTUpdate(curTNode.text.trim(), curNNode) 
             return;
           }
@@ -935,8 +930,6 @@ class ClinicalNotes extends Component {
           const mNode = getNodeById(parentNode.nodes, 'm-staging');
 
           // Set t value
-          console.log(nextProps.currentShortcut)
-          console.log(this.state.previousShortcut)
           if (tNode && 
             !Lang.isEmpty(nextProps.currentShortcut.staging.tumorSize) && 
             (this.state.previousShortcut.staging.tumorSize !== nextProps.currentShortcut.staging.tumorSize)) { 
@@ -1007,7 +1000,7 @@ class ClinicalNotes extends Component {
               }
             );
           } else if (progressionReasonNode && !this.arrayEquality(this.state.previousShortcut.progression.reason, nextProps.currentShortcut.progression.reason)) {  
-            console.log(`changing progression node`)
+            console.log(`changing progression reason`)
             // Process reason text into proper format
             let reasonText = "";
             const reasonLength = nextProps.currentShortcut.progression.reason.length;
@@ -1020,7 +1013,6 @@ class ClinicalNotes extends Component {
             } else { 
               reasonText = "__ "
             }
-            console.log(reasonText);
             const currentState = this.state.state;
             const state = currentState
                 .transform()
