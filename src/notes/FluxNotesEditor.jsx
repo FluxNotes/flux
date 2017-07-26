@@ -188,6 +188,34 @@ function onUpDown(event, data, state, opts) {
     }*/
 }
 
+function onTab(event, data, state, opts) {
+    console.log('onTab');
+}
+
+function onShiftTab(event, data, state, opts) {
+    console.log('onShiftTab');
+}
+
+function onF2(event, data, state, opts) {
+    console.log('onF2');
+}
+
+function onShiftF2(event, data, state, opts) {
+    console.log('onShiftF2');
+}
+
+function onCtrl(event, data, state, opts) {
+    console.log('onCtrl');
+}
+
+function onShift(event, data, state, opts) {
+    console.log('onShift');
+}
+
+function onCapsLock(event, data, state, opts) {
+    console.log('onCapsLock');
+}
+
 function createSubfield_Dropdown(opts, spec) {
 	return Slate.Block.create({
 		type: opts.typeSubfieldDropdown,
