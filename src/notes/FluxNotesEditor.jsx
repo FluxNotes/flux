@@ -5,6 +5,10 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { Set } from 'immutable'
 
+// Shortcut components
+import StagingShortcut from '../shortcuts/StagingShortcut';
+
+// Styling
 import './FluxNotesEditor.css';
 
 const KEY_ENTER     = 'enter';
@@ -142,8 +146,8 @@ function onBackspace(event, data, state, opts) {
 	if (subfield.type === opts.typeStructuredField) {
 		sf = subfield;
 
-		console.log("in structured field. sf: ");
-		console.log(sf);
+		// console.log("in structured field. sf: ");
+		// console.log(sf);
 	} else {
 
 		sf = state.document.getParent(subfield.key);
@@ -189,7 +193,7 @@ function onUpDown(event, data, state, opts) {
 }
 
 function createSubfield_Dropdown(opts, spec) {
-	return Slate.Block.create({
+    return Slate.Block.create({
 		type: opts.typeSubfieldDropdown,
 		data: {
 			value: spec.value,
@@ -276,8 +280,8 @@ function insertStructuredField(opts, transform) {
     // Create the structured-field node
     const sf = createStructuredField(opts, 'staging');
 
-	console.log("[insertStructuredField] sf");
-	console.log(sf);
+	// console.log("[insertStructuredField] sf");
+	// console.log(sf);
 
 	if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
@@ -486,11 +490,6 @@ class FluxNotesEditor extends React.Component {
 		}
 	}
 
-	componentDidUpdate = (prevProps, prevState) => {
-		console.log("component did update");
-		console.log(this.state.state.document);
-	}
-
     onChange = (state) => {
         this.setState({
             state: state
@@ -506,8 +505,15 @@ class FluxNotesEditor extends React.Component {
 
 		//let sf_firstChild = sf.nodes.get(0).key;
 
-		console.log("[onInsertStructuredField] result");
-		console.log(result[0]);
+		// set the current shortcut to be what was inserted
+		// this.props.currentShortcut = new Shortcut
+
+
+		// console.log("[onInsertStructuredField] result");
+		// console.log(result[0]);
+
+        // When structure field is inserted, change current shortcut
+        this.props.changeCurrentShortcut("staging");
 
 		// Attempt to delete remove structured field first child but this did not work. First child is the $#8202 unicode and for some reason
 		// this gets added when structured field is created. When delete structured field, this character remains as part of the structured field
@@ -515,10 +521,31 @@ class FluxNotesEditor extends React.Component {
 
 		let finalResult = result[0].apply();
 
+        // Adds the inserted structured field into the editor
         this.onChange(
 			finalResult
         );
 
+    }
+
+    handleStagingValuesUpdate = () => {
+
+        let stagingInput = {
+            tumorSize: 'test',
+            nodeSize: 'N1',
+            metastasis: 'M1'
+        }
+        this.handleStagingTUpdate(stagingInput.tumorSize);
+
+
+        //TODO: write handle update functions for N and M values
+        //TODO: grab selected values from the drop downs and pass them into the update functions for T, N, M
+    }
+
+    handleStagingTUpdate = (newTValue) => {
+        const newStaging = Lang.clone(this.props.currentShortcut.staging);
+        newStaging['tumorSize'] = newTValue;
+        this.props.currentShortcut.handleStagingUpdate(newStaging);
     }
 
     renderNormalToolbar = () => {
@@ -527,8 +554,10 @@ class FluxNotesEditor extends React.Component {
 				<div>
 					<button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
 				</div>
+                <div>
+                    <button onClick={this.handleStagingValuesUpdate}>Test: Update staging values</button>
+                </div>
 			</div>
-
         );
     }
 

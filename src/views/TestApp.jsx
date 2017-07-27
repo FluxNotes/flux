@@ -285,6 +285,17 @@ class TestApp extends Component {
         };
     }
 
+    // This gets called when state changes
+    componentDidUpdate = () => {
+
+        // TEST: make sure current shortcut gets updated when it is inserted in editor
+        console.log("[componentDidUpdate] Current shortcut updated to: ");
+        console.log(this.state.currentShortcut);
+
+        console.log("[componentDidUpdate] current patient data model updated to: ");
+        console.log(this.state.patient);
+    }
+
     /* 
      * Change the current shortcut to be the new type of shortcut  
      */
@@ -328,8 +339,27 @@ class TestApp extends Component {
      */
     handleStagingShortcutUpdate = (s) =>{
         console.log(`Updated Staging: ${s}`);
-        console.log(s);
         (s !== "") && this.setState({stagingShortcut: s});
+
+        //Update patient model to include updated staging information
+        let newPatient =  {
+            photo: this.state.patient.photo,
+            name: this.state.patient.name,
+            mrn: this.state.patient.mrn,
+            dateOfBirth: this.state.patient.dateOfBirth,
+            administrativeSex: this.state.patient.administrativeSex,
+            address: this.state.patient.address,
+            previousNotes: this.state.patient.previousNotes,
+            staging: s.staging
+        };
+
+        if (s.staging !== "") {
+            this.setState(
+                {
+                    patient: newPatient
+                }
+            );
+        }
     }
 
     handleStructuredFieldEntered = (field) => {
@@ -358,15 +388,6 @@ class TestApp extends Component {
             this.setState({SummaryItemToInsert: itemText});
         }
     }
-
-    // Update the data model when values in the shortcut are updated
-    handleShortcutValuesUpdate = (stateObject) => {
-        console.log("new state object");
-        console.log(stateObject);
-
-        //TODO: write code to update state with new state object
-    }
-
 
     render() {
         let diagnosis = this.state.diagnosis;

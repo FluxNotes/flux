@@ -22,7 +22,7 @@ class StagingShortcut extends Shortcut {
         this.staging = Lang.clone(staging);
         this.onUpdate = onUpdate;
         this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
-        console.log(`constructor for a new Staging object`)
+        // console.log(`constructor for a new Staging object`)
     }
     /* 
      * Returns "staging"
@@ -104,8 +104,8 @@ class StagingShortcut extends Shortcut {
     }
     
     handleStagingUpdate = (s) => { 
-        console.log(`Updated staging:`);
-        console.log(s);
+        // console.log(`Updated staging:`);
+        // console.log(s);
         this.staging.tumorSize = s.tumorSize;
         this.staging.nodeSize = s.nodeSize;
         this.staging.metastasis = s.metastasis;
