@@ -328,6 +328,7 @@ class TestApp extends Component {
      */
     handleStagingShortcutUpdate = (s) =>{
         console.log(`Updated Staging: ${s}`);
+        console.log(s);
         (s !== "") && this.setState({stagingShortcut: s});
     }
 
@@ -357,6 +358,15 @@ class TestApp extends Component {
             this.setState({SummaryItemToInsert: itemText});
         }
     }
+
+    // Update the data model when values in the shortcut are updated
+    handleShortcutValuesUpdate = (stateObject) => {
+        console.log("new state object");
+        console.log(stateObject);
+
+        //TODO: write code to update state with new state object
+    }
+
 
     render() {
         let diagnosis = this.state.diagnosis;
@@ -410,6 +420,7 @@ class TestApp extends Component {
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
+                                    onShortcutValuesUpdate={this.handleShortcutValuesUpdate}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
                                     data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}

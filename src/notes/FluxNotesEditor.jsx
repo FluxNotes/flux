@@ -523,9 +523,12 @@ class FluxNotesEditor extends React.Component {
 
     renderNormalToolbar = () => {
         return (
-            <div>
-                <button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
-            </div>
+        	<div>
+				<div>
+					<button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
+				</div>
+			</div>
+
         );
     }
 
