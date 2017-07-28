@@ -526,13 +526,13 @@ class FluxNotesEditor extends React.Component {
 
     }
 
-/*    renderNormalToolbar = () => {
+    renderTemporaryToolbar = () => {
         return (
             <div>
                 <button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
             </div>
         );
-    }*/
+    }
 	
   /**
    * Render the dropdown of suggestions.
@@ -657,6 +657,7 @@ class FluxNotesEditor extends React.Component {
 				onBlockUpdate={this.handleBlockUpdate}
 				patient={this.props.patient}
 			  />
+				{this.renderTemporaryToolbar()}
 			  {this.renderDropdown()}
 			  {this.renderShorthandDropdown()}
 				<Slate.Editor
@@ -670,12 +671,6 @@ class FluxNotesEditor extends React.Component {
 		  </Paper>
 		  </div>
 		);
-
-/*        return (
-            <div id="fluxnoteseditor">
-				{this.renderNormalToolbar()}
-            </div>
-        );*/
     }
 }
 
