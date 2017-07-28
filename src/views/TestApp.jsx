@@ -289,10 +289,10 @@ class TestApp extends Component {
     componentDidUpdate = () => {
 
         // TEST: make sure current shortcut gets updated when it is inserted in editor
-        console.log("[componentDidUpdate] Current shortcut updated to: ");
+        console.log("[TestApp] componentDidUpdate - Current shortcut updated to: ");
         console.log(this.state.currentShortcut);
 
-        console.log("[componentDidUpdate] current patient data model updated to: ");
+        console.log("[TestApp] componentDidUpdate - current patient data model updated to: ");
         console.log(this.state.patient);
     }
 
