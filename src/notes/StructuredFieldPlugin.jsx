@@ -403,6 +403,12 @@ function StructuredFieldPlugin(opts) {
         }
     }
 
+    function onDropdownSelection(proxy, event) {
+    	console.log("[onDropdownSelection] - hit function");
+
+		//TODO: get selection from event and update app state
+	}
+
 	const schema = {
 		nodes: {
 			structured_field:      props => {
@@ -423,6 +429,7 @@ function StructuredFieldPlugin(opts) {
                 return (
                     <DropdownStructuredComponent
                         handleDropdownFocus={onDropdownFocus.bind(props.state)}
+						handleDropdownSelection={onDropdownSelection.bind(props.state)}
                         items={items}
                     /> 
                 );
