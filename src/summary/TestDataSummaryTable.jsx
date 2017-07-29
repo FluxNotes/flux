@@ -45,7 +45,7 @@ class TestDataSummaryTable extends Component {
 							itemClass = "missing";
 							itemText = `Missing ${item.name}`;
 						}
-						let onclick = "";
+
 						if (this.props.allowItemClick) {
 							return (
 								<tr key={i} className={rowClass}>
