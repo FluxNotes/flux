@@ -590,8 +590,9 @@ class FluxNotesEditor extends React.Component {
     const state = currentState
         .transform()
         .insertText(itemToBeInserted)
+		.focus()
         .apply();
-    this.setState({ state: state })
+    this.setState({ state: state });
   }
 
 	/**
