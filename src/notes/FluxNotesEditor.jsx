@@ -45,7 +45,8 @@ class FluxNotesEditor extends React.Component {
         }
 
         this.structuredFieldPlugin = StructuredFieldPlugin({
-            updateEditorState: this.onEditorUpdate
+            updateEditorState: this.onEditorUpdate,
+			updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate
         });
 
         this.plugins = [
@@ -54,20 +55,26 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onEditorUpdate = (newState) => {
-        console.log(`This is where the editor update happens`);
+        // console.log(`This is where the editor update happens`);
         this.setState({
             state: newState
         });
     }
 
-	componentDidUpdate = (prevProps, prevState) => {
-		console.log("[FluxNotesEditor] - component did update");
-		console.log(this.state.state.document);
-	}
+    // onCurrentShortcutValuesUpdate = (currentShortcut) => {
+    	// console.log("updating current shortcut values");
+	// 	console.log("current shortcut from state");
+	// 	console.log(this.state.state.currentShortcut);
+	// }
+
+	// componentDidUpdate = (prevProps, prevState) => {
+	// 	console.log("[FluxNotesEditor] - component did update");
+	// 	console.log(this.state.state.document);
+	// }
 
     onChange = (state) => {
-        console.log("[FluxNotesEditor] - On change to editor");
-        console.log(this.state.state.selection.startKey)
+        // console.log("[FluxNotesEditor] - On change to editor");
+        // console.log(this.state.state.selection.startKey)
 
         this.setState({
             state: state
@@ -145,14 +152,32 @@ class FluxNotesEditor extends React.Component {
 
     }
 
-    handleStagingValuesUpdate = () => {
+	onCurrentShortcutValuesUpdate = (value) => {
 
-        let stagingInput = {
-            tumorSize: 'test',
-            nodeSize: 'N1',
-            metastasis: 'M1'
-        }
-        this.handleStagingTUpdate(stagingInput.tumorSize);
+		console.log("got value: " + value);
+
+		if (value.startsWith("T")) {
+			console.log("got a T value");
+			this.handleStagingTUpdate(value);
+
+		} else if (value.startsWith("N")) {
+			console.log("got a N value");
+			this.handleStagingNUpdate(value);
+		} else if (value.startsWith("M")) {
+			console.log("got a M value");
+			this.handleStagingMUpdate(value);
+		} else {
+			console.log("Error: unexpected value selected in staging dropdown");
+		}
+
+
+
+
+
+
+		// this.handleStagingNUpdate(value);
+        //
+		// this.handleStagingMUpdate(value);
 
 
         //TODO: write handle update functions for N and M values
@@ -165,14 +190,23 @@ class FluxNotesEditor extends React.Component {
         this.props.currentShortcut.handleStagingUpdate(newStaging);
     }
 
+	handleStagingNUpdate = (newNValue) => {
+		const newStaging = Lang.clone(this.props.currentShortcut.staging);
+		newStaging['nodeSize'] = newNValue;
+		this.props.currentShortcut.handleStagingUpdate(newStaging);
+	}
+
+	handleStagingMUpdate = (newMValue) => {
+		const newStaging = Lang.clone(this.props.currentShortcut.staging);
+		newStaging['metastasis'] = newMValue;
+		this.props.currentShortcut.handleStagingUpdate(newStaging);
+	}
+
     renderNormalToolbar = () => {
         return (
 			<div>
 				<div>
 					<button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
-				</div>
-				<div>
-					<button onClick={this.handleStagingValuesUpdate}>Test: Update staging values</button>
 				</div>
 			</div>
         );

@@ -269,9 +269,9 @@ function StructuredFieldPlugin(opts) {
         if (!state.selection.startKey) return false;
 
         const { startBlock } = state;
-        console.log('isSelectionInStructuredField: StructuredField block right now');
-        console.log(startBlock);
-        console.log(`Answer: ${isStructuredFieldType(startBlock.type)}`);
+        // console.log('isSelectionInStructuredField: StructuredField block right now');
+        // console.log(startBlock);
+        // console.log(`Answer: ${isStructuredFieldType(startBlock.type)}`);
         // Only handle events in cells
 		//console.log(startBlock.type + " ?= " + opts.typeSubfieldDropdown + " ?= " + opts.typeStructuredField);
         return isStructuredFieldType(startBlock.type); // return true;
@@ -389,24 +389,28 @@ function StructuredFieldPlugin(opts) {
     function onDropdownFocus(proxy, event)  {
         // Get Slate Key of parent element
         const dropdownKey = proxy.target.parentElement.getAttribute('data-key');
-        console.log(proxy.target.parentElement.getAttribute('data-key'));
+        // console.log(proxy.target.parentElement.getAttribute('data-key'));
         // If current selection is not identical, make it so
         if (dropdownKey !== this.selection.startKey) { 
-            console.log(`Trying to update state because selections are off`)
-            console.log(`Dropdown: ${dropdownKey}`)
-            console.log(`Current: ${this.selection.startKey}`)
+            // console.log(`Trying to update state because selections are off`)
+            // console.log(`Dropdown: ${dropdownKey}`)
+            // console.log(`Current: ${this.selection.startKey}`)
             const newState = this.transform().selectAll().apply();
             opts.updateEditorState(newState);
         } else { 
-            console.log(`No need to update state -- selections are in sync`)
-            console.log(this)
+            // console.log(`No need to update state -- selections are in sync`)
+            // console.log(this)
         }
     }
 
-    function onDropdownSelection(proxy, event) {
+    function onDropdownSelection(e) {
     	console.log("[onDropdownSelection] - hit function");
+		console.log("selected value");
+		console.log(e.target.value); // TODO: got selected value but how to know which drop down it came from?
 
 		//TODO: get selection from event and update app state
+
+		opts.updateCurrentShortcutValues(e.target.value);
 	}
 
 	const schema = {

@@ -338,7 +338,7 @@ class TestApp extends Component {
      * Update the current Staging Shortcut  
      */
     handleStagingShortcutUpdate = (s) =>{
-        console.log(`Updated Staging: ${s}`);
+        // console.log(`Updated Staging: ${s}`);
         (s !== "") && this.setState({stagingShortcut: s});
 
         //Update patient model to include updated staging information
@@ -405,7 +405,10 @@ class TestApp extends Component {
         const m = currentStaging.metastasis;
         const ps = staging.breastCancerPrognosticStage(t, n, m);
 
-        if (ps) {
+        console.log("ps: ");
+        console.log(ps);
+
+        if (ps && t && n && m) {
             diagnosis[1].display = `${titlecase(t)} | ${titlecase(n)} | ${titlecase(m)} / Stage ${ps}`;
         } else {
             diagnosis[1].display = "";
@@ -441,7 +444,6 @@ class TestApp extends Component {
                                     onStructuredFieldExited={this.handleStructuredFieldExited}
                                     onSelectionChange={this.handleSelectionChange}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
-                                    onShortcutValuesUpdate={this.handleShortcutValuesUpdate}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
                                     data={{patient: {name: 'Debra Hernandez672', age: '51 years old', gender: 'female'}}}
