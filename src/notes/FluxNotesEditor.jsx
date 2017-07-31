@@ -1,9 +1,14 @@
 import React from 'react';
 import Slate from 'slate';
 import Lang from 'lodash'
+import { Set } from 'immutable'
+import { Row, Col } from 'react-flexbox-grid';
+import EditorToolbar from './EditorToolbar';
+// Material UI component imports
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import { Set } from 'immutable'
 
 import './FluxNotesEditor.css';
 
@@ -521,31 +526,152 @@ class FluxNotesEditor extends React.Component {
 
     }
 
-    renderNormalToolbar = () => {
+    renderTemporaryToolbar = () => {
         return (
             <div>
                 <button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
             </div>
         );
     }
+	
+  /**
+   * Render the dropdown of suggestions.
+   */
+  renderDropdown = () => { 
+/*    return (
+      <div className="menu autocomplete-menu">
+        {this.state.autocompleteMatches.map((match, index) => {
+          const isActive = (this.state.currentAutocompleteMatch === index); 
+
+          return (
+              <div className="menu-item" key={index} data-active={isActive} onMouseOver={ () => { this.updateCurrentAutocompleteMatch(index)}} onClick={() => this.insertCurrentAutocompleteMatch()}>
+                {match}
+              </div>
+          );}
+        )}
+      </div> 
+    )*/
+		return <div></div>;
+  }
+
+  /**
+   * Render the dropdown of shorthand suggestions.
+   */
+  renderShorthandDropdown = () => { 
+/*    return (
+      <div className="menu shorthand-menu">
+        {this.state.shorthandMatches.map((match, index) => {
+          const isActive = (this.state.currentShorthandMatch === index); 
+
+          return (
+              <div className="menu-item" key={index} data-active={isActive} onMouseOver={ () => { this.updateCurrentShorthandMatch(index)}} onClick={() => this.insertCurrentShorthandMatch()}>
+                {match}
+              </div>
+          );}
+        )}
+      </div> 
+    )*/
+	return <div></div>;
+  }
+
+  // This gets called when the before the component receives new properties
+  componentWillReceiveProps = (nextProps) => {
+
+    if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+      this.handleSummaryUpdate(nextProps.itemToBeInserted);
+    }
+  }
+  
+  /*
+   * Handle updates when we have a new
+   */
+  handleSummaryUpdate = (itemToBeInserted) => {
+    const currentState = this.state.state;
+    const state = currentState
+        .transform()
+        .insertText(itemToBeInserted)
+		.focus()
+        .apply();
+    this.setState({ state: state });
+  }
+
+	/**
+   * Check if the current selection has a mark with `type` in it.
+   */
+  handleMarkCheck = (type) => {
+    const { state } = this.state;
+    return state.marks.some(mark => mark.type === type);
+  }
+
+  /**
+   * Check if the any of the currently selected blocks are of `type`.
+   */
+  handleBlockCheck = (type) => {
+    const { state } = this.state;
+    return state.blocks.some(node => node.type === type);
+  }
 
     render = () => {
         let { state } = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
+		let noteDescriptionContent = null;
+		if (this.props.patient == null) {
+			noteDescriptionContent = "";
+		} else {
+			noteDescriptionContent = (
+			  <div id="note-description">
+				<Row>
+				  <Col xs={5}>
+					<h1 id="note-title">Pathology Assessment</h1>
+				  </Col>
+				  <Col xs={2}>
+					<p className="note-description-detail-name">Date</p>
+					<p className="note-description-detail-value">20 June 2017</p>
+				  </Col>
+				  <Col xs={2}>
+					<p className="note-description-detail-name">Source</p>
+					<p className="note-description-detail-value">Pathology Report</p>
+				  </Col>
+				  <Col xs={3}>
+					<p className="note-description-detail-name">Signed By</p>
+					<p className="note-description-detail-value">Dr. Brenda Zeiweger</p>
+				  </Col>
+				</Row>
+	  
+		  <Divider className="divider" />
+			  </div>
+			);
+		}
+		/**
+		 * Render the editor, toolbar, dropdown and description for note
+		 */
+		return (
+		  <div id="clinical-notes" className="dashboard-panel">
+			<Paper className="panel-content trio">
+			{noteDescriptionContent}
+			<div className="MyEditor-root">
+			  <EditorToolbar
+				onMarkCheck={this.handleMarkCheck} 
+				onBlockCheck={this.handleBlockCheck}
 
-                //{isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
-        return (
-            <div id="fluxnoteseditor">
-				{this.renderNormalToolbar()}
-                <Slate.Editor
-                    placeholder={'Enter your clinical note here or choose a template to start from...'}
-                    plugins={plugins}
-                    state={state}
-                    onChange={this.onChange}
-                    schema={schema}
-                />
-            </div>
-        );
+				onMarkUpdate={this.handleMarkUpdate} 
+				onBlockUpdate={this.handleBlockUpdate}
+				patient={this.props.patient}
+			  />
+				{this.renderTemporaryToolbar()}
+			  {this.renderDropdown()}
+			  {this.renderShorthandDropdown()}
+				<Slate.Editor
+					placeholder={'Enter your clinical note here or choose a template to start from...'}
+					plugins={plugins}
+					state={state}
+					onChange={this.onChange}
+					schema={schema}
+				/>
+			</div>
+		  </Paper>
+		  </div>
+		);
     }
 }
 
