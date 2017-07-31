@@ -25,7 +25,6 @@ const initialState = Slate.Raw.deserialize(
 		}
 	]}, { terse: true });
 
-
 class FluxNotesEditor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -61,16 +60,24 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-    // onCurrentShortcutValuesUpdate = (currentShortcut) => {
-    	// console.log("updating current shortcut values");
-	// 	console.log("current shortcut from state");
-	// 	console.log(this.state.state.currentShortcut);
-	// }
+	onCurrentShortcutValuesUpdate = (value) => {
 
-	// componentDidUpdate = (prevProps, prevState) => {
-	// 	console.log("[FluxNotesEditor] - component did update");
-	// 	console.log(this.state.state.document);
-	// }
+		if (this.props.currentShortcut.getShortcutType() === "staging") {
+			if (value.startsWith("T")) {
+				this.handleStagingTUpdate(value);
+			} else if (value.startsWith("N")) {
+				this.handleStagingNUpdate(value);
+			} else if (value.startsWith("M")) {
+				this.handleStagingMUpdate(value);
+			} else {
+				console.log("Error: Unexpected value selected in staging dropdown");
+			}
+		}
+		else {
+			console.log("Error: Currently, no functionality to update shortcuts that are not staging");
+			// TODO: Add functionality to update values in other shortcuts (i.e progression, toxicity)
+		}
+	}
 
     onChange = (state) => {
         // console.log("[FluxNotesEditor] - On change to editor");
@@ -81,43 +88,10 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-    /*
-     * Determines if the current state is a structured field type that needs checking.
-     */
-    isRelevantSelection = (state) => {
-        const startBlockType = state.startBlock.type
-    }
-
-    isSelectionLinkageBroken = (selection) => {
-
-    }
-
     onSelectionChange = (state) => {
-        console.log(document.activeElement.parentElement.className === "sf-subfield");
-        console.log(document.activeElement.parentElement);
-        console.log(document.activeElement.parentElement.getAttribute('data-key'));
-
-        // if (this.isRelevantSelection(state.startBlock.type)) {
-        //     if (this.isSelectionLinkageBroken(state.selection)) {
-        //         const
-        //     } else {
-        //         return state;
-        //     }
-        // } else {
-        //     return state;
-        // }
-
-
-        // const currentElement = document.activeElement;
-        // const currentElementSlateKey = currentElement.parentElement.getAttribute('data-key');
-        // if(state.startBlock.type === opts.typeStructuredField) {
-        //     // Look within nodes array for
-        //     currentStructuredField = currentSubFieldFromStructuredField(state, opts)
-        // } else if (state.startBlock.type === opts.typeSubfieldDropdown) {
-        //     currentStructuredField = currentSubFieldFromDropdown(state, opts)
-        // } else {
-        //     // Do nothing -- return empty object;
-        // }
+        // console.log(document.activeElement.parentElement.className === "sf-subfield");
+        // console.log(document.activeElement.parentElement);
+        // console.log(document.activeElement.parentElement.getAttribute('data-key'));
     }
 
     onInsertStructuredField = () => {
@@ -127,14 +101,6 @@ class FluxNotesEditor extends React.Component {
 
 		//let sf = result[0].state.document.getDescendant(result[1]);
 		//let sf_firstChild = sf.nodes.get(0).key;
-
-		// set the current shortcut to be what was inserted
-		// this.props.currentShortcut = new Shortcut
-
-
-		// console.log("[onInsertStructuredField] result");
-		// console.log(result[0]);
-		// console.log(result);
 
         // When structure field is inserted, change current shortcut
         this.props.changeCurrentShortcut("staging");
@@ -149,39 +115,6 @@ class FluxNotesEditor extends React.Component {
         this.onChange(
 			finalResult
         );
-
-    }
-
-	onCurrentShortcutValuesUpdate = (value) => {
-
-		console.log("got value: " + value);
-
-		if (value.startsWith("T")) {
-			console.log("got a T value");
-			this.handleStagingTUpdate(value);
-
-		} else if (value.startsWith("N")) {
-			console.log("got a N value");
-			this.handleStagingNUpdate(value);
-		} else if (value.startsWith("M")) {
-			console.log("got a M value");
-			this.handleStagingMUpdate(value);
-		} else {
-			console.log("Error: unexpected value selected in staging dropdown");
-		}
-
-
-
-
-
-
-		// this.handleStagingNUpdate(value);
-        //
-		// this.handleStagingMUpdate(value);
-
-
-        //TODO: write handle update functions for N and M values
-        //TODO: grab selected values from the drop downs and pass them into the update functions for T, N, M
     }
 
     handleStagingTUpdate = (newTValue) => {
@@ -215,8 +148,7 @@ class FluxNotesEditor extends React.Component {
     render = () => {
         let { state } = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
-
-                //{isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
+        //{isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
         return (
             <div id="fluxnoteseditor">
 				{this.renderNormalToolbar()}

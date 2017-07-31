@@ -14,9 +14,7 @@ const KEY_UP        = 'up';
 const KEY_LEFT      = 'left';
 const KEY_RIGHT     = 'right';
 const KEY_F2        = 'f2';
-
 const KEY_TEST      = 'end';
-
 
 function findNextSubField(state, opts) { 
     console.log("In findNextSubField");
@@ -58,15 +56,14 @@ function currentSubField(state, opts) {
 }
 
 function currentSubFieldFromDropdown(state, opts) { 
-    console.log('Current block is a dropdown element -- looking at parent');
-    console.log(state.startBlock);
+    // console.log('Current block is a dropdown element -- looking at parent');
+    // console.log(state.startBlock);
 }
 
 function currentSubFieldFromStructuredField(state, opts) { 
     state.startBlock.nodes.map((n) => console.log(n.key === document.activeElement.parentElement.getAttribute('data-key')));
     return state.startBlock.nodes.find((n) => n.key === document.activeElement.parentElement.getAttribute('data-key'));
 }
-
 
 function previousSubField(state, opts) { 
     const currentStructuredField  = state.startBlock.type === opts.typeStructuredField ? state.startBlock : {};
@@ -77,8 +74,6 @@ function previousSubField(state, opts) {
     console.log(prevSFSubFields);
     return prevSFSubFields;
 }
-
-
 
 function onEnter(event, data, state, opts) {
 	console.log('onEnter');
@@ -93,8 +88,7 @@ function onTab(event, data, state, opts) {
 
 function onBackspace(event, data, state, opts) {
 	console.log('onBackspace');
-
-	console.log("[onBackspace] state] " + state);
+	// console.log("[onBackspace] state] " + state);
 
 	// const newState = state.transform()
 	// 	.removeNodeByKey(state.blocks._tail.array[0].key)
@@ -108,15 +102,8 @@ function onBackspace(event, data, state, opts) {
 
 	if (subfield.type === opts.typeStructuredField) {
 		sf = subfield;
-
-		// console.log("in structured field. sf: ");
-		// console.log(sf);
 	} else {
-
 		sf = state.document.getParent(subfield.key);
-
-		console.log("not in structured field. sf: ");
-		console.log(sf);
 	}
 
 	const newState = state.transform()
@@ -134,9 +121,6 @@ function onUpDown(event, data, state, opts) {
 	console.log('onUpDown');
 }
 
-function onTab(event, data, state, opts) {
-    console.log('onTab');
-}
 
 function onShiftTab(event, data, state, opts) {
     console.log('onShiftTab');
@@ -210,7 +194,6 @@ function createStructuredField(opts, type) {
 	return sf;
 }
 
-
 function createInlineBlock(text = '') {
 	let nodes = [];
 	if (text.length > 0) {
@@ -237,9 +220,6 @@ function insertStructuredField(opts, transform) {
 
     // Create the structured-field node
     const sf = createStructuredField(opts, 'staging');
-
-	// console.log("[insertStructuredField] sf");
-	// console.log(sf);
 
 	if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
@@ -336,8 +316,6 @@ function StructuredFieldPlugin(opts) {
 				console.log("in structured field. sf: " + sf);
 			} else {
 				//console.log("subfield key = " + subfield.key);
-
-
 				sf = state.document.getParent(subfield.key);
 
 				console.log("not in structured field. sf: " + sf);
@@ -404,12 +382,11 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onDropdownSelection(e) {
-    	console.log("[onDropdownSelection] - hit function");
-		console.log("selected value");
-		console.log(e.target.value); // TODO: got selected value but how to know which drop down it came from?
+    	// console.log("[onDropdownSelection] - hit function");
+        // console.log("selected value");
+        // console.log(e.target.value);
 
-		//TODO: get selection from event and update app state
-
+		// Pass selected value to FluxNotesEditor
 		opts.updateCurrentShortcutValues(e.target.value);
 	}
 
@@ -477,6 +454,5 @@ function StructuredFieldPlugin(opts) {
         }
     };
 }
-
 
 export default StructuredFieldPlugin

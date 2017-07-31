@@ -331,13 +331,15 @@ class TestApp extends Component {
      * Update the current Progression Shortcut
      */
     handleProgressionShortcutUpdate = (s) =>{
-        console.log(`Updated Progression: ${s}`);
+        // console.log(`Updated Progression: ${s}`);
         (s !== "") && this.setState({progressionShortcut: s});
     }
     /* 
      * Update the current Staging Shortcut  
      */
     handleStagingShortcutUpdate = (s) =>{
+
+        // Update staging shortcut in app state
         // console.log(`Updated Staging: ${s}`);
         (s !== "") && this.setState({stagingShortcut: s});
 
@@ -353,6 +355,7 @@ class TestApp extends Component {
             staging: s.staging
         };
 
+        // Update patient data in app state
         if (s.staging !== "") {
             this.setState(
                 {
@@ -404,9 +407,6 @@ class TestApp extends Component {
         const n = currentStaging.nodeSize;
         const m = currentStaging.metastasis;
         const ps = staging.breastCancerPrognosticStage(t, n, m);
-
-        console.log("ps: ");
-        console.log(ps);
 
         if (ps && t && n && m) {
             diagnosis[1].display = `${titlecase(t)} | ${titlecase(n)} | ${titlecase(m)} / Stage ${ps}`;
