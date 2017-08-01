@@ -23,6 +23,7 @@ const KEY_RIGHT		= 'right';
 
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
+//const initialState = Slate.Plain.deserialize('');
 const initialState = Slate.Raw.deserialize(
 	{     nodes: [
 		{
@@ -130,7 +131,7 @@ function moveField(state, opts, fieldDelta) {
  * Pressing "Tab" moves the cursor to the next cell
  * and select the whole text
  */
-function onTab(event, data, state, opts) {
+function onTab(event, data, state, opts, editor) {
 	console.log('*******************************************************8onTab');
 	event.preventDefault();
 	const { startBlock } = state;
@@ -387,7 +388,7 @@ function StructuredFieldPlugin(opts) {
 		//return (!Lang.isNull(parent) && parent.type === opts.typeStructuredField);
     }
 
-	function onKeyDown(event, data, state) {
+	function onKeyDown(event, data, state, editor) {
         // Only handle events in cells
         if (!isSelectionInStructuredField(state)) {
 			if (data.key === KEY_ENTER) {
@@ -405,7 +406,7 @@ function StructuredFieldPlugin(opts) {
         // Build arguments list
         const args = [
             event, data, state,
-            opts
+            opts, editor
         ];
 
         switch (data.key) {
@@ -546,8 +547,19 @@ function StructuredFieldPlugin(opts) {
 				},
 				render: (props) => {
 					return (
-						<span {...props.attributes} style={{ position: 'relative' }}>
+						<span {...props.attributes} style={{ position: 'relative',display:'inline-block' }}>
 							{props.children}
+							          {props.editor.props.placeholder
+										? <Slate.Placeholder
+											className={props.editor.props.placeholderClassName}
+											node={props.node}
+											parent={props.state.document}
+											state={props.state}
+											style={props.editor.props.placeholderStyle}
+										  >
+											{props.editor.props.placeholder}
+										  </Slate.Placeholder>
+										: null}
 						</span>
 					);
 				}
@@ -658,7 +670,6 @@ class FluxNotesEditor extends React.Component {
 				console.log(selection.startKey);
 				console.log("block with focus currently = " + node.key);
 				console.log(node);
-				//const parentNode = state.document.getParent(selection.startKey);
 				console.log("block whose corresponding component will get focus: " + parentNode.key);
 				console.log(parentNode);
 				console.log(parentNode.type);
@@ -667,27 +678,15 @@ class FluxNotesEditor extends React.Component {
 					console.log(domElement);
 					domElement.childNodes[0].focus();
 				}
-                //return state;
-            } else { 
-                //return state;
             } 
-        } else { 
-			//console.log(selection);
-            //return state;
         }
-
-
-        // const currentElement = document.activeElement; 
-        // const currentElementSlateKey = currentElement.parentElement.getAttribute('data-key');
-        // if(state.startBlock.type === opts.typeStructuredField) { 
-        //     // Look within nodes array for 
-        //     currentStructuredField = currentSubFieldFromStructuredField(state, opts)
-        // } else if (state.startBlock.type === opts.typeSubfieldDropdown) {
-        //     currentStructuredField = currentSubFieldFromDropdown(state, opts)
-        // } else { 
-        //     // Do nothing -- return empty object;
-        // }
     }
+	
+	giveFocus = () => {
+        let { state } = this.state;
+		//this.focus();
+		this.onChange(state.transform().focus().apply());
+	}
 	
     onInsertStructuredField = () => {
         let { state } = this.state;
@@ -719,6 +718,7 @@ class FluxNotesEditor extends React.Component {
         return (
             <div>
                 <button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
+				<button onClick={this.giveFocus}>Give Focus</button>
             </div>
         );
     }
