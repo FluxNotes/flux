@@ -160,19 +160,18 @@ function StructuredFieldPlugin(opts) {
 				},
 				render: (props) => {
 					return (
-						<span {...props.attributes} style={{ position: 'relative',display:'inline-block' }}>
+						<span {...props.attributes} style={{ position: 'relative', width:'100%', height:'100%'}}>
 							{props.children}
-							          {props.editor.props.placeholder
-										? <Slate.Placeholder
-											className={props.editor.props.placeholderClassName}
-											node={props.node}
-											parent={props.state.document}
-											state={props.state}
-											style={props.editor.props.placeholderStyle}
-										  >
-											{props.editor.props.placeholder}
-										  </Slate.Placeholder>
-										: null}
+							{props.editor.props.placeholder
+								? <Slate.Placeholder
+									className={props.editor.props.placeholderClassName}
+									node={props.node}
+									parent={props.state.document}
+									state={props.state}
+									style={{position: 'relative',top:'-18px',width:'100%', height:'100%',opacity:'0.333',...props.editor.props.placeholderStyle}}
+								  >{props.editor.props.placeholder}
+								  </Slate.Placeholder>
+								: null}
 						</span>
 					);
 				}
