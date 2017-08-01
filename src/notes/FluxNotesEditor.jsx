@@ -4,8 +4,8 @@ import Slate from 'slate';
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
 // forces a version less than 0.20.3.
-import Lang from 'lodash'
-import { Set } from 'immutable'
+//import Lang from 'lodash'
+//import { Set } from 'immutable'
 import { Row, Col } from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
 // Material UI component imports
@@ -86,7 +86,7 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onEditorUpdate = (newState) => { 
-        console.log(`This is where the editor update happens`);
+        //console.log(`This is where the editor update happens`);
         this.setState({
             state: newState
         });
@@ -115,7 +115,7 @@ class FluxNotesEditor extends React.Component {
 
 		let finalResult = result[0].apply();
 		
-		//console.log(finalResult.document);
+		console.log(finalResult.document);
 
         this.onChange(
 			finalResult

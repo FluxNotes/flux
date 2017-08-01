@@ -28,7 +28,8 @@ function StructuredFieldPlugin(opts) {
     function isSelectionInStructuredField(state) {
         if (!state.selection.startKey) return false;
         const { startBlock } = state;
-        return (startBlock.type === opts.typeSubfieldDropdown || startBlock.type === opts.typeSubfieldStaticText || startBlock.type === opts.typeStructuredField); // return true;
+        //return (startBlock.type === opts.typeSubfieldDropdown || startBlock.type === opts.typeSubfieldStaticText || startBlock.type === opts.typeStructuredField); // return true;
+		return (startBlock.type === opts.typeSubfieldDropdown);
     }
 
 	function onKeyDown(event, data, state, editor) {
@@ -43,12 +44,6 @@ function StructuredFieldPlugin(opts) {
 			}
             return;
         }
-		/*if (data.key === 'shift' || data.key === 'alt' || data.key === 'ctrl' || data.key === 'caps lock' || data.key === 'f3') {
-			const subfield = state.startBlock;
-			console.log(subfield.type + " => " + subfield.key);
-			console.log("key code = " + data.code + " / key = " + data.key);
-			return;
-		}*/
 
         // Build arguments list
         const args = [
@@ -72,46 +67,7 @@ function StructuredFieldPlugin(opts) {
 		case KEY_RIGHT:
 			return onLeftRight(...args);
 		default:
-			const subfield = state.startBlock;
-			console.log(subfield.type + " => " + subfield.key + " / typed character = " + data.code + "/" + data.key);
-			let sf = null;
-			if (subfield.type === opts.typeStructuredField) {
-				sf = subfield;
-				console.log("in structured field. sf: ");
-			} else {
-				sf = state.document.getParent(subfield.key);
-				console.log("not in structured field. sf: ");
-			}
-			console.log(sf);
-			if ((data.code > 47 && data.code < 58)   || // number keys
-				data.code === 32 || data.code === 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-				(data.code > 64 && data.code < 91)   || // letter keys
-				(data.code > 95 && data.code < 112)  || // numpad keys
-				(data.code > 185 && data.code < 193) || // ;=,-./` (in order)
-				(data.code > 218 && data.code < 223))
-			{
-				const ch = (data.code > 64 && data.code < 91) ? (event.isShift ? String.fromCharCode(data.code) : String.fromCharCode(data.code).toLowerCase())  : String.fromCharCode(data.code);
-				event.preventDefault();
-				let nextSibling = state.document.getNextSibling(sf.key);
-				if (Lang.isUndefined(nextSibling)) {
-					nextSibling = createInlineBlock(ch);
-					//console.log(nextSibling + " insert at " + state.document.nodes.size);
-					const newState = state
-						.transform()
-						.insertNodeByKey(state.document.key, state.document.nodes.size, nextSibling)
-						.collapseToEndOf(nextSibling).focus()
-						.apply();
-					return newState;
-				} else {
-					const newState = state
-						.transform()
-						.collapseToStartOf(nextSibling).focus()
-						.insertText(ch)
-						.apply();
-					//console.log('found next sibling and inserted text at start of it');
-					return newState;
-				}
-			}
+			return;
         }
 	}
 
@@ -189,6 +145,7 @@ function StructuredFieldPlugin(opts) {
 		a cursor. see style top value of -18px  */
 	    
 	return {
+		onBeforeInput,
         onKeyDown,
 
         schema,
@@ -209,17 +166,17 @@ function StructuredFieldPlugin(opts) {
  * and select the whole text
  */
 function onTab(event, data, state, opts, editor) {
-	console.log('*******************************************************8onTab');
+	console.log('onTab');
 	event.preventDefault();
-	const { startBlock } = state;
-    console.log("startBlock. type=" + startBlock.type + " / key=" + startBlock.key);
+	//const { startBlock } = state;
+    //console.log("startBlock. type=" + startBlock.type + " / key=" + startBlock.key);
     const direction = (data.isShift ? -1 : +1);
 	return moveField(state, opts, direction);
 }
 
 function onBackspace(event, data, state, opts) {
-	//console.log('onBackspace');
-	console.log("[onBackspace] state] " + state);
+	console.log('onBackspace');
+	//console.log("[onBackspace] state] " + state);
 
 	// const newState = state.transform()
 	// 	.removeNodeByKey(state.blocks._tail.array[0].key)
@@ -329,7 +286,7 @@ function moveField(state, opts, fieldDelta) {
 	}
 	//console.log("new selection:");
 	//console.log(block);
-	if (block.kind !== 'text') console.log("block type: " + block.type);
+	//if (block.kind !== 'text') console.log("block type: " + block.type);
 	//console.log("block key: " + block.key);
 	if (fieldDelta < 0) {
 		return transform.collapseToEndOf(block).focus().apply();
@@ -341,7 +298,7 @@ function moveField(state, opts, fieldDelta) {
 function createInlineBlock(text = '') {
 	let nodes = [];
 	if (text.length > 0) {
-		console.log("Create inline block with text=" + text);
+		//console.log("Create inline block with text=" + text);
 		nodes.push(Slate.Text.createFromString(text));
 	}
 	return Slate.Block.create({
@@ -360,33 +317,70 @@ function isRelevantSelection(node) {
 function isSelectionLinkageBroken(selection) {
 	const dropdownKey = document.activeElement.parentElement.getAttribute('data-key');
 	// If current selection is not identical, make it so
-	console.log(dropdownKey);
-	console.log(selection.startKey);
+	//console.log(dropdownKey);
+	//console.log(selection.startKey);
 	return (dropdownKey !== selection.startKey);
 }
 
-function normalizeSelection(opts, selection, state) {
+function onBeforeInput(event, data, state, editor) {
+	const { selection } = state;
 	const node = state.document.getDescendant(selection.startKey);
 	console.log(selection);
 	const parentNode = state.document.getParent(selection.startKey);
+	if (parentNode.type === "sf_subfield_statictext" || parentNode.type === "structured_field") {
+		//console.log("bad selection?");
+		//console.log(parentNode.type);
+		//console.log(node.kind);
+		//console.log(state.document);
+		const previousSiblingNode = state.document.getPreviousSibling(selection.startKey);
+		//console.log(previousSiblingNode);
+		if (!Lang.isUndefined(previousSiblingNode) && previousSiblingNode.kind === 'inline' && previousSiblingNode.isVoid && node.kind === 'text') {
+			console.log("bad selection will be fixed in onBeforeInput");
+			event.preventDefault();
+			let sf = parentNode;
+			let nextSibling = state.document.getNextSibling(sf.key);
+			if (Lang.isUndefined(nextSibling)) {
+				nextSibling = createInlineBlock("");
+				const newState = state
+					.transform()
+					.insertNodeByKey(state.document.key, state.document.nodes.size, nextSibling)
+					.collapseToEndOf(nextSibling).focus()
+					.insertText(event.data)
+					.apply();
+				return newState;
+			} else {
+				const newState = state
+					.transform()
+					.collapseToStartOf(nextSibling).focus()
+					.insertText(event.data)
+					.apply();
+				return newState;
+			}
+		}
+		return;
+	}
+}
+
+function normalizeSelection(opts, selection, state) {
+	//const node = state.document.getDescendant(selection.startKey);
+	//console.log(selection);
+	const parentNode = state.document.getParent(selection.startKey);
 	if (isRelevantSelection(parentNode)) { 
-		console.log("onSelectionChange in editor within structured field");
+		//console.log("onSelectionChange in editor within structured field");
 		if (isSelectionLinkageBroken(selection)) {
-			console.log("\n\n\n\n\nSelection linkage is broken");
-			console.log(selection.startKey);
+			console.log("Selection and html focus out of sync. fixing.");
+			/*console.log(selection.startKey);
 			console.log("block with focus currently = " + node.key);
 			console.log(node);
 			console.log("block whose corresponding component will get focus: " + parentNode.key);
 			console.log(parentNode);
-			console.log(parentNode.type);
+			console.log(parentNode.type);*/
 			if (parentNode.type === "sf_subfield_dropdown") {
 				const domElement = Slate.findDOMNode(parentNode);
-				console.log(domElement);
+				//console.log(domElement);
 				domElement.childNodes[0].focus();
 			}
-		} 
-/*	} else if (parentNode.type === "sf_subfield_statictext" || parentNode.type === "structured_field" {
-		moveField(state, opts, direction);*/
+		}
 	}
 }
 
