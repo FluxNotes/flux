@@ -98,7 +98,7 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onChange = (state) => {
-		console.log("state change. save it.");
+		//console.log("state change. save it.");
         this.setState({
             state: state
         });
