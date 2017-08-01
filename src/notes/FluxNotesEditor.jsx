@@ -1,5 +1,5 @@
 // TODO:
-// 1. fix placeholder so it doesn't render vertically 1 character wide
+// X1. fix placeholder so it doesn't render vertically 1 character wide
 // 2. entering text outside of structured field and then clicking on dropdown loses newly entered text
 
 import React from 'react';
@@ -102,6 +102,7 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onChange = (state) => {
+		console.log("state change. save it.");
         this.setState({
             state: state
         });

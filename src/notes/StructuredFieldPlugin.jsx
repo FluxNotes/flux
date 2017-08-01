@@ -43,6 +43,12 @@ function StructuredFieldPlugin(opts) {
 			}
             return;
         }
+		if (data.key === 'shift' || data.key === 'alt' || data.key === 'ctrl' || data.key === 'caps lock' || data.key === 'f3') {
+			const subfield = state.startBlock;
+			console.log(subfield.type + " => " + subfield.key);
+			console.log("key code = " + data.code + " / key = " + data.key);
+			return;
+		}
 
         // Build arguments list
         const args = [
@@ -67,68 +73,66 @@ function StructuredFieldPlugin(opts) {
 			return onLeftRight(...args);
 		default:
 			const subfield = state.startBlock;
-			//console.log(subfield.type + " => " + subfield.key);
+			console.log(subfield.type + " => " + subfield.key);
 			let sf = null;
 			if (subfield.type === opts.typeStructuredField) {
 				sf = subfield;
-
 				//console.log("in structured field. sf: " + sf);
 			} else {
 				sf = state.document.getParent(subfield.key);
-
 				//console.log("not in structured field. sf: " + sf);
 			}
-			let nextSibling = state.document.getNextSibling(sf.key);
-			if (Lang.isUndefined(nextSibling)) {
-				nextSibling = createInlineBlock(data.key);
-				//console.log(nextSibling + " insert at " + state.document.nodes.size);
-				const newState = state
-					.transform()
-					.insertNodeByKey(state.document.key, state.document.nodes.size, nextSibling)
-					.collapseToEndOf(nextSibling).focus()
-					.apply();
-				return newState;
-			} else {
-				if ((data.code > 47 && data.code < 58)   || // number keys
-					data.code === 32 || data.code === 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-					(data.code > 64 && data.code < 91)   || // letter keys
-					(data.code > 95 && data.code < 112)  || // numpad keys
-					(data.code > 185 && data.code < 193) || // ;=,-./` (in order)
-					(data.code > 218 && data.code < 223)) {
-					event.preventDefault();
+			if ((data.code > 47 && data.code < 58)   || // number keys
+				data.code === 32 || data.code === 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+				(data.code > 64 && data.code < 91)   || // letter keys
+				(data.code > 95 && data.code < 112)  || // numpad keys
+				(data.code > 185 && data.code < 193) || // ;=,-./` (in order)
+				(data.code > 218 && data.code < 223))
+			{
+				event.preventDefault();
+				let nextSibling = state.document.getNextSibling(sf.key);
+				if (Lang.isUndefined(nextSibling)) {
+					nextSibling = createInlineBlock(String.fromCharCode(data.code));
+					//console.log(nextSibling + " insert at " + state.document.nodes.size);
+					const newState = state
+						.transform()
+						.insertNodeByKey(state.document.key, state.document.nodes.size, nextSibling)
+						.collapseToEndOf(nextSibling).focus()
+						.apply();
+					return newState;
+				} else {
 					const newState = state
 						.transform()
 						.collapseToStartOf(nextSibling).focus()
-						.insertText(data.key) //String.fromCharCode(data.code))
+						.insertText(String.fromCharCode(data.code)) //String.fromCharCode(data.code))
 						.apply();
 					//console.log('found next sibling and inserted text at start of it');
 					return newState;
-				} else {
-					return;
 				}
 			}
         }
 	}
 
     function onDropdownFocus(proxy, event)  {
+		const state = this.getState(); // this is bound to editor. binding to state made it always have old state
         // Get Slate Key of parent element
         const dropdownKey = proxy.target.parentElement.getAttribute('data-key');
         // If current selection is not identical, make it so
-        if (dropdownKey !== this.selection.startKey) { 
+        if (dropdownKey !== state.selection.startKey) { 
             /*console.log(`Update slate selection to match HTML focus as they are not the same right now`)
-			console.log(this);
+			console.log(state);
             console.log(`HTML focused component key: ${dropdownKey}`)
-            console.log(`Slate Selection start key: ${this.selection.startKey}`)*/
-            const dropdownNode = this.document.getDescendant(dropdownKey);
+            console.log(`Slate Selection start key: ${state.selection.startKey}`)*/
+            const dropdownNode = state.document.getDescendant(dropdownKey);
             /*console.log(`DropdownNode:`);
             console.log(dropdownNode);*/
 
-            const newState = this.transform().moveToRangeOf(dropdownNode).apply();
+            const newState = state.transform().moveToRangeOf(dropdownNode).apply();
             //console.log(`New startKey: ${newState.selection.startKey}`);
             opts.updateEditorState(newState);
         //} else { 
             //console.log(`No need to update state -- selections are in sync`)
-            //console.log(this)
+            //console.log(state)
         }
     }
 	
@@ -146,7 +150,7 @@ function StructuredFieldPlugin(opts) {
 				//let value = props.node.get('data').get('value');
 				return (
 					<DropdownStructuredComponent
-						handleDropdownFocus={onDropdownFocus.bind(props.state)}
+						handleDropdownFocus={onDropdownFocus.bind(props.editor)}
 						else={props.attributes}
 						items={items}
 					/> 
@@ -332,7 +336,7 @@ function createInlineBlock(text = '') {
 	let nodes = [];
 	if (text.length > 0) {
 		console.log("got text");
-		nodes.push(Slate.Text.create( { "characters": [ Slate.Character.create( {marks: Set() , text: text } ) ] } ));
+		nodes.push(Slate.Text.createFromString(text));
 	}
 	return Slate.Block.create({
 		type: 'inline',
