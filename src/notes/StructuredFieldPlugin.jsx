@@ -178,6 +178,9 @@ function StructuredFieldPlugin(opts) {
 			}
 		]
 	};
+	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
+		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
+		a cursor. see style top value of -18px  */
 	    
 	return {
         onKeyDown,
