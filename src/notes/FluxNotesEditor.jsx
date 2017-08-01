@@ -7,11 +7,12 @@ import EditorToolbar from './EditorToolbar';
 // Material UI component imports
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
+import DropdownStructuredComponent from './../structuredfieldcomponents/DropdownStructuredComponent'
 
 import './FluxNotesEditor.css';
 
+const KEY_F2		= 'f2';
 const KEY_ENTER     = 'enter';
 const KEY_TAB       = 'tab';
 const KEY_BACKSPACE = 'backspace';
@@ -40,11 +41,11 @@ const initialState = Slate.Raw.deserialize(
 		}
 	]}, { terse: true });
 
-const structuredFieldPlugin = StructuredField();
+//const structuredFieldPlugin = StructuredField();
 
-const plugins = [
+/*const plugins = [
 	structuredFieldPlugin
-];
+];*/
 
 const schema = {
     nodes: {
@@ -65,12 +66,79 @@ function onEnter(event, data, state, opts) {
         .apply();*/
 }
 
+function moveField(state, opts, fieldDelta) {
+	let transform = state.transform();
+	const { startBlock } = state;
+	let block = startBlock;
+	console.log("start block type: " + block.type);
+	let i = 0;
+	if (fieldDelta > 0) {
+		for (i = 0; i < fieldDelta; i++) {
+			do {
+				block = state.document.getNextSibling(block.key);
+				console.log(block);
+			} while (!Lang.isUndefined(block) && block.kind !== 'text' && block.type !== opts.typeSubfieldDropdown);
+			if (Lang.isUndefined(block)) {
+				let parent = state.document.getParent(startBlock.key);
+				block = state.document.getNextSibling(parent.key);
+				if (block.kind !== 'text') {
+					block = block.nodes[0];
+				}
+			}
+		}
+	} else if (fieldDelta < 0) {
+		let delta = fieldDelta * -1;
+		for (i = 0; i < delta; i++) {
+			do {
+				block = state.document.getPreviousSibling(block.key);
+				console.log("block: " + block);
+				if (block.kind === 'inline' && block.isVoid) {
+					// after an inline void, always skip the next one
+					block = state.document.getPreviousSibling(block.key);
+					block = state.document.getPreviousSibling(block.key);
+					console.log("skipped due to inline void. block: " + block);
+				}
+			} while (!Lang.isUndefined(block) && block.kind !== 'text' && block.type !== opts.typeSubfieldDropdown);
+			if (Lang.isUndefined(block)) {
+				let parent = state.document.getParent(startBlock.key);
+				block = state.document.getPreviousSibling(parent.key);
+				console.log("left structured field. selection in:")
+				console.log(block);
+/*				if (block.kind !== 'text') {
+					console.log("# children = " + block.nodes.length);
+					block = block.nodes[0];
+					console.log(block);
+				}*/
+			}
+		}
+	}
+	console.log("new selection:");
+	console.log(block);
+	if (block.kind !== 'text') console.log("block type: " + block.type);
+	console.log("block key: " + block.key);
+	/*let p = state.document.getParent(block.key);
+	console.log("parent: ");
+	console.log(p);*/
+	if (fieldDelta < 0) {
+		return transform.collapseToEndOf(block).moveOffsetsTo(1,1).focus().apply();
+	} else {
+		return transform.collapseToStartOf(block).moveOffsetsTo(1,1).focus().apply();
+	}
+}
+
 /**
  * Pressing "Tab" moves the cursor to the next cell
  * and select the whole text
  */
 function onTab(event, data, state, opts) {
-	console.log('onTab');
+	console.log('*******************************************************8onTab');
+	event.preventDefault();
+	const { startBlock } = state;
+    console.log("startBlock. type=" + startBlock.type + " / key=" + startBlock.key);
+    const direction = (data.isShift ? -1 : +1);
+	return moveField(state, opts, direction);
+	
+	
 /*    event.preventDefault();
     const direction = (data.isShift ? -1 : +1);
     let transform = state.transform();
@@ -94,8 +162,8 @@ function onTab(event, data, state, opts) {
 function onBackspace(event, data, state, opts) {
 	console.log('onBackspace');
 
-    const { startBlock, startOffset,
-        isCollapsed, endBlock } = state;
+/*    const { startBlock, startOffset,
+        isCollapsed, endBlock } = state;*/
     //
     // // If a cursor is collapsed at the start of the block, do nothing
     // if (startOffset === 0 && isCollapsed) {
@@ -153,8 +221,8 @@ function onBackspace(event, data, state, opts) {
 
 		sf = state.document.getParent(subfield.key);
 
-		console.log("not in structured field. sf: ");
-		console.log(sf);
+		//console.log("not in structured field. sf: ");
+		//console.log(sf);
 	}
 
 	const newState = state.transform()
@@ -281,8 +349,8 @@ function insertStructuredField(opts, transform) {
     // Create the structured-field node
     const sf = createStructuredField(opts, 'staging');
 
-	console.log("[insertStructuredField] sf");
-	console.log(sf);
+	//console.log("[insertStructuredField] sf");
+	//console.log(sf);
 
 	if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
@@ -291,12 +359,16 @@ function insertStructuredField(opts, transform) {
 	}
 }
 
-function StructuredField(opts) {
+function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
     opts.typeSubfieldDropdown = opts.typeSubfieldDropdown || 'sf_subfield_dropdown';
 	opts.typeSubfieldStaticText = opts.typeSubfieldStaticText || 'sf_subfield_statictext';
+	return opts;
+}
 
+function StructuredFieldPlugin(opts) {
+	opts = createOpts(opts);
     /**
      * Is the selection in a structured field
      */
@@ -309,6 +381,7 @@ function StructuredField(opts) {
         // Only handle events in cells
 		//console.log(startBlock.type + " ?= " + opts.typeSubfieldDropdown + " ?= " + opts.typeStructuredField);
         return (startBlock.type === opts.typeSubfieldDropdown || startBlock.type === opts.typeSubfieldStaticText || startBlock.type === opts.typeStructuredField); // return true;
+		//return (startBlock.type === opts.typeStructuredField);
 		//const parent = state.document.getParent(startBlock.key);
 		//console.log("parent = " + parent);
 		//return (!Lang.isNull(parent) && parent.type === opts.typeStructuredField);
@@ -322,10 +395,10 @@ function StructuredField(opts) {
 					.transform()
 					.insertText('\n')
 					.apply();
-				console.log('not in structured field and ENTER');
+				//console.log('not in structured field and ENTER');
 				return newState;
 			}
-			console.log("not in structured field (" + state.startBlock.type + ") and not ENTER");
+			//console.log("not in structured field (" + state.startBlock.type + ") and not ENTER");
             return;
         }
 
@@ -336,6 +409,8 @@ function StructuredField(opts) {
         ];
 
         switch (data.key) {
+		case KEY_F2:
+			return onTab(...args);
         case KEY_ENTER:
             return onEnter(...args);
         case KEY_TAB:
@@ -351,11 +426,12 @@ function StructuredField(opts) {
 		default:
 			//let chr = String.fromCharCode((96 <= data.code) ? (data.code - 48 * Math.floor(data.code / 48)) : data.code);
 			//console.log("onKeyDown: " + data.key + " / " + chr);
-			console.log(data);
+			//console.log(data);
 			//console.log(state.selection);
-			event.preventDefault();
+			//event.preventDefault();
+			//return state;
 			const subfield = state.startBlock;
-			//console.log(subfield.type + " => " + subfield.key);
+			console.log(subfield.type + " => " + subfield.key);
 			//console.log(state.selection.type + " => " + state.selection.key);
 			let sf = null;
 			if (subfield.type === opts.typeStructuredField) {
@@ -397,10 +473,11 @@ function StructuredField(opts) {
 					(data.code > 95 && data.code < 112)  || // numpad keys
 					(data.code > 185 && data.code < 193) || // ;=,-./` (in order)
 					(data.code > 218 && data.code < 223)) {
+					event.preventDefault();
 					const newState = state
 						.transform()
 						.collapseToStartOf(nextSibling).focus()
-						.insertText(String.fromCharCode(data.code))
+						.insertText(data.key) //String.fromCharCode(data.code))
 						.apply();
 					console.log('found next sibling and inserted text at start of it');
 					return newState;
@@ -414,6 +491,28 @@ function StructuredField(opts) {
 		
 	}
 
+    function onDropdownFocus(proxy, event)  {
+        // Get Slate Key of parent element
+        const dropdownKey = proxy.target.parentElement.getAttribute('data-key');
+        // If current selection is not identical, make it so
+        if (dropdownKey !== this.selection.startKey) { 
+            console.log(`Update slate selection to match HTML focus as they are not the same right now`)
+			console.log(this);
+            console.log(`HTML focused component key: ${dropdownKey}`)
+            console.log(`Slate Selection start key: ${this.selection.startKey}`)
+            const dropdownNode = this.document.getDescendant(dropdownKey);
+            console.log(`DropdownNode:`);
+            console.log(dropdownNode);
+
+            const newState = this.transform().moveToRangeOf(dropdownNode).apply();
+            console.log(`New startKey: ${newState.selection.startKey}`);
+            opts.updateEditorState(newState);
+        } else { 
+            console.log(`No need to update state -- selections are in sync`)
+            console.log(this)
+        }
+    }
+	
 	const schema = {
 		nodes: {
 			structured_field:      props => {
@@ -432,23 +531,13 @@ function StructuredField(opts) {
 				let items = props.node.get('data').get('items');
 				//let value = props.node.get('data').get('value');
 				return (
-					<span className='sf-subfield' {...props.attributes}><select>
-						{items.map(function(item, index) {
-							return <option key={item} value={item}>{item}</option>;
-						})}</select></span>
-					);
+					<DropdownStructuredComponent
+						handleDropdownFocus={onDropdownFocus.bind(props.state)}
+						else={props.attributes}
+						items={items}
+					/> 
+				);
 			},
-			sf_subfield_dropdown2:    props => {
-				//console.log(props);
-				let items = props.node.get('data').get('items');
-				let value = props.node.get('data').get('value');
-				return (
-					<span className='sf-subfield' {...props.attributes}><DropDownMenu value={value} onChange={(event, index, value) => value={value}} >
-						{items.map(function(item, index) {
-							return <MenuItem key={item} value={item} primaryText={item}/>
-						})}</DropDownMenu></span>
-					);
-			}
 		},
 		rules: [
 			{
@@ -481,6 +570,21 @@ function StructuredField(opts) {
     };
 }
 
+const structuredFieldTypes = [
+    {
+        name: 'typeStructuredField',
+        value: 'structured_field'
+    },
+    {
+        name: 'typeSubfieldDropdown',
+        value: 'sf_subfield_dropdown'
+    },
+    {
+        name: 'typeSubfieldStaticText',
+        value: 'sf_subfield_statictext'
+    }
+]
+
 class FluxNotesEditor extends React.Component {
 	constructor(props) {
 		super(props);
@@ -489,11 +593,33 @@ class FluxNotesEditor extends React.Component {
 		this.state = {
 			state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
 		}
+
+		// setup structured field plugin
+        const structuredFieldPluginOptions = {};
+        structuredFieldPluginOptions["updateEditorState"] = this.onEditorUpdate
+        structuredFieldTypes.forEach((type) => {
+            const typeName = type.name; 
+            const typeValue = type.value;
+            structuredFieldPluginOptions[typeName] = typeValue;
+        });
+
+        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+
+        this.plugins = [
+            this.structuredFieldPlugin
+        ];
 	}
 
+    onEditorUpdate = (newState) => { 
+        console.log(`This is where the editor update happens`);
+        this.setState({
+            state: newState
+        });
+    }
+
 	componentDidUpdate = (prevProps, prevState) => {
-		console.log("component did update");
-		console.log(this.state.state.document);
+		//console.log("component did update");
+		//console.log(this.state.state.document);
 	}
 
     onChange = (state) => {
@@ -502,23 +628,86 @@ class FluxNotesEditor extends React.Component {
         });
     }
 	
+    isRelevantSelection = (node) => { 
+		//console.log(node.kind);
+		//if (node.kind === 'text') return false;
+        const startBlockType = node.type;
+        //return !Lang.isUndefined(structuredFieldTypes.find((type) => type.value === startBlockType));
+		return startBlockType === 'sf_subfield_dropdown';
+    }   
+
+    isSelectionLinkageBroken = (selection) => {
+        const dropdownKey = document.activeElement.parentElement.getAttribute('data-key');
+        // If current selection is not identical, make it so
+		console.log(dropdownKey);
+        console.log(selection.startKey);
+        //const dropdownNode = this.state.state.document.getDescendant(selection.startKey);
+        //console.log(`DropdownNode:`);
+        //console.log(dropdownNode);
+        return (dropdownKey !== selection.startKey);
+    }
+	
+	onSelectionChange = (selection, state) => { 
+		const node = state.document.getDescendant(selection.startKey);
+		console.log(selection);
+		const parentNode = state.document.getParent(selection.startKey);
+        if (this.isRelevantSelection(parentNode)) { 
+			console.log("onSelectionChange in editor within structured field");
+            if (this.isSelectionLinkageBroken(selection)) {
+                console.log("\n\n\n\n\nSelection linkage is broken");
+				console.log(selection.startKey);
+				console.log("block with focus currently = " + node.key);
+				console.log(node);
+				//const parentNode = state.document.getParent(selection.startKey);
+				console.log("block whose corresponding component will get focus: " + parentNode.key);
+				console.log(parentNode);
+				console.log(parentNode.type);
+				if (parentNode.type === "sf_subfield_dropdown") {
+					const domElement = Slate.findDOMNode(parentNode);
+					console.log(domElement);
+					domElement.childNodes[0].focus();
+				}
+                //return state;
+            } else { 
+                //return state;
+            } 
+        } else { 
+			//console.log(selection);
+            //return state;
+        }
+
+
+        // const currentElement = document.activeElement; 
+        // const currentElementSlateKey = currentElement.parentElement.getAttribute('data-key');
+        // if(state.startBlock.type === opts.typeStructuredField) { 
+        //     // Look within nodes array for 
+        //     currentStructuredField = currentSubFieldFromStructuredField(state, opts)
+        // } else if (state.startBlock.type === opts.typeSubfieldDropdown) {
+        //     currentStructuredField = currentSubFieldFromDropdown(state, opts)
+        // } else { 
+        //     // Do nothing -- return empty object;
+        // }
+    }
+	
     onInsertStructuredField = () => {
         let { state } = this.state;
 
-		let  result = structuredFieldPlugin.transforms.insertStructuredField(state.transform());
+		let  result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform());
 
 		//let sf = result[0].state.document.getDescendant(result[1]);
 
 		//let sf_firstChild = sf.nodes.get(0).key;
 
-		console.log("[onInsertStructuredField] result");
-		console.log(result[0]);
+		//console.log("[onInsertStructuredField] result");
+		//console.log(result[0]);
 
 		// Attempt to delete remove structured field first child but this did not work. First child is the $#8202 unicode and for some reason
 		// this gets added when structured field is created. When delete structured field, this character remains as part of the structured field
 		// result[0].removeNodeByKey(sf_firstChild);
 
 		let finalResult = result[0].apply();
+		
+		console.log(finalResult.document);
 
         this.onChange(
 			finalResult
@@ -663,9 +852,10 @@ class FluxNotesEditor extends React.Component {
 			  {this.renderShorthandDropdown()}
 				<Slate.Editor
 					placeholder={'Enter your clinical note here or choose a template to start from...'}
-					plugins={plugins}
+					plugins={this.plugins}
 					state={state}
 					onChange={this.onChange}
+					onSelectionChange={this.onSelectionChange}
 					schema={schema}
 				/>
 			</div>

@@ -22,7 +22,7 @@ import SummaryMetadata from '../summary/SummaryMetadata';
 import Lang from 'lodash'
 
 //import staging from '../../lib/staging';
-import moment from 'moment';
+//import moment from 'moment';
 
 import './TestApp.css';
 
