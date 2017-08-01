@@ -1,3 +1,7 @@
+// TODO:
+// 1. fix placeholder so it doesn't render vertically 1 character wide
+// 2. entering text outside of structured field and then clicking on dropdown loses newly entered text
+
 import React from 'react';
 import Slate from 'slate';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
