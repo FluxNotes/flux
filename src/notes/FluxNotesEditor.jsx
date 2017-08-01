@@ -120,9 +120,9 @@ function moveField(state, opts, fieldDelta) {
 	console.log("parent: ");
 	console.log(p);*/
 	if (fieldDelta < 0) {
-		return transform.collapseToEndOf(block).moveOffsetsTo(1,1).focus().apply();
+		return transform.collapseToEndOf(block).focus().apply();
 	} else {
-		return transform.collapseToStartOf(block).moveOffsetsTo(1,1).focus().apply();
+		return transform.collapseToStartOf(block).focus().apply();
 	}
 }
 
