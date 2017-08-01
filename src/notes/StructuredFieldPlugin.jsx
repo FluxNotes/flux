@@ -196,7 +196,8 @@ function StructuredFieldPlugin(opts) {
         },
 
         transforms: {
-            insertStructuredField:     insertStructuredField.bind(null, opts)
+            insertStructuredField:     	insertStructuredField.bind(null, opts),
+			normalizeSelection:			normalizeSelection.bind(null, opts)
         }
     };
 }
@@ -244,8 +245,11 @@ function onBackspace(event, data, state, opts) {
 	return newState;
 }
 
+
 function onLeftRight(event, data, state, opts) {
+	const direction = data.key === 'left' ? -1 : +1;
 	console.log('onLeftRight');
+	return moveField(state, opts, direction);
 }
 
 function onUpDown(event, data, state, opts) {
@@ -342,6 +346,46 @@ function createInlineBlock(text = '') {
 		type: 'inline',
 		nodes: nodes
 	});
+}
+
+function isRelevantSelection(node) { 
+	//console.log(node.kind);
+	const startBlockType = node.type;
+	//return !Lang.isUndefined(structuredFieldTypes.find((type) => type.value === startBlockType));
+	return startBlockType === 'sf_subfield_dropdown';
+}   
+
+function isSelectionLinkageBroken(selection) {
+	const dropdownKey = document.activeElement.parentElement.getAttribute('data-key');
+	// If current selection is not identical, make it so
+	console.log(dropdownKey);
+	console.log(selection.startKey);
+	return (dropdownKey !== selection.startKey);
+}
+
+function normalizeSelection(opts, selection, state) {
+	const node = state.document.getDescendant(selection.startKey);
+	console.log(selection);
+	const parentNode = state.document.getParent(selection.startKey);
+	if (isRelevantSelection(parentNode)) { 
+		console.log("onSelectionChange in editor within structured field");
+		if (isSelectionLinkageBroken(selection)) {
+			console.log("\n\n\n\n\nSelection linkage is broken");
+			console.log(selection.startKey);
+			console.log("block with focus currently = " + node.key);
+			console.log(node);
+			console.log("block whose corresponding component will get focus: " + parentNode.key);
+			console.log(parentNode);
+			console.log(parentNode.type);
+			if (parentNode.type === "sf_subfield_dropdown") {
+				const domElement = Slate.findDOMNode(parentNode);
+				console.log(domElement);
+				domElement.childNodes[0].focus();
+			}
+		} 
+/*	} else if (parentNode.type === "sf_subfield_statictext" || parentNode.type === "structured_field" {
+		moveField(state, opts, direction);*/
+	}
 }
 
 /**

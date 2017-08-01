@@ -1,7 +1,3 @@
-// TODO:
-// X1. fix placeholder so it doesn't render vertically 1 character wide
-// 2. entering text outside of structured field and then clicking on dropdown loses newly entered text
-
 import React from 'react';
 import Slate from 'slate';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -107,46 +103,9 @@ class FluxNotesEditor extends React.Component {
             state: state
         });
     }
-	
-    isRelevantSelection = (node) => { 
-		//console.log(node.kind);
-        const startBlockType = node.type;
-        //return !Lang.isUndefined(structuredFieldTypes.find((type) => type.value === startBlockType));
-		return startBlockType === 'sf_subfield_dropdown';
-    }   
-
-    isSelectionLinkageBroken = (selection) => {
-        const dropdownKey = document.activeElement.parentElement.getAttribute('data-key');
-        // If current selection is not identical, make it so
-		console.log(dropdownKey);
-        console.log(selection.startKey);
-        //const dropdownNode = this.state.state.document.getDescendant(selection.startKey);
-        //console.log(`DropdownNode:`);
-        //console.log(dropdownNode);
-        return (dropdownKey !== selection.startKey);
-    }
-	
+		
 	onSelectionChange = (selection, state) => { 
-		const node = state.document.getDescendant(selection.startKey);
-		console.log(selection);
-		const parentNode = state.document.getParent(selection.startKey);
-        if (this.isRelevantSelection(parentNode)) { 
-			console.log("onSelectionChange in editor within structured field");
-            if (this.isSelectionLinkageBroken(selection)) {
-                console.log("\n\n\n\n\nSelection linkage is broken");
-				console.log(selection.startKey);
-				console.log("block with focus currently = " + node.key);
-				console.log(node);
-				console.log("block whose corresponding component will get focus: " + parentNode.key);
-				console.log(parentNode);
-				console.log(parentNode.type);
-				if (parentNode.type === "sf_subfield_dropdown") {
-					const domElement = Slate.findDOMNode(parentNode);
-					console.log(domElement);
-					domElement.childNodes[0].focus();
-				}
-            } 
-        }
+		this.structuredFieldPlugin.transforms.normalizeSelection(selection, state);
     }
 	
     onInsertStructuredField = () => {
