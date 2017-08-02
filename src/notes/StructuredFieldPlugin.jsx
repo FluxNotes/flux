@@ -101,8 +101,20 @@ function StructuredFieldPlugin(opts) {
 			console.log("onDropDownFocus DONE (no state change)");
         }
     }
-	
-	const schema = {
+
+    function onDropdownSelection(e) {
+        // console.log("[onDropdownSelection] - hit function");
+        // console.log("selected value");
+        // console.log(e.target.value);
+
+        // Pass selected value to FluxNotesEditor
+        opts.updateCurrentShortcutValues(e.target.value);
+        console.log("!!!!!! selected value: ");
+        console.log(e.target.value);
+    }
+
+
+    const schema = {
 		nodes: {
 			structured_field:      props => {
 				return <span className='structured-field' {...props.attributes}>{props.children}</span>;
@@ -117,6 +129,7 @@ function StructuredFieldPlugin(opts) {
 				return (
 					<DropdownStructuredComponent
 						handleDropdownFocus={onDropdownFocus.bind(props.editor)}
+                        handleDropdownSelection={onDropdownSelection.bind(props.state)}
 						else={props.attributes}
 						items={items}
 					/> 

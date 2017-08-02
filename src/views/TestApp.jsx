@@ -29,10 +29,10 @@ import './TestApp.css';
 class TestApp extends Component {
     constructor(props) {
         super(props);
-		
+
 		this.getItemListForProcedures = this.getItemListForProcedures.bind(this);
 		this.summaryMetadata = new SummaryMetadata();
-		
+
 	    this.state = {
             SummaryItemToInsert: '',
             withinStructuredField: null,
@@ -133,7 +133,7 @@ class TestApp extends Component {
         // Timeline events are a mix of key dates and progression
         //const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
 		//const timelineEvents = []; // TODO
-		
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="TestApp">
