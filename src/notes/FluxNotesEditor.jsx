@@ -130,11 +130,14 @@ class FluxNotesEditor extends React.Component {
         });
     }
 
-
     onSelectionChange = (selection, state) => {
         this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
     }
-
+	
+	onBlur = (event, data, state, editor) => {
+		event.preventDefault();
+		return state;
+	}
 
     onInsertStructuredField = () => {
         let {state} = this.state;
@@ -301,6 +304,7 @@ class FluxNotesEditor extends React.Component {
                             state={state}
                             onChange={this.onChange}
                             onSelectionChange={this.onSelectionChange}
+							onBlur={this.onBlur}
                             schema={schema}
                         />
                     </div>
