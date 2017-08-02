@@ -86,7 +86,7 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onEditorUpdate = (newState) => { 
-        //console.log(`This is where the editor update happens`);
+        console.log(`Plugin updating state`);
         this.setState({
             state: newState
         });
@@ -98,14 +98,14 @@ class FluxNotesEditor extends React.Component {
 	}
 
     onChange = (state) => {
-		//console.log("state change. save it.");
+		console.log("Editor onChange updating state.");
         this.setState({
             state: state
         });
     }
 		
 	onSelectionChange = (selection, state) => { 
-		this.structuredFieldPlugin.transforms.normalizeSelection(selection, state);
+		this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
     }
 	
     onInsertStructuredField = () => {
