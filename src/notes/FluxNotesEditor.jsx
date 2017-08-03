@@ -5,7 +5,7 @@ import Slate from 'slate';
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
 // forces a version less than 0.20.3.
-import Lang from 'lodash'
+//import Lang from 'lodash'
 //import { Set } from 'immutable'
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
@@ -24,7 +24,7 @@ const initialState = Slate.Raw.deserialize(
         nodes: [
             {
                 kind: 'block',
-                type: 'paragraph',
+                type: 'inline',
                 nodes: [
                     {
                         kind: 'text',
@@ -76,7 +76,8 @@ class FluxNotesEditor extends React.Component {
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             updateEditorState: this.onEditorUpdate,
-            updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate
+            updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate,
+			changeCurrentShortcut: props.changeCurrentShortcut
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
@@ -93,28 +94,13 @@ class FluxNotesEditor extends React.Component {
     }
 
     onEditorUpdate = (newState) => {
-        console.log(`Plugin updating state`);
+        //console.log(`Plugin updating state`);
         this.setState({
             state: newState
         });
     }
-    onCurrentShortcutValuesUpdate = (value) => {
-
-        if (this.props.currentShortcut.getShortcutType() === "staging") {
-            if (value.startsWith("T")) {
-                this.handleStagingTUpdate(value);
-            } else if (value.startsWith("N")) {
-                this.handleStagingNUpdate(value);
-            } else if (value.startsWith("M")) {
-                this.handleStagingMUpdate(value);
-            } else {
-                console.log("Error: Unexpected value selected in staging dropdown");
-            }
-        }
-        else {
-            console.log("Error: Currently, no functionality to update shortcuts that are not staging");
-            // TODO: Add functionality to update values in other shortcuts (i.e progression, toxicity)
-        }
+    onCurrentShortcutValuesUpdate = (name, value) => {
+		this.props.currentShortcut.updateValue(name, value);
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -123,8 +109,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        console.log("Editor onChange updating state.");
-
+        //console.log("Editor onChange updating state.");
         this.setState({
             state: state
         });
@@ -139,21 +124,33 @@ class FluxNotesEditor extends React.Component {
 		return state;
 	}
 
-    onInsertStructuredField = () => {
+	// for temporary toolbar buttons
+    onInsertStagingStructuredField = () => {
+		this.insertStructuredField("staging");
+	}
+    onInsertProgressionStructuredField = () => {
+		this.insertStructuredField("progression");
+	}
+    onInsertToxicityStructuredField = () => {
+		this.insertStructuredField("toxicity");
+	}
+	
+	
+	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform());
+        // When structure field is inserted, change current shortcut
+        let shortcut = this.props.newCurrentShortcut(shortcutType);
+
+        let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform(), shortcut);
 
         //let sf = result[0].state.document.getDescendant(result[1]);
         //let sf_firstChild = sf.nodes.get(0).key;
 
-        // When structure field is inserted, change current shortcut
-        this.props.changeCurrentShortcut("staging");
 
         // Attempt to delete remove structured field first child but this did not work. First child is the $#8202 unicode and for some reason
         // this gets added when structured field is created. When delete structured field, this character remains as part of the structured field
         // result[0].removeNodeByKey(sf_firstChild);
-
 
         let finalResult = result[0].apply();
 
@@ -165,32 +162,13 @@ class FluxNotesEditor extends React.Component {
         );
     }
 
-    handleStagingTUpdate = (newTValue) => {
-        const newStaging = Lang.clone(this.props.currentShortcut.staging);
-        newStaging['tumorSize'] = newTValue;
-        this.props.currentShortcut.handleStagingUpdate(newStaging);
-    }
-
-
-    handleStagingNUpdate = (newNValue) => {
-        const newStaging = Lang.clone(this.props.currentShortcut.staging);
-        newStaging['nodeSize'] = newNValue;
-        this.props.currentShortcut.handleStagingUpdate(newStaging);
-    }
-
-    handleStagingMUpdate = (newMValue) => {
-        const newStaging = Lang.clone(this.props.currentShortcut.staging);
-        newStaging['metastasis'] = newMValue;
-        this.props.currentShortcut.handleStagingUpdate(newStaging);
-    }
-
-
     renderTemporaryToolbar = () => {
-
         return (
             <div>
                 <div>
-                    <button onClick={this.onInsertStructuredField}>Insert Shortcut</button>
+                    <button onClick={this.onInsertStagingStructuredField}>Insert Staging Shortcut</button>
+                    <button onClick={this.onInsertProgressionStructuredField}>Insert Progression Shortcut</button>
+                    <button onClick={this.onInsertToxicityStructuredField}>Insert Toxicity Shortcut</button>
                 </div>
             </div>
         );

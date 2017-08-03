@@ -11,18 +11,13 @@ import FluxNotesEditor from '../notes/FluxNotesEditor';
 import TestDataSummaryPanel from '../summary/TestDataSummaryPanel';
 import FormTray from '../forms/FormTray';
 import TestTimelinePanel from '../timeline/TestTimelinePanel';
-// Shortcut Classes
-import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
-import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
-import StagingShortcut from '../shortcuts/StagingShortcut';
+// Shortcuts
+import ShortcutManager from '../shortcuts/ShortcutManager';
 // Data model
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
 // Lodash component
 import Lang from 'lodash'
-
-//import staging from '../../lib/staging';
-//import moment from 'moment';
 
 import './TestApp.css';
 
@@ -32,6 +27,7 @@ class TestApp extends Component {
 
 		this.getItemListForProcedures = this.getItemListForProcedures.bind(this);
 		this.summaryMetadata = new SummaryMetadata();
+		this.shortcutManager = new ShortcutManager(this.shortcuts);
 
 	    this.state = {
             SummaryItemToInsert: '',
@@ -44,7 +40,9 @@ class TestApp extends Component {
             patient: new Patient()
         };
     }
-
+	
+	shortcuts = [ "progression", "staging", "toxicity" ];
+	
 	getItemListForProcedures = (patient, currentConditionEntry) => {
 		let procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
 		return procedures.map((p, i) => {
@@ -59,47 +57,22 @@ class TestApp extends Component {
     /* 
      * Change the current shortcut to be the new type of shortcut  
      */
-    changeCurrentShortcut = (shortcutType) => {
-        if (Lang.isNull(shortcutType)) {   
-            this.setState({
-                currentShortcut: null
-            });
-        } else { 
-            switch (shortcutType.toLowerCase()) { 
-            case "progression":
-                this.setState({
-                    currentShortcut: new ProgressionShortcut(this.handleProgressionShortcutUpdate)
-                });
-                break;
-            case "toxicity":
-                this.setState({
-                    currentShortcut: new ToxicityShortcut(this.handleProgressionShortcutUpdate)
-                });
-                break;
-            case "staging":
-                this.setState({
-                    currentShortcut: new StagingShortcut(this.handleStagingShortcutUpdate)
-                });
-                break;
-            default:
-                console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
-            }
+    newCurrentShortcut = (shortcutType, obj) => {
+		let newShortcut = null;
+        if (!Lang.isNull(shortcutType)) {
+			newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
         }
+        this.setState({currentShortcut: newShortcut});
+		return newShortcut;
     }
+	
+	changeCurrentShortcut = (shortcut) => {
+		this.setState({currentShortcut: shortcut});
+	}
 
-    /* 
-     * Update the current Progression Shortcut
-     */
-    handleProgressionShortcutUpdate = (s) =>{
-        console.log(`Updated Progression: ${s}`);
-        (s !== "") && this.setState({progressionShortcut: s});
-    }
-    /* 
-     * Update the current Staging Shortcut  
-     */
-    handleStagingShortcutUpdate = (s) =>{
-        console.log(`Updated Staging: ${s}`);
-        (s !== "") && this.setState({stagingShortcut: s});
+    handleShortcutUpdate = (s) =>{
+        console.log(`Updated shortcut`);
+        this.setState({currentShortcut: s});
     }
 
     handleStructuredFieldEntered = (field) => {
@@ -130,10 +103,6 @@ class TestApp extends Component {
     }
 
     render() {
-        // Timeline events are a mix of key dates and progression
-        //const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
-		//const timelineEvents = []; // TODO
-
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="TestApp">
@@ -155,6 +124,7 @@ class TestApp extends Component {
                                     // Update functions
                                     onSelectionChange={this.handleSelectionChange}
                                     changeCurrentShortcut={this.changeCurrentShortcut}
+									newCurrentShortcut={this.newCurrentShortcut}
                                     // Properties
                                     currentShortcut={this.state.currentShortcut}
                                     itemToBeInserted={this.state.SummaryItemToInsert}

@@ -113,6 +113,27 @@ class StagingShortcut extends Shortcut {
         //console.log(this.staging);
     }
 
+	getStructuredFieldSpecification() {
+		return [	{ type: 'staticText', 	spec: { text:'#staging['}},
+					{ type: 'dropDown',   	spec: { name: 'T', items: ['Tis', 'T0', 'T1', 'T2', 'T3','T4'] }},
+					{ type: 'dropDown',   	spec: { name: 'N', items: ['N0', 'N1mi', 'N1', 'N2', 'N3'] }},
+					{ type: 'dropDown', 	spec: { name: 'M', items: ['M0', 'M1'] }},
+					{ type: 'staticText',	spec: { text:']'}} ];
+	}
+	
+	updateValue(name, value) {
+		if (name === "T") {
+			this.staging.tumorSize = value.toUpperCase();
+		} else if (name === "N") {
+			this.staging.nodeSize = value.toUpperCase();
+		} else if (name === "M") {
+			this.staging.metastasis = value.toUpperCase();
+		} else {
+			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			return;
+		}
+		this.onUpdate(this);
+	}
 }
 
 export default StagingShortcut;

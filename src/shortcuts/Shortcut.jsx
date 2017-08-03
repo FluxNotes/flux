@@ -19,6 +19,14 @@ class Shortcut {
     getForm () { 
         return (<h2>No additional values for current shortcut</h2>);
     }
+	
+	getStructuredFieldSpecification() {
+		return null;
+	}
+	
+	updateValue(name, value) {
+		throw new Error("updateValue not implemented for current shortcut");
+	}
 }
 
 export default Shortcut;
