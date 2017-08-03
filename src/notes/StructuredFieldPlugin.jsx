@@ -53,7 +53,7 @@ function StructuredFieldPlugin(opts) {
 
         switch (data.key) {
 		case KEY_F2:
-			return onTab(...args);
+			return onF2(...args);
         case KEY_ENTER:
             return onEnter(...args);
         case KEY_TAB:
@@ -246,6 +246,13 @@ function onTab(event, data, state, opts, editor) {
 	//console.log('onTab DONE (state change via moveField)');
 	return result;
 }
+
+/* 
+ * Pressing "F2" does the same thing as Tab
+ */
+ function onF2(event, data, state, opts, editor) { 
+ 	return onTab(event, data, state, opts, editor);
+ }
 
 function onBackspace(event, data, state, opts) {
 	console.log('onBackspace START');
