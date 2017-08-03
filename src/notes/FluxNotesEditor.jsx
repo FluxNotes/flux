@@ -68,6 +68,8 @@ class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
 
+		this.didFocusChange = false;
+		
         // Set the initial state when the app is first constructed.
         this.state = {
             state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
@@ -94,10 +96,13 @@ class FluxNotesEditor extends React.Component {
     }
 
     onEditorUpdate = (newState) => {
-        //console.log(`Plugin updating state`);
+		let curSelection = this.state.state.selection;
+        console.log(`Plugin updating state`);
         this.setState({
             state: newState
         });
+		console.log(newState);
+		if (curSelection != newState.selection) this.onSelectionChange(newState.selection, newState);
     }
     onCurrentShortcutValuesUpdate = (name, value) => {
 		this.props.currentShortcut.updateValue(name, value);
@@ -109,19 +114,28 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        //console.log("Editor onChange updating state.");
+        console.log("onChange: START");
         this.setState({
             state: state
         });
+        console.log("onChange: DONE");
     }
 
     onSelectionChange = (selection, state) => {
-        this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
+        this.didFocusChange = this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
+		console.log("onSelectionChange. did focus change = " + this.didFocusChange);
     }
 	
 	onBlur = (event, data, state, editor) => {
-		event.preventDefault();
-		return state;
+		console.log("onBlur: state.selection.startKey=" + state.selection.startKey);
+		if (this.didFocusChange) {
+			this.didFocusChange = false;
+			event.preventDefault();
+			console.log("onBlur: suppress blur. DONE");
+			return state;
+		}
+		console.log("onBlur: let core handle blur. DONE");
+		return;
 	}
 
 	// for temporary toolbar buttons
@@ -226,7 +240,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     render = () => {
-        let {state} = this.state;
+        //let {state} = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
 
         let noteDescriptionContent = null;
@@ -279,7 +293,7 @@ class FluxNotesEditor extends React.Component {
                         <Slate.Editor
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
-                            state={state}
+                            state={this.state.state}
                             onChange={this.onChange}
                             onSelectionChange={this.onSelectionChange}
 							onBlur={this.onBlur}
