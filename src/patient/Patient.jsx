@@ -539,6 +539,20 @@ class Patient {
 		});
 	}
 	
+	getMostRecentStagingForCondition(condition, sinceDate = null) {
+		let stagingList = this.getObservationsForCondition(condition, "http://standardhealthrecord.org/oncology/TNMStage");
+        const sortedStagingList = stagingList.sort(this._observationTimeSorter);
+        const length = sortedStagingList.length;
+        let s = (sortedStagingList[length - 1]);
+		if (Lang.isNull(sinceDate)) return s;
+		const startTime = new moment(s.occurrenceTime);
+		if (startTime < sinceDate) {
+			return null;
+		} else {
+			return s;
+		}
+    }
+	
 	getReceptorStatus(condition, receptorType) {
 		let listObs = this.getObservationsForCondition(condition, "http://standardhealthrecord.org/oncology/BreastCancerReceptorStatus");
 		let obs = listObs[0];
@@ -605,6 +619,13 @@ class Patient {
 	_progressionTimeSorter(a, b) {
 		const a_startTime = new moment(a.clinicallyRelevantTime);
 		const b_startTime = new moment(b.clinicallyRelevantTime);
+		if (a_startTime < b_startTime) { return -1; }
+		if (a_startTime > b_startTime) { return 1; }
+		return 0;
+	}
+	_observationTimeSorter(a, b) {
+		const a_startTime = new moment(a.occurrenceTime);
+		const b_startTime = new moment(b.occurrenceTime);
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;

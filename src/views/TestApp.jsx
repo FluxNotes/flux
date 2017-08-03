@@ -71,7 +71,7 @@ class TestApp extends Component {
 	}
 
     handleShortcutUpdate = (s) =>{
-        //console.log(`Updated shortcut`);
+        console.log(`Updated shortcut`);
         this.setState({currentShortcut: s});
     }
 
