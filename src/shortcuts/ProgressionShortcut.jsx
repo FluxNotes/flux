@@ -136,6 +136,18 @@ class ProgressionShortcut extends Shortcut {
         }*/
     }
 
+	getStructuredFieldSpecification() {
+		return [	{ type: 'staticText', 	spec: { text:'#progression['}},
+					{ type: 'dropDown',   	spec: { name: 'T', items: ['T0', 'T1', 'T2', 'T3'] }},
+					{ type: 'dropDown',   	spec: { name: 'N', items: ['N0', 'N1', 'N2', 'N3'] }},
+					{ type: 'dropDown', 	spec: { name: 'M', items: ['M0', 'M1'] }},
+					{ type: 'staticText',	spec: { text:']'}} ];
+	}
+
+	updateValue(name, value) {
+
+		this.onUpdate(this);
+	}
 }
 
 export default ProgressionShortcut;
