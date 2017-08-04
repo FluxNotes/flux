@@ -13,10 +13,48 @@ import EditorToolbar from './EditorToolbar';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 
+import AutoReplace from 'slate-auto-replace'
+import SuggestionsPlugin from 'slate-suggestions'
+import { Editor } from 'slate'
+// Shortcut components may not be needed here since a lot of that is taken out - torch
+import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
+import StagingShortcut from '../shortcuts/StagingShortcut';
+// import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 
 // Styling
 import './FluxNotesEditor.css';
+
+////////////////////////////////////////may have to move to inside constructor/render - thats how we got to shcema error before
+const suggestions = [
+  {
+    key: 'jon-snow',
+    value: '@Jon Snow',
+    suggestion: '@Jon Snow' // Can be string or react component 
+  },
+  // Some other suggestions 
+ {
+    key: 'johnnycake',
+    value: '@Johnnycake',
+    suggestion: '@Johnnycake' // Can be string or react component 
+  }
+];
+function getCurrentWord(text, index, initialIndex) {
+  if (index === initialIndex) {
+    return { start: getCurrentWord(text, index - 1, initialIndex), end: getCurrentWord(text, index + 1, initialIndex) }
+  }
+  if (text[index] === " " || text[index] === "@" || text[index] === undefined) {
+    return index
+  }
+  if (index < initialIndex) {
+    return getCurrentWord(text, index - 1, initialIndex)
+  }
+  if (index > initialIndex) {
+    return getCurrentWord(text, index + 1, initialIndex)
+  }
+}
+///////////////////////////////
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Raw.deserialize(
@@ -88,9 +126,79 @@ class FluxNotesEditor extends React.Component {
 
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
 
+      //  this.plugins = [
+      //      this.structuredFieldPlugin
+      //  ];
+            ////////////////////////////////////////////// plugins defined above in master
+        this.suggestionsPlugin = SuggestionsPlugin({
+            trigger: '@',
+            capture: /@([\w]*)/,
+            suggestions,
+            onEnter: (suggestion) => {
+                const { state } = this.state // error here because this isn't in the class. 
+                // If I move this to the constructor, and the StuggestionPortal declaration to render(), i see an undefined 'schema' error
+                // going to start from master now, and add the #staging[ autoReplace, then add the slate-suggestions
+                    // then see how to tie them together once both are working.
+                    // tying together is not in task 349, but would be nice to type #sta<Down><Enter> and get the whole new shortcut inserted.
+                // Modify your state up to your use-cases 
+                console.log("Suggestion being triggered! TORCH------------------------");
+                console.log("Suggestion being triggered! TORCH-----------------------");
+                console.log("Suggestion being triggered! TORCH----------------------");
+                const { anchorText, anchorOffset } = state
+
+                    const text = anchorText.text
+
+                    let index = { start: anchorOffset - 1, end: anchorOffset }
+
+                    if (text[anchorOffset - 1] !== '@') {
+                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1)
+                    }
+
+                    const newText = `${text.substring(0, index.start)}${suggestion.value} `
+                return state
+                    .transform()
+                    .deleteBackward(anchorOffset)
+                    .insertText(newText)
+                    .apply()
+            }
+        });
+ 
+       // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-            this.structuredFieldPlugin
+                this.structuredFieldPlugin,
+                this.suggestionsPlugin,
+                AutoReplace({
+                    trigger: '[',
+                    before: /(#staging)/i,
+                    transform: (transform, e, data, matches) => {
+                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+                     //   return this.structuredFieldPlugin.transforms.insertStructuredField("staging"); //2nd param needs to be Shortcut Object, how to create?
+                        return this.structuredFieldPlugin.transforms.insertStructuredField(new StagingShortcut(() => {}));
+                        //#staging[T2 N1 M1 ]
+                        // this.insertStructuredField("staging"); is what the button calls
+                        //maybe like(stolen from ClinicalNotes):  new StagingShortcut(() => {}, nextProps.currentShortcut.staging)
+                    }
+                }),
+                AutoReplace({
+                    trigger: '[',
+                    before: /(#progression)/i,
+                    transform: (transform, e, data, matches) => {
+                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+                        return this.structuredFieldPlugin.transforms.insertStructuredField("progression"); 
+                        //#progression[Stable based on Imaging, Symptoms]
+                    }
+                }),
+                 AutoReplace({
+                    trigger: '[',
+                    before: /(#toxicity)/i,
+                    transform: (transform, e, data, matches) => {
+                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+                        return this.structuredFieldPlugin.transforms.insertStructuredField("toxicity"); 
+                        //#progression[Stable based on Imaging, Symptoms]
+                    }
+                })
         ];
+    /////////////////////////////////////////////////////////
     }
 
     onEditorUpdate = (newState) => {
@@ -228,7 +336,8 @@ class FluxNotesEditor extends React.Component {
     render = () => {
         let {state} = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
-
+        // Extract portal component from the plugin 
+        const { SuggestionPortal } = this.suggestionsPlugin;
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
             noteDescriptionContent = "";
@@ -285,6 +394,8 @@ class FluxNotesEditor extends React.Component {
 							onBlur={this.onBlur}
                             schema={schema}
                         />
+ <SuggestionPortal 
+   state={this.state.state} />
                     </div>
                 </Paper>
             </div>
