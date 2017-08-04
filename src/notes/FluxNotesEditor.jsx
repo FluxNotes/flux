@@ -171,12 +171,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "staging");
-                        //  let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform(), shortcut);
-
-                        //  return this.structuredFieldPlugin.transforms.insertStructuredField(new StagingShortcut(() => {})); // Cannot read property 'selection' of undefined at insertStructuredField 
-                    
-                       // return this.insertStructuredField("staging"); //is what the button calls, just disappears no error
-                       // return transform.insertStructuredField("staging"); //not a function
                     }
                 }),
                 AutoReplace({
@@ -185,7 +179,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "progression");
-                        //#progression[Stable based on Imaging, Symptoms]
                     }
                 }),
                  AutoReplace({
@@ -194,7 +187,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "toxicity");
-                        //#progression[Stable based on Imaging, Symptoms]
                     }
                 })
         ];
@@ -250,18 +242,7 @@ class FluxNotesEditor extends React.Component {
 		return;
 	}
 
-	// for temporary toolbar buttons
-    onInsertStagingStructuredField = () => {
-		this.insertStructuredField("staging");
-	}
-    onInsertProgressionStructuredField = () => {
-		this.insertStructuredField("progression");
-	}
-    onInsertToxicityStructuredField = () => {
-		this.insertStructuredField("toxicity");
-	}
-	
-	
+/*	
 	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
@@ -287,18 +268,7 @@ class FluxNotesEditor extends React.Component {
             finalResult
         );
     }
-
-    renderTemporaryToolbar = () => {
-        return (
-            <div>
-                <div>
-                    <button onClick={this.onInsertStagingStructuredField}>Insert Staging Shortcut</button>
-                    <button onClick={this.onInsertProgressionStructuredField}>Insert Progression Shortcut</button>
-                    <button onClick={this.onInsertToxicityStructuredField}>Insert Toxicity Shortcut</button>
-                </div>
-            </div>
-        );
-    }
+*/
 
     /**
      * Render the dropdown of suggestions.
@@ -400,7 +370,6 @@ class FluxNotesEditor extends React.Component {
                             onBlockUpdate={this.handleBlockUpdate}
                             patient={this.props.patient}
                         />
-                        {this.renderTemporaryToolbar()}
                         {this.renderDropdown()}
                         {this.renderShorthandDropdown()}
                         <Slate.Editor
