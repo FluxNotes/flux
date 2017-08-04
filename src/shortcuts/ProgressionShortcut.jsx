@@ -148,6 +148,10 @@ class ProgressionShortcut extends Shortcut {
 
 		this.onUpdate(this);
 	}
+
+	getValue(name) {
+	
+	}
 }
 
 export default ProgressionShortcut;

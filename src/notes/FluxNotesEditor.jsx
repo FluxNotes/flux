@@ -1,5 +1,6 @@
 import React from 'react';
 import Slate from 'slate';
+import Lang from 'lodash';
 
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
@@ -102,10 +103,10 @@ class FluxNotesEditor extends React.Component {
             state: newState
         });
 		console.log(newState);
-		if (curSelection != newState.selection) this.onSelectionChange(newState.selection, newState);
+		if (!Lang.isEqual(curSelection, newState.selection)) this.onSelectionChange(newState.selection, newState);
     }
     onCurrentShortcutValuesUpdate = (name, value) => {
-		this.props.currentShortcut.updateValue(name, value);
+		this.props.currentShortcut.updateValue(name, value, false);
     }
 
     componentDidUpdate = (prevProps, prevState) => {

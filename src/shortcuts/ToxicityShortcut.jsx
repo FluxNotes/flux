@@ -129,6 +129,10 @@ class ToxicityShortcut extends Shortcut {
 
 		this.onUpdate(this);
 	}
+
+	getValue(name) {
+	
+	}
 }
 
 export default ToxicityShortcut;

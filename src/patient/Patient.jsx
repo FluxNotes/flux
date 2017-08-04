@@ -1,5 +1,6 @@
 import Lang from 'lodash'
 import moment from 'moment';
+import staging from '../../lib/staging';
 
 class Patient {
 	hardCodedPatient = [
@@ -487,6 +488,11 @@ class Patient {
 		return result;
 	}
 	
+	getLastBreastCancerCondition() {
+		let result = this.getEntriesOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		return result[result.length - 1];
+	}
+	
 	getNotes() {
 		return this.getEntriesOfType("http://standardhealthrecord.org/core/ClinicalNote");
 	}
@@ -669,6 +675,100 @@ class Patient {
 		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) return null;
 		//console.log("getMostRecentEntryFromList = " + result[0]);
 		return result[0];
+	}
+/*
+{
+	entryType:	[	"http://standardhealthrecord.org/oncology/TNMStage",
+					"http://standardhealthrecord.org/observation/Observation",
+					"http://standardhealthrecord.org/base/Action" ],
+	value: {coding: { value: "52774001", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "IIA"}},
+	specificType: {coding: {value: "21908-9", codeSystem: "http://loinc.org", displayText: "Stage"}},
+	status: "final",
+	tStage: {coding: { value: "369900003", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "T2"}},
+	nStage: {coding: { value: "433441000124106", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "N0"}},
+	mStage: {coding: { value: "433411000124107", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "M0"}}
+}
+ */	
+	createNewTNMStageObservation(t, n, m) {
+		const stage = staging.breastCancerPrognosticStage(t, n, m);
+		const stage_code = this._stageToCodeableConcept(stage);
+		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
+		const t_code = this._tToCodeableConcept(t);
+		const n_code = this._nToCodeableConcept(n);
+		const m_code = this._mToCodeableConcept(m);
+		return {
+			"entryType":	[	"http://standardhealthrecord.org/oncology/TNMStage",
+								"http://standardhealthrecord.org/observation/Observation",
+								"http://standardhealthrecord.org/base/Action" ],
+			"value": {"coding": { "value": stage_code.code, "codeSystem": stage_code.codesystem, "displayText": stage}},
+			"specificType": {"coding": {"value": "21908-9", "codeSystem": "http://loinc.org", "displayText": "Stage"}},
+			"status": "unknown",
+			"tStage": {"coding": { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t}},
+			"nStage": {"coding": { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n}},
+			"mStage": {"coding": { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m}}
+		};
+	}
+	
+	updateTNMStage(stagingObservation, t, n, m) {
+		const stage = staging.breastCancerPrognosticStage(t, n, m);
+		const stage_code = this._stageToCodeableConcept(stage);
+		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return;
+		const t_code = this._tToCodeableConcept(t);
+		const n_code = this._nToCodeableConcept(n);
+		const m_code = this._mToCodeableConcept(m);		
+		stagingObservation.value.coding.value = stage_code.code;
+		stagingObservation.value.coding.codeSystem = stage_code.codesystem;
+		stagingObservation.value.coding.displayText = stage;
+		stagingObservation.tStage.coding.displayText = t;
+		stagingObservation.tStage.coding.value = t_code.code;
+		stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
+		stagingObservation.nStage.coding.displayText = n;
+		stagingObservation.nStage.coding.value = n_code.code;
+		stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
+		stagingObservation.mStage.coding.displayText = m;
+		stagingObservation.mStage.coding.value = m_code.code;
+		stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
+	}
+	
+	addObservationToCondition(observation, condition) {
+		condition.observation.push(observation);
+	}
+	
+	_stageToCodeableConcept(stage) {
+		if (Lang.isUndefined(stage)) return null;
+		if (stage === 'IA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"46333007"};
+		if (stage === 'IB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"786005"};
+		if (stage === 'IIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"52774001"};
+		if (stage === 'IIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"17816005"};
+		if (stage === 'IIIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"73082003"};
+		if (stage === 'IIIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"64062008"};
+		if (stage === 'IIIC') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"48105005"};
+		if (stage === 'IV') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"2640006"};
+	}
+	_tToCodeableConcept(t) {
+		if (t === 'T0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433371000124106"};
+		if (t === 'Tis') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"44401000"};
+		if (t === 'T1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369895002"};
+		if (t === 'T1mi') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433381000124109"};
+		if (t === 'T1a') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369897005"};
+		if (t === 'T1b') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369898000"};
+		if (t === 'T1c') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433391000124107"};
+		if (t === 'T2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369900003"};
+		if (t === 'T3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369901004"};
+		if (t === 'T4') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433401000124109"};
+	}
+	_nToCodeableConcept(n) {
+		if (n === 'N0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436311000124105"};
+		if (n === 'N1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433511000124108"};
+		if (n === 'N1mi') return {codesystem: "urn:oid:2.16.840.1.113883.3.26.1.1", code: "C95955"};
+		if (n === 'N2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433551000124109"};
+		if (n === 'N3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433431000124101"};
+	}
+	_mToCodeableConcept(m) {
+		if (m === 'M0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433581000124101"};
+		if (m === 'M1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436331000124104"};
+		if (m === 'M1a') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436341000124109"};
+		if (m === 'M1b') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436321000124102"};
 	}
 }
 
