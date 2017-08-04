@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Lang from 'lodash';
 
 class DropdownStructuredComponent extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	_createSelectionHandler(name) {
 		return function(evt) {
 			this.props.handleDropdownSelection(name, evt);

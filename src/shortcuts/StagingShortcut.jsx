@@ -151,6 +151,7 @@ class StagingShortcut extends Shortcut {
 	   one
 	 */
 	updatePatient(patient) {
+		//console.log("updatePatient START")
 		if (!Lang.isNull(this.staging.tumorSize) && this.staging.tumorSize.length > 0 &&
 			!Lang.isNull(this.staging.nodeSize) && this.staging.nodeSize.length > 0 &&
 			!Lang.isNull(this.staging.metastasis) && this.staging.metastasis.length > 0)
@@ -160,11 +161,15 @@ class StagingShortcut extends Shortcut {
 			let staging = patient.getMostRecentStagingForCondition(condition);
 			if (Lang.isNull(staging) || Lang.isUndefined(staging)) {
 				staging = patient.createNewTNMStageObservation(this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
+				if (Lang.isNull(staging)) return;
 				patient.addObservationToCondition(staging, condition);
 			} else {
 				patient.updateTNMStage(staging, this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
 			}
+			//console.log("updatePatient DONE (updated)")
+			//return;
 		}
+		//console.log("updatePatient DONE (no update)");
 	}
 }
 

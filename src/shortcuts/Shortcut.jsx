@@ -1,7 +1,6 @@
 // React Imports:
 import React from 'react';
 import Lang from 'lodash';
-import {List, Map} from 'immutable';
 
 class Shortcut {
     constructor() {

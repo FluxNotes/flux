@@ -6,8 +6,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
 import staging from '../../lib/staging';
 import stagingLookup from '../../lib/staging_lookup';
-// Lodash
-import Lang from 'lodash'
 // Styling
 import './StagingForm.css';
 

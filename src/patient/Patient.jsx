@@ -692,7 +692,7 @@ class Patient {
 	createNewTNMStageObservation(t, n, m) {
 		const stage = staging.breastCancerPrognosticStage(t, n, m);
 		const stage_code = this._stageToCodeableConcept(stage);
-		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return;
+		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
 		const t_code = this._tToCodeableConcept(t);
 		const n_code = this._nToCodeableConcept(n);
 		const m_code = this._mToCodeableConcept(m);
