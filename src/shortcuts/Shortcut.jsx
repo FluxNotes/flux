@@ -4,7 +4,7 @@ import Lang from 'lodash';
 
 class Shortcut {
     constructor() {
-        if (new.target === Shortcut) {
+        if (this.constructor === Shortcut) {
             throw new TypeError("Cannot construct Shortcut instances directly");
         }
 		
