@@ -110,25 +110,6 @@ class FluxNotesEditor extends React.Component {
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
 
 		// setup suggestions plugin (autocomplete)
-		/*
-		const suggestions = [
-  {
-    key: 'staging',
-    value: '#staging[',
-    suggestion: 'staging' // Can be string or react component 
-  },
- {
-    key: 'progression',
-    value: '#progression[',
-    suggestion: 'progression' // Can be string or react component
-  },
-  {
-    key: 'toxicity',
-    value: '#toxicity[',
-    suggestion: 'toxicity' // Can be string or react component 
-  }
-];
-*/
 		let suggestions = [];
 		props.shortcutList.forEach((shortcutKey) => {
 			suggestions.push({
@@ -143,47 +124,40 @@ class FluxNotesEditor extends React.Component {
             capture: /#([\w]*)/,
             suggestions,
             onEnter: (suggestion) => {
-                console.log("in onENter");
+                console.log("in onEnter");
                 const { state } = this.state; 
                 const { anchorText, anchorOffset } = state
-                    const text = anchorText.text
+                const text = anchorText.text
 
-                    let index = { start: anchorOffset - 1, end: anchorOffset }
+                let index = { start: anchorOffset - 1, end: anchorOffset }
 
-                    if (text[anchorOffset - 1] !== '#') { //changed to # from @
+                if (text[anchorOffset - 1] !== '#') { //changed to # from @
                     index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1)
-                    }
+                }
                     
-                    const newText = `${text.substring(0, index.start)} `
-                    let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
-                    let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
-                    return transformAfterInsert.apply();
+                const newText = `${text.substring(0, index.start)} `
+                let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
+                let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
+                return transformAfterInsert.apply();
             }
         });
  
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-                this.structuredFieldPlugin,
-                this.suggestionsPlugin,
-				AutoReplace({ 	trigger: '[', 
-								before: "/(#foo)/i", 
-								transform: (transform, e, data, matches) => { return transform.insertText("WORKED"); }
-							})
-				];
+			this.structuredFieldPlugin,
+			this.suggestionsPlugin,
+		];
 				
 		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
 		props.shortcutList.forEach((shortcutKey) => {
-			let obj = {
+			this.plugins.push(AutoReplace({
 				"trigger": "[",
-				"before": "/(#" + shortcutKey + ")/i",
+				"before": new RegExp("(#" + shortcutKey + ")", "i"),
 				"transform": (transform, e, data, matches) => {
 					// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-					console.log("******************************************autoreplace made it here!");
 					return this.insertStructuredFieldTransform(transform, shortcutKey);
 				}
-			};
-			console.log(obj);
-			this.plugins.push(AutoReplace(obj));
+			}));
 		});
     }
     insertStructuredFieldTransform(transform, shortcutType){
