@@ -105,7 +105,7 @@ class FluxNotesEditor extends React.Component {
 		if (curSelection != newState.selection) this.onSelectionChange(newState.selection, newState);
     }
     onCurrentShortcutValuesUpdate = (name, value) => {
-		this.props.currentShortcut.updateValue(name, value);
+		this.props.currentShortcut.updateValue(name, value, false);
     }
 
     componentDidUpdate = (prevProps, prevState) => {

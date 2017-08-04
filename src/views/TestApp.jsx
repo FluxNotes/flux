@@ -72,7 +72,9 @@ class TestApp extends Component {
 
     handleShortcutUpdate = (s) =>{
         console.log(`Updated shortcut`);
-        this.setState({currentShortcut: s});
+		let p = this.state.patient;
+		s.updatePatient(p);
+        this.setState({currentShortcut: s, patient: p});
     }
 
     handleStructuredFieldEntered = (field) => {
@@ -158,9 +160,3 @@ class TestApp extends Component {
 }
 
 export default TestApp;
-
-/*function titlecase(label) {
-  return label.toLowerCase().split(' ').map(function(word) {
-    return word.replace(word[0], word[0].toUpperCase());
-  }).join(' ');
-}*/

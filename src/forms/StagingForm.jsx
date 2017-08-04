@@ -28,29 +28,23 @@ class StagingForm extends Component {
 
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
-    console.log("StagingForm._handleTumorSizeClick T=" + i);
-    
-    let newStaging = Lang.clone(this.props.staging);
-    newStaging.tumorSize = this.state.tumorValues[i].name
-    this.props.onStagingUpdate(newStaging);
+    let newValue = this.state.tumorValues[i].name
+    console.log("StagingForm._handleTumorSizeClick new value=" + newValue);
+    this.props.updateValue("T", newValue);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
-    console.log("StagingForm._handleNodeClick N=" + i);
-
-    let newStaging = Lang.clone(this.props.staging);
-    newStaging.nodeSize = this.state.nodeValues[i].name;
-    this.props.onStagingUpdate(newStaging);
+    let newValue = this.state.nodeValues[i].name;
+    console.log("StagingForm._handleNodeClick new value=" + newValue);
+    this.props.updateValue("N", newValue);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
-    console.log("StagingForm._handleMetastasisClick M=" + i);
-    
-    let newStaging = Lang.clone(this.props.staging);
-    newStaging.metastasis = this.state.metastasisValues[i].name;
-    this.props.onStagingUpdate(newStaging);
+    let newValue = this.state.metastasisValues[i].name;
+    console.log("StagingForm._handleMetastasisClick new value=" + newValue);
+    this.props.updateValue("M", newValue);
   }
 
   render() {

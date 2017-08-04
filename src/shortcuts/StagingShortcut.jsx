@@ -21,7 +21,8 @@ class StagingShortcut extends Shortcut {
         }
         this.staging = Lang.clone(staging);
         this.onUpdate = onUpdate;
-        this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
+        //this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
+		this.updateValue = this.updateValue.bind(this);
         // console.log(`constructor for a new Staging object`)
     }
     /* 
@@ -96,21 +97,12 @@ class StagingShortcut extends Shortcut {
         return (
             <StagingForm
                 // Update functions
-                onStagingUpdate={this.handleStagingUpdate}
+                //onStagingUpdate={this.handleStagingUpdate}
+				updateValue={this.updateValue}
                 // Properties
                 staging={this.staging}
             />
         );      
-    }
-    
-    handleStagingUpdate = (s) => { 
-        // console.log(`Updated staging:`);
-        // console.log(s);
-        this.staging.tumorSize = s.tumorSize;
-        this.staging.nodeSize = s.nodeSize;
-        this.staging.metastasis = s.metastasis;
-        this.onUpdate(this);
-        //console.log(this.staging);
     }
 
 	getStructuredFieldSpecification() {
@@ -121,18 +113,58 @@ class StagingShortcut extends Shortcut {
 					{ type: 'staticText',	spec: { text:']'}} ];
 	}
 	
-	updateValue(name, value) {
+	updateValue(name, value, publishChanges = true) {
+		//console.log("StagingShortcut.updateValue START");
 		if (name === "T") {
-			this.staging.tumorSize = value.toUpperCase();
+			this.staging.tumorSize = value;
 		} else if (name === "N") {
-			this.staging.nodeSize = value.toUpperCase();
+			this.staging.nodeSize = value;
 		} else if (name === "M") {
-			this.staging.metastasis = value.toUpperCase();
+			this.staging.metastasis = value;
 		} else {
 			console.log("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
 		}
 		this.onUpdate(this);
+		if (publishChanges) {
+			this.notifyValueChangeHandlers(name);
+		}
+		//console.log("StagingShortcut.updateValue DONE");
+	}
+
+	getValue(name) {
+		if (name === "T") {
+			return this.staging.tumorSize;
+		} else if (name === "N") {
+			return this.staging.nodeSize;
+		} else if (name === "M") {
+			return this.staging.metastasis;
+		} else {
+			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			return null;
+		}
+	}
+
+	/* this is not correct right now. it should creating new staging with an associated date (occurrenceTime)
+	   unless it's an update to one it already created.
+	   also it should be finding the condition based on context in the note not just used the last breast cancer
+	   one
+	 */
+	updatePatient(patient) {
+		if (!Lang.isNull(this.staging.tumorSize) && this.staging.tumorSize.length > 0 &&
+			!Lang.isNull(this.staging.nodeSize) && this.staging.nodeSize.length > 0 &&
+			!Lang.isNull(this.staging.metastasis) && this.staging.metastasis.length > 0)
+		{
+			console.log("have full staging value to update in patient model. need context. can assume patient but need condition.")
+			let condition = patient.getLastBreastCancerCondition();
+			let staging = patient.getMostRecentStagingForCondition(condition);
+			if (Lang.isNull(staging) || Lang.isUndefined(staging)) {
+				staging = patient.createNewTNMStageObservation(this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
+				patient.addObservationToCondition(staging, condition);
+			} else {
+				patient.updateTNMStage(staging, this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
+			}
+		}
 	}
 }
 

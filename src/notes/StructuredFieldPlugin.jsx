@@ -115,7 +115,8 @@ function StructuredFieldPlugin(opts) {
 		//console.log(e.target.value);
     }
 
-
+	let components = {};
+	
     const schema = {
 		nodes: {
 			structured_field:      props => {
@@ -128,16 +129,24 @@ function StructuredFieldPlugin(opts) {
 			sf_subfield_dropdown:    props => {
 				let items = props.node.get('data').get('items');
 				let name = props.node.get('data').get('name');
-				//let value = props.node.get('data').get('value');
-				return (
+				let value = props.node.get('data').get('value');
+				let shortcut = props.node.get('data').get('shortcut');
+				let ddComponent = (
 					<DropdownStructuredComponent
 						name={name}
+						ref={(c) => { components[name] = c; }}
 						handleDropdownFocus={onDropdownFocus.bind(props.editor)}
                         handleDropdownSelection={onDropdownSelection.bind(props.state)}
 						else={props.attributes}
 						items={items}
+						value={value}
 					/> 
 				);
+				shortcut.onValueChange(name, (newValue) => {
+					console.log("new value for " + name + " is " + newValue);
+					components[name].setValue(newValue);
+				});
+				return ddComponent;
 			},
 		},
 		rules: [
@@ -570,7 +579,7 @@ function createStructuredField(opts, shortcut) {
 		if (spec.type === 'staticText') {
 			return createSubfield_StaticText(opts, spec.spec.text);
 		} else if (spec.type === 'dropDown') {
-			return createSubfield_Dropdown(opts, spec.spec);
+			return createSubfield_Dropdown(opts, spec.spec, shortcut);
 		} else {
 			throw new Error("Unsupported type in structured field spec: " + spec.type);
 		}
@@ -587,13 +596,15 @@ function createStructuredField(opts, shortcut) {
 	return sf;
 }
 
-function createSubfield_Dropdown(opts, spec) {
+function createSubfield_Dropdown(opts, spec, shortcut) {
+	const value = shortcut.getValue(spec.name);
 	return Slate.Block.create({
 		type: opts.typeSubfieldDropdown,
 		data: {
-			value: spec.value,
+			value: value,
 			items: spec.items,
-			name: spec.name
+			name: spec.name,
+			shortcut: shortcut
 		}
 	});
 }
