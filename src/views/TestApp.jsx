@@ -131,6 +131,7 @@ class TestApp extends Component {
                                     currentShortcut={this.state.currentShortcut}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
+									shortcutList={this.shortcuts}
                                 />
                             </Col>
                             <Col sm={3}>
