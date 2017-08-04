@@ -209,19 +209,8 @@ class FluxNotesEditor extends React.Component {
 		console.log("onBlur: let core handle blur. DONE");
 		return;
 	}
-
-	// for temporary toolbar buttons
-    onInsertStagingStructuredField = () => {
-		this.insertStructuredField("staging");
-	}
-    onInsertProgressionStructuredField = () => {
-		this.insertStructuredField("progression");
-	}
-    onInsertToxicityStructuredField = () => {
-		this.insertStructuredField("toxicity");
-	}
 	
-	
+	/*
 	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
@@ -247,18 +236,7 @@ class FluxNotesEditor extends React.Component {
             finalResult
         );
     }
-
-    renderTemporaryToolbar = () => {
-        return (
-            <div>
-                <div>
-                    <button onClick={this.onInsertStagingStructuredField}>Insert Staging Shortcut</button>
-                    <button onClick={this.onInsertProgressionStructuredField}>Insert Progression Shortcut</button>
-                    <button onClick={this.onInsertToxicityStructuredField}>Insert Toxicity Shortcut</button>
-                </div>
-            </div>
-        );
-    }
+	*/
 
     /**
      * Render the dropdown of suggestions.
@@ -360,7 +338,6 @@ class FluxNotesEditor extends React.Component {
                             onBlockUpdate={this.handleBlockUpdate}
                             patient={this.props.patient}
                         />
-                        {this.renderTemporaryToolbar()}
                         {this.renderDropdown()}
                         {this.renderShorthandDropdown()}
                         <Slate.Editor
@@ -372,9 +349,9 @@ class FluxNotesEditor extends React.Component {
 							onBlur={this.onBlur}
                             schema={schema}
                         />
- <SuggestionPortal 
-   state={this.state.state} />
-                    </div>
+						<SuggestionPortal 
+							state={this.state.state} />
+					</div>
                 </Paper>
             </div>
         );
