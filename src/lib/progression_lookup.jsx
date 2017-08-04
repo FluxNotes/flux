@@ -15,32 +15,26 @@ const reasonOptions = [
     {name: "Markers", description: "Biomarker evidence of persistent/recurrent tumor."}
 ]
 
-exports.getStatusOptions = getStatusOptions; 
-function getStatusOptions() {
+exports.getStatusOptions = () => {
     return statusOptions;
 }
 
-exports.getReasonOptions = getReasonOptions; 
-function getReasonOptions() {
+exports.getReasonOptions = () => {
     return reasonOptions;
 }
 
-exports.isValidStatus = isValidStatus; 
-function isValidStatus(possibleStatus) {
-    return statusOptions.some(function(status) { return status.name.toLowerCase() === possibleStatus.toLowerCase()}, this)
+exports.isValidStatus = (possibleStatus) => {
+    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
-exports.isValidReason = isValidReason; 
-function isValidReason(possibleReason) {
-    return reasonOptions.some(function(reason) { return reason.name.toLowerCase() === possibleReason.toLowerCase()}, this)
+exports.isValidReason = (possibleReason) => {
+    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }
 
-exports.findStatusIndex = findStatusIndex; 
-function findStatusIndex(possibleStatus) { 
-    return statusOptions.findIndex(function(status) { return status.name.toLowerCase() === possibleStatus.toLowerCase()}, this)
+exports.findStatusIndex = (possibleStatus) => { 
+    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
-exports.findReasonIndex = findReasonIndex; 
-function findReasonIndex(possibleReason) { 
-    return reasonOptions.findIndex(function(reason) { return reason.name.toLowerCase() === possibleReason.toLowerCase()}, this)
+exports.findReasonIndex = (possibleReason) => { 
+    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }

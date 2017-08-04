@@ -8702,38 +8702,31 @@ const adverseEventOptions = [
  }
 ]   
 
-exports.getGradeOptions = getGradeOptions; 
-function getGradeOptions() {
+exports.getGradeOptions = () => {
     return gradeOptions;
 }
 
-exports.getAdverseEventOptions = getAdverseEventOptions; 
-function getAdverseEventOptions() {
+exports.getAdverseEventOptions = () => {
     return adverseEventOptions;
 }
 
-exports.isValidGrade = isValidGrade; 
-function isValidGrade(possibleGrade) {
-    return gradeOptions.some(function(grade) { grade.name.toLowerCase() === possibleGrade.toLowerCase()}, this);
+exports.isValidGrade = (possibleGrade) => {
+    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 
-exports.isValidAdverseEvent = isValidAdverseEvent; 
-function isValidAdverseEvent(possibleAdverseEvent) {
-    return adverseEventOptions.some(function(adverseEvent) { adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()}, this);
+exports.isValidAdverseEvent = (possibleAdverseEvent) => {
+    return adverseEventOptions.some((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
-exports.findGradeIndex = findGradeIndex; 
-function findGradeIndex(possibleGrade) {
-    return gradeOptions.findIndex(function(grade) { grade.name.toLowerCase() === possibleGrade.toLowerCase()}, this);
+exports.findGradeIndex = (possibleGrade) => {
+    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 
-exports.findAdverseEventIndex = findAdverseEventIndex; 
-function findAdverseEventIndex(possibleAdverseEvent) {
-    return adverseEventOptions.findIndex(function(adverseEvent) { adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()}, this);
+exports.findAdverseEventIndex = (possibleAdverseEvent) => {
+    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
-exports.isValidGradeForAdverseEvent = isValidGradeForAdverseEvent; 
-function isValidGradeForAdverseEvent(possibleGrade, possibleAdverseEvent) {
+exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
     
     if(Lang.isUndefined(possibleGrade)) { 
         // A null grade isn't valid
@@ -8744,9 +8737,9 @@ function isValidGradeForAdverseEvent(possibleGrade, possibleAdverseEvent) {
     }
 
     // If they are both
-    if (isValidGrade(possibleGrade) && isValidAdverseEvent(possibleAdverseEvent)) { 
+    if (exports.isValidGrade(possibleGrade) && exports.isValidAdverseEvent(possibleAdverseEvent)) { 
         // Find the object
-        const adverseEventInLookup = adverseEventOptions.find(function(adverseEvent) { adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()}, this);
+        const adverseEventInLookup = adverseEventOptions.find((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
         return !Lang.isNull(adverseEventInLookup[possibleGrade])
     } else {
         return false;

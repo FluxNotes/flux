@@ -12,7 +12,7 @@ function breastCancerPrognosticStage(t, n, m) {
     return null;
   }
   const M = m.toString().toUpperCase();
-  if (M == 'M1') {
+  if (M === 'M1') {
     return 'IV';
   }
 
@@ -23,8 +23,8 @@ function breastCancerPrognosticStage(t, n, m) {
 
   // 7th edition staging, lookup[T][N]
   // null return values mean the staging is undefined for those T,N,M values
-  const ti = (lookup.getTsNamesForEdition(7)).indexOf(t.toString());
-  const ni = (lookup.getNsNamesForEdition(7)).indexOf(n.toString());
+  const ti = (lookup.getTsNamesForEdition(7)).indexOf(t.toString().toUpperCase());
+  const ni = (lookup.getNsNamesForEdition(7)).indexOf(n.toString().toUpperCase());
 
   if (ti === -1 || ni === -1) {
     // Unrecognized T or N value
@@ -37,14 +37,13 @@ function breastCancerPrognosticStage(t, n, m) {
 // Converts a prognostic stage (e.g. 'IIIA') into a list of possible T,N,M
 // values based on the specified staging edition. If none specified, defaults
 // to the 7th edition.
-exports.breastCancerPossibleTNM = breastCancerPossibleTNM;
-function breastCancerPossibleTNM(prognosticStage, edition) {
+exports.breastCancerPossibleTNM = (prognosticStage, edition) => {
   edition = (typeof edition !== 'undefined') ?  edition : 7;
 
   let values = [];
 
   // Lookup the needed values for the specified edition
-  const ed = parseInt(edition);
+  const ed = parseInt(edition, 10);
   const ts = lookup.getTsForEdition(ed);
   const ns = lookup.getNsForEdition(ed);
   const table = lookup.getTableForEdition(ed);
@@ -53,11 +52,11 @@ function breastCancerPossibleTNM(prognosticStage, edition) {
   const stage = prognosticStage.toString().toUpperCase();
 
   if (stage === 'IV') {
-    ts.forEach(function(t) {
-      ns.forEach(function(n) {
+    ts.forEach((t) => {
+      ns.forEach((n)=> {
         values.push([t.name, n.name, 'M1']);
-      }, this);
-    }, this);
+      });
+    });
     return values;
   }
 
@@ -67,12 +66,12 @@ function breastCancerPossibleTNM(prognosticStage, edition) {
   }
 
   // Find all T,N,M matches for the prognostic stage specified
-  table.forEach(function(row, t) {
-    row.forEach(function(el, n) {
+  table.forEach((row, t) => {
+    row.forEach((el, n) => {
       if (el === stage) {
         values.push([ts[t].name, ns[n].name, 'M0']);
       }
-    }, this);
-  }, this);
+    });
+  });
   return values;
 }
