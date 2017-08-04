@@ -20,7 +20,8 @@
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "slate": "^0.20.1 <0.20.3",
-    "slate-auto-replace": "^0.5.0"
+    "slate-auto-replace": "^0.5.0",
+    "slate-suggestions": "^0.4.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
