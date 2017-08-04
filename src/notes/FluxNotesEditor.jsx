@@ -20,24 +20,29 @@ import { Editor } from 'slate'
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import StagingShortcut from '../shortcuts/StagingShortcut';
 // import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
+import ShortcutManager from '../shortcuts/ShortcutManager';
+
 
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 
 // Styling
 import './FluxNotesEditor.css';
 
-////////////////////////////////////////may have to move to inside constructor/render - thats how we got to shcema error before
 const suggestions = [
   {
-    key: 'jon-snow',
-    value: '@Jon Snow',
-    suggestion: '@Jon Snow' // Can be string or react component 
+    key: 'staging',
+    value: '#staging[',
+    suggestion: 'staging' // Can be string or react component 
   },
-  // Some other suggestions 
  {
-    key: 'johnnycake',
-    value: '@Johnnycake',
-    suggestion: '@Johnnycake' // Can be string or react component 
+    key: 'progression',
+    value: '#progression[',
+    suggestion: 'progression' // Can be string or react component
+  },
+  {
+    key: 'toxicity',
+    value: '#toxicity[',
+    suggestion: 'toxicity' // Can be string or react component 
   }
 ];
 function getCurrentWord(text, index, initialIndex) {
@@ -131,35 +136,25 @@ class FluxNotesEditor extends React.Component {
       //  ];
             ////////////////////////////////////////////// plugins defined above in master
         this.suggestionsPlugin = SuggestionsPlugin({
-            trigger: '@',
-            capture: /@([\w]*)/,
+            trigger: '#',
+            capture: /#([\w]*)/,
             suggestions,
             onEnter: (suggestion) => {
-                const { state } = this.state // error here because this isn't in the class. 
-                // If I move this to the constructor, and the StuggestionPortal declaration to render(), i see an undefined 'schema' error
-                // going to start from master now, and add the #staging[ autoReplace, then add the slate-suggestions
-                    // then see how to tie them together once both are working.
-                    // tying together is not in task 349, but would be nice to type #sta<Down><Enter> and get the whole new shortcut inserted.
-                // Modify your state up to your use-cases 
-                console.log("Suggestion being triggered! TORCH------------------------");
-                console.log("Suggestion being triggered! TORCH-----------------------");
-                console.log("Suggestion being triggered! TORCH----------------------");
+                console.log("in onENter");
+                const { state } = this.state; 
                 const { anchorText, anchorOffset } = state
-
                     const text = anchorText.text
 
                     let index = { start: anchorOffset - 1, end: anchorOffset }
 
-                    if (text[anchorOffset - 1] !== '@') {
+                    if (text[anchorOffset - 1] !== '#') { //changed to # from @
                     index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1)
                     }
-
-                    const newText = `${text.substring(0, index.start)}${suggestion.value} `
-                return state
-                    .transform()
-                    .deleteBackward(anchorOffset)
-                    .insertText(newText)
-                    .apply()
+                    
+                    const newText = `${text.substring(0, index.start)} `
+                    let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
+                    let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
+                    return transformAfterInsert.apply();
             }
         });
  
@@ -172,11 +167,13 @@ class FluxNotesEditor extends React.Component {
                     before: /(#staging)/i,
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                     //   return this.structuredFieldPlugin.transforms.insertStructuredField("staging"); //2nd param needs to be Shortcut Object, how to create?
-                        return this.structuredFieldPlugin.transforms.insertStructuredField(new StagingShortcut(() => {}));
-                        //#staging[T2 N1 M1 ]
-                        // this.insertStructuredField("staging"); is what the button calls
-                        //maybe like(stolen from ClinicalNotes):  new StagingShortcut(() => {}, nextProps.currentShortcut.staging)
+                        return this.insertStructuredFieldTransform(transform, "staging");
+                        //  let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform(), shortcut);
+
+                        //  return this.structuredFieldPlugin.transforms.insertStructuredField(new StagingShortcut(() => {})); // Cannot read property 'selection' of undefined at insertStructuredField 
+                    
+                       // return this.insertStructuredField("staging"); //is what the button calls, just disappears no error
+                       // return transform.insertStructuredField("staging"); //not a function
                     }
                 }),
                 AutoReplace({
@@ -184,7 +181,7 @@ class FluxNotesEditor extends React.Component {
                     before: /(#progression)/i,
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                        return this.structuredFieldPlugin.transforms.insertStructuredField("progression"); 
+                        return this.insertStructuredFieldTransform(transform, "progression");
                         //#progression[Stable based on Imaging, Symptoms]
                     }
                 }),
@@ -193,12 +190,18 @@ class FluxNotesEditor extends React.Component {
                     before: /(#toxicity)/i,
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                        return this.structuredFieldPlugin.transforms.insertStructuredField("toxicity"); 
+                        return this.insertStructuredFieldTransform(transform, "toxicity");
                         //#progression[Stable based on Imaging, Symptoms]
                     }
                 })
         ];
     /////////////////////////////////////////////////////////
+    }
+    insertStructuredFieldTransform(transform, shortcutType){
+        let shortcut = this.props.newCurrentShortcut(shortcutType);
+        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
+        let transformAfterInsert = result[0];
+        return transformAfterInsert;
     }
 
     onEditorUpdate = (newState) => {
