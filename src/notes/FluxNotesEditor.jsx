@@ -171,12 +171,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "staging");
-                        //  let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform(), shortcut);
-
-                        //  return this.structuredFieldPlugin.transforms.insertStructuredField(new StagingShortcut(() => {})); // Cannot read property 'selection' of undefined at insertStructuredField 
-                    
-                       // return this.insertStructuredField("staging"); //is what the button calls, just disappears no error
-                       // return transform.insertStructuredField("staging"); //not a function
                     }
                 }),
                 AutoReplace({
@@ -185,7 +179,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "progression");
-                        //#progression[Stable based on Imaging, Symptoms]
                     }
                 }),
                  AutoReplace({
@@ -194,7 +187,6 @@ class FluxNotesEditor extends React.Component {
                     transform: (transform, e, data, matches) => {
                         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
                         return this.insertStructuredFieldTransform(transform, "toxicity");
-                        //#progression[Stable based on Imaging, Symptoms]
                     }
                 })
         ];
@@ -249,7 +241,8 @@ class FluxNotesEditor extends React.Component {
 		console.log("onBlur: let core handle blur. DONE");
 		return;
 	}
-	
+
+/*	
 	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
@@ -275,6 +268,7 @@ class FluxNotesEditor extends React.Component {
             finalResult
         );
     }
+*/
 
     /**
      * Render the dropdown of suggestions.
