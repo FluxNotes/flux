@@ -110,19 +110,19 @@ class FluxNotesEditor extends React.Component {
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
 
 		// setup suggestions plugin (autocomplete)
-		let suggestions = [];
+		let suggestionsShortcuts = [];
 		props.shortcutList.forEach((shortcutKey) => {
-			suggestions.push({
+			suggestionsShortcuts.push({
 				"key": shortcutKey,
 				"value": "#" + shortcutKey + "[",
 				"suggestion": shortcutKey
 			});
 		});
 		
-        this.suggestionsPlugin = SuggestionsPlugin({
+        this.suggestionsPluginShortcuts = SuggestionsPlugin({
             trigger: '#',
             capture: /#([\w]*)/,
-            suggestions,
+            suggestions: suggestionsShortcuts,
             onEnter: (suggestion) => {
                 console.log("in onEnter");
                 const { state } = this.state; 
@@ -141,11 +141,39 @@ class FluxNotesEditor extends React.Component {
                 return transformAfterInsert.apply();
             }
         });
- 
+
+		// setup suggestions plugin (autocomplete)
+		let suggestionsInsertions = [];
+		//let insertersMap = {};
+		props.inserters.forEach((inserter) => {
+			//insertersMap[inserter.trigger] = inserter.value;
+			suggestionsInsertions.push({
+				"key": inserter.trigger,
+				"value": "@" + inserter.trigger,
+				"suggestion": inserter.trigger,
+				"valueFunc" : inserter.value
+			});
+		});
+		
+        this.suggestionsPluginInsertions = SuggestionsPlugin({
+            trigger: '@',
+            capture: /@([\w]*)/,
+            suggestions: suggestionsInsertions,
+            onEnter: (suggestion) => {
+                console.log("in onEnter " + suggestion.key);
+				const value = "" + suggestion.valueFunc(this.props.patient);
+                const { state } = this.state; 
+                const { anchorOffset } = state
+                
+                return state.transform().deleteBackward(anchorOffset).insertText(value).apply();
+            }
+        });
+		
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
 			this.structuredFieldPlugin,
-			this.suggestionsPlugin,
+			this.suggestionsPluginShortcuts,
+			this.suggestionsPluginInsertions
 		];
 				
 		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
@@ -249,20 +277,6 @@ class FluxNotesEditor extends React.Component {
     }
 	*/
 
-    /**
-     * Render the dropdown of suggestions.
-     */
-    renderDropdown = () => {
-        return <div></div>;
-    }
-
-    /**
-     * Render the dropdown of shorthand suggestions.
-     */
-    renderShorthandDropdown = () => {
-        return <div></div>;
-    }
-
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
 
@@ -304,7 +318,8 @@ class FluxNotesEditor extends React.Component {
         //let {state} = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
         // Extract portal component from the plugin 
-        const { SuggestionPortal } = this.suggestionsPlugin;
+        const ShortcutsPortal = this.suggestionsPluginShortcuts.SuggestionPortal;
+        const InsertionsPortal = this.suggestionsPluginInsertions.SuggestionPortal;
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
             noteDescriptionContent = "";
@@ -349,8 +364,6 @@ class FluxNotesEditor extends React.Component {
                             onBlockUpdate={this.handleBlockUpdate}
                             patient={this.props.patient}
                         />
-                        {this.renderDropdown()}
-                        {this.renderShorthandDropdown()}
                         <Slate.Editor
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
@@ -360,7 +373,9 @@ class FluxNotesEditor extends React.Component {
 							onBlur={this.onBlur}
                             schema={schema}
                         />
-						<SuggestionPortal 
+						<ShortcutsPortal 
+							state={this.state.state} />
+						<InsertionsPortal
 							state={this.state.state} />
 					</div>
                 </Paper>
