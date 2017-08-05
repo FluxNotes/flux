@@ -10,7 +10,7 @@ class Patient {
 			entryType: 	[ 	"http://standardhealthrecord.org/demographics/PersonOfRecord",
 							"http://standardhealthrecord.org/actor/Person" ],
 			value: { value: "Debra Hernandez672" },
-			dateOfBirth: "05 APR 1966",
+			dateOfBirth: "5 APR 1966",
 			placeOfBirth: { country: "US" },
 			birthSex: {coding: {value: "F", displayText: "Female"}},
 			administrativeGender: "female",
@@ -455,6 +455,28 @@ class Patient {
 		//console.log("PersonOfRecord = " + personOfRecord);
 		//console.log("*** DONE getName");
 		return personOfRecord.value.value;
+	}
+	
+	getDateOfBirth() {
+		let personOfRecord = this.getPersonOfRecord();
+		return new moment(personOfRecord.dateOfBirth);
+	}
+	
+	getAge() {
+		let personOfRecord = this.getPersonOfRecord();
+		var today = new Date();
+		var birthDate = new Date(personOfRecord.dateOfBirth);
+		var age = today.getFullYear() - birthDate.getFullYear();
+		var m = today.getMonth() - birthDate.getMonth();
+		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+			age--;
+		}
+		return age;
+	}
+	
+	getGender() {
+		let personOfRecord = this.getPersonOfRecord();
+		return personOfRecord.administrativeGender;
 	}
 	
 	getPersonOfRecord() {

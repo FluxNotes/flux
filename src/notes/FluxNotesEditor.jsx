@@ -159,6 +159,17 @@ class FluxNotesEditor extends React.Component {
 				}
 			}));
 		});
+		
+		// now add an AutoReplace plugin instance for each inserter we're supporting
+		props.inserters.forEach((inserter) => {
+			this.plugins.push(AutoReplace({
+				"trigger": 'space',
+				"before": new RegExp("(@" + inserter.trigger + ")", "i"),
+				"transform": (transform, e, data, matches) => {
+					return transform.insertText(`${inserter.value(this.props.patient)} `);
+				}
+			}));
+		});
     }
     insertStructuredFieldTransform(transform, shortcutType){
         let shortcut = this.props.newCurrentShortcut(shortcutType);
