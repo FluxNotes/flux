@@ -171,9 +171,9 @@ class FluxNotesEditor extends React.Component {
 		
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-			this.structuredFieldPlugin,
 			this.suggestionsPluginShortcuts,
-			this.suggestionsPluginInsertions
+			this.suggestionsPluginInsertions,
+			this.structuredFieldPlugin
 		];
 				
 		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
