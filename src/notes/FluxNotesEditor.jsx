@@ -220,8 +220,8 @@ class FluxNotesEditor extends React.Component {
 		console.log("onBlur: let core handle blur. DONE");
 		return;
 	}
-	
-	/*
+
+/*
 	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
