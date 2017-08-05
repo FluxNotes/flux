@@ -22,11 +22,11 @@ import StructuredFieldPlugin from './StructuredFieldPlugin';
 // Styling
 import './FluxNotesEditor.css';
 
-function getCurrentWord(text, index, initialIndex) {
+function getCurrentWord(text, index, initialIndex, initialChar) {
   if (index === initialIndex) {
     return { start: getCurrentWord(text, index - 1, initialIndex), end: getCurrentWord(text, index + 1, initialIndex) }
   }
-  if (text[index] === " " || text[index] === "@" || text[index] === undefined) {
+  if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
     return index
   }
   if (index < initialIndex) {
@@ -131,8 +131,8 @@ class FluxNotesEditor extends React.Component {
 
                 let index = { start: anchorOffset - 1, end: anchorOffset }
 
-                if (text[anchorOffset - 1] !== '#') { //changed to # from @
-                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1)
+                if (text[anchorOffset - 1] !== '#') {
+                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '#')
                 }
                     
                 const newText = `${text.substring(0, index.start)} `
@@ -163,9 +163,20 @@ class FluxNotesEditor extends React.Component {
                 console.log("in onEnter " + suggestion.key);
 				const value = "" + suggestion.valueFunc(this.props.patient);
                 const { state } = this.state; 
-                const { anchorOffset } = state
-                
-                return state.transform().deleteBackward(anchorOffset).insertText(value).apply();
+                const { anchorText, anchorOffset } = state
+                const text = anchorText.text
+
+                let index = { start: anchorOffset - 1, end: anchorOffset }
+
+                if (text[anchorOffset - 1] !== '@') {
+                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
+                }
+                    
+                const newText = `${text.substring(0, index.start)} `
+                return state.transform()
+					.deleteBackward(anchorOffset)
+					.insertText(newText)
+					.insertText(value).apply();
             }
         });
 		
