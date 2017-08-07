@@ -108,7 +108,7 @@ class TestApp extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="TestApp">
-                    <NavBar />
+                    <NavBar title="Flux Notes"/>
                     <Grid className="TestApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>

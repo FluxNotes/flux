@@ -36,21 +36,12 @@ class NavBar extends Component {
   }
 
   render() {
-    let title = "";
-
-    if (this.props.patient) {
-      title = "Flux Notes";
-    }
-    else {
-      title = "Flux Notes Lite";
-    }
-
     return (
       <div>
         <AppBar
           className="navbar"
           onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
-          title={title}/>
+          title={this.props.title}/>
         <Drawer
           containerStyle={{'top': '64px'}}
           open={this.state.open}
