@@ -42,6 +42,12 @@ class TestApp extends Component {
     }
 	
 	shortcuts = [ "progression", "staging", "toxicity" ];
+	inserters =	[	{trigger: "age", value: (patient) => { return patient.getAge(); }},
+					{trigger: "name", value: (patient) => { return patient.getName(); }},
+					{trigger: "gender", value: (patient) => { return patient.getGender(); }},
+					{trigger: "dateofbirth", value: (patient) => { return patient.getDateOfBirth().format("D.MMM.YYYY"); }},
+					{trigger: "patient", value: (patient) => { return patient.getName() + " is a " + patient.getAge() + " year old " + patient.getGender(); }}
+				];
 	
 	getItemListForProcedures = (patient, currentConditionEntry) => {
 		let procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
@@ -131,6 +137,8 @@ class TestApp extends Component {
                                     currentShortcut={this.state.currentShortcut}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
+									shortcutList={this.shortcuts}
+									inserters={this.inserters}
                                 />
                             </Col>
                             <Col sm={3}>

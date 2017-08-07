@@ -10,7 +10,7 @@ class Patient {
 			entryType: 	[ 	"http://standardhealthrecord.org/demographics/PersonOfRecord",
 							"http://standardhealthrecord.org/actor/Person" ],
 			value: { value: "Debra Hernandez672" },
-			dateOfBirth: "05 APR 1966",
+			dateOfBirth: "5 APR 1966",
 			placeOfBirth: { country: "US" },
 			birthSex: {coding: {value: "F", displayText: "Female"}},
 			administrativeGender: "female",
@@ -457,6 +457,28 @@ class Patient {
 		return personOfRecord.value.value;
 	}
 	
+	getDateOfBirth() {
+		let personOfRecord = this.getPersonOfRecord();
+		return new moment(personOfRecord.dateOfBirth, "D MMM YYYY");
+	}
+	
+	getAge() {
+		let personOfRecord = this.getPersonOfRecord();
+		var today = new Date();
+		var birthDate = new Date(personOfRecord.dateOfBirth);
+		var age = today.getFullYear() - birthDate.getFullYear();
+		var m = today.getMonth() - birthDate.getMonth();
+		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+			age--;
+		}
+		return age;
+	}
+	
+	getGender() {
+		let personOfRecord = this.getPersonOfRecord();
+		return personOfRecord.administrativeGender;
+	}
+	
 	getPersonOfRecord() {
 		return this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/PersonOfRecord");
 	}
@@ -551,7 +573,7 @@ class Patient {
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
 		if (Lang.isNull(sinceDate)) return s;
-		const startTime = new moment(s.occurrenceTime);
+		const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
 		if (startTime < sinceDate) {
 			return null;
 		} else {
@@ -597,7 +619,7 @@ class Patient {
         const length = sortedProgressionList.length;
         let p = (sortedProgressionList[length - 1]);
 		if (Lang.isNull(sinceDate)) return p;
-		const startTime = new moment(p.clinicallyRelevantTime);
+		const startTime = new moment(p.clinicallyRelevantTime, "D MMM YYYY");
 		if (startTime < sinceDate) {
 			return null;
 		} else {
@@ -616,36 +638,36 @@ class Patient {
 	}
 	*/
 	_medsTimeSorter(a, b) {
-		const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart);
-		const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart);
+		const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+		const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
 	}
 	_progressionTimeSorter(a, b) {
-		const a_startTime = new moment(a.clinicallyRelevantTime);
-		const b_startTime = new moment(b.clinicallyRelevantTime);
+		const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+		const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
 	}
 	_observationTimeSorter(a, b) {
-		const a_startTime = new moment(a.occurrenceTime);
-		const b_startTime = new moment(b.occurrenceTime);
+		const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
+		const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
 	}
 	_proceduresTimeSorter(a, b) {
-		const a_startTime = new moment(a.occurrenceTime);
-		const b_startTime = new moment(b.occurrenceTime);
+		const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
+		const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
 	}
 	_eventTimeSorter(a, b) {
-		const a_startTime = new moment(a.start_time);
-		const b_startTime = new moment(b.start_time);
+		const a_startTime = new moment(a.start_time, "D MMM YYYY");
+		const b_startTime = new moment(b.start_time, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;

@@ -16,41 +16,17 @@ import Divider from 'material-ui/Divider';
 
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from 'slate-suggestions'
-import { Editor } from 'slate'
-// Shortcut components may not be needed here since a lot of that is taken out - torch
-import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
-import StagingShortcut from '../shortcuts/StagingShortcut';
-// import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
-import ShortcutManager from '../shortcuts/ShortcutManager';
-
 
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 
 // Styling
 import './FluxNotesEditor.css';
 
-const suggestions = [
-  {
-    key: 'staging',
-    value: '#staging[',
-    suggestion: 'staging' // Can be string or react component 
-  },
- {
-    key: 'progression',
-    value: '#progression[',
-    suggestion: 'progression' // Can be string or react component
-  },
-  {
-    key: 'toxicity',
-    value: '#toxicity[',
-    suggestion: 'toxicity' // Can be string or react component 
-  }
-];
-function getCurrentWord(text, index, initialIndex) {
+function getCurrentWord(text, index, initialIndex, initialChar) {
   if (index === initialIndex) {
     return { start: getCurrentWord(text, index - 1, initialIndex), end: getCurrentWord(text, index + 1, initialIndex) }
   }
-  if (text[index] === " " || text[index] === "@" || text[index] === undefined) {
+  if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
     return index
   }
   if (index < initialIndex) {
@@ -131,66 +107,108 @@ class FluxNotesEditor extends React.Component {
             structuredFieldPluginOptions[typeName] = typeValue;
         });
 
-
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
 
-      //  this.plugins = [
-      //      this.structuredFieldPlugin
-      //  ];
-            ////////////////////////////////////////////// plugins defined above in master
-        this.suggestionsPlugin = SuggestionsPlugin({
+		// setup suggestions plugin (autocomplete)
+		let suggestionsShortcuts = [];
+		props.shortcutList.forEach((shortcutKey) => {
+			suggestionsShortcuts.push({
+				"key": shortcutKey,
+				"value": "#" + shortcutKey + "[",
+				"suggestion": shortcutKey
+			});
+		});
+		
+        this.suggestionsPluginShortcuts = SuggestionsPlugin({
             trigger: '#',
             capture: /#([\w]*)/,
-            suggestions,
+            suggestions: suggestionsShortcuts,
             onEnter: (suggestion) => {
-                console.log("in onENter");
+                console.log("in onEnter");
                 const { state } = this.state; 
                 const { anchorText, anchorOffset } = state
-                    const text = anchorText.text
+                const text = anchorText.text
 
-                    let index = { start: anchorOffset - 1, end: anchorOffset }
+                let index = { start: anchorOffset - 1, end: anchorOffset }
 
-                    if (text[anchorOffset - 1] !== '#') { //changed to # from @
-                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1)
-                    }
+                if (text[anchorOffset - 1] !== '#') {
+                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '#')
+                }
                     
-                    const newText = `${text.substring(0, index.start)} `
-                    let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
-                    let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
-                    return transformAfterInsert.apply();
+                const newText = `${text.substring(0, index.start)} `
+                let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
+                let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
+                return transformAfterInsert.apply();
             }
         });
- 
+
+		// setup suggestions plugin (autocomplete)
+		let suggestionsInsertions = [];
+		//let insertersMap = {};
+		props.inserters.forEach((inserter) => {
+			//insertersMap[inserter.trigger] = inserter.value;
+			suggestionsInsertions.push({
+				"key": inserter.trigger,
+				"value": "@" + inserter.trigger,
+				"suggestion": inserter.trigger,
+				"valueFunc" : inserter.value
+			});
+		});
+		
+        this.suggestionsPluginInsertions = SuggestionsPlugin({
+            trigger: '@',
+            capture: /@([\w]*)/,
+            suggestions: suggestionsInsertions,
+            onEnter: (suggestion) => {
+                console.log("in onEnter " + suggestion.key);
+				const value = "" + suggestion.valueFunc(this.props.patient);
+                const { state } = this.state; 
+                const { anchorText, anchorOffset } = state
+                const text = anchorText.text
+
+                let index = { start: anchorOffset - 1, end: anchorOffset }
+
+                if (text[anchorOffset - 1] !== '@') {
+                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
+                }
+                    
+                const newText = `${text.substring(0, index.start)} `
+                return state.transform()
+					.deleteBackward(anchorOffset)
+					.insertText(newText)
+					.insertText(value).apply();
+            }
+        });
+		
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-                this.structuredFieldPlugin,
-                this.suggestionsPlugin,
-                AutoReplace({
-                    trigger: '[',
-                    before: /(#staging)/i,
-                    transform: (transform, e, data, matches) => {
-                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                        return this.insertStructuredFieldTransform(transform, "staging");
-                    }
-                }),
-                AutoReplace({
-                    trigger: '[',
-                    before: /(#progression)/i,
-                    transform: (transform, e, data, matches) => {
-                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                        return this.insertStructuredFieldTransform(transform, "progression");
-                    }
-                }),
-                 AutoReplace({
-                    trigger: '[',
-                    before: /(#toxicity)/i,
-                    transform: (transform, e, data, matches) => {
-                        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                        return this.insertStructuredFieldTransform(transform, "toxicity");
-                    }
-                })
-        ];
-    /////////////////////////////////////////////////////////
+			this.suggestionsPluginShortcuts,
+			this.suggestionsPluginInsertions,
+			this.structuredFieldPlugin
+		];
+				
+		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
+		props.shortcutList.forEach((shortcutKey) => {
+			this.plugins.push(AutoReplace({
+				"trigger": "[",
+				"before": new RegExp("(#" + shortcutKey + ")", "i"),
+				"transform": (transform, e, data, matches) => {
+					// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+					return this.insertStructuredFieldTransform(transform, shortcutKey);
+				}
+			}));
+		});
+		
+		// now add an AutoReplace plugin instance for each inserter we're supporting
+		props.inserters.forEach((inserter) => {
+			this.plugins.push(AutoReplace({
+				"trigger": 'space',
+				"before": new RegExp("(@" + inserter.trigger + ")", "i"),
+				"transform": (transform, e, data, matches) => {
+					return transform.insertText(`${inserter.value(this.props.patient)} `);
+				}
+			}));
+		});
     }
     insertStructuredFieldTransform(transform, shortcutType){
         let shortcut = this.props.newCurrentShortcut(shortcutType);
@@ -242,7 +260,7 @@ class FluxNotesEditor extends React.Component {
 		return;
 	}
 
-/*	
+/*
 	insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
@@ -268,21 +286,7 @@ class FluxNotesEditor extends React.Component {
             finalResult
         );
     }
-*/
-
-    /**
-     * Render the dropdown of suggestions.
-     */
-    renderDropdown = () => {
-        return <div></div>;
-    }
-
-    /**
-     * Render the dropdown of shorthand suggestions.
-     */
-    renderShorthandDropdown = () => {
-        return <div></div>;
-    }
+	*/
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -325,7 +329,8 @@ class FluxNotesEditor extends React.Component {
         //let {state} = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
         // Extract portal component from the plugin 
-        const { SuggestionPortal } = this.suggestionsPlugin;
+        const ShortcutsPortal = this.suggestionsPluginShortcuts.SuggestionPortal;
+        const InsertionsPortal = this.suggestionsPluginInsertions.SuggestionPortal;
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
             noteDescriptionContent = "";
@@ -370,8 +375,6 @@ class FluxNotesEditor extends React.Component {
                             onBlockUpdate={this.handleBlockUpdate}
                             patient={this.props.patient}
                         />
-                        {this.renderDropdown()}
-                        {this.renderShorthandDropdown()}
                         <Slate.Editor
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
@@ -381,9 +384,11 @@ class FluxNotesEditor extends React.Component {
 							onBlur={this.onBlur}
                             schema={schema}
                         />
- <SuggestionPortal 
-   state={this.state.state} />
-                    </div>
+						<ShortcutsPortal 
+							state={this.state.state} />
+						<InsertionsPortal
+							state={this.state.state} />
+					</div>
                 </Paper>
             </div>
         );

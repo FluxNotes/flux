@@ -196,8 +196,8 @@ class TestTimelinePanel extends Component {
     let items = [];
 
     meds.forEach((med, i) => {
-	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart);
-	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd);
+	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
       const assignedGroup = this._assignItemToGroup(items, startTime, 1);
 	  const name = med.medication.value.coding.displayText;
 	  const dosage = med.dosage.amountPerDose.value + " " + med.dosage.amountPerDose.units.coding.value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units.coding.value;
@@ -219,8 +219,8 @@ class TestTimelinePanel extends Component {
     let items = [];
 
     events.forEach((proc, i) => {
-	  let startTime = new moment(Lang.isObject(proc.occurrenceTime) ? proc.occurrenceTime.timePeriodStart : proc.occurrenceTime);
-	  let endTime = Lang.isObject(proc.occurrenceTime) ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd) : null) : null;
+	  let startTime = new moment(Lang.isObject(proc.occurrenceTime) ? proc.occurrenceTime.timePeriodStart : proc.occurrenceTime, "D MMM YYYY");
+	  let endTime = Lang.isObject(proc.occurrenceTime) ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
       const assignedGroup = this._assignItemToGroup(items, startTime, groupStartIndex);
 
       let classes = 'event-item';
@@ -259,13 +259,13 @@ class TestTimelinePanel extends Component {
 		const assignedGroup = this._assignItemToGroup(items, evt.start_time, groupStartIndex);
 
 		let classes = 'progression-item';
-		let startDate = new moment(evt.start_time);
+		let startDate = new moment(evt.start_time, "D MMM YYYY");
 		let endDate = null;
 		let hoverText = '';
 		let hoverTitle = '';
 
 		if (evt.end_time) {
-			endDate = new moment(evt.end_time);
+			endDate = new moment(evt.end_time, "D MMM YYYY");
 			hoverText = `${startDate.format('MM/DD/YYYY')} ― ${endDate.format('MM/DD/YYYY')}`;
 		} else {
 			hoverText = `${startDate.format('MM/DD/YYYY')}`;
@@ -295,7 +295,7 @@ class TestTimelinePanel extends Component {
 		const assignedGroup = this._assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
 
 		let classes = 'progression-item';
-		let startDate = new moment(prog.clinicallyRelevantTime);
+		let startDate = new moment(prog.clinicallyRelevantTime, "D MMM YYYY");
 
 		let hoverText = `${startDate.format('MM/DD/YYYY')}`;
 		let endDate = startDate.clone().add(1, 'day');
