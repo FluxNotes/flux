@@ -41,7 +41,7 @@ class NavBar extends Component {
         <AppBar
           className="navbar"
           onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
-          title={this.props.title}/>
+          title="Flux Notes"/>
         <Drawer
           containerStyle={{'top': '64px'}}
           open={this.state.open}

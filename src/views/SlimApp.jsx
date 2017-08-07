@@ -69,7 +69,7 @@ class SlimApp extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
-                    <NavBar title="Flux Notes Lite"/>
+                    <NavBar />
                     <Grid className="SlimApp-content" fluid>
                         <Row center="xs">
                            <Col sm={5}>
