@@ -6,6 +6,7 @@ import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import moment from 'moment';
+import Lang from 'lodash'
 
 import './TimelinePanel.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -43,17 +44,8 @@ class TimelinePanel extends Component {
     super(props);
 
     // Create groups and items to display on the timeline
-    let items = [];
-
-    // Medications come first
-    items = items.concat(this._createMedicationItems(this.props.medications));
-
-    // Events
-    items = items.concat(this._createProcedureItems(this.props.procedures, this._getMaxGroup(items) + 1));
-
-    // Progression
-    items = items.concat(this._createEventItems(this.props.events, this._getMaxGroup(items) + 1));
-
+	let items = this._createItemsForPatient(props.patient);
+	
     // Create groups for the items
     const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
@@ -92,7 +84,7 @@ class TimelinePanel extends Component {
         }
     };
   }
-
+  
   _enterItemHover(e, id) {
     // Get position of this item on the screen
     e.preventDefault();
@@ -126,16 +118,7 @@ class TimelinePanel extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (this.props !== nextProps) {
       // Create groups and items to display on the timeline
-      let items = [];
-
-      // Medications come first
-      items = items.concat(this._createMedicationItems(nextProps.medications));
-
-      // Events
-      items = items.concat(this._createProcedureItems(nextProps.procedures, this._getMaxGroup(items) + 1));
-
-      // Progression
-      items = items.concat(this._createEventItems(nextProps.events, this._getMaxGroup(items) + 1));
+      let items = this._createItemsForPatient(nextProps.patient);
 
       // Create groups for the items
       const groups = this._createGroupsForItems(this._getMaxGroup(items));
@@ -190,110 +173,157 @@ class TimelinePanel extends Component {
     )
   }
 
+  _createItemsForPatient(patient) {
+      let items = [];
+
+    // Medications come first
+    items = items.concat(this._createMedicationItems(patient.getMedicationsChronologicalOrder()));
+
+    // Procedures
+    items = items.concat(this._createProcedureItems(patient.getProceduresChronologicalOrder(), this._getMaxGroup(items) + 1));
+
+    // Key Dates (diagnosis, recurrence)
+    items = items.concat(this._createEventItems(patient.getKeyEventsChronologicalOrder(), this._getMaxGroup(items) + 1));
+	
+	// Progressions
+	//TODO
+	items = items.concat(this._createProgressionItems(patient, patient.getProgressionsChronologicalOrder(), this._getMaxGroup(items) + 1));
+	
+	return items;
+  }
 
   _createMedicationItems(meds) {
     let items = [];
 
-    meds.sort(this._timeSorter);
     meds.forEach((med, i) => {
-      const assignedGroup = this._assignItemToGroup(items, med, 1);
-
+	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+      const assignedGroup = this._assignItemToGroup(items, startTime, 1);
+	  const name = med.medication.value.coding.displayText;
+	  const dosage = med.dosage.amountPerDose.value + " " + med.dosage.amountPerDose.units.coding.value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units.coding.value;
       items.push({
         group: assignedGroup,
-        title: med.name,
-        details: med.dosage,
-        hoverTitle: med.name,
-        hoverText: med.dosage,
+        title: name,
+        details: dosage,
+        hoverTitle: name,
+        hoverText: dosage,
         className: 'medication-item',
-        start_time: med.startDate,
-        end_time: med.endDate
+        start_time: startTime,
+        end_time: endTime
       });
     });
     return items;
   }
 
-
   _createProcedureItems(events, groupStartIndex) {
     let items = [];
 
-    events.sort(this._timeSorter);
-    events.forEach((event) => {
-      const assignedGroup = this._assignItemToGroup(items, event, groupStartIndex);
+    events.forEach((proc, i) => {
+	  let startTime = new moment(Lang.isObject(proc.occurrenceTime) ? proc.occurrenceTime.timePeriodStart : proc.occurrenceTime, "D MMM YYYY");
+	  let endTime = Lang.isObject(proc.occurrenceTime) ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
+      const assignedGroup = this._assignItemToGroup(items, startTime, groupStartIndex);
 
       let classes = 'event-item';
-      let endDate = event.endDate;
+      //let endDate = proc.endDate;
       let hoverText = '';
 
-      if (event.endDate) {
-        hoverText = `${event.startDate.format('MM/DD/YYYY')} ― ${event.endDate.format('MM/DD/YYYY')}`;
+      if (!Lang.isNull(endTime)) {
+        hoverText = `${startTime.format('MM/DD/YYYY')} ― ${endTime.format('MM/DD/YYYY')}`;
       } else {
-        hoverText = `${event.startDate.format('MM/DD/YYYY')}`;
-        endDate = event.startDate.clone().add(1, 'day');
+        hoverText = `${startTime.format('MM/DD/YYYY')}`;
+        endTime = startTime.clone().add(1, 'day');
         classes += ' point-in-time';
       }
 
-      if (event.display) {
-        hoverText += ` : ${event.display}`;
+      if (proc.specificType.coding.displayText) {
+        hoverText += ` : ${proc.specificType.coding.displayText}`;
       }
 
       items.push({
         group: assignedGroup,
         icon: 'hospital-o',
         className: classes,
-        hoverTitle: event.name,
+        hoverTitle: proc.specificType.coding.displayText,
         hoverText: hoverText,
-        start_time: event.startDate,
-        end_time: endDate
+        start_time: startTime,
+        end_time: endTime
       });
     });
     return items;
   }
 
-
-  _createEventItems(progs, groupStartIndex) {
+  _createEventItems(events, groupStartIndex) {
     let items = [];
 
-    progs.sort(this._timeSorter);
-    progs.forEach((prog) => {
-    const assignedGroup = this._assignItemToGroup(items, prog, groupStartIndex);
+    events.forEach((evt) => {
+		const assignedGroup = this._assignItemToGroup(items, evt.start_time, groupStartIndex);
 
-    let classes = 'progression-item';
-    let endDate = prog.endDate;
-    let hoverText = '';
-	  let hoverTitle = '';
+		let classes = 'progression-item';
+		let startDate = new moment(evt.start_time, "D MMM YYYY");
+		let endDate = null;
+		let hoverText = '';
+		let hoverTitle = '';
 
-      if (prog.endDate) {
-        hoverText = `${prog.startDate.format('MM/DD/YYYY')} ― ${prog.endDate.format('MM/DD/YYYY')}`;
-      } else {
-        hoverText = `${prog.startDate.format('MM/DD/YYYY')}`;
-        endDate = prog.startDate.clone().add(1, 'day');
-        classes += ' point-in-time';
-      }
-	  
-	  if (prog.status) {
-		hoverTitle = prog.status;
-	  } else {
-		hoverTitle = prog.name;
-	  }
+		if (evt.end_time) {
+			endDate = new moment(evt.end_time, "D MMM YYYY");
+			hoverText = `${startDate.format('MM/DD/YYYY')} ― ${endDate.format('MM/DD/YYYY')}`;
+		} else {
+			hoverText = `${startDate.format('MM/DD/YYYY')}`;
+			endDate = startDate.clone().add(1, 'day');
+			classes += ' point-in-time';
+		}
+		  
+		hoverTitle = evt.name;
 
-      items.push({
-        group: assignedGroup,
-        icon: 'heartbeat',
-        className: classes,
-        hoverTitle: hoverTitle,
-        hoverText: hoverText,
-        start_time: prog.startDate,
-        end_time: endDate
-      });
+		items.push({
+			group: assignedGroup,
+			icon: 'heartbeat',
+			className: classes,
+			hoverTitle: hoverTitle,
+			hoverText: hoverText,
+			start_time: startDate,
+			end_time: endDate
+		});
     });
     return items;
   }
+  
+  _createProgressionItems(patient, progressions, groupStartIndex) {
+    let items = [];
 
+    progressions.forEach((prog) => {
+		const assignedGroup = this._assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
+
+		let classes = 'progression-item';
+		let startDate = new moment(prog.clinicallyRelevantTime, "D MMM YYYY");
+
+		let hoverText = `${startDate.format('MM/DD/YYYY')}`;
+		let endDate = startDate.clone().add(1, 'day');
+		classes += ' point-in-time';
+		
+		let focalCondition = patient.getFocalConditionForProgression(prog);
+		//console.log(focalCondition);
+		let focalConditionName = focalCondition.value.coding.displayText;
+		
+		let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText + " based on " + prog.evidence.map(function(ev){ return ev.coding.displayText; }).join();;
+
+		items.push({
+			group: assignedGroup,
+			icon: 'heartbeat',
+			className: classes,
+			hoverTitle: hoverTitle,
+			hoverText: hoverText,
+			start_time: startDate,
+			end_time: endDate
+		});
+    });
+    return items;
+  }
 
   // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
   // existing timeline items. If firstAvailableGroup is provided, the group assigned
-  // will not be less than the firstAvailableGroup. newItem must have a startDate specified.
-  _assignItemToGroup(existingItems, newItem, firstAvailableGroup) {
+  // will not be less than the firstAvailableGroup.
+  _assignItemToGroup(existingItems, startTime, firstAvailableGroup) {
     let availableGroup = firstAvailableGroup || 1;
     let assignedGroup = null;
 
@@ -304,7 +334,7 @@ class TimelinePanel extends Component {
       for (let i = 0; i < existingItemsInGroup.length; i++) {
         const existingItem = existingItemsInGroup[i];
         // At the current group level, the new item conflicts with an existing item
-        if (newItem.startDate < existingItem.end_time && newItem.startDate >= existingItem.start_time) {
+        if (startTime < existingItem.end_time && startTime >= existingItem.start_time) {
           conflict = true;
           break;
         }
@@ -351,17 +381,6 @@ class TimelinePanel extends Component {
       }
     });
     return subset;
-  }
-
-
-  _timeSorter(a, b) {
-    if (a.startDate < b.startDate) {
-      return -1;
-    }
-    if (a.startDate > b.startDate) {
-      return 1;
-    }
-    return 0;
   }
 }
 
