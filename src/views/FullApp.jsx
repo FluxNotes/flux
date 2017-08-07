@@ -385,7 +385,7 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
-                    <NavBar />
+                    <NavBar patient={this.state.patient}/>
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
