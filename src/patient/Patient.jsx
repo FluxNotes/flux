@@ -512,6 +512,7 @@ class Patient {
 	
 	getLastBreastCancerCondition() {
 		let result = this.getEntriesOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		console.log(result);
 		return result[result.length - 1];
 	}
 	
@@ -569,6 +570,7 @@ class Patient {
 	
 	getMostRecentStagingForCondition(condition, sinceDate = null) {
 		let stagingList = this.getObservationsForCondition(condition, "http://standardhealthrecord.org/oncology/TNMStage");
+		if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._observationTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);

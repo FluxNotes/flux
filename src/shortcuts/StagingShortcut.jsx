@@ -150,14 +150,15 @@ class StagingShortcut extends Shortcut {
 	   also it should be finding the condition based on context in the note not just used the last breast cancer
 	   one
 	 */
-	updatePatient(patient) {
+	updatePatient(patient, contextManager) {
 		//console.log("updatePatient START")
 		if (!Lang.isNull(this.staging.tumorSize) && this.staging.tumorSize.length > 0 &&
 			!Lang.isNull(this.staging.nodeSize) && this.staging.nodeSize.length > 0 &&
 			!Lang.isNull(this.staging.metastasis) && this.staging.metastasis.length > 0)
 		{
 			console.log("have full staging value to update in patient model. need context. can assume patient but need condition.")
-			let condition = patient.getLastBreastCancerCondition();
+			let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+			//let condition = patient.getLastBreastCancerCondition();
 			let staging = patient.getMostRecentStagingForCondition(condition);
 			if (Lang.isNull(staging) || Lang.isUndefined(staging)) {
 				staging = patient.createNewTNMStageObservation(this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
@@ -170,6 +171,15 @@ class StagingShortcut extends Shortcut {
 			//return;
 		}
 		//console.log("updatePatient DONE (no update)");
+	}
+
+	validateInCurrentContext(contextManager) {
+		let errors = [];
+		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		if (Lang.isNull(condition)) {
+			errors.push("#staging invalid without a breast cancer condition. Use @condition to add the condition to your narrative.");
+		}
+		return errors;
 	}
 }
 
