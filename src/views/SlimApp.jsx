@@ -76,7 +76,16 @@ class SlimApp extends Component {
                         <Paper className="panel-content trio">
                             <Row center="xs">
                                 <Col sm={3}>
-                                    <FormList />
+                                    <FormList
+                                        shortcuts={['Progression', 'Toxicity']}
+                                    />
+
+
+                                    {/*<FormTray*/}
+                                        {/*shortcuts={['progression', 'toxicity']}*/}
+                                        {/*currentShortcut={this.state.currentShortcut}*/}
+                                        {/*changeShortcut={this.changeShortcut}*/}
+                                    {/*/>*/}
                                 </Col>
                                 <Col sm={9}>
                                     <ShortcutViewer
