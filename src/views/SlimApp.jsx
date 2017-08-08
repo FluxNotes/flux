@@ -9,7 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import NavBar from '../nav/NavBar';
 import ShortcutViewer from '../viewer/ShortcutViewer';
-// import FormTray from '../forms/FormTray';
+import FormTray from '../forms/FormTray';
 import FormList from '../forms/FormList';
 // Shortcut Classes
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
@@ -34,6 +34,10 @@ class SlimApp extends Component {
      */
     changeShortcut = (shortcutType) => {
         // console.log("structured field entered: " + field);
+
+        console.log("shortcut type");
+        console.log(shortcutType);
+
         if (Lang.isNull(shortcutType)) {
             this.setState({
                 currentShortcut: null
@@ -73,28 +77,31 @@ class SlimApp extends Component {
                 <div className="SlimApp">
                     <NavBar title="Flux Notes Lite"/>
                     <Grid className="SlimApp-content" fluid>
-                        <Paper className="panel-content trio">
-                            <Row center="xs">
-                                <Col sm={3}>
-                                    <FormList
-                                        shortcuts={['Progression', 'Toxicity']}
-                                    />
+                        <div id="forms-panel" className="dashboard-panel">
+                            <Paper className="panel-content trio">
+                                <Row center="xs">
+                                    <Col sm={3}>
+                                        <FormList
+                                            shortcuts={['Progression', 'Toxicity']}
+                                            currentShortcut={this.state.currentShortcut}
+                                            changeShortcut={this.changeShortcut}
+                                        />
 
-
-                                    {/*<FormTray*/}
+                                        {/*<FormTray*/}
                                         {/*shortcuts={['progression', 'toxicity']}*/}
                                         {/*currentShortcut={this.state.currentShortcut}*/}
                                         {/*changeShortcut={this.changeShortcut}*/}
-                                    {/*/>*/}
-                                </Col>
-                                <Col sm={9}>
-                                    <ShortcutViewer
-                                        currentShortcut={this.state.currentShortcut}
-                                        onShortcutUpdate={this.handleShortcutUpdate}
-                                    />
-                                </Col>
-                            </Row>
-                        </Paper>
+                                        {/*/>*/}
+                                    </Col>
+                                    <Col sm={9}>
+                                        <ShortcutViewer
+                                            currentShortcut={this.state.currentShortcut}
+                                            onShortcutUpdate={this.handleShortcutUpdate}
+                                        />
+                                    </Col>
+                                </Row>
+                            </Paper>
+                        </div>
                     </Grid>
                 </div>
             </MuiThemeProvider>

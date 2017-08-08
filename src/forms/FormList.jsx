@@ -15,6 +15,13 @@ class FormList extends Component {
 
     constructor(props) {
         super(props);
+        this._newShortcut = this._newShortcut.bind(this);
+    }
+
+    _newShortcut(e, i) {
+        console.log(`new shortcut ${i}`);
+        e.preventDefault();
+        this.props.changeShortcut(this.props.shortcuts[i]);
     }
 
     render() {
@@ -27,6 +34,7 @@ class FormList extends Component {
                                 key={i}
                                 id={t}
                                 primaryText={t}
+                                onClick={(e) => this._newShortcut(e, i)}
                             />
                         );
                     })}
