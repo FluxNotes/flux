@@ -64,7 +64,7 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
-                          disabled={this._currentlySelected(this.props.staging.tumorSize, this.state.tumorValues[i].name)}
+                          disabled={this._currentlySelected(this.props.staging.tStage.coding.displayText, this.state.tumorValues[i].name)}
                       />
                   </div>
                 );
@@ -81,7 +81,7 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
-                          disabled={this._currentlySelected(this.props.staging.nodeSize, this.state.nodeValues[i].name)}
+                          disabled={this._currentlySelected(this.props.staging.nStage.coding.displayText, this.state.nodeValues[i].name)}
                       />
                   </div>
                 );
@@ -98,14 +98,14 @@ class StagingForm extends Component {
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
-                        disabled={this._currentlySelected(this.props.staging.metastasis, this.state.metastasisValues[i].name)}
+                        disabled={this._currentlySelected(this.props.staging.mStage.coding.displayText, this.state.metastasisValues[i].name)}
                     />
                   </div>
                 );
             })}
 
             <h4>Prognostic Stage</h4>
-            <div className="stage">{staging.breastCancerPrognosticStage(this.props.staging.tumorSize, this.props.staging.nodeSize, this.props.staging.metastasis) || 'Undefined'}</div>
+            <div className="stage">{staging.breastCancerPrognosticStage(this.props.staging.tStage.coding.displayText, this.props.staging.nStage.coding.displayText, this.props.staging.mStage.coding.displayText) || 'Undefined'}</div>
         </div>
     );
   }

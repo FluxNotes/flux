@@ -3,27 +3,25 @@ import React from 'react';
 import Shortcut from './Shortcut';
 // Application Imports
 import StagingForm from '../forms/StagingForm';
+import Patient from '../patient/Patient';
 // Lodash
 import Lang from 'lodash'
 
 class StagingShortcut extends Shortcut {
     // onUpdate is passed from React components that need to be notified when the staging value(s) change
     // staging is optional and specifies an existing staging value being edited. Not used in no-patient mode
+	// staging is of "type" SHR JSON TNMStage
     constructor(onUpdate, staging) {
         super();
         if (Lang.isUndefined(staging)) { 
-            staging = ({
-                id: Math.floor(Math.random() * Date.now()),
-				tumorSize: '',
-				nodeSize: '',
-				metastasis: ''
-            });
-        }
-        this.staging = Lang.clone(staging);
+			this.staging = Patient.createNewTNMStageObservation();
+			this.isStagingNew = true;
+        } else {
+			this.staging = staging; //Lang.clone(staging);
+			this.isStagingNew = false;
+		}
         this.onUpdate = onUpdate;
-        //this.handleStagingUpdate = this.handleStagingUpdate.bind(this);
 		this.updateValue = this.updateValue.bind(this);
-        // console.log(`constructor for a new Staging object`)
     }
     /* 
      * Returns "staging"
@@ -35,11 +33,11 @@ class StagingShortcut extends Shortcut {
      * Translate staging Staging information into a string 
      */
     getTumorSizeString(curStaging) { 
-        let tString = ``;
-        if (Lang.isNull(curStaging.tumorSize) || Lang.isUndefined(curStaging.tumorSize)) { 
+        let tString;
+        if (curStaging.tStage.coding.displayText.length === 0) { 
             tString = `?`;
         } else { 
-            tString = `${curStaging.tumorSize}`
+            tString = `${curStaging.tStage.coding.displayText}`
         }
         return tString;
     }
@@ -48,11 +46,11 @@ class StagingShortcut extends Shortcut {
      * Translate staging node size into a string 
      */
     getNodeSizeString(curStaging) { 
-        let nString = ``;
-        if (Lang.isNull(curStaging.nodeSize) || Lang.isUndefined(curStaging.nodeSize)) { 
+        let nString;
+        if (curStaging.nStage.coding.displayText.length === 0) { 
             nString = `?`;
         } else { 
-            nString = `${curStaging.nodeSize}`
+            nString = `${curStaging.nStage.coding.displayText}`
         }
         return nString;
     }
@@ -62,10 +60,10 @@ class StagingShortcut extends Shortcut {
      */
     getMetastasisString(curStaging) { 
         let mString = ``;
-        if (Lang.isNull(curStaging.metastasis) || Lang.isUndefined(curStaging.metastasis)) { 
+        if (curStaging.mStage.coding.displayText.length === 0) { 
             mString = `?`;
         } else { 
-            mString = `${curStaging.metastasis}`
+            mString = `${curStaging.mStage.coding.displayText}`
         }
         return mString;
     }
@@ -74,20 +72,13 @@ class StagingShortcut extends Shortcut {
      * Translate the current shortcut into a string
      */
     getAsString() { 
-        if(!Lang.isNull(this.staging)) { 
-            if((Lang.isNull(this.staging.tumorSize)  || Lang.isUndefined(this.staging.tumorSize)) &&
-               (Lang.isNull(this.staging.nodeSize)   || Lang.isUndefined(this.staging.nodeSize)) &&
-               (Lang.isNull(this.staging.metastasis) || Lang.isUndefined(this.staging.metastasis)))
-            {
-                return `#staging`;
-            } else { 
-                const tString = this.getTumorSizeString(this.staging);
-                const nString = this.getNodeSizeString(this.staging);
-                const mString = this.getMetastasisString(this.staging);
-                // Don't put any spaces -- the spaces should be dictated by the current reason and date
-                return `#staging[T${tString}N${nString}M${mString}]`;
-            }
-        }
+		const tString = this.getTumorSizeString(this.staging);
+		const nString = this.getNodeSizeString(this.staging);
+		const mString = this.getMetastasisString(this.staging);
+		if (tString === '?' && nString === '?' && mString === '?') {
+			return "#staging";
+		}
+		return `#staging[T${tString}N${nString}M${mString}]`;
     }
     
     /* 
@@ -114,13 +105,12 @@ class StagingShortcut extends Shortcut {
 	}
 	
 	updateValue(name, value, publishChanges = true) {
-		//console.log("StagingShortcut.updateValue START");
 		if (name === "T") {
-			this.staging.tumorSize = value;
+			Patient.updateTForStaging(this.staging, value);
 		} else if (name === "N") {
-			this.staging.nodeSize = value;
+			Patient.updateNForStaging(this.staging, value);
 		} else if (name === "M") {
-			this.staging.metastasis = value;
+			Patient.updateMForStaging(this.staging, value);
 		} else {
 			console.log("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
@@ -129,16 +119,15 @@ class StagingShortcut extends Shortcut {
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
 		}
-		//console.log("StagingShortcut.updateValue DONE");
 	}
 
 	getValue(name) {
 		if (name === "T") {
-			return this.staging.tumorSize;
+			return this.staging.tStage.coding.displayText;
 		} else if (name === "N") {
-			return this.staging.nodeSize;
+			return this.staging.nStage.coding.displayText;
 		} else if (name === "M") {
-			return this.staging.metastasis;
+			return this.staging.mStage.coding.displayText;
 		} else {
 			console.log("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
@@ -151,26 +140,12 @@ class StagingShortcut extends Shortcut {
 	   one
 	 */
 	updatePatient(patient, contextManager) {
-		//console.log("updatePatient START")
-		if (!Lang.isNull(this.staging.tumorSize) && this.staging.tumorSize.length > 0 &&
-			!Lang.isNull(this.staging.nodeSize) && this.staging.nodeSize.length > 0 &&
-			!Lang.isNull(this.staging.metastasis) && this.staging.metastasis.length > 0)
-		{
-			console.log("have full staging value to update in patient model. need context. can assume patient but need condition.")
-			let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
-			//let condition = patient.getLastBreastCancerCondition();
-			let staging = patient.getMostRecentStagingForCondition(condition);
-			if (Lang.isNull(staging) || Lang.isUndefined(staging)) {
-				staging = patient.createNewTNMStageObservation(this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
-				if (Lang.isNull(staging)) return;
-				patient.addObservationToCondition(staging, condition);
-			} else {
-				patient.updateTNMStage(staging, this.staging.tumorSize, this.staging.nodeSize, this.staging.metastasis);
-			}
-			//console.log("updatePatient DONE (updated)")
-			//return;
+		if (this.staging.value.coding.displayText.length === 0) return; // not complete value
+		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		if (this.isStagingNew) {
+			patient.addObservationToCondition(this.staging, condition);
+			this.isStagingNew = false;
 		}
-		//console.log("updatePatient DONE (no update)");
 	}
 
 	validateInCurrentContext(contextManager) {

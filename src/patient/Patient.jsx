@@ -713,13 +713,39 @@ class Patient {
 	mStage: {coding: { value: "433411000124107", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "M0"}}
 }
  */	
-	createNewTNMStageObservation(t, n, m) {
-		const stage = staging.breastCancerPrognosticStage(t, n, m);
-		const stage_code = this._stageToCodeableConcept(stage);
-		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
-		const t_code = this._tToCodeableConcept(t);
-		const n_code = this._nToCodeableConcept(n);
-		const m_code = this._mToCodeableConcept(m);
+	static createNewTNMStageObservation(t, n, m) {
+		let tCoding, nCoding, mCoding;
+		let gotAllThree = true;
+		if (Lang.isUndefined(t) || Lang.isNull(t) || t.length === 0) {
+			tCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			gotAllThree = false;
+		} else {
+			const t_code = this._tToCodeableConcept(t);
+			tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t}
+		}
+		if (Lang.isUndefined(n) || Lang.isNull(n) || n.length === 0) {
+			nCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			gotAllThree = false;
+		} else {
+			const n_code = this._nToCodeableConcept(n);
+			nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n};
+		}
+		if (Lang.isUndefined(m) || Lang.isNull(m) || m.length === 0) {
+			mCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			gotAllThree = false;
+		} else {
+			const m_code = this._mToCodeableConcept(m);
+			mCoding = { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m};
+		}
+		let stage, stage_code;
+		if (gotAllThree) {
+			stage = staging.breastCancerPrognosticStage(t, n, m);
+			stage_code = this._stageToCodeableConcept(stage);
+		} else {
+			stage = "";
+			stage_code = {code: "", codesystem: ""};
+		}
+		//if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
 		return {
 			"entryType":	[	"http://standardhealthrecord.org/oncology/TNMStage",
 								"http://standardhealthrecord.org/observation/Observation",
@@ -727,12 +753,54 @@ class Patient {
 			"value": {"coding": { "value": stage_code.code, "codeSystem": stage_code.codesystem, "displayText": stage}},
 			"specificType": {"coding": {"value": "21908-9", "codeSystem": "http://loinc.org", "displayText": "Stage"}},
 			"status": "unknown",
-			"tStage": {"coding": { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t}},
-			"nStage": {"coding": { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n}},
-			"mStage": {"coding": { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m}}
+			"occurrenceTime": new moment().format("D MMM YYYY"),
+			"tStage": {"coding": tCoding},
+			"nStage": {"coding": nCoding},
+			"mStage": {"coding": mCoding}
 		};
 	}
+
+	static updateTForStaging(stagingObservation, t) {		
+		const t_code = this._tToCodeableConcept(t);
+		stagingObservation.tStage.coding.displayText = t;
+		stagingObservation.tStage.coding.value = t_code.code;
+		stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
+		this.updateStage(stagingObservation);
+	}
+	static updateNForStaging(stagingObservation, n) {		
+		const n_code = this._nToCodeableConcept(n);
+		stagingObservation.nStage.coding.displayText = n;
+		stagingObservation.nStage.coding.value = n_code.code;
+		stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
+		this.updateStage(stagingObservation);
+	}
+	static updateMForStaging(stagingObservation, m) {		
+		const m_code = this._mToCodeableConcept(m);
+		stagingObservation.mStage.coding.displayText = m;
+		stagingObservation.mStage.coding.value = m_code.code;
+		stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
+		this.updateStage(stagingObservation);
+	}
 	
+	static updateStage(stagingObservation) {
+		let curT = stagingObservation.tStage.coding.displayText;
+		let curN = stagingObservation.nStage.coding.displayText;
+		let curM = stagingObservation.mStage.coding.displayText;
+		if (curT.length > 0 && curN.length > 0 && curM.length > 0) {
+			const stage = staging.breastCancerPrognosticStage(curT, curN, curM);
+			const stage_code = this._stageToCodeableConcept(stage);
+			if (!Lang.isNull(stage_code) && !Lang.isUndefined(stage_code)) {
+				stagingObservation.value.coding.value = stage_code.code;
+				stagingObservation.value.coding.codeSystem = stage_code.codesystem;
+				stagingObservation.value.coding.displayText = stage;
+				return;
+			}
+		}
+		stagingObservation.value.coding.value = "";
+		stagingObservation.value.coding.codeSystem = "";
+		stagingObservation.value.coding.displayText = "";
+	}
+	/*
 	updateTNMStage(stagingObservation, t, n, m) {
 		const stage = staging.breastCancerPrognosticStage(t, n, m);
 		const stage_code = this._stageToCodeableConcept(stage);
@@ -752,13 +820,13 @@ class Patient {
 		stagingObservation.mStage.coding.displayText = m;
 		stagingObservation.mStage.coding.value = m_code.code;
 		stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
-	}
+	}*/
 	
 	addObservationToCondition(observation, condition) {
 		condition.observation.push(observation);
 	}
 	
-	_stageToCodeableConcept(stage) {
+	static _stageToCodeableConcept(stage) {
 		if (Lang.isUndefined(stage)) return null;
 		if (stage === 'IA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"46333007"};
 		if (stage === 'IB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"786005"};
@@ -768,8 +836,9 @@ class Patient {
 		if (stage === 'IIIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"64062008"};
 		if (stage === 'IIIC') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"48105005"};
 		if (stage === 'IV') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"2640006"};
+		return null;
 	}
-	_tToCodeableConcept(t) {
+	static _tToCodeableConcept(t) {
 		if (t === 'T0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433371000124106"};
 		if (t === 'Tis') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"44401000"};
 		if (t === 'T1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369895002"};
@@ -780,19 +849,22 @@ class Patient {
 		if (t === 'T2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369900003"};
 		if (t === 'T3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369901004"};
 		if (t === 'T4') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433401000124109"};
+		return null;
 	}
-	_nToCodeableConcept(n) {
+	static _nToCodeableConcept(n) {
 		if (n === 'N0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436311000124105"};
 		if (n === 'N1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433511000124108"};
 		if (n === 'N1mi') return {codesystem: "urn:oid:2.16.840.1.113883.3.26.1.1", code: "C95955"};
 		if (n === 'N2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433551000124109"};
 		if (n === 'N3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433431000124101"};
+		return null;
 	}
-	_mToCodeableConcept(m) {
+	static _mToCodeableConcept(m) {
 		if (m === 'M0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433581000124101"};
 		if (m === 'M1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436331000124104"};
 		if (m === 'M1a') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436341000124109"};
 		if (m === 'M1b') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436321000124102"};
+		return null;
 	}
 }
 
