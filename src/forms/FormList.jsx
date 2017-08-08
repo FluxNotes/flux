@@ -16,6 +16,10 @@ class FormList extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            shortcutsList: ["Progression", "Toxicity", "Staging" ]
+        };
+
     }
 
     render() {
@@ -23,7 +27,7 @@ class FormList extends Component {
             <div id="forms-panel" className="dashboard-panel">
 
                     <List>
-                        <ListItem primaryText="Inbox"  />
+                        <ListItem primaryText={this.state.shortcutsList[0]}  />
                         <ListItem primaryText="Starred" />
                         <ListItem primaryText="Sent mail" />
                         <ListItem primaryText="Drafts"  />
