@@ -88,8 +88,8 @@ class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
 
-		this.didFocusChange = false;
-		
+        this.didFocusChange = false;
+        
         // Set the initial state when the app is first constructed.
         this.state = {
             state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
@@ -99,7 +99,7 @@ class FluxNotesEditor extends React.Component {
         const structuredFieldPluginOptions = {
             updateEditorState: this.onEditorUpdate,
             updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate,
-			changeCurrentShortcut: props.changeCurrentShortcut
+            changeCurrentShortcut: props.changeCurrentShortcut
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
@@ -109,22 +109,22 @@ class FluxNotesEditor extends React.Component {
 
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
 
-		// setup suggestions plugin (autocomplete)
-		let suggestionsShortcuts = [];
-		props.shortcutList.forEach((shortcutKey) => {
-			suggestionsShortcuts.push({
-				"key": shortcutKey,
-				"value": "#" + shortcutKey + "[",
-				"suggestion": shortcutKey
-			});
-		});
-		
+        // setup suggestions plugin (autocomplete)
+        let suggestionsShortcuts = [];
+        props.shortcutList.forEach((shortcutKey) => {
+            suggestionsShortcuts.push({
+                "key": shortcutKey,
+                "value": "#" + shortcutKey + "[",
+                "suggestion": shortcutKey
+            });
+        });
+        
         this.suggestionsPluginShortcuts = SuggestionsPlugin({
             trigger: '#',
             capture: /#([\w]*)/,
             suggestions: suggestionsShortcuts,
             onEnter: (suggestion) => {
-                console.log("in onEnter");
+                //console.log("in onEnter");
                 const { state } = this.state; 
                 const { anchorText, anchorOffset } = state
                 const text = anchorText.text
@@ -142,26 +142,26 @@ class FluxNotesEditor extends React.Component {
             }
         });
 
-		// setup suggestions plugin (autocomplete)
-		let suggestionsInsertions = [];
-		//let insertersMap = {};
-		props.inserters.forEach((inserter) => {
-			//insertersMap[inserter.trigger] = inserter.value;
-			suggestionsInsertions.push({
-				"key": inserter.trigger,
-				"value": "@" + inserter.trigger,
-				"suggestion": inserter.trigger,
-				"valueFunc" : inserter.value
-			});
-		});
-		
+        // setup suggestions plugin (autocomplete)
+        let suggestionsInsertions = [];
+        //let insertersMap = {};
+        props.inserters.forEach((inserter) => {
+            //insertersMap[inserter.trigger] = inserter.value;
+            suggestionsInsertions.push({
+                "key": inserter.trigger,
+                "value": "@" + inserter.trigger,
+                "suggestion": inserter.trigger,
+                "valueFunc" : inserter.value
+            });
+        });
+        
         this.suggestionsPluginInsertions = SuggestionsPlugin({
             trigger: '@',
             capture: /@([\w]*)/,
             suggestions: suggestionsInsertions,
             onEnter: (suggestion) => {
-                console.log("in onEnter " + suggestion.key);
-				const value = "" + suggestion.valueFunc(this.props.patient);
+                //console.log("in onEnter " + suggestion.key);
+                const value = "" + suggestion.valueFunc(this.props.patient);
                 const { state } = this.state; 
                 const { anchorText, anchorOffset } = state
                 const text = anchorText.text
@@ -174,41 +174,41 @@ class FluxNotesEditor extends React.Component {
                     
                 const newText = `${text.substring(0, index.start)} `
                 return state.transform()
-					.deleteBackward(anchorOffset)
-					.insertText(newText)
-					.insertText(value).apply();
+                    .deleteBackward(anchorOffset)
+                    .insertText(newText)
+                    .insertText(value).apply();
             }
         });
-		
+        
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-			this.suggestionsPluginShortcuts,
-			this.suggestionsPluginInsertions,
-			this.structuredFieldPlugin
-		];
-				
-		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
-		props.shortcutList.forEach((shortcutKey) => {
-			this.plugins.push(AutoReplace({
-				"trigger": "[",
-				"before": new RegExp("(#" + shortcutKey + ")", "i"),
-				"transform": (transform, e, data, matches) => {
-					// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-					return this.insertStructuredFieldTransform(transform, shortcutKey);
-				}
-			}));
-		});
-		
-		// now add an AutoReplace plugin instance for each inserter we're supporting
-		props.inserters.forEach((inserter) => {
-			this.plugins.push(AutoReplace({
-				"trigger": 'space',
-				"before": new RegExp("(@" + inserter.trigger + ")", "i"),
-				"transform": (transform, e, data, matches) => {
-					return transform.insertText(`${inserter.value(this.props.patient)} `);
-				}
-			}));
-		});
+            this.suggestionsPluginShortcuts,
+            this.suggestionsPluginInsertions,
+            this.structuredFieldPlugin
+        ];
+                
+        // now add an AutoReplace plugin instance for each shortcut we're supporting as well
+        props.shortcutList.forEach((shortcutKey) => {
+            this.plugins.push(AutoReplace({
+                "trigger": "[",
+                "before": new RegExp("(#" + shortcutKey + ")", "i"),
+                "transform": (transform, e, data, matches) => {
+                    // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+                    return this.insertStructuredFieldTransform(transform, shortcutKey);
+                }
+            }));
+        });
+        
+        // now add an AutoReplace plugin instance for each inserter we're supporting
+        props.inserters.forEach((inserter) => {
+            this.plugins.push(AutoReplace({
+                "trigger": 'space',
+                "before": new RegExp("(@" + inserter.trigger + ")", "i"),
+                "transform": (transform, e, data, matches) => {
+                    return transform.insertText(`${inserter.value(this.props.patient)} `);
+                }
+            }));
+        });
     }
     insertStructuredFieldTransform(transform, shortcutType){
         let shortcut = this.props.newCurrentShortcut(shortcutType);
@@ -218,16 +218,16 @@ class FluxNotesEditor extends React.Component {
     }
 
     onEditorUpdate = (newState) => {
-		let curSelection = this.state.state.selection;
-        console.log(`Plugin updating state`);
+        let curSelection = this.state.state.selection;
+        //console.log(`Plugin updating state`);
         this.setState({
             state: newState
         });
-		console.log(newState);
-		if (!Lang.isEqual(curSelection, newState.selection)) this.onSelectionChange(newState.selection, newState);
+        //console.log(newState);
+        if (!Lang.isEqual(curSelection, newState.selection)) this.onSelectionChange(newState.selection, newState);
     }
     onCurrentShortcutValuesUpdate = (name, value) => {
-		this.props.currentShortcut.updateValue(name, value, false);
+        this.props.currentShortcut.updateValue(name, value, false);
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -236,32 +236,32 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        console.log("onChange: START");
+        //console.log("onChange: START");
         this.setState({
             state: state
         });
-        console.log("onChange: DONE");
+        //console.log("onChange: DONE");
     }
 
     onSelectionChange = (selection, state) => {
         this.didFocusChange = this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
-		console.log("onSelectionChange. did focus change = " + this.didFocusChange);
+        //console.log("onSelectionChange. did focus change = " + this.didFocusChange);
     }
-	
-	onBlur = (event, data, state, editor) => {
-		console.log("onBlur: state.selection.startKey=" + state.selection.startKey);
-		if (this.didFocusChange) {
-			this.didFocusChange = false;
-			event.preventDefault();
-			console.log("onBlur: suppress blur. DONE");
-			return state;
-		}
-		console.log("onBlur: let core handle blur. DONE");
-		return;
-	}
+    
+    onBlur = (event, data, state, editor) => {
+        //console.log("onBlur: state.selection.startKey=" + state.selection.startKey);
+        if (this.didFocusChange) {
+            this.didFocusChange = false;
+            event.preventDefault();
+            //console.log("onBlur: suppress blur. DONE");
+            return state;
+        }
+        //console.log("onBlur: let core handle blur. DONE");
+        return;
+    }
 
 /*
-	insertStructuredField = (shortcutType) => {
+    insertStructuredField = (shortcutType) => {
         let {state} = this.state;
 
         // When structure field is inserted, change current shortcut
@@ -279,14 +279,14 @@ class FluxNotesEditor extends React.Component {
 
         let finalResult = result[0].apply();
 
-        console.log(finalResult.document);
+        //console.log(finalResult.document);
 
         // Adds the inserted structured field into the editor
         this.onChange(
             finalResult
         );
     }
-	*/
+    */
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -381,14 +381,14 @@ class FluxNotesEditor extends React.Component {
                             state={this.state.state}
                             onChange={this.onChange}
                             onSelectionChange={this.onSelectionChange}
-							onBlur={this.onBlur}
+                            onBlur={this.onBlur}
                             schema={schema}
                         />
-						<ShortcutsPortal 
-							state={this.state.state} />
-						<InsertionsPortal
-							state={this.state.state} />
-					</div>
+                        <ShortcutsPortal 
+                            state={this.state.state} />
+                        <InsertionsPortal
+                            state={this.state.state} />
+                    </div>
                 </Paper>
             </div>
         );
