@@ -8,9 +8,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import NavBar from '../nav/NavBar';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
-import TestDataSummaryPanel from '../summary/TestDataSummaryPanel';
+import DataSummaryPanel from '../summary/DataSummaryPanel';
 import FormTray from '../forms/FormTray';
-import TestTimelinePanel from '../timeline/TestTimelinePanel';
+import TimelinePanel from '../timeline/TimelinePanel';
 // Shortcuts
 import ShortcutManager from '../shortcuts/ShortcutManager';
 // Data model
@@ -20,9 +20,9 @@ import SummaryMetadata from '../summary/SummaryMetadata';
 // Lodash component
 import Lang from 'lodash'
 
-import './TestApp.css';
+import './FullApp.css';
 
-class TestApp extends Component {
+class FullApp extends Component {
     constructor(props) {
         super(props);
 
@@ -133,7 +133,7 @@ class TestApp extends Component {
     }
     
     handleSelectionChange = (selectedText) => {
-        //console.log("TestApp. selectedText: " + selectedText);
+        //console.log("FullApp. selectedText: " + selectedText);
         this.setState({
             selectedText: selectedText
         })
@@ -148,12 +148,12 @@ class TestApp extends Component {
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-                <div className="TestApp">
-                    <NavBar />
-                    <Grid className="TestApp-content" fluid>
+                <div className="FullApp">
+                    <NavBar title="Flux Notes"/>
+                    <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
-                                <TestDataSummaryPanel
+                                <DataSummaryPanel
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
                                     // Properties
@@ -192,7 +192,7 @@ class TestApp extends Component {
                         </Row>
                         <Row center="xs">
                             <Col sm={12}>
-                                <TestTimelinePanel
+                                <TimelinePanel
                                     patient={this.state.patient}
                                 />
                             </Col>
@@ -204,4 +204,4 @@ class TestApp extends Component {
     }
 }
 
-export default TestApp;
+export default FullApp;
