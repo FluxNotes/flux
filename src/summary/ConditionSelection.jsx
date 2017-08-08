@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 
 import './ConditionSelection.css';
@@ -9,25 +9,26 @@ class ConditionSelection extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeCondition: 0
-    };
-
     this.previousCondition = this.previousCondition.bind(this);
     this.nextCondition = this.nextCondition.bind(this);
+  }
+  
+  getActiveCondition() {
+	return this.props.conditions[this.props.activeConditionIndex];
   }
 
   render() {
 
-    const activeCondition = this.props.conditions[this.state.activeCondition];
+    const activeCondition = this.props.conditions[this.props.activeConditionIndex];
+	//console.log("activeCondition = " + activeCondition);
 
     let leftArrowClass = "arrow";
-    if (this.state.activeCondition === 0) {
+    if (this.props.activeConditionIndex === 0) {
       leftArrowClass += " disabled";
     }
 
     let rightArrowClass = "arrow";
-    if (this.state.activeCondition === this.props.conditions.length - 1) {
+    if (this.props.activeConditionIndex === this.props.conditions.length - 1) {
       rightArrowClass += " disabled";
     }
 
@@ -35,7 +36,7 @@ class ConditionSelection extends Component {
       <div>
         <Divider className="divider" />
           <div className="selected-condition">
-              <span className="title">{activeCondition.name}</span>
+              <span className="title">{activeCondition.specificType.coding.displayText}</span>
               <span id="left-arrow" className={leftArrowClass}>
                   <a onClick={(e) => this.previousCondition(e)}><i className="fa fa-arrow-left"></i></a>
               </span>
@@ -49,18 +50,21 @@ class ConditionSelection extends Component {
   }
 
   previousCondition(e) {
-    if (this.state.activeCondition > 0) {
-      this.setState({activeCondition: this.state.activeCondition - 1});
+    if (this.props.activeConditionIndex > 0) {
+      //this.setState({activeCondition: this.props.activeConditionIndex - 1});
+	  this.props.changeConditionIndex(this.props.activeConditionIndex - 1);
     }
   }
 
   nextCondition(e) {
-    if (this.state.activeCondition < this.props.conditions.length - 1) {
-      this.setState({activeCondition: this.state.activeCondition + 1});
+    if (this.props.activeConditionIndex < this.props.conditions.length - 1) {
+      //this.setState({activeCondition: this.props.activeConditionIndex + 1});
+	  this.props.changeConditionIndex(this.props.activeConditionIndex + 1);
     }
   }
 }
 
+/*
 ConditionSelection.propTypes = {
   conditions: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
@@ -70,6 +74,6 @@ ConditionSelection.propTypes = {
       display: PropTypes.string
     }))
   }))
-};
+};*/
 
 export default ConditionSelection;

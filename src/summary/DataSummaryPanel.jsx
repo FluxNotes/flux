@@ -1,7 +1,7 @@
 // React imports
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+//import moment from 'moment';
 // Components
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
@@ -11,125 +11,92 @@ import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
 // Lodash component
-import Lang from 'lodash'
+//import Lang from 'lodash'
 //font awesome
 import 'font-awesome/css/font-awesome.min.css';
 
 // Styling
 import './DataSummaryPanel.css';
 
+//TODO: this.props.allowItemClick should control enabled state of all buttons next to items
+
+/* props:
+	onItemClicked={this.handleSummaryItemSelected}
+	// Properties
+	allowItemClick={this.state.currentShortcut == null}
+	summaryMetadata={this.state.summaryMetadata}
+	patient={this.state.patient}
+
+	summaryMetadata: 	{ "http://snomed.info/sct/254837009" :	{ sections: [	{ name: "Current Diagnosis",
+			items: [	{ name: "Name", value: (patient, currentConditionEntry) => { return currentConditionEntry.value.coding.displayText; }},
+						{ name: "Stage", value: (patient, currentConditionEntry) => { return "T" + currentConditionEntry.staging.tumorSize + "N" + currentConditionEntry.staging.nodeMetastasis + "M" + currentConditionEntry.staging.metastasis }} ]}
+		]}
+						},
+*/
+
 class DataSummaryPanel extends Component {
+	constructor(props) {
+		super(props);
+	
+		// Set the initial state when the app is first constructed.
+		this.state = {
+			activeConditionIndex: 0
+		}
+		
+		this.changeConditionIndex = this.changeConditionIndex.bind(this);
+	}
+
+	changeConditionIndex(newIndex) {
+		this.setState({activeConditionIndex: newIndex});
+	}
+	
     render() {
-        let progressionHeader = "";
-        const sixMonthsAgoDate = moment().subtract(6, 'months');
-
-        // Format the current progression entry for the data summary table component
-        let currentProgressionArray = [];
-
-        // Format Progression
-        //
-        // If there is a progression shortcut to include, parse it's values
-        const isCurrentShortcut = (!Lang.isNull(this.props.currentShortcut));
-        let isProgressionShortcut = false;
-        if (isCurrentShortcut) {
-            isProgressionShortcut = (this.props.currentShortcut.getShortcutType() === "progression");
-        }
-        if (isProgressionShortcut) { 
-            currentProgressionArray = [
-                {
-                    name: "Progression Value",
-                    display: this.props.currentShortcut.progression.status,
-                    value: this.props.currentShortcut.progression.status,
-                    startDate: this.props.currentShortcut.progression.startDate
-                },
-                {
-                    name: "Reasons",
-                    display: this.props.currentShortcut.progression.reason.join(", "),
-                    value: this.props.currentShortcut.progression.reason,
-                    startDate: this.props.currentShortcut.progression.startDate
-                }
-            ];
-        } else { 
-            currentProgressionArray = [
-                {
-                    name: "Progression Value",
-                    value: "",
-                    display: "", 
-                    startDate: "",
-                },
-                {
-                    name: "Reasons",
-                    value: [],
-                    display: "", 
-                    startDate: "",
-                }
-            ];
-        }
-        // Check if start date is longer than 6 months from today's date and set the progression header accordingly
-        if (isProgressionShortcut) { 
-            if (this.props.currentShortcut.progression.startDate < sixMonthsAgoDate) {
-                progressionHeader = "Current Progression";
-            } else {
-                progressionHeader = "Progression as of " + this.props.currentShortcut.progression.startDate.format('MM/DD/YYYY') + ":";
-            }
-        } else { 
-            progressionHeader = "Progression";
-        }
-
+		const conditions = this.props.patient.getConditions();
+		const activeCondition = conditions[this.state.activeConditionIndex];
+		const codeSystem = activeCondition.specificType.coding.codeSystem;
+		const code = activeCondition.specificType.coding.value;
+		let diseaseSummaryMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
+		if (!diseaseSummaryMetadata) {
+			console.log("Unsupported condition within summary (using default): " + codeSystem + "/" + code);
+			diseaseSummaryMetadata = this.props.summaryMetadata["default"];
+		}
         return (
             <div className="dashboard-panel">
                 <Paper className="panel-content trio">
                     <SummaryHeader
-                        photo={this.props.patient.photo}
-                        patientName={this.props.patient.name}
-                        mrn={this.props.patient.mrn}
-                        dateOfBirth={this.props.patient.dateOfBirth}
-                        administrativeSex={this.props.patient.administrativeSex}
-                        address={this.props.patient.address}
+                        photo={this.props.patient.getMostRecentPhoto()}
+                        patientName={this.props.patient.getName()}
+                        mrn={this.props.patient.getMRN()}
+                        dateOfBirth={this.props.patient.getPersonOfRecord().dateOfBirth}
+                        administrativeSex={this.props.patient.getPersonOfRecord().administrativeGender}
+                        address={this.props.patient.getCurrentHomeAddress()}
                     />
-
+					
                     <ConditionSelection
-                        conditions={this.props.conditions}
+                        conditions={conditions}
+						activeConditionIndex={this.state.activeConditionIndex}
+						changeConditionIndex={this.changeConditionIndex}
                     />
 
                     <Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
                           tabItemContainerStyle={{background: 'white'}}>
                         <Tab className="tab" label="Problem Summary">
                             <div className="table-list" id="summary-list">
-                                <h2>Current Diagnosis:</h2>
-                                <DataSummaryTable
-                                    items={this.props.diagnosis}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
-                                <h2>{progressionHeader}</h2>
-                                <DataSummaryTable
-                                    items={currentProgressionArray}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
-
-                                <h2>Key Dates:</h2>
-                                <DataSummaryTable
-                                    items={this.props.keyDates}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
-
-                                <h2>Procedures:</h2>
-                                <DataSummaryTable
-                                    items={this.props.procedures}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
-
-                                <h2>Pathology Results (Initial Diagnosis):</h2>
-                                <DataSummaryTable
-                                    items={this.props.pathology}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
-
-                                <h2>Genetics:</h2>
-                                <DataSummaryTable
-                                    items={this.props.genetics}
-                                    onItemClicked={this.props.onItemClicked}
-                                />
+								{diseaseSummaryMetadata.sections.map((section, i) => {
+									return (
+										<div key={i}>
+											<h2>{section.name}</h2>
+											<DataSummaryTable 
+												items={section.items} 
+												itemsFunction={section.itemsFunction}
+												patient={this.props.patient}
+												currentConditionEntry={activeCondition}
+												onItemClicked={this.props.onItemClicked}
+												allowItemClick={this.props.allowItemClick}
+											/>
+										</div>
+										);
+									})}
                             </div>
                         </Tab>
                         <Tab className="tab" label="Clinical Notes">
@@ -137,7 +104,7 @@ class DataSummaryPanel extends Component {
                                 <h2>Previous Clinical Notes</h2>
                                 <table className="existing-notes">
                                     <tbody>
-                                    {this.props.patient.previousNotes.map((item, i) => {
+                                    {this.props.patient.getNotes().map((item, i) => {
                                         return (
                                             <tr className="existing-note-entry" key={i}>
                                                 <td className="existing-note-date" width="15%">{item.date}</td>
@@ -181,11 +148,9 @@ class DataSummaryPanel extends Component {
 
 DataSummaryPanel.propTypes = {
     patient: PropTypes.object,
-    conditions: PropTypes.array,
-    diagnosis: PropTypes.array,
-    pathology: PropTypes.array,
-    genetics: PropTypes.array,
-    onItemSelected: PropTypes.func
+    summaryMetadata: PropTypes.object,
+    allowItemClick: PropTypes.bool,
+    onItemClicked: PropTypes.func
 };
 
 export default DataSummaryPanel;
