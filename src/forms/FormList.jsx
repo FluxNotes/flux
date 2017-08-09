@@ -26,7 +26,7 @@ class FormList extends Component {
 
     render() {
         return (
-            <div id="forms-panel" className="dashboard-panel">
+            <div id="list-panel" className="dashboard-panel">
                 <List>
                     {this.props.shortcuts.map((t, i) => {
                         return (
