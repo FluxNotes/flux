@@ -8,10 +8,6 @@ Object.defineProperty(exports, "__esModule", {
 function position($node, offsetx, offsety) {
   offsetx = offsetx || 0;
   offsety = offsety || 0;
-  console.log('getting position')
-  console.log($node)
-  console.log(offsetx)
-  console.log(offsety)
   var nodeLeft = 0;
   var nodeTop = 0;
   if ($node) {
@@ -22,19 +18,15 @@ function position($node, offsetx, offsety) {
   var pos = { left: 0, top: 0 };
 
   if (document.selection) {
-    console.log("document.selection works")
     var range = document.selection.createRange();
     pos.left = range.offsetLeft + offsetx - nodeLeft;
     pos.top = range.offsetTop + offsety - nodeTop;
-    console.log(pos)
   } else if (window.getSelection) {
-    console.log("document.selection isn't truthy, but window.getSelection works")
     var sel = window.getSelection();
     if (sel.rangeCount === 0)  { 
       console.log('for whatever reason the range count is zero')
       return {};
     }
-    console.log('selection range count is not zero')
     var _range = sel.getRangeAt(0).cloneRange();
 
     try {
@@ -42,10 +34,6 @@ function position($node, offsetx, offsety) {
     } catch (e) {console.log("error in setting range start")}
 
     var rect = _range.getBoundingClientRect();
-    console.log('getting rectangle bounding ClientRect')
-    console.log(rect)
-    console.log('original range Object')
-    console.log(_range)
     if (_range.endOffset === 0 || _range.toString() === '') {
       // first char of line
       if (_range.startContainer === $node) {

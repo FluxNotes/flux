@@ -199,11 +199,16 @@ var SuggestionPortal = function (_React$Component) {
       }
 
       if (_this.matchTrigger() || match) {
-        var rect = (0, _caretPosition2.default)();
-        menu.style.display = 'block';
-        menu.style.opacity = 1;
-        menu.style.top = (rect.top + window.pageYOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
-        menu.style.left = (rect.left + window.pageXOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
+        var rect = (0, _caretPosition2.default)(); 
+        // Is the rect object for the caretPosition empty?
+        if (Object.keys(rect).length === 0 && rect.constructor === Object) { 
+          console.log('caretPosition is having issues; for information investigate line 27 in caret-position.js')
+        } else { 
+          menu.style.display = 'block';
+          menu.style.opacity = 1;
+          menu.style.top = (rect.top + window.pageYOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
+          menu.style.left = (rect.left + window.pageXOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
+        }
       }
     };
 
