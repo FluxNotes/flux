@@ -37,9 +37,7 @@ function breastCancerPrognosticStage(t, n, m) {
 // Converts a prognostic stage (e.g. 'IIIA') into a list of possible T,N,M
 // values based on the specified staging edition. If none specified, defaults
 // to the 7th edition.
-exports.breastCancerPossibleTNM = (prognosticStage, edition) => {
-  edition = (typeof edition !== 'undefined') ?  edition : 7;
-
+exports.breastCancerPossibleTNM = (prognosticStage, edition=7) => {
   let values = [];
 
   // Lookup the needed values for the specified edition

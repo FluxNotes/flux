@@ -170,19 +170,16 @@ exports.getTableForEdition = (ed) => {
     }
 }
 
-exports.isValidT = (possibleT, edition) => {
-    edition = (typeof edition !== 'undefined') ?  edition : 7;
+exports.isValidT = (possibleT, edition=7) => {
     const possibleTValues = exports.getTsForEdition(edition);
     return possibleTValues.some((tValue) => {return tValue.name.toLowerCase() === possibleT.toLowerCase()});
 }
 
-exports.isValidN = (possibleN, edition) => {
-    edition = (typeof edition !== 'undefined') ?  edition : 7;
+exports.isValidN = (possibleN, edition=7) => {
     const possibleNValues = exports.getNsForEdition(edition);
     return possibleNValues.some((nValue) => {return nValue.name.toLowerCase() === possibleN.toLowerCase()});
 }
-exports.isValidM = (possibleM, edition) => {
-    edition = (typeof edition !== 'undefined') ?  edition : 7;
+exports.isValidM = (possibleM, edition=7) => {
     const possibleMValues = exports.getMsForEdition(edition);
     return possibleMValues.some((mValue) => {return mValue.name.toLowerCase() === possibleM.toLowerCase()});
 }
