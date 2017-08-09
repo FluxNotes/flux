@@ -5,8 +5,7 @@ const Lang = require('lodash/lang');
 // Uses the 7th staging edition, see:
 // https://cancerstaging.org/references-tools/quickreferences/Documents/BreastMedium.pdf
 
-exports.breastCancerPrognosticStage = breastCancerPrognosticStage;
-function breastCancerPrognosticStage(t, n, m) {
+exports.breastCancerPrognosticStage = (t, n, m) => {
   // Regardless of edition, metastatic cancer is always stage IV
   if (Lang.isUndefined(t) || Lang.isUndefined(n) || Lang.isUndefined(m)) {
     return null;
