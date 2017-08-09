@@ -15,7 +15,7 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 
 import AutoReplace from 'slate-auto-replace'
-import SuggestionsPlugin from 'slate-suggestions'
+import SuggestionsPlugin from './../lib/slate-suggestions-dist'
 
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 
