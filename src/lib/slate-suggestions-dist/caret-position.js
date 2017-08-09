@@ -30,7 +30,10 @@ function position($node, offsetx, offsety) {
   } else if (window.getSelection) {
     console.log("document.selection isn't truthy, but window.getSelection works")
     var sel = window.getSelection();
-    if (sel.rangeCount === 0) return null;
+    if (sel.rangeCount === 0)  { 
+      console.log('for whatever reason the range count is zero')
+      return {};
+    }
     console.log('selection range count is not zero')
     var _range = sel.getRangeAt(0).cloneRange();
 

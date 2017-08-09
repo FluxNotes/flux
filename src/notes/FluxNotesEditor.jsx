@@ -137,7 +137,7 @@ class FluxNotesEditor extends React.Component {
                     
                 const newText = `${text.substring(0, index.start)} `
                 let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
-                let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key);
+                let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, suggestion.key).focus();
                 return transformAfterInsert.apply();
             }
         });
@@ -176,7 +176,9 @@ class FluxNotesEditor extends React.Component {
                 return state.transform()
                     .deleteBackward(anchorOffset)
                     .insertText(newText)
-                    .insertText(value).apply();
+                    .insertText(value)
+                    .focus()
+                    .apply();
             }
         });
         
