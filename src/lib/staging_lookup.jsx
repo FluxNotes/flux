@@ -35,7 +35,7 @@ const table5thEdition = [
 // 6th Edition, p.228:
 // https://cancerstaging.org/references-tools/deskreferences/Documents/AJCC6thEdCancerStagingManualPart2.pdf
 
-// const ts6thEdition = ['TIS', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
+// const ts6thEdition = ['Tis', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
 const ts6thEdition = [
     {name: 'Tis', description: "Carcinoma in situ"},
     {name: 'T0', description: "No evidence of primary tumor"},
