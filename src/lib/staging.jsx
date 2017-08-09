@@ -23,8 +23,8 @@ function breastCancerPrognosticStage(t, n, m) {
 
   // 7th edition staging, lookup[T][N]
   // null return values mean the staging is undefined for those T,N,M values
-  const ti = (lookup.getTsNamesForEdition(7)).indexOf(t.toString().toUpperCase());
-  const ni = (lookup.getNsNamesForEdition(7)).indexOf(n.toString().toUpperCase());
+  const ti = (lookup.getTsNamesForEdition(7)).indexOf(t.toString());
+  const ni = (lookup.getNsNamesForEdition(7)).indexOf(n.toString());
 
   if (ti === -1 || ni === -1) {
     // Unrecognized T or N value
