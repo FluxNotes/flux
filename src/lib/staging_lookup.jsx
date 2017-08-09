@@ -64,7 +64,7 @@ const table6thEdition = [
 // 7th Edition:
 // https://cancerstaging.org/references-tools/quickreferences/Documents/BreastMedium.pdf
 
-// const ts7thEdition = ['TIS', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
+// const ts7thEdition = ['Tis', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
 const ts7thEdition = [
     {name: 'Tis', description: "Carcinoma in situ"},
     {name: 'T0', description: "No evidence of primary tumor"},
@@ -73,10 +73,10 @@ const ts7thEdition = [
     {name: 'T3', description: "Tumor > 50 mm in greatest dimension"},
     {name: 'T4', description: "Tumor of any size with direct extension to the chest wall and/or to the skin (ulceration or skin nodules)"}
 ];
-// const ns7thEdition = ['N0', 'N1MI', 'N1', 'N2', 'N3'];
+// const ns7thEdition = ['N0', 'N1mi', 'N1', 'N2', 'N3'];
 const ns7thEdition = [
     {name: 'N0', description: "No regional lymph node metastases"},
-    {name: 'N1Mi', description: "Micrometastases (greater than 0.2 mm and/or more than 200 cells, but none greater than 2.0 mm)"},
+    {name: 'N1mi', description: "Micrometastases (greater than 0.2 mm and/or more than 200 cells, but none greater than 2.0 mm)"},
     {name: 'N1', description: "Micrometastases; or metastases in 1–3 axillary lymph nodes; and/or in internal mammary nodes with metastases detected by sentinel lymph node biopsy but not clinically detected"},
     {name: 'N2', description: "Metastases in 4–9 axillary lymph nodes; or in clinically detected internal mammary lymph nodes in the absence of axillary lymph node metastases"},
     {name: 'N3', description: "Metastases in 10 or more axillary lymph nodes; or in infraclavicular (level III axillary) lymph nodes; or in clinically detected ipsilateral internal mammary lymph nodes in the presence of one or more positive level I, II axillary lymph nodes; or in more than three axillary lymph nodes and in internal mammary lymph nodes with micrometastases or macrometastases detected by sentinel lymph node biopsy but not clinically detected; or in ipsilateral supraclavicular lymph nodes"}
