@@ -1,6 +1,6 @@
 
-import 'babel-polyfill'
 import 'es6-shim';
+import 'babel-polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
 
