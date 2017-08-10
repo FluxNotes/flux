@@ -1,5 +1,5 @@
 
-#shortcut-viewer { 
+#shortcut-viewer {
     background: white;
     height: calc(100vh - 64px - 40px);
     text-align: left;
@@ -13,3 +13,4 @@
 .btn_viewer {
     margin-left: 5px;
 }
+
