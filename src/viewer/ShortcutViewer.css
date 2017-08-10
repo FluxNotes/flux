@@ -1,7 +1,7 @@
 
 #shortcut-viewer { 
     background: white;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 64px - 40px);
     text-align: left;
     z-index: 2;
     padding: 20px;
