@@ -365,14 +365,14 @@ class FluxNotesEditor extends React.Component {
 	// called from portal when an item is selected (context is not null) or if portal is closed without
 	// selection (context is null)
 	onPortalSelection = (state, context) => {
-		console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
+		//console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
 		//try {
 			this.setState({ isPortalOpen: false });
 		//} catch (e) {
 		//	console.log("TypeError consumed");
 		//}
 		if (Lang.isNull(context)) return state;
-		console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
+		//console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
 		this.contextManager.addContext(context.object);
 		let transform;
 		if (this.state.needToDelete) {

@@ -228,7 +228,7 @@ function onOutsideStructuredFieldDropDownTab(event, data, state, editor, opts) {
 }
 
 function onOutsideStructuredFieldDropDownEnter(event, data, state, editor, opts) {
-	console.log("structuredFieldPlugin.onOutsideStructuredFieldDropDownEnter");
+	//console.log("structuredFieldPlugin.onOutsideStructuredFieldDropDownEnter");
 	const newState = state
 		.transform()
 		.insertText('\n')

@@ -48,7 +48,7 @@ class ContextPortal extends React.Component {
   }
 
   onOpen = (portal) => {
-	console.log("onOpen");
+	//console.log("onOpen");
     this.setState({ menu: portal.firstChild, active: true, justActive: true })
 	setTimeout(function(){ this.setState({ justActive: false }) }.bind(this), 100);
   }
@@ -56,7 +56,7 @@ class ContextPortal extends React.Component {
   // called when user hits esc or clicks outside of portal
   // call onSelected with null context to indicate nothing selected and just clean up state
   onClose = () => {
-	console.log("onClose");
+	//console.log("onClose");
     if (this.props.isOpened) {
 		this.props.onChange(this.props.onSelected(this.props.state, null));
 	}
@@ -64,7 +64,7 @@ class ContextPortal extends React.Component {
   }
 
   handleKeydownCP(e) {
-    console.log("ContextPortal.handleKeyDownCP active=" + this.state.active + " " + e);
+    //console.log("ContextPortal.handleKeyDownCP active=" + this.state.active + " " + e);
     if (this.state.active) {
 		e.preventDefault();
 		e.stopPropagation();
@@ -77,7 +77,7 @@ class ContextPortal extends React.Component {
   }
   
   onKeyDown(keyCode) {
-    console.log("ContextPortal.onKeyDown " + keyCode);
+    //console.log("ContextPortal.onKeyDown " + keyCode);
     if (keyCode === DOWN_ARROW_KEY) {
       if (this.selectedIndex + 1 === this.state.contexts.length) {
         this.selectedIndex = -1
@@ -91,7 +91,7 @@ class ContextPortal extends React.Component {
       this.selectedIndex -= 1
       this.forceUpdate()
     } else if (keyCode === ENTER_KEY) {
-		console.log("ENTER. selected " + this.state.contexts[this.selectedIndex]);
+		//console.log("ENTER. selected " + this.state.contexts[this.selectedIndex]);
 		this.setState({ active: false, justActive: false });
 		this.props.onChange(this.props.onSelected(this.props.state, this.state.contexts[this.selectedIndex]));
 	}
@@ -119,7 +119,7 @@ class ContextPortal extends React.Component {
     const { menu } = this.state
     if (!menu) return
 
-	console.log("closePortal: remove style attribute.");
+	//console.log("closePortal: remove style attribute.");
 	//menu.removeAttribute('style')
 	
 	return
