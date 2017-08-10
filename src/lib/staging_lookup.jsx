@@ -91,22 +91,22 @@ const table7thEdition = [
     ['IIIB', null, 'IIIB', 'IIIB', 'IIIC'] // T4
 ];
 
-const getTsForEdition = (ed) => {
+exports.getTsForEdition = (ed) => {
     switch (ed) {
-    case 5:
-        return ts5thEdition;
-    case 6:
-        return ts6thEdition;
-    case 7:
-        return ts7thEdition;
+        case 5:
+            return ts5thEdition;
+        case 6:
+            return ts6thEdition;
+        case 7:
+            return ts7thEdition;
+        default: 
+            return [];
     }
-    return [];
-};
-exports.getTsForEdition = getTsForEdition;
+}
 
 // Returns just the names of the T values(without the tool tip text)
 exports.getTsNamesForEdition = (ed) => {
-    const ts = getTsForEdition(ed);
+    const ts = exports.getTsForEdition(ed);
     let names = [];
     ts.forEach((t) => {
         names.push(t.name);
@@ -114,22 +114,22 @@ exports.getTsNamesForEdition = (ed) => {
     return names;
 }
 
-const getNsForEdition = (ed) => {
+exports.getNsForEdition = (ed) => {
     switch (ed) {
-    case 5:
-        return ns5thEdition;
-    case 6:
-        return ns6thEdition;
-    case 7:
-        return ns7thEdition;
+        case 5:
+            return ns5thEdition;
+        case 6:
+            return ns6thEdition;
+        case 7:
+            return ns7thEdition;
+        default: 
+            return [];
     }
-    return [];
-};
-exports.getNsForEdition = getNsForEdition;
+}
 
 // Returns just the names of the N values(without the tool tip text)
 exports.getNsNamesForEdition = (ed) => {
-    const ns = getNsForEdition(ed);
+    const ns = exports.getNsForEdition(ed);
     let names = [];
     ns.forEach((n) => {
         names.push(n.name);
@@ -137,48 +137,49 @@ exports.getNsNamesForEdition = (ed) => {
     return names;
 }
 
-const getMsForEdition = (ed) => {
+exports.getMsForEdition = (ed) => {
     switch (ed) {
-    case 5:
-    case 6:
-    case 7:
-        return ms;
+        case 5:
+        case 6:
+        case 7:
+            return ms;
+        default: 
+            return [];
     }
-    return [];
-};
-exports.getMsForEdition = getMsForEdition;
-
+}
 
 exports.getMsNamesForEdition = (ed) => {
-    const ms = getMsForEdition(ed);
+    const ms = exports.getMsForEdition(ed);
     let names = [];
     ms.forEach((m) => {
         names.push(m.name);
     });
     return names;
-};
+}
 
 exports.getTableForEdition = (ed) => {
     switch (ed) {
-    case 5:
-        return table5thEdition;
-    case 6:
-        return table6thEdition;
-    case 7:
-        return table7thEdition;
+        case 5:
+            return table5thEdition;
+        case 6:
+            return table6thEdition;
+        case 7:
+            return table7thEdition;
+        default: 
+            return [];
     }
-    return [];
-};
+}
 
-exports.isValidT = (possibleT, ed=7) => {
-    const possibleTValues = getTsForEdition(ed);
-    return possibleTValues.some((tValue) => tValue.name.toLowerCase() === possibleT.toLowerCase())
+exports.isValidT = (possibleT, edition=7) => {
+    const possibleTValues = exports.getTsForEdition(edition);
+    return possibleTValues.some((tValue) => {return tValue.name.toLowerCase() === possibleT.toLowerCase()});
 }
-exports.isValidN = (possibleN, ed=7) => {
-    const possibleNValues = getNsForEdition(ed);
-    return possibleNValues.some((nValue) => nValue.name.toLowerCase() === possibleN.toLowerCase())
+
+exports.isValidN = (possibleN, edition=7) => {
+    const possibleNValues = exports.getNsForEdition(edition);
+    return possibleNValues.some((nValue) => {return nValue.name.toLowerCase() === possibleN.toLowerCase()});
 }
-exports.isValidM = (possibleM, ed=7) => {
-    const possibleMValues = getMsForEdition(ed);
-    return possibleMValues.some((mValue) => mValue.name.toLowerCase() === possibleM.toLowerCase())
+exports.isValidM = (possibleM, edition=7) => {
+    const possibleMValues = exports.getMsForEdition(edition);
+    return possibleMValues.some((mValue) => {return mValue.name.toLowerCase() === possibleM.toLowerCase()});
 }

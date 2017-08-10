@@ -96,7 +96,7 @@ class EditorToolbar extends React.Component {
         if (this.props.patient == null) {
             content = (
                 <span id="copy-button" style={{cursor:'pointer'}}>
-                <a onClick={(e) => this.handleCopyClick(e)}><i className="fa fa-files-o" aria-hidden="true"></i></a>
+                    <i className="fa fa-files-o" aria-label="copy button" onClick={(e) => this.handleCopyClick(e)}></i>
                 </span>
             )
 

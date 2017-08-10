@@ -1,6 +1,6 @@
 import Lang from 'lodash'
 import moment from 'moment';
-import staging from '../../lib/staging';
+import staging from '../lib/staging';
 
 class Patient {
 	hardCodedPatient = [

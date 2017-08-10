@@ -8711,22 +8711,22 @@ exports.getAdverseEventOptions = () => {
 }
 
 exports.isValidGrade = (possibleGrade) => {
-    return gradeOptions.some((grade) => grade.name.toLowerCase() === possibleGrade.toLowerCase());
+    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 
 exports.isValidAdverseEvent = (possibleAdverseEvent) => {
-    return adverseEventOptions.some((adverseEvent) => adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase());
+    return adverseEventOptions.some((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
-exports.findGradeIndex = (possibleGrade) => { 
-    return gradeOptions.findIndex((grade) => grade.name.toLowerCase() === possibleGrade.toLowerCase());
+exports.findGradeIndex = (possibleGrade) => {
+    return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 
-exports.findAdverseEventIndex = (possibleAdverseEvent) => { 
-    return adverseEventOptions.findIndex((adverseEvent) => adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase());
+exports.findAdverseEventIndex = (possibleAdverseEvent) => {
+    return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
-exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => { 
+exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
     
     if(Lang.isUndefined(possibleGrade)) { 
         // A null grade isn't valid
@@ -8739,7 +8739,7 @@ exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
     // If they are both
     if (exports.isValidGrade(possibleGrade) && exports.isValidAdverseEvent(possibleAdverseEvent)) { 
         // Find the object
-        const adverseEventInLookup = adverseEventOptions.find((adverseEvent) => adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase());
+        const adverseEventInLookup = adverseEventOptions.find((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
         return !Lang.isNull(adverseEventInLookup[possibleGrade])
     } else {
         return false;

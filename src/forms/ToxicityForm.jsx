@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import {List, ListItem} from 'material-ui/List';
 // Libraries
-import toxicityLookup from '../../lib/toxicity_lookup';
+import toxicityLookup from '../lib/toxicity_lookup';
 // Import Lodash libraries
 import Lang from 'lodash'
 import Array from 'lodash'

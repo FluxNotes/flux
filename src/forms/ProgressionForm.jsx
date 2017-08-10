@@ -6,7 +6,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
 // Libraries
-import progressionLookup from '../../lib/progression_lookup';
+import progressionLookup from '../lib/progression_lookup';
 // Styling
 import './ProgressionForm.css';
 

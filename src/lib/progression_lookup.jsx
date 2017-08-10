@@ -24,17 +24,17 @@ exports.getReasonOptions = () => {
 }
 
 exports.isValidStatus = (possibleStatus) => {
-    return statusOptions.some((status) => status.name.toLowerCase() === possibleStatus.toLowerCase())
+    return statusOptions.some((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
 exports.isValidReason = (possibleReason) => {
-    return reasonOptions.some((reason) => reason.name.toLowerCase() === possibleReason.toLowerCase())
+    return reasonOptions.some((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }
 
 exports.findStatusIndex = (possibleStatus) => { 
-    return statusOptions.findIndex((status) => status.name.toLowerCase() === possibleStatus.toLowerCase())
+    return statusOptions.findIndex((status) => { return status.name.toLowerCase() === possibleStatus.toLowerCase()})
 }
 
 exports.findReasonIndex = (possibleReason) => { 
-    return reasonOptions.findIndex((reason) => reason.name.toLowerCase() === possibleReason.toLowerCase())
+    return reasonOptions.findIndex((reason) => { return reason.name.toLowerCase() === possibleReason.toLowerCase()})
 }
