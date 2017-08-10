@@ -1,12 +1,11 @@
 // React imports
 import React, {Component} from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-
+// import CopyToClipboard from 'react-copy-to-clipboard';
 
 // material-ui
-import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
+// import Paper from 'material-ui/Paper';
+// import Divider from 'material-ui/Divider';
+// import RaisedButton from 'material-ui/RaisedButton';
 
 // Lodash component
 import Lang from 'lodash'
@@ -36,7 +35,7 @@ class ShortcutViewer extends Component {
         }
 
         return (
-            <div id="shortcut-viewer" className="dashboard-panel">
+            <div id="shortcut-viewer">
 
 
                 {/*<CopyToClipboard text={string}>*/}
