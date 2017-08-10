@@ -57,6 +57,10 @@ class ShortcutViewer extends Component {
                 {/*<Divider className="divider"/>*/}
               
                 {panelContent}
+                <br/>
+                <div>
+                    {string}
+                </div>
 
             </div>
         )
