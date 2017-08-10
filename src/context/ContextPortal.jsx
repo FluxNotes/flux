@@ -8,14 +8,17 @@ import './ContextPortal.css';
 
 const UP_ARROW_KEY = 38
 const DOWN_ARROW_KEY = 40
-//const ENTER_KEY = 13
+const ENTER_KEY = 13
 //const RESULT_SIZE = 5
 
 class ContextPortal extends React.Component {
   componentDidMount = () => {
-    this.adjustPosition()
+    document.addEventListener('keydown', this.handleKeydownCP);
+	this.adjustPosition()
   }
-
+  componentWillUnmount() {
+	document.removeEventListener('keydown', this.handleKeydownCP);
+  }
   componentDidUpdate = () => {
     this.adjustPosition()
   }
@@ -25,56 +28,78 @@ class ContextPortal extends React.Component {
 		this.setState({
 			contexts: props.contexts
 		});
-		//this.selectedIndex = 0;
+		this.selectedIndex = 0;
 	}
   }
 
   constructor(props) {
     super()
 	
-	props.callback.onKeyDown = this.onKeyDown
+	//props.callback.onKeyDown = this.onKeyDown
+	this.handleKeydownCP = this.handleKeydownCP.bind(this);
     props.callback.onSelected = props.onSelected
     props.callback.closePortal = this.closePortal
     props.callback.readOnly = false
 	this.state = {
-		contexts: props.contexts
+		contexts: props.contexts,
+		active: false,
+		justActive: false
 	}
   }
 
   onOpen = (portal) => {
-    this.setState({ menu: portal.firstChild })
+	console.log("onOpen");
+    this.setState({ menu: portal.firstChild, active: true, justActive: true })
+	setTimeout(function(){ this.setState({ justActive: false }) }.bind(this), 100);
+  }
+  
+  // called when user hits esc or clicks outside of portal
+  // call onSelected with null context to indicate nothing selected and just clean up state
+  onClose = () => {
+	console.log("onClose");
+    if (this.props.isOpened) {
+		this.props.onChange(this.props.onSelected(this.props.state, null));
+	}
+	this.setState({ active: false, justActive: false }); // TEST: menu: null, 
   }
 
-  setCallbackContext = () => {
-    if (this.state.contexts.length) {
-      this.props.callback.context = this.state.contexts[this.selectedIndex]
-    } else {
-      this.props.callback.context = undefined
-    }
+  handleKeydownCP(e) {
+    console.log("ContextPortal.handleKeyDownCP active=" + this.state.active + " " + e);
+    if (this.state.active) {
+		e.preventDefault();
+		e.stopPropagation();
+		if (this.state.justActive) { // eat key that made us become active
+			this.setState({ justActive: false });
+			return;
+		}
+		this.onKeyDown(e.keyCode);
+	}
   }
-
-  onKeyDown = (keyCode) => {
-    //console.log("ContextPortal.onKeyDown");
+  
+  onKeyDown(keyCode) {
+    console.log("ContextPortal.onKeyDown " + keyCode);
     if (keyCode === DOWN_ARROW_KEY) {
       if (this.selectedIndex + 1 === this.state.contexts.length) {
         this.selectedIndex = -1
       }
       this.selectedIndex += 1
-      this.setCallbackSuggestion()
       this.forceUpdate()
     } else if (keyCode === UP_ARROW_KEY) {
       if (this.selectedIndex === 0) {
         this.selectedIndex = this.state.contexts.length
       }
       this.selectedIndex -= 1
-      this.setCallbackSuggestion()
       this.forceUpdate()
-    }
+    } else if (keyCode === ENTER_KEY) {
+		console.log("ENTER. selected " + this.state.contexts[this.selectedIndex]);
+		this.setState({ active: false, justActive: false });
+		this.props.onChange(this.props.onSelected(this.props.state, this.state.contexts[this.selectedIndex]));
+	}
   }
 
   adjustPosition = () => {
     const { menu } = this.state
-    if (!menu) return
+    if (!menu || !menu.style) return
 	//console.log("!!!!!!!!!!!!!!!!!!!! in adjustPosition/state.menu set");
 	//console.log(menu);
 
@@ -94,8 +119,9 @@ class ContextPortal extends React.Component {
     const { menu } = this.state
     if (!menu) return
 
-	//console.log("closePortal: remove style attribute.");
-	menu.removeAttribute('style')
+	console.log("closePortal: remove style attribute.");
+	//menu.removeAttribute('style')
+	
 	return
   }
 
@@ -110,12 +136,10 @@ class ContextPortal extends React.Component {
 	if (Lang.isNull(contexts)) return null; 
 	
     return (
-      <Portal isOpened={this.props.isOpened} onOpen={this.onOpen}>
+      <Portal closeOnEsc closeOnOutsideClick isOpened={this.props.isOpened} onOpen={this.onOpen} onClose={this.onClose}>
         <div className="context-portal">
           <ul>
             {contexts.map((context, index) => {
-			  //console.log(context);
-
               return <ContextItem
                 key={context.key}
                 index={index}

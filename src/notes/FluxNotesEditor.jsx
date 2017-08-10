@@ -76,7 +76,7 @@ class FluxNotesEditor extends React.Component {
 		
 		this.didFocusChange = false;
 		
-		this.onSelected = this.onSelected.bind(this);
+		this.onPortalSelection = this.onPortalSelection.bind(this);
 		this.onChange = this.onChange.bind(this);
 		
         // Set the initial state when the app is first constructed.
@@ -212,23 +212,45 @@ class FluxNotesEditor extends React.Component {
 			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
 		}
 			
-		const newText = `${text.substring(0, index.start)} `
+		const newText = `${text.substring(0, index.start)}`
 		return transform
 			.deleteBackward(anchorOffset)
 			.insertText(newText)	
 	}
+
+	// debugging @condition which is case where valueFunc returns an array so we present a pick list via 
+	// ContextPortal
+	// autocomplete call to handleInserter:
+	//		let transform = this.handleInserter(true, suggestion.valueFunc);
+	//		works if click on condition in autocomplete then hit enter to choose 1st condition
+	//		works if hit enter to choose condition autocomplete then hit enter to choose 1st condition
+	// autoreplace call to handleInserter:
+	//		let newTransform = this.handleInserter(false, inserter.value, transform);
+	//		get extra enter in editor before text if:
+	//			type @condition followed by a space then hit enter to choose 1st condition
+	//   		solved by returning blur transform from array case
+	//		now enter/enter case doesn't work (autcomplete with enter then enter to choose condition):
+	//			doesn't get inserted but may because of crash in suggestions plugin
+	//			remove setting menu to null on close of portal
+	//		now losing state typed for autocomplete case
+	//			looks like it happens if I just hit enter enter. Those enter keys are consumed as well as the @cond...
+	//			maybe the get word functionality is getting confused when there is no space character to find? have an
+	//			@ though which should be enough
+	//			also, need to get rid of TypeErros from slate suggestions (which Dylan has done in our own version)
 	
 	handleInserter(needToDelete, valueFunc, transform = null) {
 		let value = valueFunc(this.contextManager); //this.props.patient
 		if (Lang.isArray(value)) {
-			//console.log("*****************");
-
 			let portalOptions = [];
 			value.forEach((item) => {
 				portalOptions.push({key: item.entryId, context: item.specificType.coding.displayText, object: item});
 			});
 			let pos = position(this.state);
 			
+			let newTransform = transform;
+			if (Lang.isNull(transform)) {
+				newTransform = this.state.state.transform();
+			}
 			this.setState({
 				isPortalOpen: true,
 				portalOptions: portalOptions,
@@ -236,7 +258,7 @@ class FluxNotesEditor extends React.Component {
 				left: pos.left,
 				top: pos.top
 			});
-			return null;
+			return newTransform.blur();
 		} else {
 			value = "" + value;
 			if (needToDelete) {
@@ -340,10 +362,18 @@ class FluxNotesEditor extends React.Component {
         return state.blocks.some(node => node.type === type);
     }
 	
-	onSelected = (state, context) => {
-		//console.log("onSelected for context portal " + context.context);
+	// called from portal when an item is selected (context is not null) or if portal is closed without
+	// selection (context is null)
+	onPortalSelection = (state, context) => {
+		console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
+		//try {
+			this.setState({ isPortalOpen: false });
+		//} catch (e) {
+		//	console.log("TypeError consumed");
+		//}
+		if (Lang.isNull(context)) return state;
+		console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
 		this.contextManager.addContext(context.object);
-	    this.setState({ isPortalOpen: false });
 		let transform;
 		if (this.state.needToDelete) {
 			transform = this.suggestionDeleteExistingTransform();
@@ -433,7 +463,7 @@ class FluxNotesEditor extends React.Component {
 							top={this.state.top}
 							state={this.state.state}
 							callback={callback}
-							onSelected={this.onSelected}
+							onSelected={this.onPortalSelection}
 							contexts={this.state.portalOptions}
 							capture={/@([\w]*)/}
 							trigger={"@"}
@@ -468,16 +498,18 @@ function position(state) {
 
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
   if (index === initialIndex) {
-    return { start: getIndexRangeForCurrentWord(text, index - 1, initialIndex), end: getIndexRangeForCurrentWord(text, index + 1, initialIndex) }
+    return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
+				end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
   }
+  //console.log("start?" + (index<initialIndex) + " char=" + text[index] + " initial char=" + initialChar);
   if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
     return index
   }
   if (index < initialIndex) {
-    return getIndexRangeForCurrentWord(text, index - 1, initialIndex)
+    return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
   }
   if (index > initialIndex) {
-    return getIndexRangeForCurrentWord(text, index + 1, initialIndex)
+    return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
   }
 }
 
