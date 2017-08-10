@@ -4,7 +4,7 @@
 
 /* Restricts app to max fixed width for very wide screens. */
 .SlimApp-content {
-    max-width: 1600px;
+    max-width: 1200px;
 }
 
 .container-fluid {
@@ -24,6 +24,8 @@
 .panel-content {
     padding: 30px;
 }
+
+
 
 .divider {
     margin: 20px 0px !important;
