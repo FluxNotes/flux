@@ -1,3 +1,15 @@
+
+#shortcut-viewer { 
+    background: white;
+    height: calc(100vh - 64px - 40px);
+    text-align: left;
+    z-index: 2;
+    padding: 20px;
+    -webkit-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
+    -moz-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
+    box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
+}
+
 .btn_viewer {
     margin-left: 5px;
 }
