@@ -50,7 +50,10 @@ class StagingForm extends Component {
     // console.log("in render. of Staging form")
     return (
        <div>
-            <h1>Current Staging</h1>
+            <h1>TNM Staging</h1>
+            <p id="data-element-description">
+              {stagingLookup.getDescription()}
+            </p>
             <Divider className="divider" />
 
             <h4>Tumor Size</h4> 

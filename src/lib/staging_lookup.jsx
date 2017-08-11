@@ -91,6 +91,10 @@ const table7thEdition = [
     ['IIIB', null, 'IIIB', 'IIIB', 'IIIC'] // T4
 ];
 
+exports.getDescription = () => {
+    return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+}
+
 exports.getTsForEdition = (ed) => {
     switch (ed) {
         case 5:

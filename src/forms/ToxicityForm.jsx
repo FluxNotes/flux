@@ -22,6 +22,7 @@ class ToxicityForm extends Component {
       this.state = {
         gradeOptions: toxicityLookup.getGradeOptions(),
         adverseEventOptions: toxicityLookup.getAdverseEventOptions(),
+        // This defines how the autocomplete component indexes the list of adverse events
         dataSourceConfig: {
           text: 'name',
           value: 'name',
@@ -189,7 +190,10 @@ class ToxicityForm extends Component {
                       || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)     // Cannot remove if it cannot be found 
     return (
         <div>
-            <h1>Patient Toxicity</h1>
+            <h1>Toxicity</h1>
+            <p id="data-element-description">
+              {toxicityLookup.getDescription()}
+            </p>
             <Divider className="divider" />
 
             <h4>Adverse Event</h4>

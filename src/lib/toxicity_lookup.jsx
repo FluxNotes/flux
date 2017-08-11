@@ -8702,6 +8702,10 @@ const adverseEventOptions = [
  }
 ]   
 
+exports.getDescription = () => {
+    return "Side effects to treatment, important for effective evaluation of disease and treatment.";
+}
+
 exports.getGradeOptions = () => {
     return gradeOptions;
 }

@@ -15,6 +15,10 @@ const reasonOptions = [
     {name: "Markers", description: "Biomarker evidence of persistent/recurrent tumor."}
 ]
 
+exports.getDescription = () => {
+    return "Determination of disease progression is based on a number of complex variables. It is the point of care which includes objective measures like tumor growth, but it also involves a variety of other objective measures, symptomatic criteria, patient reports information, and subjective evaluations.";
+}
+
 exports.getStatusOptions = () => {
     return statusOptions;
 }
