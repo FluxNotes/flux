@@ -14,6 +14,7 @@ import TimelinePanel from '../timeline/TimelinePanel';
 // Shortcuts
 import ShortcutManager from '../shortcuts/ShortcutManager';
 // Data model
+import ContextManager from '../context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
 // Lodash component
@@ -26,8 +27,22 @@ class FullApp extends Component {
         super(props);
 
 		this.getItemListForProcedures = this.getItemListForProcedures.bind(this);
+		this.stageValueFunc = this.stageValueFunc.bind(this);
+
+		this.shortcuts = [ "progression", "staging", "toxicity" ];
+		this.inserters =	[	{trigger: "age", value: (cm) => { return cm.getPatient().getAge(); }},
+					{trigger: "name", value: (cm) => { return cm.getPatient().getName(); }},
+					{trigger: "gender", value: (cm) => { return cm.getPatient().getGender(); }},
+					{trigger: "dateofbirth", value: (cm) => { return cm.getPatient().getDateOfBirth().format("D.MMM.YYYY"); }},
+					{trigger: "patient", value: (cm) => { return cm.getPatient().getName() + " is a " + cm.getPatient().getAge() + " year old " + cm.getPatient().getGender(); }},
+					{trigger: "condition", value: (cm) => { return cm.getPatient().getConditions(); }},
+					{trigger: "stage", value: this.stageValueFunc }
+				];
+
+		let patient = new Patient();
 		this.summaryMetadata = new SummaryMetadata();
 		this.shortcutManager = new ShortcutManager(this.shortcuts);
+		this.contextManager = new ContextManager(patient);		
 
 	    this.state = {
             SummaryItemToInsert: '',
@@ -37,17 +52,30 @@ class FullApp extends Component {
             currentShortcut: null,
 			currentConditionEntry: null,
 			summaryMetadata: this.summaryMetadata.getMetadata(),
-            patient: new Patient()
+            patient: patient
         };
     }
 	
-	shortcuts = [ "progression", "staging", "toxicity" ];
-	inserters =	[	{trigger: "age", value: (patient) => { return patient.getAge(); }},
-					{trigger: "name", value: (patient) => { return patient.getName(); }},
-					{trigger: "gender", value: (patient) => { return patient.getGender(); }},
-					{trigger: "dateofbirth", value: (patient) => { return patient.getDateOfBirth().format("D.MMM.YYYY"); }},
-					{trigger: "patient", value: (patient) => { return patient.getName() + " is a " + patient.getAge() + " year old " + patient.getGender(); }}
-				];
+	stageValueFunc(contextManager) {
+		let cond = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		if (!Lang.isNull(cond)) {
+			let patient = contextManager.getPatient();
+			let stagingObservation = patient.getMostRecentStagingForCondition(cond);
+			this.setState({
+				errors: []
+			});
+			if (Lang.isNull(stagingObservation)) {
+				return "unknown";
+			}
+			return stagingObservation.value.coding.displayText;
+		} else {
+			let errors = [ "@stage invalid without a breast cancer condition. Use @condition to add the condition to your narrative." ];
+			this.setState({
+				errors: errors
+			});
+			return "";
+		}
+	}
 	
 	getItemListForProcedures = (patient, currentConditionEntry) => {
 		let procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
@@ -68,7 +96,14 @@ class FullApp extends Component {
         if (!Lang.isNull(shortcutType)) {
 			newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
         }
-        this.setState({currentShortcut: newShortcut});
+		const errors = newShortcut.validateInCurrentContext(this.contextManager);
+		if (errors.length > 0) {
+			errors.forEach((error) => {
+				console.log(error);
+			});
+			newShortcut = null;
+		}
+        this.setState({currentShortcut: newShortcut, errors: errors});
 		return newShortcut;
     }
 	
@@ -77,21 +112,21 @@ class FullApp extends Component {
 	}
 
     handleShortcutUpdate = (s) =>{
-        console.log(`Updated shortcut`);
+        //console.log(`Updated shortcut`);
 		let p = this.state.patient;
-		s.updatePatient(p);
+		s.updatePatient(p, this.contextManager);
         this.setState({currentShortcut: s, patient: p});
     }
 
     handleStructuredFieldEntered = (field) => {
-        console.log("structured field entered: " + field);
+        //console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
-        console.log("structured field exited: " + field);
+        //console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
@@ -137,8 +172,10 @@ class FullApp extends Component {
                                     currentShortcut={this.state.currentShortcut}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
+									contextManager={this.contextManager}
 									shortcutList={this.shortcuts}
 									inserters={this.inserters}
+									errors={this.state.errors}
                                 />
                             </Col>
                             <Col sm={3}>

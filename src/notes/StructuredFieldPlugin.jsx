@@ -74,7 +74,7 @@ function StructuredFieldPlugin(opts) {
 	}
 
     function onDropdownFocus(proxy, event)  {
-		// console.log("onDropDownFocus START");
+		//console.log("onDropDownFocus START");
 		const state = this.getState(); // this is bound to editor. binding to state made it always have old state
 		//console.log(state.selection);
         // Get Slate Key of parent element
@@ -84,9 +84,9 @@ function StructuredFieldPlugin(opts) {
         if (dropdownKey !== selectedNode.key) {  // state.selection.startKey
             ////console.log(`oddf: Drop down focus changed. Update slate selection to match`);
 			//console.log(state);
-   //          console.log(`oddf: HTML focused component key: ${dropdownKey}`);
-   //          console.log(`oddf: Slate Selection start key : ${state.selection.startKey}`);
-			// console.log(`oddf: Selected Node  key        : ${selectedNode.key}`);
+            //console.log(`oddf: HTML focused component key: ${dropdownKey}`);
+            //console.log(`oddf: Slate Selection start key : ${state.selection.startKey}`);
+			//console.log(`oddf: Selected Node  key        : ${selectedNode.key}`);
             const dropdownNode = state.document.getDescendant(dropdownKey);
             /*console.log(`oddf: DropdownNode:`);
             console.log(dropdownNode);*/
@@ -95,12 +95,9 @@ function StructuredFieldPlugin(opts) {
 			const newState = state.transform().collapseToStartOf(dropdownNode).apply();
             ////console.log(`oddf: New startKey: ${newState.selection.startKey}`);
             opts.updateEditorState(newState);
-			console.log("onDropDownFocus DONE (state change)");
+			//console.log("onDropDownFocus DONE (state change)");
         } else { 
-        /*    console.log(`No need to update state -- selections are in sync`)
-            console.log(state)
-		 */
-			console.log("onDropDownFocus DONE (no state change)");
+			//console.log("onDropDownFocus DONE (no state change)");
         }
     }
 
@@ -143,7 +140,7 @@ function StructuredFieldPlugin(opts) {
 					/> 
 				);
 				shortcut.onValueChange(name, (newValue) => {
-					console.log("new value for " + name + " is " + newValue);
+					//console.log("new value for " + name + " is " + newValue);
 					components[name].setValue(newValue);
 				});
 				return ddComponent;
@@ -196,7 +193,7 @@ function StructuredFieldPlugin(opts) {
 }
 
 function onOutsideStructuredFieldDropDownTab(event, data, state, editor, opts) {
-	// console.log("onOutsideStructuredFieldDropDownTab START.");
+	//console.log("onOutsideStructuredFieldDropDownTab START.");
 	const { startKey } = state;
 	//console.log("start offset = " + startOffset);
 	const selectedNode = state.document.getDescendant(startKey);
@@ -216,21 +213,22 @@ function onOutsideStructuredFieldDropDownTab(event, data, state, editor, opts) {
 					node = state.document.getNextSibling(node.key);
 				}
 				event.preventDefault();
-				// console.log("oosfddt: key of node to select: " + node.key);
+				//console.log("oosfddt: key of node to select: " + node.key);
 				//console.log(node);
 				const newState = state
 					.transform()
 					.collapseToStartOf(node)
 					.apply();
-				// console.log("onOutsideStructuredFieldDropDownTab DONE (state changed).");
+				//console.log("onOutsideStructuredFieldDropDownTab DONE (state changed).");
 				return newState;
 			}
 		}
 	}
-	// console.log("onOutsideStructuredFieldDropDownTab DONE (state not changed).");
+	//console.log("onOutsideStructuredFieldDropDownTab DONE (state not changed).");
 }
 
 function onOutsideStructuredFieldDropDownEnter(event, data, state, editor, opts) {
+	//console.log("structuredFieldPlugin.onOutsideStructuredFieldDropDownEnter");
 	const newState = state
 		.transform()
 		.insertText('\n')
@@ -239,7 +237,7 @@ function onOutsideStructuredFieldDropDownEnter(event, data, state, editor, opts)
 }
 
 function onOutsideStructuredFieldDropDownLeftRight(event, data, state, editor, opts) {
-	// console.log("onOutsideStructuredFieldDropDownLeftRight START.");
+	//console.log("onOutsideStructuredFieldDropDownLeftRight START.");
 	const { startKey } = state;
 	const { startOffset } = state;
 	//console.log("start offset = " + startOffset);
@@ -263,19 +261,19 @@ function onOutsideStructuredFieldDropDownLeftRight(event, data, state, editor, o
 						node = state.document.getNextSibling(node.key);
 					}
 					event.preventDefault();
-					// console.log("oosfddlr: node to select:");
-					// console.log(node);
+					//console.log("oosfddlr: node to select:");
+					//console.log(node);
 					const newState = state
 						.transform()
 						.collapseToStartOf(node)
 						.apply();
-					// console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state changed).");
+					//console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state changed).");
 					return newState;
 				}
 			}
 		}
 	}
-	// console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state not changed).");
+	//console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state not changed).");
 }
 
 /**
@@ -283,13 +281,13 @@ function onOutsideStructuredFieldDropDownLeftRight(event, data, state, editor, o
  * and select the whole text
  */
 function onTab(event, data, state, opts, editor) {
-	// console.log('onTab START');
+	//console.log('onTab START');
 	event.preventDefault();
 	//const { startBlock } = state;
     //console.log("startBlock. type=" + startBlock.type + " / key=" + startBlock.key);
     const direction = (data.isShift ? -1 : +1);
 	let result = moveField(state, opts, direction);
-	// console.log('onTab DONE (state change via moveField)');
+	//console.log('onTab DONE (state change via moveField)');
 	return result;
 }
 
@@ -301,7 +299,7 @@ function onTab(event, data, state, opts, editor) {
  }
 
 function onBackspace(event, data, state, opts) {
-	// console.log('onBackspace START');
+	//console.log('onBackspace START');
 	//console.log("[onBackspace] state] " + state);
 
 	// const newState = state.transform()
@@ -317,8 +315,8 @@ function onBackspace(event, data, state, opts) {
 	if (subfield.type === opts.typeStructuredField) {
 		sf = subfield;
 
-		// console.log("in structured field. sf: ");
-		// console.log(sf);
+		//console.log("in structured field. sf: ");
+		//console.log(sf);
 	} else {
 		sf = state.document.getParent(subfield.key);
 	}
@@ -327,7 +325,7 @@ function onBackspace(event, data, state, opts) {
 		.moveToRangeOf(sf)
 		.delete()
 		.apply()
-	// console.log('onBackspace DONE (state change)');
+	//console.log('onBackspace DONE (state change)');
 	return newState;
 }
 
@@ -342,7 +340,7 @@ function onLeftRight(event, data, state, opts) {
 }
 
 function onUpDown(event, data, state, opts) {
-	console.log('onUpDown START');
+	//console.log('onUpDown START');
 /*
     const direction = data.key === 'up' ? -1 : +1;
     const pos = TablePosition.create(state, state.startBlock);
@@ -367,16 +365,16 @@ function onUpDown(event, data, state, opts) {
 }
 
 function onEnter(event, data, state, opts) {
-	// console.log('onEnter START');
+	//console.log('onEnter START');
 /*    event.preventDefault();
 
     return insertRow(opts, state.transform())
         .apply();*/
-	// console.log('onEnter DONE')
+	//console.log('onEnter DONE')
 }
 
 function moveField(state, opts, fieldDelta) {
-	// console.log("moveField START");
+	//console.log("moveField START");
 	let transform = state.transform();
 	const { startBlock } = state;
 	let block = startBlock;
@@ -420,14 +418,14 @@ function moveField(state, opts, fieldDelta) {
 	//console.log("new selection:");
 	//console.log(block);
 	//if (block.kind !== 'text') console.log("block type: " + block.type);
-	// console.log("mf: select block key: " + block.key);
+	//console.log("mf: select block key: " + block.key);
 	let result;
 	if (fieldDelta < 0) {
 		result = transform.collapseToEndOf(block).focus().apply();
 	} else {
 		result = transform.collapseToStartOf(block).focus().apply();
 	}
-	// console.log("moveField DONE (state change)");
+	//console.log("moveField DONE (state change)");
 	return result;
 }
 
@@ -495,20 +493,21 @@ function isRelevantSelection(node) {
 function isSelectionLinkageBroken(selection, parentKey) {
 	const dropdownKey = document.activeElement.parentElement.getAttribute('data-key');
 	// If current selection is not identical, make it so
-	// console.log("osc: key from html dropdown =" + dropdownKey);
+	//console.log("osc: key from html dropdown =" + dropdownKey);
 	//console.log("osc: slate selected node key=" + selection.startKey);
-	// console.log("osc: slate node parent key  =" + parentKey);
+	//console.log("osc: slate node parent key  =" + parentKey);
 	return (dropdownKey !== parentKey);
 }
 
 function onSelectionChange(opts, selection, state) {
 	let result = false;
-	// console.log("onSelectionChange START " + num);
+	//const num = new Date().getTime();
+	//console.log("onSelectionChange START " + num);
 	//const node = state.document.getDescendant(selection.startKey);
-	// console.log("osc: selection.startKey=" + selection.startKey + " " + num);
+	//console.log("osc: selection.startKey=" + selection.startKey + " " + num);
 	//console.log(selection);
 	//console.log(state.selection);
-	// console.log(state);
+	//console.log(state);
 	const parentNode = state.document.getParent(selection.startKey);
 	if (isRelevantSelection(parentNode)) { 
 		////console.log("osc: within structured field");
@@ -521,7 +520,7 @@ function onSelectionChange(opts, selection, state) {
 			//console.log(parentNode);
 			console.log("osc: " + parentNode.type);*/
 			if (parentNode.type === "sf_subfield_dropdown") {
-				// console.log("osc: focus html component " + num);
+				//console.log("osc: focus html component " + num);
 				//console.log(parentNode);
 				const domElement = Slate.findDOMNode(parentNode);
 				////console.log(domElement.childNodes[0]);
@@ -535,7 +534,7 @@ function onSelectionChange(opts, selection, state) {
 	} else {
 		opts.changeCurrentShortcut(null);
 	}
-	// console.log("onSelectionChange DONE " + num);
+	//console.log("onSelectionChange DONE " + num);
 	return result;
 }
 

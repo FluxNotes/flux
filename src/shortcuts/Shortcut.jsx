@@ -55,8 +55,12 @@ class Shortcut {
 		console.log("notifyValueChangeHandlers DONE");
 	}
 	
-	updatePatient(patient) {
+	updatePatient(patient, contextManager) {
 		throw new Error("update patient not implemented for " + this.constructor.name);
+	}
+	
+	validateInCurrentContext(contextManager) {
+		return []; // no errors
 	}
 }
 

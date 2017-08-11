@@ -1,13 +1,13 @@
 import React from 'react';
 import Slate from 'slate';
 import Lang from 'lodash';
+import ContextPortal from '../context/ContextPortal';
+//import ContextManager from '../context/ContextManager';
 
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
 // forces a version less than 0.20.3.
-//import Lang from 'lodash'
-//import { Set } from 'immutable'
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
 // Material UI component imports
@@ -21,22 +21,6 @@ import StructuredFieldPlugin from './StructuredFieldPlugin';
 
 // Styling
 import './FluxNotesEditor.css';
-
-function getCurrentWord(text, index, initialIndex, initialChar) {
-  if (index === initialIndex) {
-    return { start: getCurrentWord(text, index - 1, initialIndex), end: getCurrentWord(text, index + 1, initialIndex) }
-  }
-  if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
-    return index
-  }
-  if (index < initialIndex) {
-    return getCurrentWord(text, index - 1, initialIndex)
-  }
-  if (index > initialIndex) {
-    return getCurrentWord(text, index + 1, initialIndex)
-  }
-}
-///////////////////////////////
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Raw.deserialize(
@@ -88,11 +72,20 @@ class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
 
-        this.didFocusChange = false;
-        
+		this.contextManager = this.props.contextManager;
+		
+		this.didFocusChange = false;
+		
+		this.onPortalSelection = this.onPortalSelection.bind(this);
+		this.onChange = this.onChange.bind(this);
+		
         // Set the initial state when the app is first constructed.
         this.state = {
-            state: initialState //Slate.Raw.deserialize(stateJson, { terse: true })
+            state: initialState,
+			isPortalOpen: false,
+			portalOptions: null,
+			left: 0,
+			top: 0
         }
 
         // setup structured field plugin
@@ -132,7 +125,7 @@ class FluxNotesEditor extends React.Component {
                 let index = { start: anchorOffset - 1, end: anchorOffset }
 
                 if (text[anchorOffset - 1] !== '#') {
-                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '#')
+                    index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '#')
                 }
                     
                 const newText = `${text.substring(0, index.start)} `
@@ -161,80 +154,150 @@ class FluxNotesEditor extends React.Component {
             suggestions: suggestionsInsertions,
             onEnter: (suggestion) => {
                 //console.log("in onEnter " + suggestion.key);
-                const value = "" + suggestion.valueFunc(this.props.patient);
-                const { state } = this.state; 
-                const { anchorText, anchorOffset } = state
-                const text = anchorText.text
-
-                let index = { start: anchorOffset - 1, end: anchorOffset }
-
-                if (text[anchorOffset - 1] !== '@') {
-                    index = getCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
-                }
-                    
-                const newText = `${text.substring(0, index.start)} `
-                return state.transform()
-                    .deleteBackward(anchorOffset)
-                    .insertText(newText)
-                    .insertText(value)
-                    .focus()
-                    .apply();
+				let transform = this.handleInserter(true, suggestion.valueFunc);
+				if (Lang.isNull(transform)) {
+					return this.state.state;
+				} else {
+					return transform.apply();
+				}
             }
         });
         
        // do not use onKeyDown, use auto-replace plugin, add to existing global 'plugins' list
         this.plugins = [
-            this.suggestionsPluginShortcuts,
-            this.suggestionsPluginInsertions,
-            this.structuredFieldPlugin
-        ];
-                
-        // now add an AutoReplace plugin instance for each shortcut we're supporting as well
-        props.shortcutList.forEach((shortcutKey) => {
-            this.plugins.push(AutoReplace({
-                "trigger": "[",
-                "before": new RegExp("(#" + shortcutKey + ")", "i"),
-                "transform": (transform, e, data, matches) => {
-                    // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-                    return this.insertStructuredFieldTransform(transform, shortcutKey);
-                }
-            }));
-        });
-        
-        // now add an AutoReplace plugin instance for each inserter we're supporting
-        props.inserters.forEach((inserter) => {
-            this.plugins.push(AutoReplace({
-                "trigger": 'space',
-                "before": new RegExp("(@" + inserter.trigger + ")", "i"),
-                "transform": (transform, e, data, matches) => {
-                    return transform.insertText(`${inserter.value(this.props.patient)} `);
-                }
-            }));
-        });
+			this.suggestionsPluginShortcuts,
+			this.suggestionsPluginInsertions,
+			this.structuredFieldPlugin
+		];
+				
+		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
+		props.shortcutList.forEach((shortcutKey) => {
+			this.plugins.push(AutoReplace({
+				"trigger": "[",
+				"before": new RegExp("(#" + shortcutKey + ")", "i"),
+				"transform": (transform, e, data, matches) => {
+					// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+					return this.insertStructuredFieldTransform(transform, shortcutKey);
+				}
+			}));
+		});
+		
+		// now add an AutoReplace plugin instance for each inserter we're supporting
+		props.inserters.forEach((inserter) => {
+			this.plugins.push(AutoReplace({
+				"trigger": 'space',
+				"before": new RegExp("(@" + inserter.trigger + ")", "i"),
+				"transform": (transform, e, data, matches) => {
+					let newTransform = this.handleInserter(false, inserter.value, transform);
+					if (Lang.isNull(newTransform)) {
+						newTransform = transform;
+					}
+					return newTransform;
+				}
+			}));
+		});
     }
-    insertStructuredFieldTransform(transform, shortcutType){
+	
+	suggestionDeleteExistingTransform(transform = null) {
+		const { state } = this.state;
+		if (Lang.isNull(transform)) {
+			transform = state.transform();
+		}
+		const { anchorText, anchorOffset } = state
+		const text = anchorText.text
+
+		let index = { start: anchorOffset - 1, end: anchorOffset }
+
+		if (text[anchorOffset - 1] !== '@') {
+			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
+		}
+			
+		const newText = `${text.substring(0, index.start)}`
+		return transform
+			.deleteBackward(anchorOffset)
+			.insertText(newText)	
+	}
+
+	// debugging @condition which is case where valueFunc returns an array so we present a pick list via 
+	// ContextPortal
+	// autocomplete call to handleInserter:
+	//		let transform = this.handleInserter(true, suggestion.valueFunc);
+	//		works if click on condition in autocomplete then hit enter to choose 1st condition
+	//		works if hit enter to choose condition autocomplete then hit enter to choose 1st condition
+	// autoreplace call to handleInserter:
+	//		let newTransform = this.handleInserter(false, inserter.value, transform);
+	//		get extra enter in editor before text if:
+	//			type @condition followed by a space then hit enter to choose 1st condition
+	//   		solved by returning blur transform from array case
+	//		now enter/enter case doesn't work (autcomplete with enter then enter to choose condition):
+	//			doesn't get inserted but may because of crash in suggestions plugin
+	//			remove setting menu to null on close of portal
+	//		now losing state typed for autocomplete case
+	//			looks like it happens if I just hit enter enter. Those enter keys are consumed as well as the @cond...
+	//			maybe the get word functionality is getting confused when there is no space character to find? have an
+	//			@ though which should be enough
+	//			also, need to get rid of TypeErros from slate suggestions (which Dylan has done in our own version)
+	
+	handleInserter(needToDelete, valueFunc, transform = null) {
+		let value = valueFunc(this.contextManager); //this.props.patient
+		if (Lang.isArray(value)) {
+			let portalOptions = [];
+			value.forEach((item) => {
+				portalOptions.push({key: item.entryId, context: item.specificType.coding.displayText, object: item});
+			});
+			let pos = position(this.state);
+			
+			let newTransform = transform;
+			if (Lang.isNull(transform)) {
+				newTransform = this.state.state.transform();
+			}
+			this.setState({
+				isPortalOpen: true,
+				portalOptions: portalOptions,
+				needToDelete: needToDelete,
+				left: pos.left,
+				top: pos.top
+			});
+			return newTransform.blur();
+		} else {
+			value = "" + value;
+			if (needToDelete) {
+				return this.suggestionDeleteExistingTransform(transform).insertText(value).focus();
+			} else {
+				let newTransform = transform;
+				if (Lang.isNull(transform)) {
+					newTransform = this.state.state.transform();
+				}
+				return newTransform.insertText(value).focus();
+			}
+		}
+	}
+	
+    insertStructuredFieldTransform(transform, shortcutType) {
         let shortcut = this.props.newCurrentShortcut(shortcutType);
+		if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
         let transformAfterInsert = result[0];
         return transformAfterInsert;
     }
 
     onEditorUpdate = (newState) => {
-        let curSelection = this.state.state.selection;
+		let curSelection = this.state.state.selection;
         //console.log(`Plugin updating state`);
         this.setState({
             state: newState
         });
-        //console.log(newState);
-        if (!Lang.isEqual(curSelection, newState.selection)) this.onSelectionChange(newState.selection, newState);
+		//console.log(newState);
+		if (!Lang.isEqual(curSelection, newState.selection)) this.onSelectionChange(newState.selection, newState);
     }
     onCurrentShortcutValuesUpdate = (name, value) => {
         this.props.currentShortcut.updateValue(name, value, false);
     }
 
+	componentDidMount = () => {
+	}
+	
     componentDidUpdate = (prevProps, prevState) => {
-        //console.log("component did update");
-        //console.log(this.state.state.document);
     }
 
     onChange = (state) => {
@@ -247,48 +310,20 @@ class FluxNotesEditor extends React.Component {
 
     onSelectionChange = (selection, state) => {
         this.didFocusChange = this.structuredFieldPlugin.transforms.onSelectionChange(selection, state);
-        //console.log("onSelectionChange. did focus change = " + this.didFocusChange);
+		//console.log("onSelectionChange. did focus change = " + this.didFocusChange);
     }
-    
-    onBlur = (event, data, state, editor) => {
-        //console.log("onBlur: state.selection.startKey=" + state.selection.startKey);
-        if (this.didFocusChange) {
-            this.didFocusChange = false;
-            event.preventDefault();
-            //console.log("onBlur: suppress blur. DONE");
-            return state;
-        }
-        //console.log("onBlur: let core handle blur. DONE");
-        return;
-    }
-
-/*
-    insertStructuredField = (shortcutType) => {
-        let {state} = this.state;
-
-        // When structure field is inserted, change current shortcut
-        let shortcut = this.props.newCurrentShortcut(shortcutType);
-
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(state.transform(), shortcut);
-
-        //let sf = result[0].state.document.getDescendant(result[1]);
-        //let sf_firstChild = sf.nodes.get(0).key;
-
-
-        // Attempt to delete remove structured field first child but this did not work. First child is the $#8202 unicode and for some reason
-        // this gets added when structured field is created. When delete structured field, this character remains as part of the structured field
-        // result[0].removeNodeByKey(sf_firstChild);
-
-        let finalResult = result[0].apply();
-
-        //console.log(finalResult.document);
-
-        // Adds the inserted structured field into the editor
-        this.onChange(
-            finalResult
-        );
-    }
-    */
+	
+	onBlur = (event, data, state, editor) => {
+		//console.log("onBlur: state.selection.startKey=" + state.selection.startKey);
+		if (this.didFocusChange) {
+			this.didFocusChange = false;
+			event.preventDefault();
+			//console.log("onBlur: suppress blur. DONE");
+			return state;
+		}
+		//console.log("onBlur: let core handle blur. DONE");
+		return;
+	}
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -326,6 +361,27 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         return state.blocks.some(node => node.type === type);
     }
+	
+	// called from portal when an item is selected (context is not null) or if portal is closed without
+	// selection (context is null)
+	onPortalSelection = (state, context) => {
+		//console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
+		//try {
+			this.setState({ isPortalOpen: false });
+		//} catch (e) {
+		//	console.log("TypeError consumed");
+		//}
+		if (Lang.isNull(context)) return state;
+		//console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
+		this.contextManager.addContext(context.object);
+		let transform;
+		if (this.state.needToDelete) {
+			transform = this.suggestionDeleteExistingTransform();
+		} else {
+			transform = this.state.state.transform();
+		}
+		return transform.insertText(context.context).focus().apply();
+	}
 
     render = () => {
         //let {state} = this.state;
@@ -353,7 +409,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={3}>
                             <p className="note-description-detail-name">Signed By</p>
-                            <p className="note-description-detail-value">Dr. Brenda Zeiweger</p>
+                            <p className="note-description-detail-value">not signed</p>
                         </Col>
                     </Row>
 
@@ -361,6 +417,17 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
+		let errorDisplay = "";
+		if (this.props.errors && this.props.errors.length > 0) {
+			errorDisplay = (
+				<div>
+                    <Divider className="divider"/>
+					<h1 style={{color:'red'}}>{this.props.errors.join()}</h1>
+					<Divider className="divider"/>
+				</div>
+			);
+		}
+		const callback = {}
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -386,16 +453,64 @@ class FluxNotesEditor extends React.Component {
                             onBlur={this.onBlur}
                             schema={schema}
                         />
-                        <ShortcutsPortal 
-                            state={this.state.state} />
-                        <InsertionsPortal
-                            state={this.state.state} />
-                    </div>
+						{errorDisplay}
+						<ShortcutsPortal 
+							state={this.state.state} />
+						<InsertionsPortal
+							state={this.state.state} />
+						<ContextPortal
+							left={this.state.left}
+							top={this.state.top}
+							state={this.state.state}
+							callback={callback}
+							onSelected={this.onPortalSelection}
+							contexts={this.state.portalOptions}
+							capture={/@([\w]*)/}
+							trigger={"@"}
+							onChange={this.onChange}
+							isOpened={this.state.isPortalOpen}
+						/>
+					</div>
                 </Paper>
             </div>
         );
 
     }
+}
+
+function getPos(el) {
+    // yay readability
+    for (var lx=0, ly=0;
+         el != null;
+         lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+    return {left: lx,top: ly};
+}
+
+function position(state) {
+	let pos = {};
+	pos.left = state.left;
+	pos.top = state.top;
+	
+	const parentNode = state.state.document.getParent(state.state.selection.startKey);
+	const el = Slate.findDOMNode(parentNode);
+	return getPos(el);
+}
+
+function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
+  if (index === initialIndex) {
+    return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
+				end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
+  }
+  //console.log("start?" + (index<initialIndex) + " char=" + text[index] + " initial char=" + initialChar);
+  if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
+    return index
+  }
+  if (index < initialIndex) {
+    return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
+  }
+  if (index > initialIndex) {
+    return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
+  }
 }
 
 export default FluxNotesEditor;

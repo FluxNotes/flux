@@ -1,7 +1,6 @@
 // React imports
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-//import moment from 'moment';
 // Components
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
@@ -10,29 +9,11 @@ import DataSummaryTable from './DataSummaryTable';
 import Paper from 'material-ui/Paper';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
-// Lodash component
-//import Lang from 'lodash'
 //font awesome
 import 'font-awesome/css/font-awesome.min.css';
 
 // Styling
 import './DataSummaryPanel.css';
-
-//TODO: this.props.allowItemClick should control enabled state of all buttons next to items
-
-/* props:
-	onItemClicked={this.handleSummaryItemSelected}
-	// Properties
-	allowItemClick={this.state.currentShortcut == null}
-	summaryMetadata={this.state.summaryMetadata}
-	patient={this.state.patient}
-
-	summaryMetadata: 	{ "http://snomed.info/sct/254837009" :	{ sections: [	{ name: "Current Diagnosis",
-			items: [	{ name: "Name", value: (patient, currentConditionEntry) => { return currentConditionEntry.value.coding.displayText; }},
-						{ name: "Stage", value: (patient, currentConditionEntry) => { return "T" + currentConditionEntry.staging.tumorSize + "N" + currentConditionEntry.staging.nodeMetastasis + "M" + currentConditionEntry.staging.metastasis }} ]}
-		]}
-						},
-*/
 
 class DataSummaryPanel extends Component {
 	constructor(props) {
