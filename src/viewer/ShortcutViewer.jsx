@@ -16,25 +16,18 @@ class ShortcutViewer extends Component {
     render() {
 
         let string = "";
-        let initialString = "Choose a template from the left panel";
         let copyComponent = null;
-
-        if (this.props.currentShortcut == null) {
-            copyComponent = null;
-
-        }
-        else {
-            if (this.props.currentShortcut) {
-                string = this.props.currentShortcut.getAsString();
-                copyComponent = this._getCopyComponent(string);
-            }
-        }
-
         let panelContent = null;
+
+        if (this.props.currentShortcut) {
+            string = this.props.currentShortcut.getAsString();
+            copyComponent = this._getCopyComponent(string);
+        }
+
         if (!Lang.isNull(this.props.currentShortcut)) {
             panelContent = this.props.currentShortcut.getForm();
         } else {
-            panelContent = this._getInitialState(initialString);
+            panelContent = this._getInitialState();
         }
 
         return (
@@ -48,7 +41,7 @@ class ShortcutViewer extends Component {
 
     _getInitialState(initialString) {
         return (
-            <span>{initialString}</span>
+            <span>Choose a template from the left panel</span>
         );
     }
 

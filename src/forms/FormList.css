@@ -4,6 +4,8 @@
     /*height: calc(100vh - 64px - 80px);*/
     height: calc(100vh - 64px);
     text-align: left;
+    overflow-y: scroll;
+    overflow: overlay;
 }
 
 #list-panel .list-element.unselected{ 
