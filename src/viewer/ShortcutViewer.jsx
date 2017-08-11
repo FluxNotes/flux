@@ -20,6 +20,8 @@ class ShortcutViewer extends Component {
         let copyString = "COPY | ";
         let copyComponent = null;
         let disableCopyButton = true;
+        let copyKeywordClass = "copy-keyword-disabled";
+        let copyContentClass = "copy-content-disabled";
 
         if (this.props.currentShortcut == null) {
             copyComponent = null;
@@ -32,11 +34,15 @@ class ShortcutViewer extends Component {
 
                 if (copyString.indexOf('[') > -1) {
                     disableCopyButton = false;
+                    copyKeywordClass = "copy-keyword";
+                    copyContentClass = "copy-content";
 
                 } else {
                     disableCopyButton = true;
+                    copyKeywordClass = "copy-keyword-disabled";
+                    copyContentClass = "copy-content-disabled";
                 }
-                copyComponent = this._getCopyComponent(string, copyString, disableCopyButton);
+                copyComponent = this._getCopyComponent(string, disableCopyButton, copyKeywordClass, copyContentClass);
             }
         }
 
@@ -61,27 +67,24 @@ class ShortcutViewer extends Component {
             <span>{initialString}</span>
         );
     }
-    _getCopyComponent(string, copyString, disableCopyButton) {
+
+    _getCopyComponent(string, disableCopyButton, copyKeywordClass, copyContentClass) {
         return (
             <CopyToClipboard text={string}>
                 <RaisedButton
                     className="btn_copy"
                     labelStyle={{textTransform: "none"}}
-                    label={copyString}
+                    containerElement="copy-container"
                     disabled={disableCopyButton}
-                    onClick={(e) => this._handleClick(e)}
-                />
+                >
+                    <div id={copyKeywordClass}>
+                        Copy
+                    </div>
+                    <div id={copyContentClass}>
+                        {string}
+                    </div>
+                </RaisedButton>
             </CopyToClipboard>
-
-            // Playing around with making my own div button to cutomize styling
-            // <CopyToClipboard text={string}>
-            //     <div className="btn-copy">
-            //             <div className="inline btn-copy-start">Copy</div>
-            //             <div className="text-center inline">Two</div>
-            //     </div>
-            // </CopyToClipboard>
-
-
         );
     }
 }

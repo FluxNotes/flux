@@ -1,7 +1,6 @@
 // React imports
 import React, {Component} from 'react';
 // material-ui
-import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 // Styling
 import './FormList.css';
