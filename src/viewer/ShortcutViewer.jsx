@@ -17,11 +17,7 @@ class ShortcutViewer extends Component {
 
         let string = "";
         let initialString = "Choose a template from the left panel";
-        let copyString = "COPY | ";
         let copyComponent = null;
-        let disableCopyButton = true;
-        let copyKeywordClass = "copy-keyword-disabled";
-        let copyContentClass = "copy-content-disabled";
 
         if (this.props.currentShortcut == null) {
             copyComponent = null;
@@ -30,19 +26,7 @@ class ShortcutViewer extends Component {
         else {
             if (this.props.currentShortcut) {
                 string = this.props.currentShortcut.getAsString();
-                copyString += string;
-
-                if (copyString.indexOf('[') > -1) {
-                    disableCopyButton = false;
-                    copyKeywordClass = "copy-keyword";
-                    copyContentClass = "copy-content";
-
-                } else {
-                    disableCopyButton = true;
-                    copyKeywordClass = "copy-keyword-disabled";
-                    copyContentClass = "copy-content-disabled";
-                }
-                copyComponent = this._getCopyComponent(string, disableCopyButton, copyKeywordClass, copyContentClass);
+                copyComponent = this._getCopyComponent(string);
             }
         }
 
@@ -68,19 +52,19 @@ class ShortcutViewer extends Component {
         );
     }
 
-    _getCopyComponent(string, disableCopyButton, copyKeywordClass, copyContentClass) {
+    _getCopyComponent(string) {
         return (
             <CopyToClipboard text={string}>
                 <RaisedButton
                     className="btn_copy"
                     labelStyle={{textTransform: "none"}}
                     containerElement="copy-container"
-                    disabled={disableCopyButton}
+
                 >
-                    <div id={copyKeywordClass}>
+                    <div id="copy-keyword">
                         Copy
                     </div>
-                    <div id={copyContentClass}>
+                    <div id="copy-content">
                         {string}
                     </div>
                 </RaisedButton>
