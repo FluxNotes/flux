@@ -19,13 +19,10 @@ class ShortcutViewer extends Component {
     render() {
 
         let string = "";
-
         let initialString = "Choose a template from the left panel";
-
         let copyString = "COPY | ";
-
         let copyComponent = null;
-
+        let disableCopyButton = true;
 
         if (this.props.currentShortcut == null) {
             string = initialString;
@@ -36,11 +33,20 @@ class ShortcutViewer extends Component {
             if (this.props.currentShortcut) {
                 string = this.props.currentShortcut.getAsString();
                 copyString += string;
-                copyComponent = this._getCopyComponent(string, copyString);
+
+                console.log("string: " + string);
+                console.log("copyString: " + copyString);
+
+                // TODO: check if string is more than "COPY | #<shortcut>" and if yes enable button
+                if (copyString === string) {
+                   console.log("nothing input yet");
+
+                } else {
+                    console.log("something was input");
+                }
+                copyComponent = this._getCopyComponent(string, copyString, disableCopyButton);
             }
         }
-
-
 
         let panelContent = null;
         if (!Lang.isNull(this.props.currentShortcut)) {
@@ -60,9 +66,9 @@ class ShortcutViewer extends Component {
                 {/*</CopyToClipboard>*/}
 
                 <RaisedButton
-                className="btn_viewer"
-                label="Reset"
-                onClick={(e) => this._handleResetClick(e)}
+                    className="btn_viewer"
+                    label="Reset"
+                    onClick={(e) => this._handleResetClick(e)}
                 />
 
 
@@ -70,10 +76,7 @@ class ShortcutViewer extends Component {
 
                 {panelContent}
                 <br/>
-                <div>
-                    {string}
-                </div>
-                <br/>
+
                 {copyComponent}
 
 
@@ -90,13 +93,14 @@ class ShortcutViewer extends Component {
         this.props.onShortcutUpdate(null);
     }
 
-    _getCopyComponent(string, copyString) {
+    _getCopyComponent(string, copyString, disableCopyButton) {
         return (
             <CopyToClipboard text={string}>
                 <RaisedButton
                     className="btn_copy"
                     labelStyle={{textTransform: "none"}}
                     label={copyString}
+                    disabled={disableCopyButton}
                     onClick={(e) => this._handleClick(e)}
                 />
             </CopyToClipboard>
