@@ -1,6 +1,7 @@
 // React imports
 import React, {Component} from 'react';
 // material-ui
+import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 // Styling
 import './FormList.css';
@@ -10,7 +11,7 @@ class FormList extends Component {
     constructor(props) {
         super(props);
         this._newShortcut = this._newShortcut.bind(this);
-        this.state = { 
+        this.state = {
             disabledElement: null
         }
     }
@@ -20,7 +21,7 @@ class FormList extends Component {
         this.props.changeShortcut(this.props.shortcuts[index]);
     }
 
-    _onTouchTap(event, shortcutName) { 
+    _onTouchTap(event, shortcutName) {
         this.setState({
             disabledElement: shortcutName
         });
@@ -35,7 +36,7 @@ class FormList extends Component {
                         let primaryText = shortcutName;
                         if (this.state.disabledElement === shortcutName) {
                             classValue += " selected";
-                        } else { 
+                        } else {
                             classValue += " unselected";
                         }
                         return (
