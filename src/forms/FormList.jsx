@@ -16,7 +16,6 @@ class FormList extends Component {
     }
 
     _newShortcut(e, index, shortcutName) {
-        console.log(`new shortcut ${index}`);
         e.preventDefault();
         this.props.changeShortcut(this.props.shortcuts[index]);
     }
@@ -28,7 +27,6 @@ class FormList extends Component {
     }
 
     render() {
-        console.log(`This is the disabled element: ${this.state.disabledElement}`)
         return (
             <div id="list-panel">
                 <List style={{padding: "0px"}}>
@@ -40,7 +38,6 @@ class FormList extends Component {
                         } else { 
                             classValue += " unselected";
                         }
-                        console.log(shortcutName)
                         return (
                             <ListItem
                                 key={i}

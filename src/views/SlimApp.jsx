@@ -9,7 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import NavBar from '../nav/NavBar';
 import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormList from '../forms/FormList';
-import FormSearch from '../forms/FormSearch';
+// import FormSearch from '../forms/FormSearch';
 // Shortcut Classes
 import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
 import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
@@ -32,11 +32,6 @@ class SlimApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     changeShortcut = (shortcutType) => {
-        // console.log("structured field entered: " + field);
-
-        console.log("shortcut type");
-        console.log(shortcutType);
-
         if (Lang.isNull(shortcutType)) {
             this.setState({
                 currentShortcut: null
@@ -79,7 +74,8 @@ class SlimApp extends Component {
                         <div id="forms-panel">
                                 <Row center="xs">
                                     <Col className="no-padding" xs={3} >
-                                        <FormSearch />
+                                        {/*No need for formsearch right now*/}
+                                        {/*<FormSearch />*/}
                                         <FormList
                                             shortcuts={['Progression', 'Toxicity']}
                                             currentShortcut={this.state.currentShortcut}
