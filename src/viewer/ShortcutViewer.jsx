@@ -72,25 +72,23 @@ class ShortcutViewer extends Component {
     }
     _getCopyComponent(string, copyString, disableCopyButton) {
         return (
-            // <CopyToClipboard text={string}>
-            //     <RaisedButton
-            //         className="btn_copy"
-            //         labelStyle={{textTransform: "none"}}
-            //         label={copyString}
-            //         disabled={disableCopyButton}
-            //         onClick={(e) => this._handleClick(e)}
-            //     />
-            // </CopyToClipboard>
-
             <CopyToClipboard text={string}>
-                <div className="container">
-                    <div className="row vdivide">
-                        <div className="col-sm-4 text-center"><h1>One</h1></div>
-                        <div className="col-sm-4 text-center"><h1>Two</h1></div>
-                        <div className="col-sm-4 text-center"><h1>Three</h1></div>
-                    </div>
-                </div>
+                <RaisedButton
+                    className="btn_copy"
+                    labelStyle={{textTransform: "none"}}
+                    label={copyString}
+                    disabled={disableCopyButton}
+                    onClick={(e) => this._handleClick(e)}
+                />
             </CopyToClipboard>
+
+            // Playing around with making my own div button to cutomize styling
+            // <CopyToClipboard text={string}>
+            //     <div className="btn-copy">
+            //             <div className="inline btn-copy-start">Copy</div>
+            //             <div className="text-center inline">Two</div>
+            //     </div>
+            // </CopyToClipboard>
 
 
         );

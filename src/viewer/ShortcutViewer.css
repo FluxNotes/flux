@@ -14,14 +14,23 @@
     margin-left: 5px;
     margin-top:  100px;
 }
-.row.vdivide [class*='col-']:not(:last-child):after {
-    background: red;
-    width: 1px;
-    content: "";
-    display:block;
-    position: absolute;
-    top:0;
-    bottom: 0;
-    right: 0;
-    min-height: 70px;
-}
+
+/*.btn-copy {*/
+    /*margin-left: 5px;*/
+    /*margin-top:  100px;*/
+    /*background-color: #7f7f7f;*/
+    /*cursor: hand;*/
+    /*border: solid lightgrey;*/
+/*}*/
+
+/*.btn-copy .inline {*/
+    /*float:left;*/
+/*}*/
+
+/*.btn-copy .btn-copy-start {*/
+    /*border-right: solid #9197a3;*/
+    /*border-width: 1px;*/
+    /*padding-right: 20px;*/
+/*}*/
+
+
