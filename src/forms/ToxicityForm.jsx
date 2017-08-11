@@ -192,13 +192,16 @@ class ToxicityForm extends Component {
         <div>
             <h1>Toxicity</h1>
             <p id="data-element-description">
-              {toxicityLookup.getDescription()}
+              {toxicityLookup.getDescription("toxicity")}
             </p>
             <Divider className="divider" />
 
             <h4>Adverse Event</h4>
+            <p id="data-element-description">
+              {toxicityLookup.getDescription("adverseEvent")}
+            </p>
             <AutoComplete
-              floatingLabelText="Search through adverse events"
+              hintText="Search through adverse events"
               maxSearchResults={7}
               filter={AutoComplete.fuzzyFilter}
               openOnFocus={true}
@@ -211,13 +214,17 @@ class ToxicityForm extends Component {
               dataSourceConfig={this.state.dataSourceConfig}
             />
 
-            <h4>Toxicity Grade</h4>
+            <h4>Grade</h4>
+            <p id="data-element-description">
+              {toxicityLookup.getDescription("grade")}
+            </p>
             <SelectField
-              floatingLabelText="Grade"
+              hintText="Grade"
               // Value should be potential grade, assuming it's valid
               value={potentialGrade}
               onChange={this.handleGradeSelecion}
               fullWidth={true}
+              // style={{height:"50px"}}
             >
               {this.state.gradeOptions.map((grade, i) => {
                   if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 

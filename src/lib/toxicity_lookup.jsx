@@ -8702,8 +8702,17 @@ const adverseEventOptions = [
  }
 ]   
 
-exports.getDescription = () => {
-    return "Side effects to treatment, important for effective evaluation of disease and treatment.";
+exports.getDescription = (dataElement) => {
+   switch(dataElement) {
+   case "toxicity": 
+      return "Side effects to treatment, important for effective evaluation of disease and treatment.";
+   case "adverseEvent":
+      return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
+   case "grade": 
+      return "The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event."
+   default: 
+      return `Asking for a description for ${dataElement}; one has not been defined.`
+   }
 }
 
 exports.getGradeOptions = () => {
