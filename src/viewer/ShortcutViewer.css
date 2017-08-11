@@ -14,4 +14,14 @@
     margin-left: 5px;
     margin-top:  100px;
 }
-
+.row.vdivide [class*='col-']:not(:last-child):after {
+    background: red;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}

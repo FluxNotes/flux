@@ -31,11 +31,9 @@ class ShortcutViewer extends Component {
                 copyString += string;
 
                 if (copyString.indexOf('[') > -1) {
-                    console.log("something was input");
                     disableCopyButton = false;
 
                 } else {
-                    console.log("nothing input yet");
                     disableCopyButton = true;
                 }
                 copyComponent = this._getCopyComponent(string, copyString, disableCopyButton);
@@ -67,7 +65,6 @@ class ShortcutViewer extends Component {
         )
     }
 
-
     _getInitialState(initialString) {
         return (
             <span>{initialString}</span>
@@ -75,18 +72,29 @@ class ShortcutViewer extends Component {
     }
     _getCopyComponent(string, copyString, disableCopyButton) {
         return (
+            // <CopyToClipboard text={string}>
+            //     <RaisedButton
+            //         className="btn_copy"
+            //         labelStyle={{textTransform: "none"}}
+            //         label={copyString}
+            //         disabled={disableCopyButton}
+            //         onClick={(e) => this._handleClick(e)}
+            //     />
+            // </CopyToClipboard>
+
             <CopyToClipboard text={string}>
-                <RaisedButton
-                    className="btn_copy"
-                    labelStyle={{textTransform: "none"}}
-                    label={copyString}
-                    disabled={disableCopyButton}
-                    onClick={(e) => this._handleClick(e)}
-                />
+                <div className="container">
+                    <div className="row vdivide">
+                        <div className="col-sm-4 text-center"><h1>One</h1></div>
+                        <div className="col-sm-4 text-center"><h1>Two</h1></div>
+                        <div className="col-sm-4 text-center"><h1>Three</h1></div>
+                    </div>
+                </div>
             </CopyToClipboard>
+
+
         );
     }
-
 }
 
 export default ShortcutViewer;
