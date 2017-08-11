@@ -49,15 +49,6 @@ class ShortcutViewer extends Component {
 
         return (
             <div id="shortcut-viewer">
-                <RaisedButton
-                    className="btn_viewer"
-                    label="Reset"
-                    onClick={(e) => this._handleResetClick(e)}
-                />
-
-
-                <Divider className="divider"/>
-
                 {panelContent}
                 <br/>
                 {copyComponent}
