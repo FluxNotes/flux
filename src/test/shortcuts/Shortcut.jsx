@@ -14,7 +14,7 @@ class Shortcut extends Context {
 	
 	initialize(contextManager) {
 		if (this.isContext()) {
-			console.log("created new context: " + newShortcut.getShortcutType());
+			console.log("created new context: " + this.getShortcutType());
 		}
 	}
 
