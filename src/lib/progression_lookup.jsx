@@ -15,8 +15,17 @@ const reasonOptions = [
     {name: "Markers", description: "Biomarker evidence of persistent/recurrent tumor."}
 ]
 
-exports.getDescription = () => {
-    return "Determination of disease progression is based on a number of complex variables. It is the point of care which includes objective measures like tumor growth, but it also involves a variety of other objective measures, symptomatic criteria, patient reports information, and subjective evaluations.";
+exports.getDescription = (dataElement) => {
+   switch(dataElement) {
+   case "progression": 
+      return "Determination of disease progression is based on a number of complex variables. It is the point of care which includes objective measures like tumor growth, but it also involves a variety of other objective measures, symptomatic criteria, patient reports information, and subjective evaluations.";
+   case "status":
+      return "Basedon on the patient data available to the clinician at the time of evaluation.";
+   case "reason": 
+      return "Rationale for the choice of status."
+   default: 
+      return `Asking for a description for ${dataElement}; one has not been defined.`
+   }
 }
 
 exports.getStatusOptions = () => {

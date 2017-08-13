@@ -88,13 +88,17 @@ class ProgressionForm extends Component {
         <div>
             <h1>Disease Progression</h1>
             <p id="data-element-description">
-              {progressionLookup.getDescription()}
+              {progressionLookup.getDescription("progression")}
             </p>
             <Divider className="divider" />
 
             <h4>Progression Status</h4>
+            <p id="data-element-description">
+              {progressionLookup.getDescription("status")}
+            </p>
             <SelectField
               value={this.props.progression.status}
+              hintText="Status"
               onChange={this.handleStatusSelecion}
             >
               {this.state.statusOptions.map((status, i) => {
@@ -103,6 +107,9 @@ class ProgressionForm extends Component {
             </SelectField>
 
             <h4>Progression Reasons</h4>
+            <p id="data-element-description">
+              {progressionLookup.getDescription("reason")}
+            </p>
             {this.state.reasonOptions.map((reason, i) => { 
               return this.renderReasonCheckbox(reason, i)
             })}
