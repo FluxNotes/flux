@@ -91,8 +91,21 @@ const table7thEdition = [
     ['IIIB', null, 'IIIB', 'IIIB', 'IIIC'] // T4
 ];
 
-exports.getDescription = () => {
-    return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+exports.getDescription = (dataElement) => {
+    switch(dataElement) {
+    case "TNMStage": 
+        return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+    case "tumorSize":
+        return "Describes the original (primary) tumor.";
+    case "nodeSize": 
+        return "Describes the degree to which the cancer has reached nearby lymph nodes.";
+    case "metastasis": 
+        return "Whether or not the cancer has spread to other parts of the body.";
+    case "prognosticStage":
+        return "Describes the severity of the cancer based on the magnitude of the original (primary) tumor, as well as the extent to which cancer has spread in the body.";
+    default: 
+        return `Asking for a description for ${dataElement}; one has not been defined.`
+    }
 }
 
 exports.getTsForEdition = (ed) => {
