@@ -55,9 +55,6 @@ class TestFullApp extends Component {
 			newShortcut = null;
 		} else {
 			newShortcut.initialize(this.contextManager);
-			if (newShortcut.isContext()) {
-				console.log("created new context: " + newShortcut.getShortcutType());
-			}
 		}
         this.setState({errors: errors});
 		return newShortcut;
