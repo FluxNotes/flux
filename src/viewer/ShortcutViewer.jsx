@@ -1,11 +1,9 @@
 // React imports
 import React, {Component} from 'react';
-// import CopyToClipboard from 'react-copy-to-clipboard';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 // material-ui
-// import Paper from 'material-ui/Paper';
-// import Divider from 'material-ui/Divider';
-// import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 // Lodash component
 import Lang from 'lodash'
@@ -18,60 +16,62 @@ class ShortcutViewer extends Component {
     render() {
 
         let string = "";
-
-        if (this.props.currentShortcut == null) {
-            string = "Choose a template from the left panel";
-        }
-        else {
-            if (this.props.currentShortcut) {
-                string = this.props.currentShortcut.getAsString();
-            }
-        }
-
-
+        let copyComponent = null;
         let panelContent = null;
+
+        if (this.props.currentShortcut) {
+            string = this.props.currentShortcut.getAsString();
+            copyComponent = this._getCopyComponent(string);
+        }
+
         if (!Lang.isNull(this.props.currentShortcut)) {
             panelContent = this.props.currentShortcut.getForm();
+        } else {
+            panelContent = this._getInitialState();
         }
 
         return (
             <div id="shortcut-viewer">
-
-
-                {/*<CopyToClipboard text={string}>*/}
-                    {/*<RaisedButton*/}
-                        {/*className="btn_viewer"*/}
-                        {/*label="Copy"*/}
-                        {/*onClick={(e) => this._handleClick(e)}*/}
-                    {/*/>*/}
-                {/*</CopyToClipboard>*/}
-
-                {/*<RaisedButton*/}
-                    {/*className="btn_viewer"*/}
-                    {/*label="Reset"*/}
-                    {/*onClick={(e) => this._handleResetClick(e)}*/}
-                {/*/>*/}
-
-
-                {/*<Divider className="divider"/>*/}
-              
                 {panelContent}
                 <br/>
-                <div>
-                    {string}
-                </div>
-
+                {copyComponent}
             </div>
         )
     }
 
-    _handleClick(e) {
-        console.log("clicked copy button")
+    _getInitialState(initialString) {
+        return (
+            <span>Choose a template from the left panel</span>
+        );
     }
 
-    _handleResetClick(e) {
-        e.preventDefault();
-        this.props.onShortcutUpdate(null);
+    _getCopyComponent(string) {
+        return (
+            <CopyToClipboard text={string}>
+                <RaisedButton
+                    className="btn_copy"
+                    labelStyle={{
+                        textTransform: "none",
+                    }}
+                    buttonStyle={{
+                        textAlign: "left",
+                        height: "45px",
+                        // padding: "5px 0"
+                    }}
+                    overlayStyle={{
+                        padding: "5px 0 4px 0"
+                    }}
+                    fullWidth={true}
+                >
+                    <div id="copy-keyword">
+                        Copy
+                    </div>
+                    <div id="copy-content">
+                        {string}
+                    </div>
+                </RaisedButton>
+            </CopyToClipboard>
+        );
     }
 }
 
