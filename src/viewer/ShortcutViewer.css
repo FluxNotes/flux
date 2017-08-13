@@ -1,10 +1,12 @@
 
 #shortcut-viewer {
     background: white;
-    height: calc(100vh - 64px - 40px);
+
+    /* 64 fo navbar; 60px for top/bottom padding */
+    height: calc(100vh - 64px - 60px);
     text-align: left;
     z-index: 2;
-    padding: 20px;
+    padding: 30px 60px;
     -webkit-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
     -moz-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
     box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
@@ -13,9 +15,9 @@
 
 .btn_copy {
     display: inline-block;
-    margin-left: 5px;
     margin-top:  50px;
-}
+/*    width: 100%;
+*/}
 
 #copy-keyword:after {
     background: #b1b1b1;
@@ -26,7 +28,7 @@
     bottom: 0;
     right: 0;
     min-height: 20px;
-    margin: -5px 10px;
+    margin: -5px 20px -5px 20px; 
 }
 
 #copy-keyword {
@@ -35,7 +37,7 @@
 }
 
 #copy-content {
-    margin: 0 20px;
+    margin: 0 20px 0 0;
     display: inline-block;
 }
 

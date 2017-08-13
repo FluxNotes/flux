@@ -50,9 +50,18 @@ class ShortcutViewer extends Component {
             <CopyToClipboard text={string}>
                 <RaisedButton
                     className="btn_copy"
-                    labelStyle={{textTransform: "none"}}
-                    containerElement="copy-container"
-
+                    labelStyle={{
+                        textTransform: "none",
+                    }}
+                    buttonStyle={{
+                        textAlign: "left",
+                        height: "45px",
+                        // padding: "5px 0"
+                    }}
+                    overlayStyle={{
+                        padding: "5px 0 4px 0"
+                    }}
+                    fullWidth={true}
                 >
                     <div id="copy-keyword">
                         Copy
