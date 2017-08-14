@@ -28,10 +28,12 @@ class TestFullApp extends Component {
 
 		this.shortcuts = [ 	"#progression", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
+		this.onContextUpdate = this.onContextUpdate.bind(this);
+		
 		let patient = new Patient();
 		this.summaryMetadata = new SummaryMetadata();
 		this.shortcutManager = new ShortcutManager(this.shortcuts);
-		this.contextManager = new ContextManager(patient);		
+		this.contextManager = new ContextManager(patient, this.onContextUpdate);		
 
 	    this.state = {
             SummaryItemToInsert: '',
@@ -41,10 +43,12 @@ class TestFullApp extends Component {
 			contextManager: this.contextManager			
         };
     }
-		
-    /* 
-     * Change the current shortcut to be the new type of shortcut  
-     */
+	
+	onContextUpdate = () => {
+		console.log("context updated");
+        this.setState({contextManager: this.contextManager});
+	}
+
     newCurrentShortcut = (shortcutType, obj) => {
 		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
 		const errors = newShortcut.validateInCurrentContext(this.contextManager);

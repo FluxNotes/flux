@@ -200,6 +200,7 @@ class FluxNotesEditor extends React.Component {
 		if (shortcut.isContext()) {
 			shortcut.setValueObject(context.object);
 		}
+		this.contextManager.contextUpdated();
 		let transform;
 		if (this.state.needToDelete) {
 			transform = this.suggestionDeleteExistingTransform();
