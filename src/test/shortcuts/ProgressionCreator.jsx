@@ -5,7 +5,7 @@ import ProgressionForm from '../../forms/ProgressionForm';
 import Lang from 'lodash'
 import moment from 'moment';
 
-class ProgressionShortcut extends CreatorShortcut {
+class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
     // progression is optional and specifies an existing progression value being edited. Not used in no-patient mode
     constructor(onUpdate, progression) {
@@ -23,11 +23,8 @@ class ProgressionShortcut extends CreatorShortcut {
         console.log(`constructor for a new Progression shortcut object`)
     }
 	
-    /* 
-     * Returns "progression"
-     */
     getShortcutType() { 
-        return "progression";
+        return "#progression";
     }
     /* 
      * Translate progression status into a string 
@@ -135,22 +132,21 @@ class ProgressionShortcut extends CreatorShortcut {
         }*/
     }
 
-	updateValue(name, value) {
-
-		this.onUpdate(this);
+	getAttributeValue(name) {
 	}
-
-	getValue(name) {
-	
+	setAttributeValue(name, value, publishChanges) {
 	}
 	
 	getValidChildShortcuts() {
-		return [ "progression-status", "progression-evidence"];
+		return [ ]; // class names for ProgressionStatus, ProgressionEvidence
 	}
 	
 	isContext() {
 		return true;
 	}
+	static getTriggers() {
+		return [ "#progression" ];
+	}
 }
 
-export default ProgressionShortcut;
+export default ProgressionCreator;

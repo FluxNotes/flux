@@ -2,14 +2,14 @@ import InserterShortcut from './InserterShortcut';
 
 export default class DateOfBirthInserter extends InserterShortcut {
 //{trigger: "dateofbirth", value: (cm) => { return cm.getPatient().getDateOfBirth().format("D.MMM.YYYY"); }},
-	determineValue(contextManager) {
+	determineText(contextManager) {
 		return contextManager.getPatient().getDateOfBirth().format("D.MMM.YYYY");
 	}
 
     getShortcutType() { 
-        return "dateOfBirth";
+        return "@dateOfbirth";
     }
-	static getTrigger() {
-		return "@dateofbirth"
+	static getTriggers() {
+		return [ "@dateofbirth" ];
 	}
 }

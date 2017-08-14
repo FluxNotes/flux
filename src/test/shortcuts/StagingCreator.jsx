@@ -1,10 +1,10 @@
-// React Imports:
 import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
-// Application Imports
+import StagingTCreator from './StagingTCreator';
+import StagingNCreator from './StagingNCreator';
+import StagingMCreator from './StagingMCreator';
 import StagingForm from '../../forms/StagingForm';
 import Patient from '../../patient/Patient';
-// Lodash
 import Lang from 'lodash'
 
 class StagingCreator extends CreatorShortcut {
@@ -20,14 +20,18 @@ class StagingCreator extends CreatorShortcut {
 			this.staging = staging; //Lang.clone(staging);
 			this.isStagingNew = false;
 		}
+		this.setValueObject(this.staging);
         this.onUpdate = onUpdate;
-		this.updateValue = this.updateValue.bind(this);
+		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-    /* 
-     * Returns "staging"
-     */
+	
+	initialize(contextManager, trigger) {
+		super.initialize(contextManager, trigger);
+		this.parentContext = contextManager.getActiveContextOfType("@condition");
+	}
+
     getShortcutType() { 
-        return "staging";
+        return "#staging";
     }
 	
     /* 
@@ -90,14 +94,14 @@ class StagingCreator extends CreatorShortcut {
             <StagingForm
                 // Update functions
                 //onStagingUpdate={this.handleStagingUpdate}
-				updateValue={this.updateValue}
+				updateValue={this.setAttributeValue}
                 // Properties
                 staging={this.staging}
             />
         );      
     }
 	
-	updateValue(name, value, publishChanges = true) {
+	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
 			Patient.updateTForStaging(this.staging, value);
 		} else if (name === "N") {
@@ -114,7 +118,7 @@ class StagingCreator extends CreatorShortcut {
 		}
 	}
 
-	getValue(name) {
+	getAttributeValue(name) {
 		if (name === "T") {
 			return this.staging.tStage.coding.displayText;
 		} else if (name === "N") {
@@ -134,7 +138,8 @@ class StagingCreator extends CreatorShortcut {
 	 */
 	updatePatient(patient, contextManager) {
 		if (this.staging.value.coding.displayText.length === 0) return; // not complete value
-		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+//		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
 			patient.addObservationToCondition(this.staging, condition);
 			this.isStagingNew = false;
@@ -143,16 +148,25 @@ class StagingCreator extends CreatorShortcut {
 
 	validateInCurrentContext(contextManager) {
 		let errors = [];
-//		let condition = contextManager.getContextObjectOfType();
-//		if (Lang.isNull(condition)) {
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
 			errors.push("#staging invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
 		}
 		return errors;
 	}
 	
+	getValidChildShortcuts() {
+		let result = [];
+		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
+		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
+		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
+		return result; //[ StagingTCreator, StagingNCreator, StagingMCreator ];
+	}
+
 	isContext() {
 		return true;
+	}
+	static getTriggers() {
+		return [ "#staging" ];
 	}
 }
 

@@ -1,15 +1,15 @@
 import InserterShortcut from './InserterShortcut';
 
 export default class PatientInserter extends InserterShortcut {
-	determineValue(contextManager) {
+	determineText(contextManager) {
 		return 	contextManager.getPatient().getName() + " is a " + 
 				contextManager.getPatient().getAge() + " year old " + 
 				contextManager.getPatient().getGender();
 	}
     getShortcutType() { 
-        return "patient";
+        return "@patient";
     }
-	static getTrigger() {
-		return "@patient"
+	static getTriggers() {
+		return [ "@patient" ];
 	}
 }

@@ -8,21 +8,21 @@ export default class ConditionInserter extends InserterShortcut {
 		return [ ProgressionCreator, ToxicityCreator, StagingCreator];
 	}
 	getLabel() {
-		return this.getValue();
+		return this.getText();
 	}
 	
 	isContext() {
 		return true;
 	}
 	
-	determineValue(contextManager) {
+	determineText(contextManager) {
 		return contextManager.getPatient().getConditions();
 	}
 	
-	static getTrigger() {
-		return "@condition"
+	static getTriggers() {
+		return [ "@condition" ];
 	}
     getShortcutType() { 
-        return "condition";
+        return "@condition";
     }
 }

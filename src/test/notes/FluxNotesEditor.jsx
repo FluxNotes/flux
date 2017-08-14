@@ -49,6 +49,7 @@ class FluxNotesEditor extends React.Component {
 		
 		this.didFocusChange = false;
 		
+		this.selectingForShortcut = null;
 		this.onPortalSelection = this.onPortalSelection.bind(this);
 		this.onChange = this.onChange.bind(this);
 		
@@ -98,10 +99,11 @@ class FluxNotesEditor extends React.Component {
 		this.autoReplaceBeforeRegExp = undefined;
 		
 		let autoReplaceAfters = [];
-		let allShortcuts = this.props.shortcutManager.getAllShortcuts();
+		let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
 		allShortcuts.forEach((shortcutC) => {
-			let shortcut = new shortcutC();
-			autoReplaceAfters.push(shortcut.getPrefixCharacter() + shortcut.getShortcutType());			
+			//let shortcut = new shortcutC();
+			//console.log(shortcutC);
+			autoReplaceAfters = autoReplaceAfters.concat(shortcutC.getTriggers());			
 		});
 		this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
 		//console.log(this.autoReplaceBeforeRegExp);
@@ -116,17 +118,20 @@ class FluxNotesEditor extends React.Component {
 		
 	suggestionFunction(text) {
 		let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
+		console.log(shortcuts);
         let suggestionsShortcuts = [];
         shortcuts.forEach((shortcut) => {
-			const trigger = shortcut.getTrigger();
-			const triggerNoPrefix = trigger.substring(1);
-			if (triggerNoPrefix.includes(text)) {
-				suggestionsShortcuts.push({
-					"key": triggerNoPrefix,
-					"value": trigger,
-					"suggestion": triggerNoPrefix
-				});
-			}
+			const triggers = shortcut.getTriggers();
+			triggers.forEach((trigger) => {
+				const triggerNoPrefix = trigger.substring(1);
+				if (triggerNoPrefix.includes(text)) {
+					suggestionsShortcuts.push({
+						"key": triggerNoPrefix,
+						"value": trigger,
+						"suggestion": triggerNoPrefix
+					});
+				}
+			});
         });
 		return suggestionsShortcuts;
 	}
@@ -136,26 +141,76 @@ class FluxNotesEditor extends React.Component {
 		const { anchorText, anchorOffset } = state
 		const text = anchorText.text
         let shortcut = this.props.newCurrentShortcut(suggestion.value);
+		
+		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+			return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+		} else {
+			//TODO: consider replacing most of code below with call to function suggestionDeleteExistingTransform
+			let index = { start: anchorOffset - 1, end: anchorOffset }
 
-		let index = { start: anchorOffset - 1, end: anchorOffset }
-
-		if (text[anchorOffset - 1] !== shortcut.getPrefixCharacter()) {
-			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, shortcut.getPrefixCharacter())
+			if (text[anchorOffset - 1] !== shortcut.getPrefixCharacter()) {
+				index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, shortcut.getPrefixCharacter())
+			}
+				
+			const newText = `${text.substring(0, index.start)}`
+			let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
+			let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
+			return transformAfterInsert.apply();
 		}
-			
-		const newText = `${text.substring(0, index.start)}`
-		let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
-		let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
-		return transformAfterInsert.apply();
 	}
 	
 	autoReplaceTransform(transform, e, data, matches) {
 		// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
 		console.log("in autoreplace transform. matches: " + matches.before[0]);
 		let shortcut = this.props.newCurrentShortcut(matches.before[0]);
-		return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+			return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+		} else {
+			return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+		}
 	}
 	
+	openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+		let portalOptions = shortcut.getValueSelectionOptions();
+		let pos = position(this.state);
+		
+		this.setState({
+			isPortalOpen: true,
+			portalOptions: portalOptions,
+			needToDelete: needToDelete,
+			left: pos.left,
+			top: pos.top
+		});
+		this.selectingForShortcut = shortcut;
+		return transform.blur();
+	}
+
+	// called from portal when an item is selected (context is not null) or if portal is closed without
+	// selection (context is null)
+	onPortalSelection = (state, context) => {
+		//console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
+		this.setState({ isPortalOpen: false });
+		if (Lang.isNull(context)) return state;
+		//console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
+		//this.contextManager.addContext(context.object);
+		let shortcut = this.selectingForShortcut;
+		this.selectingForShortcut = null;
+		shortcut.clearValueSelectionOptions();
+		shortcut.setText(context.context);
+		if (shortcut.isContext()) {
+			shortcut.setValueObject(context.object);
+		}
+		let transform;
+		if (this.state.needToDelete) {
+			transform = this.suggestionDeleteExistingTransform();
+		} else {
+			transform = this.state.state.transform();
+		}
+		return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
+		//return transform.insertText(context.context).focus().apply();
+	}
+
+	// consider reusing this method to replace code in choseSuggestedShortcut function
 	suggestionDeleteExistingTransform(transform = null) {
 		const { state } = this.state;
 		if (Lang.isNull(transform)) {
@@ -269,27 +324,6 @@ class FluxNotesEditor extends React.Component {
         return state.blocks.some(node => node.type === type);
     }
 	
-	// called from portal when an item is selected (context is not null) or if portal is closed without
-	// selection (context is null)
-	onPortalSelection = (state, context) => {
-		//console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
-		//try {
-			this.setState({ isPortalOpen: false });
-		//} catch (e) {
-		//	console.log("TypeError consumed");
-		//}
-		if (Lang.isNull(context)) return state;
-		//console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
-		this.contextManager.addContext(context.object);
-		let transform;
-		if (this.state.needToDelete) {
-			transform = this.suggestionDeleteExistingTransform();
-		} else {
-			transform = this.state.state.transform();
-		}
-		return transform.insertText(context.context).focus().apply();
-	}
-
     render = () => {
         //let {state} = this.state;
         //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);

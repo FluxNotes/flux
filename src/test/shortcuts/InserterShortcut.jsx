@@ -1,32 +1,39 @@
 import Shortcut from './Shortcut';
+import Lang from 'lodash';
 
 export default class InserterShortcut extends Shortcut {
 	constructor() {
 		super();
-		this.value = null;
+		this.text = null;
 	}
 	getPrefixCharacter() {
 		return "@";
 	}
 	
 	initialize(contextManager) {
-		this.setValue(this.determineValue(contextManager));
-		//TODO handle list selection
+		super.initialize(contextManager);
+		let text = this.determineText(contextManager);
+		if (Lang.isArray(text)) {
+			//TODO handle list selection
+			let portalOptions = [];
+			text.forEach((item) => {
+				portalOptions.push({key: item.entryId, context: item.specificType.coding.displayText, object: item});
+			});
+			this.flagForTextSelection(portalOptions);
+		} else {
+			this.setText(text);
+		}
 	}
 
-	determineValue(contextManager) {
+	determineText(contextManager) {
 		return null;
 	}
 
-	getValue() {
-		return this.value;
-	}
-	
 	getText() {
-		return this.getValue();
+		return this.text;
 	}
-	
-	setValue(value) {
-		this.value = value;
+		
+	setText(text) {
+		this.text = text;
 	}
 }
