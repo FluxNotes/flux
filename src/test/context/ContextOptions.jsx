@@ -19,14 +19,14 @@ export default class ContextOptions extends Component {
 		   <div style={{margin: '20px'}}>
 				{validShortcuts.map((shortcut, i) => {
 					return (
-						<div key={i*100}>
+						<div key={i}>
 							{shortcut.getTriggers().map((trigger, j) => {
 								return (
 									<RaisedButton
 										className="btn_template"
 										label={trigger}
-										key={(i*100) + j + 1}
-										onClick={(e) => this._handleClick(e, (i*100) + j + 1)}
+										key={trigger}
+										onClick={(e) => this._handleClick(e, trigger)}
 									/>
 								);
 							})}

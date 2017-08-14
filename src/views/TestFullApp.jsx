@@ -132,6 +132,7 @@ class TestFullApp extends Component {
                                     // Properties
                                     patient={this.state.patient}
 									contextManager={this.state.contextManager}
+                                    onShortcutClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
                         </Row>
