@@ -1,5 +1,4 @@
 import CreatorShortcut from './CreatorShortcut';
-import Lang from 'lodash'
 
 const lookup = require('../../lib/staging_lookup');
 

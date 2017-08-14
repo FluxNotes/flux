@@ -1,5 +1,4 @@
 import InserterShortcut from './InserterShortcut';
-import Lang from 'lodash';
 
 export default class StageInserter extends InserterShortcut {
 	determineText(contextManager) {		
