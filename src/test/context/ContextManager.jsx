@@ -49,7 +49,9 @@ class ContextManager {
 	
 	addShortcutToContext(shortcut) {
 		this.activeContexts.unshift(shortcut);
-		this.onContextUpdate();
+		if (!shortcut.needToSelectValueFromMultipleOptions()) {
+			this.onContextUpdate();
+		}
 	}
 
 	getPatient() {
