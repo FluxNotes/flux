@@ -3,6 +3,7 @@ import CreatorShortcut from './CreatorShortcut';
 import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
+import StageInserter from './StageInserter';
 import StagingForm from '../../forms/StagingForm';
 import Patient from '../../patient/Patient';
 import Lang from 'lodash'
@@ -83,7 +84,7 @@ class StagingCreator extends CreatorShortcut {
 		if (tString === '?' && nString === '?' && mString === '?') {
 			return "#staging";
 		}
-		return `#staging[T${tString}N${nString}M${mString}]`;
+		return `#staging T${tString}N${nString}M${mString}`;
     }
     
     /* 
@@ -125,6 +126,8 @@ class StagingCreator extends CreatorShortcut {
 			return this.staging.nStage.coding.displayText;
 		} else if (name === "M") {
 			return this.staging.mStage.coding.displayText;
+		} else if (name === "stage") {
+			return this.staging.value.coding.displayText;
 		} else {
 			console.log("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
@@ -159,6 +162,7 @@ class StagingCreator extends CreatorShortcut {
 		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
 		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
 		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
+		if (this.staging.value.coding.displayText.length > 0) result.push(StageInserter);
 		return result; //[ StagingTCreator, StagingNCreator, StagingMCreator ];
 	}
 

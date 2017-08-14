@@ -46,7 +46,7 @@ class ContextTray extends Component {
 			console.log("***** render ContextTray");
 			panelContent = (
 				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-						tabItemContainerStyle={{background: 'white'}} initialSelectedIndex={1}>
+						tabItemContainerStyle={{background: 'white'}} initialSelectedIndex={1 + this.props.contextManager.getActiveContexts().length}>
 					<Tab className="tab" label="Templates">
 						<TemplateForm
 							patient={this.props.patient}
@@ -65,7 +65,7 @@ class ContextTray extends Component {
 						console.log(context);
 						if (!Lang.isNull(context.getLabel())) {
 							let label = context.getLabel();
-							if (label.length > 20) label = label.substring(0,18) + "..";
+							if (label.length > 15) label = label.substring(0,12) + "...";
 							return (
 								<Tab key={context.getLabel()} className="tab" label={label}>
 									<ContextOptions
