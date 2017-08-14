@@ -8705,7 +8705,7 @@ const adverseEventOptions = [
 exports.getDescription = (dataElement) => {
    switch(dataElement) {
    case "toxicity": 
-      return "Side effects to treatment, important for effective evaluation of disease and treatment.";
+      return "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).";
    case "adverseEvent":
       return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
    case "grade": 
