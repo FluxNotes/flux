@@ -165,6 +165,9 @@ class StagingCreator extends CreatorShortcut {
 	isContext() {
 		return true;
 	}
+	getLabel() {
+		return this.getShortcutType();
+	}
 	static getTriggers() {
 		return [ "#staging" ];
 	}

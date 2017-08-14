@@ -2,10 +2,15 @@ import Lang from 'lodash'
 import PatientContext from './PatientContext';
 
 class ContextManager {
-	constructor(patient) {
+	constructor(patient, onContextUpdate) {
 		this.patient = patient;
 		this.patientContext = new PatientContext(patient);
 		this.activeContexts = []; // patient context is always active
+		this.onContextUpdate = onContextUpdate;
+	}
+	
+	getActiveContexts() {
+		return this.activeContexts;
 	}
 	
 	getCurrentlyValidShortcuts() {
@@ -37,13 +42,22 @@ class ContextManager {
 		});
 		return context;
 	}
+
+	contextUpdated() {
+		this.onContextUpdate();
+	}
 	
 	addShortcutToContext(shortcut) {
 		this.activeContexts.unshift(shortcut);
+		this.onContextUpdate();
 	}
 
 	getPatient() {
 		return this.patient;
+	}
+	
+	getPatientContext() {
+		return this.patientContext;
 	}
 
 /*	addContext(contextObject) {

@@ -1,12 +1,12 @@
-// React imports
 import React, {Component} from 'react';
-// Our components
 import TemplateForm from '../../forms/TemplateForm';
 import DataCaptureForm from '../../forms/DataCaptureForm';
-// material-ui
 import Paper from 'material-ui/Paper';
-// Lodash component
+import { Tabs, Tab} from 'material-ui/Tabs';
+//import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
 import Lang from 'lodash'
+import ContextOptions from './ContextOptions';
+import './ContextTray.css';
 
 class ContextTray extends Component {
     /*
@@ -18,49 +18,67 @@ class ContextTray extends Component {
         super(props);
         
         this._insertTemplate = this._insertTemplate.bind(this);
+		this._handleShortcutClick = this._handleShortcutClick.bind(this);
     }
 
     _insertTemplate(i) {
         console.log(`Inserting template ${i}`);
     }
+	
+	_handleShortcutClick(i) {
+        console.log(`Inserting shortcut ${i}`);
+	}
 
     render() {
         let panelContent = null;
-        if (Lang.isUndefined(this.props.patient)) { // NO PATIENT MODE
-            if (!Lang.isNull(this.props.currentShortcut)) {
-                panelContent = this.props.currentShortcut.getForm();
-            } else {
-                panelContent = (
-                    <TemplateForm
-                        patient={this.props.patient}
-                        heading="Shortcuts"
-                        templates={this.props.shortcuts}
-                        handleClick={this._newShortcut}
-                    />
-                );
-            }
-        } else { // PATIENT MODE
-			if (this.props.selectedText != null) {
-                console.log(this.props);
-                panelContent = (
-                        <DataCaptureForm
-                            // Update functions
-                            changeCurrentShortcut={this.changeCurrentShortcut}
-                            // Properties
-                            currentShortcut={this.props.currentShortcut}
-                        />
-                );
-            } else {
-                panelContent = (
-                        <TemplateForm
-                            patient={this.props.patient}
-                            heading="Available Templates"
-                            templates={['op note', 'follow-up', 'consult note']}
-                            handleClick={this._insertTemplate}
-                        />
-                );
-            }
-        }
+		if (this.props.selectedText != null) {
+			console.log(this.props);
+			panelContent = (
+					<DataCaptureForm
+						// Update functions
+						changeCurrentShortcut={this.changeCurrentShortcut}
+						// Properties
+						currentShortcut={this.props.currentShortcut}
+					/>
+			);
+		} else {
+			console.log("***** render ContextTray");
+			panelContent = (
+				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
+						tabItemContainerStyle={{background: 'white'}}>
+					<Tab className="tab" label="Templates">
+						<TemplateForm
+							patient={this.props.patient}
+							heading=""
+							templates={['op note', 'follow-up', 'consult note']}
+							handleClick={this._insertTemplate}
+						/>
+					</Tab>
+					<Tab className="tab" label="Patient">
+						<ContextOptions
+							contextManager={this.props.contextManager}
+							handleClick={this._handleShortcutClick}
+						/>
+					</Tab>
+					{this.props.contextManager.getActiveContexts().map((context, i) => {
+						console.log(context);
+						if (!Lang.isNull(context.getLabel())) {
+							let label = context.getLabel();
+							if (label.length > 20) label = label.substring(0,18) + "..";
+							return (
+								<Tab key={context.getLabel()} className="tab" label={label}>
+									<ContextOptions
+										contextManager={this.props.contextManager}
+										handleClick={this._handleShortcutClick}
+										context={context}
+									/>
+								</Tab>
+							);
+						}
+					})}
+				</Tabs>
+			);
+		}
         return (
             <div id="forms-panel" className="dashboard-panel">
                 <Paper className="panel-content trio">
