@@ -6,7 +6,7 @@ import ToxicityForm from '../../forms/ToxicityForm';
 // Import Lodash libraries
 import Lang from 'lodash'
 
-class ToxicityShortcut extends CreatorShortcut {
+class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
@@ -23,11 +23,9 @@ class ToxicityShortcut extends CreatorShortcut {
         this.onUpdate = onUpdate;
         console.log(`constructor for a new Toxicity object`)
     }
-    /* 
-     * Returns "toxicity"
-     */
+	
     getShortcutType() { 
-        return "toxicity";
+        return "#toxicity";
     }
     /* 
      * Get grade string for given toxicity
@@ -117,26 +115,21 @@ class ToxicityShortcut extends CreatorShortcut {
         );      
     }
 
-	getStructuredFieldSpecification() {
-		return [	{ type: 'staticText', 	spec: { text:'#toxicity['}},
-					{ type: 'dropDown',   	spec: { name: 'T', items: ['T0', 'T1', 'T2', 'T3'] }},
-					{ type: 'dropDown',   	spec: { name: 'N', items: ['N0', 'N1', 'N2', 'N3'] }},
-					{ type: 'dropDown', 	spec: { name: 'M', items: ['M0', 'M1'] }},
-					{ type: 'staticText',	spec: { text:']'}} ];
+	getAttributeValue(name) {
+	}
+	setAttributeValue(name, value, publishChanges) {
 	}
 
-	updateValue(name, value) {
-
-		this.onUpdate(this);
-	}
-
-	getValue(name) {
-	
+	getValidChildShortcuts() {
+		return [ ]; //classes for ToxicityAdverseEventCreator, ToxicityGradeCreator
 	}
 
 	isContext() {
 		return true;
 	}
+	static getTriggers() {
+		return [ "#toxicity" ];
+	}
 }
 
-export default ToxicityShortcut;
+export default ToxicityCreator;

@@ -9,7 +9,11 @@ class ContextManager {
 	}
 	
 	getCurrentlyValidShortcuts() {
-		return this.patientContext.getValidChildShortcuts(true);
+		let result = this.patientContext.getValidChildShortcuts(true);
+		this.activeContexts.forEach((shortcut) => {
+			result = result.concat(shortcut.getValidChildShortcuts(true));
+		});
+		return result;
 	}
 
 	isContextOfTypeActive(contextType) {
@@ -17,9 +21,12 @@ class ContextManager {
 	}
 	
 	isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
+		console.log("ContextManager. looking for context of type " + contextType + " with value of type " + valueType);
 		let shortcut = this.getActiveContextOfType(contextType);
+		console.log(shortcut);
 		if (Lang.isUndefined(shortcut)) return false;
-		let object = shortcut.getValue();
+		let object = shortcut.getValueObject();
+		console.log(object);
 		return (object.entryType[0] === valueType);
 	}
 	
@@ -31,13 +38,15 @@ class ContextManager {
 		return context;
 	}
 	
-	
+	addShortcutToContext(shortcut) {
+		this.activeContexts.unshift(shortcut);
+	}
 
 	getPatient() {
 		return this.patient;
 	}
 
-	addContext(contextObject) {
+/*	addContext(contextObject) {
 		this.contexts.push(contextObject);
 	}
 	
@@ -45,7 +54,7 @@ class ContextManager {
 		let objs = this.contexts.filter((item) => { return item.entryType[0] === type });
 		if (objs.length === 0) return null;
 		return objs[objs.length - 1];
-	}
+	}*/
 }
 
 export default ContextManager;

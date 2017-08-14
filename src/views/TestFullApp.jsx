@@ -54,7 +54,7 @@ class TestFullApp extends Component {
 			});
 			newShortcut = null;
 		} else {
-			newShortcut.initialize(this.contextManager);
+			newShortcut.initialize(this.contextManager, shortcutType);
 		}
         this.setState({errors: errors});
 		return newShortcut;

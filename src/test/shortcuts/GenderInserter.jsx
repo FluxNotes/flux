@@ -1,13 +1,13 @@
 import InserterShortcut from './InserterShortcut';
 
 export default class GenderInserter extends InserterShortcut {
-	determineValue(contextManager) {
+	determineText(contextManager) {
 		return contextManager.getPatient().getGender();
 	}
     getShortcutType() { 
-        return "gender";
+        return "@gender";
     }
-	static getTrigger() {
-		return "@gender"
+	static getTriggers() {
+		return [ "@gender" ];
 	}
 }

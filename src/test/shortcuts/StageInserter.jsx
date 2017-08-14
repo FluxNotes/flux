@@ -2,43 +2,25 @@ import InserterShortcut from './InserterShortcut';
 import Lang from 'lodash';
 
 export default class StageInserter extends InserterShortcut {
-	determineValue(contextManager) {
-	
-	//TODO: should only be valid if staging context exists. this needs to be rewritten
-	// errors need to be returned, can't access state from here
-	// function could return error list and just setValue on shortcut rather than returning value
-	// or could return both in object {value: , errors: []}
-		let cond = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
-		if (!Lang.isNull(cond)) {
-			let patient = contextManager.getPatient();
-			let stagingObservation = patient.getMostRecentStagingForCondition(cond);
-			this.setState({
-				errors: []
-			});
-			if (Lang.isNull(stagingObservation)) {
-				return "unknown";
-			}
-			return stagingObservation.value.coding.displayText;
-		} else {
-			let errors = [ "@stage invalid without a breast cancer condition. Use @condition to add the condition to your narrative." ];
-			this.setState({
-				errors: errors
-			});
-			return "";
-		}
+	determineText(contextManager) {		
+		this.parentContext = contextManager.getActiveContextOfType("#staging");
+		let staging = this.parentContext.getValueObject();
+		return staging.value.coding.displayText;
 	}
+	
 	validateInCurrentContext(contextManager) {
-		console.log("validateInCurrentContext");
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#staging")) {
-			errors.push("@stage requires a staging context. Create a new staging via #staging.");
+			errors.push("Staging T values invalid without #staging. Use #staging to add a new staging to your narrative.");
 		}
 		return errors;
 	}
+	
     getShortcutType() { 
-        return "stage";
+        return "@stage";
     }
-	static getTrigger() {
-		return "@stage"
+	
+	static getTriggers() {
+		return [ "@stage" ];
 	}
 }
