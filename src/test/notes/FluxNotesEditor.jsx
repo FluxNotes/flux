@@ -159,15 +159,22 @@ class FluxNotesEditor extends React.Component {
 		}
 	}
 	
-	autoReplaceTransform(transform, e, data, matches) {
-		// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-		console.log("in autoreplace transform. matches: " + matches.before[0]);
-		let shortcut = this.props.newCurrentShortcut(matches.before[0]);
+	insertShortcut(shortcutTrigger, transform = undefined) {
+		if (Lang.isUndefined(transform)) {
+			transform = this.state.state.transform();
+		}
+		let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
 		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
 			return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
 		} else {
 			return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
 		}
+	}
+	
+	autoReplaceTransform(transform, e, data, matches) {
+		// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+		console.log("in autoreplace transform. matches: " + matches.before[0]);
+		this.insertShortcut(matches.before[0], transform);
 	}
 	
 	openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -300,14 +307,20 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     handleSummaryUpdate = (itemToBeInserted) => {
-        const currentState = this.state.state;
-        const state = currentState
-            .transform()
-            .insertText(itemToBeInserted)
-            .focus()
-            .apply();
-        this.setState({state: state});
-    }
+		console.log("insert: " + itemToBeInserted);
+		let state;
+		const currentState = this.state.state;
+		if (itemToBeInserted.startsWith("@") || itemToBeInserted.startsWith("#")) {
+			state = this.insertShortcut(itemToBeInserted, currentState.transform()).apply();
+		} else {
+			state = currentState
+				.transform()
+				.insertText(itemToBeInserted)
+				.focus()
+				.apply();
+		}
+		this.setState({state: state});
+	}
 
     /**
      * Check if the current selection has a mark with `type` in it.

@@ -27,6 +27,7 @@ class ContextTray extends Component {
 	
 	_handleShortcutClick(i) {
         console.log(`Inserting shortcut ${i}`);
+		this.props.onShortcutClicked(i);
 	}
 
     render() {
@@ -45,7 +46,7 @@ class ContextTray extends Component {
 			console.log("***** render ContextTray");
 			panelContent = (
 				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-						tabItemContainerStyle={{background: 'white'}}>
+						tabItemContainerStyle={{background: 'white'}} initialSelectedIndex={1}>
 					<Tab className="tab" label="Templates">
 						<TemplateForm
 							patient={this.props.patient}
