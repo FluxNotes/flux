@@ -5,6 +5,7 @@ import Divider from 'material-ui/Divider';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
 // Libraries
 import progressionLookup from '../lib/progression_lookup';
 // Styling
@@ -84,6 +85,9 @@ class ProgressionForm extends Component {
   }
 
   render() {
+      const style = {
+          margin: 0.5,
+      };
     return (
         <div>
             <h1>Disease Progression</h1>
@@ -105,6 +109,37 @@ class ProgressionForm extends Component {
                   return this.renderStatusMenuItem(status)
               })}
             </SelectField>
+
+            <div className="btn-group-status-progression">
+                <RaisedButton
+                    className="btn_progression"
+                    label="Test"
+                    labelStyle={{
+                        textTransform: "none",
+                    }}
+                    style={style}
+
+                >
+                </RaisedButton>
+                <RaisedButton
+                    label="Test2"
+                    labelStyle={{
+                        textTransform: "none",
+                    }}
+                    buttonStyle={{
+                        height: "45px",
+                    }}
+                    overlayStyle={{
+                        padding: "5px 0 4px 0"
+                    }}
+                    style={style}
+
+                >
+                </RaisedButton>
+                <RaisedButton label="Primary" style={style} />
+                <RaisedButton label="Primary" style={style}/>
+            </div>
+
 
             <h4>Progression Reasons</h4>
             <p id="data-element-description">
