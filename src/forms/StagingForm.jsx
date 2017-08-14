@@ -50,10 +50,16 @@ class StagingForm extends Component {
     // console.log("in render. of Staging form")
     return (
        <div>
-            <h1>Current Staging</h1>
+            <h1>TNM Staging</h1>
+            <p id="data-element-description">
+              {stagingLookup.getDescription("TNMStage")}
+            </p>
             <Divider className="divider" />
 
             <h4>Tumor Size</h4> 
+            <p id="data-element-description">
+              {stagingLookup.getDescription("tumorSize")}
+            </p>
             {this.state.tumorValues.map((t, i) => {
                 const buttonClass = (t.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
@@ -71,6 +77,9 @@ class StagingForm extends Component {
             })}
 
             <h4>Node</h4>
+            <p id="data-element-description">
+              {stagingLookup.getDescription("nodeSize")}
+            </p>
             {this.state.nodeValues.map((n, i) => {
                 const buttonClass = (n.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
@@ -88,6 +97,9 @@ class StagingForm extends Component {
             })}
 
             <h4>Metastasis</h4>
+            <p id="data-element-description">
+              {stagingLookup.getDescription("metastasis")}
+            </p>
             {this.state.metastasisValues.map((m, i) => {
                 const buttonClass = (m.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
@@ -105,6 +117,9 @@ class StagingForm extends Component {
             })}
 
             <h4>Prognostic Stage</h4>
+            <p id="data-element-description">
+              {stagingLookup.getDescription("prognosticStage")}
+            </p>
             <div className="stage">{staging.breastCancerPrognosticStage(this.props.staging.tStage.coding.displayText, this.props.staging.nStage.coding.displayText, this.props.staging.mStage.coding.displayText) || 'Undefined'}</div>
         </div>
     );

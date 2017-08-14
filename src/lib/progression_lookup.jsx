@@ -15,6 +15,19 @@ const reasonOptions = [
     {name: "Markers", description: "Biomarker evidence of persistent/recurrent tumor."}
 ]
 
+exports.getDescription = (dataElement) => {
+   switch(dataElement) {
+   case "progression": 
+      return "Determination of disease progression is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
+   case "status":
+      return "Based on on the patient data available to the clinician at the time of evaluation.";
+   case "reason": 
+      return "Rationale for the choice of status."
+   default: 
+      return `Asking for a description for ${dataElement}; one has not been defined.`
+   }
+}
+
 exports.getStatusOptions = () => {
     return statusOptions;
 }
