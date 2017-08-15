@@ -358,13 +358,13 @@ function onUpDown(event, data, state, opts) {
 	//console.log('onUpDown DONE');
 }
 
-function onEnter(event, data, state, opts) {
-	//console.log('onEnter START');
-/*    event.preventDefault();
 
-    return insertRow(opts, state.transform())
-        .apply();*/
-	//console.log('onEnter DONE')
+function onEnter(event, data, state, opts) {
+	console.log('onEnter START');
+	event.preventDefault();
+	let result = moveField(state, opts, 1);
+	return result;
+	console.log('onEnter DONE')
 }
 
 function moveField(state, opts, fieldDelta) {
