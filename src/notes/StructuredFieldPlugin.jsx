@@ -235,79 +235,40 @@ function onOutsideStructuredFieldDropDownEnter(event, data, state, editor, opts)
 }
 
 function onOutsideStructuredFieldDropDownLeftRight(event, data, state, editor, opts) {
-	console.log("onOutsideStructuredFieldDropDownLeftRight START.");
+	// console.log("onOutsideStructuredFieldDropDownLeftRight START.");
 	const { startKey } = state;
 	const { startOffset } = state;
-	console.log("start offset = " + startOffset);
+	// console.log("start offset = " + startOffset);
+	// console.log("start key = " + startKey);
 	const selectedNode = state.document.getDescendant(startKey);
-	if (data.key === 'left') { 
-		console.log('in left movement')
-		const minOffset = 0;
-		if (minOffset === startOffset) { 
-			console.log('hit barrier');
-			console.log(startKey)
-			console.log("start offset = " + startOffset);
+
+	if (selectedNode.kind === 'text') {
+		const offset = (data.key === "left") ? 0 : selectedNode.text.length;
+		if (offset === startOffset) { 
 			const parentNode = state.document.getParent(startKey);
-			const prevNode = state.document.getPreviousSibling(parentNode.key);
-			if (!Lang.isUndefined(prevNode)) {
-				console.log(selectedNode);
-				console.log(prevNode);
-				console.log(parentNode);
-				if (prevNode.kind === 'inline') return;
-				if (prevNode.kind === 'block' && prevNode.type === 'structured_field') {
-					let node = prevNode.nodes.get(0);
-					console.log("structured field is prevNode");
-					console.log(node);
+			const nextNodeToCheck = (data.key === "left") ? state.document.getPreviousSibling(parentNode.key) : state.document.getNextSibling(parentNode.key);
+			if (!Lang.isUndefined(nextNodeToCheck)) {
+				if (nextNodeToCheck.kind === 'inline') return
+				if (nextNodeToCheck.kind === 'block' && nextNodeToCheck.type === 'structured_field') {
+					let node = nextNodeToCheck.nodes.get(0);
+					// console.log("structured field is nextNodeToCheck");
+					// console.log(node);
 					while (node.kind !== 'block' && node.type !== opts.typeSubfieldDropdown) {
-						node = state.document.getPreviousSibling(node.key);
+						node = (data.key === "left") ? state.document.getPreviousSibling(parentNode.key) : state.document.getNextSibling(parentNode.key);;
 					}
 					event.preventDefault();
-					console.log("oosfddlr: node to select:");
-					console.log(node);
+					// console.log(node);
 					const newState = state
 						.transform()
 						.collapseToStartOf(node)
 						.apply();
-					//console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state changed).");
+					// console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state changed).");
 					return newState;
 				}
 			}
 		}
-	} else { /*It's right*/
-		if (selectedNode.kind === 'text') {
-			const maxOffset = selectedNode.text.length;
-			//console.log("text length = " + selectedNode.text.length);
-			if (maxOffset === startOffset) {
-				const parentNode = state.document.getParent(startKey);
-				const nextNode = state.document.getNextSibling(parentNode.key);
-				if (!Lang.isUndefined(nextNode)) {
-					//console.log(selectedNode);
-					//console.log(nextNode);
-					//console.log(parentNode);
-					if (nextNode.kind === 'inline') return;
-					if (nextNode.kind === 'block' && nextNode.type === 'structured_field') {
-						let node = nextNode.nodes.get(0);
-						//console.log("structured field is nextNode");
-						//console.log(node);
-						while (node.kind !== 'block' && node.type !== opts.typeSubfieldDropdown) {
-							node = state.document.getNextSibling(node.key);
-						}
-						event.preventDefault();
-						//console.log("oosfddlr: node to select:");
-						//console.log(node);
-						const newState = state
-							.transform()
-							.collapseToStartOf(node)
-							.apply();
-						//console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state changed).");
-						return newState;
-					}
-				}
-			}
-		}
 	}
-	//console.log("onOutsideStructuredFieldDropDownLeftRight DONE (state not changed).");
-}
+} 
 
 /**
  * Pressing "Tab" moves the cursor to the next cell
