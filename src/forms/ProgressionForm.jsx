@@ -113,9 +113,7 @@ class ProgressionForm extends Component {
             <div className="btn-group-status-progression">
                 {this.state.statusOptions.map((status, i) => {
                     let statusName = status.name;
-                    console.log(statusName);
                     return (
-
                         <RaisedButton
                             key={i}
                             label={statusName}
@@ -130,16 +128,12 @@ class ProgressionForm extends Component {
                                 padding: "20px 0 20px 0"
                             }}
                             style={style}
+                            onClick={(e) => this.handleStatusSelection(e, i)}
                         >
                         </RaisedButton>
-
                     );
                 })}
-
-
-
             </div>
-
 
             <h4>Progression Reasons</h4>
             <p id="data-element-description">
