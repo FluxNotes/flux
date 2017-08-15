@@ -98,7 +98,7 @@ class ProgressionForm extends Component {
                 </p>
                 <Divider className="divider"/>
 
-                <h4>Progression Status</h4>
+                <h4>Status of progression</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
                 </p>
@@ -138,7 +138,7 @@ class ProgressionForm extends Component {
                     })}
                 </div>
 
-                <h4>Progression Reasons</h4>
+                <h4>Rationale for status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
                 </p>
