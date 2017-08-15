@@ -8,7 +8,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+	<Router>
         <div>
           <Route exact path='/' component={SlimApp} />
           <Route path='/patient' component={FullApp} />
