@@ -1,24 +1,18 @@
-// React Imports:
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-// Material UI components:
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// Application components:
 import NavBar from '../nav/NavBar';
 import FluxNotesEditor from '../test/notes/FluxNotesEditor';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import ContextTray from '../test/context/ContextTray';
 import TimelinePanel from '../timeline/TimelinePanel';
-// Shortcuts
 import ShortcutManager from '../test/shortcuts/ShortcutManager';
-// Data model
 import ContextManager from '../test/context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
-// Lodash component
-import Lang from 'lodash'
+//import Lang from 'lodash'
 
 import './FullApp.css';
 
