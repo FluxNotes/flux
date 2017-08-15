@@ -19,7 +19,7 @@
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    margin-left: -60px;
+    margin-left: 18px !important;
     opacity: 0;
     transition: opacity 1s;
     font-size: .8rem;

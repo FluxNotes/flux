@@ -115,25 +115,30 @@ class ProgressionForm extends Component {
                 <div className="btn-group-status-progression">
                     {this.state.statusOptions.map((status, i) => {
                         let statusName = status.name;
+                        let statusDescription = status.description;
+                        const buttonClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
                         return (
-                            <RaisedButton
-                                key={i}
-                                label={statusName}
-                                labelStyle={{
-                                    textTransform: "none",
-                                }}
-                                buttonStyle={{
-                                    height: "75px",
-                                    width: "200px"
-                                }}
-                                overlayStyle={{
-                                    padding: "20px 0 20px 0"
-                                }}
-                                style={style}
-                                onClick={(e) => this.handleStatusSelection(e, i)}
-                                disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
-                            >
-                            </RaisedButton>
+                            <div key={statusName} className="tooltip">
+                                <span id={statusName} className={buttonClass}>{statusDescription}</span>
+                                <RaisedButton
+                                    key={i}
+                                    label={statusName}
+                                    labelStyle={{
+                                        textTransform: "none",
+                                    }}
+                                    buttonStyle={{
+                                        height: "75px",
+                                        width: "200px"
+                                    }}
+                                    overlayStyle={{
+                                        padding: "20px 0 20px 0"
+                                    }}
+                                    style={style}
+                                    onClick={(e) => this.handleStatusSelection(e, i)}
+                                    disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
+                                >
+                                </RaisedButton>
+                            </div>
                         );
                     })}
                 </div>
