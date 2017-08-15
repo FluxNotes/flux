@@ -14,7 +14,7 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
-//import Lang from 'lodash'
+import Lang from 'lodash'
 
 import './FullApp.css';
 
