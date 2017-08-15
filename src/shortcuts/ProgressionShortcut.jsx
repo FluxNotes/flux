@@ -22,7 +22,6 @@ class ProgressionShortcut extends Shortcut {
         }
         this.progression = Lang.clone(progression);
         this.onUpdate = onUpdate;
-        console.log(`constructor for a new Progression shortcut object`)
     }
     /* 
      * Returns "progression"
@@ -118,9 +117,7 @@ class ProgressionShortcut extends Shortcut {
         );      
     }
     
-    handleProgressionUpdate = (p) => { 
-        console.log(`Updated progression:`);
-        console.log(p);
+    handleProgressionUpdate = (p) => {
         this.progression.status = p.status;
         this.progression.reason = p.reason;
         this.progression.startDate = p.startDate;

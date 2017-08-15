@@ -2,13 +2,8 @@
 import React, {Component} from 'react';
 // material-ui
 import Divider from 'material-ui/Divider';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
-// Libraries
 import progressionLookup from '../lib/progression_lookup';
-// Styling
 import './ProgressionForm.css';
 
 class ProgressionForm extends Component {
@@ -29,7 +24,6 @@ class ProgressionForm extends Component {
     handleStatusSelection = (e, i) => {
         e.preventDefault();
         const newStatus = this.state.statusOptions[i].name;
-        console.log(`ProgressionForm.handleStatusSelection Status #${i} ${newStatus}`);
         const newProgression = {...this.props.progression};
         newProgression["status"] = newStatus;
         this.props.onProgressionUpdate(newProgression);
@@ -38,13 +32,17 @@ class ProgressionForm extends Component {
     handleReasonSelection = (reason, i) => {
 
         // set active button state array
-        this.state.reasonButtonsActiveState[i] =! this.state.reasonButtonsActiveState[i];
+        let newArray = this.state.reasonButtonsActiveState;
+        newArray[i] =! this.state.reasonButtonsActiveState[i];
+
+        this.setState({
+            reasonButtonsActiveState: newArray
+        });
 
         const reasonIndex = this.props.progression.reason.findIndex((r) => r === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
-                console.log(`about to add reason ${reason.name} to list of progression reasons`);
                 const newReasons = [...this.props.progression.reason];
                 newReasons.push(reason.name);
                 const newProgression = {...this.props.progression};
@@ -52,44 +50,22 @@ class ProgressionForm extends Component {
                 this.props.onProgressionUpdate(newProgression);
             } else {
                 // Nothing -- the element is already in there
-                console.log(`Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
+                console.log(`[WARNING] Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
             }
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                console.log(`about to remove element ${reason.name} from progression reasons`);
+
                 const filteredReasons = this.props.progression.reason.filter((r) => r !== reason.name);
                 const newProgression = {...this.props.progression};
                 newProgression["reason"] = filteredReasons;
                 this.props.onProgressionUpdate(newProgression);
             } else {
                 // Nothing -- the element is already removed from the array;
-                console.log(`Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
+                console.log(`[WARNING] Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
             }
         }
 
-    }
-
-    renderStatusMenuItem = (status) => {
-        return (
-            <MenuItem
-                key={status.name}
-                value={status.name}
-                primaryText={status.name}
-            />
-        )
-    }
-
-    renderReasonCheckbox = (reason, i) => {
-        const isChecked = this.props.progression.reason.some((curReason) => curReason.toLowerCase() === reason.name.toLowerCase());
-        return (
-            <Checkbox
-                key={i}
-                checked={isChecked}
-                onCheck={(e, isChecked) => this.handleReasonSelection(reason, isChecked)}
-                label={reason.name}
-            />
-        )
     }
 
     renderReasonButtonGroup = (reason, i) => {
@@ -100,7 +76,7 @@ class ProgressionForm extends Component {
         let labelColor = "";
 
         if (this.state.reasonButtonsActiveState[i]) {
-            backgroundColor="#1a75ff";
+            backgroundColor="#6666ff";
             labelColor="#fff";
         } else {
             backgroundColor="";
@@ -150,15 +126,6 @@ class ProgressionForm extends Component {
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
                 </p>
-                <SelectField
-                    value={this.props.progression.status}
-                    hintText="Status"
-                    onChange={this.handleStatusSelection}
-                >
-                    {this.state.statusOptions.map((status, i) => {
-                        return this.renderStatusMenuItem(status)
-                    })}
-                </SelectField>
 
                 <div className="btn-group-status-progression">
                     {this.state.statusOptions.map((status, i) => {
@@ -184,6 +151,8 @@ class ProgressionForm extends Component {
                                     style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
+                                    disabledBackgroundColor="#6666ff"
+                                    disabledLabelColor="#fff"
                                 >
                                 </RaisedButton>
                             </div>
@@ -195,10 +164,6 @@ class ProgressionForm extends Component {
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
                 </p>
-
-                {this.state.reasonOptions.map((reason, i) => {
-                    return this.renderReasonCheckbox(reason, i)
-                })}
 
                 <div className="btn-group-reason-progression">
                     {this.state.reasonOptions.map((reason, i) => {

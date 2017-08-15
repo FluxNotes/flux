@@ -364,7 +364,6 @@ function onEnter(event, data, state, opts) {
 	event.preventDefault();
 	let result = moveField(state, opts, 1);
 	return result;
-	console.log('onEnter DONE')
 }
 
 function moveField(state, opts, fieldDelta) {
