@@ -45,7 +45,6 @@ class ContextTray extends Component {
 					/>
 			);
 		} else {
-		//console.log("***** render ContextTray");
 			panelContent = (
 				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
 						tabType={'scrollable-buttons'}
@@ -66,10 +65,10 @@ class ContextTray extends Component {
 						/>
 					</Tab>
 					{this.props.contextManager.getActiveContexts().slice(0).reverse().map((context, i) => {
-						console.log(context);
+						//console.log(context);
 						if (!Lang.isNull(context.getLabel())) {
 							let label = context.getLabel();
-							if (label.length > 15) label = label.substring(0,12) + "...";
+							//if (label.length > 15) label = label.substring(0,12) + "...";
 							return (
 								<Tab key={context.getLabel()} className="tab" label={label} isMultiLine={true}>
 									<ContextOptions
@@ -88,7 +87,7 @@ class ContextTray extends Component {
             <div id="forms-panel" className="dashboard-panel">
                 <Paper className="panel-content trio">
                     {panelContent}
-              </Paper>
+                </Paper>
             </div>
         )
     }

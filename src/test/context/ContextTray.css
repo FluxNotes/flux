@@ -1,3 +1,13 @@
+
+.tabs-container div div {
+    background: white !important;
+    color: black !important;
+}
+.tabs-container div div svg {
+    background: white !important;
+    color: black !important;
+}
+
 .tabs-container div .tab{
     color: black !important;
 }
