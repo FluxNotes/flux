@@ -74,7 +74,7 @@ class ProgressionForm extends Component {
         let labelColor = "";
 
         if (this.state.reasonButtonsActiveState[i]) {
-            backgroundColor = "#6666ff";
+            backgroundColor = "#297DA2";
             labelColor = "#fff";
         } else {
             backgroundColor = "";
@@ -94,7 +94,7 @@ class ProgressionForm extends Component {
                     }}
                     buttonStyle={{
                         height: "75px",
-                        width: "200px"
+                        width: "180px"
                     }}
                     overlayStyle={{
                         padding: "20px 0 20px 0"
@@ -141,7 +141,7 @@ class ProgressionForm extends Component {
                                     }}
                                     buttonStyle={{
                                         height: "75px",
-                                        width: "200px"
+                                        width: "180px"
                                     }}
                                     overlayStyle={{
                                         padding: "20px 0 20px 0"
@@ -149,7 +149,7 @@ class ProgressionForm extends Component {
                                     style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
-                                    disabledBackgroundColor="#6666ff"
+                                    disabledBackgroundColor="#297DA2"
                                     disabledLabelColor="#fff"
                                 >
                                 </RaisedButton>
