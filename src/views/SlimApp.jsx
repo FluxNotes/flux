@@ -60,7 +60,6 @@ class SlimApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     handleShortcutUpdate = (s) => {
-        console.log(`Updated: ${s}`);
         (s !== "") && this.setState({currentShortcut: s});
     }
 

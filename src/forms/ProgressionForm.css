@@ -19,7 +19,7 @@
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    margin-left: -60px;
+    margin-left: 18px !important;
     opacity: 0;
     transition: opacity 1s;
     font-size: .8rem;
@@ -46,3 +46,11 @@
     opacity: 1;
     transition-delay: 0.5s;
 }
+
+.btn-group-status-progression {
+    /*background-color: #001A33;*/
+}
+
+/*.btn-progression {*/
+    /*margin: 15px;*/
+/*}*/
