@@ -48,7 +48,7 @@ class ContextTray extends Component {
 		//console.log("***** render ContextTray");
 			panelContent = (
 				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-						tabType={'scrollable'}
+						tabType={'scrollable-buttons'}
 						tabItemContainerStyle={{background: 'white'}} 
 						initialSelectedIndex={1 + this.props.contextManager.getActiveContexts().length}>
 					<Tab className="tab" label="Templates">
@@ -94,17 +94,13 @@ class ContextTray extends Component {
 			);
 		}
         return (
+            <div id="forms-panel" className="dashboard-panel">
+                <Paper className="panel-content trio">
                     {panelContent}
+              </Paper>
+            </div>
         )
     }
 }
 
 export default ContextTray;
-		/*
-		            <div id="forms-panel" className="dashboard-panel">
-                <Paper className="panel-content trio">
-*/
-		/*
-		              </Paper>
-            </div>
-  */
