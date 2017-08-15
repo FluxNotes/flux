@@ -1,5 +1,8 @@
+.tabs-container > div > div > div {
+    background: white !important;
+}
 
-.tabs-container div div {
+.tabs-container div button:not(.tab) {
     background: white !important;
     color: black !important;
 }
