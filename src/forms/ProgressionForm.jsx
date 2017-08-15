@@ -18,6 +18,7 @@ class ProgressionForm extends Component {
         this.state = {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
+            reasonButtonsActiveState: []
         };
     }
 
@@ -34,9 +35,13 @@ class ProgressionForm extends Component {
         this.props.onProgressionUpdate(newProgression);
     }
 
-    handleReasonSelection = (reason, isChecked) => {
+    handleReasonSelection = (reason, i) => {
+
+        // set active button state array
+        this.state.reasonButtonsActiveState[i] =! this.state.reasonButtonsActiveState[i];
+
         const reasonIndex = this.props.progression.reason.findIndex((r) => r === reason.name);
-        if (isChecked) {
+        if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
                 console.log(`about to add reason ${reason.name} to list of progression reasons`);
@@ -62,6 +67,7 @@ class ProgressionForm extends Component {
                 console.log(`Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
             }
         }
+
     }
 
     renderStatusMenuItem = (status) => {
@@ -86,10 +92,52 @@ class ProgressionForm extends Component {
         )
     }
 
+    renderReasonButtonGroup = (reason, i) => {
+
+        let reasonName = reason.name;
+        let reasonDescription = reason.description;
+        let backgroundColor = "";
+        let labelColor = "";
+
+        if (this.state.reasonButtonsActiveState[i]) {
+            backgroundColor="#1a75ff";
+            labelColor="#fff";
+        } else {
+            backgroundColor="";
+            labelColor="";
+        }
+
+        const buttonClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+
+        return (
+            <div key={reasonName} className="tooltip">
+                <span id={reasonName} className={buttonClass}>{reasonDescription}</span>
+                <RaisedButton
+                    key={i}
+                    label={reasonName}
+                    labelStyle={{
+                        textTransform: "none",
+                    }}
+                    buttonStyle={{
+                        height: "75px",
+                        width: "200px"
+                    }}
+                    overlayStyle={{
+                        padding: "20px 0 20px 0"
+                    }}
+                    style={{margin: 0.5}}
+
+                    onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
+
+                    backgroundColor={backgroundColor}
+                    labelColor={labelColor}
+                >
+                </RaisedButton>
+            </div>
+        )
+    }
+
     render() {
-        const style = {
-            margin: 0.5,
-        };
         return (
             <div>
                 <h1>Disease Progression</h1>
@@ -133,7 +181,7 @@ class ProgressionForm extends Component {
                                     overlayStyle={{
                                         padding: "20px 0 20px 0"
                                     }}
-                                    style={style}
+                                    style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
                                 >
@@ -147,9 +195,16 @@ class ProgressionForm extends Component {
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
                 </p>
+
                 {this.state.reasonOptions.map((reason, i) => {
                     return this.renderReasonCheckbox(reason, i)
                 })}
+
+                <div className="btn-group-reason-progression">
+                    {this.state.reasonOptions.map((reason, i) => {
+                        return this.renderReasonButtonGroup(reason, i)
+                    })}
+                </div>
             </div>
         );
     }
