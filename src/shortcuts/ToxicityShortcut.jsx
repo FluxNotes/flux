@@ -81,19 +81,14 @@ class ToxicityShortcut extends Shortcut {
             // No Toxicity information -- in this case we just want a hash
             return `#toxicity`;
         } else { 
-            let allToxicities = "";
-            const numToxicities = this.toxicity.length;
-            for (let i = 0; i < numToxicities - 1; i++) {
-                const curToxicity = this.toxicity[i];
-                const curToxicityString = this.getToxAsString(curToxicity);
-                allToxicities += curToxicityString;
-                allToxicities += ", ";
-            }
-            const curToxicity = this.toxicity[numToxicities - 1];
-            const curToxicityString = this.getToxAsString(curToxicity);
-            allToxicities += curToxicityString;
+            const gradeString = this.getGradeString(this.toxicity);
+            let adverseEventString = this.getAdverseEventString(this.toxicity);
+            if(!Lang.isEmpty(adverseEventString)) { adverseEventString = ` ` + adverseEventString }
+            let dateString = this.getDateString(this.toxicity);
+            if(!Lang.isEmpty(dateString)) { dateString = ` ` + dateString }
+
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#toxicity[${allToxicities}]`;
+            return `#toxicity[${gradeString}${adverseEventString}${dateString}]`;
         }
     }
 
