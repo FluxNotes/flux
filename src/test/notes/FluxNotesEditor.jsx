@@ -118,7 +118,7 @@ class FluxNotesEditor extends React.Component {
 		
 	suggestionFunction(text) {
 		let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
-		console.log(shortcuts);
+		//console.log(shortcuts);
         let suggestionsShortcuts = [];
         shortcuts.forEach((shortcut) => {
 			const triggers = shortcut.getTriggers();
@@ -307,10 +307,32 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     handleSummaryUpdate = (itemToBeInserted) => {
-		console.log("insert: " + itemToBeInserted);
+		//console.log("insert: " + itemToBeInserted);
 		let state;
 		const currentState = this.state.state;
-		if (itemToBeInserted.startsWith("@") || itemToBeInserted.startsWith("#")) {
+		let transform = currentState.transform();
+		let regExp = new RegExp("(@\\w+|#\\w+)", "i");
+		let result = regExp.exec(itemToBeInserted);
+		let remainder = itemToBeInserted;
+		let start, before;
+		while (!Lang.isNull(result)) {
+			//console.log(result[0]);
+			start = remainder.indexOf(result[0]);
+			before = remainder.substring(0, start);
+			//console.log(before);
+			remainder = remainder.substring(start + result[0].length);
+			//console.log(remainder);
+			transform = transform
+				.insertText(before)
+			transform = this.insertShortcut(result[0], transform);
+			result = regExp.exec(remainder);
+		}
+		if (remainder.length > 0) {
+			transform = transform.insertText(remainder);
+		}
+		state = transform.focus().apply();
+		
+/*		if (itemToBeInserted.startsWith("@") || itemToBeInserted.startsWith("#")) {
 			state = this.insertShortcut(itemToBeInserted, currentState.transform()).apply();
 		} else {
 			state = currentState
@@ -318,7 +340,7 @@ class FluxNotesEditor extends React.Component {
 				.insertText(itemToBeInserted)
 				.focus()
 				.apply();
-		}
+		}*/
 		this.setState({state: state});
 	}
 

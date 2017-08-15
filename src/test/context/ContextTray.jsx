@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import TemplateForm from '../../forms/TemplateForm';
 import DataCaptureForm from '../../forms/DataCaptureForm';
 import Paper from 'material-ui/Paper';
-import { Tabs, Tab} from 'material-ui/Tabs';
-//import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
+//import { Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
 import Lang from 'lodash'
 import ContextOptions from './ContextOptions';
 import './ContextTray.css';
@@ -13,6 +13,7 @@ class ContextTray extends Component {
      need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
      to the correct entry form for the structured field. on exit, set to null.
      */
+	templates = [{name: 'op note', content: 'op note'}, {name: 'follow-up', content:'follow up'}, {name:'consult note', content: '@patient presenting with '}];
 
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ class ContextTray extends Component {
 
     _insertTemplate(i) {
         console.log(`Inserting template ${i}`);
+		this.props.onShortcutClicked(this.templates[i].content);
     }
 	
 	_handleShortcutClick(i) {
@@ -43,15 +45,17 @@ class ContextTray extends Component {
 					/>
 			);
 		} else {
-			console.log("***** render ContextTray");
+		//console.log("***** render ContextTray");
 			panelContent = (
 				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-						tabItemContainerStyle={{background: 'white'}} initialSelectedIndex={1 + this.props.contextManager.getActiveContexts().length}>
+						tabType={'scrollable'}
+						tabItemContainerStyle={{background: 'white'}} 
+						initialSelectedIndex={1 + this.props.contextManager.getActiveContexts().length}>
 					<Tab className="tab" label="Templates">
 						<TemplateForm
 							patient={this.props.patient}
 							heading=""
-							templates={['op note', 'follow-up', 'consult note']}
+							templates={this.templates.map((item) => { return item.name })}
 							handleClick={this._insertTemplate}
 						/>
 					</Tab>
@@ -61,13 +65,22 @@ class ContextTray extends Component {
 							handleClick={this._handleShortcutClick}
 						/>
 					</Tab>
-					{this.props.contextManager.getActiveContexts().map((context, i) => {
+					<Tab className="tab" label="Test1">
+						<h1>test1</h1>
+					</Tab>
+					<Tab className="tab" label="Test2">
+						<h1>test2</h1>
+					</Tab>
+					<Tab className="tab" label="Test3">
+						<h1>test3</h1>
+					</Tab>
+					{this.props.contextManager.getActiveContexts().slice(0).reverse().map((context, i) => {
 						console.log(context);
 						if (!Lang.isNull(context.getLabel())) {
 							let label = context.getLabel();
 							if (label.length > 15) label = label.substring(0,12) + "...";
 							return (
-								<Tab key={context.getLabel()} className="tab" label={label}>
+								<Tab key={context.getLabel()} className="tab" label={label} isMultiLine={true}>
 									<ContextOptions
 										contextManager={this.props.contextManager}
 										handleClick={this._handleShortcutClick}
@@ -81,13 +94,17 @@ class ContextTray extends Component {
 			);
 		}
         return (
-            <div id="forms-panel" className="dashboard-panel">
-                <Paper className="panel-content trio">
                     {panelContent}
-                </Paper>
-            </div>
         )
     }
 }
 
 export default ContextTray;
+		/*
+		            <div id="forms-panel" className="dashboard-panel">
+                <Paper className="panel-content trio">
+*/
+		/*
+		              </Paper>
+            </div>
+  */
