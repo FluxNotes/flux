@@ -65,15 +65,6 @@ class ContextTray extends Component {
 							handleClick={this._handleShortcutClick}
 						/>
 					</Tab>
-					<Tab className="tab" label="Test1">
-						<h1>test1</h1>
-					</Tab>
-					<Tab className="tab" label="Test2">
-						<h1>test2</h1>
-					</Tab>
-					<Tab className="tab" label="Test3">
-						<h1>test3</h1>
-					</Tab>
 					{this.props.contextManager.getActiveContexts().slice(0).reverse().map((context, i) => {
 						console.log(context);
 						if (!Lang.isNull(context.getLabel())) {
