@@ -21,10 +21,10 @@ class ProgressionForm extends Component {
       };
   }
 
-  handleStatusSelecion = (e, i) => {
+  handleStatusSelection = (e, i) => {
     e.preventDefault();
     const newStatus = this.state.statusOptions[i].name; 
-    console.log(`ProgressionForm.handleStatusSelecion Status #${i} ${newStatus}`);
+    console.log(`ProgressionForm.handleStatusSelection Status #${i} ${newStatus}`);
     const newProgression = { ...this.props.progression}; 
     newProgression["status"] = newStatus;
     this.props.onProgressionUpdate(newProgression);
@@ -103,7 +103,7 @@ class ProgressionForm extends Component {
             <SelectField
               value={this.props.progression.status}
               hintText="Status"
-              onChange={this.handleStatusSelecion}
+              onChange={this.handleStatusSelection}
             >
               {this.state.statusOptions.map((status, i) => {
                   return this.renderStatusMenuItem(status)
@@ -111,33 +111,33 @@ class ProgressionForm extends Component {
             </SelectField>
 
             <div className="btn-group-status-progression">
-                <RaisedButton
-                    className="btn_progression"
-                    label="Test"
-                    labelStyle={{
-                        textTransform: "none",
-                    }}
-                    style={style}
+                {this.state.statusOptions.map((status, i) => {
+                    let statusName = status.name;
+                    console.log(statusName);
+                    return (
 
-                >
-                </RaisedButton>
-                <RaisedButton
-                    label="Test2"
-                    labelStyle={{
-                        textTransform: "none",
-                    }}
-                    buttonStyle={{
-                        height: "45px",
-                    }}
-                    overlayStyle={{
-                        padding: "5px 0 4px 0"
-                    }}
-                    style={style}
+                        <RaisedButton
+                            key={i}
+                            label={statusName}
+                            labelStyle={{
+                                textTransform: "none",
+                            }}
+                            buttonStyle={{
+                                height: "75px",
+                                width: "200px"
+                            }}
+                            overlayStyle={{
+                                padding: "20px 0 20px 0"
+                            }}
+                            style={style}
+                        >
+                        </RaisedButton>
 
-                >
-                </RaisedButton>
-                <RaisedButton label="Primary" style={style} />
-                <RaisedButton label="Primary" style={style}/>
+                    );
+                })}
+
+
+
             </div>
 
 
