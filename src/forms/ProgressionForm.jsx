@@ -1,6 +1,4 @@
-// React imports
 import React, {Component} from 'react';
-// material-ui
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import progressionLookup from '../lib/progression_lookup';
@@ -33,7 +31,7 @@ class ProgressionForm extends Component {
 
         // set active button state array
         let newArray = this.state.reasonButtonsActiveState;
-        newArray[i] =! this.state.reasonButtonsActiveState[i];
+        newArray[i] = !this.state.reasonButtonsActiveState[i];
 
         this.setState({
             reasonButtonsActiveState: newArray
@@ -76,11 +74,11 @@ class ProgressionForm extends Component {
         let labelColor = "";
 
         if (this.state.reasonButtonsActiveState[i]) {
-            backgroundColor="#6666ff";
-            labelColor="#fff";
+            backgroundColor = "#6666ff";
+            labelColor = "#fff";
         } else {
-            backgroundColor="";
-            labelColor="";
+            backgroundColor = "";
+            labelColor = "";
         }
 
         const buttonClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
