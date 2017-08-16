@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
 import DataSummaryTable from './DataSummaryTable';
-import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
 import Button from 'material-ui/Button';

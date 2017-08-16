@@ -13,6 +13,10 @@ import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 
+function addTriggerForKey(trigger) {
+    this.shortcutMap[trigger] = this.shortcuts[this.currentShortcut];
+}
+
 class ShortcutManager {
 	shortcuts = {
 		'#progression': ProgressionCreator,
@@ -42,9 +46,8 @@ class ShortcutManager {
 		for (var key in this.shortcuts) {
 			this.shortcutClasses.push(this.shortcuts[key]);
 			const triggers = this.shortcuts[key].getTriggers();
-			triggers.forEach((trigger) => {
-				this.shortcutMap[trigger] = this.shortcuts[key];
-			});
+            this.currentShortcut = key;
+			triggers.forEach(addTriggerForKey, this);
 		}		
 	}
 	
