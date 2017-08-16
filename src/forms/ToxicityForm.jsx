@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import MenuItem from 'material-ui/MenuItem';
-import Menu from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
 import toxicityLookup from '../lib/toxicity_lookup';
 import Lang from 'lodash'
 import Array from 'lodash'
@@ -182,9 +179,7 @@ class ToxicityForm extends Component {
             const adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
             const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
             gradeDescription = currentAdverseEvent[currentGradeLevel];
-        }
-        const gradeText=`${currentGradeLevel} - ${gradeDescription}`
-        
+        }        
         return (
             <div 
                 className={gradeMenuClass}
@@ -207,9 +202,7 @@ class ToxicityForm extends Component {
     }
   
     render() {
-        let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};
-        const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
-        
+        let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};        
         const inputProps = {
           placeholder: 'Search through adverse events',
           value: this.state.searchText,
