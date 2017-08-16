@@ -4,7 +4,7 @@ import moment from 'moment';
 class SummaryMetadata {
 	hardCodedMetadata = { "http://ncimeta.nci.nih.gov/C1334276" :	{ sections: [	{ 	name: "Current Diagnosis",
 																							items:	[	{ name: "Name", value: (patient, currentConditionEntry) => { return currentConditionEntry.specificType.coding.displayText; }},
-																										{ name: "Stage", value: (patient, currentConditionEntry) => { let s = patient.getMostRecentStagingForCondition(currentConditionEntry); if (s) { return s.value.coding.displayText + " (" + s.tStage.coding.displayText + s.nStage.coding.displayText + s.mStage.coding.displayText + ")";  } else { return null; } } }
+																										{ name: "Stage", value: (patient, currentConditionEntry) => { let s = patient.getMostRecentStagingForCondition(currentConditionEntry); if (s && s.value.coding.displayText.length > 0) { return s.value.coding.displayText + " (" + s.tStage.coding.displayText + s.nStage.coding.displayText + s.mStage.coding.displayText + ")";  } else { return null; } } }
 																								    ]},
 																						{	name: "Progression",
 																							items:	[	{ name: "Current Progression", value: (patient, currentConditionEntry) => { let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months')); if (Lang.isNull(p)) return null; else return p.value.coding.displayText; }},

@@ -105,7 +105,7 @@ class ProgressionForm extends Component {
 
                     backgroundColor={backgroundColor}
                     labelColor={labelColor}
-                >
+                >{reasonName}
                 </Button>
             </div>
         )
@@ -151,7 +151,7 @@ class ProgressionForm extends Component {
                                     disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
                                     disabledBackgroundColor="#297DA2"
                                     disabledLabelColor="#fff"
-                                >
+                                >{statusName}
                                 </Button>
                             </div>
                         );
