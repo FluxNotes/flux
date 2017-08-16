@@ -17,7 +17,14 @@ class FormList extends Component {
 
     _newShortcut(e, index, shortcutName) {
         e.preventDefault();
-        this.props.changeShortcut(this.props.shortcuts[index]);
+
+        if (shortcutName !== "Welcome") {
+            this.props.changeShortcut(this.props.shortcuts[index]);
+        }
+        else {
+            console.log("selected 'Welcome'");
+            this.props.changeShortcut(null);
+        }
     }
 
     _onTouchTap(event, shortcutName) {

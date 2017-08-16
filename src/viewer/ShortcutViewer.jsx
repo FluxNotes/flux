@@ -1,22 +1,27 @@
 import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import RaisedButton from 'material-ui/RaisedButton';
+import LandingPageForm from '../forms/LandingPageForm';
+// Lodash component
 import Lang from 'lodash'
 import './ShortcutViewer.css';
 
 class ShortcutViewer extends Component {
-    /* 
+    /*
      * Returns JSX element for the initial, no-shorcut state
-     */ 
+     */
     _getInitialState(initialString) {
         return (
-            <span>Choose a template from the left panel</span>
+            <div>
+                <span>Choose a template from the left panel</span>
+                <LandingPageForm/>
+            </div>
         );
     }
 
-    /* 
+    /*
      * Returns JSX element for the copy component
-     */ 
+     */
     _getCopyComponent(string) {
         return (
             <CopyToClipboard text={string}>
@@ -33,7 +38,7 @@ class ShortcutViewer extends Component {
                         padding: "5px 0 4px 0"
                     }}
                     style={{
-                        minWidth: "99.8%"                        
+                        minWidth: "99.8%"
                     }}
                     fullWidth={true}
                 >
@@ -75,7 +80,7 @@ class ShortcutViewer extends Component {
         )
     }
 
-    
+
 }
 
 export default ShortcutViewer;
