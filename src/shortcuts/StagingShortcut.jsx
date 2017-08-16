@@ -112,7 +112,7 @@ class StagingShortcut extends Shortcut {
 		} else if (name === "M") {
 			Patient.updateMForStaging(this.staging, value);
 		} else {
-			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
 		}
 		this.onUpdate(this);
@@ -129,7 +129,7 @@ class StagingShortcut extends Shortcut {
 		} else if (name === "M") {
 			return this.staging.mStage.coding.displayText;
 		} else {
-			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
 		}
 	}

@@ -19,7 +19,7 @@ const adverseEventOptions = [
         "Grade 3": "Hgb <8.0 g/dL; <4.9 mmol/L; <80 g/L; transfusion indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an reduction in the amount of hemoglobin in 100 ml of blood. Signs and symptoms of anemia may include pallor of the skin and mucous membranes, shortness of breath, palpitations of the heart, soft systolic murmurs, lethargy, and fatigability."
+        "description": "A disorder characterized by an reduction in the amount of hemoglobin in 100 ml of blood. Signs and symptoms of anemia may include pallor of the skin and mucous membranes, shortness of breath, palpitations of the heart, soft systolic murmurs, lethargy, and fatigability."
     },
     {
         "MedDRA v12.0 Code": 10048580,
@@ -30,7 +30,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely hypocellular or >50 - <=75% reduction cellularity from normal for age",
         "Grade 4": "Aplastic persistent for longer than 2 weeks",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the inability of the bone marrow to produce hematopoietic elements."
+        "description": "A disorder characterized by the inability of the bone marrow to produce hematopoietic elements."
     },
     {
         "MedDRA v12.0 Code": 10013442,
@@ -41,7 +41,7 @@ const adverseEventOptions = [
         "Grade 3": "Laboratory findings and bleeding",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by systemic pathological activation of blood clotting mechanisms which results in clot formation throughout the body. There is an increase in the risk of hemorrhage as the body is depleted of platelets and coagulation factors."
+        "description": "A disorder characterized by systemic pathological activation of blood clotting mechanisms which results in clot formation throughout the body. There is an increase in the risk of hemorrhage as the body is depleted of platelets and coagulation factors."
     },
     {
         "MedDRA v12.0 Code": 10016288,
@@ -52,7 +52,7 @@ const adverseEventOptions = [
         "Grade 3": "ANC <1000/mm3 with a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an ANC <1000/mm3 and a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour"
+        "description": "A disorder characterized by an ANC <1000/mm3 and a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour"
     },
     {
         "MedDRA v12.0 Code": 10019491,
@@ -63,7 +63,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion or medical intervention indicated (e.g., steroids)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate widespread erythrocyte cell membrane destruction."
+        "description": "A disorder characterized by laboratory test results that indicate widespread erythrocyte cell membrane destruction."
     },
     {
         "MedDRA v12.0 Code": 10019515,
@@ -74,7 +74,7 @@ const adverseEventOptions = [
         "Grade 3": "Laboratory findings with clinical consequences (e.g., renal insufficiency, petechiae)",
         "Grade 4": "Life-threatening consequences, (e.g., CNS hemorrhage or thrombosis/embolism or renal failure)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a form of thrombotic microangiopathy with renal failure, hemolytic anemia, and severe thrombocytopenia."
+        "description": "A disorder characterized by a form of thrombotic microangiopathy with renal failure, hemolytic anemia, and severe thrombocytopenia."
     },
     {
         "MedDRA v12.0 Code": 10024378,
@@ -85,7 +85,7 @@ const adverseEventOptions = [
         "Grade 3": ">100,000/mm3",
         "Grade 4": "Clinical manifestations of leucostasis; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an increased number of white blood cells in the blood."
+        "description": "A disorder characterized by laboratory test results that indicate an increased number of white blood cells in the blood."
     },
     {
         "MedDRA v12.0 Code": 10025182,
@@ -96,7 +96,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in a lymph node."
+        "description": "A disorder characterized by a sensation of marked discomfort in a lymph node."
     },
     {
         "MedDRA v12.0 Code": 10041633,
@@ -107,7 +107,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder of the spleen."
+        "description": "A disorder of the spleen."
     },
     {
         "MedDRA v12.0 Code": 10043648,
@@ -118,7 +118,7 @@ const adverseEventOptions = [
         "Grade 3": "Laboratory findings with clinical consequences (e.g., renal insufficiency, petechiae)",
         "Grade 4": "Life-threatening consequences, (e.g., CNS hemorrhage or thrombosis/embolism or renal failure)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of microangiopathic hemolytic anemia, thrombocytopenic purpura, fever, renal abnormalities and neurological abnormalities such as seizures, hemiplegia, and visual disturbances. It is an acute or subacute condition."
+        "description": "A disorder characterized by the presence of microangiopathic hemolytic anemia, thrombocytopenic purpura, fever, renal abnormalities and neurological abnormalities such as seizures, hemiplegia, and visual disturbances. It is an acute or subacute condition."
     },
     {
         "MedDRA v12.0 Code": 10005329,
@@ -129,7 +129,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10051592,
@@ -140,7 +140,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic, unstable angina and/or acute myocardial infarction, cardiac enzymes abnormal, hemodynamically stable",
         "Grade 4": "Symptomatic, unstable angina and/or acute myocardial infarction, cardiac enzymes abnormal, hemodynamically unstable",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by signs and symptoms related to acute ischemia of the myocardium secondary to coronary artery disease. The clinical presentation covers a spectrum of heart diseases from unstable angina to myocardial infarction."
+        "description": "A disorder characterized by signs and symptoms related to acute ischemia of the myocardium secondary to coronary artery disease. The clinical presentation covers a spectrum of heart diseases from unstable angina to myocardial infarction."
     },
     {
         "MedDRA v12.0 Code": 10061589,
@@ -151,7 +151,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic; severe regurgitation or stenosis by imaging; symptoms controlled with medical intervention",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., valve replacement, valvuloplasty)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a defect in aortic valve function or structure."
+        "description": "A disorder characterized by a defect in aortic valve function or structure."
     },
     {
         "MedDRA v12.0 Code": 10003586,
@@ -162,7 +162,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart."
+        "description": "A disorder characterized by a dysrhythmia without cardiac electrical activity. Typically, this is accompanied by cessation of the pumping function of the heart."
     },
     {
         "MedDRA v12.0 Code": 10003658,
@@ -173,7 +173,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically, or controlled with device (e.g., pacemaker), or ablation",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia without discernible P waves and an irregular ventricular response due to multiple reentry circuits. The rhythm disturbance originates above the ventricles."
+        "description": "A disorder characterized by a dysrhythmia without discernible P waves and an irregular ventricular response due to multiple reentry circuits. The rhythm disturbance originates above the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10003662,
@@ -184,7 +184,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically, or controlled with device (e.g., pacemaker), or ablation",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with organized rhythmic atrial contractions with a rate of 200-300 beats per minute. The rhythm disturbance originates in the atria."
+        "description": "A disorder characterized by a dysrhythmia with organized rhythmic atrial contractions with a rate of 200-300 beats per minute. The rhythm disturbance originates in the atria."
     },
     {
         "MedDRA v12.0 Code": 10003673,
@@ -195,7 +195,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically, or controlled with device (e.g., pacemaker)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with complete failure of atrial electrical impulse conduction through the AV node to the ventricles."
+        "description": "A disorder characterized by a dysrhythmia with complete failure of atrial electrical impulse conduction through the AV node to the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10003674,
@@ -206,7 +206,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a delay in the time required for the conduction of an electrical impulse through the atrioventricular (AV) node beyond 0.2 seconds; prolongation of the PR interval greater than 200 milliseconds."
+        "description": "A disorder characterized by a dysrhythmia with a delay in the time required for the conduction of an electrical impulse through the atrioventricular (AV) node beyond 0.2 seconds; prolongation of the PR interval greater than 200 milliseconds."
     },
     {
         "MedDRA v12.0 Code": 10007515,
@@ -217,7 +217,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by cessation of the pumping function of the heart."
+        "description": "A disorder characterized by cessation of the pumping function of the heart."
     },
     {
         "MedDRA v12.0 Code": 10008481,
@@ -228,7 +228,7 @@ const adverseEventOptions = [
         "Grade 3": "Pain at rest; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by substernal discomfort due to insufficient myocardial oxygenation."
+        "description": "A disorder characterized by substernal discomfort due to insufficient myocardial oxygenation."
     },
     {
         "MedDRA v12.0 Code": 10010276,
@@ -239,7 +239,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by pathological irregularities in the cardiac conduction system."
+        "description": "A disorder characterized by pathological irregularities in the cardiac conduction system."
     },
     {
         "MedDRA v12.0 Code": 10010783,
@@ -250,7 +250,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic heart failure or other cardiac symptoms, responsive to intervention",
         "Grade 4": "Refractory heart failure or other poorly controlled cardiac symptoms",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a thickened and fibrotic pericardial sac; these fibrotic changes impede normal myocardial function by restricting myocardial muscle action."
+        "description": "A disorder characterized by a thickened and fibrotic pericardial sac; these fibrotic changes impede normal myocardial function by restricting myocardial muscle action."
     },
     {
         "MedDRA v12.0 Code": 10019279,
@@ -261,7 +261,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe with symptoms at rest or with minimal activity or exertion; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., continuous IV therapy or mechanical hemodynamic support)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the inability of the heart to pump blood at an adequate volume to meet tissue metabolic requirements, or, the ability to do so only at an elevation in the filling pressure."
+        "description": "A disorder characterized by the inability of the heart to pump blood at an adequate volume to meet tissue metabolic requirements, or, the ability to do so only at an elevation in the filling pressure."
     },
     {
         "MedDRA v12.0 Code": 10069501,
@@ -272,7 +272,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic due to drop in ejection fraction responsive to intervention",
         "Grade 4": "Refractory or poorly controlled heart failure due to drop in ejection fraction; intervention such as ventricular assist device, intravenous vasopressor support, or heart transplant indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by failure of the left ventricle to produce adequate output despite an increase in distending pressure and in end-diastolic volume. Clinical manifestations may include dyspnea, orthopnea, and other signs and symptoms of pulmonary congestion and edema."
+        "description": "A disorder characterized by failure of the left ventricle to produce adequate output despite an increase in distending pressure and in end-diastolic volume. Clinical manifestations may include dyspnea, orthopnea, and other signs and symptoms of pulmonary congestion and edema."
     },
     {
         "MedDRA v12.0 Code": 10061532,
@@ -283,7 +283,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic; severe regurgitation or stenosis by imaging; symptoms controlled with medical intervention",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., valve replacement, valvuloplasty)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a defect in mitral valve function or structure."
+        "description": "A disorder characterized by a defect in mitral valve function or structure."
     },
     {
         "MedDRA v12.0 Code": 10027786,
@@ -294,7 +294,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically, or controlled with device (e.g., pacemaker)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with relatively constant PR interval prior to the block of an atrial impulse. This is the result of intermittent failure of atrial electrical impulse conduction through the atrioventricular (AV) node to the ventricles."
+        "description": "A disorder characterized by a dysrhythmia with relatively constant PR interval prior to the block of an atrial impulse. This is the result of intermittent failure of atrial electrical impulse conduction through the atrioventricular (AV) node to the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10027787,
@@ -305,7 +305,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically, or controlled with device (e.g., pacemaker)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a progressively lengthening PR interval prior to the blocking of an atrial impulse. This is the result of intermittent failure of atrial electrical impulse conduction through the atrioventricular (AV) node to the ventricles."
+        "description": "A disorder characterized by a dysrhythmia with a progressively lengthening PR interval prior to the blocking of an atrial impulse. This is the result of intermittent failure of atrial electrical impulse conduction through the atrioventricular (AV) node to the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10028596,
@@ -316,7 +316,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; cardiac enzymes abnormal; hemodynamically stable; ECG changes consistent with infarction",
         "Grade 4": "Life-threatening consequences; hemodynamically unstable",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by gross necrosis of the myocardium; this is due to an interruption of blood supply to the area."
+        "description": "A disorder characterized by gross necrosis of the myocardium; this is due to an interruption of blood supply to the area."
     },
     {
         "MedDRA v12.0 Code": 10028606,
@@ -327,7 +327,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe with symptoms at rest or with minimal activity or exertion; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., continuous IV therapy or mechanical hemodynamic support)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the muscle tissue of the heart."
+        "description": "A disorder characterized by inflammation of the muscle tissue of the heart."
     },
     {
         "MedDRA v12.0 Code": 10033557,
@@ -338,7 +338,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an unpleasant sensation of irregular and/or forceful beating of the heart."
+        "description": "A disorder characterized by an unpleasant sensation of irregular and/or forceful beating of the heart."
     },
     {
         "MedDRA v12.0 Code": 10034040,
@@ -349,7 +349,7 @@ const adverseEventOptions = [
         "Grade 3": "IV medication indicated",
         "Grade 4": "Life-threatening consequences; incompletely controlled medically; cardioversion indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with abrupt onset and sudden termination of atrial contractions with a rate of 150-250 beats per minute. The rhythm disturbance originates in the atria."
+        "description": "A disorder characterized by a dysrhythmia with abrupt onset and sudden termination of atrial contractions with a rate of 150-250 beats per minute. The rhythm disturbance originates in the atria."
     },
     {
         "MedDRA v12.0 Code": 10034474,
@@ -360,7 +360,7 @@ const adverseEventOptions = [
         "Grade 3": "Effusion with physiologic consequences",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by fluid collection within the pericardial sac, usually due to inflammation."
+        "description": "A disorder characterized by fluid collection within the pericardial sac, usually due to inflammation."
     },
     {
         "MedDRA v12.0 Code": 10053565,
@@ -371,7 +371,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in intrapericardial pressure due to the collection of blood or fluid in the pericardium."
+        "description": "A disorder characterized by an increase in intrapericardial pressure due to the collection of blood or fluid in the pericardium."
     },
     {
         "MedDRA v12.0 Code": 10034484,
@@ -382,7 +382,7 @@ const adverseEventOptions = [
         "Grade 3": "Pericarditis with physiologic consequences (e.g., pericardial constriction)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by irritation to the layers of the pericardium (the protective sac around the heart)."
+        "description": "A disorder characterized by irritation to the layers of the pericardium (the protective sac around the heart)."
     },
     {
         "MedDRA v12.0 Code": 10061541,
@@ -393,7 +393,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic; severe regurgitation or stenosis by imaging; symptoms controlled with medical intervention",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., valve replacement, valvuloplasty)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a defect in pulmonary valve function or structure."
+        "description": "A disorder characterized by a defect in pulmonary valve function or structure."
     },
     {
         "MedDRA v12.0 Code": 10038748,
@@ -404,7 +404,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic heart failure or other cardiac symptoms, responsive to intervention",
         "Grade 4": "Refractory heart failure or other poorly controlled cardiac symptoms",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inability of the ventricles to fill with blood because the myocardium (heart muscle) stiffens and loses its flexibility."
+        "description": "A disorder characterized by an inability of the ventricles to fill with blood because the myocardium (heart muscle) stiffens and loses its flexibility."
     },
     {
         "MedDRA v12.0 Code": 10058597,
@@ -415,7 +415,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms, associated with hypoxemia, right heart failure; oxygen indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., ventricular assist device); heart transplant indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by impairment of right ventricular function associated with low ejection fraction and a decrease in motility of the right ventricular wall."
+        "description": "A disorder characterized by impairment of right ventricular function associated with low ejection fraction and a decrease in motility of the right ventricular wall."
     },
     {
         "MedDRA v12.0 Code": 10040639,
@@ -426,7 +426,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe, medically significant; medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with alternating periods of bradycardia and atrial tachycardia accompanied by syncope, fatigue and dizziness."
+        "description": "A disorder characterized by a dysrhythmia with alternating periods of bradycardia and atrial tachycardia accompanied by syncope, fatigue and dizziness."
     },
     {
         "MedDRA v12.0 Code": 10040741,
@@ -437,7 +437,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe, medically significant, medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a heart rate less than 60 beats per minute that originates in the sinus node."
+        "description": "A disorder characterized by a dysrhythmia with a heart rate less than 60 beats per minute that originates in the sinus node."
     },
     {
         "MedDRA v12.0 Code": 10040752,
@@ -448,7 +448,7 @@ const adverseEventOptions = [
         "Grade 3": "Urgent medical intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates in the sinus node."
+        "description": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates in the sinus node."
     },
     {
         "MedDRA v12.0 Code": 10042604,
@@ -459,7 +459,7 @@ const adverseEventOptions = [
         "Grade 3": "Medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates above the ventricles."
+        "description": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates above the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10061389,
@@ -470,7 +470,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic; severe regurgitation or stenosis; symptoms controlled with medical intervention",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated (e.g., valve replacement, valvuloplasty)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a defect in tricuspid valve function or structure."
+        "description": "A disorder characterized by a defect in tricuspid valve function or structure."
     },
     {
         "MedDRA v12.0 Code": 10047281,
@@ -481,7 +481,7 @@ const adverseEventOptions = [
         "Grade 3": "Medical intervention indicated",
         "Grade 4": "Life-threatening consequences; hemodynamic compromise; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia that originates in the ventricles."
+        "description": "A disorder characterized by a dysrhythmia that originates in the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10047290,
@@ -492,7 +492,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; hemodynamic compromise; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia without discernible QRS complexes due to rapid repetitive excitation of myocardial fibers without coordinated contraction of the ventricles."
+        "description": "A disorder characterized by a dysrhythmia without discernible QRS complexes due to rapid repetitive excitation of myocardial fibers without coordinated contraction of the ventricles."
     },
     {
         "MedDRA v12.0 Code": 10047302,
@@ -503,7 +503,7 @@ const adverseEventOptions = [
         "Grade 3": "Medical intervention indicated",
         "Grade 4": "Life-threatening consequences; hemodynamic compromise; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates distal to the bundle of His."
+        "description": "A disorder characterized by a dysrhythmia with a heart rate greater than 100 beats per minute that originates distal to the bundle of His."
     },
     {
         "MedDRA v12.0 Code": 10048015,
@@ -514,7 +514,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and incompletely controlled medically or controlled with procedure",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of an accessory conductive pathway between the atria and the ventricles that causes premature ventricular activation."
+        "description": "A disorder characterized by the presence of an accessory conductive pathway between the atria and the ventricles that causes premature ventricular activation."
     },
     {
         "MedDRA v12.0 Code": 10007541,
@@ -525,7 +525,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10010331,
@@ -536,7 +536,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10014020,
@@ -547,7 +547,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the ear."
+        "description": "A disorder characterized by a sensation of marked discomfort in the ear."
     },
     {
         "MedDRA v12.0 Code": 10065837,
@@ -558,7 +558,7 @@ const adverseEventOptions = [
         "Grade 3": "External otitis with mastoiditis; stenosis or osteomyelitis; necrosis of soft tissue or bone",
         "Grade 4": "Urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation, swelling and redness to the outer ear and ear canal."
+        "description": "A disorder characterized by inflammation, swelling and redness to the outer ear and ear canal."
     },
     {
         "MedDRA v12.0 Code": 10065785,
@@ -569,7 +569,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the external ear region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the external ear region."
     },
     {
         "MedDRA v12.0 Code": 10019245,
@@ -580,7 +580,7 @@ const adverseEventOptions = [
         "Grade 3": "Adult enrolled in monitoring  program (on a 1, 2, 3, 4, 6 and 8 kHz audiogram): Threshold shift of >25 dB  averaged at 3 contiguous test frequencies in at least one ear;  therapeutic intervention indicated.\n Adult:  Not enrolled in monitoring program:  Hearing loss with hearing aid or intervention indicated; limiting self care ADL. \nPediatric (on a 1, 2, 3, 4, 6 and 8kHz audiogram): hearing loss sufficient to indicate therapeutic  intervention, including hearing aids):   Threshold shift  >20 dB at 3 kHz and above in at least one ear ;   additional speech-language related services indicated. \n",
         "Grade 4": "Adults: Profound bilateral hearing  loss (Threshold  >80 dB HL at 2 kHz and above); nonservicable hearing\nPediatric:  Audiologic indication for cochlear implant and additional speech-language related services indicated.                                                            \n",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by partial or complete loss of the ability to detect or understand sounds resulting from damage to ear structures."
+        "description": "A disorder characterized by partial or complete loss of the ability to detect or understand sounds resulting from damage to ear structures."
     },
     {
         "MedDRA v12.0 Code": 10065838,
@@ -591,7 +591,7 @@ const adverseEventOptions = [
         "Grade 3": "Mastoiditis; necrosis of canal soft tissue or bone",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation (physiologic response to irritation), swelling and redness to the middle ear."
+        "description": "A disorder characterized by inflammation (physiologic response to irritation), swelling and redness to the middle ear."
     },
     {
         "MedDRA v12.0 Code": 10043882,
@@ -602,7 +602,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by noise in the ears, such as ringing, buzzing, roaring or clicking."
+        "description": "A disorder characterized by noise in the ears, such as ringing, buzzing, roaring or clicking."
     },
     {
         "MedDRA v12.0 Code": 10047340,
@@ -613,7 +613,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation as if the external world were revolving around the patient (objective vertigo) or as if he himself were revolving in space (subjective vertigo)."
+        "description": "A disorder characterized by a sensation as if the external world were revolving around the patient (objective vertigo) or as if he himself were revolving in space (subjective vertigo)."
     },
     {
         "MedDRA v12.0 Code": 10047386,
@@ -624,7 +624,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by dizziness, imbalance, nausea, and vision problems."
+        "description": "A disorder characterized by dizziness, imbalance, nausea, and vision problems."
     },
     {
         "MedDRA v12.0 Code": 10013993,
@@ -635,7 +635,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10001367,
@@ -646,7 +646,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder that occurs when the adrenal cortex does not produce enough of the hormone cortisol and in some cases, the hormone aldosterone. It may be due to a disorder of the adrenal cortex as in Addison's disease or primary adrenal insufficiency."
+        "description": "A disorder that occurs when the adrenal cortex does not produce enough of the hormone cortisol and in some cases, the hormone aldosterone. It may be due to a disorder of the adrenal cortex as in Addison's disease or primary adrenal insufficiency."
     },
     {
         "MedDRA v12.0 Code": 10011655,
@@ -657,7 +657,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms, medical intervention or hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by signs and symptoms that resemble Cushing's disease or syndrome: buffalo hump obesity, striations, adiposity, hypertension, diabetes, and osteoporosis, usually due to exogenous corticosteroids."
+        "description": "A disorder characterized by signs and symptoms that resemble Cushing's disease or syndrome: buffalo hump obesity, striations, adiposity, hypertension, diabetes, and osteoporosis, usually due to exogenous corticosteroids."
     },
     {
         "MedDRA v12.0 Code": 10012205,
@@ -668,7 +668,7 @@ const adverseEventOptions = [
         "Grade 3": "No breast development by age 14 yrs for females; no increase in testes volume or no Tanner Stage 2 by age 16 yrs for males; hormone replacement indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by unusually late sexual maturity."
+        "description": "A disorder characterized by unusually late sexual maturity."
     },
     {
         "MedDRA v12.0 Code": 10018746,
@@ -679,7 +679,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by greater growth than expected for age."
+        "description": "A disorder characterized by greater growth than expected for age."
     },
     {
         "MedDRA v12.0 Code": 10020705,
@@ -690,7 +690,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in production of parathyroid hormone by the parathyroid glands. This results in hypercalcemia (abnormally high levels of calcium in the blood)."
+        "description": "A disorder characterized by an increase in production of parathyroid hormone by the parathyroid glands. This results in hypercalcemia (abnormally high levels of calcium in the blood)."
     },
     {
         "MedDRA v12.0 Code": 10020850,
@@ -701,7 +701,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive levels of thyroid hormone in the body. Common causes include an overactive thyroid gland or thyroid hormone overdose."
+        "description": "A disorder characterized by excessive levels of thyroid hormone in the body. Common causes include an overactive thyroid gland or thyroid hormone overdose."
     },
     {
         "MedDRA v12.0 Code": 10021041,
@@ -712,7 +712,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; medical intervention or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in production of parathyroid hormone by the parathyroid glands."
+        "description": "A disorder characterized by a decrease in production of parathyroid hormone by the parathyroid glands."
     },
     {
         "MedDRA v12.0 Code": 10021114,
@@ -723,7 +723,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in production of thyroid hormone by the thyroid gland."
+        "description": "A disorder characterized by a decrease in production of thyroid hormone by the thyroid gland."
     },
     {
         "MedDRA v12.0 Code": 10058084,
@@ -734,7 +734,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by unusually early development of secondary sexual features; the onset of sexual maturation begins usually before age 8 for girls and before age 9 for boys."
+        "description": "A disorder characterized by unusually early development of secondary sexual features; the onset of sexual maturation begins usually before age 8 for girls and before age 9 for boys."
     },
     {
         "MedDRA v12.0 Code": 10047488,
@@ -745,7 +745,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inappropriate masculinization occurring in a female or prepubertal male."
+        "description": "A disorder characterized by inappropriate masculinization occurring in a female or prepubertal male."
     },
     {
         "MedDRA v12.0 Code": 10014698,
@@ -756,7 +756,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10005886,
@@ -767,7 +767,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by visual perception of unclear or fuzzy images."
+        "description": "A disorder characterized by visual perception of unclear or fuzzy images."
     },
     {
         "MedDRA v12.0 Code": 10007739,
@@ -778,7 +778,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic with marked decrease in visual acuity (worse than 20/40 but better than 20/200); operative intervention indicated (e.g., cataract surgery)",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by partial or complete opacity of the crystalline lens of one or both eyes. This results in a decrease in visual acuity and eventual blindness if untreated."
+        "description": "A disorder characterized by partial or complete opacity of the crystalline lens of one or both eyes. This results in a decrease in visual acuity and eventual blindness if untreated."
     },
     {
         "MedDRA v12.0 Code": 10010741,
@@ -789,7 +789,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation, swelling and redness to the conjunctiva of the eye."
+        "description": "A disorder characterized by inflammation, swelling and redness to the conjunctiva of the eye."
     },
     {
         "MedDRA v12.0 Code": 10048492,
@@ -800,7 +800,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; declining vision (worse than 20/40 but better than 20/200)",
         "Grade 4": "Perforation or blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an area of epithelial tissue loss on the surface of the cornea. It is associated with inflammatory cells in the cornea and anterior chamber."
+        "description": "A disorder characterized by an area of epithelial tissue loss on the surface of the cornea. It is associated with inflammatory cells in the cornea and anterior chamber."
     },
     {
         "MedDRA v12.0 Code": 10013774,
@@ -811,7 +811,7 @@ const adverseEventOptions = [
         "Grade 3": "Decrease in visual acuity (<20/40); limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by dryness of the cornea and conjunctiva."
+        "description": "A disorder characterized by dryness of the cornea and conjunctiva."
     },
     {
         "MedDRA v12.0 Code": 10015829,
@@ -822,7 +822,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by incomplete paralysis of an extraocular muscle."
+        "description": "A disorder characterized by incomplete paralysis of an extraocular muscle."
     },
     {
         "MedDRA v12.0 Code": 10015958,
@@ -833,7 +833,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the eye."
+        "description": "A disorder characterized by a sensation of marked discomfort in the eye."
     },
     {
         "MedDRA v12.0 Code": 10061145,
@@ -844,7 +844,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by impaired eyelid function."
+        "description": "A disorder characterized by impaired eyelid function."
     },
     {
         "MedDRA v12.0 Code": 10016757,
@@ -855,7 +855,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden or brief burst of light."
+        "description": "A disorder characterized by a sudden or brief burst of light."
     },
     {
         "MedDRA v12.0 Code": 10016778,
@@ -866,7 +866,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an individual seeing spots before their eyes. The spots are shadows of opaque cell fragments in the vitreous humor or lens."
+        "description": "A disorder characterized by an individual seeing spots before their eyes. The spots are shadows of opaque cell fragments in the vitreous humor or lens."
     },
     {
         "MedDRA v12.0 Code": 10018304,
@@ -877,7 +877,7 @@ const adverseEventOptions = [
         "Grade 3": "EIOP causing marked visual field deficits (e.g., involving both superior and inferior visual fields); operative intervention indicated; limiting self care ADL",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in pressure in the eyeball due to obstruction of the aqueous humor outflow."
+        "description": "A disorder characterized by an increase in pressure in the eyeball due to obstruction of the aqueous humor outflow."
     },
     {
         "MedDRA v12.0 Code": 10023332,
@@ -888,7 +888,7 @@ const adverseEventOptions = [
         "Grade 3": "Decline in vision (worse than 20/40 but better than 20/200); limiting self care ADL",
         "Grade 4": "Perforation or blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation to the cornea of the eye."
+        "description": "A disorder characterized by inflammation to the cornea of the eye."
     },
     {
         "MedDRA v12.0 Code": 10029404,
@@ -899,7 +899,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inability to see clearly in dim light."
+        "description": "A disorder characterized by an inability to see clearly in dim light."
     },
     {
         "MedDRA v12.0 Code": 10061322,
@@ -910,7 +910,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting vision in the affected eye (worse than 20/40 but better than 20/200)",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the optic nerve (second cranial nerve)."
+        "description": "A disorder characterized by involvement of the optic nerve (second cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10033703,
@@ -921,7 +921,7 @@ const adverseEventOptions = [
         "Grade 3": "Marked visual field defect (worse than 20/40 but better than 20/200)",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling around the optic disc."
+        "description": "A disorder characterized by swelling around the optic disc."
     },
     {
         "MedDRA v12.0 Code": 10034960,
@@ -932,7 +932,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by fear and avoidance of light."
+        "description": "A disorder characterized by fear and avoidance of light."
     },
     {
         "MedDRA v12.0 Code": 10038848,
@@ -943,7 +943,7 @@ const adverseEventOptions = [
         "Grade 3": "Rhegmatogenous or exudative detachment; operative intervention indicated; decline in vision (worse than 20/40 but better than 20/200)",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the separation of the inner retina layers from the underlying pigment epithelium."
+        "description": "A disorder characterized by the separation of the inner retina layers from the underlying pigment epithelium."
     },
     {
         "MedDRA v12.0 Code": 10038897,
@@ -954,7 +954,7 @@ const adverseEventOptions = [
         "Grade 3": "Vitroretinal surgical repair indicated",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a small laceration of the retina, this occurs when the vitreous separates from the retina. Symptoms include flashes and floaters."
+        "description": "A disorder characterized by a small laceration of the retina, this occurs when the vitreous separates from the retina. Symptoms include flashes and floaters."
     },
     {
         "MedDRA v12.0 Code": 10038901,
@@ -965,7 +965,7 @@ const adverseEventOptions = [
         "Grade 3": "Intravitreal medication; operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by pathological retinal blood vessels that adversely affects vision."
+        "description": "A disorder characterized by pathological retinal blood vessels that adversely affects vision."
     },
     {
         "MedDRA v12.0 Code": 10038923,
@@ -976,7 +976,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic with marked decrease in visual acuity (worse than 20/40); disabling; limiting self care ADL",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder involving the retina."
+        "description": "A disorder involving the retina."
     },
     {
         "MedDRA v12.0 Code": 10061510,
@@ -987,7 +987,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic, limiting self care ADL; marked decrease in visual acuity (worse than 20/40)",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the sclera of the eye."
+        "description": "A disorder characterized by involvement of the sclera of the eye."
     },
     {
         "MedDRA v12.0 Code": 10046851,
@@ -998,7 +998,7 @@ const adverseEventOptions = [
         "Grade 3": "Posterior or pan-uveitis",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation to the uvea of the eye."
+        "description": "A disorder characterized by inflammation to the uvea of the eye."
     },
     {
         "MedDRA v12.0 Code": 10047656,
@@ -1009,7 +1009,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; vitrectomy indicated",
         "Grade 4": "Blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blood extravasation into the vitreous humor."
+        "description": "A disorder characterized by blood extravasation into the vitreous humor."
     },
     {
         "MedDRA v12.0 Code": 10047848,
@@ -1020,7 +1020,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder of excessive tearing in the eyes; it can be caused by overproduction of tears or impaired drainage of the tear duct."
+        "description": "A disorder of excessive tearing in the eyes; it can be caused by overproduction of tears or impaired drainage of the tear duct."
     },
     {
         "MedDRA v12.0 Code": 10015919,
@@ -1031,7 +1031,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately sight-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Sight-threatening consequences; urgent intervention indicated; blindness (20/200 or worse) in the affected eye",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10000060,
@@ -1042,7 +1042,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe discomfort; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling of the abdomen."
+        "description": "A disorder characterized by swelling of the abdomen."
     },
     {
         "MedDRA v12.0 Code": 10000081,
@@ -1053,7 +1053,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the abdominal region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the abdominal region."
     },
     {
         "MedDRA v12.0 Code": 10002156,
@@ -1064,7 +1064,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the opening in the anal canal to the perianal skin."
+        "description": "A disorder characterized by an abnormal communication between the opening in the anal canal to the perianal skin."
     },
     {
         "MedDRA v12.0 Code": 10055226,
@@ -1075,7 +1075,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the anal region."
+        "description": "A disorder characterized by bleeding from the anal region."
     },
     {
         "MedDRA v12.0 Code": 10065721,
@@ -1086,7 +1086,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the mucous membrane of the anus."
+        "description": "A disorder characterized by inflammation of the mucous membrane of the anus."
     },
     {
         "MedDRA v12.0 Code": 10065722,
@@ -1097,7 +1097,7 @@ const adverseEventOptions = [
         "Grade 3": "TPN or hospitalization indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the anal region."
+        "description": "A disorder characterized by a necrotic process occurring in the anal region."
     },
     {
         "MedDRA v12.0 Code": 10002167,
@@ -1108,7 +1108,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the anal region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the anal region."
     },
     {
         "MedDRA v12.0 Code": 10002176,
@@ -1119,7 +1119,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and severely altered GI function; non-emergent operative intervention indicated; TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the anal canal."
+        "description": "A disorder characterized by a narrowing of the lumen of the anal canal."
     },
     {
         "MedDRA v12.0 Code": 10002180,
@@ -1130,7 +1130,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the anal canal."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the anal canal."
     },
     {
         "MedDRA v12.0 Code": 10003445,
@@ -1141,7 +1141,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; invasive intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by accumulation of serous or hemorrhagic fluid in the peritoneal cavity."
+        "description": "A disorder characterized by accumulation of serous or hemorrhagic fluid in the peritoneal cavity."
     },
     {
         "MedDRA v12.0 Code": 10005265,
@@ -1152,7 +1152,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by subject-reported feeling of uncomfortable fullness of the abdomen."
+        "description": "A disorder characterized by subject-reported feeling of uncomfortable fullness of the abdomen."
     },
     {
         "MedDRA v12.0 Code": 10065747,
@@ -1163,7 +1163,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the cecum."
+        "description": "A disorder characterized by bleeding from the cecum."
     },
     {
         "MedDRA v12.0 Code": 10008417,
@@ -1174,7 +1174,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the lip."
+        "description": "A disorder characterized by inflammation of the lip."
     },
     {
         "MedDRA v12.0 Code": 10009887,
@@ -1185,7 +1185,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe abdominal pain; change in bowel habits; medical intervention indicated; peritoneal signs",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the colon."
+        "description": "A disorder characterized by inflammation of the colon."
     },
     {
         "MedDRA v12.0 Code": 10009995,
@@ -1196,7 +1196,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; bowel rest, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the large intestine and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the large intestine and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10009998,
@@ -1207,7 +1207,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the colon."
+        "description": "A disorder characterized by bleeding from the colon."
     },
     {
         "MedDRA v12.0 Code": 10010000,
@@ -1218,7 +1218,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the intestinal contents in the colon."
+        "description": "A disorder characterized by blockage of the normal flow of the intestinal contents in the colon."
     },
     {
         "MedDRA v12.0 Code": 10010001,
@@ -1229,7 +1229,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the colonic wall."
+        "description": "A disorder characterized by a rupture in the colonic wall."
     },
     {
         "MedDRA v12.0 Code": 10010004,
@@ -1240,7 +1240,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the colon."
+        "description": "A disorder characterized by a narrowing of the lumen of the colon."
     },
     {
         "MedDRA v12.0 Code": 10010006,
@@ -1251,7 +1251,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the colon."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the colon."
     },
     {
         "MedDRA v12.0 Code": 10010774,
@@ -1262,7 +1262,7 @@ const adverseEventOptions = [
         "Grade 3": "Obstipation with manual evacuation indicated; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by irregular and infrequent or difficult evacuation of the bowels."
+        "description": "A disorder characterized by irregular and infrequent or difficult evacuation of the bowels."
     },
     {
         "MedDRA v12.0 Code": 10012318,
@@ -1273,7 +1273,7 @@ const adverseEventOptions = [
         "Grade 3": "Dental caries resulting in pulpitis or periapical abscess or resulting in tooth loss",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the decay of a tooth, in which it becomes softened, discolored and/or porous."
+        "description": "A disorder characterized by the decay of a tooth, in which it becomes softened, discolored and/or porous."
     },
     {
         "MedDRA v12.0 Code": 10012727,
@@ -1284,7 +1284,7 @@ const adverseEventOptions = [
         "Grade 3": "Increase of >=7 stools per day over baseline; incontinence; hospitalization indicated; severe increase in ostomy output compared to baseline; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by frequent and watery bowel movements."
+        "description": "A disorder characterized by frequent and watery bowel movements."
     },
     {
         "MedDRA v12.0 Code": 10013781,
@@ -1295,7 +1295,7 @@ const adverseEventOptions = [
         "Grade 3": "Inability to adequately aliment orally; tube feeding or TPN indicated; unstimulated saliva <0.1 ml/min",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by reduced salivary flow in the oral cavity."
+        "description": "A disorder characterized by reduced salivary flow in the oral cavity."
     },
     {
         "MedDRA v12.0 Code": 10013828,
@@ -1306,7 +1306,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the duodenum and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the duodenum and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10055242,
@@ -1317,7 +1317,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the duodenum."
+        "description": "A disorder characterized by bleeding from the duodenum."
     },
     {
         "MedDRA v12.0 Code": 10013830,
@@ -1328,7 +1328,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization or elective operative intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of stomach contents through the duodenum."
+        "description": "A disorder characterized by blockage of the normal flow of stomach contents through the duodenum."
     },
     {
         "MedDRA v12.0 Code": 10013832,
@@ -1339,7 +1339,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the duodenal wall."
+        "description": "A disorder characterized by a rupture in the duodenal wall."
     },
     {
         "MedDRA v12.0 Code": 10050094,
@@ -1350,7 +1350,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding; hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the duodenum."
+        "description": "A disorder characterized by a narrowing of the lumen of the duodenum."
     },
     {
         "MedDRA v12.0 Code": 10013836,
@@ -1361,7 +1361,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the duodenal wall."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the duodenal wall."
     },
     {
         "MedDRA v12.0 Code": 10013946,
@@ -1372,7 +1372,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; surgical intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable, often painful feeling in the stomach, resulting from impaired digestion. Symptoms include burning stomach, bloating, heartburn, nausea and vomiting."
+        "description": "A disorder characterized by an uncomfortable, often painful feeling in the stomach, resulting from impaired digestion. Symptoms include burning stomach, bloating, heartburn, nausea and vomiting."
     },
     {
         "MedDRA v12.0 Code": 10013950,
@@ -1383,7 +1383,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered eating/swallowing; tube feeding or TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by difficulty in swallowing."
+        "description": "A disorder characterized by difficulty in swallowing."
     },
     {
         "MedDRA v12.0 Code": 10014893,
@@ -1394,7 +1394,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or persistent abdominal pain; fever; ileus; peritoneal signs",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the small and large intestines."
+        "description": "A disorder characterized by inflammation of the small and large intestines."
     },
     {
         "MedDRA v12.0 Code": 10062570,
@@ -1405,7 +1405,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe, medically significant; medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the urinary bladder and the intestine."
+        "description": "A disorder characterized by an abnormal communication between the urinary bladder and the intestine."
     },
     {
         "MedDRA v12.0 Code": 10065851,
@@ -1416,7 +1416,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the esophagus and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the esophagus and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10015384,
@@ -1427,7 +1427,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the esophagus."
+        "description": "A disorder characterized by bleeding from the esophagus."
     },
     {
         "MedDRA v12.0 Code": 10065727,
@@ -1438,7 +1438,7 @@ const adverseEventOptions = [
         "Grade 3": "Inability to aliment adequately by GI tract; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the esophageal wall."
+        "description": "A disorder characterized by a necrotic process occurring in the esophageal wall."
     },
     {
         "MedDRA v12.0 Code": 10015387,
@@ -1449,7 +1449,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the contents in the esophagus."
+        "description": "A disorder characterized by blockage of the normal flow of the contents in the esophagus."
     },
     {
         "MedDRA v12.0 Code": 10015388,
@@ -1460,7 +1460,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the esophageal region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the esophageal region."
     },
     {
         "MedDRA v12.0 Code": 10055472,
@@ -1471,7 +1471,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the wall of the esophagus."
+        "description": "A disorder characterized by a rupture in the wall of the esophagus."
     },
     {
         "MedDRA v12.0 Code": 10015448,
@@ -1482,7 +1482,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding; hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the esophagus."
+        "description": "A disorder characterized by a narrowing of the lumen of the esophagus."
     },
     {
         "MedDRA v12.0 Code": 10015451,
@@ -1493,7 +1493,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the esophageal wall."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the esophageal wall."
     },
     {
         "MedDRA v12.0 Code": 10015453,
@@ -1504,7 +1504,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from esophageal varices."
+        "description": "A disorder characterized by bleeding from esophageal varices."
     },
     {
         "MedDRA v12.0 Code": 10015461,
@@ -1515,7 +1515,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered eating/swallowing; tube feeding, TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the esophageal wall."
+        "description": "A disorder characterized by inflammation of the esophageal wall."
     },
     {
         "MedDRA v12.0 Code": 10016296,
@@ -1526,7 +1526,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inability to control the escape of stool from the rectum."
+        "description": "A disorder characterized by inability to control the escape of stool from the rectum."
     },
     {
         "MedDRA v12.0 Code": 10016766,
@@ -1537,7 +1537,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a state of excessive gas in the alimentary canal."
+        "description": "A disorder characterized by a state of excessive gas in the alimentary canal."
     },
     {
         "MedDRA v12.0 Code": 10065713,
@@ -1548,7 +1548,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; bowel rest; tube feeding, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the stomach and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the stomach and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10017789,
@@ -1559,7 +1559,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the gastric wall."
+        "description": "A disorder characterized by bleeding from the gastric wall."
     },
     {
         "MedDRA v12.0 Code": 10051886,
@@ -1570,7 +1570,7 @@ const adverseEventOptions = [
         "Grade 3": "Inability to aliment adequately by GI tract; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the gastric wall."
+        "description": "A disorder characterized by a necrotic process occurring in the gastric wall."
     },
     {
         "MedDRA v12.0 Code": 10017815,
@@ -1581,7 +1581,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the stomach wall."
+        "description": "A disorder characterized by a rupture in the stomach wall."
     },
     {
         "MedDRA v12.0 Code": 10061970,
@@ -1592,7 +1592,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding; hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the stomach."
+        "description": "A disorder characterized by a narrowing of the lumen of the stomach."
     },
     {
         "MedDRA v12.0 Code": 10017822,
@@ -1603,7 +1603,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the stomach."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the stomach."
     },
     {
         "MedDRA v12.0 Code": 10017853,
@@ -1614,7 +1614,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered eating or gastric function; TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the stomach."
+        "description": "A disorder characterized by inflammation of the stomach."
     },
     {
         "MedDRA v12.0 Code": 10066874,
@@ -1625,7 +1625,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; surgical intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by reflux of the gastric and/or duodenal contents into the distal esophagus. It is chronic in nature and usually caused by incompetence of the lower esophageal sphincter, and may result in injury to the esophageal mucosal. Symptoms include heartburn and acid indigestion."
+        "description": "A disorder characterized by reflux of the gastric and/or duodenal contents into the distal esophagus. It is chronic in nature and usually caused by incompetence of the lower esophageal sphincter, and may result in injury to the esophageal mucosal. Symptoms include heartburn and acid indigestion."
     },
     {
         "MedDRA v12.0 Code": 10017877,
@@ -1636,7 +1636,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding, TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between any part of the gastrointestinal system and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between any part of the gastrointestinal system and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10017999,
@@ -1647,7 +1647,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the gastrointestinal region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the gastrointestinal region."
     },
     {
         "MedDRA v12.0 Code": 10018043,
@@ -1658,7 +1658,7 @@ const adverseEventOptions = [
         "Grade 3": "Weight loss; refractory to medical intervention; unable to maintain nutrition orally",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an incomplete paralysis of the muscles of the stomach wall resulting in delayed emptying of the gastric contents into the small intestine."
+        "description": "A disorder characterized by an incomplete paralysis of the muscles of the stomach wall resulting in delayed emptying of the gastric contents into the small intestine."
     },
     {
         "MedDRA v12.0 Code": 10018286,
@@ -1669,7 +1669,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; inability to aliment orally",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the gingival region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the gingival region."
     },
     {
         "MedDRA v12.0 Code": 10060640,
@@ -1680,7 +1680,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the hemorrhoids."
+        "description": "A disorder characterized by bleeding from the hemorrhoids."
     },
     {
         "MedDRA v12.0 Code": 10019611,
@@ -1691,7 +1691,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of dilated veins in the rectum and surrounding area."
+        "description": "A disorder characterized by the presence of dilated veins in the rectum and surrounding area."
     },
     {
         "MedDRA v12.0 Code": 10065728,
@@ -1702,7 +1702,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the ileum and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the ileum and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10055287,
@@ -1713,7 +1713,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the ileal wall."
+        "description": "A disorder characterized by bleeding from the ileal wall."
     },
     {
         "MedDRA v12.0 Code": 10065730,
@@ -1724,7 +1724,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the intestinal contents in the ileum."
+        "description": "A disorder characterized by blockage of the normal flow of the intestinal contents in the ileum."
     },
     {
         "MedDRA v12.0 Code": 10021305,
@@ -1735,7 +1735,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the ileal wall."
+        "description": "A disorder characterized by a rupture in the ileal wall."
     },
     {
         "MedDRA v12.0 Code": 10021307,
@@ -1746,7 +1746,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the ileum."
+        "description": "A disorder characterized by a narrowing of the lumen of the ileum."
     },
     {
         "MedDRA v12.0 Code": 10021309,
@@ -1757,7 +1757,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the ileum."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the ileum."
     },
     {
         "MedDRA v12.0 Code": 10021328,
@@ -1768,7 +1768,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by failure of the ileum to transport intestinal contents."
+        "description": "A disorder characterized by failure of the ileum to transport intestinal contents."
     },
     {
         "MedDRA v12.0 Code": 10055291,
@@ -1779,7 +1779,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding in the abdominal cavity."
+        "description": "A disorder characterized by bleeding in the abdominal cavity."
     },
     {
         "MedDRA v12.0 Code": 10065719,
@@ -1790,7 +1790,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the jejunum and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the jejunum and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10055300,
@@ -1801,7 +1801,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the jejunal wall."
+        "description": "A disorder characterized by bleeding from the jejunal wall."
     },
     {
         "MedDRA v12.0 Code": 10065732,
@@ -1812,7 +1812,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the intestinal contents in the jejunum."
+        "description": "A disorder characterized by blockage of the normal flow of the intestinal contents in the jejunum."
     },
     {
         "MedDRA v12.0 Code": 10023174,
@@ -1823,7 +1823,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the jejunal wall."
+        "description": "A disorder characterized by a rupture in the jejunal wall."
     },
     {
         "MedDRA v12.0 Code": 10023176,
@@ -1834,7 +1834,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the jejunum."
+        "description": "A disorder characterized by a narrowing of the lumen of the jejunum."
     },
     {
         "MedDRA v12.0 Code": 10023177,
@@ -1845,7 +1845,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the jejunum."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the jejunum."
     },
     {
         "MedDRA v12.0 Code": 10024561,
@@ -1856,7 +1856,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort of the lip."
+        "description": "A disorder characterized by a sensation of marked discomfort of the lip."
     },
     {
         "MedDRA v12.0 Code": 10051746,
@@ -1867,7 +1867,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the lower gastrointestinal tract (small intestine, large intestine, and anus)."
+        "description": "A disorder characterized by bleeding from the lower gastrointestinal tract (small intestine, large intestine, and anus)."
     },
     {
         "MedDRA v12.0 Code": 10025476,
@@ -1878,7 +1878,7 @@ const adverseEventOptions = [
         "Grade 3": "Inability to aliment adequately; TPN indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inadequate absorption of nutrients in the small intestine. Symptoms include abdominal marked discomfort, bloating and diarrhea."
+        "description": "A disorder characterized by inadequate absorption of nutrients in the small intestine. Symptoms include abdominal marked discomfort, bloating and diarrhea."
     },
     {
         "MedDRA v12.0 Code": 10028130,
@@ -1889,7 +1889,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; interfering with oral intake",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the oral mucosal."
+        "description": "A disorder characterized by inflammation of the oral mucosal."
     },
     {
         "MedDRA v12.0 Code": 10028813,
@@ -1900,7 +1900,7 @@ const adverseEventOptions = [
         "Grade 3": "Inadequate oral caloric or fluid intake; tube feeding, TPN, or hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a queasy sensation and/or the urge to vomit."
+        "description": "A disorder characterized by a queasy sensation and/or the urge to vomit."
     },
     {
         "MedDRA v12.0 Code": 10029957,
@@ -1911,7 +1911,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the contents in the stomach."
+        "description": "A disorder characterized by blockage of the normal flow of the contents in the stomach."
     },
     {
         "MedDRA v12.0 Code": 10065720,
@@ -1922,7 +1922,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the oral cavity and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the oral cavity and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10054520,
@@ -1933,7 +1933,7 @@ const adverseEventOptions = [
         "Grade 3": "Disabling pain; tube feeding or TPN indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a burning or tingling sensation on the lips, tongue or entire mouth."
+        "description": "A disorder characterized by a burning or tingling sensation on the lips, tongue or entire mouth."
     },
     {
         "MedDRA v12.0 Code": 10030980,
@@ -1944,7 +1944,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the mouth."
+        "description": "A disorder characterized by bleeding from the mouth."
     },
     {
         "MedDRA v12.0 Code": 10031009,
@@ -1955,7 +1955,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the mouth, tongue or lips."
+        "description": "A disorder characterized by a sensation of marked discomfort in the mouth, tongue or lips."
     },
     {
         "MedDRA v12.0 Code": 10065703,
@@ -1966,7 +1966,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the pancreatic duct."
+        "description": "A disorder characterized by a narrowing of the lumen of the pancreatic duct."
     },
     {
         "MedDRA v12.0 Code": 10049192,
@@ -1977,7 +1977,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the pancreas and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the pancreas and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10033626,
@@ -1988,7 +1988,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the pancreas."
+        "description": "A disorder characterized by bleeding from the pancreas."
     },
     {
         "MedDRA v12.0 Code": 10058096,
@@ -1999,7 +1999,7 @@ const adverseEventOptions = [
         "Grade 3": "Tube feeding or TPN indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the pancreas."
+        "description": "A disorder characterized by a necrotic process occurring in the pancreas."
     },
     {
         "MedDRA v12.0 Code": 10033645,
@@ -2010,7 +2010,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; vomiting; medical intervention indicated (e.g., analgesia, nutritional support)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the pancreas."
+        "description": "A disorder characterized by inflammation of the pancreas."
     },
     {
         "MedDRA v12.0 Code": 10034536,
@@ -2021,7 +2021,7 @@ const adverseEventOptions = [
         "Grade 3": "Spontaneous bleeding; severe bone loss with or without tooth loss; osteonecrosis of maxilla or mandible",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder in the gingival tissue around the teeth."
+        "description": "A disorder in the gingival tissue around the teeth."
     },
     {
         "MedDRA v12.0 Code": 10065704,
@@ -2032,7 +2032,7 @@ const adverseEventOptions = [
         "Grade 3": "Tube feeding or TPN  indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the peritoneum."
+        "description": "A disorder characterized by a necrotic process occurring in the peritoneum."
     },
     {
         "MedDRA v12.0 Code": 10036774,
@@ -2043,7 +2043,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; fecal urgency or stool incontinence; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the rectum."
+        "description": "A disorder characterized by inflammation of the rectum."
     },
     {
         "MedDRA v12.0 Code": 10038062,
@@ -2054,7 +2054,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the rectum and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the rectum and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10038064,
@@ -2065,7 +2065,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the rectal wall and discharged from the anus."
+        "description": "A disorder characterized by bleeding from the rectal wall and discharged from the anus."
     },
     {
         "MedDRA v12.0 Code": 10063190,
@@ -2076,7 +2076,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the mucous membrane of the rectum."
+        "description": "A disorder characterized by inflammation of the mucous membrane of the rectum."
     },
     {
         "MedDRA v12.0 Code": 10065709,
@@ -2087,7 +2087,7 @@ const adverseEventOptions = [
         "Grade 3": "Tube feeding or TPN indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the rectal wall."
+        "description": "A disorder characterized by a necrotic process occurring in the rectal wall."
     },
     {
         "MedDRA v12.0 Code": 10065707,
@@ -2098,7 +2098,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the intestinal contents in the rectum."
+        "description": "A disorder characterized by blockage of the normal flow of the intestinal contents in the rectum."
     },
     {
         "MedDRA v12.0 Code": 10038072,
@@ -2109,7 +2109,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the rectal region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the rectal region."
     },
     {
         "MedDRA v12.0 Code": 10038073,
@@ -2120,7 +2120,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the rectal wall."
+        "description": "A disorder characterized by a rupture in the rectal wall."
     },
     {
         "MedDRA v12.0 Code": 10038079,
@@ -2131,7 +2131,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the rectum."
+        "description": "A disorder characterized by a narrowing of the lumen of the rectum."
     },
     {
         "MedDRA v12.0 Code": 10038080,
@@ -2142,7 +2142,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the rectum."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the rectum."
     },
     {
         "MedDRA v12.0 Code": 10038981,
@@ -2153,7 +2153,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, medical, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the retroperitoneal area."
+        "description": "A disorder characterized by bleeding from the retroperitoneal area."
     },
     {
         "MedDRA v12.0 Code": 10056681,
@@ -2164,7 +2164,7 @@ const adverseEventOptions = [
         "Grade 3": "Acute salivary gland necrosis; severe secretion-induced symptoms (e.g., thick saliva/oral secretions or gagging);  tube feeding or TPN indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the salivary duct."
+        "description": "A disorder characterized by inflammation of the salivary duct."
     },
     {
         "MedDRA v12.0 Code": 10039411,
@@ -2175,7 +2175,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between a salivary gland and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between a salivary gland and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10065710,
@@ -2186,7 +2186,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; interfering with oral intake; tube feeding, TPN or hospitalization indicated; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the mucous membrane of the small intestine."
+        "description": "A disorder characterized by inflammation of the mucous membrane of the small intestine."
     },
     {
         "MedDRA v12.0 Code": 10041101,
@@ -2197,7 +2197,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; elective operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the intestinal contents."
+        "description": "A disorder characterized by blockage of the normal flow of the intestinal contents."
     },
     {
         "MedDRA v12.0 Code": 10041103,
@@ -2208,7 +2208,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the small intestine wall."
+        "description": "A disorder characterized by a rupture in the small intestine wall."
     },
     {
         "MedDRA v12.0 Code": 10062263,
@@ -2219,7 +2219,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and severely altered GI function; tube feeding, TPN or hospitalization indicated; non-emergent operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the small intestine."
+        "description": "A disorder characterized by a narrowing of the lumen of the small intestine."
     },
     {
         "MedDRA v12.0 Code": 10041133,
@@ -2230,7 +2230,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; elective operative or endoscopic intervention indicated; limiting self care ADL; disabling",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the small intestine."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the small intestine."
     },
     {
         "MedDRA v12.0 Code": 10042112,
@@ -2241,7 +2241,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the stomach."
+        "description": "A disorder characterized by a sensation of marked discomfort in the stomach."
     },
     {
         "MedDRA v12.0 Code": 10044030,
@@ -2252,7 +2252,7 @@ const adverseEventOptions = [
         "Grade 3": "Maldevelopment with impairment not surgically correctable; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a pathological process of the teeth occurring during tooth development."
+        "description": "A disorder characterized by a pathological process of the teeth occurring during tooth development."
     },
     {
         "MedDRA v12.0 Code": 10044031,
@@ -2263,7 +2263,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a change in tooth hue or tint."
+        "description": "A disorder characterized by a change in tooth hue or tint."
     },
     {
         "MedDRA v12.0 Code": 10044055,
@@ -2274,7 +2274,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the tooth."
+        "description": "A disorder characterized by a sensation of marked discomfort in the tooth."
     },
     {
         "MedDRA v12.0 Code": 10045271,
@@ -2285,7 +2285,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic (e.g., abdominal pain, fever, change in bowel habits with ileus); peritoneal signs",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the cecum."
+        "description": "A disorder characterized by inflammation of the cecum."
     },
     {
         "MedDRA v12.0 Code": 10055356,
@@ -2296,7 +2296,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the upper gastrointestinal tract (oral cavity, pharynx, esophagus, and stomach)."
+        "description": "A disorder characterized by bleeding from the upper gastrointestinal tract (oral cavity, pharynx, esophagus, and stomach)."
     },
     {
         "MedDRA v12.0 Code": 10047700,
@@ -2307,7 +2307,7 @@ const adverseEventOptions = [
         "Grade 3": ">=6 episodes (separated by 5 minutes) in 24 hrs; tube feeding, TPN or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the reflexive act of ejecting the contents of the stomach through the mouth."
+        "description": "A disorder characterized by the reflexive act of ejecting the contents of the stomach through the mouth."
     },
     {
         "MedDRA v12.0 Code": 10017947,
@@ -2318,7 +2318,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10008531,
@@ -2329,7 +2329,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or prolonged, not responsive to narcotics",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of cold that often marks a physiologic response to sweating after a fever."
+        "description": "A disorder characterized by a sensation of cold that often marks a physiologic response to sweating after a fever."
     },
     {
         "MedDRA v12.0 Code": 10011912,
@@ -2340,7 +2340,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by cessation of life occurring during the first 28 days of life."
+        "description": "A disorder characterized by cessation of life occurring during the first 28 days of life."
     },
     {
         "MedDRA v12.0 Code": 10011914,
@@ -2351,7 +2351,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A cessation of life that cannot be attributed to a CTCAE term associated with Grade 5."
+        "description": "A cessation of life that cannot be attributed to a CTCAE term associated with Grade 5."
     },
     {
         "MedDRA v12.0 Code": 10014222,
@@ -2362,7 +2362,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe swelling; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to excessive fluid accumulation in facial tissues."
+        "description": "A disorder characterized by swelling due to excessive fluid accumulation in facial tissues."
     },
     {
         "MedDRA v12.0 Code": 10050068,
@@ -2373,7 +2373,7 @@ const adverseEventOptions = [
         "Grade 3": ">30% inter-limb discrepancy in volume; gross deviation from normal anatomic contour; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to excessive fluid accumulation in the upper or lower extremities."
+        "description": "A disorder characterized by swelling due to excessive fluid accumulation in the upper or lower extremities."
     },
     {
         "MedDRA v12.0 Code": 10058720,
@@ -2384,7 +2384,7 @@ const adverseEventOptions = [
         "Grade 3": "Gross deviation from normal anatomic contour; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to excessive fluid accumulation in the trunk area."
+        "description": "A disorder characterized by swelling due to excessive fluid accumulation in the trunk area."
     },
     {
         "MedDRA v12.0 Code": 10016059,
@@ -2395,7 +2395,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the face."
+        "description": "A disorder characterized by a sensation of marked discomfort in the face."
     },
     {
         "MedDRA v12.0 Code": 10016256,
@@ -2406,7 +2406,7 @@ const adverseEventOptions = [
         "Grade 3": "Fatigue not relieved by rest, limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a state of generalized weakness with a pronounced inability to summon sufficient energy to accomplish daily activities."
+        "description": "A disorder characterized by a state of generalized weakness with a pronounced inability to summon sufficient energy to accomplish daily activities."
     },
     {
         "MedDRA v12.0 Code": 10016558,
@@ -2417,7 +2417,7 @@ const adverseEventOptions = [
         "Grade 3": ">40.0 degrees C (>104.0 degrees F) for <=24 hrs",
         "Grade 4": ">40.0 degrees C (>104.0 degrees F) for >24 hrs",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by elevation of the body's temperature above the upper limit of normal."
+        "description": "A disorder characterized by elevation of the body's temperature above the upper limit of normal."
     },
     {
         "MedDRA v12.0 Code": 10016791,
@@ -2428,7 +2428,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a group of symptoms similar to those observed in patients with the flu. It includes fever, chills, body aches, malaise, loss of appetite and dry cough."
+        "description": "A disorder characterized by a group of symptoms similar to those observed in patients with the flu. It includes fever, chills, body aches, malaise, loss of appetite and dry cough."
     },
     {
         "MedDRA v12.0 Code": 10017577,
@@ -2439,7 +2439,7 @@ const adverseEventOptions = [
         "Grade 3": "Disabling; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by walking difficulties."
+        "description": "A disorder characterized by walking difficulties."
     },
     {
         "MedDRA v12.0 Code": 10021113,
@@ -2450,7 +2450,7 @@ const adverseEventOptions = [
         "Grade 3": "32 - >28 degrees C;  89.6 - >82.4 degrees F",
         "Grade 4": "<=28 degrees C; 82.4 degrees F; life-threatening consequences (e.g., coma, hypotension, pulmonary edema, acidemia, ventricular fibrillation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormally low body temperature. Treatment is required when the body temperature is 35C (95F) or below."
+        "description": "A disorder characterized by an abnormally low body temperature. Treatment is required when the body temperature is 35C (95F) or below."
     },
     {
         "MedDRA v12.0 Code": 10051792,
@@ -2461,7 +2461,7 @@ const adverseEventOptions = [
         "Grade 3": "Prolonged (e.g., not rapidly responsive to symptomatic medication and/or brief interruption of infusion); recurrence of symptoms following initial improvement; hospitalization indicated for clinical sequelae",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by adverse reaction to the infusion of pharmacological or biological substances."
+        "description": "A disorder characterized by adverse reaction to the infusion of pharmacological or biological substances."
     },
     {
         "MedDRA v12.0 Code": 10064774,
@@ -2472,7 +2472,7 @@ const adverseEventOptions = [
         "Grade 3": "Ulceration or necrosis; severe tissue damage; operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by leakage of a pharmacologic or a biologic substance from the infusion site into the surrounding tissue. Signs and symptoms include induration, erythema, swelling, burning sensation and marked discomfort at the infusion site."
+        "description": "A disorder characterized by leakage of a pharmacologic or a biologic substance from the infusion site into the surrounding tissue. Signs and symptoms include induration, erythema, swelling, burning sensation and marked discomfort at the infusion site."
     },
     {
         "MedDRA v12.0 Code": 10022095,
@@ -2483,7 +2483,7 @@ const adverseEventOptions = [
         "Grade 3": "Ulceration or necrosis; severe tissue damage; operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an intense adverse reaction (usually immunologic) developing at the site of an injection."
+        "description": "A disorder characterized by an intense adverse reaction (usually immunologic) developing at the site of an injection."
     },
     {
         "MedDRA v12.0 Code": 10022998,
@@ -2494,7 +2494,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe abnormal or excessive response; limiting self care ADL; inconsolable",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal responsiveness to stimuli or physiological arousal; may be in response to pain, fright, a drug, an emotional situation or a medical condition."
+        "description": "A disorder characterized by an abnormal responsiveness to stimuli or physiological arousal; may be in response to pain, fright, a drug, an emotional situation or a medical condition."
     },
     {
         "MedDRA v12.0 Code": 10062466,
@@ -2505,7 +2505,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe localized edema and intervention indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to excessive fluid accumulation at a specific anatomic site."
+        "description": "A disorder characterized by swelling due to excessive fluid accumulation at a specific anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10025482,
@@ -2516,7 +2516,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a feeling of general discomfort or uneasiness, an out-of-sorts feeling."
+        "description": "A disorder characterized by a feeling of general discomfort or uneasiness, an out-of-sorts feeling."
     },
     {
         "MedDRA v12.0 Code": 10028154,
@@ -2527,7 +2527,7 @@ const adverseEventOptions = [
         "Grade 3": "Shock with azotemia and acid-base disturbances; significant coagulation abnormalities",
         "Grade 4": "Life-threatening consequences (e.g., vasopressor dependent and oliguric or anuric or ischemic colitis or lactic acidosis)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by progressive deterioration of the lungs, liver, kidney and clotting mechanisms."
+        "description": "A disorder characterized by progressive deterioration of the lungs, liver, kidney and clotting mechanisms."
     },
     {
         "MedDRA v12.0 Code": 10054482,
@@ -2538,7 +2538,7 @@ const adverseEventOptions = [
         "Grade 3": "Generalized neck edema (e.g., difficulty in turning neck); limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to an accumulation of excessive fluid in the neck."
+        "description": "A disorder characterized by swelling due to an accumulation of excessive fluid in the neck."
     },
     {
         "MedDRA v12.0 Code": 10062501,
@@ -2549,7 +2549,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by discomfort in the chest unrelated to a heart disorder."
+        "description": "A disorder characterized by discomfort in the chest unrelated to a heart disorder."
     },
     {
         "MedDRA v12.0 Code": 10033371,
@@ -2560,7 +2560,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the sensation of marked discomfort, distress or agony."
+        "description": "A disorder characterized by the sensation of marked discomfort, distress or agony."
     },
     {
         "MedDRA v12.0 Code": 10042435,
@@ -2571,7 +2571,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "An unexpected cessation of life that cannot be attributed to a CTCAE term associated with Grade 5."
+        "description": "An unexpected cessation of life that cannot be attributed to a CTCAE term associated with Grade 5."
     },
     {
         "MedDRA v12.0 Code": 10018065,
@@ -2582,7 +2582,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10051341,
@@ -2593,7 +2593,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the lumen of the bile duct."
+        "description": "A disorder characterized by a narrowing of the lumen of the bile duct."
     },
     {
         "MedDRA v12.0 Code": 10004665,
@@ -2604,7 +2604,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; TPN indicated; endoscopic intervention indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the bile ducts and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the bile ducts and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10008612,
@@ -2615,7 +2615,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving the gallbladder. It may be associated with the presence of gallstones."
+        "description": "A disorder characterized by inflammation involving the gallbladder. It may be associated with the presence of gallstones."
     },
     {
         "MedDRA v12.0 Code": 10017631,
@@ -2626,7 +2626,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic or severely altered GI function; TPN indicated; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the gallbladder and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the gallbladder and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10059446,
@@ -2637,7 +2637,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the gallbladder."
+        "description": "A disorder characterized by a necrotic process occurring in the gallbladder."
     },
     {
         "MedDRA v12.0 Code": 10017636,
@@ -2648,7 +2648,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and severely altered GI function; tube feeding, TPN or hospitalization indicated; non-emergent operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the contents of the gallbladder."
+        "description": "A disorder characterized by blockage of the normal flow of the contents of the gallbladder."
     },
     {
         "MedDRA v12.0 Code": 10017638,
@@ -2659,7 +2659,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the gallbladder region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the gallbladder region."
     },
     {
         "MedDRA v12.0 Code": 10017639,
@@ -2670,7 +2670,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the gallbladder wall."
+        "description": "A disorder characterized by a rupture in the gallbladder wall."
     },
     {
         "MedDRA v12.0 Code": 10019663,
@@ -2681,7 +2681,7 @@ const adverseEventOptions = [
         "Grade 3": "Asterixis; mild encephalopathy; limiting self care ADL",
         "Grade 4": "Moderate to severe encephalopathy; coma; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the inability of the liver to metabolize chemicals in the body. Laboratory test results reveal abnormal plasma levels of ammonia, bilirubin, lactic dehydrogenase, and alkaline phosphatase."
+        "description": "A disorder characterized by the inability of the liver to metabolize chemicals in the body. Laboratory test results reveal abnormal plasma levels of ammonia, bilirubin, lactic dehydrogenase, and alkaline phosphatase."
     },
     {
         "MedDRA v12.0 Code": 10019678,
@@ -2692,7 +2692,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the liver."
+        "description": "A disorder characterized by bleeding from the liver."
     },
     {
         "MedDRA v12.0 Code": 10019692,
@@ -2703,7 +2703,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the hepatic parenchyma."
+        "description": "A disorder characterized by a necrotic process occurring in the hepatic parenchyma."
     },
     {
         "MedDRA v12.0 Code": 10019705,
@@ -2714,7 +2714,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the liver region."
+        "description": "A disorder characterized by a sensation of marked discomfort in the liver region."
     },
     {
         "MedDRA v12.0 Code": 10034405,
@@ -2725,7 +2725,7 @@ const adverseEventOptions = [
         "Grade 3": "Radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the wall of the extrahepatic or intrahepatic bile duct."
+        "description": "A disorder characterized by a rupture in the wall of the extrahepatic or intrahepatic bile duct."
     },
     {
         "MedDRA v12.0 Code": 10036200,
@@ -2736,7 +2736,7 @@ const adverseEventOptions = [
         "Grade 3": "Reversal/retrograde portal vein flow; associated with varices and/or ascites",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in blood pressure in the portal venous system."
+        "description": "A disorder characterized by an increase in blood pressure in the portal venous system."
     },
     {
         "MedDRA v12.0 Code": 10036206,
@@ -2747,7 +2747,7 @@ const adverseEventOptions = [
         "Grade 3": "Medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the formation of a thrombus (blood clot) in the portal vein."
+        "description": "A disorder characterized by the formation of a thrombus (blood clot) in the portal vein."
     },
     {
         "MedDRA v12.0 Code": 10019805,
@@ -2758,7 +2758,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10001718,
@@ -2769,7 +2769,7 @@ const adverseEventOptions = [
         "Grade 3": "Prolonged (e.g., not rapidly responsive to symptomatic medication and/or brief interruption of infusion); recurrence of symptoms following initial improvement; hospitalization indicated for clinical sequelae (e.g., renal impairment, pulmonary infiltrates)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an adverse local or general response from exposure to an allergen."
+        "description": "A disorder characterized by an adverse local or general response from exposure to an allergen."
     },
     {
         "MedDRA v12.0 Code": 10002218,
@@ -2780,7 +2780,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic bronchospasm, with or without urticaria; parenteral intervention indicated; allergy-related edema/angioedema; hypotension",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an acute inflammatory reaction resulting from the release of histamine and histamine-like substances from mast cells, causing a hypersensitivity immune response. Clinically, it presents with breathing difficulty, dizziness, hypotension, cyanosis and loss of consciousness and may lead to death."
+        "description": "A disorder characterized by an acute inflammatory reaction resulting from the release of histamine and histamine-like substances from mast cells, causing a hypersensitivity immune response. Clinically, it presents with breathing difficulty, dizziness, hypotension, cyanosis and loss of consciousness and may lead to death."
     },
     {
         "MedDRA v12.0 Code": 10061664,
@@ -2791,7 +2791,7 @@ const adverseEventOptions = [
         "Grade 3": "Autoimmune reactions involving major organ (e.g., colitis, anemia, myocarditis, kidney)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder resulting from loss of function or tissue destruction of an organ or multiple organs, arising from humoral or cellular immune responses of the individual to his own tissue constituents."
+        "description": "A disorder resulting from loss of function or tissue destruction of an organ or multiple organs, arising from humoral or cellular immune responses of the individual to his own tissue constituents."
     },
     {
         "MedDRA v12.0 Code": 10052015,
@@ -2802,7 +2802,7 @@ const adverseEventOptions = [
         "Grade 3": "Prolonged (e.g., not rapidly responsive to symptomatic medication and/or brief interruption of infusion); recurrence of symptoms following initial improvement; hospitalization indicated for clinical sequelae (e.g., renal impairment, pulmonary infiltrates)",
         "Grade 4": "Life-threatening consequences; pressor or ventilatory support indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by nausea, headache, tachycardia, hypotension, rash, and shortness of breath; it is caused by the release of cytokines from the cells."
+        "description": "A disorder characterized by nausea, headache, tachycardia, hypotension, rash, and shortness of breath; it is caused by the release of cytokines from the cells."
     },
     {
         "MedDRA v12.0 Code": 10040400,
@@ -2813,7 +2813,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe arthralgia or arthritis; extensive rash; steroids or IV fluids indicated",
         "Grade 4": "Life-threatening consequences; pressor or ventilatory support indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a delayed-type hypersensitivity reaction to foreign proteins derived from an animal serum. It occurs approximately six to twenty-one days following the administration of the foreign antigen. Symptoms include fever, arthralgias, myalgias, skin eruptions, lymphadenopathy, chest marked discomfort and dyspnea."
+        "description": "A disorder characterized by a delayed-type hypersensitivity reaction to foreign proteins derived from an animal serum. It occurs approximately six to twenty-one days following the administration of the foreign antigen. Symptoms include fever, arthralgias, myalgias, skin eruptions, lymphadenopathy, chest marked discomfort and dyspnea."
     },
     {
         "MedDRA v12.0 Code": 10021428,
@@ -2824,7 +2824,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10056519,
@@ -2835,7 +2835,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the abdominal cavity."
+        "description": "A disorder characterized by an infectious process involving the abdominal cavity."
     },
     {
         "MedDRA v12.0 Code": 10061640,
@@ -2846,7 +2846,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the anal area and the rectum."
+        "description": "A disorder characterized by an infectious process involving the anal area and the rectum."
     },
     {
         "MedDRA v12.0 Code": 10003011,
@@ -2857,7 +2857,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by acute inflammation to the vermiform appendix caused by a pathogenic agent."
+        "description": "A disorder characterized by acute inflammation to the vermiform appendix caused by a pathogenic agent."
     },
     {
         "MedDRA v12.0 Code": 10003012,
@@ -2868,7 +2868,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by acute inflammation to the vermiform appendix caused by a pathogenic agent with gangrenous changes resulting in the rupture of the appendiceal wall. The appendiceal wall rupture causes the release of inflammatory and bacterial contents from the appendiceal lumen into the abdominal cavity."
+        "description": "A disorder characterized by acute inflammation to the vermiform appendix caused by a pathogenic agent with gangrenous changes resulting in the rupture of the appendiceal wall. The appendiceal wall rupture causes the release of inflammatory and bacterial contents from the appendiceal lumen into the abdominal cavity."
     },
     {
         "MedDRA v12.0 Code": 10065744,
@@ -2879,7 +2879,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving an artery."
+        "description": "A disorder characterized by an infectious process involving an artery."
     },
     {
         "MedDRA v12.0 Code": 10061695,
@@ -2890,7 +2890,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the biliary tract."
+        "description": "A disorder characterized by an infectious process involving the biliary tract."
     },
     {
         "MedDRA v12.0 Code": 10005047,
@@ -2901,7 +2901,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the bladder."
+        "description": "A disorder characterized by an infectious process involving the bladder."
     },
     {
         "MedDRA v12.0 Code": 10061017,
@@ -2912,7 +2912,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the bones."
+        "description": "A disorder characterized by an infectious process involving the bones."
     },
     {
         "MedDRA v12.0 Code": 10006259,
@@ -2923,7 +2923,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe infection; axillary adenitis;  IV antibacterial, antifungal, or antiviral intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the breast."
+        "description": "A disorder characterized by an infectious process involving the breast."
     },
     {
         "MedDRA v12.0 Code": 10055078,
@@ -2934,7 +2934,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the bronchi."
+        "description": "A disorder characterized by an infectious process involving the bronchi."
     },
     {
         "MedDRA v12.0 Code": 10007810,
@@ -2945,7 +2945,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process that arises secondary to catheter use."
+        "description": "A disorder characterized by an infectious process that arises secondary to catheter use."
     },
     {
         "MedDRA v12.0 Code": 10065761,
@@ -2956,7 +2956,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the cecum."
+        "description": "A disorder characterized by an infectious process involving the cecum."
     },
     {
         "MedDRA v12.0 Code": 10008330,
@@ -2967,7 +2967,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the uterine cervix."
+        "description": "A disorder characterized by an infectious process involving the uterine cervix."
     },
     {
         "MedDRA v12.0 Code": 10010742,
@@ -2978,7 +2978,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the conjunctiva. Clinical manifestations include pink or red color in the eyes."
+        "description": "A disorder characterized by an infectious process involving the conjunctiva. Clinical manifestations include pink or red color in the eyes."
     },
     {
         "MedDRA v12.0 Code": 10061788,
@@ -2989,7 +2989,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the cornea."
+        "description": "A disorder characterized by an infectious process involving the cornea."
     },
     {
         "MedDRA v12.0 Code": 10065765,
@@ -3000,7 +3000,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving a cranial nerve."
+        "description": "A disorder characterized by an infectious process involving a cranial nerve."
     },
     {
         "MedDRA v12.0 Code": 10064687,
@@ -3011,7 +3011,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the use of a medical device."
+        "description": "A disorder characterized by an infectious process involving the use of a medical device."
     },
     {
         "MedDRA v12.0 Code": 10065752,
@@ -3022,7 +3022,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the duodenum."
+        "description": "A disorder characterized by an infectious process involving the duodenum."
     },
     {
         "MedDRA v12.0 Code": 10014594,
@@ -3033,7 +3033,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; severe changes in mental status; self-limited seizure activity; focal neurologic abnormalities",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the brain tissue."
+        "description": "A disorder characterized by an infectious process involving the brain tissue."
     },
     {
         "MedDRA v12.0 Code": 10014621,
@@ -3044,7 +3044,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the brain and spinal cord tissues."
+        "description": "A disorder characterized by an infectious process involving the brain and spinal cord tissues."
     },
     {
         "MedDRA v12.0 Code": 10014678,
@@ -3055,7 +3055,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the endocardial layer of the heart."
+        "description": "A disorder characterized by an infectious process involving the endocardial layer of the heart."
     },
     {
         "MedDRA v12.0 Code": 10014801,
@@ -3066,7 +3066,7 @@ const adverseEventOptions = [
         "Grade 3": "Systemic intervention or hospitalization indicated",
         "Grade 4": "Blindness (20/200 or worse)",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the internal structures of the eye."
+        "description": "A disorder characterized by an infectious process involving the internal structures of the eye."
     },
     {
         "MedDRA v12.0 Code": 10058838,
@@ -3077,7 +3077,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated; profuse watery diarrhea with signs of hypovolemia;  bloody diarrhea; fever; severe abdominal pain; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the small and large intestines."
+        "description": "A disorder characterized by an infectious process involving the small and large intestines."
     },
     {
         "MedDRA v12.0 Code": 10058804,
@@ -3088,7 +3088,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the esophagus."
+        "description": "A disorder characterized by an infectious process involving the esophagus."
     },
     {
         "MedDRA v12.0 Code": 10015929,
@@ -3099,7 +3099,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated; enucleation",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the eye."
+        "description": "A disorder characterized by an infectious process involving the eye."
     },
     {
         "MedDRA v12.0 Code": 10062632,
@@ -3110,7 +3110,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the gallbladder."
+        "description": "A disorder characterized by an infectious process involving the gallbladder."
     },
     {
         "MedDRA v12.0 Code": 10018784,
@@ -3121,7 +3121,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the gums."
+        "description": "A disorder characterized by an infectious process involving the gums."
     },
     {
         "MedDRA v12.0 Code": 10056522,
@@ -3132,7 +3132,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the liver."
+        "description": "A disorder characterized by an infectious process involving the liver."
     },
     {
         "MedDRA v12.0 Code": 10019799,
@@ -3143,7 +3143,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic liver dysfunction; fibrosis by biopsy; compensated cirrhosis; reactivation of chronic hepatitis",
         "Grade 4": "Decompensated liver function (e.g., ascites, coagulopathy, encephalopathy, coma)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a viral pathologic process involving the liver parenchyma."
+        "description": "A disorder characterized by a viral pathologic process involving the liver parenchyma."
     },
     {
         "MedDRA v12.0 Code": 10021918,
@@ -3154,7 +3154,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the skeletal muscles."
+        "description": "A disorder characterized by an infectious process involving the skeletal muscles."
     },
     {
         "MedDRA v12.0 Code": 10023216,
@@ -3165,7 +3165,7 @@ const adverseEventOptions = [
         "Grade 3": "Arthroscopic intervention indicated (e.g., drainage) or arthrotomy (e.g., open surgical drainage)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving a joint."
+        "description": "A disorder characterized by an infectious process involving a joint."
     },
     {
         "MedDRA v12.0 Code": 10023424,
@@ -3176,7 +3176,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the kidney."
+        "description": "A disorder characterized by an infectious process involving the kidney."
     },
     {
         "MedDRA v12.0 Code": 10023874,
@@ -3187,7 +3187,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammatory process involving the larynx."
+        "description": "A disorder characterized by an inflammatory process involving the larynx."
     },
     {
         "MedDRA v12.0 Code": 10065755,
@@ -3198,7 +3198,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the lips."
+        "description": "A disorder characterized by an infectious process involving the lips."
     },
     {
         "MedDRA v12.0 Code": 10061229,
@@ -3209,7 +3209,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the lungs."
+        "description": "A disorder characterized by an infectious process involving the lungs."
     },
     {
         "MedDRA v12.0 Code": 10050823,
@@ -3220,7 +3220,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the lymph nodes."
+        "description": "A disorder characterized by an infectious process involving the lymph nodes."
     },
     {
         "MedDRA v12.0 Code": 10057483,
@@ -3231,7 +3231,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the mediastinum."
+        "description": "A disorder characterized by an infectious process involving the mediastinum."
     },
     {
         "MedDRA v12.0 Code": 10027199,
@@ -3242,7 +3242,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated; focal neurologic deficit",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by acute inflammation of the meninges of the brain and/or spinal cord."
+        "description": "A disorder characterized by acute inflammation of the meninges of the brain and/or spinal cord."
     },
     {
         "MedDRA v12.0 Code": 10065764,
@@ -3253,7 +3253,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving a mucosal surface."
+        "description": "A disorder characterized by an infectious process involving a mucosal surface."
     },
     {
         "MedDRA v12.0 Code": 10061304,
@@ -3264,7 +3264,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the nail."
+        "description": "A disorder characterized by an infectious process involving the nail."
     },
     {
         "MedDRA v12.0 Code": 10033072,
@@ -3275,7 +3275,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the outer ear and ear canal. Contributory factors include excessive water exposure (swimmer's ear infection) and cuts in the ear canal. Symptoms include fullness, itching, swelling and marked discomfort in the ear and ear drainage."
+        "description": "A disorder characterized by an infectious process involving the outer ear and ear canal. Contributory factors include excessive water exposure (swimmer's ear infection) and cuts in the ear canal. Symptoms include fullness, itching, swelling and marked discomfort in the ear and ear drainage."
     },
     {
         "MedDRA v12.0 Code": 10033078,
@@ -3286,7 +3286,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the middle ear."
+        "description": "A disorder characterized by an infectious process involving the middle ear."
     },
     {
         "MedDRA v12.0 Code": 10055005,
@@ -3297,7 +3297,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the ovary."
+        "description": "A disorder characterized by an infectious process involving the ovary."
     },
     {
         "MedDRA v12.0 Code": 10051741,
@@ -3308,7 +3308,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the pancreas."
+        "description": "A disorder characterized by an infectious process involving the pancreas."
     },
     {
         "MedDRA v12.0 Code": 10069138,
@@ -3319,7 +3319,7 @@ const adverseEventOptions = [
         "Grade 3": "Papules and/or pustules covering >30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; limiting self-care ADL; associated with local superinfection with oral antibiotics indicated",
         "Grade 4": "Papules and/or pustules covering  any % BSA, which may or may not be associated with symptoms of pruritus or tenderness and are associated with extensive superinfection with IV antibiotics indicated; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an eruption consisting of papules (a small, raised pimple) and pustules (a small pus filled blister), typically appearing in face, scalp, and upper chest and back Unlike acne, this rash does not present with whiteheads or blackheads, and can be symptomatic, with itchy or tender lesions."
+        "description": "A disorder characterized by an eruption consisting of papules (a small, raised pimple) and pustules (a small pus filled blister), typically appearing in face, scalp, and upper chest and back Unlike acne, this rash does not present with whiteheads or blackheads, and can be symptomatic, with itchy or tender lesions."
     },
     {
         "MedDRA v12.0 Code": 10034016,
@@ -3330,7 +3330,7 @@ const adverseEventOptions = [
         "Grade 3": "Surgical intervention or IV antibiotics indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the soft tissues around the nail."
+        "description": "A disorder characterized by an infectious process involving the soft tissues around the nail."
     },
     {
         "MedDRA v12.0 Code": 10058674,
@@ -3341,7 +3341,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the pelvic cavity."
+        "description": "A disorder characterized by an infectious process involving the pelvic cavity."
     },
     {
         "MedDRA v12.0 Code": 10061912,
@@ -3352,7 +3352,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the penis."
+        "description": "A disorder characterized by an infectious process involving the penis."
     },
     {
         "MedDRA v12.0 Code": 10051472,
@@ -3363,7 +3363,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the orbit of the eye."
+        "description": "A disorder characterized by an infectious process involving the orbit of the eye."
     },
     {
         "MedDRA v12.0 Code": 10065766,
@@ -3374,7 +3374,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the peripheral nerves."
+        "description": "A disorder characterized by an infectious process involving the peripheral nerves."
     },
     {
         "MedDRA v12.0 Code": 10057262,
@@ -3385,7 +3385,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the peritoneum."
+        "description": "A disorder characterized by an infectious process involving the peritoneum."
     },
     {
         "MedDRA v12.0 Code": 10034835,
@@ -3396,7 +3396,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the throat."
+        "description": "A disorder characterized by inflammation of the throat."
     },
     {
         "MedDRA v12.0 Code": 10056627,
@@ -3407,7 +3407,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the vein. Clinical manifestations include erythema, marked discomfort, swelling, and induration along the course of the infected vein."
+        "description": "A disorder characterized by an infectious process involving the vein. Clinical manifestations include erythema, marked discomfort, swelling, and induration along the course of the infected vein."
     },
     {
         "MedDRA v12.0 Code": 10061351,
@@ -3418,7 +3418,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the pleura."
+        "description": "A disorder characterized by an infectious process involving the pleura."
     },
     {
         "MedDRA v12.0 Code": 10050662,
@@ -3429,7 +3429,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the prostate gland."
+        "description": "A disorder characterized by an infectious process involving the prostate gland."
     },
     {
         "MedDRA v12.0 Code": 10037888,
@@ -3440,7 +3440,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed and elevated skin lesion filled with pus."
+        "description": "A disorder characterized by a circumscribed and elevated skin lesion filled with pus."
     },
     {
         "MedDRA v12.0 Code": 10059827,
@@ -3451,7 +3451,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the nasal mucosal."
+        "description": "A disorder characterized by an infectious process involving the nasal mucosal."
     },
     {
         "MedDRA v12.0 Code": 10039413,
@@ -3462,7 +3462,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the salivary gland."
+        "description": "A disorder characterized by an infectious process involving the salivary gland."
     },
     {
         "MedDRA v12.0 Code": 10062156,
@@ -3473,7 +3473,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the scrotum."
+        "description": "A disorder characterized by an infectious process involving the scrotum."
     },
     {
         "MedDRA v12.0 Code": 10040047,
@@ -3484,7 +3484,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of pathogenic microorganisms in the blood stream that cause a rapidly progressing systemic reaction that may lead to shock."
+        "description": "A disorder characterized by the presence of pathogenic microorganisms in the blood stream that cause a rapidly progressing systemic reaction that may lead to shock."
     },
     {
         "MedDRA v12.0 Code": 10040753,
@@ -3495,7 +3495,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the mucous membranes of the paranasal sinuses."
+        "description": "A disorder characterized by an infectious process involving the mucous membranes of the paranasal sinuses."
     },
     {
         "MedDRA v12.0 Code": 10040872,
@@ -3506,7 +3506,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the skin."
+        "description": "A disorder characterized by an infectious process involving the skin."
     },
     {
         "MedDRA v12.0 Code": 10065771,
@@ -3517,7 +3517,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the small intestine."
+        "description": "A disorder characterized by an infectious process involving the small intestine."
     },
     {
         "MedDRA v12.0 Code": 10062255,
@@ -3528,7 +3528,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving soft tissues."
+        "description": "A disorder characterized by an infectious process involving soft tissues."
     },
     {
         "MedDRA v12.0 Code": 10062112,
@@ -3539,7 +3539,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the spleen."
+        "description": "A disorder characterized by an infectious process involving the spleen."
     },
     {
         "MedDRA v12.0 Code": 10064505,
@@ -3550,7 +3550,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving a stoma (surgically created opening on the surface of the body)."
+        "description": "A disorder characterized by an infectious process involving a stoma (surgically created opening on the surface of the body)."
     },
     {
         "MedDRA v12.0 Code": 10048762,
@@ -3561,7 +3561,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving a tooth."
+        "description": "A disorder characterized by an infectious process involving a tooth."
     },
     {
         "MedDRA v12.0 Code": 10044302,
@@ -3572,7 +3572,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the trachea."
+        "description": "A disorder characterized by an infectious process involving the trachea."
     },
     {
         "MedDRA v12.0 Code": 10046300,
@@ -3583,7 +3583,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the upper respiratory tract (nose, paranasal sinuses, pharynx, larynx, or trachea)."
+        "description": "A disorder characterized by an infectious process involving the upper respiratory tract (nose, paranasal sinuses, pharynx, larynx, or trachea)."
     },
     {
         "MedDRA v12.0 Code": 10052298,
@@ -3594,7 +3594,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the urethra."
+        "description": "A disorder characterized by an infectious process involving the urethra."
     },
     {
         "MedDRA v12.0 Code": 10046571,
@@ -3605,7 +3605,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the urinary tract, most commonly the bladder and the urethra."
+        "description": "A disorder characterized by an infectious process involving the urinary tract, most commonly the bladder and the urethra."
     },
     {
         "MedDRA v12.0 Code": 10062233,
@@ -3616,7 +3616,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the endometrium. It may extend to the myometrium and parametrial tissues."
+        "description": "A disorder characterized by an infectious process involving the endometrium. It may extend to the myometrium and parametrial tissues."
     },
     {
         "MedDRA v12.0 Code": 10046914,
@@ -3627,7 +3627,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the vagina."
+        "description": "A disorder characterized by an infectious process involving the vagina."
     },
     {
         "MedDRA v12.0 Code": 10065772,
@@ -3638,7 +3638,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the vulva."
+        "description": "A disorder characterized by an infectious process involving the vulva."
     },
     {
         "MedDRA v12.0 Code": 10048038,
@@ -3649,7 +3649,7 @@ const adverseEventOptions = [
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an infectious process involving the wound."
+        "description": "A disorder characterized by an infectious process involving the wound."
     },
     {
         "MedDRA v12.0 Code": 10021881,
@@ -3660,7 +3660,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10002544,
@@ -3671,7 +3671,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; elective surgery indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the ankle joint characterized by a break in the continuity of the ankle bone. Symptoms include marked discomfort, swelling and difficulty moving the affected leg and foot."
+        "description": "A finding of damage to the ankle joint characterized by a break in the continuity of the ankle bone. Symptoms include marked discomfort, swelling and difficulty moving the affected leg and foot."
     },
     {
         "MedDRA v12.0 Code": 10002899,
@@ -3682,7 +3682,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; disabling; repair or revision indicated",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the aorta."
+        "description": "A finding of damage to the aorta."
     },
     {
         "MedDRA v12.0 Code": 10003162,
@@ -3693,7 +3693,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; disabling; repair or revision indicated",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to an artery."
+        "description": "A finding of damage to an artery."
     },
     {
         "MedDRA v12.0 Code": 10050458,
@@ -3704,7 +3704,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage of bile due to breakdown of a biliary anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage of bile due to breakdown of a biliary anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065802,
@@ -3715,7 +3715,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage of urine due to breakdown of a bladder anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage of urine due to breakdown of a bladder anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10006504,
@@ -3726,7 +3726,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of injury of the soft tissues or bone characterized by leakage of blood into surrounding tissues."
+        "description": "A finding of injury of the soft tissues or bone characterized by leakage of blood into surrounding tissues."
     },
     {
         "MedDRA v12.0 Code": 10006634,
@@ -3737,7 +3737,7 @@ const adverseEventOptions = [
         "Grade 3": "Moderate to major debridement or reconstruction indicated",
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of impaired integrity to the anatomic site of an adverse thermal reaction. Burns can be caused by exposure to chemicals, direct heat, electricity, flames and radiation. The extent of damage depends on the length and intensity of exposure and time until provision of treatment."
+        "description": "A finding of impaired integrity to the anatomic site of an adverse thermal reaction. Burns can be caused by exposure to chemicals, direct heat, electricity, flames and radiation. The extent of damage depends on the length and intensity of exposure and time until provision of treatment."
     },
     {
         "MedDRA v12.0 Code": 10061103,
@@ -3748,7 +3748,7 @@ const adverseEventOptions = [
         "Grade 3": "Moist desquamation in areas other than skin folds and creases; bleeding induced by minor trauma or abrasion",
         "Grade 4": "Life-threatening consequences; skin necrosis or ulceration of full thickness dermis; spontaneous bleeding from involved site; skin graft indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of cutaneous inflammatory reaction occurring as a result of exposure to biologically effective levels of ionizing radiation."
+        "description": "A finding of cutaneous inflammatory reaction occurring as a result of exposure to biologically effective levels of ionizing radiation."
     },
     {
         "MedDRA v12.0 Code": 10065961,
@@ -3759,7 +3759,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of an esophageal anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of an esophageal anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10016173,
@@ -3770,7 +3770,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of sudden movement downward, usually resulting in injury."
+        "description": "A finding of sudden movement downward, usually resulting in injury."
     },
     {
         "MedDRA v12.0 Code": 10065788,
@@ -3781,7 +3781,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a fallopian tube anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a fallopian tube anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065790,
@@ -3792,7 +3792,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated (e.g., organ resection)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of rupture of the fallopian tube wall."
+        "description": "A finding of rupture of the fallopian tube wall."
     },
     {
         "MedDRA v12.0 Code": 10017076,
@@ -3803,7 +3803,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; displaced or open wound with bone exposure; disabling; operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of traumatic injury to the bone in which the continuity of the bone is broken."
+        "description": "A finding of traumatic injury to the bone in which the continuity of the bone is broken."
     },
     {
         "MedDRA v12.0 Code": 10065893,
@@ -3814,7 +3814,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a gastric anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a gastric anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065879,
@@ -3825,7 +3825,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a gastrointestinal anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a gastrointestinal anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065712,
@@ -3836,7 +3836,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; hospitalization or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of a necrotic process occurring in the gastrointestinal tract stoma."
+        "description": "A finding of a necrotic process occurring in the gastrointestinal tract stoma."
     },
     {
         "MedDRA v12.0 Code": 10020100,
@@ -3847,7 +3847,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; hospitalization or intervention indicated for pain control (e.g., traction); operative intervention indicated",
         "Grade 4": "Life-threatening consequences; symptoms associated with neurovascular compromise",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of traumatic injury to the hip in which the continuity of either the femoral head, femoral neck, intertrochanteric or subtrochanteric regions is broken. "
+        "description": "A finding of traumatic injury to the hip in which the continuity of either the femoral head, femoral neck, intertrochanteric or subtrochanteric regions is broken. "
     },
     {
         "MedDRA v12.0 Code": 10022161,
@@ -3858,7 +3858,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL (e.g., transient cerebral ischemia); repair or revision indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the carotid artery."
+        "description": "A finding of damage to the carotid artery."
     },
     {
         "MedDRA v12.0 Code": 10022213,
@@ -3869,7 +3869,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the inferior vena cava."
+        "description": "A finding of damage to the inferior vena cava."
     },
     {
         "MedDRA v12.0 Code": 10065849,
@@ -3880,7 +3880,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic limiting self care ADL; disabling; repair or revision indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the jugular vein."
+        "description": "A finding of damage to the jugular vein."
     },
     {
         "MedDRA v12.0 Code": 10022356,
@@ -3891,7 +3891,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; disabling; repair or revision indicated",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the superior vena cava."
+        "description": "A finding of damage to the superior vena cava."
     },
     {
         "MedDRA v12.0 Code": 10059095,
@@ -3902,7 +3902,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage of contents from an intestinal stoma (surgically created opening on the surface of the body)."
+        "description": "A finding of leakage of contents from an intestinal stoma (surgically created opening on the surface of the body)."
     },
     {
         "MedDRA v12.0 Code": 10059094,
@@ -3913,7 +3913,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; IV fluids, tube feeding, or TPN indicated >=24 hrs; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of blockage of the normal flow of the contents of the intestinal stoma."
+        "description": "A finding of blockage of the normal flow of the contents of the intestinal stoma."
     },
     {
         "MedDRA v12.0 Code": 10049468,
@@ -3924,7 +3924,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of blood leakage from the intestinal stoma."
+        "description": "A finding of blood leakage from the intestinal stoma."
     },
     {
         "MedDRA v12.0 Code": 10065826,
@@ -3935,7 +3935,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to an artery during a surgical procedure."
+        "description": "A finding of damage to an artery during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065831,
@@ -3946,7 +3946,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the breast parenchyma during a surgical procedure."
+        "description": "A finding of damage to the breast parenchyma during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065843,
@@ -3957,7 +3957,7 @@ const adverseEventOptions = [
         "Grade 3": "Primary repair of injured organ/structure indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the heart during a surgical procedure."
+        "description": "A finding of damage to the heart during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065844,
@@ -3968,7 +3968,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection of injured organ/structure indicated; disabling (e.g., impaired hearing; impaired balance)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the ear during a surgical procedure."
+        "description": "A finding of damage to the ear during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065834,
@@ -3979,7 +3979,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the endocrine gland during a surgical procedure."
+        "description": "A finding of damage to the endocrine gland during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065825,
@@ -3990,7 +3990,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the gastrointestinal system during a surgical procedure."
+        "description": "A finding of damage to the gastrointestinal system during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065842,
@@ -4001,7 +4001,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the head and neck during a surgical procedure."
+        "description": "A finding of damage to the head and neck during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10055298,
@@ -4012,7 +4012,7 @@ const adverseEventOptions = [
         "Grade 3": "Postoperative radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of uncontrolled bleeding during a surgical procedure."
+        "description": "A finding of uncontrolled bleeding during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065827,
@@ -4023,7 +4023,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the hepatic parenchyma and/or biliary tract during a surgical procedure."
+        "description": "A finding of damage to the hepatic parenchyma and/or biliary tract during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065829,
@@ -4034,7 +4034,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the musculoskeletal system during a surgical procedure."
+        "description": "A finding of damage to the musculoskeletal system during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065830,
@@ -4045,7 +4045,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the nervous system during a surgical procedure."
+        "description": "A finding of damage to the nervous system during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065841,
@@ -4056,7 +4056,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the eye during a surgical procedure."
+        "description": "A finding of damage to the eye during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065845,
@@ -4067,7 +4067,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the kidney during a surgical procedure."
+        "description": "A finding of damage to the kidney during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065840,
@@ -4078,7 +4078,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the reproductive organs during a surgical procedure."
+        "description": "A finding of damage to the reproductive organs during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065832,
@@ -4089,7 +4089,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the respiratory system during a surgical procedure."
+        "description": "A finding of damage to the respiratory system during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065846,
@@ -4100,7 +4100,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the skin during a surgical procedure."
+        "description": "A finding of damage to the skin during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065847,
@@ -4111,7 +4111,7 @@ const adverseEventOptions = [
         "Grade 3": "Resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the spleen during a surgical procedure."
+        "description": "A finding of damage to the spleen during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065828,
@@ -4122,7 +4122,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to the urinary system during a surgical procedure."
+        "description": "A finding of damage to the urinary system during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065848,
@@ -4133,7 +4133,7 @@ const adverseEventOptions = [
         "Grade 3": "Complete resection or reconstruction of injured organ/structure indicated; disabling",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to a vein during a surgical procedure."
+        "description": "A finding of damage to a vein during a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10065803,
@@ -4144,7 +4144,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage of urine due to breakdown of a kidney anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage of urine due to breakdown of a kidney anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065891,
@@ -4155,7 +4155,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of an anastomosis (surgical connection of two separate anatomic structures) in the large intestine."
+        "description": "A finding of leakage due to breakdown of an anastomosis (surgical connection of two separate anatomic structures) in the large intestine."
     },
     {
         "MedDRA v12.0 Code": 10050457,
@@ -4166,7 +4166,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a pancreatic anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a pancreatic anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065705,
@@ -4177,7 +4177,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a pharyngeal anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a pharyngeal anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10055322,
@@ -4188,7 +4188,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion indicated of >=2 units (10 cc/kg for pediatrics) pRBCs beyond protocol specification; urgent radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of bleeding occurring after a surgical procedure."
+        "description": "A finding of bleeding occurring after a surgical procedure."
     },
     {
         "MedDRA v12.0 Code": 10056745,
@@ -4199,7 +4199,7 @@ const adverseEventOptions = [
         "Grade 3": "Extubated >72 hrs postoperatively, but before tracheostomy indicated",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of a previously undocumented problem that occurs after a thoracic procedure."
+        "description": "A finding of a previously undocumented problem that occurs after a thoracic procedure."
     },
     {
         "MedDRA v12.0 Code": 10065745,
@@ -4210,7 +4210,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of protrusion of the intestinal stoma (surgically created opening on the surface of the body) above the abdominal surface."
+        "description": "A finding of protrusion of the intestinal stoma (surgically created opening on the surface of the body) above the abdominal surface."
     },
     {
         "MedDRA v12.0 Code": 10065822,
@@ -4221,7 +4221,7 @@ const adverseEventOptions = [
         "Grade 3": "Dysfunctional stoma; elective operative intervention or major stomal revision indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of displacement of the urostomy."
+        "description": "A finding of displacement of the urostomy."
     },
     {
         "MedDRA v12.0 Code": 10037767,
@@ -4232,7 +4232,7 @@ const adverseEventOptions = [
         "Grade 3": "Moist desquamation in areas other than skin folds and creases; bleeding induced by minor trauma or abrasion",
         "Grade 4": "Life-threatening consequences; skin necrosis or ulceration of full thickness dermis; spontaneous bleeding from involved site; skin graft indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of acute skin inflammatory reaction caused by drugs, especially chemotherapeutic agents, for weeks or months following radiotherapy. The inflammatory reaction is confined to the previously irradiated skin and the symptoms disappear after the removal of the pharmaceutical agent."
+        "description": "A finding of acute skin inflammatory reaction caused by drugs, especially chemotherapeutic agents, for weeks or months following radiotherapy. The inflammatory reaction is confined to the previously irradiated skin and the symptoms disappear after the removal of the pharmaceutical agent."
     },
     {
         "MedDRA v12.0 Code": 10065894,
@@ -4243,7 +4243,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a rectal anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a rectal anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10040102,
@@ -4254,7 +4254,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic, elective radiologic or operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of tumor-like collection of serum in the tissues."
+        "description": "A finding of tumor-like collection of serum in the tissues."
     },
     {
         "MedDRA v12.0 Code": 10065892,
@@ -4265,7 +4265,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of an anastomosis (surgical connection of two separate anatomic structures) in the small bowel."
+        "description": "A finding of leakage due to breakdown of an anastomosis (surgical connection of two separate anatomic structures) in the small bowel."
     },
     {
         "MedDRA v12.0 Code": 10065897,
@@ -4276,7 +4276,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a spermatic cord anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a spermatic cord anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10041569,
@@ -4287,7 +4287,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe back pain; hospitalization or intervention indicated for pain control (e.g., vertebroplasty); limiting self care ADL; disability",
         "Grade 4": "Life-threatening consequences; symptoms associated with neurovascular compromise",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of traumatic injury to the spine in which the continuity of a vertebral bone is broken."
+        "description": "A finding of traumatic injury to the spine in which the continuity of a vertebral bone is broken."
     },
     {
         "MedDRA v12.0 Code": 10065898,
@@ -4298,7 +4298,7 @@ const adverseEventOptions = [
         "Grade 3": "Severely altered GI function; tube feeding, TPN or hospitalization indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of narrowing of the gastrointestinal stoma (surgically created opening on the surface of the body)."
+        "description": "A finding of narrowing of the gastrointestinal stoma (surgically created opening on the surface of the body)."
     },
     {
         "MedDRA v12.0 Code": 10042127,
@@ -4309,7 +4309,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the jejunal mucosal surface close to the anastomosis site following a gastroenterostomy procedure."
+        "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the jejunal mucosal surface close to the anastomosis site following a gastroenterostomy procedure."
     },
     {
         "MedDRA v12.0 Code": 10062548,
@@ -4320,7 +4320,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of bleeding from the trachea."
+        "description": "A finding of bleeding from the trachea."
     },
     {
         "MedDRA v12.0 Code": 10044291,
@@ -4331,7 +4331,7 @@ const adverseEventOptions = [
         "Grade 3": "Stridor; radiologic or endoscopic intervention indicated (e.g., stent, laser); limiting self care ADL",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of blockage of the lumen of the trachea."
+        "description": "A finding of blockage of the lumen of the trachea."
     },
     {
         "MedDRA v12.0 Code": 10065749,
@@ -4342,7 +4342,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of blood leakage from the tracheostomy site."
+        "description": "A finding of blood leakage from the tracheostomy site."
     },
     {
         "MedDRA v12.0 Code": 10065814,
@@ -4353,7 +4353,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a ureteral anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a ureteral anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065815,
@@ -4364,7 +4364,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a urethral anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a urethral anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065882,
@@ -4375,7 +4375,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage of contents from a urostomy."
+        "description": "A finding of leakage of contents from a urostomy."
     },
     {
         "MedDRA v12.0 Code": 10065883,
@@ -4386,7 +4386,7 @@ const adverseEventOptions = [
         "Grade 3": "Altered organ function (e.g., sepsis or hydronephrosis, or renal dysfunction); elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; organ failure; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of blockage of the urostomy."
+        "description": "A finding of blockage of the urostomy."
     },
     {
         "MedDRA v12.0 Code": 10065748,
@@ -4397,7 +4397,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of bleeding from the urostomy site."
+        "description": "A finding of bleeding from the urostomy site."
     },
     {
         "MedDRA v12.0 Code": 10065885,
@@ -4408,7 +4408,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic (e.g., hydronephrosis, or renal dysfunction); elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of narrowing of the opening of a urostomy."
+        "description": "A finding of narrowing of the opening of a urostomy."
     },
     {
         "MedDRA v12.0 Code": 10065886,
@@ -4419,7 +4419,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a uterine anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a uterine anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10046810,
@@ -4430,7 +4430,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the uterine wall."
+        "description": "A disorder characterized by a rupture in the uterine wall."
     },
     {
         "MedDRA v12.0 Code": 10065887,
@@ -4441,7 +4441,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a vaginal anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a vaginal anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10065888,
@@ -4452,7 +4452,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of leakage due to breakdown of a vas deferens anastomosis (surgical connection of two separate anatomic structures)."
+        "description": "A finding of leakage due to breakdown of a vas deferens anastomosis (surgical connection of two separate anatomic structures)."
     },
     {
         "MedDRA v12.0 Code": 10062169,
@@ -4463,7 +4463,7 @@ const adverseEventOptions = [
         "Grade 3": "Deep vein or cardiac thrombosis; intervention indicated (e.g., anticoagulation, lysis, filter, invasive procedure)",
         "Grade 4": "Embolic event including pulmonary embolism or life-threatening thrombus",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of a previously undocumented problem related to the vascular access site."
+        "description": "A finding of a previously undocumented problem related to the vascular access site."
     },
     {
         "MedDRA v12.0 Code": 10047228,
@@ -4474,7 +4474,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; repair or revision indicated; disabling",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of damage to a vein."
+        "description": "A finding of damage to a vein."
     },
     {
         "MedDRA v12.0 Code": 10053692,
@@ -4485,7 +4485,7 @@ const adverseEventOptions = [
         "Grade 3": "Hernia without evidence of strangulation; fascial disruption/dehiscence; primary wound closure or revision by operative intervention indicated",
         "Grade 4": "Hernia with evidence of strangulation; major reconstruction flap, grafting, resection, or amputation indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of development of a new problem at the site of an existing wound."
+        "description": "A finding of development of a new problem at the site of an existing wound."
     },
     {
         "MedDRA v12.0 Code": 10048031,
@@ -4496,7 +4496,7 @@ const adverseEventOptions = [
         "Grade 3": "Fascial disruption or dehiscence without evisceration; primary wound closure or revision by operative intervention indicated",
         "Grade 4": "Life-threatening consequences; symptomatic hernia with evidence of strangulation; fascial disruption with evisceration; major reconstruction flap, grafting, resection, or amputation indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A finding of separation of the approximated margins of a surgical wound."
+        "description": "A finding of separation of the approximated margins of a surgical wound."
     },
     {
         "MedDRA v12.0 Code": 10048049,
@@ -4507,7 +4507,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; elective surgery indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of traumatic injury to the wrist joint in which the continuity of a wrist bone is broken."
+        "description": "A finding of traumatic injury to the wrist joint in which the continuity of a wrist bone is broken."
     },
     {
         "MedDRA v12.0 Code": 10022117,
@@ -4518,7 +4518,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10000636,
@@ -4529,7 +4529,7 @@ const adverseEventOptions = [
         "Grade 3": ">2.5 x ULN; hemorrhage",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "An abnormal laboratory test result in which the partial thromboplastin time is found to be greater than the control value. As a possible indicator of coagulopathy, a prolonged partial thromboplastin time (PTT) may occur in a variety of diseases and disorders, both primary and related to treatment."
+        "description": "An abnormal laboratory test result in which the partial thromboplastin time is found to be greater than the control value. As a possible indicator of coagulopathy, a prolonged partial thromboplastin time (PTT) may occur in a variety of diseases and disorders, both primary and related to treatment."
     },
     {
         "MedDRA v12.0 Code": 10001551,
@@ -4540,7 +4540,7 @@ const adverseEventOptions = [
         "Grade 3": ">5.0 - 20.0 x ULN",
         "Grade 4": ">20.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the level of alanine aminotransferase (ALT or SGPT) in the blood specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in the level of alanine aminotransferase (ALT or SGPT) in the blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10001675,
@@ -4551,7 +4551,7 @@ const adverseEventOptions = [
         "Grade 3": ">5.0 - 20.0 x ULN",
         "Grade 4": ">20.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the level of alkaline phosphatase in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in the level of alkaline phosphatase in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10003481,
@@ -4562,7 +4562,7 @@ const adverseEventOptions = [
         "Grade 3": ">5.0 - 20.0 x ULN",
         "Grade 4": ">20.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the level of aspartate aminotransferase (AST or SGOT) in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in the level of aspartate aminotransferase (AST or SGOT) in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10005332,
@@ -4573,7 +4573,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate abnormal levels of antidiuretic hormone in the blood specimen."
+        "description": "A finding based on laboratory test results that indicate abnormal levels of antidiuretic hormone in the blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10005364,
@@ -4584,7 +4584,7 @@ const adverseEventOptions = [
         "Grade 3": ">3.0 - 10.0 x ULN",
         "Grade 4": ">10.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an abnormally high level of bilirubin in the blood. Excess bilirubin is associated with jaundice."
+        "description": "A finding based on laboratory test results that indicate an abnormally high level of bilirubin in the blood. Excess bilirubin is associated with jaundice."
     },
     {
         "MedDRA v12.0 Code": 10005452,
@@ -4595,7 +4595,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in levels of corticotrophin in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in levels of corticotrophin in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10005561,
@@ -4606,7 +4606,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate abnormal levels of gonadotrophin hormone in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate abnormal levels of gonadotrophin hormone in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10005778,
@@ -4617,7 +4617,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate abnormal levels of prolactin hormone in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate abnormal levels of prolactin hormone in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10065906,
@@ -4628,7 +4628,7 @@ const adverseEventOptions = [
         "Grade 3": "Asymptomatic decrease  of >8 units drop;  >5 units drop along with the presence of pulmonary symptoms (e.g. , >Grade 2  hypoxia or >Grade 2 or higher dyspnea)",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on lung function test results that indicate  a decrease in the lung capacity to absorb carbon monoxide."
+        "description": "A finding based on lung function test results that indicate  a decrease in the lung capacity to absorb carbon monoxide."
     },
     {
         "MedDRA v12.0 Code": 10007612,
@@ -4639,7 +4639,7 @@ const adverseEventOptions = [
         "Grade 3": "Levels consistent with myocardial infarction as defined by the manufacturer",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A laboratory test result which indicates increased levels of cardiac troponin I in a biological specimen."
+        "description": "A laboratory test result which indicates increased levels of cardiac troponin I in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10007613,
@@ -4650,7 +4650,7 @@ const adverseEventOptions = [
         "Grade 3": "Levels consistent with myocardial infarction as defined by the manufacturer",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A laboratory test result which indicates increased levels of cardiac troponin T in a biological specimen."
+        "description": "A laboratory test result which indicates increased levels of cardiac troponin T in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10007839,
@@ -4661,7 +4661,7 @@ const adverseEventOptions = [
         "Grade 3": "<200 - 50/mm3; <0.2 x 0.05 - 10e9 /L",
         "Grade 4": "<50/mm3; <0.05 x 10e9 /L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in levels of CD4 lymphocytes in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in levels of CD4 lymphocytes in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10008661,
@@ -4672,7 +4672,7 @@ const adverseEventOptions = [
         "Grade 3": ">400 - 500 mg/dL; >10.34 - 12.92 mmol/L",
         "Grade 4": ">500 mg/dL; >12.92 mmol/L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate higher than normal levels of cholesterol in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate higher than normal levels of cholesterol in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10011268,
@@ -4683,7 +4683,7 @@ const adverseEventOptions = [
         "Grade 3": ">5 x ULN - 10 x ULN",
         "Grade 4": ">10 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in levels of creatine phosphokinase in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in levels of creatine phosphokinase in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10011368,
@@ -4694,7 +4694,7 @@ const adverseEventOptions = [
         "Grade 3": ">3.0 baseline; >3.0 - 6.0 x ULN",
         "Grade 4": ">6.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate increased levels of creatinine in a biological specimen."
+        "description": "A finding based on laboratory test results that indicate increased levels of creatinine in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10050528,
@@ -4705,7 +4705,7 @@ const adverseEventOptions = [
         "Grade 3": "Resting ejection fraction (EF) 39 - 20%; >20% drop from baseline",
         "Grade 4": "Resting ejection fraction (EF) <20%",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "The percentage computed when the amount of blood ejected during a ventricular contraction of the heart is compared to the amount that was present prior to the contraction."
+        "description": "The percentage computed when the amount of blood ejected during a ventricular contraction of the heart is compared to the amount that was present prior to the contraction."
     },
     {
         "MedDRA v12.0 Code": 10014383,
@@ -4716,7 +4716,7 @@ const adverseEventOptions = [
         "Grade 3": "QTc >= 501 ms on at least two separate ECGs",
         "Grade 4": "QTc >= 501 or >60 ms change from baseline and Torsade de pointes or polymorphic ventricular tachycardia or signs/symptoms of serious arrhythmia",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding of a cardiac dysrhythmia characterized by an abnormally long corrected QT interval."
+        "description": "A finding of a cardiac dysrhythmia characterized by an abnormally long corrected QT interval."
     },
     {
         "MedDRA v12.0 Code": 10016596,
@@ -4727,7 +4727,7 @@ const adverseEventOptions = [
         "Grade 3": "<0.5 - 0.25 x LLN or 50 - <75% decrease from baseline",
         "Grade 4": "<0.25 x LLN  or 75% decrease from baseline or absolute value <50 mg/dL",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in levels of fibrinogen in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in levels of fibrinogen in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10016987,
@@ -4738,7 +4738,7 @@ const adverseEventOptions = [
         "Grade 3": "50 - 59%",
         "Grade 4": "<= 49%",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on test results that indicate a relative decrease in the fraction of the forced vital capacity that is exhaled in a specific number of seconds."
+        "description": "A finding based on test results that indicate a relative decrease in the fraction of the forced vital capacity that is exhaled in a specific number of seconds."
     },
     {
         "MedDRA v12.0 Code": 10056910,
@@ -4749,7 +4749,7 @@ const adverseEventOptions = [
         "Grade 3": ">5.0 - 20.0 x ULN",
         "Grade 4": ">20.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate higher than normal levels of the enzyme gamma-glutamyltransferase in the blood specimen. GGT (gamma-glutamyltransferase ) catalyzes the transfer of a gamma glutamyl group from a gamma glutamyl peptide to another peptide, amino acids or water."
+        "description": "A finding based on laboratory test results that indicate higher than normal levels of the enzyme gamma-glutamyltransferase in the blood specimen. GGT (gamma-glutamyltransferase ) catalyzes the transfer of a gamma glutamyl group from a gamma glutamyl peptide to another peptide, amino acids or water."
     },
     {
         "MedDRA v12.0 Code": 10018748,
@@ -4760,7 +4760,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate abnormal levels of growth hormone in a biological specimen."
+        "description": "A finding based on laboratory test results that indicate abnormal levels of growth hormone in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10019150,
@@ -4771,7 +4771,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in levels of haptoglobin in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in levels of haptoglobin in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10055599,
@@ -4782,7 +4782,7 @@ const adverseEventOptions = [
         "Grade 3": "Increase in >4 gm/dL above ULN or above baseline if baseline is above ULN",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate increased levels of hemoglobin in a biological specimen."
+        "description": "A finding based on laboratory test results that indicate increased levels of hemoglobin in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10022402,
@@ -4793,7 +4793,7 @@ const adverseEventOptions = [
         "Grade 3": ">2.5 x ULN; >2.5 times above baseline if on anticoagulation",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the ratio of the patient's prothrombin time to a control sample in the blood."
+        "description": "A finding based on laboratory test results that indicate an increase in the ratio of the patient's prothrombin time to a control sample in the blood."
     },
     {
         "MedDRA v12.0 Code": 10024574,
@@ -4804,7 +4804,7 @@ const adverseEventOptions = [
         "Grade 3": ">2.0 - 5.0 x ULN",
         "Grade 4": ">5.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the level of lipase in a biological specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in the level of lipase in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10025256,
@@ -4815,7 +4815,7 @@ const adverseEventOptions = [
         "Grade 3": "<500 - 200/mm3; <0.5 - 0.2 x 10e9 /L",
         "Grade 4": "<200/mm3; <0.2 x 10e9 /L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate a decrease in number of lymphocytes in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate a decrease in number of lymphocytes in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10025258,
@@ -4826,7 +4826,7 @@ const adverseEventOptions = [
         "Grade 3": ">20,000/mm3",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an abnormal increase in the number of lymphocytes in the blood, effusions or bone marrow."
+        "description": "A finding based on laboratory test results that indicate an abnormal increase in the number of lymphocytes in the blood, effusions or bone marrow."
     },
     {
         "MedDRA v12.0 Code": 10029366,
@@ -4837,7 +4837,7 @@ const adverseEventOptions = [
         "Grade 3": "<1000 - 500/mm3; <1.0 - 0.5 x 10e9 /L",
         "Grade 4": "<500/mm3; <0.5 x 10e9 /L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate a decrease in number of neutrophils in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate a decrease in number of neutrophils in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10062646,
@@ -4848,7 +4848,7 @@ const adverseEventOptions = [
         "Grade 3": "Sequelae of absorption deficiency",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in levels of pancreatic enzymes in a biological specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in levels of pancreatic enzymes in a biological specimen."
     },
     {
         "MedDRA v12.0 Code": 10035528,
@@ -4859,7 +4859,7 @@ const adverseEventOptions = [
         "Grade 3": "<50,000 - 25,000/mm3; <50.0 - 25.0 x 10e9 /L",
         "Grade 4": "<25,000/mm3; <25.0 x 10e9 /L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10040139,
@@ -4870,7 +4870,7 @@ const adverseEventOptions = [
         "Grade 3": ">2.0 - 5.0 x ULN",
         "Grade 4": ">5.0 x ULN",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an increase in the levels of amylase in a serum specimen."
+        "description": "A finding based on laboratory test results that indicate an increase in the levels of amylase in a serum specimen."
     },
     {
         "MedDRA v12.0 Code": 10059895,
@@ -4881,7 +4881,7 @@ const adverseEventOptions = [
         "Grade 3": "Oliguria (<80 ml in 8 hr)",
         "Grade 4": "Anuria (<240 ml in 24 hr)",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on test results that indicate urine production is less relative to previous output."
+        "description": "A finding based on test results that indicate urine production is less relative to previous output."
     },
     {
         "MedDRA v12.0 Code": 10047580,
@@ -4892,7 +4892,7 @@ const adverseEventOptions = [
         "Grade 3": "<50% of predicted value; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on pulmonary function test results that indicate an abnormal vital capacity (amount of exhaled after a maximum inhalation) when compared to the predicted value."
+        "description": "A finding based on pulmonary function test results that indicate an abnormal vital capacity (amount of exhaled after a maximum inhalation) when compared to the predicted value."
     },
     {
         "MedDRA v12.0 Code": 10047896,
@@ -4903,7 +4903,7 @@ const adverseEventOptions = [
         "Grade 3": ">=20% from baseline",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding characterized by an increase in overall body weight; for pediatrics, greater than the baseline growth curve."
+        "description": "A finding characterized by an increase in overall body weight; for pediatrics, greater than the baseline growth curve."
     },
     {
         "MedDRA v12.0 Code": 10047900,
@@ -4914,7 +4914,7 @@ const adverseEventOptions = [
         "Grade 3": ">=20% from baseline; tube feeding or TPN indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding characterized by a decrease in overall body weight; for pediatrics, less than the baseline growth curve."
+        "description": "A finding characterized by a decrease in overall body weight; for pediatrics, less than the baseline growth curve."
     },
     {
         "MedDRA v12.0 Code": 10049182,
@@ -4925,7 +4925,7 @@ const adverseEventOptions = [
         "Grade 3": "<2000 - 1000/mm3; <2.0 - 1.0 x 10e9 /L",
         "Grade 4": "<1000/mm3; <1.0 x 10e9 /L",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A finding based on laboratory test results that indicate an decrease in number of white blood cells in a blood specimen."
+        "description": "A finding based on laboratory test results that indicate an decrease in number of white blood cells in a blood specimen."
     },
     {
         "MedDRA v12.0 Code": 10022891,
@@ -4936,7 +4936,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10000486,
@@ -4947,7 +4947,7 @@ const adverseEventOptions = [
         "Grade 3": "pH <7.3",
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormally high acidity (high hydrogen-ion concentration) of the blood and other body tissues."
+        "description": "A disorder characterized by abnormally high acidity (high hydrogen-ion concentration) of the blood and other body tissues."
     },
     {
         "MedDRA v12.0 Code": 10001598,
@@ -4958,7 +4958,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in sensitivity to the adverse effects of alcohol, which can include nasal congestion, skin flushes, heart dysrhythmias, nausea, vomiting, indigestion and headaches."
+        "description": "A disorder characterized by an increase in sensitivity to the adverse effects of alcohol, which can include nasal congestion, skin flushes, heart dysrhythmias, nausea, vomiting, indigestion and headaches."
     },
     {
         "MedDRA v12.0 Code": 10001680,
@@ -4969,7 +4969,7 @@ const adverseEventOptions = [
         "Grade 3": "pH >7.5",
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormally high alkalinity (low hydrogen-ion concentration) of the blood and other body tissues."
+        "description": "A disorder characterized by abnormally high alkalinity (low hydrogen-ion concentration) of the blood and other body tissues."
     },
     {
         "MedDRA v12.0 Code": 10002646,
@@ -4980,7 +4980,7 @@ const adverseEventOptions = [
         "Grade 3": "Associated with significant weight loss or malnutrition (e.g., inadequate oral caloric and/or fluid intake); tube feeding or TPN indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a loss of appetite."
+        "description": "A disorder characterized by a loss of appetite."
     },
     {
         "MedDRA v12.0 Code": 10012174,
@@ -4991,7 +4991,7 @@ const adverseEventOptions = [
         "Grade 3": "IV fluids or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive loss of water from the body. It is usually caused by severe diarrhea, vomiting or diaphoresis."
+        "description": "A disorder characterized by excessive loss of water from the body. It is usually caused by severe diarrhea, vomiting or diaphoresis."
     },
     {
         "MedDRA v12.0 Code": 10052426,
@@ -5002,7 +5002,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; insulin indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inability to properly metabolize glucose."
+        "description": "A disorder characterized by an inability to properly metabolize glucose."
     },
     {
         "MedDRA v12.0 Code": 10020587,
@@ -5013,7 +5013,7 @@ const adverseEventOptions = [
         "Grade 3": "Corrected serum calcium of >12.5 - 13.5 mg/dL;>3.1 - 3.4 mmol/L;  Ionized calcium  >1.6 - 1.8 mmol/L; hospitalization indicated",
         "Grade 4": "Corrected serum calcium of >13.5 mg/dL; >3.4 mmol/L;  Ionized calcium  >1.8 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of calcium (corrected for albumin) in blood."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of calcium (corrected for albumin) in blood."
     },
     {
         "MedDRA v12.0 Code": 10020639,
@@ -5024,7 +5024,7 @@ const adverseEventOptions = [
         "Grade 3": ">250 - 500 mg/dL; >13.9 - 27.8 mmol/L; hospitalization indicated",
         "Grade 4": ">500 mg/dL; >27.8 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of blood sugar. It is usually an indication of diabetes mellitus or glucose intolerance."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of blood sugar. It is usually an indication of diabetes mellitus or glucose intolerance."
     },
     {
         "MedDRA v12.0 Code": 10020647,
@@ -5035,7 +5035,7 @@ const adverseEventOptions = [
         "Grade 3": ">6.0 - 7.0 mmol/L; hospitalization indicated",
         "Grade 4": ">7.0 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of potassium in the blood; associated with kidney failure or sometimes with the use of diuretic drugs."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of potassium in the blood; associated with kidney failure or sometimes with the use of diuretic drugs."
     },
     {
         "MedDRA v12.0 Code": 10020670,
@@ -5046,7 +5046,7 @@ const adverseEventOptions = [
         "Grade 3": ">3.0 - 8.0 mg/dL; >1.23 - 3.30 mmol/L",
         "Grade 4": ">8.0 mg/dL; >3.30 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of magnesium in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of magnesium in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10020680,
@@ -5057,7 +5057,7 @@ const adverseEventOptions = [
         "Grade 3": ">155 - 160 mmol/L; hospitalization indicated",
         "Grade 4": ">160 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of sodium in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of sodium in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10020870,
@@ -5068,7 +5068,7 @@ const adverseEventOptions = [
         "Grade 3": ">500 mg/dL - 1000 mg/dL;  >5.7 mmol/L - 11.4 mmol/L",
         "Grade 4": ">1000 mg/dL; >11.4 mmol/L;  life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of triglyceride concentration in the blood."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of triglyceride concentration in the blood."
     },
     {
         "MedDRA v12.0 Code": 10020907,
@@ -5079,7 +5079,7 @@ const adverseEventOptions = [
         "Grade 3": ">ULN - 10 mg/dL (0.59 mmol/L) with physiologic consequences",
         "Grade 4": ">10 mg/dL; >0.59 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of uric acid."
+        "description": "A disorder characterized by laboratory test results that indicate an elevation in the concentration of uric acid."
     },
     {
         "MedDRA v12.0 Code": 10020943,
@@ -5090,7 +5090,7 @@ const adverseEventOptions = [
         "Grade 3": "<2 g/dL; <20 g/L",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of albumin in the blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of albumin in the blood."
     },
     {
         "MedDRA v12.0 Code": 10020949,
@@ -5101,7 +5101,7 @@ const adverseEventOptions = [
         "Grade 3": "Corrected serum calcium of <7.0 - 6.0 mg/dL; <1.75 - 1.5 mmol/L;  Ionized calcium  <0.9 - 0.8 mmol/L; hospitalization indicated",
         "Grade 4": "Corrected serum calcium of  <6.0 mg/dL; <1.5 mmol/L;  Ionized calcium  <0.8 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of calcium (corrected for albumin) in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of calcium (corrected for albumin) in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10021005,
@@ -5112,7 +5112,7 @@ const adverseEventOptions = [
         "Grade 3": "<40 - 30 mg/dL; <2.2 - 1.7 mmol/L",
         "Grade 4": "<30 mg/dL; <1.7 mmol/L; life-threatening consequences; seizures",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of glucose in the blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of glucose in the blood."
     },
     {
         "MedDRA v12.0 Code": 10021018,
@@ -5123,7 +5123,7 @@ const adverseEventOptions = [
         "Grade 3": "<3.0 - 2.5 mmol/L; hospitalization indicated",
         "Grade 4": "<2.5 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of potassium in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of potassium in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10021028,
@@ -5134,7 +5134,7 @@ const adverseEventOptions = [
         "Grade 3": "<0.9 - 0.7 mg/dL; <0.4 - 0.3 mmol/L",
         "Grade 4": "<0.7 mg/dL; <0.3 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of magnesium in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of magnesium in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10021038,
@@ -5145,7 +5145,7 @@ const adverseEventOptions = [
         "Grade 3": "<130 - 120 mmol/L",
         "Grade 4": "<120 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of sodium in the blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of sodium in the blood."
     },
     {
         "MedDRA v12.0 Code": 10021059,
@@ -5156,7 +5156,7 @@ const adverseEventOptions = [
         "Grade 3": "<2.0 - 1.0 mg/dL; <0.6 - 0.3 mmol/L",
         "Grade 4": "<1.0 mg/dL; <0.3 mmol/L; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate a low concentration of phosphates in the  blood."
+        "description": "A disorder characterized by laboratory test results that indicate a low concentration of phosphates in the  blood."
     },
     {
         "MedDRA v12.0 Code": 10065973,
@@ -5167,7 +5167,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by accumulation of iron in the tissues."
+        "description": "A disorder characterized by accumulation of iron in the tissues."
     },
     {
         "MedDRA v12.0 Code": 10029883,
@@ -5178,7 +5178,7 @@ const adverseEventOptions = [
         "Grade 3": "BMI 30 - 39.9 kg/m2",
         "Grade 4": "BMI >=40 kg/m2",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by having a high amount of body fat."
+        "description": "A disorder characterized by having a high amount of body fat."
     },
     {
         "MedDRA v12.0 Code": 10045152,
@@ -5189,7 +5189,7 @@ const adverseEventOptions = [
         "Grade 3": "Present",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by metabolic abnormalities that result from a spontaneous or therapy-related cytolysis of tumor cells."
+        "description": "A disorder characterized by metabolic abnormalities that result from a spontaneous or therapy-related cytolysis of tumor cells."
     },
     {
         "MedDRA v12.0 Code": 10027433,
@@ -5200,7 +5200,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10065775,
@@ -5211,7 +5211,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g. tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the abdominal wall."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the abdominal wall."
     },
     {
         "MedDRA v12.0 Code": 10003239,
@@ -5222,7 +5222,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in a joint."
+        "description": "A disorder characterized by a sensation of marked discomfort in a joint."
     },
     {
         "MedDRA v12.0 Code": 10003246,
@@ -5233,7 +5233,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain associated with signs of inflammation, erythema, or joint swelling; irreversible joint damage; disabling; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving a joint."
+        "description": "A disorder characterized by inflammation involving a joint."
     },
     {
         "MedDRA v12.0 Code": 10066480,
@@ -5244,7 +5244,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by necrotic changes in the bone tissue due to interruption of blood supply. Most often affecting the epiphysis of the long bones, the necrotic changes result in the collapse and the destruction of the bone structure."
+        "description": "A disorder characterized by necrotic changes in the bone tissue due to interruption of blood supply. Most often affecting the epiphysis of the long bones, the necrotic changes result in the collapse and the destruction of the bone structure."
     },
     {
         "MedDRA v12.0 Code": 10003988,
@@ -5255,7 +5255,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the back region."
+        "description": "A disorder characterized by marked discomfort sensation in the back region."
     },
     {
         "MedDRA v12.0 Code": 10006002,
@@ -5266,7 +5266,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the bones."
+        "description": "A disorder characterized by marked discomfort sensation in the bones."
     },
     {
         "MedDRA v12.0 Code": 10048677,
@@ -5277,7 +5277,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the buttocks."
+        "description": "A disorder characterized by marked discomfort sensation in the buttocks."
     },
     {
         "MedDRA v12.0 Code": 10008496,
@@ -5288,7 +5288,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the chest wall region."
+        "description": "A disorder characterized by marked discomfort sensation in the chest wall region."
     },
     {
         "MedDRA v12.0 Code": 10015688,
@@ -5299,7 +5299,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by non-neoplastic overgrowth of bone."
+        "description": "A disorder characterized by non-neoplastic overgrowth of bone."
     },
     {
         "MedDRA v12.0 Code": 10065799,
@@ -5310,7 +5310,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe induration; unable to slide or pinch skin; limiting joint or orifice movement (e.g. mouth, anus); limiting self care ADL",
         "Grade 4": "Generalized; associated with signs or symptoms of impaired breathing or feeding",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by fibrotic degeneration of the deep connective tissues."
+        "description": "A disorder characterized by fibrotic degeneration of the deep connective tissues."
     },
     {
         "MedDRA v12.0 Code": 10016750,
@@ -5321,7 +5321,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation on the lateral side of the body in the region below the ribs and above the hip."
+        "description": "A disorder characterized by marked discomfort sensation on the lateral side of the body in the region below the ribs and above the hip."
     },
     {
         "MedDRA v12.0 Code": 10062572,
@@ -5332,7 +5332,7 @@ const adverseEventOptions = [
         "Grade 3": "Weakness limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of muscles in multiple anatomic sites."
+        "description": "A disorder characterized by a reduction in the strength of muscles in multiple anatomic sites."
     },
     {
         "MedDRA v12.0 Code": 10018761,
@@ -5343,7 +5343,7 @@ const adverseEventOptions = [
         "Grade 3": "Reduction in growth velocity of >=50% ideally measured over the period of a year",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by of stature that is smaller than normal as expected for age."
+        "description": "A disorder characterized by of stature that is smaller than normal as expected for age."
     },
     {
         "MedDRA v12.0 Code": 10065779,
@@ -5354,7 +5354,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g., tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the head."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the head."
     },
     {
         "MedDRA v12.0 Code": 10023215,
@@ -5365,7 +5365,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; elective operative intervention indicated; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive fluid in a joint, usually as a result of joint inflammation."
+        "description": "A disorder characterized by excessive fluid in a joint, usually as a result of joint inflammation."
     },
     {
         "MedDRA v12.0 Code": 10048706,
@@ -5376,7 +5376,7 @@ const adverseEventOptions = [
         "Grade 3": ">50% decrease in ROM; limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in joint flexibility of any joint."
+        "description": "A disorder characterized by a decrease in joint flexibility of any joint."
     },
     {
         "MedDRA v12.0 Code": 10065796,
@@ -5387,7 +5387,7 @@ const adverseEventOptions = [
         "Grade 3": "Ankylosed/fused over multiple segments with no C-spine rotation",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in flexibility of a cervical spine joint."
+        "description": "A disorder characterized by a decrease in flexibility of a cervical spine joint."
     },
     {
         "MedDRA v12.0 Code": 10065800,
@@ -5398,7 +5398,7 @@ const adverseEventOptions = [
         "Grade 3": "<50% lumbar spine flexion; associated with symptoms of ankylosis or fused over multiple segments with no L-spine flexion (e.g., unable to reach to floor to pick up a very light object)",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in flexibility of a lumbar spine joint."
+        "description": "A disorder characterized by a decrease in flexibility of a lumbar spine joint."
     },
     {
         "MedDRA v12.0 Code": 10023509,
@@ -5409,7 +5409,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe accentuation; operative intervention indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal increase in the curvature of the thoracic portion of the spine."
+        "description": "A disorder characterized by an abnormal increase in the curvature of the thoracic portion of the spine."
     },
     {
         "MedDRA v12.0 Code": 10024842,
@@ -5420,7 +5420,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe accentuation; operative intervention indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal increase in the curvature of the lumbar portion of the spine."
+        "description": "A disorder characterized by an abnormal increase in the curvature of the lumbar portion of the spine."
     },
     {
         "MedDRA v12.0 Code": 10065780,
@@ -5431,7 +5431,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the muscles on the left side of the body."
+        "description": "A disorder characterized by a reduction in the strength of the muscles on the left side of the body."
     },
     {
         "MedDRA v12.0 Code": 10065776,
@@ -5442,7 +5442,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the lower limb muscles."
+        "description": "A disorder characterized by a reduction in the strength of the lower limb muscles."
     },
     {
         "MedDRA v12.0 Code": 10065794,
@@ -5453,7 +5453,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the muscles on the right side of the body."
+        "description": "A disorder characterized by a reduction in the strength of the muscles on the right side of the body."
     },
     {
         "MedDRA v12.0 Code": 10065795,
@@ -5464,7 +5464,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the trunk muscles."
+        "description": "A disorder characterized by a reduction in the strength of the trunk muscles."
     },
     {
         "MedDRA v12.0 Code": 10065895,
@@ -5475,7 +5475,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the upper limb muscles."
+        "description": "A disorder characterized by a reduction in the strength of the upper limb muscles."
     },
     {
         "MedDRA v12.0 Code": 10065783,
@@ -5486,7 +5486,7 @@ const adverseEventOptions = [
         "Grade 3": "Significant deformity, hypoplasia, or asymmetry, unable to be remediated by prosthesis or covered by clothing; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by of a malformation of the musculoskeletal system."
+        "description": "A disorder characterized by of a malformation of the musculoskeletal system."
     },
     {
         "MedDRA v12.0 Code": 10028411,
@@ -5497,7 +5497,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation originating from a muscle or group of muscles."
+        "description": "A disorder characterized by marked discomfort sensation originating from a muscle or group of muscles."
     },
     {
         "MedDRA v12.0 Code": 10028653,
@@ -5508,7 +5508,7 @@ const adverseEventOptions = [
         "Grade 3": "Pain associated with severe weakness; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving the skeletal muscles."
+        "description": "A disorder characterized by inflammation involving the skeletal muscles."
     },
     {
         "MedDRA v12.0 Code": 10028836,
@@ -5519,7 +5519,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the neck area."
+        "description": "A disorder characterized by marked discomfort sensation in the neck area."
     },
     {
         "MedDRA v12.0 Code": 10065781,
@@ -5530,7 +5530,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g., tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the neck."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the neck."
     },
     {
         "MedDRA v12.0 Code": 10064658,
@@ -5541,7 +5541,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the bone of the mandible."
+        "description": "A disorder characterized by a necrotic process occurring in the bone of the mandible."
     },
     {
         "MedDRA v12.0 Code": 10031282,
@@ -5552,7 +5552,7 @@ const adverseEventOptions = [
         "Grade 3": "Loss of height >=2 cm; hospitalization indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by reduced bone mass, with a decrease in cortical thickness and in the number and size of the trabeculae of cancellous bone (but normal chemical composition), resulting in increased fracture incidence."
+        "description": "A disorder characterized by reduced bone mass, with a decrease in cortical thickness and in the number and size of the trabeculae of cancellous bone (but normal chemical composition), resulting in increased fracture incidence."
     },
     {
         "MedDRA v12.0 Code": 10033425,
@@ -5563,7 +5563,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the upper or lower extremities."
+        "description": "A disorder characterized by marked discomfort sensation in the upper or lower extremities."
     },
     {
         "MedDRA v12.0 Code": 10065793,
@@ -5574,7 +5574,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g., tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the pelvis."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the pelvis."
     },
     {
         "MedDRA v12.0 Code": 10039722,
@@ -5585,7 +5585,7 @@ const adverseEventOptions = [
         "Grade 3": ">45 degrees; scapular prominence in forward flexion; operative intervention indicated; limiting self care ADL; disabling",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a malformed, lateral curvature of the spine."
+        "description": "A disorder characterized by a malformed, lateral curvature of the spine."
     },
     {
         "MedDRA v12.0 Code": 10065777,
@@ -5596,7 +5596,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g., tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the lower extremity."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the lower extremity."
     },
     {
         "MedDRA v12.0 Code": 10065778,
@@ -5607,7 +5607,7 @@ const adverseEventOptions = [
         "Grade 3": "Operative debridement or other invasive intervention indicated (e.g., tissue reconstruction, flap or grafting)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the soft tissues of the upper extremity."
+        "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the upper extremity."
     },
     {
         "MedDRA v12.0 Code": 10065798,
@@ -5618,7 +5618,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe induration; unable to slide or pinch skin; limiting joint or orifice movement (e.g., mouth, anus); limiting self care ADL",
         "Grade 4": "Generalized; associated with signs or symptoms of impaired breathing or feeding",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by fibrotic degeneration of the superficial soft tissues."
+        "description": "A disorder characterized by fibrotic degeneration of the superficial soft tissues."
     },
     {
         "MedDRA v12.0 Code": 10044684,
@@ -5629,7 +5629,7 @@ const adverseEventOptions = [
         "Grade 3": "Decreased ROM with inability to adequately aliment or hydrate orally",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by lack of ability to open the mouth fully due to a decrease in the range of motion of the muscles of mastication."
+        "description": "A disorder characterized by lack of ability to open the mouth fully due to a decrease in the range of motion of the muscles of mastication."
     },
     {
         "MedDRA v12.0 Code": 10065738,
@@ -5640,7 +5640,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe length discrepancy >5 cm; limiting self care ADL; disabling; operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by of a discrepancy between the lengths of the lower or upper extremities."
+        "description": "A disorder characterized by of a discrepancy between the lengths of the lower or upper extremities."
     },
     {
         "MedDRA v12.0 Code": 10028395,
@@ -5651,7 +5651,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10048293,
@@ -5662,7 +5662,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Present",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by leukemia arising as a result of the mutagenic effect of chemotherapy agents."
+        "description": "A disorder characterized by leukemia arising as a result of the mutagenic effect of chemotherapy agents."
     },
     {
         "MedDRA v12.0 Code": 10028533,
@@ -5673,7 +5673,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by insufficiently healthy hematapoietic cell production by the bone marrow. "
+        "description": "A disorder characterized by insufficiently healthy hematapoietic cell production by the bone marrow. "
     },
     {
         "MedDRA v12.0 Code": 10049737,
@@ -5684,7 +5684,7 @@ const adverseEventOptions = [
         "Grade 3": "Non life-threatening secondary malignancy",
         "Grade 4": "Acute life-threatening secondary malignancy; blast crisis in leukemia",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by development of a malignancy most probably as a result of treatment for a previously existing malignancy."
+        "description": "A disorder characterized by development of a malignancy most probably as a result of treatment for a previously existing malignancy."
     },
     {
         "MedDRA v12.0 Code": 10045158,
@@ -5695,7 +5695,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort from a neoplasm that may be pressing on a nerve, blocking blood vessels, inflamed or fractured from metastasis."
+        "description": "A disorder characterized by marked discomfort from a neoplasm that may be pressing on a nerve, blocking blood vessels, inflamed or fractured from metastasis."
     },
     {
         "MedDRA v12.0 Code": 10029104,
@@ -5706,7 +5706,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10053662,
@@ -5717,7 +5717,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the abducens nerve (sixth cranial nerve)."
+        "description": "A disorder characterized by involvement of the abducens nerve (sixth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10060929,
@@ -5728,7 +5728,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the accessory nerve (eleventh cranial nerve)."
+        "description": "A disorder characterized by involvement of the accessory nerve (eleventh cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10000521,
@@ -5739,7 +5739,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the acoustic nerve (eighth cranial nerve)."
+        "description": "A disorder characterized by involvement of the acoustic nerve (eighth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10001540,
@@ -5750,7 +5750,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe restlessness or increased motor activity; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable feeling of inner restlessness and inability to stay still; this is a side effect of some psychotropic drugs."
+        "description": "A disorder characterized by an uncomfortable feeling of inner restlessness and inability to stay still; this is a side effect of some psychotropic drugs."
     },
     {
         "MedDRA v12.0 Code": 10001949,
@@ -5761,7 +5761,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe; long term memory loss; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by systematic and extensive loss of memory."
+        "description": "A disorder characterized by systematic and extensive loss of memory."
     },
     {
         "MedDRA v12.0 Code": 10002953,
@@ -5772,7 +5772,7 @@ const adverseEventOptions = [
         "Grade 3": "Voicelessness; unable to speak",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the inability to speak. It may result from injuries to the vocal cords or may be functional (psychogenic)."
+        "description": "A disorder characterized by the inability to speak. It may result from injuries to the vocal cords or may be functional (psychogenic)."
     },
     {
         "MedDRA v12.0 Code": 10003074,
@@ -5783,7 +5783,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the arachnoid membrane and adjacent subarachnoid space."
+        "description": "A disorder characterized by inflammation of the arachnoid membrane and adjacent subarachnoid space."
     },
     {
         "MedDRA v12.0 Code": 10003591,
@@ -5794,7 +5794,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; mechanical assistance indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by lack of coordination of muscle movements resulting in the impairment or inability to perform voluntary activities."
+        "description": "A disorder characterized by lack of coordination of muscle movements resulting in the impairment or inability to perform voluntary activities."
     },
     {
         "MedDRA v12.0 Code": 10065417,
@@ -5805,7 +5805,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by regional paresthesia of the brachial plexus, marked discomfort and muscle weakness, and limited movement in the arm or hand."
+        "description": "A disorder characterized by regional paresthesia of the brachial plexus, marked discomfort and muscle weakness, and limited movement in the arm or hand."
     },
     {
         "MedDRA v12.0 Code": 10065784,
@@ -5816,7 +5816,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the brain and/or spinal cord."
+        "description": "A disorder characterized by a necrotic process occurring in the brain and/or spinal cord."
     },
     {
         "MedDRA v12.0 Code": 10008164,
@@ -5827,7 +5827,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; medical intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by loss of cerebrospinal fluid into the surrounding tissues."
+        "description": "A disorder characterized by loss of cerebrospinal fluid into the surrounding tissues."
     },
     {
         "MedDRA v12.0 Code": 10009845,
@@ -5838,7 +5838,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe cognitive disability; significant impairment of work/school/life performance",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a conspicuous change in cognitive function."
+        "description": "A disorder characterized by a conspicuous change in cognitive function."
     },
     {
         "MedDRA v12.0 Code": 10010250,
@@ -5849,7 +5849,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe impairment in attention or decreased level of concentration; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a deterioration in the ability to concentrate."
+        "description": "A disorder characterized by a deterioration in the ability to concentrate."
     },
     {
         "MedDRA v12.0 Code": 10012373,
@@ -5860,7 +5860,7 @@ const adverseEventOptions = [
         "Grade 3": "Difficult to arouse",
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in ability to perceive and respond."
+        "description": "A disorder characterized by a decrease in ability to perceive and respond."
     },
     {
         "MedDRA v12.0 Code": 10013573,
@@ -5871,7 +5871,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe unsteadiness or sensation of movement; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a disturbing sensation of lightheadedness, unsteadiness, giddiness, spinning or rocking."
+        "description": "A disorder characterized by a disturbing sensation of lightheadedness, unsteadiness, giddiness, spinning or rocking."
     },
     {
         "MedDRA v12.0 Code": 10013887,
@@ -5882,7 +5882,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe impairment of articulation or slurred speech",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by slow and slurred speech resulting from an inability to coordinate the muscles used in speech."
+        "description": "A disorder characterized by slow and slurred speech resulting from an inability to coordinate the muscles used in speech."
     },
     {
         "MedDRA v12.0 Code": 10062872,
@@ -5893,7 +5893,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe sensory alteration; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by distortion of sensory perception, resulting in an abnormal and unpleasant sensation."
+        "description": "A disorder characterized by distortion of sensory perception, resulting in an abnormal and unpleasant sensation."
     },
     {
         "MedDRA v12.0 Code": 10013911,
@@ -5904,7 +5904,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormal sensual experience with the taste of foodstuffs; it can be related to a decrease in the sense of smell."
+        "description": "A disorder characterized by abnormal sensual experience with the taste of foodstuffs; it can be related to a decrease in the sense of smell."
     },
     {
         "MedDRA v12.0 Code": 10013951,
@@ -5915,7 +5915,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe receptive or expressive characteristics; impairing ability to read, write or communicate intelligibly",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by impairment of verbal communication skills, often resulting from brain damage."
+        "description": "A disorder characterized by impairment of verbal communication skills, often resulting from brain damage."
     },
     {
         "MedDRA v12.0 Code": 10014217,
@@ -5926,7 +5926,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to an excessive accumulation of fluid in the brain."
+        "description": "A disorder characterized by swelling due to an excessive accumulation of fluid in the brain."
     },
     {
         "MedDRA v12.0 Code": 10014625,
@@ -5937,7 +5937,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a pathologic process involving the brain."
+        "description": "A disorder characterized by a pathologic process involving the brain."
     },
     {
         "MedDRA v12.0 Code": 10015832,
@@ -5948,7 +5948,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe involuntary movements or torticollis; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormal, repetitive, involuntary muscle movements, frenzied speech and extreme restlessness."
+        "description": "A disorder characterized by abnormal, repetitive, involuntary muscle movements, frenzied speech and extreme restlessness."
     },
     {
         "MedDRA v12.0 Code": 10051272,
@@ -5959,7 +5959,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the facial muscles."
+        "description": "A disorder characterized by a reduction in the strength of the facial muscles."
     },
     {
         "MedDRA v12.0 Code": 10061457,
@@ -5970,7 +5970,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the facial nerve (seventh cranial nerve)."
+        "description": "A disorder characterized by involvement of the facial nerve (seventh cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10061185,
@@ -5981,7 +5981,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the glossopharyngeal nerve (ninth cranial nerve)."
+        "description": "A disorder characterized by involvement of the glossopharyngeal nerve (ninth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10019211,
@@ -5992,7 +5992,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in various parts of the head, not confined to the area of distribution of any nerve."
+        "description": "A disorder characterized by a sensation of marked discomfort in various parts of the head, not confined to the area of distribution of any nerve."
     },
     {
         "MedDRA v12.0 Code": 10020508,
@@ -6003,7 +6003,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms or neurological deficit; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal increase of cerebrospinal fluid in the ventricles of the brain."
+        "description": "A disorder characterized by an abnormal increase of cerebrospinal fluid in the ventricles of the brain."
     },
     {
         "MedDRA v12.0 Code": 10020765,
@@ -6014,7 +6014,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe increased need for sleep",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by characterized by excessive sleepiness during the daytime."
+        "description": "A disorder characterized by characterized by excessive sleepiness during the daytime."
     },
     {
         "MedDRA v12.0 Code": 10061212,
@@ -6025,7 +6025,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the hypoglossal nerve (twelfth cranial nerve)."
+        "description": "A disorder characterized by involvement of the hypoglossal nerve (twelfth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10022763,
@@ -6036,7 +6036,7 @@ const adverseEventOptions = [
         "Grade 3": "Ventriculostomy, ICP monitoring, intraventricular thrombolysis, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the cranium."
+        "description": "A disorder characterized by bleeding from the cranium."
     },
     {
         "MedDRA v12.0 Code": 10023030,
@@ -6047,7 +6047,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease or absence of blood supply to the brain caused by obstruction (thrombosis or embolism) of an artery resulting in neurological damage."
+        "description": "A disorder characterized by a decrease or absence of blood supply to the brain caused by obstruction (thrombosis or embolism) of an artery resulting in neurological damage."
     },
     {
         "MedDRA v12.0 Code": 10065836,
@@ -6058,7 +6058,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the trochlear nerve (fourth cranial nerve)."
+        "description": "A disorder characterized by involvement of the trochlear nerve (fourth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10024264,
@@ -6069,7 +6069,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in consciousness characterized by mental and physical inertness."
+        "description": "A disorder characterized by a decrease in consciousness characterized by mental and physical inertness."
     },
     {
         "MedDRA v12.0 Code": 10024382,
@@ -6080,7 +6080,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; extensive T2/FLAIR hyperintensities, involving periventricular white matter involving 2/3 or more of susceptible areas of cerebrum +/- moderate to severe increase in SAS and/or moderate to severe ventriculomegaly",
         "Grade 4": "Life-threatening consequences; extensive T2/FLAIR hyperintensities, involving periventricular white matter involving most of susceptible areas of cerebrum +/- moderate to severe increase in SAS and/or moderate to severe ventriculomegaly",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by diffuse reactive astrocytosis with multiple areas of necrotic foci without inflammation."
+        "description": "A disorder characterized by diffuse reactive astrocytosis with multiple areas of necrotic foci without inflammation."
     },
     {
         "MedDRA v12.0 Code": 10027175,
@@ -6091,7 +6091,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe memory impairment; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a deterioration in memory function."
+        "description": "A disorder characterized by a deterioration in memory function."
     },
     {
         "MedDRA v12.0 Code": 10027198,
@@ -6102,7 +6102,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by neck stiffness, headache, and photophobia resulting from irritation of the cerebral meninges."
+        "description": "A disorder characterized by neck stiffness, headache, and photophobia resulting from irritation of the cerebral meninges."
     },
     {
         "MedDRA v12.0 Code": 10028041,
@@ -6113,7 +6113,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by uncontrolled and purposeless movements."
+        "description": "A disorder characterized by uncontrolled and purposeless movements."
     },
     {
         "MedDRA v12.0 Code": 10028524,
@@ -6124,7 +6124,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe weakness or sensory loss; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving the spinal cord. Symptoms include weakness, paresthesia, sensory loss, marked discomfort and incontinence."
+        "description": "A disorder characterized by inflammation involving the spinal cord. Symptoms include weakness, paresthesia, sensory loss, marked discomfort and incontinence."
     },
     {
         "MedDRA v12.0 Code": 10029223,
@@ -6135,7 +6135,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by intense painful sensation along a nerve or group of nerves."
+        "description": "A disorder characterized by intense painful sensation along a nerve or group of nerves."
     },
     {
         "MedDRA v12.0 Code": 10029864,
@@ -6146,7 +6146,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involuntary movements of the eyeballs."
+        "description": "A disorder characterized by involuntary movements of the eyeballs."
     },
     {
         "MedDRA v12.0 Code": 10053661,
@@ -6157,7 +6157,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the oculomotor nerve (third cranial nerve)."
+        "description": "A disorder characterized by involvement of the oculomotor nerve (third cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10056388,
@@ -6168,7 +6168,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the olfactory nerve (first cranial nerve)."
+        "description": "A disorder characterized by involvement of the olfactory nerve (first cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10033987,
@@ -6179,7 +6179,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by functional disturbances of sensory neurons resulting in abnormal cutaneous sensations of tingling, numbness, pressure, cold, and warmth that are experienced in the absence of a stimulus."
+        "description": "A disorder characterized by functional disturbances of sensory neurons resulting in abnormal cutaneous sensations of tingling, numbness, pressure, cold, and warmth that are experienced in the absence of a stimulus."
     },
     {
         "MedDRA v12.0 Code": 10034580,
@@ -6190,7 +6190,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; assistive device indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation or degeneration of the peripheral motor nerves."
+        "description": "A disorder characterized by inflammation or degeneration of the peripheral motor nerves."
     },
     {
         "MedDRA v12.0 Code": 10034620,
@@ -6201,7 +6201,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation or degeneration of the peripheral sensory nerves."
+        "description": "A disorder characterized by inflammation or degeneration of the peripheral sensory nerves."
     },
     {
         "MedDRA v12.0 Code": 10056238,
@@ -6212,7 +6212,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort related to a limb or an organ that is removed from or is not physically part of the body."
+        "description": "A disorder characterized by marked discomfort related to a limb or an organ that is removed from or is not physically part of the body."
     },
     {
         "MedDRA v12.0 Code": 10036653,
@@ -6223,7 +6223,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an episode of lightheadedness and dizziness which may precede an episode of syncope."
+        "description": "A disorder characterized by an episode of lightheadedness and dizziness which may precede an episode of syncope."
     },
     {
         "MedDRA v12.0 Code": 10063636,
@@ -6234,7 +6234,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by dysfunction of the corticospinal (pyramidal) tracts of the spinal cord. Symptoms include  an increase in the muscle tone in the lower extremities, hyperreflexia, positive Babinski and a decrease in fine motor coordination."
+        "description": "A disorder characterized by dysfunction of the corticospinal (pyramidal) tracts of the spinal cord. Symptoms include  an increase in the muscle tone in the lower extremities, hyperreflexia, positive Babinski and a decrease in fine motor coordination."
     },
     {
         "MedDRA v12.0 Code": 10061928,
@@ -6245,7 +6245,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving a nerve root. Patients experience marked discomfort radiating along a nerve path because of spinal pressure on the connecting nerve root."
+        "description": "A disorder characterized by inflammation involving a nerve root. Patients experience marked discomfort radiating along a nerve path because of spinal pressure on the connecting nerve root."
     },
     {
         "MedDRA v12.0 Code": 10038130,
@@ -6256,7 +6256,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; medical intervention indicated (e.g., thyroplasty, vocal cord injection)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by paralysis of the recurrent laryngeal nerve."
+        "description": "A disorder characterized by paralysis of the recurrent laryngeal nerve."
     },
     {
         "MedDRA v12.0 Code": 10063761,
@@ -6267,7 +6267,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; very abnormal imaging studies; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by headaches, mental status changes, visual disturbances, and seizures associated with imaging findings of posterior leukoencephalopathy. It has been observed in association with hypertensive encephalopathy, eclampsia, and immunosuppressive and cytotoxic drug treatment. It is an acute or subacute reversible condition."
+        "description": "A disorder characterized by headaches, mental status changes, visual disturbances, and seizures associated with imaging findings of posterior leukoencephalopathy. It has been observed in association with hypertensive encephalopathy, eclampsia, and immunosuppressive and cytotoxic drug treatment. It is an acute or subacute reversible condition."
     },
     {
         "MedDRA v12.0 Code": 10039906,
@@ -6278,7 +6278,7 @@ const adverseEventOptions = [
         "Grade 3": "Multiple seizures despite medical intervention",
         "Grade 4": "Life-threatening; prolonged repetitive seizures",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden, involuntary skeletal muscular contractions of cerebral or brain stem origin."
+        "description": "A disorder characterized by a sudden, involuntary skeletal muscular contractions of cerebral or brain stem origin."
     },
     {
         "MedDRA v12.0 Code": 10040747,
@@ -6289,7 +6289,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort in the face, between the eyes, or upper teeth originating from the sinuses."
+        "description": "A disorder characterized by marked discomfort in the face, between the eyes, or upper teeth originating from the sinuses."
     },
     {
         "MedDRA v12.0 Code": 10041349,
@@ -6300,7 +6300,7 @@ const adverseEventOptions = [
         "Grade 3": "Obtundation or stupor",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by characterized by excessive sleepiness and drowsiness."
+        "description": "A disorder characterized by characterized by excessive sleepiness and drowsiness."
     },
     {
         "MedDRA v12.0 Code": 10041416,
@@ -6311,7 +6311,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe increase in muscle tone and increase in resistance through range of motion",
         "Grade 4": "Life-threatening; unable to move active or passive range of motion",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by increased involuntary muscle tone that affects the regions interfering with voluntary movement. It results in gait, movement, and speech disturbances."
+        "description": "A disorder characterized by increased involuntary muscle tone that affects the regions interfering with voluntary movement. It results in gait, movement, and speech disturbances."
     },
     {
         "MedDRA v12.0 Code": 10042244,
@@ -6322,7 +6322,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe neurologic deficit",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden loss of sensory function due to an intracranial vascular event."
+        "description": "A disorder characterized by a sudden loss of sensory function due to an intracranial vascular event."
     },
     {
         "MedDRA v12.0 Code": 10042772,
@@ -6333,7 +6333,7 @@ const adverseEventOptions = [
         "Grade 3": "Fainting; orthostatic collapse",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by spontaneous loss of consciousness caused by insufficient blood supply to the brain."
+        "description": "A disorder characterized by spontaneous loss of consciousness caused by insufficient blood supply to the brain."
     },
     {
         "MedDRA v12.0 Code": 10044391,
@@ -6344,7 +6344,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a brief attack (less than 24 hours) of cerebral dysfunction of vascular origin, with no persistent neurological deficit."
+        "description": "A disorder characterized by a brief attack (less than 24 hours) of cerebral dysfunction of vascular origin, with no persistent neurological deficit."
     },
     {
         "MedDRA v12.0 Code": 10044565,
@@ -6355,7 +6355,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the uncontrolled shaking movement of the whole body or individual parts."
+        "description": "A disorder characterized by the uncontrolled shaking movement of the whole body or individual parts."
     },
     {
         "MedDRA v12.0 Code": 10060890,
@@ -6366,7 +6366,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the trigeminal nerve (fifth cranial nerve)."
+        "description": "A disorder characterized by involvement of the trigeminal nerve (fifth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10061403,
@@ -6377,7 +6377,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the vagus nerve (tenth cranial nerve)."
+        "description": "A disorder characterized by involvement of the vagus nerve (tenth cranial nerve)."
     },
     {
         "MedDRA v12.0 Code": 10047166,
@@ -6388,7 +6388,7 @@ const adverseEventOptions = [
         "Grade 3": "Present",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden drop of the blood pressure, bradycardia, and peripheral vasodilation that may lead to loss of consciousness. It results from an increase in the stimulation of the vagus nerve."
+        "description": "A disorder characterized by a sudden drop of the blood pressure, bradycardia, and peripheral vasodilation that may lead to loss of consciousness. It results from an increase in the stimulation of the vagus nerve."
     },
     {
         "MedDRA v12.0 Code": 10029205,
@@ -6399,7 +6399,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10016479,
@@ -6410,7 +6410,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": "Fetal loss at any gestational age",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by death in utero; failure of the product of conception to show evidence of respiration, heartbeat, or definite movement of a voluntary muscle after expulsion from the uterus, without possibility of resuscitation."
+        "description": "A disorder characterized by death in utero; failure of the product of conception to show evidence of respiration, heartbeat, or definite movement of a voluntary muscle after expulsion from the uterus, without possibility of resuscitation."
     },
     {
         "MedDRA v12.0 Code": 10054746,
@@ -6421,7 +6421,7 @@ const adverseEventOptions = [
         "Grade 3": "<5% percentile of weight for gestational age",
         "Grade 4": "<1% percentile of weight for gestational age",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inhibition of fetal growth resulting in the inability of the fetus to achieve its potential weight."
+        "description": "A disorder characterized by inhibition of fetal growth resulting in the inability of the fetus to achieve its potential weight."
     },
     {
         "MedDRA v12.0 Code": 10036595,
@@ -6432,7 +6432,7 @@ const adverseEventOptions = [
         "Grade 3": "Delivery of a liveborn infant at 24 to 28 weeks gestation",
         "Grade 4": "Delivery of a liveborn infant at 24 weeks of gestation or less",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by delivery of a viable infant before the normal end of gestation. Typically, viability is achievable between the twentieth and thirty-seventh week of gestation."
+        "description": "A disorder characterized by delivery of a viable infant before the normal end of gestation. Typically, viability is achievable between the twentieth and thirty-seventh week of gestation."
     },
     {
         "MedDRA v12.0 Code": 10045542,
@@ -6443,7 +6443,7 @@ const adverseEventOptions = [
         "Grade 3": "Unintended pregnancy",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an unexpected pregnancy at the time of conception."
+        "description": "A disorder characterized by an unexpected pregnancy at the time of conception."
     },
     {
         "MedDRA v12.0 Code": 10036585,
@@ -6454,7 +6454,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10001497,
@@ -6465,7 +6465,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe agitation; hospitalization not indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a state of restlessness associated with unpleasant feelings of irritability and tension."
+        "description": "A disorder characterized by a state of restlessness associated with unpleasant feelings of irritability and tension."
     },
     {
         "MedDRA v12.0 Code": 10002652,
@@ -6476,7 +6476,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inability to achieve orgasm."
+        "description": "A disorder characterized by an inability to achieve orgasm."
     },
     {
         "MedDRA v12.0 Code": 10002855,
@@ -6487,7 +6487,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; hospitalization not indicated",
         "Grade 4": "Life-threatening; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by apprehension of danger and dread accompanied by restlessness, tension, tachycardia, and dyspnea unattached to a clearly identifiable stimulus."
+        "description": "A disorder characterized by apprehension of danger and dread accompanied by restlessness, tension, tachycardia, and dyspnea unattached to a clearly identifiable stimulus."
     },
     {
         "MedDRA v12.0 Code": 10010300,
@@ -6498,7 +6498,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe disorientation; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a lack of clear and orderly thought and behavior."
+        "description": "A disorder characterized by a lack of clear and orderly thought and behavior."
     },
     {
         "MedDRA v12.0 Code": 10057066,
@@ -6509,7 +6509,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by sexual dysfunction characterized by a delay in climax."
+        "description": "A disorder characterized by sexual dysfunction characterized by a delay in climax."
     },
     {
         "MedDRA v12.0 Code": 10012218,
@@ -6520,7 +6520,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe and acute confusional state; limiting self care ADL; hospitalization indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the acute and sudden development of confusion, illusions, movement changes, inattentiveness, agitation, and hallucinations. Usually, it is a reversible condition."
+        "description": "A disorder characterized by the acute and sudden development of confusion, illusions, movement changes, inattentiveness, agitation, and hallucinations. Usually, it is a reversible condition."
     },
     {
         "MedDRA v12.0 Code": 10012260,
@@ -6531,7 +6531,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe delusional symptoms; hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by false personal beliefs held contrary to reality, despite contradictory evidence and common sense."
+        "description": "A disorder characterized by false personal beliefs held contrary to reality, despite contradictory evidence and common sense."
     },
     {
         "MedDRA v12.0 Code": 10012378,
@@ -6542,7 +6542,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe depressive symptoms; limiting self care ADL; hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by melancholic feelings of grief or unhappiness."
+        "description": "A disorder characterized by melancholic feelings of grief or unhappiness."
     },
     {
         "MedDRA v12.0 Code": 10015533,
@@ -6553,7 +6553,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe mood elevation (e.g., hypomania)",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an exaggerated feeling of well-being which is disproportionate to events and stimuli."
+        "description": "A disorder characterized by an exaggerated feeling of well-being which is disproportionate to events and stimuli."
     },
     {
         "MedDRA v12.0 Code": 10019077,
@@ -6564,7 +6564,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe hallucinations; hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a false sensory perception in the absence of an external stimulus."
+        "description": "A disorder characterized by a false sensory perception in the absence of an external stimulus."
     },
     {
         "MedDRA v12.0 Code": 10022437,
@@ -6575,7 +6575,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe difficulty in falling asleep, staying asleep or waking up early",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by difficulty in falling asleep and/or remaining asleep."
+        "description": "A disorder characterized by difficulty in falling asleep and/or remaining asleep."
     },
     {
         "MedDRA v12.0 Code": 10024419,
@@ -6586,7 +6586,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in sexual desire."
+        "description": "A disorder characterized by a decrease in sexual desire."
     },
     {
         "MedDRA v12.0 Code": 10024421,
@@ -6597,7 +6597,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe increase in sexual interest leading to dangerous behavior",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in sexual desire."
+        "description": "A disorder characterized by an increase in sexual desire."
     },
     {
         "MedDRA v12.0 Code": 10026749,
@@ -6608,7 +6608,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe manic symptoms (e.g., hypomania; major sexual or financial indiscretions); hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excitement of psychotic proportions manifested by mental and physical hyperactivity, disorganization of behavior and elevation of mood."
+        "description": "A disorder characterized by excitement of psychotic proportions manifested by mental and physical hyperactivity, disorganization of behavior and elevation of mood."
     },
     {
         "MedDRA v12.0 Code": 10034719,
@@ -6619,7 +6619,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe personality change; hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a conspicuous change in a person's behavior and thinking."
+        "description": "A disorder characterized by a conspicuous change in a person's behavior and thinking."
     },
     {
         "MedDRA v12.0 Code": 10037234,
@@ -6630,7 +6630,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe psychotic symptoms (e.g., paranoid; extreme disorganization); hospitalization not indicated",
         "Grade 4": "Life-threatening consequences,  threats of harm to self or others; hospitalization indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by personality change, impaired functioning, and loss of touch with reality. It may be a manifestation of schizophrenia, bipolar disorder or brain tumor."
+        "description": "A disorder characterized by personality change, impaired functioning, and loss of touch with reality. It may be a manifestation of schizophrenia, bipolar disorder or brain tumor."
     },
     {
         "MedDRA v12.0 Code": 10038743,
@@ -6641,7 +6641,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inability to rest, relax or be still."
+        "description": "A disorder characterized by an inability to rest, relax or be still."
     },
     {
         "MedDRA v12.0 Code": 10042458,
@@ -6652,7 +6652,7 @@ const adverseEventOptions = [
         "Grade 3": "Specific plan to commit suicide without serious intent to die which may not require hospitalization",
         "Grade 4": "Specific plan to commit suicide with serious intent to die which requires hospitalization",
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by thoughts of taking one's own life."
+        "description": "A disorder characterized by thoughts of taking one's own life."
     },
     {
         "MedDRA v12.0 Code": 10042464,
@@ -6663,7 +6663,7 @@ const adverseEventOptions = [
         "Grade 3": "Suicide attempt or gesture without intent to die which may not require hospitalization",
         "Grade 4": "Suicide attempt with intent to die which requires hospitalization",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by self-inflicted harm in an attempt to end one's own life."
+        "description": "A disorder characterized by self-inflicted harm in an attempt to end one's own life."
     },
     {
         "MedDRA v12.0 Code": 10037175,
@@ -6674,7 +6674,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; hospitalization or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10069339,
@@ -6685,7 +6685,7 @@ const adverseEventOptions = [
         "Grade 3": "Creatinine >3 x baseline or >4.0 mg/dL; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; dialysis indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the acute loss of renal function and is traditionally classified as pre-renal (low blood flow into kidney), renal (kidney damage) and post-renal causes (ureteral or bladder outflow obstruction)."
+        "description": "A disorder characterized by the acute loss of renal function and is traditionally classified as pre-renal (low blood flow into kidney), renal (kidney damage) and post-renal causes (ureteral or bladder outflow obstruction)."
     },
     {
         "MedDRA v12.0 Code": 10063575,
@@ -6696,7 +6696,7 @@ const adverseEventOptions = [
         "Grade 3": "Intraperitoneal perforation; elective radiologic, endoscopic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; organ failure; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the bladder wall."
+        "description": "A disorder characterized by a rupture in the bladder wall."
     },
     {
         "MedDRA v12.0 Code": 10048994,
@@ -6707,7 +6707,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden and involuntary contraction of the bladder wall."
+        "description": "A disorder characterized by a sudden and involuntary contraction of the bladder wall."
     },
     {
         "MedDRA v12.0 Code": 10064848,
@@ -6718,7 +6718,7 @@ const adverseEventOptions = [
         "Grade 3": "eGFR or CrCl 29 - 15 ml/min/1.73 m2",
         "Grade 4": "eGFR or CrCl <15 ml/min/1.73 m2; dialysis or renal transplant indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by gradual and usually permanent loss of kidney function resulting in renal failure."
+        "description": "A disorder characterized by gradual and usually permanent loss of kidney function resulting in renal failure."
     },
     {
         "MedDRA v12.0 Code": 10063057,
@@ -6729,7 +6729,7 @@ const adverseEventOptions = [
         "Grade 3": "Gross hematuria; transfusion, IV medications or hospitalization indicated; elective endoscopic, radiologic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the bladder which is not caused by an infection of the urinary tract."
+        "description": "A disorder characterized by inflammation of the bladder which is not caused by an infection of the urinary tract."
     },
     {
         "MedDRA v12.0 Code": 10019450,
@@ -6740,7 +6740,7 @@ const adverseEventOptions = [
         "Grade 3": "Gross hematuria; transfusion, IV medications or hospitalization indicated; elective endoscopic, radiologic or operative intervention indicated; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate blood in the urine."
+        "description": "A disorder characterized by laboratory test results that indicate blood in the urine."
     },
     {
         "MedDRA v12.0 Code": 10019489,
@@ -6751,7 +6751,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate the presence of free hemoglobin in the urine."
+        "description": "A disorder characterized by laboratory test results that indicate the presence of free hemoglobin in the urine."
     },
     {
         "MedDRA v12.0 Code": 10037032,
@@ -6762,7 +6762,7 @@ const adverseEventOptions = [
         "Grade 3": "Adults: urinary protein >=3.5 g/24 hrs;\n\nPediatric: urine P/C >1.9",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate the presence of excessive protein in the urine. It is predominantly albumin, but also globulin."
+        "description": "A disorder characterized by laboratory test results that indicate the presence of excessive protein in the urine. It is predominantly albumin, but also globulin."
     },
     {
         "MedDRA v12.0 Code": 10038385,
@@ -6773,7 +6773,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; IV intervention (e.g., analgesics, antiemetics); elective endoscopic or radiologic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent radiologic, endoscopic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the formation of crystals in the pelvis of the kidney."
+        "description": "A disorder characterized by the formation of crystals in the pelvis of the kidney."
     },
     {
         "MedDRA v12.0 Code": 10038419,
@@ -6784,7 +6784,7 @@ const adverseEventOptions = [
         "Grade 3": "Hospitalization indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by paroxysmal and severe flank marked discomfort radiating to the inguinal area. Often, the cause is the passage of kidney stones."
+        "description": "A disorder characterized by paroxysmal and severe flank marked discomfort radiating to the inguinal area. Often, the cause is the passage of kidney stones."
     },
     {
         "MedDRA v12.0 Code": 10038463,
@@ -6795,7 +6795,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiation, or hospitalization indicated; elective radiologic, endoscopic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the kidney."
+        "description": "A disorder characterized by bleeding from the kidney."
     },
     {
         "MedDRA v12.0 Code": 10065368,
@@ -6806,7 +6806,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; elective radiologic, endoscopic or operative intervention indicated; permanent urinary diversion indicated",
         "Grade 4": "Life-threatening consequences; urgent radiologic or operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between any part of the urinary system and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between any part of the urinary system and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10046539,
@@ -6817,7 +6817,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by urination at short intervals."
+        "description": "A disorder characterized by urination at short intervals."
     },
     {
         "MedDRA v12.0 Code": 10046543,
@@ -6828,7 +6828,7 @@ const adverseEventOptions = [
         "Grade 3": "Intervention indicated (e.g., clamp, collagen injections); operative intervention indicated; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inability to control the flow of urine from the bladder."
+        "description": "A disorder characterized by inability to control the flow of urine from the bladder."
     },
     {
         "MedDRA v12.0 Code": 10046555,
@@ -6839,7 +6839,7 @@ const adverseEventOptions = [
         "Grade 3": "Elective operative or radiologic intervention indicated; substantial loss of affected kidney function or mass",
         "Grade 4": "Life-threatening consequences; organ failure; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by accumulation of urine within the bladder because of the inability to urinate."
+        "description": "A disorder characterized by accumulation of urine within the bladder because of the inability to urinate."
     },
     {
         "MedDRA v12.0 Code": 10061574,
@@ -6850,7 +6850,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic and altered organ function (e.g., hydronephrosis, or renal dysfunction); elective radiologic, endoscopic or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of contents of the urinary tract."
+        "description": "A disorder characterized by blockage of the normal flow of contents of the urinary tract."
     },
     {
         "MedDRA v12.0 Code": 10062225,
@@ -6861,7 +6861,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the urinary tract."
+        "description": "A disorder characterized by a sensation of marked discomfort in the urinary tract."
     },
     {
         "MedDRA v12.0 Code": 10046593,
@@ -6872,7 +6872,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden compelling urge to urinate."
+        "description": "A disorder characterized by a sudden compelling urge to urinate."
     },
     {
         "MedDRA v12.0 Code": 10046628,
@@ -6883,7 +6883,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a change in the color of the urine."
+        "description": "A disorder characterized by a change in the color of the urine."
     },
     {
         "MedDRA v12.0 Code": 10038359,
@@ -6894,7 +6894,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10003883,
@@ -6905,7 +6905,7 @@ const adverseEventOptions = [
         "Grade 3": "Absence of sperm in ejaculate",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by laboratory test results that indicate complete absence of spermatozoa in the semen."
+        "description": "A disorder characterized by laboratory test results that indicate complete absence of spermatozoa in the semen."
     },
     {
         "MedDRA v12.0 Code": 10006179,
@@ -6916,7 +6916,7 @@ const adverseEventOptions = [
         "Grade 3": "Asymmetry >1/3 of breast volume; severe atrophy",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by underdevelopment of the breast."
+        "description": "A disorder characterized by underdevelopment of the breast."
     },
     {
         "MedDRA v12.0 Code": 10006298,
@@ -6927,7 +6927,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the breast region."
+        "description": "A disorder characterized by marked discomfort sensation in the breast region."
     },
     {
         "MedDRA v12.0 Code": 10013934,
@@ -6938,7 +6938,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormally painful abdominal cramps during menses."
+        "description": "A disorder characterized by abnormally painful abdominal cramps during menses."
     },
     {
         "MedDRA v12.0 Code": 10013941,
@@ -6949,7 +6949,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe discomfort or pain associated with vaginal penetration; discomfort or pain unrelieved by vaginal lubricants or estrogen",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by painful or difficult coitus."
+        "description": "A disorder characterized by painful or difficult coitus."
     },
     {
         "MedDRA v12.0 Code": 10014326,
@@ -6960,7 +6960,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by problems related to ejaculation. This category includes premature, delayed, retrograde and painful ejaculation."
+        "description": "A disorder characterized by problems related to ejaculation. This category includes premature, delayed, retrograde and painful ejaculation."
     },
     {
         "MedDRA v12.0 Code": 10061461,
@@ -6971,7 +6971,7 @@ const adverseEventOptions = [
         "Grade 3": "Decrease in erectile function (frequency/rigidity of erections) but erectile intervention not helpful (e.g., medication or mechanical devices such as penile pump); placement of a permanent penile prosthesis indicated (not previously present)",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the persistent or recurrent inability to achieve or to maintain an erection during sexual activity."
+        "description": "A disorder characterized by the persistent or recurrent inability to achieve or to maintain an erection during sexual activity."
     },
     {
         "MedDRA v12.0 Code": 10065789,
@@ -6982,7 +6982,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the contents in the fallopian tube."
+        "description": "A disorder characterized by blockage of the normal flow of the contents in the fallopian tube."
     },
     {
         "MedDRA v12.0 Code": 10065791,
@@ -6993,7 +6993,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated (e.g., organ resection)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the fallopian tube lumen."
+        "description": "A disorder characterized by a narrowing of the fallopian tube lumen."
     },
     {
         "MedDRA v12.0 Code": 10061149,
@@ -7004,7 +7004,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between a female reproductive system organ and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between a female reproductive system organ and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10054382,
@@ -7015,7 +7015,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the development of secondary female sex characteristics in males due to extrinsic factors."
+        "description": "A disorder characterized by the development of secondary female sex characteristics in males due to extrinsic factors."
     },
     {
         "MedDRA v12.0 Code": 10018146,
@@ -7026,7 +7026,7 @@ const adverseEventOptions = [
         "Grade 3": "Lymphorrhea; gross deviation from normal anatomic contour; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to an excessive accumulation of fluid in the genitals."
+        "description": "A disorder characterized by swelling due to an excessive accumulation of fluid in the genitals."
     },
     {
         "MedDRA v12.0 Code": 10018801,
@@ -7037,7 +7037,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive development of the breasts in males."
+        "description": "A disorder characterized by excessive development of the breasts in males."
     },
     {
         "MedDRA v12.0 Code": 10060602,
@@ -7048,7 +7048,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of blood in a fallopian tube."
+        "description": "A disorder characterized by the presence of blood in a fallopian tube."
     },
     {
         "MedDRA v12.0 Code": 10022992,
@@ -7059,7 +7059,7 @@ const adverseEventOptions = [
         "Grade 3": "Persistent amenorrhea for more than 6 months",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by irregular cycle or duration of menses."
+        "description": "A disorder characterized by irregular cycle or duration of menses."
     },
     {
         "MedDRA v12.0 Code": 10061261,
@@ -7070,7 +7070,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by disturbances of milk secretion. It is not necessarily related to pregnancy that is observed in females and can be observed in males."
+        "description": "A disorder characterized by disturbances of milk secretion. It is not necessarily related to pregnancy that is observed in females and can be observed in males."
     },
     {
         "MedDRA v12.0 Code": 10027313,
@@ -7081,7 +7081,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe; transfusion indicated; surgical intervention indicated (e.g., hysterectomy)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormally heavy vaginal bleeding during menses."
+        "description": "A disorder characterized by abnormally heavy vaginal bleeding during menses."
     },
     {
         "MedDRA v12.0 Code": 10065823,
@@ -7092,7 +7092,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a malformation of the nipple."
+        "description": "A disorder characterized by a malformation of the nipple."
     },
     {
         "MedDRA v12.0 Code": 10030300,
@@ -7103,7 +7103,7 @@ const adverseEventOptions = [
         "Grade 3": "Sperm concentration <13 million/mL or motility <32%",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in the number of spermatozoa in the semen."
+        "description": "A disorder characterized by a decrease in the number of spermatozoa in the semen."
     },
     {
         "MedDRA v12.0 Code": 10065763,
@@ -7114,7 +7114,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic  intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the ovary."
+        "description": "A disorder characterized by bleeding from the ovary."
     },
     {
         "MedDRA v12.0 Code": 10033279,
@@ -7125,7 +7125,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by tearing or disruption of the ovarian tissue."
+        "description": "A disorder characterized by tearing or disruption of the ovarian tissue."
     },
     {
         "MedDRA v12.0 Code": 10033314,
@@ -7136,7 +7136,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in one side of the abdomen between menstrual cycles, around the time of the discharge of the ovum from the ovarian follicle."
+        "description": "A disorder characterized by marked discomfort sensation in one side of the abdomen between menstrual cycles, around the time of the discharge of the ovum from the ovarian follicle."
     },
     {
         "MedDRA v12.0 Code": 10064026,
@@ -7147,7 +7147,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a reduction in the strength of the muscles of the pelvic floor."
+        "description": "A disorder characterized by a reduction in the strength of the muscles of the pelvic floor."
     },
     {
         "MedDRA v12.0 Code": 10034263,
@@ -7158,7 +7158,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the pelvis."
+        "description": "A disorder characterized by marked discomfort sensation in the pelvis."
     },
     {
         "MedDRA v12.0 Code": 10034310,
@@ -7169,7 +7169,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the penis."
+        "description": "A disorder characterized by marked discomfort sensation in the penis."
     },
     {
         "MedDRA v12.0 Code": 10061339,
@@ -7180,7 +7180,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the area between the genital organs and the anus."
+        "description": "A disorder characterized by a sensation of marked discomfort in the area between the genital organs and the anus."
     },
     {
         "MedDRA v12.0 Code": 10036601,
@@ -7191,7 +7191,7 @@ const adverseEventOptions = [
         "Grade 3": "Present",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by ovarian failure before the age of 40. Symptoms include hot flashes, night sweats, mood swings and a decrease in sex drive."
+        "description": "A disorder characterized by ovarian failure before the age of 40. Symptoms include hot flashes, night sweats, mood swings and a decrease in sex drive."
     },
     {
         "MedDRA v12.0 Code": 10055325,
@@ -7202,7 +7202,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the prostate gland."
+        "description": "A disorder characterized by bleeding from the prostate gland."
     },
     {
         "MedDRA v12.0 Code": 10055026,
@@ -7213,7 +7213,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by compression of the urethra secondary to enlargement of the prostate gland. This results in voiding difficulties (straining to void, slow urine stream, and incomplete emptying of the bladder)."
+        "description": "A disorder characterized by compression of the urethra secondary to enlargement of the prostate gland. This results in voiding difficulties (straining to void, slow urine stream, and incomplete emptying of the bladder)."
     },
     {
         "MedDRA v12.0 Code": 10036968,
@@ -7224,7 +7224,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the prostate gland."
+        "description": "A disorder characterized by a sensation of marked discomfort in the prostate gland."
     },
     {
         "MedDRA v12.0 Code": 10039757,
@@ -7235,7 +7235,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the scrotal area."
+        "description": "A disorder characterized by marked discomfort sensation in the scrotal area."
     },
     {
         "MedDRA v12.0 Code": 10065762,
@@ -7246,7 +7246,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the spermatic cord."
+        "description": "A disorder characterized by bleeding from the spermatic cord."
     },
     {
         "MedDRA v12.0 Code": 10065805,
@@ -7257,7 +7257,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the normal flow of the contents of the spermatic cord."
+        "description": "A disorder characterized by blockage of the normal flow of the contents of the spermatic cord."
     },
     {
         "MedDRA v12.0 Code": 10043306,
@@ -7268,7 +7268,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; interfering with urination or sexual function; limiting self care ADL; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the testis."
+        "description": "A disorder characterized by involvement of the testis."
     },
     {
         "MedDRA v12.0 Code": 10055347,
@@ -7279,7 +7279,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the testis."
+        "description": "A disorder characterized by bleeding from the testis."
     },
     {
         "MedDRA v12.0 Code": 10043345,
@@ -7290,7 +7290,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the testis."
+        "description": "A disorder characterized by a sensation of marked discomfort in the testis."
     },
     {
         "MedDRA v12.0 Code": 10065811,
@@ -7301,7 +7301,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the uterus and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the uterus and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10046789,
@@ -7312,7 +7312,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the uterus."
+        "description": "A disorder characterized by bleeding from the uterus."
     },
     {
         "MedDRA v12.0 Code": 10065928,
@@ -7323,7 +7323,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the uterine outlet."
+        "description": "A disorder characterized by blockage of the uterine outlet."
     },
     {
         "MedDRA v12.0 Code": 10046809,
@@ -7334,7 +7334,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the uterus."
+        "description": "A disorder characterized by a sensation of marked discomfort in the uterus."
     },
     {
         "MedDRA v12.0 Code": 10046901,
@@ -7345,7 +7345,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by vaginal secretions. Mucus produced by the cervical glands is discharged from the vagina naturally, especially during the childbearing years."
+        "description": "A disorder characterized by vaginal secretions. Mucus produced by the cervical glands is discharged from the vagina naturally, especially during the childbearing years."
     },
     {
         "MedDRA v12.0 Code": 10046904,
@@ -7356,7 +7356,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe vaginal dryness resulting in dyspareunia or severe discomfort",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable feeling of itching and burning in the vagina."
+        "description": "A disorder characterized by an uncomfortable feeling of itching and burning in the vagina."
     },
     {
         "MedDRA v12.0 Code": 10065813,
@@ -7367,7 +7367,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the vagina and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the vagina and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10046912,
@@ -7378,7 +7378,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe bleeding; transfusion indicated; radiologic or endoscopic intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the vagina."
+        "description": "A disorder characterized by bleeding from the vagina."
     },
     {
         "MedDRA v12.0 Code": 10046916,
@@ -7389,7 +7389,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe discomfort or pain, edema, or redness; limiting self care ADL; small areas of mucosal ulceration",
         "Grade 4": "Widespread areas of mucosal ulceration; life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving the vagina. Symptoms may include redness, edema, marked discomfort and an increase in vaginal discharge."
+        "description": "A disorder characterized by inflammation involving the vagina. Symptoms may include redness, edema, marked discomfort and an increase in vaginal discharge."
     },
     {
         "MedDRA v12.0 Code": 10065817,
@@ -7400,7 +7400,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of vaginal canal."
+        "description": "A disorder characterized by blockage of vaginal canal."
     },
     {
         "MedDRA v12.0 Code": 10046937,
@@ -7411,7 +7411,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sensation of marked discomfort in the vagina."
+        "description": "A disorder characterized by a sensation of marked discomfort in the vagina."
     },
     {
         "MedDRA v12.0 Code": 10065818,
@@ -7422,7 +7422,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a rupture in the vaginal wall."
+        "description": "A disorder characterized by a rupture in the vaginal wall."
     },
     {
         "MedDRA v12.0 Code": 10053496,
@@ -7433,7 +7433,7 @@ const adverseEventOptions = [
         "Grade 3": "Vaginal narrowing and/or shortening interfering with the use of tampons, sexual activity or physical examination",
         "Grade 4": null,
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the vaginal canal."
+        "description": "A disorder characterized by a narrowing of the vaginal canal."
     },
     {
         "MedDRA v12.0 Code": 10046947,
@@ -7444,7 +7444,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe discomfort or pain associated with vaginal spasm/tightening; unable to tolerate vaginal penetration or physical examination",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involuntary spasms of the pelvic floor muscles, resulting in pathologic tightness of the vaginal wall during penetration such as during sexual intercourse."
+        "description": "A disorder characterized by involuntary spasms of the pelvic floor muscles, resulting in pathologic tightness of the vaginal wall during penetration such as during sexual intercourse."
     },
     {
         "MedDRA v12.0 Code": 10038604,
@@ -7455,7 +7455,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10001409,
@@ -7466,7 +7466,7 @@ const adverseEventOptions = [
         "Grade 3": "Present with radiologic findings; intubation not indicated",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by progressive and life-threatening pulmonary distress in the absence of an underlying pulmonary condition, usually following major trauma or surgery."
+        "description": "A disorder characterized by progressive and life-threatening pulmonary distress in the absence of an underlying pulmonary condition, usually following major trauma or surgery."
     },
     {
         "MedDRA v12.0 Code": 10001723,
@@ -7477,7 +7477,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammation of the nasal mucous membranes caused by an IgE-mediated response to external allergens. The inflammation may also involve the mucous membranes of the sinuses, eyes, middle ear, and pharynx. Symptoms include sneezing, nasal congestion, rhinorrhea and itching."
+        "description": "A disorder characterized by an inflammation of the nasal mucous membranes caused by an IgE-mediated response to external allergens. The inflammation may also involve the mucous membranes of the sinuses, eyes, middle ear, and pharynx. Symptoms include sneezing, nasal congestion, rhinorrhea and itching."
     },
     {
         "MedDRA v12.0 Code": 10002972,
@@ -7488,7 +7488,7 @@ const adverseEventOptions = [
         "Grade 3": "Present; medical intervention indicated",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by cessation of breathing."
+        "description": "A disorder characterized by cessation of breathing."
     },
     {
         "MedDRA v12.0 Code": 10003504,
@@ -7499,7 +7499,7 @@ const adverseEventOptions = [
         "Grade 3": "Dyspnea and pneumonia symptoms (e.g., aspiration pneumonia); hospitalization indicated; unable to aliment orally",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inhalation of solids or liquids into the lungs."
+        "description": "A disorder characterized by inhalation of solids or liquids into the lungs."
     },
     {
         "MedDRA v12.0 Code": 10003598,
@@ -7510,7 +7510,7 @@ const adverseEventOptions = [
         "Grade 3": "Oxygen indicated; hospitalization or elective operative intervention indicated (e.g., stent, laser)",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the collapse of part or the entire lung."
+        "description": "A disorder characterized by the collapse of part or the entire lung."
     },
     {
         "MedDRA v12.0 Code": 10006437,
@@ -7521,7 +7521,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; endoscopic or operative intervention indicated (e.g., stent or primary closure)",
         "Grade 4": "Life-threatening consequences; urgent operative intervention with thoracoplasty, chronic open drainage or multiple thoracotomies indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the bronchus and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the bronchus and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10006440,
@@ -7532,7 +7532,7 @@ const adverseEventOptions = [
         "Grade 3": "Shortness of breath with stridor; endoscopic intervention indicated (e.g., laser, stent placement)",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of a bronchus passage, most often by bronchial secretions and exudates."
+        "description": "A disorder characterized by blockage of a bronchus passage, most often by bronchial secretions and exudates."
     },
     {
         "MedDRA v12.0 Code": 10063524,
@@ -7543,7 +7543,7 @@ const adverseEventOptions = [
         "Grade 3": "Shortness of breath with stridor; endoscopic intervention indicated (e.g., laser, stent placement)",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the bronchial tube."
+        "description": "A disorder characterized by a narrowing of the bronchial tube."
     },
     {
         "MedDRA v12.0 Code": 10053481,
@@ -7554,7 +7554,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; endoscopic or operative intervention indicated (e.g., stent or primary closure)",
         "Grade 4": "Life-threatening consequences; urgent operative intervention with thoracoplasty, chronic open drainage or multiple thoracotomies indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between a bronchus and the pleural cavity."
+        "description": "A disorder characterized by an abnormal communication between a bronchus and the pleural cavity."
     },
     {
         "MedDRA v12.0 Code": 10065746,
@@ -7565,7 +7565,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or operative intervention indicated (e.g., hemostasis of bleeding site)",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the bronchial wall and/or lung parenchyma."
+        "description": "A disorder characterized by bleeding from the bronchial wall and/or lung parenchyma."
     },
     {
         "MedDRA v12.0 Code": 10006482,
@@ -7576,7 +7576,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; oxygen saturation decreased",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a sudden contraction of the smooth muscles of the bronchial wall."
+        "description": "A disorder characterized by a sudden contraction of the smooth muscles of the bronchial wall."
     },
     {
         "MedDRA v12.0 Code": 10051228,
@@ -7587,7 +7587,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; elective operative intervention indicated",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by milky pleural effusion (abnormal collection of fluid) resulting from accumulation of lymph fluid in the pleural cavity."
+        "description": "A disorder characterized by milky pleural effusion (abnormal collection of fluid) resulting from accumulation of lymph fluid in the pleural cavity."
     },
     {
         "MedDRA v12.0 Code": 10011224,
@@ -7598,7 +7598,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by sudden, often repetitive, spasmodic contraction of the thoracic cavity, resulting in violent release of air from the lungs and usually accompanied by a distinctive sound."
+        "description": "A disorder characterized by sudden, often repetitive, spasmodic contraction of the thoracic cavity, resulting in violent release of air from the lungs and usually accompanied by a distinctive sound."
     },
     {
         "MedDRA v12.0 Code": 10013963,
@@ -7609,7 +7609,7 @@ const adverseEventOptions = [
         "Grade 3": "Shortness of breath at rest; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable sensation of difficulty breathing."
+        "description": "A disorder characterized by an uncomfortable sensation of difficulty breathing."
     },
     {
         "MedDRA v12.0 Code": 10015090,
@@ -7620,7 +7620,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or operative intervention indicated (e.g., hemostasis of bleeding site)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the nose."
+        "description": "A disorder characterized by bleeding from the nose."
     },
     {
         "MedDRA v12.0 Code": 10020039,
@@ -7631,7 +7631,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; interfering with sleep; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by repeated gulp sounds that result from an involuntary opening and closing of the glottis. This is attributed to a spasm of the diaphragm."
+        "description": "A disorder characterized by repeated gulp sounds that result from an involuntary opening and closing of the glottis. This is attributed to a spasm of the diaphragm."
     },
     {
         "MedDRA v12.0 Code": 10020201,
@@ -7642,7 +7642,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe voice changes including predominantly whispered speech",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by harsh and raspy voice arising from or spreading to the larynx."
+        "description": "A disorder characterized by harsh and raspy voice arising from or spreading to the larynx."
     },
     {
         "MedDRA v12.0 Code": 10021143,
@@ -7653,7 +7653,7 @@ const adverseEventOptions = [
         "Grade 3": "Decreased oxygen saturation at rest (e.g., pulse oximeter <88% or PaO2 <=55 mm Hg)",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in the level of oxygen in the body."
+        "description": "A disorder characterized by a decrease in the level of oxygen in the body."
     },
     {
         "MedDRA v12.0 Code": 10023838,
@@ -7664,7 +7664,7 @@ const adverseEventOptions = [
         "Grade 3": "Stridor; respiratory distress; hospitalization indicated",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to an excessive accumulation of fluid in the larynx."
+        "description": "A disorder characterized by swelling due to an excessive accumulation of fluid in the larynx."
     },
     {
         "MedDRA v12.0 Code": 10065786,
@@ -7675,7 +7675,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; endoscopic or operative intervention indicated (e.g., stent or primary closure)",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated (e.g., thoracoplasty, chronic open drainage or multiple thoracotomies)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the larynx and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the larynx and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10065759,
@@ -7686,7 +7686,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or operative intervention indicated (e.g., hemostasis of bleeding site)",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the larynx."
+        "description": "A disorder characterized by bleeding from the larynx."
     },
     {
         "MedDRA v12.0 Code": 10065735,
@@ -7697,7 +7697,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe throat pain; endoscopic intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammation involving the larynx."
+        "description": "A disorder characterized by an inflammation involving the larynx."
     },
     {
         "MedDRA v12.0 Code": 10065880,
@@ -7708,7 +7708,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; severely altered eating/swallowing; medical intervention indicated",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammation involving the mucous membrane of the larynx."
+        "description": "A disorder characterized by an inflammation involving the mucous membrane of the larynx."
     },
     {
         "MedDRA v12.0 Code": 10059639,
@@ -7719,7 +7719,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; stridor; endoscopic intervention indicated (e.g., stent, laser)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by blockage of the laryngeal airway."
+        "description": "A disorder characterized by blockage of the laryngeal airway."
     },
     {
         "MedDRA v12.0 Code": 10023862,
@@ -7730,7 +7730,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; stridor; endoscopic intervention indicated (e.g., stent, laser)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the laryngeal airway."
+        "description": "A disorder characterized by a narrowing of the laryngeal airway."
     },
     {
         "MedDRA v12.0 Code": 10062667,
@@ -7741,7 +7741,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; dyspnea and swallowing difficulty; limiting self care ADL",
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable persistent sensation in the area of the laryngopharynx."
+        "description": "A disorder characterized by an uncomfortable persistent sensation in the area of the laryngopharynx."
     },
     {
         "MedDRA v12.0 Code": 10023891,
@@ -7752,7 +7752,7 @@ const adverseEventOptions = [
         "Grade 3": "Recurrent episodes; noninvasive intervention indicated (e.g., breathing technique, pressure point massage)",
         "Grade 4": "Persistent or severe episodes associated with syncope; urgent intervention indicated (e.g., fiberoptic laryngoscopy, intubation, botox injection)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by paroxysmal spasmodic muscular contraction of the vocal cords."
+        "description": "A disorder characterized by paroxysmal spasmodic muscular contraction of the vocal cords."
     },
     {
         "MedDRA v12.0 Code": 10056356,
@@ -7763,7 +7763,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated (e.g., hemostasis of bleeding site)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the mediastinum."
+        "description": "A disorder characterized by bleeding from the mediastinum."
     },
     {
         "MedDRA v12.0 Code": 10028735,
@@ -7774,7 +7774,7 @@ const adverseEventOptions = [
         "Grade 3": "Associated with bloody nasal discharge or epistaxis",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by obstruction of the nasal passage due to mucosal edema."
+        "description": "A disorder characterized by obstruction of the nasal passage due to mucosal edema."
     },
     {
         "MedDRA v12.0 Code": 10034825,
@@ -7785,7 +7785,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; endoscopic or operative intervention indicated (e.g., stent or primary closure)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the pharynx and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the pharynx and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10055315,
@@ -7796,7 +7796,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or operative intervention indicated (e.g., hemostasis of bleeding site)",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the pharynx."
+        "description": "A disorder characterized by bleeding from the pharynx."
     },
     {
         "MedDRA v12.0 Code": 10065881,
@@ -7807,7 +7807,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; unable to adequately aliment or hydrate orally; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammation involving the mucous membrane of the pharynx."
+        "description": "A disorder characterized by an inflammation involving the mucous membrane of the pharynx."
     },
     {
         "MedDRA v12.0 Code": 10065706,
@@ -7818,7 +7818,7 @@ const adverseEventOptions = [
         "Grade 3": "Inability to aliment adequately by GI tract; tube feeding or TPN indicated; radiologic, endoscopic, or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a necrotic process occurring in the pharynx."
+        "description": "A disorder characterized by a necrotic process occurring in the pharynx."
     },
     {
         "MedDRA v12.0 Code": 10050028,
@@ -7829,7 +7829,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; stridor; endoscopic intervention indicated (e.g., stent, laser)",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the pharyngeal airway."
+        "description": "A disorder characterized by a narrowing of the pharyngeal airway."
     },
     {
         "MedDRA v12.0 Code": 10034844,
@@ -7840,7 +7840,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the pharyngolaryngeal region."
+        "description": "A disorder characterized by marked discomfort sensation in the pharyngolaryngeal region."
     },
     {
         "MedDRA v12.0 Code": 10035598,
@@ -7851,7 +7851,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic with respiratory distress and hypoxia; surgical intervention including chest tube or pleurodesis indicated",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in amounts of fluid within the pleural cavity. Symptoms include shortness of breath, cough and marked chest discomfort."
+        "description": "A disorder characterized by an increase in amounts of fluid within the pleural cavity. Symptoms include shortness of breath, cough and marked chest discomfort."
     },
     {
         "MedDRA v12.0 Code": 10055319,
@@ -7862,7 +7862,7 @@ const adverseEventOptions = [
         "Grade 3": ">1000 ml of blood evacuated; persistent bleeding (150-200 ml/hr for 2 - 4 hr); persistent transfusion indicated; elective operative intervention indicated",
         "Grade 4": "Life-threatening respiratory or hemodynamic compromise; intubation or urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by bleeding from the pleural cavity."
+        "description": "A disorder characterized by bleeding from the pleural cavity."
     },
     {
         "MedDRA v12.0 Code": 10035623,
@@ -7873,7 +7873,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the pleura."
+        "description": "A disorder characterized by marked discomfort sensation in the pleura."
     },
     {
         "MedDRA v12.0 Code": 10035742,
@@ -7884,7 +7884,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; oxygen indicated",
         "Grade 4": "Life-threatening respiratory compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation focally or diffusely affecting the lung parenchyma."
+        "description": "A disorder characterized by inflammation focally or diffusely affecting the lung parenchyma."
     },
     {
         "MedDRA v12.0 Code": 10035759,
@@ -7895,7 +7895,7 @@ const adverseEventOptions = [
         "Grade 3": "Sclerosis and/or operative intervention indicated; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by abnormal presence of air in the pleural cavity resulting in the collapse of the lung."
+        "description": "A disorder characterized by abnormal presence of air in the pleural cavity resulting in the collapse of the lung."
     },
     {
         "MedDRA v12.0 Code": 10036402,
@@ -7906,7 +7906,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive mucous secretion in the back of the nasal cavity or throat, causing sore throat and/or coughing."
+        "description": "A disorder characterized by excessive mucous secretion in the back of the nasal cavity or throat, causing sore throat and/or coughing."
     },
     {
         "MedDRA v12.0 Code": 10036790,
@@ -7917,7 +7917,7 @@ const adverseEventOptions = [
         "Grade 3": "Persistent or copious production of sputum; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by expectorated secretions upon coughing."
+        "description": "A disorder characterized by expectorated secretions upon coughing."
     },
     {
         "MedDRA v12.0 Code": 10037375,
@@ -7928,7 +7928,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe dyspnea or dyspnea at rest; oxygen indicated; limiting self care ADL",
         "Grade 4": "Life-threatening respiratory compromise; urgent intervention or intubation with ventilatory support indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by accumulation of fluid in the lung tissues that causes a disturbance of the gas exchange that may lead to respiratory failure."
+        "description": "A disorder characterized by accumulation of fluid in the lung tissues that causes a disturbance of the gas exchange that may lead to respiratory failure."
     },
     {
         "MedDRA v12.0 Code": 10037383,
@@ -7939,7 +7939,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe hypoxemia; evidence of right-sided heart failure; radiographic pulmonary fibrosis >50 - 75%",
         "Grade 4": "Life-threatening consequences (e.g., hemodynamic/pulmonary complications); intubation with ventilatory support indicated; radiographic pulmonary fibrosis >75% with severe honeycombing",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the replacement of the lung tissue by connective tissue, leading to progressive dyspnea, respiratory failure or right heart failure."
+        "description": "A disorder characterized by the replacement of the lung tissue by connective tissue, leading to progressive dyspnea, respiratory failure or right heart failure."
     },
     {
         "MedDRA v12.0 Code": 10065873,
@@ -7950,7 +7950,7 @@ const adverseEventOptions = [
         "Grade 3": "Limiting self care ADL; endoscopic stenting or operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the lung and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the lung and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10037400,
@@ -7961,7 +7961,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms, associated with hypoxemia, right heart failure; oxygen indicated",
         "Grade 4": "Life-threatening airway consequences; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in pressure within the pulmonary circulation due to lung or heart disorder."
+        "description": "A disorder characterized by an increase in pressure within the pulmonary circulation due to lung or heart disorder."
     },
     {
         "MedDRA v12.0 Code": 10038695,
@@ -7972,7 +7972,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Life-threatening consequences; urgent intervention, intubation, or ventilatory support indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by impaired gas exchange by the respiratory system resulting in hypoxemia and a decrease in oxygenation of the tissues that may be associated with an increase in arterial levels of carbon dioxide."
+        "description": "A disorder characterized by impaired gas exchange by the respiratory system resulting in hypoxemia and a decrease in oxygenation of the tissues that may be associated with an increase in arterial levels of carbon dioxide."
     },
     {
         "MedDRA v12.0 Code": 10038921,
@@ -7983,7 +7983,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; hospitalization indicated",
         "Grade 4": "Life-threatening consequences; ventilatory support indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by weight gain, dyspnea, pleural and pericardial effusions, leukocytosis and/or renal failure originally described in patients treated with all-trans retinoic acid."
+        "description": "A disorder characterized by weight gain, dyspnea, pleural and pericardial effusions, leukocytosis and/or renal failure originally described in patients treated with all-trans retinoic acid."
     },
     {
         "MedDRA v12.0 Code": 10062244,
@@ -7994,7 +7994,7 @@ const adverseEventOptions = [
         "Grade 3": "Stenosis with significant nasal obstruction; limiting self care ADL",
         "Grade 4": "Necrosis of soft tissue or bone; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by involvement of the paranasal sinuses."
+        "description": "A disorder characterized by involvement of the paranasal sinuses."
     },
     {
         "MedDRA v12.0 Code": 10040975,
@@ -8005,7 +8005,7 @@ const adverseEventOptions = [
         "Grade 3": "Oxygen desaturation; associated with hypertension; medical intervention indicated;  limiting self care ADL",
         "Grade 4": "Cardiovascular or neuropsychiatric symptoms; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by cessation of breathing for short periods during sleep."
+        "description": "A disorder characterized by cessation of breathing for short periods during sleep."
     },
     {
         "MedDRA v12.0 Code": 10041232,
@@ -8016,7 +8016,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the involuntary expulsion of air from the nose."
+        "description": "A disorder characterized by the involuntary expulsion of air from the nose."
     },
     {
         "MedDRA v12.0 Code": 10041367,
@@ -8027,7 +8027,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL; limiting ability to swallow",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by of marked discomfort in the throat"
+        "description": "A disorder characterized by of marked discomfort in the throat"
     },
     {
         "MedDRA v12.0 Code": 10042241,
@@ -8038,7 +8038,7 @@ const adverseEventOptions = [
         "Grade 3": "Respiratory distress limiting self care ADL; medical intervention indicated",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a high pitched breathing sound due to laryngeal or upper airway obstruction."
+        "description": "A disorder characterized by a high pitched breathing sound due to laryngeal or upper airway obstruction."
     },
     {
         "MedDRA v12.0 Code": 10065787,
@@ -8049,7 +8049,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL; endoscopic or operative intervention indicated (e.g., stent or primary closure)",
         "Grade 4": "Life-threatening consequences; urgent operative intervention indicated (e.g., thoracoplasty, chronic open drainage or multiple thoracotomies)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal communication between the trachea and another organ or anatomic site."
+        "description": "A disorder characterized by an abnormal communication between the trachea and another organ or anatomic site."
     },
     {
         "MedDRA v12.0 Code": 10065900,
@@ -8060,7 +8060,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; hemorrhage or respiratory symptoms; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an inflammation involving the mucous membrane of the trachea."
+        "description": "A disorder characterized by an inflammation involving the mucous membrane of the trachea."
     },
     {
         "MedDRA v12.0 Code": 10050816,
@@ -8071,7 +8071,7 @@ const adverseEventOptions = [
         "Grade 3": "Stridor or respiratory distress limiting self care ADL; endoscopic intervention indicated (e.g., stent, laser)",
         "Grade 4": "Life-threatening airway compromise; urgent intervention indicated (e.g., tracheotomy or intubation)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a narrowing of the trachea."
+        "description": "A disorder characterized by a narrowing of the trachea."
     },
     {
         "MedDRA v12.0 Code": 10047681,
@@ -8082,7 +8082,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe voice changes including predominantly whispered speech; may require frequent repetition or face-to-face contact for understandability; may require assistive technology",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a change in the sound and/or speed of the voice."
+        "description": "A disorder characterized by a change in the sound and/or speed of the voice."
     },
     {
         "MedDRA v12.0 Code": 10047924,
@@ -8093,7 +8093,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe respiratory symptoms limiting self care ADL; oxygen therapy or hospitalization indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a high-pitched, whistling sound during breathing. It results from the narrowing or obstruction of the respiratory airways."
+        "description": "A disorder characterized by a high-pitched, whistling sound during breathing. It results from the narrowing or obstruction of the respiratory airways."
     },
     {
         "MedDRA v12.0 Code": 10038738,
@@ -8104,7 +8104,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling; limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10001760,
@@ -8115,7 +8115,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in density of hair compared to normal for a given individual at a given age and body location."
+        "description": "A disorder characterized by a decrease in density of hair compared to normal for a given individual at a given age and body location."
     },
     {
         "MedDRA v12.0 Code": 10005901,
@@ -8126,7 +8126,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an abnormal body smell resulting from the growth of bacteria on the body."
+        "description": "A disorder characterized by an abnormal body smell resulting from the growth of bacteria on the body."
     },
     {
         "MedDRA v12.0 Code": 10006556,
@@ -8137,7 +8137,7 @@ const adverseEventOptions = [
         "Grade 3": "Blisters covering >30% BSA; limiting self care ADL",
         "Grade 4": "Blisters covering >30% BSA; associated with fluid or electrolyte abnormalities; ICU care or burn unit indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the skin characterized by the presence of bullae which are filled with fluid."
+        "description": "A disorder characterized by inflammation of the skin characterized by the presence of bullae which are filled with fluid."
     },
     {
         "MedDRA v12.0 Code": 10013786,
@@ -8148,7 +8148,7 @@ const adverseEventOptions = [
         "Grade 3": "Covering >30% BSA and associated with pruritus; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by flaky and dull skin; the pores are generally fine, the texture is a papery thin texture."
+        "description": "A disorder characterized by flaky and dull skin; the pores are generally fine, the texture is a papery thin texture."
     },
     {
         "MedDRA v12.0 Code": 10015218,
@@ -8159,7 +8159,7 @@ const adverseEventOptions = [
         "Grade 3": "Target lesions covering >30% BSA and associated with oral or genital erosions",
         "Grade 4": "Target lesions covering >30% BSA; associated with fluid or electrolyte abnormalities; ICU care or burn unit indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by target lesions (a pink-red ring around a pale center)."
+        "description": "A disorder characterized by target lesions (a pink-red ring around a pale center)."
     },
     {
         "MedDRA v12.0 Code": 10015277,
@@ -8170,7 +8170,7 @@ const adverseEventOptions = [
         "Grade 3": "Erythema covering >90% BSA with associated symptoms (e.g., pruritus or tenderness); limiting self care ADL",
         "Grade 4": "Erythema covering >90% BSA with associated fluid or electrolyte abnormalities; ICU care or burn unit indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by generalized inflammatory erythema and exfoliation. The inflammatory process involves > 90% of the body surface area."
+        "description": "A disorder characterized by generalized inflammatory erythema and exfoliation. The inflammatory process involves > 90% of the body surface area."
     },
     {
         "MedDRA v12.0 Code": 10016241,
@@ -8181,7 +8181,7 @@ const adverseEventOptions = [
         "Grade 3": "Covering >30% BSA; associated with erythema or tenderness; limiting self-care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by shrinking of adipose tissue."
+        "description": "A disorder characterized by shrinking of adipose tissue."
     },
     {
         "MedDRA v12.0 Code": 10020112,
@@ -8192,7 +8192,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of excess hair growth in women in anatomic sites where growth is considered to be a secondary male characteristic and under androgen control (beard, moustache, chest, abdomen)."
+        "description": "A disorder characterized by the presence of excess hair growth in women in anatomic sites where growth is considered to be a secondary male characteristic and under androgen control (beard, moustache, chest, abdomen)."
     },
     {
         "MedDRA v12.0 Code": 10020642,
@@ -8203,7 +8203,7 @@ const adverseEventOptions = [
         "Grade 3": "Generalized involving sites other than palms, soles, or axillae; associated with electrolyte/hemodynamic imbalance",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive perspiration."
+        "description": "A disorder characterized by excessive perspiration."
     },
     {
         "MedDRA v12.0 Code": 10020864,
@@ -8214,7 +8214,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by hair density or length beyond the accepted limits of normal in a particular body region, for a particular age or race."
+        "description": "A disorder characterized by hair density or length beyond the accepted limits of normal in a particular body region, for a particular age or race."
     },
     {
         "MedDRA v12.0 Code": 10021013,
@@ -8225,7 +8225,7 @@ const adverseEventOptions = [
         "Grade 3": "Increase in body temperature; limiting self care ADL",
         "Grade 4": "Heat stroke",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by reduced sweating."
+        "description": "A disorder characterized by reduced sweating."
     },
     {
         "MedDRA v12.0 Code": 10062315,
@@ -8236,7 +8236,7 @@ const adverseEventOptions = [
         "Grade 3": "Covering >30% BSA and associated tenderness and narcotics or NSAIDs indicated; lipohypertrophy; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by hypertrophy of the subcutaneous adipose tissue at the site of multiple subcutaneous injections of insulin."
+        "description": "A disorder characterized by hypertrophy of the subcutaneous adipose tissue at the site of multiple subcutaneous injections of insulin."
     },
     {
         "MedDRA v12.0 Code": 10028691,
@@ -8247,7 +8247,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a change in the color of the nail plate."
+        "description": "A disorder characterized by a change in the color of the nail plate."
     },
     {
         "MedDRA v12.0 Code": 10049281,
@@ -8258,7 +8258,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by loss of all or a portion of the nail."
+        "description": "A disorder characterized by loss of all or a portion of the nail."
     },
     {
         "MedDRA v12.0 Code": 10062283,
@@ -8269,7 +8269,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by vertical or horizontal ridges on the nails."
+        "description": "A disorder characterized by vertical or horizontal ridges on the nails."
     },
     {
         "MedDRA v12.0 Code": 10033474,
@@ -8280,7 +8280,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the skin."
+        "description": "A disorder characterized by marked discomfort sensation in the skin."
     },
     {
         "MedDRA v12.0 Code": 10054524,
@@ -8291,7 +8291,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe skin changes (e.g., peeling, blisters, bleeding, edema, or hyperkeratosis) with pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by redness, marked discomfort, swelling, and tingling in the palms of the hands or the soles of the feet."
+        "description": "A disorder characterized by redness, marked discomfort, swelling, and tingling in the palms of the hands or the soles of the feet."
     },
     {
         "MedDRA v12.0 Code": 10054541,
@@ -8302,7 +8302,7 @@ const adverseEventOptions = [
         "Grade 3": "Edema associated with visual disturbance; increased intraocular pressure, glaucoma or retinal hemorrhage; optic neuritis; diuretics indicated; operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by swelling due to an excessive accumulation of fluid around the orbits of the face."
+        "description": "A disorder characterized by swelling due to an excessive accumulation of fluid around the orbits of the face."
     },
     {
         "MedDRA v12.0 Code": 10034966,
@@ -8313,7 +8313,7 @@ const adverseEventOptions = [
         "Grade 3": "Erythema covering >30% BSA and erythema with blistering; photosensitivity; oral corticosteroid therapy indicated; pain control indicated (e.g., narcotics or NSAIDs)",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an increase in sensitivity of the skin to light."
+        "description": "A disorder characterized by an increase in sensitivity of the skin to light."
     },
     {
         "MedDRA v12.0 Code": 10037087,
@@ -8324,7 +8324,7 @@ const adverseEventOptions = [
         "Grade 3": "Intense or widespread; constant; limiting self care ADL or sleep; oral corticosteroid or immunosuppressive therapy indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an intense itching sensation."
+        "description": "A disorder characterized by an intense itching sensation."
     },
     {
         "MedDRA v12.0 Code": 10037549,
@@ -8335,7 +8335,7 @@ const adverseEventOptions = [
         "Grade 3": "Combined area of lesions covering >30% BSA; spontaneous bleeding",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by hemorrhagic areas of the skin and mucous membrane. Newer lesions appear reddish in color. Older lesions are usually a darker purple color and eventually become a brownish-yellow color."
+        "description": "A disorder characterized by hemorrhagic areas of the skin and mucous membrane. Newer lesions appear reddish in color. Older lesions are usually a darker purple color and eventually become a brownish-yellow color."
     },
     {
         "MedDRA v12.0 Code": 10037847,
@@ -8346,7 +8346,7 @@ const adverseEventOptions = [
         "Grade 3": "Papules and/or pustules covering >30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; limiting self care ADL; associated with local superinfection with oral antibiotics indicated",
         "Grade 4": "Papules and/or pustules covering any % BSA, which may or may not be associated with symptoms of pruritus or tenderness and are associated with extensive superinfection with IV antibiotics indicated; life-threatening consequences",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an eruption of papules and pustules, typically appearing in face, scalp, upper chest and back."
+        "description": "A disorder characterized by an eruption of papules and pustules, typically appearing in face, scalp, upper chest and back."
     },
     {
         "MedDRA v12.0 Code": 10037868,
@@ -8357,7 +8357,7 @@ const adverseEventOptions = [
         "Grade 3": "Macules/papules covering >30% BSA with or without associated symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the presence of macules (flat) and papules (elevated). Also known as morbillform rash, it is one of the most common cutaneous adverse events, frequently affecting the upper trunk, spreading centripetally and associated with pruritis."
+        "description": "A disorder characterized by the presence of macules (flat) and papules (elevated). Also known as morbillform rash, it is one of the most common cutaneous adverse events, frequently affecting the upper trunk, spreading centripetally and associated with pruritis."
     },
     {
         "MedDRA v12.0 Code": 10049120,
@@ -8368,7 +8368,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe pain; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by marked discomfort sensation in the skin covering the top and the back of the head."
+        "description": "A disorder characterized by marked discomfort sensation in the skin covering the top and the back of the head."
     },
     {
         "MedDRA v12.0 Code": 10040799,
@@ -8379,7 +8379,7 @@ const adverseEventOptions = [
         "Grade 3": "Covering >30% BSA; associated with ulceration",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the degeneration and thinning of the epidermis and dermis."
+        "description": "A disorder characterized by the degeneration and thinning of the epidermis and dermis."
     },
     {
         "MedDRA v12.0 Code": 10040865,
@@ -8390,7 +8390,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by darkening of the skin due to excessive melanin deposition."
+        "description": "A disorder characterized by darkening of the skin due to excessive melanin deposition."
     },
     {
         "MedDRA v12.0 Code": 10040868,
@@ -8401,7 +8401,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by loss of skin pigment."
+        "description": "A disorder characterized by loss of skin pigment."
     },
     {
         "MedDRA v12.0 Code": 10051837,
@@ -8412,7 +8412,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe induration, unable to slide or pinch skin; limiting joint movement or orifice (e.g., mouth, anus); limiting self care ADL",
         "Grade 4": "Generalized; associated with signs or symptoms of impaired breathing or feeding",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an area of hardness in the skin."
+        "description": "A disorder characterized by an area of hardness in the skin."
     },
     {
         "MedDRA v12.0 Code": 10040947,
@@ -8423,7 +8423,7 @@ const adverseEventOptions = [
         "Grade 3": "Combined area of ulcers >2 cm; full-thickness skin loss involving damage to or necrosis of subcutaneous tissue that may extend down to fascia",
         "Grade 4": "Any size ulcer with extensive destruction, tissue necrosis, or damage to muscle, bone, or supporting structures with or without full thickness skin loss",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by circumscribed, inflammatory and necrotic erosive lesion on the skin."
+        "description": "A disorder characterized by circumscribed, inflammatory and necrotic erosive lesion on the skin."
     },
     {
         "MedDRA v12.0 Code": 10042033,
@@ -8434,7 +8434,7 @@ const adverseEventOptions = [
         "Grade 3": "Skin sloughing covering <10% BSA with associated signs (e.g., erythema, purpura, epidermal detachment and mucous membrane detachment)",
         "Grade 4": "Skin sloughing covering 10 - 30% BSA with associated signs (e.g., erythema, purpura, epidermal detachment and mucous membrane detachment)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by less than 10% total body skin area separation of dermis. The syndrome is thought to be a hypersensitivity complex affecting the skin and the mucous membranes."
+        "description": "A disorder characterized by less than 10% total body skin area separation of dermis. The syndrome is thought to be a hypersensitivity complex affecting the skin and the mucous membranes."
     },
     {
         "MedDRA v12.0 Code": 10043189,
@@ -8445,7 +8445,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by local dilatation of small vessels resulting in red discoloration of the skin or mucous membranes."
+        "description": "A disorder characterized by local dilatation of small vessels resulting in red discoloration of the skin or mucous membranes."
     },
     {
         "MedDRA v12.0 Code": 10044223,
@@ -8456,7 +8456,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": "Skin sloughing covering >=30% BSA with associated symptoms (e.g., erythema, purpura, or epidermal detachment)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by greater than 30% total body skin area separation of dermis. The syndrome is thought to be a hypersensitivity complex affecting the skin and the mucous membranes."
+        "description": "A disorder characterized by greater than 30% total body skin area separation of dermis. The syndrome is thought to be a hypersensitivity complex affecting the skin and the mucous membranes."
     },
     {
         "MedDRA v12.0 Code": 10046735,
@@ -8467,7 +8467,7 @@ const adverseEventOptions = [
         "Grade 3": "Urticarial lesions covering >30% BSA; IV intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an itchy skin eruption characterized by wheals with pale interiors and well-defined red margins."
+        "description": "A disorder characterized by an itchy skin eruption characterized by wheals with pale interiors and well-defined red margins."
     },
     {
         "MedDRA v12.0 Code": 10040785,
@@ -8478,7 +8478,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10027308,
@@ -8489,7 +8489,7 @@ const adverseEventOptions = [
         "Grade 3": "Menopause occurring before age 40 years of age",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the permanent cessation of menses, usually defined by 12 consecutive months of amenorrhea in a woman over 45 years of age."
+        "description": "A disorder characterized by the permanent cessation of menses, usually defined by 12 consecutive months of amenorrhea in a woman over 45 years of age."
     },
     {
         "MedDRA v12.0 Code": 10041244,
@@ -8500,7 +8500,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10042613,
@@ -8511,7 +8511,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     },
     {
         "MedDRA v12.0 Code": 10007196,
@@ -8522,7 +8522,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by leakage of intravascular fluids into the extravascular space. This syndrome is observed in patients who demonstrate a state of generalized leaky capillaries following shock syndromes, low-flow states, ischemia-reperfusion injuries, toxemias, medications, or poisoning.  It can lead to generalized edema and multiple organ failure."
+        "description": "A disorder characterized by leakage of intravascular fluids into the extravascular space. This syndrome is observed in patients who demonstrate a state of generalized leaky capillaries following shock syndromes, low-flow states, ischemia-reperfusion injuries, toxemias, medications, or poisoning.  It can lead to generalized edema and multiple organ failure."
     },
     {
         "MedDRA v12.0 Code": 10016825,
@@ -8533,7 +8533,7 @@ const adverseEventOptions = [
         "Grade 3": "Symptomatic, associated with hypotension and/or tachycardia; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by episodic reddening of the face."
+        "description": "A disorder characterized by episodic reddening of the face."
     },
     {
         "MedDRA v12.0 Code": 10019428,
@@ -8544,7 +8544,7 @@ const adverseEventOptions = [
         "Grade 3": "Transfusion, radiologic, endoscopic, or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a localized collection of blood, usually clotted, in an organ, space, or tissue, due to a break in the wall of a blood vessel."
+        "description": "A disorder characterized by a localized collection of blood, usually clotted, in an organ, space, or tissue, due to a break in the wall of a blood vessel."
     },
     {
         "MedDRA v12.0 Code": 10020407,
@@ -8555,7 +8555,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by an uncomfortable and temporary sensation of intense body warmth, flushing, sometimes accompanied by sweating upon cooling."
+        "description": "A disorder characterized by an uncomfortable and temporary sensation of intense body warmth, flushing, sometimes accompanied by sweating upon cooling."
     },
     {
         "MedDRA v12.0 Code": 10020772,
@@ -8566,7 +8566,7 @@ const adverseEventOptions = [
         "Grade 3": "Stage 2 hypertension (systolic BP >=160 mm Hg or diastolic BP >=100 mm Hg); medical intervention indicated; more than one drug or more intensive therapy than previously used indicated\n\nPediatric: Same as adult",
         "Grade 4": "Life-threatening consequences (e.g., malignant hypertension, transient or permanent neurologic deficit, hypertensive crisis); urgent intervention indicated\n\nPediatric: Same as adult",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a pathological increase in blood pressure; a repeatedly elevation in the blood pressure exceeding 140 over 90 mm Hg."
+        "description": "A disorder characterized by a pathological increase in blood pressure; a repeatedly elevation in the blood pressure exceeding 140 over 90 mm Hg."
     },
     {
         "MedDRA v12.0 Code": 10021097,
@@ -8577,7 +8577,7 @@ const adverseEventOptions = [
         "Grade 3": "Medical intervention or hospitalization indicated",
         "Grade 4": "Life-threatening and urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a blood pressure that is below the normal expected for an individual in a given environment."
+        "description": "A disorder characterized by a blood pressure that is below the normal expected for an individual in a given environment."
     },
     {
         "MedDRA v12.0 Code": 10065773,
@@ -8588,7 +8588,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by the loss of lymph fluid into the surrounding tissue or body cavity."
+        "description": "A disorder characterized by the loss of lymph fluid into the surrounding tissue or body cavity."
     },
     {
         "MedDRA v12.0 Code": 10025233,
@@ -8599,7 +8599,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; limiting self care ADL",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by excessive fluid collection in tissues that causes swelling."
+        "description": "A disorder characterized by excessive fluid collection in tissues that causes swelling."
     },
     {
         "MedDRA v12.0 Code": 10048642,
@@ -8610,7 +8610,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; radiologic, endoscopic or elective operative intervention indicated",
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a cystic lesion containing lymph."
+        "description": "A disorder characterized by a cystic lesion containing lymph."
     },
     {
         "MedDRA v12.0 Code": 10034578,
@@ -8621,7 +8621,7 @@ const adverseEventOptions = [
         "Grade 3": "Recurring or prolonged (>=24 hrs) and/or invasive intervention indicated",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by impaired circulation to an extremity."
+        "description": "A disorder characterized by impaired circulation to an extremity."
     },
     {
         "MedDRA v12.0 Code": 10034879,
@@ -8632,7 +8632,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation of the wall of a vein."
+        "description": "A disorder characterized by inflammation of the wall of a vein."
     },
     {
         "MedDRA v12.0 Code": 10042554,
@@ -8643,7 +8643,7 @@ const adverseEventOptions = [
         "Grade 3": null,
         "Grade 4": null,
         "Grade 5": null,
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a blood clot and inflammation involving a superficial vein of the extremities. "
+        "description": "A disorder characterized by a blood clot and inflammation involving a superficial vein of the extremities. "
     },
     {
         "MedDRA v12.0 Code": 10042569,
@@ -8654,7 +8654,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms; multi-modality intervention indicated  (e.g., anticoagulation, chemotherapy, radiation, stenting)",
         "Grade 4": "Life-threatening consequences; urgent multi-modality intervention indicated (e.g., lysis, thrombectomy, surgery)",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by obstruction of the blood flow in the superior vena cava. Signs and symptoms include swelling and cyanosis of the face, neck, and upper arms, cough, orthopnea and headache."
+        "description": "A disorder characterized by obstruction of the blood flow in the superior vena cava. Signs and symptoms include swelling and cyanosis of the face, neck, and upper arms, cough, orthopnea and headache."
     },
     {
         "MedDRA v12.0 Code": 10043565,
@@ -8665,7 +8665,7 @@ const adverseEventOptions = [
         "Grade 3": "Thrombosis (e.g., uncomplicated pulmonary embolism [venous], non-embolic cardiac mural [arterial] thrombus), medical intervention indicated",
         "Grade 4": "Life-threatening (e.g., pulmonary embolism, cerebrovascular event, arterial insufficiency); hemodynamic or neurologic instability; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by occlusion of a vessel by a thrombus that has migrated from a distal site via the blood stream."
+        "description": "A disorder characterized by occlusion of a vessel by a thrombus that has migrated from a distal site via the blood stream."
     },
     {
         "MedDRA v12.0 Code": 10047115,
@@ -8676,7 +8676,7 @@ const adverseEventOptions = [
         "Grade 3": "Severe symptoms, medical intervention indicated (e.g., steroids)",
         "Grade 4": "Life-threatening; evidence of peripheral or visceral ischemia; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by inflammation involving the wall of a vessel. "
+        "description": "A disorder characterized by inflammation involving the wall of a vessel. "
     },
     {
         "MedDRA v12.0 Code": 10054692,
@@ -8687,7 +8687,7 @@ const adverseEventOptions = [
         "Grade 3": "Prolonged (>=24 hrs) or recurring symptoms and/or invasive intervention indicated",
         "Grade 4": "Life-threatening consequences; evidence of end organ damage; urgent operative intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": "A disorder characterized by a decrease in blood supply due to narrowing or blockage of a visceral (mesenteric) artery."
+        "description": "A disorder characterized by a decrease in blood supply due to narrowing or blockage of a visceral (mesenteric) artery."
     },
     {
         "MedDRA v12.0 Code": 10047065,
@@ -8698,10 +8698,13 @@ const adverseEventOptions = [
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
-        "CTCAE v4.0 AE Term Definition": null
+        "description": null
     }
 ]   
 
+/* 
+ * Return the description for corresponding data tox elements
+ */ 
 exports.getDescription = (dataElement) => {
     switch(dataElement) {
     case "toxicity": 
@@ -8715,34 +8718,54 @@ exports.getDescription = (dataElement) => {
     }
 }
 
+/* 
+ * Return a list of possible grades and their descriptions
+ */ 
 exports.getGradeOptions = () => {
     return gradeOptions;
 }
 
+/* 
+ * Return a list of adverseEvent options
+ */ 
 exports.getAdverseEventOptions = () => {
     return adverseEventOptions;
 }
 
-exports.isValidGrade = (possibleGrade) => {
-    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
-}
-
-exports.isValidAdverseEvent = (possibleAdverseEvent) => {
-    if(Lang.isEmpty(possibleAdverseEvent)) { return false; }
-    return adverseEventOptions.some((adverseEvent) => { 
-        (Lang.isUndefined(adverseEvent.name)) && console.log(adverseEvent)
-        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()
-    });
-}
-
+/* 
+ * Finds the index of a possible grade; returns -1 if it's invalid
+ */ 
 exports.findGradeIndex = (possibleGrade) => {
     return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 
+/* 
+ * Finds the index of a possible adverseEvent; returns -1 if it's invalid
+ */ 
 exports.findAdverseEventIndex = (possibleAdverseEvent) => {
     return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
+/* 
+ * Determines if a possibleGrade is in the list of grades
+ */ 
+exports.isValidGrade = (possibleGrade) => {
+    return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+}
+
+/* 
+ * Returns true if a possibleAdverseEvent is in the list of events; returns false otherwise
+ */ 
+exports.isValidAdverseEvent = (possibleAdverseEvent) => {
+    if(Lang.isEmpty(possibleAdverseEvent)) { return false; }
+    return adverseEventOptions.some((adverseEvent) => { 
+        return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()
+    });
+}
+
+/* 
+ * Returns true if a grade is defined for a given event; returns false otherwise
+ */ 
 exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
     if(Lang.isUndefined(possibleGrade)) { 
         // A null grade isn't valid

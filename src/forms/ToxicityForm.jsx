@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import Autosuggest from 'react-autosuggest';
+import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
-import AutoComplete from 'material-ui/AutoComplete';
 import toxicityLookup from '../lib/toxicity_lookup';
 import Lang from 'lodash'
 import Array from 'lodash'
@@ -15,11 +16,7 @@ class ToxicityForm extends Component {
         this.state = {
             gradeOptions: toxicityLookup.getGradeOptions(),
             adverseEventOptions: toxicityLookup.getAdverseEventOptions(),
-            // This defines how the autocomplete component indexes the list of adverse events
-            dataSourceConfig: {
-                text: 'name',
-                value: 'name',
-            },
+            suggestions: [],
             searchText: '',
         }; 
     }
@@ -43,9 +40,9 @@ class ToxicityForm extends Component {
     /* 
      * Changes the potential toxicity to the provided value
      */
-    changePotentialToxicity = (newPotentialToxicity) => { 
+    changePotentialToxicity = ({newValue}) => { 
         this.setState({ 
-            searchText: newPotentialToxicity.adverseEvent
+            searchText: newValue
         });
     }
 
@@ -83,15 +80,73 @@ class ToxicityForm extends Component {
      * When new text is available for AE selection, update search text 
      *  and also update potential toxicity when valid
      */
-    handleUpdateAdverseEventInput = (searchText) => {
+    handleUpdateAdverseEventInput = (e, {newValue}) => {
         this.setState({
-            searchText: searchText,
+            searchText: newValue,
         });
-        if(toxicityLookup.isValidAdverseEvent(searchText)) { 
-            this.handleAdverseEventSelection(searchText)
-        } else if (!toxicityLookup.isValidAdverseEvent(searchText) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.adverseEvent)) { 
+        if(toxicityLookup.isValidAdverseEvent(newValue)) { 
+            this.handleAdverseEventSelection(newValue)
+        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.adverseEvent)) { 
             this.handleAdverseEventSelection(null)
         }
+    }
+
+    /* 
+     * Render the adverse event  item for the adverse event suggestion
+     */    
+    getSuggestions = (searchText) => {
+        const inputValue = searchText.trim().toLowerCase();
+        const inputLength = inputValue.length;
+
+        return inputLength === 0  ? [] : this.state.adverseEventOptions.filter((event) => {
+            const name = (Lang.isEmpty(event.name)) ? "" : event.name;
+            const description = (Lang.isEmpty(event.description)) ? "" : event.description;
+            return (name.toLowerCase().indexOf(inputValue) >= 0 || description.toLowerCase().indexOf(inputValue) >= 0)
+        }).slice(0,7);
+    };
+
+    /* 
+     * When suggestion is clicked, Autosuggest needs to populate the input
+     * based on the clicked suggestion. Teach Autosuggest how to calculate the
+     * input value for every given suggestion.
+     */
+    getSuggestionValue = (suggestion) => {
+        return suggestion.name
+    };
+
+    /* 
+     * Autosuggest will call this function every time you need to update suggestions.
+     * You already implemented this logic above, so just use it.
+     */
+    onSuggestionsFetchRequested = ({ value }) => {
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    };
+
+    /* 
+     * Autosuggest will call this function every time you need to clear suggestions.
+     */
+    onSuggestionsClearRequested = () => {
+      this.setState({
+        suggestions: []
+      });
+    };
+
+    /* 
+     * Render the adverse event  item for the adverse event suggestion
+     */
+    renderSuggestion = (suggestion) => {
+        return (
+            <Row className="adverse-event-suggestion">
+                <Col xs={3} className="adverse-event-suggestion-name">
+                    {suggestion.name}
+                </Col>
+                <Col xs={9} className="adverse-event-suggestion-description"> 
+                    {suggestion.description}
+                </Col> 
+            </Row>
+        );
     }
 
     /* 
@@ -105,7 +160,7 @@ class ToxicityForm extends Component {
             gradeDescription = grade.description;
         } else { 
             let adverseEventNameLowerCase = adverseEventName.toLowerCase();
-            let adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { elem.name = elem.name.toLowerCase(); return elem; });
+            let adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
             const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
             gradeDescription = currentAdverseEvent[currentGradeLevel];
         }
@@ -124,6 +179,12 @@ class ToxicityForm extends Component {
         let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};
         const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
         
+        const inputProps = {
+          placeholder: 'Search through adverse events',
+          value: this.state.searchText,
+          onChange: this.handleUpdateAdverseEventInput
+        };
+
         return (
             <div>
                 <h1>Toxicity</h1>
@@ -136,7 +197,7 @@ class ToxicityForm extends Component {
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("adverseEvent")}
                 </p>
-                <AutoComplete
+{/*                <AutoComplete
                     hintText="Search through adverse events"
                     maxSearchResults={7}
                     filter={AutoComplete.fuzzyFilter}
@@ -148,6 +209,16 @@ class ToxicityForm extends Component {
     
                     dataSource={this.state.adverseEventOptions}
                     dataSourceConfig={this.state.dataSourceConfig}
+                />*/}
+
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
                 />
     
                 <h4>Grade</h4>
