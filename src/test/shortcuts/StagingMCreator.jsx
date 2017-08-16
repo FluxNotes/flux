@@ -12,8 +12,18 @@ export default class StagingMCreator extends CreatorShortcut {
 		this.text = trigger;
 		this.parentContext = contextManager.getActiveContextOfType("#staging");
 		this.parentContext.setAttributeValue("M", trigger.substring(1), false);
+        this.parentContext.addChild(this);
 	}
 	
+    onBeforeDeleted() {
+        let result = super.onBeforeDeleted();
+        if (result) {
+            this.parentContext.setAttributeValue("M", "", false);
+            this.parentContext.removeChild(this);
+        }
+        return result;
+    }
+
 	getText() {
 		return this.text;
 	}

@@ -1,10 +1,6 @@
 // React Imports:
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-// Material UI components:
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // Application components:
 import NavBar from '../nav/NavBar';
 import ShortcutViewer from '../viewer/ShortcutViewer';
@@ -66,7 +62,6 @@ class SlimApp extends Component {
     render() {
 
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
                     <NavBar title="Flux Notes Lite"/>
                     <Grid className="SlimApp-content" fluid>
@@ -91,7 +86,6 @@ class SlimApp extends Component {
                         </div>
                     </Grid>
                 </div>
-            </MuiThemeProvider>
         );
     }
 }

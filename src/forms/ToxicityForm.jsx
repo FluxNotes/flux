@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 // material-ui
 import Divider from 'material-ui/Divider';
-import SelectField from 'material-ui/SelectField';
-import AutoComplete from 'material-ui/AutoComplete';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import Menu from 'material-ui/Menu';
+//import AutoComplete from 'material-ui/AutoComplete';
+import MenuItem from 'material-ui/Menu/MenuItem';
+import Button from 'material-ui/Button';
 import {List, ListItem} from 'material-ui/List';
 // Libraries
 import toxicityLookup from '../lib/toxicity_lookup';
@@ -200,25 +200,12 @@ class ToxicityForm extends Component {
             <p id="data-element-description">
               {toxicityLookup.getDescription("adverseEvent")}
             </p>
-            <AutoComplete
-              hintText="Search through adverse events"
-              maxSearchResults={7}
-              filter={AutoComplete.fuzzyFilter}
-              openOnFocus={true}
-              fullWidth={true}
-
-              searchText={this.state.searchText}
-              onUpdateInput={this.handleUpdateAdverseEventInput}
-
-              dataSource={this.state.adverseEventOptions}
-              dataSourceConfig={this.state.dataSourceConfig}
-            />
 
             <h4>Grade</h4>
             <p id="data-element-description">
               {toxicityLookup.getDescription("grade")}
             </p>
-            <SelectField
+            <Menu
               hintText="Grade"
               // Value should be potential grade, assuming it's valid
               value={potentialGrade}
@@ -238,16 +225,16 @@ class ToxicityForm extends Component {
                       }
                   }
               })}
-            </SelectField>
+            </Menu>
 
             <div id="bottom-buttons">
-              <RaisedButton
+              <Button raised
                   className="toxicity-button"
                   label="Add Current"
                   disabled={cannotAddCurrent}
                   onClick={(e) => this.addToxicity(e)}
               />
-              <RaisedButton
+              <Button raised
                   className="toxicity-button"
                   label="Remove Current"
                   disabled={cannotRemove}

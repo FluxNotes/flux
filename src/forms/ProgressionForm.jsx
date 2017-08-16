@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import progressionLookup from '../lib/progression_lookup';
 import './ProgressionForm.css';
 
@@ -86,7 +86,7 @@ class ProgressionForm extends Component {
         return (
             <div key={reasonName} className="tooltip">
                 <span id={reasonName} className={buttonClass}>{reasonDescription}</span>
-                <RaisedButton
+                <Button raised
                     key={i}
                     label={reasonName}
                     labelStyle={{
@@ -106,7 +106,7 @@ class ProgressionForm extends Component {
                     backgroundColor={backgroundColor}
                     labelColor={labelColor}
                 >
-                </RaisedButton>
+                </Button>
             </div>
         )
     }
@@ -133,7 +133,7 @@ class ProgressionForm extends Component {
                         return (
                             <div key={statusName} className="tooltip">
                                 <span id={statusName} className={buttonClass}>{statusDescription}</span>
-                                <RaisedButton
+                                <Button raised
                                     key={i}
                                     label={statusName}
                                     labelStyle={{
@@ -152,7 +152,7 @@ class ProgressionForm extends Component {
                                     disabledBackgroundColor="#297DA2"
                                     disabledLabelColor="#fff"
                                 >
-                                </RaisedButton>
+                                </Button>
                             </div>
                         );
                     })}

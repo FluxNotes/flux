@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import NavBar from '../nav/NavBar';
 import FluxNotesEditor from '../test/notes/FluxNotesEditor';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
@@ -13,7 +10,6 @@ import ContextManager from '../test/context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
 //import Lang from 'lodash'
-
 import './FullApp.css';
 
 class TestFullApp extends Component {
@@ -22,6 +18,7 @@ class TestFullApp extends Component {
 
 		this.shortcuts = [ 	"#progression", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
+        this.updateErrors = this.updateErrors.bind(this);
 		this.onContextUpdate = this.onContextUpdate.bind(this);
 		
 		let patient = new Patient();
@@ -39,10 +36,13 @@ class TestFullApp extends Component {
     }
 	
 	onContextUpdate = () => {
-		console.log("context updated");
         this.setState({contextManager: this.contextManager});
 	}
-
+    
+    updateErrors(errors) {
+        this.setState({errors: errors});
+    }
+    
     newCurrentShortcut = (shortcutType, obj) => {
 		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
 		const errors = newShortcut.validateInCurrentContext(this.contextManager);
@@ -54,7 +54,7 @@ class TestFullApp extends Component {
 		} else {
 			newShortcut.initialize(this.contextManager, shortcutType);
 		}
-        this.setState({errors: errors});
+        this.updateErrors(errors);
 		return newShortcut;
     }
 	
@@ -92,7 +92,6 @@ class TestFullApp extends Component {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
                     <NavBar title="Flux Notes"/>
                     <Grid className="FullApp-content" fluid>
@@ -117,6 +116,7 @@ class TestFullApp extends Component {
                                     patient={this.state.patient}
 									contextManager={this.contextManager}
 									shortcutManager={this.shortcutManager}
+                                    updateErrors={this.updateErrors}
 									errors={this.state.errors}
                                 />
                             </Col>
@@ -124,6 +124,7 @@ class TestFullApp extends Component {
                                 <ContextTray
                                     // Update functions
                                     // Properties
+                                    ref={(comp) => { this.contextTray = comp; }}
                                     patient={this.state.patient}
 									contextManager={this.state.contextManager}
                                     onShortcutClicked={this.handleSummaryItemSelected}
@@ -139,7 +140,6 @@ class TestFullApp extends Component {
                         </Row>
                     </Grid>
                 </div>
-            </MuiThemeProvider>
         );
     }
 }

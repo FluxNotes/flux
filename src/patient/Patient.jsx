@@ -762,23 +762,41 @@ class Patient {
 
 	static updateTForStaging(stagingObservation, t) {		
 		const t_code = this._tToCodeableConcept(t);
-		stagingObservation.tStage.coding.displayText = t;
-		stagingObservation.tStage.coding.value = t_code.code;
-		stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
+        if (Lang.isNull(t_code)) {
+            stagingObservation.tStage.coding.displayText = "";
+            stagingObservation.tStage.coding.value = "";
+            stagingObservation.tStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.tStage.coding.displayText = t;
+            stagingObservation.tStage.coding.value = t_code.code;
+            stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
+        }
 		this.updateStage(stagingObservation);
 	}
 	static updateNForStaging(stagingObservation, n) {		
 		const n_code = this._nToCodeableConcept(n);
-		stagingObservation.nStage.coding.displayText = n;
-		stagingObservation.nStage.coding.value = n_code.code;
-		stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
+        if (Lang.isNull(n_code)) {
+            stagingObservation.nStage.coding.displayText = "";
+            stagingObservation.nStage.coding.value = "";
+            stagingObservation.nStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.nStage.coding.displayText = n;
+            stagingObservation.nStage.coding.value = n_code.code;
+            stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
+        }
 		this.updateStage(stagingObservation);
 	}
 	static updateMForStaging(stagingObservation, m) {		
 		const m_code = this._mToCodeableConcept(m);
-		stagingObservation.mStage.coding.displayText = m;
-		stagingObservation.mStage.coding.value = m_code.code;
-		stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
+        if (Lang.isNull(m_code)) {
+            stagingObservation.mStage.coding.displayText = "";
+            stagingObservation.mStage.coding.value = "";
+            stagingObservation.mStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.mStage.coding.displayText = m;
+            stagingObservation.mStage.coding.value = m_code.code;
+            stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
+        }
 		this.updateStage(stagingObservation);
 	}
 	

@@ -1,8 +1,8 @@
 // React imports
 import React, {Component} from 'react';
 // material-ui
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/Menu/MenuItem';
 import Divider from 'material-ui/Divider';
 // Lodash component
 import Lang from 'lodash'
@@ -54,7 +54,7 @@ class DataCaptureForm extends Component {
                 <h1>Data Capture</h1>
                 <Divider className="divider"/>
                 <div>
-                    <DropDownMenu
+                    <Menu
                         value={this.state.value}
                         onChange={this.handleChange}
                         style={styles.customWidth}
@@ -64,7 +64,7 @@ class DataCaptureForm extends Component {
                         <MenuItem value={"staging"} primaryText="Staging"/>
                         <MenuItem value={"progression"} primaryText="Progression"/>
                         <MenuItem value={"toxicity"} primaryText="Toxicity"/>
-                    </DropDownMenu>
+                    </Menu>
                 </div>
                 <Divider className="divider"/>
                 {content}

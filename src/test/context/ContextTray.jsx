@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import TemplateForm from '../../forms/TemplateForm';
 import DataCaptureForm from '../../forms/DataCaptureForm';
 import Paper from 'material-ui/Paper';
-//import { Tabs, Tab} from 'material-ui/Tabs';
-import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
+import Tabs, {Tab} from 'material-ui/Tabs';
+//import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
 import Lang from 'lodash'
 import ContextOptions from './ContextOptions';
 import './ContextTray.css';
@@ -15,11 +15,17 @@ class ContextTray extends Component {
      */
 	templates = [{name: 'op note', content: 'op note'}, {name: 'follow-up', content:'follow up'}, {name:'consult note', content: '@patient presenting with '}];
 
+    state = {
+        value: 1,
+    };
+
     constructor(props) {
         super(props);
         
+        this.handleChange = this.handleChange.bind(this);
         this._insertTemplate = this._insertTemplate.bind(this);
 		this._handleShortcutClick = this._handleShortcutClick.bind(this);
+        this.lastActiveContextCount = 0;
     }
 
     _insertTemplate(i) {
@@ -31,66 +37,100 @@ class ContextTray extends Component {
         console.log(`Inserting shortcut ${i}`);
 		this.props.onShortcutClicked(i);
 	}
-
+    handleChange(event, value) {
+        this.setState({ value });
+    };
+    _getActiveContexts() {
+        let activeContexts = [];
+        this.props.contextManager.getActiveContexts().slice(0).reverse().forEach((context, i) => {
+            if (!Lang.isNull(context.getLabel())) {
+                activeContexts.push(context);
+            }
+        });
+        return activeContexts;
+    }
+    componentDidUpdate(prevProps, prevState) {
+        //console.log("ContextTray.componentDidUpdate")
+        let activeContexts = this._getActiveContexts();
+        //console.log("now active: " + activeContexts.length);
+        //console.log("was active: " + this.lastActiveContextCount);
+        if (this.lastActiveContextCount !== activeContexts.length) {
+            this.setState({ value: activeContexts.length+1 });
+            this.lastActiveContextCount = activeContexts.length;
+        }
+    }
     render() {
         let panelContent = null;
+        let panelContent2 = null;
+        const { value } = this.state;
 		if (this.props.selectedText != null) {
 			console.log(this.props);
 			panelContent = (
 					<DataCaptureForm
 						// Update functions
 						changeCurrentShortcut={this.changeCurrentShortcut}
-						// Properties
-						currentShortcut={this.props.currentShortcut}
 					/>
 			);
+            panelContent2 = "";
 		} else {
+            let activeContexts = this._getActiveContexts();
 			panelContent = (
-				<Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-						tabType={'scrollable-buttons'}
-						tabItemContainerStyle={{background: 'white'}} 
-						initialSelectedIndex={1 + this.props.contextManager.getActiveContexts().length}>
-					<Tab className="tab" label="Templates">
-						<TemplateForm
+                <div>
+				<Tabs 
+                        scrollable
+                        scrollButtons="auto"
+                        onChange={this.handleChange}
+						value={value}>
+					<Tab value={0} key={0} label="Templates"/>
+					<Tab value={1} key={1} label="Patient"/>
+					{activeContexts.map((context, i) => {
+                        let label = context.getLabel();
+                        return (
+                            <Tab value={i+2} key={i+2} label={label} />
+                        );
+					})}
+				</Tabs>
+                {value === 0 && <TabContainer>
+   						<TemplateForm
 							patient={this.props.patient}
 							heading=""
 							templates={this.templates.map((item) => { return item.name })}
 							handleClick={this._insertTemplate}
 						/>
-					</Tab>
-					<Tab className="tab" label="Patient">
+                </TabContainer>}
+                {value === 1 && <TabContainer>
 						<ContextOptions
 							contextManager={this.props.contextManager}
 							handleClick={this._handleShortcutClick}
 						/>
-					</Tab>
-					{this.props.contextManager.getActiveContexts().slice(0).reverse().map((context, i) => {
-						//console.log(context);
-						if (!Lang.isNull(context.getLabel())) {
-							let label = context.getLabel();
-							//if (label.length > 15) label = label.substring(0,12) + "...";
-							return (
-								<Tab key={context.getLabel()} className="tab" label={label} isMultiLine={true}>
-									<ContextOptions
-										contextManager={this.props.contextManager}
-										handleClick={this._handleShortcutClick}
-										context={context}
-									/>
-								</Tab>
-							);
-						}
-					})}
-				</Tabs>
-			);
+                </TabContainer>}
+                {value > 1 && <TabContainer>
+                        <ContextOptions
+                            contextManager={this.props.contextManager}
+                            handleClick={this._handleShortcutClick}
+                            context={activeContexts[value - 2]}
+                        />
+                </TabContainer>}
+            </div>
+          );
+          panelContent2 = "";
 		}
         return (
             <div id="forms-panel" className="dashboard-panel">
                 <Paper className="panel-content trio">
                     {panelContent}
+                    {panelContent2}
                 </Paper>
             </div>
         )
     }
 }
 
+function TabContainer(props) {
+  return (
+    <div style={{ padding: 20 }}>
+      {props.children}
+    </div>
+  );
+}
 export default ContextTray;

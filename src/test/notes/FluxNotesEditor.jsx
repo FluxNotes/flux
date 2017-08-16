@@ -64,9 +64,10 @@ class FluxNotesEditor extends React.Component {
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
-            updateEditorState: this.onEditorUpdate,
+/*            updateEditorState: this.onEditorUpdate,
             updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate,
-            changeCurrentShortcut: props.changeCurrentShortcut
+            changeCurrentShortcut: props.changeCurrentShortcut*/
+            contextManager: this.contextManager
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;

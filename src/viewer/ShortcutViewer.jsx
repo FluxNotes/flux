@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 // material-ui
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 // Lodash component
 import Lang from 'lodash'
@@ -48,7 +48,7 @@ class ShortcutViewer extends Component {
     _getCopyComponent(string) {
         return (
             <CopyToClipboard text={string}>
-                <RaisedButton
+                <Button raised
                     className="btn_copy"
                     labelStyle={{
                         textTransform: "none",
@@ -69,7 +69,7 @@ class ShortcutViewer extends Component {
                     <div id="copy-content">
                         {string}
                     </div>
-                </RaisedButton>
+                </Button>
             </CopyToClipboard>
         );
     }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Lang from 'lodash'
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 export default class ContextOptions extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ export default class ContextOptions extends Component {
 			context = this.props.contextManager.getPatientContext();
 		}
 		let validShortcuts = context.getValidChildShortcuts();
+
 		return (
 		   <div style={{margin: '20px'}}>
 				{validShortcuts.map((shortcut, i) => {
@@ -22,12 +23,10 @@ export default class ContextOptions extends Component {
 						<div key={i}>
 							{shortcut.getTriggers().map((trigger, j) => {
 								return (
-									<RaisedButton
-										className="btn_template"
-										label={trigger}
+									<Button raised className="btn_template"
 										key={trigger}
 										onClick={(e) => this._handleClick(e, trigger)}
-									/>
+									>{trigger}</Button>
 								);
 							})}
 						</div>

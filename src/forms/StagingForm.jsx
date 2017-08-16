@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 // material-ui
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 // Libraries
 
 import staging from '../lib/staging';
@@ -65,7 +65,7 @@ class StagingForm extends Component {
                 return (
                   <div key={t.name} className="tooltip">
                      <span id={t.name} className={buttonClass}>{t.description}</span>
-                      <RaisedButton
+                      <Button raised
                           className="btn tumor-size"
                           key={i}
                           label={titlecase(t.name)}
@@ -85,7 +85,7 @@ class StagingForm extends Component {
                 return (
                   <div key={n.name} className="tooltip">
                      <span id={n.name} className={buttonClass}>{n.description}</span>
-                      <RaisedButton
+                      <Button raised
                           className="btn node"
                           key={i}
                           label={titlecase(n.name)}
@@ -105,7 +105,7 @@ class StagingForm extends Component {
                 return (
                   <div key={m.name} className="tooltip">
                    <span id={m.name} className={buttonClass}>{m.description}</span>
-                    <RaisedButton
+                    <Button raised
                         className="btn metastasis"
                         key={i}
                         label={titlecase(m.name)}

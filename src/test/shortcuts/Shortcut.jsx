@@ -13,9 +13,10 @@ class Shortcut extends Context {
     }
 	
 	initialize(contextManager) {
+        this.contextManager = contextManager;
 		if (this.isContext()) {
 			console.log("created new context: " + this.getShortcutType());
-			contextManager.addShortcutToContext(this);
+            contextManager.addShortcutToContext(this);
 		}
 	}
 
@@ -68,6 +69,17 @@ class Shortcut extends Context {
 	isContext() {
 		return false;
 	}
+    
+    onBeforeDeleted() {
+        console.log("onBeforeDeleted: isContext=" + this.isContext() + " has kids=" + this.hasChildren());
+        if (this.isContext() && this.hasChildren()) {
+            return false;
+        }
+        if (this.isContext()) {
+            this.contextManager.removeShortcutFromContext(this);
+        }
+        return true;
+    }
 }
 
 export default Shortcut;

@@ -7,6 +7,25 @@ export default class Context {
 	getValidChildShortcuts(recurse = false) {
 		return [];
 	}
+    
+    addChild(shortcut) {
+        this.children.push(shortcut);
+    }
+    
+    removeChild(shortcut) {
+        var indexToDelete = -1;
+        this.children.forEach((item, i) => {
+            if (item === shortcut) {
+                indexToDelete = i;
+            }
+        });
+        console.log("delete item " + indexToDelete);
+        this.children.splice(indexToDelete, 1);
+    }
+    
+    hasChildren() {
+        return (this.children.length > 0);
+    }
 	
 	getChildren() {
 		return this.children;

@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import NavBar from '../nav/NavBar';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
@@ -143,7 +140,6 @@ class FullApp extends Component {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="FullApp">
                     <NavBar title="Flux Notes"/>
                     <Grid className="FullApp-content" fluid>
@@ -195,7 +191,6 @@ class FullApp extends Component {
                         </Row>
                     </Grid>
                 </div>
-            </MuiThemeProvider>
         );
     }
 }

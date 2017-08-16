@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
+import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-
+import MenuItem from 'material-ui/Menu/MenuItem';
 import AppBar from 'material-ui/AppBar';
-
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
 import './NavBar.css';
+
+const styles = {
+    root: {
+        marginTop: 30,
+        width: '100%',
+    },
+    flex: {
+        flex: 1,
+    },
+};
 
 class NavBar extends Component {
 
@@ -34,14 +48,22 @@ class NavBar extends Component {
     });
     this.props.onStructuredFieldExited("progression");
   }
-
+    
   render() {
+    const classes = this.props.classes;
     return (
-      <div>
-        <AppBar
-          className="navbar"
-          onLeftIconButtonTouchTap={this.toggleDrawer.bind(this)}
-          title={this.props.title}/>
+      <div className={classes.root}>
+        <AppBar position="static" className="navbar">
+            <Toolbar>
+                <IconButton color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
+                    <MenuIcon/>
+                </IconButton>
+                <Typography type="title" color="inherit" className={classes.flex}>
+                {this.props.title}
+                </Typography>
+                <Button color="contrast">Dr. X123 logged in</Button>
+            </Toolbar>
+        </AppBar>          
         <Drawer
           containerStyle={{'top': '64px'}}
           open={this.state.open}
@@ -54,4 +76,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default withStyles(styles)(NavBar);

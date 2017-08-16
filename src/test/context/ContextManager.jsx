@@ -53,6 +53,15 @@ class ContextManager {
 			this.onContextUpdate();
 		}
 	}
+    
+    removeShortcutFromContext(shortcut) {
+        var index = -1;
+        this.activeContexts.forEach((item, i) => {
+            if (item === shortcut) index = i;
+        });
+        if (index === -1) throw new Error("Unable to remove shortcut because not found in active contexts.");
+        this.activeContexts.splice(index, 1);
+    }
 
 	getPatient() {
 		return this.patient;
@@ -61,16 +70,6 @@ class ContextManager {
 	getPatientContext() {
 		return this.patientContext;
 	}
-
-/*	addContext(contextObject) {
-		this.contexts.push(contextObject);
-	}
-	
-	getContextObjectOfType(type) {
-		let objs = this.contexts.filter((item) => { return item.entryType[0] === type });
-		if (objs.length === 0) return null;
-		return objs[objs.length - 1];
-	}*/
 }
 
 export default ContextManager;

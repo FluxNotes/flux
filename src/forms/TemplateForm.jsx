@@ -1,9 +1,6 @@
-// React imports
 import React, { Component } from 'react';
-// material-ui
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
-// Styling
 import './TemplateForm.css';
 
 class TemplateForm extends Component {
@@ -20,12 +17,11 @@ class TemplateForm extends Component {
             <Divider className="divider"/>
             {this.props.templates.map((t, i) => {
                 return (
-                    <RaisedButton
-                        className="btn_template"
+                    <Button raised className="btn_template"
                         label={t}
                         key={i}
                         onClick={(e) => this._handleClick(e, i)}
-                    />
+                    >{t}</Button>
                 ); //this._insertTemplate(e, i)
             })}
         </div>

@@ -1,7 +1,7 @@
 // React imports
 import React, {Component} from 'react';
 // material-ui
-import {List, ListItem} from 'material-ui/List';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 // Styling
 import './FormList.css';
 
@@ -39,16 +39,18 @@ class FormList extends Component {
                             classValue += " unselected";
                         }
                         return (
-                            <ListItem
-                                key={i}
-                                id={shortcutName}
-                                primaryText={primaryText}
-                                className={classValue}
-                                onTouchTap={ (e) => {
-                                    this._onTouchTap(e, shortcutName)
-                                    this._newShortcut(e, i, shortcutName)}
-                                }
-                            />
+                            <ListItem button
+                                key={i}>
+                                <ListItemText
+                                    id={shortcutName}
+                                    primary={primaryText}
+                                    className={ classValue}
+                                    onTouchTap={ (e) => {
+                                        this._onTouchTap(e, shortcutName)
+                                        this._newShortcut(e, i, shortcutName)}
+                                    }
+                                />
+                            </ListItem>
                         );
                     })}
                 </List>

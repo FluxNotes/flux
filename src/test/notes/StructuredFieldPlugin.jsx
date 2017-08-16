@@ -7,9 +7,43 @@ function createOpts(opts) {
 	return opts;
 }
 
+let structuredFieldMap = new Map();
+
 function StructuredFieldPlugin(opts) {
 	opts = createOpts(opts);
+    let contextManager = opts.contextManager;
 	
+	function onBeforeChange(state, editor) {
+        var deletedKeys = [];
+        const nodes = state.document.getInlines();
+        if (nodes.size !== structuredFieldMap.size) {
+            var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
+            structuredFieldMap.forEach((value, key) => {
+                if (!currentNodesMap.has(key)) {
+                    deletedKeys.push(key);
+                }
+            });
+        }
+        var shortcut;
+        let result = state;
+        deletedKeys.forEach((key) => {
+            shortcut = structuredFieldMap.get(key);
+            //console.log("deleted key = " + key);
+            //console.log(shortcut);
+            if (shortcut.onBeforeDeleted()) {
+                structuredFieldMap.delete(key);
+                contextManager.contextUpdated();
+            } else {
+                console.log("cancel state change");
+//                console.log(state);
+//                console.log(editor.getState());
+                result = editor.getState(); // don't allow state change
+                //opts.updateErrors(["You can not delete " + shortcut.getText() + " as it has child fields."]);
+            }
+        });
+        return result;
+	}
+    
     const schema = {
 		nodes: {
 			structured_field:      props => {
@@ -42,12 +76,14 @@ function StructuredFieldPlugin(opts) {
 			}
 		]
 	};
+		
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
+        onBeforeChange,
         schema,
-
+		
         utils: {
             //isSelectionInStructuredField
         },
@@ -99,7 +135,7 @@ function createStructuredField(opts, shortcut) {
 			shortcut: shortcut
 		}
     });
-
+    structuredFieldMap.set(sf.key, shortcut);
 	return sf;
 }
 
