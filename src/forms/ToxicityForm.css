@@ -1,4 +1,67 @@
 
+.grade-menu-item { 
+    display: flex; /* or inline-flex */
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    border-top: 1px;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.12) -1px 0px 1px 0px, rgba(0, 0, 0, 0.12) 1px 0px 1px 0px;
+}
+
+.grade-menu-item:hover { 
+    background-color: rgba(0,0,0,0.08);
+}
+
+.grade-menu-item.selected { 
+    background-color: rgb(41, 125, 162);
+    border: rgb(41, 125, 162);
+    color: rgba(255,255,255,1);
+}
+
+.grade-menu-item:first-child { 
+    border-top: 1px solid rgba(224, 224, 224, 1);
+}
+
+.grade-menu-item-name { 
+    margin: 0 0 0 20px;
+    display: inline-block;
+}
+
+.grade-menu-item-name:after {
+    background: #b1b1b1;
+    width: 1px;
+    content: "";
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 20px;
+    margin: -5px 20px -5px 20px;
+}
+
+.grade-menu-item-description { 
+    margin: 0 20px 0 0;
+    display: inline-block;
+    max-width: 80%;
+}
+
+.adverse-event-suggestion-name {
+    margin: 0 0 0 0px;
+    width: 20%;
+    display: inline-block;
+}
+
+.adverse-event-suggestion-description {
+    width: 70%;
+    margin: 0 0px 0 0;
+    display: inline-block;
+}
+
+
+/* 
+ * Autosuggest styling 
+ */
 .react-autosuggest__container {
   position: relative;
   background-color: #fbfbfb;
@@ -15,9 +78,6 @@
   border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 
-/* 
- * Placeholder styling 
- */
 .react-autosuggest__input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     font-family: 'Roboto', sans-serif;
     color: rgba(0, 0, 0, 0.3);
@@ -60,7 +120,7 @@
   top: 51px;
   width: 100%;
   background-color: #FAFAFA;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 4px;
   z-index: 2;
 }
@@ -82,20 +142,4 @@
 
 .react-autosuggest__suggestion--highlighted {
   background-color: #F3F3F3;
-}
-
-.adverse-event-suggestion { 
-    display: flex; /* or inline-flex */
-}
-
-.adverse-event-suggestion-name {
-    margin: 0 0 0 0px;
-    width: 20%;
-    display: inline-block;
-}
-
-.adverse-event-suggestion-description {
-    width: 70%;
-    margin: 0 0px 0 0;
-    display: inline-block;
 }

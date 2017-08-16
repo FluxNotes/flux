@@ -3,6 +3,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import toxicityLookup from '../lib/toxicity_lookup';
 import Lang from 'lodash'
@@ -49,12 +50,18 @@ class ToxicityForm extends Component {
     /* 
      * When a valid grade is selected, update potential toxicity 
      */
-    handleGradeSelecion = (e, i, payload) => {
+    handleGradeSelecion = (e, grade, isSelected) => {
         e.preventDefault();
-        const newGrade = payload; 
-        const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity}; 
-        newToxicity["grade"] = newGrade;
-        this.updatePotentialToxicity(newToxicity);
+        if (isSelected) { 
+            const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity}; 
+            delete newToxicity.grade;
+            this.updatePotentialToxicity(newToxicity);
+        } else { 
+            const newGrade = grade; 
+            const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity}; 
+            newToxicity["grade"] = newGrade;
+            this.updatePotentialToxicity(newToxicity);
+        }
     }
   
     /* 
@@ -155,23 +162,33 @@ class ToxicityForm extends Component {
      */
     renderGradeMenuItem = (grade, adverseEventName) => { 
         const currentGradeLevel = grade.name;
+        const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.grade) && this.props.toxicity.grade === grade.name
+        const gradeMenuClass = isSelected ? "grade-menu-item selected" : "grade-menu-item"; 
         let gradeDescription = "";
         if(Lang.isUndefined(adverseEventName)) { 
             gradeDescription = grade.description;
         } else { 
-            let adverseEventNameLowerCase = adverseEventName.toLowerCase();
-            let adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
+            const adverseEventNameLowerCase = adverseEventName.toLowerCase();
+            const adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
             const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
             gradeDescription = currentAdverseEvent[currentGradeLevel];
         }
         const gradeText=`${currentGradeLevel} - ${gradeDescription}`
-  
+        
         return (
-            <MenuItem 
-                key={grade.name} 
-                value={grade.name} 
-                primaryText={gradeText} 
-            />
+            <div 
+                className={gradeMenuClass}
+                key={grade.name}
+                // onHover
+                onClick={(e) => this.handleGradeSelecion(e, grade.name, isSelected)}
+            >
+                <div className="grade-menu-item-name">
+                    {currentGradeLevel}
+                </div>
+                <div className="grade-menu-item-description"> 
+                    {gradeDescription}
+                </div> 
+            </div>
         ) 
     }
   
@@ -197,19 +214,6 @@ class ToxicityForm extends Component {
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("adverseEvent")}
                 </p>
-{/*                <AutoComplete
-                    hintText="Search through adverse events"
-                    maxSearchResults={7}
-                    filter={AutoComplete.fuzzyFilter}
-                    openOnFocus={true}
-                    fullWidth={true}
-    
-                    searchText={this.state.searchText}
-                    onUpdateInput={this.handleUpdateAdverseEventInput}
-    
-                    dataSource={this.state.adverseEventOptions}
-                    dataSourceConfig={this.state.dataSourceConfig}
-                />*/}
 
                 <Autosuggest
                     suggestions={this.state.suggestions}
@@ -225,13 +229,7 @@ class ToxicityForm extends Component {
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
                 </p>
-                <SelectField
-                    hintText="Grade"
-                    // Value should be potential grade, assuming it's valid
-                    value={potentialGrade}
-                    onChange={this.handleGradeSelecion}
-                    fullWidth={true}
-                >
+                <div id="grade-menu">
                     {this.state.gradeOptions.map((grade, i) => {
                         if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
                             return this.renderGradeMenuItem(grade)                      
@@ -244,7 +242,7 @@ class ToxicityForm extends Component {
                             }
                         }
                     })}
-                </SelectField>
+                </div>
             </div>
         );
     }
