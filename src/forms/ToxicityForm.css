@@ -152,5 +152,5 @@
 }
 
 .react-autosuggest__suggestion--highlighted {
-    background-color: #F3F3F3;
+    background-color: rgba(0,0,0,0.08);
 }
