@@ -162,11 +162,21 @@ class ToxicityForm extends Component {
      */
     renderGradeMenuItem = (grade, adverseEventName) => { 
         const currentGradeLevel = grade.name;
+        const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
+
         const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.grade) && this.props.toxicity.grade === grade.name
-        const gradeMenuClass = isSelected ? "grade-menu-item selected" : "grade-menu-item"; 
+        let gradeMenuClass = "grade-menu-item";
+        if (isDisabled) { 
+            gradeMenuClass += " disabled"
+        } else if (isSelected) { 
+            gradeMenuClass += " selected"
+        }
         let gradeDescription = "";
-        if(Lang.isUndefined(adverseEventName)) { 
+
+        if (Lang.isUndefined(adverseEventName)) { 
             gradeDescription = grade.description;
+        } else if (isDisabled) { 
+            gradeDescription = "";
         } else { 
             const adverseEventNameLowerCase = adverseEventName.toLowerCase();
             const adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
@@ -180,7 +190,11 @@ class ToxicityForm extends Component {
                 className={gradeMenuClass}
                 key={grade.name}
                 // onHover
-                onClick={(e) => this.handleGradeSelecion(e, grade.name, isSelected)}
+                onClick={(e) => {
+                    if (!isDisabled) { 
+                        return this.handleGradeSelecion(e, grade.name, isSelected)
+                    } 
+                }}
             >
                 <div className="grade-menu-item-name">
                     {currentGradeLevel}
@@ -234,12 +248,7 @@ class ToxicityForm extends Component {
                         if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
                             return this.renderGradeMenuItem(grade)                      
                         } else { 
-                            if (toxicityLookup.isValidGradeForAdverseEvent(grade.name, potentialToxicity.adverseEvent)) {
-                                return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
-                            } else {
-                                // return nothing -- don't render this as an option
-                                return null;
-                            }
+                            return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
                         }
                     })}
                 </div>

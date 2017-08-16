@@ -13,22 +13,16 @@
     background-color: rgba(0,0,0,0.08);
 }
 
-.grade-menu-item.selected { 
-    background-color: rgb(41, 125, 162);
-    border: rgb(41, 125, 162);
-    color: rgba(255,255,255,1);
-}
-
 .grade-menu-item:first-child { 
     border-top: 1px solid rgba(224, 224, 224, 1);
 }
 
-.grade-menu-item-name { 
+.grade-menu-item .grade-menu-item-name { 
     margin: 0 0 0 20px;
     display: inline-block;
 }
 
-.grade-menu-item-name:after {
+.grade-menu-item .grade-menu-item-name:after {
     background: #b1b1b1;
     width: 1px;
     content: "";
@@ -40,19 +34,36 @@
     margin: -5px 20px -5px 20px;
 }
 
-.grade-menu-item-description { 
+.grade-menu-item .grade-menu-item-description { 
     margin: 0 20px 0 0;
     display: inline-block;
     max-width: 80%;
 }
 
-.adverse-event-suggestion-name {
+.grade-menu-item.selected { 
+    background-color: rgb(41, 125, 162);
+    border: rgb(41, 125, 162);
+    color: rgba(255,255,255,1);
+}
+
+.grade-menu-item.disabled { 
+    color: rgba(224, 224, 224, 1);
+}
+.grade-menu-item.disabled:hover { 
+    background-color: initial;
+}
+
+.grade-menu-item.disabled .grade-menu-item-name:after {
+    background: rgba(224, 224, 224, 1);
+}
+
+.adverse-event-suggestion .adverse-event-suggestion-name {
     margin: 0 0 0 0px;
     width: 20%;
     display: inline-block;
 }
 
-.adverse-event-suggestion-description {
+.adverse-event-suggestion .adverse-event-suggestion-description {
     width: 70%;
     margin: 0 0px 0 0;
     display: inline-block;
