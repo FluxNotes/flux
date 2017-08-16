@@ -15,9 +15,8 @@
 
 .btn_copy {
     display: inline-block;
-    margin-top:  50px;
-/*    width: 100%;
-*/}
+    margin-top:  90px;
+}
 
 #copy-keyword:after {
     background: #b1b1b1;

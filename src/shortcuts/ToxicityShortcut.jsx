@@ -1,39 +1,38 @@
-// React Imports:
 import React from 'react';
-// Our components
 import Shortcut from './Shortcut';
 import ToxicityForm from '../forms/ToxicityForm';
-// Import Lodash libraries
 import Lang from 'lodash'
 
 class ToxicityShortcut extends Shortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            // Starts with an empty array.
-            toxicity = []; 
-            // toxicity = ({
-            //     id: Math.floor(Math.random() * Date.now()),
-            //     grade: null,
-            //     adverseEvent: null,
-            //     startDate: new Date()
-            // });
+            // Starts with an empty obj
+            toxicity = {}; 
         }
         this.toxicity = toxicity;
         this.onUpdate = onUpdate;
-        console.log(`constructor for a new Toxicity object`)
     }
+    
+    /*
+     * Update a key:value pair
+     */
+    updateValue = (name, value) => {
+        this.onUpdate(this);
+    }
+
     /* 
      * Returns "toxicity"
      */
-    getShortcutType() { 
+    getShortcutType = () => { 
         return "toxicity";
     }
+
     /* 
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        const gradeString = `${curToxicity.grade}`;
+        const gradeString = (Lang.isUndefined(curToxicity.grade)) ? 'Grade _' : `${curToxicity.grade}`;
         return gradeString;
     }
 
@@ -41,7 +40,7 @@ class ToxicityShortcut extends Shortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        const adverseEventString = `${curToxicity.adverseEvent}`;
+        const adverseEventString = (Lang.isUndefined(curToxicity.adverseEvent)) ? '?' : `${curToxicity.adverseEvent}`;
         return adverseEventString;
     }
 
@@ -81,58 +80,50 @@ class ToxicityShortcut extends Shortcut {
             // No Toxicity information -- in this case we just want a hash
             return `#toxicity`;
         } else { 
-            let allToxicities = "";
-            const numToxicities = this.toxicity.length;
-            for (let i = 0; i < numToxicities - 1; i++) {
-                const curToxicity = this.toxicity[i];
-                const curToxicityString = this.getToxAsString(curToxicity);
-                allToxicities += curToxicityString;
-                allToxicities += ", ";
-            }
-            const curToxicity = this.toxicity[numToxicities - 1];
-            const curToxicityString = this.getToxAsString(curToxicity);
-            allToxicities += curToxicityString;
+            const gradeString = this.getGradeString(this.toxicity);
+            let adverseEventString = this.getAdverseEventString(this.toxicity);
+            if(!Lang.isEmpty(adverseEventString)) { adverseEventString = ` ` + adverseEventString }
+            let dateString = this.getDateString(this.toxicity);
+            if(!Lang.isEmpty(dateString)) { dateString = ` ` + dateString }
+
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#toxicity[${allToxicities}]`;
+            return `#toxicity[${gradeString}${adverseEventString}${dateString}]`;
         }
     }
 
+    /* 
+     * Handle an update to this toxicity and the source toxicity
+     */ 
     handleToxicityUpdate = (t) => { 
-        console.log(`Updated toxicity:`);
-        console.log(t);
         this.toxicity = Lang.clone(t);
         this.onUpdate(this);
-    } 
+    }
 
+    /* 
+     * Return the Toxicity form with the props
+     */ 
     getForm() {
         return (
             <ToxicityForm
-                // Update functions
                 onToxicityUpdate={this.handleToxicityUpdate}
-                // Properties
                 toxicity={this.toxicity}
-                // Utilities
                 getToxAsString={this.getToxAsString}
             />
         );      
     }
 
-	getStructuredFieldSpecification() {
-		return [	{ type: 'staticText', 	spec: { text:'#toxicity['}},
-					{ type: 'dropDown',   	spec: { name: 'T', items: ['T0', 'T1', 'T2', 'T3'] }},
-					{ type: 'dropDown',   	spec: { name: 'N', items: ['N0', 'N1', 'N2', 'N3'] }},
-					{ type: 'dropDown', 	spec: { name: 'M', items: ['M0', 'M1'] }},
-					{ type: 'staticText',	spec: { text:']'}} ];
-	}
-
-	updateValue(name, value) {
-
-		this.onUpdate(this);
-	}
-
-	getValue(name) {
-	
-	}
+    /* 
+     * Return the structured field specification
+     */ 
+    getStructuredFieldSpecification() {
+        return [
+            { type: 'staticText',   spec: { text:'#toxicity['}},        
+            { type: 'dropDown',     spec: { name: 'T', items: ['T0', 'T1', 'T2', 'T3'] }},        
+            { type: 'dropDown',     spec: { name: 'N', items: ['N0', 'N1', 'N2', 'N3'] }},        
+            { type: 'dropDown',     spec: { name: 'M', items: ['M0', 'M1'] }},        
+            { type: 'staticText',   spec: { text:']'}} 
+        ];
+    }
 }
 
 export default ToxicityShortcut;

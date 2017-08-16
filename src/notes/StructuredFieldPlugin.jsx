@@ -334,33 +334,11 @@ function onLeftRight(event, data, state, opts) {
 }
 
 function onUpDown(event, data, state, opts) {
-	//console.log('onUpDown START');
-/*
-    const direction = data.key === 'up' ? -1 : +1;
-    const pos = TablePosition.create(state, state.startBlock);
 
-    if ((pos.isFirstRow() && direction === -1)
-        || (pos.isLastRow() && direction === +1)) {
-        // Let the default behavior move out of the table
-        return state;
-
-    } else {
-        event.preventDefault();
-
-        let transform = state.transform();
-        transform = moveSelectionBy(
-            opts, transform,
-            0, data.key === 'up' ? -1 : +1
-        );
-
-        return transform.apply();
-    }*/
-	//console.log('onUpDown DONE');
 }
 
 
 function onEnter(event, data, state, opts) {
-	console.log('onEnter START');
 	event.preventDefault();
 	let result = moveField(state, opts, 1);
 	return result;
