@@ -1,23 +1,18 @@
-// React Imports:
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-// Application components:
 import NavBar from '../nav/NavBar';
-import ShortcutViewer from '../viewer/ShortcutViewer';
 import FormList from '../forms/FormList';
-// import FormSearch from '../forms/FormSearch';
-// Shortcut Classes
-import ProgressionShortcut from '../shortcuts/ProgressionShortcut';
-import ToxicityShortcut from '../shortcuts/ToxicityShortcut';
-// Lodash component
+import ShortcutViewer from '../viewer/ShortcutViewer';
+import ShortcutManager from '../shortcuts/ShortcutManager';
 import Lang from 'lodash'
-
-// Styling
 import './SlimApp.css';
 
 class SlimApp extends Component {
     constructor(props) {
         super(props);
+
+        this.shortcuts = [ "progression", "staging", "toxicity" ];
+        this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
             currentShortcut: null
@@ -28,39 +23,20 @@ class SlimApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     changeShortcut = (shortcutType) => {
-        if (Lang.isNull(shortcutType)) {
-            this.setState({
-                currentShortcut: null
-            });
-        } else {
-            switch (shortcutType.toLowerCase()) {
-                case "progression":
-                    this.setState({
-                        currentShortcut: new ProgressionShortcut(this.handleShortcutUpdate)
-                    });
-                    break;
-
-                case "toxicity":
-                    this.setState({
-                        currentShortcut: new ToxicityShortcut(this.handleShortcutUpdate)
-                    });
-                    break;
-
-                default:
-                    console.error(`Error: Trying to change shortcut to ${shortcutType.toLowerCase()}, which is an invalid shortcut type`);
-            }
-        }
+        const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate);
+        this.setState({
+            currentShortcut: newShortcut
+        });
     }
 
     /* 
-     * Change the current shortcut to be the new type of shortcut  
+     * When updating the shortcut, make sure to setState with the new value
      */
     handleShortcutUpdate = (s) => {
         (s !== "") && this.setState({currentShortcut: s});
     }
 
     render() {
-
         return (
                 <div className="SlimApp">
                     <NavBar title="Flux Notes Lite"/>

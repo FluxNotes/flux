@@ -1,270 +1,260 @@
-// React imports
 import React, { Component } from 'react';
-// material-ui
+import Autosuggest from 'react-autosuggest';
+import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import Menu from 'material-ui/Menu';
-//import AutoComplete from 'material-ui/AutoComplete';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import Button from 'material-ui/Button';
-import {List, ListItem} from 'material-ui/List';
-// Libraries
 import toxicityLookup from '../lib/toxicity_lookup';
-// Import Lodash libraries
 import Lang from 'lodash'
 import Array from 'lodash'
-// Styling
 import './ToxicityForm.css';
 
 class ToxicityForm extends Component {
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
+  
+        this.state = {
+            gradeOptions: toxicityLookup.getGradeOptions(),
+            adverseEventOptions: toxicityLookup.getAdverseEventOptions(),
+            suggestions: [],
+            searchText: '',
+        }; 
+    }
 
-      this.state = {
-        gradeOptions: toxicityLookup.getGradeOptions(),
-        adverseEventOptions: toxicityLookup.getAdverseEventOptions(),
-        // This defines how the autocomplete component indexes the list of adverse events
-        dataSourceConfig: {
-          text: 'name',
-          value: 'name',
-        },
-        searchText: '',
-        potentialToxicity: null
-      };
-  }
+    /* 
+     * Update potential toxicity value
+     */
+    updatePotentialToxicity = (newToxicity) => { 
+        this.props.onToxicityUpdate(newToxicity);
+    }
 
-  /* 
-   * Update potential toxicity value
-   */
-  updatePotentialToxicity = (newToxicity) => { 
-    this.setState({ 
-      potentialToxicity: newToxicity
-    })
-  }
+    /* 
+     * Reset potential toxicity 
+     */
+    resetPotentialToxicity = () => { 
+        this.setState({
+            searchText: ""
+        })
+    }
 
-  /* 
-   * Reset potential toxicity 
-   */
-  resetPotentialToxicity = () => { 
-    this.setState({
-      potentialToxicity: null,
-      searchText: ""
-    })
-  }
+    /* 
+     * Changes the potential toxicity to the provided value
+     */
+    changePotentialToxicity = ({newValue}) => { 
+        this.setState({ 
+            searchText: newValue
+        });
+    }
 
-  /* 
-   * Add potential toxicity to parent's list of toxicities 
-   */
-  addToxicity = () => {
-    const oldToxicities = Lang.clone(this.props.toxicity);
-    // Only add potentialToxicity if value is non-null
-    if(!Lang.isNull(this.state.potentialToxicity)) {
-      if (!Lang.isUndefined(this.state.potentialToxicity.grade) && !Lang.isUndefined(this.state.potentialToxicity.adverseEvent)) {
-        // Only add the element if it's a new Tox
-        if (Array.findIndex(oldToxicities, this.state.potentialToxicity) === -1) { 
-          oldToxicities.push(Lang.clone(this.state.potentialToxicity))
-          this.props.onToxicityUpdate(oldToxicities);
-          this.resetPotentialToxicity();        
+    /* 
+     * When a valid grade is selected, update potential toxicity 
+     */
+    handleGradeSelecion = (e, grade, isSelected) => {
+        e.preventDefault();
+        if (isSelected) { 
+            const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity}; 
+            delete newToxicity.grade;
+            this.updatePotentialToxicity(newToxicity);
+        } else { 
+            const newGrade = grade; 
+            const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity}; 
+            newToxicity["grade"] = newGrade;
+            this.updatePotentialToxicity(newToxicity);
         }
-      }
-    } 
-  }
-
-  /* 
-   * Remove most recent tox from parent's list of toxicities 
-   */
-  removeCurrentToxicity = () => {
-    const oldToxicities = Lang.clone(this.props.toxicity);
-    // Only remove last value if oldToxicities is non-empty
-    if(!Lang.isEmpty(oldToxicities)) {
-      if(Array.findIndex(oldToxicities, this.state.potentialToxicity) !== -1) { 
-        Array.remove(oldToxicities, this.state.potentialToxicity);
-        this.props.onToxicityUpdate(oldToxicities);        
-        this.resetPotentialToxicity();        
-      }
-    } 
-  }
-
-  /* 
-   * Changes the potential toxicity to the provided value
-   */
-  changePotentialToxicity = (newPotentialToxicity) => { 
-    this.setState({ 
-      potentialToxicity: newPotentialToxicity,
-      searchText: newPotentialToxicity.adverseEvent
-    });
-  }
-
-  /* 
-   * When a valid grade is selected, update potential toxicity 
-   */
-  handleGradeSelecion = (e, i, payload) => {
-    e.preventDefault();
-    const newGrade = payload; 
-    console.log(`ToxicityForm.handleGradeSelecion Grade #${i} ${newGrade}`);
-    let newToxicity;
-    if(Lang.isNull(this.state.potentialToxicity)) { 
-      newToxicity = {};
-    } else { 
-      newToxicity = { ...this.state.potentialToxicity}; 
     }
-    newToxicity["grade"] = newGrade;
-    this.updatePotentialToxicity(newToxicity);
-  }
-
-  /* 
-   * When a valid adverse event is selected, update potential toxicity 
-   */
-  handleAdverseEventSelection = (newAdverseEvent) => {
-    console.log(`ToxicityForm.handleAdverseEventSelecion AdverseEvent ${newAdverseEvent}`);
-    let newToxicity 
-    if(Lang.isNull(this.state.potentialToxicity)) { 
-      newToxicity = {};
-    } else { 
-      newToxicity = { ...this.state.potentialToxicity}; 
+  
+    /* 
+     * When a valid adverse event is selected, update potential toxicity 
+     */
+    handleAdverseEventSelection = (newAdverseEvent) => {
+        const newToxicity = (Lang.isNull(this.props.toxicity)) ? {} : { ...this.props.toxicity};
+        // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
+        if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)){ 
+            delete newToxicity.adverseEvent;
+        } else { 
+            newToxicity["adverseEvent"] = titlecase(newAdverseEvent);
+            // Make sure grade is possible with given new tox
+        }
+        const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(newToxicity.grade, newAdverseEvent)) ? newToxicity.grade : null;
+        if(Lang.isNull(potentialGrade)) { 
+            delete newToxicity.grade;
+        }
+        this.updatePotentialToxicity(newToxicity);
     }
-    // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
-    if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)){ 
-      delete newToxicity.adverseEvent;
-    } else { 
-      newToxicity["adverseEvent"] = newAdverseEvent;
-      // Make sure grade is possible with given new tox
+
+    /* 
+     * When new text is available for AE selection, update search text 
+     *  and also update potential toxicity when valid
+     */
+    handleUpdateAdverseEventInput = (e, {newValue}) => {
+        this.setState({
+            searchText: newValue,
+        });
+        if(toxicityLookup.isValidAdverseEvent(newValue)) { 
+            this.handleAdverseEventSelection(newValue)
+        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.adverseEvent)) { 
+            this.handleAdverseEventSelection(null)
+        }
     }
-    const potentialGrade = (toxicityLookup.isValidGradeForAdverseEvent(newToxicity.grade, newAdverseEvent)) ? newToxicity.grade : null;
-    if(Lang.isNull(potentialGrade)) { 
-      delete newToxicity.grade;
+
+    /* 
+     * Render the adverse event  item for the adverse event suggestion
+     */    
+    getSuggestions = (searchText) => {
+        const inputValue = searchText.trim().toLowerCase();
+        const inputLength = inputValue.length;
+
+        return inputLength === 0  ? [] : this.state.adverseEventOptions.filter((event) => {
+            const name = (Lang.isEmpty(event.name)) ? "" : event.name;
+            const description = (Lang.isEmpty(event.description)) ? "" : event.description;
+            return (name.toLowerCase().indexOf(inputValue) >= 0 || description.toLowerCase().indexOf(inputValue) >= 0)
+        }).slice(0,7);
+    };
+
+    /* 
+     * When suggestion is clicked, Autosuggest needs to populate the input
+     * based on the clicked suggestion. Teach Autosuggest how to calculate the
+     * input value for every given suggestion.
+     */
+    getSuggestionValue = (suggestion) => {
+        return suggestion.name
+    };
+
+    /* 
+     * Autosuggest will call this function every time you need to update suggestions.
+     * You already implemented this logic above, so just use it.
+     */
+    onSuggestionsFetchRequested = ({ value }) => {
+      this.setState({
+        suggestions: this.getSuggestions(value)
+      });
+    };
+
+    /* 
+     * Autosuggest will call this function every time you need to clear suggestions.
+     */
+    onSuggestionsClearRequested = () => {
+      this.setState({
+        suggestions: []
+      });
+    };
+
+    /* 
+     * Render the adverse event  item for the adverse event suggestion
+     */
+    renderSuggestion = (suggestion) => {
+        return (
+            <Row className="adverse-event-suggestion">
+                <Col xs={3} className="adverse-event-suggestion-name">
+                    {suggestion.name}
+                </Col>
+                <Col xs={9} className="adverse-event-suggestion-description"> 
+                    {suggestion.description}
+                </Col> 
+            </Row>
+        );
     }
-    this.updatePotentialToxicity(newToxicity);
-  }
 
-  /* 
-   * When new text is available for AE selection, update search text 
-   *  and also update potential toxicity when valid
-   */
-  handleUpdateAdverseEventInput = (searchText) => {
-    this.setState({
-      searchText: searchText,
-    });
-    if(toxicityLookup.isValidAdverseEvent(searchText)) { 
-      this.handleAdverseEventSelection(searchText)
-    } else if (!toxicityLookup.isValidAdverseEvent(searchText) && toxicityLookup.isValidAdverseEvent(this.state.potentialToxicity.adverseEvent)) { 
-      this.handleAdverseEventSelection(null)
-    }
-  }
+    /* 
+     * Render the grade menu item for the given grade object, 
+     *  Update grade description if there is a current adverse event 
+     */
+    renderGradeMenuItem = (grade, adverseEventName) => { 
+        const currentGradeLevel = grade.name;
+        const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-  /* 
-   * Render the grade menu item for the given grade object, 
-   *  Update grade description if there is a current adverse event 
-   */
-  renderGradeMenuItem = (grade, adverseEventName) => { 
-    const currentGradeLevel = grade.name;
-    let gradeDescription = "";
-    if(Lang.isUndefined(adverseEventName)) { 
-      gradeDescription = grade.description;
-    } else { 
-      let adverseEventNameLowerCase = adverseEventName.toLowerCase();
-      let adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { elem.name = elem.name.toLowerCase(); return elem; });
-      const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
-      gradeDescription = currentAdverseEvent[currentGradeLevel];
-    }
-    const gradeText=`${currentGradeLevel} - ${gradeDescription}`
+        const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.grade) && this.props.toxicity.grade === grade.name
+        let gradeMenuClass = "grade-menu-item";
+        if (isDisabled) { 
+            gradeMenuClass += " disabled"
+        } else if (isSelected) { 
+            gradeMenuClass += " selected"
+        }
+        let gradeDescription = "";
 
-    return (
-      <MenuItem 
-        key={grade.name} 
-        value={grade.name} 
-        primaryText={gradeText} 
-      />
-    ) 
-  }
-
-  render() {
-    let potentialToxicity = Lang.isNull(this.state.potentialToxicity) ? {} : this.state.potentialToxicity;
-    const potentialGrade = toxicityLookup.isValidGradeForAdverseEvent(potentialToxicity.grade, potentialToxicity.adverseEvent) ? potentialToxicity.grade : null;
-    
-    const cannotAddCurrent = Lang.isEmpty(potentialToxicity)                                  // Cannot add if there is no elem
-                          || Lang.isUndefined(potentialToxicity.grade)                        // Cannot add if there's not a grade
-                          || Lang.isUndefined(potentialToxicity.adverseEvent)                 // Cannot add if there's not an adverse event
-                          || Array.findIndex(this.props.toxicity, potentialToxicity) !== -1;  // Cannot add if it's a duplicate
-
-    const cannotRemove = Lang.isEmpty(potentialToxicity)                                      // Cannot remove if there's nothing to remove
-                      || (Array.findIndex(this.props.toxicity, potentialToxicity) === -1)     // Cannot remove if it cannot be found 
-    return (
-        <div>
-            <h1>Toxicity</h1>
-            <p id="data-element-description">
-              {toxicityLookup.getDescription("toxicity")}
-            </p>
-            <Divider className="divider" />
-
-            <h4>Adverse Event</h4>
-            <p id="data-element-description">
-              {toxicityLookup.getDescription("adverseEvent")}
-            </p>
-
-            <h4>Grade</h4>
-            <p id="data-element-description">
-              {toxicityLookup.getDescription("grade")}
-            </p>
-            <Menu
-              hintText="Grade"
-              // Value should be potential grade, assuming it's valid
-              value={potentialGrade}
-              onChange={this.handleGradeSelecion}
-              fullWidth={true}
-              // style={{height:"50px"}}
+        if (Lang.isUndefined(adverseEventName)) { 
+            gradeDescription = grade.description;
+        } else if (isDisabled) { 
+            gradeDescription = "";
+        } else { 
+            const adverseEventNameLowerCase = adverseEventName.toLowerCase();
+            const adverseEventOptionsLowerCase = this.state.adverseEventOptions.map(function(elem) { const elemCopy = Lang.clone(elem); elemCopy.name = elemCopy.name.toLowerCase(); return elemCopy; });
+            const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
+            gradeDescription = currentAdverseEvent[currentGradeLevel];
+        }        
+        return (
+            <div 
+                className={gradeMenuClass}
+                key={grade.name}
+                // onHover
+                onClick={(e) => {
+                    if (!isDisabled) { 
+                        return this.handleGradeSelecion(e, grade.name, isSelected)
+                    } 
+                }}
             >
-              {this.state.gradeOptions.map((grade, i) => {
-                  if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
-                      return this.renderGradeMenuItem(grade)                      
-                  } else { 
-                      if (toxicityLookup.isValidGradeForAdverseEvent(grade.name, potentialToxicity.adverseEvent)) {
-                        return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
-                      } else {
-                        // return nothing -- don't render this as an option
-                        return null;
-                      }
-                  }
-              })}
-            </Menu>
-
-            <div id="bottom-buttons">
-              <Button raised
-                  className="toxicity-button"
-                  label="Add Current"
-                  disabled={cannotAddCurrent}
-                  onClick={(e) => this.addToxicity(e)}
-              />
-              <Button raised
-                  className="toxicity-button"
-                  label="Remove Current"
-                  disabled={cannotRemove}
-                  onClick={(e) => this.removeCurrentToxicity(e)}
-              />
+                <div className="grade-menu-item-name">
+                    {currentGradeLevel}
+                </div>
+                <div className="grade-menu-item-description"> 
+                    {gradeDescription}
+                </div> 
             </div>
-            <Divider/>
-            <h4>Current Toxicities</h4>
-            <List>
-              {this.props.toxicity.map((toxElem, i) => { 
-                return(
-                    <ListItem 
-                      primaryText={this.props.getToxAsString(toxElem)} 
-                      key={i}
-                      onTouchTap={ (e) => {
-                        this.changePotentialToxicity(toxElem)
-                      }}/>
-                  )
-              })}
-            </List>
-        </div>
-    );
-  }
+        ) 
+    }
+  
+    render() {
+        let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};        
+        const inputProps = {
+          placeholder: 'Search through adverse events',
+          value: this.state.searchText,
+          onChange: this.handleUpdateAdverseEventInput
+        };
+
+        return (
+            <div>
+                <h1>Toxicity</h1>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("toxicity")}
+                </p>
+                <Divider className="divider" />
+    
+                <h4>Adverse Event</h4>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("adverseEvent")}
+                </p>
+
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                />
+    
+                <h4>Grade</h4>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("grade")}
+                </p>
+                <div id="grade-menu">
+                    {this.state.gradeOptions.map((grade, i) => {
+                        if(Lang.isUndefined(potentialToxicity.adverseEvent)) { 
+                            return this.renderGradeMenuItem(grade)                      
+                        } else { 
+                            return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
+                        }
+                    })}
+                </div>
+            </div>
+        );
+    }
 }
 
 export default ToxicityForm;
 
-/*
+
 function titlecase(label) {
   return label.toLowerCase().split(' ').map(function(word) {
     return word.replace(word[0], word[0].toUpperCase());
   }).join(' ');
-}*/
+}
