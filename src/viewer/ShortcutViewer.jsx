@@ -1,14 +1,7 @@
-// React imports
 import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-
-// material-ui
 import RaisedButton from 'material-ui/RaisedButton';
-
-// Lodash component
 import Lang from 'lodash'
-
-// Styling
 import './ShortcutViewer.css';
 
 class ShortcutViewer extends Component {

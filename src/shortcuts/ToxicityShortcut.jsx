@@ -1,9 +1,6 @@
-// React Imports:
 import React from 'react';
-// Our components
 import Shortcut from './Shortcut';
 import ToxicityForm from '../forms/ToxicityForm';
-// Import Lodash libraries
 import Lang from 'lodash'
 
 class ToxicityShortcut extends Shortcut {
@@ -15,7 +12,6 @@ class ToxicityShortcut extends Shortcut {
         }
         this.toxicity = toxicity;
         this.onUpdate = onUpdate;
-        console.log(`constructor for a new Toxicity object`)
     }
     
     /*
@@ -109,11 +105,8 @@ class ToxicityShortcut extends Shortcut {
     getForm() {
         return (
             <ToxicityForm
-                // Update functions
                 onToxicityUpdate={this.handleToxicityUpdate}
-                // Properties
                 toxicity={this.toxicity}
-                // Utilities
                 getToxAsString={this.getToxAsString}
             />
         );      
