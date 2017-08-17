@@ -154,3 +154,7 @@
 .react-autosuggest__suggestion--highlighted {
     background-color: rgba(0,0,0,0.08);
 }
+
+.helper-text {
+    color: #b1b1b1;
+}

@@ -24,30 +24,34 @@ class ShortcutViewer extends Component {
     _getCopyComponent(string) {
         return (
             <CopyToClipboard text={string}>
-                <RaisedButton
-                    className="btn_copy"
-                    labelStyle={{
-                        textTransform: "none",
-                    }}
-                    buttonStyle={{
-                        textAlign: "left",
-                        height: "45px",
-                    }}
-                    overlayStyle={{
-                        padding: "5px 0 4px 0"
-                    }}
-                    style={{
-                        minWidth: "99.8%"
-                    }}
-                    fullWidth={true}
-                >
-                    <div id="copy-keyword">
-                        Copy
-                    </div>
-                    <div id="copy-content">
-                        {string}
-                    </div>
-                </RaisedButton>
+                <div>
+
+                    <RaisedButton
+                        className="btn_copy"
+                        labelStyle={{
+                            textTransform: "none",
+                        }}
+                        buttonStyle={{
+                            textAlign: "left",
+                            height: "45px",
+                        }}
+                        overlayStyle={{
+                            padding: "5px 0 4px 0"
+                        }}
+                        style={{
+                            minWidth: "99.8%"
+                        }}
+                        fullWidth={true}
+                    >
+                        <div id="copy-keyword">
+                            Copy
+                        </div>
+                        <div id="copy-content">
+                            {string}
+                        </div>
+                    </RaisedButton>
+                    <span className="helper-text">Click copy button to copy string</span>
+                </div>
             </CopyToClipboard>
         );
     }

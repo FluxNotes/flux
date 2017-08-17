@@ -204,7 +204,7 @@ class ToxicityForm extends Component {
     render() {
         let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};        
         const inputProps = {
-          placeholder: 'Search through adverse events',
+          placeholder: 'Enter symptom',
           value: this.state.searchText,
           onChange: this.handleUpdateAdverseEventInput
         };
@@ -235,6 +235,7 @@ class ToxicityForm extends Component {
                 <h4>Grade</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
+                    <span className="helper-text"> Choose one</span>
                 </p>
                 <div id="grade-menu">
                     {this.state.gradeOptions.map((grade, i) => {

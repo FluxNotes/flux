@@ -123,6 +123,7 @@ class ProgressionForm extends Component {
                 <h4>Status of progression</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
+                    <span className="helper-text"> Choose one</span>
                 </p>
 
                 <div className="btn-group-status-progression">
@@ -161,6 +162,7 @@ class ProgressionForm extends Component {
                 <h4>Rationale for status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
+                    <span className="helper-text"> Choose one or more</span>
                 </p>
 
                 <div className="btn-group-reason-progression">
