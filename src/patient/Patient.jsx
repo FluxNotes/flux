@@ -741,6 +741,14 @@ class Patient {
             progression.value.coding.codeSystem = status_code.codesystem;
         }
 	}
+    
+    static updateReasonsForProgression(progression, reasons) {
+        let reasonObjects = [];
+        reasons.forEach((reason) => {
+            reasonObjects.push({coding: this._progressionReasonToCodeableConcept(reason)});
+        });
+        progression.evidence = reasonObjects;
+    }
 
     static _progressionStatusToCodeableConcept(status) {
         if (status === 'Complete Response') return { value: "C0677874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Response"};
@@ -755,7 +763,7 @@ class Patient {
         if (reason === "Pathology") return { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Pathology"};
         if (reason === "Imaging") return { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Imaging"};
         if (reason === "Symptoms") return { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Symptoms"};
-        if (reason === "Physical exam") return { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "physical examination"};
+        if (reason === "Physical exam") return { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Physical exam"};
         if (reason === "Markers") return { value: "C0005516", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Markers"};
         return { value: "", codeSystem: "", displayText: ""}
    }

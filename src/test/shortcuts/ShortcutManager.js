@@ -13,6 +13,7 @@ import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
+import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 
 function addTriggerForKey(trigger) {
     this.shortcutMap[trigger] = this.shortcuts[this.currentShortcut];
@@ -22,6 +23,7 @@ class ShortcutManager {
 	shortcuts = {
 		'#progression': ProgressionCreator,
         '#progression-status': ProgressionStatusCreator,
+        '#progression-reasons': ProgressionReasonsCreator,
 		'#staging': StagingCreator,
 		'#toxicity': ToxicityCreator,
 		'@condition': ConditionInserter,

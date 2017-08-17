@@ -17,7 +17,7 @@ export default class ContextOptions extends Component {
 		let validShortcuts = context.getValidChildShortcuts();
         let triggers = [];
         validShortcuts.forEach((shortcut, i) => {
-            shortcut.getTriggers().forEach((trigger, j) => {
+            shortcut.getTriggers(context).forEach((trigger, j) => {
                 triggers.push(trigger);
             });
         });

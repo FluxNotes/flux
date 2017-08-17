@@ -3,10 +3,11 @@ import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import ProgressionForm from '../../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
+import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import Patient from '../../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
-//import progressionLookup from '../../lib/progression_lookup';
+import progressionLookup from '../../lib/progression_lookup';
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -167,8 +168,8 @@ class ProgressionCreator extends CreatorShortcut {
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
-		//if (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length) result.push(ProgressionEvidenceCreator);
-		return result; //[ ProgressionStatusCreator, ProgressionEvidenceCreator ];
+		if (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
+		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator ];
 	}
 	
 	isContext() {

@@ -9,8 +9,9 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
+        let statusString = trigger.substring(1).replace("-", " ");
 		this.parentContext = contextManager.getActiveContextOfType("#progression");
-		this.parentContext.setAttributeValue("status", trigger.substring(1), false);
+		this.parentContext.setAttributeValue("status", statusString, false);
         this.parentContext.addChild(this);
 	}
 	
@@ -35,6 +36,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#progression")) {
 			errors.push("Progression Status values invalid without #progression. Use #progression to add a new progression to your narrative.");
+            return errors;
 		}
 		let parentContext = contextManager.getActiveContextOfType("#progression");
 		if (parentContext.getAttributeValue("status").length > 0) {
