@@ -1,0 +1,8 @@
+.btn_template_ctx {
+//    display: inline-block !important;
+//  float: left;
+//  clear: left;
+    flex-basis: 0;
+  margin-bottom: 20px;
+//  width: 150px;
+}
