@@ -18,7 +18,7 @@ export default class ConditionInserter extends InserterShortcut {
 	determineText(contextManager) {
 		return contextManager.getPatient().getConditions();
 	}
-	
+    
 	static getTriggers() {
 		return [ "@condition" ];
 	}

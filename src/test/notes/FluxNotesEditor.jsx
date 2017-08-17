@@ -2,24 +2,18 @@ import React from 'react';
 import Slate from 'slate';
 import Lang from 'lodash';
 import ContextPortal from '../context/ContextPortal';
-//import ContextManager from '../context/ContextManager';
-
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
 // forces a version less than 0.20.3.
+// This issue should no longer affect us in our current approach. consider allowing newer version of Slate
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
-// Material UI component imports
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from './../../lib/slate-suggestions-dist'
-
 import StructuredFieldPlugin from './StructuredFieldPlugin';
-
-// Styling
 import './FluxNotesEditor.css';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
@@ -64,9 +58,6 @@ class FluxNotesEditor extends React.Component {
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
-/*            updateEditorState: this.onEditorUpdate,
-            updateCurrentShortcutValues: this.onCurrentShortcutValuesUpdate,
-            changeCurrentShortcut: props.changeCurrentShortcut*/
             contextManager: this.contextManager
         };
         structuredFieldTypes.forEach((type) => {
@@ -102,12 +93,9 @@ class FluxNotesEditor extends React.Component {
 		let autoReplaceAfters = [];
 		let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
 		allShortcuts.forEach((shortcutC) => {
-			//let shortcut = new shortcutC();
-			//console.log(shortcutC);
 			autoReplaceAfters = autoReplaceAfters.concat(shortcutC.getTriggers());			
 		});
 		this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
-		//console.log(this.autoReplaceBeforeRegExp);
 		
 		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
 		this.plugins.push(AutoReplace({
@@ -139,22 +127,12 @@ class FluxNotesEditor extends React.Component {
 	
 	choseSuggestedShortcut(suggestion) {
 		const { state } = this.state; 
-		const { anchorText, anchorOffset } = state
-		const text = anchorText.text
         let shortcut = this.props.newCurrentShortcut(suggestion.value);
 		
 		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
 			return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
 		} else {
-			//TODO: consider replacing most of code below with call to function suggestionDeleteExistingTransform
-			let index = { start: anchorOffset - 1, end: anchorOffset }
-
-			if (text[anchorOffset - 1] !== shortcut.getPrefixCharacter()) {
-				index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, shortcut.getPrefixCharacter())
-			}
-				
-			const newText = `${text.substring(0, index.start)}`
-			let transformBeforeInsert = state.transform().deleteBackward(anchorOffset).insertText(newText);
+            let transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
 			let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
 			return transformAfterInsert.apply();
 		}
@@ -174,7 +152,6 @@ class FluxNotesEditor extends React.Component {
 	
 	autoReplaceTransform(transform, e, data, matches) {
 		// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-		console.log("in autoreplace transform. matches: " + matches.before[0]);
 		this.insertShortcut(matches.before[0], transform);
 	}
 	
@@ -196,11 +173,8 @@ class FluxNotesEditor extends React.Component {
 	// called from portal when an item is selected (context is not null) or if portal is closed without
 	// selection (context is null)
 	onPortalSelection = (state, context) => {
-		//console.log("onPortalSelection for context portal. context is null: " + (Lang.isNull(context)));
 		this.setState({ isPortalOpen: false });
 		if (Lang.isNull(context)) return state;
-		//console.log("onPortalSelection for context portal " + context.context + " needToDelete some text first=" + this.state.needToDelete);
-		//this.contextManager.addContext(context.object);
 		let shortcut = this.selectingForShortcut;
 		this.selectingForShortcut = null;
 		shortcut.clearValueSelectionOptions();
@@ -211,16 +185,15 @@ class FluxNotesEditor extends React.Component {
 		this.contextManager.contextUpdated();
 		let transform;
 		if (this.state.needToDelete) {
-			transform = this.suggestionDeleteExistingTransform();
+			transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
 		} else {
 			transform = this.state.state.transform();
 		}
 		return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
-		//return transform.insertText(context.context).focus().apply();
 	}
 
 	// consider reusing this method to replace code in choseSuggestedShortcut function
-	suggestionDeleteExistingTransform(transform = null) {
+	suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
 		const { state } = this.state;
 		if (Lang.isNull(transform)) {
 			transform = state.transform();
@@ -230,49 +203,14 @@ class FluxNotesEditor extends React.Component {
 
 		let index = { start: anchorOffset - 1, end: anchorOffset }
 
-		if (text[anchorOffset - 1] !== '@') {
-			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, '@')
+		if (text[anchorOffset - 1] !== prefixCharacter) {
+			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
 		}
 			
 		const newText = `${text.substring(0, index.start)}`
 		return transform
 			.deleteBackward(anchorOffset)
 			.insertText(newText)	
-	}
-
-	handleInserter(needToDelete, valueFunc, transform = null) {
-		let value = valueFunc(this.contextManager); //this.props.patient
-		if (Lang.isArray(value)) {
-			let portalOptions = [];
-			value.forEach((item) => {
-				portalOptions.push({key: item.entryId, context: item.specificType.coding.displayText, object: item});
-			});
-			let pos = position(this.state);
-			
-			let newTransform = transform;
-			if (Lang.isNull(transform)) {
-				newTransform = this.state.state.transform();
-			}
-			this.setState({
-				isPortalOpen: true,
-				portalOptions: portalOptions,
-				needToDelete: needToDelete,
-				left: pos.left,
-				top: pos.top
-			});
-			return newTransform.blur();
-		} else {
-			value = "" + value;
-			if (needToDelete) {
-				return this.suggestionDeleteExistingTransform(transform).insertText(value).focus();
-			} else {
-				let newTransform = transform;
-				if (Lang.isNull(transform)) {
-					newTransform = this.state.state.transform();
-				}
-				return newTransform.insertText(value).focus();
-			}
-		}
 	}
 	
     insertStructuredFieldTransform(transform, shortcut) {
@@ -281,24 +219,14 @@ class FluxNotesEditor extends React.Component {
         return result[0];
     }
 
-	componentDidMount = () => {
-	}
-	
-    componentDidUpdate = (prevProps, prevState) => {
-    }
-
     onChange = (state) => {
-        //console.log("onChange: START");
         this.setState({
             state: state
         });
-        //console.log("onChange: DONE");
     }
-
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
             this.handleSummaryUpdate(nextProps.itemToBeInserted);
         }
@@ -308,7 +236,6 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     handleSummaryUpdate = (itemToBeInserted) => {
-		//console.log("insert: " + itemToBeInserted);
 		let state;
 		const currentState = this.state.state;
 		let transform = currentState.transform();
@@ -317,12 +244,9 @@ class FluxNotesEditor extends React.Component {
 		let remainder = itemToBeInserted;
 		let start, before;
 		while (!Lang.isNull(result)) {
-			//console.log(result[0]);
 			start = remainder.indexOf(result[0]);
 			before = remainder.substring(0, start);
-			//console.log(before);
 			remainder = remainder.substring(start + result[0].length);
-			//console.log(remainder);
 			transform = transform
 				.insertText(before)
 			transform = this.insertShortcut(result[0], transform);
@@ -332,16 +256,6 @@ class FluxNotesEditor extends React.Component {
 			transform = transform.insertText(remainder);
 		}
 		state = transform.focus().apply();
-		
-/*		if (itemToBeInserted.startsWith("@") || itemToBeInserted.startsWith("#")) {
-			state = this.insertShortcut(itemToBeInserted, currentState.transform()).apply();
-		} else {
-			state = currentState
-				.transform()
-				.insertText(itemToBeInserted)
-				.focus()
-				.apply();
-		}*/
 		this.setState({state: state});
 	}
 
@@ -362,9 +276,6 @@ class FluxNotesEditor extends React.Component {
     }
 	
     render = () => {
-        //let {state} = this.state;
-        //let isStructuredField = structuredFieldPlugin.utils.isSelectionInStructuredField(state);
-        // Extract portal component from the plugin 
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
 		const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 
@@ -451,12 +362,10 @@ class FluxNotesEditor extends React.Component {
                 </Paper>
             </div>
         );
-
     }
 }
 
 function getPos(el) {
-    // yay readability
     for (var lx=0, ly=0;
          el != null;
          lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
@@ -474,20 +383,19 @@ function position(state) {
 }
 
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
-  if (index === initialIndex) {
-    return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
-				end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
-  }
-  //console.log("start?" + (index<initialIndex) + " char=" + text[index] + " initial char=" + initialChar);
-  if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
-    return index
-  }
-  if (index < initialIndex) {
-    return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
-  }
-  if (index > initialIndex) {
-    return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
-  }
+    if (index === initialIndex) {
+        return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
+                    end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
+    }
+    if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
+        return index
+    }
+    if (index < initialIndex) {
+        return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
+    }
+    if (index > initialIndex) {
+        return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
+    }
 }
 
 export default FluxNotesEditor;

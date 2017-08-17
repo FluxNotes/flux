@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Lang from 'lodash'
 import Button from 'material-ui/Button';
+import Shortcut from '../shortcuts/Shortcut';
 
 export default class ContextOptions extends Component {
     constructor(props) {
@@ -15,24 +16,23 @@ export default class ContextOptions extends Component {
 			context = this.props.contextManager.getPatientContext();
 		}
 		let validShortcuts = context.getValidChildShortcuts();
-
+        let triggers = [];
+        validShortcuts.forEach((shortcut, i) => {
+            shortcut.getTriggers().forEach((trigger, j) => {
+                triggers.push(trigger);
+            });
+        });
 		return (
-		   <div style={{margin: '20px'}}>
-				{validShortcuts.map((shortcut, i) => {
-					return (
-						<div key={i}>
-							{shortcut.getTriggers().map((trigger, j) => {
-								return (
-									<Button raised className="btn_template"
-										key={trigger}
-										onClick={(e) => this._handleClick(e, trigger)}
-									>{trigger}</Button>
-								);
-							})}
-						</div>
-					);
+            <div style={{margin: '20px'}}>
+                {triggers.map((trigger, i) => {
+                    return (
+                        <Button raised className="btn_template"
+                            key={trigger}
+                            onClick={(e) => this._handleClick(e, trigger)}
+                        >{trigger}</Button>
+                    );
 				})}
-			</div>
+            </div>
 		);
 	}
 
