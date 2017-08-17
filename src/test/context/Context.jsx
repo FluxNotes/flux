@@ -19,7 +19,6 @@ export default class Context {
                 indexToDelete = i;
             }
         });
-        console.log("delete item " + indexToDelete);
         this.children.splice(indexToDelete, 1);
     }
     
@@ -55,14 +54,10 @@ export default class Context {
 		l.push(handleValueChange);
 	}	
 	notifyValueChangeHandlers(name) {
-		console.log("notifyValueChangeHandlers START");
 		let l = this.valueChangeHandlers[name];
-		console.log("# of value handlers for " + name + ": " + l.length);
 		l.forEach((h) => {
-			console.log("call handler for value change for " + name);
 			h(this.getAttributeValue(name));
 		});
-		console.log("notifyValueChangeHandlers DONE");
 	}
 	
 	isContext() {
