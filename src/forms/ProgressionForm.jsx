@@ -63,7 +63,6 @@ class ProgressionForm extends Component {
                 console.warn(`Warning: Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
             }
         }
-
     }
 
     renderReasonButtonGroup = (reason, i) => {

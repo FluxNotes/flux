@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// Styling
 import './LandingPageForm.css';
 
 class LandingPageForm extends Component {
@@ -16,8 +15,9 @@ class LandingPageForm extends Component {
                     multiple clinical care sites.
                 </p>
                 <p>
-                    This application provides an easy mechanism for clinicians to  generate progression and toxicity
-                    information via an interface and allow them to copy the resulting structured shorthand phrase and paste it
+                    This application provides an easy mechanism for clinicians to generate progression and toxicity
+                    information via an interface and allow them to copy the resulting structured shorthand phrase and
+                    paste it
                     into their EHR notes entry.
                 </p>
                 <p>
@@ -28,7 +28,6 @@ class LandingPageForm extends Component {
                     This application leverages the SHR (Standard Health Record) format for capturing data. For more
                     information about the SHR, please go to the <a href="https://shr.mitre.org/#home">website</a>
                 </p>
-
 
                 <h4>Using Flux Notes Lite</h4>
                 <ol>
