@@ -36,6 +36,7 @@ export default class StagingNCreator extends CreatorShortcut {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#staging")) {
 			errors.push("Staging N values invalid without #staging. Use #staging to add a new staging to your narrative.");
+            return errors;
 		}
 		let parentContext = contextManager.getActiveContextOfType("#staging");
 		if (parentContext.getAttributeValue("N").length > 0) {

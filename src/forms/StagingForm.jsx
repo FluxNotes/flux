@@ -1,13 +1,8 @@
-// React imports
 import React, { Component } from 'react';
-// material-ui
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-// Libraries
-
 import staging from '../lib/staging';
 import stagingLookup from '../lib/staging_lookup';
-// Styling
 import './StagingForm.css';
 
 class StagingForm extends Component {
@@ -28,26 +23,22 @@ class StagingForm extends Component {
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.tumorValues[i].name
-    console.log("StagingForm._handleTumorSizeClick new value=" + newValue);
     this.props.updateValue("T", newValue);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.nodeValues[i].name;
-    console.log("StagingForm._handleNodeClick new value=" + newValue);
     this.props.updateValue("N", newValue);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.metastasisValues[i].name;
-    console.log("StagingForm._handleMetastasisClick new value=" + newValue);
     this.props.updateValue("M", newValue);
   }
 
   render() {
-    // console.log("in render. of Staging form")
     return (
        <div>
             <h1>TNM Staging</h1>
@@ -127,7 +118,6 @@ class StagingForm extends Component {
 }
 
 export default StagingForm;
-
 
 function titlecase(label) {
   return label.toLowerCase().split(' ').map(function(word) {

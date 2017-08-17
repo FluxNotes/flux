@@ -446,14 +446,32 @@ class Patient {
 
 	constructor() {
 		this.patient = this.hardCodedPatient;
+        this.personOfRecord = this.getPersonOfRecord();
+        this.shrId = this.personOfRecord.shrId;
+        this.nextEntryId = Math.max.apply(Math, this.patient.map(function(o) { return o.entryId; })) + 1;
+        this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
+                                        "shrId": this.shrId,
+                                        "entryId": this.personOfRecord.entryId };
+    }
+    
+    addEntryToPatientWithPatientFocalSubject(entry) {
+        entry.shrId = this.shrId;
+        entry.entryId = this.nextEntryId;
+        this.nextEntryId = this.nextEntryId + 1;
+        entry.focalSubject = this.patientFocalSubject;
+        let today = new moment().format("D MMM YYYY");
+        entry.originalCreationDate = today;
+        entry.lastUpdateDate = today;
+        this.patient.push(entry);
+    }
+    
+    static createEntryReferenceTo(entry) {
+        return { "entryType": entry.entryType[0], "shrId": entry.shrId, "entryId": entry.entryId };
     }
 	
 	getName() {
-		//console.log("*** START getName");
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		//console.log("PersonOfRecord = " + personOfRecord);
-		//console.log("*** DONE getName");
 		return personOfRecord.value.value;
 	}
 	
@@ -506,13 +524,11 @@ class Patient {
 	
 	getConditions() {
 		let result = this.getEntriesIncludingType("http://standardhealthrecord.org/condition/Condition");
-		//console.log("# conditions = " + result.length);
 		return result;
 	}
 	
 	getLastBreastCancerCondition() {
 		let result = this.getEntriesOfType("http://standardhealthrecord.org/oncology/BreastCancer");
-		console.log(result);
 		return result[result.length - 1];
 	}
 	
@@ -609,9 +625,7 @@ class Patient {
 	}
 	
 	getFocalConditionForProgression(progression) {
-		//console.log("focalCondition id = " + progression.focalCondition.entryId);
 		let result = this.patient.filter((item) => { return item.entryType.some((t) => { return t === "http://standardhealthrecord.org/condition/Condition"; }) && item.entryId === progression.focalCondition.entryId});
-		//console.log(result[0]);
 		return result[0];
 	}
 	
@@ -628,17 +642,7 @@ class Patient {
 			return p;
 		}
     }
-/*
-	getEvents() {
-	//        const timelineEvents = this.state.keyDates.concat(this.state.progression).sort(this._timeSorter);
-		let result = [];
-		result.push()
-		
-		// TODO
-		//return result.sort(this._timeSorter);
-		return result;
-	}
-	*/
+
 	_medsTimeSorter(a, b) {
 		const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
 		const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
@@ -686,52 +690,96 @@ class Patient {
 	
 	getMostRecentEntryOfType(type) {
 		let list = this.getEntriesOfType(type);
-		//console.log(list);
 		return this.getMostRecentEntryFromList(list);
 	}
 	
 	getMostRecentEntryFromList(list) {
 		if (list.length === 0) return null;
 		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o.lastUpdateDate);}));
-		//console.log("maxDate = " + new Date(maxDate));
-		//console.log("1st record date = " + new Date(list[0].lastUpdateDate));
 		let result = list.filter((item) => { return new Date(item.lastUpdateDate).getTime() === new Date(maxDate).getTime() });
 		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) return null;
-		//console.log("getMostRecentEntryFromList = " + result[0]);
 		return result[0];
 	}
-/*
-{
-	entryType:	[	"http://standardhealthrecord.org/oncology/TNMStage",
-					"http://standardhealthrecord.org/observation/Observation",
-					"http://standardhealthrecord.org/base/Action" ],
-	value: {coding: { value: "52774001", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "IIA"}},
-	specificType: {coding: {value: "21908-9", codeSystem: "http://loinc.org", displayText: "Stage"}},
-	status: "final",
-	tStage: {coding: { value: "369900003", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "T2"}},
-	nStage: {coding: { value: "433441000124106", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "N0"}},
-	mStage: {coding: { value: "433411000124107", codeSystem: "urn:oid:2.16.840.1.113883.6.96", displayText: "M0"}}
-}
- */	
+
+    // Progression
+    static createNewProgression(status, reasons) {
+        /* leaves out shrId, entryId, focalSubject, and focalCondition. Should be filled out if added to a patient */
+        const today = new moment().format("D MMM YYYY");
+        let statusCoding, reasonCodings = [];
+        if (Lang.isUndefined(status) || Lang.isNull(status) || status.length === 0) {
+            statusCoding = { "value": "", "codeSystem": "", "displayText": ""};
+        } else {
+            statusCoding = this._progressionStatusToCodeableConcept(status);
+        }
+        if (!Lang.isUndefined(reasons) && !Lang.isNull(reasons) && reasons.length > 0) {
+            reasons.forEach((reason) => {
+                reasonCodings.push({ coding: this._progressionReasonToCodeableConcept(reason) });
+            });
+        }
+        return {
+			"entryType":	[	"http://standardhealthrecord.org/oncology/Progression",
+							"http://standardhealthrecord.org/assessment/Assessment" ],			
+			"value": { "coding": statusCoding },
+			"clinicallyRelevantTime": today,
+			"evidence": reasonCodings,
+			"assessmentType": { "coding": { "value": "#progression"}},
+			"status": "unknown",
+			"originalCreationDate": today,
+			"lastUpdateDate": today
+		};
+    }
+    
+	static updateStatusForProgression(progression, status) {		
+		const status_code = this._progressionStatusToCodeableConcept(status);
+        if (Lang.isNull(status_code)) {
+            progression.value.coding.displayText = "";
+            progression.value.coding.value = "";
+            progression.value.coding.codeSystem = "";
+        } else {
+            progression.value.coding.displayText = status;
+            progression.value.coding.value = status_code.code;
+            progression.value.coding.codeSystem = status_code.codesystem;
+        }
+	}
+
+    static _progressionStatusToCodeableConcept(status) {
+        if (status === 'Complete Response') return { value: "C0677874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Response"};
+        if (status === 'Complete Resection') return { value: "C0015250", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Resection"};
+        if (status === 'Responding') return { value: "C1272745", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Responding"};
+        if (status === 'Stable') return { value: "C0205360", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Stable"};
+        if (status === 'Progressing') return { value: "C1546960", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Progressing"};
+        if (status === 'Inevaluable') return { value: "C3858734", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Inevaluable"};
+        return { value: "", codeSystem: "", displayText: ""}
+    }
+    static _progressionReasonToCodeableConcept(reason) {
+        if (reason === "Pathology") return { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Pathology"};
+        if (reason === "Imaging") return { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Imaging"};
+        if (reason === "Symptoms") return { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Symptoms"};
+        if (reason === "Physical exam") return { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "physical examination"};
+        if (reason === "Markers") return { value: "C0005516", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Markers"};
+        return { value: "", codeSystem: "", displayText: ""}
+   }
+    
+    // Staging
 	static createNewTNMStageObservation(t, n, m) {
 		let tCoding, nCoding, mCoding;
 		let gotAllThree = true;
 		if (Lang.isUndefined(t) || Lang.isNull(t) || t.length === 0) {
-			tCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			tCoding = { "value": "", "codeSystem": "", "displayText": ""};
 			gotAllThree = false;
 		} else {
 			const t_code = this._tToCodeableConcept(t);
 			tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t}
 		}
 		if (Lang.isUndefined(n) || Lang.isNull(n) || n.length === 0) {
-			nCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			nCoding = { "value": "", "codeSystem": "", "displayText": ""};
 			gotAllThree = false;
 		} else {
 			const n_code = this._nToCodeableConcept(n);
 			nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n};
 		}
 		if (Lang.isUndefined(m) || Lang.isNull(m) || m.length === 0) {
-			mCoding = { "value": "", "codeSystem": "", "displayText": ""}
+			mCoding = { "value": "", "codeSystem": "", "displayText": ""};
 			gotAllThree = false;
 		} else {
 			const m_code = this._mToCodeableConcept(m);
@@ -818,27 +866,6 @@ class Patient {
 		stagingObservation.value.coding.codeSystem = "";
 		stagingObservation.value.coding.displayText = "";
 	}
-	/*
-	updateTNMStage(stagingObservation, t, n, m) {
-		const stage = staging.breastCancerPrognosticStage(t, n, m);
-		const stage_code = this._stageToCodeableConcept(stage);
-		if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return;
-		const t_code = this._tToCodeableConcept(t);
-		const n_code = this._nToCodeableConcept(n);
-		const m_code = this._mToCodeableConcept(m);		
-		stagingObservation.value.coding.value = stage_code.code;
-		stagingObservation.value.coding.codeSystem = stage_code.codesystem;
-		stagingObservation.value.coding.displayText = stage;
-		stagingObservation.tStage.coding.displayText = t;
-		stagingObservation.tStage.coding.value = t_code.code;
-		stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
-		stagingObservation.nStage.coding.displayText = n;
-		stagingObservation.nStage.coding.value = n_code.code;
-		stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
-		stagingObservation.mStage.coding.displayText = m;
-		stagingObservation.mStage.coding.value = m_code.code;
-		stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
-	}*/
 	
 	addObservationToCondition(observation, condition) {
 		condition.observation.push(observation);

@@ -22,13 +22,13 @@ class ProgressionForm extends Component {
     handleStatusSelection = (e, i) => {
         e.preventDefault();
         const newStatus = this.state.statusOptions[i].name;
-        const newProgression = {...this.props.progression};
+        this.props.updateValue("status", newStatus);
+/*        const newProgression = {...this.props.progression};
         newProgression["status"] = newStatus;
-        this.props.onProgressionUpdate(newProgression);
+        this.props.onProgressionUpdate(newProgression);*/
     }
 
     handleReasonSelection = (reason, i) => {
-
         // set active button state array
         let newArray = this.state.reasonButtonsActiveState;
         newArray[i] = !this.state.reasonButtonsActiveState[i];
@@ -37,30 +37,32 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.progression.reason.findIndex((r) => r === reason.name);
+        const reasonIndex = this.props.progression.evidence.findIndex((e) => e.coding.displayText === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
-                const newReasons = [...this.props.progression.reason];
+                const newReasons = [...this.props.progression.evidence];
                 newReasons.push(reason.name);
-                const newProgression = {...this.props.progression};
+/*                const newProgression = {...this.props.progression};
                 newProgression["reason"] = newReasons;
-                this.props.onProgressionUpdate(newProgression);
+                this.props.onProgressionUpdate(newProgression);*/
+                this.props.updateValue("reasons", newReasons);
             } else {
                 // Nothing -- the element is already in there
-                console.log(`[WARNING] Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
+                console.warn(`[WARNING] Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
             }
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
 
                 const filteredReasons = this.props.progression.reason.filter((r) => r !== reason.name);
-                const newProgression = {...this.props.progression};
+/*                const newProgression = {...this.props.progression};
                 newProgression["reason"] = filteredReasons;
-                this.props.onProgressionUpdate(newProgression);
+                this.props.onProgressionUpdate(newProgression);*/
+                this.props.updateValue("reasons", filteredReasons);
             } else {
                 // Nothing -- the element is already removed from the array;
-                console.log(`[WARNING] Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
+                console.warn(`[WARNING] Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
             }
         }
 
@@ -148,7 +150,7 @@ class ProgressionForm extends Component {
                                     }}
                                     style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
-                                    disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
+                                    disabled={this.currentlySelected(this.props.progression.value, this.state.statusOptions[i].name)}
                                     disabledBackgroundColor="#297DA2"
                                     disabledLabelColor="#fff"
                                 >{statusName}

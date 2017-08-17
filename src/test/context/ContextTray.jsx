@@ -29,12 +29,10 @@ class ContextTray extends Component {
     }
 
     _insertTemplate(i) {
-        console.log(`Inserting template ${i}`);
 		this.props.onShortcutClicked(this.templates[i].content);
     }
 	
 	_handleShortcutClick(i) {
-        console.log(`Inserting shortcut ${i}`);
 		this.props.onShortcutClicked(i);
 	}
     handleChange(event, value) {
@@ -50,10 +48,7 @@ class ContextTray extends Component {
         return activeContexts;
     }
     componentDidUpdate(prevProps, prevState) {
-        //console.log("ContextTray.componentDidUpdate")
         let activeContexts = this._getActiveContexts();
-        //console.log("now active: " + activeContexts.length);
-        //console.log("was active: " + this.lastActiveContextCount);
         if (this.lastActiveContextCount !== activeContexts.length) {
             this.setState({ value: activeContexts.length+1 });
             this.lastActiveContextCount = activeContexts.length;
@@ -64,7 +59,6 @@ class ContextTray extends Component {
         let panelContent2 = null;
         const { value } = this.state;
 		if (this.props.selectedText != null) {
-			console.log(this.props);
 			panelContent = (
 					<DataCaptureForm
 						// Update functions

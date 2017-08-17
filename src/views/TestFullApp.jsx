@@ -42,13 +42,17 @@ class TestFullApp extends Component {
     updateErrors(errors) {
         this.setState({errors: errors});
     }
+
+    itemInserted = () => {
+        this.setState({SummaryItemToInsert: ''});
+    }
     
     newCurrentShortcut = (shortcutType, obj) => {
 		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
 		const errors = newShortcut.validateInCurrentContext(this.contextManager);
 		if (errors.length > 0) {
 			errors.forEach((error) => {
-				console.log(error);
+				console.error(error);
 			});
 			newShortcut = null;
 		} else {
@@ -59,20 +63,17 @@ class TestFullApp extends Component {
     }
 	
     handleShortcutUpdate = (s) =>{
-        //console.log(`Updated shortcut`);
 		let p = this.state.patient;
 		s.updatePatient(p, this.contextManager);
     }
 
     handleStructuredFieldEntered = (field) => {
-        //console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
-        //console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
@@ -108,10 +109,9 @@ class TestFullApp extends Component {
                             </Col>
                             <Col sm={5}>
                                 <FluxNotesEditor
-                                    // Update functions
                                     onSelectionChange={this.handleSelectionChange}
 									newCurrentShortcut={this.newCurrentShortcut}
-                                    // Properties
+                                    itemInserted={this.itemInserted}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
 									contextManager={this.contextManager}

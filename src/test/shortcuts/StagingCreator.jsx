@@ -93,10 +93,7 @@ class StagingCreator extends CreatorShortcut {
     getForm() {
         return (
             <StagingForm
-                // Update functions
-                //onStagingUpdate={this.handleStagingUpdate}
 				updateValue={this.setAttributeValue}
-                // Properties
                 staging={this.staging}
             />
         );      
@@ -110,7 +107,7 @@ class StagingCreator extends CreatorShortcut {
 		} else if (name === "M") {
 			Patient.updateMForStaging(this.staging, value);
 		} else {
-			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
 		}
 		this.onUpdate(this);
@@ -129,7 +126,7 @@ class StagingCreator extends CreatorShortcut {
 		} else if (name === "stage") {
 			return this.staging.value.coding.displayText;
 		} else {
-			console.log("Error: Unexpected value selected in staging dropdown: " + name);
+			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
 		}
 	}
@@ -141,7 +138,6 @@ class StagingCreator extends CreatorShortcut {
 	 */
 	updatePatient(patient, contextManager) {
 		if (this.staging.value.coding.displayText.length === 0) return; // not complete value
-//		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
 		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
 			patient.addObservationToCondition(this.staging, condition);

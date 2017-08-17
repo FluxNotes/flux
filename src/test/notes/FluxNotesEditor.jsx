@@ -107,7 +107,6 @@ class FluxNotesEditor extends React.Component {
 		
 	suggestionFunction(text) {
 		let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
-		//console.log(shortcuts);
         let suggestionsShortcuts = [];
         shortcuts.forEach((shortcut) => {
 			const triggers = shortcut.getTriggers();
@@ -229,6 +228,7 @@ class FluxNotesEditor extends React.Component {
     componentWillReceiveProps = (nextProps) => {
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
             this.handleSummaryUpdate(nextProps.itemToBeInserted);
+            this.props.itemInserted();
         }
     }
 

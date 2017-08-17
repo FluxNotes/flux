@@ -2,8 +2,11 @@
 import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import ProgressionForm from '../../forms/ProgressionForm';
+import ProgressionStatusCreator from './ProgressionStatusCreator';
+import Patient from '../../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
+//import progressionLookup from '../../lib/progression_lookup';
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -11,18 +14,22 @@ class ProgressionCreator extends CreatorShortcut {
     constructor(onUpdate, progression) {
         super();
         if (Lang.isUndefined(progression)) { 
-            progression = ({
-                id: Math.floor(Math.random() * Date.now()),
-                status: "",
-                reason: [],
-                startDate: moment(new Date())
-            });
+            this.progression = Patient.createNewProgression();
+            this.isProgressionNew = true;
+        } else {
+            this.progression = progression;
+            this.isProgressionNew = false;
         }
-        this.progression = Lang.clone(progression);
+		this.setValueObject(this.progression);
         this.onUpdate = onUpdate;
-        console.log(`constructor for a new Progression shortcut object`)
+		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 	
+    initialize(contextManager, trigger) {
+        super.initialize(contextManager, trigger);
+        this.parentContext = contextManager.getActiveContextOfType("@condition");
+    }
+
     getShortcutType() { 
         return "#progression";
     }
@@ -106,43 +113,69 @@ class ProgressionCreator extends CreatorShortcut {
     getForm() {
         return (
             <ProgressionForm
-                // Update functions
-                onProgressionUpdate={this.handleProgressionUpdate}
-                // Properties
+                updateValue={this.setAttributeValue}
                 progression={this.progression}
             />
         );      
     }
     
-    handleProgressionUpdate = (p) => { 
-        console.log(`Updated progression:`);
-        console.log(p);
-        this.progression.status = p.status;
-        this.progression.reason = p.reason;
-        this.progression.startDate = p.startDate;
-        this.onUpdate(this);
-        //console.log(this.progression);
-
- /*if (p !== "" && this.progression.some(existingProgression => existingProgression.id === p.id)) {
-            console.log("this is an updated event");
-            this.updateProgressionEvent(p.id, p);
-        } else if (p !== "") { 
-            console.log("this is a new progression event");
-            this.addProgressionEvent(p)
-        }*/
-    }
-
-	getAttributeValue(name) {
-	}
 	setAttributeValue(name, value, publishChanges) {
+		if (name === "status") {
+			Patient.updateStatusForProgression(this.progression, value);
+		} else if (name === "reasons") {
+			Patient.updateReasonsForProgression(this.progression, value);
+		} else {
+			console.error("Error: Unexpected value selected for progression: " + name);
+			return;
+		}
+		this.onUpdate(this);
+		if (publishChanges) {
+			this.notifyValueChangeHandlers(name);
+		}
+	}
+	getAttributeValue(name) {
+		if (name === "status") {
+			return this.progression.value.coding.displayText;
+		} else if (name === "reasons") {
+            return this.progression.evidence.map((e) => {
+                return e.coding.displayText;
+            });
+		} else {
+			console.error("Error: Unexpected value selected in staging dropdown: " + name);
+			return null;
+		}
 	}
 	
+	updatePatient(patient, contextManager) {
+		if (this.progression.value.coding.displayText.length === 0) return; // not complete value
+		let condition = this.parentContext.getValueObject();
+		if (this.isProgressionNew) {
+            this.progression.focalCondition = Patient.createEntryReferenceTo(condition);
+            patient.addEntryToPatientWithPatientFocalSubject(this.progression);
+			this.isProgressionNew = false;
+		}
+	}
+
+	validateInCurrentContext(contextManager) {
+		let errors = [];
+		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
+			errors.push("#progression invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
+		}
+		return errors;
+	}
+
 	getValidChildShortcuts() {
-		return [ ]; // class names for ProgressionStatus, ProgressionEvidence
+		let result = [];
+		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
+		//if (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length) result.push(ProgressionEvidenceCreator);
+		return result; //[ ProgressionStatusCreator, ProgressionEvidenceCreator ];
 	}
 	
 	isContext() {
 		return true;
+	}
+	getLabel() {
+		return this.getShortcutType();
 	}
 	static getTriggers() {
 		return [ "#progression" ];

@@ -26,12 +26,9 @@ class ContextManager {
 	}
 	
 	isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
-		console.log("ContextManager. looking for context of type " + contextType + " with value of type " + valueType);
 		let shortcut = this.getActiveContextOfType(contextType);
-		console.log(shortcut);
 		if (Lang.isUndefined(shortcut)) return false;
 		let object = shortcut.getValueObject();
-		console.log(object);
 		return (object.entryType[0] === valueType);
 	}
 	

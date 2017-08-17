@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Lang from 'lodash'
 import Button from 'material-ui/Button';
-import Shortcut from '../shortcuts/Shortcut';
 
 export default class ContextOptions extends Component {
     constructor(props) {

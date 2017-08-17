@@ -1,5 +1,4 @@
 import CreatorShortcut from './CreatorShortcut';
-
 const lookup = require('../../lib/staging_lookup');
 
 export default class StagingTCreator extends CreatorShortcut {
@@ -36,6 +35,7 @@ export default class StagingTCreator extends CreatorShortcut {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#staging")) {
 			errors.push("Staging T values invalid without #staging. Use #staging to add a new staging to your narrative.");
+            return errors;
 		}
 		let parentContext = contextManager.getActiveContextOfType("#staging");
 		if (parentContext.getAttributeValue("T").length > 0) {
