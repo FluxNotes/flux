@@ -18,11 +18,11 @@ class FormList extends Component {
     _newShortcut(e, index, shortcutName) {
         e.preventDefault();
 
-        if (shortcutName !== "Welcome") {
+        if (shortcutName !== "Overview") {
             this.props.changeShortcut(this.props.shortcuts[index]);
         }
         else {
-            console.log("selected 'Welcome'");
+            console.log("selected 'Overview'");
             this.props.changeShortcut(null);
         }
     }
@@ -40,8 +40,13 @@ class FormList extends Component {
                     {this.props.shortcuts.map((shortcutName, i) => {
                         let classValue = "list-element";
                         let primaryText = shortcutName;
+
+                        if (shortcutName === "Overview") {
+                            classValue += " overview";
+                        }
                         if (this.state.disabledElement === shortcutName) {
                             classValue += " selected";
+
                         } else {
                             classValue += " unselected";
                         }

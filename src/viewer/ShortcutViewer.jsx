@@ -13,7 +13,6 @@ class ShortcutViewer extends Component {
     _getInitialState(initialString) {
         return (
             <div>
-                <span>Choose a template from the left panel</span>
                 <LandingPageForm/>
             </div>
         );

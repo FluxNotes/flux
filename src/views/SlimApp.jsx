@@ -51,7 +51,7 @@ class SlimApp extends Component {
                                         {/*No need for formsearch right now*/}
                                         {/*<FormSearch />*/}
                                         <FormList
-                                            shortcuts={['Welcome', 'Progression', 'Toxicity']}
+                                            shortcuts={['Overview', 'Progression', 'Toxicity']}
                                             currentShortcut={this.state.currentShortcut}
                                             changeShortcut={this.changeShortcut}
                                         />
