@@ -15,7 +15,7 @@
     overflow: hidden;
     cursor: pointer; 
     text-decoration: none; 
-    margin: 5px; 
+    margin: 1px;  /*cristen*/
     padding: 3px; 
     outline: none; 
     font-size: 15px; 
@@ -31,6 +31,7 @@
     /* background: none;  end of Material CSS, this line wipes the blue background
     simply inserting the copied HTML+CSS gives us a new box, that looks nothing like Material UI style
    */
+    line-height: 0.1em; /* Cristen */
 }
 /* or do we want it to apply just to each dropdown, below? */
 .sf-subfield {
@@ -48,13 +49,9 @@
     -moz-appearance: none;
     appearance: none;       /* remove default arrow - unknown property */
      background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+    line-height: 0.1em; /* Cristen  -10em on all 4 makes it bigger, less than 1 doesnt make it smaller. Try less/more line-height properties... */
 }
-/*option { 
-    /* Whatever color  you want 82caff
-    background-color: #c2caff;
-    border:0px;
-    outline:0px;
-} */
+
 .Select-control {
     background-color:#ecf6fb;
     width: 60px;
@@ -66,10 +63,12 @@
     position: relative; 
     top: 10px; /* this moves the new dropdowns vertically
      position:relative in .sturctured-field and in .Select-control have no effect, just this one line */
+     /* line-height: 0.1em; no effect */
 }
 /* The display: inline-block ensures that all 3 dropdowns are on the same line */
 .Select {
     display: inline-block;
+    line-height: 0.1em; /* Cristen  no effect in isolation*/
 }
 /* height maybe? https://github.com/JedWatson/react-select/issues/1322 */
 /*
@@ -103,6 +102,7 @@
 https://github.com/JedWatson/react-select/issues/164 */
 .Select-input {
   color: transparent;
+    line-height: 0.1em; /*  Cristen */
 /*  height: 1px; */
 } 
 /* remove blinking cursor by making it the same color */
