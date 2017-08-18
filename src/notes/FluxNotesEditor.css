@@ -6,11 +6,87 @@
 }
 
 .structured-field {
-	background-color: LightBlue;
+    background-color: #ecf6fb;
+    border: 10px;
+    box-sizing: content-box; 
+    display: block; 
+    font-family: Roboto, sans-serif; 
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0); 
+    overflow: hidden;
+    cursor: pointer; 
+    text-decoration: none; 
+    margin: 1px;  /*cristen*/
+    padding: 0px; 
+    outline: none; 
+    font-size: 15px; 
+    font-weight: inherit; 
+    position: relative;  
+    z-index: 1; 
+    color: rgba(0, 0, 0, 0.87); 
+    line-height: 10px; 
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; 
+    min-height: 32px; 
+    white-space: nowrap; 
+    position: relative;
+}
+/* or do we want it to apply just to each dropdown, below? */
+.sf-subfield {
+    background-color: mediumvioletred;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #c2caff; 
+    height: 25px;
+    overflow: hidden;
+    width: 50px; 
+    border: 0px solid #82caff;
+    padding: 2px;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+     background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
 }
 
-.sf-subfield {
-	background-color: MediumBlue;
+.Select-control {
+    background-color:#ecf6fb;
+    width: 60px;
+    height: 23px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 0px; 
+    padding-top: 0px;
+    position: relative; 
+    font-weight: inherit;
+    top: 6px; 
+    display: inline-block;
+}
+/* The display: inline-block ensures that all 3 dropdowns are on the same line */
+.Select {
+    display: inline-block;
+}
+
+.Select-placeholder {
+    font-size: 12px;
+}
+
+/* remove the clickable X to clear your selection */
+.Select-clear {
+    font-size: 0px;
+}
+
+/* .Select-arrow for the down-pointing arrow. changing border-style away from solid causes it to disappear */
+.Select-arrow {
+    align-content: right;
+}
+/* hides the "text entry", as we are not allowing typing in the <input> anyway
+https://github.com/JedWatson/react-select/issues/164 */
+.Select-input {
+  color: transparent;
+  padding-bottom: 10px; /* doese nothing? */
+} 
+/* remove blinking cursor by making it the same color */
+input, textarea {
+    color: #ecf6fb;
 }
 
 #clinical-notes #note-description p.note-description-detail-name {

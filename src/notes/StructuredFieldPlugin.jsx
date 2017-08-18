@@ -73,12 +73,19 @@ function StructuredFieldPlugin(opts) {
         }
 	}
 
-    function onDropdownFocus(proxy, event)  {
+	// This function assumes data-key is on the parentElement or passed in. 
+	// If it is not, define your own onDropdownFocus() that locates data-key first before calling this function
+    function onDropdownFocus(proxy, event, dataKey = undefined)  {
 		//console.log("onDropDownFocus START");
 		const state = this.getState(); // this is bound to editor. binding to state made it always have old state
 		//console.log(state.selection);
         // Get Slate Key of parent element
-        const dropdownKey = proxy.target.parentElement.getAttribute('data-key');
+		let dropdownKey;
+		if(Lang.isUndefined(dataKey)) {
+			dropdownKey = proxy.target.parentElement.getAttribute('data-key');
+		} else {
+			dropdownKey = dataKey;
+		}
 		const selectedNode = state.document.getParent(state.selection.startKey);
         // If current selection is not identical, make it so
         if (dropdownKey !== selectedNode.key) {  // state.selection.startKey
@@ -101,13 +108,14 @@ function StructuredFieldPlugin(opts) {
         }
     }
 
+	// With the react-select dropdowns, the selected item is e, no longer e.target.value
     function onDropdownSelection(name, e) {
         // console.log("[onDropdownSelection] - hit function");
         // console.log("selected value");
 		//console.log(name);
 
         // Pass selected value to FluxNotesEditor
-        opts.updateCurrentShortcutValues(name, e.target.value);
+        opts.updateCurrentShortcutValues(name, e);
         //console.log("!!!!!! selected value: ");
 		//console.log(e.target.value);
     }
