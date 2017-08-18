@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import progressionLookup from '../lib/progression_lookup';
+import Patient from '../patient/Patient';
 import './ProgressionForm.css';
 
 class ProgressionForm extends Component {
@@ -23,9 +24,6 @@ class ProgressionForm extends Component {
         e.preventDefault();
         const newStatus = this.state.statusOptions[i].name;
         this.props.updateValue("status", newStatus);
-/*        const newProgression = {...this.props.progression};
-        newProgression["status"] = newStatus;
-        this.props.onProgressionUpdate(newProgression);*/
     }
 
     handleReasonSelection = (reason, i) => {
@@ -41,11 +39,10 @@ class ProgressionForm extends Component {
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
-                const newReasons = [...this.props.progression.evidence];
+                const newReasons = this.props.progression.evidence.map((e) => {
+                    return e.coding.displayText;
+                });
                 newReasons.push(reason.name);
-/*                const newProgression = {...this.props.progression};
-                newProgression["reason"] = newReasons;
-                this.props.onProgressionUpdate(newProgression);*/
                 this.props.updateValue("reasons", newReasons);
             } else {
                 // Nothing -- the element is already in there
@@ -54,12 +51,11 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-
-                const filteredReasons = this.props.progression.reason.filter((r) => r !== reason.name);
-/*                const newProgression = {...this.props.progression};
-                newProgression["reason"] = filteredReasons;
-                this.props.onProgressionUpdate(newProgression);*/
-                this.props.updateValue("reasons", filteredReasons);
+                const filteredReasons = this.props.progression.evidence.filter((e) => e.coding.displayText !== reason.name);
+                const newReasons = filteredReasons.map((e) => {
+                    return e.coding.displayText;
+                });
+                this.props.updateValue("reasons", newReasons);
             } else {
                 // Nothing -- the element is already removed from the array;
                 console.warn(`[WARNING] Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
@@ -74,13 +70,16 @@ class ProgressionForm extends Component {
         let reasonDescription = reason.description;
         let backgroundColor = "";
         let labelColor = "";
+        let color = "";
 
         if (this.state.reasonButtonsActiveState[i]) {
             backgroundColor = "#297DA2";
             labelColor = "#fff";
+            color = "primary";
         } else {
             backgroundColor = "";
             labelColor = "";
+            color = "default";
         }
 
         const buttonClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
@@ -94,19 +93,18 @@ class ProgressionForm extends Component {
                     labelStyle={{
                         textTransform: "none",
                     }}
+                    color={color}
                     buttonStyle={{
                         height: "75px",
-                        width: "180px"
+                        width: "180px",
+                        backgroundColor:{backgroundColor},
+                        labelColor:{labelColor}
                     }}
                     overlayStyle={{
                         padding: "20px 0 20px 0"
                     }}
                     style={{margin: 0.5}}
-
                     onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
-
-                    backgroundColor={backgroundColor}
-                    labelColor={labelColor}
                 >{reasonName}
                 </Button>
             </div>
@@ -131,6 +129,10 @@ class ProgressionForm extends Component {
                     {this.state.statusOptions.map((status, i) => {
                         let statusName = status.name;
                         let statusDescription = status.description;
+                        let color = "default";
+                        if (this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)) {
+                            color = "primary";
+                        }
                         const buttonClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
                         return (
                             <div key={statusName} className="tooltip">
@@ -141,6 +143,7 @@ class ProgressionForm extends Component {
                                     labelStyle={{
                                         textTransform: "none",
                                     }}
+                                    color={color}
                                     buttonStyle={{
                                         height: "75px",
                                         width: "180px"
@@ -150,7 +153,7 @@ class ProgressionForm extends Component {
                                     }}
                                     style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
-                                    disabled={this.currentlySelected(this.props.progression.value, this.state.statusOptions[i].name)}
+                                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
                                     disabledBackgroundColor="#297DA2"
                                     disabledLabelColor="#fff"
                                 >{statusName}

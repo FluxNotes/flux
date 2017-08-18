@@ -11,7 +11,7 @@ class SlimApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [ "progression", "staging", "toxicity" ];
+        this.shortcuts = [ "#progression", "#toxicity" ];
         this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
@@ -23,7 +23,8 @@ class SlimApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     changeShortcut = (shortcutType) => {
-        const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate);
+        const shortcutName = "#" + shortcutType.toLowerCase();
+        const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(shortcutName, this.handleShortcutUpdate);
         this.setState({
             currentShortcut: newShortcut
         });

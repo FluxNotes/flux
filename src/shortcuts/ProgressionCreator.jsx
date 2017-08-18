@@ -39,10 +39,13 @@ class ProgressionCreator extends CreatorShortcut {
      */
     getStatusString(curProgression) { 
         let statusString = ``;
-        if (Lang.isEmpty(curProgression.status) || Lang.isUndefined(curProgression.status)) { 
-            statusString = `?`;
+        if (    Lang.isEmpty(curProgression.value) || 
+                Lang.isUndefined(curProgression.value) || 
+                curProgression.value.coding.displayText.length === 0)
+        {
+            statusString = ``;
         } else { 
-            statusString = `${curProgression.status}`
+            statusString = ` is #${curProgression.value.coding.displayText.replace(" ", "-")}`
         }
         return statusString;
     }
@@ -50,17 +53,17 @@ class ProgressionCreator extends CreatorShortcut {
     /* 
      * Translate progression reasons into a string 
      */
-    getReasonString(curProgression) { 
+    getReasonString(curProgression) {
         let reasonString = ""; 
-        if (!Lang.isUndefined(curProgression.reason)) {
-            const numReasons = curProgression.reason.length;
+        if (!Lang.isUndefined(curProgression.evidence) && curProgression.evidence.length > 0) {
+            const numReasons = curProgression.evidence.length;
             if (numReasons > 0) { 
-                reasonString = `based on `;
-                for (let i = 0; i < numReasons - 1; i++) { 
-                    reasonString += curProgression.reason[i];
+                reasonString = ` based on `;
+                for (let i = 0; i < numReasons - 1; i++) {
+                    reasonString += "#" + curProgression.evidence[i].coding.displayText.replace(" ", "-");
                     reasonString += `, `;
                 }
-                reasonString += curProgression.reason[numReasons - 1];
+                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText.replace(" ", "-");
             } 
         }
         return reasonString
@@ -72,8 +75,8 @@ class ProgressionCreator extends CreatorShortcut {
     getDateString(curProgression) { 
         const today = moment(new Date());
         let dateString;
-        if (!Lang.isUndefined(curProgression.startDate)) {
-            dateString = (curProgression.startDate.format('D') === today.format('D')) ? `` : `as of ${this.progression.startDate}`;
+        if (!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
+            dateString = (curProgression.clinicallyRelevantTime === today.format("D MMM YYYY")) ? `` : ` as of ${this.progression.clinicallyRelevantTime}`;
         } else {
             dateString = ``;
         }
@@ -84,9 +87,9 @@ class ProgressionCreator extends CreatorShortcut {
      * Translate the current shortcut into a string
      */
     getAsString() { 
-        if(Lang.isEmpty(this.progression.status) || Lang.isUndefined(this.progression.status)) { 
+        if(Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0) { 
             // 1. No status -- this case we just want a hash
-            if(Lang.isEmpty(this.progression.reason)) { 
+            if(Lang.isEmpty(this.progression.evidence)) { 
                 return `#progression`;
             } else {    
                 // No status but reasons -- show what we can and provide blank for status 
@@ -95,7 +98,7 @@ class ProgressionCreator extends CreatorShortcut {
                 if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
                 let dateString     = this.getDateString(this.progression);
                 if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
-                return `#progression[${statusString}${reasonString}${dateString}]`;
+                return `#progression${statusString}${reasonString}${dateString}`;
             } 
         } else { 
             const statusString = this.getStatusString(this.progression);
@@ -104,7 +107,7 @@ class ProgressionCreator extends CreatorShortcut {
             let dateString     = this.getDateString(this.progression);
             if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#progression[${statusString}${reasonString}${dateString}]`;
+            return `#progression${statusString}${reasonString}${dateString}`;
         }
     }
     

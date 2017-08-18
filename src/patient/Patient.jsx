@@ -713,7 +713,7 @@ class Patient {
         }
         if (!Lang.isUndefined(reasons) && !Lang.isNull(reasons) && reasons.length > 0) {
             reasons.forEach((reason) => {
-                reasonCodings.push({ coding: this._progressionReasonToCodeableConcept(reason) });
+                reasonCodings.push(this.createProgressionReason(reason));
             });
         }
         return {
@@ -727,6 +727,10 @@ class Patient {
 			"originalCreationDate": today,
 			"lastUpdateDate": today
 		};
+    }
+    
+    static createProgressionReason(reason) {
+        return { coding: this._progressionReasonToCodeableConcept(reason) };
     }
     
 	static updateStatusForProgression(progression, status) {		
