@@ -1,8 +1,5 @@
-// React imports
 import React, {Component} from 'react';
-// material-ui
 import List, { ListItem, ListItemText } from 'material-ui/List';
-// Styling
 import './FormList.css';
 
 class FormList extends Component {
@@ -11,13 +8,19 @@ class FormList extends Component {
         super(props);
         this._newShortcut = this._newShortcut.bind(this);
         this.state = {
-            disabledElement: null
+            disabledElement: "About Flux Notes Lite"
         }
     }
 
     _newShortcut(e, index, shortcutName) {
         e.preventDefault();
-        this.props.changeShortcut(this.props.shortcuts[index]);
+
+        if (shortcutName !== "About Flux Notes Lite") {
+            this.props.changeShortcut(this.props.shortcuts[index]);
+        }
+        else {
+            this.props.changeShortcut(null);
+        }
     }
 
     _onTouchTap(event, shortcutName) {
@@ -33,8 +36,13 @@ class FormList extends Component {
                     {this.props.shortcuts.map((shortcutName, i) => {
                         let classValue = "list-element";
                         let primaryText = shortcutName;
+
+                        if (shortcutName === "About Flux Notes Lite") {
+                            classValue += " overview";
+                        }
                         if (this.state.disabledElement === shortcutName) {
                             classValue += " selected";
+
                         } else {
                             classValue += " unselected";
                         }

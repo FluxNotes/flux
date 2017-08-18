@@ -11,6 +11,9 @@
 #list-panel .list-element.unselected{ 
     border-bottom: 1px solid #d9d9d9 !important;
 }
+#list-panel .list-element.unselected.overview{
+    color: steelblue !important;
+}
 
 #list-panel .list-element.selected{ 
     background-color: white !important;
@@ -18,4 +21,7 @@
     -webkit-box-shadow: 0px 4px 5px -4px rgba(125,125,125,0.7);
     -moz-box-shadow: 0px 4px 5px -4px rgba(125,125,125,0.7);
     box-shadow: 0px 4px 5px -4px rgba(125,125,125,0.7);
+}
+#list-panel .list-element.selected.overview{
+    color: steelblue !important;
 }
