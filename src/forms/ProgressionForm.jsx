@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import progressionLookup from '../lib/progression_lookup';
-import Patient from '../patient/Patient';
 import './ProgressionForm.css';
 
 class ProgressionForm extends Component {
