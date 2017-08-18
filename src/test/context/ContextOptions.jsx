@@ -24,12 +24,23 @@ export default class ContextOptions extends Component {
 			context = this.props.contextManager.getPatientContext();
 		}
 		let validShortcuts = context.getValidChildShortcuts();
-        let triggers = [];
+        
+        // count how many triggers we have
         let count = 0;
         validShortcuts.forEach((shortcut, i) => {
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 count++;
-                if (this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+            });
+        });
+        
+        // enable filter?
+        const showFilter = (count > 10);
+
+        // build our list of filtered triggers (only filter if we will be showing search bar)
+        let triggers = [];
+        validShortcuts.forEach((shortcut, i) => {
+            shortcut.getTriggers(context).forEach((trigger, j) => {
+                if (!showFilter || this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     triggers.push({"trigger": trigger, "group": i });
                 }
             });
@@ -47,9 +58,9 @@ export default class ContextOptions extends Component {
             }
         });
         // do we add search bar
-        let searchBar = "";
-        if (count > 10) {
-            searchBar = (
+        let filterBar = "";
+        if (showFilter) {
+            filterBar = (
             <div id="shortcut-search">
                 <div style={{position: 'relative', display: 'inline-block'}}>
                     <h1>Filter:</h1>
@@ -67,7 +78,7 @@ export default class ContextOptions extends Component {
         // now iterate and create a Row for each group and a Col for each 
         return (
             <div className='context-options-list'>
-                {searchBar}
+                {filterBar}
                 {groupList.map((groupObj, i) => {
                     return  (<Row key={i}>
                             {groupObj.triggers.map((trigger, i) => {
