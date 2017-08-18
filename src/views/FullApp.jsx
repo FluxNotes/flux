@@ -3,130 +3,82 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import NavBar from '../nav/NavBar';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
-import FormTray from '../forms/FormTray';
+import ContextTray from '../context/ContextTray';
 import TimelinePanel from '../timeline/TimelinePanel';
-// Shortcuts
 import ShortcutManager from '../shortcuts/ShortcutManager';
-// Data model
 import ContextManager from '../context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
-import Lang from 'lodash'
-
 import './FullApp.css';
 
 class FullApp extends Component {
     constructor(props) {
         super(props);
 
-		this.getItemListForProcedures = this.getItemListForProcedures.bind(this);
-		this.stageValueFunc = this.stageValueFunc.bind(this);
+		this.shortcuts = [ 	"#progression", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
-		this.shortcuts = [ "progression", "staging", "toxicity" ];
-		this.inserters =	[	{trigger: "age", value: (cm) => { return cm.getPatient().getAge(); }},
-					{trigger: "name", value: (cm) => { return cm.getPatient().getName(); }},
-					{trigger: "gender", value: (cm) => { return cm.getPatient().getGender(); }},
-					{trigger: "dateofbirth", value: (cm) => { return cm.getPatient().getDateOfBirth().format("D.MMM.YYYY"); }},
-					{trigger: "patient", value: (cm) => { return cm.getPatient().getName() + " is a " + cm.getPatient().getAge() + " year old " + cm.getPatient().getGender(); }},
-					{trigger: "condition", value: (cm) => { return cm.getPatient().getConditions(); }},
-					{trigger: "stage", value: this.stageValueFunc }
-				];
-
+        this.updateErrors = this.updateErrors.bind(this);
+		this.onContextUpdate = this.onContextUpdate.bind(this);
+		
 		let patient = new Patient();
 		this.summaryMetadata = new SummaryMetadata();
 		this.shortcutManager = new ShortcutManager(this.shortcuts);
-		this.contextManager = new ContextManager(patient);		
+		this.contextManager = new ContextManager(patient, this.onContextUpdate);		
 
 	    this.state = {
             SummaryItemToInsert: '',
-            withinStructuredField: null,
             selectedText: null,
-            // Current shortcutting: 
-            currentShortcut: null,
-			currentConditionEntry: null,
 			summaryMetadata: this.summaryMetadata.getMetadata(),
-            patient: patient
+            patient: patient,
+			contextManager: this.contextManager			
         };
     }
 	
-	stageValueFunc(contextManager) {
-		let cond = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
-		if (!Lang.isNull(cond)) {
-			let patient = contextManager.getPatient();
-			let stagingObservation = patient.getMostRecentStagingForCondition(cond);
-			this.setState({
-				errors: []
-			});
-			if (Lang.isNull(stagingObservation)) {
-				return "unknown";
-			}
-			return stagingObservation.value.coding.displayText;
-		} else {
-			let errors = [ "@stage invalid without a breast cancer condition. Use @condition to add the condition to your narrative." ];
-			this.setState({
-				errors: errors
-			});
-			return "";
-		}
+	onContextUpdate = () => {
+        this.setState({contextManager: this.contextManager});
 	}
-	
-	getItemListForProcedures = (patient, currentConditionEntry) => {
-		let procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
-		return procedures.map((p, i) => {
-			if (Lang.isObject(p.occurrenceTime)) {
-				return {name: p.specificType.coding.displayText, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
-			} else {
-				return {name: p.specificType.coding.displayText, value: p.occurrenceTime };
-			}
-		});
-	}
+    
+    updateErrors(errors) {
+        this.setState({errors: errors});
+    }
 
-    /* 
-     * Change the current shortcut to be the new type of shortcut  
-     */
+    itemInserted = () => {
+        this.setState({SummaryItemToInsert: ''});
+    }
+    
     newCurrentShortcut = (shortcutType, obj) => {
-		let newShortcut = null;
-        if (!Lang.isNull(shortcutType)) {
-			newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
-        }
+		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
 		const errors = newShortcut.validateInCurrentContext(this.contextManager);
 		if (errors.length > 0) {
 			errors.forEach((error) => {
-				console.log(error);
+				console.error(error);
 			});
 			newShortcut = null;
+		} else {
+			newShortcut.initialize(this.contextManager, shortcutType);
 		}
-        this.setState({currentShortcut: newShortcut, errors: errors});
+        this.updateErrors(errors);
 		return newShortcut;
     }
 	
-	changeCurrentShortcut = (shortcut) => {
-		this.setState({currentShortcut: shortcut});
-	}
-
     handleShortcutUpdate = (s) =>{
-        //console.log(`Updated shortcut`);
 		let p = this.state.patient;
 		s.updatePatient(p, this.contextManager);
-        this.setState({currentShortcut: s, patient: p});
     }
 
     handleStructuredFieldEntered = (field) => {
-        //console.log("structured field entered: " + field);
         this.setState({
             withinStructuredField: field
         })
     }
 
     handleStructuredFieldExited = (field) => {
-        //console.log("structured field exited: " + field);
         this.setState({
             withinStructuredField: null
         })
     }
     
     handleSelectionChange = (selectedText) => {
-        //console.log("FullApp. selectedText: " + selectedText);
         this.setState({
             selectedText: selectedText
         })
@@ -149,36 +101,32 @@ class FullApp extends Component {
                                     // Handle updates
                                     onItemClicked={this.handleSummaryItemSelected}
                                     // Properties
-                                    allowItemClick={this.state.currentShortcut == null}
+                                    allowItemClick={true}
 									summaryMetadata={this.state.summaryMetadata}
                                     patient={this.state.patient}
                                 />
                             </Col>
                             <Col sm={5}>
                                 <FluxNotesEditor
-                                    // Update functions
                                     onSelectionChange={this.handleSelectionChange}
-                                    changeCurrentShortcut={this.changeCurrentShortcut}
 									newCurrentShortcut={this.newCurrentShortcut}
-                                    // Properties
-                                    currentShortcut={this.state.currentShortcut}
+                                    itemInserted={this.itemInserted}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
 									contextManager={this.contextManager}
-									shortcutList={this.shortcuts}
-									inserters={this.inserters}
+									shortcutManager={this.shortcutManager}
+                                    updateErrors={this.updateErrors}
 									errors={this.state.errors}
                                 />
                             </Col>
                             <Col sm={3}>
-                                <FormTray
+                                <ContextTray
                                     // Update functions
-                                    changeShortcut={this.changeCurrentShortcut}
                                     // Properties
-                                    currentShortcut={this.state.currentShortcut}
+                                    ref={(comp) => { this.contextTray = comp; }}
                                     patient={this.state.patient}
-                                    selectedText={this.state.selectedText}
-                                    withinStructuredField={this.state.withinStructuredField}
+									contextManager={this.state.contextManager}
+                                    onShortcutClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
                         </Row>
