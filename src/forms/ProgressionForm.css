@@ -47,10 +47,6 @@
     transition-delay: 0.5s;
 }
 
-.btn-group-status-progression {
-    /*background-color: #001A33;*/
+.helper-text {
+    color: #b1b1b1;
 }
-
-/*.btn-progression {*/
-    /*margin: 15px;*/
-/*}*/

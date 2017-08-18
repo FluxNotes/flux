@@ -14,7 +14,7 @@ class SlimApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [ "progression", "staging", "toxicity" ];
+        this.shortcuts = ["progression", "staging", "toxicity"];
         this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
@@ -46,23 +46,23 @@ class SlimApp extends Component {
                     <NavBar title="Flux Notes Lite"/>
                     <Grid className="SlimApp-content" fluid>
                         <div id="forms-panel">
-                                <Row center="xs">
-                                    <Col className="no-padding" xs={3} >
-                                        {/*No need for formsearch right now*/}
-                                        {/*<FormSearch />*/}
-                                        <FormList
-                                            shortcuts={['Progression', 'Toxicity']}
-                                            currentShortcut={this.state.currentShortcut}
-                                            changeShortcut={this.changeShortcut}
-                                        />
-                                    </Col>
-                                    <Col className="no-padding" xs={9}>
-                                        <ShortcutViewer
-                                            currentShortcut={this.state.currentShortcut}
-                                            onShortcutUpdate={this.handleShortcutUpdate}
-                                        />
-                                    </Col>
-                                </Row>
+                            <Row center="xs">
+                                <Col className="no-padding" xs={3}>
+                                    {/*No need for formsearch right now*/}
+                                    {/*<FormSearch />*/}
+                                    <FormList
+                                        shortcuts={['About Flux Notes Lite', 'Progression', 'Toxicity']}
+                                        currentShortcut={this.state.currentShortcut}
+                                        changeShortcut={this.changeShortcut}
+                                    />
+                                </Col>
+                                <Col className="no-padding" xs={9}>
+                                    <ShortcutViewer
+                                        currentShortcut={this.state.currentShortcut}
+                                        onShortcutUpdate={this.handleShortcutUpdate}
+                                    />
+                                </Col>
+                            </Row>
                         </div>
                     </Grid>
                 </div>

@@ -48,7 +48,7 @@ class ProgressionForm extends Component {
                 this.props.onProgressionUpdate(newProgression);
             } else {
                 // Nothing -- the element is already in there
-                console.log(`[WARNING] Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
+                console.warn(`Warning: Cornercase; the element ${reason.name} shouldnt have been in our current reasons, but it was`);
             }
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
@@ -60,10 +60,9 @@ class ProgressionForm extends Component {
                 this.props.onProgressionUpdate(newProgression);
             } else {
                 // Nothing -- the element is already removed from the array;
-                console.log(`[WARNING] Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
+                console.warn(`Warning: Cornercase: the element ${reason.name} should be in our current reasons, but it isn't`);
             }
         }
-
     }
 
     renderReasonButtonGroup = (reason, i) => {
@@ -123,6 +122,7 @@ class ProgressionForm extends Component {
                 <h4>Status of progression</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
+                    <span className="helper-text"> Choose one</span>
                 </p>
 
                 <div className="btn-group-status-progression">
@@ -161,6 +161,7 @@ class ProgressionForm extends Component {
                 <h4>Rationale for status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
+                    <span className="helper-text"> Choose one or more</span>
                 </p>
 
                 <div className="btn-group-reason-progression">
