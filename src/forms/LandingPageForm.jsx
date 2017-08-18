@@ -25,8 +25,7 @@ class LandingPageForm extends Component {
                     complete, accurate, and computable records to inform the best care for each individual.
                 </p>
                 <p>
-                    This application leverages the SHR (Standard Health Record) format for capturing data. For more
-                    information about the SHR, please go to the <a href="https://shr.mitre.org/#home" target="_blank">website</a>
+                    This application leverages the <a href="https://shr.mitre.org/#home" target="_blank">SHR (Standard Health Record)</a> format for capturing data.
                 </p>
 
                 <h4>Using Flux Notes Lite</h4>
