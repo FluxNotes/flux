@@ -6,11 +6,11 @@ class LandingPageForm extends Component {
     render() {
         return (
             <div id="landing-page-container">
-                <h1 className="landing-page-title">Flux Notes Lite Overview</h1>
-                <h4>Overview</h4>
+                <h1 className="landing-page-title">About Flux Notes Lite</h1>
                 <p>
-                    Flux Notes Lite supports the ICARE data study capture of progression and toxicity for the PATINA
-                    clinical trial. The purpose of Flux Notes Lite is to help clinicians capture disease progression and
+                    Flux Notes Lite supports the ICARE data study capture of progression and toxicity during the
+                    authoring of clinical notes. The purpose of Flux Notes Lite is to help clinicians capture disease
+                    progression and
                     toxicity information in a structured data format that can be easily analyzed and shared across
                     multiple clinical care sites.
                 </p>
