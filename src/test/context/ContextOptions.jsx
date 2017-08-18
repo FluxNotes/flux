@@ -88,6 +88,7 @@ export default class ContextOptions extends Component {
 
 	_handleClick(e, i) {
 		e.preventDefault();
+        this.setState({searchString: ""});
 		this.props.handleClick(i);
 	}
     
