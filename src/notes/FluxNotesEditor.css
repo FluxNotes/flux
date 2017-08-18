@@ -7,7 +7,7 @@
 
 .structured-field {
     background-color: #ecf6fb;
-    border: 10px; /* begin Material UI styling on dropdown */
+    border: 10px;
     box-sizing: content-box; 
     display: block; 
     font-family: Roboto, sans-serif; 
@@ -22,15 +22,12 @@
     font-weight: inherit; 
     position: relative;  
     z-index: 1; 
-    color: rgba(0, 0, 0, 0.87); /* colors #progression text */
+    color: rgba(0, 0, 0, 0.87); 
     line-height: 10px; 
     transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; 
     min-height: 32px; 
     white-space: nowrap; 
-    position: relative; /* for the dropdowns https://stackoverflow.com/questions/34660385/how-to-position-a-react-component-relative-to-its-parent */
-    /* background: none;  end of Material CSS, this line wipes the blue background
-    simply inserting the copied HTML+CSS gives us a new box, that looks nothing like Material UI style
-   */
+    position: relative;
 }
 /* or do we want it to apply just to each dropdown, below? */
 .sf-subfield {
@@ -38,15 +35,15 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background-color: #c2caff; /*#3b8ec2; */
+    background-color: #c2caff; 
     height: 25px;
     overflow: hidden;
-    width: 50px; /* doesn't override a style in the <select> tag in DropdownStructuredComponent */
-    border: 0px solid #82caff;/* !important; is it? */
+    width: 50px; 
+    border: 0px solid #82caff;
     padding: 2px;
     -webkit-appearance: none; 
     -moz-appearance: none;
-    appearance: none;       /* remove default arrow - unknown property */
+    appearance: none;
      background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
 }
 
@@ -56,39 +53,18 @@
     height: 23px;
     padding-left: 1px;
     padding-right: 1px;
-    padding-bottom: 0px; /* makes it bigger, but not smaller when negative */
+    padding-bottom: 0px; 
     padding-top: 0px;
     position: relative; 
-    font-weight: bolder; /* TODO 4pm make it look good enough even if smaller, or reposition Selected text https://www.w3schools.com/cssref/pr_font_weight.asp 
-    
-            THEN tie together backend, as seen in older master when the dropdowns were <select><option>
-    */
-    top: 6px; /* this moves the new dropdowns vertically
-     position:relative in .sturctured-field and in .Select-control have no effect, just this one line */
-     /* line-height: 0.1em; no effect */
-     display: inline-block;
+    font-weight: inherit;
+    top: 6px; 
+    display: inline-block;
 }
 /* The display: inline-block ensures that all 3 dropdowns are on the same line */
 .Select {
     display: inline-block;
 }
-/* height maybe? https://github.com/JedWatson/react-select/issues/1322 */
-/*
-.Select-value {
-    line-height: 1px !important;
-}
-.Select-value-label {
-    line-height: 1px;
-}
-.Select-placeholder {
-    line-height: -20px; does weird things, each dropdown at different height
-}
-.Select-menu {
-    max-height: 10px;
-}
-.Select-menu-outer {
-    max-height: 10px;
-}*/
+
 .Select-placeholder {
     font-size: 12px;
 }

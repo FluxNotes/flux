@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Lang from 'lodash';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
@@ -26,8 +25,6 @@ class DropdownStructuredComponent extends Component {
 
 	render = () => {
 		let datakey = this.props.else['data-key'] + "-0";
-		let value = this.props.value;
-		let items = this.props.items;
 		let dropdownOptions = this.props.items.map(function(item, index) {
 							return {value: item, label: item};})
 
