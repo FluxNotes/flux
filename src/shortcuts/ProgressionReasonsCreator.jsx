@@ -1,6 +1,6 @@
 import Lang from 'lodash';
 import CreatorShortcut from './CreatorShortcut';
-const lookup = require('../../lib/progression_lookup');
+const lookup = require('../lib/progression_lookup');
 
 export default class ProgressionReasonsCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {

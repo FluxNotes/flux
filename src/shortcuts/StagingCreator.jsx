@@ -4,8 +4,8 @@ import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
-import StagingForm from '../../forms/StagingForm';
-import Patient from '../../patient/Patient';
+import StagingForm from '../forms/StagingForm';
+import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
 class StagingCreator extends CreatorShortcut {

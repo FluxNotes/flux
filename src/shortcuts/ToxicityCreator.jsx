@@ -2,7 +2,7 @@
 import React from 'react';
 // Our components
 import CreatorShortcut from './CreatorShortcut';
-import ToxicityForm from '../../forms/ToxicityForm';
+import ToxicityForm from '../forms/ToxicityForm';
 // Import Lodash libraries
 import Lang from 'lodash'
 

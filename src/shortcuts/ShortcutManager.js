@@ -1,34 +1,71 @@
-import Lang from 'lodash'
-import ProgressionShortcut from './ProgressionShortcut';
-import StagingShortcut from './StagingShortcut';
-import ToxicityShortcut from './ToxicityShortcut';
+//import Lang from 'lodash'
+import ProgressionCreator from './ProgressionCreator';
+import StagingCreator from './StagingCreator';
+import ToxicityCreator from './ToxicityCreator';
+import ConditionInserter from './ConditionInserter';
+import NameInserter from './NameInserter';
+import AgeInserter from './AgeInserter';
+import GenderInserter from './GenderInserter';
+import PatientInserter from './PatientInserter';
+import DateOfBirthInserter from './DateOfBirthInserter';
+import StageInserter from './StageInserter';
+import StagingTCreator from './StagingTCreator';
+import StagingNCreator from './StagingNCreator';
+import StagingMCreator from './StagingMCreator';
+import ProgressionStatusCreator from './ProgressionStatusCreator';
+import ProgressionReasonsCreator from './ProgressionReasonsCreator';
+
+function addTriggerForKey(trigger) {
+    this.shortcutMap[trigger.toLowerCase()] = this.shortcuts[this.currentShortcut];
+}
 
 class ShortcutManager {
 	shortcuts = {
-		progression: ProgressionShortcut,
-		staging: StagingShortcut,
-		toxicity: ToxicityShortcut
+		'#progression': ProgressionCreator,
+        '#progression-status': ProgressionStatusCreator,
+        '#progression-reasons': ProgressionReasonsCreator,
+		'#staging': StagingCreator,
+		'#toxicity': ToxicityCreator,
+		'@condition': ConditionInserter,
+		'@name': NameInserter,
+		'@age': AgeInserter,
+		'@gender': GenderInserter,
+		'@patient': PatientInserter,
+		'@dateofbirth': DateOfBirthInserter,
+		'@stage': StageInserter,
+		'#staging-t': StagingTCreator,
+		'#staging-n': StagingNCreator,
+		'#staging-m': StagingMCreator
 	};
+
+	shortcutClasses = [];
+	shortcutMap = {};
+	
+	getAllShortcutClasses() {
+		return this.shortcutClasses;
+	}
 	
 	constructor(shortcutList) {
-		this.shortcutList = shortcutList;
+		this.shortcutsToSupportList = shortcutList;
+		for (var key in this.shortcuts) {
+			this.shortcutClasses.push(this.shortcuts[key]);
+			const triggers = this.shortcuts[key].getTriggers();
+            this.currentShortcut = key;
+			triggers.forEach(addTriggerForKey, this);
+		}		
 	}
 	
 	getSupportedShortcuts() {
-		return this.shortcutList;
+		return this.shortcutsToSupportList;
 	}
 	
-	createShortcut(shortcutType, onUpdate, object) {
-		//let className = shortcutType.charAt(0).toUpperCase() + shortcutType.slice(1).toLowerCase() + "Shortcut";
-		//return instantiate(className, [onUpdate, object]);
-		//return new constructor(className, onUpdate, object);
-		//return new className(onUpdate, object);
-		if (!Lang.includes(this.shortcutList, shortcutType.toLowerCase())) {
+	createShortcut(trigger, onUpdate, object) {
+/*		if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
 			throw new Error("Invalid shortcut type: " + shortcutType);
-		}
-		return new this.shortcuts[shortcutType.toLowerCase()](onUpdate, object);
+		}*/
+		let className = this.shortcutMap[trigger.toLowerCase()];
+		return new className(onUpdate, object);
 	}
-
 }
 
 export default ShortcutManager;

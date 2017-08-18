@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import TemplateForm from '../../forms/TemplateForm';
-import DataCaptureForm from '../../forms/DataCaptureForm';
+import TemplateForm from '../forms/TemplateForm';
+import DataCaptureForm from '../forms/DataCaptureForm';
 import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
 //import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';

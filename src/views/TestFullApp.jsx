@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import NavBar from '../nav/NavBar';
-import FluxNotesEditor from '../test/notes/FluxNotesEditor';
+import FluxNotesEditor from '../notes/FluxNotesEditor';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
-import ContextTray from '../test/context/ContextTray';
+import ContextTray from '../context/ContextTray';
 import TimelinePanel from '../timeline/TimelinePanel';
-import ShortcutManager from '../test/shortcuts/ShortcutManager';
-import ContextManager from '../test/context/ContextManager';
+import ShortcutManager from '../shortcuts/ShortcutManager';
+import ContextManager from '../context/ContextManager';
 import Patient from '../patient/Patient';
 import SummaryMetadata from '../summary/SummaryMetadata';
-//import Lang from 'lodash'
 import './FullApp.css';
 
 class TestFullApp extends Component {

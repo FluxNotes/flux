@@ -1,5 +1,5 @@
 import CreatorShortcut from './CreatorShortcut';
-const lookup = require('../../lib/progression_lookup');
+const lookup = require('../lib/progression_lookup');
 
 export default class ProgressionStatusCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
