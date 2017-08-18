@@ -777,21 +777,21 @@ class Patient {
 			gotAllThree = false;
 		} else {
 			const t_code = this._tToCodeableConcept(t);
-			tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t}
+			tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t_code.displayText}
 		}
 		if (Lang.isUndefined(n) || Lang.isNull(n) || n.length === 0) {
 			nCoding = { "value": "", "codeSystem": "", "displayText": ""};
 			gotAllThree = false;
 		} else {
 			const n_code = this._nToCodeableConcept(n);
-			nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n};
+			nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n_code.displayText};
 		}
 		if (Lang.isUndefined(m) || Lang.isNull(m) || m.length === 0) {
 			mCoding = { "value": "", "codeSystem": "", "displayText": ""};
 			gotAllThree = false;
 		} else {
 			const m_code = this._mToCodeableConcept(m);
-			mCoding = { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m};
+			mCoding = { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m_code.displayText};
 		}
 		let stage, stage_code;
 		if (gotAllThree) {
@@ -823,7 +823,7 @@ class Patient {
             stagingObservation.tStage.coding.value = "";
             stagingObservation.tStage.coding.codeSystem = "";
         } else {
-            stagingObservation.tStage.coding.displayText = t;
+            stagingObservation.tStage.coding.displayText = t_code.displayText;
             stagingObservation.tStage.coding.value = t_code.code;
             stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
         }
@@ -836,7 +836,7 @@ class Patient {
             stagingObservation.nStage.coding.value = "";
             stagingObservation.nStage.coding.codeSystem = "";
         } else {
-            stagingObservation.nStage.coding.displayText = n;
+            stagingObservation.nStage.coding.displayText = n_code.displayText;
             stagingObservation.nStage.coding.value = n_code.code;
             stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
         }
@@ -849,7 +849,7 @@ class Patient {
             stagingObservation.mStage.coding.value = "";
             stagingObservation.mStage.coding.codeSystem = "";
         } else {
-            stagingObservation.mStage.coding.displayText = m;
+            stagingObservation.mStage.coding.displayText = m_code.displayText;
             stagingObservation.mStage.coding.value = m_code.code;
             stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
         }
@@ -880,43 +880,43 @@ class Patient {
 	}
 	
 	static _stageToCodeableConcept(stage) {
-		if (Lang.isUndefined(stage)) return null;
-		if (stage === 'IA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"46333007"};
-		if (stage === 'IB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"786005"};
-		if (stage === 'IIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"52774001"};
-		if (stage === 'IIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"17816005"};
-		if (stage === 'IIIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"73082003"};
-		if (stage === 'IIIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"64062008"};
-		if (stage === 'IIIC') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"48105005"};
-		if (stage === 'IV') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"2640006"};
+		if (Lang.isUndefined(stage) || Lang.isNull(stage)) return null;
+		if (stage.toUpperCase() === 'IA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"46333007"};
+		if (stage.toUpperCase() === 'IB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"786005"};
+		if (stage.toUpperCase() === 'IIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"52774001"};
+		if (stage.toUpperCase() === 'IIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"17816005"};
+		if (stage.toUpperCase() === 'IIIA') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"73082003"};
+		if (stage.toUpperCase() === 'IIIB') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"64062008"};
+		if (stage.toUpperCase() === 'IIIC') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"48105005"};
+		if (stage.toUpperCase() === 'IV') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"2640006"};
 		return null;
 	}
 	static _tToCodeableConcept(t) {
-		if (t === 'T0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433371000124106"};
-		if (t === 'Tis') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"44401000"};
-		if (t === 'T1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369895002"};
-		if (t === 'T1mi') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433381000124109"};
-		if (t === 'T1a') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369897005"};
-		if (t === 'T1b') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369898000"};
-		if (t === 'T1c') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433391000124107"};
-		if (t === 'T2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369900003"};
-		if (t === 'T3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369901004"};
-		if (t === 'T4') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433401000124109"};
+		if (t.toUpperCase() === 'T0') return {displayText: "T0", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433371000124106"};
+		if (t.toUpperCase() === 'TIS') return {displayText: "Tis", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"44401000"};
+		if (t.toUpperCase() === 'T1') return {displayText: "T1", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369895002"};
+		if (t.toUpperCase() === 'T1MI') return {displayText: "T1mi", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433381000124109"};
+		if (t.toUpperCase() === 'T1A') return {displayText: "T1a", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369897005"};
+		if (t.toUpperCase() === 'T1B') return {displayText: "T1b", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369898000"};
+		if (t.toUpperCase() === 'T1C') return {displayText: "T1c", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433391000124107"};
+		if (t.toUpperCase() === 'T2') return {displayText: "T2", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369900003"};
+		if (t.toUpperCase() === 'T3') return {displayText: "T3", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"369901004"};
+		if (t.toUpperCase() === 'T4') return {displayText: "T4", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433401000124109"};
 		return null;
 	}
 	static _nToCodeableConcept(n) {
-		if (n === 'N0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436311000124105"};
-		if (n === 'N1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433511000124108"};
-		if (n === 'N1mi') return {codesystem: "urn:oid:2.16.840.1.113883.3.26.1.1", code: "C95955"};
-		if (n === 'N2') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433551000124109"};
-		if (n === 'N3') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433431000124101"};
+		if (n.toUpperCase() === 'N0') return {displayText: "N0", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436311000124105"};
+		if (n.toUpperCase() === 'N1') return {displayText: "N1", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433511000124108"};
+		if (n.toUpperCase() === 'N1MI') return {displayText: "N1mi", codesystem: "urn:oid:2.16.840.1.113883.3.26.1.1", code: "C95955"};
+		if (n.toUpperCase() === 'N2') return {displayText: "N2", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433551000124109"};
+		if (n.toUpperCase() === 'N3') return {displayText: "N3", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433431000124101"};
 		return null;
 	}
 	static _mToCodeableConcept(m) {
-		if (m === 'M0') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433581000124101"};
-		if (m === 'M1') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436331000124104"};
-		if (m === 'M1a') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436341000124109"};
-		if (m === 'M1b') return {codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436321000124102"};
+		if (m.toUpperCase() === 'M0') return {displayText: "M0", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"433581000124101"};
+		if (m.toUpperCase() === 'M1') return {displayText: "M1", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436331000124104"};
+		if (m.toUpperCase() === 'M1A') return {displayText: "M1a", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436341000124109"};
+		if (m.toUpperCase() === 'M1B') return {displayText: "M1b", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436321000124102"};
 		return null;
 	}
 }

@@ -16,7 +16,7 @@ import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 
 function addTriggerForKey(trigger) {
-    this.shortcutMap[trigger] = this.shortcuts[this.currentShortcut];
+    this.shortcutMap[trigger.toLowerCase()] = this.shortcuts[this.currentShortcut];
 }
 
 class ShortcutManager {
@@ -63,7 +63,7 @@ class ShortcutManager {
 /*		if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
 			throw new Error("Invalid shortcut type: " + shortcutType);
 		}*/
-		let className = this.shortcutMap[trigger];
+		let className = this.shortcutMap[trigger.toLowerCase()];
 		return new className(onUpdate, object);
 	}
 }
