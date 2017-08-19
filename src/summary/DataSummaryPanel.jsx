@@ -66,7 +66,7 @@ inkBarStyle={{background: 'steelblue'}}
 						changeConditionIndex={this.changeConditionIndex}
                     />
 
-                    <Tabs  value={value} onChange={this.handleChange}>
+                    <Tabs  value={value} onChange={this.handleChange} indicatorColor="steelblue">
                         <Tab label="Problem Summary" value={0}/>
                         <Tab label="Clinical Notes"  value={1}/>
                     </Tabs>

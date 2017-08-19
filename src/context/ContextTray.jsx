@@ -73,6 +73,7 @@ class ContextTray extends Component {
 				<Tabs 
                         scrollable
                         scrollButtons="auto"
+                        indicatorColor="steelblue"
                         onChange={this.handleChange}
 						value={value}>
 					<Tab value={0} key={0} label="Templates"/>
