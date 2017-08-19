@@ -75,6 +75,7 @@ export default class ContextOptions extends Component {
             );
         }
         
+        // Button has style={{minWidth: '75px'}} 
         // now iterate and create a Row for each group and a Col for each 
         return (
             <div className='context-options-list'>
@@ -84,7 +85,7 @@ export default class ContextOptions extends Component {
                             {groupObj.triggers.map((trigger, i) => {
                                 return (
                                     <Col key={i*100+1}> 
-                                        <Button style={{minWidth: '75px'}} raised className='btn_template_ctx'
+                                        <Button dense raised className='btn_template_ctx'
                                             key={trigger.trigger}
                                             onClick={(e) => this._handleClick(e, trigger.trigger)}
                                         >{trigger.trigger}</Button>

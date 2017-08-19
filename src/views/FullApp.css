@@ -5,7 +5,7 @@
 
 /* Restricts app to max fixed width for very wide screens. */
 .FullApp-content {
-    max-width: 1600px;
+    max-width: 1750px;
     background-color: #F3F3F3;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .FullApp-content .panel-content {
-    padding: 30px;
+    padding: 10px;
 }
 
 .FullApp-content .divider {

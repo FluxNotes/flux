@@ -70,7 +70,7 @@ class ContextTray extends Component {
             let activeContexts = this._getActiveContexts();
 			panelContent = (
                 <div>
-				<Tabs 
+				<Tabs
                         scrollable
                         scrollButtons="auto"
                         indicatorColor="steelblue"
@@ -123,7 +123,7 @@ class ContextTray extends Component {
 
 function TabContainer(props) {
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ paddingTop: '5px' }}>
       {props.children}
     </div>
   );
