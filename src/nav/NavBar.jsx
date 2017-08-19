@@ -51,6 +51,7 @@ class NavBar extends Component {
     
   render() {
     const classes = this.props.classes;
+    const login = (this.props.supportLogin) ? ( <Button color="contrast">Dr. X123 logged in</Button> ) : "";
     return (
       <div className={classes.root}>
         <AppBar position="static" className="navbar">
@@ -61,7 +62,7 @@ class NavBar extends Component {
                 <Typography type="title" color="inherit" className={classes.flex}>
                 {this.props.title}
                 </Typography>
-                <Button color="contrast">Dr. X123 logged in</Button>
+                {login}
             </Toolbar>
         </AppBar>          
         <Drawer

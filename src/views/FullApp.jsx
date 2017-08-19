@@ -93,7 +93,7 @@ class FullApp extends Component {
     render() {
         return (
                 <div className="FullApp">
-                    <NavBar title="Flux Notes"/>
+                    <NavBar title="Flux Notes" supportLogin={true}/>
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>

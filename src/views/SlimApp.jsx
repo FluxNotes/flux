@@ -40,7 +40,7 @@ class SlimApp extends Component {
     render() {
         return (
                 <div className="SlimApp">
-                    <NavBar title="Flux Notes Lite"/>
+                    <NavBar title="Flux Notes Lite" supportLogin={false}/>
                     <Grid className="SlimApp-content" fluid>
                         <div id="forms-panel">
                             <Row center="xs">
