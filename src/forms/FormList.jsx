@@ -28,7 +28,6 @@ class FormList extends Component {
             disabledElement: shortcutName
         });
     }
-
     render() {
         return (
             <div id="list-panel">
@@ -48,11 +47,12 @@ class FormList extends Component {
                         return (
                             <ListItem button
                                 key={i}
-                                className={classValue}>
+                                style={{padding: "0px"}}>
                                 <ListItemText
                                     id={shortcutName}
                                     primary={primaryText}
                                     className={classValue}
+                                    disableTypography={true}
                                     onTouchTap={ (e) => {
                                         this._onTouchTap(e, shortcutName)
                                         this._newShortcut(e, i, shortcutName)}
