@@ -1,4 +1,3 @@
-// React Imports:
 import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import ProgressionForm from '../forms/ProgressionForm';
@@ -14,7 +13,7 @@ class ProgressionCreator extends CreatorShortcut {
     // progression is optional and specifies an existing progression value being edited. Not used in no-patient mode
     constructor(onUpdate, progression) {
         super();
-        if (Lang.isUndefined(progression)) { 
+        if (Lang.isUndefined(progression)) {
             this.progression = Patient.createNewProgression();
             this.isProgressionNew = true;
         } else {
@@ -25,7 +24,7 @@ class ProgressionCreator extends CreatorShortcut {
         this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-	
+
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("@condition");
@@ -145,7 +144,7 @@ class ProgressionCreator extends CreatorShortcut {
                 return e.coding.displayText;
             });
 		} else {
-			console.error("Error: Unexpected value selected in staging dropdown: " + name);
+			console.error("Error: Unexpected value requested for progression: " + name);
 			return null;
 		}
 	}

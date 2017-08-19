@@ -66,42 +66,26 @@ class ProgressionForm extends Component {
 
         let reasonName = reason.name;
         let reasonDescription = reason.description;
-        let backgroundColor = "";
-        let labelColor = "";
-        let color = "";
 
-        if (this.state.reasonButtonsActiveState[i]) {
-            backgroundColor = "#297DA2";
-            labelColor = "#fff";
-            color = "primary";
-        } else {
-            backgroundColor = "";
-            labelColor = "";
-            color = "default";
-        }
-
-        const buttonClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
-
+        const tooltipClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+        const buttonClass = (this.state.reasonButtonsActiveState[i] ? "button_multi_select_selected" : "button_multi_select_not_selected");
         return (
             <div key={reasonName} className="tooltip">
-                <span id={reasonName} className={buttonClass}>{reasonDescription}</span>
+                <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <Button raised
                     key={i}
                     label={reasonName}
-                    labelStyle={{
-                        textTransform: "none",
+                    className={buttonClass}
+                    classes={{
+                        label: {
+                            textTransform: "none",
+                        }
                     }}
-                    color={color}
-                    buttonStyle={{
+                    style={{
+                        margin: 0.5,
                         height: "75px",
                         width: "180px",
-                        backgroundColor:{backgroundColor},
-                        labelColor:{labelColor}
                     }}
-                    overlayStyle={{
-                        padding: "20px 0 20px 0"
-                    }}
-                    style={{margin: 0.5}}
                     onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
                 >{reasonName}
                 </Button>
@@ -128,33 +112,28 @@ class ProgressionForm extends Component {
                     {this.state.statusOptions.map((status, i) => {
                         let statusName = status.name;
                         let statusDescription = status.description;
-                        let color = "default";
-                        if (this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)) {
-                            color = "primary";
-                        }
-                        const buttonClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+                        const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+
                         return (
                             <div key={statusName} className="tooltip">
-                                <span id={statusName} className={buttonClass}>{statusDescription}</span>
-                                <Button raised
+                                <span id={statusName} className={tooltipClass}>{statusDescription}</span>
+                                    <Button raised
                                     key={i}
                                     label={statusName}
-                                    labelStyle={{
-                                        textTransform: "none",
-                                    }}
-                                    color={color}
-                                    buttonStyle={{
-                                        height: "75px",
-                                        width: "180px"
-                                    }}
-                                    overlayStyle={{
-                                        padding: "20px 0 20px 0"
-                                    }}
-                                    style={{margin: 0.5}}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
+                                    className="button_disabled_is_selected"
+                                    classes={{
+                                        label: {
+                                            textTransform: "none",
+                                        }
+                                    }}
+                                    style={{
+                                        margin: 0.5,
+                                        height: "75px",
+                                        width: "180px",
+                                        padding: "20px 0 20px 0",
+                                    }}
                                     disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
-                                    disabledBackgroundColor="#297DA2"
-                                    disabledLabelColor="#fff"
                                 >{statusName}
                                 </Button>
                             </div>

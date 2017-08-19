@@ -1,29 +1,31 @@
-// React Imports:
 import React from 'react';
-// Our components
 import CreatorShortcut from './CreatorShortcut';
+import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
+import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityForm from '../forms/ToxicityForm';
-// Import Lodash libraries
+import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
 class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            // Starts with an empty array.
-            toxicity = []; 
-            // toxicity = ({
-            //     id: Math.floor(Math.random() * Date.now()),
-            //     grade: null,
-            //     adverseEvent: null,
-            //     startDate: new Date()
-            // });
+            this.toxicity = Patient.createNewToxicity();
+            this.isToxicityNew = true;
+        } else {
+            this.toxicity = toxicity;
+            this.isToxicityNew = false;
         }
-        this.toxicity = toxicity;
+		this.setValueObject(this.toxicity);
         this.onUpdate = onUpdate;
-        console.log(`constructor for a new Toxicity object`)
+		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 	
+    initialize(contextManager, trigger) {
+        super.initialize(contextManager, trigger);
+        this.parentContext = contextManager.getActiveContextOfType("@condition");
+    }
+
     getShortcutType() { 
         return "#toxicity";
     }
@@ -31,7 +33,8 @@ class ToxicityCreator extends CreatorShortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        const gradeString = `${curToxicity.grade}`;
+        if (Lang.isNull(curToxicity.adverseEventGrade.coding)) return "";
+        const gradeString = `${curToxicity.adverseEventGrade.coding.displayText}`;
         return gradeString;
     }
 
@@ -39,22 +42,9 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        const adverseEventString = `${curToxicity.adverseEvent}`;
+        if (Lang.isNull(curToxicity.value.coding)) return "";
+        const adverseEventString = `${curToxicity.value.coding.displayText}`;
         return adverseEventString;
-    }
-
-    /* 
-     * Get date string for a given toxicity 
-     */
-    getDateString = (curToxicity) => { 
-        const today = new Date();
-        let dateString;
-        if (!Lang.isUndefined(curToxicity.startDate)) {
-            dateString = (curToxicity.startDate.getDate() === today.getDate()) ? `` : `as of ${curToxicity.startDate}`;
-        } else {
-            dateString = "";
-        } 
-        return dateString;
     }
 
     /* 
@@ -62,70 +52,90 @@ class ToxicityCreator extends CreatorShortcut {
      */ 
     getToxAsString = (curToxicity) => { 
         const gradeString = this.getGradeString(curToxicity);
-        let adverseEventString = this.getAdverseEventString(curToxicity);
-        if(!Lang.isEmpty(adverseEventString)) { adverseEventString = ` ` + adverseEventString}
-        let dateString = this.getDateString(curToxicity);
-        if(!Lang.isEmpty(dateString)) { dateString = ` ` + dateString}
-
-        const fullToxicityString = `${gradeString}${adverseEventString}${dateString}`;
-        return fullToxicityString;
+        const adverseEventString = this.getAdverseEventString(curToxicity);
+        if (Lang.isEmpty(gradeString) && Lang.isEmpty(adverseEventString)) return "";
+        if(Lang.isEmpty(adverseEventString)) return "#" + gradeString.replace(" ", "-") + " ?";
+        if(Lang.isEmpty(gradeString)) return "Grade ? #" + adverseEventString.replace(" ", "-");
+        return `#${gradeString.replace(" ", "-")} #${adverseEventString.replace(" ", "-")}`;
     }
 
     /* 
      * Get string representation for all toxicities, wrapped in toxicity tag
      */ 
     getAsString = () => { 
-        if (Lang.isEmpty(this.toxicity)) { 
+        const curToxicityString = this.getToxAsString(this.toxicity);
+        if (Lang.isEmpty(curToxicityString)) { 
             // No Toxicity information -- in this case we just want a hash
             return `#toxicity`;
         } else { 
-            let allToxicities = "";
-            const numToxicities = this.toxicity.length;
-            for (let i = 0; i < numToxicities - 1; i++) {
-                const curToxicity = this.toxicity[i];
-                const curToxicityString = this.getToxAsString(curToxicity);
-                allToxicities += curToxicityString;
-                allToxicities += ", ";
-            }
-            const curToxicity = this.toxicity[numToxicities - 1];
-            const curToxicityString = this.getToxAsString(curToxicity);
-            allToxicities += curToxicityString;
-            // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#toxicity[${allToxicities}]`;
+            return "#toxicity of " + curToxicityString;
         }
     }
-
-    handleToxicityUpdate = (t) => { 
-        console.log(`Updated toxicity:`);
-        console.log(t);
-        this.toxicity = Lang.clone(t);
-        this.onUpdate(this);
-    } 
 
     getForm() {
         return (
             <ToxicityForm
-                // Update functions
-                onToxicityUpdate={this.handleToxicityUpdate}
-                // Properties
+                updateValue={this.setAttributeValue}
                 toxicity={this.toxicity}
-                // Utilities
-                getToxAsString={this.getToxAsString}
             />
         );      
     }
 
-	getAttributeValue(name) {
-	}
 	setAttributeValue(name, value, publishChanges) {
+		if (name === "adverseEvent") {
+			Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
+		} else if (name === "grade") {
+			Patient.updateGradeForToxicReaction(this.toxicity, value);
+		} else {
+			console.error("Error: Unexpected value selected for toxicity: " + name);
+			return;
+		}
+		this.onUpdate(this);
+		if (publishChanges) {
+			this.notifyValueChangeHandlers(name);
+		}
+	}
+	getAttributeValue(name) {
+		if (name === "adverseEvent") {
+			return this.toxicity.value.coding.displayText;
+		} else if (name === "grade") {
+            return this.toxicity.adverseEventGrade.coding.displayText;
+		} else {
+			console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
+			return null;
+		}
+	}
+	
+	updatePatient(patient, contextManager) {
+		if (this.toxicity.value.coding.displayText.length === 0) return; // not complete value
+		//let condition = this.parentContext.getValueObject();
+		if (this.isToxicityNew) {
+            //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);
+            patient.addEntryToPatientWithPatientFocalSubject(this.toxicity);
+			this.isToxicityNew = false;
+		}
+	}
+
+	validateInCurrentContext(contextManager) {
+		let errors = [];
+		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
+			errors.push("#toxicity invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
+		}
+		return errors;
 	}
 
 	getValidChildShortcuts() {
-		return [ ]; //classes for ToxicityAdverseEventCreator, ToxicityGradeCreator
+		let result = [];
+		if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
+		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
+		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator ];
 	}
-
+	
 	isContext() {
 		return true;
+	}
+	getLabel() {
+		return this.getShortcutType();
 	}
 	static getTriggers() {
 		return [ "#toxicity" ];

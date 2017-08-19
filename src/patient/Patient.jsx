@@ -1,6 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import staging from '../lib/staging';
+import toxicityLookup from '../lib/toxicity_lookup';
 
 class Patient {
 	hardCodedPatient = [
@@ -701,7 +702,66 @@ class Patient {
 		return result[0];
 	}
 
-    // Progression
+    // Toxicity Creation
+    static createNewToxicity(adverseEvent, grade) {
+        const today = new moment().format("D MMM YYYY");
+        let adverseEventCoding, gradeCoding;
+        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+        }
+        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+        }
+        return {
+			"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
+                                "http://standardhealthrecord.org/adverse/AdverseReaction",
+                                "http://standardhealthrecord.org/adverse/AdverseEvent"],
+			"value": { "coding": adverseEventCoding },
+            "adverseEventGrade": { "coding": gradeCoding },
+			"originalCreationDate": today,
+			"lastUpdateDate": today
+		};
+    }
+
+    static updateAdverseEventForToxicReaction(toxicity, adverseEvent) {
+        let adverseEventCoding;
+        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+        }
+        toxicity.value.coding = adverseEventCoding;
+    }
+    
+    static updateGradeForToxicReaction(toxicity, grade) {
+        let gradeCoding;
+        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+        }
+        toxicity.adverseEventGrade.coding = gradeCoding;
+    }
+    
+    static _adverseEventToCodeableConcept(adverseEventName) {
+        const adverseEvent = toxicityLookup.findAdverseEvent(adverseEventName);
+        return { value: adverseEvent['MedDRA v12.0 Code'], codeSystem: "https://www.meddra.org/", displayText: adverseEvent['name']};
+    }
+    
+    static _toxicityGradeToCodeableConcept(grade) {
+        if (grade === "Grade 1") return {value: "C1513302", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 1"};
+        if (grade === "Grade 2") return {value: "C1513374", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 2"};
+        if (grade === "Grade 3") return {value: "C1519275", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 3"};
+        if (grade === "Grade 4") return {value: "C1517874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 4"};
+        if (grade === "Grade 5") return {value: "C1559081", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 5"};
+        return null;
+    }
+    
+    // Progression Creation
     static createNewProgression(status, reasons) {
         /* leaves out shrId, entryId, focalSubject, and focalCondition. Should be filled out if added to a patient */
         const today = new moment().format("D MMM YYYY");
@@ -772,7 +832,7 @@ class Patient {
         return { value: "", codeSystem: "", displayText: ""}
    }
     
-    // Staging
+    // Staging Creation
 	static createNewTNMStageObservation(t, n, m) {
 		let tCoding, nCoding, mCoding;
 		let gotAllThree = true;

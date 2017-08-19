@@ -1,8 +1,15 @@
+.button_disabled_is_selected:disabled {
+    background-color: #297DA2 !important;
+    color: #fff !important;
+}
 
-/*h4 { 
-    margin-bottom: 0px;
- }
-*/
+.button_multi_select_not_selected {
+}
+.button_multi_select_selected {
+    background-color: #297DA2 !important;
+    color: #fff !important;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;

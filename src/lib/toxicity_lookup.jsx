@@ -8746,6 +8746,12 @@ exports.findAdverseEventIndex = (possibleAdverseEvent) => {
     return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 
+exports.findAdverseEvent = (possibleAdverseEvent) => {
+    const index = exports.findAdverseEventIndex(possibleAdverseEvent);
+    if (index === -1) return null;
+    return adverseEventOptions[index];
+}
+
 /* 
  * Determines if a possibleGrade is in the list of grades
  */ 

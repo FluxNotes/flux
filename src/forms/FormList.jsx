@@ -42,17 +42,17 @@ class FormList extends Component {
                         }
                         if (this.state.disabledElement === shortcutName) {
                             classValue += " selected";
-
                         } else {
                             classValue += " unselected";
                         }
                         return (
                             <ListItem button
-                                key={i}>
+                                key={i}
+                                className={classValue}>
                                 <ListItemText
                                     id={shortcutName}
                                     primary={primaryText}
-                                    className={ classValue}
+                                    className={classValue}
                                     onTouchTap={ (e) => {
                                         this._onTouchTap(e, shortcutName)
                                         this._newShortcut(e, i, shortcutName)}
