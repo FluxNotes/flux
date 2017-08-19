@@ -8,17 +8,30 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import createMuiTheme from 'material-ui/styles/theme';
 import './NavBar.css';
 
 const styles = {
     root: {
-        marginTop: 30,
         width: '100%',
     },
     flex: {
         flex: 1,
+        fontSize: 24,
+        fontWeight: 400,
     },
 };
+
+const drawerThemeForPosition = createMuiTheme({
+  overrides: {
+    MuiDrawer: {
+      paper:  {
+        top: '64px'
+      }
+    }
+  }
+}) 
 
 class NavBar extends Component {
 
@@ -27,6 +40,7 @@ class NavBar extends Component {
     this.state = {
       open: false
     };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
   toggleDrawer() {
@@ -35,18 +49,8 @@ class NavBar extends Component {
     })
   }
 
-  handleEnterStaging() {
-    this.setState({
-      open: false
-    });
-    this.props.onStructuredFieldEntered("progression");
-  }
-
-  handleExitStaging() {
-    this.setState({
-      open: false
-    });
-    this.props.onStructuredFieldExited("progression");
+  handleNewNote() {
+    console.log("new note");
   }
     
   render() {
@@ -64,14 +68,16 @@ class NavBar extends Component {
                 </Typography>
                 {login}
             </Toolbar>
-        </AppBar>          
+        </AppBar>
+        <MuiThemeProvider theme={drawerThemeForPosition}>
         <Drawer
-          containerStyle={{'top': '64px'}}
-          open={this.state.open}
-         >
-          <MenuItem onTouchTap={this.handleEnterStaging.bind(this)}>Enter Staging</MenuItem>
-          <MenuItem onTouchTap={this.handleExitStaging.bind(this)}>Exit Staging</MenuItem>
+            open={this.state.open}
+            onRequestClose={this.toggleDrawer}
+            onClick={this.toggleDrawer}
+        >
+            <MenuItem onTouchTap={this.handleNewNote.bind(this)}>New Note</MenuItem>
         </Drawer>
+        </MuiThemeProvider>
       </div>
     );
   }
