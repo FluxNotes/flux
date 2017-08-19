@@ -55,6 +55,7 @@ export default class Context {
 	}	
 	notifyValueChangeHandlers(name) {
 		let l = this.valueChangeHandlers[name];
+        if (Lang.isUndefined(l)) return;
 		l.forEach((h) => {
 			h(this.getAttributeValue(name));
 		});

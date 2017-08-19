@@ -61,8 +61,19 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                           disabled={this._currentlySelected(this.props.staging.tStage.coding.displayText, this.state.tumorValues[i].name)}
-                      />
+                      >{titlecase(t.name)}</Button>
                   </div>
                 );
             })}
@@ -81,8 +92,19 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                           disabled={this._currentlySelected(this.props.staging.nStage.coding.displayText, this.state.nodeValues[i].name)}
-                      />
+                      >{titlecase(n.name)}</Button>
                   </div>
                 );
             })}
@@ -101,8 +123,19 @@ class StagingForm extends Component {
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                         disabled={this._currentlySelected(this.props.staging.mStage.coding.displayText, this.state.metastasisValues[i].name)}
-                    />
+                    >{titlecase(m.name)}</Button>
                   </div>
                 );
             })}
