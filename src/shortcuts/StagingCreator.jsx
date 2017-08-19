@@ -84,7 +84,7 @@ class StagingCreator extends CreatorShortcut {
 		if (tString === '?' && nString === '?' && mString === '?') {
 			return "#staging";
 		}
-		return `#staging T${tString}N${nString}M${mString}`;
+		return `#staging #${tString} #${nString} #${mString}`;
     }
     
     /* 
