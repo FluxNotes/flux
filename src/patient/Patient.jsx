@@ -753,11 +753,11 @@ class Patient {
     }
     
     static _toxicityGradeToCodeableConcept(grade) {
-        if (grade === "Grade 1") return {value: "C1513302", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 1"};
-        if (grade === "Grade 2") return {value: "C1513374", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 2"};
-        if (grade === "Grade 3") return {value: "C1519275", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 3"};
-        if (grade === "Grade 4") return {value: "C1517874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 4"};
-        if (grade === "Grade 5") return {value: "C1559081", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 5"};
+        if (grade.toLowerCase() === "grade 1") return {value: "C1513302", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 1"};
+        if (grade.toLowerCase() === "grade 2") return {value: "C1513374", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 2"};
+        if (grade.toLowerCase() === "grade 3") return {value: "C1519275", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 3"};
+        if (grade.toLowerCase() === "grade 4") return {value: "C1517874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 4"};
+        if (grade.toLowerCase() === "grade 5") return {value: "C1559081", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 5"};
         return null;
     }
     
