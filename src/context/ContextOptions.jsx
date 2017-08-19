@@ -75,16 +75,27 @@ export default class ContextOptions extends Component {
             );
         }
         
-        // Button has style={{minWidth: '75px'}} 
+        let numCols, maxCols = 0;
+        let numChars, maxChars = 0;
+        groupList.forEach((groupObj, i) => {
+            numCols = groupObj.triggers.length;
+            groupObj.triggers.forEach((trigger) => {
+                numChars = trigger.trigger.length;
+                if (numChars > maxChars) maxChars = numChars;
+            });
+            if (numCols > maxCols) maxCols = numCols;
+        });
+        let colWidth = Math.ceil(maxChars / 2.5);
+                
         // now iterate and create a Row for each group and a Col for each 
         return (
             <div className='context-options-list'>
                 {filterBar}
                 {groupList.map((groupObj, i) => {
-                    return  (<Row key={i}>
+                    return  (<Row key={i} start="sm">
                             {groupObj.triggers.map((trigger, i) => {
                                 return (
-                                    <Col key={i*100+1}> 
+                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
                                         <Button dense raised className='btn_template_ctx'
                                             key={trigger.trigger}
                                             onClick={(e) => this._handleClick(e, trigger.trigger)}

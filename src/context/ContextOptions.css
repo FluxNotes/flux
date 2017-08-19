@@ -2,9 +2,11 @@
 //    display: inline-block !important;
 //  float: left;
 //  clear: left;
+  width: 100%;
   margin-left: 2px;
   margin-right: 2px;
   margin-bottom: 20px;
+  min-width: 10px !important;
 }
 
 .context-options-list {
