@@ -60,7 +60,7 @@ class NavBar extends Component {
       <div className={classes.root}>
         <AppBar position="static" className="navbar">
             <Toolbar>
-                <IconButton color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
+                <IconButton style={{margin: '0px 8px 0px -16px' }} color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
                     <MenuIcon/>
                 </IconButton>
                 <Typography type="title" color="inherit" className={classes.flex}>
