@@ -5645,7 +5645,7 @@ const adverseEventOptions = [
     {
         "MedDRA v12.0 Code": 10028395,
         "SOC": "Musculoskeletal and connective tissue disorders",
-        "name": "Musculoskeletal and connective tissue disorder -  Other, specify",
+        "name": "Musculoskeletal and connective tissue disorder - Other, specify",
         "Grade 1": "Asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated",
         "Grade 2": "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental ADL",
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
