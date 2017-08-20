@@ -9,7 +9,7 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
-        let adverseEventString = trigger.substring(1).replace("-", " ");
+        let adverseEventString = trigger.substring(1);
 		this.parentContext = contextManager.getActiveContextOfType("#toxicity");
 		this.parentContext.setAttributeValue("adverseEvent", adverseEventString, false);
         this.parentContext.addChild(this);
@@ -49,7 +49,7 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
 		const statusOptions = lookup.getAdverseEventOptions();
 		let result = [];
 		statusOptions.forEach((val) => {
-			result.push("#" + val.name.replace(" ", "-"));
+			result.push("#" + val.name);
 		});
 		return result;
 	}

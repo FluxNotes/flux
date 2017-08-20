@@ -44,7 +44,7 @@ class ProgressionCreator extends CreatorShortcut {
         {
             statusString = ``;
         } else { 
-            statusString = ` is #${curProgression.value.coding.displayText.replace(" ", "-")}`
+            statusString = ` is #${curProgression.value.coding.displayText}`
         }
         return statusString;
     }
@@ -59,10 +59,10 @@ class ProgressionCreator extends CreatorShortcut {
             if (numReasons > 0) { 
                 reasonString = ` based on `;
                 for (let i = 0; i < numReasons - 1; i++) {
-                    reasonString += "#" + curProgression.evidence[i].coding.displayText.replace(" ", "-");
+                    reasonString += "#" + curProgression.evidence[i].coding.displayText;
                     reasonString += `, `;
                 }
-                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText.replace(" ", "-");
+                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText;
             } 
         }
         return reasonString

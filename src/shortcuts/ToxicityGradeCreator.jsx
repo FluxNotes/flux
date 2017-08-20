@@ -9,7 +9,7 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
-        let gradeString = trigger.substring(1).replace("-", " ");
+        let gradeString = trigger.substring(1);
 		this.parentContext = contextManager.getActiveContextOfType("#toxicity");
 		this.parentContext.setAttributeValue("grade", gradeString, false);
         this.parentContext.addChild(this);
@@ -49,7 +49,7 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
 		const statusOptions = lookup.getGradeOptions();
 		let result = [];
 		statusOptions.forEach((val) => {
-			result.push("#" + val.name.replace(" ", "-"));
+			result.push("#" + val.name);
 		});
 		return result;
 	}

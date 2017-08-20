@@ -239,7 +239,7 @@ class FluxNotesEditor extends React.Component {
 		let state;
 		const currentState = this.state.state;
 		let transform = currentState.transform();
-		let regExp = new RegExp("(@[\\w\\-]+|#[\\w\\-]+)", "i");
+		let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
 		let result = regExp.exec(itemToBeInserted);
 		let remainder = itemToBeInserted;
 		let start, before;
@@ -249,7 +249,7 @@ class FluxNotesEditor extends React.Component {
 			remainder = remainder.substring(start + result[0].length);
 			transform = transform
 				.insertText(before)
-			transform = this.insertShortcut(result[0], transform);
+			transform = this.insertShortcut(result[0].substring(0, result[0].length - 1), transform);
 			result = regExp.exec(remainder);
 		}
 		if (remainder.length > 0) {

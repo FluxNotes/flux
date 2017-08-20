@@ -9,7 +9,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
-        let statusString = trigger.substring(1).replace("-", " ");
+        let statusString = trigger.substring(1);
 		this.parentContext = contextManager.getActiveContextOfType("#progression");
 		this.parentContext.setAttributeValue("status", statusString, false);
         this.parentContext.addChild(this);
@@ -49,7 +49,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		const statusOptions = lookup.getStatusOptions();
 		let result = [];
 		statusOptions.forEach((val) => {
-			result.push("#" + val.name.replace(" ", "-"));
+			result.push("#" + val.name);
 		});
 		return result;
 	}

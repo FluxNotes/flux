@@ -13,7 +13,7 @@ class ContextTray extends Component {
      need to listen for enterwithinStructuredField and exitwithinStructuredField events. when get an enter, set the showing state
      to the correct entry form for the structured field. on exit, set to null.
      */
-	templates = [{name: 'op note', content: 'op note'}, {name: 'follow-up', content:'follow up'}, {name:'consult note', content: '@patient presenting with '}];
+	templates = [{name: 'op note', content: 'op note'}, {name: 'follow-up', content:'follow up'}, {name:'consult note', content: '@patient@ presenting with '}];
 
     state = {
         value: 1,
@@ -32,8 +32,8 @@ class ContextTray extends Component {
 		this.props.onShortcutClicked(this.templates[i].content);
     }
 	
-	_handleShortcutClick(i) {
-		this.props.onShortcutClicked(i);
+	_handleShortcutClick(shortcut) {
+		this.props.onShortcutClicked(shortcut + shortcut.substring(0, 1));
 	}
     handleChange(event, value) {
         this.setState({ value });

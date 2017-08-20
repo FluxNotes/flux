@@ -54,9 +54,9 @@ class ToxicityCreator extends CreatorShortcut {
         const gradeString = this.getGradeString(curToxicity);
         const adverseEventString = this.getAdverseEventString(curToxicity);
         if (Lang.isEmpty(gradeString) && Lang.isEmpty(adverseEventString)) return "";
-        if(Lang.isEmpty(adverseEventString)) return "#" + gradeString.replace(" ", "-") + " ?";
-        if(Lang.isEmpty(gradeString)) return "Grade ? #" + adverseEventString.replace(" ", "-");
-        return `#${gradeString.replace(" ", "-")} #${adverseEventString.replace(" ", "-")}`;
+        if(Lang.isEmpty(adverseEventString)) return "#" + gradeString + " ?";
+        if(Lang.isEmpty(gradeString)) return "Grade ? #" + adverseEventString;
+        return `#${gradeString} #${adverseEventString}`;
     }
 
     /* 

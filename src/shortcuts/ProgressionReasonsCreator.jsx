@@ -10,7 +10,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
-        let reasonString = trigger.substring(1).replace("-", " ");
+        let reasonString = trigger.substring(1);
 		this.parentContext = contextManager.getActiveContextOfType("#progression");
         let currentReasons = this.parentContext.getAttributeValue("reasons");
         currentReasons.push(reasonString);
@@ -22,7 +22,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
         let result = super.onBeforeDeleted();
         if (result) {
             let currentReasons = this.parentContext.getAttributeValue("reasons");
-            let reasonToDelete = this.text.substring(1).replace("-", " ");
+            let reasonToDelete = this.text.substring(1);
             let newReasons = currentReasons.filter((reason) => { return reason !== reasonToDelete });
             this.parentContext.setAttributeValue("reasons", newReasons, false);
             this.parentContext.removeChild(this);
@@ -60,7 +60,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 		let result = [];
 		reasonOptions.forEach((val) => {
             if (!currentReasons.includes(val.name)) {
-                result.push("#" + val.name.replace(" ", "-"));
+                result.push("#" + val.name);
             }
 		});
 		return result;
