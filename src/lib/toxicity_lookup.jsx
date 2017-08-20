@@ -8718,16 +8718,23 @@ exports.getDescription = (dataElement) => {
     }
 }
 
-/* 
- * Return a list of possible grades and their descriptions
- */ 
+exports.getGradeOptionsForAdverseEvent = (adverseEventName) => {
+    const adverseEvent = exports.findAdverseEvent(adverseEventName);
+    return gradeOptions.filter((grade) => {
+        return (!Lang.isNull(adverseEvent[grade.name]));
+    });
+}
+
 exports.getGradeOptions = () => {
     return gradeOptions;
 }
 
-/* 
- * Return a list of adverseEvent options
- */ 
+exports.getAdverseEventOptionsForGrade = (currentGrade) => {
+    return adverseEventOptions.filter((adverseEvent) => {
+        return !Lang.isNull(adverseEvent[currentGrade]);
+    });
+}
+
 exports.getAdverseEventOptions = () => {
     return adverseEventOptions;
 }

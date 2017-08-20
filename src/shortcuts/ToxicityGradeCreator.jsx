@@ -1,4 +1,5 @@
 import CreatorShortcut from './CreatorShortcut';
+import Lang from 'lodash';
 const lookup = require('../lib/toxicity_lookup');
 
 export default class ToxicityGradeCreator extends CreatorShortcut {
@@ -45,10 +46,18 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
 		return errors;
 	}
 	
-	static getTriggers() {
-		const statusOptions = lookup.getGradeOptions();
+	static getTriggers(parentContext = undefined) {
+        let currentAdverseEvent = "", gradeOptions;
+        if (!Lang.isUndefined(parentContext)) {
+            currentAdverseEvent = parentContext.getAttributeValue("adverseEvent");
+        }
+        if (currentAdverseEvent.length === 0) {
+            gradeOptions = lookup.getGradeOptions();
+        } else {
+            gradeOptions = lookup.getGradeOptionsForAdverseEvent(currentAdverseEvent);
+        }
 		let result = [];
-		statusOptions.forEach((val) => {
+		gradeOptions.forEach((val) => {
 			result.push("#" + val.name);
 		});
 		return result;
