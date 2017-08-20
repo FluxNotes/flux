@@ -45,6 +45,9 @@ export default class Context {
 	setAttributeValue(name, value, publishChanges) {
 		throw new Error("[setAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
 	}
+    shouldBeInContext() {
+        return true;
+    }
 	onValueChange(name, handleValueChange) {
 		let l = this.valueChangeHandlers[name];
 		if (Lang.isUndefined(l) || Lang.isNull(l)) {
@@ -61,6 +64,19 @@ export default class Context {
 		});
 	}
 	
+    updateContextStatus() {
+        //this.isInContext
+        const shouldBeInContext = this.shouldBeInContext();
+        if (this.isInContext === shouldBeInContext) return;
+        if (shouldBeInContext) { // put in contextManager
+            this.contextManager.addShortcutToContext(this);
+            this.isInContext = true;
+        } else { // take out of contextManager
+            this.contextManager.removeShortcutFromContext(this);
+            this.isInContext = false;
+        }
+    }
+
 	isContext() {
 		return true;
 	}

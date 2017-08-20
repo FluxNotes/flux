@@ -131,6 +131,7 @@ class ProgressionCreator extends CreatorShortcut {
 			console.error("Error: Unexpected value selected for progression: " + name);
 			return;
 		}
+        if (this.isContext()) this.updateContextStatus();
 		this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
@@ -166,7 +167,12 @@ class ProgressionCreator extends CreatorShortcut {
 		}
 		return errors;
 	}
-
+    
+    shouldBeInContext() {
+        return  (this.getAttributeValue("status").length === 0) ||
+                (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length);
+    }
+    
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);

@@ -110,6 +110,7 @@ class StagingCreator extends CreatorShortcut {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
 		}
+        if (this.isContext()) this.updateContextStatus();
 		this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);

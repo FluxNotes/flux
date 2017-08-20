@@ -90,6 +90,7 @@ class ToxicityCreator extends CreatorShortcut {
 			console.error("Error: Unexpected value selected for toxicity: " + name);
 			return;
 		}
+        if (this.isContext()) this.updateContextStatus();
 		this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
@@ -130,7 +131,11 @@ class ToxicityCreator extends CreatorShortcut {
 		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
 		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator ];
 	}
-	
+    shouldBeInContext() {
+        return  (this.getAttributeValue("adverseEvent").length === 0) ||
+                (this.getAttributeValue("grade").length === 0);
+    }
+    
 	isContext() {
 		return true;
 	}
