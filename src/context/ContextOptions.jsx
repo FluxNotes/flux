@@ -38,10 +38,12 @@ export default class ContextOptions extends Component {
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
+        count = 0;
         validShortcuts.forEach((shortcut, i) => {
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     triggers.push({"trigger": trigger, "group": i });
+                    count++;
                 }
             });
         });
@@ -49,7 +51,10 @@ export default class ContextOptions extends Component {
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
         let currentGroup = {group: "", triggers:[]};
+        let countToShow = 0;
         triggers.forEach((trigger, i) => {
+            if (countToShow === 50) return;
+            countToShow++;
             if (trigger.group !== currentGroup.group) {
                 currentGroup = {"group": trigger.group, "triggers": [ trigger ]};
                 groupList.push(currentGroup);
@@ -63,7 +68,7 @@ export default class ContextOptions extends Component {
             filterBar = (
             <div id="shortcut-search">
                 <div style={{position: 'relative', display: 'inline-block'}}>
-                    <h1>Filter:</h1>
+                    <div style={{display: 'flex', justifyContent:'center',alignItems: 'center'}}><h1>Filter:&nbsp;&nbsp;</h1><span>(Showing {countToShow} of {count})</span></div>
                     <TextField
                         style={{textIndent: 25, left: "15%", textAlign: "left", minWidth: "80%", width: "100%"}}
                         label="Search for a shortcut"
