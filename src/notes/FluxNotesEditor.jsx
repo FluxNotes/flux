@@ -71,14 +71,14 @@ class FluxNotesEditor extends React.Component {
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             trigger: '#',
-            capture: /#([\w]*)/,
-            suggestions: this.suggestionFunction.bind(this),
+            capture: /#([\w\s\-,]*)/,
+            suggestions: this.suggestionFunction.bind(this, '#'),
             onEnter: this.choseSuggestedShortcut.bind(this)
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
             trigger: '@',
-            capture: /@([\w]*)/,
-            suggestions: this.suggestionFunction.bind(this),
+            capture: /@([\w\s\-,]*)/,
+            suggestions: this.suggestionFunction.bind(this, '@'),
             onEnter: this.choseSuggestedShortcut.bind(this)
         });
         
@@ -105,14 +105,16 @@ class FluxNotesEditor extends React.Component {
 		}));
     }
 		
-	suggestionFunction(text) {
+	suggestionFunction(initialChar, text) {
+        if (Lang.isUndefined(text)) return [];
 		let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
         let suggestionsShortcuts = [];
+        const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
 			const triggers = shortcut.getTriggers();
 			triggers.forEach((trigger) => {
 				const triggerNoPrefix = trigger.substring(1);
-				if (triggerNoPrefix.includes(text)) {
+				if (trigger.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
 					suggestionsShortcuts.push({
 						"key": triggerNoPrefix,
 						"value": trigger,
@@ -121,7 +123,7 @@ class FluxNotesEditor extends React.Component {
 				}
 			});
         });
-		return suggestionsShortcuts;
+		return suggestionsShortcuts.slice(0, 10);
 	}
 	
 	choseSuggestedShortcut(suggestion) {
@@ -387,7 +389,7 @@ function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
         return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
                     end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
     }
-    if (text[index] === " " || text[index] === initialChar || text[index] === undefined) {
+    if (text[index] === initialChar || text[index] === undefined) {
         return index
     }
     if (index < initialIndex) {

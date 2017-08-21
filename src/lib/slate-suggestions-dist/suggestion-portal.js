@@ -74,7 +74,7 @@ var SuggestionPortal = function (_React$Component) {
       _this.setCallbackSuggestion();
     };
 
-    _this.onKeyDown = function (keyCode) {
+    _this.onKeyDown = function (keyCode, data) {
       var filteredSuggestions = _this.state.filteredSuggestions;
 
 
@@ -94,7 +94,7 @@ var SuggestionPortal = function (_React$Component) {
         _this.forceUpdate();
       } else {
         _this.selectedIndex = 0;
-        var newFilteredSuggestions = _this.getFilteredSuggestions();
+        var newFilteredSuggestions = _this.getFilteredSuggestions(data);
         if (typeof newFilteredSuggestions.then === 'function') {
           newFilteredSuggestions.then(function (newFilteredSuggestions) {
             _this.setFilteredSuggestions(newFilteredSuggestions);
@@ -160,7 +160,7 @@ var SuggestionPortal = function (_React$Component) {
       return undefined;
     };
 
-    _this.getFilteredSuggestions = function () {
+    _this.getFilteredSuggestions = function (data) {
       var _this$props3 = _this.props,
           suggestions = _this$props3.suggestions,
           state = _this$props3.state,
@@ -173,8 +173,11 @@ var SuggestionPortal = function (_React$Component) {
       var anchorText = state.anchorText,
           anchorOffset = state.anchorOffset;
 
-
-      var currentWord = (0, _currentWord2.default)(anchorText.text, anchorOffset - 1, anchorOffset - 1);
+      //GQ
+      var nextChar = _this.convertSlateDataObjectToCharacter(data);
+      if (nextChar == null) return [];
+      // END GQ
+      var currentWord = (0, _currentWord2.default)(anchorText.text + nextChar, anchorOffset - 1, anchorOffset - 1);//GQ added +nextChar
 
       var text = _this.getMatchText(currentWord, capture);
 
@@ -186,6 +189,45 @@ var SuggestionPortal = function (_React$Component) {
         }).slice(0, resultSize ? resultSize : _constants.RESULT_SIZE);
       }
     };
+    
+    //GQ
+    _this.convertSlateDataObjectToCharacter = function(data) {
+        const code = data.code;
+        const isShift = data.isShift;
+        if (code < 48) return null;
+        if (code < 58) { // number keys
+            if (isShift) {
+                if (code === 48) return ")";
+                if (code === 49) return "!";
+                if (code === 50) return "@";
+                if (code === 51) return "#";
+                if (code === 52) return "$";
+                if (code === 53) return "%";
+                if (code === 54) return "^";
+                if (code === 55) return "&";
+                if (code === 56) return "*";
+                if (code === 57) return "(";
+            }
+            return String.fromCharCode(code);
+        }
+        if (code >= 65 && code <= 90) { // A-Z, a-z
+            if (isShift) return String.fromCharCode(code);
+            return String.fromCharCode(code + 32);
+        }
+        if (code >= 96 && code <= 105) return String.fromCharCode(code - 48); // numpad 0-9
+        if (code === 187 && !isShift) return "=";
+        if (code === 188 && !isShift) return ",";
+        if (code === 189 && !isShift) return '-';
+        if (code === 190 && !isShift) return ".";
+        if (code === 191 && !isShift) return "/";
+        if (code === 187 && isShift) return "+";
+        if (code === 188 && isShift) return "<";
+        if (code === 189 && isShift) return '_';
+        if (code === 190 && isShift) return ">";
+        if (code === 191 && isShift) return "?";
+        return null;
+    }
+    // END GQ
 
     _this.adjustPosition = function () {
       var menu = _this.state.menu;
