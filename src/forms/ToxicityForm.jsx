@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
 import toxicityLookup from '../lib/toxicity_lookup';
 import Lang from 'lodash'
 import Array from 'lodash'
@@ -35,6 +36,22 @@ class ToxicityForm extends Component {
         this.setState({
             searchText: newValue
         });
+    }
+    
+    /*
+     * Changes the className for the button to highlight selected attribution
+     */
+    currentlySelectedAttribution = (attribution) => {
+        // What it is checking might need to change if the toxicity.attribution structure changes in Patient
+        return this.props.toxicity.attribution.coding.displayText===attribution.name ? 'button_selected' : '';
+    }
+    
+    /*
+     * Handle updating the attribution value on toxicity
+     */
+    handleAttributionSelection = (attribution) => {
+        // TODO: Possibly add appropriate null checks
+        this.props.updateValue("attribution", attribution);
     }
 
     /* 
@@ -205,6 +222,38 @@ class ToxicityForm extends Component {
                     {toxicityLookup.getDescription("toxicity")}
                 </p>
                 <Divider className="divider"/>
+                
+                <h4>Attribution</h4>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("attribution")}
+                    <span className="helper-text"> Choose one</span>
+                </p>
+                
+                <div className="btn-group-attribution">
+                    {toxicityLookup.getAttributionOptions().map((attribution, i) => {
+                        const buttonClass = this.currentlySelectedAttribution(attribution);
+                        const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+                        return (
+                            <div key={attribution.name} className="tooltip">
+                                <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
+                                <Button raised
+                                    key={i}
+                                    label={attribution.name}
+                                    className={buttonClass}
+                                    style={{
+                                        margin: 0.5,
+                                        height: "75px",
+                                        width: "180px",
+                                        backgroundColor: "white",
+                                        textTransform: "none"
+                                    }}
+                                    onClick={ () => this.handleAttributionSelection(attribution)}
+                                >{attribution.name}
+                                </Button>
+                            </div>
+                        )
+                    })}
+                </div>
 
                 <h4>Adverse Event</h4>
                 <p id="data-element-description">

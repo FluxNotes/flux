@@ -86,6 +86,8 @@ class ToxicityCreator extends CreatorShortcut {
 			Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
 		} else if (name === "grade") {
 			Patient.updateGradeForToxicReaction(this.toxicity, value);
+        } else if (name === "attribution") {
+            Patient.updateAttributionForToxicReaction(this.toxicity, value);
 		} else {
 			console.error("Error: Unexpected value selected for toxicity: " + name);
 			return;
