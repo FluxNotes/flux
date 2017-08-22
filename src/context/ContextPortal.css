@@ -11,10 +11,10 @@
 }
 
 .context-portal ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0;
-  background-color: #fff;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    background-color: #fff;
 }
 
 .context-portal > * {

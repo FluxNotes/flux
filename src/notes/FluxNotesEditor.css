@@ -2,11 +2,11 @@
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
-	text-align: left;
+    text-align: left;
 }
 
 .structured-field {
-	background-color: #d9ebf9;
+    background-color: #d9ebf9;
 }
 
 #clinical-notes #note-description p.note-description-detail-name {
@@ -57,7 +57,7 @@
 }
 
 .MyEditor-root .toolbar-menu .button[data-active="true"] {
-  color: black;
+    color: black;
 }
 
 .MyEditor-root p {
@@ -70,11 +70,11 @@
 }
 
 .clear{
-  clear: both;
-  display: block;  
-  content: "";
-  margin: 10px 0;
-  width: 100%;  
+    clear: both;
+    display: block;  
+    content: "";
+    margin: 10px 0;
+    width: 100%;  
 }
 
 .suggestion-portal { 
@@ -90,10 +90,10 @@
 }
 
 .suggestion-portal ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 10px 0;
-  background-color: #fff;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    background-color: #fff;
 }
 
 .suggestion-portal > * {
@@ -109,6 +109,6 @@
 }
 
 .suggestion-portal li.selected {
-  background-color: #297DA2;
-  color: #fff;
+    background-color: #297DA2;
+    color: #fff;
 }
