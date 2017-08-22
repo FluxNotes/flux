@@ -2,8 +2,6 @@ import React from 'react'
 import Portal from 'react-portal'
 import ContextItem from './ContextItem'
 import Lang from 'lodash'
-
-// Styling
 import './ContextPortal.css';
 
 const UP_ARROW_KEY = 38

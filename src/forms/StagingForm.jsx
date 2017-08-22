@@ -1,13 +1,8 @@
-// React imports
 import React, { Component } from 'react';
-// material-ui
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-// Libraries
-
+import Button from 'material-ui/Button';
 import staging from '../lib/staging';
 import stagingLookup from '../lib/staging_lookup';
-// Styling
 import './StagingForm.css';
 
 class StagingForm extends Component {
@@ -28,26 +23,22 @@ class StagingForm extends Component {
   _handleTumorSizeClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.tumorValues[i].name
-    console.log("StagingForm._handleTumorSizeClick new value=" + newValue);
     this.props.updateValue("T", newValue);
   }
 
   _handleNodeClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.nodeValues[i].name;
-    console.log("StagingForm._handleNodeClick new value=" + newValue);
     this.props.updateValue("N", newValue);
   }
 
   _handleMetastasisClick = (e, i) => {
     e.preventDefault();
     let newValue = this.state.metastasisValues[i].name;
-    console.log("StagingForm._handleMetastasisClick new value=" + newValue);
     this.props.updateValue("M", newValue);
   }
 
   render() {
-    // console.log("in render. of Staging form")
     return (
        <div>
             <h1>TNM Staging</h1>
@@ -65,13 +56,24 @@ class StagingForm extends Component {
                 return (
                   <div key={t.name} className="tooltip">
                      <span id={t.name} className={buttonClass}>{t.description}</span>
-                      <RaisedButton
+                      <Button raised
                           className="btn tumor-size"
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                           disabled={this._currentlySelected(this.props.staging.tStage.coding.displayText, this.state.tumorValues[i].name)}
-                      />
+                      >{titlecase(t.name)}</Button>
                   </div>
                 );
             })}
@@ -85,13 +87,24 @@ class StagingForm extends Component {
                 return (
                   <div key={n.name} className="tooltip">
                      <span id={n.name} className={buttonClass}>{n.description}</span>
-                      <RaisedButton
+                      <Button raised
                           className="btn node"
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                           disabled={this._currentlySelected(this.props.staging.nStage.coding.displayText, this.state.nodeValues[i].name)}
-                      />
+                      >{titlecase(n.name)}</Button>
                   </div>
                 );
             })}
@@ -105,13 +118,24 @@ class StagingForm extends Component {
                 return (
                   <div key={m.name} className="tooltip">
                    <span id={m.name} className={buttonClass}>{m.description}</span>
-                    <RaisedButton
+                    <Button raised
                         className="btn metastasis"
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
+                          classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+                          style={{
+                            margin: 0.5,
+                            height: "50px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                          }}
                         disabled={this._currentlySelected(this.props.staging.mStage.coding.displayText, this.state.metastasisValues[i].name)}
-                    />
+                    >{titlecase(m.name)}</Button>
                   </div>
                 );
             })}
@@ -127,7 +151,6 @@ class StagingForm extends Component {
 }
 
 export default StagingForm;
-
 
 function titlecase(label) {
   return label.toLowerCase().split(' ').map(function(word) {

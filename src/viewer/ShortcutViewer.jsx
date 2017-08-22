@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import LandingPageForm from '../forms/LandingPageForm';
-// Lodash component
 import Lang from 'lodash'
 import './ShortcutViewer.css';
 
@@ -25,23 +24,15 @@ class ShortcutViewer extends Component {
         return (
             <CopyToClipboard text={string}>
                 <div>
-
-                    <RaisedButton
-                        className="btn_copy"
-                        labelStyle={{
-                            textTransform: "none",
-                        }}
-                        buttonStyle={{
-                            textAlign: "left",
-                            height: "45px",
-                        }}
-                        overlayStyle={{
-                            padding: "5px 0 4px 0"
-                        }}
+                    <Button raised className="btn_copy"
                         style={{
-                            minWidth: "99.8%"
+                            textTransform: "none",
+                            justifyContent: 'left',
+                            minWidth: "99.8%",
+                            height: "45px",
+                            padding: "5px 0 4px 0",
+                            backgroundColor: "white"
                         }}
-                        fullWidth={true}
                     >
                         <div id="copy-keyword">
                             Copy
@@ -49,7 +40,7 @@ class ShortcutViewer extends Component {
                         <div id="copy-content">
                             {string}
                         </div>
-                    </RaisedButton>
+                    </Button>
                     <span className="helper-text">Click copy button to copy string</span>
                 </div>
             </CopyToClipboard>

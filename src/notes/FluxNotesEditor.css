@@ -6,11 +6,7 @@
 }
 
 .structured-field {
-	background-color: LightBlue;
-}
-
-.sf-subfield {
-	background-color: MediumBlue;
+	background-color: #d9ebf9;
 }
 
 #clinical-notes #note-description p.note-description-detail-name {

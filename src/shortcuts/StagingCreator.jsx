@@ -1,13 +1,14 @@
-// React Imports:
 import React from 'react';
-import Shortcut from './Shortcut';
-// Application Imports
+import CreatorShortcut from './CreatorShortcut';
+import StagingTCreator from './StagingTCreator';
+import StagingNCreator from './StagingNCreator';
+import StagingMCreator from './StagingMCreator';
+import StageInserter from './StageInserter';
 import StagingForm from '../forms/StagingForm';
 import Patient from '../patient/Patient';
-// Lodash
 import Lang from 'lodash'
 
-class StagingShortcut extends Shortcut {
+class StagingCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the staging value(s) change
     // staging is optional and specifies an existing staging value being edited. Not used in no-patient mode
 	// staging is of "type" SHR JSON TNMStage
@@ -20,15 +21,20 @@ class StagingShortcut extends Shortcut {
 			this.staging = staging; //Lang.clone(staging);
 			this.isStagingNew = false;
 		}
+		this.setValueObject(this.staging);
         this.onUpdate = onUpdate;
-		this.updateValue = this.updateValue.bind(this);
+		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-    /* 
-     * Returns "staging"
-     */
+	
+	initialize(contextManager, trigger) {
+		super.initialize(contextManager, trigger);
+		this.parentContext = contextManager.getActiveContextOfType("@condition");
+	}
+
     getShortcutType() { 
-        return "staging";
+        return "#staging";
     }
+	
     /* 
      * Translate staging Staging information into a string 
      */
@@ -78,7 +84,7 @@ class StagingShortcut extends Shortcut {
 		if (tString === '?' && nString === '?' && mString === '?') {
 			return "#staging";
 		}
-		return `#staging[T${tString}N${nString}M${mString}]`;
+		return `#staging #${tString} #${nString} #${mString}`;
     }
     
     /* 
@@ -87,24 +93,13 @@ class StagingShortcut extends Shortcut {
     getForm() {
         return (
             <StagingForm
-                // Update functions
-                //onStagingUpdate={this.handleStagingUpdate}
-				updateValue={this.updateValue}
-                // Properties
+				updateValue={this.setAttributeValue}
                 staging={this.staging}
             />
         );      
     }
-
-	getStructuredFieldSpecification() {
-		return [	{ type: 'staticText', 	spec: { text:'#staging['}},
-					{ type: 'dropDown',   	spec: { name: 'T', items: ['Tis', 'T0', 'T1', 'T2', 'T3','T4'] }},
-					{ type: 'dropDown',   	spec: { name: 'N', items: ['N0', 'N1mi', 'N1', 'N2', 'N3'] }},
-					{ type: 'dropDown', 	spec: { name: 'M', items: ['M0', 'M1'] }},
-					{ type: 'staticText',	spec: { text:']'}} ];
-	}
 	
-	updateValue(name, value, publishChanges = true) {
+	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
 			Patient.updateTForStaging(this.staging, value);
 		} else if (name === "N") {
@@ -115,19 +110,22 @@ class StagingShortcut extends Shortcut {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
 		}
+        if (this.isContext()) this.updateContextStatus();
 		this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
 		}
 	}
 
-	getValue(name) {
+	getAttributeValue(name) {
 		if (name === "T") {
 			return this.staging.tStage.coding.displayText;
 		} else if (name === "N") {
 			return this.staging.nStage.coding.displayText;
 		} else if (name === "M") {
 			return this.staging.mStage.coding.displayText;
+		} else if (name === "stage") {
+			return this.staging.value.coding.displayText;
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
@@ -141,7 +139,7 @@ class StagingShortcut extends Shortcut {
 	 */
 	updatePatient(patient, contextManager) {
 		if (this.staging.value.coding.displayText.length === 0) return; // not complete value
-		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
 			patient.addObservationToCondition(this.staging, condition);
 			this.isStagingNew = false;
@@ -150,12 +148,30 @@ class StagingShortcut extends Shortcut {
 
 	validateInCurrentContext(contextManager) {
 		let errors = [];
-		let condition = contextManager.getContextObjectOfType("http://standardhealthrecord.org/oncology/BreastCancer");
-		if (Lang.isNull(condition)) {
-			errors.push("#staging invalid without a breast cancer condition. Use @condition to add the condition to your narrative.");
+		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
+			errors.push("#staging invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
 		}
 		return errors;
 	}
+	
+	getValidChildShortcuts() {
+		let result = [];
+		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
+		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
+		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
+		if (this.staging.value.coding.displayText.length > 0) result.push(StageInserter);
+		return result; //[ StagingTCreator, StagingNCreator, StagingMCreator ];
+	}
+
+	isContext() {
+		return true;
+	}
+	getLabel() {
+		return this.getShortcutType();
+	}
+	static getTriggers() {
+		return [ "#staging" ];
+	}
 }
 
-export default StagingShortcut;
+export default StagingCreator;

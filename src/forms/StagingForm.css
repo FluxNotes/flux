@@ -2,6 +2,11 @@
   border-right: 1px solid #eee;
 }
 
+.btn:disabled {
+    background-color: #297DA2 !important;
+    color: #fff !important;    
+}
+
 .btn span {
   text-transform: none !important;
 }

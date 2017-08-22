@@ -5645,7 +5645,7 @@ const adverseEventOptions = [
     {
         "MedDRA v12.0 Code": 10028395,
         "SOC": "Musculoskeletal and connective tissue disorders",
-        "name": "Musculoskeletal and connective tissue disorder -  Other, specify",
+        "name": "Musculoskeletal and connective tissue disorder - Other, specify",
         "Grade 1": "Asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated",
         "Grade 2": "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental ADL",
         "Grade 3": "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of existing hospitalization indicated; disabling;  limiting self care ADL",
@@ -8718,16 +8718,23 @@ exports.getDescription = (dataElement) => {
     }
 }
 
-/* 
- * Return a list of possible grades and their descriptions
- */ 
+exports.getGradeOptionsForAdverseEvent = (adverseEventName) => {
+    const adverseEvent = exports.findAdverseEvent(adverseEventName);
+    return gradeOptions.filter((grade) => {
+        return (!Lang.isNull(adverseEvent[grade.name]));
+    });
+}
+
 exports.getGradeOptions = () => {
     return gradeOptions;
 }
 
-/* 
- * Return a list of adverseEvent options
- */ 
+exports.getAdverseEventOptionsForGrade = (currentGrade) => {
+    return adverseEventOptions.filter((adverseEvent) => {
+        return !Lang.isNull(adverseEvent[currentGrade]);
+    });
+}
+
 exports.getAdverseEventOptions = () => {
     return adverseEventOptions;
 }
@@ -8744,6 +8751,12 @@ exports.findGradeIndex = (possibleGrade) => {
  */ 
 exports.findAdverseEventIndex = (possibleAdverseEvent) => {
     return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
+}
+
+exports.findAdverseEvent = (possibleAdverseEvent) => {
+    const index = exports.findAdverseEventIndex(possibleAdverseEvent);
+    if (index === -1) return null;
+    return adverseEventOptions[index];
 }
 
 /* 

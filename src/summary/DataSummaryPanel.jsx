@@ -1,27 +1,24 @@
-// React imports
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-// Components
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
 import DataSummaryTable from './DataSummaryTable';
-// Material UI component imports
 import Paper from 'material-ui/Paper';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import RaisedButton from 'material-ui/RaisedButton';
-//font awesome
+import Tabs, {Tab} from 'material-ui/Tabs';
+import Button from 'material-ui/Button';
 import 'font-awesome/css/font-awesome.min.css';
-
-// Styling
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
 	constructor(props) {
 		super(props);
 	
+        this.handleChange = this.handleChange.bind(this);
+    
 		// Set the initial state when the app is first constructed.
 		this.state = {
-			activeConditionIndex: 0
+			activeConditionIndex: 0,
+            value: 0
 		}
 		
 		this.changeConditionIndex = this.changeConditionIndex.bind(this);
@@ -31,7 +28,11 @@ class DataSummaryPanel extends Component {
 		this.setState({activeConditionIndex: newIndex});
 	}
 	
+    handleChange(event, value) {
+        this.setState({ value });
+    }
     render() {
+        const { value } = this.state;
 		const conditions = this.props.patient.getConditions();
 		const activeCondition = conditions[this.state.activeConditionIndex];
 		const codeSystem = activeCondition.specificType.coding.codeSystem;
@@ -41,6 +42,12 @@ class DataSummaryPanel extends Component {
 			console.log("Unsupported condition within summary (using default): " + codeSystem + "/" + code);
 			diseaseSummaryMetadata = this.props.summaryMetadata["default"];
 		}
+/*
+inkBarStyle={{background: 'steelblue'}}
+                          tabItemContainerStyle={{background: 'white'}}*/
+                          
+                          //for Tabs className="tabs-container"
+                          //for each Tab className="tab" 
         return (
             <div className="dashboard-panel">
                 <Paper className="panel-content trio">
@@ -59,9 +66,11 @@ class DataSummaryPanel extends Component {
 						changeConditionIndex={this.changeConditionIndex}
                     />
 
-                    <Tabs className="tabs-container" inkBarStyle={{background: 'steelblue'}}
-                          tabItemContainerStyle={{background: 'white'}}>
-                        <Tab className="tab" label="Problem Summary">
+                    <Tabs  value={value} onChange={this.handleChange} indicatorColor="steelblue">
+                        <Tab label="Problem Summary" value={0}/>
+                        <Tab label="Clinical Notes"  value={1}/>
+                    </Tabs>
+                    {value === 0 && <TabContainer>
                             <div className="table-list" id="summary-list">
 								{diseaseSummaryMetadata.sections.map((section, i) => {
 									return (
@@ -79,9 +88,9 @@ class DataSummaryPanel extends Component {
 										);
 									})}
                             </div>
-                        </Tab>
-                        <Tab className="tab" label="Clinical Notes">
-                            <div className="table-list" id="previous-notes">
+                            </TabContainer>}
+                    {value === 1 && <TabContainer>
+                                                <div className="table-list" id="previous-notes">
                                 <h2>Previous Clinical Notes</h2>
                                 <table className="existing-notes">
                                     <tbody>
@@ -95,11 +104,10 @@ class DataSummaryPanel extends Component {
                                                     <span>{item.clinician}</span>
                                                 </td>
                                                 <td className="existing-note-button" width="30%">
-                                                    <RaisedButton
+                                                    <Button raised
                                                         className="existing-note-btn"
-                                                        label="View Note"
                                                         key={i}
-                                                    />
+                                                    >View Note</Button>
                                                 </td>
                                             </tr>
                                         );
@@ -107,25 +115,14 @@ class DataSummaryPanel extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                        </Tab>
-                    </Tabs>
+                        </TabContainer>}
+                    
                 </Paper>
             </div>
 
         );
     }
 }
-
-// function calculateAge(dateOfBirth) {
-//     var today = new Date();
-//     var birthDate = new Date(dateOfBirth);
-//     var age = today.getFullYear() - birthDate.getFullYear();
-//     var m = today.getMonth() - birthDate.getMonth();
-//     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-//         age--;
-//     }
-//     return age;
-// }
 
 DataSummaryPanel.propTypes = {
     patient: PropTypes.object,
@@ -134,4 +131,11 @@ DataSummaryPanel.propTypes = {
     onItemClicked: PropTypes.func
 };
 
+function TabContainer(props) {
+  return (
+    <div style={{ padding: 20 }}>
+      {props.children}
+    </div>
+  );
+}
 export default DataSummaryPanel;

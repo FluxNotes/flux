@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, ListItem} from 'material-ui/List';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 import './FormList.css';
 
 class FormList extends Component {
@@ -28,7 +28,6 @@ class FormList extends Component {
             disabledElement: shortcutName
         });
     }
-
     render() {
         return (
             <div id="list-panel">
@@ -42,22 +41,24 @@ class FormList extends Component {
                         }
                         if (this.state.disabledElement === shortcutName) {
                             classValue += " selected";
-
                         } else {
                             classValue += " unselected";
                         }
                         return (
-                            <ListItem
+                            <ListItem button
                                 key={i}
-                                id={shortcutName}
-                                primaryText={primaryText}
-                                className={classValue}
-                                onTouchTap={ (e) => {
-                                    this._onTouchTap(e, shortcutName)
-                                    this._newShortcut(e, i, shortcutName)
-                                }
-                                }
-                            />
+                                style={{padding: "0px"}}>
+                                <ListItemText
+                                    id={shortcutName}
+                                    primary={primaryText}
+                                    className={classValue}
+                                    disableTypography={true}
+                                    onTouchTap={ (e) => {
+                                        this._onTouchTap(e, shortcutName)
+                                        this._newShortcut(e, i, shortcutName)}
+                                    }
+                                />
+                            </ListItem>
                         );
                     })}
                 </List>

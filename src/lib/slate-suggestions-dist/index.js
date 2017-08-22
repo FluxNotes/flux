@@ -53,7 +53,7 @@ function SuggestionsPlugin(opts) {
         }
       } else {
         if (callback.onKeyDown) {
-          callback.onKeyDown(keyCode);
+          callback.onKeyDown(keyCode, data);
         }
       }
     }

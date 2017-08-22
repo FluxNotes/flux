@@ -1,60 +1,46 @@
-// React Imports:
+import Context from '../context/Context';
 import React from 'react';
 import Lang from 'lodash';
 
-class Shortcut {
+class Shortcut extends Context {
     constructor() {
+		super();
         if (this.constructor === Shortcut) {
             throw new TypeError("Cannot construct Shortcut instances directly");
         }
-		
+		this.optionsToSelectFrom = null;
 		this.valueChangeHandlers = {};
     }
+	
+	initialize(contextManager) {
+        this.contextManager = contextManager;
+        this.isInContext = false;
+		if (this.isContext()) {
+            contextManager.addShortcutToContext(this);
+            this.isInContext = true;
+		}
+	}
 
+	getPrefixCharacter() {
+		throw new TypeError("Primitive shortcut has no prefix character")
+	}
+	
+	// Slim App
     getAsString () { 
         return "#null"; 
     }
-
-    getShortcutType() { 
-        throw new TypeError("Primitive shortcut has no type")
-    }
-
     getForm () { 
         return (<h2>No additional values for current shortcut</h2>);
     }
+
+    getShortcutType() { 
+        throw new TypeError("Base Shortcut has no type")
+    }
 	
-	getStructuredFieldSpecification() {
-		return null;
+	getText() {
+		return this.getShortcutType();
 	}
-	
-	updateValue(name, value, publishChanges) {
-		throw new Error("updateValue not implemented for current shortcut");
-	}
-	
-	getValue(name) {
-		throw new Error("updateValue not implemented for " + this.constructor.name);
-	}
-	
-	onValueChange(name, handleValueChange) {
-		let l = this.valueChangeHandlers[name];
-		if (Lang.isUndefined(l) || Lang.isNull(l)) {
-			l = [];
-			this.valueChangeHandlers[name] = l;
-		}
-		l.push(handleValueChange);
-	}
-	
-	notifyValueChangeHandlers(name) {
-		console.log("notifyValueChangeHandlers START");
-		let l = this.valueChangeHandlers[name];
-		console.log("# of value handlers for " + name + ": " + l.length);
-		l.forEach((h) => {
-			console.log("call handler for value change for " + name);
-			h(this.getValue(name));
-		});
-		console.log("notifyValueChangeHandlers DONE");
-	}
-	
+		
 	updatePatient(patient, contextManager) {
 		throw new Error("update patient not implemented for " + this.constructor.name);
 	}
@@ -62,6 +48,38 @@ class Shortcut {
 	validateInCurrentContext(contextManager) {
 		return []; // no errors
 	}
+	
+	//options is array of {key: item.entryId, context: item.specificType.coding.displayText, object: item}
+	flagForTextSelection(options) {
+		this.optionsToSelectFrom = options;
+	}
+	
+	getValueSelectionOptions() {
+		return this.optionsToSelectFrom;
+	}
+	
+	needToSelectValueFromMultipleOptions() {
+		return !Lang.isNull(this.optionsToSelectFrom);
+	}
+	
+	clearValueSelectionOptions() {
+		this.optionsToSelectFrom = null;
+	}
+
+	// by default shortcuts are not Contexts.
+	isContext() {
+		return false;
+	}
+    
+    onBeforeDeleted() {
+        if (this.isContext() && this.hasChildren()) {
+            return false;
+        }
+        if (this.isContext()) {
+            this.contextManager.removeShortcutFromContext(this);
+        }
+        return true;
+    }
 }
 
 export default Shortcut;

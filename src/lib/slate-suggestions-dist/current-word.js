@@ -5,7 +5,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 function getCurrentWord(text, index, initialIndex) {
-  if (text[index] === " " || text[index] === undefined) return "";
+  //if (text[index] === " " || text[index] === undefined) return "";
+  if (text[index] === undefined) return "";
   if (index < initialIndex) {
     return getCurrentWord(text, index - 1, initialIndex) + text[index];
   }

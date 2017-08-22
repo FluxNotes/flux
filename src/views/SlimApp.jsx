@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import NavBar from '../nav/NavBar';
 import FormList from '../forms/FormList';
 import ShortcutViewer from '../viewer/ShortcutViewer';
@@ -14,7 +11,7 @@ class SlimApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = ["progression", "staging", "toxicity"];
+        this.shortcuts = [ "#progression", "#toxicity" ];
         this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
@@ -26,7 +23,7 @@ class SlimApp extends Component {
      * Change the current shortcut to be the new type of shortcut  
      */
     changeShortcut = (shortcutType) => {
-        const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate);
+        const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut("#" + shortcutType.toLowerCase(), this.handleShortcutUpdate);
         this.setState({
             currentShortcut: newShortcut
         });
@@ -41,9 +38,8 @@ class SlimApp extends Component {
 
     render() {
         return (
-            <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="SlimApp">
-                    <NavBar title="Flux Notes Lite"/>
+                    <NavBar title="Flux Notes Lite" supportLogin={false}/>
                     <Grid className="SlimApp-content" fluid>
                         <div id="forms-panel">
                             <Row center="xs">
@@ -66,7 +62,6 @@ class SlimApp extends Component {
                         </div>
                     </Grid>
                 </div>
-            </MuiThemeProvider>
         );
     }
 }
