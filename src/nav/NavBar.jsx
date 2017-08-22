@@ -49,35 +49,40 @@ class NavBar extends Component {
     })
   }
 
-  handleNewNote() {
-    console.log("new note");
-  }
-    
   render() {
     const classes = this.props.classes;
     const login = (this.props.supportLogin) ? ( <Button color="contrast">Dr. X123 logged in</Button> ) : "";
+    const showMenu = (this.props.menuItems && this.props.menuItems.length > 0);
+    let menuItemComponents = "";
+    if (showMenu) {
+        menuItemComponents = this.props.menuItems.map((menuItem) => {
+            return <MenuItem key={menuItem.label} onTouchTap={menuItem.action}>{menuItem.label}</MenuItem>;
+        });
+    }
     return (
       <div className={classes.root}>
         <AppBar position="static" className="navbar">
             <Toolbar>
-                <IconButton style={{margin: '0px 8px 0px -16px' }} color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
-                    <MenuIcon/>
-                </IconButton>
+                {showMenu ? 
+                    <IconButton style={{margin: '0px 8px 0px -16px' }} color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
+                        <MenuIcon/>
+                    </IconButton> : null}
                 <Typography type="title" color="inherit" className={classes.flex}>
                 {this.props.title}
                 </Typography>
                 {login}
             </Toolbar>
         </AppBar>
-        <MuiThemeProvider theme={drawerThemeForPosition}>
-        <Drawer
-            open={this.state.open}
-            onRequestClose={this.toggleDrawer}
-            onClick={this.toggleDrawer}
-        >
-            <MenuItem onTouchTap={this.handleNewNote.bind(this)}>New Note</MenuItem>
-        </Drawer>
-        </MuiThemeProvider>
+        {showMenu ?
+            <MuiThemeProvider theme={drawerThemeForPosition}>
+            <Drawer
+                open={this.state.open}
+                onRequestClose={this.toggleDrawer}
+                onClick={this.toggleDrawer}
+            >
+                {menuItemComponents}
+            </Drawer>
+            </MuiThemeProvider> : null }
       </div>
     );
   }

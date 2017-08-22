@@ -90,10 +90,16 @@ class FullApp extends Component {
         }
     }
 
+    handleNewNote() {
+        console.log("new note");
+    }
+    
+    menuItems = [   {label: "New Note", action: this.handleNewNote.bind(this)}
+                ];
     render() {
         return (
                 <div className="FullApp">
-                    <NavBar title="Flux Notes" supportLogin={true}/>
+                    <NavBar title="Flux Notes" supportLogin={true} menuItems={this.menuItems}/>
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
