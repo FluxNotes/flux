@@ -10,58 +10,69 @@ const ENTER_KEY = 13
 //const RESULT_SIZE = 5
 
 class ContextPortal extends React.Component {
-    
+    /*
+     * Adds a keydown listener when the component initally gets mounted
+     */
     componentDidMount = () => {
          document.addEventListener('keydown', this.handleKeydownCP);
          this.adjustPosition()
     }
-
+    /*
+     * Removes a keydown listener when the component initally gets unmounted
+     */
     componentWillUnmount = () => {
         document.removeEventListener('keydown', this.handleKeydownCP);
     }
-    
+    /*
+     * Adjust the portal position anytime the portal updates
+     */
     componentDidUpdate = () => {
         this.adjustPosition();
     }
-  
-    componentWillReceiveProps = (props) => {
-        if (props.contexts !== this.state.contexts) {
+    /*
+     * Updates state when context updates 
+     */
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.contexts !== this.props.contexts) {
             this.setState({
-                contexts: props.contexts
+                selectedIndex: 0
             });
-            this.selectedIndex = 0;
         }
     }
-
+    /*
+     * Sets state to record current contexts and portal activity
+     */
     constructor(props) {
         super()
-  
-        this.handleKeydownCP = this.handleKeydownCP.bind(this);
         props.callback.onSelected = props.onSelected;
         props.callback.closePortal = this.closePortal;
         props.callback.readOnly = false;
         this.state = {
-            contexts: props.contexts,
+            selectedIndex: -1,
             active: false,
             justActive: false
         }
     }
-
+    /*
+     * When the portal opens, set flags appropriately and a decay timer for justActive
+     */
     onOpen = (portal) => {
         this.setState({ menu: portal.firstChild, active: true, justActive: true })
         setTimeout(function(){ this.setState({ justActive: false }) }.bind(this), 100);
     }
-  
-    // called when user hits esc or clicks outside of portal
-    // call onSelected with null context to indicate nothing selected and just clean up state
+    /* Called when user hits esc or clicks outside of portal
+     * Call onSelected with null context to indicate nothing selected and just clean up state
+     */
     onClose = () => {
         if (this.props.isOpened) {
             this.props.onChange(this.props.onSelected(this.props.state, null));
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
-
-    handleKeydownCP(e) {
+    /*
+     * Only trigger keydown if the portal wasn't just activated
+     */
+    handleKeydownCP = (e) => {
         if (this.state.active) {
             e.preventDefault();
             e.stopPropagation();
@@ -69,30 +80,35 @@ class ContextPortal extends React.Component {
                 this.setState({ justActive: false });
                 return;
             }
-            this.onKeyDown(e.keyCode);
+            this.onKeyDown(e.which);
         }
     }
-  
+    /*
+     * Navigate and interact with menu based on button presses
+     */
     onKeyDown(keyCode) {
-        //console.log("ContextPortal.onKeyDown " + keyCode);
-        if (keyCode === DOWN_ARROW_KEY) {
-            if (this.selectedIndex + 1 === this.state.contexts.length) {
-                this.selectedIndex = -1;
-            }
-            this.selectedIndex += 1;
-            this.forceUpdate();
-        } else if (keyCode === UP_ARROW_KEY) {
-            if (this.selectedIndex === 0) {
-                this.selectedIndex = this.state.contexts.length;
-            }
-            this.selectedIndex -= 1;
-            this.forceUpdate();
+        if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+            const positionChange = (keyCode === DOWN_ARROW_KEY) ? -1 : +1; 
+            this.changeMenuPosition(positionChange)
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
-            this.props.onChange(this.props.onSelected(this.props.state, this.state.contexts[this.selectedIndex]));
+            this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
         }
     }
-
+    /*
+     * Change the menu position based on the amount of places to move
+     */
+    changeMenuPosition = (change) => { 
+        // this will allow wrap around to the end of the list.
+        const changePlusOriginalLength = change + this.props.contexts.length;
+        const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % this.props.contexts.length;
+        this.setState({ 
+            selectedIndex: changeAfterWrapping
+        })
+    }
+    /*
+     * Adjust the rendering position of the menu
+     */
     adjustPosition = () => {
         const { menu } = this.state
         if (!menu || !menu.style) return;
@@ -108,21 +124,28 @@ class ContextPortal extends React.Component {
         menu.style.top = `${this.props.top}px`;
         menu.style.left = `${this.props.left}px`;
     }
-
+    /*
+     * Close the menu portal if rendering
+     */
     closePortal = () => {
         const { menu } = this.state
         if (Lang.isEmpty(menu)) return;
         //menu.removeAttribute('style');
         return;
     }
-
+    /*
+     * Update the selected index
+     */
     setSelectedIndex = (selectedIndex) => {
-        this.selectedIndex = selectedIndex;
-        this.forceUpdate();
+        this.setState({
+            selectedIndex: selectedIndex
+        });
     }
-
+    /*
+     * View of the current menu
+     */
     render = () => {
-        const { contexts } = this.state;
+        const { contexts } = this.props;
   
         if (Lang.isNull(contexts)) return null; 
     
@@ -141,7 +164,7 @@ class ContextPortal extends React.Component {
                                 key={context.key}
                                 index={index}
                                 context={context}
-                                selectedIndex={this.selectedIndex}
+                                selectedIndex={this.state.selectedIndex}
                                 setSelectedIndex={this.setSelectedIndex}
                                 onSelected={this.props.onSelected}
                                 onChange={this.props.onChange}
