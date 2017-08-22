@@ -76,15 +76,12 @@ class ProgressionForm extends Component {
                     key={i}
                     label={reasonName}
                     className={buttonClass}
-                    classes={{
-                        label: {
-                            textTransform: "none",
-                        }
-                    }}
                     style={{
                         margin: 0.5,
                         height: "75px",
                         width: "180px",
+                        backgroundColor: "white",
+                        textTransform: "none"
                     }}
                     onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
                 >{reasonName}
@@ -122,16 +119,13 @@ class ProgressionForm extends Component {
                                     label={statusName}
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     className="button_disabled_is_selected"
-                                    classes={{
-                                        label: {
-                                            textTransform: "none",
-                                        }
-                                    }}
                                     style={{
                                         margin: 0.5,
                                         height: "75px",
                                         width: "180px",
                                         padding: "20px 0 20px 0",
+                                        backgroundColor: "white",
+                                        textTransform: "none"
                                     }}
                                     disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
                                 >{statusName}

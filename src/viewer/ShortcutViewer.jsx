@@ -30,7 +30,8 @@ class ShortcutViewer extends Component {
                             justifyContent: 'left',
                             minWidth: "99.8%",
                             height: "45px",
-                            padding: "5px 0 4px 0"
+                            padding: "5px 0 4px 0",
+                            backgroundColor: "white"
                         }}
                     >
                         <div id="copy-keyword">
