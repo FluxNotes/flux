@@ -115,9 +115,7 @@ class ContextPortal extends React.Component {
 
         menu.style.position = 'absolute';
         menu.style.width = 300;
-        menu.style.border = '1px solid gray';
         menu.style.background = '#fff';
-        menu.style.margin = 10;
         menu.style.padding = 10;
         menu.style.display = 'block';
         menu.style.opacity = 1;

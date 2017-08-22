@@ -371,7 +371,7 @@ function getPos(el) {
     const offsetx = 0;
     const offsety = 0;
     // This produces an offset relative to the current slate location
-    var pos = { left: 0, top: 20 };
+    var pos = { left: 0, top: 0 };
 
     // Acquire from http://jsfiddle.net/gliheng/vbucs/12/
     if (document.selection) {

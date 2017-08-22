@@ -1,9 +1,10 @@
 
 .context-portal .context-menu-item { 
-    padding: 10px;
+    padding: 5px 10px;
     width: 300px;
 }
 
 .context-portal .context-menu-item[data-active="true"] {
-    background-color: rgba(0,0,0,0.1);
+    background-color: #297DA2;
+    color: #fff;
 }
