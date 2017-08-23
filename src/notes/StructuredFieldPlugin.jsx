@@ -28,15 +28,10 @@ function StructuredFieldPlugin(opts) {
         let result = state;
         deletedKeys.forEach((key) => {
             shortcut = structuredFieldMap.get(key);
-            //console.log("deleted key = " + key);
-            //console.log(shortcut);
             if (shortcut.onBeforeDeleted()) {
                 structuredFieldMap.delete(key);
                 contextManager.contextUpdated();
             } else {
-                console.log("cancel state change");
-//                console.log(state);
-//                console.log(editor.getState());
                 result = editor.getState(); // don't allow state change
                 //opts.updateErrors(["You can not delete " + shortcut.getText() + " as it has child fields."]);
             }
