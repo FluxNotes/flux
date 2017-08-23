@@ -376,7 +376,7 @@ function getPos(domElement, node, state) {
         if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
             const rect = child.getBoundingClientRect();
             pos.left = rect.left + rect.width + offsetx;
-            pos.top = rect.top + offsety ;
+            pos.top = rect.top + offsety;
         }
     }
     return pos;
