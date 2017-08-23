@@ -372,97 +372,14 @@ function getPos(domElement, node, state) {
     
     const children = domElement.childNodes;
 
-    console.log(domElement);
-    console.log(domElement.childNodes);
-
     for(const child of children) { 
-        console.log(child);
         if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
             const rect = child.getBoundingClientRect();
-            console.log(rect);
             pos.left = rect.left + rect.width + offsetx;
             pos.top = rect.top + offsety ;
         }
     }
     return pos;
-
-/*    var sel = window.getSelection();
-    console.log(sel)
-    console.log(sel.rangeCount)
-    window.selectionOne = state.state.selection;
-    var _range = sel.getRangeAt(0).cloneRange();
-    console.log(_range);
-    try {
-        _range.setStart(_range.startContainer, _range.startOffset - 1);
-        console.log(_range)
-        var rect = _range.getBoundingClientRect();
-        console.log(rect)
-        console.log(_range.endOffset)
-        console.log(_range.toString())
-        if (_range.endOffset === 0 || _range.toString() === '') {
-            console.log("endoffset is 0 and the range is empty")
-            pos.top += _range.startContainer.offsetTop;
-            pos.left += _range.startContainer.offsetLeft;
-        } else {
-            console.log("rect has content")
-            pos.left += rect.left + rect.width + offsetx;
-            pos.top += rect.top + offsety ;
-        }
-    } catch(e) { 
-        console.log(e)
-    }
-    return pos;*/
-    // // Acquire from http://jsfiddle.net/gliheng/vbucs/12/
-    // if (document.selection) {
-    //     var range = document.selection.createRange();
-    //     pos.left += range.offsetLeft + offsetx;
-    //     pos.top += range.offsetTop + offsety;
-    // } else if (window.getSelection) {
-    //     var sel = window.getSelection();
-    //     console.log(sel)
-    //     console.log(sel.rangeCount)
-    //     if (sel.rangeCount === 0)  { 
-    //         console.log(domElement)
-    //         console.log("range is 0")
-    //         while (domElement != null) { 
-    //             pos.left += domElement.offsetLeft;
-    //             pos.top += domElement.offsetTop; 
-    //             domElement = domElement.offsetParent;    
-    //         }
-    //         return pos;
-    //     } else {
-    //         console.log("rangecount isn't 0")
-    //         var _range = sel.getRangeAt(0).cloneRange();
-
-    //         try {
-    //             _range.setStart(_range.startContainer, _range.startOffset - 1);
-    //             console.log("range setstart didn't fail")
-    //             var rect = _range.getBoundingClientRect();
-    //             if (_range.endOffset === 0 || _range.toString() === '') {
-    //                 console.log("endoffset is 0 and the range is empty")
-    //                 pos.top += _range.startContainer.offsetTop;
-    //                 pos.left += _range.startContainer.offsetLeft;
-    //             } else {
-    //                 console.log("rect has content")
-    //                 pos.left += rect.left + rect.width + offsetx;
-    //                 pos.top += rect.top + offsety ;
-    //             }
-    //         } catch (e) {
-    //             while (domElement != null) { 
-    //                 console.log(domElement)
-    //                 pos.left += domElement.offsetLeft;
-    //                 pos.top += domElement.offsetTop; 
-    //                 domElement = domElement.offsetParent;    
-    //             }
-    //         }            
-    //     }
-    // } else { 
-    //     while (domElement != null) { 
-    //         pos.left += domElement.offsetLeft;
-    //         pos.top += domElement.offsetTop; 
-    //         domElement = domElement.offsetParent;    
-    //     }
-    // }
 }
 
 
