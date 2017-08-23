@@ -44,7 +44,6 @@ class FluxNotesEditor extends React.Component {
         this.didFocusChange = false;
         
         this.selectingForShortcut = null;
-        this.onPortalSelection = this.onPortalSelection.bind(this);
         this.onChange = this.onChange.bind(this);
         
         // Set the initial state when the app is first constructed.
@@ -366,48 +365,111 @@ class FluxNotesEditor extends React.Component {
         );
     }
 }
-
-function getPos(el) {
+function getPos(domElement, node, state) {
     const offsetx = 0;
     const offsety = 0;
-    // This produces an offset relative to the current slate location
     var pos = { left: 0, top: 0 };
+    
+    const children = domElement.childNodes;
 
-    // Acquire from http://jsfiddle.net/gliheng/vbucs/12/
-    if (document.selection) {
-        var range = document.selection.createRange();
-        pos.left += range.offsetLeft + offsetx;
-        pos.top += range.offsetTop + offsety;
-    } else if (window.getSelection) {
-        var sel = window.getSelection();
-        if (sel.rangeCount === 0)  { 
-            console.log('for whatever reason the range count is zero')
-            return {};
+    console.log(domElement);
+    console.log(domElement.childNodes);
+
+    for(const child of children) { 
+        console.log(child);
+        if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
+            const rect = child.getBoundingClientRect();
+            console.log(rect);
+            pos.left = rect.left + rect.width + offsetx;
+            pos.top = rect.top + offsety ;
         }
-        var _range = sel.getRangeAt(0).cloneRange();
+    }
+    return pos;
 
-        try {
-            _range.setStart(_range.startContainer, _range.startOffset - 1);
-        } catch (e) {console.log("error in setting range start")}
-
+/*    var sel = window.getSelection();
+    console.log(sel)
+    console.log(sel.rangeCount)
+    window.selectionOne = state.state.selection;
+    var _range = sel.getRangeAt(0).cloneRange();
+    console.log(_range);
+    try {
+        _range.setStart(_range.startContainer, _range.startOffset - 1);
+        console.log(_range)
         var rect = _range.getBoundingClientRect();
+        console.log(rect)
+        console.log(_range.endOffset)
+        console.log(_range.toString())
         if (_range.endOffset === 0 || _range.toString() === '') {
+            console.log("endoffset is 0 and the range is empty")
             pos.top += _range.startContainer.offsetTop;
             pos.left += _range.startContainer.offsetLeft;
         } else {
+            console.log("rect has content")
             pos.left += rect.left + rect.width + offsetx;
             pos.top += rect.top + offsety ;
         }
-    } else { 
-        console.error('Issues getting a proper position for the portal')
+    } catch(e) { 
+        console.log(e)
     }
-    return pos;
+    return pos;*/
+    // // Acquire from http://jsfiddle.net/gliheng/vbucs/12/
+    // if (document.selection) {
+    //     var range = document.selection.createRange();
+    //     pos.left += range.offsetLeft + offsetx;
+    //     pos.top += range.offsetTop + offsety;
+    // } else if (window.getSelection) {
+    //     var sel = window.getSelection();
+    //     console.log(sel)
+    //     console.log(sel.rangeCount)
+    //     if (sel.rangeCount === 0)  { 
+    //         console.log(domElement)
+    //         console.log("range is 0")
+    //         while (domElement != null) { 
+    //             pos.left += domElement.offsetLeft;
+    //             pos.top += domElement.offsetTop; 
+    //             domElement = domElement.offsetParent;    
+    //         }
+    //         return pos;
+    //     } else {
+    //         console.log("rangecount isn't 0")
+    //         var _range = sel.getRangeAt(0).cloneRange();
+
+    //         try {
+    //             _range.setStart(_range.startContainer, _range.startOffset - 1);
+    //             console.log("range setstart didn't fail")
+    //             var rect = _range.getBoundingClientRect();
+    //             if (_range.endOffset === 0 || _range.toString() === '') {
+    //                 console.log("endoffset is 0 and the range is empty")
+    //                 pos.top += _range.startContainer.offsetTop;
+    //                 pos.left += _range.startContainer.offsetLeft;
+    //             } else {
+    //                 console.log("rect has content")
+    //                 pos.left += rect.left + rect.width + offsetx;
+    //                 pos.top += rect.top + offsety ;
+    //             }
+    //         } catch (e) {
+    //             while (domElement != null) { 
+    //                 console.log(domElement)
+    //                 pos.left += domElement.offsetLeft;
+    //                 pos.top += domElement.offsetTop; 
+    //                 domElement = domElement.offsetParent;    
+    //             }
+    //         }            
+    //     }
+    // } else { 
+    //     while (domElement != null) { 
+    //         pos.left += domElement.offsetLeft;
+    //         pos.top += domElement.offsetTop; 
+    //         domElement = domElement.offsetParent;    
+    //     }
+    // }
 }
+
 
 function position(state) {
     const parentNode = state.state.document.getParent(state.state.selection.startKey);
     const el = Slate.findDOMNode(parentNode);
-    return getPos(el);
+    return getPos(el, parentNode, state);
 }
 
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
