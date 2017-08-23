@@ -1,7 +1,4 @@
 .btn_template_ctx {
-//    display: inline-block !important;
-//  float: left;
-//  clear: left;
   width: 100%;
   margin-left: 2px;
   margin-right: 2px;
@@ -13,14 +10,12 @@
     overflow-y: scroll;
     overflow-x: hidden;
     height: 710px;
-//    margin-top: 20px;
 }
 
 #shortcut-search {
     padding: 15px 0;
     background-color: #ffffff;
     text-align: left;
-    height: 50px;
-//    border-bottom: 1px solid #d9d9d9 !important;
+    /*height: 50px;*/
     margin-bottom: 15px;
 }
