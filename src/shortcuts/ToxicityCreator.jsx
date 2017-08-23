@@ -34,7 +34,11 @@ class ToxicityCreator extends CreatorShortcut {
      */
     getGradeString = (curToxicity) => { 
         if (Lang.isNull(curToxicity.adverseEventGrade.coding)) return "";
-        const gradeString = `${curToxicity.adverseEventGrade.coding.displayText}`;
+        let gradeString = `${curToxicity.adverseEventGrade.coding.displayText}`;
+        // If nothing is selected yet, this is the default placeholder
+        if (Lang.isEmpty(curToxicity.adverseEventGrade.coding.displayText)) {
+            gradeString = 'Grade ?'
+        }
         return gradeString;
     }
 
@@ -43,8 +47,25 @@ class ToxicityCreator extends CreatorShortcut {
      */
     getAdverseEventString = (curToxicity) => { 
         if (Lang.isNull(curToxicity.value.coding)) return "";
-        const adverseEventString = `${curToxicity.value.coding.displayText}`;
+        let adverseEventString = `${curToxicity.value.coding.displayText}`;
+        // If nothing is selected, this is the default placeholder
+        if (Lang.isEmpty(curToxicity.value.coding.displayText)){
+            adverseEventString = '?';
+        }
         return adverseEventString;
+    }
+    
+    /*
+     * Get attribution string for given toxicity
+     */
+    getAttributionString = (curToxicity) => {
+        if(Lang.isNull(curToxicity.attribution.coding)) return "";
+        let attributionString = `${curToxicity.attribution.coding.displayText}`;
+        // If nothing is selected, this is the default placeholder
+        if (Lang.isEmpty(curToxicity.attribution.coding.displayText)){
+            attributionString = '?';
+        }
+        return attributionString;
     }
 
     /* 
@@ -53,10 +74,13 @@ class ToxicityCreator extends CreatorShortcut {
     getToxAsString = (curToxicity) => { 
         const gradeString = this.getGradeString(curToxicity);
         const adverseEventString = this.getAdverseEventString(curToxicity);
-        if (Lang.isEmpty(gradeString) && Lang.isEmpty(adverseEventString)) return "";
-        if(Lang.isEmpty(adverseEventString)) return "#" + gradeString + " ?";
-        if(Lang.isEmpty(gradeString)) return "Grade ? #" + adverseEventString;
-        return `#${gradeString} #${adverseEventString}`;
+        const attributionString = this.getAttributionString(curToxicity);
+        // If all of the options contain a '?', nothing has been selected yet so no Toxicity information
+        if (gradeString.indexOf('?') > -1 && adverseEventString.indexOf('?') > -1 && attributionString.indexOf('?') > -1) {
+            return "";
+        }
+        // TODO: Check that is will be okay to have #? in places where before it was just ? (Ex. No Adverse event selected yet)
+        return `#${gradeString} #${adverseEventString} due to #${attributionString}`;
     }
 
     /* 
