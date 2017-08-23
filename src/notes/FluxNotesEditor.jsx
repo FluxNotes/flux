@@ -39,21 +39,20 @@ class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
 
-		this.contextManager = this.props.contextManager;
-		
-		this.didFocusChange = false;
-		
-		this.selectingForShortcut = null;
-		this.onPortalSelection = this.onPortalSelection.bind(this);
-		this.onChange = this.onChange.bind(this);
-		
+        this.contextManager = this.props.contextManager;
+        
+        this.didFocusChange = false;
+        
+        this.selectingForShortcut = null;
+        this.onChange = this.onChange.bind(this);
+        
         // Set the initial state when the app is first constructed.
         this.state = {
             state: initialState,
-			isPortalOpen: false,
-			portalOptions: null,
-			left: 0,
-			top: 0
+            isPortalOpen: false,
+            portalOptions: null,
+            left: 0,
+            top: 0
         }
 
         // setup structured field plugin
@@ -83,139 +82,139 @@ class FluxNotesEditor extends React.Component {
         });
         
         this.plugins = [
-			this.suggestionsPluginCreators,
-			this.suggestionsPluginInserters,
-			this.structuredFieldPlugin
-		];
-		
-		this.autoReplaceBeforeRegExp = undefined;
-		
-		let autoReplaceAfters = [];
-		let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
-		allShortcuts.forEach((shortcutC) => {
-			autoReplaceAfters = autoReplaceAfters.concat(shortcutC.getTriggers());			
-		});
-		this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
-		
-		// now add an AutoReplace plugin instance for each shortcut we're supporting as well
-		this.plugins.push(AutoReplace({
-			"trigger": 'space',
-			"before": this.autoReplaceBeforeRegExp,
-			"transform": this.autoReplaceTransform.bind(this)
-		}));
+            this.suggestionsPluginCreators,
+            this.suggestionsPluginInserters,
+            this.structuredFieldPlugin
+        ];
+        
+        this.autoReplaceBeforeRegExp = undefined;
+        
+        let autoReplaceAfters = [];
+        let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
+        allShortcuts.forEach((shortcutC) => {
+            autoReplaceAfters = autoReplaceAfters.concat(shortcutC.getTriggers());          
+        });
+        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
+        
+        // now add an AutoReplace plugin instance for each shortcut we're supporting as well
+        this.plugins.push(AutoReplace({
+            "trigger": 'space',
+            "before": this.autoReplaceBeforeRegExp,
+            "transform": this.autoReplaceTransform.bind(this)
+        }));
     }
-		
-	suggestionFunction(initialChar, text) {
+        
+    suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
-		let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
+        let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
-			const triggers = shortcut.getTriggers();
-			triggers.forEach((trigger) => {
-				const triggerNoPrefix = trigger.substring(1);
-				if (trigger.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
-					suggestionsShortcuts.push({
-						"key": triggerNoPrefix,
-						"value": trigger,
-						"suggestion": triggerNoPrefix
-					});
-				}
-			});
+            const triggers = shortcut.getTriggers();
+            triggers.forEach((trigger) => {
+                const triggerNoPrefix = trigger.substring(1);
+                if (trigger.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
+                    suggestionsShortcuts.push({
+                        "key": triggerNoPrefix,
+                        "value": trigger,
+                        "suggestion": triggerNoPrefix
+                    });
+                }
+            });
         });
-		return suggestionsShortcuts.slice(0, 10);
-	}
-	
-	choseSuggestedShortcut(suggestion) {
-		const { state } = this.state; 
+        return suggestionsShortcuts.slice(0, 10);
+    }
+    
+    choseSuggestedShortcut(suggestion) {
+        const { state } = this.state; 
         let shortcut = this.props.newCurrentShortcut(suggestion.value);
-		
-		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-			return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
-		} else {
+        
+        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+        } else {
             let transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
-			let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
-			return transformAfterInsert.apply();
-		}
-	}
-	
-	insertShortcut(shortcutTrigger, transform = undefined) {
-		if (Lang.isUndefined(transform)) {
-			transform = this.state.state.transform();
-		}
-		let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
-		if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-			return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
-		} else {
-			return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
-		}
-	}
-	
-	autoReplaceTransform(transform, e, data, matches) {
-		// need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-		this.insertShortcut(matches.before[0], transform);
-	}
-	
-	openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
-		let portalOptions = shortcut.getValueSelectionOptions();
-		let pos = position(this.state);
-		
-		this.setState({
-			isPortalOpen: true,
-			portalOptions: portalOptions,
-			needToDelete: needToDelete,
-			left: pos.left,
-			top: pos.top
-		});
-		this.selectingForShortcut = shortcut;
-		return transform.blur();
-	}
+            let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
+            return transformAfterInsert.apply();
+        }
+    }
+    
+    insertShortcut(shortcutTrigger, transform = undefined) {
+        if (Lang.isUndefined(transform)) {
+            transform = this.state.state.transform();
+        }
+        let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
+        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+        } else {
+            return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+        }
+    }
+    
+    autoReplaceTransform(transform, e, data, matches) {
+        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+        this.insertShortcut(matches.before[0], transform);
+    }
+    
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+        let portalOptions = shortcut.getValueSelectionOptions();
+        let pos = position(this.state);
+        
+        this.setState({
+            isPortalOpen: true,
+            portalOptions: portalOptions,
+            needToDelete: needToDelete,
+            left: pos.left,
+            top: pos.top
+        });
+        this.selectingForShortcut = shortcut;
+        return transform.blur();
+    }
 
-	// called from portal when an item is selected (context is not null) or if portal is closed without
-	// selection (context is null)
-	onPortalSelection = (state, context) => {
-		this.setState({ isPortalOpen: false });
-		if (Lang.isNull(context)) return state;
-		let shortcut = this.selectingForShortcut;
-		this.selectingForShortcut = null;
-		shortcut.clearValueSelectionOptions();
-		shortcut.setText(context.context);
-		if (shortcut.isContext()) {
-			shortcut.setValueObject(context.object);
-		}
-		this.contextManager.contextUpdated();
-		let transform;
-		if (this.state.needToDelete) {
-			transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
-		} else {
-			transform = this.state.state.transform();
-		}
-		return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
-	}
+    // called from portal when an item is selected (context is not null) or if portal is closed without
+    // selection (context is null)
+    onPortalSelection = (state, context) => {
+        this.setState({ isPortalOpen: false });
+        if (Lang.isNull(context)) return state;
+        let shortcut = this.selectingForShortcut;
+        this.selectingForShortcut = null;
+        shortcut.clearValueSelectionOptions();
+        shortcut.setText(context.context);
+        if (shortcut.isContext()) {
+            shortcut.setValueObject(context.object);
+        }
+        this.contextManager.contextUpdated();
+        let transform;
+        if (this.state.needToDelete) {
+            transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
+        } else {
+            transform = this.state.state.transform();
+        }
+        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
+    }
 
-	// consider reusing this method to replace code in choseSuggestedShortcut function
-	suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
-		const { state } = this.state;
-		if (Lang.isNull(transform)) {
-			transform = state.transform();
-		}
-		const { anchorText, anchorOffset } = state
-		const text = anchorText.text
+    // consider reusing this method to replace code in choseSuggestedShortcut function
+    suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
+        const { state } = this.state;
+        if (Lang.isNull(transform)) {
+            transform = state.transform();
+        }
+        const { anchorText, anchorOffset } = state
+        const text = anchorText.text
 
-		let index = { start: anchorOffset - 1, end: anchorOffset }
+        let index = { start: anchorOffset - 1, end: anchorOffset }
 
-		if (text[anchorOffset - 1] !== prefixCharacter) {
-			index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
-		}
-			
-		const newText = `${text.substring(0, index.start)}`
-		return transform
-			.deleteBackward(anchorOffset)
-			.insertText(newText)	
-	}
-	
+        if (text[anchorOffset - 1] !== prefixCharacter) {
+            index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
+        }
+            
+        const newText = `${text.substring(0, index.start)}`
+        return transform
+            .deleteBackward(anchorOffset)
+            .insertText(newText)    
+    }
+    
     insertStructuredFieldTransform(transform, shortcut) {
-		if (Lang.isNull(shortcut)) return transform.focus();
+        if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
         return result[0];
     }
@@ -238,28 +237,28 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     handleSummaryUpdate = (itemToBeInserted) => {
-		let state;
-		const currentState = this.state.state;
-		let transform = currentState.transform();
-		let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
-		let result = regExp.exec(itemToBeInserted);
-		let remainder = itemToBeInserted;
-		let start, before;
-		while (!Lang.isNull(result)) {
-			start = remainder.indexOf(result[0]);
-			before = remainder.substring(0, start);
-			remainder = remainder.substring(start + result[0].length);
-			transform = transform
-				.insertText(before)
-			transform = this.insertShortcut(result[0].substring(0, result[0].length - 1), transform);
-			result = regExp.exec(remainder);
-		}
-		if (remainder.length > 0) {
-			transform = transform.insertText(remainder);
-		}
-		state = transform.focus().apply();
-		this.setState({state: state});
-	}
+        let state;
+        const currentState = this.state.state;
+        let transform = currentState.transform();
+        let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
+        let result = regExp.exec(itemToBeInserted);
+        let remainder = itemToBeInserted;
+        let start, before;
+        while (!Lang.isNull(result)) {
+            start = remainder.indexOf(result[0]);
+            before = remainder.substring(0, start);
+            remainder = remainder.substring(start + result[0].length);
+            transform = transform
+                .insertText(before)
+            transform = this.insertShortcut(result[0].substring(0, result[0].length - 1), transform);
+            result = regExp.exec(remainder);
+        }
+        if (remainder.length > 0) {
+            transform = transform.insertText(remainder);
+        }
+        state = transform.focus().apply();
+        this.setState({state: state});
+    }
 
     /**
      * Check if the current selection has a mark with `type` in it.
@@ -276,10 +275,10 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         return state.blocks.some(node => node.type === type);
     }
-	
+    
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
-		const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
@@ -309,17 +308,17 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
-		let errorDisplay = "";
-		if (this.props.errors && this.props.errors.length > 0) {
-			errorDisplay = (
-				<div>
+        let errorDisplay = "";
+        if (this.props.errors && this.props.errors.length > 0) {
+            errorDisplay = (
+                <div>
                     <Divider className="divider"/>
-					<h1 style={{color:'red'}}>{this.props.errors.join()}</h1>
-					<Divider className="divider"/>
-				</div>
-			);
-		}
-		const callback = {}
+                    <h1 style={{color:'red'}}>{this.props.errors.join()}</h1>
+                    <Divider className="divider"/>
+                </div>
+            );
+        }
+        const callback = {}
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -343,51 +342,57 @@ class FluxNotesEditor extends React.Component {
                             onChange={this.onChange}
                             schema={schema}
                         />
-						{errorDisplay}
-						<CreatorsPortal 
-							state={this.state.state} />
-						<InsertersPortal
-							state={this.state.state} />
-						<ContextPortal
-							left={this.state.left}
-							top={this.state.top}
-							state={this.state.state}
-							callback={callback}
-							onSelected={this.onPortalSelection}
-							contexts={this.state.portalOptions}
-							capture={/@([\w]*)/}
-							trigger={"@"}
-							onChange={this.onChange}
-							isOpened={this.state.isPortalOpen}
-						/>
-					</div>
+                        {errorDisplay}
+                        <CreatorsPortal 
+                            state={this.state.state} />
+                        <InsertersPortal
+                            state={this.state.state} />
+                        <ContextPortal
+                            left={this.state.left}
+                            top={this.state.top}
+                            state={this.state.state}
+                            callback={callback}
+                            onSelected={this.onPortalSelection}
+                            contexts={this.state.portalOptions}
+                            capture={/@([\w]*)/}
+                            trigger={"@"}
+                            onChange={this.onChange}
+                            isOpened={this.state.isPortalOpen}
+                        />
+                    </div>
                 </Paper>
             </div>
         );
     }
 }
+function getPos(domElement, node, state) {
+    const offsetx = 0;
+    const offsety = 0;
+    var pos = { left: 0, top: 0 };
+    
+    const children = domElement.childNodes;
 
-function getPos(el) {
-    for (var lx=0, ly=0;
-         el != null;
-         lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-    return {left: lx,top: ly};
+    for(const child of children) { 
+        if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
+            const rect = child.getBoundingClientRect();
+            pos.left = rect.left + rect.width + offsetx;
+            pos.top = rect.top + offsety;
+        }
+    }
+    return pos;
 }
 
+
 function position(state) {
-	let pos = {};
-	pos.left = state.left;
-	pos.top = state.top;
-	
-	const parentNode = state.state.document.getParent(state.state.selection.startKey);
-	const el = Slate.findDOMNode(parentNode);
-	return getPos(el);
+    const parentNode = state.state.document.getParent(state.state.selection.startKey);
+    const el = Slate.findDOMNode(parentNode);
+    return getPos(el, parentNode, state);
 }
 
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
     if (index === initialIndex) {
-        return { 	start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
-                    end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar) 	}
+        return {    start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
+                    end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)    }
     }
     if (text[index] === initialChar || text[index] === undefined) {
         return index
