@@ -16,7 +16,6 @@ h2, h3 {
 .patient-info {
   float: left;
   margin-left: 10px;
-  /*Can't go all the way to 100% width because of padding*/
   min-width: 70%;
   max-width: 70%;
 }
