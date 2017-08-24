@@ -2,6 +2,7 @@ import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
+import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 import ToxicityForm from '../forms/ToxicityForm';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
@@ -127,6 +128,8 @@ class ToxicityCreator extends CreatorShortcut {
 			return this.toxicity.value.coding.displayText;
 		} else if (name === "grade") {
             return this.toxicity.adverseEventGrade.coding.displayText;
+        } else if (name === "attribution") {
+            return this.toxicity.attribution.coding.displayText;
 		} else {
 			console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
 			return null;
@@ -155,11 +158,13 @@ class ToxicityCreator extends CreatorShortcut {
 		let result = [];
 		if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
 		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
-		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator ];
+		if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
+		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
 	}
     shouldBeInContext() {
         return  (this.getAttributeValue("adverseEvent").length === 0) ||
-                (this.getAttributeValue("grade").length === 0);
+                (this.getAttributeValue("grade").length === 0) ||
+                (this.getAttributeValue("attribution").length === 0) ;
     }
     
 	isContext() {

@@ -51,7 +51,7 @@ class ToxicityForm extends Component {
      */
     handleAttributionSelection = (attribution) => {
         // TODO: Possibly add appropriate null checks
-        this.props.updateValue("attribution", attribution);
+        this.props.updateValue("attribution", attribution.name);
     }
 
     /* 

@@ -15,7 +15,8 @@ import StagingMCreator from './StagingMCreator';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
-import ToxicityGradeCreator from './ToxicityGradeCreator'; 
+import ToxicityGradeCreator from './ToxicityGradeCreator';
+import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 
 function addTriggerForKey(trigger) {
     this.shortcutMap[trigger.toLowerCase()] = this.shortcuts[this.currentShortcut];
@@ -30,6 +31,7 @@ class ShortcutManager {
 		'#toxicity': ToxicityCreator,
         '#toxicity-adverse-event': ToxicityAdverseEventCreator,
         '#toxicity-grade': ToxicityGradeCreator,
+        '#toxicity-attribution': ToxicityAttributionCreator,
 		'@condition': ConditionInserter,
 		'@name': NameInserter,
 		'@age': AgeInserter,

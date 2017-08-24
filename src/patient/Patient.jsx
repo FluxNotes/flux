@@ -778,9 +778,10 @@ class Patient {
         return null;
     }
 	
+    // @param attribution - the string name of the attribution
 	static _toxicityAttributionToCodeableConcept(attribution) {
 		// TODO Find the codes for this.
-		return { "value": "", "codeSystem": "", "displayText": attribution.name };
+		return { "value": "", "codeSystem": "", "displayText": attribution };
 	}
     
     // Progression Creation
