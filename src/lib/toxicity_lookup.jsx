@@ -1,5 +1,14 @@
 const Lang = require('lodash/lang');
 
+// These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
+const attributionOptions = [
+    {name: 'Treatment', description: "Adverse event is attributed to a treatment."},
+    {name: 'Disease',  description: "Adverse event is attributed to the course of the disease"},
+    {name: 'Error', description: "Adverse event is attributed to a medical error"},
+    {name: 'Unrelated', description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error."},
+    {name: 'Unknown', description: "The causal category of the adverse event is unknown"}
+]
+
 const gradeOptions = [
     {name: 'Grade 1', description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated."},
     {name: 'Grade 2', description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life."},
@@ -8713,9 +8722,15 @@ exports.getDescription = (dataElement) => {
         return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
     case "grade": 
         return "The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.";
+    case "attribution":
+        return "The relationship of the event or cause to the adverse event.";
     default: 
         return `Asking for a description for ${dataElement}; one has not been defined.`;
     }
+}
+
+exports.getAttributionOptions = () => {
+    return attributionOptions;
 }
 
 exports.getGradeOptionsForAdverseEvent = (adverseEventName) => {

@@ -15,61 +15,63 @@ import StagingMCreator from './StagingMCreator';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
-import ToxicityGradeCreator from './ToxicityGradeCreator'; 
+import ToxicityGradeCreator from './ToxicityGradeCreator';
+import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 
 function addTriggerForKey(trigger) {
     this.shortcutMap[trigger.toLowerCase()] = this.shortcuts[this.currentShortcut];
 }
 
 class ShortcutManager {
-	shortcuts = {
-		'#progression': ProgressionCreator,
+    shortcuts = {
+        '#progression': ProgressionCreator,
         '#progression-status': ProgressionStatusCreator,
         '#progression-reasons': ProgressionReasonsCreator,
-		'#staging': StagingCreator,
-		'#toxicity': ToxicityCreator,
+        '#staging': StagingCreator,
+        '#toxicity': ToxicityCreator,
         '#toxicity-adverse-event': ToxicityAdverseEventCreator,
         '#toxicity-grade': ToxicityGradeCreator,
-		'@condition': ConditionInserter,
-		'@name': NameInserter,
-		'@age': AgeInserter,
-		'@gender': GenderInserter,
-		'@patient': PatientInserter,
-		'@dateofbirth': DateOfBirthInserter,
-		'@stage': StageInserter,
-		'#staging-t': StagingTCreator,
-		'#staging-n': StagingNCreator,
-		'#staging-m': StagingMCreator
-	};
+        '#toxicity-attribution': ToxicityAttributionCreator,
+        '@condition': ConditionInserter,
+        '@name': NameInserter,
+        '@age': AgeInserter,
+        '@gender': GenderInserter,
+        '@patient': PatientInserter,
+        '@dateofbirth': DateOfBirthInserter,
+        '@stage': StageInserter,
+        '#staging-t': StagingTCreator,
+        '#staging-n': StagingNCreator,
+        '#staging-m': StagingMCreator
+    };
 
-	shortcutClasses = [];
-	shortcutMap = {};
-	
-	getAllShortcutClasses() {
-		return this.shortcutClasses;
-	}
-	
-	constructor(shortcutList) {
-		this.shortcutsToSupportList = shortcutList;
-		for (var key in this.shortcuts) {
-			this.shortcutClasses.push(this.shortcuts[key]);
-			const triggers = this.shortcuts[key].getTriggers();
+    shortcutClasses = [];
+    shortcutMap = {};
+    
+    getAllShortcutClasses() {
+        return this.shortcutClasses;
+    }
+    
+    constructor(shortcutList) {
+        this.shortcutsToSupportList = shortcutList;
+        for (var key in this.shortcuts) {
+            this.shortcutClasses.push(this.shortcuts[key]);
+            const triggers = this.shortcuts[key].getTriggers();
             this.currentShortcut = key;
-			triggers.forEach(addTriggerForKey, this);
-		}		
-	}
-	
-	getSupportedShortcuts() {
-		return this.shortcutsToSupportList;
-	}
-	
-	createShortcut(trigger, onUpdate, object) {
-/*		if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
-			throw new Error("Invalid shortcut type: " + shortcutType);
-		}*/
-		let className = this.shortcutMap[trigger.toLowerCase()];
-		return new className(onUpdate, object);
-	}
+            triggers.forEach(addTriggerForKey, this);
+        }        
+    }
+    
+    getSupportedShortcuts() {
+        return this.shortcutsToSupportList;
+    }
+    
+    createShortcut(trigger, onUpdate, object) {
+/*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
+            throw new Error("Invalid shortcut type: " + shortcutType);
+        }*/
+        let className = this.shortcutMap[trigger.toLowerCase()];
+        return new className(onUpdate, object);
+    }
 }
 
 export default ShortcutManager;

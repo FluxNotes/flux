@@ -703,9 +703,9 @@ class Patient {
 	}
 
     // Toxicity Creation
-    static createNewToxicity(adverseEvent, grade) {
+    static createNewToxicity(adverseEvent, grade, attribution) {
         const today = new moment().format("D MMM YYYY");
-        let adverseEventCoding, gradeCoding;
+        let adverseEventCoding, gradeCoding, attributionCoding;
         if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
             adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
         } else {
@@ -716,12 +716,18 @@ class Patient {
         } else {
             gradeCoding = this._toxicityGradeToCodeableConcept(grade);
         }
+        if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+            attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            attributionCoding = this._toxicityAttributionToCodeableConcept(grade);
+        }
         return {
 			"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
                                 "http://standardhealthrecord.org/adverse/AdverseReaction",
                                 "http://standardhealthrecord.org/adverse/AdverseEvent"],
 			"value": { "coding": adverseEventCoding },
             "adverseEventGrade": { "coding": gradeCoding },
+			"attribution": { "coding": attributionCoding },
 			"originalCreationDate": today,
 			"lastUpdateDate": today
 		};
@@ -746,6 +752,16 @@ class Patient {
         }
         toxicity.adverseEventGrade.coding = gradeCoding;
     }
+	
+	static updateAttributionForToxicReaction(toxicity, attribution) {
+		let attributionCoding;
+		if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+			attributionCoding = { "value": "", "codeSystem": "", "displayText": ""};
+		} else {
+			attributionCoding = this._toxicityAttributionToCodeableConcept(attribution);
+		}
+		toxicity.attribution.coding = attributionCoding;
+	}
     
     static _adverseEventToCodeableConcept(adverseEventName) {
         const adverseEvent = toxicityLookup.findAdverseEvent(adverseEventName);
@@ -759,6 +775,14 @@ class Patient {
         if (grade.toLowerCase() === "grade 4") return {value: "C1517874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 4"};
         if (grade.toLowerCase() === "grade 5") return {value: "C1559081", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 5"};
         return null;
+    }
+    
+    // @param attribution - the string name of the attribution
+    static _toxicityAttributionToCodeableConcept(attribution) {
+        const options = toxicityLookup.getAttributionOptions();
+        const attributionObject = options.find( attr => attr.name === attribution);
+        // TODO: The value of this object is just using a local VS defined by Mark in SHR for now. Will be updated eventually. CodeSystem may change.
+        return { "value": `#${attributionObject.name}`, codeSystem: 'https://www.meddra.org/', "displayText": attributionObject.name };
     }
     
     // Progression Creation
