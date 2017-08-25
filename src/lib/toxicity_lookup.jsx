@@ -1,9 +1,12 @@
 const Lang = require('lodash/lang');
 
+// These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
-    {name: 'Treatment', description: "Description for Treatment"}, // TODO Should these options be the one in the mockup or the ones in the spec at http://standardhealthrecord.org/shr/adverse/#AdverseReactionAttribution
-    {name: 'Disease',  description: "Description for Disease"},
-    {name: 'Other', description: "Description for Other"} // TODO Probably need a description for a tooltip here, but not sure what it is
+    {name: 'Treatment', description: "Adverse event is attributed to a treatment."},
+    {name: 'Disease',  description: "Adverse event is attributed to the course of the disease"},
+    {name: 'Error', description: "Adverse event is attributed to a medical error"},
+    {name: 'Unrelated', description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error."},
+    {name: 'Unknown', description: "The causal category of the adverse event is unknown"}
 ]
 
 const gradeOptions = [

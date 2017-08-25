@@ -780,8 +780,10 @@ class Patient {
 	
     // @param attribution - the string name of the attribution
 	static _toxicityAttributionToCodeableConcept(attribution) {
-		// TODO Find the codes for this.
-		return { "value": "", "codeSystem": "", "displayText": attribution };
+        const options = toxicityLookup.getAttributionOptions();
+        const attributionObject = options.find( attr => attr.name === attribution);
+        // TODO: The value of this object is just using a local VS defined by Mark in SHR for now. Will be updated eventually. CodeSystem may change.
+        return { "value": `#${attributionObject.name}`, codeSystem: 'https://www.meddra.org/', "displayText": attributionObject.name };
 	}
     
     // Progression Creation

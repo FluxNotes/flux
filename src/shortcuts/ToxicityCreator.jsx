@@ -81,7 +81,7 @@ class ToxicityCreator extends CreatorShortcut {
             return "";
         }
         // TODO: Check that is will be okay to have #? in places where before it was just ? (Ex. No Adverse event selected yet)
-        return `#${gradeString} #${adverseEventString} due to #${attributionString}`;
+        return `#${gradeString} #${adverseEventString} related to #${attributionString}`;
     }
 
     /* 
@@ -156,10 +156,10 @@ class ToxicityCreator extends CreatorShortcut {
 
 	getValidChildShortcuts() {
 		let result = [];
+        if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
 		if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
 		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
-		if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
-		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
+		return result; //[ ToxicityAttributionCreator, ToxicityAdverseEventCreator, ToxicityGradeCreator ];
 	}
     shouldBeInContext() {
         return  (this.getAttributeValue("adverseEvent").length === 0) ||
