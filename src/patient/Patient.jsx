@@ -716,7 +716,6 @@ class Patient {
         } else {
             gradeCoding = this._toxicityGradeToCodeableConcept(grade);
         }
-		// TODO: Figure out the correct structure of a coded attribution
         if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
             attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
         } else {
@@ -777,14 +776,14 @@ class Patient {
         if (grade.toLowerCase() === "grade 5") return {value: "C1559081", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Grade 5"};
         return null;
     }
-	
+    
     // @param attribution - the string name of the attribution
-	static _toxicityAttributionToCodeableConcept(attribution) {
+    static _toxicityAttributionToCodeableConcept(attribution) {
         const options = toxicityLookup.getAttributionOptions();
         const attributionObject = options.find( attr => attr.name === attribution);
         // TODO: The value of this object is just using a local VS defined by Mark in SHR for now. Will be updated eventually. CodeSystem may change.
         return { "value": `#${attributionObject.name}`, codeSystem: 'https://www.meddra.org/', "displayText": attributionObject.name };
-	}
+    }
     
     // Progression Creation
     static createNewProgression(status, reasons) {

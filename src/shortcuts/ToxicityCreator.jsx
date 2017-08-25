@@ -80,7 +80,6 @@ class ToxicityCreator extends CreatorShortcut {
         if (gradeString.indexOf('?') > -1 && adverseEventString.indexOf('?') > -1 && attributionString.indexOf('?') > -1) {
             return "";
         }
-        // TODO: Check that is will be okay to have #? in places where before it was just ? (Ex. No Adverse event selected yet)
         return `#${gradeString} #${adverseEventString} related to #${attributionString}`;
     }
 
