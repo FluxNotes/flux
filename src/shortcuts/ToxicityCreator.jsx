@@ -17,11 +17,11 @@ class ToxicityCreator extends CreatorShortcut {
             this.toxicity = toxicity;
             this.isToxicityNew = false;
         }
-		this.setValueObject(this.toxicity);
+        this.setValueObject(this.toxicity);
         this.onUpdate = onUpdate;
-		this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-	
+    
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("@condition");
@@ -105,76 +105,76 @@ class ToxicityCreator extends CreatorShortcut {
         );      
     }
 
-	setAttributeValue(name, value, publishChanges) {
-		if (name === "adverseEvent") {
-			Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
-		} else if (name === "grade") {
-			Patient.updateGradeForToxicReaction(this.toxicity, value);
+    setAttributeValue(name, value, publishChanges) {
+        if (name === "adverseEvent") {
+            Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
+        } else if (name === "grade") {
+            Patient.updateGradeForToxicReaction(this.toxicity, value);
         } else if (name === "attribution") {
             Patient.updateAttributionForToxicReaction(this.toxicity, value);
-		} else {
-			console.error("Error: Unexpected value selected for toxicity: " + name);
-			return;
-		}
+        } else {
+            console.error("Error: Unexpected value selected for toxicity: " + name);
+            return;
+        }
         if (this.isContext()) this.updateContextStatus();
-		this.onUpdate(this);
-		if (publishChanges) {
-			this.notifyValueChangeHandlers(name);
-		}
-	}
-	getAttributeValue(name) {
-		if (name === "adverseEvent") {
-			return this.toxicity.value.coding.displayText;
-		} else if (name === "grade") {
+        this.onUpdate(this);
+        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }
+    }
+    getAttributeValue(name) {
+        if (name === "adverseEvent") {
+            return this.toxicity.value.coding.displayText;
+        } else if (name === "grade") {
             return this.toxicity.adverseEventGrade.coding.displayText;
         } else if (name === "attribution") {
             return this.toxicity.attribution.coding.displayText;
-		} else {
-			console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
-			return null;
-		}
-	}
-	
-	updatePatient(patient, contextManager) {
-		if (this.toxicity.value.coding.displayText.length === 0) return; // not complete value
-		//let condition = this.parentContext.getValueObject();
-		if (this.isToxicityNew) {
+        } else {
+            console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
+            return null;
+        }
+    }
+    
+    updatePatient(patient, contextManager) {
+        if (this.toxicity.value.coding.displayText.length === 0) return; // not complete value
+        //let condition = this.parentContext.getValueObject();
+        if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);
             patient.addEntryToPatientWithPatientFocalSubject(this.toxicity);
-			this.isToxicityNew = false;
-		}
-	}
+            this.isToxicityNew = false;
+        }
+    }
 
-	validateInCurrentContext(contextManager) {
-		let errors = [];
-		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
-			errors.push("#toxicity invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
-		}
-		return errors;
-	}
+    validateInCurrentContext(contextManager) {
+        let errors = [];
+        if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
+            errors.push("#toxicity invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
+        }
+        return errors;
+    }
 
-	getValidChildShortcuts() {
-		let result = [];
-		if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
-		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
+    getValidChildShortcuts() {
+        let result = [];
+        if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
+        if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
         if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
-		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
-	}
+        return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
+    }
     shouldBeInContext() {
         return  (this.getAttributeValue("adverseEvent").length === 0) ||
                 (this.getAttributeValue("grade").length === 0) ||
                 (this.getAttributeValue("attribution").length === 0) ;
     }
     
-	isContext() {
-		return true;
-	}
-	getLabel() {
-		return this.getShortcutType();
-	}
-	static getTriggers() {
-		return [ "#toxicity" ];
-	}
+    isContext() {
+        return true;
+    }
+    getLabel() {
+        return this.getShortcutType();
+    }
+    static getTriggers() {
+        return [ "#toxicity" ];
+    }
 }
 
 export default ToxicityCreator;
