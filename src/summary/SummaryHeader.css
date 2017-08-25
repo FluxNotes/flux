@@ -9,12 +9,13 @@ h2, h3 {
 
 .avatar {
   float: left;
-  min-width: 30%;
-  max-width: 30%;
+  min-width: 25%;
+  max-width: 25%;
 }
 
 .patient-info {
   float: left;
+  margin-left: 10px;
   min-width: 70%;
   max-width: 70%;
 }
