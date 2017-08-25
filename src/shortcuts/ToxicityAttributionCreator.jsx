@@ -35,7 +35,8 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
     validateInCurrentContext(contextManager) {
         let errors = [];
         if (!contextManager.isContextOfTypeActive('#toxicity')) {
-            errors.push("Toxicity attribution values invalid without #toxicity. Use #toxicity to add a new toxicity to your narrative.")
+            errors.push("Toxicity attribution values invalid without #toxicity. Use #toxicity to add a new toxicity to your narrative.");
+            return errors;
         }
         let parentContext = contextManager.getActiveContextOfType("#toxicity");
         // TODO Can you choose more than one attribtuion? if so remove this error
