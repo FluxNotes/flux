@@ -1,5 +1,5 @@
 import CreatorShortcut from './CreatorShortcut';
-const lookup = require('../lib/toxicity_lookup');
+import lookup from '../lib/toxicity_lookup';
 
 export default class ToxicityAttributionCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {

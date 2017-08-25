@@ -155,10 +155,10 @@ class ToxicityCreator extends CreatorShortcut {
 
 	getValidChildShortcuts() {
 		let result = [];
-        if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
 		if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
 		if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
-		return result; //[ ToxicityAttributionCreator, ToxicityAdverseEventCreator, ToxicityGradeCreator ];
+        if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
+		return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
 	}
     shouldBeInContext() {
         return  (this.getAttributeValue("adverseEvent").length === 0) ||

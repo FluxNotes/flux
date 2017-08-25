@@ -222,6 +222,36 @@ class ToxicityForm extends Component {
                     {toxicityLookup.getDescription("toxicity")}
                 </p>
                 <Divider className="divider"/>
+
+                <h4>Adverse Event</h4>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("adverseEvent")}
+                </p>
+
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                />
+
+                <h4>Grade</h4>
+                <p id="data-element-description">
+                    {toxicityLookup.getDescription("grade")}
+                    <span className="helper-text"> Choose one</span>
+                </p>
+                <div id="grade-menu">
+                    {this.state.gradeOptions.map((grade, i) => {
+                        if (Lang.isUndefined(potentialToxicity.value.coding.displayText)) {
+                            return this.renderGradeMenuItem(grade)
+                        } else {
+                            return this.renderGradeMenuItem(grade, potentialToxicity.value.coding.displayText);
+                        }
+                    })}
+                </div>
                 
                 <h4>Attribution</h4>
                 <p id="data-element-description">
@@ -252,36 +282,6 @@ class ToxicityForm extends Component {
                                 </Button>
                             </div>
                         )
-                    })}
-                </div>
-
-                <h4>Adverse Event</h4>
-                <p id="data-element-description">
-                    {toxicityLookup.getDescription("adverseEvent")}
-                </p>
-
-                <Autosuggest
-                    suggestions={this.state.suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-
-                    getSuggestionValue={this.getSuggestionValue}
-                    renderSuggestion={this.renderSuggestion}
-                    inputProps={inputProps}
-                />
-
-                <h4>Grade</h4>
-                <p id="data-element-description">
-                    {toxicityLookup.getDescription("grade")}
-                    <span className="helper-text"> Choose one</span>
-                </p>
-                <div id="grade-menu">
-                    {this.state.gradeOptions.map((grade, i) => {
-                        if (Lang.isUndefined(potentialToxicity.value.coding.displayText)) {
-                            return this.renderGradeMenuItem(grade)
-                        } else {
-                            return this.renderGradeMenuItem(grade, potentialToxicity.value.coding.displayText);
-                        }
                     })}
                 </div>
             </div>
