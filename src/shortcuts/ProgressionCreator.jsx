@@ -28,21 +28,14 @@ class ProgressionCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("@condition");
-        this.parentContext.addChild(this);
-    }
-
-    onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
-        if (result) {
-            this.parentContext.removeChild(this);
-        }
-        return result;
     }
 
     getShortcutType() { 
         return "#progression";
     }
-
+    /* 
+     * Translate progression status into a string 
+     */
     getStatusString(curProgression) { 
         let statusString = ``;
         if (    Lang.isEmpty(curProgression.value) || 
@@ -56,6 +49,9 @@ class ProgressionCreator extends CreatorShortcut {
         return statusString;
     }
 
+    /* 
+     * Translate progression reasons into a string 
+     */
     getReasonString(curProgression) {
         let reasonString = ""; 
         if (!Lang.isUndefined(curProgression.evidence) && curProgression.evidence.length > 0) {
@@ -72,6 +68,9 @@ class ProgressionCreator extends CreatorShortcut {
         return reasonString
     }
 
+    /* 
+     * Translate progression date into a string 
+     */
     getDateString(curProgression) { 
         const today = moment(new Date());
         let dateString;
@@ -83,6 +82,9 @@ class ProgressionCreator extends CreatorShortcut {
         return dateString
     }
     
+    /* 
+     * Translate the current shortcut into a string
+     */
     getAsString() { 
         if(Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0) { 
             // 1. No status -- this case we just want a hash
@@ -108,6 +110,9 @@ class ProgressionCreator extends CreatorShortcut {
         }
     }
     
+    /* 
+     * Return the form for progression
+     */
     getForm() {
         return (
             <ProgressionForm

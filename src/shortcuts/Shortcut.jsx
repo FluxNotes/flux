@@ -13,7 +13,12 @@ class Shortcut extends Context {
     }
 	
 	initialize(contextManager) {
-        super.initialize(contextManager);
+        this.contextManager = contextManager;
+        this.isInContext = false;
+		if (this.isContext()) {
+            contextManager.addShortcutToContext(this);
+            this.isInContext = true;
+		}
 	}
 
 	getPrefixCharacter() {

@@ -33,7 +33,7 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
-                //You can not delete " + shortcut.getText() + " as it has child fields.
+                //opts.updateErrors(["You can not delete " + shortcut.getText() + " as it has child fields."]);
             }
         });
         return result;
@@ -104,7 +104,6 @@ function insertStructuredField(opts, transform, shortcut) {
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
 
-    shortcut.setKey(sf.key);
 	if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {
