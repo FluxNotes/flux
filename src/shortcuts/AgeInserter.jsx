@@ -8,6 +8,6 @@ export default class AgeInserter extends InserterShortcut {
         return "@age";
     }
 	static getTriggers() {
-		return [ "@age" ];
+		return [ {name:"@age"} ];
 	}
 }

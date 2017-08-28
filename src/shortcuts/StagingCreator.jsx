@@ -5,6 +5,7 @@ import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
 //import StagingForm from '../forms/StagingForm';
+import stagingLookup from '../lib/staging_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
@@ -189,7 +190,7 @@ class StagingCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [ "#staging" ];
+		return [{ name: "#staging", description: stagingLookup.getDescription("TNMStage")}];
 	}
 }
 

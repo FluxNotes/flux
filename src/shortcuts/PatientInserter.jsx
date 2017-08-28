@@ -10,6 +10,6 @@ export default class PatientInserter extends InserterShortcut {
         return "@patient";
     }
 	static getTriggers() {
-		return [ "@patient" ];
+		return [ {name:"@patient"} ];
 	}
 }

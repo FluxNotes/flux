@@ -48,7 +48,7 @@ export default class StagingNCreator extends CreatorShortcut {
 		const ns = lookup.getNsNamesForEdition(7);
 		let result = [];
 		ns.forEach((val) => {
-			result.push("#" + val);
+			result.push({name: "#" + val});
 		});
 		return result;
 	}

@@ -19,7 +19,8 @@ import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 
 function addTriggerForKey(trigger) {
-    this.shortcutMap[trigger.toLowerCase()] = this.shortcuts[this.currentShortcut];
+    console.log(trigger.name);
+    this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
 }
 
 class ShortcutManager {
@@ -69,7 +70,7 @@ class ShortcutManager {
 /*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
             throw new Error("Invalid shortcut type: " + shortcutType);
         }*/
-        let className = this.shortcutMap[trigger.toLowerCase()];
+        let className = this.shortcutMap[trigger.name.toLowerCase()];
         return new className(onUpdate, object);
     }
 }

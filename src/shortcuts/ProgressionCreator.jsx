@@ -3,10 +3,11 @@ import CreatorShortcut from './CreatorShortcut';
 //import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
+import progressionLookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
-import progressionLookup from '../lib/progression_lookup';
+
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -195,7 +196,7 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [ "#progression" ];
+		return [{ name: "#progression", description: progressionLookup.getDescription('progression') }];
 	}
 }
 

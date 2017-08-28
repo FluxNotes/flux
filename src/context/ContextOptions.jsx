@@ -42,12 +42,12 @@ export default class ContextOptions extends Component {
         validShortcuts.forEach((shortcut, i) => {
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
-                    triggers.push({"trigger": trigger, "group": i });
+                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i });
                     count++;
                 }
             });
         });
-        
+        console.log(triggers);
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
         let currentGroup = {group: "", triggers:[]};
@@ -104,7 +104,7 @@ export default class ContextOptions extends Component {
                                         <Button dense raised className='btn_template_ctx'
                                             key={trigger.trigger}
                                             onClick={(e) => this._handleClick(e, trigger.trigger)}
-                                        >{trigger.trigger}</Button>
+                                        >{trigger.trigger.name}</Button>
                                     </Col>                                    
                                        );
                             })}

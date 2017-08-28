@@ -49,8 +49,9 @@ export default class StagingMCreator extends CreatorShortcut {
 		const ms = lookup.getMsNamesForEdition(7);
 		let result = [];
 		ms.forEach((val) => {
-			result.push("#" + val);
+			result.push({name: "#" + val});
 		});
 		return result;
 	}
+    
 }

@@ -8,6 +8,6 @@ export default class GenderInserter extends InserterShortcut {
         return "@gender";
     }
 	static getTriggers() {
-		return [ "@gender" ];
+		return [{name: "@gender"} ];
 	}
 }
