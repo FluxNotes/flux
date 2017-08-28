@@ -1,321 +1,264 @@
-// eslint-disable-next-line
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactPortal = require('react-portal');
-
-var _reactPortal2 = _interopRequireDefault(_reactPortal);
-
-var _caretPosition = require('./caret-position');
-
-var _caretPosition2 = _interopRequireDefault(_caretPosition);
-
-var _suggestionItem = require('./suggestion-item');
-
-var _suggestionItem2 = _interopRequireDefault(_suggestionItem);
-
-var _currentWord = require('./current-word');
-
-var _currentWord2 = _interopRequireDefault(_currentWord);
-
-var _constants = require('./constants');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SuggestionPortal = function (_React$Component) {
-  _inherits(SuggestionPortal, _React$Component);
-
-  function SuggestionPortal(props) {
-    _classCallCheck(this, SuggestionPortal);
-
-    var _this = _possibleConstructorReturn(this, (SuggestionPortal.__proto__ || Object.getPrototypeOf(SuggestionPortal)).call(this));
-
-    _this.state = {
-      filteredSuggestions: []
-    };
-
-    _this.componentDidMount = function () {
-      _this.adjustPosition();
-    };
-
-    _this.componentDidUpdate = function () {
-      _this.adjustPosition();
-    };
-
-    _this.onOpen = function (portal) {
-      _this.setState({ menu: portal.firstChild });
-    };
-
-    _this.setCallbackSuggestion = function () {
-      if (_this.state.filteredSuggestions.length) {
-        _this.props.callback.suggestion = _this.state.filteredSuggestions[_this.selectedIndex];
-      } else {
-        _this.props.callback.suggestion = undefined;
-      }
-    };
-
-    _this.setFilteredSuggestions = function (filteredSuggestions) {
-      _this.setState({
-        filteredSuggestions: filteredSuggestions
-      });
-      _this.setCallbackSuggestion();
-    };
-
-    _this.onKeyDown = function (keyCode, data) {
-      var filteredSuggestions = _this.state.filteredSuggestions;
-
-
-      if (keyCode === _constants.DOWN_ARROW_KEY) {
-        if (_this.selectedIndex + 1 === filteredSuggestions.length) {
-          _this.selectedIndex = -1;
-        }
-        _this.selectedIndex += 1;
-        _this.setCallbackSuggestion();
-        _this.forceUpdate();
-      } else if (keyCode === _constants.UP_ARROW_KEY) {
-        if (_this.selectedIndex === 0) {
-          _this.selectedIndex = filteredSuggestions.length;
-        }
-        _this.selectedIndex -= 1;
-        _this.setCallbackSuggestion();
-        _this.forceUpdate();
-      } else {
-        _this.selectedIndex = 0;
-        var newFilteredSuggestions = _this.getFilteredSuggestions(data);
-        if (typeof newFilteredSuggestions.then === 'function') {
-          newFilteredSuggestions.then(function (newFilteredSuggestions) {
-            _this.setFilteredSuggestions(newFilteredSuggestions);
-          }).catch(function () {
-            _this.setFilteredSuggestions([]);
-          });
-        } else {
-          _this.setFilteredSuggestions(newFilteredSuggestions);
-        }
-      }
-    };
-
-    _this.matchTrigger = function () {
-      var _this$props = _this.props,
-          state = _this$props.state,
-          trigger = _this$props.trigger,
-          startOfParagraph = _this$props.startOfParagraph;
-
-
-      var stateCondition = state.isFocused && !state.isExpanded;
-
-      if (!state.selection.anchorKey) return false;
-
-      var anchorText = state.anchorText,
-          anchorOffset = state.anchorOffset;
-
-
-      if (startOfParagraph) {
-        return stateCondition && anchorText.text === trigger;
-      }
-
-      var lastChar = anchorText.text[anchorOffset - 1];
-
-      return stateCondition && lastChar && lastChar === trigger;
-    };
-
-    _this.matchCapture = function () {
-      var _this$props2 = _this.props,
-          state = _this$props2.state,
-          capture = _this$props2.capture;
-
-
-      if (!state.selection.anchorKey) return '';
-
-      var anchorText = state.anchorText,
-          anchorOffset = state.anchorOffset;
-
-
-      var currentWord = (0, _currentWord2.default)(anchorText.text, anchorOffset - 1, anchorOffset - 1);
-
-      var text = _this.getMatchText(currentWord, capture);
-
-      return text;
-    };
-
-    _this.getMatchText = function (text, trigger) {
-      var matchArr = text.match(trigger);
-
-      if (matchArr) {
-        return matchArr[1].toLowerCase();
-      }
-
-      return undefined;
-    };
-
-    _this.getFilteredSuggestions = function (data) {
-      var _this$props3 = _this.props,
-          suggestions = _this$props3.suggestions,
-          state = _this$props3.state,
-          capture = _this$props3.capture,
-          resultSize = _this$props3.resultSize;
-
-
-      if (!state.selection.anchorKey) return [];
-
-      var anchorText = state.anchorText,
-          anchorOffset = state.anchorOffset;
-
-      //GQ
-      var nextChar = _this.convertSlateDataObjectToCharacter(data);
-      if (nextChar == null) return [];
-      // END GQ
-      var currentWord = (0, _currentWord2.default)(anchorText.text + nextChar, anchorOffset - 1, anchorOffset - 1);//GQ added +nextChar
-
-      var text = _this.getMatchText(currentWord, capture);
-
-      if (typeof suggestions === 'function') {
-        return suggestions(text);
-      } else {
-        return suggestions.filter(function (suggestion) {
-          return suggestion.key.toLowerCase().indexOf(text) !== -1;
-        }).slice(0, resultSize ? resultSize : _constants.RESULT_SIZE);
-      }
-    };
-    
-    //GQ
-    _this.convertSlateDataObjectToCharacter = function(data) {
-        const code = data.code;
-        const isShift = data.isShift;
-        if (code < 48) return null;
-        if (code < 58) { // number keys
-            if (isShift) {
-                if (code === 48) return ")";
-                if (code === 49) return "!";
-                if (code === 50) return "@";
-                if (code === 51) return "#";
-                if (code === 52) return "$";
-                if (code === 53) return "%";
-                if (code === 54) return "^";
-                if (code === 55) return "&";
-                if (code === 56) return "*";
-                if (code === 57) return "(";
-            }
-            return String.fromCharCode(code);
-        }
-        if (code >= 65 && code <= 90) { // A-Z, a-z
-            if (isShift) return String.fromCharCode(code);
-            return String.fromCharCode(code + 32);
-        }
-        if (code >= 96 && code <= 105) return String.fromCharCode(code - 48); // numpad 0-9
-        if (code === 187 && !isShift) return "=";
-        if (code === 188 && !isShift) return ",";
-        if (code === 189 && !isShift) return '-';
-        if (code === 190 && !isShift) return ".";
-        if (code === 191 && !isShift) return "/";
-        if (code === 187 && isShift) return "+";
-        if (code === 188 && isShift) return "<";
-        if (code === 189 && isShift) return '_';
-        if (code === 190 && isShift) return ">";
-        if (code === 191 && isShift) return "?";
-        return null;
-    }
-    // END GQ
-
-    _this.adjustPosition = function () {
-      var menu = _this.state.menu;
-
-      if (!menu) return;
-
-      var match = _this.matchCapture();
-      if (match === undefined) {
-        menu.removeAttribute('style');
-        return;
-      }
-
-      if (_this.matchTrigger() || match) {
-        var rect = (0, _caretPosition2.default)(); 
-        // Is the rect object for the caretPosition empty?
-        if (Object.keys(rect).length === 0 && rect.constructor === Object) { 
-          console.log('caretPosition is having issues; for information investigate line 27 in caret-position.js')
-        } else { 
-          menu.style.display = 'block';
-          menu.style.opacity = 1;
-          menu.style.top = (rect.top + window.pageYOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
-          menu.style.left = (rect.left + window.pageXOffset).toString() + 'px'; // eslint-disable-line no-mixed-operators
-        }
-      }
-    };
-
-    _this.closePortal = function () {
-      var menu = _this.state.menu;
-
-      if (!menu) return;
-
-      if (!_this.matchTrigger()) {
-        menu.removeAttribute('style');
-        return;
-      }
-    };
-
-    _this.setSelectedIndex = function (selectedIndex) {
-      _this.selectedIndex = selectedIndex;
-      _this.forceUpdate();
-    };
-
-    _this.render = function () {
-      var filteredSuggestions = _this.state.filteredSuggestions;
-
-
-      return _react2.default.createElement(
-        _reactPortal2.default,
-        { isOpened: true, onOpen: _this.onOpen },
-        _react2.default.createElement(
-          'div',
-          { className: 'suggestion-portal' },
-          _react2.default.createElement(
-            'ul',
-            null,
-            filteredSuggestions.map(function (suggestion, index) {
-              return _react2.default.createElement(_suggestionItem2.default, {
-                key: suggestion.key,
-                index: index,
-                suggestion: suggestion,
-                selectedIndex: _this.selectedIndex,
-                setSelectedIndex: _this.setSelectedIndex,
-                appendSuggestion: _this.props.callback.onEnter,
-                closePortal: _this.closePortal,
-                editor: _this.props.callback.editor
-              });
-            })
-          )
-        )
-      );
-    };
-
-    props.callback.onKeyDown = _this.onKeyDown;
-    props.callback.onEnter = props.onEnter;
-    props.callback.closePortal = _this.closePortal;
-    props.callback.readOnly = false;
-
-    _this.selectedIndex = 0;
-    if (typeof props.suggestions === 'function') {
-      props.callback.suggestion = undefined;
-    } else {
-      _this.state.filteredSuggestions = props.suggestions.slice(0, props.resultSize ? props.resultSize : _constants.RESULT_SIZE);
-      props.callback.suggestion = _this.state.filteredSuggestions[_this.selectedIndex];
-    }
-    return _this;
+import React from 'react'
+import Portal from 'react-portal'
+import Slate from 'slate'
+import position from './caret-position'
+import SuggestionItem from './suggestion-item'
+import getCurrentWord from './current-word'
+import {
+  UP_ARROW_KEY,
+  DOWN_ARROW_KEY,
+  RESULT_SIZE,
+} from './constants'
+
+class SuggestionPortal extends React.Component {
+
+  componentDidMount = () => {
+    this.adjustPosition()
   }
 
-  return SuggestionPortal;
-}(_react2.default.Component);
+  componentDidUpdate = () => {
+    this.adjustPosition()
+  }
 
-exports.default = SuggestionPortal;
+  constructor(props) {
+    super()
+    props.callback.onKeyDown = this.onKeyDown
+    props.callback.onEnter = props.onEnter
+    props.callback.closePortal = this.closePortal
+    props.callback.readOnly = false
+
+    this.state = {
+      selectedIndex: 0,
+    }
+
+    if (typeof props.suggestions === 'function') {
+      props.callback.suggestion = undefined
+    } else {
+      const filteredSuggestions = props.suggestions.slice(0, props.resultSize ? props.resultSize : RESULT_SIZE)
+      props.callback.suggestion = filteredSuggestions[this.state.selectedIndex]
+    }
+  }
+
+  onOpen = (portal) => {
+    this.setState({
+      menu: portal.firstChild 
+    });
+  }
+
+  setCallbackSuggestion = (filteredSuggestions, selectedIndex=0) => {
+    if (filteredSuggestions.length) {
+      this.props.callback.suggestion = filteredSuggestions[selectedIndex]
+    } else {
+      this.props.callback.suggestion = undefined
+    }
+  }
+
+  onKeyDown = (keyCode, data) => {
+    if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+        const filteredSuggestions  = this.getFilteredSuggestions();
+        const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
+        const newIndex = this.getMenuPostion(positionChange);
+        this.changeMenuPosition(positionChange)
+        this.setCallbackSuggestion(filteredSuggestions, newIndex);
+    } else {
+      const filteredSuggestions  = this.getFilteredSuggestions(data);
+      this.setSelectedIndex(0)
+      if (typeof filteredSuggestions.then === 'function') {
+        filteredSuggestions.then(filteredSuggestions => {
+          this.setCallbackSuggestion(filteredSuggestions, 0)
+        }).catch(() => {
+          this.setCallbackSuggestion([], 0)
+        })
+      } else {
+        this.setCallbackSuggestion(filteredSuggestions, 0)
+      }
+    }
+  }
+
+  getMenuPostion = (change) => { 
+    // this will allow wrap around to the end of the list
+    const filteredSuggestions  = this.getFilteredSuggestions();
+    if(filteredSuggestions.length === 0) { 
+      return 0;
+    } else { 
+      const changePlusOriginalLength = change + filteredSuggestions.length;
+      const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % filteredSuggestions.length;      
+      return changeAfterWrapping;
+    }
+  }
+
+  changeMenuPosition = (change) => { 
+    const changeAfterWrapping = this.getMenuPostion(change);
+    this.setState({ 
+        selectedIndex: changeAfterWrapping
+    })
+  }
+
+  matchTrigger = () => {
+    const { state, trigger, startOfParagraph } = this.props
+
+    const stateCondition = state.isFocused && !state.isExpanded
+
+    if (!state.selection.anchorKey) return false
+
+    const { anchorText, anchorOffset } = state
+
+    if (startOfParagraph) {
+      return stateCondition && anchorText.text === trigger
+    }
+
+    const lastChar = anchorText.text[anchorOffset - 1]
+
+    return stateCondition && lastChar && lastChar === trigger
+  }
+
+  matchCapture = () => {
+    const { state, capture } = this.props
+
+    if (!state.selection.anchorKey) return ''
+
+    const { anchorText, anchorOffset } = state
+
+    const currentWord = getCurrentWord(anchorText.text, anchorOffset - 1, anchorOffset - 1)
+
+    const text = this.getMatchText(currentWord, capture)
+
+    return text
+  }
+
+  getMatchText = (text, trigger) => {
+    const matchArr = text.match(trigger)
+
+    if (matchArr) {
+      return matchArr[1].toLowerCase()
+    }
+
+    return undefined
+  }
+
+  getFilteredSuggestions = (incomingData) => {
+    const { suggestions, state, capture, resultSize } = this.props
+
+    if (!state.selection.anchorKey) return []
+
+    const { anchorText, anchorOffset } = state
+
+    let nextChar = "";
+    // If there is incoming data from a keydown, include that as next char
+    if (incomingData !== undefined) { 
+      nextChar = this.convertSlateDataObjectToCharacter(incomingData);
+      if (nextChar == null) return [];
+    }
+    const currentWord = getCurrentWord(anchorText.text + nextChar, anchorOffset - 1, anchorOffset - 1);//GQ added +nextChar
+
+    const text = this.getMatchText(currentWord, capture)
+
+    if (typeof suggestions === 'function') {
+      return suggestions(text)
+    } else {
+      return suggestions
+        .filter(suggestion => suggestion.key.toLowerCase().indexOf(text) !== -1)
+        .slice(0, resultSize ? resultSize : RESULT_SIZE)
+    }
+  }
+
+  convertSlateDataObjectToCharacter = (data) => {
+    const code = data.code;
+    const isShift = data.isShift;
+    if (code < 48) return null;
+    if (code < 58) { // number keys
+        if (isShift) {
+            if (code === 48) return ")";
+            if (code === 49) return "!";
+            if (code === 50) return "@";
+            if (code === 51) return "#";
+            if (code === 52) return "$";
+            if (code === 53) return "%";
+            if (code === 54) return "^";
+            if (code === 55) return "&";
+            if (code === 56) return "*";
+            if (code === 57) return "(";
+        }
+        return String.fromCharCode(code);
+    }
+    if (code >= 65 && code <= 90) { // A-Z, a-z
+        if (isShift) return String.fromCharCode(code);
+        return String.fromCharCode(code + 32);
+    }
+    if (code >= 96 && code <= 105) return String.fromCharCode(code - 48); // numpad 0-9
+    if (code === 187 && !isShift) return "=";
+    if (code === 188 && !isShift) return ",";
+    if (code === 189 && !isShift) return '-';
+    if (code === 190 && !isShift) return ".";
+    if (code === 191 && !isShift) return "/";
+    if (code === 187 && isShift) return "+";
+    if (code === 188 && isShift) return "<";
+    if (code === 189 && isShift) return '_';
+    if (code === 190 && isShift) return ">";
+    if (code === 191 && isShift) return "?";
+    return null;
+  }
+
+  adjustPosition = () => {
+    const { menu } = this.state
+    if (!menu) return
+
+    const match = this.matchCapture();
+    if (match === undefined) {
+      menu.removeAttribute('style')
+      return
+    }
+
+    const parentNode = this.props.state.document.getParent(this.props.state.selection.startKey);
+    const el = Slate.findDOMNode(parentNode);
+
+    if (this.matchTrigger() || match) {
+      const rect = position(el)
+      menu.style.display = 'block'
+      menu.style.opacity = 1
+      menu.style.top = `${rect.top + window.scrollY}px` // eslint-disable-line no-mixed-operators
+      menu.style.left = `${rect.left + window.scrollX}px` // eslint-disable-line no-mixed-operators
+    }
+  }
+
+  closePortal = () => {
+    const { menu } = this.state
+    if (!menu) return
+
+    menu.removeAttribute('style')
+    return
+  }
+
+  setSelectedIndex = (selectedIndex) => {
+    this.setState({
+      selectedIndex: selectedIndex
+    })
+  }
+
+  render = () => {
+    const filteredSuggestions  = this.getFilteredSuggestions();
+
+    return (
+      <Portal isOpened onOpen={this.onOpen}>
+        <div className="suggestion-portal">
+          <ul>
+            {filteredSuggestions.map((suggestion, index) =>
+              <SuggestionItem
+                key={suggestion.key}
+                index={index}
+                suggestion={suggestion}
+                selectedIndex={this.state.selectedIndex}
+                setSelectedIndex={this.setSelectedIndex}
+                appendSuggestion={this.props.callback.onEnter}
+                closePortal={this.closePortal}
+                editor={this.props.callback.editor}
+              />
+            )}
+          </ul>
+        </div>
+      </Portal>
+    )
+  }
+}
+
+export default SuggestionPortal
