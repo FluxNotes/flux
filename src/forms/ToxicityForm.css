@@ -11,6 +11,7 @@
 
 .grade-menu-item:hover { 
     background-color: rgba(0,0,0,0.08);
+    cursor: pointer;
 }
 
 .grade-menu-item:first-child { 
@@ -51,6 +52,7 @@
 }
 .grade-menu-item.disabled:hover { 
     background-color: initial;
+    cursor: default;
 }
 
 .grade-menu-item.disabled .grade-menu-item-name:after {
