@@ -8800,7 +8800,7 @@ exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
         return false;
     } else if (Lang.isUndefined(possibleAdverseEvent) || Lang.isNull(possibleAdverseEvent)) { 
         // Any grade is valid when there is no event
-        return true;
+        return false;
     }
 
     // If they are both
