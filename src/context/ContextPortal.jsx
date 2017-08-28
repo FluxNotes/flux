@@ -128,7 +128,7 @@ class ContextPortal extends React.Component {
     closePortal = () => {
         const { menu } = this.state
         if (Lang.isEmpty(menu)) return;
-        //menu.removeAttribute('style');
+        menu.removeAttribute('style');
         return;
     }
     /*
