@@ -29,7 +29,16 @@ class StagingCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.parentContext = contextManager.getActiveContextOfType("@condition");
+        this.parentContext.addChild(this);
 	}
+
+    onBeforeDeleted() {
+        let result = super.onBeforeDeleted();
+        if (result) {
+            this.parentContext.removeChild(this);
+        }
+        return result;
+    }
 
     getShortcutType() { 
         return "#staging";
