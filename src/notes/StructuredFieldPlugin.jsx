@@ -13,6 +13,10 @@ function StructuredFieldPlugin(opts) {
 	opts = createOpts(opts);
     let contextManager = opts.contextManager;
 	
+    function onKeyDown(event, data, state, editor) {
+        console.log("plugin onKeyDown " + state.selection.endKey + " / " + state.selection.endOffset);
+    }
+    
 	function onBeforeChange(state, editor) {
         var deletedKeys = [];
         const nodes = state.document.getInlines();
@@ -33,6 +37,7 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
+                console.log("plugin onBeforeChange. cancel delete " + result.selection.endKey + " / " + result.selection.endOffset);
                 //You can not delete " + shortcut.getText() + " as it has child fields.
             }
         });
@@ -76,6 +81,7 @@ function StructuredFieldPlugin(opts) {
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
+        onKeyDown,
         onBeforeChange,
         schema,
 		
