@@ -19,7 +19,6 @@ class ConditionSelection extends Component {
   render() {
 
     const activeCondition = this.props.conditions[this.props.activeConditionIndex];
-	//console.log("activeCondition = " + activeCondition);
 
     let leftArrowClass = "arrow";
     if (this.props.activeConditionIndex === 0) {

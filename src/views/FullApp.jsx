@@ -29,8 +29,8 @@ class FullApp extends Component {
             SummaryItemToInsert: '',
             selectedText: null,
 			summaryMetadata: this.summaryMetadata.getMetadata(),
-            patient: patient,
-			contextManager: this.contextManager			
+            patient: patient
+			//contextManager: this.contextManager			
         };
     }
 	
@@ -131,7 +131,7 @@ class FullApp extends Component {
                                     // Properties
                                     ref={(comp) => { this.contextTray = comp; }}
                                     patient={this.state.patient}
-									contextManager={this.state.contextManager}
+									contextManager={this.contextManager}
                                     onShortcutClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
