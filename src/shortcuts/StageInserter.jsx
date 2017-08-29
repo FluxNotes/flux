@@ -4,7 +4,7 @@ export default class StageInserter extends InserterShortcut {
 	determineText(contextManager) {		
 		this.parentContext = contextManager.getActiveContextOfType("#staging");
 		let staging = this.parentContext.getValueObject();
-		return staging.value.coding.displayText;
+		return `stage ${staging.value.coding.displayText}`;
 	}
 	
 	validateInCurrentContext(contextManager) {
