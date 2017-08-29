@@ -40,6 +40,7 @@ class FluxNotesEditor extends React.Component {
         super(props);
 
         this.contextManager = this.props.contextManager;
+        this.updateErrors = this.props.updateErrors;
         
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
         
@@ -60,7 +61,8 @@ class FluxNotesEditor extends React.Component {
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
-            contextManager: this.contextManager
+            contextManager: this.contextManager,
+            updateErrors: this.updateErrors
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
