@@ -132,13 +132,13 @@ class FluxNotesEditor extends React.Component {
     
     choseSuggestedShortcut(suggestion) {
         const { state } = this.state; 
-        let shortcut = this.props.newCurrentShortcut(suggestion.value);
+        const shortcut = this.props.newCurrentShortcut(suggestion.value);
         
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
-            let transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
-            let transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).focus();
+            const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
+            const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
         }
     }
