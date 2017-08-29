@@ -223,7 +223,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        console.log("FluxNotesEditor.onChange. " + state.selection.endKey + " / " + state.selection.endOffset);
         this.setState({
             state: state
         });
@@ -242,9 +241,8 @@ class FluxNotesEditor extends React.Component {
             return state.document.areDescendantsSorted(key1, key2);
         }
     }
-    
+        
     onSelectionChange = (selection, state) => {
-        console.log("onSelectionChange " + selection.endKey + " / " + selection.endOffset);
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
             return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
