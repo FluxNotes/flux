@@ -4,6 +4,11 @@ export default class Context {
 	constructor() {
 		this.children = [];
 	}
+	initialize(contextManager) {
+        this.contextManager = contextManager;
+        this.isInContext = false;
+	}
+
 	getValidChildShortcuts(recurse = false) {
 		return [];
 	}
@@ -76,6 +81,17 @@ export default class Context {
                 this.isInContext = false;
             }
         }
+    }
+    
+    getKey() {
+        return this.key;
+    }
+    setKey(key) {
+        this.key = key;
+		if (this.isContext()) {
+            this.contextManager.addShortcutToContext(this);
+            this.isInContext = true;
+		}
     }
 
 	isContext() {

@@ -12,8 +12,9 @@ let structuredFieldMap = new Map();
 function StructuredFieldPlugin(opts) {
 	opts = createOpts(opts);
     let contextManager = opts.contextManager;
-	
-	function onBeforeChange(state, editor) {
+	let updateErrors = opts.updateErrors;
+        
+    function onChange(state, editor) {
         var deletedKeys = [];
         const nodes = state.document.getInlines();
         if (nodes.size !== structuredFieldMap.size) {
@@ -33,12 +34,12 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
-                //opts.updateErrors(["You can not delete " + shortcut.getText() + " as it has child fields."]);
+                updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
             }
         });
         return result;
-	}
-    
+    }
+
     const schema = {
 		nodes: {
 			structured_field:      props => {
@@ -76,7 +77,7 @@ function StructuredFieldPlugin(opts) {
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
-        onBeforeChange,
+        onChange,
         schema,
 		
         utils: {
@@ -85,7 +86,6 @@ function StructuredFieldPlugin(opts) {
 
         transforms: {
             insertStructuredField:     	insertStructuredField.bind(null, opts)
-			//onSelectionChange:			onSelectionChange.bind(null, opts)
         }
     };
 }
@@ -104,6 +104,7 @@ function insertStructuredField(opts, transform, shortcut) {
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
 
+    shortcut.setKey(sf.key);
 	if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {

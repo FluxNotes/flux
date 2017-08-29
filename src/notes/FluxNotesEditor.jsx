@@ -40,11 +40,15 @@ class FluxNotesEditor extends React.Component {
         super(props);
 
         this.contextManager = this.props.contextManager;
+        this.updateErrors = this.props.updateErrors;
+        
+        this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
         
         this.didFocusChange = false;
         
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
+        this.onSelectionChange = this.onSelectionChange.bind(this);
         
         // Set the initial state when the app is first constructed.
         this.state = {
@@ -57,7 +61,8 @@ class FluxNotesEditor extends React.Component {
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
-            contextManager: this.contextManager
+            contextManager: this.contextManager,
+            updateErrors: this.updateErrors
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
@@ -224,6 +229,28 @@ class FluxNotesEditor extends React.Component {
             state: state
         });
     }
+    
+    isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
+        if (Lang.isUndefined(state)) {
+            state = this.state.state;
+        }
+        if (Lang.isNull(key1)) {
+            key1 = state.selection.endKey;
+        }
+        if (key1 === key2) {
+            return offset1 < offset2;
+        } else {
+            return state.document.areDescendantsSorted(key1, key2);
+        }
+    }
+        
+    onSelectionChange = (selection, state) => {
+        this.contextManager.adjustActiveContexts((context) => {
+            // return true if context should be active because it's before selection
+            return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
+        });
+        this.contextManager.contextUpdated();
+    }
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
@@ -340,6 +367,7 @@ class FluxNotesEditor extends React.Component {
                             plugins={this.plugins}
                             state={this.state.state}
                             onChange={this.onChange}
+                            onSelectionChange={this.onSelectionChange}
                             schema={schema}
                         />
                         {errorDisplay}
