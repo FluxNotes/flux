@@ -52,4 +52,8 @@ export default class StagingNCreator extends CreatorShortcut {
 		});
 		return result;
 	}
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('nodeSize')
+    }
 }

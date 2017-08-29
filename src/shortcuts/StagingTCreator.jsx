@@ -52,4 +52,8 @@ export default class StagingTCreator extends CreatorShortcut {
 		});
 		return result;
 	}
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('tumorSize');
+    }
 }

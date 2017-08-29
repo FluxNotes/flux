@@ -62,4 +62,8 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
 		});
 		return result;
 	}
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('adverseEvent');
+    }
 }

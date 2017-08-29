@@ -62,4 +62,8 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
 		});
 		return result;
 	}
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('grade');
+    }
 }

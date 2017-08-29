@@ -40,14 +40,19 @@ export default class ContextOptions extends Component {
         let triggers = [];
         count = 0;
         validShortcuts.forEach((shortcut, i) => {
+            let groupDescription = '';
+            if(typeof shortcut.getShortcutGroupDescription !== 'undefined'){
+                groupDescription = shortcut.getShortcutGroupDescription();
+            }
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
-                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i });
+                    // TODO: Clean up this object
+                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription });
                     count++;
                 }
             });
         });
-        console.log(triggers);
+
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
         let currentGroup = {group: "", triggers:[]};
@@ -85,7 +90,7 @@ export default class ContextOptions extends Component {
         groupList.forEach((groupObj, i) => {
             numCols = groupObj.triggers.length;
             groupObj.triggers.forEach((trigger) => {
-                numChars = trigger.trigger.length;
+                numChars = trigger.trigger.name.length;
                 if (numChars > maxChars) maxChars = numChars;
             });
             if (numCols > maxCols) maxCols = numCols;

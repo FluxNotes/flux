@@ -53,4 +53,8 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		});
 		return result;
 	}
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('status');
+    }
 }

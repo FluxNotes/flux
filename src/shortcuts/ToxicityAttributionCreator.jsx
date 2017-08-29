@@ -52,4 +52,8 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
         attributionOptions.forEach(attribution => result.push({name: "#" + attribution.name}));
         return result;
     }
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('attribution');
+    }
 }

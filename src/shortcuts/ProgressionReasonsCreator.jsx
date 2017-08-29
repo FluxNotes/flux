@@ -65,4 +65,8 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 		});
 		return result;
     }
+    
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('reason');
+    }
 }
