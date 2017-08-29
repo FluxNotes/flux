@@ -34,9 +34,7 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
-                console.log("Cancel delete. the structured phrase represents a parent context for existing children.");
                 updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
-                //You can not delete " + shortcut.getText() + " as it has child fields.
             }
         });
         return result;
