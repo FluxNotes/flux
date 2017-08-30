@@ -346,12 +346,13 @@ class FluxNotesEditor extends React.Component {
             );
         }
         const callback = {}
+        let editor = null;
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
             <div id="clinical-notes" className="dashboard-panel">
-                <Paper className="panel-content trio">
+                <Paper className="panel-content trio" onClick={(event) => { editor.focus(); }}>
                     {noteDescriptionContent}
                     <div className="MyEditor-root">
                         <EditorToolbar
@@ -366,6 +367,7 @@ class FluxNotesEditor extends React.Component {
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
                             state={this.state.state}
+                            ref={function(c) { editor = c; }}
                             onChange={this.onChange}
                             onSelectionChange={this.onSelectionChange}
                             schema={schema}
