@@ -216,8 +216,8 @@ class SuggestionPortal extends React.Component {
       const rect = position(el)
       menu.style.display = 'block'
       menu.style.opacity = 1
-      menu.style.top = `${rect.top + window.scrollY}px` // eslint-disable-line no-mixed-operators
-      menu.style.left = `${rect.left + window.scrollX}px` // eslint-disable-line no-mixed-operators
+      menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+      menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
     }
   }
 
