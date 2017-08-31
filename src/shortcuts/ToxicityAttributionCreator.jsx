@@ -32,6 +32,7 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
         return '#toxicity-attribution';
     }
     
+    
     validateInCurrentContext(contextManager) {
         let errors = [];
         if (!contextManager.isContextOfTypeActive('#toxicity')) {
@@ -56,4 +57,8 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('attribution');
     }
+    
+    static getShortcutGroupName(){
+        return "Attribution";
+    }      
 }

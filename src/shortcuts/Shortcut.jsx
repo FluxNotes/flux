@@ -31,7 +31,7 @@ class Shortcut extends Context {
     getShortcutType() { 
         throw new TypeError("Base Shortcut has no type")
     }
-	
+    
 	getText() {
 		return this.getShortcutType();
 	}

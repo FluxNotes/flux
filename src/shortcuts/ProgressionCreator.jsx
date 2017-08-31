@@ -3,7 +3,7 @@ import CreatorShortcut from './CreatorShortcut';
 //import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
-import progressionLookup from '../lib/progression_lookup';
+import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
@@ -179,13 +179,13 @@ class ProgressionCreator extends CreatorShortcut {
     
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
-                (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length);
+                (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length);
     }
     
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
-		if (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
+		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator ];
 	}
 	
@@ -196,8 +196,14 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [{ name: "#progression", description: progressionLookup.getDescription('progression') }];
+		return [{ name: "#progression", description: lookup.getDescription('progression') }];
 	}
+    static getShortcutGroupDescription() {
+        return lookup.getDescription('progression')
+    }
+    static getName(){
+        return "Progression";
+    }
 }
 
 export default ProgressionCreator;

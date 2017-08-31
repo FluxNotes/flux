@@ -66,4 +66,8 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('adverseEvent');
     }
+    
+    static getShortcutGroupName(){
+        return "Adverse Event";
+    }      
 }

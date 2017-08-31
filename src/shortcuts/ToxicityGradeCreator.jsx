@@ -66,4 +66,8 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('grade');
     }
+    
+    static getShortcutGroupName(){
+        return "Grade";
+    }      
 }

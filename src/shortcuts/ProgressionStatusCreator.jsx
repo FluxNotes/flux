@@ -57,4 +57,8 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('status');
     }
+    
+    static getShortcutGroupName(){
+        return "Status";
+    }      
 }

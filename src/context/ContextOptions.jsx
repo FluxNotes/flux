@@ -41,13 +41,17 @@ export default class ContextOptions extends Component {
         count = 0;
         validShortcuts.forEach((shortcut, i) => {
             let groupDescription = '';
+            let groupName = '';
             if(typeof shortcut.getShortcutGroupDescription !== 'undefined'){
                 groupDescription = shortcut.getShortcutGroupDescription();
             }
+            if(typeof shortcut.getShortcutGroupName !== 'undefined'){
+                groupName = shortcut.getShortcutGroupName();
+            }
             shortcut.getTriggers(context).forEach((trigger, j) => {
-                if (!showFilter || this.state.searchString.length === 0 || trigger.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+                if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     // TODO: Clean up this object
-                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription });
+                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription, "groupName": groupName });
                     count++;
                 }
             });
@@ -57,16 +61,19 @@ export default class ContextOptions extends Component {
         let groupList = [];
         let currentGroup = {group: "", triggers:[]};
         let countToShow = 0;
-        triggers.forEach((trigger, i) => {
+          triggers.forEach((trigger, i) => {
             if (countToShow === 50) return;
             countToShow++;
             if (trigger.group !== currentGroup.group) {
-                currentGroup = {"group": trigger.group, "triggers": [ trigger ]};
+                currentGroup = {"group": trigger.group, "groupDescription":trigger.groupDescription, "groupName": trigger.groupName, "triggers": [ trigger ]};
                 groupList.push(currentGroup);
-            } else {
+            }
+            else {
                 currentGroup.triggers.push(trigger);
             }
+
         });
+            
         // do we add search bar
         let filterBar = "";
         if (showFilter) {
@@ -95,17 +102,19 @@ export default class ContextOptions extends Component {
             });
             if (numCols > maxCols) maxCols = numCols;
         });
-        let colWidth = Math.ceil(maxChars / 2.5);
-                
+        let colWidth = Math.ceil(maxChars / 2.5);        
         // now iterate and create a Row for each group and a Col for each 
         return (
             <div className='context-options-list'>
                 {filterBar}
                 {groupList.map((groupObj, i) => {
-                    return  (<Row key={i} start="sm">
+                    return  (
+                    <div>
+                    <p id="data-element-description">{groupObj.groupName}</p>
+                    <Row key={i} start="sm">                    
                             {groupObj.triggers.map((trigger, i) => {
                                 return (
-                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
+                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>                                    
                                         <Button dense raised className='btn_template_ctx'
                                             key={trigger.trigger}
                                             onClick={(e) => this._handleClick(e, trigger.trigger)}
@@ -113,7 +122,8 @@ export default class ContextOptions extends Component {
                                     </Col>                                    
                                        );
                             })}
-                            </Row>);
+                     </Row>
+                     </div>);
                 })}
             </div>
         );

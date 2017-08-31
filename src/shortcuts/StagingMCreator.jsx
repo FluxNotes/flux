@@ -57,4 +57,7 @@ export default class StagingMCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('metastasis')
     }
+    static getShortcutGroupName(){
+        return "Metastasis";
+    }    
 }

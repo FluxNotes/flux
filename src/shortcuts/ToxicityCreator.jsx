@@ -4,7 +4,7 @@ import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 //import ToxicityForm from '../forms/ToxicityForm';
-import toxicityLookup from '../lib/toxicity_lookup';
+import lookup from '../lib/toxicity_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
@@ -197,7 +197,13 @@ class ToxicityCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
     static getTriggers() {
-        return [{name: "#toxicity", description: toxicityLookup.getDescription('toxicity')}];
+        return [{name: "#toxicity", description: lookup.getDescription('toxicity')}];
+    }
+     static getShortcutGroupDescription() {
+        return lookup.getDescription('toxicity')
+    }   
+    static getName(){
+        return "Toxicity";
     }
 }
 

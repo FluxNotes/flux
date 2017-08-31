@@ -69,4 +69,8 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('reason');
     }
+
+    static getShortcutGroupName(){
+        return "Reason";
+    }      
 }
