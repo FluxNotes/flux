@@ -3,7 +3,7 @@ import moment from 'moment';
 
 class SummaryMetadata {
     hardCodedMetadata = { 
-        "http://ncimeta.nci.nih.gov/C1334276" : { 
+        "http://snomed.info/sct/408643008" : { 
             sections: [   
                 {   
                     name: "Current Diagnosis",
