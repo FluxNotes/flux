@@ -14,17 +14,21 @@ export default class InserterShortcut extends Shortcut {
 		super.initialize(contextManager);
 		let text = this.determineText(contextManager);
 		if (Lang.isArray(text)) {
-			//TODO handle list selection
-			let portalOptions = [];
-			text.forEach((item) => {
-				portalOptions.push({key: item.entryId, context: item.specificType.coding.displayText, object: item});
-			});
-			this.flagForTextSelection(portalOptions);
+			this.flagForTextSelection(text);
 		} else {
 			this.setText(text);
 		}
 	}
 
+    /*
+     * Determines the text to display for this particular inserter shortcut. Some shortcuts
+     * will return a string value, but others can returns a list of possible options for the
+     * user to select from. Each item in that list must be a javascript object like this:
+     *   {  key: <identifier for item>, 
+            context: <label or title to display to user>, 
+            object: <full SHR data object represented>
+         }
+     */
 	determineText(contextManager) {
 		return null;
 	}
