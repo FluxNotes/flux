@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
-import FullApp from './views/FullApp';
-import SlimApp from './views/SlimApp';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ViewManager from './views/ViewManager';
+
 
 class App extends Component {
+  
+    constructor(props) { 
+        super(props);
+    
+        this.views = new ViewManager().getSupportedViews();
+    }
 
-  render() {
-    return (
-	<Router>
-        <div>
-          <Route exact path='/' component={SlimApp} />
-          <Route path='/patient' component={FullApp} />
-        </div>
-      </Router>
-    )
-  }
+    render() {
+
+        return (
+            <Router>
+                <div>
+                    {this.views.map((viewObject, i) => {
+                        if (viewObject.isExact) { 
+                            return <Route exact path={viewObject.path} component={viewObject.app} key={i}/>
+                        } else { 
+                            return <Route path={viewObject.path} component={viewObject.app} key={i}/>
+                        }
+                    })}
+                </div>
+            </Router>
+        )
+    }
 }
 export default App;
