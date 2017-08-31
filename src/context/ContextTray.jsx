@@ -33,7 +33,7 @@ class ContextTray extends Component {
     }
 	
 	_handleShortcutClick(shortcut) {
-		this.props.onShortcutClicked(shortcut.name + shortcut.name.substring(0, 1));
+		this.props.onShortcutClicked(shortcut + shortcut.substring(0, 1));
 	}
     handleChange(event, value) {
         this.setState({ value });

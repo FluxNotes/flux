@@ -45,10 +45,10 @@ export default class StagingTCreator extends CreatorShortcut {
 	}
 
 	static getTriggers() {
-		const ts = lookup.getTsNamesForEdition(7);
+		const ts = lookup.getTsForEdition(7);
 		let result = [];
 		ts.forEach((val) => {
-			result.push({name: "#" + val});
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}

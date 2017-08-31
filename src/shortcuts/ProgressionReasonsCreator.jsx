@@ -60,7 +60,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 		let result = [];
 		reasonOptions.forEach((val) => {
             if (!currentReasons.includes(val.name)) {
-                result.push({name: "#" + val.name});
+                result.push({name: "#" + val.name, description: val.description});
             }
 		});
 		return result;

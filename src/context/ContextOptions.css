@@ -9,6 +9,7 @@
 .context-options-list {
     overflow-y: scroll;
     overflow-x: hidden;
+    overflow: visible;
     height: 710px;
 }
 
@@ -17,4 +18,52 @@
     background-color: #ffffff;
     text-align: left;
     margin-bottom: 15px;
+}
+
+/*
+ * Tooltip Styling
+ */
+.context-panel-tooltip {
+    position: relative;
+}
+
+.context-panel-tooltip .context-panel-tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    margin-left: 0px !important;
+    opacity: 0;
+    transition: opacity 1s;
+    font-size: .8rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.context-panel-tooltip .large {
+    width: 220px;
+    margin-left: -95px;
+}
+
+.context-panel-tooltip .context-panel-tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.context-panel-tooltip:hover .context-panel-tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0.5s;
 }

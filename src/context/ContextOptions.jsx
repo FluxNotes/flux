@@ -51,7 +51,8 @@ export default class ContextOptions extends Component {
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     // TODO: Clean up this object
-                    triggers.push({"trigger": trigger, "name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription, "groupName": groupName });
+                    let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
+                    triggers.push({"name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription, "groupName": groupName });
                     count++;
                 }
             });
@@ -97,7 +98,7 @@ export default class ContextOptions extends Component {
         groupList.forEach((groupObj, i) => {
             numCols = groupObj.triggers.length;
             groupObj.triggers.forEach((trigger) => {
-                numChars = trigger.trigger.name.length;
+                numChars = trigger.name.length;
                 if (numChars > maxChars) maxChars = numChars;
             });
             if (numCols > maxCols) maxCols = numCols;
@@ -113,12 +114,16 @@ export default class ContextOptions extends Component {
                     <p id="data-element-description">{groupObj.groupName}</p>
                     <Row key={i} start="sm">                    
                             {groupObj.triggers.map((trigger, i) => {
+                                const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltiptext large" : "context-panel-tooltiptext";
                                 return (
-                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>                                    
-                                        <Button dense raised className='btn_template_ctx'
-                                            key={trigger.trigger}
-                                            onClick={(e) => this._handleClick(e, trigger.trigger)}
-                                        >{trigger.trigger.name}</Button>
+                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
+                                        <div className="context-panel-tooltip">
+                                            <span className={tooltipClass}>{trigger.description}</span>
+                                            <Button dense raised className='btn_template_ctx'
+                                                key={trigger.name}
+                                                onClick={(e) => this._handleClick(e, trigger.name)}
+                                            >{trigger.name}</Button>
+                                        </div>
                                     </Col>                                    
                                        );
                             })}

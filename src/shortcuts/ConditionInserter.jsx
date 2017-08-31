@@ -22,7 +22,7 @@ export default class ConditionInserter extends InserterShortcut {
 	}
     
 	static getTriggers() {
-		return [ {name: "@condition"} ];
+		return [ {name: "@condition", description: "Conditions on patient's record"} ];
 	}
     getShortcutType() { 
         return "@condition";
