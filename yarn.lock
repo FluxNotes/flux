@@ -5133,9 +5133,9 @@ slate-suggestions@0.4.0:
     react "^15.3.1"
     react-portal "^3.0.0"
 
-slate@0.20.3:
-  version "0.20.3"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.20.3.tgz#a02865f0ddfb214943bc30e30ae3074942c90a69"
+slate@0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.20.2.tgz#e7842ebdfa0b81d1c9039229c4af69f3f9a23fff"
   dependencies:
     cheerio "^0.22.0"
     debug "^2.3.2"
