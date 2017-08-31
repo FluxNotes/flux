@@ -1,4 +1,5 @@
 import fs from 'fs';
+import util from 'util';
 import path from 'path';
 import mkdirp from 'mkdirp';
 //import bunyan from 'bunyan';
@@ -19,18 +20,26 @@ program
 
 // Check that input folder is specified
 if (typeof input === 'undefined') {
-  console.error('\x1b[31m','Missing path to clinical notes folder','\x1b[0m');
-  program.help();
+    // print error in red text (\x1b[31m) then reset color back to normal (\x1b[0m)
+    console.error('\x1b[31m','Missing path to clinical notes folder','\x1b[0m');
+    program.help();
 }
 
 // Create the output folder if necessary
 mkdirp.sync(program.out);
 
 let noteParser = new NoteParser();
-//noteParser.parse(input);
 
 let perFileFunc = (file) => {
-    noteParser.parse(file);
+    let content;
+    //console.log(content);
+    fs.readFile(file, 'utf8', function (err,data) {
+        if (err) {
+            return console.error(err);
+        }
+        content = util.format(data);
+        noteParser.parse(content);
+    });
 };
 
 let iterateAllFilesDeep = (start, perFileFunc) => {
@@ -53,7 +62,6 @@ let iterateAllFilesDeep = (start, perFileFunc) => {
     });
 };
 
-console.log(input);
 iterateAllFilesDeep(input, perFileFunc);
 
 console.log("DONE");
