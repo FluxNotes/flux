@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import Lang from 'lodash'
 import Button from 'material-ui/Button';
-//import FontIcon from 'material-ui/FontIcon';
+import Tooltip from 'rc-tooltip';
 import TextField from 'material-ui/TextField';
 import {Row, Col} from 'react-flexbox-grid';
+import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
 
 export default class ContextOptions extends Component {
@@ -118,18 +119,27 @@ export default class ContextOptions extends Component {
                     {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
                     <Row key={i} start="sm">                    
                             {groupObj.triggers.map((trigger, i) => {
-                                const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltiptext large" : "context-panel-tooltiptext";
+                                const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
+                                const text = <span>{trigger.description}</span>
                                 return (
                                     <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
-                                        <div className="context-panel-tooltip">
-                                            <span className={tooltipClass}>{trigger.description}</span>
-                                            <Button dense raised className='btn_template_ctx'
+                                        <Tooltip 
+                                            placement="top" 
+                                            overlayClassName={tooltipClass} 
+                                            overlay={text}
+                                            destroyTooltipOnHide={true}
+                                        >
+                                            <Button dense raised 
+                                                className='btn_template_ctx'
                                                 key={trigger.name}
+                                                onMouseLeave={(e) => console.log("Mouse exit")}
                                                 onClick={(e) => this._handleClick(e, trigger.name)}
-                                            >{trigger.name}</Button>
-                                        </div>
+                                            >
+                                                {trigger.name}
+                                            </Button>
+                                        </Tooltip>
                                     </Col>                                    
-                                       );
+                                );
                             })}
                      </Row>
                      </div>);
