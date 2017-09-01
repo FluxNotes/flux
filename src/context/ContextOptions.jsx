@@ -52,7 +52,7 @@ export default class ContextOptions extends Component {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     // TODO: Clean up this object
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
-                    triggers.push({"name": trigger.name, "description": trigger.description, "group": i, "groupDescription": groupDescription, "groupName": groupName });
+                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupDescription": groupDescription, "groupName": groupName });
                     count++;
                 }
             });
@@ -62,14 +62,18 @@ export default class ContextOptions extends Component {
         let groupList = [];
         let currentGroup = {group: "", triggers:[]};
         let countToShow = 0;
+        let totalShown = 0;
           triggers.forEach((trigger, i) => {
-            if (countToShow === 50) return;
-            countToShow++;
             if (trigger.group !== currentGroup.group) {
+                countToShow = 0;
+                totalShown++;
                 currentGroup = {"group": trigger.group, "groupDescription":trigger.groupDescription, "groupName": trigger.groupName, "triggers": [ trigger ]};
                 groupList.push(currentGroup);
             }
             else {
+                if(countToShow === 5) return;
+                countToShow++;
+                totalShown++;
                 currentGroup.triggers.push(trigger);
             }
 
@@ -81,7 +85,7 @@ export default class ContextOptions extends Component {
             filterBar = (
             <div id="shortcut-search">
                 <div style={{position: 'relative', display: 'inline-block'}}>
-                    <div style={{display: 'flex', justifyContent:'center',alignItems: 'center'}}><h1>Filter:&nbsp;&nbsp;</h1><span>(Showing {countToShow} of {count})</span></div>
+                    <div style={{display: 'flex', justifyContent:'center',alignItems: 'center'}}><h1>Filter:&nbsp;&nbsp;</h1><span>(Showing {totalShown} of {count})</span></div>
                     <TextField
                         style={{textIndent: 25, left: "15%", textAlign: "left", minWidth: "80%", width: "100%"}}
                         label="Search for a shortcut"
@@ -110,8 +114,8 @@ export default class ContextOptions extends Component {
                 {filterBar}
                 {groupList.map((groupObj, i) => {
                     return  (
-                    <div>
-                    <p id="data-element-description">{groupObj.groupName}</p>
+                    <div key={`group-${i}`}>
+                    {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
                     <Row key={i} start="sm">                    
                             {groupObj.triggers.map((trigger, i) => {
                                 const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltiptext large" : "context-panel-tooltiptext";

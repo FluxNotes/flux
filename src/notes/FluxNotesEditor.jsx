@@ -117,8 +117,8 @@ class FluxNotesEditor extends React.Component {
         shortcuts.forEach((shortcut) => {
             const triggers = shortcut.getTriggers();
             triggers.forEach((trigger) => {
-                const triggerNoPrefix = trigger.substring(1);
-                if (trigger.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
+                const triggerNoPrefix = trigger.name.substring(1);
+                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
                         "value": trigger,
@@ -132,7 +132,7 @@ class FluxNotesEditor extends React.Component {
     
     choseSuggestedShortcut(suggestion) {
         const { state } = this.state; 
-        const shortcut = this.props.newCurrentShortcut(suggestion.value);
+        const shortcut = this.props.newCurrentShortcut(suggestion.value.name);
         
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
