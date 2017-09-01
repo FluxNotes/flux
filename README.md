@@ -19,5 +19,16 @@ In addition, a no-patient version of the above concept has been created for situ
 
 For more details on the technologies used see the wiki page at https://github.com/standardhealth/flux/wiki/Flux-Capture-Prototype-%28Flux-Notes%29
 
+## Parsing notes
 
+A note parser can also be executed (local command line - not a web application) by (assuming the above Getting Started steps have been executed successfully):
 
+* Enter 'yarn parse <path to note txt file or directory of files>'
+
+For example:
+* Enter 'yarn parse ./src/noteparser/samples'
+
+will parse all the sample notes in the samples directory. To only parse note 4:
+* Enter 'yarn parse ./src/noteparser/samples/note4.txt'
+
+If a directory is specified, every file in that directory will be treated as a note and parsing will be attempted.
