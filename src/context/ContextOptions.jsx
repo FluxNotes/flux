@@ -132,7 +132,6 @@ export default class ContextOptions extends Component {
                                             <Button dense raised 
                                                 className='btn_template_ctx'
                                                 key={trigger.name}
-                                                onMouseLeave={(e) => console.log("Mouse exit")}
                                                 onClick={(e) => this._handleClick(e, trigger.name)}
                                             >
                                                 {trigger.name}
