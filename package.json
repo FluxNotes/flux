@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-css-modules-transform": "^1.2.7",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -42,6 +41,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "parse": "babel-node --presets es2015,react --plugins css-modules-transform,transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js"
+    "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js"
   }
 }
