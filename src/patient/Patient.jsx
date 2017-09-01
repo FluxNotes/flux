@@ -2,6 +2,7 @@ import Lang from 'lodash'
 import moment from 'moment';
 import staging from '../lib/staging';
 import toxicityLookup from '../lib/toxicity_lookup';
+import Guid from 'guid';
 
 class Patient {
 	hardCodedPatient = [
@@ -444,14 +445,22 @@ class Patient {
 		},
 	];
 
-	constructor() {
-		this.patient = this.hardCodedPatient;
-        this.personOfRecord = this.getPersonOfRecord();
-        this.shrId = this.personOfRecord.shrId;
-        this.nextEntryId = Math.max.apply(Math, this.patient.map(function(o) { return o.entryId; })) + 1;
-        this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
-                                        "shrId": this.shrId,
-                                        "entryId": this.personOfRecord.entryId };
+	constructor(useHardCoded = true) {
+        if (useHardCoded) {
+            this.patient = this.hardCodedPatient; 
+            this.personOfRecord = this.getPersonOfRecord();
+            this.shrId = this.personOfRecord.shrId;
+            this.nextEntryId = Math.max.apply(Math, this.patient.map(function(o) { return o.entryId; })) + 1;
+            this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
+                                            "shrId": this.shrId,
+                                            "entryId": this.personOfRecord.entryId };
+        } else {
+            this.patient = [];
+            this.personOfRecord = null;
+            this.shrId = Guid.raw();
+            this.nextEntryId = 1;
+            this.patientFocalSubject = null;
+        }
     }
     
     addEntryToPatientWithPatientFocalSubject(entry) {
@@ -779,7 +788,7 @@ class Patient {
     // @param attribution - the string name of the attribution
     static _toxicityAttributionToCodeableConcept(attribution) {
         const options = toxicityLookup.getAttributionOptions();
-        const attributionObject = options.find( attr => attr.name === attribution);
+        const attributionObject = options.find( attr => attr.name.toLowerCase() === attribution.toLowerCase());
         // TODO: The value of this object is just using a local VS defined by Mark in SHR for now. Will be updated eventually. CodeSystem may change.
         return { "value": `#${attributionObject.name}`, codeSystem: 'https://www.meddra.org/', "displayText": attributionObject.name };
     }
@@ -816,16 +825,16 @@ class Patient {
         return { coding: this._progressionReasonToCodeableConcept(reason) };
     }
     
-	static updateStatusForProgression(progression, status) {		
+	static updateStatusForProgression(progression, status) {
 		const status_code = this._progressionStatusToCodeableConcept(status);
         if (Lang.isNull(status_code)) {
             progression.value.coding.displayText = "";
             progression.value.coding.value = "";
             progression.value.coding.codeSystem = "";
         } else {
-            progression.value.coding.displayText = status;
-            progression.value.coding.value = status_code.code;
-            progression.value.coding.codeSystem = status_code.codesystem;
+            progression.value.coding.displayText = status_code.displayText;
+            progression.value.coding.value = status_code.value;
+            progression.value.coding.codeSystem = status_code.codeSystem;
         }
 	}
     
@@ -838,20 +847,20 @@ class Patient {
     }
 
     static _progressionStatusToCodeableConcept(status) {
-        if (status === 'Complete Response') return { value: "C0677874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Response"};
-        if (status === 'Complete Resection') return { value: "C0015250", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Resection"};
-        if (status === 'Responding') return { value: "C1272745", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Responding"};
-        if (status === 'Stable') return { value: "C0205360", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Stable"};
-        if (status === 'Progressing') return { value: "C1546960", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Progressing"};
-        if (status === 'Inevaluable') return { value: "C3858734", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Inevaluable"};
+        if (status.toLowerCase() === 'complete response') return { value: "C0677874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Response"};
+        if (status.toLowerCase() === 'complete resection') return { value: "C0015250", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Resection"};
+        if (status.toLowerCase() === 'responding') return { value: "C1272745", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Responding"};
+        if (status.toLowerCase() === 'stable') return { value: "C0205360", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Stable"};
+        if (status.toLowerCase() === 'progressing') return { value: "C1546960", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Progressing"};
+        if (status.toLowerCase() === 'inevaluable') return { value: "C3858734", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Inevaluable"};
         return { value: "", codeSystem: "", displayText: ""}
     }
     static _progressionReasonToCodeableConcept(reason) {
-        if (reason === "Pathology") return { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Pathology"};
-        if (reason === "Imaging") return { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Imaging"};
-        if (reason === "Symptoms") return { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Symptoms"};
-        if (reason === "Physical exam") return { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Physical exam"};
-        if (reason === "Markers") return { value: "C0005516", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Markers"};
+        if (reason.toLowerCase() === "pathology") return { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Pathology"};
+        if (reason.toLowerCase() === "imaging") return { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Imaging"};
+        if (reason.toLowerCase() === "symptoms") return { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Symptoms"};
+        if (reason.toLowerCase() === "physical exam") return { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Physical exam"};
+        if (reason.toLowerCase() === "markers") return { value: "C0005516", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Markers"};
         return { value: "", codeSystem: "", displayText: ""}
    }
     

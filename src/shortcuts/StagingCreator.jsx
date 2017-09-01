@@ -1,10 +1,10 @@
-import React from 'react';
+//import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
-import StagingForm from '../forms/StagingForm';
+//import StagingForm from '../forms/StagingForm';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
@@ -29,7 +29,9 @@ class StagingCreator extends CreatorShortcut {
 	initialize(contextManager, trigger) {
 		super.initialize(contextManager, trigger);
 		this.parentContext = contextManager.getActiveContextOfType("@condition");
-        this.parentContext.addChild(this);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
 	}
 
     onBeforeDeleted() {
@@ -95,19 +97,27 @@ class StagingCreator extends CreatorShortcut {
 		}
 		return `#staging #${tString} #${nString} #${mString}`;
     }
-    
-    /* 
-     * Return the form for staging
-     */
+/*    
     getForm() {
         return (
             <StagingForm
 				updateValue={this.setAttributeValue}
                 staging={this.staging}
             />
-        );      
+        );
     }
-	
+*/
+    getFormSpec() {
+        return  {
+                    tagName: 'StagingForm',
+                    props:  {   
+                                updateValue: this.setAttributeValue,
+                                staging: this.staging
+                            },
+                    children: []
+                };
+    }
+
 	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
 			Patient.updateTForStaging(this.staging, value);
@@ -120,7 +130,7 @@ class StagingCreator extends CreatorShortcut {
 			return;
 		}
         if (this.isContext()) this.updateContextStatus();
-		this.onUpdate(this);
+		if (this.onUpdate) this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
 		}

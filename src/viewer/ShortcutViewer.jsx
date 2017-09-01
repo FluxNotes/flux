@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from 'material-ui/Button';
 import LandingPageForm from '../forms/LandingPageForm';
+import * as forms from '../forms'
 import Lang from 'lodash'
 import './ShortcutViewer.css';
 
@@ -60,7 +61,9 @@ class ShortcutViewer extends Component {
 
         // If there is a currentShortcut, display its form; else display initialState
         if (!Lang.isNull(this.props.currentShortcut)) {
-            panelContent = this.props.currentShortcut.getForm();
+            //panelContent = this.props.currentShortcut.getForm();
+            const formSpec = this.props.currentShortcut.getFormSpec();
+            panelContent = React.createElement(eval("forms." + formSpec.tagName), formSpec.props, formSpec.children);
         } else {
             panelContent = this._getInitialState();
         }

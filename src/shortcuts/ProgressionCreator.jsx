@@ -1,6 +1,6 @@
-import React from 'react';
+//import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
-import ProgressionForm from '../forms/ProgressionForm';
+//import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import Patient from '../patient/Patient';
@@ -28,7 +28,9 @@ class ProgressionCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("@condition");
-        this.parentContext.addChild(this);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
     }
 
     onBeforeDeleted() {
@@ -108,7 +110,7 @@ class ProgressionCreator extends CreatorShortcut {
         }
     }
     
-    getForm() {
+/*    getForm() {
         return (
             <ProgressionForm
                 updateValue={this.setAttributeValue}
@@ -116,7 +118,18 @@ class ProgressionCreator extends CreatorShortcut {
             />
         );      
     }
-    
+*/
+    getFormSpec() {
+        return  {
+                    tagName: 'ProgressionForm',
+                    props:  {   
+                                updateValue: this.setAttributeValue,
+                                progression: this.progression
+                            },
+                    children: []
+                };
+    }
+
 	setAttributeValue(name, value, publishChanges) {
 		if (name === "status") {
 			Patient.updateStatusForProgression(this.progression, value);
@@ -127,7 +140,7 @@ class ProgressionCreator extends CreatorShortcut {
 			return;
 		}
         if (this.isContext()) this.updateContextStatus();
-		this.onUpdate(this);
+		if (this.onUpdate) this.onUpdate(this);
 		if (publishChanges) {
 			this.notifyValueChangeHandlers(name);
 		}

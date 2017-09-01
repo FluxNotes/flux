@@ -1,5 +1,5 @@
 import Context from '../context/Context';
-import React from 'react';
+//import React from 'react';
 import Lang from 'lodash';
 
 class Shortcut extends Context {
@@ -24,9 +24,9 @@ class Shortcut extends Context {
     getAsString () { 
         return "#null"; 
     }
-    getForm () { 
+/*    getForm () {
         return (<h2>No additional values for current shortcut</h2>);
-    }
+    }*/
 
     getShortcutType() { 
         throw new TypeError("Base Shortcut has no type")
