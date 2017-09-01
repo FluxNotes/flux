@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from 'material-ui/Button';
 import LandingPageForm from '../forms/LandingPageForm';
+/* eslint-disable no-unused-vars */
 import * as forms from '../forms'
+/* eslint-enable no-unused-vars */
 import Lang from 'lodash'
 import './ShortcutViewer.css';
 
@@ -63,7 +65,9 @@ class ShortcutViewer extends Component {
         if (!Lang.isNull(this.props.currentShortcut)) {
             //panelContent = this.props.currentShortcut.getForm();
             const formSpec = this.props.currentShortcut.getFormSpec();
+/* eslint-disable no-eval */            
             panelContent = React.createElement(eval("forms." + formSpec.tagName), formSpec.props, formSpec.children);
+/* eslint-enable no-eval */            
         } else {
             panelContent = this._getInitialState();
         }
