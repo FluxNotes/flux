@@ -78,7 +78,7 @@ class ContextManager {
         //when adding a new shortcut to context, we assume cursor ends up after it so its active
 		this.activeContexts.unshift(shortcut);
 		if (!shortcut.needToSelectValueFromMultipleOptions()) {
-			this.onContextUpdate();
+			if (this.onContextUpdate) { this.onContextUpdate(); }
 		}
 	}
     

@@ -1,9 +1,9 @@
-import React from 'react';
+//import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
-import ToxicityForm from '../forms/ToxicityForm';
+//import ToxicityForm from '../forms/ToxicityForm';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
@@ -25,7 +25,9 @@ class ToxicityCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("@condition");
-        this.parentContext.addChild(this);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
     }
 
     onBeforeDeleted() {
@@ -105,13 +107,25 @@ class ToxicityCreator extends CreatorShortcut {
         }
     }
 
-    getForm() {
+/*    getForm() {
         return (
             <ToxicityForm
                 updateValue={this.setAttributeValue}
                 toxicity={this.toxicity}
             />
         );      
+    }
+*/
+
+    getFormSpec() {
+        return  {
+                    tagName: 'ToxicityForm',
+                    props:  {   
+                                updateValue: this.setAttributeValue,
+                                toxicity: this.toxicity
+                            },
+                    children: []
+                };
     }
 
     setAttributeValue(name, value, publishChanges) {
@@ -126,7 +140,7 @@ class ToxicityCreator extends CreatorShortcut {
             return;
         }
         if (this.isContext()) this.updateContextStatus();
-        this.onUpdate(this);
+        if (this.onUpdate) this.onUpdate(this);
         if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }
