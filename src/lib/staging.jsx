@@ -1,4 +1,4 @@
-const lookup = require('./staging_lookup');
+const lookup = require('./staging_lookup.jsx');
 const Lang = require('lodash/lang');
 
 // Computes the prognostic stage of breast cancer given T, N, M.

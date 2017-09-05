@@ -42,10 +42,11 @@
   "scripts": {
     "start":          "react-scripts start",
     "build":          "react-scripts build",
-    "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
-    "test":           "react-scripts test --env=jsdom",
-    "test-chrome-ui": "testcafe chrome ./test-cafe/** --app \"yarn start\"",
-    "test-ie-ui":     "testcafe ie ./test-cafe/** --app \"yarn start\"",
+    "parse":          "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
+    "test":           "react-scripts test/unit-tests --env=jsdom",
+    "test-patient":   "testcafe chrome ./test/functional-ui-tests/patientMode.js --app \"yarn start\"",
+    "test-chrome-ui": "testcafe chrome ./test/functional-ui-tests/** --app \"yarn start\"",
+    "test-ie-ui":     "testcafe ie ./test/functional-ui-tests/** --app \"yarn start\"",
     "eject":          "react-scripts eject"
   }
 }
