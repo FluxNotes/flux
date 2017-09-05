@@ -51,7 +51,6 @@ export default class ContextOptions extends Component {
             }
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
-                    // TODO: Clean up this object
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupDescription": groupDescription, "groupName": groupName });
                     count++;
