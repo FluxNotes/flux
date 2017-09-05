@@ -128,6 +128,7 @@ export default class ContextOptions extends Component {
                                             overlayClassName={tooltipClass} 
                                             overlay={text}
                                             destroyTooltipOnHide={true}
+                                            mouseEnterDelay={0.5}
                                         >
                                             <Button dense raised 
                                                 className='btn_template_ctx'
