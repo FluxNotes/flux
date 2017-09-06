@@ -7,7 +7,7 @@ export default class StageInserter extends InserterShortcut {
 		return `stage ${staging.value.coding.displayText}`;
 	}
 	
-	static validateInCurrentContext(contextManager) {
+	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#staging")) {
 			errors.push("Staging T values invalid without #staging. Use #staging to add a new staging to your narrative.");

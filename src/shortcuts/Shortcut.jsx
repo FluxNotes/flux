@@ -40,7 +40,7 @@ class Shortcut extends Context {
 		throw new Error("update patient not implemented for " + this.constructor.name);
 	}
 	
-	static validateInCurrentContext(contextManager) {
+	validateInCurrentContext(contextManager) {
 		return []; // no errors
 	}
 	

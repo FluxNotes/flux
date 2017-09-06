@@ -48,7 +48,7 @@ class FullApp extends Component {
     
     newCurrentShortcut = (shortcutType, obj) => {
 		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
-		const errors = newShortcut.constructor.validateInCurrentContext(this.contextManager);
+		const errors = newShortcut.validateInCurrentContext(this.contextManager);
 		if (errors.length > 0) {
 			errors.forEach((error) => {
 				console.error(error);

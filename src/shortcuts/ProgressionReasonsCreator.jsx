@@ -38,7 +38,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
         return "#progression-reasons";
     }
 
-	static validateInCurrentContext(contextManager) {
+	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#progression")) {
 			errors.push("Progression reason values invalid without #progression. Use #progression to add a new progression to your narrative.");

@@ -165,7 +165,7 @@ class StagingCreator extends CreatorShortcut {
 		}
 	}
 
-	static validateInCurrentContext(contextManager) {
+	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
 			errors.push("#staging invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");

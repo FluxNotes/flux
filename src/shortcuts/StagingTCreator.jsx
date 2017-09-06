@@ -31,7 +31,7 @@ export default class StagingTCreator extends CreatorShortcut {
         return "#staging-t";
     }
 
-	static validateInCurrentContext(contextManager) {
+	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#staging")) {
 			errors.push("Staging T values invalid without #staging. Use #staging to add a new staging to your narrative.");

@@ -32,7 +32,7 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
         return '#toxicity-attribution';
     }
     
-    static validateInCurrentContext(contextManager) {
+    validateInCurrentContext(contextManager) {
         let errors = [];
         if (!contextManager.isContextOfTypeActive('#toxicity')) {
             errors.push("Toxicity attribution values invalid without #toxicity. Use #toxicity to add a new toxicity to your narrative.");
