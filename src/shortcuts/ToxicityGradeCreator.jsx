@@ -33,7 +33,7 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
         return "#toxicity-grade";
     }
 
-	validateInCurrentContext(contextManager) {
+	static validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#toxicity")) {
 			errors.push("Toxicity grade values invalid without #toxicity. Use #toxicity to add a new toxicity to your narrative.");

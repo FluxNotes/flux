@@ -48,7 +48,7 @@ class FullApp extends Component {
     
     newCurrentShortcut = (shortcutType, obj) => {
 		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
-		const errors = newShortcut.validateInCurrentContext(this.contextManager);
+		const errors = newShortcut.constructor.validateInCurrentContext(this.contextManager);
 		if (errors.length > 0) {
 			errors.forEach((error) => {
 				console.error(error);
@@ -84,9 +84,17 @@ class FullApp extends Component {
         })
     }
 
-    handleSummaryItemSelected = (itemText) =>{
-        if (itemText) {
-            this.setState({SummaryItemToInsert: itemText});
+    handleSummaryItemSelected = (item) =>{
+        console.log("handleSummaryItemSelected");
+        console.log(item);
+        if (item) {
+            if (item.shortcut) {
+                this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
+            } else if (item.value) {
+                this.setState({SummaryItemToInsert: item.value});
+            } else {
+                this.setState({SummaryItemToInsert: item});
+            }
         }
     }
 

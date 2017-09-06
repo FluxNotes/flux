@@ -168,7 +168,7 @@ class ProgressionCreator extends CreatorShortcut {
 		}
 	}
 
-	validateInCurrentContext(contextManager) {
+	static validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
 			errors.push("#progression invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");

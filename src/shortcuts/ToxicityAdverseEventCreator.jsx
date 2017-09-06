@@ -33,7 +33,7 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
         return "#toxicity-adverse-event";
     }
 
-	validateInCurrentContext(contextManager) {
+	static validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#toxicity")) {
 			errors.push("Toxicity adverse event values invalid without #toxicity. Use #toxicity to add a new toxicity to your narrative.");

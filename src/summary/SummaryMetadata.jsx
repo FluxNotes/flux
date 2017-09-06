@@ -11,8 +11,9 @@ class SummaryMetadata {
                         { 
                             name: "Name", 
                             value: (patient, currentConditionEntry) => { 
-                                return currentConditionEntry.specificType.coding.displayText; 
-                            }
+                                return currentConditionEntry.specificType.coding.displayText;
+                            },
+                            shortcut: "@condition"
                         }, {
                              name: "Stage", 
                              value: (patient, currentConditionEntry) => { 
@@ -172,8 +173,9 @@ class SummaryMetadata {
                         { 
                             name: "Name", 
                             value: (patient, currentConditionEntry) => { 
-                                return currentConditionEntry.specificType.coding.displayText; 
-                            }
+                                return currentConditionEntry.specificType.coding.displayText;
+                            },
+                            shortcut: "@condition"
                         }
                     ]
                 },

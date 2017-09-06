@@ -32,7 +32,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
         return "#progression-status";
     }
 
-	validateInCurrentContext(contextManager) {
+	static validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeActive("#progression")) {
 			errors.push("Progression Status values invalid without #progression. Use #progression to add a new progression to your narrative.");
