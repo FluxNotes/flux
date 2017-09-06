@@ -27,7 +27,7 @@ class LandingPageForm extends Component {
                 <p>
                     This application leverages the <a href="http://standardhealthrecord.org/" target="_blank">SHR (Standard Health Record)</a> format for capturing data.
                 </p>
-
+                <p>&nbsp;</p>
                 <h4>Using Flux Notes Lite</h4>
                 <ol>
                     <li>
