@@ -57,7 +57,7 @@ class ToxicityForm extends Component {
     /* 
      * When a valid grade is selected, update potential toxicity 
      */
-    handleGradeSelecion = (e, grade, isSelected) => {
+    handleGradeSelection = (e, grade, isSelected) => {
         e.preventDefault();
         if (isSelected) {
             this.props.updateValue("grade", null);
@@ -193,7 +193,7 @@ class ToxicityForm extends Component {
                 // onHover
                 onClick={(e) => {
                     if (!isDisabled) {
-                        return this.handleGradeSelecion(e, grade.name, isSelected)
+                        return this.handleGradeSelection(e, grade.name, isSelected)
                     }
                 }}
             >
@@ -223,7 +223,7 @@ class ToxicityForm extends Component {
                 </p>
                 <Divider className="divider"/>
 
-                <h4>Adverse Event</h4>
+                <h4 className="header-spacing">Adverse Event</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("adverseEvent")}
                 </p>
@@ -238,7 +238,7 @@ class ToxicityForm extends Component {
                     inputProps={inputProps}
                 />
 
-                <h4>Grade</h4>
+                <h4 className="header-spacing">Grade</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
                     <span className="helper-text"> Choose one</span>
@@ -253,7 +253,7 @@ class ToxicityForm extends Component {
                     })}
                 </div>
                 
-                <h4>Attribution</h4>
+                <h4 className="header-spacing">Attribution</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("attribution")}
                     <span className="helper-text"> Choose one</span>

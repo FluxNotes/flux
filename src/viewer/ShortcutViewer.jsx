@@ -44,7 +44,7 @@ class ShortcutViewer extends Component {
                             {string}
                         </div>
                     </Button>
-                    <span className="helper-text">Click copy button to copy string</span>
+                    <span className="helper-text">Copy text and paste it into your EHR</span>
                 </div>
             </CopyToClipboard>
         );

@@ -52,3 +52,7 @@
 .SlimApp-content .no-padding { 
     padding: 0!important;
 }
+
+.header-spacing {
+    margin-top: 80px !important;
+}
