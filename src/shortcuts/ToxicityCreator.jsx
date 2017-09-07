@@ -199,7 +199,7 @@ class ToxicityCreator extends CreatorShortcut {
     static getTriggers() {
         return [{name: "#toxicity", description: lookup.getDescription('toxicity')}];
     }
-     static getShortcutGroupDescription() {
+     static getDescription() {
         return lookup.getDescription('toxicity')
     }   
 }

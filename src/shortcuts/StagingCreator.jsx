@@ -193,7 +193,7 @@ class StagingCreator extends CreatorShortcut {
 		return [{ name: "#staging", description: lookup.getDescription("TNMStage")}];
 	}
     
-    static getShortcutGroupDescription() {
+    static getDescription() {
         return lookup.getDescription('TNMStage')
     }
 }

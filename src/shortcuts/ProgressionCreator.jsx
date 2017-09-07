@@ -198,7 +198,7 @@ class ProgressionCreator extends CreatorShortcut {
 	static getTriggers() {
 		return [{ name: "#progression", description: lookup.getDescription('progression') }];
 	}
-    static getShortcutGroupDescription() {
+    static getDescription() {
         return lookup.getDescription('progression')
     }
 }

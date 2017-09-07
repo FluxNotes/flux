@@ -42,18 +42,14 @@ export default class ContextOptions extends Component {
         let triggers = [];
         count = 0;
         validShortcuts.forEach((shortcut, i) => {
-            let groupDescription = '';
             let groupName = '';
-            if(typeof shortcut.getShortcutGroupDescription !== 'undefined'){
-                groupDescription = shortcut.getShortcutGroupDescription();
-            }
             if(typeof shortcut.getShortcutGroupName !== 'undefined'){
                 groupName = shortcut.getShortcutGroupName();
             }
             shortcut.getTriggers(context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
-                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupDescription": groupDescription, "groupName": groupName });
+                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     count++;
                 }
             });
@@ -68,7 +64,7 @@ export default class ContextOptions extends Component {
             if (trigger.group !== currentGroup.group) {
                 countToShow = 0;
                 totalShown++;
-                currentGroup = {"group": trigger.group, "groupDescription":trigger.groupDescription, "groupName": trigger.groupName, "triggers": [ trigger ]};
+                currentGroup = {"group": trigger.group, "groupName": trigger.groupName, "triggers": [ trigger ]};
                 groupList.push(currentGroup);
             }
             else {

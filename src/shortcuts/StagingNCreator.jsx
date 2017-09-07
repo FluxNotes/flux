@@ -53,7 +53,7 @@ export default class StagingNCreator extends CreatorShortcut {
 		return result;
 	}
     
-    static getShortcutGroupDescription() {
+    static getDescription() {
         return lookup.getDescription('nodeSize')
     }
     static getShortcutGroupName(){

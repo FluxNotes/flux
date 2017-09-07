@@ -53,7 +53,7 @@ export default class StagingTCreator extends CreatorShortcut {
 		return result;
 	}
     
-    static getShortcutGroupDescription() {
+    static getDescription() {
         return lookup.getDescription('tumorSize');
     }
     static getShortcutGroupName(){
