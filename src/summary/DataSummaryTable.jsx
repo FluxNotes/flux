@@ -14,7 +14,6 @@ class DataSummaryTable extends Component {
 
     render() {
 		let list = null;
-		//console.log(this.props.items);
 		if (Lang.isUndefined(this.props.items)) {
 			list = this.props.itemsFunction(this.props.patient, this.props.currentConditionEntry);
 		} else {
@@ -26,7 +25,6 @@ class DataSummaryTable extends Component {
 				}
 			});
 		}
-		//console.log(list);
 		if (list.length > 0) {
         return (
             <table>

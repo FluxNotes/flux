@@ -23,7 +23,8 @@ class SummaryMetadata {
                                 } else { 
                                     return null; 
                                 } 
-                            } 
+                            },
+                            shortcut: "@stage"
                         }
                     ]
                 },

@@ -85,8 +85,6 @@ class FullApp extends Component {
     }
 
     handleSummaryItemSelected = (item) =>{
-        console.log("handleSummaryItemSelected");
-        console.log(item);
         if (item) {
             if (item.shortcut) {
                 this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});

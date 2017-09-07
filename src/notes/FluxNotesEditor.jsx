@@ -273,7 +273,6 @@ class FluxNotesEditor extends React.Component {
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
-            console.log("componentWillReceiveProps");
             this.handleSummaryUpdate(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
@@ -283,7 +282,6 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     handleSummaryUpdate = (itemToBeInserted) => {
-        console.log("handleSummaryUpdate: " + itemToBeInserted);
         let state;
         const currentState = this.state.state;
         let transform = currentState.transform();
@@ -292,7 +290,6 @@ class FluxNotesEditor extends React.Component {
         
         const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted);
         if (!Lang.isNull(triggers)) {
-            console.log("# triggers found: " + triggers.length);
             triggers.forEach((trigger) => {
                 start = remainder.indexOf(trigger);
                 if (start > 0) {

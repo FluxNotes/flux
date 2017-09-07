@@ -473,6 +473,14 @@ class Patient {
         entry.lastUpdateDate = today;
         this.patient.push(entry);
     }
+
+    static isEntryOfType(entry, type) {
+        return (entry.entryType[0] === type);
+    }
+    
+    static isEntryBasedOnType(entry, type) {
+        return (entry.entryType.indexOf(type) >= 0);
+    }
     
     static createEntryReferenceTo(entry) {
         return { "entryType": entry.entryType[0], "shrId": entry.shrId, "entryId": entry.entryId };
