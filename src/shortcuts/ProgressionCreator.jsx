@@ -201,9 +201,6 @@ class ProgressionCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('progression')
     }
-    static getName(){
-        return "Progression";
-    }
 }
 
 export default ProgressionCreator;

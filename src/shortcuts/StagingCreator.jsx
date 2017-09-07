@@ -196,10 +196,6 @@ class StagingCreator extends CreatorShortcut {
     static getShortcutGroupDescription() {
         return lookup.getDescription('TNMStage')
     }
-    
-    static getName(){
-        return "TNMStage";
-    }
 }
 
 export default StagingCreator;

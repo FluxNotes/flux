@@ -202,9 +202,6 @@ class ToxicityCreator extends CreatorShortcut {
      static getShortcutGroupDescription() {
         return lookup.getDescription('toxicity')
     }   
-    static getName(){
-        return "Toxicity";
-    }
 }
 
 export default ToxicityCreator;

@@ -14,7 +14,8 @@ export default class ContextOptions extends Component {
         this._handleSearch = this._handleSearch.bind(this);
         
         this.state = {
-            searchString: ""
+            searchString: "",
+            tooltipVisibility: 'visible'
         }
 	}
 
@@ -123,11 +124,15 @@ export default class ContextOptions extends Component {
                                 return (
                                     <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
                                         <Tooltip 
+                                            key={trigger.name}
+                                            overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                             placement="top" 
                                             overlayClassName={tooltipClass} 
                                             overlay={text}
                                             destroyTooltipOnHide={true}
                                             mouseEnterDelay={0.5}
+                                            onMouseEnter={this.mouseEnter}
+                                            onMouseLeave={this.mouseLeave}
                                         >
                                             <Button dense raised 
                                                 className='btn_template_ctx'
@@ -149,9 +154,17 @@ export default class ContextOptions extends Component {
 
 	_handleClick(e, i) {
 		e.preventDefault();
-        this.setState({searchString: ""});
+        this.setState({searchString: "", tooltipVisibility: 'hidden'});
 		this.props.handleClick(i);
 	}
+    
+    mouseLeave = () => {
+        this.setState({tooltipVisibility: 'hidden'})
+    }
+    
+    mouseEnter = () => {
+        this.setState({tooltipVisibility: 'visible'})
+    }
     
     _handleSearch(value) {
         this.setState({searchString: value});

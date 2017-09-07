@@ -10,7 +10,6 @@
 .context-options-list {
     overflow-y: scroll;
     overflow-x: hidden;
-    overflow: visible;
     height: 710px;
 }
 
