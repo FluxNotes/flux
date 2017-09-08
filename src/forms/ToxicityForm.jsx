@@ -14,7 +14,7 @@ class ToxicityForm extends Component {
         
         const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
             const objCopy = Lang.clone(obj);
-            objCopy.nameNoSpaces = objCopy.name.replace(/\s/g,'');
+            objCopy.nameNoSpaces = objCopy.name ? objCopy.name.replace(/\s/g,'') : objCopy.name;
             objCopy.descriptionNoSpaces = objCopy.description ? objCopy.description.replace(/\s/g,'') : objCopy.description;
             return objCopy;
         });
