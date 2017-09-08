@@ -58,8 +58,16 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
         }
 		let result = [];
 		gradeOptions.forEach((val) => {
-			result.push("#" + val.name);
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}
+    
+    static getDescription() {
+        return lookup.getDescription('grade');
+    }
+    
+    static getShortcutGroupName(){
+        return "Grade";
+    }      
 }

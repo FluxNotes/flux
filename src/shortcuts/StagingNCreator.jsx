@@ -45,11 +45,18 @@ export default class StagingNCreator extends CreatorShortcut {
 		return errors;
 	}
 	static getTriggers() {
-		const ns = lookup.getNsNamesForEdition(7);
+		const ns = lookup.getNsForEdition(7);
 		let result = [];
 		ns.forEach((val) => {
-			result.push("#" + val);
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}
+    
+    static getDescription() {
+        return lookup.getDescription('nodeSize')
+    }
+    static getShortcutGroupName(){
+        return "Node Size";
+    }    
 }

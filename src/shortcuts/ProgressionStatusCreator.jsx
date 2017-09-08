@@ -49,8 +49,16 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		const statusOptions = lookup.getStatusOptions();
 		let result = [];
 		statusOptions.forEach((val) => {
-			result.push("#" + val.name);
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}
+    
+    static getDescription() {
+        return lookup.getDescription('status');
+    }
+    
+    static getShortcutGroupName(){
+        return "Status";
+    }      
 }

@@ -123,7 +123,7 @@ class ContextTray extends Component {
 
 function TabContainer(props) {
   return (
-    <div style={{ paddingTop: '5px' }}>
+    <div style={{ paddingTop: '15px' }}>
       {props.children}
     </div>
   );
