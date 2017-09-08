@@ -227,6 +227,8 @@ class ToxicityForm extends Component {
                 <h1>Toxicity</h1>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("toxicity")}
+                    <br/>
+                    For more detail, review the the <a href="toxicityFormat.pdf" target="_blank">structured phrase format descriptions</a>
                 </p>
                 <Divider className="divider"/>
 

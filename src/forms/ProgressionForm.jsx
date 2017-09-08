@@ -96,6 +96,8 @@ class ProgressionForm extends Component {
                 <h1>Disease Progression</h1>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
+                    <br/>
+                    For more detail, review the the <a href="progressionFormat.pdf" target="_blank">structured phrase format descriptions</a>
                 </p>
                 <Divider className="divider"/>
 
