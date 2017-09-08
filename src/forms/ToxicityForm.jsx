@@ -11,10 +11,17 @@ import './ToxicityForm.css';
 class ToxicityForm extends Component {
     constructor(props) {
         super(props);
+        
+        const adverseEventOptionsIncludingNoSpaces = toxicityLookup.getAdverseEventOptions().map(obj => {
+            const objCopy = Lang.clone(obj);
+            objCopy.nameNoSpaces = objCopy.name.replace(/\s/g,'');
+            objCopy.descriptionNoSpaces = objCopy.description ? objCopy.description.replace(/\s/g,'') : objCopy.description;
+            return objCopy;
+        });
 
         this.state = {
             gradeOptions: toxicityLookup.getGradeOptions(),
-            adverseEventOptions: toxicityLookup.getAdverseEventOptions(),
+            adverseEventOptions: adverseEventOptionsIncludingNoSpaces,
             suggestions: [],
             searchText: '',
         };
@@ -101,13 +108,13 @@ class ToxicityForm extends Component {
      * Render the adverse event  item for the adverse event suggestion
      */
     getSuggestions = (searchText) => {
-        const inputValue = searchText.trim().toLowerCase();
+        let inputValue = searchText.trim().toLowerCase().replace(/\s/g,'');
         const inputLength = inputValue.length;
 
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
-            const name = (Lang.isEmpty(event.name)) ? "" : event.name;
-            const description = (Lang.isEmpty(event.description)) ? "" : event.description;
-            return (name.toLowerCase().indexOf(inputValue) >= 0 || description.toLowerCase().indexOf(inputValue) >= 0)
+            const nameNoSpaces = (Lang.isEmpty(event.nameNoSpaces)) ? "" : event.nameNoSpaces;
+            const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
+            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
         }).slice(0, 7);
     };
 
