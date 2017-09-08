@@ -1,5 +1,6 @@
 import React from 'react';
 import Slate from 'slate';
+import Lang from 'lodash';
 import getWindow from 'get-window'
 
 function createOpts(opts) {
@@ -106,6 +107,16 @@ function StructuredFieldPlugin(opts) {
         console.log(event);
         console.log(data);
         event.preventDefault();
+        
+        let { selection } = state;
+        let { startKey, startOffset, endKey, endOffset } = selection;
+        
+        let currentNode = state.document.getDescendant(startKey);
+        while (!Lang.isNull(currentNode)) {
+            
+            if (currentNode.key === endKey) break;
+        }
+        
         return state;
     }
 		
