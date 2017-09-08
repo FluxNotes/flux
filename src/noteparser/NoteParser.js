@@ -5,11 +5,18 @@ import Lang from 'lodash'
 import util from 'util';
 
 export default class NoteParser {
-    constructor() {
-        this.patient = new Patient(false);
-        this.shortcutManager = new ShortcutManager();
-        this.contextManager = new ContextManager(this.patient);
-        this.contextManager.setIsBlock1BeforeBlock2(() => { return true; });
+    constructor(shortcutManager = undefined, contextManager = undefined) {
+        if (Lang.isUndefined(shortcutManager)) {
+            this.shortcutManager = new ShortcutManager();
+        } else {
+            this.shortcutManager = shortcutManager;
+        }
+        if (Lang.isUndefined(contextManager)) {
+            this.contextManager = new ContextManager(new Patient(false));
+            this.contextManager.setIsBlock1BeforeBlock2(() => { return true; });
+        } else {
+            this.contextManager = contextManager;
+        }
         this.allTriggersRegExp = undefined;
         this.triggerMap = {};
         
@@ -17,13 +24,17 @@ export default class NoteParser {
         let allShortcuts = this.shortcutManager.getAllShortcutClasses();
         let curTriggers;
         allShortcuts.forEach((shortcutC) => {
-            curTriggers = shortcutC.getTriggers();
+            curTriggers = shortcutC.getTriggers().map((obj) => { return obj.name; });;
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
-               this.triggerMap[item.toLowerCase()] = shortcutC; 
+                this.triggerMap[item.toLowerCase()] = shortcutC; 
             });
         });
         this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'gi');
+    }
+    
+    getAllTriggersRegularExpression() {
+        return this.allTriggersRegExp;
     }
     
     createShortcut(trigger) {
@@ -34,9 +45,13 @@ export default class NoteParser {
         return shortcut;
     }
     
+    getListOfTriggersFromText(note) {
+        return note.match(this.allTriggersRegExp);
+    }
+    
     parse(note) {
         console.log("parse: " + note);
-        const structuredPhrases = note.match(this.allTriggersRegExp);
+        const structuredPhrases = this.getListOfTriggersFromText(note);
         //console.log(structuredPhrases);
         let data = structuredPhrases.map(this.createShortcut.bind(this));
         let dataObj;

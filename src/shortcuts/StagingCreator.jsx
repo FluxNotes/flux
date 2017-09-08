@@ -166,6 +166,10 @@ class StagingCreator extends CreatorShortcut {
 		}
 	}
 
+    static validateInContext(context) {
+        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+    }
+
 	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {

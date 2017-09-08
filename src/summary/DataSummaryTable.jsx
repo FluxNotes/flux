@@ -14,7 +14,6 @@ class DataSummaryTable extends Component {
 
     render() {
 		let list = null;
-		//console.log(this.props.items);
 		if (Lang.isUndefined(this.props.items)) {
 			list = this.props.itemsFunction(this.props.patient, this.props.currentConditionEntry);
 		} else {
@@ -22,17 +21,16 @@ class DataSummaryTable extends Component {
 				if (Lang.isNull(item.value)) {
 					return {name: item.name, value: null };
 				} else {
-					return {name: item.name, value: item.value(this.props.patient, this.props.currentConditionEntry) };
+					return {name: item.name, value: item.value(this.props.patient, this.props.currentConditionEntry), shortcut: item.shortcut };
 				}
 			});
 		}
-		//console.log(list);
 		if (list.length > 0) {
         return (
             <table>
                 <tbody>
 				{list.map((item, i) => {
-						let rowClass = "";
+						let onClick, hoverClass, rowClass = "";
 						let itemClass = "";
 						let itemText = "";
 						let value = item.value;
@@ -41,9 +39,13 @@ class DataSummaryTable extends Component {
 							rowClass = "captured";
 							itemClass = "captured";
 							itemText = value;
+                            onClick = (e) => this.props.onItemClicked(item);
+                            hoverClass = "button-hover";
 						} else { 
 							itemClass = "missing";
 							itemText = `Missing ${item.name}`;
+                            onClick = null;
+                            hoverClass = null;
 						}
 
 						if (this.props.allowItemClick) {
@@ -51,7 +53,7 @@ class DataSummaryTable extends Component {
 								<tr key={i} className={rowClass}>
 									<td width="40%">{item.name}</td>
 									<td width="55%" className={itemClass}>{itemText}</td>
-									<td width="5%" onClick={(e) => this.props.onItemClicked(itemText)}><span className="button-hover"><i className="fa fa-plus-square fa-lg"></i></span></td>
+									<td width="5%" onClick={onClick}><span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span></td>
 								</tr>
 							);
 						} else {

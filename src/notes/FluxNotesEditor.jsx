@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import StructuredFieldPlugin from './StructuredFieldPlugin';
+import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
@@ -49,6 +50,8 @@ class FluxNotesEditor extends React.Component {
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
+
+        this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         
         // Set the initial state when the app is first constructed.
         this.state = {
@@ -92,8 +95,10 @@ class FluxNotesEditor extends React.Component {
             this.structuredFieldPlugin
         ];
         
-        this.autoReplaceBeforeRegExp = undefined;
-        
+        // The logic below that builds the regular expression could possibly be replaced by the regular
+        // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
+        // global flag it looks like? TODO: evaluate
+        this.autoReplaceBeforeRegExp = undefined;        
         let autoReplaceAfters = [];
         let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
         allShortcuts.forEach((shortcutC) => {
@@ -144,13 +149,26 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    insertShortcut(shortcutTrigger, transform = undefined) {
+    insertShortcut(shortcutTrigger, text, transform = undefined) {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
         let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            if (text.length > 0) {
+                shortcut.setText(text);
+                let portalOptions = shortcut.getValueSelectionOptions();
+                portalOptions.forEach((option) => {
+                    if (option.context === text) {
+                        shortcut.setValueObject(option.object);
+                        //this.contextManager.contextUpdated();                        
+                    }
+                });
+                shortcut.clearValueSelectionOptions();
+                return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+            } else {
+                return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            }
         } else {
             return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
         }
@@ -158,7 +176,7 @@ class FluxNotesEditor extends React.Component {
     
     autoReplaceTransform(transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        this.insertShortcut(matches.before[0], transform);
+        this.insertShortcut(matches.before[0], "", transform);
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -255,7 +273,7 @@ class FluxNotesEditor extends React.Component {
 
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-        if (this.props.itemToBeInserted !== nextProps.itemToBeInserted) {
+        if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
             this.handleSummaryUpdate(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
@@ -268,19 +286,43 @@ class FluxNotesEditor extends React.Component {
         let state;
         const currentState = this.state.state;
         let transform = currentState.transform();
-        let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
-        let result = regExp.exec(itemToBeInserted);
         let remainder = itemToBeInserted;
-        let start, before;
+        let start, before, end, after;
+        
+        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted);
+        if (!Lang.isNull(triggers)) {
+            triggers.forEach((trigger) => {
+                start = remainder.indexOf(trigger);
+                if (start > 0) {
+                    before = remainder.substring(0, start);
+                    transform = transform
+                        .insertText(before);
+                }
+                remainder = remainder.substring(start + trigger.length);
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    after = remainder.substring(2, end);
+                    remainder = remainder.substring(end + 2);
+                } else {
+                    after = "";
+                }
+                transform = this.insertShortcut(trigger, after, transform);
+            });
+        }
+/*        let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
+        let result = regExp.exec(itemToBeInserted);
         while (!Lang.isNull(result)) {
             start = remainder.indexOf(result[0]);
             before = remainder.substring(0, start);
             remainder = remainder.substring(start + result[0].length);
             transform = transform
-                .insertText(before)
+                .insertText(before);
+            // strip trailing # or @ from trigger in result[0];
             transform = this.insertShortcut(result[0].substring(0, result[0].length - 1), transform);
             result = regExp.exec(remainder);
-        }
+        }*/
+
+
         if (remainder.length > 0) {
             transform = transform.insertText(remainder);
         }

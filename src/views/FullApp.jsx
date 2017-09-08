@@ -84,9 +84,15 @@ class FullApp extends Component {
         })
     }
 
-    handleSummaryItemSelected = (itemText) =>{
-        if (itemText) {
-            this.setState({SummaryItemToInsert: itemText});
+    handleSummaryItemSelected = (item) =>{
+        if (item) {
+            if (item.shortcut) {
+                this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
+            } else if (item.value) {
+                this.setState({SummaryItemToInsert: item.value});
+            } else {
+                this.setState({SummaryItemToInsert: item});
+            }
         }
     }
 

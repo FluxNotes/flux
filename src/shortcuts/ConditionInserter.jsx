@@ -5,7 +5,12 @@ import StagingCreator from './StagingCreator';
 
 export default class ConditionInserter extends InserterShortcut {
 	getValidChildShortcuts() {
-		return [ ProgressionCreator, ToxicityCreator, StagingCreator];
+		//return [ ProgressionCreator, ToxicityCreator, StagingCreator];
+        let result = [];
+        if (ProgressionCreator.validateInContext(this)) result.push(ProgressionCreator);
+        if (StagingCreator.validateInContext(this)) result.push(StagingCreator);
+        if (ToxicityCreator.validateInContext(this)) result.push(ToxicityCreator);
+        return result;
 	}
 	getLabel() {
 		return this.getText();
