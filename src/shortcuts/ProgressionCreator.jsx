@@ -3,10 +3,11 @@ import CreatorShortcut from './CreatorShortcut';
 //import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
+import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
-import progressionLookup from '../lib/progression_lookup';
+
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -178,13 +179,13 @@ class ProgressionCreator extends CreatorShortcut {
     
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
-                (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length);
+                (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length);
     }
     
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
-		if (this.getAttributeValue("reasons").length < progressionLookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
+		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator ];
 	}
 	
@@ -195,8 +196,11 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [ "#progression" ];
+		return [{ name: "#progression", description: lookup.getDescription('progression') }];
 	}
+    static getDescription() {
+        return lookup.getDescription('progression')
+    }
 }
 
 export default ProgressionCreator;

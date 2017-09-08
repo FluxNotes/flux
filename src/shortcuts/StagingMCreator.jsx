@@ -46,11 +46,18 @@ export default class StagingMCreator extends CreatorShortcut {
 	}
 	
 	static getTriggers() {
-		const ms = lookup.getMsNamesForEdition(7);
+		const ms = lookup.getMsForEdition(7);
 		let result = [];
 		ms.forEach((val) => {
-			result.push("#" + val);
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}
+    
+    static getDescription() {
+        return lookup.getDescription('metastasis')
+    }
+    static getShortcutGroupName(){
+        return "Metastasis";
+    }    
 }

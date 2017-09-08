@@ -58,8 +58,16 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
         }
 		let result = [];
 		adverseEvents.forEach((val) => {
-			result.push("#" + val.name);
+			result.push({name: "#" + val.name, description: val.description});
 		});
 		return result;
 	}
+    
+    static getDescription() {
+        return lookup.getDescription('adverseEvent');
+    }
+    
+    static getShortcutGroupName(){
+        return "Adverse Event";
+    }      
 }
