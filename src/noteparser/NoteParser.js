@@ -24,10 +24,10 @@ export default class NoteParser {
         let allShortcuts = this.shortcutManager.getAllShortcutClasses();
         let curTriggers;
         allShortcuts.forEach((shortcutC) => {
-            curTriggers = shortcutC.getTriggers();
+            curTriggers = shortcutC.getTriggers().map((obj) => { return obj.name; });;
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
-               this.triggerMap[item.toLowerCase()] = shortcutC; 
+                this.triggerMap[item.toLowerCase()] = shortcutC; 
             });
         });
         this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'gi');
