@@ -97,7 +97,8 @@ class ProgressionForm extends Component {
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
                     <br/>
-                    For more detail, review the the <a href="progressionFormat.pdf" target="_blank">structured phrase format descriptions</a>
+                    <br/>
+                    Based on your selections below, the copy button at the bottom will copy a <a href="progressionSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
 
