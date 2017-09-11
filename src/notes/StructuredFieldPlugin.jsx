@@ -1,6 +1,5 @@
 import React from 'react';
 import Slate from 'slate';
-//import Lang from 'lodash';
 import getWindow from 'get-window'
 
 function createOpts(opts) {
@@ -102,6 +101,24 @@ function StructuredFieldPlugin(opts) {
         return state;
     }
     
+function serializeNode(node, options) {
+  const raw = Slate.Raw.serializeNode(node, options)
+  const encoded = encode(raw)
+  return encoded
+}
+function encode(object) {
+  const string = JSON.stringify(object)
+  const encoded = window.btoa(window.encodeURIComponent(string))
+  return encoded
+}
+
+function convertToText(state, selection) {
+    const blocksInSelection = state.document.getBlocksAtRange(selection);
+    blocksInSelection.forEach((blk) => {
+        console.log(blk.kind + "/" + blk.type);
+    });
+}
+
     function onCopy(event, data, state, editor) {
         console.log("onCopy");
         //console.log(event);
@@ -109,11 +126,81 @@ function StructuredFieldPlugin(opts) {
         event.preventDefault();
         
         let { selection } = state;
-        const blocksInSelection = state.document.getBlocksAtRange(selection);
-        blocksInSelection.forEach((blk) => {
-            console.log(blk.kind + "/" + blk.type);
-        });
    
+    const window = getWindow(event.target)
+    const native = window.getSelection()
+    const { endBlock, endInline } = state
+    const isVoidBlock = endBlock && endBlock.isVoid
+    const isVoidInline = endInline && endInline.isVoid
+    const isVoid = isVoidBlock || isVoidInline
+
+    // If the selection is collapsed, and it isn't inside a void node, abort.
+    if (native.isCollapsed && !isVoid) return
+
+    const { fragment } = data
+    //const encoded = serializeNode(fragment); // Base64.serializeNode
+    const encoded = convertToText(state, selection);
+    const range = native.getRangeAt(0)
+    let contents = range.cloneContents()
+    let attach = contents.childNodes[0]
+
+    // If the end node is a void node, we need to move the end of the range from
+    // the void node's spacer span, to the end of the void node's content.
+    if (isVoid) {
+      const r = range.cloneRange()
+      const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline)
+      r.setEndAfter(node)
+      contents = r.cloneContents()
+      attach = contents.childNodes[contents.childNodes.length - 1].firstChild
+    }
+
+    // Remove any zero-width space spans from the cloned DOM so that they don't
+    // show up elsewhere when pasted.
+    const zws = [].slice.call(contents.querySelectorAll('[data-slate-zero-width]'))
+    zws.forEach(zw => zw.parentNode.removeChild(zw))
+
+    // COMPAT: In Chrome and Safari, if the last element in the selection to
+    // copy has `contenteditable="false"` the copy will fail, and nothing will
+    // be put in the clipboard. So we remove them all. (2017/05/04)
+/*    if (IS_CHROME || IS_SAFARI) {
+      const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'))
+      els.forEach(el => el.removeAttribute('contenteditable'))
+    }*/
+
+    // Set a `data-slate-fragment` attribute on a non-empty node, so it shows up
+    // in the HTML, and can be used for intra-Slate pasting. If it's a text
+    // node, wrap it in a `<span>` so we have something to set an attribute on.
+    if (attach.nodeType === 3) {
+      const span = window.document.createElement('span')
+      span.appendChild(attach)
+      contents.appendChild(span)
+      attach = span
+    }
+
+    attach.setAttribute('data-slate-fragment', encoded)
+
+    // Add the phony content to the DOM, and select it, so it will be copied.
+    const body = window.document.querySelector('body')
+    const div = window.document.createElement('div')
+    div.setAttribute('contenteditable', true)
+    div.style.position = 'absolute'
+    div.style.left = '-9999px'
+    div.appendChild(contents)
+    body.appendChild(div)
+
+    // COMPAT: In Firefox, trying to use the terser `native.selectAllChildren`
+    // throws an error, so we use the older `range` equivalent. (2016/06/21)
+    const r = window.document.createRange()
+    r.selectNodeContents(div)
+    native.removeAllRanges()
+    native.addRange(r)
+
+    // Revert to the previous selection right after copying.
+    window.requestAnimationFrame(() => {
+      body.removeChild(div)
+      native.removeAllRanges()
+      native.addRange(range)
+    })
         return state;
     }
 		
