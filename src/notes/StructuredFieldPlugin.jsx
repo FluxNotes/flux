@@ -1,5 +1,7 @@
 import React from 'react';
 import Slate from 'slate';
+//import Lang from 'lodash';
+import getWindow from 'get-window'
 
 function createOpts(opts) {
     opts = opts || {};
@@ -72,12 +74,57 @@ function StructuredFieldPlugin(opts) {
 			}
 		]
 	};
-    		
+    
+    function onPaste(event, data, state, editor) {
+        console.log("onPaste");
+        console.log(event);
+        console.log(data);
+    }
+    
+    function onCut(event, data, state, editor) {
+        console.log("onCut");
+        this.onCopy(event, data, state, editor); // doesn't change state
+        const window = getWindow(event.target)
+
+        // Once the fake cut content has successfully been added to the clipboard,
+        // delete the content in the current selection.
+        let next;
+        window.requestAnimationFrame(() => {
+            next = editor
+                .getState()
+                .transform()
+                .delete()
+                .apply();
+
+            editor.onChange(next);
+        });
+        //return next;
+        return state;
+    }
+    
+    function onCopy(event, data, state, editor) {
+        console.log("onCopy");
+        //console.log(event);
+        console.log(data);
+        event.preventDefault();
+        
+        let { selection } = state;
+        const blocksInSelection = state.document.getBlocksAtRange(selection);
+        blocksInSelection.forEach((blk) => {
+            console.log(blk.kind + "/" + blk.type);
+        });
+   
+        return state;
+    }
+		
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
         onChange,
+        onCut,
+        onCopy,
+        onPaste,
         schema,
 		
         utils: {
