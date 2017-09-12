@@ -13,10 +13,27 @@
     overflow-y: scroll;
 }
 
+#panel-content {
+    margin-bottom: 130px;
+}
+
+#copy-component {
+    position: fixed;
+    bottom: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #d9d9d9 !important;
+    width: 98%;
+    text-align: left;
+    -webkit-box-shadow: 0px -4px 3px rgba(125,125,125,0.7);
+    -moz-box-shadow:    0px -4px 3px rgba(125,125,125,0.7);
+    box-shadow:         0px -4px 3px rgba(125,125,125,0.7);
+}
+
 .btn_copy {
     display: inline-block;
-    margin-top:  60px;
-    margin-bottom: 10px;
+    margin-top:  20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
     justify-content: flex-start !important;
 }
 
@@ -44,4 +61,6 @@
 
 .helper-text {
     color: #b1b1b1;
+    display:inline-block;
+    text-indent: 20px;
 }
