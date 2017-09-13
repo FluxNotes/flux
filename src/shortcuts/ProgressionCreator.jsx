@@ -135,8 +135,8 @@ class ProgressionCreator extends CreatorShortcut {
 			Patient.updateStatusForProgression(this.progression, value);
 		} else if (name === "reasons") {
 			Patient.updateReasonsForProgression(this.progression, value);
-		} else if (name === "date") {
-            Patient.updateDateForProgression(this.progression, value);
+		} else if (name === "asOfDate") {
+            Patient.updateAsOfDateForProgression(this.progression, value);
         } else {
 			console.error("Error: Unexpected value selected for progression: " + name);
 			return;
@@ -154,7 +154,7 @@ class ProgressionCreator extends CreatorShortcut {
             return this.progression.evidence.map((e) => {
                 return e.coding.displayText;
             });
-		} else if (name === "date") {
+		} else if (name === "asOfDate") {
             return this.progression.clinicallyRelevantTime;
         } else {
 			console.error("Error: Unexpected value requested for progression: " + name);
@@ -187,7 +187,7 @@ class ProgressionCreator extends CreatorShortcut {
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
                 (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) ||
-                (this.getAttributeValue("date").length === 0); // TODO: This will be changed with RelevantDate shortcut
+                (this.getAttributeValue("asOfDate").length === 0); // TODO: This will be changed with RelevantDate shortcut
     }
     
 	getValidChildShortcuts() {

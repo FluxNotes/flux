@@ -854,7 +854,7 @@ class Patient {
         progression.evidence = reasonObjects;
     }
     
-    static updateDateForProgression(progression, date) {
+    static updateAsOfDateForProgression(progression, date) {
         progression.clinicallyRelevantTime = date;
     }
 
