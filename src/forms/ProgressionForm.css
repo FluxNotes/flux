@@ -1,6 +1,14 @@
 .button_disabled_is_selected:disabled {
     background-color: #297DA2 !important;
     color: #fff !important;
+    border: 2px solid;
+    border-radius: 10px; 
+}
+
+.button_disabled_is_selected:enabled {
+    border: 2px solid;
+    border-radius: 10px; 
+    border-color: white;
 }
 
 .button_multi_select_not_selected {

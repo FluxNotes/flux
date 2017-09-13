@@ -123,7 +123,7 @@ class ProgressionForm extends Component {
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     className="button_disabled_is_selected"
                                     style={{
-                                        margin: 0.5,
+                                        margin: 10,
                                         height: "75px",
                                         width: "180px",
                                         padding: "20px 0 20px 0",
