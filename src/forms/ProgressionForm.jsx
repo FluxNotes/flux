@@ -110,6 +110,10 @@ class ProgressionForm extends Component {
 
                 <div className="btn-group-status-progression">
                     {this.state.statusOptions.map((status, i) => {
+                        let marginSize = "10px";
+                        if(i === 0){
+                            marginSize = "0px";
+                        }
                         let statusName = status.name;
                         let statusDescription = status.description;
                         const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
@@ -123,7 +127,7 @@ class ProgressionForm extends Component {
                                     onClick={(e) => this.handleStatusSelection(e, i)}
                                     className="button_disabled_is_selected"
                                     style={{
-                                        margin: 10,
+                                        margin: marginSize,
                                         height: "75px",
                                         width: "180px",
                                         padding: "20px 0 20px 0",
