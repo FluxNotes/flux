@@ -1,7 +1,7 @@
 import moment from 'moment';
 import CreatorShortcut from './CreatorShortcut';
 
-export default class ProgressionDateCreator extends CreatorShortcut {
+export default class DateCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
         super();
     }

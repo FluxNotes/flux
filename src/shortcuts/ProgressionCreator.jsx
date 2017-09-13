@@ -3,7 +3,7 @@ import CreatorShortcut from './CreatorShortcut';
 //import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
-import ProgressionDateCreator from './ProgressionDateCreator';
+import DateCreator from './DateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
@@ -194,8 +194,8 @@ class ProgressionCreator extends CreatorShortcut {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
-        result.push(ProgressionDateCreator); // TODO: This will be changed with the RelevantDate shortcut
-		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, ProgressionDateCreator ];
+        result.push(DateCreator); // TODO: This will be changed with the RelevantDate shortcut
+		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, DateCreator ];
 	}
 	
 	isContext() {
