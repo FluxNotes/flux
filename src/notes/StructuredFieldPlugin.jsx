@@ -112,18 +112,34 @@ function encode(object) {
   return encoded
 }
 
+function convertBlocksToText(state, blocks) {
+    let result = "";
+    blocks.forEach((blk) => {
+        //console.log(blk.kind + "/" + blk.type);
+        if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
+            result = result + convertBlocksToText(state, blk.nodes);
+        } else if (blk.kind === 'text') {
+            //console.log(blk.text);
+            result = result + blk.text;
+        } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
+            let shortcut = blk.data.get("shortcut");
+            //console.log(`${shortcut.getShortcutType()}[[${shortcut.getText()}]]`);
+            result = result + `${shortcut.getShortcutType()}[[${shortcut.getText()}]]`;
+        }
+    });
+    return result;
+}
+
 function convertToText(state, selection) {
     const blocksInSelection = state.document.getBlocksAtRange(selection);
-    blocksInSelection.forEach((blk) => {
-        console.log(blk.kind + "/" + blk.type);
-    });
+    return convertBlocksToText(state, blocksInSelection);
 }
 
     function onCopy(event, data, state, editor) {
         console.log("onCopy");
         //console.log(event);
         console.log(data);
-        event.preventDefault();
+        //event.preventDefault();
         
         let { selection } = state;
    
@@ -140,6 +156,7 @@ function convertToText(state, selection) {
     const { fragment } = data
     //const encoded = serializeNode(fragment); // Base64.serializeNode
     const encoded = convertToText(state, selection);
+    console.log(encoded);
     const range = native.getRangeAt(0)
     let contents = range.cloneContents()
     let attach = contents.childNodes[0]
