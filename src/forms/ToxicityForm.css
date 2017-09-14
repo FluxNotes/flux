@@ -61,12 +61,15 @@
 
 .adverse-event-suggestion .adverse-event-suggestion-name {
     margin: 0 0 0 0px;
+    font-size: 0.85rem;
+    word-wrap: break-word;
     width: 20%;
     display: inline-block;
 }
 
 .adverse-event-suggestion .adverse-event-suggestion-description {
     width: 70%;
+    font-size: 0.85rem;
     margin: 0 0px 0 0;
     display: inline-block;
 }

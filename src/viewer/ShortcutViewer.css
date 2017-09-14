@@ -52,11 +52,13 @@
 
 #copy-keyword {
     margin: 0 0 0 20px;
+    min-width: 75px;
     display: inline-block;
 }
 
 #copy-content {
-    margin: 0 20px 0 0;
+    margin: 0px 20px 0px 0;
+    text-align: left;
     display: inline-block;
 }
 
@@ -64,4 +66,10 @@
     color: #b1b1b1;
     display:inline-block;
     padding: 0 20px 10px 20px;
+}
+
+@media (max-width:992px) {
+    #shortcut-viewer { 
+        padding: 30px 40px;
+    }
 }
