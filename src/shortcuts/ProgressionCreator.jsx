@@ -3,10 +3,10 @@ import CreatorShortcut from './CreatorShortcut';
 //import ProgressionForm from '../forms/ProgressionForm';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
+import DateCreator from './DateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
-import moment from 'moment';
 
 
 class ProgressionCreator extends CreatorShortcut {
@@ -76,10 +76,9 @@ class ProgressionCreator extends CreatorShortcut {
     }
 
     getDateString(curProgression) { 
-        const today = moment(new Date());
         let dateString;
         if (!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
-            dateString = (curProgression.clinicallyRelevantTime === today.format("D MMM YYYY")) ? `` : ` as of ${this.progression.clinicallyRelevantTime}`;
+            dateString = ` #as of #${this.progression.clinicallyRelevantTime}`;
         } else {
             dateString = ``;
         }
@@ -136,7 +135,9 @@ class ProgressionCreator extends CreatorShortcut {
 			Patient.updateStatusForProgression(this.progression, value);
 		} else if (name === "reasons") {
 			Patient.updateReasonsForProgression(this.progression, value);
-		} else {
+		} else if (name === "asOfDate") {
+            Patient.updateAsOfDateForProgression(this.progression, value);
+        } else {
 			console.error("Error: Unexpected value selected for progression: " + name);
 			return;
 		}
@@ -153,7 +154,9 @@ class ProgressionCreator extends CreatorShortcut {
             return this.progression.evidence.map((e) => {
                 return e.coding.displayText;
             });
-		} else {
+		} else if (name === "asOfDate") {
+            return this.progression.clinicallyRelevantTime;
+        } else {
 			console.error("Error: Unexpected value requested for progression: " + name);
 			return null;
 		}
@@ -183,14 +186,16 @@ class ProgressionCreator extends CreatorShortcut {
     
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
-                (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length);
+                (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) ||
+                (this.getAttributeValue("asOfDate").length === 0); // TODO: This will be changed with RelevantDate shortcut
     }
     
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
-		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator ];
+        result.push(DateCreator); // TODO: This will be changed with the RelevantDate shortcut
+		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, DateCreator ];
 	}
 	
 	isContext() {

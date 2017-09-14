@@ -96,6 +96,9 @@ class ProgressionForm extends Component {
                 <h1>Disease Progression</h1>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
+                    <br/>
+                    <br/>
+                    Based on your selections below, the copy button at the bottom will copy a <a href="progressionSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
 

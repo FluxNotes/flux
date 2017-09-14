@@ -853,6 +853,10 @@ class Patient {
         });
         progression.evidence = reasonObjects;
     }
+    
+    static updateAsOfDateForProgression(progression, date) {
+        progression.clinicallyRelevantTime = date;
+    }
 
     static _progressionStatusToCodeableConcept(status) {
         if (status.toLowerCase() === 'complete response') return { value: "C0677874", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "Complete Response"};
