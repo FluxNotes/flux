@@ -62,7 +62,7 @@ class DataCaptureForm extends Component {
                     >
                         <MenuItem value={""} primaryText="<Select Missing Data>"/>
                         <MenuItem value={"staging"} primaryText="Staging"/>
-                        <MenuItem value={"progression"} primaryText="Progression"/>
+                        <MenuItem value={"disease status"} primaryText="Disease Status"/>
                         <MenuItem value={"toxicity"} primaryText="Toxicity"/>
                     </Menu>
                 </div>

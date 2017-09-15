@@ -11,7 +11,7 @@ class SlimApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [ "#progression", "#toxicity" ];
+        this.shortcuts = [ "#disease status", "#toxicity" ];
         this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
@@ -47,7 +47,7 @@ class SlimApp extends Component {
                                     {/*No need for formsearch right now*/}
                                     {/*<FormSearch />*/}
                                     <FormList
-                                        shortcuts={['About Flux Notes Lite', 'Progression', 'Toxicity']}
+                                        shortcuts={['About Flux Notes Lite', 'Disease Status', 'Toxicity']}
                                         currentShortcut={this.state.currentShortcut}
                                         changeShortcut={this.changeShortcut}
                                     />

@@ -29,10 +29,10 @@ class SummaryMetadata {
                     ]
                 },
                 {   
-                    name: "Progression",
+                    name: "Disease Status",
                     items:  [   
                         { 
-                            name: "Current Progression", 
+                            name: "Most Recent Status", 
                             value: (patient, currentConditionEntry) => { 
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months')); 
                                 if (Lang.isNull(p)) {
@@ -43,7 +43,7 @@ class SummaryMetadata {
                             }
                         },
                         { 
-                            name: "Progression Date", 
+                            name: "Date of Most Recent Status", 
                             value: (patient, currentConditionEntry) => {
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months')); 
                                 if (Lang.isNull(p)) {
@@ -54,7 +54,7 @@ class SummaryMetadata {
                             }
                         },
                         { 
-                            name: "Progression Basis", 
+                            name: "Basis for Disease Status", 
                             value: (patient, currentConditionEntry) => { 
                                 let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months')); 
                                 if (Lang.isNull(p)) {

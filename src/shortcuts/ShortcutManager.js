@@ -25,7 +25,7 @@ function addTriggerForKey(trigger) {
 
 class ShortcutManager {
     shortcuts = {
-        '#progression': ProgressionCreator,
+        '#disease status': ProgressionCreator,
         '#progression-status': ProgressionStatusCreator,
         '#progression-reasons': ProgressionReasonsCreator,
         '#staging': StagingCreator,
