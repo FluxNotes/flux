@@ -71,6 +71,37 @@ class ProgressionForm extends Component {
         this.props.updateValue("referenceDate", formattedDate);
     }
 
+    renderStatusButtonGroup = (status, i) => { 
+        const marginSize = "10px";
+        const statusName = status.name;
+        const statusDescription = status.description;
+        const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+
+        return (
+            <div key={statusName} className="tooltip">
+                <span id={statusName} className={tooltipClass}>{statusDescription}</span>
+                    <Button raised
+                    key={i}
+                    label={statusName}
+                    onClick={(e) => this.handleStatusSelection(e, i)}
+                    className="button_disabled_is_selected"
+                    style={{
+                        marginBottom: marginSize,
+                        marginLeft:   marginSize,
+                        height: "75px",
+                        width: "180px",
+                        padding: "20px 0 20px 0",
+                        backgroundColor: "white",
+                        textTransform: "none"
+                    }}
+                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                >{statusName}
+                </Button>
+            </div>
+        );
+    }
+
+
     renderReasonButtonGroup = (reason, i) => {
 
         let reasonName = reason.name;
@@ -120,35 +151,7 @@ class ProgressionForm extends Component {
 
                 <div className="btn-group-status-progression">
                     {this.state.statusOptions.map((status, i) => {
-                        let marginSize = "10px";
-                        if(i === 0){
-                            marginSize = "0px";
-                        }
-                        let statusName = status.name;
-                        let statusDescription = status.description;
-                        const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
-
-                        return (
-                            <div key={statusName} className="tooltip">
-                                <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                                    <Button raised
-                                    key={i}
-                                    label={statusName}
-                                    onClick={(e) => this.handleStatusSelection(e, i)}
-                                    className="button_disabled_is_selected"
-                                    style={{
-                                        margin: marginSize,
-                                        height: "75px",
-                                        width: "180px",
-                                        padding: "20px 0 20px 0",
-                                        backgroundColor: "white",
-                                        textTransform: "none"
-                                    }}
-                                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
-                                >{statusName}
-                                </Button>
-                            </div>
-                        );
+                        return this.renderStatusButtonGroup(status, i)
                     })}
                 </div>
 
