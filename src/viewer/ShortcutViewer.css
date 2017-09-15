@@ -19,21 +19,22 @@
 
 #copy-component {
     position: fixed;
-    bottom: 10px;
+    bottom: 0px;
+    left: 25vw;
+    width: calc(75vw - 12px);
     background-color: #ffffff;
     border-top: 1px solid #d9d9d9 !important;
     text-align: left;
-    -webkit-box-shadow: 0px -4px 3px rgba(125,125,125,0.7);
-    -moz-box-shadow:    0px -4px 3px rgba(125,125,125,0.7);
-    box-shadow:         0px -4px 3px rgba(125,125,125,0.7);
+    -webkit-box-shadow: 0px -2px 3px rgba(125,125,125,0.7);
+    -moz-box-shadow:    0px -2px 3px rgba(125,125,125,0.7);
+    box-shadow:         0px -2px 3px rgba(125,125,125,0.7);
 }
 
 .btn_copy {
     display: inline-block;
     min-width: 96% !important;
-    margin-top:  20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
+    margin: 20px 32px 20px 20px;
+    max-width: 50px;
     justify-content: flex-start !important;
 }
 
@@ -62,5 +63,5 @@
 .helper-text {
     color: #b1b1b1;
     display:inline-block;
-    text-indent: 20px;
+    padding: 0 20px 10px 20px;
 }
