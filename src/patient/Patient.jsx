@@ -855,6 +855,12 @@ class Patient {
     }
     
     static updateAsOfDateForProgression(progression, date) {
+        // TODO: Check with Mark about what this should set
+        progression.originalCreationDate = date;
+    }
+    
+    static updateReferenceDateForProgression(progression, date) {
+        // TODO: Check with Mark about what this should set
         progression.clinicallyRelevantTime = date;
     }
 

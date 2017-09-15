@@ -65,3 +65,7 @@
 .helper-text {
     color: #b1b1b1;
 }
+
+.MuiInput-inkbar-113:after{
+    background-color: #297DA2 !important;
+}

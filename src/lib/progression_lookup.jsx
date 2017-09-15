@@ -23,6 +23,8 @@ exports.getDescription = (dataElement) => {
       return "Based on on the patient data available to the clinician at the time of evaluation.";
    case "reason": 
       return "Rationale for the choice of status."
+   case "referenceDate":
+      return "The date of the event that disease status is being assessed relative to."
    default: 
       return `Asking for a description for ${dataElement}; one has not been defined.`
    }

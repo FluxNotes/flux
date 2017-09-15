@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
 import './ProgressionForm.css';
+
 
 class ProgressionForm extends Component {
     constructor(props) {
@@ -61,6 +64,12 @@ class ProgressionForm extends Component {
             }
         }
     }
+    
+    handleDateSelection = (event) => {
+        const date = event.target.value;
+        const formattedDate = new moment(date).format('D MMM YYYY');
+        this.props.updateValue("referenceDate", formattedDate);
+    }
 
     renderReasonButtonGroup = (reason, i) => {
 
@@ -91,6 +100,7 @@ class ProgressionForm extends Component {
     }
 
     render() {
+        const today = new moment().format('YYYY-MM-DD');
         return (
             <div>
                 <h1>Disease Status</h1>
@@ -153,6 +163,18 @@ class ProgressionForm extends Component {
                         return this.renderReasonButtonGroup(reason, i)
                     })}
                 </div>
+                
+                <h4 className="header-spacing">Reference Date</h4>
+                <p id="data-element-description">
+                    {progressionLookup.getDescription("referenceDate")}
+                    <span className="helper-text"> mm/dd/yyyy</span>
+                </p>
+                <TextField
+                    id="reference-date"
+                    type="date"
+                    defaultValue={today}
+                    onChange={this.handleDateSelection}
+                />
             </div>
         );
     }
