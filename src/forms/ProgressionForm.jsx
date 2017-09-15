@@ -173,7 +173,6 @@ class ProgressionForm extends Component {
                     id="reference-date"
                     type="date"
                     defaultValue={today}
-                    // format='dd-mmm-yyyy'
                     onChange={this.handleDateSelection}
                 />
             </div>

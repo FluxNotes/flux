@@ -80,7 +80,8 @@ class ProgressionCreator extends CreatorShortcut {
         let dateString;
         // TODO: Check with Mark about these dates
         if (!Lang.isUndefined(curProgression.originalCreationDate)) {
-            dateString = ` #as of #${this.progression.originalCreationDate}`;
+            const formattedDate = this.formatDateToDDMMYYYY(curProgression.originalCreationDate);
+            dateString = ` #as of #${formattedDate}`;
         } else {
             dateString = ``;
         }
@@ -90,7 +91,7 @@ class ProgressionCreator extends CreatorShortcut {
     getReferenceDateString(curProgression) {
         let dateString;
         if(!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
-            let formattedDate = this.formatDateToDDMMYYYY(curProgression.clinicallyRelevantTime);
+            const formattedDate = this.formatDateToDDMMYYYY(curProgression.clinicallyRelevantTime);
             dateString = ` relative to #reference date #${formattedDate}`;
         } else {
             dateString = ``;
