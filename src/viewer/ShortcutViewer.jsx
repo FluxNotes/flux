@@ -68,33 +68,16 @@ class ShortcutViewer extends Component {
         if (!Lang.isNull(this.props.currentShortcut)) {
             //panelContent = this.props.currentShortcut.getForm();
             const formSpec = this.props.currentShortcut.getFormSpec();
-<<<<<<< HEAD
-            /* eslint-disable no-eval */
-            panelContent = React.createElement(eval("forms." + formSpec.tagName), formSpec.props, formSpec.children);
-            /* eslint-enable no-eval */
-=======
             const currentForm = forms[formSpec.tagName]
             panelContent = React.createElement(currentForm, formSpec.props, formSpec.children);
->>>>>>> dca23af... copy button handles text overflow, margins smaller, font smaller, tox-dropdown words now smaller and wrap
         } else {
             panelContent = this._getInitialState();
         }
 
         return (
-<<<<<<< HEAD
-            <div>
-                <div id="shortcut-viewer">
-                    <div id="panel-content">
-                        {panelContent}
-                    </div>
-                    {copyComponent}
-                </div>
-
-=======
             <div id="shortcut-viewer">
                 {panelContent}
                 {copyComponent}
->>>>>>> dca23af... copy button handles text overflow, margins smaller, font smaller, tox-dropdown words now smaller and wrap
             </div>
         )
     }
