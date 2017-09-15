@@ -20,6 +20,7 @@
 
 .grade-menu-item .grade-menu-item-name { 
     margin: 0 0 0 20px;
+    min-width: 95px;
     display: inline-block;
 }
 
@@ -38,7 +39,7 @@
 .grade-menu-item .grade-menu-item-description { 
     margin: 0 20px 0 0;
     display: inline-block;
-    max-width: 80%;
+    max-width: 75%;
 }
 
 .grade-menu-item.selected { 
