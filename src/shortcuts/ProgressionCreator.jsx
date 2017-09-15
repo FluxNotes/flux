@@ -89,7 +89,7 @@ class ProgressionCreator extends CreatorShortcut {
         if(Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0) { 
             // 1. No status -- this case we just want a hash
             if(Lang.isEmpty(this.progression.evidence)) { 
-                return `#progression`;
+                return `#disease status`;
             } else {    
                 // No status but reasons -- show what we can and provide blank for status 
                 const statusString = this.getStatusString(this.progression);
@@ -97,7 +97,7 @@ class ProgressionCreator extends CreatorShortcut {
                 if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
                 let dateString     = this.getDateString(this.progression);
                 if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
-                return `#progression${statusString}${reasonString}${dateString}`;
+                return `#disease status${statusString}${reasonString}${dateString}`;
             } 
         } else { 
             const statusString = this.getStatusString(this.progression);
@@ -106,7 +106,7 @@ class ProgressionCreator extends CreatorShortcut {
             let dateString     = this.getDateString(this.progression);
             if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#progression${statusString}${reasonString}${dateString}`;
+            return `#disease status${statusString}${reasonString}${dateString}`;
         }
     }
     
@@ -205,7 +205,8 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [{ name: "#progression", description: lookup.getDescription('progression') }];
+        return [ { name: "#progression", description: lookup.getDescription('progression') },
+                { name: "#disease status", description: lookup.getDescription('progression') }];
 	}
     static getDescription() {
         return lookup.getDescription('progression')

@@ -8,14 +8,14 @@ class LandingPageForm extends Component {
             <div id="landing-page-container">
                 <h1 className="landing-page-title">About Flux Notes Lite</h1>
                 <p>
-                    Flux Notes Lite supports the ICARE data study capture of progression and toxicity during the
+                    Flux Notes Lite supports the ICARE data study capture of disease status and toxicity during the
                     authoring of clinical notes. The purpose of Flux Notes Lite is to help clinicians capture disease
-                    progression and
+                    status and
                     toxicity information in a structured data format that can be easily analyzed and shared across
                     multiple clinical care sites.
                 </p>
                 <p>
-                    This application provides an easy mechanism for clinicians to generate progression and toxicity
+                    This application provides an easy mechanism for clinicians to generate disease status and toxicity
                     information via an interface and allow them to copy the resulting structured shorthand phrase and
                     paste it
                     into their EHR notes entry.

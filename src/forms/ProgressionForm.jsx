@@ -93,7 +93,7 @@ class ProgressionForm extends Component {
     render() {
         return (
             <div>
-                <h1>Disease Progression</h1>
+                <h1>Disease Status</h1>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
                     <br/>
@@ -102,7 +102,7 @@ class ProgressionForm extends Component {
                 </p>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Status of progression</h4>
+                <h4 className="header-spacing">Status of disease</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
                     <span className="helper-text"> Choose one</span>
