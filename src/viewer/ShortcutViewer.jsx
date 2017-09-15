@@ -26,16 +26,16 @@ class ShortcutViewer extends Component {
     _getCopyComponent(string) {
         return (
             <CopyToClipboard text={string}>
-                <div>
+                <div id="copy-component">
                     <Button raised className="btn_copy"
-                        style={{
-                            textTransform: "none",
-                            justifyContent: 'left',
-                            minWidth: "99.8%",
-                            height: "45px",
-                            padding: "5px 0 4px 0",
-                            backgroundColor: "white"
-                        }}
+                            style={{
+                                textTransform: "none",
+                                justifyContent: 'left',
+                                minWidth: "99.8%",
+                                height: "45px",
+                                padding: "5px 0 4px 0",
+                                backgroundColor: "white"
+                            }}
                     >
                         <div id="copy-keyword">
                             Copy
@@ -65,23 +65,25 @@ class ShortcutViewer extends Component {
         if (!Lang.isNull(this.props.currentShortcut)) {
             //panelContent = this.props.currentShortcut.getForm();
             const formSpec = this.props.currentShortcut.getFormSpec();
-/* eslint-disable no-eval */            
+            /* eslint-disable no-eval */
             panelContent = React.createElement(eval("forms." + formSpec.tagName), formSpec.props, formSpec.children);
-/* eslint-enable no-eval */            
+            /* eslint-enable no-eval */
         } else {
             panelContent = this._getInitialState();
         }
 
         return (
-            <div id="shortcut-viewer">
-                {panelContent}
-                <br/>
-                {copyComponent}
+            <div>
+                <div id="shortcut-viewer">
+                    <div id="panel-content">
+                        {panelContent}
+                    </div>
+                    {copyComponent}
+                </div>
+
             </div>
         )
     }
-
-
 }
 
 export default ShortcutViewer;
