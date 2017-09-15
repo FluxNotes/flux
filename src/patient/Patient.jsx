@@ -57,7 +57,7 @@ class Patient {
 			subject: "Clinical follow-up",
 			hospital: "Dana Farber Cancer Institute",
 			clinician: "Dr. Smith",
-			content: "@NAME:'Debra Hernandez672' is a @AGE:'51 year old' @GENDER:'female' presenting with @DIAGNOSIS[Lobular carcinoma of the breast]:'Lobular carcinoma of the breast'.\nDisease #progression[Stable based on physical exam at 02.AUG.2015].",
+			content: "@NAME:'Debra Hernandez672' is a @AGE:'51 year old' @GENDER:'female' presenting with @DIAGNOSIS[Lobular carcinoma of the breast]:'Lobular carcinoma of the breast'.\nDisease #disease status[Stable based on physical exam at 02.AUG.2015].",
 			originalCreationDate: "02 AUG 2015",
 			lastUpdateDate: "02 AUG 2015"
 		},
@@ -329,7 +329,7 @@ class Patient {
 			focalCondition: {entryType: "http://standardhealthrecord.org/condition/Condition", shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", entryId: "8"},
 			clinicallyRelevantTime: "13 JUN 2012",
 			evidence: [ 	{ coding: { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "physical examination"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "13 JUN 2012",
 			lastUpdateDate: "13 JUN 2012"
@@ -345,7 +345,7 @@ class Patient {
 			clinicallyRelevantTime: "01 NOV 2012",
 			evidence: [ 	{ coding: { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "imaging"}},
 							{ coding: { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "physical examination"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "01 NOV 2012",
 			lastUpdateDate: "01 NOV 2012"
@@ -360,7 +360,7 @@ class Patient {
 			focalCondition: {entryType: "http://standardhealthrecord.org/condition/Condition", shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", entryId: "8"},
 			clinicallyRelevantTime: "17 APR 2014",
 			evidence: [ 	{ coding: { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "imaging"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "17 APR 2014",
 			lastUpdateDate: "17 APR 2014"
@@ -375,7 +375,7 @@ class Patient {
 			focalCondition: {entryType: "http://standardhealthrecord.org/condition/Condition", shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", entryId: "8"},
 			clinicallyRelevantTime: "03 JUL 2014",
 			evidence: [ 	{ coding: { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "pathology"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "03 JUL 2014",
 			lastUpdateDate: "03 JUL 2014"
@@ -391,7 +391,7 @@ class Patient {
 			clinicallyRelevantTime: "14 JUN 2015",
 			evidence: [ 	{ coding: { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "pathology"}},
 							{ coding: { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "symptoms"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "14 JUN 2015",
 			lastUpdateDate: "14 JUN 2015"
@@ -407,7 +407,7 @@ class Patient {
 			clinicallyRelevantTime: "11 AUG 2016",
 			evidence: [ 	{ coding: { value: "C0031809", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "physical examination"}},
 							{ coding: { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "symptoms"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "11 AUG 2016",
 			lastUpdateDate: "11 AUG 2016"
@@ -424,7 +424,7 @@ class Patient {
 			evidence: [ 	{ coding: { value: "C0030664", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "pathology"}},
 							{ coding: { value: "C0011923", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "imaging"}},
 							{ coding: { value: "C1457887", codeSystem: "http://ncimeta.nci.nih.gov", displayText: "symptoms"}} ],
-			assessmentType: { coding: { value: "#progression"}},
+			assessmentType: { coding: { value: "#disease status"}},
 			status: "completed",
 			originalCreationDate: "15 MAY 2017",
 			lastUpdateDate: "15 MAY 2017"
@@ -822,7 +822,7 @@ class Patient {
 			"value": { "coding": statusCoding },
 			"clinicallyRelevantTime": today,
 			"evidence": reasonCodings,
-			"assessmentType": { "coding": { "value": "#progression"}},
+			"assessmentType": { "coding": { "value": "#disease status"}},
 			"status": "unknown",
 			"originalCreationDate": today,
 			"lastUpdateDate": today

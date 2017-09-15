@@ -43,7 +43,7 @@ class ProgressionCreator extends CreatorShortcut {
     }
 
     getShortcutType() { 
-        return "#progression";
+        return "#disease status";
     }
 
     getStatusString(curProgression) { 
@@ -179,7 +179,7 @@ class ProgressionCreator extends CreatorShortcut {
 	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
-			errors.push("#progression invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
+			errors.push("#disease status invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
 		}
 		return errors;
 	}
@@ -205,8 +205,7 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-        return [ { name: "#progression", description: lookup.getDescription('progression') },
-                { name: "#disease status", description: lookup.getDescription('progression') }];
+        return [{ name: "#disease status", description: lookup.getDescription('progression') }];
 	}
     static getDescription() {
         return lookup.getDescription('progression')

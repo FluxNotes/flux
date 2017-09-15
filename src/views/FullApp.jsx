@@ -15,7 +15,7 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
 
-		this.shortcuts = [ 	"#progression", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
+		this.shortcuts = [ 	"#disease status", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
         this.updateErrors = this.updateErrors.bind(this);
 		this.onContextUpdate = this.onContextUpdate.bind(this);

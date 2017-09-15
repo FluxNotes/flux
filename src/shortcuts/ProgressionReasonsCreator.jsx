@@ -11,7 +11,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
         let reasonString = trigger.substring(1);
-		this.parentContext = contextManager.getActiveContextOfType("#progression");
+		this.parentContext = contextManager.getActiveContextOfType("#disease status");
         let currentReasons = this.parentContext.getAttributeValue("reasons");
         currentReasons.push(reasonString);
 		this.parentContext.setAttributeValue("reasons", currentReasons, false);
@@ -40,13 +40,13 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 
 	validateInCurrentContext(contextManager) {
 		let errors = [];
-		if (!contextManager.isContextOfTypeActive("#progression")) {
-			errors.push("Progression reason values invalid without #progression. Use #progression to add a new progression to your narrative.");
+		if (!contextManager.isContextOfTypeActive("#disease status")) {
+			errors.push("Disease status reason values invalid without #disease status. Use #disease status to add a new disease status to your narrative.");
             return errors;
 		}
-		let parentContext = contextManager.getActiveContextOfType("#progression");
+		let parentContext = contextManager.getActiveContextOfType("#disease status");
 		if (parentContext.getAttributeValue("reasons").length > lookup.getReasonOptions().length) {
-			errors.push("Progression reason values all already specified. Each reason value is allowed once per progression.");
+			errors.push("Disease status reason values all already specified. Each reason value is allowed once per disease status.");
 		}
 		return errors;
 	}
