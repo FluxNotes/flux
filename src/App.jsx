@@ -15,7 +15,8 @@ class App extends Component {
     
         this.views = new ViewManager().getSupportedViews();
         this.logPageView = () => {
-            ReactGA.pageview(window.location.hash);
+            ReactGA.set({ page: window.location.pathname + window.location.search });
+            ReactGA.pageview(window.location.pathname + window.location.search);
         }
 
     }
