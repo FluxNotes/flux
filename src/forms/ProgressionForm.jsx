@@ -143,7 +143,7 @@ class ProgressionForm extends Component {
                 </p>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Status of disease</h4>
+                <h4 className="header-spacing">Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
                     <span className="helper-text"> Choose one</span>
