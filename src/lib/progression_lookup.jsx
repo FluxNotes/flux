@@ -18,11 +18,13 @@ const reasonOptions = [
 exports.getDescription = (dataElement) => {
    switch(dataElement) {
    case "progression": 
-      return "Determination of disease progression is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
+      return "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
    case "status":
       return "Based on on the patient data available to the clinician at the time of evaluation.";
    case "reason": 
       return "Rationale for the choice of status."
+   case "referenceDate":
+      return "The date of the event that disease status is being assessed relative to."
    default: 
       return `Asking for a description for ${dataElement}; one has not been defined.`
    }

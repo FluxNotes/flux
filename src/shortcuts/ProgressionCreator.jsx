@@ -24,6 +24,7 @@ class ProgressionCreator extends CreatorShortcut {
 		this.setValueObject(this.progression);
         this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.state = { resetReferenceDate: false }
     }
 
     initialize(contextManager, trigger) {
@@ -43,7 +44,7 @@ class ProgressionCreator extends CreatorShortcut {
     }
 
     getShortcutType() { 
-        return "#progression";
+        return "#disease status";
     }
 
     getStatusString(curProgression) { 
@@ -77,36 +78,59 @@ class ProgressionCreator extends CreatorShortcut {
 
     getDateString(curProgression) { 
         let dateString;
-        if (!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
-            dateString = ` #as of #${this.progression.clinicallyRelevantTime}`;
+        // TODO: Check with Mark about these dates
+        if (!Lang.isUndefined(curProgression.originalCreationDate)) {
+            const formattedDate = this.formatDateToDDMMYYYY(curProgression.originalCreationDate);
+            dateString = ` #as of #${formattedDate}`;
         } else {
             dateString = ``;
         }
         return dateString
     }
     
+    getReferenceDateString(curProgression) {
+        let dateString;
+        if(!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
+            const formattedDate = this.formatDateToDDMMYYYY(curProgression.clinicallyRelevantTime);
+            dateString = ` relative to #reference date #${formattedDate}`;
+        } else {
+            dateString = ``;
+        }
+        return dateString;
+    }
+    
+    // This convert date format from D MMM YYYY to MM/DD/YYYY
+    // @param date is a string of a date in D MMM YYYY format
+    formatDateToDDMMYYYY(date) {
+        let reformattedDate = new Date(date);
+        let day = reformattedDate.getDate();
+        let month = reformattedDate.getMonth() + 1;
+        const year = reformattedDate.getFullYear();
+        if(day < 10) {
+            day = `0${day}`;
+        }
+        if(month < 10) {
+            month = `0${month}`;
+        }
+        reformattedDate = `${month}/${day}/${year}`;
+        return reformattedDate;
+    }
+    
     getAsString() { 
-        if(Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0) { 
-            // 1. No status -- this case we just want a hash
-            if(Lang.isEmpty(this.progression.evidence)) { 
-                return `#progression`;
-            } else {    
-                // No status but reasons -- show what we can and provide blank for status 
-                const statusString = this.getStatusString(this.progression);
-                let reasonString   = this.getReasonString(this.progression);
-                if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
-                let dateString     = this.getDateString(this.progression);
-                if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
-                return `#progression${statusString}${reasonString}${dateString}`;
-            } 
-        } else { 
+        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0)
+            && Lang.isEmpty(this.progression.evidence)
+            && !this.state.resetReferenceDate) {
+            // No value or status or updated reference date, return just the hash
+            return `#disease status`;
+        } else {
             const statusString = this.getStatusString(this.progression);
             let reasonString   = this.getReasonString(this.progression);
             if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
             let dateString     = this.getDateString(this.progression);
             if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
+            let refDateString = this.getReferenceDateString(this.progression);
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#progression${statusString}${reasonString}${dateString}`;
+            return `#disease status${statusString}${reasonString}${refDateString}${dateString}`;
         }
     }
     
@@ -137,6 +161,9 @@ class ProgressionCreator extends CreatorShortcut {
 			Patient.updateReasonsForProgression(this.progression, value);
 		} else if (name === "asOfDate") {
             Patient.updateAsOfDateForProgression(this.progression, value);
+        } else if (name === "referenceDate") {
+            this.state.resetReferenceDate = true;
+            Patient.updateReferenceDateForProgression(this.progression, value);
         } else {
 			console.error("Error: Unexpected value selected for progression: " + name);
 			return;
@@ -155,6 +182,9 @@ class ProgressionCreator extends CreatorShortcut {
                 return e.coding.displayText;
             });
 		} else if (name === "asOfDate") {
+            // TODO: Check with Mark on this
+            return this.progression.originalCreationDate;
+        } else if (name === "referenceDate") {
             return this.progression.clinicallyRelevantTime;
         } else {
 			console.error("Error: Unexpected value requested for progression: " + name);
@@ -179,7 +209,7 @@ class ProgressionCreator extends CreatorShortcut {
 	validateInCurrentContext(contextManager) {
 		let errors = [];
 		if (!contextManager.isContextOfTypeWithValueOfTypeActive("@condition", "http://standardhealthrecord.org/oncology/BreastCancer")) {
-			errors.push("#progression invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
+			errors.push("#disease status invalid without a breast cancer condition. Use @condition to add the breast cancer condition to your narrative.");
 		}
 		return errors;
 	}
@@ -205,7 +235,7 @@ class ProgressionCreator extends CreatorShortcut {
 		return this.getShortcutType();
 	}
 	static getTriggers() {
-		return [{ name: "#progression", description: lookup.getDescription('progression') }];
+        return [{ name: "#disease status", description: lookup.getDescription('progression') }];
 	}
     static getDescription() {
         return lookup.getDescription('progression')

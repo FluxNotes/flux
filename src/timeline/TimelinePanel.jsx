@@ -75,7 +75,7 @@ class TimelinePanel extends Component {
         },
         legendItems: [
           {icon: 'hospital-o', description: 'Medical procedures'},
-          {icon: 'heartbeat', description: 'Key events and disease progression'}
+          {icon: 'heartbeat', description: 'Key events and disease status'}
         ],
         hoverItem: {
           title: '',

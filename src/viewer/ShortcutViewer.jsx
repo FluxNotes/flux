@@ -27,37 +27,40 @@ class ShortcutViewer extends Component {
         return (
             <CopyToClipboard text={string}>
                 <div id="copy-component">
-                    <Button raised className="btn_copy"
-                            style={{
-                                textTransform: "none",
-                                justifyContent: 'left',
-                                minWidth: "99.8%",
-                                height: "45px",
-                                padding: "5px 0 4px 0",
-                                backgroundColor: "white"
-                            }}
+                    <Button 
+                        raised 
+                        className="btn_copy"
+                        style={{
+                            textTransform: "none",
+                            justifyContent: 'left',
+                            minWidth: "99.8%",
+                            minHeight: "45px",
+                            padding: "5px 0 4px 0",
+                            backgroundColor: "white"
+                        }}
                     >
                         <div id="copy-keyword">
                             Copy
                         </div>
                         <div id="copy-content">
-                            {string}
+                            <p> 
+                                {string}
+                            </p>
                         </div>
                     </Button>
-                    <span className="helper-text">When finished selecting values, click on the copy button above and then paste into a note within your EHR</span>
+                    <span className="helper-text-multi-line">When finished selecting values, click on the copy button above and then paste into a note within your EHR</span>
                 </div>
             </CopyToClipboard>
         );
     }
 
     render() {
-        let string = "";
         let copyComponent = null;
         let panelContent = null;
 
         // If there is a currentShortcut, use it in the copy component
         if (this.props.currentShortcut) {
-            string = this.props.currentShortcut.getAsString();
+            const string = this.props.currentShortcut.getAsString();
             copyComponent = this._getCopyComponent(string);
         }
 
@@ -65,9 +68,8 @@ class ShortcutViewer extends Component {
         if (!Lang.isNull(this.props.currentShortcut)) {
             //panelContent = this.props.currentShortcut.getForm();
             const formSpec = this.props.currentShortcut.getFormSpec();
-            /* eslint-disable no-eval */
-            panelContent = React.createElement(eval("forms." + formSpec.tagName), formSpec.props, formSpec.children);
-            /* eslint-enable no-eval */
+            const currentForm = forms[formSpec.tagName]
+            panelContent = React.createElement(currentForm, formSpec.props, formSpec.children);
         } else {
             panelContent = this._getInitialState();
         }
@@ -80,7 +82,6 @@ class ShortcutViewer extends Component {
                     </div>
                     {copyComponent}
                 </div>
-
             </div>
         )
     }

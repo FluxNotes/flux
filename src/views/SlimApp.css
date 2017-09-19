@@ -4,6 +4,7 @@
 /* Restricts app to max fixed width for very wide screens. */
 .SlimApp-content {
     background-color: white;
+    font-size:0.93rem;
     /*64 px is the height of the nav bar*/
     height: calc(100vh - 64px);
     padding: 0 0;
@@ -56,5 +57,10 @@
 }
 
 .header-spacing {
-    margin-top: 80px !important;
+    margin-top: 60px;
+}
+@media (max-width: 992px) { 
+    .header-spacing {
+        margin-top: 45px;
+    }
 }

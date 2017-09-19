@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
 import './ProgressionForm.css';
+
 
 class ProgressionForm extends Component {
     constructor(props) {
@@ -61,6 +64,43 @@ class ProgressionForm extends Component {
             }
         }
     }
+    
+    handleDateSelection = (event) => {
+        const date = event.target.value;
+        const formattedDate = new moment(date).format('D MMM YYYY');
+        this.props.updateValue("referenceDate", formattedDate);
+    }
+
+    renderStatusButtonGroup = (status, i) => { 
+        const marginSize = "10px";
+        const statusName = status.name;
+        const statusDescription = status.description;
+        const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+
+        return (
+            <div key={statusName} className="tooltip">
+                <span id={statusName} className={tooltipClass}>{statusDescription}</span>
+                    <Button raised
+                    key={i}
+                    label={statusName}
+                    onClick={(e) => this.handleStatusSelection(e, i)}
+                    className="button_disabled_is_selected"
+                    style={{
+                        marginBottom: marginSize,
+                        marginLeft:   marginSize,
+                        height: "75px",
+                        width: "180px",
+                        padding: "20px 0 20px 0",
+                        backgroundColor: "white",
+                        textTransform: "none"
+                    }}
+                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                >{statusName}
+                </Button>
+            </div>
+        );
+    }
+
 
     renderReasonButtonGroup = (reason, i) => {
 
@@ -91,9 +131,10 @@ class ProgressionForm extends Component {
     }
 
     render() {
+        const today = new moment().format('YYYY-MM-DD');
         return (
             <div>
-                <h1>Disease Progression</h1>
+                <h1>Disease Status</h1>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
                     <br/>
@@ -102,7 +143,7 @@ class ProgressionForm extends Component {
                 </p>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Status of progression</h4>
+                <h4 className="header-spacing">Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
                     <span className="helper-text"> Choose one</span>
@@ -110,35 +151,7 @@ class ProgressionForm extends Component {
 
                 <div className="btn-group-status-progression">
                     {this.state.statusOptions.map((status, i) => {
-                        let marginSize = "10px";
-                        if(i === 0){
-                            marginSize = "0px";
-                        }
-                        let statusName = status.name;
-                        let statusDescription = status.description;
-                        const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
-
-                        return (
-                            <div key={statusName} className="tooltip">
-                                <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                                    <Button raised
-                                    key={i}
-                                    label={statusName}
-                                    onClick={(e) => this.handleStatusSelection(e, i)}
-                                    className="button_disabled_is_selected"
-                                    style={{
-                                        margin: marginSize,
-                                        height: "75px",
-                                        width: "180px",
-                                        padding: "20px 0 20px 0",
-                                        backgroundColor: "white",
-                                        textTransform: "none"
-                                    }}
-                                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
-                                >{statusName}
-                                </Button>
-                            </div>
-                        );
+                        return this.renderStatusButtonGroup(status, i)
                     })}
                 </div>
 
@@ -153,6 +166,18 @@ class ProgressionForm extends Component {
                         return this.renderReasonButtonGroup(reason, i)
                     })}
                 </div>
+                
+                <h4 className="header-spacing">Reference Date</h4>
+                <p id="data-element-description">
+                    {progressionLookup.getDescription("referenceDate")}
+                    <span className="helper-text"> mm/dd/yyyy</span>
+                </p>
+                <TextField
+                    id="reference-date"
+                    type="date"
+                    defaultValue={today}
+                    onChange={this.handleDateSelection}
+                />
             </div>
         );
     }

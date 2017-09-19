@@ -1,5 +1,5 @@
 testing. unknown patient.
 
-#progression is #Complete Response  based on #Physical exam, #Markers, #Pathology
+#disease status is #Complete Response  based on #Physical exam, #Markers, #Pathology
 
 more text. more stuff. no extra hash tags!

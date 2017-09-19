@@ -10,7 +10,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		super.initialize(contextManager, trigger);
 		this.text = trigger;
         let statusString = trigger.substring(1);
-		this.parentContext = contextManager.getActiveContextOfType("#progression");
+		this.parentContext = contextManager.getActiveContextOfType("#disease status");
 		this.parentContext.setAttributeValue("status", statusString, false);
         this.parentContext.addChild(this);
 	}
@@ -34,13 +34,13 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 
 	validateInCurrentContext(contextManager) {
 		let errors = [];
-		if (!contextManager.isContextOfTypeActive("#progression")) {
-			errors.push("Progression Status values invalid without #progression. Use #progression to add a new progression to your narrative.");
+		if (!contextManager.isContextOfTypeActive("#disease status")) {
+			errors.push("Disease Status values invalid without #disease status. Use #disease status to add a new disease status to your narrative.");
             return errors;
 		}
-		let parentContext = contextManager.getActiveContextOfType("#progression");
+		let parentContext = contextManager.getActiveContextOfType("#disease status");
 		if (parentContext.getAttributeValue("status").length > 0) {
-			errors.push("Progression status value already specified. Only one status value allowed per progression.");
+			errors.push("Disease status value already specified. Only one status value allowed per #disease status.");
 		}
 		return errors;
 	}

@@ -10,7 +10,7 @@ export default class DateCreator extends CreatorShortcut {
         super.initialize(contextManager, trigger);
         this.text = trigger;
         let dateString = trigger.substring(1);
-        this.parentContext = contextManager.getActiveContextOfType("#progression");
+        this.parentContext = contextManager.getActiveContextOfType("#disease status");
         this.parentContext.setAttributeValue("asOfDate", dateString, false);
         this.parentContext.addChild(this);
     }

@@ -2,6 +2,6 @@ Invasive ductal carcinoma of breast
 
 #staging #T2 #N0 #M0
 
-#progression #Stable #Pathology and #Symptoms
+#disease status #Stable #Pathology and #Symptoms
 
 #toxicity #Thrombotic thrombocytopenic purpura #Grade 3 attributed to #Disease 

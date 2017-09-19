@@ -20,6 +20,7 @@
 
 .grade-menu-item .grade-menu-item-name { 
     margin: 0 0 0 20px;
+    min-width: 95px;
     display: inline-block;
 }
 
@@ -38,7 +39,7 @@
 .grade-menu-item .grade-menu-item-description { 
     margin: 0 20px 0 0;
     display: inline-block;
-    max-width: 80%;
+    max-width: 75%;
 }
 
 .grade-menu-item.selected { 
@@ -61,12 +62,15 @@
 
 .adverse-event-suggestion .adverse-event-suggestion-name {
     margin: 0 0 0 0px;
+    font-size: 0.85rem;
+    word-wrap: break-word;
     width: 20%;
     display: inline-block;
 }
 
 .adverse-event-suggestion .adverse-event-suggestion-description {
     width: 70%;
+    font-size: 0.85rem;
     margin: 0 0px 0 0;
     display: inline-block;
 }
