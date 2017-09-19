@@ -8,6 +8,6 @@ export default class AgeInserter extends InserterShortcut {
         return "@age";
     }
 	static getTriggers() {
-		return [ {name:"@age", description: "Patient's age"} ];
+		return [ {name:"@age", description: "Patient's age in years as of today"} ];
 	}
 }

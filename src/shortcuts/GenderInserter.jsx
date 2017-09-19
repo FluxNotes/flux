@@ -8,6 +8,6 @@ export default class GenderInserter extends InserterShortcut {
         return "@gender";
     }
 	static getTriggers() {
-		return [{name: "@gender", description: "Patient's gender"} ];
+		return [{name: "@gender", description: "Patient’s gender classification for administrative purposes (may differ from biological, clinical, or gender identity)"} ];
 	}
 }
