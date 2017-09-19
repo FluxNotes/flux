@@ -79,7 +79,6 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('bold', 'fa-bold ')}
                 {this.renderMarkButton('italic', 'fa-italic')}
                 {this.renderMarkButton('underlined', 'fa-underline')}
-                {this.renderMarkButton('code', 'fa-code')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
             </div>
@@ -109,7 +108,6 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('bold', 'fa-bold ')}
                 {this.renderMarkButton('italic', 'fa-italic')}
                 {this.renderMarkButton('underlined', 'fa-underline')}
-                {this.renderMarkButton('code', 'fa-code')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
                 {content}
