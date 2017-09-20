@@ -113,6 +113,15 @@ class ContextManager {
 	getPatientContext() {
 		return this.patientContext;
 	}
+    
+    getCurrentContext() {
+        const mostRecentContext = this.activeContexts[0];
+        if (!Lang.isUndefined(mostRecentContext) || !Lang.isNull(mostRecentContext)) {
+            return mostRecentContext;
+        } else {
+            return this.patientContext;
+        }
+    }
 }
 
 export default ContextManager;

@@ -469,7 +469,7 @@ class Patient {
         this.nextEntryId = this.nextEntryId + 1;
         entry.focalSubject = this.patientFocalSubject;
         let today = new moment().format("D MMM YYYY");
-        entry.originalCreationDate = today;
+        entry.originalCreationDate = null;
         entry.lastUpdateDate = today;
         this.patient.push(entry);
     }
@@ -824,7 +824,7 @@ class Patient {
 			"evidence": reasonCodings,
 			"assessmentType": { "coding": { "value": "#disease status"}},
 			"status": "unknown",
-			"originalCreationDate": today,
+			"originalCreationDate": null,
 			"lastUpdateDate": today
 		};
     }
