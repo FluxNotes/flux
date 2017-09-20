@@ -27,7 +27,7 @@ export default class ConditionInserter extends InserterShortcut {
 	}
     
 	static getTriggers() {
-		return [ {name: "@condition", description: "Conditions on patient's record"} ];
+		return [ {name: "@condition", description: "Prompts you to choose an active condition from the patient’s record"} ];
 	}
     getShortcutType() { 
         return "@condition";

@@ -10,6 +10,6 @@ export default class DateOfBirthInserter extends InserterShortcut {
         return "@dateOfbirth";
     }
 	static getTriggers() {
-		return [{name: "@dateofbirth", description: "Patient's date of birth"}];
+		return [{name: "@dateofbirth", description: "Patient's date of birth in DD.MMM.YYYY format (e.g., 5 APR 1966)"}];
 	}
 }
