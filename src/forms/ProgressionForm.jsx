@@ -67,7 +67,10 @@ class ProgressionForm extends Component {
 
     handleDateSelection = (event) => {
         const date = event.target.value;
-        const formattedDate = new moment(date).format('D MMM YYYY');
+        let formattedDate = null;
+        if (date) {
+            formattedDate = new moment(date).format('D MMM YYYY');
+        }
         this.props.updateValue("referenceDate", formattedDate);
     }
 
