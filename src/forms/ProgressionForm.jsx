@@ -130,7 +130,29 @@ class ProgressionForm extends Component {
         )
     }
 
+    // formatDate converts javascript date format to YYYY-MM-DD
+    // @param date is a string of a date in D MMM YYYY format
+    // Source: https://stackoverflow.com/questions/23593052/format-javascript-date-to-yyyy-mm-dd
+    formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
     render() {
+        const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
+        var formattedClinicallyRelevantTime = null;
+
+        if (clinicallyRelevantTime != null) {
+            formattedClinicallyRelevantTime = this.formatDate(clinicallyRelevantTime);
+        }
+
         return (
             <div>
                 <h1>Disease Status</h1>
@@ -174,7 +196,7 @@ class ProgressionForm extends Component {
                 <TextField
                     id="reference-date"
                     type="date"
-                    defaultValue={this.props.progression.clinicallyRelevantTime}
+                    defaultValue={formattedClinicallyRelevantTime}
                     onChange={this.handleDateSelection}
                 />
             </div>
