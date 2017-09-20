@@ -139,7 +139,7 @@ class ProgressionForm extends Component {
                     {progressionLookup.getDescription("progression")}
                     <br/>
                     <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a href="progressionSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
 
