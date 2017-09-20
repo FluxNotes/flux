@@ -820,7 +820,7 @@ class Patient {
 			"entryType":	[	"http://standardhealthrecord.org/oncology/Progression",
 							"http://standardhealthrecord.org/assessment/Assessment" ],			
 			"value": { "coding": statusCoding },
-			"clinicallyRelevantTime": today,
+			"clinicallyRelevantTime": null,
 			"evidence": reasonCodings,
 			"assessmentType": { "coding": { "value": "#disease status"}},
 			"status": "unknown",
