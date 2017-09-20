@@ -134,7 +134,7 @@ class ProgressionForm extends Component {
     // @param date is a string of a date in D MMM YYYY format
     // Source: https://stackoverflow.com/questions/23593052/format-javascript-date-to-yyyy-mm-dd
     formatDate(date) {
-        var d = new Date(date),
+        let d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
             year = d.getFullYear();
