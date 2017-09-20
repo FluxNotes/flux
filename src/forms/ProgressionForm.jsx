@@ -64,14 +64,17 @@ class ProgressionForm extends Component {
             }
         }
     }
-    
+
     handleDateSelection = (event) => {
         const date = event.target.value;
-        const formattedDate = new moment(date).format('D MMM YYYY');
+        let formattedDate = null;
+        if (date) {
+            formattedDate = new moment(date).format('D MMM YYYY');
+        }
         this.props.updateValue("referenceDate", formattedDate);
     }
 
-    renderStatusButtonGroup = (status, i) => { 
+    renderStatusButtonGroup = (status, i) => {
         const marginSize = "10px";
         const statusName = status.name;
         const statusDescription = status.description;
@@ -131,7 +134,13 @@ class ProgressionForm extends Component {
     }
 
     render() {
-        const today = new moment().format('YYYY-MM-DD');
+        const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
+        var formattedClinicallyRelevantTime = null;
+
+        if (clinicallyRelevantTime != null) {
+            formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format("YYYY-MM-DD");
+        }
+
         return (
             <div>
                 <h1>Disease Status</h1>
@@ -166,7 +175,7 @@ class ProgressionForm extends Component {
                         return this.renderReasonButtonGroup(reason, i)
                     })}
                 </div>
-                
+
                 <h4 className="header-spacing">Reference Date</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("referenceDate")}
@@ -175,7 +184,7 @@ class ProgressionForm extends Component {
                 <TextField
                     id="reference-date"
                     type="date"
-                    defaultValue={today}
+                    defaultValue={formattedClinicallyRelevantTime}
                     onChange={this.handleDateSelection}
                 />
             </div>

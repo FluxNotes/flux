@@ -90,7 +90,7 @@ class ProgressionCreator extends CreatorShortcut {
     
     getReferenceDateString(curProgression) {
         let dateString;
-        if(!Lang.isUndefined(curProgression.clinicallyRelevantTime)) {
+        if(curProgression.clinicallyRelevantTime) {
             const formattedDate = this.formatDateToDDMMYYYY(curProgression.clinicallyRelevantTime);
             dateString = ` relative to #reference date #${formattedDate}`;
         } else {
