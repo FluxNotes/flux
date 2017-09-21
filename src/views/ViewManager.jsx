@@ -4,15 +4,16 @@ import SlimApp from './SlimApp';
 class ViewManager {
     constructor() {
         this.views = [{
-                path: '/',
-                display: 'Flux Notes Lite',
+                path: '/patina',
+                shortcuts: ['Disease Status', 'Toxicity'],
+                display: 'Flux Notes Lite (for PATINA endpoints)',
                 app: SlimApp,
                 isExact: true
             }, {
                 path: '/patient',
                 display: 'Flux Notes Patient View',
                 app: FullApp,
-                isExact: false
+                isExact: true
             }
         ];
     }
