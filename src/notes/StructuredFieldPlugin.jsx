@@ -2,7 +2,6 @@ import InserterShortcut from '../shortcuts/InserterShortcut';
 import React from 'react';
 import Slate from 'slate';
 import getWindow from 'get-window';
-import Lang from 'lodash';
 
 function createOpts(opts) {
     opts = opts || {};
@@ -83,16 +82,16 @@ function StructuredFieldPlugin(opts) {
         //console.log("onPaste");
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;
         
+        //console.log(html);
         let fragment = null;
         if (
             !fragment &&
             html &&
             ~html.indexOf(' flux-string="')
         ) {
-            const matches = FRAGMENT_MATCHER.exec(html)
-            const [ full, encoded ] = matches // eslint-disable-line no-unused-vars
-            if (encoded) fragment = encoded
-            //console.log(encoded);
+            const matches = FRAGMENT_MATCHER.exec(html);
+            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
+            if (encoded) fragment = encoded;
             const decoded = window.decodeURIComponent(window.atob(encoded));
             //console.log(decoded);
             
@@ -132,7 +131,7 @@ function StructuredFieldPlugin(opts) {
                 result += blk.text;
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
-                if (shortcut instanceof InserterShortcut && Lang.isArray(shortcut.determineText(contextManager))) {
+                if (shortcut instanceof InserterShortcut) { //&& Lang.isArray(shortcut.determineText(contextManager))
                     result += `${shortcut.getShortcutType()}[[${shortcut.getText()}]]`;
                 } else {
                     result += shortcut.getText();
@@ -151,22 +150,18 @@ function StructuredFieldPlugin(opts) {
         //console.log("onCopy");        
         let { selection } = state;
    
-        const window = getWindow(event.target)
-        const native = window.getSelection()
-        const { endBlock, endInline } = state
-        const isVoidBlock = endBlock && endBlock.isVoid
-        const isVoidInline = endInline && endInline.isVoid
-        const isVoid = isVoidBlock || isVoidInline
+        const window = getWindow(event.target);
+        const native = window.getSelection();
+        const { endBlock, endInline } = state;
+        const isVoidBlock = Boolean(endBlock && endBlock.isVoid);
+        const isVoidInline = Boolean(endInline && endInline.isVoid);
+        const isVoid = isVoidBlock || isVoidInline;
 
         // If the selection is collapsed, and it isn't inside a void node, abort.
-        if (native.isCollapsed && !isVoid) return
+        if (native.isCollapsed && !isVoid) return;
 
-        //const { fragment } = data
-        //const encoded = Slate.Base64.serializeNode
         let fluxString = convertToText(state, selection);
-        //console.log(fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
-        //console.log(encoded);
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
         let attach = contents.childNodes[0];
@@ -174,60 +169,66 @@ function StructuredFieldPlugin(opts) {
         // If the end node is a void node, we need to move the end of the range from
         // the void node's spacer span, to the end of the void node's content.
         if (isVoid) {
-          const r = range.cloneRange()
-          const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline)
-          r.setEndAfter(node)
-          contents = r.cloneContents()
-          attach = contents.childNodes[contents.childNodes.length - 1].firstChild
+            //console.log("isVoid: " + isVoid);
+            const r = range.cloneRange();
+            const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline);
+            r.setEndAfter(node);
+            contents = r.cloneContents();
+            attach = contents.childNodes[contents.childNodes.length - 1].firstChild;
         }
 
         // Remove any zero-width space spans from the cloned DOM so that they don't
         // show up elsewhere when pasted.
-        const zws = [].slice.call(contents.querySelectorAll('[data-slate-zero-width]'))
-        zws.forEach(zw => zw.parentNode.removeChild(zw))
+        const zws = [].slice.call(contents.querySelectorAll('[data-slate-zero-width]'));
+        zws.forEach(zw => zw.parentNode.removeChild(zw));
 
         // COMPAT: In Chrome and Safari, if the last element in the selection to
         // copy has `contenteditable="false"` the copy will fail, and nothing will
         // be put in the clipboard. So we remove them all. (2017/05/04)
         if (Slate.IS_CHROME || Slate.IS_SAFARI) {
-          const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'))
-          els.forEach(el => el.removeAttribute('contenteditable'))
+          const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
+          els.forEach(el => el.removeAttribute('contenteditable'));
         }
 
         // Set a `flux-string` attribute on a non-empty node, so it shows up
         // in the HTML, and can be used for intra-Slate pasting. If it's a text
         // node, wrap it in a `<span>` so we have something to set an attribute on.
         if (attach.nodeType === 3) {
-          const span = window.document.createElement('span')
-          span.appendChild(attach)
-          contents.appendChild(span)
-          attach = span
+            //console.log("node type: " + attach.nodeType);
+            const span = window.document.createElement('span');
+            span.appendChild(attach);
+            contents.appendChild(span);
+            attach = span;
         }
 
         //'data-slate-fragment'
-        attach.setAttribute('flux-string', encoded)
+        attach.setAttribute('flux-string', encoded);
+        if (contents.childNodes.length > 1) {
+            contents.childNodes[1].setAttribute('flux-string', encoded);
+        }
+        //console.log(attach);
 
         // Add the phony content to the DOM, and select it, so it will be copied.
-        const body = window.document.querySelector('body')
-        const div = window.document.createElement('div')
-        div.setAttribute('contenteditable', true)
-        div.style.position = 'absolute'
-        div.style.left = '-9999px'
-        div.appendChild(contents)
-        body.appendChild(div)
+        const body = window.document.querySelector('body');
+        const div = window.document.createElement('div');
+        div.setAttribute('contenteditable', true);
+        div.style.position = 'absolute';
+        div.style.left = '-9999px';
+        div.appendChild(contents);
+        body.appendChild(div);
 
         // COMPAT: In Firefox, trying to use the terser `native.selectAllChildren`
         // throws an error, so we use the older `range` equivalent. (2016/06/21)
-        const r = window.document.createRange()
-        r.selectNodeContents(div)
-        native.removeAllRanges()
-        native.addRange(r)
+        const r = window.document.createRange();
+        r.selectNodeContents(div);
+        native.removeAllRanges();
+        native.addRange(r);
 
         // Revert to the previous selection right after copying.
         window.requestAnimationFrame(() => {
-          body.removeChild(div)
-          native.removeAllRanges()
-          native.addRange(range)
+          body.removeChild(div);
+          native.removeAllRanges();
+          native.addRange(range);
         })
         return state;
     }
