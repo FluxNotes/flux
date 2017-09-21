@@ -11,7 +11,7 @@ class ViewManager {
                 isExact: true
             }, {
                 path: '/patient',
-                display: 'Flux Notes Patient View',
+                display: 'Flux Notes',
                 app: FullApp,
                 isExact: true
             }

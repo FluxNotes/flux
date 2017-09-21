@@ -105,7 +105,7 @@ class FullApp extends Component {
     render() {
         return (
                 <div className="FullApp">
-                    <NavBar title="Flux Notes" supportLogin={true} menuItems={this.menuItems}/>
+                    <NavBar title={this.props.display} supportLogin={true} menuItems={this.menuItems}/>
                     <Grid className="FullApp-content" fluid>
                         <Row center="xs">
                             <Col sm={4}>
