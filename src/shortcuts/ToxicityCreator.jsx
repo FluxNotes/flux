@@ -123,7 +123,8 @@ class ToxicityCreator extends CreatorShortcut {
                     tagName: 'ToxicityForm',
                     props:  {   
                                 updateValue: this.setAttributeValue,
-                                toxicity: this.toxicity
+                                toxicity: this.toxicity,
+                                ...this.configuration
                             },
                     children: []
                 };

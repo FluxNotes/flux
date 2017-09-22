@@ -10,8 +10,9 @@ import './SlimApp.css';
 class SlimApp extends Component {
     constructor(props) {
         super(props);
+        //console.log(props);
 
-        this.shortcuts = [ "#disease status", "#toxicity" ];
+        this.shortcuts = []; // not currently used
         this.shortcutManager = new ShortcutManager(this.shortcuts);
 
         this.state = {
@@ -24,6 +25,10 @@ class SlimApp extends Component {
      */
     changeShortcut = (shortcutType) => {
         const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut("#" + shortcutType.toLowerCase(), this.handleShortcutUpdate);
+        if (newShortcut) {
+            newShortcut.setConfiguration((this.props.shortcutConfigurations) ? 
+                    this.props.shortcutConfigurations[shortcutType] : {});
+        }
         this.setState({
             currentShortcut: newShortcut
         });
@@ -39,7 +44,7 @@ class SlimApp extends Component {
     render() {
         return (
                 <div className="SlimApp">
-                    <NavBar title="Flux Notes Lite" supportLogin={false}/>
+                    <NavBar title={this.props.display} supportLogin={false}/>
                     <Grid className="SlimApp-content" fluid>
                         <div id="forms-panel">
                             <Row center="xs">
@@ -47,7 +52,7 @@ class SlimApp extends Component {
                                     {/*No need for formsearch right now*/}
                                     {/*<FormSearch />*/}
                                     <FormList
-                                        shortcuts={['About Flux Notes Lite', 'Disease Status', 'Toxicity']}
+                                        shortcuts={['About Flux Notes Lite'].concat(this.props.shortcuts)} //, 'Disease Status', 'Toxicity'
                                         currentShortcut={this.state.currentShortcut}
                                         changeShortcut={this.changeShortcut}
                                     />
