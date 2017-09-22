@@ -292,6 +292,7 @@ class FluxNotesEditor extends React.Component {
         
         const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted);
         if (!Lang.isNull(triggers)) {
+            console.log(triggers);
             triggers.forEach((trigger) => {
                 start = remainder.indexOf(trigger);
                 if (start > 0) {
@@ -310,19 +311,6 @@ class FluxNotesEditor extends React.Component {
                 transform = this.insertShortcut(trigger, after, transform);
             });
         }
-/*        let regExp = new RegExp("([@#][\\w\\-,\\s]+[#@])", "i");
-        let result = regExp.exec(itemToBeInserted);
-        while (!Lang.isNull(result)) {
-            start = remainder.indexOf(result[0]);
-            before = remainder.substring(0, start);
-            remainder = remainder.substring(start + result[0].length);
-            transform = transform
-                .insertText(before);
-            // strip trailing # or @ from trigger in result[0];
-            transform = this.insertShortcut(result[0].substring(0, result[0].length - 1), transform);
-            result = regExp.exec(remainder);
-        }*/
-
 
         if (remainder.length > 0) {
             transform = transform.insertText(remainder);
