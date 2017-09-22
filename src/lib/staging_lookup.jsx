@@ -96,9 +96,9 @@ exports.getDescription = (dataElement) => {
     switch(dataElement.toLowerCase()) {
     case "tnmstage": 
         return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
-    case "tumorSize":
+    case "tumorsize":
         return "Describes the original (primary) tumor.";
-    case "nodeSize": 
+    case "nodesize": 
         return "Describes the degree to which the cancer has reached nearby lymph nodes.";
     case "metastasis": 
         return "Whether or not the cancer has spread to other parts of the body.";
