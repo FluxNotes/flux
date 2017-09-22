@@ -495,11 +495,13 @@ class Patient {
 	
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
+		if (Lang.isNull(personOfRecord)) return null;
 		return new moment(personOfRecord.dateOfBirth, "D MMM YYYY");
 	}
 	
 	getAge() {
 		let personOfRecord = this.getPersonOfRecord();
+		if (Lang.isNull(personOfRecord)) return null;
 		var today = new Date();
 		var birthDate = new Date(personOfRecord.dateOfBirth);
 		var age = today.getFullYear() - birthDate.getFullYear();
@@ -512,6 +514,7 @@ class Patient {
 	
 	getGender() {
 		let personOfRecord = this.getPersonOfRecord();
+		if (Lang.isNull(personOfRecord)) return null;
 		return personOfRecord.administrativeGender;
 	}
 	
