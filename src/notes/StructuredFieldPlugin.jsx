@@ -1,5 +1,8 @@
+import InserterShortcut from '../shortcuts/InserterShortcut';
 import React from 'react';
 import Slate from 'slate';
+import Lang from 'lodash';
+import getWindow from 'get-window';
 
 function createOpts(opts) {
     opts = opts || {};
@@ -13,6 +16,7 @@ function StructuredFieldPlugin(opts) {
 	opts = createOpts(opts);
     let contextManager = opts.contextManager;
 	let updateErrors = opts.updateErrors;
+    let insertText = opts.insertText;
         
     function onChange(state, editor) {
         var deletedKeys = [];
@@ -72,12 +76,220 @@ function StructuredFieldPlugin(opts) {
 			}
 		]
 	};
-    		
+    
+    const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
+
+    function onPaste(event, data, state, editor) {
+        //console.log("onPaste");
+        const html = data.html || null; //event.clipboardData.getData('text/html') || null;
+        
+        //console.log(html);
+        let fragment = null;
+        if (
+            !fragment &&
+            html &&
+            ~html.indexOf(' flux-string="')
+        ) {
+            const matches = FRAGMENT_MATCHER.exec(html);
+            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
+            if (encoded) fragment = encoded;
+            const decoded = window.decodeURIComponent(window.atob(encoded));
+            //console.log(decoded);
+            
+            // because insertion of shortcuts into the context relies on the current selection, during a paste
+            // we override the routine that checks the location of a structured field relative to the selection
+            // since we know we are inserting from left to right always. Make sure we restore the normal method
+            // when done
+            // NoteParser also overrides this function since there is no slate
+            const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
+            contextManager.setIsBlock1BeforeBlock2(() => { return false; });
+            insertText(decoded);
+            contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
+            event.preventDefault();
+            return state;
+        }
+    }
+    
+    function onCut(event, data, state, editor) {
+        //console.log("onCut");
+        this.onCopy(event, data, state, editor); // doesn't change state
+        const window = getWindow(event.target)
+
+        // Once the fake cut content has successfully been added to the clipboard,
+        // delete the content in the current selection.
+        let next;
+        window.requestAnimationFrame(() => {
+            next = editor
+                .getState()
+                .transform()
+                .delete()
+                .apply();
+
+            editor.onChange(next);
+        });
+        return state;
+    }
+    
+    function convertBlocksToText(state, blocks, startOffset, endOffset) {
+        let result = "", start, end;
+        blocks.forEach((blk, index) => {
+            start = (index === 0) ? start = startOffset : start = 0;
+            end = (index === blocks.length - 1) ? end = endOffset : end = -1;
+            if (blk.kind === 'block' && blk.type === 'line') {
+                result += '\r';
+            } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
+                result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
+            } else if (blk.kind === 'text') {
+                result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
+            } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
+                let shortcut = blk.data.get("shortcut");
+                if (shortcut instanceof InserterShortcut) { //&& Lang.isArray(shortcut.determineText(contextManager))
+                    result += `${shortcut.getShortcutType()}[[${shortcut.getText()}]]`;
+                } else {
+                    result += shortcut.getText();
+                }
+            }
+        });
+        return result;
+    }
+
+    function convertToText(state, selection) {
+        //console.log(selection);
+        const startBlock = state.document.getDescendant(selection.startKey);
+        const startOffset = selection.startOffset;
+        const endOffset = selection.endOffset;
+        let blocks = [];
+        const endKey = selection.endKey;
+        let block = startBlock;
+        let parentBlock, curKey;
+        do {
+            if (block.kind === 'text') {
+                parentBlock = state.document.getParent(block.key);
+                if (parentBlock.kind === 'inline' && parentBlock.type === 'structured_field') {
+                    block = parentBlock;
+                }
+            }
+            
+            blocks.push(block);
+            //console.log(block);
+            curKey = block.key;
+            if (curKey !== endKey) {
+                block = state.document.getNextSibling(curKey);
+                if (Lang.isUndefined(block)) {
+                    block = state.document.getParent(curKey);
+                    if (block.kind === 'block' && block.type === 'line') {
+                        blocks.push(block);
+                        block = state.document.getNextSibling(block.key);
+                        //console.log(block);
+                        if (block) block = block.getFirstText(); // 1st child
+                    }
+                }
+            } else {
+                block = undefined;
+            }
+        } while (block && block.key !== endKey);
+        if (block) blocks.push(block);
+        //console.log(blocks);
+        return convertBlocksToText(state, blocks, startOffset, endOffset);
+    }
+
+    function onCopy(event, data, state, editor) {
+        //console.log("onCopy");
+        let { selection } = state;
+   
+        const window = getWindow(event.target);
+        const native = window.getSelection();
+        const { endBlock, endInline } = state;
+        const isVoidBlock = Boolean(endBlock && endBlock.isVoid);
+        const isVoidInline = Boolean(endInline && endInline.isVoid);
+        const isVoid = isVoidBlock || isVoidInline;
+
+        // If the selection is collapsed, and it isn't inside a void node, abort.
+        if (native.isCollapsed && !isVoid) return;
+
+        //console.log(state.document);
+        let fluxString = convertToText(state, selection);
+        //console.log("copy: " + fluxString);
+        const encoded = window.btoa(window.encodeURIComponent(fluxString));
+        const range = native.getRangeAt(0);
+        let contents = range.cloneContents();
+        let attach = contents.childNodes[0];
+
+        // If the end node is a void node, we need to move the end of the range from
+        // the void node's spacer span, to the end of the void node's content.
+        if (isVoid) {
+            //console.log("isVoid: " + isVoid);
+            const r = range.cloneRange();
+            const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline);
+            r.setEndAfter(node);
+            contents = r.cloneContents();
+            attach = contents.childNodes[contents.childNodes.length - 1].firstChild;
+        }
+
+        // Remove any zero-width space spans from the cloned DOM so that they don't
+        // show up elsewhere when pasted.
+        const zws = [].slice.call(contents.querySelectorAll('[data-slate-zero-width]'));
+        zws.forEach(zw => zw.parentNode.removeChild(zw));
+
+        // COMPAT: In Chrome and Safari, if the last element in the selection to
+        // copy has `contenteditable="false"` the copy will fail, and nothing will
+        // be put in the clipboard. So we remove them all. (2017/05/04)
+        if (Slate.IS_CHROME || Slate.IS_SAFARI) {
+          const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
+          els.forEach(el => el.removeAttribute('contenteditable'));
+        }
+
+        // Set a `flux-string` attribute on a non-empty node, so it shows up
+        // in the HTML, and can be used for intra-Slate pasting. If it's a text
+        // node, wrap it in a `<span>` so we have something to set an attribute on.
+        if (attach.nodeType === 3) {
+            //console.log("node type: " + attach.nodeType);
+            const span = window.document.createElement('span');
+            span.appendChild(attach);
+            contents.appendChild(span);
+            attach = span;
+        }
+
+        //'data-slate-fragment'
+        attach.setAttribute('flux-string', encoded);
+        if (contents.childNodes.length > 1) {
+            contents.childNodes[1].setAttribute('flux-string', encoded);
+        }
+        //console.log(attach);
+
+        // Add the phony content to the DOM, and select it, so it will be copied.
+        const body = window.document.querySelector('body');
+        const div = window.document.createElement('div');
+        div.setAttribute('contenteditable', true);
+        div.style.position = 'absolute';
+        div.style.left = '-9999px';
+        div.appendChild(contents);
+        body.appendChild(div);
+
+        // COMPAT: In Firefox, trying to use the terser `native.selectAllChildren`
+        // throws an error, so we use the older `range` equivalent. (2016/06/21)
+        const r = window.document.createRange();
+        r.selectNodeContents(div);
+        native.removeAllRanges();
+        native.addRange(r);
+
+        // Revert to the previous selection right after copying.
+        window.requestAnimationFrame(() => {
+          body.removeChild(div);
+          native.removeAllRanges();
+          native.addRange(range);
+        })
+        return state;
+    }
+		
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
         onChange,
+        onCut,
+        onCopy,
+        onPaste,
         schema,
 		
         utils: {
