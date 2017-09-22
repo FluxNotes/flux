@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
 import './ProgressionForm.css';
@@ -10,7 +11,7 @@ import './ProgressionForm.css';
 class ProgressionForm extends Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
@@ -140,6 +141,25 @@ class ProgressionForm extends Component {
         if (clinicallyRelevantTime != null) {
             formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format("YYYY-MM-DD");
         }
+        
+        let referenceDateSection = null;
+        if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
+            referenceDateSection = (
+                <div>
+                    <h4 className="header-spacing">Reference Date</h4>
+                    <p id="data-element-description">
+                        {progressionLookup.getDescription("referenceDate")}
+                        <span className="helper-text"> mm/dd/yyyy</span>
+                    </p>
+                    <TextField
+                        id="reference-date"
+                        type="date"
+                        defaultValue={formattedClinicallyRelevantTime}
+                        onChange={this.handleDateSelection}
+                    />
+                </div>
+            );
+        }
 
         return (
             <div>
@@ -176,17 +196,7 @@ class ProgressionForm extends Component {
                     })}
                 </div>
 
-                <h4 className="header-spacing">Reference Date</h4>
-                <p id="data-element-description">
-                    {progressionLookup.getDescription("referenceDate")}
-                    <span className="helper-text"> mm/dd/yyyy</span>
-                </p>
-                <TextField
-                    id="reference-date"
-                    type="date"
-                    defaultValue={formattedClinicallyRelevantTime}
-                    onChange={this.handleDateSelection}
-                />
+                {referenceDateSection}
             </div>
         );
     }

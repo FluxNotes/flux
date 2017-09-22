@@ -16,9 +16,9 @@ class App extends Component {
                 <div>
                     {this.views.map((viewObject, i) => {
                         if (viewObject.isExact) { 
-                            return <Route exact path={viewObject.path} component={withTracker(viewObject.app)} key={i}/>
+                            return <Route exact path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
                         } else { 
-                            return <Route path={viewObject.path} component={withTracker(viewObject.app)} key={i}/>
+                            return <Route path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
                         }
                     })}
                 </div>

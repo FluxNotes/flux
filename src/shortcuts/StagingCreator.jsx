@@ -113,7 +113,8 @@ class StagingCreator extends CreatorShortcut {
                     tagName: 'StagingForm',
                     props:  {   
                                 updateValue: this.setAttributeValue,
-                                staging: this.staging
+                                staging: this.staging,
+                                ...this.configuration
                             },
                     children: []
                 };
