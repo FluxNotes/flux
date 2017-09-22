@@ -146,17 +146,17 @@ class ProgressionForm extends Component {
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
             referenceDateSection = (
                 <div>
-                <h4 className="header-spacing">Reference Date</h4>
-                <p id="data-element-description">
-                    {progressionLookup.getDescription("referenceDate")}
-                    <span className="helper-text"> mm/dd/yyyy</span>
-                </p>
-                <TextField
-                    id="reference-date"
-                    type="date"
-                    defaultValue={formattedClinicallyRelevantTime}
-                    onChange={this.handleDateSelection}
-                />
+                    <h4 className="header-spacing">Reference Date</h4>
+                    <p id="data-element-description">
+                        {progressionLookup.getDescription("referenceDate")}
+                        <span className="helper-text"> mm/dd/yyyy</span>
+                    </p>
+                    <TextField
+                        id="reference-date"
+                        type="date"
+                        defaultValue={formattedClinicallyRelevantTime}
+                        onChange={this.handleDateSelection}
+                    />
                 </div>
             );
         }

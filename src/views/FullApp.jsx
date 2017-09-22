@@ -15,28 +15,28 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
 
-		this.shortcuts = [ 	"#disease status", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
+        this.shortcuts = [  "#disease status", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
         this.updateErrors = this.updateErrors.bind(this);
-		this.onContextUpdate = this.onContextUpdate.bind(this);
-		
-		let patient = new Patient();
-		this.summaryMetadata = new SummaryMetadata();
-		this.shortcutManager = new ShortcutManager(this.shortcuts);
-		this.contextManager = new ContextManager(patient, this.onContextUpdate);		
+        this.onContextUpdate = this.onContextUpdate.bind(this);
+        
+        let patient = new Patient();
+        this.summaryMetadata = new SummaryMetadata();
+        this.shortcutManager = new ShortcutManager(this.shortcuts);
+        this.contextManager = new ContextManager(patient, this.onContextUpdate);        
 
-	    this.state = {
+        this.state = {
             SummaryItemToInsert: '',
             selectedText: null,
-			summaryMetadata: this.summaryMetadata.getMetadata(),
+            summaryMetadata: this.summaryMetadata.getMetadata(),
             patient: patient
-			//contextManager: this.contextManager			
+            //contextManager: this.contextManager           
         };
     }
-	
-	onContextUpdate = () => {
+    
+    onContextUpdate = () => {
         this.setState({contextManager: this.contextManager});
-	}
+    }
     
     updateErrors(errors) {
         this.setState({errors: errors});
@@ -47,23 +47,23 @@ class FullApp extends Component {
     }
     
     newCurrentShortcut = (shortcutType, obj) => {
-		let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
-		const errors = newShortcut.validateInCurrentContext(this.contextManager);
-		if (errors.length > 0) {
-			errors.forEach((error) => {
-				console.error(error);
-			});
-			newShortcut = null;
-		} else {
-			newShortcut.initialize(this.contextManager, shortcutType);
-		}
+        let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
+        const errors = newShortcut.validateInCurrentContext(this.contextManager);
+        if (errors.length > 0) {
+            errors.forEach((error) => {
+                console.error(error);
+            });
+            newShortcut = null;
+        } else {
+            newShortcut.initialize(this.contextManager, shortcutType);
+        }
         this.updateErrors(errors);
-		return newShortcut;
+        return newShortcut;
     }
-	
+    
     handleShortcutUpdate = (s) =>{
-		let p = this.state.patient;
-		s.updatePatient(p, this.contextManager);
+        let p = this.state.patient;
+        s.updatePatient(p, this.contextManager);
     }
 
     handleStructuredFieldEntered = (field) => {
@@ -100,8 +100,10 @@ class FullApp extends Component {
         console.log("new note");
     }
     
-    menuItems = [   {label: "New Note", action: this.handleNewNote.bind(this)}
-                ];
+    menuItems = [   
+        {label: "New Note", action: this.handleNewNote.bind(this)}
+    ];
+    
     render() {
         return (
                 <div className="FullApp">
@@ -114,21 +116,21 @@ class FullApp extends Component {
                                     onItemClicked={this.handleSummaryItemSelected}
                                     // Properties
                                     allowItemClick={true}
-									summaryMetadata={this.state.summaryMetadata}
+                                    summaryMetadata={this.state.summaryMetadata}
                                     patient={this.state.patient}
                                 />
                             </Col>
                             <Col sm={5}>
                                 <FluxNotesEditor
                                     onSelectionChange={this.handleSelectionChange}
-									newCurrentShortcut={this.newCurrentShortcut}
+                                    newCurrentShortcut={this.newCurrentShortcut}
                                     itemInserted={this.itemInserted}
                                     itemToBeInserted={this.state.SummaryItemToInsert}
                                     patient={this.state.patient}
-									contextManager={this.contextManager}
-									shortcutManager={this.shortcutManager}
+                                    contextManager={this.contextManager}
+                                    shortcutManager={this.shortcutManager}
                                     updateErrors={this.updateErrors}
-									errors={this.state.errors}
+                                    errors={this.state.errors}
                                 />
                             </Col>
                             <Col sm={3}>
@@ -137,7 +139,7 @@ class FullApp extends Component {
                                     // Properties
                                     ref={(comp) => { this.contextTray = comp; }}
                                     patient={this.state.patient}
-									contextManager={this.contextManager}
+                                    contextManager={this.contextManager}
                                     onShortcutClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>
