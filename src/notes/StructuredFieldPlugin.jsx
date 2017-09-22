@@ -144,20 +144,27 @@ function StructuredFieldPlugin(opts) {
 
     function convertToText(state, selection) {
         //console.log(selection);
-        //const blocksInSelection = state.document.getBlocksAtRange(selection);
         const startBlock = state.document.getDescendant(selection.startKey);
-        //const endBlock = state.document.getDescendant(selection.endKey);
         const startOffset = selection.startOffset;
         const endOffset = selection.endOffset;
         let blocks = [];
-        //let key = selection.startKey;
         const endKey = selection.endKey;
         let block = startBlock;
+        let parentBlock;
         do {
+            if (block.kind === 'text') {
+                parentBlock = state.document.getParent(block.key);
+                if (parentBlock.kind === 'inline' && parentBlock.type === 'structured_field') {
+                    block = parentBlock;
+                }
+            }
+            
             blocks.push(block);
+            //console.log(block);
             block = state.document.getNextSibling(block.key);
         } while (block && block.key !== endKey);
         if (block) blocks.push(block);
+        //console.log(blocks);
         return convertBlocksToText(state, blocks, startOffset, endOffset);
     }
 
@@ -175,6 +182,7 @@ function StructuredFieldPlugin(opts) {
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
 
+        //console.log(state.document);
         let fluxString = convertToText(state, selection);
         //console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
