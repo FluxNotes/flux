@@ -25,7 +25,10 @@ class SlimApp extends Component {
      */
     changeShortcut = (shortcutType) => {
         const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut("#" + shortcutType.toLowerCase(), this.handleShortcutUpdate);
-        newShortcut.setConfiguration((this.props.shortcutConfigurations) ? this.props.shortcutConfigurations[shortcutType] : {});
+        if (newShortcut) {
+            newShortcut.setConfiguration((this.props.shortcutConfigurations) ? 
+                    this.props.shortcutConfigurations[shortcutType] : {});
+        }
         this.setState({
             currentShortcut: newShortcut
         });
