@@ -279,7 +279,22 @@ class FluxNotesEditor extends React.Component {
             this.props.itemInserted();
         }
     }
+    
+    insertNewLine = (transform) => {
+        return transform
+          .splitBlock();
+    }
 
+    insertPlainText = (transform, text) => {
+        let returnIndex = text.indexOf("\r");
+        if (returnIndex >= 0) {
+            let result = this.insertPlainText(transform, text.substring(0, returnIndex));
+            result = this.insertNewLine(result);
+            return this.insertPlainText(result, text.substring(returnIndex + 1));
+        } else {
+            return transform.insertText(text);
+        }
+    }
     /*
      * Handle updates when we have a new
      */
@@ -296,8 +311,8 @@ class FluxNotesEditor extends React.Component {
                 start = remainder.indexOf(trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
-                    transform = transform
-                        .insertText(before);
+                    //transform = transform.insertText(before);
+                    transform = this.insertPlainText(transform, before);
                 }
                 remainder = remainder.substring(start + trigger.length);
                 if (remainder.startsWith("[[")) {
@@ -312,7 +327,8 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (remainder.length > 0) {
-            transform = transform.insertText(remainder);
+            //transform = transform.insertText(remainder);
+            transform = this.insertPlainText(transform, remainder);
         }
         state = transform.focus().apply();
         this.setState({state: state});

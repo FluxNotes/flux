@@ -1,6 +1,7 @@
 import InserterShortcut from '../shortcuts/InserterShortcut';
 import React from 'react';
 import Slate from 'slate';
+import Lang from 'lodash';
 import getWindow from 'get-window';
 
 function createOpts(opts) {
@@ -134,7 +135,9 @@ function StructuredFieldPlugin(opts) {
         blocks.forEach((blk, index) => {
             start = (index === 0) ? start = startOffset : start = 0;
             end = (index === blocks.length - 1) ? end = endOffset : end = -1;
-            if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
+            if (blk.kind === 'block' && blk.type === 'line') {
+                result += '\r';
+            } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
                 result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
             } else if (blk.kind === 'text') {
                 result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
@@ -158,7 +161,7 @@ function StructuredFieldPlugin(opts) {
         let blocks = [];
         const endKey = selection.endKey;
         let block = startBlock;
-        let parentBlock;
+        let parentBlock, curKey;
         do {
             if (block.kind === 'text') {
                 parentBlock = state.document.getParent(block.key);
@@ -169,7 +172,21 @@ function StructuredFieldPlugin(opts) {
             
             blocks.push(block);
             //console.log(block);
-            block = state.document.getNextSibling(block.key);
+            curKey = block.key;
+            if (curKey !== endKey) {
+                block = state.document.getNextSibling(curKey);
+                if (Lang.isUndefined(block)) {
+                    block = state.document.getParent(curKey);
+                    if (block.kind === 'block' && block.type === 'line') {
+                        blocks.push(block);
+                        block = state.document.getNextSibling(block.key);
+                        //console.log(block);
+                        if (block) block = block.getFirstText(); // 1st child
+                    }
+                }
+            } else {
+                block = undefined;
+            }
         } while (block && block.key !== endKey);
         if (block) blocks.push(block);
         //console.log(blocks);
@@ -177,7 +194,7 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
-        //console.log("onCopy");        
+        //console.log("onCopy");
         let { selection } = state;
    
         const window = getWindow(event.target);
