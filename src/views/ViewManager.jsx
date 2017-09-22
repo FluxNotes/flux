@@ -8,6 +8,9 @@ class ViewManager {
                 shortcuts: ['Disease Status', 'Toxicity'],
                 display: 'Flux Notes Lite (for PATINA endpoints)',
                 app: SlimApp,
+                shortcutConfigurations: {
+                    'Disease Status': { referenceDateEnabled: false }
+                },
                 isExact: true
             }, {
                 path: '/patient',

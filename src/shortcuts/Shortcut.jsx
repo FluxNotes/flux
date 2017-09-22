@@ -16,6 +16,10 @@ class Shortcut extends Context {
         super.initialize(contextManager);
 	}
 
+    setConfiguration(config) {
+        this.configuration = config;
+    }
+
 	getPrefixCharacter() {
 		throw new TypeError("Primitive shortcut has no prefix character")
 	}

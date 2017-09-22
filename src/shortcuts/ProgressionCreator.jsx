@@ -143,12 +143,14 @@ class ProgressionCreator extends CreatorShortcut {
         );      
     }
 */
+
     getFormSpec() {
         return  {
                     tagName: 'ProgressionForm',
                     props:  {   
                                 updateValue: this.setAttributeValue,
-                                progression: this.progression
+                                progression: this.progression,
+                                ...this.configuration
                             },
                     children: []
                 };
