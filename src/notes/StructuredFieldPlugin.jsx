@@ -118,17 +118,18 @@ function StructuredFieldPlugin(opts) {
 
             editor.onChange(next);
         });
-        //return next;
         return state;
     }
     
-    function convertBlocksToText(state, blocks) {
-        let result = "";
-        blocks.forEach((blk) => {
+    function convertBlocksToText(state, blocks, startOffset, endOffset) {
+        let result = "", start, end;
+        blocks.forEach((blk, index) => {
+            start = (index === 0) ? start = startOffset : start = 0;
+            end = (index === blocks.length - 1) ? end = endOffset : end = -1;
             if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
-                result += convertBlocksToText(state, blk.nodes);
+                result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
             } else if (blk.kind === 'text') {
-                result += blk.text;
+                result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
                 if (shortcut instanceof InserterShortcut) { //&& Lang.isArray(shortcut.determineText(contextManager))
@@ -142,8 +143,22 @@ function StructuredFieldPlugin(opts) {
     }
 
     function convertToText(state, selection) {
-        const blocksInSelection = state.document.getBlocksAtRange(selection);
-        return convertBlocksToText(state, blocksInSelection);
+        //console.log(selection);
+        //const blocksInSelection = state.document.getBlocksAtRange(selection);
+        const startBlock = state.document.getDescendant(selection.startKey);
+        //const endBlock = state.document.getDescendant(selection.endKey);
+        const startOffset = selection.startOffset;
+        const endOffset = selection.endOffset;
+        let blocks = [];
+        //let key = selection.startKey;
+        const endKey = selection.endKey;
+        let block = startBlock;
+        do {
+            blocks.push(block);
+            block = state.document.getNextSibling(block.key);
+        } while (block && block.key !== endKey);
+        if (block) blocks.push(block);
+        return convertBlocksToText(state, blocks, startOffset, endOffset);
     }
 
     function onCopy(event, data, state, editor) {
@@ -161,6 +176,7 @@ function StructuredFieldPlugin(opts) {
         if (native.isCollapsed && !isVoid) return;
 
         let fluxString = convertToText(state, selection);
+        //console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
