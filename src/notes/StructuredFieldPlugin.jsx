@@ -95,7 +95,15 @@ function StructuredFieldPlugin(opts) {
             const decoded = window.decodeURIComponent(window.atob(encoded));
             //console.log(decoded);
             
+            // because insertion of shortcuts into the context relies on the current selection, during a paste
+            // we override the routine that checks the location of a structured field relative to the selection
+            // since we know we are inserting from left to right always. Make sure we restore the normal method
+            // when done
+            // NoteParser also overrides this function since there is no slate
+            const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
+            contextManager.setIsBlock1BeforeBlock2(() => { return false; });
             insertText(decoded);
+            contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
             return state;
         }

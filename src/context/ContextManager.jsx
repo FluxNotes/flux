@@ -14,6 +14,10 @@ class ContextManager {
         this.isBlock1BeforeBlock2 = isBlock1BeforeBlock2;
     }
     
+    getIsBlock1BeforeBlock2() {
+        return this.isBlock1BeforeBlock2;
+    }
+    
 	getActiveContexts() {
 		return this.activeContexts;
 	}
