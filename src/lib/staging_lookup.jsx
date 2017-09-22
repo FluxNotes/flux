@@ -92,8 +92,9 @@ const table7thEdition = [
 ];
 
 exports.getDescription = (dataElement) => {
-    switch(dataElement) {
-    case "TNMStage": 
+    if(typeof(dataElement) !== 'string') {return null;}
+    switch(dataElement.toLowerCase()) {
+    case "tnmstage": 
         return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
     case "tumorSize":
         return "Describes the original (primary) tumor.";
@@ -101,10 +102,10 @@ exports.getDescription = (dataElement) => {
         return "Describes the degree to which the cancer has reached nearby lymph nodes.";
     case "metastasis": 
         return "Whether or not the cancer has spread to other parts of the body.";
-    case "prognosticStage":
+    case "prognosticstage":
         return "Describes the severity of the cancer based on the magnitude of the original (primary) tumor, as well as the extent to which cancer has spread in the body.";
     default: 
-        return `Asking for a description for ${dataElement}; one has not been defined.`
+        return null;
     }
 }
 
