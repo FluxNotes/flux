@@ -9,10 +9,7 @@ export default class DateCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.text = trigger;
-        let dateString = trigger.substring(1);
         this.parentContext = contextManager.getCurrentContext();
-        this.parentContext.setAttributeValue("date", dateString, false);
-        this.parentContext.addChild(this);
     }
     
     onBeforeDeleted() {
@@ -22,6 +19,10 @@ export default class DateCreator extends CreatorShortcut {
             this.parentContext.removeChild(this);
         }
         return result;
+    }
+    
+    determineText(contextManager) { //JULIA Fix
+        return [{key: 'date-id', context: 'some text to show you', object: 'a date'}];
     }
     
     getText() {
@@ -40,7 +41,7 @@ export default class DateCreator extends CreatorShortcut {
     static getTriggers() {
         const today = new moment().format("D MMM YYYY");
         // TODO: name will need to be a regular expression of date format instead of just today's date
-        let result = [{name: `#${today}`, description: "A date."}];
+        let result = [{name: `#date`, description: "A date."}];
         return result;
     }
     

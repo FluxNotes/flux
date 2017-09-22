@@ -142,6 +142,8 @@ class FluxNotesEditor extends React.Component {
         const shortcut = this.props.newCurrentShortcut(suggestion.value.name);
         
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+            // JULIA
+            // console.log("A")
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
@@ -157,6 +159,7 @@ class FluxNotesEditor extends React.Component {
         let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
+                // console.log("C")
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();
                 portalOptions.forEach((option) => {
@@ -168,6 +171,8 @@ class FluxNotesEditor extends React.Component {
                 shortcut.clearValueSelectionOptions();
                 return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
             } else {
+                // JULIA
+                // console.log("B")
                 return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
             }
         } else {
@@ -435,6 +440,7 @@ class FluxNotesEditor extends React.Component {
                             trigger={"@"}
                             onChange={this.onChange}
                             isOpened={this.state.isPortalOpen}
+                            contextManager={this.contextManager}
                         />
                     </div>
                 </Paper>
