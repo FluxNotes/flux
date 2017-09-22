@@ -1,3 +1,5 @@
 Debra Hernandez672 is presenting with carcinoma of the breast.
 
-#disease status #stable based on #imaging and #physical exam
+#disease status is #stable based on #imaging and #physical exam #as of #09/22/2017
+
+
