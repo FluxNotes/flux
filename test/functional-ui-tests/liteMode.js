@@ -32,7 +32,7 @@ test('Clicking about button puts us back on landing page', async t => {
 fixture('Lite Mode - Progression') 
     .page(startPage)
     .beforeEach( async t => { 
-        await t.click("Disease\\ Status");
+        await t.click("#Disease\\ Status");
     });
 test('Changing progression status via button updates copy-content', async t => {
     const statusButtons = Selector('.btn-group-status-progression').find("span[class^='MuiButton-label']");
