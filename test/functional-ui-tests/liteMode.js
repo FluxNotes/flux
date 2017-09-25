@@ -1,13 +1,18 @@
 import { Selector } from 'testcafe';
 
+const pageDomain = "http://localhost";
+const pagePort = "3000";
+const pageRoute = "/patina"
+
+const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
 fixture('Lite Mode - Landing') 
-    .page('http://localhost:3000');
+    .page(startPage);
 test('Clicking progression button puts us in progression mode', async t => { 
     await t
-        .click("#Progression")
+        .click("#Disease\\ Status")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
-        .eql("Disease Progression", `Current header doesn't reflect expected progression page header`);
+        .eql("Disease Status", `Current header doesn't reflect expected progression page header`);
 })
 test('Clicking toxicity button puts us in toxicity mode', async t => { 
     await t
@@ -25,9 +30,9 @@ test('Clicking about button puts us back on landing page', async t => {
 
 
 fixture('Lite Mode - Progression') 
-    .page('http://localhost:3000')
+    .page(startPage)
     .beforeEach( async t => { 
-        await t.click("#Progression");
+        await t.click("Disease\\ Status");
     });
 test('Changing progression status via button updates copy-content', async t => {
     const statusButtons = Selector('.btn-group-status-progression').find("span[class^='MuiButton-label']");
@@ -52,7 +57,7 @@ test('Changing progression rationale via button updates copy-content', async t =
 
 
 fixture('Lite Mode - Toxicity') 
-    .page('http://localhost:3000')
+    .page(startPage)
     .beforeEach( async t => { 
         await t.click("#Toxicity");
     });
@@ -62,7 +67,7 @@ test('Typing an adverseEvent updates copy-content', async t => {
         .typeText(adverseEventInput, "Anemia")
         .pressKey('enter')
         .expect(Selector("#copy-content").innerText)
-        .contains(await adverseEventInput.value);
+        .contains(await adverseEventInput.value);   
 });
 test('Selecting adverseEvent, then selecting a valid grade updates copy-content', async t => {
     const adverseEventInput = Selector('.react-autosuggest__input').nth(0);
