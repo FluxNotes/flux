@@ -76,11 +76,11 @@ class ProgressionCreator extends CreatorShortcut {
         return reasonString
     }
 
-    getDateString(curProgression) { 
+    getDateString(curProgression) {
         let dateString;
         // TODO: Check with Mark about these dates
-        if (!Lang.isUndefined(curProgression.originalCreationDate)) {
-            const formattedDate = this.formatDateToDDMMYYYY(curProgression.originalCreationDate);
+        if (curProgression.lastUpdateDate) {
+            const formattedDate = this.formatDateToDDMMYYYY(curProgression.lastUpdateDate);
             dateString = ` #as of #${formattedDate}`;
         } else {
             dateString = ``;
