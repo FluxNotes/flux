@@ -1,7 +1,6 @@
 import Lang from 'lodash';
 import CreatorShortcut from './CreatorShortcut';
 import DateCreator from './DateCreator';
-import Patient from '../patient/Patient';
 
 export default class ProgressionAsOfDateCreator extends CreatorShortcut {
     constructor(onUpdate, progression) {

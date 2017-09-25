@@ -144,12 +144,11 @@ class ContextPortal extends React.Component {
     
     handleCalendarSelect = (date) => {
         this.closePortal();
-        const context = { key: 'set-date-id', context: `#${date.format("MM/DD/YYYY")}`, object: date }; //JULIA check about object
+        const context = { key: 'set-date-id', context: `#${date.format("MM/DD/YYYY")}`, object: date };
         const dateParentContext = this.props.contextManager.getCurrentContext();
-        dateParentContext.setAttributeValue("date", date.format("MM/DD/YYYY"), false);
+        dateParentContext.setAttributeValue("date", date.format("D MMM YYYY"), false);
         const state = this.props.onSelected(this.props.state, context);
         this.props.onChange(state);
-        
     }
     
     renderListOptions = () => {

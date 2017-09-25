@@ -1,4 +1,3 @@
-import moment from 'moment';
 import CreatorShortcut from './CreatorShortcut';
 
 export default class DateCreator extends CreatorShortcut {
@@ -21,8 +20,9 @@ export default class DateCreator extends CreatorShortcut {
         return result;
     }
     
-    determineText(contextManager) { //JULIA Fix
-        return [{key: 'date-id', context: 'some text to show you', object: 'a date'}];
+    // This returns a placeholder object to trigger opening the Context Portal. Key:'date-id' opens calendar.
+    determineText(contextManager) {
+        return [{key: 'date-id', context: 'Placeholder for calendar', object: 'a date'}];
     }
     
     getText() {
@@ -39,8 +39,6 @@ export default class DateCreator extends CreatorShortcut {
     }
     
     static getTriggers() {
-        const today = new moment().format("D MMM YYYY");
-        // TODO: name will need to be a regular expression of date format instead of just today's date
         let result = [{name: `#date`, description: "A date."}];
         return result;
     }

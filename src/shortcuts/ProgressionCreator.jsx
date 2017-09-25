@@ -4,7 +4,6 @@ import CreatorShortcut from './CreatorShortcut';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
-import DateCreator from './DateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
