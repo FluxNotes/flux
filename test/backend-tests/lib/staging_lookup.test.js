@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import lookup from '../../../src/lib/staging_lookup';
+import lookup from '../../../src/lib/staging_lookup.jsx';
 
 
 describe('getDescription', function () { 

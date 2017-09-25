@@ -1,6 +1,6 @@
 import {expect} from 'chai';
-import staging from '../../../src/lib/staging';
-import lookup from '../../../src/lib/staging_lookup';
+import staging from '../../../src/lib/staging.jsx';
+import lookup from '../../../src/lib/staging_lookup.jsx';
 
 //Helpers
 function metastaticPermute(ts, ns) {

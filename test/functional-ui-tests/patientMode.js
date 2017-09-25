@@ -1,8 +1,15 @@
 import { Selector } from 'testcafe';
 import Patient from '../../src/patient/Patient.jsx';
 
+
+const pageDomain = "http://localhost";
+const pagePort = "3000";
+const pageRoute = "/patient"
+
+const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
+
 fixture('Patient Mode - Editor') 
-    .page('http://localhost:3000/patient');
+    .page(startPage);
 
 test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => { 
     const editor = Selector("div[data-slate-editor='true']");
@@ -15,8 +22,8 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
 })
 
 fixture('Patient Mode - Data Summary Panel') 
-    .page('http://localhost:3000/patient');
+    .page(startPage);
 
 fixture('Patient Mode - Timeline') 
-    .page('http://localhost:3000/patient');
+    .page(startPage);
 
