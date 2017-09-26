@@ -3,6 +3,7 @@ import {expect} from 'chai'
 
 const ViewManagerObj = new ViewManager();
 
+
 describe('getSupportedViews', function() { 
 
     it("should return an array", function () { 
@@ -30,7 +31,6 @@ describe('getSupportedViews', function() {
                 .to.have.property('path');
         }
     });
-
 
     it("should return manager's views, and each view should have display text", function () { 
         const views = ViewManagerObj.getSupportedViews();

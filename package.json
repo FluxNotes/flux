@@ -42,22 +42,23 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "eject": "react-scripts eject",
     "parse": "babel-node --presets es2015,react --plugins transform-class-properties,transform-es2015-destructuring,transform-object-rest-spread ./src/noteparser/app.js",
-    "test": "run-script-os",
-    "test:win32": "yarn test-backend:win32&&yarn test-ui:win32",
-    "test::darwin:linux": "yarn test-backend:darwin:linux && yarn test-ui:darwin:linux",
+    
+    "test":                 "run-script-os",
+    "test:win32":           "yarn test-backend:win32&&yarn test-ui:win32",
+    "test::darwin:linux":   "yarn test-backend:darwin:linux && yarn test-ui:darwin:linux",
 
-    "test-backend": "run-script-os",
-    "test-backend:win32": "set CI=true&&react-scripts test",
+    "test-backend":              "run-script-os",
+    "test-backend:win32":        "set CI=true&&react-scripts test",
     "test-backend:darwin:linux": "CI=true react-scripts test",
 
-    "test-ui": "run-script-os",
-    "test-ui:win32": "yarn test-ui-all",
+    "test-ui":              "run-script-os",
+    "test-ui:win32":        "yarn test-ui-all",
     "test-ui:darwin:linux": "yarn test-ui-chrome",
 
-    "test-ui-all": "testcafe chrome,ie ./test/functional-ui-tests/** --app \"yarn start\"",
-    "test-ui-chrome": "testcafe chrome ./test/functional-ui-tests/** --app \"yarn start\"",
-    "test-ui-ie": "testcafe ie ./test/functional-ui-tests/** --app \"yarn start\"",
-    "eject": "react-scripts eject"
+    "test-ui-all":      "testcafe chrome,ie ./test/ui/** --app \"yarn start\"",
+    "test-ui-chrome":   "testcafe chrome ./test/ui/** --app \"yarn start\"",
+    "test-ui-ie":       "testcafe ie ./test/ui/** --app \"yarn start\""
   }
 }

@@ -23,12 +23,20 @@ For more details on the technologies used see the wiki page at https://github.co
 
 A note parser can also be executed (local command line - not a web application) by (assuming the above Getting Started steps have been executed successfully):
 
-* Enter 'yarn parse <path to note txt file or directory of files>'
+* Enter `yarn parse <path to note txt file or directory of files>`
 
 For example:
-* Enter 'yarn parse ./src/noteparser/samples'
+* Enter `yarn parse ./src/noteparser/samples`
 
 will parse all the sample notes in the samples directory. To only parse note 4:
-* Enter 'yarn parse ./src/noteparser/samples/note4.txt'
+* Enter `yarn parse ./src/noteparser/samples/note4.txt`
 
 If a directory is specified, every file in that directory will be treated as a note and parsing will be attempted.
+
+## Testing 
+
+Tests suites now exist for testing both ui-components and back-end functionality. When testing before launching a pull request, users should go into the central project directory and run all tests available using: 
+    yarn test
+This command will determine the current machine's operating system and run all accordingly possible tests. When in development, individuals can run the front end tests with `yarn test-ui` and can run backend tests with `yarn test-backend`. These tests will also determine the machines OS and run specific tests/configure tests accordingly.
+
+**Regarding Front-End Tests**:  Ensure that all browsers' testing windows are open while the tests are running. TestCafe has been known to have some issues if those windows are minimized, possibly causing some tests to fail when they shouldn't. 
