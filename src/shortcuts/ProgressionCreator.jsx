@@ -208,14 +208,13 @@ class ProgressionCreator extends CreatorShortcut {
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
                 (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) ||
-                (this.getAttributeValue("asOfDate").length === 0); // TODO: This will be changed with RelevantDate shortcut
+                (this.getAttributeValue("asOf") !== true);
     }
     
 	getValidChildShortcuts() {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
-        //if (Lang.isNull(this.getAttributeValue("asOfDate"))) result.push(ProgressionAsOfDateCreator);
         if (this.getAttributeValue("asOf") !== true) result.push(ProgressionAsOfDateCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, ProgressionAsOfDateCreator ];
 	}
