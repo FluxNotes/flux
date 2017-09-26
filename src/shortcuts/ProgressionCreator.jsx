@@ -4,6 +4,7 @@ import CreatorShortcut from './CreatorShortcut';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
+import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
@@ -175,7 +176,7 @@ class ProgressionCreator extends CreatorShortcut {
 		} else if (name === "asOfDate") {
             // TODO: Check with Mark on this
             return this.progression.asOfDate;
-        } else if (name === "referenceDate") {
+        } else if (name === "reference") {
             return this.progression.clinicallyRelevantTime;
         } else {
 			console.error("Error: Unexpected value requested for progression: " + name);
@@ -215,6 +216,7 @@ class ProgressionCreator extends CreatorShortcut {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
+        if (this.getAttributeValue("reference") !== true) result.push(ProgressionReferenceDateCreator);
         if (this.getAttributeValue("asOf") !== true) result.push(ProgressionAsOfDateCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, ProgressionAsOfDateCreator ];
 	}
