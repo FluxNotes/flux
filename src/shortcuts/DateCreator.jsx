@@ -10,6 +10,7 @@ export default class DateCreator extends CreatorShortcut {
         this.text = trigger;
         this.parentContext = contextManager.getCurrentContext();
         this.parentContext.setAttributeValue("date", trigger.substring(1), false);
+        this.parentContext.addChild(this);
     }
     
     onBeforeDeleted() {

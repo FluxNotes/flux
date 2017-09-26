@@ -22,6 +22,7 @@ class ProgressionCreator extends CreatorShortcut {
             this.isProgressionNew = false;
         }
 		this.setValueObject(this.progression);
+        this.asOf = false;
         this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
         this.state = { resetReferenceDate: false }
@@ -161,6 +162,8 @@ class ProgressionCreator extends CreatorShortcut {
 			Patient.updateStatusForProgression(this.progression, value);
 		} else if (name === "reasons") {
 			Patient.updateReasonsForProgression(this.progression, value);
+        } else if (name === "asOf") {
+            this.asOf = value == true;
 		} else if (name === "asOfDate") {
             Patient.updateAsOfDateForProgression(this.progression, value);
         } else if (name === "referenceDate") {
@@ -183,6 +186,8 @@ class ProgressionCreator extends CreatorShortcut {
             return this.progression.evidence.map((e) => {
                 return e.coding.displayText;
             });
+        } else if (name === "asOf") {
+            return this.asOf === true;
 		} else if (name === "asOfDate") {
             // TODO: Check with Mark on this
             return this.progression.originalCreationDate;
@@ -226,7 +231,8 @@ class ProgressionCreator extends CreatorShortcut {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
-        if (Lang.isNull(this.getAttributeValue("asOfDate"))) result.push(ProgressionAsOfDateCreator);
+        //if (Lang.isNull(this.getAttributeValue("asOfDate"))) result.push(ProgressionAsOfDateCreator);
+        if (this.getAttributeValue("asOf") !== true) result.push(ProgressionAsOfDateCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, ProgressionAsOfDateCreator ];
 	}
 	

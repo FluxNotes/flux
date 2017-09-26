@@ -11,6 +11,7 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getActiveContextOfType("#disease status");
         if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.setAttributeValue("asOf", true, false);
             this.parentContext.addChild(this);
         }
     }
@@ -18,6 +19,7 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if (result) {
+            this.parentContext.setAttributeValue("asOf", false, false);
             this.parentContext.removeChild(this);
         }
         return result;
