@@ -18,6 +18,11 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: []
         };
     }
+    
+    componentWillMount() {
+        // Default the asOfDate to use in slim mode copy button
+        this.props.updateValue("asOfDate", new moment().format('D MMM YYYY'));
+    }
 
     currentlySelected(item, i) {
         return (item === i ? true : false);

@@ -144,9 +144,7 @@ class ContextPortal extends React.Component {
     
     handleCalendarSelect = (date) => {
         this.closePortal();
-        const context = { key: 'set-date-id', context: `#${date.format("MM/DD/YYYY")}`, object: date };
-        const dateParentContext = this.props.contextManager.getCurrentContext();
-        dateParentContext.setAttributeValue("date", date.format("D MMM YYYY"), false);
+        const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
         const state = this.props.onSelected(this.props.state, context);
         this.props.onChange(state);
     }
@@ -173,13 +171,14 @@ class ContextPortal extends React.Component {
     }
     
     renderCalendar = () => {
+        // NOTE: If setTimeout doesn't seem to be setting the focus correctly, try creating a separate component 
+        // that extends Calendar and has componentDidMount to set focus
         return (
-            <div>
-                <Calendar
-                    showDateInput={false}
-                    onSelect={this.handleCalendarSelect}
-                />
-            </div>
+            <Calendar
+                showDateInput={false}
+                onSelect={this.handleCalendarSelect}
+                ref={input => input && setTimeout(() => {input.focus()}, 100)}
+            />
         );
     }
     

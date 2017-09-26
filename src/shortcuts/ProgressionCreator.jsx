@@ -7,6 +7,7 @@ import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
+import moment from 'moment';
 
 
 class ProgressionCreator extends CreatorShortcut {
@@ -80,8 +81,8 @@ class ProgressionCreator extends CreatorShortcut {
     getDateString(curProgression) {
         let dateString;
         // TODO: Check with Mark about these dates
-        if (curProgression.lastUpdateDate) {
-            const formattedDate = this.formatDateToDDMMYYYY(curProgression.lastUpdateDate);
+        if (curProgression.asOfDate) {
+            const formattedDate = moment(curProgression.asOfDate, 'D MMM YYYY').format("MM/DD/YYYY");
             dateString = ` #as of #${formattedDate}`;
         } else {
             dateString = ``;
@@ -92,29 +93,12 @@ class ProgressionCreator extends CreatorShortcut {
     getReferenceDateString(curProgression) {
         let dateString;
         if(curProgression.clinicallyRelevantTime) {
-            const formattedDate = this.formatDateToDDMMYYYY(curProgression.clinicallyRelevantTime);
+            const formattedDate = moment(curProgression.clinicallyRelevantTime, 'D MMM YYYY').format('MM/DD/YYYY');
             dateString = ` relative to #reference date #${formattedDate}`;
         } else {
             dateString = ``;
         }
         return dateString;
-    }
-    
-    // This convert date format from D MMM YYYY to MM/DD/YYYY
-    // @param date is a string of a date in D MMM YYYY format
-    formatDateToDDMMYYYY(date) {
-        let reformattedDate = new Date(date);
-        let day = reformattedDate.getDate();
-        let month = reformattedDate.getMonth() + 1;
-        const year = reformattedDate.getFullYear();
-        if(day < 10) {
-            day = `0${day}`;
-        }
-        if(month < 10) {
-            month = `0${month}`;
-        }
-        reformattedDate = `${month}/${day}/${year}`;
-        return reformattedDate;
     }
     
     getAsString() { 
@@ -163,7 +147,7 @@ class ProgressionCreator extends CreatorShortcut {
 		} else if (name === "reasons") {
 			Patient.updateReasonsForProgression(this.progression, value);
         } else if (name === "asOf") {
-            this.asOf = value == true;
+            this.asOf = value === true;
 		} else if (name === "asOfDate") {
             Patient.updateAsOfDateForProgression(this.progression, value);
         } else if (name === "referenceDate") {
@@ -190,7 +174,7 @@ class ProgressionCreator extends CreatorShortcut {
             return this.asOf === true;
 		} else if (name === "asOfDate") {
             // TODO: Check with Mark on this
-            return this.progression.originalCreationDate;
+            return this.progression.asOfDate;
         } else if (name === "referenceDate") {
             return this.progression.clinicallyRelevantTime;
         } else {

@@ -194,7 +194,7 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
-        console.log("onCopy");
+        // console.log("onCopy");
         let { selection } = state;
    
         const window = getWindow(event.target);
@@ -209,7 +209,7 @@ function StructuredFieldPlugin(opts) {
 
         //console.log(state.document);
         let fluxString = convertToText(state, selection);
-        console.log("copy: " + fluxString);
+        // console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -255,7 +255,7 @@ function StructuredFieldPlugin(opts) {
         if (contents.childNodes.length > 1) {
             contents.childNodes[1].setAttribute('flux-string', encoded);
         }
-        console.log(attach);
+        // console.log(attach);
 
         // Add the phony content to the DOM, and select it, so it will be copied.
         const body = window.document.querySelector('body');

@@ -469,7 +469,8 @@ class Patient {
         this.nextEntryId = this.nextEntryId + 1;
         entry.focalSubject = this.patientFocalSubject;
         let today = new moment().format("D MMM YYYY");
-        entry.originalCreationDate = null;
+        entry.originalCreationDate = today;
+        entry.asOfDate = null;
         entry.lastUpdateDate = today;
         this.patient.push(entry);
     }
@@ -824,7 +825,8 @@ class Patient {
 			"evidence": reasonCodings,
 			"assessmentType": { "coding": { "value": "#disease status"}},
 			"status": "unknown",
-			"originalCreationDate": null,
+			"originalCreationDate": today,
+            "asOfDate": null,
 			"lastUpdateDate": today
 		};
     }
@@ -856,7 +858,7 @@ class Patient {
     
     static updateAsOfDateForProgression(progression, date) {
         // TODO: Check with Mark about what this should set
-        progression.originalCreationDate = date;
+        progression.asOfDate = date;
     }
     
     static updateReferenceDateForProgression(progression, date) {

@@ -56,12 +56,12 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
     }
     
     shouldBeInContext() {
-        return (Lang.isNull(this.parentContext.progression.originalCreationDate));
+        return (Lang.isNull(this.parentContext.progression.asOfDate));
     }
     
     getValidChildShortcuts() {
         let result = [];
-        if (Lang.isNull(this.parentContext.progression.originalCreationDate)) result.push(DateCreator);
+        if (Lang.isNull(this.parentContext.progression.asOfDate)) result.push(DateCreator);
         return result;
     }
     

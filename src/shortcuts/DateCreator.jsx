@@ -1,4 +1,5 @@
 import CreatorShortcut from './CreatorShortcut';
+import moment from 'moment';
 
 export default class DateCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
@@ -9,7 +10,6 @@ export default class DateCreator extends CreatorShortcut {
         super.initialize(contextManager, trigger);
         this.text = trigger;
         this.parentContext = contextManager.getCurrentContext();
-        this.parentContext.setAttributeValue("date", trigger.substring(1), false);
         this.parentContext.addChild(this);
     }
     
@@ -27,8 +27,17 @@ export default class DateCreator extends CreatorShortcut {
         return [{key: 'date-id', context: 'Placeholder for calendar', object: 'a date'}];
     }
     
+    setText(text) {
+        if (text.startsWith('#')) {
+            text = text.substring(1);
+        }
+        super.setText(text);
+        const formattedDate = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
+        this.parentContext.setAttributeValue("date", formattedDate, false);
+    }
+    
     getText() {
-        return this.text;
+        return `#${this.text}`;
     }
     
     getShortcutType() {
