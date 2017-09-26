@@ -26,7 +26,7 @@ exports.getDescription = (dataElement) => {
    case "referenceDate":
       return "The date of the event that disease status is being assessed relative to."
    default: 
-      return `Asking for a description for ${dataElement}; one has not been defined.`
+      return null;
    }
 }
 
