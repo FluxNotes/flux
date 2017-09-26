@@ -21,6 +21,7 @@
     "moment": "2.18.1",
     "positions": "1.6.1",
     "prop-types": "15.5.10",
+    "rc-calendar": "^9.0.4",
     "rc-tooltip": "^3.4.8",
     "react": "15.5.4",
     "react-autosuggest": "9.3.2",

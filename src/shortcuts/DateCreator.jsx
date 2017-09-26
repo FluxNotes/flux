@@ -1,5 +1,5 @@
-import moment from 'moment';
 import CreatorShortcut from './CreatorShortcut';
+import moment from 'moment';
 
 export default class DateCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
@@ -9,23 +9,35 @@ export default class DateCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.text = trigger;
-        let dateString = trigger.substring(1);
-        this.parentContext = contextManager.getActiveContextOfType("#disease status");
-        this.parentContext.setAttributeValue("asOfDate", dateString, false);
+        this.parentContext = contextManager.getCurrentContext();
         this.parentContext.addChild(this);
     }
     
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if(result) {
-            this.parentContext.setAttributeValue("asOfDate", "", false);
+            this.parentContext.setAttributeValue("date", null, false);
             this.parentContext.removeChild(this);
         }
         return result;
     }
     
+    // This returns a placeholder object to trigger opening the Context Portal. Key:'date-id' opens calendar.
+    determineText(contextManager) {
+        return [{key: 'date-id', context: 'Placeholder for calendar', object: 'a date'}];
+    }
+    
+    setText(text) {
+        if (text.startsWith('#')) {
+            text = text.substring(1);
+        }
+        super.setText(text);
+        const formattedDate = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
+        this.parentContext.setAttributeValue("date", formattedDate, false);
+    }
+    
     getText() {
-        return this.text;
+        return `#${this.text}`;
     }
     
     getShortcutType() {
@@ -38,9 +50,7 @@ export default class DateCreator extends CreatorShortcut {
     }
     
     static getTriggers() {
-        const today = new moment().format("D MMM YYYY");
-        // TODO: name will need to be a regular expression of date format instead of just today's date
-        let result = [{name: `#${today}`, description: "A date."}];
+        let result = [{name: `#date`, description: "A date."}];
         return result;
     }
     

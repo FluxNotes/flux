@@ -1,8 +1,10 @@
 import React from 'react'
 import Portal from 'react-portal'
+import Calendar from 'rc-calendar';
 import ContextItem from './ContextItem'
 import Lang from 'lodash'
 import './ContextPortal.css';
+import 'rc-calendar/assets/index.css';
 
 const UP_ARROW_KEY = 38
 const DOWN_ARROW_KEY = 40
@@ -139,6 +141,47 @@ class ContextPortal extends React.Component {
             selectedIndex: selectedIndex
         });
     }
+    
+    handleCalendarSelect = (date) => {
+        this.closePortal();
+        const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
+        const state = this.props.onSelected(this.props.state, context);
+        this.props.onChange(state);
+    }
+    
+    renderListOptions = () => {
+        const { contexts } = this.props;
+        return (
+            <ul>
+                {contexts.map((context, index) => {
+                    return <ContextItem
+                        key={context.key}
+                        index={index}
+                        context={context}
+                        selectedIndex={this.state.selectedIndex}
+                        setSelectedIndex={this.setSelectedIndex}
+                        onSelected={this.props.onSelected}
+                        onChange={this.props.onChange}
+                        closePortal={this.closePortal}
+                        state={this.props.state}
+                    />
+                })}
+            </ul>
+        );
+    }
+    
+    renderCalendar = () => {
+        // NOTE: If setTimeout doesn't seem to be setting the focus correctly, try creating a separate component 
+        // that extends Calendar and has componentDidMount to set focus
+        return (
+            <Calendar
+                showDateInput={false}
+                onSelect={this.handleCalendarSelect}
+                ref={input => input && setTimeout(() => {input.focus()}, 100)}
+            />
+        );
+    }
+    
     /*
      * View of the current menu
      */
@@ -156,21 +199,7 @@ class ContextPortal extends React.Component {
                 onClose={this.onClose}
             >
                 <div className="context-portal">
-                    <ul>
-                        {contexts.map((context, index) => {
-                            return <ContextItem
-                                key={context.key}
-                                index={index}
-                                context={context}
-                                selectedIndex={this.state.selectedIndex}
-                                setSelectedIndex={this.setSelectedIndex}
-                                onSelected={this.props.onSelected}
-                                onChange={this.props.onChange}
-                                closePortal={this.closePortal}
-                                state={this.props.state}
-                            />
-                        })}
-                    </ul>
+                    {contexts[0].key === 'date-id' ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>
         )

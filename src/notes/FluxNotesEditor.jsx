@@ -435,6 +435,7 @@ class FluxNotesEditor extends React.Component {
                             trigger={"@"}
                             onChange={this.onChange}
                             isOpened={this.state.isPortalOpen}
+                            contextManager={this.contextManager}
                         />
                     </div>
                 </Paper>
