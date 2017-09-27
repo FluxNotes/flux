@@ -5,8 +5,8 @@ import Patient from '../../src/patient/Patient.jsx';
 const pageDomain = "http://localhost";
 const pagePort = "3000";
 const pageRoute = "/patient"
-
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
+
 
 fixture('Patient Mode - Editor') 
     .page(startPage);
@@ -21,6 +21,7 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .contains(new Patient().getName());
 });
 
+
 fixture('Patient Mode - Data Summary Panel') 
     .page(startPage);
 
@@ -29,7 +30,6 @@ test('Clicking to insert a captured data element results in that text pasted int
     const summaryButtons = Selector("#summary-list div table .captured .button-hover")
     const numButtons = await summaryButtons.count;
 
-    console.log(numButtons);
     for(let i = 0; i < numButtons; i++) { 
         await t
             .click(summaryButtons.nth(i))
@@ -38,6 +38,24 @@ test('Clicking to insert a captured data element results in that text pasted int
     }
 });
 
+
 fixture('Patient Mode - Timeline') 
     .page(startPage);
 
+test('Hovering over calendar medication items should add medication name to hover text', async t => { 
+    const calendarItemsTitle = Selector("#timeline .rct-canvas .rct-items .rct-item.medication-item strong");
+    const numItems = await calendarItemsTitle.count;
+    let itemTitle = "";
+
+    for(let i = 0; i < numItems; i++) { 
+        itemTitle = calendarItemsTitle.nth(i)
+        await t
+            .hover(calendarItemsTitle.nth(i));
+
+        const hoverTextItem =  await Selector("#timeline #hover-item");
+
+        await t
+            .expect(await hoverTextItem.innerText)
+            .contains(await calendarItemsTitle.nth(i).innerText);
+    }
+});
