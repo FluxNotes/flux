@@ -71,6 +71,7 @@ const expectedOutputDiseaseStatus = [{
     assessmentType: { coding: { value: '#disease status' } },
     status: 'unknown',
     originalCreationDate: today,
+    asOfDate: null,
     lastUpdateDate: today 
 }];
 const expectedOutputToxicity = [{ 
