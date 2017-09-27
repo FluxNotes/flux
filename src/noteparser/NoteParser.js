@@ -25,14 +25,27 @@ export default class NoteParser {
         let curTriggers;
         allShortcuts.forEach((shortcutC) => {
             curTriggers = shortcutC.getTriggers().map((obj) => { return obj.name; });;
+
+
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
-                this.triggerMap[item.toLowerCase()] = shortcutC; 
+                if (item instanceof RegExp) {
+                    console.log("regex detected");
+                    console.log(item);
+                    this.triggerMap[item] = shortcutC;
+                }
+                else {
+                    this.triggerMap[item.toLowerCase()] = shortcutC;
+                }
+
             });
         });
         this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'gi');
+        // console.log("all triggers reg exp");
+        // console.log(this.allTriggersRegExp);
+        // regular expression within a regular expression? TODO: error?
     }
-    
+
     getAllTriggersRegularExpression() {
         return this.allTriggersRegExp;
     }
@@ -52,15 +65,17 @@ export default class NoteParser {
     parse(note) {
         console.log("parse: " + note);
         const structuredPhrases = this.getListOfTriggersFromText(note);
-        //console.log(structuredPhrases);
+        console.log("structured phrases");
+        console.log(structuredPhrases);
         let data = structuredPhrases.map(this.createShortcut.bind(this));
         let dataObj;
         data.forEach(function(item) {
             dataObj = item.getValueObject();
             if (!Lang.isUndefined(dataObj)) {
-                console.log(util.inspect(dataObj, false, null));
+                // console.log(util.inspect(dataObj, false, null));
             }
-            //console.log(item);
+            // console.log('item');
+            // console.log(item);
         });
     }
 }

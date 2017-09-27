@@ -21,7 +21,20 @@ import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 
 function addTriggerForKey(trigger) {
-    this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
+
+    if (trigger.name instanceof RegExp) {
+        console.log('regex detected');
+        // console.log(trigger.name);
+
+        console.log(this.shortcuts[this.currentShortcut]);
+        this.shortcutMap[trigger.name] = this.shortcuts[this.currentShortcut];
+    } else {
+        console.log("not a regex");
+        console.log(this.shortcuts[this.currentShortcut]);
+        this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
+
+    }
+
 }
 
 class ShortcutManager {

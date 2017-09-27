@@ -50,8 +50,20 @@ export default class DateCreator extends CreatorShortcut {
     }
     
     static getTriggers() {
-        let result = [{name: `#date`, description: "A date."}];
+        // Date regular expression for MM/DD/YYYY
+        let date_regex = /^#(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+
+        // let date_regex = /abj/;
+        // let regex = new RegEx('#' + date_regex);
+
+        // console.log('test');
+        // console.log(date_regex.test("#02/30/2017"));
+
+
+        let result = [{name: `#date`, description: "A date."}, {name: date_regex, description: "A specific date."}];
         return result;
+
+        // look at T2, make sure autocomplete for date doesn't break
     }
     
     static getDescription() {
