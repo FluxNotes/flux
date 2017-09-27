@@ -1,7 +1,10 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
+import moment from 'Moment';
 import {expect} from 'chai';
 
 const noteParser = new NoteParser();
+
+const today = new moment().format("D MMM YYYY");
 
 const sampleTextEmpty = "";
 const sampleTextPlain = "Nothing of substance here";
@@ -29,7 +32,7 @@ const expectedOutputStaging = [{
           codeSystem: 'http://loinc.org',
           displayText: 'Stage' } },
     status: 'unknown',
-    occurrenceTime: '26 Sep 2017',
+    occurrenceTime: today,
     tStage:
      { coding:
         { value: '369900003',
@@ -67,8 +70,8 @@ const expectedOutputDiseaseStatus = [{
             displayText: 'Physical exam' } } ],
     assessmentType: { coding: { value: '#disease status' } },
     status: 'unknown',
-    originalCreationDate: '26 Sep 2017',
-    lastUpdateDate: '26 Sep 2017' 
+    originalCreationDate: today,
+    lastUpdateDate: today 
 }];
 const expectedOutputToxicity = [{ 
     entryType:
@@ -90,8 +93,8 @@ const expectedOutputToxicity = [{
         { value: '#Treatment',
           codeSystem: 'https://www.meddra.org/',
           displayText: 'Treatment' } },
-    originalCreationDate: '26 Sep 2017',
-    lastUpdateDate: '26 Sep 2017' 
+    originalCreationDate: today,
+    lastUpdateDate: today 
 }];
 
 
@@ -143,6 +146,8 @@ describe('parse', function() {
     });
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
+        console.log(JSON.stringify(record, null, '\t'));
+        console.log(JSON.stringify(expectedOutputToxicity, null, '\t'));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputToxicity);
