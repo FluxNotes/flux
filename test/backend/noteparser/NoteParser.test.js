@@ -146,8 +146,6 @@ describe('parse', function() {
     });
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
-        console.log(JSON.stringify(record, null, '\t'));
-        console.log(JSON.stringify(expectedOutputToxicity, null, '\t'));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputToxicity);
