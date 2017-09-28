@@ -28,7 +28,6 @@ class ProgressionCreator extends CreatorShortcut {
         this.referenceDate = false;
         this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
-        this.resetReferenceDate = false;
     }
 
     initialize(contextManager, trigger) {
@@ -108,8 +107,7 @@ class ProgressionCreator extends CreatorShortcut {
     
     getAsString() { 
         if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0)
-            && Lang.isEmpty(this.progression.evidence)
-            && !this.resetReferenceDate) {
+            && Lang.isEmpty(this.progression.evidence)){ 
             // No value or status or updated reference date, return just the hash
             return `#disease status`;
         } else {
@@ -158,7 +156,6 @@ class ProgressionCreator extends CreatorShortcut {
         } else if (name === "referenceDate") {
             this.referenceDate = value === true;
         } else if (name === "referenceDateDate") {
-            this.resetReferenceDate = true;
             Patient.updateClinicallyRelevantTimeForProgression(this.progression, value);
         } else {
 			console.error("Error: Unexpected value selected for progression: " + name);
@@ -217,6 +214,7 @@ class ProgressionCreator extends CreatorShortcut {
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
                 (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) ||
+                (this.getAttributeValue("referenceDate") !== true) ||
                 (this.getAttributeValue("asOf") !== true);
     }
     

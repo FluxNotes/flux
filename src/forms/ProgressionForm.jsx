@@ -77,7 +77,7 @@ class ProgressionForm extends Component {
         if (date) {
             formattedDate = new moment(date).format('D MMM YYYY');
         }
-        this.props.updateValue("referenceDate", formattedDate);
+        this.props.updateValue("referenceDateDate", formattedDate);
     }
 
     renderStatusButtonGroup = (status, i) => {
