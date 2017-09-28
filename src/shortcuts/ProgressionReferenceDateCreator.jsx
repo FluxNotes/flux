@@ -31,14 +31,14 @@ export default class ProgressionReferenceDateCreator extends CreatorShortcut {
     
     setAttributeValue(name, value, publishChanges) {
         if (name === "date") {
-            this.parentContext.setAttributeValue("referenceDate", value, false);
+            this.parentContext.setAttributeValue("referenceDateDate", value, false);
             this.updateContextStatus();
         }
     }
     
     getAttributeValue(name) {
         if (name === 'date') {
-            this.parentContext.getAttributeValue("referenceDate");
+            this.parentContext.getAttributeValue("referenceDateDate");
         }
     }
     
@@ -49,20 +49,19 @@ export default class ProgressionReferenceDateCreator extends CreatorShortcut {
             return errors;
         }
         let parentContext = contextManager.getActiveContextOfType("#disease status");
-        if (!Lang.isNull(parentContext.getAttributeValue("asOfDate"))) {
+        if (!Lang.isNull(parentContext.getAttributeValue("referenceDateDate"))) {
             errors.push("Reference date already specified. Only one reference date allowed per #disease status.");
         }
         return errors;
     }
     
     shouldBeInContext() {
-        // before it is set to a date, clinicallyRelevantTime is boolean true.
-        return (this.parentContext.progression.clinicallyRelevantTime === true);
+        return (Lang.isNull(this.parentContext.progression.clinicallyRelevantTime));
     }
     
     getValidChildShortcuts() {
         let result = [];
-        if (this.parentContext.progression.clinicallyRelevantTime === true) result.push(DateCreator);
+        if (Lang.isNull(this.parentContext.progression.clinicallyRelevantTime)) result.push(DateCreator);
         return result;
     }
     
