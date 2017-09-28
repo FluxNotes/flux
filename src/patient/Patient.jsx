@@ -861,7 +861,7 @@ class Patient {
         progression.asOfDate = date;
     }
     
-    static updateReferenceDateForProgression(progression, date) {
+    static updateClinicallyRelevantTimeForProgression(progression, date) {
         // TODO: Check with Mark about what this should set
         progression.clinicallyRelevantTime = date;
     }

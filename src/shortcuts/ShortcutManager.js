@@ -15,6 +15,7 @@ import StagingMCreator from './StagingMCreator';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
+import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import DateCreator from './DateCreator';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
@@ -30,6 +31,7 @@ class ShortcutManager {
         '#progression-status': ProgressionStatusCreator,
         '#progression-reasons': ProgressionReasonsCreator,
         '#progression-as-of': ProgressionAsOfDateCreator,
+        '#progression-reference': ProgressionReferenceDateCreator,
         '#staging': StagingCreator,
         '#toxicity': ToxicityCreator,
         '#toxicity-adverse-event': ToxicityAdverseEventCreator,

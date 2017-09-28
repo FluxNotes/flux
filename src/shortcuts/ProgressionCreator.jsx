@@ -4,6 +4,7 @@ import CreatorShortcut from './CreatorShortcut';
 import ProgressionStatusCreator from './ProgressionStatusCreator';
 import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
+import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import lookup from '../lib/progression_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
@@ -24,9 +25,9 @@ class ProgressionCreator extends CreatorShortcut {
         }
 		this.setValueObject(this.progression);
         this.asOf = false;
+        this.referenceDate = false;
         this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
-        this.state = { resetReferenceDate: false }
     }
 
     initialize(contextManager, trigger) {
@@ -83,7 +84,10 @@ class ProgressionCreator extends CreatorShortcut {
         // TODO: Check with Mark about these dates
         if (curProgression.asOfDate) {
             const formattedDate = moment(curProgression.asOfDate, 'D MMM YYYY').format("MM/DD/YYYY");
-            dateString = ` #as of #${formattedDate}`;
+            dateString = ` #as of #${formattedDate}`;  
+        } else if(curProgression.referenceDate){
+            const formattedDate = moment(curProgression.referenceDate, 'D MMM YYYY').format("MM/DD/YYYY");
+            dateString = ` #reference date #${formattedDate}`;  
         } else {
             dateString = ``;
         }
@@ -103,8 +107,7 @@ class ProgressionCreator extends CreatorShortcut {
     
     getAsString() { 
         if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0)
-            && Lang.isEmpty(this.progression.evidence)
-            && !this.state.resetReferenceDate) {
+            && Lang.isEmpty(this.progression.evidence)){ 
             // No value or status or updated reference date, return just the hash
             return `#disease status`;
         } else {
@@ -151,8 +154,9 @@ class ProgressionCreator extends CreatorShortcut {
 		} else if (name === "asOfDate") {
             Patient.updateAsOfDateForProgression(this.progression, value);
         } else if (name === "referenceDate") {
-            this.state.resetReferenceDate = true;
-            Patient.updateReferenceDateForProgression(this.progression, value);
+            this.referenceDate = value === true;
+        } else if (name === "referenceDateDate") {
+            Patient.updateClinicallyRelevantTimeForProgression(this.progression, value);
         } else {
 			console.error("Error: Unexpected value selected for progression: " + name);
 			return;
@@ -176,6 +180,8 @@ class ProgressionCreator extends CreatorShortcut {
             // TODO: Check with Mark on this
             return this.progression.asOfDate;
         } else if (name === "referenceDate") {
+            return this.referenceDate === true;
+        } else if (name === "referenceDateDate") {
             return this.progression.clinicallyRelevantTime;
         } else {
 			console.error("Error: Unexpected value requested for progression: " + name);
@@ -208,6 +214,7 @@ class ProgressionCreator extends CreatorShortcut {
     shouldBeInContext() {
         return  (this.getAttributeValue("status").length === 0) ||
                 (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) ||
+                (this.getAttributeValue("referenceDate") !== true) ||
                 (this.getAttributeValue("asOf") !== true);
     }
     
@@ -215,6 +222,7 @@ class ProgressionCreator extends CreatorShortcut {
 		let result = [];
 		if (this.getAttributeValue("status").length === 0) result.push(ProgressionStatusCreator);
 		if (this.getAttributeValue("reasons").length < lookup.getReasonOptions().length) result.push(ProgressionReasonsCreator);
+        if (this.getAttributeValue("referenceDate") !== true) result.push(ProgressionReferenceDateCreator);
         if (this.getAttributeValue("asOf") !== true) result.push(ProgressionAsOfDateCreator);
 		return result; //[ ProgressionStatusCreator, ProgressionReasonsCreator, ProgressionAsOfDateCreator ];
 	}
