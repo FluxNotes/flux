@@ -23,7 +23,8 @@ const schema = {
     nodes: {
         paragraph: props => <p {...props.attributes}>{props.children}</p>,
         heading: props => <h1 {...props.attributes}>{props.children}</h1>,
-        'list-item':     props => <li {...props.attributes}>{props.children}</li>,  
+        'bulleted-list-item':     props => <li {...props.attributes}>{props.children}</li>,
+        'numbered-list-item':     props => <li {...props.attributes}>{props.children}</li>,        
         'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
         'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
     },
@@ -352,7 +353,10 @@ class FluxNotesEditor extends React.Component {
      */
     handleBlockCheck = (type) => {
         const {state} = this.state;
-    return state.blocks.some(node => node.type === type);
+           return state.blocks.some((node) => {
+               return node.type === type;
+
+           }); 
     }    
     
       /**
@@ -377,9 +381,7 @@ class FluxNotesEditor extends React.Component {
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
-          const isList = this.handleBlockCheck('list-item')
-          const ParentNode = state.document.getParent(state.selection.startKey);
-          console.log(ParentNode.type);
+          const isList = this.handleBlockCheck(type + '-item')
 
 
           if (isList) {
@@ -393,7 +395,7 @@ class FluxNotesEditor extends React.Component {
               .wrapBlock(type)
           } else {
             transform
-              .setBlock('list-item')
+              .setBlock(type + '-item')
               .wrapBlock(type)
           }
         } else {
