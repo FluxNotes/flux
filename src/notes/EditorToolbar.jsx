@@ -61,7 +61,7 @@ class EditorToolbar extends React.Component {
      * Render a block-toggling toolbar button.
      */
     renderBlockButton = (type, icon) => {
-        const isActive = this.handleBlockCheck(type)
+        const isActive = this.handleBlockCheck(type + '-item')
         const onMouseDown = e => this.onClickBlock(e, type)
 
         return (
