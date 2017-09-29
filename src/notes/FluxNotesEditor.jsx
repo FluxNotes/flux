@@ -23,9 +23,15 @@ const schema = {
     nodes: {
         paragraph: props => <p {...props.attributes}>{props.children}</p>,
         heading: props => <h1 {...props.attributes}>{props.children}</h1>,
+        'bulleted-list-item':     props => <li {...props.attributes}>{props.children}</li>,
+        'numbered-list-item':     props => <li {...props.attributes}>{props.children}</li>,        
+        'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
+        'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
     },
     marks: {
-        bold: (props) => <strong>{props.children}</strong>
+        bold: (props) => <strong>{props.children}</strong>,
+        italic: (props) => <em>{props.children}</em>,
+        underlined: (props) => <u>{props.children}</u>,      
     }
 };
 
@@ -347,8 +353,59 @@ class FluxNotesEditor extends React.Component {
      */
     handleBlockCheck = (type) => {
         const {state} = this.state;
-        return state.blocks.some(node => node.type === type);
+           return state.blocks.some((node) => {
+               return node.type === type;
+
+           }); 
+    }    
+    
+      /**
+       * Handle any changes to the current mark type.
+       */
+    handleMarkUpdate = (type) =>  {
+        let { state } = this.state
+        state = state
+         .transform()
+         .toggleMark(type)
+         .apply()
+       this.setState({ state });
     }
+
+      /**
+       * Handle any changes to the current block type.
+       */
+    handleBlockUpdate = (type) =>  {
+        let { state } = this.state;
+        const transform = state.transform();
+        const DEFAULT_NODE = "";
+
+        // Handle list buttons.
+        if (type === 'bulleted-list' || type === 'numbered-list') {
+          const isList = this.handleBlockCheck(type + '-item')
+
+
+          if (isList) {
+            transform
+              .setBlock(DEFAULT_NODE)
+              .unwrapBlock('bulleted-list')
+              .unwrapBlock('numbered-list')
+          } else if (isList) {
+            transform
+              .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
+              .wrapBlock(type)
+          } else {
+            transform
+              .setBlock(type + '-item')
+              .wrapBlock(type)
+          }
+        } else {
+          // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
+        }
+
+        state = transform.apply()
+        this.setState({ state });
+    
+    }        
     
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
