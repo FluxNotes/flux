@@ -377,7 +377,7 @@ class FluxNotesEditor extends React.Component {
     handleBlockUpdate = (type) =>  {
         let { state } = this.state;
         const transform = state.transform();
-        const DEFAULT_NODE = 'paragraph';
+        const DEFAULT_NODE = "";
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
