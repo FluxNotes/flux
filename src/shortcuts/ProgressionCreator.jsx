@@ -79,19 +79,16 @@ class ProgressionCreator extends CreatorShortcut {
         return reasonString
     }
 
-    getDateString(curProgression) {
-        let dateString;
+    getAsOfString(curProgression) {
+        let asOfString;
         // TODO: Check with Mark about these dates
         if (curProgression.asOfDate) {
             const formattedDate = moment(curProgression.asOfDate, 'D MMM YYYY').format("MM/DD/YYYY");
-            dateString = ` #as of #${formattedDate}`;  
-        } else if(curProgression.referenceDate){
-            const formattedDate = moment(curProgression.referenceDate, 'D MMM YYYY').format("MM/DD/YYYY");
-            dateString = ` #reference date #${formattedDate}`;  
+            asOfString = ` #as of #${formattedDate}`;  
         } else {
-            dateString = ``;
+            asOfString = ``;
         }
-        return dateString
+        return asOfString
     }
     
     getReferenceDateString(curProgression) {
@@ -114,11 +111,11 @@ class ProgressionCreator extends CreatorShortcut {
             const statusString = this.getStatusString(this.progression);
             let reasonString   = this.getReasonString(this.progression);
             if (!Lang.isEmpty(reasonString)) {reasonString = ` ` + reasonString;}
-            let dateString     = this.getDateString(this.progression);
-            if (!Lang.isEmpty(dateString)) {dateString = ` ` + dateString;}
+            let asOfString     = this.getAsOfString(this.progression);
+            if (!Lang.isEmpty(asOfString)) {asOfString = ` ` + asOfString;}
             let refDateString = this.getReferenceDateString(this.progression);
             // Don't put any spaces -- the spaces should be dictated by the current reason and date
-            return `#disease status${statusString}${reasonString}${refDateString}${dateString}`;
+            return `#disease status${statusString}${reasonString}${refDateString}${asOfString}`;
         }
     }
     
