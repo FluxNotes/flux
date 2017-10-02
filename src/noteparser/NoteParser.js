@@ -31,6 +31,7 @@ export default class NoteParser {
             });
         });
         this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'gi');
+        this.patientRecord = [];
     }
     
     getAllTriggersRegularExpression() {
@@ -46,21 +47,28 @@ export default class NoteParser {
     }
     
     getListOfTriggersFromText(note) {
-        return note.match(this.allTriggersRegExp);
+        const matches =  note.match(this.allTriggersRegExp);
+        if (Lang.isNull(matches)) { 
+            return [];
+        } else { 
+            return matches;
+        }
     }
     
     parse(note) {
-        console.log("parse: " + note);
+        this.patientRecord = [];
+        // console.log("parse: " + note);
         const structuredPhrases = this.getListOfTriggersFromText(note);
         //console.log(structuredPhrases);
         let data = structuredPhrases.map(this.createShortcut.bind(this));
         let dataObj;
-        data.forEach(function(item) {
+        data.forEach((item) => {
             dataObj = item.getValueObject();
             if (!Lang.isUndefined(dataObj)) {
                 console.log(util.inspect(dataObj, false, null));
+                this.patientRecord.push(dataObj);
             }
-            //console.log(item);
         });
+        return this.patientRecord;
     }
 }

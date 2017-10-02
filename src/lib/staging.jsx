@@ -1,4 +1,4 @@
-const lookup = require('./staging_lookup');
+const lookup = require('./staging_lookup.jsx');
 const Lang = require('lodash/lang');
 
 // Computes the prognostic stage of breast cancer given T, N, M.
@@ -22,9 +22,8 @@ exports.breastCancerPrognosticStage = (t, n, m) => {
 
   // 7th edition staging, lookup[T][N]
   // null return values mean the staging is undefined for those T,N,M values
-  const ti = (lookup.getTsNamesForEdition(7)).indexOf(t.toString());
-  const ni = (lookup.getNsNamesForEdition(7)).indexOf(n.toString());
-
+  const ni = (lookup.getNsNamesForEdition(7)).indexOf(titlecase(n.toString()));
+  const ti = (lookup.getTsNamesForEdition(7)).indexOf(titlecase(t.toString()));
   if (ti === -1 || ni === -1) {
     // Unrecognized T or N value
     return null;
@@ -71,4 +70,10 @@ exports.breastCancerPossibleTNM = (prognosticStage, edition=7) => {
     });
   });
   return values;
+}
+
+function titlecase(label) {
+    return label.toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
 }

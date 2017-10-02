@@ -8725,7 +8725,7 @@ exports.getDescription = (dataElement) => {
     case "attribution":
         return "The relationship of the event or cause to the adverse event.";
     default: 
-        return `Asking for a description for ${dataElement}; one has not been defined.`;
+        return null;
     }
 }
 
