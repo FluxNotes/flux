@@ -473,7 +473,7 @@ class Patient {
         entry.lastUpdateDate = today;
         this.patient.push(entry);
     }
-    
+
     addEntryToPatientWithPatientFocalSubject(entry) {
         entry.focalSubject = this.patientFocalSubject;
         this.addEntryToPatient(entry);
@@ -1043,6 +1043,15 @@ class Patient {
 		return null;
 	}
 
+	// Deceased Creation
+    static createNewDeceased() {
+        return {
+            "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
+            "value": false,
+            "dateOfDeath": null
+        };
+    }
+
     // Clinical Trial Creator
     static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
         // TODO: This Study data element in the SHR will be updated.
@@ -1055,19 +1064,19 @@ class Patient {
             "endDate": endDate // TODO: Not on SHR Study element yet
         };
     }
-    
+
     static updateTitleForStudyEnrollment(study, title) {
         study.title = title;
     }
-    
+
     static updateIdentifierForStudyEnrollment(study, identifier) {
         study.identifier = identifier;
     }
-    
+
     static updateEnrollmentDateForStudyEnrollment(study, date) {
         study.enrollmentDate = date;
     }
-    
+
     static updateEndDateForStudyEnrollment(study, date) {
         study.endDate = date;
     }
