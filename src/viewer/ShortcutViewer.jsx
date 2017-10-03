@@ -39,6 +39,7 @@ class ShortcutViewer extends Component {
                             backgroundColor: "white"
                         }}
                         focusRipple={false}
+                        onClick={function () { document.getElementsByClassName('btn_copy')[0].blur()}}
                     > 
                         <div id="copy-keyword">
                             Copy
