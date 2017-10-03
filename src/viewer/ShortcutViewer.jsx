@@ -38,7 +38,8 @@ class ShortcutViewer extends Component {
                             padding: "5px 0 4px 0",
                             backgroundColor: "white"
                         }}
-                    >
+                        focusRipple={false}
+                    > 
                         <div id="copy-keyword">
                             Copy
                         </div>
