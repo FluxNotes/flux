@@ -1,5 +1,6 @@
 import CreatorShortcut from './CreatorShortcut';
 import Lang from 'lodash';
+import moment from 'moment';
 
 class DeceasedCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when date of death value changes
@@ -28,6 +29,18 @@ class DeceasedCreator extends CreatorShortcut {
         return "#deceased";
     }
 
+
+    getDateOfDeathString(deceased) {
+        let dateString;
+        if(deceased.dateOfDeath) {
+            const formattedDate = moment(deceased.dateOfDeath, 'D MM YYYY').format('MM/DD/YYYY');
+            dateString = ` #${formattedDate}`;
+        } else {
+            dateString = ``;
+        }
+        return dateString;
+    }
+
     // For copy button string
     // return the formatted date plus #deceased
     getAsString() {
@@ -35,10 +48,11 @@ class DeceasedCreator extends CreatorShortcut {
             // Value is false or date of death is null, return just the hash
             return `#deceased`;
         } else {
-
+            let dateOfDeathString = this.getDateOfDeathString(this.deceased);
+            return `#deceased${dateOfDeathString}`;
         }
-
     }
+
 
 
     // similar to progression creator.
