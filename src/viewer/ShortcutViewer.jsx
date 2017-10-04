@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from 'material-ui/Button';
 import LandingPageForm from '../forms/LandingPageForm';
@@ -30,6 +31,7 @@ class ShortcutViewer extends Component {
                     <Button 
                         raised 
                         className="btn_copy"
+                        ref="copyButton"
                         style={{
                             textTransform: "none",
                             justifyContent: 'left',
@@ -38,7 +40,11 @@ class ShortcutViewer extends Component {
                             padding: "5px 0 4px 0",
                             backgroundColor: "white"
                         }}
-                    >
+                        focusRipple={false}
+                        onClick={() => {
+                            ReactDOM.findDOMNode(this.refs.copyButton).blur();
+                        }}
+                    > 
                         <div id="copy-keyword">
                             Copy
                         </div>
