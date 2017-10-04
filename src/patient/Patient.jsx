@@ -1059,8 +1059,8 @@ class Patient {
     }
 
     static setDeceased(deceased) {
-        this.patient.deceased = deceased;
-	}
+        this.personOfRecord.deceased = deceased;
+    }
 
     // Clinical Trial Creator
     static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {

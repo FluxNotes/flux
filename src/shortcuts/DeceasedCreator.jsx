@@ -77,10 +77,10 @@ class DeceasedCreator extends CreatorShortcut {
     // }
 
 
-
     setAttributeValue(name, value, publishChanges) {
         console.log("setAttributeValue name: ");
         console.log(name);
+        console.log(value);
         if (name === "dateOfDeath") {
             Patient.updateDateOfDeath(this.deceased, value);
         } else {
@@ -119,7 +119,7 @@ class DeceasedCreator extends CreatorShortcut {
 
     getValidChildShortcuts() {
         let result = [];
-        if (this.getAttributeValue("dateOfDeath").length === 0) result.push(DateCreator);
+        if (!this.getAttributeValue("dateOfDeath")) result.push(DateCreator);
         return result;
     }
 
