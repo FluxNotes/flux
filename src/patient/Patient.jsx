@@ -717,7 +717,7 @@ class Patient {
 		let list = this.getEntriesOfType(type);
 		return this.getMostRecentEntryFromList(list);
 	}
-	
+
 	getMostRecentEntryFromList(list) {
 		if (list.length === 0) return null;
 		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o.lastUpdateDate);}));
@@ -1051,6 +1051,16 @@ class Patient {
             "dateOfDeath": null
         };
     }
+
+    // Update date of death in deceased
+    static updateDateOfDeath(deceased, date) {
+        deceased.dateOfDeath = date;
+        deceased.value = true;
+    }
+
+    static setDeceased(deceased) {
+        this.patient.deceased = deceased;
+	}
 
     // Clinical Trial Creator
     static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
