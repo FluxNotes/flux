@@ -41,5 +41,6 @@ Tests suites now exist for testing both ui-components and back-end functionality
 
 This command will determine the current machine's operating system and run all accordingly possible tests. When in development, individuals can run the front end tests with `yarn test-ui` and can run backend tests with `yarn test-backend`. These tests will also determine the machines OS and run specific tests/configure tests accordingly.
 
-**Using Git Bash on Windows? ** It may look like the test aren't working on your machine. Hit enter a second time after running your yarn test command. The specifics of why this happens are still unknown, but this should help when running your tests.
+**Using Git Bash on Windows?** It may look like the test aren't working on your machine. Hit enter a second time after running your yarn test command. The specifics of why this happens are still unknown, but this should help when running your tests.
+
 **Regarding Front-End Tests**:  Ensure that all browsers' testing windows are open while the tests are running. TestCafe has been known to have some issues if those windows are minimized, possibly causing some tests to fail when they shouldn't. 
