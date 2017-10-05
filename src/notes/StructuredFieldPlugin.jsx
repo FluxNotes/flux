@@ -82,7 +82,6 @@ function StructuredFieldPlugin(opts) {
     function onPaste(event, data, state, editor) {
         //console.log("onPaste");
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;
-        
         //console.log(html);
         let fragment = null;
         if (
@@ -106,6 +105,10 @@ function StructuredFieldPlugin(opts) {
             insertText(decoded);
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
+            return state;
+        } else if (data.text) {
+            event.preventDefault();
+            insertText(data.text);
             return state;
         }
     }
@@ -317,7 +320,7 @@ function insertStructuredField(opts, transform, shortcut) {
     const sf = createStructuredField(opts, shortcut);
 
     shortcut.setKey(sf.key);
-	if (sf.kind === 'block') {
+    if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {
 		return [transform.insertInline(sf), sf.key];

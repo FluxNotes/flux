@@ -64,7 +64,8 @@ export default class DateCreator extends CreatorShortcut {
     }
     
     static getTriggerRegExp() {
-        return /^(#\d{1,2}\/\d{1,2}\/\d{4})$/;
+        //return /^(#\d{1,2}\/\d{1,2}\/\d{4})$/;
+        return /(#\d{1,2}\/\d{1,2}\/\d{4})/;
     }
     
     static getDescription() {

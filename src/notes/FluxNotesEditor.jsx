@@ -258,8 +258,10 @@ class FluxNotesEditor extends React.Component {
     }
     
     insertStructuredFieldTransform(transform, shortcut) {
+        //console.log(shortcut);
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
+        //console.log(result[0]);
         return result[0];
     }
 
@@ -324,16 +326,18 @@ class FluxNotesEditor extends React.Component {
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
-        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted);
+        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted)[0];
+        //console.log(triggers);
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
-                start = remainder.indexOf(trigger);
+                //console.log(trigger);
+                start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
                     //transform = transform.insertText(before);
                     transform = this.insertPlainText(transform, before);
                 }
-                remainder = remainder.substring(start + trigger.length);
+                remainder = remainder.substring(start + trigger.trigger.length);
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
@@ -341,7 +345,8 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-                transform = this.insertShortcut(null, trigger, after, transform);
+                //console.log(remainder);
+                transform = this.insertShortcut(trigger.shortcut, trigger.trigger, after, transform);
             });
         }
 
@@ -351,6 +356,7 @@ class FluxNotesEditor extends React.Component {
         }
         state = transform.focus().apply();
         this.setState({state: state});
+        //return state;
     }
 
     /**
