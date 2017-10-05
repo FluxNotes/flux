@@ -109,7 +109,7 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
         allShortcuts.forEach((shortcutC) => {
-            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => trigger.name);
+            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
