@@ -1,7 +1,7 @@
 import CreatorShortcut from './CreatorShortcut';
 import Patient from '../patient/Patient';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
-import DateCreator from './DateCreator';
+import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -100,7 +100,6 @@ class ClinicalTrialCreator extends CreatorShortcut {
     }
     
     setAttributeValue(name, value, publishChanges) {
-        console.log("setAttributeValue")
         if (name === "title") {
             Patient.updateTitleForStudyEnrollment(this.clinicalTrial, value);
         } else if (name === "identifier") {
@@ -154,16 +153,14 @@ class ClinicalTrialCreator extends CreatorShortcut {
     }
     
     shouldBeInContext() {
-        return (
-        (this.getAttributeValue("title").lenth === 0)
-        (this.getAttributeValue("enrollmentDate").length === 0) ||
-        (this.getAttributeValue("endDate").length === 0) // TODO the two dates will probably need separate flags (asOf)
-        )
+        return ((this.getAttributeValue("title").lenth === 0))
+        // (this.getAttributeValue("enrollmentDate").length === 0) ||
+        // (this.getAttributeValue("endDate").length === 0)) // TODO the two dates will probably need separate flags (asOf)
     }
     
     getValidChildShortcuts() {
         let result = [];
-        // if (this.getAttributeValue("title").length === result.push(ClinicalTrialTitleCreator)) // TODO: Not created yet
+        if (this.getAttributeValue("title").length === 0) result.push(ClinicalTrialTitleCreator);
         // if (this.getAttributeValue("enrollmentDate").length === 0) result.push(ClinicalTrialEnrollmentDateCreator); // TODO: Not created yet - probably needs to be the flag (asOf)
         // if (this.getAttributeValue("endDate").length === 0) result.push(ClinicalTrialEndDateCreateor) //TODO: Not created yet - probably needs to be the flag (asOf)
         return result;

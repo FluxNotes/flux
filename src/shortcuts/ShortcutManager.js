@@ -22,6 +22,7 @@ import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 import Lang from 'lodash';
 import ClinicalTrialCreator from './ClinicalTrialCreator';
+import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 
 function addTriggerForKey(trigger) {
     this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
@@ -50,7 +51,8 @@ class ShortcutManager {
         '#staging-t': StagingTCreator,
         '#staging-n': StagingNCreator,
         '#staging-m': StagingMCreator,
-        '#clinical trial': ClinicalTrialCreator
+        '#clinical trial': ClinicalTrialCreator,
+        '#name': ClinicalTrialTitleCreator
     };
 
     shortcutClasses = [];

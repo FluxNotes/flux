@@ -58,7 +58,7 @@ class ClinicalTrialForm extends Component {
                         backgroundColor: "white",
                         textTransform: "none"
                     }}
-                    disabled={this.currentlySelected(this.props.clinicalTrial.identifier, this.state.trials[i].id)}
+                    disabled={this.currentlySelected(this.props.clinicalTrial.title, this.state.trials[i].id)}
                     >{trialName}
                 </Button>
             </div>
