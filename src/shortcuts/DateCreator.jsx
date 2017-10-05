@@ -1,5 +1,6 @@
 import CreatorShortcut from './CreatorShortcut';
 import moment from 'moment';
+import Lang from 'lodash';
 
 export default class DateCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
@@ -10,7 +11,9 @@ export default class DateCreator extends CreatorShortcut {
         super.initialize(contextManager, trigger);
         //this.text = trigger;
         this.parentContext = contextManager.getCurrentContext();
-        this.parentContext.addChild(this);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
         if (trigger !== "#date") {
             this.setText(trigger);
             this.clearValueSelectionOptions();
@@ -37,7 +40,9 @@ export default class DateCreator extends CreatorShortcut {
         }
         super.setText(text);
         const formattedDate = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
-        this.parentContext.setAttributeValue("date", formattedDate, false);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.setAttributeValue("date", formattedDate, false);
+        }
     }
     
     getText() {
