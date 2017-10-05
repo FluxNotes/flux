@@ -22,7 +22,7 @@ export default class DateCreator extends CreatorShortcut {
     
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
-        if(result) {
+        if(result && !Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue("date", null, false);
             this.parentContext.removeChild(this);
         }
