@@ -118,8 +118,21 @@ class FluxNotesEditor extends React.Component {
         this.plugins.push(AutoReplace({
             "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
-            "transform": this.autoReplaceTransform.bind(this)
+            "transform": this.autoReplaceTransform.bind(this, null)
         }));
+        
+        // let's see if we have any regular expression shortcuts
+        let triggerRegExp;
+        allShortcuts.forEach((shortcutC) => {
+            triggerRegExp = shortcutC.getTriggerRegExp();
+            if (!Lang.isNull(triggerRegExp)) {
+                this.plugins.push(AutoReplace({
+                    "trigger": 'space',
+                    "before": triggerRegExp,
+                    "transform": this.autoReplaceTransform.bind(this, shortcutC)
+                }));
+            }
+        });
     }
         
     suggestionFunction(initialChar, text) {
@@ -145,7 +158,7 @@ class FluxNotesEditor extends React.Component {
     
     choseSuggestedShortcut(suggestion) {
         const { state } = this.state; 
-        const shortcut = this.props.newCurrentShortcut(suggestion.value.name);
+        const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
         
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
@@ -156,11 +169,11 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    insertShortcut(shortcutTrigger, text, transform = undefined) {
+    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined) {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
                 shortcut.setText(text);
@@ -181,9 +194,9 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    autoReplaceTransform(transform, e, data, matches) {
+    autoReplaceTransform(shortcutC, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        this.insertShortcut(matches.before[0], "", transform);
+        this.insertShortcut(shortcutC, matches.before[0], "", transform);
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -328,7 +341,7 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-                transform = this.insertShortcut(trigger, after, transform);
+                transform = this.insertShortcut(null, trigger, after, transform);
             });
         }
 

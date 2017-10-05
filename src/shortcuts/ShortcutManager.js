@@ -20,6 +20,7 @@ import DateCreator from './DateCreator';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
+import Lang from 'lodash';
 
 function addTriggerForKey(trigger) {
     this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
@@ -71,11 +72,16 @@ class ShortcutManager {
         return this.shortcutsToSupportList;
     }
     
-    createShortcut(trigger, onUpdate, object) {
+    createShortcut(shortcutC, trigger, onUpdate, object) {
 /*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
             throw new Error("Invalid shortcut type: " + shortcutType);
         }*/
-        let className = this.shortcutMap[trigger.toLowerCase()];
+        let className;
+        if (!Lang.isNull(shortcutC)) {
+            className = shortcutC;
+        } else {
+            className = this.shortcutMap[trigger.toLowerCase()];
+        }
         return new className(onUpdate, object);
     }
 }

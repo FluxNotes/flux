@@ -8,9 +8,13 @@ export default class DateCreator extends CreatorShortcut {
     
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
-        this.text = trigger;
+        //this.text = trigger;
         this.parentContext = contextManager.getCurrentContext();
         this.parentContext.addChild(this);
+        if (trigger !== "#date") {
+            this.setText(trigger);
+            this.clearValueSelectionOptions();
+        }
     }
     
     onBeforeDeleted() {
@@ -52,6 +56,10 @@ export default class DateCreator extends CreatorShortcut {
     static getTriggers() {
         let result = [{name: `#date`, description: "A date."}];
         return result;
+    }
+    
+    static getTriggerRegExp() {
+        return /^(#\d{1,2}\/\d{1,2}\/\d{4})$/;
     }
     
     static getDescription() {
