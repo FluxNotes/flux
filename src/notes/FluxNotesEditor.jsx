@@ -109,7 +109,7 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
         allShortcuts.forEach((shortcutC) => {
-            const shortcutNamesList = shortcutC.getTriggers().map(trigger => trigger.name);
+            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => trigger.name);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
@@ -141,7 +141,7 @@ class FluxNotesEditor extends React.Component {
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
-            const triggers = shortcut.getTriggers();
+            const triggers = shortcut.getStringTriggers();
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {

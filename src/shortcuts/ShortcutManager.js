@@ -62,7 +62,7 @@ class ShortcutManager {
         this.shortcutsToSupportList = shortcutList;
         for (var key in this.shortcuts) {
             this.shortcutClasses.push(this.shortcuts[key]);
-            const triggers = this.shortcuts[key].getTriggers();
+            const triggers = this.shortcuts[key].getStringTriggers();
             this.currentShortcut = key;
             triggers.forEach(addTriggerForKey, this);
         }        

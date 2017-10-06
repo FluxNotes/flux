@@ -45,7 +45,7 @@ export default class StagingMCreator extends CreatorShortcut {
 		return errors;
 	}
 	
-	static getTriggers() {
+	static getStringTriggers() {
 		const ms = lookup.getMsForEdition(7);
 		let result = [];
 		ms.forEach((val) => {

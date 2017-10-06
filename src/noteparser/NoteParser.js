@@ -25,7 +25,7 @@ export default class NoteParser {
         let allShortcuts = this.shortcutManager.getAllShortcutClasses();
         let curTriggers;
         allShortcuts.forEach((shortcutC) => {
-            curTriggers = shortcutC.getTriggers().map((obj) => { return obj.name; });;
+            curTriggers = shortcutC.getStringTriggers().map((obj) => { return obj.name; });;
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
                 this.triggerMap[item.toLowerCase()] = shortcutC; 

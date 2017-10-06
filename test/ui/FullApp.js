@@ -21,6 +21,15 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .contains(new Patient().getName());
 });
 
+test('Typing a date in the editor results in a structured data insertion ', async t => { 
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#12/20/2015 ")
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains("#12/20/2015");
+});
 
 fixture('Patient Mode - Data Summary Panel') 
     .page(startPage);

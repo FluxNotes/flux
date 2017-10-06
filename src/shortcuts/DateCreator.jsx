@@ -58,13 +58,12 @@ export default class DateCreator extends CreatorShortcut {
         return errors;
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         let result = [{name: `#date`, description: "A date."}];
         return result;
     }
     
     static getTriggerRegExp() {
-        //return /^(#\d{1,2}\/\d{1,2}\/\d{4})$/;
         return /(#\d{1,2}\/\d{1,2}\/\d{4})/;
     }
     
