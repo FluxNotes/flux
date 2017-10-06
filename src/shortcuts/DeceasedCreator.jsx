@@ -5,8 +5,6 @@ import Lang from 'lodash';
 import moment from 'moment';
 
 class DeceasedCreator extends CreatorShortcut {
-    // onUpdate is passed from React components that need to be notified when date of death value changes
-    // dateOfDeath is optional and specifies an existing dateOfDeath value being edited. Not used in no-patient mode
 
     constructor(onUpdate, deceased) {
         super();
@@ -27,10 +25,17 @@ class DeceasedCreator extends CreatorShortcut {
         this.parentContext = contextManager.getPatientContext();
     }
 
+    onBeforeDeleted() {
+        let result = super.onBeforeDeleted();
+        if (result) {
+            this.parentContext.removeChild(this);
+        }
+        return result;
+    }
+
     getShortcutType() {
         return "#deceased";
     }
-
 
     getDateOfDeathString(deceased) {
         let dateString;
@@ -68,20 +73,9 @@ class DeceasedCreator extends CreatorShortcut {
         };
     }
 
-    // getFormSpec() {
-    //    return (
-    //     <div>
-    //         <h1>Deceased Form</h1>
-    //     </div>
-    //     );
-    // }
-
-
     setAttributeValue(name, value, publishChanges) {
-        console.log("setAttributeValue name: ");
-        console.log(name);
-        console.log(value);
-        if (name === "dateOfDeath") {
+
+        if (name === "date") {
             Patient.updateDateOfDeath(this.deceased, value);
         } else {
             console.error("Error: Unexpected value selected for deceased: " + name);
@@ -95,7 +89,8 @@ class DeceasedCreator extends CreatorShortcut {
     }
 
     getAttributeValue(name) {
-        if (name === "dateOfDeath") {
+
+        if (name === "date") {
             return this.deceased.dateOfDeath;
         } else {
             console.error("Error: Unexpected value requested for deceased: " + name);
@@ -104,22 +99,31 @@ class DeceasedCreator extends CreatorShortcut {
     }
 
     updatePatient(patient, contextManager) {
-       // if (this.deceased.dateOfDeath.length === 0) return; // not sure this is needed
-       // let condition = this.parentContext.getValueObject(); // not in condition context
+
         if (this.isDeceasedNew) {
-            patient.setDeceased(this.deceased);
+            patient.addEntryToPersonOfRecord(this.deceased);
             this.isDeceasedNew = false;
         }
     }
 
+    static validateInContext(context){
+        // In patient context so no need to validate
+        return;
+    }
+
+    validateInCurrentContext(contextManager) {
+        let errors = [];
+        return errors;
+    }
+
     // No other shortcuts
     shouldBeInContext() {
-        return false;
+        return (!this.getAttributeValue("date"));
     }
 
     getValidChildShortcuts() {
         let result = [];
-        if (!this.getAttributeValue("dateOfDeath")) result.push(DateCreator);
+        if (!this.getAttributeValue("date")) result.push(DateCreator);
         return result;
     }
 
@@ -132,11 +136,9 @@ class DeceasedCreator extends CreatorShortcut {
     }
 
     static getTriggers() {
-        return [{ name: "#deceased", description: 'Indication that person is no longer living' }];
+        return [{ name: "#deceased", description: 'An indication that the person is no longer living, given by a date, ' +
+        'time of death, or a boolean value which, when true, indicates the person is deceased.' }];
     }
-
-//. if disecesased new, patient.setdeceased, pass deceased object in, replace staging with decasesed
-    //
 }
 
 export default DeceasedCreator;

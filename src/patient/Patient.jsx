@@ -479,6 +479,15 @@ class Patient {
         this.addEntryToPatient(entry);
     }
 
+    addEntryToPersonOfRecord(entry) {
+        this.personOfRecord.deceased = entry;
+    }
+
+    addEntryToPatientWithPatientFocalSubject(entry) {
+        entry.focalSubject = this.patientFocalSubject;
+        this.addEntryToPatient(entry);
+    }
+
     static isEntryOfType(entry, type) {
         return (entry.entryType[0] === type);
     }
