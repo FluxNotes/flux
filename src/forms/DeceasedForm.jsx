@@ -43,7 +43,7 @@ class DeceasedForm extends Component {
                     time of death, or a boolean value which, when true, indicates the person is deceased.
                     <br/>
                     <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a href="deceasedStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
                     {dateOfDeathSection}
