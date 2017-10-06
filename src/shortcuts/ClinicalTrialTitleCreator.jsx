@@ -47,7 +47,7 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
     validateInCurrentContext(contextManager) {
         let errors = [];
         if (!contextManager.isContextOfTypeActive("#clinical trial")) {
-            errors.push("Clinical Trial title invalid withouth #clinical trial. Use #clinical trial to add a new clinical trial enrollment to your narrative.");
+            errors.push("Clinical Trial title invalid without #clinical trial. Use #clinical trial to add a new clinical trial enrollment to your narrative.");
             return errors;
         }
         let parentContext = contextManager.getActiveContextOfType("#clinical trial");

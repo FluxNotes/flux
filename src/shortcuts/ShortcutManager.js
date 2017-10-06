@@ -52,7 +52,7 @@ class ShortcutManager {
         '#staging-n': StagingNCreator,
         '#staging-m': StagingMCreator,
         '#clinical trial': ClinicalTrialCreator,
-        '#name': ClinicalTrialTitleCreator
+        '#title': ClinicalTrialTitleCreator
     };
 
     shortcutClasses = [];

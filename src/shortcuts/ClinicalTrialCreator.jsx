@@ -23,9 +23,6 @@ class ClinicalTrialCreator extends CreatorShortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
         this.parentContext = contextManager.getPatientContext();
-        if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.addChild(this);
-        }
     }
     
     onBeforeDeleted() {
@@ -153,7 +150,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
     }
     
     shouldBeInContext() {
-        return ((this.getAttributeValue("title").lenth === 0))
+        return ((this.getAttributeValue("title").length === 0))
         // (this.getAttributeValue("enrollmentDate").length === 0) ||
         // (this.getAttributeValue("endDate").length === 0)) // TODO the two dates will probably need separate flags (asOf)
     }
