@@ -20,13 +20,19 @@ test('Clicking toxicity button puts us in toxicity mode', async t => {
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Toxicity", `Current header doesn't reflect expected toxicity page header`);
 })
-test('Clicking clinical trial button puts us in clinical trial mode', async t => { 
+test('Clicking clinical trial button puts us in clinical trial mode', async t => {
     await t
         .click("#Clinical\\ Trial")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Clinical Trial", `Current header doesn't reflect expected toxicity page header`);
 })
-test('Clicking about button puts us back on landing page', async t => { 
+test('Clicking deceased button puts us in deceased mode', async t => {
+    await t
+        .click("#Deceased")
+        .expect(Selector("#shortcut-viewer").find('h1').innerText)
+        .eql("Deceased", `Current header doesn't reflect expected deceased page header` );
+})
+test('Clicking about button puts us back on landing page', async t => {
     await t
         .click("#Toxicity")
         .click("#About\\ Flux\\ Notes\\ Lite")
@@ -101,9 +107,9 @@ test('Changing attribution via button updates copy-content', async t => {
     }
 });
 
-fixture('Lite Mode - Clinical Trial') 
+fixture('Lite Mode - Clinical Trial')
     .page(startPage)
-    .beforeEach( async t => { 
+    .beforeEach( async t => {
         await t.click("#Clinical\\ Trial");
     });
 test('Selecting a clinical trial updates copy-content', async t => {
@@ -139,3 +145,19 @@ test('Selecting an end date updates copy-content', async t => {
         .expect(copyButton.innerText)
         .contains(await datePicker.innerText);
 });
+
+fixture('Lite Mode - Deceased')
+    .page(startPage)
+    .beforeEach( async t => {
+       await t.click("#Deceased");
+    });
+test('Selecting a date of death updates copy-content', async t => {
+    const datePicker = Selector("#date-of-death");
+    const copyButton = Selector("#copy-content");
+    await t
+        .typeText(datePicker, '2017-10-01')
+        .expect(copyButton.innerText)
+        .contains(await datePicker.innerText);
+});
+
+
