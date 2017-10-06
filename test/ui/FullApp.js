@@ -31,6 +31,21 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
         .contains("#12/20/2015");
 });
 
+test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
+   const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#deceased ");
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains('#deceased');
+    const contextPanelElement = Selector(".context-options-list").find('button');
+    const deceasedChild = '#date';
+    await t
+        .expect(contextPanelElement.innerText)
+        .contains(deceasedChild);
+});
+
 test('Typing a progression note with as of date in the editor results in a new progression item on the timeline', async t => {
     const progressionItemsBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     const expectedNumItems = await progressionItemsBefore.count + 1;
@@ -97,7 +112,7 @@ in a structured data insersion and the conext panel updates', async t => {
     for (let i = 0; i < count; i++) {
         let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
         let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
-        await t 
+        await t
             .expect(contextPanelElementsUpper)
             .contains(clinicalTrialChildren[i]);
     }
@@ -114,27 +129,27 @@ test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a dat
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('button');
     const clinicalTrialButton = await contextPanelElements.withText(/#clinical trial/ig);
-    
+
     await t
         .click(clinicalTrialButton);
     const enrolledOnButton = await contextPanelElements.withText(/#enrolled on/ig);
     await t
         .click(enrolledOnButton);
     const dateButton = await contextPanelElements.withText(/#date/ig);
-    await t 
+    await t
         .click(dateButton)
         .pressKey('enter');
-    
+
     const structuredFieldCount = await structuredField.count;
     for (let i = 0; i < structuredFieldCount; i++) {
         await t
             .expect(structuredField.nth(i).innerText)
             .contains(expectedText[i]);
-    } 
+    }
 });
 
 
-fixture('Patient Mode - Data Summary Panel') 
+fixture('Patient Mode - Data Summary Panel')
     .page(startPage);
 
 test('Clicking to insert a captured data element results in that text pasted into the editor', async t => { 
