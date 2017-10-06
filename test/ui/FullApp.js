@@ -20,6 +20,57 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .expect(structuredField.innerText)
         .contains(new Patient().getName());
 });
+test('Typing "#clinical" and selecting "clinical trial" from the portal in the editor results \
+in a structured data insersion and the conext panel updates', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#clinical");
+    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('clinical trial');
+    await t
+        .click(correctSuggestion);
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains('#clinical trial');
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const count = await contextPanelElements.count;
+    const clinicalTrialChildren = ['#TITLE', '#ENROLLED ON', '#ENDED ON'];
+    for (let i = 0; i < count; i++) {
+        await t 
+            .expect(contextPanelElements.nth(i).innerText)
+            .contains(clinicalTrialChildren[i]);
+    }
+});
+
+
+fixture('Patient Mode - Context Panel')
+    .page(startPage);
+
+test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a date inserts "#clinical trial #enrolled on #{date chosen}"', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["#clinical trial", "#enrolled on", `#${today}`];
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const clinicalTrialButton = await contextPanelElements.withText('#CLINICAL TRIAL');
+    
+    await t
+        .click(clinicalTrialButton);
+    const enrolledOnButton = await contextPanelElements.withText("#ENROLLED ON");
+    await t
+        .click(enrolledOnButton);
+    const dateButton = await contextPanelElements.withText("#DATE");
+    await t 
+        .click(dateButton)
+        .pressKey('enter');
+    
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    } 
+});
 
 test('Typing a date in the editor results in a structured data insertion ', async t => { 
     const editor = Selector("div[data-slate-editor='true']");
