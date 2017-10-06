@@ -11,12 +11,13 @@ const sampleTextPlain = "Nothing of substance here";
 const sampleTextNonsense = "#nonsense is in the structured phrase";
 const sampleTextStaging = "Debra Hernandez672 is presenting with carcinoma of the breast. #staging assessed as tumor size #T2 and #N0 + #M0.";
 const sampleTextDiseaseStatus = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam";
+const sampleTextDiseaseStatus2 = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam #as of #10/5/2017 #reference date #6/7/2017";
 const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment";
 
-const expectedOutputEmpty = [];
-const expectedOutputPlain = [];
-const expectedOutputNonsense = [];
-const expectedOutputStaging = [{ 
+const expectedOutputEmpty = [[], []];
+const expectedOutputPlain = [[], []];
+const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
+const expectedOutputStaging = [ [{ 
     entryType:
       [ 'http://standardhealthrecord.org/oncology/TNMStage',
          'http://standardhealthrecord.org/observation/Observation',
@@ -48,8 +49,8 @@ const expectedOutputStaging = [{
         { value: '433581000124101',
           codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
           displayText: 'M0' } } 
-}];
-const expectedOutputDiseaseStatus = [{
+}], []];
+const expectedOutputDiseaseStatus = [[{
     entryType:
       [ 'http://standardhealthrecord.org/oncology/Progression',
          'http://standardhealthrecord.org/assessment/Assessment' ],
@@ -73,8 +74,33 @@ const expectedOutputDiseaseStatus = [{
     originalCreationDate: today,
     asOfDate: null,
     lastUpdateDate: today 
-}];
-const expectedOutputToxicity = [{ 
+}], []];
+const expectedOutputDiseaseStatus2 = [[{
+    entryType:
+      [ 'http://standardhealthrecord.org/oncology/Progression',
+         'http://standardhealthrecord.org/assessment/Assessment' ],
+    value:
+     { coding:
+        { value: 'C0205360',
+          codeSystem: 'http://ncimeta.nci.nih.gov',
+          displayText: 'Stable' } },
+    clinicallyRelevantTime: '7 Jun 2017',
+    evidence:
+     [ { coding:
+          { value: 'C0011923',
+            codeSystem: 'http://ncimeta.nci.nih.gov',
+            displayText: 'Imaging' } },
+       { coding:
+          { value: 'C0031809',
+            codeSystem: 'http://ncimeta.nci.nih.gov',
+            displayText: 'Physical exam' } } ],
+    assessmentType: { coding: { value: '#disease status' } },
+    status: 'unknown',
+    originalCreationDate: today,
+    asOfDate: '5 Oct 2017',
+    lastUpdateDate: today 
+}], []];
+const expectedOutputToxicity = [[{ 
     entryType:
       [ 'http://standardhealthrecord.org/oncology/ToxicReaction',
          'http://standardhealthrecord.org/adverse/AdverseReaction',
@@ -96,7 +122,7 @@ const expectedOutputToxicity = [{
           displayText: 'Treatment' } },
     originalCreationDate: today,
     lastUpdateDate: today 
-}];
+}], []];
 
 
 describe('getAllTriggersRegularExpression', function () { 
@@ -144,6 +170,12 @@ describe('parse', function() {
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);
+    });
+    it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
+        const record = noteParser.parse(sampleTextDiseaseStatus2);
+        expect(record)
+            .to.be.an('array')
+            .and.to.eql(expectedOutputDiseaseStatus2);
     });
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
