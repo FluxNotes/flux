@@ -2,6 +2,8 @@ import CreatorShortcut from './CreatorShortcut';
 import Patient from '../patient/Patient';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
+import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
+import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -16,6 +18,8 @@ class ClinicalTrialCreator extends CreatorShortcut {
             this.isClinicalTrialNew = false;
         }
         this.setValueObject(this.clinicalTrial);
+        this.enrollmentDateFlag = false;
+        this.endDateFlag = false;
         this.onUpdate = onUpdate;
         this.setAttributeValue = this.setAttributeValue.bind(this);
     }
@@ -101,8 +105,12 @@ class ClinicalTrialCreator extends CreatorShortcut {
             Patient.updateTitleForStudyEnrollment(this.clinicalTrial, value);
         } else if (name === "identifier") {
             Patient.updateIdentifierForStudyEnrollment(this.clinicalTrial, value);
+        } else if (name === "enrollmentDateFlag") {
+            this.enrollmentDateFlag = value === true;
         } else if (name === "enrollmentDate") {
             Patient.updateEnrollmentDateForStudyEnrollment(this.clinicalTrial, value);
+        } else if (name === "endDateFlag") {
+            this.endDateFlag = value === true;
         } else if (name === "endDate") {
             Patient.updateEndDateForStudyEnrollment(this.clinicalTrial, value);
         } else {
@@ -121,8 +129,12 @@ class ClinicalTrialCreator extends CreatorShortcut {
             return this.clinicalTrial.title;
         } else if (name === "identifier") {
             return this.clinicalTrial.identifier;
+        } else if (name === "enrollmentDateFlag") {
+            return this.enrollmentDateFlag === true;
         } else if (name === "enrollmentDate") {
             return this.clinicalTrial.enrollmentDate;
+        } else if (name === "endDateFlag") {
+            return this.endDateFlag === true;
         } else if (name === "endDate") {
             return this.clinicalTrial.endDate;
         } else {
@@ -150,16 +162,16 @@ class ClinicalTrialCreator extends CreatorShortcut {
     }
     
     shouldBeInContext() {
-        return ((this.getAttributeValue("title").length === 0))
-        // (this.getAttributeValue("enrollmentDate").length === 0) ||
-        // (this.getAttributeValue("endDate").length === 0)) // TODO the two dates will probably need separate flags (asOf)
+        return ((this.getAttributeValue("title").length === 0)||
+        (this.getAttributeValue("enrollmentDateFlag") !== true) ||
+        (this.getAttributeValue("endDateFlag") !== true))
     }
     
     getValidChildShortcuts() {
         let result = [];
         if (this.getAttributeValue("title").length === 0) result.push(ClinicalTrialTitleCreator);
-        // if (this.getAttributeValue("enrollmentDate").length === 0) result.push(ClinicalTrialEnrollmentDateCreator); // TODO: Not created yet - probably needs to be the flag (asOf)
-        // if (this.getAttributeValue("endDate").length === 0) result.push(ClinicalTrialEndDateCreateor) //TODO: Not created yet - probably needs to be the flag (asOf)
+        if (this.getAttributeValue("enrollmentDateFlag") !== true) result.push(ClinicalTrialEnrollmentDateCreator);
+        if (this.getAttributeValue("endDateFlag") !== true) result.push(ClinicalTrialEndDateCreator);
         return result;
     }
     
