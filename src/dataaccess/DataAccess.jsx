@@ -3,17 +3,18 @@ import hardCodedPatient from './HardCodedPatient.json';
 
 export default class DataAccess {
     static DEMO_PATIENT_ID = "-1";
-
+    
     getPatient(id) {
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new Patient(hardCodedPatient);
         } else {
-            console.log("loading not implemented yet.");
+            console.log("loading of patients other than the hard-coded demo patient is not implemented yet.");
             // actually load
         }
     }
     
     getListOfPatients() {
+        return [ new Patient(hardCodedPatient) ];
     }
     
     newPatient() {
@@ -21,5 +22,6 @@ export default class DataAccess {
     }
     
     savePatient(patient) {
+        console.log("Saving of patients is not implemented yet.");
     }
 }
