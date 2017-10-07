@@ -37,8 +37,10 @@ let perFileFunc = (file) => {
         if (err) {
             return console.error(err);
         }
+        console.log("***************************************************");
+        console.log(file);
         content = util.format(data);
-        noteParser.parse(content);
+        console.log(util.inspect(noteParser.parse(content), false, null));
     });
 };
 

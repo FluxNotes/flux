@@ -7,7 +7,8 @@ import ContextTray from '../context/ContextTray';
 import TimelinePanel from '../timeline/TimelinePanel';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
-import Patient from '../patient/Patient';
+//import Patient from '../patient/Patient';
+import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import './FullApp.css';
 
@@ -19,8 +20,10 @@ class FullApp extends Component {
 
         this.updateErrors = this.updateErrors.bind(this);
         this.onContextUpdate = this.onContextUpdate.bind(this);
+        this.dataAccess = new DataAccess();
         
-        let patient = new Patient();
+        //let patient = new Patient();
+        let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
         this.shortcutManager = new ShortcutManager(this.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);        

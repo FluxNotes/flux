@@ -1,8 +1,9 @@
-import Patient from '../patient/Patient';
+//import Patient from '../patient/Patient';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
+import DataAccess from '../dataaccess/DataAccess';
 import Lang from 'lodash'
-import util from 'util';
+//import util from 'util';
 
 export default class NoteParser {
     constructor(shortcutManager = undefined, contextManager = undefined) {
@@ -12,7 +13,9 @@ export default class NoteParser {
             this.shortcutManager = shortcutManager;
         }
         if (Lang.isUndefined(contextManager)) {
-            this.contextManager = new ContextManager(new Patient(false));
+            let dataAccess = new DataAccess();
+            let patient = dataAccess.newPatient();
+            this.contextManager = new ContextManager(patient);
             this.contextManager.setIsBlock1BeforeBlock2(() => { return true; });
         } else {
             this.contextManager = contextManager;
@@ -65,7 +68,7 @@ export default class NoteParser {
         data.forEach((item) => {
             dataObj = item.getValueObject();
             if (!Lang.isUndefined(dataObj)) {
-                console.log(util.inspect(dataObj, false, null));
+                //console.log(util.inspect(dataObj, false, null));
                 this.patientRecord.push(dataObj);
             }
         });
