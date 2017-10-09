@@ -50,6 +50,34 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
         .contains(deceasedChild);
 });
 
+fixture('Patient Mode - Context Panel')
+    .page(startPage);
+
+test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{date chosen}"', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["#deceased", `#${today}`];
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+
+    const deceasedButton = await contextPanelElements.withText(/#deceased/ig);
+
+    await t
+        .click(deceasedButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    }
+});
+
+fixture('Patient Mode - Data Summary Panel')
 test('Typing a progression note with as of date in the editor results in a new progression item on the timeline', async t => {
     const progressionItemsBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     const expectedNumItems = await progressionItemsBefore.count + 1;
