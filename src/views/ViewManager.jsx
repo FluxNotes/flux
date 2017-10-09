@@ -16,7 +16,7 @@ class ViewManager {
                 path: '/patient',
                 display: 'Flux Notes',
                 app: FullApp,
-                dataSource: 'HardCodedReadOnlyDataAccess',
+                dataSource: 'HardCodedReadOnlyDataSource',
                 isExact: true
             }
         ];

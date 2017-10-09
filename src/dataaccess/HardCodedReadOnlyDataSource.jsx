@@ -3,7 +3,7 @@ import DataAccess from './DataAccess';
 import Patient from '../patient/Patient';
 import hardCodedPatient from './HardCodedPatient.json';
 
-class HardCodedReadOnlyDataAccess extends IDataSource {
+class HardCodedReadOnlyDataSource extends IDataSource {
     getPatient(id) {
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new Patient(hardCodedPatient);
@@ -16,12 +16,12 @@ class HardCodedReadOnlyDataAccess extends IDataSource {
     }
     
     newPatient() {
-        return new Patient(null);
+        console.log("creating new patients is not implemented in hard-coded read only patient data source.");
     }
     
     savePatient(patient) {
-        console.log("Saving of patients is not implemented in hard-coded read only patient data source.");
+        console.log("saving of patients is not implemented in hard-coded read only patient data source.");
     }
 }
 
-export default HardCodedReadOnlyDataAccess;
+export default HardCodedReadOnlyDataSource;

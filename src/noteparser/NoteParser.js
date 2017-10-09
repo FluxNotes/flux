@@ -13,7 +13,7 @@ export default class NoteParser {
             this.shortcutManager = shortcutManager;
         }
         if (Lang.isUndefined(contextManager)) {
-            let dataAccess = new DataAccess();
+            let dataAccess = new DataAccess("NewPatientOnlyDataSource");
             let patient = dataAccess.newPatient();
             this.contextManager = new ContextManager(patient);
             this.contextManager.setIsBlock1BeforeBlock2(() => { return true; });
