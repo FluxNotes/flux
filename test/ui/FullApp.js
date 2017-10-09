@@ -36,8 +36,10 @@ in a structured data insersion and the conext panel updates', async t => {
     const count = await contextPanelElements.count;
     const clinicalTrialChildren = ['#TITLE', '#ENROLLED ON', '#ENDED ON'];
     for (let i = 0; i < count; i++) {
+        let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
+        let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
         await t 
-            .expect(contextPanelElements.nth(i).innerText)
+            .expect(contextPanelElementsUpper)
             .contains(clinicalTrialChildren[i]);
     }
 });
@@ -52,14 +54,14 @@ test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a dat
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('button');
-    const clinicalTrialButton = await contextPanelElements.withText('#CLINICAL TRIAL');
+    const clinicalTrialButton = await contextPanelElements.withText(/#clinical trial/ig);
     
     await t
         .click(clinicalTrialButton);
-    const enrolledOnButton = await contextPanelElements.withText("#ENROLLED ON");
+    const enrolledOnButton = await contextPanelElements.withText(/#enrolled on/ig);
     await t
         .click(enrolledOnButton);
-    const dateButton = await contextPanelElements.withText("#DATE");
+    const dateButton = await contextPanelElements.withText(/#date/ig);
     await t 
         .click(dateButton)
         .pressKey('enter');
