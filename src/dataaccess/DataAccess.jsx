@@ -4,7 +4,6 @@ export default class DataAccess {
     static DEMO_PATIENT_ID = "-1";
     
     constructor(dataSourceName) {
-        console.log(dataSourceName);
         if (dataSourceName === 'HardCodedReadOnlyDataAccess') {
             this.dataSource = new HardCodedReadOnlyDataAccess();
         } else {

@@ -4,10 +4,6 @@ import Patient from '../patient/Patient';
 import hardCodedPatient from './HardCodedPatient.json';
 
 class HardCodedReadOnlyDataAccess extends IDataSource {
-    constructor() {
-        super();
-    }
-    
     getPatient(id) {
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new Patient(hardCodedPatient);
