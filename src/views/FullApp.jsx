@@ -20,7 +20,7 @@ class FullApp extends Component {
 
         this.updateErrors = this.updateErrors.bind(this);
         this.onContextUpdate = this.onContextUpdate.bind(this);
-        this.dataAccess = new DataAccess();
+        this.dataAccess = new DataAccess(this.props.dataSource);
         
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);

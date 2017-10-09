@@ -1,27 +1,30 @@
-import Patient from '../patient/Patient';
-import hardCodedPatient from './HardCodedPatient.json';
+import HardCodedReadOnlyDataAccess from './HardCodedReadOnlyDataAccess';
 
 export default class DataAccess {
     static DEMO_PATIENT_ID = "-1";
     
-    getPatient(id) {
-        if (id === DataAccess.DEMO_PATIENT_ID) {
-            return new Patient(hardCodedPatient);
+    constructor(dataSourceName) {
+        console.log(dataSourceName);
+        if (dataSourceName === 'HardCodedReadOnlyDataAccess') {
+            this.dataSource = new HardCodedReadOnlyDataAccess();
         } else {
-            console.log("loading of patients other than the hard-coded demo patient is not implemented yet.");
-            // actually load
+            throw new Error("Unrecognized data source class name: " + dataSourceName);
         }
     }
     
+    getPatient(id) {
+        return this.dataSource.getPatient(id);
+    }
+    
     getListOfPatients() {
-        return [ new Patient(hardCodedPatient) ];
+        return this.dataSource.getListOfPatients();
     }
     
     newPatient() {
-        return new Patient(null);
+        return this.dataSource.newPatient();
     }
     
     savePatient(patient) {
-        console.log("Saving of patients is not implemented yet.");
+        return this.dataSource.savePatient(patient);
     }
 }

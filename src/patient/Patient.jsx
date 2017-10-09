@@ -6,7 +6,6 @@ import Guid from 'guid';
 
 class Patient {
 	constructor(shrJson = null) {
-        console.log(shrJson);
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = shrJson; 
             this.personOfRecord = this.getPersonOfRecord();
