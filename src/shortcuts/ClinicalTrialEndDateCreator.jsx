@@ -73,7 +73,7 @@ export default class ClinicalTrialEndDateCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         return [{name: "#ended on", description: 'Used to reference the date the patient left a clinical trial.'}];
     }
     

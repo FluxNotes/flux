@@ -183,7 +183,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         return [{ name: "#clinical trial", description: 'Prompts you to choose a clinical trial'}];
     }
     

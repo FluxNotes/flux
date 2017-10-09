@@ -73,7 +73,7 @@ export default class ClinicalTrialEnrollmentDateCreator extends CreatorShortcut 
         return this.getShortcutType();
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         return [{name: "#enrolled on", description: 'Used to reference the date the patient was enrolled in a clinical trial.'}];
     }
     

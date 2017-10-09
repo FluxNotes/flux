@@ -57,7 +57,7 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
         return errors;
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         let result = [{ name: "#title", description: "A distinguishing word or group of words naming an item."}];
         return result;
     }
