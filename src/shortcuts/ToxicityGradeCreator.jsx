@@ -46,7 +46,7 @@ export default class ToxicityGradeCreator extends CreatorShortcut {
 		return errors;
 	}
 	
-	static getTriggers(parentContext = undefined) {
+	static getStringTriggers(parentContext = undefined) {
         let currentAdverseEvent = "", gradeOptions;
         if (!Lang.isUndefined(parentContext)) {
             currentAdverseEvent = parentContext.getAttributeValue("adverseEvent");

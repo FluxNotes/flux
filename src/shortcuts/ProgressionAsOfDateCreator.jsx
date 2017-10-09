@@ -73,7 +73,7 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         return [{name: "#as of", description: 'Used to reference the date of the current note.'}];
     }
     

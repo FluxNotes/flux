@@ -73,7 +73,7 @@ export default class ProgressionReferenceDateCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         return [{name: "#reference date", description: 'Used to reference the date of a past clinical note.'}];
     }
     

@@ -230,7 +230,7 @@ class ProgressionCreator extends CreatorShortcut {
 	getLabel() {
 		return this.getShortcutType();
 	}
-	static getTriggers() {
+	static getStringTriggers() {
         return [{ name: "#disease status", description: lookup.getDescription('progression') }];
 	}
     static getDescription() {

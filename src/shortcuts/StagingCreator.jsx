@@ -194,7 +194,7 @@ class StagingCreator extends CreatorShortcut {
 	getLabel() {
 		return this.getShortcutType();
 	}
-	static getTriggers() {
+	static getStringTriggers() {
 		return [{ name: "#staging", description: lookup.getDescription("TNMStage")}];
 	}
     

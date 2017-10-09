@@ -51,7 +51,7 @@ export default class ProgressionReasonsCreator extends CreatorShortcut {
 		return errors;
 	}
 	
-    static getTriggers(parentContext = undefined) {
+    static getStringTriggers(parentContext = undefined) {
         let currentReasons = [];
         if (!Lang.isUndefined(parentContext)) {
             currentReasons = parentContext.getAttributeValue("reasons");

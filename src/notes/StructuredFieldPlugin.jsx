@@ -82,7 +82,6 @@ function StructuredFieldPlugin(opts) {
     function onPaste(event, data, state, editor) {
         //console.log("onPaste");
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;
-        
         //console.log(html);
         let fragment = null;
         if (
@@ -106,6 +105,10 @@ function StructuredFieldPlugin(opts) {
             insertText(decoded);
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
+            return state;
+        } else if (data.text) {
+            event.preventDefault();
+            insertText(data.text);
             return state;
         }
     }
@@ -144,7 +147,11 @@ function StructuredFieldPlugin(opts) {
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
                 if (shortcut instanceof InserterShortcut || Lang.isArray(shortcut.determineText(contextManager))) {
-                    result += `${shortcut.getShortcutType()}[[${shortcut.getText()}]]`;
+                    let text = shortcut.getText();
+                    if (text.startsWith(shortcut.getPrefixCharacter())) {
+                        text = text.substring(1);
+                    }
+                    result += `${shortcut.getShortcutType()}[[${text}]]`;
                 } else {
                     result += shortcut.getText();
                 }
@@ -194,7 +201,7 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
-        // console.log("onCopy");
+        //console.log("onCopy");
         let { selection } = state;
    
         const window = getWindow(event.target);
@@ -209,7 +216,7 @@ function StructuredFieldPlugin(opts) {
 
         //console.log(state.document);
         let fluxString = convertToText(state, selection);
-        // console.log("copy: " + fluxString);
+        //console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -255,7 +262,7 @@ function StructuredFieldPlugin(opts) {
         if (contents.childNodes.length > 1) {
             contents.childNodes[1].setAttribute('flux-string', encoded);
         }
-        // console.log(attach);
+        //console.log(attach);
 
         // Add the phony content to the DOM, and select it, so it will be copied.
         const body = window.document.querySelector('body');
@@ -317,7 +324,7 @@ function insertStructuredField(opts, transform, shortcut) {
     const sf = createStructuredField(opts, shortcut);
 
     shortcut.setKey(sf.key);
-	if (sf.kind === 'block') {
+    if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {
 		return [transform.insertInline(sf), sf.key];

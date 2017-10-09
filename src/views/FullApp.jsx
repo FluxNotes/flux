@@ -46,8 +46,8 @@ class FullApp extends Component {
         this.setState({SummaryItemToInsert: ''});
     }
     
-    newCurrentShortcut = (shortcutType, obj) => {
-        let newShortcut = this.shortcutManager.createShortcut(shortcutType, this.handleShortcutUpdate, obj);
+    newCurrentShortcut = (shortcutC, shortcutType, obj) => {
+        let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate, obj);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
         if (errors.length > 0) {
             errors.forEach((error) => {

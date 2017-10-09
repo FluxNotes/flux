@@ -45,7 +45,7 @@ export default class ProgressionStatusCreator extends CreatorShortcut {
 		return errors;
 	}
 	
-	static getTriggers() {
+	static getStringTriggers() {
 		const statusOptions = lookup.getStatusOptions();
 		let result = [];
 		statusOptions.forEach((val) => {
