@@ -32,7 +32,7 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
 });
 
 test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
-   const editor = Selector("div[data-slate-editor='true']");
+    const editor = Selector("div[data-slate-editor='true']");
     await t
         .typeText(editor, "#deceased ");
     const structuredField = editor.find("span[class='structured-field']");
@@ -40,9 +40,13 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
         .expect(structuredField.innerText)
         .contains('#deceased');
     const contextPanelElement = Selector(".context-options-list").find('button');
-    const deceasedChild = '#date';
+
+    const deceasedChild = '#DATE';
+    const contextPanelElementInnerText = await contextPanelElement.innerText;
+    const contextPanelElementUpper = contextPanelElementInnerText.toUpperCase();
+
     await t
-        .expect(contextPanelElement.innerText)
+        .expect(contextPanelElementUpper)
         .contains(deceasedChild);
 });
 
