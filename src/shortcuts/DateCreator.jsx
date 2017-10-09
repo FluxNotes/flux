@@ -1,5 +1,6 @@
 import CreatorShortcut from './CreatorShortcut';
 import moment from 'moment';
+import Lang from 'lodash';
 
 export default class DateCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
@@ -8,14 +9,20 @@ export default class DateCreator extends CreatorShortcut {
     
     initialize(contextManager, trigger) {
         super.initialize(contextManager, trigger);
-        this.text = trigger;
+        //this.text = trigger;
         this.parentContext = contextManager.getCurrentContext();
-        this.parentContext.addChild(this);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
+        if (trigger !== "#date") {
+            this.setText(trigger);
+            this.clearValueSelectionOptions();
+        }
     }
     
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
-        if(result) {
+        if(result && !Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue("date", null, false);
             this.parentContext.removeChild(this);
         }
@@ -33,7 +40,9 @@ export default class DateCreator extends CreatorShortcut {
         }
         super.setText(text);
         const formattedDate = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
-        this.parentContext.setAttributeValue("date", formattedDate, false);
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.setAttributeValue("date", formattedDate, false);
+        }
     }
     
     getText() {
@@ -49,9 +58,13 @@ export default class DateCreator extends CreatorShortcut {
         return errors;
     }
     
-    static getTriggers() {
+    static getStringTriggers() {
         let result = [{name: `#date`, description: "A date."}];
         return result;
+    }
+    
+    static getTriggerRegExp() {
+        return /(#\d{1,2}\/\d{1,2}\/\d{4})/;
     }
     
     static getDescription() {

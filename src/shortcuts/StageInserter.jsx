@@ -24,7 +24,7 @@ export default class StageInserter extends InserterShortcut {
         return "@stage";
     }
 	
-	static getTriggers() {
+	static getStringTriggers() {
 		return [{name: "@stage", description: "Patient's stage"}];
 	}
 }

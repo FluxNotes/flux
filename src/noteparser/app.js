@@ -32,6 +32,7 @@ let noteParser = new NoteParser();
 
 let perFileFunc = (file) => {
     let content;
+    let result;
     //console.log(content);
     fs.readFile(file, 'utf8', function (err,data) {
         if (err) {
@@ -40,7 +41,10 @@ let perFileFunc = (file) => {
         console.log("***************************************************");
         console.log(file);
         content = util.format(data);
-        console.log(util.inspect(noteParser.parse(content), false, null));
+        result = noteParser.parse(content);
+        console.log(util.inspect(result[0], false, null));
+        console.log("Unrecognized structured phrases:");
+        console.log(result[1]);
     });
 };
 

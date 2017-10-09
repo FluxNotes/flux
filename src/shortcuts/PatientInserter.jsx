@@ -9,7 +9,7 @@ export default class PatientInserter extends InserterShortcut {
     getShortcutType() { 
         return "@patient";
     }
-	static getTriggers() {
+	static getStringTriggers() {
 		return [ {name:"@patient", description: "Basic patient information (e.g. Debra Hernandez672 is a 51 year old female)"} ];
 	}
 }

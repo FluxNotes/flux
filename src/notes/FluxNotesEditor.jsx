@@ -109,7 +109,7 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
         allShortcuts.forEach((shortcutC) => {
-            const shortcutNamesList = shortcutC.getTriggers().map(trigger => trigger.name);
+            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => trigger.name);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
@@ -118,8 +118,21 @@ class FluxNotesEditor extends React.Component {
         this.plugins.push(AutoReplace({
             "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
-            "transform": this.autoReplaceTransform.bind(this)
+            "transform": this.autoReplaceTransform.bind(this, null)
         }));
+        
+        // let's see if we have any regular expression shortcuts
+        let triggerRegExp;
+        allShortcuts.forEach((shortcutC) => {
+            triggerRegExp = shortcutC.getTriggerRegExp();
+            if (!Lang.isNull(triggerRegExp)) {
+                this.plugins.push(AutoReplace({
+                    "trigger": 'space',
+                    "before": triggerRegExp,
+                    "transform": this.autoReplaceTransform.bind(this, shortcutC)
+                }));
+            }
+        });
     }
         
     suggestionFunction(initialChar, text) {
@@ -128,7 +141,7 @@ class FluxNotesEditor extends React.Component {
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
-            const triggers = shortcut.getTriggers();
+            const triggers = shortcut.getStringTriggers();
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
@@ -145,7 +158,7 @@ class FluxNotesEditor extends React.Component {
     
     choseSuggestedShortcut(suggestion) {
         const { state } = this.state; 
-        const shortcut = this.props.newCurrentShortcut(suggestion.value.name);
+        const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
         
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
@@ -156,11 +169,11 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    insertShortcut(shortcutTrigger, text, transform = undefined) {
+    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined) {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        let shortcut = this.props.newCurrentShortcut(shortcutTrigger);
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
                 shortcut.setText(text);
@@ -181,9 +194,9 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    autoReplaceTransform(transform, e, data, matches) {
+    autoReplaceTransform(shortcutC, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        this.insertShortcut(matches.before[0], "", transform);
+        this.insertShortcut(shortcutC, matches.before[0], "", transform);
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -245,8 +258,10 @@ class FluxNotesEditor extends React.Component {
     }
     
     insertStructuredFieldTransform(transform, shortcut) {
+        //console.log(shortcut);
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
+        //console.log(result[0]);
         return result[0];
     }
 
@@ -311,16 +326,18 @@ class FluxNotesEditor extends React.Component {
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
-        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted);
+        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted)[0];
+        //console.log(triggers);
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
-                start = remainder.indexOf(trigger);
+                //console.log(trigger);
+                start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
                     //transform = transform.insertText(before);
                     transform = this.insertPlainText(transform, before);
                 }
-                remainder = remainder.substring(start + trigger.length);
+                remainder = remainder.substring(start + trigger.trigger.length);
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
@@ -328,7 +345,8 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-                transform = this.insertShortcut(trigger, after, transform);
+                //console.log(remainder);
+                transform = this.insertShortcut(trigger.shortcut, trigger.trigger, after, transform);
             });
         }
 
@@ -338,6 +356,7 @@ class FluxNotesEditor extends React.Component {
         }
         state = transform.focus().apply();
         this.setState({state: state});
+        //return state;
     }
 
     /**

@@ -84,6 +84,9 @@ class Shortcut extends Context {
         }
         return true;
     }
+    static getTriggerRegExp() {
+        return null;
+    }
 }
 
 export default Shortcut;

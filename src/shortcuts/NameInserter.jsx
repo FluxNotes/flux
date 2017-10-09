@@ -9,7 +9,7 @@ export default class NameInserter extends InserterShortcut {
         return "@name";
     }
 
-	static getTriggers() {
+	static getStringTriggers() {
 		return [ {name:"@name", description: "Patient's given and family name"} ];
 	}
 }

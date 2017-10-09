@@ -47,7 +47,7 @@ export default class ToxicityAttributionCreator extends CreatorShortcut {
         return errors;
     }
     
-    static getTriggers(parentContext = undefined) {
+    static getStringTriggers(parentContext = undefined) {
         let attributionOptions = lookup.getAttributionOptions();
         let result = [];
         attributionOptions.forEach(attribution => result.push({name: "#" + attribution.name, description: attribution.description}));
