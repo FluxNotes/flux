@@ -74,7 +74,7 @@ class ClinicalTrialForm extends Component {
                     <br/>
                     <br/>
                     {/* TODO: Create and link clinicalTrialSheet.pdf */}
-                    Based on your selections below, the copy button at the bottom will copy a <a href="" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a href="clinicalTrialSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
                 
