@@ -39,8 +39,7 @@ class DeceasedForm extends Component {
             <div>
                 <h1>Deceased</h1>
                 <p id="date-element-description">
-                    An indication that the person is no longer living, given by a date,
-                    time of death, or a boolean value which, when true, indicates the person is deceased.
+                    An indication that the person is no longer living as of the date specified below.
                     <br/>
                     <br/>
                     Based on your selections below, the copy button at the bottom will copy a <a href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.

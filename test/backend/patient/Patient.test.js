@@ -232,7 +232,7 @@ describe('createNewDeceased', function() {
     });
 });
 
-describe('addEntryToPersonOfRecord - deceased', function() {
+describe('setDeceased - deceased', function() {
     it('should add a new deceased object to patient of record', function() {
         const emptyDeceasedObject = {
             "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
@@ -243,7 +243,7 @@ describe('addEntryToPersonOfRecord - deceased', function() {
         const deceased = Patient.createNewDeceased();
 
         // Add the deceased object to the person of record
-        hardCodedPatientObj.addEntryToPersonOfRecord(deceased);
+        hardCodedPatientObj.setDeceased(deceased);
 
         expect(hardCodedPatientRecord.deceased)
             .to.be.an('object')
@@ -254,7 +254,7 @@ describe('addEntryToPersonOfRecord - deceased', function() {
 describe('update method for deceased: ', function() {
     // Create and add deceased to person of record to test if it is updated
     const deceased = Patient.createNewDeceased();
-    hardCodedPatientObj.addEntryToPersonOfRecord(deceased);
+    hardCodedPatientObj.setDeceased(deceased);
 
     it('updateDateOfDeathForDeceased should change the date of death attribute', function() {
         Patient.updateDateOfDeath(deceased, '01 Oct 2017');

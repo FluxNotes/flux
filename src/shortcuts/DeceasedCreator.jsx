@@ -41,7 +41,7 @@ class DeceasedCreator extends CreatorShortcut {
         let dateString;
         if(deceased.dateOfDeath) {
             const formattedDate = moment(deceased.dateOfDeath, 'D MM YYYY').format('MM/DD/YYYY');
-            dateString = ` #${formattedDate}`;
+            dateString = `#${formattedDate}`;
         } else {
             dateString = ``;
         }
@@ -56,7 +56,7 @@ class DeceasedCreator extends CreatorShortcut {
             return `#deceased`;
         } else {
             let dateOfDeathString = this.getDateOfDeathString(this.deceased);
-            return `#deceased${dateOfDeathString}`;
+            return `#deceased ${dateOfDeathString}`;
         }
     }
 
@@ -101,7 +101,7 @@ class DeceasedCreator extends CreatorShortcut {
     updatePatient(patient, contextManager) {
 
         if (this.isDeceasedNew) {
-            patient.addEntryToPersonOfRecord(this.deceased);
+            patient.setDeceased(this.deceased);
             this.isDeceasedNew = false;
         }
     }

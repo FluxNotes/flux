@@ -462,7 +462,7 @@ class Patient {
             this.patientFocalSubject = null;
         }
     }
-    
+
     addEntryToPatient(entry) {
         entry.shrId = this.shrId;
         entry.entryId = this.nextEntryId;
@@ -479,13 +479,8 @@ class Patient {
         this.addEntryToPatient(entry);
     }
 
-    addEntryToPersonOfRecord(entry) {
-        this.personOfRecord.deceased = entry;
-    }
-
-    addEntryToPatientWithPatientFocalSubject(entry) {
-        entry.focalSubject = this.patientFocalSubject;
-        this.addEntryToPatient(entry);
+    setDeceased(deceased) {
+        this.personOfRecord.deceased = deceased;
     }
 
     static isEntryOfType(entry, type) {
@@ -1067,9 +1062,6 @@ class Patient {
         deceased.value = true;
     }
 
-    static setDeceased(deceased) {
-        this.personOfRecord.deceased = deceased;
-    }
 
     // Clinical Trial Creator
     static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
