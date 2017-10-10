@@ -18,8 +18,7 @@ const referencePersonOfRecord = Patient.getEntriesOfTypeFromList(referenceHardCo
 const newPatientOnlyDataAccess = new DataAccess("NewPatientOnlyDataSource");
 // new patient result on data access
 const newPatient = newPatientOnlyDataAccess.newPatient();
-// The empty Patient.jsx obj
-const emptyPatientObj = new Patient(null);
+const newPatientEntries = newPatient.entries;
 
 
 describe('create hard coded read only data source', function() { 
@@ -33,7 +32,8 @@ describe('create hard coded read only data source', function() {
 describe('create new patient only data source', function() { 
 
     it('should return new empty patient', function () { 
-        expect(hardCodedPatientPersonOfRecord)
-            .to.equal(referencePersonOfRecord);
+        expect(newPatientEntries)
+            .to.be.an('array')
+            .that.is.empty;
     });
 });
