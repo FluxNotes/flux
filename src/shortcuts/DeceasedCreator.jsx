@@ -135,7 +135,7 @@ class DeceasedCreator extends CreatorShortcut {
         return this.getShortcutType();
     }
 
-    static getTriggers() {
+    static getStringTriggers() {
         return [{ name: "#deceased", description: 'An indication that the person is no longer living, given by a date, ' +
         'time of death, or a boolean value which, when true, indicates the person is deceased.' }];
     }
