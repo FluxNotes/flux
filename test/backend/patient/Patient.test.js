@@ -268,7 +268,7 @@ describe('addEntryToPatientWithPatientFocalSubject - studyEnrollment', function(
 describe('update methods for study enrollment: ', function () {
     // Create and add study enrollment to patient to test if it is updated
     const studyEnrollment = Patient.createNewStudyEnrollment();
-    hardCodedPatientObj.addEntryToPatient(studyEnrollment);
+    hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
     const lastEntry = hardCodedPatient[hardCodedPatient.length - 1];
     
     it('updateTitleForStudyEnrollment should change the study title attribute', function () {
