@@ -70,9 +70,11 @@ test('Typing a progression note with as of date in the editor results in a new p
         .typeText(editor, " ");
     await t
         .typeText(editor, "#as")
-        .pressKey('enter')
-        .typeText(editor, " ")
-        .typeText(editor, "#" + today + " ");
+    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('as of');
+    await t
+        .click(correctSuggestion);
+    await t
+        .typeText(editor, " #" + today + " ");
 
     const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     const numItems = await progressionItems.count;
