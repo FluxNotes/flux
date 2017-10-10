@@ -34,7 +34,7 @@ in a structured data insersion and the conext panel updates', async t => {
         .contains('#clinical trial');
     const contextPanelElements = Selector(".context-options-list").find('button');
     const count = await contextPanelElements.count;
-    const clinicalTrialChildren = ['#TITLE', '#ENROLLED ON', '#ENDED ON'];
+    const clinicalTrialChildren = ['#PATINA', '#TITLE', '#ENROLLED ON', '#ENDED ON'];
     for (let i = 0; i < count; i++) {
         let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
         let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
