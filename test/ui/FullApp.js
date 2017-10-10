@@ -57,21 +57,21 @@ test('Typing a progression note with as of date in the editor results in a new p
     const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     const numItems = await progressionItems.count;
 
-    // Make sure the 2nd progression has today's date
+    // Make sure today's date is contained in one of the progressions on the timeline
     let item = "";
+    let containsDate = false;
     for(let i = 0; i < numItems; i++) {
         item = progressionItems.nth(i);
         await t
             .hover(progressionItems.nth(i));
 
         const hoverTextItemDate = await Selector("#timeline #hover-item p");
-        if(i == 1) {
-            await t
-                .expect(hoverTextItemDate.innerText)
-                .eql(today.toString());
-        }
+        const dateText = await hoverTextItemDate.innerText;
+        if(dateText === today.toString()) containsDate = true;
     }
 
+    await t
+        .expect(containsDate).ok("One of the progressions on the timeline should contain today's date.");
     // Assert that the number of progressions is correct
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
