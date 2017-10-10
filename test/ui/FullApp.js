@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 import Patient from '../../src/patient/Patient.jsx';
-
+import moment from 'moment';
 
 const pageDomain = "http://localhost";
 const pagePort = "3000";
@@ -32,20 +32,47 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
 });
 
 test('Typing a progression note with as of date in the editor results in a new progression item on the timeline', async t => {
-    const progressionItemsTitleBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    const expectedNumItems = await progressionItemsTitleBefore.count + 1;
-
+    const progressionItemsBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const expectedNumItems = await progressionItemsBefore.count + 1;
     const editor = Selector("div[data-slate-editor='true']");
+    const today = new moment().format('MM/DD/YYYY');
+
+    // Needed to break up entering the text like this to get the structured data working
     await t
         .typeText(editor, "@condition ")
         .pressKey('enter')
+        .typeText(editor, " ");
     await t
-        .typeText(editor, "#disease")
+        .typeText(editor, "#dis")
         .pressKey('enter')
-        .typeText(editor, "#Stable #as of #10/11/2017 ")
-    const progressionItemsTitle = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    const numItems = await progressionItemsTitle.count;
+        .typeText(editor, " ")
+        .typeText(editor, "#Stable ")
+        .typeText(editor, " ");
+    await t
+        .typeText(editor, "#as")
+        .pressKey('enter')
+        .typeText(editor, " ")
+        .typeText(editor, "#" + today + " ");
 
+    const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const numItems = await progressionItems.count;
+
+    // Make sure the 2nd progression has today's date
+    let item = "";
+    for(let i = 0; i < numItems; i++) {
+        item = progressionItems.nth(i);
+        await t
+            .hover(progressionItems.nth(i));
+
+        const hoverTextItemDate = await Selector("#timeline #hover-item p");
+        if(i == 1) {
+            await t
+                .expect(hoverTextItemDate.innerText)
+                .eql(today.toString());
+        }
+    }
+
+    // Assert that the number of progressions is correct
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
 });
