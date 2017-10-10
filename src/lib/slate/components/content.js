@@ -592,7 +592,6 @@ class Content extends React.Component {
     const after = selection.collapseToEnd().move(delta)
 
     if (this.props.onInput !== undefined) {
-      console.log('we have oninput passed')
       let data = {};
       data.anchorKey = key;
       data.anchorOffset = start;

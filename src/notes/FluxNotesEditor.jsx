@@ -262,7 +262,7 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
         //console.log(result[0]);
-        return result[0];
+        return result[0];   
     }
 
     onChange = (state) => {
@@ -272,16 +272,16 @@ class FluxNotesEditor extends React.Component {
     }
 
     onInput = (event, data) => {
+        this.handleSummaryUpdate(data.newText) 
         // Create an updated state with the text replaced.
         var nextState = this.state.state.transform().select({
           anchorKey: data.anchorKey,
           anchorOffset: data.anchorOffset,
           focusKey: data.focusKey,
           focusOffset: data.focusOffset
-        }).delete().insertText(data.newText, data.marks).select(data.after).apply();
+        }).delete()
 
-        // Change the current state.
-        this.onChange(nextState);
+        this.handleSummaryUpdate(data.newText, nextState)
     }
     
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
@@ -332,10 +332,11 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new
      */
-    handleSummaryUpdate = (itemToBeInserted) => {
+    handleSummaryUpdate = (itemToBeInserted, currentTransform=undefined) => {
         let state;
         const currentState = this.state.state;
-        let transform = currentState.transform();
+        
+        let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
