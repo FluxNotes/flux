@@ -1,4 +1,5 @@
 import { Selector } from 'testcafe';
+import hardCodedPatient from '../../src/dataaccess/HardCodedPatient.json';
 import Patient from '../../src/patient/Patient.jsx';
 
 
@@ -18,7 +19,7 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
     const structuredField = editor.find("span[class='structured-field']");
     await t
         .expect(structuredField.innerText)
-        .contains(new Patient().getName());
+        .contains(new Patient(hardCodedPatient).getName());
 });
 
 test('Typing a date in the editor results in a structured data insertion ', async t => { 

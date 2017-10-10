@@ -10,6 +10,7 @@ import ContextManager from '../context/ContextManager';
 //import Patient from '../patient/Patient';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
+import Lang from 'lodash';
 import './FullApp.css';
 
 class FullApp extends Component {
@@ -20,7 +21,11 @@ class FullApp extends Component {
 
         this.updateErrors = this.updateErrors.bind(this);
         this.onContextUpdate = this.onContextUpdate.bind(this);
-        this.dataAccess = new DataAccess(this.props.dataSource);
+        if (Lang.isUndefined(this.props.dataSource)) {
+            this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
+        } else {
+            this.dataAccess = new DataAccess(this.props.dataSource);
+        }
         
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);

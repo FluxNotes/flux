@@ -84,7 +84,7 @@ class Patient {
 	
 	getMRN() {
 		let list = this.entries.filter((item) => { return item.entryType[0] === "http://standardhealthrecord.org/base/PatientIdentifier" && item.identifierType === "MRN" });
-		let identifierEntry = this.getMostRecentEntryFromList(list);
+		let identifierEntry = Patient.getMostRecentEntryFromList(list);
 		if (Lang.isNull(identifierEntry)) return null;
 		return identifierEntry.value;
 	}
@@ -268,13 +268,17 @@ class Patient {
 	getEntriesOfType(type) {
 		return this.entries.filter((item) => { return item.entryType[0] === type });
 	}
+    
+    static getEntriesOfTypeFromList(list, type) {
+        return list.filter((item) => { return item.entryType[0] === type });
+    }
 	
 	getMostRecentEntryOfType(type) {
 		let list = this.getEntriesOfType(type);
-		return this.getMostRecentEntryFromList(list);
+		return Patient.getMostRecentEntryFromList(list);
 	}
 	
-	getMostRecentEntryFromList(list) {
+	static getMostRecentEntryFromList(list) {
 		if (list.length === 0) return null;
 		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o.lastUpdateDate);}));
 		let result = list.filter((item) => { return new Date(item.lastUpdateDate).getTime() === new Date(maxDate).getTime() });
