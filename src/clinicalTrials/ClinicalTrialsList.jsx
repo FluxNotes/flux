@@ -1,16 +1,15 @@
 const clinicalTrials = [
-    {id: 'patina', name: 'PATINA', description: 'For the PATINA Clinical Trial'}
+    {id: 'patina', name: 'PATINA', description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer'}
 ];
 
 exports.getAllTrials = () => {
     return clinicalTrials;
 }
 
-// TODO: Update descriptions
 exports.getDescription = (dataElement) => {
     switch(dataElement) {
         case "clinicalTrial":
-            return "Clinical trial enrollment includes the name of a clinical trial, an enrollment date, and possibly an end date.";
+            return "Clinical trial enrollment includes the title of a clinical trial, an enrollment date, and possibly an end date.";
         case "trial":
             return "Clinical trial the patient is enrolled in.";
         case "enrollmentDate":

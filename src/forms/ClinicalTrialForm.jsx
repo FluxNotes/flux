@@ -37,13 +37,12 @@ class ClinicalTrialForm extends Component {
     renderTrialButtonGroup = (trial, i) => {
         const marginSize = "10px";
         const trialName = trial.name;
-        // TODO Do we want descriptions for each clinical trial?
-        // const trialDescription = trial.description;
-        // const tooltipClass = (trialDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
+        const trialDescription = trial.description;
+        const tooltipClass = (trialDescription.length > 100) ? "tooltiptext-clinical-trial large-clinical-trial" : "tooltiptext-clinical-trial";
         
         return (
-            <div key={trialName} className="tooltip">
-                {/* <span id={trialName} className={tooltipClass}>{trialDescription}</span> */}
+            <div key={trialName} className="tooltip-clinical-trial">
+                <span id={trialName} className={tooltipClass}>{trialDescription}</span>
                 <Button raised
                     key={i}
                     label={trialName}

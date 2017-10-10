@@ -152,7 +152,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
     }
     
     static validateInContext(context) {
-        // TODO: Check on this validation. It should always be valid because in patient context
+        // It should always be valid because in patient context
         return;
     }
     

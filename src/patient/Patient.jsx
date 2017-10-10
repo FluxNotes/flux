@@ -1045,7 +1045,7 @@ class Patient {
 
     // Clinical Trial Creator
     static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
-        // TODO: Figure out where this is in the SHR - possibly Study?
+        // TODO: This Study data element in the SHR will be updated.
         /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
         return {
             "entryType" : ["http://standardhealthrecord.org/base/Study"],
