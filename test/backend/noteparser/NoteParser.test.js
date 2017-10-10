@@ -13,6 +13,7 @@ const sampleTextStaging = "Debra Hernandez672 is presenting with carcinoma of th
 const sampleTextDiseaseStatus = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam";
 const sampleTextDiseaseStatus2 = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam #as of #10/5/2017 #reference date #6/7/2017";
 const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment";
+const sampleTextClinicalTrial = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #clinical trial #PATINA #enrolled on #09/04/2017 and #ended on #10/06/2017";
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -123,6 +124,13 @@ const expectedOutputToxicity = [[{
     originalCreationDate: today,
     lastUpdateDate: today 
 }], []];
+const expectedOutputClinicalTrial = [[{
+    entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+    title: 'PATINA',
+    identifier: '',
+    enrollmentDate: '4 Sep 2017',
+    endDate: '6 Oct 2017'
+}], []];
 
 
 describe('getAllTriggersRegularExpression', function () { 
@@ -182,6 +190,12 @@ describe('parse', function() {
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputToxicity);
+    });
+    it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
+        const record = noteParser.parse(sampleTextClinicalTrial);
+        expect(record)
+            .to.be.an('array')
+            .and.to.eql(expectedOutputClinicalTrial);
     });
 }); 
 

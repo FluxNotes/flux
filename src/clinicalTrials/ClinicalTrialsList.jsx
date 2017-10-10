@@ -1,5 +1,5 @@
 const clinicalTrials = [
-    {id: 'patina', name: 'PATINA'}
+    {id: 'patina', name: 'PATINA', description: 'For the PATINA Clinical Trial'}
 ];
 
 exports.getAllTrials = () => {

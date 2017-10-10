@@ -11,6 +11,10 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
         this.text = trigger;
         this.parentContext = contextManager.getActiveContextOfType("#clinical trial");
         this.parentContext.addChild(this);
+        if (trigger !== '#title') {
+            this.setText(trigger);
+            this.clearValueSelectionOptions();
+        }
     }
     
     onBeforeDeleted() {
@@ -58,7 +62,12 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
     }
     
     static getStringTriggers() {
-        let result = [{ name: "#title", description: "A distinguishing word or group of words naming an item."}];
+        let result = [];
+        const trials = ClinicalTrialsList.getAllTrials();
+        trials.forEach((val) => {
+            result.push({name: `#${val.name}`, description: `${val.description}`});
+        });
+        result.push({ name: "#title", description: "A distinguishing word or group of words naming an item."});
         return result;
     }
     
