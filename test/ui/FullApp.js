@@ -31,6 +31,25 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
         .contains("#12/20/2015");
 });
 
+test('Typing a progression note with as of date in the editor results in a new progression item on the timeline', async t => {
+    const progressionItemsTitleBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const expectedNumItems = await progressionItemsTitleBefore.count + 1;
+
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "@condition ")
+        .pressKey('enter')
+    await t
+        .typeText(editor, "#disease")
+        .pressKey('enter')
+        .typeText(editor, "#Stable #as of #10/11/2017 ")
+    const progressionItemsTitle = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const numItems = await progressionItemsTitle.count;
+
+    await t
+        .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
+});
+
 fixture('Patient Mode - Data Summary Panel') 
     .page(startPage);
 
