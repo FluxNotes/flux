@@ -17,6 +17,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
             this.clinicalTrial = clinicalTrial;
             this.isClinicalTrialNew = false;
         }
+        this.clinicalTrialsList = new ClinicalTrialsList();
         this.setValueObject(this.clinicalTrial);
         this.enrollmentDateFlag = false;
         this.endDateFlag = false;
@@ -48,7 +49,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
             curClinicalTrial.title.length === 0) {
             nameString = ``;    
         } else {
-            const allTrials = ClinicalTrialsList.getAllTrials();
+            const allTrials = this.clinicalTrialsList.getAllTrials();
             const curTrial = allTrials.find(trial => trial.id === curClinicalTrial.title);
             nameString = ` #${curTrial.name}`;
         }

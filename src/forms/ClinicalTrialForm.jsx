@@ -9,9 +9,10 @@ import './ClinicalTrialForm.css';
 class ClinicalTrialForm extends Component {
     constructor(props) {
         super(props);
+        this.clinicalTrialsList = new ClinicalTrialsList();
         
         this.state = {
-            trials: ClinicalTrialsList.getAllTrials()
+            trials: this.clinicalTrialsList.getAllTrials()
         };
     }
     

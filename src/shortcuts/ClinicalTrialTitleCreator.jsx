@@ -4,6 +4,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 export default class ClinicalTrialTitleCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {
         super();
+        this.clinicalTrialsList = new ClinicalTrialsList(); // TODO: Consider ways to instantiate this once for the full app
     }
     
     initialize(contextManager, trigger) {
@@ -27,7 +28,7 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
     }
     
     determineText(contextManager) {
-        return ClinicalTrialsList.getAllTrials().map((trial) => {
+        return this.clinicalTrialsList.getAllTrials().map((trial) => {
             return { key: trial.id, context: trial.name, object: trial };
         }); 
     }
@@ -63,7 +64,7 @@ export default class ClinicalTrialTitleCreator extends CreatorShortcut {
     
     static getStringTriggers() {
         let result = [];
-        const trials = ClinicalTrialsList.getAllTrials();
+        const trials = new ClinicalTrialsList().getAllTrials();
         trials.forEach((val) => {
             result.push({name: `#${val.name}`, description: `${val.description}`});
         });
