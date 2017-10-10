@@ -1,5 +1,5 @@
 import React from 'react';
-import Slate from 'slate';
+import Slate from '../lib/slate';
 import Lang from 'lodash';
 import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -270,6 +270,19 @@ class FluxNotesEditor extends React.Component {
             state: state
         });
     }
+
+    onInput = (event, data) => {
+        // Create an updated state with the text replaced.
+        var nextState = this.state.state.transform().select({
+          anchorKey: data.anchorKey,
+          anchorOffset: data.anchorOffset,
+          focusKey: data.focusKey,
+          focusOffset: data.focusOffset
+        }).delete().insertText(data.newText, data.marks).select(data.after).apply();
+
+        // Change the current state.
+        this.onChange(nextState);
+    }
     
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
         if (Lang.isUndefined(state)) {
@@ -425,7 +438,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({ state });
     
     }        
-    
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -492,6 +505,7 @@ class FluxNotesEditor extends React.Component {
                             state={this.state.state}
                             ref={function(c) { editor = c; }}
                             onChange={this.onChange}
+                            onInput={this.onInput}
                             onSelectionChange={this.onSelectionChange}
                             schema={schema}
                         />

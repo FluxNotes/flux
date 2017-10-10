@@ -1,6 +1,6 @@
 import InserterShortcut from '../shortcuts/InserterShortcut';
 import React from 'react';
-import Slate from 'slate';
+import Slate from '../lib/slate';
 import Lang from 'lodash';
 import getWindow from 'get-window';
 
@@ -322,7 +322,6 @@ function insertStructuredField(opts, transform, shortcut) {
 
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
-
     shortcut.setKey(sf.key);
     if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
@@ -341,15 +340,15 @@ function insertStructuredField(opts, transform, shortcut) {
  */
 function createStructuredField(opts, shortcut) {
 	let nodes = [];
-
-    let sf = Slate.Inline.create({
+    const properties = {
         type:  opts.typeStructuredField,
         nodes: nodes,
-		isVoid: true,
-		data: {
-			shortcut: shortcut
-		}
-    });
+        isVoid: true,
+        data: {
+            shortcut: shortcut
+        }
+    };
+    let sf = Slate.Inline.create(properties);
     structuredFieldMap.set(sf.key, shortcut);
 	return sf;
 }
