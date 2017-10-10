@@ -147,7 +147,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
     updatePatient(patient, contextManager) {
         if (this.clinicalTrial.title.length === 0) return; // Not complete value
         if (this.isClinicalTrialNew) {
-            patient.addEntryToPatient(this.clinicalTrial);
+            patient.addEntryToPatientWithPatientFocalSubject(this.clinicalTrial);
             this.isClinicalTrialNew = false;
         }
     }

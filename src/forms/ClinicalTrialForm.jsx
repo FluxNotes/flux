@@ -100,7 +100,7 @@ class ClinicalTrialForm extends Component {
                     onChange={(e) => this.handleDateSelection(e, "enrollmentDate")}
                 />
                 
-                <h4 className="header-spacing">End Date</h4>
+                <h4 className="header-spacing">End Date <span className="helper-text"> (Optional)</span></h4>
                 <p id="data-element-description">
                     {ClinicalTrialsList.getDescription("endDate")}
                     <span className="helper-text"> mm/dd/yyyy</span>

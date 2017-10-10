@@ -253,11 +253,11 @@ describe('createNewStudyEnrollment', function() {
     });
 });
 
-describe('addEntryToPatient - studyEnrollment', function() {
-    it('should add new study enrollment object to patient', function() {
+describe('addEntryToPatientWithPatientFocalSubject - studyEnrollment', function() {
+    it('should add new study enrollment object to patient with patient focal subject', function() {
         const studyEnrollment = Patient.createNewStudyEnrollment();
         // Add the study enrollment object to the patient's record
-        hardCodedPatientObj.addEntryToPatient(studyEnrollment);
+        hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
         const length = hardCodedPatient.length;
         const lastEntry = hardCodedPatient[length - 1];
         expect(lastEntry.entryType)
