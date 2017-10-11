@@ -4,15 +4,15 @@ Pull requests into Flux require the following. Submitter and reviewer should :wh
 
 **Documentation**
 
-- [ ] This pull request describes why these changes were made.
+- [ ] This pull request describes why these changes were made
 - [ ] Cheat sheet is updated
 - [ ] Demo script is updated 
 - [ ] Documentation on Wiki has been updated 
-- [ ] Additional technical components and libraries are documented and added to wiki as needed. 
+- [ ] Additional technical components and libraries are documented and added to wiki as needed
 
 **NoteParser**
 
-- [ ] Note parser has been updated if structured phrases change.
+- [ ] Note parser has been updated if structured phrases change
 
 **Code Quality**
 
