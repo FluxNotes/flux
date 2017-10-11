@@ -20,6 +20,12 @@ test('Clicking toxicity button puts us in toxicity mode', async t => {
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Toxicity", `Current header doesn't reflect expected toxicity page header`);
 })
+test('Clicking clinical trial button puts us in clinical trial mode', async t => { 
+    await t
+        .click("#Clinical\\ Trial")
+        .expect(Selector("#shortcut-viewer").find('h1').innerText)
+        .eql("Clinical Trial", `Current header doesn't reflect expected toxicity page header`);
+})
 test('Clicking about button puts us back on landing page', async t => { 
     await t
         .click("#Toxicity")
@@ -93,4 +99,43 @@ test('Changing attribution via button updates copy-content', async t => {
             .expect(Selector("#copy-content").innerText)
             .contains(await attributionButtons.nth(i).innerText);
     }
+});
+
+fixture('Lite Mode - Clinical Trial') 
+    .page(startPage)
+    .beforeEach( async t => { 
+        await t.click("#Clinical\\ Trial");
+    });
+test('Selecting a clinical trial updates copy-content', async t => {
+    const trialButtons = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']");
+    const numButtons = await trialButtons.count;
+    const copyButton = Selector("#copy-content");
+    for (let i = 0; i < numButtons; i++) {
+        await t
+            .click(trialButtons.nth(i))
+            .expect(copyButton.innerText)
+            .contains(await trialButtons.nth(i).innerText);
+    }
+});
+test('Selecting an enrollment date updates copy-content', async t => {
+    const datePicker = Selector("#enrollment-date");
+    const copyButton = Selector("#copy-content");
+    // Date only appears if a trial is selected
+    const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
+    await t
+        .click(firstTrial)
+        .typeText(datePicker, '2017-10-06')
+        .expect(copyButton.innerText)
+        .contains(await datePicker.innerText);
+});
+test('Selecting an end date updates copy-content', async t => {
+    const datePicker = Selector("#end-date");
+    const copyButton = Selector("#copy-content");
+    // Date only appears if a trial is selected
+    const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
+    await t
+        .click(firstTrial)
+        .typeText(datePicker, '2017-10-06')
+        .expect(copyButton.innerText)
+        .contains(await datePicker.innerText);
 });

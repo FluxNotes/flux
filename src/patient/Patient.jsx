@@ -463,16 +463,20 @@ class Patient {
         }
     }
     
-    addEntryToPatientWithPatientFocalSubject(entry) {
+    addEntryToPatient(entry) {
         entry.shrId = this.shrId;
         entry.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
-        entry.focalSubject = this.patientFocalSubject;
         let today = new moment().format("D MMM YYYY");
         entry.originalCreationDate = today;
         entry.asOfDate = null;
         entry.lastUpdateDate = today;
         this.patient.push(entry);
+    }
+    
+    addEntryToPatientWithPatientFocalSubject(entry) {
+        entry.focalSubject = this.patientFocalSubject;
+        this.addEntryToPatient(entry);
     }
 
     static isEntryOfType(entry, type) {
@@ -1038,6 +1042,35 @@ class Patient {
 		if (m.toUpperCase() === 'M1B') return {displayText: "M1b", codesystem: "urn:oid:2.16.840.1.113883.6.96", code:"436321000124102"};
 		return null;
 	}
+
+    // Clinical Trial Creator
+    static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
+        // TODO: This Study data element in the SHR will be updated.
+        /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
+        return {
+            "entryType" : ["http://standardhealthrecord.org/base/Study"],
+            "title": title,
+            "identifier": identifier,
+            "enrollmentDate": enrollmentDate, // TODO: Not on SHR Study element yet
+            "endDate": endDate // TODO: Not on SHR Study element yet
+        };
+    }
+    
+    static updateTitleForStudyEnrollment(study, title) {
+        study.title = title;
+    }
+    
+    static updateIdentifierForStudyEnrollment(study, identifier) {
+        study.identifier = identifier;
+    }
+    
+    static updateEnrollmentDateForStudyEnrollment(study, date) {
+        study.enrollmentDate = date;
+    }
+    
+    static updateEndDateForStudyEnrollment(study, date) {
+        study.endDate = date;
+    }
 }
 
 export default Patient;
