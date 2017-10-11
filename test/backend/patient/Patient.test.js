@@ -210,7 +210,7 @@ describe('getGender', function () {
             .to.be.null;
     });
 
-    it('should return paitents administrative gender when there is a patient record', function () { 
+    it('should return patients administrative gender when there is a patient record', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
         const expectedGender = hardCodedPatientRecord.administrativeGender;
@@ -220,15 +220,59 @@ describe('getGender', function () {
     });
 });
 
+describe('createNewDeceased', function() {
+    it('should create a new blank deceased object when nothing passed in', function() {
+        const emptyDeceasedObject = {
+            "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
+            "value": false,
+            "dateOfDeath": null
+        };
+        expect(Patient.createNewDeceased())
+            .to.be.an('object')
+            .and.to.deep.equal(emptyDeceasedObject);
+    });
+});
+
+describe('setDeceased - deceased', function() {
+    it('should add a new deceased object to patient of record', function() {
+        const emptyDeceasedObject = {
+            "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
+            "value": false,
+            "dateOfDeath": null
+        };
+
+        const deceased = Patient.createNewDeceased();
+
+        // Add the deceased object to the person of record
+        hardCodedPatientObj.setDeceased(deceased);
+
+        expect(hardCodedPatientRecord.deceased)
+            .to.be.an('object')
+            .and.to.deep.equal(emptyDeceasedObject);
+    });
+})
+
+describe('update method for deceased: ', function() {
+    // Create and add deceased to person of record to test if it is updated
+    const deceased = Patient.createNewDeceased();
+    hardCodedPatientObj.setDeceased(deceased);
+
+    it('updateDateOfDeathForDeceased should change the date of death attribute', function() {
+        Patient.updateDateOfDeath(deceased, '01 Oct 2017');
+        expect(deceased)
+            .to.include({"dateOfDeath": '01 Oct 2017'});
+    })
+})
+
 
 describe('createNewStudyEnrollment', function() {
     it('should create a new blank study enrollment when nothing passed in', function () {
-        const emptyStudyObject = { 
+        const emptyStudyObject = {
             "entryType": [ 'http://standardhealthrecord.org/base/Study' ],
             "title": '',
             "identifier": '',
             "enrollmentDate": null,
-            "endDate": null 
+            "endDate": null
         };
         expect(Patient.createNewStudyEnrollment())
             .to.be.an('object')
@@ -239,7 +283,7 @@ describe('createNewStudyEnrollment', function() {
         const identifier = 'StudyIdenfier';
         const enrollmentDate = '10 Oct 2017';
         const endDate = '11 Oct 2017';
-        
+
         const nonEmptyStudyObject = {
             entryType: [ 'http://standardhealthrecord.org/base/Study' ],
             title,
@@ -247,7 +291,7 @@ describe('createNewStudyEnrollment', function() {
             enrollmentDate,
             endDate
         };
-        
+
         expect(Patient.createNewStudyEnrollment(title, identifier, enrollmentDate, endDate))
             .to.be.an('object')
             .and.to.deep.equal(nonEmptyStudyObject);
@@ -271,7 +315,7 @@ describe('update methods for study enrollment: ', function () {
     const studyEnrollment = Patient.createNewStudyEnrollment();
     hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
     const lastEntry = hardCodedPatient[hardCodedPatient.length - 1];
-    
+
     it('updateTitleForStudyEnrollment should change the study title attribute', function () {
         Patient.updateTitleForStudyEnrollment(studyEnrollment, 'newTitle');
         expect(studyEnrollment)
@@ -279,7 +323,7 @@ describe('update methods for study enrollment: ', function () {
         expect(lastEntry)
             .to.include({"title": 'newTitle'});
     });
-    
+
     it('updateIdentifierForStudyEnrollment should change the study identifier attribute', function () {
         Patient.updateIdentifierForStudyEnrollment(studyEnrollment, 'newIdentifier');
         expect(studyEnrollment)
@@ -287,7 +331,7 @@ describe('update methods for study enrollment: ', function () {
         expect(lastEntry)
             .to.include({"identifier": 'newIdentifier'});
     });
-    
+
     it('updateEnrollmentDateForStudyEnrollment should change enrollmentDate attribute', function () {
         Patient.updateEnrollmentDateForStudyEnrollment(studyEnrollment, '10 Oct 2017');
         expect(studyEnrollment)
@@ -295,7 +339,7 @@ describe('update methods for study enrollment: ', function () {
         expect(lastEntry)
             .to.include({"enrollmentDate": '10 Oct 2017'});
     });
-    
+
     it('updateEndDateForStudyEnrollment should change endDate attribute', function () {
         Patient.updateEndDateForStudyEnrollment(studyEnrollment, '11 Oct 2017');
         expect(studyEnrollment)
@@ -304,7 +348,7 @@ describe('update methods for study enrollment: ', function () {
             .to.include({"endDate": '11 Oct 2017'});
     });
 });
-// describe('getPersonOfRecord', function () { 
+// describe('getPersonOfRecord', function () {
  
 //     it('should return null', function () { 
 //         const expected = "";
