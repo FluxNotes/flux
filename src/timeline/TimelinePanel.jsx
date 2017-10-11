@@ -289,35 +289,35 @@ class TimelinePanel extends Component {
   }
   
   _createProgressionItems(patient, progressions, groupStartIndex) {
-    let items = [];
+      let items = [];
+      
+      progressions.forEach((prog) => {
+          const assignedGroup = this._assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
 
-    progressions.forEach((prog) => {
-		const assignedGroup = this._assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
+          let classes = 'progression-item';
+          // Do not include progression on timeline if asOfDate is null
+          if (prog.asOfDate == null) return;
+          let startDate = new moment(prog.asOfDate, "D MMM YYYY");
+          let hoverText = `${startDate.format('MM/DD/YYYY')}`;
+          let endDate = startDate.clone().add(1, 'day');
+          classes += ' point-in-time';
+        	
+          let focalCondition = patient.getFocalConditionForProgression(prog);
+          let focalConditionName = focalCondition.specificType.coding.displayText;
+          
+          let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText + " based on " + prog.evidence.map(function(ev){ return ev.coding.displayText; }).join();;
 
-		let classes = 'progression-item';
-		let startDate = new moment(prog.clinicallyRelevantTime, "D MMM YYYY");
-
-		let hoverText = `${startDate.format('MM/DD/YYYY')}`;
-		let endDate = startDate.clone().add(1, 'day');
-		classes += ' point-in-time';
-		
-		let focalCondition = patient.getFocalConditionForProgression(prog);
-		//console.log(focalCondition);
-		let focalConditionName = focalCondition.specificType.coding.displayText;
-		
-		let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText + " based on " + prog.evidence.map(function(ev){ return ev.coding.displayText; }).join();;
-
-		items.push({
-			group: assignedGroup,
-			icon: 'heartbeat',
-			className: classes,
-			hoverTitle: hoverTitle,
-			hoverText: hoverText,
-			start_time: startDate,
-			end_time: endDate
-		});
-    });
-    return items;
+          items.push({
+              group: assignedGroup,
+              icon: 'heartbeat',
+              className: classes,
+              hoverTitle: hoverTitle,
+              hoverText: hoverText,
+              start_time: startDate,
+              end_time: endDate
+        	});
+      });
+      return items;
   }
 
   // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
