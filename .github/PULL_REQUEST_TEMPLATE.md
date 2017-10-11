@@ -1,6 +1,6 @@
 Pull requests into Flux require the following. Submitter and reviewer should :white_check_mark: when done. For items that are not-applicable, note it's not-applicable (**N/A**) and :white_check_mark:.
 
-##Submitter:
+## Submitter:
 
 **Documentation**
 
@@ -29,7 +29,7 @@ Pull requests into Flux require the following. Submitter and reviewer should :wh
 - [ ] Added note parser examples to test new functionality
 
 
-##Reviewer 1:
+## Reviewer 1:
 
 **Name:**
 
@@ -38,7 +38,7 @@ Pull requests into Flux require the following. Submitter and reviewer should :wh
 - [ ] You have tried to break the code
 
 
-##Reviewer 2:
+## Reviewer 2:
 
 **Name:**
 
