@@ -1,6 +1,6 @@
 import React from 'react'
 import Portal from 'react-portal'
-import Slate from 'slate'
+import Slate from '../slate'
 import position from './caret-position'
 import SuggestionItem from './suggestion-item'
 import getCurrentWord from './current-word'
