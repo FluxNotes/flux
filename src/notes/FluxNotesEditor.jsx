@@ -272,7 +272,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     onInput = (event, data) => {
-        this.handleSummaryUpdate(data.newText) 
         // Create an updated state with the text replaced.
         var nextState = this.state.state.transform().select({
           anchorKey: data.anchorKey,
