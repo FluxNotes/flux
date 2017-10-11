@@ -220,6 +220,90 @@ describe('getGender', function () {
     });
 });
 
+
+describe('createNewStudyEnrollment', function() {
+    it('should create a new blank study enrollment when nothing passed in', function () {
+        const emptyStudyObject = { 
+            "entryType": [ 'http://standardhealthrecord.org/base/Study' ],
+            "title": '',
+            "identifier": '',
+            "enrollmentDate": null,
+            "endDate": null 
+        };
+        expect(Patient.createNewStudyEnrollment())
+            .to.be.an('object')
+            .and.to.deep.equal(emptyStudyObject);
+    });
+    it('should create study enrollment with specified arguments', function () {
+        const title = 'StudyTitle';
+        const identifier = 'StudyIdenfier';
+        const enrollmentDate = '10 Oct 2017';
+        const endDate = '11 Oct 2017';
+        
+        const nonEmptyStudyObject = {
+            entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+            title,
+            identifier,
+            enrollmentDate,
+            endDate
+        };
+        
+        expect(Patient.createNewStudyEnrollment(title, identifier, enrollmentDate, endDate))
+            .to.be.an('object')
+            .and.to.deep.equal(nonEmptyStudyObject);
+    });
+});
+
+describe('addEntryToPatientWithPatientFocalSubject - studyEnrollment', function() {
+    it('should add new study enrollment object to patient with patient focal subject', function() {
+        const studyEnrollment = Patient.createNewStudyEnrollment();
+        // Add the study enrollment object to the patient's record
+        hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
+        const length = hardCodedPatient.length;
+        const lastEntry = hardCodedPatient[length - 1];
+        expect(lastEntry.entryType)
+            .to.include.members([ 'http://standardhealthrecord.org/base/Study' ]);
+    });
+});
+
+describe('update methods for study enrollment: ', function () {
+    // Create and add study enrollment to patient to test if it is updated
+    const studyEnrollment = Patient.createNewStudyEnrollment();
+    hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
+    const lastEntry = hardCodedPatient[hardCodedPatient.length - 1];
+    
+    it('updateTitleForStudyEnrollment should change the study title attribute', function () {
+        Patient.updateTitleForStudyEnrollment(studyEnrollment, 'newTitle');
+        expect(studyEnrollment)
+            .to.include({"title": 'newTitle'});
+        expect(lastEntry)
+            .to.include({"title": 'newTitle'});
+    });
+    
+    it('updateIdentifierForStudyEnrollment should change the study identifier attribute', function () {
+        Patient.updateIdentifierForStudyEnrollment(studyEnrollment, 'newIdentifier');
+        expect(studyEnrollment)
+            .to.include({"identifier": 'newIdentifier'});
+        expect(lastEntry)
+            .to.include({"identifier": 'newIdentifier'});
+    });
+    
+    it('updateEnrollmentDateForStudyEnrollment should change enrollmentDate attribute', function () {
+        Patient.updateEnrollmentDateForStudyEnrollment(studyEnrollment, '10 Oct 2017');
+        expect(studyEnrollment)
+            .to.include({"enrollmentDate": '10 Oct 2017'});
+        expect(lastEntry)
+            .to.include({"enrollmentDate": '10 Oct 2017'});
+    });
+    
+    it('updateEndDateForStudyEnrollment should change endDate attribute', function () {
+        Patient.updateEndDateForStudyEnrollment(studyEnrollment, '11 Oct 2017');
+        expect(studyEnrollment)
+            .to.include({"endDate": '11 Oct 2017'});
+        expect(lastEntry)
+            .to.include({"endDate": '11 Oct 2017'});
+    });
+});
 // describe('getPersonOfRecord', function () { 
  
 //     it('should return null', function () { 

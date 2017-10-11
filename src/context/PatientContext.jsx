@@ -5,6 +5,7 @@ import AgeInserter from '../shortcuts/AgeInserter';
 import GenderInserter from '../shortcuts/GenderInserter';
 import PatientInserter from '../shortcuts/PatientInserter';
 import ConditionInserter from '../shortcuts/ConditionInserter';
+import ClinicalTrialCreator from '../shortcuts/ClinicalTrialCreator';
 
 class PatientContext extends Context {
 	constructor(patient) {
@@ -13,7 +14,7 @@ class PatientContext extends Context {
 	}
 	
 	getValidChildShortcuts(recurse = false) {
-		let result = [  NameInserter, DateOfBirthInserter, AgeInserter, GenderInserter, PatientInserter, ConditionInserter ];
+		let result = [  NameInserter, DateOfBirthInserter, AgeInserter, GenderInserter, PatientInserter, ConditionInserter, ClinicalTrialCreator ];
 		if (recurse) {
 			this.getChildren().forEach((subcontext) => {
 				result = result.concat(subcontext.getValidChildShortcuts(true));

@@ -51,9 +51,11 @@ test('Typing a progression note with as of date in the editor results in a new p
         .typeText(editor, " ");
     await t
         .typeText(editor, "#as")
-        .pressKey('enter')
-        .typeText(editor, " ")
-        .typeText(editor, "#" + today + " ");
+    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('as of');
+    await t
+        .click(correctSuggestion);
+    await t
+        .typeText(editor, " #" + today + " ");
 
     const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     const numItems = await progressionItems.count;
@@ -77,6 +79,61 @@ test('Typing a progression note with as of date in the editor results in a new p
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
 });
+
+test('Typing "#clinical" and selecting "clinical trial" from the portal in the editor results \
+in a structured data insersion and the conext panel updates', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#clinical");
+    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('clinical trial');
+    await t
+        .click(correctSuggestion);
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains('#clinical trial');
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const count = await contextPanelElements.count;
+    const clinicalTrialChildren = ['#PATINA', '#TITLE', '#ENROLLED ON', '#ENDED ON'];
+    for (let i = 0; i < count; i++) {
+        let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
+        let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
+        await t 
+            .expect(contextPanelElementsUpper)
+            .contains(clinicalTrialChildren[i]);
+    }
+});
+
+
+fixture('Patient Mode - Context Panel')
+    .page(startPage);
+
+test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a date inserts "#clinical trial #enrolled on #{date chosen}"', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["#clinical trial", "#enrolled on", `#${today}`];
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const clinicalTrialButton = await contextPanelElements.withText(/#clinical trial/ig);
+    
+    await t
+        .click(clinicalTrialButton);
+    const enrolledOnButton = await contextPanelElements.withText(/#enrolled on/ig);
+    await t
+        .click(enrolledOnButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t 
+        .click(dateButton)
+        .pressKey('enter');
+    
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    } 
+});
+
 
 fixture('Patient Mode - Data Summary Panel') 
     .page(startPage);
