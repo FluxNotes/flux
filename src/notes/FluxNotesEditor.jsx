@@ -196,7 +196,7 @@ class FluxNotesEditor extends React.Component {
     
     autoReplaceTransform(shortcutC, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        this.insertShortcut(shortcutC, matches.before[0], "", transform);
+        return this.insertShortcut(shortcutC, matches.before[0], "", transform).insertText(' ');
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
