@@ -2,6 +2,7 @@ import { Selector } from 'testcafe';
 import Patient from '../../src/patient/Patient.jsx';
 import moment from 'moment';
 
+
 const pageDomain = "http://localhost";
 const pagePort = "3000";
 const pageRoute = "/patient"
@@ -21,7 +22,7 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .contains(new Patient().getName());
 });
 
-test('Typing a date in the editor results in a structured data insertion ', async t => { 
+test('Typing a date in the editor results in a structured data insertion ', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
         .typeText(editor, "#12/20/2015 ")
@@ -97,11 +98,31 @@ in a structured data insersion and the conext panel updates', async t => {
     for (let i = 0; i < count; i++) {
         let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
         let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
-        await t 
+        await t
             .expect(contextPanelElementsUpper)
             .contains(clinicalTrialChildren[i]);
     }
 });
+
+test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#deceased ");
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains('#deceased');
+    const contextPanelElement = Selector(".context-options-list").find('button');
+
+    const deceasedChild = '#DATE';
+    const contextPanelElementInnerText = await contextPanelElement.innerText;
+    const contextPanelElementUpper = contextPanelElementInnerText.toUpperCase();
+
+    await t
+        .expect(contextPanelElementUpper)
+        .contains(deceasedChild);
+});
+
 
 
 fixture('Patient Mode - Context Panel')
@@ -114,27 +135,50 @@ test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a dat
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('button');
     const clinicalTrialButton = await contextPanelElements.withText(/#clinical trial/ig);
-    
+
     await t
         .click(clinicalTrialButton);
     const enrolledOnButton = await contextPanelElements.withText(/#enrolled on/ig);
     await t
         .click(enrolledOnButton);
     const dateButton = await contextPanelElements.withText(/#date/ig);
-    await t 
+    await t
         .click(dateButton)
         .pressKey('enter');
-    
+
     const structuredFieldCount = await structuredField.count;
     for (let i = 0; i < structuredFieldCount; i++) {
         await t
             .expect(structuredField.nth(i).innerText)
             .contains(expectedText[i]);
-    } 
+    }
 });
 
+test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{date chosen}"', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["#deceased", `#${today}`];
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
 
-fixture('Patient Mode - Data Summary Panel') 
+    const deceasedButton = await contextPanelElements.withText(/#deceased/ig);
+
+    await t
+        .click(deceasedButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    }
+});
+
+fixture('Patient Mode - Data Summary Panel')
     .page(startPage);
 
 test('Clicking to insert a captured data element results in that text pasted into the editor', async t => { 
@@ -150,8 +194,7 @@ test('Clicking to insert a captured data element results in that text pasted int
     }
 });
 
-
-fixture('Patient Mode - Timeline') 
+fixture('Patient Mode - Timeline')
     .page(startPage);
 
 test('Hovering over calendar medication items should add medication name to hover text', async t => { 
