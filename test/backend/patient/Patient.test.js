@@ -1,18 +1,19 @@
 import Patient from '../../../src/patient/Patient';
+import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import Moment from 'moment';
 import {expect} from 'chai';
 
 // The empty Patient.jsx obj
-const emptyPatientObj = new Patient(false);
+const emptyPatientObj = new Patient(null);
 // The empty patient shr object -- an empty array 
-const emptyPatient = emptyPatientObj.patient;
+const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPersonOfRecord()
 
 // The hardcoded Patient.jsx obj
-const hardCodedPatientObj = new Patient(true);
+const hardCodedPatientObj = new Patient(hardCodedPatient);
 // The patient shr object -- an array of entries
-const hardCodedPatient = hardCodedPatientObj.patient
+const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
 const hardCodedPatientRecord = hardCodedPatientObj.getPersonOfRecord();
 
@@ -36,12 +37,12 @@ describe('getEntriesOfType', function() {
     });
 
     it('should return non-empty list for type found in patient', function () { 
-        // First check that hardCodedPatient isn't empty
-        expect(hardCodedPatient)
+        // First check that hardCodedPatientEntries isn't empty
+        expect(hardCodedPatientEntries)
             .to.be.an('array')
             .that.is.not.empty;
 
-        const validType = getValidTypeFrom(hardCodedPatient);
+        const validType = getValidTypeFrom(hardCodedPatientEntries);
         expect(hardCodedPatientObj.getEntriesOfType(validType))
             .to.be.an('array')
             .that.is.not.empty;
@@ -52,18 +53,18 @@ describe('getEntriesOfType', function() {
 describe('getMostRecentEntryFromList', function () { 
 
     it('should return null when the list is empty', function () { 
-        expect(emptyPatientObj.getMostRecentEntryFromList(emptyPatient))
+        expect(Patient.getMostRecentEntryFromList(emptyPatient))
             .to.be.null;
     });
 
     it('should return an element from non-empty list of entries that have the attribute lastUpdateDate', function () { 
-        expect(hardCodedPatientObj.getMostRecentEntryFromList(hardCodedPatient))
+        expect(Patient.getMostRecentEntryFromList(hardCodedPatientEntries))
             .to.not.be.null;
     });
 
     it('should return the first element from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
         //slice to clone obj
-        const sortedList = hardCodedPatient.slice().sort(function (a,b) { 
+        const sortedList = hardCodedPatientEntries.slice().sort(function (a,b) { 
             const a_lastUpdateDate = new Moment(a.lastUpdateDate, "D MMM YYYY");
             const b_lastUpdateDate = new Moment(b.lastUpdateDate, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
@@ -71,7 +72,7 @@ describe('getMostRecentEntryFromList', function () {
             return 0;
         });
         const firstElem = sortedList[0];
-        expect(hardCodedPatientObj.getMostRecentEntryFromList(hardCodedPatient))
+        expect(Patient.getMostRecentEntryFromList(hardCodedPatientEntries))
             .to.eql(firstElem);
     });
 });
@@ -94,14 +95,14 @@ describe('getMostRecentEntryOfType', function () {
     });
 
     it('should return an element from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatient);
+        const validType = getValidTypeFrom(hardCodedPatientEntries);
         expect(hardCodedPatientObj.getMostRecentEntryOfType(validType))
             .to.be.an('object')
             .that.is.not.null;
     });
 
     it('should return an element with the given type from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatient);
+        const validType = getValidTypeFrom(hardCodedPatientEntries);
         expect(hardCodedPatientObj.getMostRecentEntryOfType(validType))
             .to.be.an('object')
             .that.is.not.null
@@ -109,7 +110,7 @@ describe('getMostRecentEntryOfType', function () {
     });
 
     it('should return the most recent element with type from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatient);
+        const validType = getValidTypeFrom(hardCodedPatientEntries);
         const filteredElems = hardCodedPatientObj.getEntriesOfType(validType);
         //slice to clone obj
         const sortedList = filteredElems.slice().sort(function (a,b) { 
