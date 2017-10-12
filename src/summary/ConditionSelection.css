@@ -1,41 +1,60 @@
-.selected-condition {
-    min-height: 14px;
+.condition-selection .condition-select {
+    width: 92%;
+    height: 30px;
+    font-size: 0.8em;
+    background-color: #fafafa;
+    border-radius: 2px;
+    padding: 5px 2px 2px 20px;
+    border: none;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
 
-.title {
-    float: left;
-    font-size: 0.9rem;
-    min-width: 84%;
-    max-width: 84%;
+.condition-select .MuiSelect-select-111:focus {
+    background: inherit;
 }
 
-.arrow {
-    float: left;
-    text-align: right;
-    min-width: 8%;
-    max-width: 8%;
-    font-size: 14px;
+.full-app-mode {
+    padding-right: 2rem;
 }
 
-.arrow a {
-    text-decoration: none;
+.event-buttons,
+.condition-select {
+    margin: 5px 0;
 }
 
-.arrow a:link {
-    color: #333;
+.button {
+    padding: 0;
 }
 
-.arrow a:visited {
-    color: #333;
+.button button {
+    width: 100%;
+    background-color: white;
 }
 
-.arrow a:hover {
-    color: #666;
-    cursor: pointer;
+.button.active button {
+    background-color: #1384B5;
+    color: white;
+    box-shadow: none;
 }
 
-/* Disable arrow */
-.disabled a {
-    color: #999;
-    pointer-events: none;
+.button span {
+    font-size: 0.9em;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.preEncounter button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.encounter button {
+    border-radius: 0;
+}
+
+.treatment button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }

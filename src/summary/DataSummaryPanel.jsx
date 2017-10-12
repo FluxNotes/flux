@@ -1,7 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SummaryHeader from './SummaryHeader';
-import ConditionSelection from './ConditionSelection';
 import DataSummaryTable from './DataSummaryTable';
 import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
@@ -10,122 +8,123 @@ import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-	constructor(props) {
-		super(props);
-	
-        this.handleChange = this.handleChange.bind(this);
-    
-		// Set the initial state when the app is first constructed.
-		this.state = {
-			activeConditionIndex: 0,
-            value: 0
-		}
-		
-		this.changeConditionIndex = this.changeConditionIndex.bind(this);
-	}
+    constructor(props) {
+        super(props);
 
-	changeConditionIndex(newIndex) {
-		this.setState({activeConditionIndex: newIndex});
-	}
-	
-    handleChange(event, value) {
-        this.setState({ value });
+        this.state = { tabValue: 0 };
     }
+
+    selectTab = (event, value) => {
+        this.setState({ tabValue: value });
+    }
+
+    getConditionMetadata() {
+        const { condition } = this.props;
+
+        let codeSystem, code, conditionMetadata = null;
+        if (condition != null) {
+            codeSystem = condition.specificType.coding.codeSystem;
+            code = condition.specificType.coding.value;
+            conditionMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
+        }
+
+        if (condition == null || conditionMetadata == null) {
+            conditionMetadata = this.props.summaryMetadata["default"];
+        }
+
+        return conditionMetadata;
+    }
+
+    renderedTabSections() {
+        const { patient, condition, onItemClicked, allowItemClick } = this.props;
+        const conditionMetadata = this.getConditionMetadata();
+        if (conditionMetadata == null) { return null; }
+
+        return conditionMetadata.sections.map((section, i) =>
+            <div key={i}>
+                <h2>{section.name}</h2>
+
+                <DataSummaryTable
+                    patient={patient}
+                    condition={condition}
+                    conditionSection={section}
+                    onItemClicked={onItemClicked}
+                    allowItemClick={allowItemClick}
+                />
+            </div>
+        );
+    }
+
+    renderedNotes() {
+        return this.props.patient.getNotes().map((item, i) =>
+            <tr className="existing-note-entry" key={i}>
+                <td className="existing-note-date" width="15%">{item.date}</td>
+                <td className="existing-note-metadata" width="55%">
+                    <span id="existing-note-subject">{item.subject}</span> <br/>
+                    <span>{item.hospital}</span> <br/>
+                    <span>{item.clinician}</span>
+                </td>
+                <td className="existing-note-button" width="30%">
+                    <Button raised
+                        className="existing-note-btn"
+                        key={i}
+                    >View Note</Button>
+                </td>
+            </tr>
+        );
+    }
+
+    renderedTabs() {
+        if (this.state.tabValue === 0) {
+            return (
+                <TabContainer>
+                    <div className="table-list" id="summary-list">
+                        {this.renderedTabSections()}
+                    </div>
+                </TabContainer>
+            );
+        } else if (this.state.tabValue === 1) {
+            return (
+                <TabContainer>
+                    <div className="table-list" id="previous-notes">
+                        <h2>Previous Clinical Notes</h2>
+
+                        <table className="existing-notes">
+                            <tbody>
+                                {this.renderedNotes()}
+                            </tbody>
+                        </table>
+                    </div>
+                </TabContainer>
+            );
+        }
+    }
+
     render() {
-        const { value } = this.state;
-		const conditions = this.props.patient.getConditions();
-		const activeCondition = conditions[this.state.activeConditionIndex];
-		const codeSystem = activeCondition.specificType.coding.codeSystem;
-		const code = activeCondition.specificType.coding.value;
-		let diseaseSummaryMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
-		if (!diseaseSummaryMetadata) {
-			console.log("Unsupported condition within summary (using default): " + codeSystem + "/" + code);
-			diseaseSummaryMetadata = this.props.summaryMetadata["default"];
-		}
-/*
-inkBarStyle={{background: 'steelblue'}}
-                          tabItemContainerStyle={{background: 'white'}}*/
-                          
-                          //for Tabs className="tabs-container"
-                          //for each Tab className="tab" 
+        const { tabValue } = this.state;
+
         return (
             <div className="dashboard-panel">
                 <Paper className="panel-content trio">
-                    <SummaryHeader
-                        photo={this.props.patient.getMostRecentPhoto()}
-                        patientName={this.props.patient.getName()}
-                        mrn={this.props.patient.getMRN()}
-                        dateOfBirth={this.props.patient.getPersonOfRecord().dateOfBirth}
-                        administrativeSex={this.props.patient.getPersonOfRecord().administrativeGender}
-                        address={this.props.patient.getCurrentHomeAddress()}
-                    />
-					
-                    <ConditionSelection
-                        conditions={conditions}
-						activeConditionIndex={this.state.activeConditionIndex}
-						changeConditionIndex={this.changeConditionIndex}
-                    />
-
-                    <Tabs  value={value} onChange={this.handleChange} indicatorColor="steelblue" centered={true}>
+                    <Tabs
+                        value={tabValue}
+                        onChange={this.selectTab}
+                        indicatorColor="steelblue"
+                        centered={true}>
                         <Tab label="Problem Summary" value={0}/>
-                        <Tab label="Clinical Notes"  value={1}/>
+                        <Tab label="Clinical Notes" value={1}/>
                     </Tabs>
-                    {value === 0 && <TabContainer>
-                            <div className="table-list" id="summary-list">
-								{diseaseSummaryMetadata.sections.map((section, i) => {
-									return (
-										<div key={i}>
-											<h2>{section.name}</h2>
-											<DataSummaryTable 
-												items={section.items} 
-												itemsFunction={section.itemsFunction}
-												patient={this.props.patient}
-												currentConditionEntry={activeCondition}
-												onItemClicked={this.props.onItemClicked}
-												allowItemClick={this.props.allowItemClick}
-											/>
-										</div>
-										);
-									})}
-                            </div>
-                            </TabContainer>}
-                    {value === 1 && <TabContainer>
-                                                <div className="table-list" id="previous-notes">
-                                <h2>Previous Clinical Notes</h2>
-                                <table className="existing-notes">
-                                    <tbody>
-                                    {this.props.patient.getNotes().map((item, i) => {
-                                        return (
-                                            <tr className="existing-note-entry" key={i}>
-                                                <td className="existing-note-date" width="15%">{item.date}</td>
-                                                <td className="existing-note-metadata" width="55%">
-                                                    <span id="existing-note-subject">{item.subject}</span> <br/>
-                                                    <span>{item.hospital}</span> <br/>
-                                                    <span>{item.clinician}</span>
-                                                </td>
-                                                <td className="existing-note-button" width="30%">
-                                                    <Button raised
-                                                        className="existing-note-btn"
-                                                        key={i}
-                                                    >View Note</Button>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </TabContainer>}
-                    
+
+                    {this.renderedTabs()}
                 </Paper>
             </div>
-
         );
     }
 }
 
 DataSummaryPanel.propTypes = {
     patient: PropTypes.object,
+    condition: PropTypes.object,
     summaryMetadata: PropTypes.object,
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func
@@ -138,4 +137,5 @@ function TabContainer(props) {
     </div>
   );
 }
+
 export default DataSummaryPanel;

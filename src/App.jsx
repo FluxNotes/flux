@@ -4,8 +4,7 @@ import withTracker from './analyticsTracker/withTracker';
 import ViewManager from './views/ViewManager';
 
 class App extends Component {
-  
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.views = new ViewManager().getSupportedViews();
     }
@@ -15,9 +14,9 @@ class App extends Component {
             <Router>
                 <div>
                     {this.views.map((viewObject, i) => {
-                        if (viewObject.isExact) { 
+                        if (viewObject.isExact) {
                             return <Route exact path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
-                        } else { 
+                        } else {
                             return <Route path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
                         }
                     })}

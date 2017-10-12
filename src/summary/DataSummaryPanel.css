@@ -9,7 +9,7 @@
 /* Scrolling behavior */
 .table-list {
     overflow-y: scroll;
-    height: 500px;
+    height: 700px;
     margin-top: 20px;
 }
 
