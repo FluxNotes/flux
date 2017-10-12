@@ -31,7 +31,8 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [  "#disease status", "#staging", "#toxicity", "@name", "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@
+        this.shortcuts = [ "#disease status", "#staging", "#toxicity", "@name",
+        "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
