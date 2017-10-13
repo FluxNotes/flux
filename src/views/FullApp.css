@@ -34,7 +34,8 @@
 
 .FullApp-content h1 {
     margin: 0px;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: 400;
 }
 
 .FullApp-content h2 {
@@ -45,8 +46,8 @@
 
 .FullApp-content h3 {
     margin: 0px;
-    font-size: 0.8rem;
-    font-weight: lighter;
+    font-size: 0.7rem;
+    font-weight: 400;
 }
 
 .FullApp-content ::-webkit-scrollbar-track {

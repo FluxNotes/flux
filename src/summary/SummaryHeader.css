@@ -1,35 +1,33 @@
 #summary-header {
-  min-height: 80px;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+}
+
+#summary-header .FullApp-content {
+    width: 100%;
+    padding: 0;
 }
 
 h2, h3 {
     color: #999;
 }
 
-.avatar {
-  float: left;
-  min-width: 25%;
-  max-width: 25%;
-}
-
 .patient-info {
-  float: left;
-  margin-left: 10px;
-  min-width: 70%;
-  max-width: 70%;
-}
-
-.name-and-mrn {
-    margin-bottom: 10px;
-}
-
-.basic-info .item {
-    min-width: 33% !important;
-    max-width: 33% !important;
     float: left;
+    margin-left: 10px;
+    min-width: 70%;
+    max-width: 70%;
 }
 
-.basic-info .item span {
-    font-size: 0.75rem;
+.item {
+    text-align: left;
+}
+
+.item span {
+    font-size: 0.8rem;
+}
+
+.no-wrap {
+    white-space: nowrap;
 }
