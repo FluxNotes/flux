@@ -15,6 +15,23 @@
     background: inherit;
 }
 
+.MuiMenuItem-selected-209 {
+
+}
+
+li.condition-item {
+    font-family: "Open Sans", Roboto, Arial, sans-serif;
+    color: #444;
+    height: 10px;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+li.condition-item:hover {
+    background-color: #1384b5;
+    color: #fff;
+}
+
 .full-app-mode {
     padding-right: 2rem;
 }

@@ -61,7 +61,11 @@ class ConditionSelection extends Component {
 
     renderedConditionList() {
         return this.props.conditions.map((condition, index) =>
-            <MenuItem key={`condition-${index}`} value={index} data-test-condition-selector-item={condition.specificType.coding.displayText}>
+            <MenuItem
+                className="condition-item"
+                key={`condition-${index}`}
+                value={index}
+                data-test-condition-selector-item={condition.specificType.coding.displayText}>
                 {condition.specificType.coding.displayText}
             </MenuItem>
         );
