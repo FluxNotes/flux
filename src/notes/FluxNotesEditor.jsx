@@ -109,7 +109,7 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
         allShortcuts.forEach((shortcutC) => {
-            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => trigger.name);
+            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
@@ -126,9 +126,11 @@ class FluxNotesEditor extends React.Component {
         allShortcuts.forEach((shortcutC) => {
             triggerRegExp = shortcutC.getTriggerRegExp();
             if (!Lang.isNull(triggerRegExp)) {
+                // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
+                const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
                 this.plugins.push(AutoReplace({
                     "trigger": 'space',
-                    "before": triggerRegExp,
+                    "before": triggerRegExpModified,
                     "transform": this.autoReplaceTransform.bind(this, shortcutC)
                 }));
             }
