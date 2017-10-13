@@ -31,54 +31,6 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
         .contains("#12/20/2015");
 });
 
-test('Typing a progression note with as of date in the editor results in a new progression item on the timeline', async t => {
-    const progressionItemsBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    const expectedNumItems = await progressionItemsBefore.count + 1;
-    const editor = Selector("div[data-slate-editor='true']");
-    const today = new moment().format('MM/DD/YYYY');
-
-    // Needed to break up entering the text like this to get the structured data working
-    await t
-        .typeText(editor, "@condition ")
-        .pressKey('enter')
-        .typeText(editor, " ");
-    await t
-        .typeText(editor, "#dis")
-        .pressKey('enter')
-        .typeText(editor, " ")
-        .typeText(editor, "#Stable ")
-        .typeText(editor, " ");
-    await t
-        .typeText(editor, "#as")
-    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('as of');
-    await t
-        .click(correctSuggestion);
-    await t
-        .typeText(editor, " #" + today + " ");
-
-    const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    const numItems = await progressionItems.count;
-
-    // Make sure today's date is contained in one of the progressions on the timeline
-    let item = "";
-    let containsDate = false;
-    for(let i = 0; i < numItems; i++) {
-        item = progressionItems.nth(i);
-        await t
-            .hover(progressionItems.nth(i));
-
-        const hoverTextItemDate = await Selector("#timeline #hover-item p");
-        const dateText = await hoverTextItemDate.innerText;
-        if(dateText === today.toString()) containsDate = true;
-    }
-
-    await t
-        .expect(containsDate).ok("One of the progressions on the timeline should contain today's date.");
-    // Assert that the number of progressions is correct
-    await t
-        .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
-});
-
 test('Typing "#clinical" and selecting "clinical trial" from the portal in the editor results \
 in a structured data insersion and the conext panel updates', async t => {
     const editor = Selector("div[data-slate-editor='true']");
@@ -173,6 +125,66 @@ test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{dat
             .expect(structuredField.nth(i).innerText)
             .contains(expectedText[i]);
     }
+});
+
+test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and choosing a date inserts "Invasive ductal carcinoma of breast #disease status #Stable #as of #{date chosen}.  These actions should also create a new progression item in the timeline.', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["Invasive ductal carcinoma of breast", "#disease status", "#Stable", "#as of", `#${today}`];
+    const progressionItemsBefore = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const expectedNumItems = await progressionItemsBefore.count + 1;
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+
+    await t
+        .click(conditionButton);
+    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(correctCondition);
+    const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
+    await t
+        .click(diseaseStatusButton);
+    const stableButton = await contextPanelElements.withText(/#stable/ig);
+    await t
+        .click(stableButton);
+    const asOfButton = await contextPanelElements.withText(/#as of/ig);
+    await t
+        .click(asOfButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    }
+
+    const progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    const numItems = await progressionItems.count;
+
+    // Make sure today's date is contained in one of the progressions on the timeline
+    let item = "";
+    let containsDate = false;
+    for(let i = 0; i < numItems; i++) {
+        item = progressionItems.nth(i);
+        await t
+            .hover(progressionItems.nth(i));
+
+        const hoverTextItemDate = await Selector("#timeline #hover-item p");
+        const dateText = await hoverTextItemDate.innerText;
+        if(dateText === today.toString()) containsDate = true;
+    }
+
+    await t
+        .expect(containsDate).ok("One of the progressions on the timeline should contain today's date.");
+    // Assert that the number of progressions is correct
+    await t
+        .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
+
 });
 
 fixture('Patient Mode - Patient Summary Panel')
