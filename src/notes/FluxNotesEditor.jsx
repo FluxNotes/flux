@@ -1,5 +1,5 @@
 import React from 'react';
-import Slate from 'slate';
+import Slate from '../lib/slate';
 import Lang from 'lodash';
 import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -196,7 +196,7 @@ class FluxNotesEditor extends React.Component {
     
     autoReplaceTransform(shortcutC, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        this.insertShortcut(shortcutC, matches.before[0], "", transform);
+        return this.insertShortcut(shortcutC, matches.before[0], "", transform).insertText(' ');
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -262,13 +262,25 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
         //console.log(result[0]);
-        return result[0];
+        return result[0];   
     }
 
     onChange = (state) => {
         this.setState({
             state: state
         });
+    }
+
+    onInput = (event, data) => {
+        // Create an updated state with the text replaced.
+        var nextState = this.state.state.transform().select({
+          anchorKey: data.anchorKey,
+          anchorOffset: data.anchorOffset,
+          focusKey: data.focusKey,
+          focusOffset: data.focusOffset
+        }).delete()
+
+        this.handleSummaryUpdate(data.newText, nextState)
     }
     
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
@@ -319,10 +331,11 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new
      */
-    handleSummaryUpdate = (itemToBeInserted) => {
+    handleSummaryUpdate = (itemToBeInserted, currentTransform=undefined) => {
         let state;
         const currentState = this.state.state;
-        let transform = currentState.transform();
+        
+        let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
@@ -425,7 +438,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({ state });
     
     }        
-    
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -492,6 +505,7 @@ class FluxNotesEditor extends React.Component {
                             state={this.state.state}
                             ref={function(c) { editor = c; }}
                             onChange={this.onChange}
+                            onInput={this.onInput}
                             onSelectionChange={this.onSelectionChange}
                             schema={schema}
                         />
