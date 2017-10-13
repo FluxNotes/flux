@@ -41,7 +41,7 @@ class DataSummaryPanel extends Component {
         if (conditionMetadata == null) { return null; }
 
         return conditionMetadata.sections.map((section, i) =>
-            <div key={i}>
+            <div key={i} data-test-summary-section={section.name}>
                 <h2>{section.name}</h2>
 
                 <DataSummaryTable

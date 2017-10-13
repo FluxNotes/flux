@@ -7,8 +7,8 @@ import FullApp from '../../../src/views/FullApp';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('UpdateErrors', function () { 
-    it('should set state.errors to equal the provided argument', function () { 
+describe('UpdateErrors', function () {
+    it('should set state.errors to equal the provided argument', function () {
         const wrapper = shallow(<FullApp />);
         const emptyErrors = [];
         wrapper.instance().updateErrors(emptyErrors);
@@ -20,5 +20,15 @@ describe('UpdateErrors', function () {
         wrapper.instance().updateErrors(newErrors);
         expect(wrapper.state('errors'))
             .to.equal(newErrors);
+    });
+});
+
+describe('setFullAppState', function() {
+    it('sets the state on the component', function() {
+        const wrapper = shallow(<FullApp />);
+
+        wrapper.instance().setFullAppState('testKey', 'testValue');
+        expect(wrapper.state('testKey'))
+            .to.eq('testValue');
     });
 });

@@ -38,7 +38,7 @@ class FullApp extends Component {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
-	}
+        }
 
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
@@ -50,7 +50,7 @@ class FullApp extends Component {
             patient: patient,
             condition: null,
             event: null,
-	    errors: null,
+            errors: null,
             SummaryItemToInsert: '',
             selectedText: null,
             summaryMetadata: this.summaryMetadata.getMetadata(),
@@ -61,6 +61,10 @@ class FullApp extends Component {
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
         this.setState({ [state]: value });
+    }
+
+    updateErrors = (errors) => {
+        this.setState({ errors });
     }
 
     onContextUpdate = () => {

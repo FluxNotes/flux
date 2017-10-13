@@ -61,7 +61,9 @@ class ConditionSelection extends Component {
 
     renderedConditionList() {
         return this.props.conditions.map((condition, index) =>
-            <MenuItem key={`condition-${index}`} value={index}>{condition.specificType.coding.displayText}</MenuItem>
+            <MenuItem key={`condition-${index}`} value={index} data-test-condition-selector-item={condition.specificType.coding.displayText}>
+                {condition.specificType.coding.displayText}
+            </MenuItem>
         );
     }
 
@@ -76,15 +78,21 @@ class ConditionSelection extends Component {
 
                             <Row start="xs" className="event-buttons">
                                 <Col xs className={this.buttonClass("preEncounter")}>
-                                    <Button raised onClick={this.setEventToPreEncounter}>Pre-encounter</Button>
+                                    <Button raised onClick={this.setEventToPreEncounter} data-test-pre-encounter-button>
+                                        Pre-encounter
+                                    </Button>
                                 </Col>
 
                                 <Col xs className={this.buttonClass("encounter")}>
-                                    <Button raised onClick={this.setEventToEncounter}>Encounter</Button>
+                                    <Button raised onClick={this.setEventToEncounter} data-test-encounter-button>
+                                        Encounter
+                                    </Button>
                                 </Col>
 
                                 <Col xs className={this.buttonClass("treatment")}>
-                                    <Button raised onClick={this.setEventToTreatment}>Treatment</Button>
+                                    <Button raised onClick={this.setEventToTreatment} data-test-treatment-button>
+                                        Treatment
+                                    </Button>
                                 </Col>
                             </Row>
                         </Col>
@@ -95,7 +103,8 @@ class ConditionSelection extends Component {
                             <Select
                                 className="condition-select"
                                 value={this.state.conditionIndex}
-                                onChange={(event) => this.selectCondition(event.target.value)}>
+                                onChange={(event) => this.selectCondition(event.target.value)}
+                                data-test-condition-selector>
                                 {this.renderedConditionList()}
                             </Select>
                         </Col>

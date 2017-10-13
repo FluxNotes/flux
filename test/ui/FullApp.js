@@ -3,17 +3,15 @@ import hardCodedPatient from '../../src/dataaccess/HardCodedPatient.json';
 import Patient from '../../src/patient/Patient.jsx';
 import moment from 'moment';
 
-
 const pageDomain = "http://localhost";
 const pagePort = "3000";
 const pageRoute = "/patient"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
-
-fixture('Patient Mode - Editor') 
+fixture('Patient Mode - Editor')
     .page(startPage);
 
-test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => { 
+test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
         .typeText(editor, "@name ")
@@ -124,8 +122,6 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
         .contains(deceasedChild);
 });
 
-
-
 fixture('Patient Mode - Context Panel')
     .page(startPage);
 
@@ -179,15 +175,74 @@ test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{dat
     }
 });
 
+fixture('Patient Mode - Patient Summary Panel')
+    .page(startPage);
+
+test('Clicking event buttons selects corresponding event', async t => {
+    const preEncounterButton = Selector("[data-test-pre-encounter-button]");
+    const encounterButton = Selector("[data-test-encounter-button]");
+    const treatmentButton = Selector("[data-test-treatment-button]");
+
+    // pre-encounter button is pre-selected
+    await t
+        .expect(preEncounterButton.parent().hasClass("active"))
+        .ok();
+
+    // encounter button should be selected after clicking on it
+    await t.click(encounterButton);
+
+    await t
+        .expect(encounterButton.parent().hasClass("active"))
+        .ok();
+
+    // treatment button should be selected after clicking on it
+    await t.click(treatmentButton);
+
+    await t
+        .expect(treatmentButton.parent().hasClass("active"))
+        .ok();
+
+    // pre-encounter button should be selected after clicking on it
+    await t.click(preEncounterButton);
+
+    await t
+        .expect(preEncounterButton.parent().hasClass("active"))
+        .ok();
+});
+
+test('Selecting a condition changes the active condition', async t => {
+    const conditionSelector = Selector('.condition-select');
+
+    // first condition is selected by default
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Invasive ductal carcinoma of breast");
+
+    // clicking on Fracture changes the condition
+    await t
+        .click(conditionSelector)
+        .click(Selector('[data-test-condition-selector-item=Fracture]'));
+
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Fracture");
+
+    const conditionName = Selector('[data-test-summary-section="Current Diagnosis"] [data-test-summary-item="Name"]')
+
+    await t
+        .expect(await conditionName.textContent)
+        .eql("Fracture");
+});
+
 fixture('Patient Mode - Data Summary Panel')
     .page(startPage);
 
-test('Clicking to insert a captured data element results in that text pasted into the editor', async t => { 
+test('Clicking to insert a captured data element results in that text pasted into the editor', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const summaryButtons = Selector("#summary-list div table .captured .button-hover")
     const numButtons = await summaryButtons.count;
 
-    for(let i = 0; i < numButtons; i++) { 
+    for(let i = 0; i < numButtons; i++) {
         await t
             .click(summaryButtons.nth(i))
             .expect(await editor.innerText)
@@ -198,12 +253,12 @@ test('Clicking to insert a captured data element results in that text pasted int
 fixture('Patient Mode - Timeline')
     .page(startPage);
 
-test('Hovering over calendar medication items should add medication name to hover text', async t => { 
+test('Hovering over calendar medication items should add medication name to hover text', async t => {
     const calendarItemsTitle = Selector("#timeline .rct-canvas .rct-items .rct-item.medication-item strong");
     const numItems = await calendarItemsTitle.count;
     let itemTitle = "";
 
-    for(let i = 0; i < numItems; i++) { 
+    for(let i = 0; i < numItems; i++) {
         itemTitle = calendarItemsTitle.nth(i)
         await t
             .hover(calendarItemsTitle.nth(i));

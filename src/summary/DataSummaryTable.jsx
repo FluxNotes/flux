@@ -36,7 +36,7 @@ class DataSummaryTable extends Component {
             return (
                 <tr key={index} className={rowClass}>
                     <td width="40%">{item.name}</td>
-                    <td width="55%" className={itemClass}>{itemText}</td>
+                    <td width="55%" className={itemClass} data-test-summary-item={item.name}>{itemText}</td>
                     <td width="5%" onClick={onClick}>
                         <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                     </td>
