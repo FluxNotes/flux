@@ -1,5 +1,5 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import moment from 'Moment';
+import moment from 'moment';
 import {expect} from 'chai';
 
 const noteParser = new NoteParser();
