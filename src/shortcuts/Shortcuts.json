@@ -33,7 +33,7 @@
     "isContext": false,
     "stringTriggers": {"lookup":"../lib/staging_lookup", "method":"getTsForEdition", "args":"7"},
     "regexpTrigger": null,
-    "knownParentContexts": "Staging",
+    "knownParentContexts": "StagingCreator",
     "description":"Describes the original (primary) tumor.",
     "shortcutGroupName":"Tumor Size"
   },
@@ -43,7 +43,7 @@
     "isContext": false,
     "stringTriggers": {"lookup":"../lib/staging_lookup", "method":"getNsForEdition", "args":"7"},
     "regexpTrigger": null,
-    "knownParentContexts": "Staging",
+    "knownParentContexts": "StagingCreator",
     "description":"Describes the degree to which the cancer has reached nearby lymph nodes.",
     "shortcutGroupName":"Node Size"
   },
@@ -53,7 +53,7 @@
     "isContext": false,
     "stringTriggers": {"lookup":"../lib/staging_lookup", "method":"getMsForEdition", "args":"7"},
     "regexpTrigger": null,
-    "knownParentContexts": "Staging",
+    "knownParentContexts": "StagingCreator",
     "description":"Whether or not the cancer has spread to other parts of the body.",
     "shortcutGroupName":"Metastasis"
   }

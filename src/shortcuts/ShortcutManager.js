@@ -99,14 +99,41 @@ class ShortcutManager {
     
     loadShortcutMetadata(shortcutList, shortcutMetadata) {
         //console.log(shortcutMetadata);
+        this.childShortcuts = {};
         shortcutMetadata.forEach((item) => {
-            console.log(item);
+            if (item["knownParentContexts"]) {
+                const parent = item["knownParentContexts"];
+                let list = this.childShortcuts[parent];
+                if (Lang.isUndefined(list)) {
+                    list = [];
+                    this.childShortcuts[parent] = list;
+                }
+                if (!list.includes(item.name)) {
+                    list.push(item.name);
+                }
+            }
+            if (item["valueObjectAttributes"]) {
+                let list = this.childShortcuts[item.name];
+                if (Lang.isUndefined(list)) {
+                    list = [];
+                    this.childShortcuts[item.name] = list;
+                }
+                let voas = item["valueObjectAttributes"];
+                voas.forEach((voa) => {
+                    if (!list.includes(voa["childShortcut"])) {
+                        list.push(voa["childShortcut"]);
+                    }
+                });
+            }
         });
+        console.log(this.childShortcuts);
     }
     
     getValidChildShortcutsInContext(context) {
         const currentContextName = context.getName();
-        return context.getValidChildShortcuts();
+        console.log(currentContextName);
+        return this.childShortcuts[currentContextName];
+        //return context.getValidChildShortcuts();
     }
 }
 
