@@ -9,7 +9,7 @@ In addition, a no-patient version of the above concept has been created for situ
 
 ## Getting Started
 
-* Ensure that [Git](https://git-scm.com/downloads), [Node.js (version >=6.11.4)](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/en/docs/install) are all installed.
+* Ensure that [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/en/) (>= v6.11.4) and [Yarn](https://yarnpkg.com/en/docs/install) are all installed.
 * Git clone the repository
 * Check out the master branch (or the branch you want to work in)
 * In a terminal navigate into the flux folder (stay at the project root)
