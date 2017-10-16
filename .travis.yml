@@ -6,7 +6,7 @@ node_js:
   - 5
 
 script:
-  - yarn test-backend
+  - yarn test-backend:darwin:linux
   - yarn build
 
 notifications:
