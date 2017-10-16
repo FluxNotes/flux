@@ -44,7 +44,7 @@ yarn test
 
 This command will determine your machine's OS and run all possible tests. When in development, individuals can run front end tests with `yarn test-ui` and backend tests with `yarn test-backend`. 
 
-**Extra Steps Required**: Due to quirks in the libraries we're using, there are few things to do in order for all tests to pass: 
+**Required Extra Steps**: Due to quirks in the libraries we're using, there are few things to do in order for all tests to pass: 
 
 1. Run `yarn start` in another terminal before running `yarn test`. Some ui-tests will fail because it takes longer for the site instance to spin up than it takes for the tests to start.
 2. Ensure that all browsers' testing windows are open while the tests are running. TestCafe has been known to have some issues if those windows are minimized, possibly causing some tests to fail when they shouldn't. 
