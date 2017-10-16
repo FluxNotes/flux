@@ -33,14 +33,23 @@ will parse all the sample notes in the samples directory. To only parse note 4:
 
 If a directory is specified, every file in that directory will be treated as a note and parsing will be attempted.
 
-## Testing 
+## Running tests 
 
-Tests suites now exist for testing both ui-components and back-end functionality. When testing before launching a pull request, users should go into the central project directory and run all tests available using: 
+To run tests, go into the central project directory and run: 
 
-    yarn test
+```
+yarn test
+```
 
-This command will determine the current machine's operating system and run all accordingly possible tests. When in development, individuals can run the front end tests with `yarn test-ui` and can run backend tests with `yarn test-backend`. These tests will also determine the machines OS and run specific tests/configure tests accordingly.
+This command will determine your machine's OS and run all possible tests. When in development, individuals can run front end tests with `yarn test-ui` and backend tests with `yarn test-backend`. 
 
-**Using Git Bash on Windows?** It may look like the test aren't working on your machine. Hit enter a second time after running your yarn test command. The specifics of why this happens are still unknown, but this should help when running your tests.
+**Extra Steps Required**: Due to quirks in the libraries we're using, there are few things to do in order for all tests to pass: 
 
-**Regarding Front-End Tests**:  Ensure that all browsers' testing windows are open while the tests are running. TestCafe has been known to have some issues if those windows are minimized, possibly causing some tests to fail when they shouldn't. 
+1. Run `yarn start` in another terminal before running `yarn test`. Some ui-tests will fail because it takes longer for the site instance to spin up than it takes for the tests to start.
+2. Ensure that all browsers' testing windows are open while the tests are running. TestCafe has been known to have some issues if those windows are minimized, possibly causing some tests to fail when they shouldn't. 
+3. Zoom out ridiculously far out on the ui-test's browser windows once they open. There are currently some issues we have with the our fixed copy-button that cause some tests to fail if the 
+
+**Other Known Issues:** 
+
+- *Using Git Bash on Windows?* It may look like the test aren't working on your machine. Hit enter a second time after running your yarn test command. The specifics of why this happens are still unknown, but this should help when running your tests.
+
