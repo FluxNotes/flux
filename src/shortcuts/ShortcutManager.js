@@ -25,6 +25,7 @@ import ClinicalTrialCreator from './ClinicalTrialCreator';
 import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
 import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
+import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
 
 function addTriggerForKey(trigger) {
@@ -70,6 +71,7 @@ class ShortcutManager {
     
     constructor(shortcutList) {
         this.shortcutsToSupportList = shortcutList;
+        this.loadShortcutMetadata(shortcutList, shortcutMetadata)
         for (var key in this.shortcuts) {
             this.shortcutClasses.push(this.shortcuts[key]);
             const triggers = this.shortcuts[key].getStringTriggers();
@@ -93,6 +95,18 @@ class ShortcutManager {
             className = this.shortcutMap[trigger.toLowerCase()];
         }
         return new className(onUpdate, object);
+    }
+    
+    loadShortcutMetadata(shortcutList, shortcutMetadata) {
+        //console.log(shortcutMetadata);
+        shortcutMetadata.forEach((item) => {
+            console.log(item);
+        });
+    }
+    
+    getValidChildShortcutsInContext(context) {
+        const currentContextName = context.getName();
+        return context.getValidChildShortcuts();
     }
 }
 
