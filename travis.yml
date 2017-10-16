@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - 7
+  - 6
+  - 5
+
+script:
+  - yarn test-backend
+  - yarn build
+
+notifications:
+  email:
+    on_failure: change
+
+after_success: 'npm run coveralls'
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
