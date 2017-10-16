@@ -36,7 +36,7 @@ If a directory is specified, every file in that directory will be treated as a n
 
 ## Testing
 
-To run tests, go into the central project directory and run: 
+For docs on writing new tests, [see here in our wiki](https://github.com/standardhealth/flux/wiki/Testing#writing-tests). To run tests, go into the central project directory and run: 
 
 ```
 yarn test
