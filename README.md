@@ -33,7 +33,8 @@ will parse all the sample notes in the samples directory. To only parse note 4:
 
 If a directory is specified, every file in that directory will be treated as a note and parsing will be attempted.
 
-## Running tests 
+
+## Testing
 
 To run tests, go into the central project directory and run: 
 
