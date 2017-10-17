@@ -234,9 +234,9 @@ class Patient {
 	}
 
     getProgressionsForConditionChronologicalOrder(condition) {
-        let progressions = this.getProceduresChronologicalOrder();
+        let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.reason.entryId === condition.entryId;
+            return progression.focalCondition.entryId === condition.entryId;
         });
         return progressions;
     }
