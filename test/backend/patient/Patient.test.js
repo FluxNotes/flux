@@ -390,7 +390,7 @@ describe('getKeyEventsChronologicalOrder', function () {
         it('should return an array sorted by date.', function () {
             const firstDate = new Moment(events[i].start_time, "D MMM YYYY");
             const secondDate = new Moment(events[i + 1].start_time, "D MMM YYYY");
-            expect(firstDate < secondDate).to.be.true;
+            expect(firstDate <= secondDate).to.be.true;
         });
     }
 });
