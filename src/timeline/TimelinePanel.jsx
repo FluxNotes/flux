@@ -40,50 +40,50 @@ class Item extends Component {
 
 // Timeline provides
 class TimelinePanel extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    // Create groups and items to display on the timeline
-	let items = this._createItemsForPatient(props.patient);
-	
-    // Create groups for the items
-    const groups = this._createGroupsForItems(this._getMaxGroup(items));
+        // Create groups and items to display on the timeline
+        let items = this._createItemsForPatient(props.patient, props.condition);
 
-    // Assign every item an ID and onClick handler
-    for (let i = 0; i < items.length; i++) {
-      const id = i + 1;
-      items[i]['id'] = id;
-      items[i]['itemProps'] = {
-        onMouseEnter: (e) => this._enterItemHover(e, id),
-        onMouseLeave: (e) => this._leaveItemHover(e)
-      };
-    }
+        // Create groups for the items
+        const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
-    // Define the bounds of the timeline
-    const defaultTimeStart = moment().clone().add(-3, 'years');  // 3 years ago
-    const defaultTimeEnd = moment().clone().add(3, 'months'); // 3 months from now
-
-    this.state = {
-        items: items,
-        groups: groups,
-        defaultTimeStart: defaultTimeStart,
-        defaultTimeEnd: defaultTimeEnd,
-        timeSteps: {
-          day: 1,
-          month: 1,
-          year: 1
-        },
-        legendItems: [
-          {icon: 'hospital-o', description: 'Medical procedures'},
-          {icon: 'heartbeat', description: 'Key events and disease status'}
-        ],
-        hoverItem: {
-          title: '',
-          details: '',
-          style: {top: 0, left: 0, display: 'none'}
+        // Assign every item an ID and onClick handler
+        for (let i = 0; i < items.length; i++) {
+            const id = i + 1;
+            items[i]['id'] = id;
+            items[i]['itemProps'] = {
+                onMouseEnter: (e) => this._enterItemHover(e, id),
+                onMouseLeave: (e) => this._leaveItemHover(e)
+            };
         }
-    };
-  }
+
+        // Define the bounds of the timeline
+        const defaultTimeStart = moment().clone().add(-3, 'years');  // 3 years ago
+        const defaultTimeEnd = moment().clone().add(3, 'months'); // 3 months from now
+
+        this.state = {
+            items: items,
+            groups: groups,
+            defaultTimeStart: defaultTimeStart,
+            defaultTimeEnd: defaultTimeEnd,
+            timeSteps: {
+                day: 1,
+                month: 1,
+                year: 1
+            },
+            legendItems: [
+                {icon: 'hospital-o', description: 'Medical procedures'},
+                {icon: 'heartbeat', description: 'Key events and disease status'}
+            ],
+            hoverItem: {
+                title: '',
+                details: '',
+                style: {top: 0, left: 0, display: 'none'}
+            }
+        };
+    }
   
   _enterItemHover(e, id) {
     // Get position of this item on the screen
@@ -116,27 +116,27 @@ class TimelinePanel extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    if (this.props !== nextProps) {
-      // Create groups and items to display on the timeline
-      let items = this._createItemsForPatient(nextProps.patient);
+      if (this.props !== nextProps) {
+          // Create groups and items to display on the timeline
+          let items = this._createItemsForPatient(nextProps.patient, nextProps.condition);
 
-      // Create groups for the items
-      const groups = this._createGroupsForItems(this._getMaxGroup(items));
+          // Create groups for the items
+          const groups = this._createGroupsForItems(this._getMaxGroup(items));
 
-      // Assign every item an ID and onClick handler
-      for (let i = 0; i < items.length; i++) {
-        const id = i + 1;
-        items[i]['id'] = id;
-        items[i]['itemProps'] = {
-          onMouseEnter: (e) => this._enterItemHover(e, id),
-          onMouseLeave: (e) => this._leaveItemHover(e)
-        };
-      }
-      this.setState({
-        items: items,
-        groups: groups
-      });
-    } 
+          // Assign every item an ID and onClick handler
+          for (let i = 0; i < items.length; i++) {
+              const id = i + 1;
+              items[i]['id'] = id;
+              items[i]['itemProps'] = {
+                  onMouseEnter: (e) => this._enterItemHover(e, id),
+                  onMouseLeave: (e) => this._leaveItemHover(e)
+              };
+          }
+          this.setState({
+              items: items,
+              groups: groups
+          });
+      } 
   }
 
   render() {
@@ -173,23 +173,23 @@ class TimelinePanel extends Component {
     )
   }
 
-  _createItemsForPatient(patient) {
+  _createItemsForPatient(patient, condition) {
       let items = [];
+        
+      // Medications come first
+      items = items.concat(this._createMedicationItems(patient.getMedicationsChronologicalOrder()));
 
-    // Medications come first
-    items = items.concat(this._createMedicationItems(patient.getMedicationsChronologicalOrder()));
+      // Procedures
+      items = items.concat(this._createProcedureItems(patient.getProceduresChronologicalOrder(), this._getMaxGroup(items) + 1));
 
-    // Procedures
-    items = items.concat(this._createProcedureItems(patient.getProceduresChronologicalOrder(), this._getMaxGroup(items) + 1));
-
-    // Key Dates (diagnosis, recurrence)
-    items = items.concat(this._createEventItems(patient.getKeyEventsChronologicalOrder(), this._getMaxGroup(items) + 1));
+      // Key Dates (diagnosis, recurrence)
+      items = items.concat(this._createEventItems(patient.getKeyEventsChronologicalOrder(), this._getMaxGroup(items) + 1));
 	
-	// Progressions
-	//TODO
-	items = items.concat(this._createProgressionItems(patient, patient.getProgressionsChronologicalOrder(), this._getMaxGroup(items) + 1));
+    	// Progressions
+    	//TODO
+    	items = items.concat(this._createProgressionItems(patient, patient.getProgressionsChronologicalOrder(), this._getMaxGroup(items) + 1));
 	
-	return items;
+	    return items;
   }
 
   _createMedicationItems(meds) {
