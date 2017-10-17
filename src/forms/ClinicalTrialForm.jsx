@@ -144,14 +144,14 @@ class ClinicalTrialForm extends Component {
                 
                 <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span> </h4>
                 
-                <div>
+                <div className="date-choices">
                     <FormControl>
                         <RadioGroup
                             name="relevant dates"
                             value={this.state.selectedDateChoice}
                             onChange={this.handleDateChoice}>
-                            <FormControlLabel value="enrollment-date" control={<Radio className='radio-button-clinical-trial'/>} label={enrollmentDateDescription}/>
-                            <FormControlLabel value="end-date" control={<Radio className='radio-button-clinical-trial'/>} label={endDateDescription} />
+                            <FormControlLabel value="enrollment-date" control={<Radio id="enrollment-date-choice" className='radio-button-clinical-trial'/>} label={enrollmentDateDescription}/>
+                            <FormControlLabel value="end-date" control={<Radio id="end-date-choice" className='radio-button-clinical-trial'/>} label={endDateDescription} />
                         </RadioGroup>
                     </FormControl>
                 </div>
