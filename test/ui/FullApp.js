@@ -313,4 +313,11 @@ test('Selecting a condition changes the timeline summary', async t => {
     // There should be one progression item on the timeline now
     await t
         .expect(1).eql(numItems, 'There should be 1 progression item on the timeline.');
+
+    await t
+        .hover(progressionItems.nth(0));
+    const hoverTextItem = await Selector("#timeline #hover-item");
+    await t
+        .expect(await hoverTextItem.innerText)
+        .contains("Fracture");
 });
