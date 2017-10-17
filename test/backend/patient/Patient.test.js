@@ -363,10 +363,11 @@ describe('getConditions', function () {
                 .that.is.not.empty;
     });
 
-    const firstEntry = conditions[0];
-    it('should return objects with an entry type of condition', function () { 
-        expect(firstEntry.entryType)
-                .to.include.members([ 'http://standardhealthrecord.org/condition/Condition' ]);
+    conditions.forEach((condition) => {
+        it('should return objects with an entry type of condition', function () { 
+            expect(condition.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/condition/Condition' ]);
+        });
     });
 });
 
@@ -415,7 +416,7 @@ describe('getKeyEventsForConditionChronologicalOrder', function () {
         it('should return an array sorted by date.', function () {
             const firstDate = new Moment(events[i].start_time, "D MMM YYYY");
             const secondDate = new Moment(events[i + 1].start_time, "D MMM YYYY");
-            expect(firstDate < secondDate).to.be.true;
+            expect(firstDate <= secondDate).to.be.true;
         });
     }
 
@@ -424,21 +425,53 @@ describe('getKeyEventsForConditionChronologicalOrder', function () {
     });
 });
 
-// describe('getMedications', function () { 
+describe('getMedications', function () { 
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getMedications())
+                .to.be.an('array')
+                .that.is.empty;
+    });
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getMedications()).to.equal();
-//     });
-// });
+    const medications = hardCodedPatientObj.getMedications();
+    it('should return a non empty array on when there are medication entries', function () { 
+        expect(medications)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
 
-// describe('getMedicationsChronologicalOrder', function () { 
+    medications.forEach((medication) => {
+        it('should return objects with an entry type of MedicationPrescription', function () { 
+            expect(medication.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/medication/MedicationPrescription' ]);
+        });
+    });
+});
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getMedicationsChronologicalOrder()).to.equal();
-//     });
-// });
+describe('getMedicationsChronologicalOrder', function () { 
+    const medications = hardCodedPatientObj.getMedicationsChronologicalOrder();
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < medications.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            const firstDate = new Moment(medications[i].requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+            const secondDate = new Moment(medications[i + 1].requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+});
+
+describe('getMedicationsForConditionChronologicalOrder', function () { 
+    const condition = hardCodedPatientObj.getConditions()[0];
+    const medications = hardCodedPatientObj.getMedicationsForConditionChronologicalOrder(condition);
+    
+    medications.forEach((medication) => {
+        it('should return objects with an entry type of MedicationPrescription and the reason should be for the specific condition.', function () { 
+            expect(medication.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/medication/MedicationPrescription' ]);
+            expect(medication.reason.entryId)
+                    .to.be.eql(condition.entryId);
+        });
+    });
+});
 
 // describe('getProcedures', function () { 
 
