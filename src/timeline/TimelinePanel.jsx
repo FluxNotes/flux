@@ -175,21 +175,23 @@ class TimelinePanel extends Component {
 
   _createItemsForPatient(patient, condition) {
       let items = [];
-        
-      // Medications come first
-      items = items.concat(this._createMedicationItems(patient.getMedicationsChronologicalOrder()));
 
-      // Procedures
-      items = items.concat(this._createProcedureItems(patient.getProceduresChronologicalOrder(), this._getMaxGroup(items) + 1));
+      if(condition != null) {
+          // Medications come first
+          items = items.concat(this._createMedicationItems(patient.getMedicationsForConditionChronologicalOrder(condition)));
 
-      // Key Dates (diagnosis, recurrence)
-      items = items.concat(this._createEventItems(patient.getKeyEventsChronologicalOrder(), this._getMaxGroup(items) + 1));
-	
-    	// Progressions
-    	//TODO
-    	items = items.concat(this._createProgressionItems(patient, patient.getProgressionsChronologicalOrder(), this._getMaxGroup(items) + 1));
-	
-	    return items;
+          // Procedures
+          items = items.concat(this._createProcedureItems(patient.getProceduresForConditionChronologicalOrder(condition), this._getMaxGroup(items) + 1));
+
+          // Key Dates (diagnosis, recurrence)
+          items = items.concat(this._createEventItems(patient.getKeyEventsForConditionChronologicalOrder(condition), this._getMaxGroup(items) + 1));
+
+          // Progressions
+          //TODO
+          items = items.concat(this._createProgressionItems(patient, patient.getProgressionsForConditionChronologicalOrder(condition), this._getMaxGroup(items) + 1));
+      } 
+
+      return items;
   }
 
   _createMedicationItems(meds) {
