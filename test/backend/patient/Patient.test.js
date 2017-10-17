@@ -488,7 +488,7 @@ describe('getProcedures', function () {
     });
 
     procedures.forEach((procedure) => {
-        it('should return objects with an entry type of MedicationPrescription', function () { 
+        it('should return objects with an entry type of Procedure', function () { 
             expect(procedure.entryType)
                     .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
         });
@@ -579,7 +579,6 @@ describe('Test sorting in getProceduresChronologicalOrder', function () {
     testPatient.addEntryToPatient(procedureEntry3);
     testPatient.addEntryToPatient(procedureEntry4);
     const procedures = testPatient.getProceduresChronologicalOrder();
-    console.log(procedures);
     // test that the array is sorted in chronological order
     for (let i = 0; i < procedures.length - 1; i++) {
         it('should return an array sorted by date.', function () {
@@ -633,6 +632,76 @@ describe('getProceduresForConditionChronologicalOrder', function() {
             expect(procedure.entryType)
                     .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
             expect(procedure.reason.entryId)
+                    .to.be.eql(condition.entryId);
+        });
+    });
+});
+
+describe('getProgressions', function () { 
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getProgressions())
+                .to.be.an('array')
+                .that.is.empty;
+    });
+
+    const progressions = hardCodedPatientObj.getProgressions();
+    it('should return a non empty array on when there are progression entries', function () { 
+        expect(progressions)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
+
+    progressions.forEach((progression) => {
+        it('should return objects with an entry type of Progression', function () { 
+            expect(progression.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
+        });
+    });
+});
+
+describe('getProgressionsChronologicalOrder', function () { 
+    const progressions = hardCodedPatientObj.getProgressionsChronologicalOrder();
+
+    for (let i = 0; i < progressions.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            let firstDate = new Moment(progressions[i].clinicallyRelevantTime, "D MMM YYYY");
+            let secondDate = new Moment(progressions[i + 1].clinicallyRelevantTime, "D MMM YYYY");
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+});
+
+describe('getProgressionsForCondition', function () { 
+    const condition = hardCodedPatientObj.getConditions()[0];
+    const progressions = hardCodedPatientObj.getProgressionsForCondition(condition);
+
+    progressions.forEach((progression) => {
+        it('should return objects with an entry type of Progression and the reason should be for the specific condition.', function () { 
+            expect(progression.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
+            expect(progression.focalCondition.entryId)
+                    .to.be.eql(condition.entryId);
+        });
+    });
+});
+
+describe('getProgressionsForConditionChronologicalOrder', function () { 
+    const condition = hardCodedPatientObj.getConditions()[0];
+    const progressions = hardCodedPatientObj.getProgressionsForConditionChronologicalOrder(condition);
+
+    for (let i = 0; i < progressions.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            let firstDate = new Moment(progressions[i].clinicallyRelevantTime, "D MMM YYYY");
+            let secondDate = new Moment(progressions[i + 1].clinicallyRelevantTime, "D MMM YYYY");
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+
+    progressions.forEach((progression) => {
+        it('should return objects with an entry type of Progression and the reason should be for the specific condition.', function () { 
+            expect(progression.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
+            expect(progression.focalCondition.entryId)
                     .to.be.eql(condition.entryId);
         });
     });
@@ -696,29 +765,6 @@ describe('getProceduresForConditionChronologicalOrder', function() {
 
 //     it('should return null', function () { 
 //         getReceptorStatus(condition, receptorType)
-//     });
-// });
-
-// describe('getProgressionsChronologicalOrder', function () { 
-
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getProgressionsChronologicalOrder()).to.equal();
-//     });
-// });
-
-// describe('getProgressions', function () { 
-
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getProgressions()).to.equal();
-//     });
-// });
-
-// describe('getProgressionsForCondition', function () { 
-
-//     it('should return null', function () { 
-//         getProgressionsForCondition(condition)
 //     });
 // });
 
