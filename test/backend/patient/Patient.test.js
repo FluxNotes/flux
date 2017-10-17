@@ -473,21 +473,45 @@ describe('getMedicationsForConditionChronologicalOrder', function () {
     });
 });
 
-// describe('getProcedures', function () { 
+describe('getProcedures', function () { 
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getProcedures())
+                .to.be.an('array')
+                .that.is.empty;
+    });
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getProcedures()).to.equal();
-//     });
-// });
+    const procedures = hardCodedPatientObj.getProcedures();
+    it('should return a non empty array on when there are procedure entries', function () { 
+        expect(procedures)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
 
-// describe('getProceduresChronologicalOrder', function () { 
+    procedures.forEach((procedure) => {
+        it('should return objects with an entry type of MedicationPrescription', function () { 
+            expect(procedure.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
+        });
+    });
+});
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getProceduresChronologicalOrder()).to.equal();
-//     });
-// });
+describe('getProceduresChronologicalOrder', function () { 
+    const procedures = hardCodedPatientObj.getProceduresChronologicalOrder();
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < procedures.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
+            if(!firstDate.isValid()) {
+                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
+            if(!secondDate.isValid()) {
+                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+});
 
 describe('Test sorting in getProceduresChronologicalOrder', function () { 
     let testPatient = new Patient(null);
@@ -572,17 +596,47 @@ describe('Test sorting in getProceduresChronologicalOrder', function () {
     }
 });
 
-//     it('should return null', function () { 
-//         getProceduresForCondition(condition)
-//     });
-// });
+describe('getProceduresForCondition', function() { 
+    const condition = hardCodedPatientObj.getConditions()[0];
+    const procedures = hardCodedPatientObj.getProceduresForCondition(condition);
 
-// describe('getProceduresForConditionChronologicalOrder', function() { 
+    procedures.forEach((procedure) => {
+        it('should return objects with an entry type of Procedure and the reason should be for the specific condition.', function () { 
+            expect(procedure.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
+            expect(procedure.reason.entryId)
+                    .to.be.eql(condition.entryId);
+        });
+    });
+});
 
-//     it('should return null', function () { 
-//         getProceduresForConditionChronologicalOrder(condition)
-//     });
-// });
+describe('getProceduresForConditionChronologicalOrder', function() { 
+    const condition = hardCodedPatientObj.getConditions()[0];
+    const procedures = hardCodedPatientObj.getProceduresForConditionChronologicalOrder(condition);
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < procedures.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
+            if(!firstDate.isValid()) {
+                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
+            if(!secondDate.isValid()) {
+                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+
+    procedures.forEach((procedure) => {
+        it('should return objects with an entry type of Procedure and the reason should be for the specific condition.', function () { 
+            expect(procedure.entryType)
+                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
+            expect(procedure.reason.entryId)
+                    .to.be.eql(condition.entryId);
+        });
+    });
+});
 
 // describe('getPersonOfRecord', function () {
  
