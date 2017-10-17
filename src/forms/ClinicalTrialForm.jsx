@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
 import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import './ClinicalTrialForm.css';
+
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 class ClinicalTrialForm extends Component {
     constructor(props) {
@@ -12,7 +15,8 @@ class ClinicalTrialForm extends Component {
         this.clinicalTrialsList = new ClinicalTrialsList();
         
         this.state = {
-            trials: this.clinicalTrialsList.getAllTrials()
+            trials: this.clinicalTrialsList.getAllTrials(),
+            selectedDate: null
         };
     }
     
@@ -25,15 +29,15 @@ class ClinicalTrialForm extends Component {
         const newTrial = this.state.trials[i].id;
         this.props.updateValue("title", newTrial);
     }
-    
-    handleDateSelection = (event, value) => {
-        const date = event.target.value;
-        let formattedDate = null;
-        if (date) {
-            formattedDate = new moment(date).format('D MMM YYYY');
-        }
-        this.props.updateValue(value, formattedDate);
-    }
+
+    handleDateChange = (selectedDate, value) => {
+
+        this.setState({
+            selectedDate
+        });
+
+        this.props.updateValue(value, selectedDate);
+    };
     
     renderTrialButtonGroup = (trial, i) => {
         const marginSize = "10px";
@@ -66,6 +70,9 @@ class ClinicalTrialForm extends Component {
     }
     
     render() {
+        const {selectedDate} = this.state;
+        const formattedDate = selectedDate ? moment(selectedDate).format(DATE_FORMAT) : '';
+
         return (
             <div>
                 <h1>Clinical Trial</h1>
@@ -94,10 +101,11 @@ class ClinicalTrialForm extends Component {
                     {ClinicalTrialsList.getDescription("enrollmentDate")}
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
-                <TextField
-                    id="enrollment-date"
-                    type="date"
-                    onChange={(e) => this.handleDateSelection(e, "enrollmentDate")}
+                <DayPickerInput
+                    value={formattedDate}
+                    onDayChange={ (e) => this.handleDateChange(e, "enrollmentDate")}
+                    format={DATE_FORMAT}
+                    placeholder={DATE_FORMAT}
                 />
                 
                 <h4 className="header-spacing">End Date <span className="helper-text"> (Optional)</span></h4>
@@ -105,10 +113,11 @@ class ClinicalTrialForm extends Component {
                     {ClinicalTrialsList.getDescription("endDate")}
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
-                <TextField
-                    id="end-date"
-                    type="date"
-                    onChange={(e) => this.handleDateSelection(e, "endDate")}
+                <DayPickerInput
+                    value={formattedDate}
+                    onDayChange={ (e) => this.handleDateChange(e, "endDate")}
+                    format={DATE_FORMAT}
+                    placeholder={DATE_FORMAT}
                 />
             </div>
         )

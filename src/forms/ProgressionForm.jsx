@@ -18,8 +18,7 @@ class ProgressionForm extends Component {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
             reasonButtonsActiveState: [],
-            selectedReferenceDate: null,
-            isReferenceDateInputDisabled: false
+            selectedReferenceDate: null
         };
     }
     
@@ -75,10 +74,9 @@ class ProgressionForm extends Component {
         }
     }
 
-    handleReferenceDateChange = (selectedReferenceDate, modifiers) => {
+    handleReferenceDateChange = (selectedReferenceDate) => {
         this.setState({
-            selectedReferenceDate,
-            isReferenceDateInputDisabled: modifiers.disabled,
+            selectedReferenceDate
         });
         this.props.updateValue("referenceDateDate", selectedReferenceDate);
     };

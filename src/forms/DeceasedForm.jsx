@@ -14,10 +14,10 @@ class DeceasedForm extends Component {
         isDisabled: false
     };
 
-    handleDayChange = (selectedDay, modifiers) => {
+    handleDayChange = (selectedDay) => {
+
         this.setState({
-            selectedDay,
-            isDisabled: modifiers.disabled,
+            selectedDay
         });
 
         this.props.updateValue("date", selectedDay);
