@@ -282,3 +282,35 @@ test('Hovering over calendar medication items should add medication name to hove
             .contains(await calendarItemsTitle.nth(i).innerText);
     }
 });
+
+test('Selecting a condition changes the timeline summary', async t => {
+    const conditionSelector = Selector('.condition-select');
+
+    let progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    let numItems = await progressionItems.count;
+
+    // There should be no progression items on the timeline now
+    await t
+        .expect(0).eql(numItems, 'There should be 0 progression items on the timeline.');
+
+    // first condition is selected by default
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Invasive ductal carcinoma of breast");
+
+    // clicking on Fracture changes the condition
+    await t
+        .click(conditionSelector)
+        .click(Selector('[data-test-condition-selector-item=Fracture]'));
+
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Fracture");
+
+    progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    numItems = await progressionItems.count;
+    
+    // There should be one progression item on the timeline now
+    await t
+        .expect(1).eql(numItems, 'There should be 1 progression item on the timeline.');
+});
