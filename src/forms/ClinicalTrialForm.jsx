@@ -16,7 +16,8 @@ class ClinicalTrialForm extends Component {
         
         this.state = {
             trials: this.clinicalTrialsList.getAllTrials(),
-            selectedDate: null
+            selectedEnrollmentDate: null,
+            selectedEndDate: null
         };
     }
     
@@ -32,10 +33,16 @@ class ClinicalTrialForm extends Component {
 
     handleDateChange = (selectedDate, value) => {
 
-        this.setState({
-            selectedDate
-        });
-
+         if (value === "enrollmentDate") {
+            this.setState({
+                selectedEnrollmentDate: selectedDate
+            });
+        }
+        else if (value === "endDate") {
+            this.setState({
+                selectedEndDate: selectedDate
+            });
+        }
         this.props.updateValue(value, selectedDate);
     };
     
