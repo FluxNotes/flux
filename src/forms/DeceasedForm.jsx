@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
-import './ProgressionForm.css';
+import './DeceasedForm.css';
 
 const DAY_FORMAT = 'MM/DD/YYYY';
 
 class DeceasedForm extends Component {
 
     state = {
-        selectedDay: undefined,
+        selectedDay: null,
         isDisabled: false
     };
 
@@ -25,7 +24,7 @@ class DeceasedForm extends Component {
     };
 
     render() {
-        const {selectedDay, isDisabled} = this.state;
+        const {selectedDay} = this.state;
         const formattedDay = selectedDay ? moment(selectedDay).format(DAY_FORMAT) : '';
 
         let dateOfDeathSection = (

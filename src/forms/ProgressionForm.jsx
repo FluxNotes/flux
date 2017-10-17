@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 import './ProgressionForm.css';
 
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 class ProgressionForm extends Component {
     constructor(props) {
@@ -15,7 +17,9 @@ class ProgressionForm extends Component {
         this.state = {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
-            reasonButtonsActiveState: []
+            reasonButtonsActiveState: [],
+            selectedReferenceDate: null,
+            isReferenceDateInputDisabled: false
         };
     }
     
@@ -71,14 +75,13 @@ class ProgressionForm extends Component {
         }
     }
 
-    handleDateSelection = (event) => {
-        const date = event.target.value;
-        let formattedDate = null;
-        if (date) {
-            formattedDate = new moment(date).format('D MMM YYYY');
-        }
-        this.props.updateValue("referenceDateDate", formattedDate);
-    }
+    handleReferenceDateChange = (selectedReferenceDate, modifiers) => {
+        this.setState({
+            selectedReferenceDate,
+            isReferenceDateInputDisabled: modifiers.disabled,
+        });
+        this.props.updateValue("referenceDateDate", selectedReferenceDate);
+    };
 
     renderStatusButtonGroup = (status, i) => {
         const marginSize = "10px";
@@ -143,10 +146,15 @@ class ProgressionForm extends Component {
         const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
         var formattedClinicallyRelevantTime = null;
 
+        const {selectedReferenceDate} = this.state;
+        const formattedReferenceDate = selectedReferenceDate ? moment(selectedReferenceDate).format(DATE_FORMAT) : '';
+
         if (clinicallyRelevantTime != null) {
-            formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format("YYYY-MM-DD");
+            formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format(DATE_FORMAT);
+        } else {
+            formattedClinicallyRelevantTime = DATE_FORMAT;
         }
-        
+
         let referenceDateSection = null;
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
             referenceDateSection = (
@@ -156,11 +164,12 @@ class ProgressionForm extends Component {
                         {progressionLookup.getDescription("referenceDate")}
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
-                    <TextField
-                        id="reference-date"
-                        type="date"
-                        defaultValue={formattedClinicallyRelevantTime}
-                        onChange={this.handleDateSelection}
+
+                    <DayPickerInput
+                        value={formattedReferenceDate}
+                        onDayChange={this.handleReferenceDateChange}
+                        format={DATE_FORMAT}
+                        placeholder={formattedClinicallyRelevantTime}
                     />
                 </div>
             );
