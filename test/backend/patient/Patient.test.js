@@ -348,61 +348,81 @@ describe('update methods for study enrollment: ', function () {
             .to.include({"endDate": '11 Oct 2017'});
     });
 });
-// describe('getPersonOfRecord', function () {
- 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getPersonOfRecord()).to.equal();
-//     });
-// });
 
-// describe('getMRN', function () { 
- 
-//    it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getMRN()).to.equal();
-//     });
-// });
+describe('getConditions', function () { 
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getConditions())
+                .to.be.an('array')
+                .that.is.empty;
+    });
 
-// describe('getCurrentHomeAddress', function () { 
+    const conditions = hardCodedPatientObj.getConditions();
+    it('should return a non empty array when there are conditions', function () { 
+        expect(conditions)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getCurrentHomeAddress()).to.equal();
-//     });
-// });
+    const firstEntry = conditions[0];
+    it('should return objects with an entry type of condition', function () { 
+        expect(firstEntry.entryType)
+                .to.include.members([ 'http://standardhealthrecord.org/condition/Condition' ]);
+    });
+});
 
-// describe('getConditions', function () { 
+describe('getKeyEventsChronologicalOrder', function () { 
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getKeyEventsChronologicalOrder())
+                .to.be.an('array')
+                .that.is.empty;
+    });
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getConditions()).to.equal();
-//     });
-// });
+    const events = hardCodedPatientObj.getKeyEventsChronologicalOrder();
+    it('should return a non empty array when there are key events', function () { 
+        expect(events)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
 
-// describe('getLastBreastCancerCondition', function () { 
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < events.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            const firstDate = new Moment(events[i].start_time, "D MMM YYYY");
+            const secondDate = new Moment(events[i + 1].start_time, "D MMM YYYY");
+            expect(firstDate < secondDate).to.be.true;
+        });
+    }
+});
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getLastBreastCancerCondition()).to.equal();
-//     });
-// });
+describe('getKeyEventsForConditionChronologicalOrder', function () { 
+    // get first condition on hardcoded patient to test with
+    const condition = hardCodedPatientObj.getConditions()[0];
+    it('should return an empty array on empty patient object', function () { 
+        expect(emptyPatientObj.getKeyEventsForConditionChronologicalOrder(condition))
+                .to.be.an('array')
+                .that.is.empty;
+    });
 
-// describe('getNotes', function () { 
+    const events = hardCodedPatientObj.getKeyEventsForConditionChronologicalOrder(condition);
+    it('should return a non empty array when there are key events', function () { 
+        expect(events)
+                .to.be.an('array')
+                .that.is.not.empty;
+    });
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getNotes()).to.equal();
-//     });
-// });
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < events.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            const firstDate = new Moment(events[i].start_time, "D MMM YYYY");
+            const secondDate = new Moment(events[i + 1].start_time, "D MMM YYYY");
+            expect(firstDate < secondDate).to.be.true;
+        });
+    }
 
-// describe('getKeyEventsChronologicalOrder', function () { 
-
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getKeyEventsChronologicalOrder()).to.equal();
-//     });
-// });
+    it('should have at most the same number of events as getKeyEventsChronologicalOrder', function () {
+        expect(events.length).to.be.at.most(hardCodedPatientObj.getKeyEventsChronologicalOrder().length);
+    });
+});
 
 // describe('getMedications', function () { 
 
@@ -447,6 +467,46 @@ describe('update methods for study enrollment: ', function () {
 
 //     it('should return null', function () { 
 //         getProceduresForConditionChronologicalOrder(condition)
+//     });
+// });
+
+// describe('getPersonOfRecord', function () {
+ 
+//     it('should return null', function () { 
+//         const expected = "";
+//         expect(hardCodedPatientObj.getPersonOfRecord()).to.equal();
+//     });
+// });
+
+// describe('getMRN', function () { 
+ 
+//    it('should return null', function () { 
+//         const expected = "";
+//         expect(hardCodedPatientObj.getMRN()).to.equal();
+//     });
+// });
+
+// describe('getCurrentHomeAddress', function () { 
+
+//     it('should return null', function () { 
+//         const expected = "";
+//         expect(hardCodedPatientObj.getCurrentHomeAddress()).to.equal();
+//     });
+// });
+
+// describe('getLastBreastCancerCondition', function () { 
+
+//     it('should return null', function () { 
+//         const expected = "";
+//         expect(hardCodedPatientObj.getLastBreastCancerCondition()).to.equal();
+//     });
+// });
+
+// describe('getNotes', function () { 
+
+//     it('should return null', function () { 
+//         const expected = "";
+//         expect(hardCodedPatientObj.getNotes()).to.equal();
 //     });
 // });
 
