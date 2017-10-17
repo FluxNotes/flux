@@ -2,22 +2,31 @@ import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 import './ProgressionForm.css';
 
+const DAY_FORMAT = 'MM/DD/YYYY';
 
 class DeceasedForm extends Component {
 
-    handleDateSelection = (event) => {
-        const date = event.target.value;
-        let formattedDate = null;
-        if (date) {
-            formattedDate = new moment(date).format('D MM YYYY');
-        }
-        this.props.updateValue("date", formattedDate);
-    }
+    state = {
+        selectedDay: undefined,
+        isDisabled: false
+    };
+
+    handleDayChange = (selectedDay, modifiers) => {
+        this.setState({
+            selectedDay,
+            isDisabled: modifiers.disabled,
+        });
+
+        this.props.updateValue("date", selectedDay);
+    };
 
     render() {
-        var formattedDateOfDeath = null;
+        const {selectedDay, isDisabled} = this.state;
+        const formattedDay = selectedDay ? moment(selectedDay).format(DAY_FORMAT) : '';
 
         let dateOfDeathSection = (
             <div>
@@ -26,11 +35,12 @@ class DeceasedForm extends Component {
                     The date of the patient's death.
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
-                <TextField
-                    id="date-of-death"
-                    type="date"
-                    defaultValue={formattedDateOfDeath}
-                    onChange={this.handleDateSelection}
+
+                <DayPickerInput
+                    value={formattedDay}
+                    onDayChange={this.handleDayChange}
+                    format={DAY_FORMAT}
+                    placeholder={DAY_FORMAT}
                 />
             </div>
         );
@@ -42,10 +52,11 @@ class DeceasedForm extends Component {
                     An indication that the person is no longer living as of the date specified below.
                     <br/>
                     <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a
+                    href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
-                    {dateOfDeathSection}
+                {dateOfDeathSection}
             </div>
         );
     }
