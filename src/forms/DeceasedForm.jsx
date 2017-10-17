@@ -36,6 +36,7 @@ class DeceasedForm extends Component {
                 </p>
 
                 <DayPickerInput
+                    id="date-of-death"
                     value={formattedDay}
                     onDayChange={this.handleDayChange}
                     format={DAY_FORMAT}

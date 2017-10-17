@@ -102,6 +102,7 @@ class ClinicalTrialForm extends Component {
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
                 <DayPickerInput
+                    id="enrollment-date"
                     value={formattedDate}
                     onDayChange={ (e) => this.handleDateChange(e, "enrollmentDate")}
                     format={DATE_FORMAT}
@@ -114,6 +115,7 @@ class ClinicalTrialForm extends Component {
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
                 <DayPickerInput
+                    id="end-date"
                     value={formattedDate}
                     onDayChange={ (e) => this.handleDateChange(e, "endDate")}
                     format={DATE_FORMAT}
