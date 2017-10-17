@@ -282,8 +282,10 @@ class Patient {
 		return 0;
 	}
 	_proceduresTimeSorter(a, b) {
-		const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
-		const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+		let a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
+        if(!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
+		let b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+        if(!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;

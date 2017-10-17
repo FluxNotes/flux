@@ -489,7 +489,88 @@ describe('getMedicationsForConditionChronologicalOrder', function () {
 //     });
 // });
 
-// describe('getProceduresForCondition', function() { 
+describe('Test sorting in getProceduresChronologicalOrder', function () { 
+    let testPatient = new Patient(null);
+    const today = new Moment().format("D MMM YYYY");
+    const procedureEntry1 = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: {
+                            timePeriodStart: "12 JUL 2010",
+                            timePeriodEnd: "30 JUL 2010" },
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    const procedureEntry2 = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: {
+                            timePeriodStart: "12 JUL 2009",
+                            timePeriodEnd: "30 JUL 2009" },
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    const procedureEntry3 = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: {
+                            timePeriodStart: "12 JUL 2007",
+                            timePeriodEnd: "30 JUL 2007" },
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    const procedureEntry4 = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: "12 JUL 2005",
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    testPatient.addEntryToPatient(procedureEntry1);
+    testPatient.addEntryToPatient(procedureEntry2);
+    testPatient.addEntryToPatient(procedureEntry3);
+    testPatient.addEntryToPatient(procedureEntry4);
+    const procedures = testPatient.getProceduresChronologicalOrder();
+    console.log(procedures);
+    // test that the array is sorted in chronological order
+    for (let i = 0; i < procedures.length - 1; i++) {
+        it('should return an array sorted by date.', function () {
+            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
+            if(!firstDate.isValid()) {
+                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
+            if(!secondDate.isValid()) {
+                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
+            }
+            expect(firstDate <= secondDate).to.be.true;
+        });
+    }
+});
 
 //     it('should return null', function () { 
 //         getProceduresForCondition(condition)
