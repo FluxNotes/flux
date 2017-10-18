@@ -20,7 +20,7 @@ class ClinicalTrialForm extends Component {
             trials: this.clinicalTrialsList.getAllTrials(),
             selectedEnrollmentDate: null,
             selectedEndDate: null,
-            selectedDateChoice: 'enrollment-date'
+            selectedDateChoice: 'enrollmentDate'
         };
     }
     
@@ -35,8 +35,7 @@ class ClinicalTrialForm extends Component {
     }
 
     handleDateChange = (selectedDate, value) => {
-
-         if (value === "enrollmentDate") {
+        if (value === "enrollmentDate") {
             this.setState({
                 selectedEnrollmentDate: selectedDate
             });
@@ -46,16 +45,22 @@ class ClinicalTrialForm extends Component {
                 selectedEndDate: selectedDate
             });
         }
-        this.props.updateValue(value, selectedDate);
+        
+        if (this.state.selectedDateChoice === value) {
+            this.props.updateValue(value, selectedDate);
+        }
     };
     
     handleDateChoice = (event) => {
         const choice = event.target.value;
         // When changing the choice of date, set the other to null to clear it from the copy button
-        if (choice === 'enrollment-date') {
+        // and reset the chosen date to the value displayed in the picker.
+        if (choice === 'enrollmentDate') {
             this.props.updateValue('endDate', null);
-        } else if (choice === 'end-date') {
+            this.props.updateValue('enrollmentDate', this.state.selectedEnrollmentDate);
+        } else if (choice === 'endDate') {
             this.props.updateValue('enrollmentDate', null);
+            this.props.updateValue('endDate', this.state.selectedEndDate);
         }
         this.setState({ selectedDateChoice: choice });
     }
@@ -98,6 +103,7 @@ class ClinicalTrialForm extends Component {
                 onDayChange={ (e) => this.handleDateChange(e, "enrollmentDate")}
                 format={DATE_FORMAT}
                 placeholder={DATE_FORMAT}
+                className='clinical-trial-dates'
             />
         );
     }
@@ -110,6 +116,7 @@ class ClinicalTrialForm extends Component {
                 onDayChange={ (e) => this.handleDateChange(e, "endDate")}
                 format={DATE_FORMAT}
                 placeholder={DATE_FORMAT}
+                className='clinical-trial-dates'
             />
         );
     }
@@ -150,17 +157,18 @@ class ClinicalTrialForm extends Component {
                             name="relevant dates"
                             value={this.state.selectedDateChoice}
                             onChange={this.handleDateChoice}>
-                            <FormControlLabel value="enrollment-date" control={<Radio id="enrollment-date-choice" className='radio-button-clinical-trial'/>} label={enrollmentDateDescription}/>
-                            <FormControlLabel value="end-date" control={<Radio id="end-date-choice" className='radio-button-clinical-trial'/>} label={endDateDescription} />
+                            <FormControlLabel value="enrollmentDate" control={<Radio id="enrollment-date-choice" className='radio-button-clinical-trial'/>} label={enrollmentDateDescription}/>
                         </RadioGroup>
+                        {this.renderEnrollmentDatePicker(formattedDate)}
+                        <RadioGroup
+                            name="relevant dates"
+                            value={this.state.selectedDateChoice}
+                            onChange={this.handleDateChoice}>
+                            <FormControlLabel value="endDate" control={<Radio id="end-date-choice" className='radio-button-clinical-trial'/>} label={endDateDescription} />
+                        </RadioGroup>
+                        {this.renderEndDatePicker(formattedDate)}
                     </FormControl>
                 </div>
-                {this.state.selectedDateChoice === 'enrollment-date' 
-                    ? this.renderEnrollmentDatePicker(formattedDate) 
-                    : null}
-                {this.state.selectedDateChoice === 'end-date' 
-                    ? this.renderEndDatePicker(formattedDate) 
-                    : null }
             </div>
         )
     }

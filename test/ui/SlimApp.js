@@ -134,9 +134,10 @@ test('Selecting the enrollment date choice and a date updates copy-content', asy
     
     const enrollmentDatePicker = await Selector("#enrollment-date");
     await t 
-        .typeText(enrollmentDatePicker, '2017-10-06')
+        .typeText(enrollmentDatePicker, '10/06/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(`#enrolled on ${await enrollmentDatePicker.innerText}`);
+        .contains(`#enrolled on #${await enrollmentDatePicker.value}`);
 });
 test('Selecting the end date choice and a date updates copy-content', async t => {
     const endDateChoice = Selector("#end-date-choice");
@@ -149,9 +150,10 @@ test('Selecting the end date choice and a date updates copy-content', async t =>
 
     const endDatePicker = await Selector("#end-date");
     await t 
-        .typeText(endDatePicker, '2017-10-06')
+        .typeText(endDatePicker, '10/06/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(await `#ended on ${await endDatePicker.innerText}`);
+        .contains(await `#ended on #${await endDatePicker.value}`);
 });
 
 fixture('Lite Mode - Deceased')
@@ -163,9 +165,10 @@ test('Selecting a date of death updates copy-content', async t => {
     const datePicker = Selector("#date-of-death");
     const copyButton = Selector("#copy-content");
     await t
-        .typeText(datePicker, '2017-10-01')
+        .typeText(datePicker, '10/01/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(await datePicker.innerText);
+        .contains(await datePicker.value);
 });
 
 
