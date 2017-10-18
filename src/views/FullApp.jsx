@@ -185,7 +185,10 @@ class FullApp extends Component {
 
                         <Row center="xs">
                             <Col sm={12}>
-                                <TimelinePanel patient={this.state.patient} />
+                                <TimelinePanel
+                                    patient={this.state.patient} 
+                                    condition={this.state.condition}
+                                />
                             </Col>
                         </Row>
                     </Grid>

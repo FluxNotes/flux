@@ -3,6 +3,11 @@ _Pull requests into Flux require the following. Submitter and reviewer should :w
 
 ## Submitter:
 
+**Running the Application**
+
+- [ ] Manually tested in Chrome
+- [ ] Manually tested in IE
+
 **Documentation**
 
 - [ ] This pull request describes why these changes were made
