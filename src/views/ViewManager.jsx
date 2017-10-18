@@ -5,7 +5,7 @@ class ViewManager {
     constructor() {
         this.views = [{
                 path: '/patina',
-                shortcuts: ['Disease Status', 'Toxicity', 'Clinical Trial', 'Deceased'],
+                shortcuts: ['Disease Status', 'Toxicity', 'Clinical Trial', 'Deceased', 'Staging'],
                 display: 'Flux Notes Lite (for PATINA endpoints)',
                 app: SlimApp,
                 shortcutConfigurations: {

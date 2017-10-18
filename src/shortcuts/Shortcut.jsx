@@ -28,10 +28,6 @@ class Shortcut extends Context {
     getAsString () { 
         return "#null"; 
     }
-    /*    
-    getForm () {
-        return (<h2>No additional values for current shortcut</h2>);
-    }*/
 
     getShortcutType() { 
         throw new TypeError("Base Shortcut has no type")

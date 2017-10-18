@@ -1,5 +1,5 @@
 //import Lang from 'lodash'
-import ProgressionCreator from './ProgressionCreator';
+/*import ProgressionCreator from './ProgressionCreator';
 import StagingCreator from './StagingCreator';
 import ToxicityCreator from './ToxicityCreator';
 import ConditionInserter from './ConditionInserter';
@@ -24,7 +24,8 @@ import DeceasedCreator from './DeceasedCreator';
 import ClinicalTrialCreator from './ClinicalTrialCreator';
 import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
-import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
+import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';*/
+import CreatorBase from './CreatorBase';
 import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
 
@@ -33,7 +34,7 @@ function addTriggerForKey(trigger) {
 }
 
 class ShortcutManager {
-    shortcuts = {
+/*    shortcuts = {
         '#disease status': ProgressionCreator,
         '#progression-status': ProgressionStatusCreator,
         '#progression-reasons': ProgressionReasonsCreator,
@@ -60,24 +61,28 @@ class ShortcutManager {
         '#enrolled on': ClinicalTrialEnrollmentDateCreator,
         '#ended on': ClinicalTrialEndDateCreator,
         '#deceased': DeceasedCreator
-    };
+    };*/
 
     shortcutClasses = [];
     shortcutMap = {};
     
-    getAllShortcutClasses() {
+/*    getAllShortcutClasses() {
         return this.shortcutClasses;
+    }*/
+    getAllStringTriggers() {
+        
     }
     
     constructor(shortcutList) {
         this.shortcutsToSupportList = shortcutList;
-        this.loadShortcutMetadata(shortcutList, shortcutMetadata)
+        this.loadShortcutMetadata(shortcutList, shortcutMetadata);
+        /*
         for (var key in this.shortcuts) {
             this.shortcutClasses.push(this.shortcuts[key]);
             const triggers = this.shortcuts[key].getStringTriggers();
             this.currentShortcut = key;
             triggers.forEach(addTriggerForKey, this);
-        }        
+        }*/
     }
     
     getSupportedShortcuts() {
@@ -88,19 +93,30 @@ class ShortcutManager {
 /*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
             throw new Error("Invalid shortcut type: " + shortcutType);
         }*/
+        console.log(trigger.toLowerCase());
+        console.log(this.shortcutMap);
         let className;
         if (!Lang.isNull(shortcutC)) {
             className = shortcutC;
+            return new className(onUpdate, object);
         } else {
-            className = this.shortcutMap[trigger.toLowerCase()];
+            const metadata = this.shortcutMap[trigger.toLowerCase()];
+            className = metadata["type"];
+            console.log(className);
+            return new CreatorBase(onUpdate, metadata);
+            //return new className(onUpdate, metadata);
         }
-        return new className(onUpdate, object);
     }
     
     loadShortcutMetadata(shortcutList, shortcutMetadata) {
         //console.log(shortcutMetadata);
         this.childShortcuts = {};
+        this.shortcuts = {};
         shortcutMetadata.forEach((item) => {
+            console.log(item["name"] + " ==> " + item["id"])
+            this.shortcuts[item["name"]] = item;
+
+            // add as child to its known parent
             if (item["knownParentContexts"]) {
                 const parent = item["knownParentContexts"];
                 let list = this.childShortcuts[parent];
@@ -112,6 +128,8 @@ class ShortcutManager {
                     list.push(item.name);
                 }
             }
+            
+            // add known children to it
             if (item["valueObjectAttributes"]) {
                 let list = this.childShortcuts[item.name];
                 if (Lang.isUndefined(list)) {
@@ -124,6 +142,16 @@ class ShortcutManager {
                         list.push(voa["childShortcut"]);
                     }
                 });
+            }
+            
+            // build up trigger to shortcut mapping
+            const triggers = item["stringTriggers"];
+            if (Lang.isArray(triggers)) {
+                this.currentShortcut = item["name"];
+                triggers.forEach(addTriggerForKey, this);
+                //this.shortcutClasses.push(item["id"]);
+            } else {
+                console.log("don't support function-based trigger lists yet");
             }
         });
         console.log(this.childShortcuts);
