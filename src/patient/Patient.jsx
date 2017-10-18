@@ -134,6 +134,18 @@ class Patient {
 		result.sort(this._eventTimeSorter);
 		return result;
 	}
+
+    getKeyEventsForConditionChronologicalOrder(condition) {
+        let conditions = this.getConditions();
+        let result = [];
+        conditions.forEach((c) => {
+            if(c.entryId === condition.entryId) {
+                result.push({name: "diagnosis date - " + c.specificType.coding.displayText, start_time: c.whenClinicallyRecognized});
+            }
+        });
+        result.sort(this._eventTimeSorter);
+        return result;
+    }
 	
 	getMedications() {
 		return this.getEntriesOfType("http://standardhealthrecord.org/medication/MedicationPrescription");
@@ -144,6 +156,14 @@ class Patient {
 		list.sort(this._medsTimeSorter);
 		return list;
 	}
+
+    getMedicationsForConditionChronologicalOrder(condition) {
+        let medications = this.getMedicationsChronologicalOrder();
+        medications = medications.filter((med) => {
+            return med.reason.entryId === condition.entryId;
+        });
+        return medications;
+    }
 	
 	getProcedures() {
 		return this.getEntriesOfType("http://standardhealthrecord.org/procedure/Procedure");
@@ -162,9 +182,9 @@ class Patient {
 	}
 	
 	getProceduresForConditionChronologicalOrder(condition) {
-		let list = this.getProceduresForCondition(condition);
-		list.sort(this._proceduresTimeSorter);
-		return list;
+        let procedures = this.getProceduresForCondition(condition);
+        procedures.sort(this._proceduresTimeSorter);
+        return procedures;
 	}
 
 	getObservationsForCondition(condition, type) {
@@ -197,21 +217,29 @@ class Patient {
 		if (list.length === 0) return null; else return list[0];
 	}
 	
-	getProgressionsChronologicalOrder() {
-		let progressions = this.getProgressions();
-		progressions.sort(this._progressionTimeSorter);
-		return progressions;
-	}
-	
 	getProgressions() {
 		return this.getEntriesOfType("http://standardhealthrecord.org/oncology/Progression");
 	}
+
+    getProgressionsChronologicalOrder() {
+        let progressions = this.getProgressions();
+        progressions.sort(this._progressionTimeSorter);
+        return progressions;
+    }
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => { 
 			return item.entryType[0] === "http://standardhealthrecord.org/oncology/Progression" && item.focalCondition.entryId === condition.entryId;
 		});
 	}
+
+    getProgressionsForConditionChronologicalOrder(condition) {
+        let progressions = this.getProgressionsChronologicalOrder();
+        progressions = progressions.filter((progression) => {
+            return progression.focalCondition.entryId === condition.entryId;
+        });
+        return progressions;
+    }
 	
 	getFocalConditionForProgression(progression) {
 		let result = this.entries.filter((item) => { return item.entryType.some((t) => { return t === "http://standardhealthrecord.org/condition/Condition"; }) && item.entryId === progression.focalCondition.entryId});
@@ -254,8 +282,10 @@ class Patient {
 		return 0;
 	}
 	_proceduresTimeSorter(a, b) {
-		const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
-		const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+		let a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
+        if(!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
+		let b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+        if(!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
