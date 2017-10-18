@@ -19,7 +19,7 @@ class ClinicalTrialForm extends Component {
         this.state = {
             trials: this.clinicalTrialsList.getAllTrials(),
             selectedEnrollmentDate: null,
-            selectedEndDate: null
+            selectedEndDate: null,
             selectedDateChoice: 'enrollment-date'
         };
     }
@@ -90,7 +90,7 @@ class ClinicalTrialForm extends Component {
         )
     }
     
-    renderEnrollmentDatePicker = () => {
+    renderEnrollmentDatePicker = (formattedDate) => {
         return (
             <DayPickerInput
                 id="enrollment-date"
@@ -102,7 +102,7 @@ class ClinicalTrialForm extends Component {
         );
     }
     
-    renderEndDatePicker = () => {
+    renderEndDatePicker = (formattedDate) => {
         return (
             <DayPickerInput
                 id="end-date"
@@ -156,10 +156,10 @@ class ClinicalTrialForm extends Component {
                     </FormControl>
                 </div>
                 {this.state.selectedDateChoice === 'enrollment-date' 
-                    ? this.renderEnrollmentDatePicker() 
+                    ? this.renderEnrollmentDatePicker(formattedDate) 
                     : null}
                 {this.state.selectedDateChoice === 'end-date' 
-                    ? this.renderEndDatePicker() 
+                    ? this.renderEndDatePicker(formattedDate) 
                     : null }
             </div>
         )
