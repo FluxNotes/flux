@@ -18,12 +18,6 @@ class DatePicker extends Component {
     }
 
     _handleDateChange(selectedDate) {
-        // console.log("inside handle date change in date picker");
-        // console.log("selected date");
-        // console.log(selectedDate);
-        //
-        // console.log("props");
-        // console.log(this.props);
         this.props.handleDateChange(selectedDate);
     }
 
