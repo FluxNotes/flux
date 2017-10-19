@@ -10,7 +10,7 @@ class DatePicker extends Component {
 
     constructor(props) {
         super(props);
-
+        this._handleDateChange = this._handleDateChange.bind(this);
         this.state = {
             selectedDate: null,
             isDisabled: false
@@ -18,22 +18,32 @@ class DatePicker extends Component {
     }
 
     _handleDateChange(selectedDate) {
-        console.log("inside handle date change in date picker");
-        console.log("selected date");
-        console.log(selectedDate);
+        // console.log("inside handle date change in date picker");
+        // console.log("selected date");
+        // console.log(selectedDate);
+        //
+        // console.log("props");
+        // console.log(this.props);
         this.props.handleDateChange(selectedDate);
     }
 
     render() {
+        var formattedDateToSet = null;
         const {selectedDate} = this.state;
         const formattedDate = selectedDate ? moment(selectedDate).format(DATE_FORMAT) : '';
+
+        if (this.props.dateToSet != null) {
+            formattedDateToSet = new moment(this.props.dateToSet, "D MMM YYYY ").format(DATE_FORMAT);
+        } else {
+            formattedDateToSet = DATE_FORMAT;
+        }
 
         return (
             <DayPickerInput
                 value={formattedDate}
                 onDayChange={this._handleDateChange}
                 format={DATE_FORMAT}
-                placeholder={DATE_FORMAT}
+                placeholder={formattedDateToSet}
             />
         )
     }
