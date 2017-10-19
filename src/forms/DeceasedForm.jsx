@@ -3,29 +3,31 @@ import Divider from 'material-ui/Divider';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+import DatePicker from '../forms/DatePicker';
 import './DeceasedForm.css';
 
-const DAY_FORMAT = 'MM/DD/YYYY';
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 class DeceasedForm extends Component {
 
     state = {
-        selectedDay: null,
+        selectedDate: null,
         isDisabled: false
     };
 
-    handleDayChange = (selectedDay) => {
+    handleDateChange = (selectedDate) => {
 
-        this.setState({
-            selectedDay
-        });
+        // this.setState({
+        //     selectedDate
+        // });
 
-        this.props.updateValue("date", selectedDay);
+        console.log("inside handle date change in deceased form");
+        // this.props.updateValue("date", selectedDate);
     };
 
     render() {
-        const {selectedDay} = this.state;
-        const formattedDay = selectedDay ? moment(selectedDay).format(DAY_FORMAT) : '';
+        const {selectedDate} = this.state;
+        const formattedDate = selectedDate ? moment(selectedDate).format(DATE_FORMAT) : '';
 
         let dateOfDeathSection = (
             <div>
@@ -36,11 +38,11 @@ class DeceasedForm extends Component {
                 </p>
 
                 <DayPickerInput
-                    id="date-of-death"
-                    value={formattedDay}
-                    onDayChange={this.handleDayChange}
-                    format={DAY_FORMAT}
-                    placeholder={DAY_FORMAT}
+                    id="date-of-death2"
+                    value={formattedDate}
+                    onDayChange={this.handleDateChange}
+                    format={DATE_FORMAT}
+                    placeholder={DATE_FORMAT}
                 />
             </div>
         );
@@ -57,6 +59,9 @@ class DeceasedForm extends Component {
                 </p>
                 <Divider className="divider"/>
                 {dateOfDeathSection}
+                <DatePicker id="date-of-death">
+                    handleDateChange={this.handleDateChange}
+                </DatePicker>
             </div>
         );
     }
