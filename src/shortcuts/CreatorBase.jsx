@@ -20,10 +20,17 @@ export default class CreatorBase extends Shortcut {
         // get attribute descriptions
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
+        this.values = {};
         metadataVOA.forEach((attrib) => {
-            attrib["attributePath"] = attrib["attribute"].split(".");
+            if (Lang.isUndefined(attrib["attribute"])) {
+                this.values[attrib.name] = false;
+                attrib["attributePath"] = null;
+            } else {
+                attrib["attributePath"] = attrib["attribute"].split(".");
+            }
             this.valueObjectAttributes[attrib.name] = attrib;
         });
+        this.onUpdate = onUpdate;
 		this.setAttributeValue = this.setAttributeValue.bind(this);
     }
     
@@ -54,7 +61,7 @@ export default class CreatorBase extends Shortcut {
     getAsString() { 
         const structuredPhrase = this.metadata["structuredPhrase"];
         //#staging #${T} #${N} #${M}
-        console.log("structured phrase: " + structuredPhrase);
+        //console.log("structured phrase: " + structuredPhrase);
         let last = 0, valueName, value;
         let start = structuredPhrase.indexOf("${"), end;
         let result = "";
@@ -82,25 +89,53 @@ export default class CreatorBase extends Shortcut {
         return result;
     }
 
-	getAttributeValue(name) {
-        const voa = this.valueObjectAttributes[name];
-        const attributePath = voa["attributePath"];
+    _followPath(object, attributePath, startIndex) {
+        console.log(object);
+        let i, attributeName, list;
         const len = attributePath.length;
-        let i;
-        let result = this.valueObject;
-        for (i = 0; i < len; i++) {
-            result = result[attributePath[i]];
+        let result = object;
+        for (i = startIndex; i < len; i++) {
+            if (attributePath[i].endsWith("[]")) {
+                attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
+                console.log("list attribute " + attributeName);
+                list = result[attributeName];
+                return list.map((item) => {
+                    return this._followPath(item, attributePath, i+1);
+                }).join();
+            } else {
+                console.log("value attribute: " + attributePath[i]);
+                result = result[attributePath[i]];
+            }
         }
         return result;
+    }
+    
+	getAttributeValue(name) {
+        console.log(name);
+        const voa = this.valueObjectAttributes[name];
+        if (Lang.isNull(voa["attributePath"])) {
+            return this.values[voa["name"]];
+        } else {
+            const attributePath = voa["attributePath"];
+            return this._followPath(this.object, attributePath, 0);
+        }
     }
 
 	setAttributeValue(name, value, publishChanges = true) {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
-        const setObject = voa["setObject"];
+        const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
-        console.log("invoke method '" + setMethod + "' on object '" + setObject + "'");
-        setObject[setMethod](this.valueObject, value);
+        if (Lang.isUndefined(patientSetMethod)) {
+            if (Lang.isUndefined(setMethod)) {
+                this.value[name] = value;
+            } else {
+                this.object[setMethod](value);
+            }
+        } else {
+            //console.log(this.object);
+            Patient[patientSetMethod](this.object, value);
+        }
         if (this.isContext()) this.updateContextStatus();
 		if (this.onUpdate) this.onUpdate(this);
 		if (publishChanges) {

@@ -10,7 +10,6 @@ import './SlimApp.css';
 class SlimApp extends Component {
     constructor(props) {
         super(props);
-        //console.log(props);
 
         this.shortcuts = []; // not currently used
         this.shortcutManager = new ShortcutManager(this.shortcuts);

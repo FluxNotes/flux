@@ -93,8 +93,8 @@ class ShortcutManager {
 /*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
             throw new Error("Invalid shortcut type: " + shortcutType);
         }*/
-        console.log(trigger.toLowerCase());
-        console.log(this.shortcutMap);
+        //console.log(trigger.toLowerCase());
+        //console.log(this.shortcutMap);
         let className;
         if (!Lang.isNull(shortcutC)) {
             className = shortcutC;
@@ -102,7 +102,7 @@ class ShortcutManager {
         } else {
             const metadata = this.shortcutMap[trigger.toLowerCase()];
             className = metadata["type"];
-            console.log(className);
+            //console.log(className);
             return new CreatorBase(onUpdate, metadata);
             //return new className(onUpdate, metadata);
         }
@@ -113,7 +113,7 @@ class ShortcutManager {
         this.childShortcuts = {};
         this.shortcuts = {};
         shortcutMetadata.forEach((item) => {
-            console.log(item["name"] + " ==> " + item["id"])
+            //console.log(item["name"] + " ==> " + item["id"])
             this.shortcuts[item["name"]] = item;
 
             // add as child to its known parent
@@ -154,12 +154,12 @@ class ShortcutManager {
                 console.log("don't support function-based trigger lists yet");
             }
         });
-        console.log(this.childShortcuts);
+        //console.log(this.childShortcuts);
     }
     
     getValidChildShortcutsInContext(context) {
         const currentContextName = context.getName();
-        console.log(currentContextName);
+        //console.log(currentContextName);
         return this.childShortcuts[currentContextName];
         //return context.getValidChildShortcuts();
     }

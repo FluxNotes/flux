@@ -38,6 +38,13 @@ class StagingForm extends Component {
     this.props.updateValue("M", newValue);
   }
 
+  /* all the Buttons had this:                           classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+    */
+  
   render() {
     return (
        <div>
@@ -61,11 +68,6 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
@@ -92,11 +94,6 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
@@ -123,11 +120,6 @@ class StagingForm extends Component {
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
