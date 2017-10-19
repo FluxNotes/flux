@@ -12,7 +12,7 @@ class ClinicalTrialsList {
     static getDescription(dataElement){
         switch(dataElement) {
             case "clinicalTrial":
-                return "Clinical trial enrollment includes the title of a clinical trial, an enrollment date, and possibly an end date.";
+                return "Clinical trial enrollment includes the title of a clinical trial, and either an enrollment date or an end date.";
             case "trial":
                 return "Clinical trial the patient is enrolled in.";
             case "enrollmentDate":

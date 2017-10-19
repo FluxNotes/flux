@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
+import Radio, { RadioGroup } from 'material-ui/Radio';
+import { FormControl, FormControlLabel } from 'material-ui/Form';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -17,7 +19,8 @@ class ClinicalTrialForm extends Component {
         this.state = {
             trials: this.clinicalTrialsList.getAllTrials(),
             selectedEnrollmentDate: null,
-            selectedEndDate: null
+            selectedEndDate: null,
+            selectedDateChoice: 'enrollmentDate'
         };
     }
     
@@ -32,8 +35,7 @@ class ClinicalTrialForm extends Component {
     }
 
     handleDateChange = (selectedDate, value) => {
-
-         if (value === "enrollmentDate") {
+        if (value === "enrollmentDate") {
             this.setState({
                 selectedEnrollmentDate: selectedDate
             });
@@ -43,8 +45,25 @@ class ClinicalTrialForm extends Component {
                 selectedEndDate: selectedDate
             });
         }
-        this.props.updateValue(value, selectedDate);
+        
+        if (this.state.selectedDateChoice === value) {
+            this.props.updateValue(value, selectedDate);
+        }
     };
+    
+    handleDateChoice = (event) => {
+        const choice = event.target.value;
+        // When changing the choice of date, set the other to null to clear it from the copy button
+        // and reset the chosen date to the value displayed in the picker.
+        if (choice === 'enrollmentDate') {
+            this.props.updateValue('endDate', null);
+            this.props.updateValue('enrollmentDate', this.state.selectedEnrollmentDate);
+        } else if (choice === 'endDate') {
+            this.props.updateValue('enrollmentDate', null);
+            this.props.updateValue('endDate', this.state.selectedEndDate);
+        }
+        this.setState({ selectedDateChoice: choice });
+    }
     
     renderTrialButtonGroup = (trial, i) => {
         const marginSize = "10px";
@@ -76,10 +95,37 @@ class ClinicalTrialForm extends Component {
         )
     }
     
+    renderEnrollmentDatePicker = (formattedDate) => {
+        return (
+            <DayPickerInput
+                id="enrollment-date"
+                value={formattedDate}
+                onDayChange={ (e) => this.handleDateChange(e, "enrollmentDate")}
+                format={DATE_FORMAT}
+                placeholder={DATE_FORMAT}
+                className='clinical-trial-dates'
+            />
+        );
+    }
+    
+    renderEndDatePicker = (formattedDate) => {
+        return (
+            <DayPickerInput
+                id="end-date"
+                value={formattedDate}
+                onDayChange={ (e) => this.handleDateChange(e, "endDate")}
+                format={DATE_FORMAT}
+                placeholder={DATE_FORMAT}
+                className='clinical-trial-dates'
+            />
+        );
+    }
+    
     render() {
         const {selectedDate} = this.state;
         const formattedDate = selectedDate ? moment(selectedDate).format(DATE_FORMAT) : '';
-
+        const enrollmentDateDescription = `Enrollment Date: ${ClinicalTrialsList.getDescription("enrollmentDate")}`;
+        const endDateDescription = `End Date: ${ClinicalTrialsList.getDescription("endDate")}`;
         return (
             <div>
                 <h1>Clinical Trial</h1>
@@ -103,31 +149,26 @@ class ClinicalTrialForm extends Component {
                     })}
                 </div>
                 
-                <h4 className="header-spacing">Enrollment Date</h4>
-                <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("enrollmentDate")}
-                    <span className="helper-text"> mm/dd/yyyy</span>
-                </p>
-                <DayPickerInput
-                    id="enrollment-date"
-                    value={formattedDate}
-                    onDayChange={ (e) => this.handleDateChange(e, "enrollmentDate")}
-                    format={DATE_FORMAT}
-                    placeholder={DATE_FORMAT}
-                />
+                <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span> </h4>
                 
-                <h4 className="header-spacing">End Date <span className="helper-text"> (Optional)</span></h4>
-                <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("endDate")}
-                    <span className="helper-text"> mm/dd/yyyy</span>
-                </p>
-                <DayPickerInput
-                    id="end-date"
-                    value={formattedDate}
-                    onDayChange={ (e) => this.handleDateChange(e, "endDate")}
-                    format={DATE_FORMAT}
-                    placeholder={DATE_FORMAT}
-                />
+                <div className="date-choices">
+                    <FormControl>
+                        <RadioGroup
+                            name="relevant dates"
+                            value={this.state.selectedDateChoice}
+                            onChange={this.handleDateChoice}>
+                            <FormControlLabel value="enrollmentDate" control={<Radio id="enrollment-date-choice" className='radio-button-clinical-trial'/>} label={enrollmentDateDescription}/>
+                        </RadioGroup>
+                        {this.renderEnrollmentDatePicker(formattedDate)}
+                        <RadioGroup
+                            name="relevant dates"
+                            value={this.state.selectedDateChoice}
+                            onChange={this.handleDateChoice}>
+                            <FormControlLabel value="endDate" control={<Radio id="end-date-choice" className='radio-button-clinical-trial'/>} label={endDateDescription} />
+                        </RadioGroup>
+                        {this.renderEndDatePicker(formattedDate)}
+                    </FormControl>
+                </div>
             </div>
         )
     }
