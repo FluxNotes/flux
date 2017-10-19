@@ -123,27 +123,37 @@ test('Selecting a clinical trial updates copy-content', async t => {
             .contains(await trialButtons.nth(i).innerText);
     }
 });
-test('Selecting an enrollment date updates copy-content', async t => {
-    const datePicker = Selector("#enrollment-date");
+test('Selecting the enrollment date choice and a date updates copy-content', async t => {
+    const enrollmentDateChoice = Selector("#enrollment-date-choice");
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
     await t
         .click(firstTrial)
-        .typeText(datePicker, '2017-10-06')
+        .click(enrollmentDateChoice);
+    
+    const enrollmentDatePicker = await Selector("#enrollment-date");
+    await t 
+        .typeText(enrollmentDatePicker, '10/06/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(await datePicker.innerText);
+        .contains(`#enrolled on #${await enrollmentDatePicker.value}`);
 });
-test('Selecting an end date updates copy-content', async t => {
-    const datePicker = Selector("#end-date");
+test('Selecting the end date choice and a date updates copy-content', async t => {
+    const endDateChoice = Selector("#end-date-choice");
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
     await t
         .click(firstTrial)
-        .typeText(datePicker, '2017-10-06')
+        .click(endDateChoice);
+
+    const endDatePicker = await Selector("#end-date");
+    await t 
+        .typeText(endDatePicker, '10/06/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(await datePicker.innerText);
+        .contains(await `#ended on #${await endDatePicker.value}`);
 });
 
 fixture('Lite Mode - Deceased')
@@ -155,9 +165,10 @@ test('Selecting a date of death updates copy-content', async t => {
     const datePicker = Selector("#date-of-death");
     const copyButton = Selector("#copy-content");
     await t
-        .typeText(datePicker, '2017-10-01')
+        .typeText(datePicker, '10/01/2017');
+    await t
         .expect(copyButton.innerText)
-        .contains(await datePicker.innerText);
+        .contains(await datePicker.value);
 });
 
 
