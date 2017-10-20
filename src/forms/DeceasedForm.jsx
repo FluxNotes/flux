@@ -20,8 +20,8 @@ class DeceasedForm extends Component {
                 </p>
 
                 <DatePicker id="date-of-death"
-                            handleDateChange={this.changeDate}
-                            dateToSet={null}
+                    handleDateChange={this.changeDate}
+                    dateToSet={null}
                 />
             </div>
         );

@@ -96,8 +96,8 @@ class ClinicalTrialForm extends Component {
     renderEnrollmentDatePicker = () => {
         return (
             <DatePicker id="enrollment-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEnrollmentDateChange}
-                        dateToSet={null}
+                handleDateChange={this.handleEnrollmentDateChange}
+                dateToSet={null}
             />
         );
     }
@@ -105,8 +105,8 @@ class ClinicalTrialForm extends Component {
     renderEndDatePicker = () => {
         return (
             <DatePicker id="end-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEndDateChange}
-                        dateToSet={null}
+                handleDateChange={this.handleEndDateChange}
+                dateToSet={null}
             />
         );
     }

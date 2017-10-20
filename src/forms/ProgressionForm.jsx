@@ -145,9 +145,9 @@ class ProgressionForm extends Component {
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
 
-                    <DatePicker id="date-of-death"
-                                handleDateChange={this.handleReferenceDateChange}
-                                dateToSet={clinicallyRelevantTime}
+                    <DatePicker id="reference-date"
+                        handleDateChange={this.handleReferenceDateChange}
+                        dateToSet={clinicallyRelevantTime}
                     />
                 </div>
             );
