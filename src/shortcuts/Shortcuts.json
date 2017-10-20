@@ -76,10 +76,16 @@
     "stringTriggers": [{ "name": "disease status", "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations."}],
     "regexpTrigger": null,
     "form": "ProgressionForm",
+    "formSpec": {   "title": "Disease Status",
+                    "attributes": [ {   "title":"Status", "type":"radioButtons", "values": {"lookup":"../lib/progression_lookup", "method":"getStatusOptions" } },
+                                    {   "title":"Rationale for status", "type":"checkboxes", "values": {"lookup":"../lib/progression_lookup", "method":"getReasonOptions"}}
+                                  ]
+                },
     "structuredPhrase": "#disease status is #${status} #based on #${reasons}${% relative to #reference date #${referenceDateDate}}${% #as of #${asOfDateDate}}",
     "contextValueObjectEntryType": "http://standardhealthrecord.org/oncology/BreastCancer",
     "knownParentContexts": "condition",
-    "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations."
+    "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.",
+    "structuredPhraseDocumentation": "diseaseStatusSheet.pdf"
   },
   { "type": "CreatorBase",
     "id": "ToxicityCreator",
@@ -105,7 +111,8 @@
     "valueObject": "StudyEnrollment",
     "valueObjectAttributes": [  {"name":"title", "attribute":"title", "patientSetMethod": "updateTitleForStudyEnrollment", "childShortcut": "ClinicalTrialTitleCreator"},
                                 {"name":"enrollmentDate", "attribute":"enrollmentDate", "patientSetMethod": "updateEnrollmentDateForStudyEnrollment", "childShortcut": "ClinicalTrialEnrollmentDateCreator"},
-                                {"name":"endDate", "attribute":"endDate", "patientSetMethod": "updateEndDateForStudyEnrollment", "childShortcut": "ClinicalTrialEndDateCreator"} ],
+                                {"name":"endDate", "attribute":"endDate", "patientSetMethod": "updateEndDateForStudyEnrollment", "childShortcut": "ClinicalTrialEndDateCreator"}
+                             ],
     "isContext": true,
     "stringTriggers": [{ "name": "clinical trial", "description": "Support specifying the enrollment or end date for the patient in a clinical trial."}],
     "regexpTrigger": null,

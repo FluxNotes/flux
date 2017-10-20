@@ -21,19 +21,19 @@ export default class NoteParser {
             this.contextManager = contextManager;
         }
         this.allTriggersRegExp = undefined;
-        this.triggerMap = {};
+        //this.triggerMap = {};
         
         // build up all trigger string regular expression
-        let allTriggers = [];
-        let allShortcuts = this.shortcutManager.getAllShortcutClasses();
-        let curTriggers;
+        let allTriggers = this.shortcutManager.getAllStringTriggers();
+        //let allShortcuts = this.shortcutManager.getAllShortcutClasses();
+        /*let curTriggers;
         allShortcuts.forEach((shortcutC) => {
             curTriggers = shortcutC.getStringTriggers().map((obj) => { return obj.name; });;
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
                 this.triggerMap[item.toLowerCase()] = shortcutC; 
             });
-        });
+        });*/
         this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
         
         // build list of regular expression triggers
@@ -54,14 +54,15 @@ export default class NoteParser {
     }
     
     createShortcut(trigger) {
-        let shortcutC;
+/*        let shortcutC;
         if (!Lang.isNull(trigger.shortcut)) {
             shortcutC = trigger.shortcut;
         } else {
             shortcutC = this.triggerMap[trigger.trigger.toLowerCase()];
             
         }
-        const shortcut = new shortcutC();
+        const shortcut = new shortcutC();*/
+        const shortcut = this.shortcutManager.createShortcut(shortcutC, trigger, onUpdate, object)
         shortcut.initialize(this.contextManager, trigger.trigger);
         shortcut.setKey(null);
         return shortcut;

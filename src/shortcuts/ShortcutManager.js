@@ -70,7 +70,7 @@ class ShortcutManager {
         return this.shortcutClasses;
     }*/
     getAllStringTriggers() {
-        
+        return Object.keys(this.shortcutMap);
     }
     
     constructor(shortcutList) {
@@ -106,8 +106,8 @@ class ShortcutManager {
             }
             className = metadata["type"];
             //console.log(className);
-            return new CreatorBase(onUpdate, metadata);
-            //return new className(onUpdate, metadata);
+            //return new CreatorBase(onUpdate, metadata);
+            return new className(onUpdate, metadata);
         }
     }
     
@@ -154,7 +154,14 @@ class ShortcutManager {
                 triggers.forEach(addTriggerForKey, this);
                 //this.shortcutClasses.push(item["id"]);
             } else {
-                console.log("don't support function-based trigger lists yet");
+                //"stringTriggers": {"lookup":"../lib/staging_lookup", "method":"getTsForEdition", "args":"7"},
+                //import stagingLookup from '../lib/staging_lookup';
+                let lookup = triggers["lookup"];
+                let method = triggers["method"];
+                let args = triggers["args"];
+                let lib = require("../lib/staging_lookup");
+                lib[method](...args).forEach(addTriggerForKey, this);
+                //console.log("don't support function-based trigger lists yet");
             }
         });
         //console.log(this.childShortcuts);
