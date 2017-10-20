@@ -113,5 +113,19 @@
     "structuredPhrase": "#clinical trial #${title}${% #enrolled on #${enrollmentDate}}${% #ended on #${endDate}}",
     "knownParentContexts": "patient",
     "description": "Support specifying the enrollment or end date for the patient in a clinical trial."
+  },
+  { "type": "CreatorBase",
+    "id": "DeceasedCreator",
+    "name": "deceased",
+    "getData": null,
+    "valueObject": "Deceased",
+    "valueObjectAttributes": [  {"name":"date", "attribute":"dateOfDeath", "patientSetMethod": "updateDateOfDeath", "childShortcut": "DateCreator"} ],
+    "isContext": true,
+    "stringTriggers": [{ "name": "deceased", "description": "An indication that the person is no longer living, given by a date"}],
+    "regexpTrigger": null,
+    "form": "DeceasedForm",
+    "structuredPhrase": "#deceased #${date}",
+    "knownParentContexts": "patient",
+    "description": "An indication that the person is no longer living as of the specified date."
   }
 ]

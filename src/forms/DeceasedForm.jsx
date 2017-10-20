@@ -20,7 +20,7 @@ class DeceasedForm extends Component {
             selectedDay
         });
 
-        this.props.updateValue("date", selectedDay);
+        this.props.updateValue("date", selectedDay.format('D MMM YYYY'));
     };
 
     render() {

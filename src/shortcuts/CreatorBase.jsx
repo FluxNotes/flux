@@ -111,20 +111,21 @@ export default class CreatorBase extends Shortcut {
         }
         return result;
     }
-
+    
     _followPath(object, attributePath, startIndex) {
         //console.log(object);
         let i, attributeName, list;
         const len = attributePath.length;
         let result = object;
+        
+        let perItemFollowPath = (item) => { return this._followPath(item, attributePath, i+1); };
+        
         for (i = startIndex; i < len; i++) {
             if (attributePath[i].endsWith("[]")) {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
                 //console.log("list attribute " + attributeName);
                 list = result[attributeName];
-                return list.map((item) => {
-                    return this._followPath(item, attributePath, i+1);
-                }).join();
+                return list.map(perItemFollowPath).join();
             } else {
                 //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
