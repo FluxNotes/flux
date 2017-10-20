@@ -37,14 +37,14 @@ class LandingPage extends Component {
                         complete, accurate, and computable records to inform the best care for each individual.
                     </p>
                     <p>
-                        This application leverages the <a href="http://standardhealthrecord.org/" target="_blank">
+                        This application leverages the <a href="http://standardhealthrecord.org/" target="_blank" id="shr-link">
                         SHR (Standard Health Record)</a> format for capturing data.
                     </p>
                     
                     <Divider className="divider"/>
                     <h3>Clinical Trials</h3>
                     <p>
-                        For the PATINA clinical trial endpoints, click <a href="/patina">here</a>
+                        For the PATINA clinical trial endpoints, click <a href="/patina" id="patina-link">here</a>
                     </p>
                     
                     <Divider className="divider"/>
