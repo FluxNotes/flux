@@ -172,3 +172,16 @@ test('Selecting a date of death updates copy-content', async t => {
 });
 
 
+// Landing Page Tests
+
+const landingPage = `${pageDomain}:${pagePort}`;
+fixture('Landing Page')
+    .page(landingPage);
+test('Links on landing page work', async t => {
+    const patinaLink = Selector('#patina-link');
+    await t
+        .click(patinaLink);
+    const pathname = await t.eval(() => window.location).pathname ;
+    await t
+        .expect(pathname === '/patina');
+});
