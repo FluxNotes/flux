@@ -4,16 +4,13 @@ import Button from 'material-ui/Button';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import DatePicker from '../forms/DatePicker';
 import './ProgressionForm.css';
-
-const DATE_FORMAT = 'MM/DD/YYYY';
 
 class ProgressionForm extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
@@ -21,7 +18,7 @@ class ProgressionForm extends Component {
             selectedReferenceDate: null
         };
     }
-    
+
     componentWillMount() {
         // Default the asOfDate to use in slim mode copy button
         this.props.updateValue("asOfDateDate", new moment().format('D MMM YYYY'));
@@ -75,11 +72,15 @@ class ProgressionForm extends Component {
     }
 
     handleReferenceDateChange = (selectedReferenceDate) => {
+<<<<<<< HEAD
         console.log(selectedReferenceDate);
         this.setState({
             selectedReferenceDate
         });
         this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
+=======
+        this.props.updateValue("referenceDateDate", selectedReferenceDate);
+>>>>>>> master
     };
 
     renderStatusButtonGroup = (status, i) => {
@@ -112,7 +113,6 @@ class ProgressionForm extends Component {
         );
     }
 
-
     renderReasonButtonGroup = (reason, i) => {
 
         let reasonName = reason.name;
@@ -124,17 +124,17 @@ class ProgressionForm extends Component {
             <div key={reasonName} className="tooltip">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <Button raised
-                    key={i}
-                    label={reasonName}
-                    className={buttonClass}
-                    style={{
-                        margin: 0.5,
-                        height: "75px",
-                        width: "180px",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
-                    onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
+                        key={i}
+                        label={reasonName}
+                        className={buttonClass}
+                        style={{
+                            margin: 0.5,
+                            height: "75px",
+                            width: "180px",
+                            backgroundColor: "white",
+                            textTransform: "none"
+                        }}
+                        onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
                 >{reasonName}
                 </Button>
             </div>
@@ -143,17 +143,6 @@ class ProgressionForm extends Component {
 
     render() {
         const clinicallyRelevantTime = this.props.object.clinicallyRelevantTime;
-        var formattedClinicallyRelevantTime = null;
-
-        const {selectedReferenceDate} = this.state;
-        const formattedReferenceDate = selectedReferenceDate ? moment(selectedReferenceDate).format(DATE_FORMAT) : '';
-
-        if (clinicallyRelevantTime != null) {
-            formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format(DATE_FORMAT);
-        } else {
-            formattedClinicallyRelevantTime = DATE_FORMAT;
-        }
-
         let referenceDateSection = null;
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
             referenceDateSection = (
@@ -164,11 +153,9 @@ class ProgressionForm extends Component {
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
 
-                    <DayPickerInput
-                        value={formattedReferenceDate}
-                        onDayChange={this.handleReferenceDateChange}
-                        format={DATE_FORMAT}
-                        placeholder={formattedClinicallyRelevantTime}
+                    <DatePicker id="reference-date"
+                        handleDateChange={this.handleReferenceDateChange}
+                        dateToSet={clinicallyRelevantTime}
                     />
                 </div>
             );
@@ -181,7 +168,8 @@ class ProgressionForm extends Component {
                     {progressionLookup.getDescription("progression")}
                     <br/>
                     <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a
+                    href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
 
