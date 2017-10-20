@@ -9,7 +9,7 @@ class ViewManager {
                 display: 'Flux Notes Lite (for PATINA endpoints)',
                 app: SlimApp,
                 shortcutConfigurations: {
-                    'Disease Status': { referenceDateEnabled: true }
+                    'Disease Status': { referenceDateEnabled: false }
                 },
                 isExact: true
             }, {

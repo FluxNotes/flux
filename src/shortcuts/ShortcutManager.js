@@ -101,6 +101,9 @@ class ShortcutManager {
             return new className(onUpdate, object);
         } else {
             const metadata = this.shortcutMap[trigger.toLowerCase()];
+            if (Lang.isUndefined(metadata)) {
+                throw new Error("Unknown trigger '" + trigger + "'. No structured phrase found.");
+            }
             className = metadata["type"];
             //console.log(className);
             return new CreatorBase(onUpdate, metadata);

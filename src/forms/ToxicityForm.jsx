@@ -50,7 +50,7 @@ class ToxicityForm extends Component {
      */
     currentlySelectedAttribution = (attribution) => {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.toxicity.attribution.coding.displayText===attribution.name ? 'button_selected' : '';
+        return this.props.object.attribution.coding.displayText===attribution.name ? 'button_selected' : '';
     }
     
     /*
@@ -84,7 +84,7 @@ class ToxicityForm extends Component {
             this.props.updateValue("adverseEvent", titlecase(newAdverseEvent));
         }
         // Make sure grade is possible with given new tox
-        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.toxicity.adverseEventGrade.coding.displayText, newAdverseEvent)) {
+        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.adverseEventGrade.coding.displayText, newAdverseEvent)) {
             this.props.updateValue("grade", null);
         }
     }
@@ -99,7 +99,7 @@ class ToxicityForm extends Component {
         });
         if (toxicityLookup.isValidAdverseEvent(newValue)) {
             this.handleAdverseEventSelection(newValue)
-        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.value.coding.displayText)) {
+        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.object.value.coding.displayText)) {
             this.handleAdverseEventSelection(null)
         }
     }
@@ -170,7 +170,7 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.adverseEventGrade.coding) && this.props.toxicity.adverseEventGrade.coding.displayText === grade.name
+        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEventGrade.coding) && this.props.object.adverseEventGrade.coding.displayText === grade.name
         let gradeMenuClass = "grade-menu-item";
         if (isDisabled) {
             gradeMenuClass += " disabled"
@@ -215,7 +215,7 @@ class ToxicityForm extends Component {
     }
 
     render() {
-        let potentialToxicity = Lang.isNull(this.props.toxicity) ? {} : {...this.props.toxicity};
+        let potentialToxicity = Lang.isNull(this.props.object) ? {} : {...this.props.object};
         const inputProps = {
             placeholder: 'Enter symptom',
             value: this.state.searchText,

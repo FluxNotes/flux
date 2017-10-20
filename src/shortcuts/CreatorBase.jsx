@@ -113,20 +113,20 @@ export default class CreatorBase extends Shortcut {
     }
 
     _followPath(object, attributePath, startIndex) {
-        console.log(object);
+        //console.log(object);
         let i, attributeName, list;
         const len = attributePath.length;
         let result = object;
         for (i = startIndex; i < len; i++) {
             if (attributePath[i].endsWith("[]")) {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
-                console.log("list attribute " + attributeName);
+                //console.log("list attribute " + attributeName);
                 list = result[attributeName];
                 return list.map((item) => {
                     return this._followPath(item, attributePath, i+1);
                 }).join();
             } else {
-                console.log("value attribute: " + attributePath[i]);
+                //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
             }
         }
@@ -134,7 +134,7 @@ export default class CreatorBase extends Shortcut {
     }
     
 	getAttributeValue(name) {
-        console.log(name);
+        //console.log(name);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isNull(voa["attributePath"])) {
             return this.values[voa["name"]];

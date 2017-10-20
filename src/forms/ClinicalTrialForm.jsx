@@ -47,7 +47,7 @@ class ClinicalTrialForm extends Component {
         }
         
         if (this.state.selectedDateChoice === value) {
-            this.props.updateValue(value, selectedDate);
+            this.props.updateValue(value, selectedDate.format('D MMM YYYY'));
         }
     };
     
@@ -88,7 +88,7 @@ class ClinicalTrialForm extends Component {
                         backgroundColor: "white",
                         textTransform: "none"
                     }}
-                    disabled={this.currentlySelected(this.props.clinicalTrial.title, this.state.trials[i].id)}
+                    disabled={this.currentlySelected(this.props.object.title, this.state.trials[i].id)}
                     >{trialName}
                 </Button>
             </div>
