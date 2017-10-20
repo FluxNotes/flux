@@ -60,23 +60,46 @@ export default class CreatorBase extends Shortcut {
 
     getAsString() { 
         const structuredPhrase = this.metadata["structuredPhrase"];
-        //#staging #${T} #${N} #${M}
-        //console.log("structured phrase: " + structuredPhrase);
+
+        
         let last = 0, valueName, value;
         let start = structuredPhrase.indexOf("${"), end;
         let result = "";
         let haveAValue = false;
+        let isConditional;
+        let conditional, start2, end2, before, after;
         while (start !== -1) {
-            result += structuredPhrase.substring(last, start);
+            if (last !== start) {
+                result += structuredPhrase.substring(last, start);
+            }
             end = structuredPhrase.indexOf("}", start + 2);
             valueName = structuredPhrase.substring(start + 2, end);
-            value = this.getAttributeValue(valueName);
-            if (value === '') {
-                value = '?';
+            isConditional = valueName.startsWith("%");
+            if (isConditional) {
+                end = structuredPhrase.indexOf("}", end + 1); // adjust end to be 2nd close bracket
+                conditional = structuredPhrase.substring(start + 3, end);
+                //conditional = valueName.substring(1);
+                start2 = conditional.indexOf("${");
+                end2 = conditional.indexOf("}", start2 + 2);
+                valueName = conditional.substring(start2 + 2, end2);
+                before = conditional.substring(0, start2);
+                after = conditional.substring(end2+1);
+                value = this.getAttributeValue(valueName);
+                if (!Lang.isNull(value) && value !== '') {
+                    haveAValue = true;
+                    result += before;
+                    result += value;
+                    result += after;
+                }
             } else {
-                haveAValue = true;
+                value = this.getAttributeValue(valueName);
+                if (Lang.isNull(value) || value === '') {
+                    value = '?';
+                } else {
+                    haveAValue = true;
+                }
+                result += value;
             }
-            result += value;
             last = end + 1;
             start = structuredPhrase.indexOf("${", last);
         }

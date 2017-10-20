@@ -24,7 +24,7 @@ class ProgressionForm extends Component {
     
     componentWillMount() {
         // Default the asOfDate to use in slim mode copy button
-        this.props.updateValue("asOfDate", new moment().format('D MMM YYYY'));
+        this.props.updateValue("asOfDateDate", new moment().format('D MMM YYYY'));
     }
 
     currentlySelected(item, i) {
@@ -46,11 +46,11 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.progression.evidence.findIndex((e) => e.coding.displayText === reason.name);
+        const reasonIndex = this.props.object.evidence.findIndex((e) => e.coding.displayText === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
-                const newReasons = this.props.progression.evidence.map((e) => {
+                const newReasons = this.props.object.evidence.map((e) => {
                     return e.coding.displayText;
                 });
                 newReasons.push(reason.name);
@@ -62,7 +62,7 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                const filteredReasons = this.props.progression.evidence.filter((e) => e.coding.displayText !== reason.name);
+                const filteredReasons = this.props.object.evidence.filter((e) => e.coding.displayText !== reason.name);
                 const newReasons = filteredReasons.map((e) => {
                     return e.coding.displayText;
                 });
@@ -75,10 +75,11 @@ class ProgressionForm extends Component {
     }
 
     handleReferenceDateChange = (selectedReferenceDate) => {
+        console.log(selectedReferenceDate);
         this.setState({
             selectedReferenceDate
         });
-        this.props.updateValue("referenceDateDate", selectedReferenceDate);
+        this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
     };
 
     renderStatusButtonGroup = (status, i) => {
@@ -104,7 +105,7 @@ class ProgressionForm extends Component {
                         backgroundColor: "white",
                         textTransform: "none"
                     }}
-                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                    disabled={this.currentlySelected(this.props.object.value.coding.displayText, this.state.statusOptions[i].name)}
                 >{statusName}
                 </Button>
             </div>
@@ -141,7 +142,7 @@ class ProgressionForm extends Component {
     }
 
     render() {
-        const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
+        const clinicallyRelevantTime = this.props.object.clinicallyRelevantTime;
         var formattedClinicallyRelevantTime = null;
 
         const {selectedReferenceDate} = this.state;
