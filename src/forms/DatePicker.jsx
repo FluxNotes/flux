@@ -38,6 +38,8 @@ class DatePicker extends Component {
 
         return (
             <DayPickerInput
+                id={this.props.id}
+                className={this.props.className}
                 value={formattedDate}
                 onDayChange={this._handleDateChange}
                 format={DATE_FORMAT}
