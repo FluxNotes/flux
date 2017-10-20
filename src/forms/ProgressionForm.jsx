@@ -4,16 +4,13 @@ import Button from 'material-ui/Button';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import DatePicker from '../forms/DatePicker';
 import './ProgressionForm.css';
-
-const DATE_FORMAT = 'MM/DD/YYYY';
 
 class ProgressionForm extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             statusOptions: progressionLookup.getStatusOptions(),
             reasonOptions: progressionLookup.getReasonOptions(),
@@ -21,7 +18,7 @@ class ProgressionForm extends Component {
             selectedReferenceDate: null
         };
     }
-    
+
     componentWillMount() {
         // Default the asOfDate to use in slim mode copy button
         this.props.updateValue("asOfDate", new moment().format('D MMM YYYY'));
@@ -75,9 +72,6 @@ class ProgressionForm extends Component {
     }
 
     handleReferenceDateChange = (selectedReferenceDate) => {
-        this.setState({
-            selectedReferenceDate
-        });
         this.props.updateValue("referenceDateDate", selectedReferenceDate);
     };
 
@@ -90,27 +84,26 @@ class ProgressionForm extends Component {
         return (
             <div key={statusName} className="tooltip">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                    <Button raised
-                    key={i}
-                    label={statusName}
-                    onClick={(e) => this.handleStatusSelection(e, i)}
-                    className="button_disabled_is_selected"
-                    style={{
-                        marginBottom: marginSize,
-                        marginLeft:   marginSize,
-                        height: "75px",
-                        width: "180px",
-                        padding: "20px 0 20px 0",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
-                    disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                <Button raised
+                        key={i}
+                        label={statusName}
+                        onClick={(e) => this.handleStatusSelection(e, i)}
+                        className="button_disabled_is_selected"
+                        style={{
+                            marginBottom: marginSize,
+                            marginLeft: marginSize,
+                            height: "75px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                            backgroundColor: "white",
+                            textTransform: "none"
+                        }}
+                        disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
                 >{statusName}
                 </Button>
             </div>
         );
     }
-
 
     renderReasonButtonGroup = (reason, i) => {
 
@@ -123,17 +116,17 @@ class ProgressionForm extends Component {
             <div key={reasonName} className="tooltip">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <Button raised
-                    key={i}
-                    label={reasonName}
-                    className={buttonClass}
-                    style={{
-                        margin: 0.5,
-                        height: "75px",
-                        width: "180px",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
-                    onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
+                        key={i}
+                        label={reasonName}
+                        className={buttonClass}
+                        style={{
+                            margin: 0.5,
+                            height: "75px",
+                            width: "180px",
+                            backgroundColor: "white",
+                            textTransform: "none"
+                        }}
+                        onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
                 >{reasonName}
                 </Button>
             </div>
@@ -142,17 +135,6 @@ class ProgressionForm extends Component {
 
     render() {
         const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
-        var formattedClinicallyRelevantTime = null;
-
-        const {selectedReferenceDate} = this.state;
-        const formattedReferenceDate = selectedReferenceDate ? moment(selectedReferenceDate).format(DATE_FORMAT) : '';
-
-        if (clinicallyRelevantTime != null) {
-            formattedClinicallyRelevantTime = new moment(clinicallyRelevantTime, "D MMM YYYY ").format(DATE_FORMAT);
-        } else {
-            formattedClinicallyRelevantTime = DATE_FORMAT;
-        }
-
         let referenceDateSection = null;
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
             referenceDateSection = (
@@ -163,11 +145,9 @@ class ProgressionForm extends Component {
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
 
-                    <DayPickerInput
-                        value={formattedReferenceDate}
-                        onDayChange={this.handleReferenceDateChange}
-                        format={DATE_FORMAT}
-                        placeholder={formattedClinicallyRelevantTime}
+                    <DatePicker id="reference-date"
+                        handleDateChange={this.handleReferenceDateChange}
+                        dateToSet={clinicallyRelevantTime}
                     />
                 </div>
             );
@@ -180,7 +160,8 @@ class ProgressionForm extends Component {
                     {progressionLookup.getDescription("progression")}
                     <br/>
                     <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    Based on your selections below, the copy button at the bottom will copy a <a
+                    href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
                 <Divider className="divider"/>
 

@@ -1,31 +1,15 @@
 import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
-import moment from 'moment';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
+import DatePicker from '../forms/DatePicker';
 import './DeceasedForm.css';
-
-const DAY_FORMAT = 'MM/DD/YYYY';
 
 class DeceasedForm extends Component {
 
-    state = {
-        selectedDay: null,
-        isDisabled: false
-    };
-
-    handleDayChange = (selectedDay) => {
-
-        this.setState({
-            selectedDay
-        });
-
-        this.props.updateValue("date", selectedDay);
+    changeDate = (selectedDate) => {
+        this.props.updateValue("date", selectedDate);
     };
 
     render() {
-        const {selectedDay} = this.state;
-        const formattedDay = selectedDay ? moment(selectedDay).format(DAY_FORMAT) : '';
 
         let dateOfDeathSection = (
             <div>
@@ -35,12 +19,9 @@ class DeceasedForm extends Component {
                     <span className="helper-text"> mm/dd/yyyy</span>
                 </p>
 
-                <DayPickerInput
-                    id="date-of-death"
-                    value={formattedDay}
-                    onDayChange={this.handleDayChange}
-                    format={DAY_FORMAT}
-                    placeholder={DAY_FORMAT}
+                <DatePicker id="date-of-death"
+                    handleDateChange={this.changeDate}
+                    dateToSet={null}
                 />
             </div>
         );
@@ -57,6 +38,7 @@ class DeceasedForm extends Component {
                 </p>
                 <Divider className="divider"/>
                 {dateOfDeathSection}
+
             </div>
         );
     }
