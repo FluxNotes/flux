@@ -1,0 +1,22 @@
+.landing-page-title {
+    color: steelblue;
+}
+
+.landing-page-content {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.landing-logo {
+    padding-right: 5px;
+    float: left;
+}
+
+.partner-logo {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.mitre-logo {
+    float: right;
+}
