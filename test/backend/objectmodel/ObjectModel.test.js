@@ -36,9 +36,9 @@ describe('createProgressionObject', function() {
 		var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
 
 		// verify properties are set
-		expect(progression.Category
+		expect(progression.Category)
 			.to.be.a('string')
-			.that.equals('a category'));
+			.that.equals('a category');
 		// TODO: finish tests, verify they pass
 	});
 	
