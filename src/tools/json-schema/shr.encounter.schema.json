@@ -1,0 +1,276 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/encounter",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Encounter": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "OccurrenceTime": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OccurrenceTime"
+            },
+            "ReferralDate": {
+              "$ref": "#/definitions/ReferralDate"
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "ReferralSourceType": {
+              "$ref": "#/definitions/ReferralSourceType"
+            },
+            "EncounterClass": {
+              "$ref": "#/definitions/EncounterClass"
+            },
+            "ServiceGiven": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ServiceGiven"
+              }
+            },
+            "EncounterNonOccurrenceModifier": {
+              "$ref": "#/definitions/EncounterNonOccurrenceModifier"
+            },
+            "Participant": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Participant"
+              }
+            },
+            "ProviderOrganization": {
+              "$ref": "#/definitions/ProviderOrganization"
+            },
+            "Facility": {
+              "$ref": "#/definitions/Facility"
+            },
+            "TreatmentCooperation": {
+              "$ref": "#/definitions/TreatmentCooperation"
+            },
+            "PaymentSource": {
+              "$ref": "#/definitions/PaymentSource"
+            }
+          },
+          "required": [
+            "Status",
+            "ProviderOrganization"
+          ]
+        }
+      ],
+      "description": "A statement about a planned or actual interaction between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.\nTBD Fields: HealthConcern\nPertinentFindings\nDiagnosis\nFullClinicalNote\nClinicalSummary\nTreatmentServiceRendered\nCompletionStatus"
+    },
+    "EncounterClass": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Coding"
+        }
+      },
+      "description": "The type of encounter, e.g., inpatient, outpatient, emergency, etc.",
+      "required": [
+        "Value"
+      ]
+    },
+    "EncounterNonOccurrenceModifier": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            }
+          }
+        }
+      ],
+      "description": "True if the encounter did not occur."
+    },
+    "EncounterType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Coding"
+        }
+      },
+      "description": "The mode of interaction, whether inpatient, outpatient, or telecare.",
+      "required": [
+        "Value"
+      ]
+    },
+    "EpisodeOfCareCompletion": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Denotes how and why an episode of care ended.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Facility": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/FacilityName"
+        },
+        "Location": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Location"
+        },
+        "MobileFacility": {
+          "$ref": "#/definitions/MobileFacility"
+        },
+        "Telecom": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/Telecom"
+        },
+        "ManagingOrganization": {
+          "$ref": "#/definitions/ManagingOrganization"
+        },
+        "FacilityType": {
+          "$ref": "#/definitions/FacilityType"
+        }
+      },
+      "description": "Services and space and equipment provided for a particular purpose; a building or place that provides a particular service or is used for a particular industry. Could be a clinical site, community site, or a mobile facility.\nConcepts: http://ncimeta.nci.nih.gov:C1547538",
+      "required": [
+        "Value",
+        "Location",
+        "ManagingOrganization",
+        "FacilityType"
+      ]
+    },
+    "FacilityName": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The DBA (doing business as) or most commonly-used name for a facility.\nConcepts: http://ncimeta.nci.nih.gov:C3261404",
+      "required": [
+        "Value"
+      ]
+    },
+    "FacilityType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The type of function performed at the facility.\nConcepts: http://ncimeta.nci.nih.gov:C1547726",
+      "required": [
+        "Value"
+      ]
+    },
+    "ManagingOrganization": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Organization"
+        }
+      },
+      "description": "The organization that manages the operation of an activity, facility, or service provision.\nConcepts: http://ncimeta.nci.nih.gov:C0677351",
+      "required": [
+        "Value"
+      ]
+    },
+    "MobileFacility": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "A facility that moves from place to place, such as Meals-On-Wheels.\nConcepts: http://ncimeta.nci.nih.gov:C0231435",
+      "required": [
+        "Value"
+      ]
+    },
+    "PaymentSource": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "description": "TBD: PaymentSourceVS"
+        }
+      },
+      "description": "The source of payment for the current encounter.\nConcepts: http://ncimeta.nci.nih.gov:C0680269",
+      "required": [
+        "Value"
+      ]
+    },
+    "ProviderOrganization": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Organization"
+        }
+      },
+      "required": [
+        "Value"
+      ]
+    },
+    "ReferralDate": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The date when the provider received a referral for service. A referral includes an oral, written, faxed or electronic request for services made by the client or on the client�s behalf.\nConcepts: http://ncimeta.nci.nih.gov:C2735614",
+      "required": [
+        "Value"
+      ]
+    },
+    "ReferralSourceType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The type of person or entity that instigated the encounter.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ServiceGiven": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Indicates a medical service provided.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TreatmentCooperation": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Whether the patient is undergoing treatment voluntarily, or under a legal order.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Encounter domain contains definitions that capture interactions between the person of record and healthcare providers, including inpatient, ambulatory care, and telecare.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/Encounter"
+    }
+  ]
+}

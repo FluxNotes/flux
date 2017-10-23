@@ -1,0 +1,534 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/sex",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "ContraceptiveMethodRecommendation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+              }
+            },
+            "ReasonForNotRecommendingContraceptive": {
+              "$ref": "#/definitions/ReasonForNotRecommendingContraceptive"
+            },
+            "Dispensed": {
+              "$ref": "#/definitions/Dispensed"
+            }
+          },
+          "required": [
+            "Value",
+            "Dispensed"
+          ]
+        }
+      ],
+      "description": "The contraceptive method(s) recommended or prescribed by a provider, after counseling and assessment. More than one method can be selected, if applicable. .\nTBD Parents: Recommendation"
+    },
+    "ContraceptiveMethodUsed": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A contraceptive method used by the subject."
+    },
+    "ContraceptiveNotUsedReason": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "If not using a method of contraception, why."
+    },
+    "ContraceptiveUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "ContraceptiveNotUsedReason": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ContraceptiveNotUsedReason"
+              }
+            },
+            "ContraceptiveMethodUsed": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ContraceptiveMethodUsed"
+              }
+            }
+          },
+          "required": [
+            "Value",
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "Whether the subject uses contaceptives, and the method or methods of contraception used.\nConcepts: http://ncimeta.nci.nih.gov:C0700589"
+    },
+    "CurrentPregnancyStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether or not the subject is currently pregnant.\nConcepts: http://ncimeta.nci.nih.gov:C0552579"
+    },
+    "Dispensed": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Whether an item, such as a medication or device, was given to a subject.",
+      "required": [
+        "Value"
+      ]
+    },
+    "GenderIdentity": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Subjective personal perception of one's own gender, which can be male, female, a blend of both, or neither.\nConcepts: http://ncimeta.nci.nih.gov:C0017249"
+    },
+    "IntercourseDifficulty": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Condition affecting sexual intercourse."
+    },
+    "NumberOfLivingChildren": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          }
+        }
+      ],
+      "description": "Number of living children.\nConcepts: http://ncimeta.nci.nih.gov:C2229975"
+    },
+    "NumberOfPreviousPregnancies": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          }
+        }
+      ],
+      "description": "Number of previous pregnancies.\nConcepts: http://ncimeta.nci.nih.gov:C0422807"
+    },
+    "NumberOfSexualPartnersPastYear": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Number of sexual partners in past year.\nConcepts: http://ncimeta.nci.nih.gov:C0556468"
+    },
+    "PregnancyHistory": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "CurrentPregnancyStatus": {
+              "$ref": "#/definitions/CurrentPregnancyStatus"
+            },
+            "NumberOfPreviousPregnancies": {
+              "$ref": "#/definitions/NumberOfPreviousPregnancies"
+            },
+            "NumberOfLivingChildren": {
+              "$ref": "#/definitions/NumberOfLivingChildren"
+            }
+          }
+        }
+      ],
+      "description": "Information about current and past pregnancies.\nConcepts: http://ncimeta.nci.nih.gov:C0032967"
+    },
+    "PregnancyIntention": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject or his/her partner has a plan or desire to either become pregnant or have a child in the next year/near future."
+    },
+    "ReasonForNotRecommendingContraceptive": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "If not using a method of contraception, why.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SexualActivity": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value",
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "Characterization of the sexual activity of the subject.\nConcepts: http://ncimeta.nci.nih.gov:C0241028"
+    },
+    "SexualBehavior": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "SexualActivity": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/sex#/definitions/SexualActivity"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            },
+            "NumberOfSexualPartnersPastYear": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/sex#/definitions/NumberOfSexualPartnersPastYear"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "IntercourseDifficulty": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/sex#/definitions/IntercourseDifficulty"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "SexualActivity"
+          ]
+        }
+      ],
+      "description": "Experience with sexual intercourse.\nConcepts: http://ncimeta.nci.nih.gov:C1314687"
+    },
+    "SexualIdentity": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "PanelMembers": {}
+          }
+        }
+      ],
+      "description": "Information on gender identity and sexual orientation."
+    },
+    "SexualOrientation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "An inherent and enduring emotional, romantic or sexual attraction to other people.\nConcepts: http://ncimeta.nci.nih.gov:C0205949"
+    }
+  },
+  "description": "The SHR Sex domain contains definitions related to the sexual health and behavior of the person of record.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/ContraceptiveMethodRecommendation"
+    },
+    {
+      "$ref": "#/definitions/ContraceptiveUse"
+    },
+    {
+      "$ref": "#/definitions/CurrentPregnancyStatus"
+    },
+    {
+      "$ref": "#/definitions/GenderIdentity"
+    },
+    {
+      "$ref": "#/definitions/IntercourseDifficulty"
+    },
+    {
+      "$ref": "#/definitions/NumberOfLivingChildren"
+    },
+    {
+      "$ref": "#/definitions/NumberOfPreviousPregnancies"
+    },
+    {
+      "$ref": "#/definitions/NumberOfSexualPartnersPastYear"
+    },
+    {
+      "$ref": "#/definitions/PregnancyHistory"
+    },
+    {
+      "$ref": "#/definitions/PregnancyIntention"
+    },
+    {
+      "$ref": "#/definitions/SexualActivity"
+    },
+    {
+      "$ref": "#/definitions/SexualBehavior"
+    },
+    {
+      "$ref": "#/definitions/SexualIdentity"
+    },
+    {
+      "$ref": "#/definitions/SexualOrientation"
+    }
+  ]
+}

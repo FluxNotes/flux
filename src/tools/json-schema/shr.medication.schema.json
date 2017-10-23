@@ -1,0 +1,654 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/medication",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AdditionalDoseInstruction": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Supplemental instructions - e.g. 'with meals'.\nConcepts: http://ncimeta.nci.nih.gov:C1644714",
+      "required": [
+        "Value"
+      ]
+    },
+    "Adherence": {
+      "type": "object",
+      "properties": {
+        "AdherenceLevel": {
+          "$ref": "#/definitions/AdherenceLevel"
+        },
+        "NonAdherenceReason": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/NonAdherenceReason"
+          }
+        },
+        "Details": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Details"
+        }
+      },
+      "description": "A statement of the ability and cooperation of the patient in taking medicine or supplement as recommended or prescribed. This includes correct timing, dosage, and frequency.\nConcepts: http://ncimeta.nci.nih.gov:C2364172",
+      "required": [
+        "AdherenceLevel",
+        "Details"
+      ]
+    },
+    "AdherenceLevel": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The frequency that the stated treatment plan, prescription, or protocol is followed.\nConcepts: http://ncimeta.nci.nih.gov:C1510802",
+      "required": [
+        "Value"
+      ]
+    },
+    "AdministrationBodySite": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+        }
+      },
+      "description": "The anatomic site at which medical intervention is applied.\nConcepts: http://ncimeta.nci.nih.gov:C0229986",
+      "required": [
+        "Value"
+      ]
+    },
+    "AdministrationMethod": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Technique for administering medication.\nConcepts: http://ncimeta.nci.nih.gov:C1547585",
+      "required": [
+        "Value"
+      ]
+    },
+    "AmountOfMedication": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+        }
+      },
+      "description": "A standardized measure or discrete amount of medication serving as a reference for dosing or strength, for example, 1 tablet.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AmountPerDose": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Range"
+            }
+          ]
+        }
+      },
+      "description": "The amount of medication taken at each dose, as a quantity or range.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Brand": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        },
+        "BrandName": {
+          "$ref": "#/definitions/BrandName"
+        }
+      },
+      "description": "If the product is branded, and if so, the brand name of a product.",
+      "required": [
+        "Value"
+      ]
+    },
+    "BrandName": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The marketing name for a brand name product",
+      "required": [
+        "Value"
+      ]
+    },
+    "Dosage": {
+      "type": "object",
+      "properties": {
+        "AmountPerDose": {
+          "$ref": "#/definitions/AmountPerDose"
+        },
+        "TimingOfDoses": {
+          "$ref": "#/definitions/TimingOfDoses"
+        },
+        "DoseAsNeededIndicator": {
+          "$ref": "#/definitions/DoseAsNeededIndicator"
+        },
+        "DoseInstructionsText": {
+          "$ref": "#/definitions/DoseInstructionsText"
+        },
+        "AdditionalDoseInstruction": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/AdditionalDoseInstruction"
+          }
+        },
+        "RouteIntoBody": {
+          "$ref": "#/definitions/RouteIntoBody"
+        },
+        "AdministrationMethod": {
+          "$ref": "#/definitions/AdministrationMethod"
+        },
+        "AdministrationBodySite": {
+          "$ref": "#/definitions/AdministrationBodySite"
+        },
+        "MaximumDosePerTimePeriod": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/MaximumDosePerTimePeriod"
+          }
+        }
+      },
+      "description": "The dosage of the medication as prescribed.\nConcepts: http://ncimeta.nci.nih.gov:C0178602",
+      "required": [
+        "AmountPerDose",
+        "TimingOfDoses",
+        "DoseAsNeededIndicator"
+      ]
+    },
+    "DoseAsNeededIndicator": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Indicates that a drug or therapy should be used as often as the patient decides it is necessary.\nConcepts: http://ncimeta.nci.nih.gov:C1883728",
+      "required": [
+        "Value"
+      ]
+    },
+    "DoseForm": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The form in which active and/or inert ingredient(s) are physically presented.\nConcepts: http://ncimeta.nci.nih.gov:C0013058",
+      "required": [
+        "Value"
+      ]
+    },
+    "DoseInstructionsText": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The directions (signetur) on the drug prescription or dispensing record.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Ingredient": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "IngredientAmount": {
+          "$ref": "#/definitions/IngredientAmount"
+        },
+        "AmountOfMedication": {
+          "$ref": "#/definitions/AmountOfMedication"
+        },
+        "IsActiveIngredient": {
+          "$ref": "#/definitions/IsActiveIngredient"
+        }
+      },
+      "description": "Specifies how many (or how much) of an ingredient there is in this Medication. For example, 250 mg per tablet is expressed as a ratio where the numerator is 250mg and the denominator is 1 tablet.\nConcepts: http://ncimeta.nci.nih.gov:C3176062",
+      "required": [
+        "Value",
+        "IngredientAmount",
+        "AmountOfMedication",
+        "IsActiveIngredient"
+      ]
+    },
+    "IngredientAmount": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+        }
+      },
+      "description": "The amount of an ingredient in a medication.",
+      "required": [
+        "Value"
+      ]
+    },
+    "IsActiveIngredient": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "True if the ingredient is an active ingredient in the medication.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MaximumDosePerTimePeriod": {
+      "type": "object",
+      "properties": {
+        "AmountOfMedication": {
+          "$ref": "#/definitions/AmountOfMedication"
+        },
+        "Duration": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Duration"
+        }
+      },
+      "description": "The maximum amount of a medication to be taken in a given period of time.",
+      "required": [
+        "AmountOfMedication",
+        "Duration"
+      ]
+    },
+    "Medication": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        },
+        "DoseForm": {
+          "$ref": "#/definitions/DoseForm"
+        },
+        "Ingredient": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/Ingredient"
+          }
+        },
+        "Brand": {
+          "$ref": "#/definitions/Brand"
+        },
+        "OverTheCounter": {
+          "$ref": "#/definitions/OverTheCounter"
+        }
+      },
+      "description": "A type of prescription drug or over-the-counter drug that is used to prevent, treat, or relieve symptoms of a disease or abnormal condition, but excluding vaccines.\nConcepts: http://ncimeta.nci.nih.gov:C0013227",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicationAfterChange": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/MedicationUse"
+        }
+      },
+      "description": "A medication taken, after the change.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicationBeforeChange": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/MedicationUse"
+        }
+      },
+      "description": "The medication taken, prior to the change.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicationChange": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/procedure#/definitions/Procedure"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "EffectiveDate": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveDate"
+            },
+            "MedicationChangeType": {
+              "$ref": "#/definitions/MedicationChangeType"
+            },
+            "MedicationBeforeChange": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/MedicationBeforeChange"
+              }
+            },
+            "MedicationAfterChange": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/MedicationAfterChange"
+              }
+            }
+          },
+          "required": [
+            "EffectiveDate",
+            "MedicationChangeType"
+          ]
+        }
+      ],
+      "description": "Description of a modification or change of a medication or dosage.\nConcepts: http://ncimeta.nci.nih.gov:C0554834\nTBD Fields: ReasonForMedicationChange"
+    },
+    "MedicationChangeType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Whether the change is a dose change, switch to a new medication, or discontinuation.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicationNotAdministered": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/MedicationUse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Medication": {
+              "$ref": "#/definitions/Medication"
+            },
+            "MedicationWasTaken": {
+              "$ref": "#/definitions/MedicationWasTaken"
+            }
+          },
+          "required": [
+            "Medication",
+            "MedicationWasTaken"
+          ]
+        }
+      ],
+      "description": "A record of a medication NOT administered. Recorded when deviating from the care plan."
+    },
+    "MedicationNotPrescribed": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/MedicationPrescription"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            }
+          },
+          "required": [
+            "NonOccurrenceModifier"
+          ]
+        }
+      ],
+      "description": "A record of a medication NOT prescribed. Recorded only when deviating from the normal expectation, care plan, or standard of care."
+    },
+    "MedicationPrescription": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Request"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Medication": {
+              "$ref": "#/definitions/Medication"
+            },
+            "NonOccurrenceModifier": {},
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "PriorityOfRequest": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/PriorityOfRequest"
+            },
+            "Dosage": {
+              "$ref": "#/definitions/Dosage"
+            },
+            "NumberOfRepeatsAllowed": {
+              "$ref": "#/definitions/NumberOfRepeatsAllowed"
+            },
+            "QuantityPerDispense": {
+              "$ref": "#/definitions/QuantityPerDispense"
+            },
+            "SupplyDuration": {
+              "$ref": "#/definitions/SupplyDuration"
+            }
+          },
+          "required": [
+            "Medication"
+          ]
+        }
+      ],
+      "description": "Report of a medication prescription."
+    },
+    "MedicationRegimen": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "MedicationPrescription": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/MedicationPrescription"
+              }
+            }
+          },
+          "required": [
+            "MedicationPrescription"
+          ]
+        }
+      ],
+      "description": "Use or application of over-the-counter and prescribed/recommended medications and infusions to meet guidelines for therapeutic action, safety, and schedule.\nConcepts: http://ncimeta.nci.nih.gov:C0237125"
+    },
+    "MedicationUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Medication": {
+              "$ref": "#/definitions/Medication"
+            },
+            "MedicationWasTaken": {
+              "$ref": "#/definitions/MedicationWasTaken"
+            },
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            },
+            "Dosage": {
+              "$ref": "#/definitions/Dosage"
+            },
+            "Adherence": {
+              "$ref": "#/definitions/Adherence"
+            },
+            "PeriodOfUse": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/PeriodOfUse"
+            }
+          },
+          "required": [
+            "Medication",
+            "MedicationWasTaken",
+            "Reason",
+            "PeriodOfUse"
+          ]
+        }
+      ],
+      "description": "Report of a medication actually being used (or not used). Medication use is either reported, directly observed, or inferred from clinical events associated with orders, prescriptions written, pharmacy dispensings, procedural administrations, and other patient-reported information."
+    },
+    "MedicationWasTaken": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Indicator of the certainty of whether the medication was taken by the patient.",
+      "required": [
+        "Value"
+      ]
+    },
+    "NonAdherenceReason": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Reason for not following the stated treatment plan, prescription, or protocol.",
+      "required": [
+        "Value"
+      ]
+    },
+    "NumberOfRepeatsAllowed": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "description": "How many times the medication prescription can be refilled. This integer does NOT include the original order dispense. This means that if an order indicates dispense 30 tablets plus 3 repeats, then the order can be dispensed a total of 4 times and the patient can receive a total of 120 tablets.",
+      "required": [
+        "Value"
+      ]
+    },
+    "OverTheCounter": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "True if the medication is available to consumers without a prescription.",
+      "required": [
+        "Value"
+      ]
+    },
+    "QuantityPerDispense": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+        }
+      },
+      "description": "The amount that is to be dispensed for one fill.",
+      "required": [
+        "Value"
+      ]
+    },
+    "RouteIntoBody": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The way a substance enters an organism after contact, particularly, the route of drug administration.\nConcepts: http://ncimeta.nci.nih.gov:C0013153",
+      "required": [
+        "Value"
+      ]
+    },
+    "SupplyDuration": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Duration"
+        }
+      },
+      "description": "Identifies the period time over which the supplied product is expected to be used, or the length of time the dispense is expected to last.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TimingOfDoses": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "description": "TBD: Timing"
+        }
+      },
+      "description": "When doses of medication should be administered.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Medication domain contains definitions related to medications taken, or not taken, by the person of record, both currently and in the past.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/MedicationChange"
+    },
+    {
+      "$ref": "#/definitions/MedicationNotAdministered"
+    },
+    {
+      "$ref": "#/definitions/MedicationNotPrescribed"
+    },
+    {
+      "$ref": "#/definitions/MedicationPrescription"
+    },
+    {
+      "$ref": "#/definitions/MedicationRegimen"
+    },
+    {
+      "$ref": "#/definitions/MedicationUse"
+    }
+  ]
+}

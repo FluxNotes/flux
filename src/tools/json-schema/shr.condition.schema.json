@@ -1,0 +1,286 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/condition",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Abatement": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedTemporalContext"
+        }
+      },
+      "description": "The end, remission or resolution.\nConcepts: http://ncimeta.nci.nih.gov:C1880019",
+      "required": [
+        "Value"
+      ]
+    },
+    "AcademicProblem": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          }
+        }
+      ],
+      "description": "A problem with learning or behavior in a learning environment.\nConcepts: http://ncimeta.nci.nih.gov:C0000873"
+    },
+    "Asplenia": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          }
+        }
+      ],
+      "description": "Congenital absence of spleen.\nConcepts: http://ncimeta.nci.nih.gov:C0600031"
+    },
+    "ClinicalStatus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/condition-clinical, REQUIRED"
+        }
+      },
+      "description": "A flag indicating whether the condition is active or inactive, recurring, in remission, or resolved (as of the last update of the Condition).",
+      "required": [
+        "Value"
+      ]
+    },
+    "Condition": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "ClinicalStatus": {
+              "$ref": "#/definitions/ClinicalStatus"
+            },
+            "IncludeOnProblemList": {
+              "$ref": "#/definitions/IncludeOnProblemList"
+            },
+            "Onset": {
+              "$ref": "#/definitions/Onset"
+            },
+            "WhenClinicallyRecognized": {
+              "$ref": "#/definitions/WhenClinicallyRecognized"
+            },
+            "Preexisting": {
+              "$ref": "#/definitions/Preexisting"
+            },
+            "Abatement": {
+              "$ref": "#/definitions/Abatement"
+            },
+            "BodySite": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+              }
+            },
+            "Severity": {
+              "$ref": "#/definitions/Severity"
+            },
+            "Criticality": {
+              "$ref": "#/definitions/Criticality"
+            },
+            "Stage": {
+              "$ref": "#/definitions/Stage"
+            },
+            "Observation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+              }
+            }
+          },
+          "required": [
+            "SpecificType",
+            "ClinicalStatus"
+          ]
+        }
+      ],
+      "description": "A representation of a disorder, abnormality, problem, injury, complaint, risk, functionality, concern, illness, disease, ailment, sickness, affliction, upset, difficulty, disorder, symptom, worry, or trouble. Condition can be used to track a problem or a risk over a period of time. By virtue of its continuity over time, Condition is different from an Observation or Assessment; Observations represents evidence, and an Assessment is a judgment based on evidence and rendered at a point in time. Diagnosis is a type of Assessment that can lead to creation of a Condition (as can an assessment of risk). The two relate because observations can lead to conclusion that a Condition exists. A statement that a certain condition does not exist should be an assessment. Not all conditions are problems, but all problems are (in some sense) conditions.\nConcepts: http://ncimeta.nci.nih.gov:C0348080"
+    },
+    "Criticality": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/allergy-intolerance-criticality, REQUIRED"
+        }
+      },
+      "description": "The potential clinical harm associated with a condition. When the worst case result is assessed to have a life-threatening or organ system threatening potential, it is considered to be of high criticality.\nConcepts: Criticality (http://ncimeta.nci.nih.gov:C3858539)",
+      "required": [
+        "Value"
+      ]
+    },
+    "IncludeOnProblemList": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Whether or not to include this condition on the subject's current problem list.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Injury": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Setting": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Setting"
+            },
+            "Location": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Location"
+            }
+          }
+        }
+      ],
+      "description": "Damage inflicted on the body by an external force.\nConcepts: http://ncimeta.nci.nih.gov:C3263722"
+    },
+    "MentalHealthCondition": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          }
+        }
+      ],
+      "description": "A condition relating to a person’s psychological and emotional well-being.\nConcepts: http://ncimeta.nci.nih.gov:C1446377"
+    },
+    "Onset": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedTemporalContext"
+        }
+      },
+      "description": "The beginning or first appearance of a mental or physical disorder.\nConcepts: http://ncimeta.nci.nih.gov:C0277793",
+      "required": [
+        "Value"
+      ]
+    },
+    "Preexisting": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "If the problem or condition existed before the current episode of care.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Severity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Degree of harshness or extent of a symptom, disorder, or condition.\nConcepts: http://ncimeta.nci.nih.gov:C0392364",
+      "required": [
+        "Value"
+      ]
+    },
+    "Stage": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "Evidence": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Evidence"
+        }
+      },
+      "description": "The relative advancement in the course of a disease.\nConcepts: http://ncimeta.nci.nih.gov:C0699749",
+      "required": [
+        "Value"
+      ]
+    },
+    "WhenClinicallyRecognized": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedTemporalContext"
+        }
+      },
+      "description": "The time at which a condition or condition was first identified in a healthcare context.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Condition domain contains basic definitions used to capture information about problems, concerns, complaints, and disorders.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/AcademicProblem"
+    },
+    {
+      "$ref": "#/definitions/Asplenia"
+    },
+    {
+      "$ref": "#/definitions/Condition"
+    },
+    {
+      "$ref": "#/definitions/Injury"
+    },
+    {
+      "$ref": "#/definitions/MentalHealthCondition"
+    }
+  ]
+}

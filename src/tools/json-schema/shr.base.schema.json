@@ -1,0 +1,603 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/base",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AccessTime": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "Point in time when data was accessed.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Action": {
+      "type": "object",
+      "properties": {
+        "SpecificType": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        },
+        "Status": {
+          "$ref": "#/definitions/Status"
+        },
+        "Category": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/Category"
+          }
+        },
+        "NonOccurrenceModifier": {
+          "$ref": "#/definitions/NonOccurrenceModifier"
+        },
+        "Reason": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+          }
+        },
+        "OccurrenceTime": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OccurrenceTime"
+        },
+        "Participant": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Participant"
+          }
+        }
+      },
+      "description": "A deed or endeavor; an action taken to address a undesired health state, behavior, risk, or goal. An action can have various contexts: definitional, occurred/not occurred, ordered/not ordered, recommended/recommended against.",
+      "required": [
+        "Status"
+      ]
+    },
+    "AssertionNegationModifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "When true, this modifier indicates that the associated observation, assessment, or finding is false, the condition is absent. For example, if the assessment is 'allergy to peanuts' and the AssertionNegationModifier is true, it means the subject does not have an allergy to peanuts.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AssociatedEncounter": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "ShrId": {
+              "type": "string"
+            },
+            "EntryType": {
+              "type": "string",
+              "enum": [
+                "http://jstars-linux-1.mitre.org/json-schema/shr/encounter#/definitions/Encounter"
+              ]
+            },
+            "EntryId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ShrId",
+            "EntryType",
+            "EntryId"
+          ]
+        }
+      },
+      "description": "The encounter or episode of care that led to creation of this entry.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Author": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "ShrId": {
+              "type": "string"
+            },
+            "EntryType": {
+              "type": "string",
+              "enum": [
+                "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/PersonOfRecord",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Practitioner",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/RelatedPerson",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Organization",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+              ]
+            },
+            "EntryId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ShrId",
+            "EntryType",
+            "EntryId"
+          ]
+        }
+      },
+      "description": "The person or organization who created the entry and is responsible for (and may certify) its content.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A categorization of the action according its type, often a code that classifies the clinical discipline, department or diagnostic service that created the report (e.g. cardiology, biochemistry, hematology, MRI). This can be used for searching, sorting and display purposes.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "properties": {
+        "ShrId": {
+          "$ref": "#/definitions/ShrId"
+        },
+        "EntryId": {
+          "$ref": "#/definitions/EntryId"
+        },
+        "Version": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Version"
+        },
+        "EntryType": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/EntryType"
+          }
+        },
+        "FocalSubject": {
+          "$ref": "#/definitions/FocalSubject"
+        },
+        "SubjectIsThirdPartyFlag": {
+          "$ref": "#/definitions/SubjectIsThirdPartyFlag"
+        },
+        "Narrative": {
+          "$ref": "#/definitions/Narrative"
+        },
+        "Informant": {
+          "$ref": "#/definitions/Informant"
+        },
+        "Author": {
+          "$ref": "#/definitions/Author"
+        },
+        "AssociatedEncounter": {
+          "$ref": "#/definitions/AssociatedEncounter"
+        },
+        "OriginalCreationDate": {
+          "$ref": "#/definitions/OriginalCreationDate"
+        },
+        "LastUpdateDate": {
+          "$ref": "#/definitions/LastUpdateDate"
+        },
+        "Language": {
+          "$ref": "#/definitions/Language"
+        }
+      },
+      "description": "An item inserted in an electronic record.\nConcepts: http://ncimeta.nci.nih.gov:C1705654\nTBD Fields: SecurityLabel\nTag",
+      "required": [
+        "ShrId",
+        "EntryId",
+        "EntryType",
+        "FocalSubject",
+        "OriginalCreationDate",
+        "LastUpdateDate"
+      ]
+    },
+    "EntryId": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A unique, persistent, permanent identifier for an entry in a health record.\nConcepts: http://ncimeta.nci.nih.gov:C0600091",
+      "required": [
+        "Value"
+      ]
+    },
+    "EntryType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "description": "The SHR data element identifier, for example, http://standardhealthrecord.org/allergy/SubstanceRisk. The EntryType array includes the entire 'based on' hierarchy to enable searching for classes of things, for example, searching for all vital signs, or all types of behavioral observations.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ExternalHealthRecord": {
+      "type": "object",
+      "properties": {
+        "OrganizationalIdentifier": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OrganizationalIdentifier"
+        },
+        "AccessTime": {
+          "$ref": "#/definitions/AccessTime"
+        }
+      },
+      "description": "A health record used to help populate the current health record.",
+      "required": [
+        "OrganizationalIdentifier",
+        "AccessTime"
+      ]
+    },
+    "FocalSubject": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "ShrId": {
+              "type": "string"
+            },
+            "EntryType": {
+              "type": "string",
+              "enum": [
+                "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/PersonOfRecord",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Practitioner",
+                "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/RelatedPerson"
+              ]
+            },
+            "EntryId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ShrId",
+            "EntryType",
+            "EntryId"
+          ]
+        }
+      },
+      "description": "The person or thing that this entry refers to, usually the Person of Record. However, not all entries refer to the Person of Record. The entry could refer to a fetus, care giver, or relative (living or dead).",
+      "required": [
+        "Value"
+      ]
+    },
+    "Informant": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/PersonOfRecord"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Practitioner"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/RelatedPerson"
+            }
+          ]
+        }
+      },
+      "description": "The person or entity that provided the information in the entry, as distinct from the actor creating the entry, e.g. the subject (patient), medical professional, family member, device or software program.\nConcepts: http://ncimeta.nci.nih.gov:C0449416",
+      "required": [
+        "Value"
+      ]
+    },
+    "Language": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A human language, spoken or written.\nConcepts: http://ncimeta.nci.nih.gov:C0023008",
+      "required": [
+        "Value"
+      ]
+    },
+    "LastUpdateDate": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "A date that the entry was changed.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MissingValueReason": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The reason a required element, complex type, or primitive value is missing. Missing value reason can be substituted for any value. By convention in SHR, any required element or value can be substituted with a missing value reason.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        },
+        "NarrativeQualifier": {
+          "$ref": "#/definitions/NarrativeQualifier"
+        }
+      },
+      "description": "A human-readable narrative, potentially including images, that contains a summary of the resource, and may be used to represent the content of the resource to a human.",
+      "required": [
+        "Value",
+        "NarrativeQualifier"
+      ]
+    },
+    "NarrativeQualifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/narrative-status, REQUIRED"
+        }
+      },
+      "description": "Additional information on how the narrative was generated, and the scope of information contained.",
+      "required": [
+        "Value"
+      ]
+    },
+    "NonOccurrenceModifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        },
+        "Reason": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+        }
+      },
+      "description": "When true, indicates either that the event or action documented in the entry did not occur. For example, if immunization is not given, the NonOccurrenceModifier=true will indicate this.\r\nWhen applied to a recommendation, the modifier indicates the action mentioned in the topic should not take place. For example, a request to NOT elevate the head of a bed using the code for elevating the bed, and setting ProhibitedModifier to true. Other examples include do not ambulate, do not flush NG tube, do not take blood pressure on a certain arm, etc. If the SpecificType contains negation and ProhibitedModifier is true, that will reinforce the prohibition, and should not be interpreted as a double negative that equals a positive.",
+      "required": [
+        "Value"
+      ]
+    },
+    "OriginalCreationDate": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "The point in time when the information was recorded in the system of record.\nConcepts: http://ncimeta.nci.nih.gov:C3669169",
+      "required": [
+        "Value"
+      ]
+    },
+    "PatientInstructions": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "Information for the patient, such as, where to get the test, how to prepare for the test, etc.",
+      "required": [
+        "Value"
+      ]
+    },
+    "PerformerInstructions": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "Information for the performer of the test, if needed.",
+      "required": [
+        "Value"
+      ]
+    },
+    "PriorityOfRequest": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/request-priority, REQUIRED"
+        }
+      },
+      "description": "Urgency level for which results must be reported to the requestor or responsible individual.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Request": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Status": {
+              "$ref": "#/definitions/Status"
+            },
+            "RequestedPerformanceTime": {
+              "$ref": "#/definitions/RequestedPerformanceTime"
+            },
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            },
+            "PriorityOfRequest": {
+              "$ref": "#/definitions/PriorityOfRequest"
+            },
+            "PerformerInstructions": {
+              "$ref": "#/definitions/PerformerInstructions"
+            },
+            "PatientInstructions": {
+              "$ref": "#/definitions/PatientInstructions"
+            }
+          },
+          "required": [
+            "Status"
+          ]
+        }
+      ],
+      "description": "An order for something to take place.\nConcepts: http://ncimeta.nci.nih.gov:C1705178"
+    },
+    "RequestedPerformanceTime": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+            },
+            {}
+          ]
+        }
+      },
+      "description": "When an action should be done. If the action is a series or recurs (e.g. daily blood sugar testing in the morning) then a Timing can be used to describe the periodicity.",
+      "required": [
+        "Value"
+      ]
+    },
+    "RequestedPerformer": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/PersonOfRecord"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Practitioner"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/RelatedPerson"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Organization"
+            }
+          ]
+        }
+      },
+      "description": "Who should carry out the tests. For example, the patient or caregiver.",
+      "required": [
+        "Value"
+      ]
+    },
+    "RequestedPerformerType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "What type of actor should carry out the testing.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ShrId": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A unique, persistent identifier for the Standard Health Record to which this entry belongs.\nConcepts: http://ncimeta.nci.nih.gov:C0600091",
+      "required": [
+        "Value"
+      ]
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Coding"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          ]
+        }
+      },
+      "description": "The position of affairs at a particular time\nConcepts: http://ncimeta.nci.nih.gov:C0449438",
+      "required": [
+        "Value"
+      ]
+    },
+    "Study": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Title"
+            },
+            "Identifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Identifier"
+            }
+          }
+        }
+      ],
+      "description": "A clinical trial or other formal study."
+    },
+    "SubjectIsThirdPartyFlag": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "If true, the subject of this entry is someone other than the Person of Record, for example, a family member.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Base domain contains definitions for elements that are widely shared in SHR, including the base Entry and associated metadata.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/Study"
+    }
+  ]
+}

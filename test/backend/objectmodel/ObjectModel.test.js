@@ -36,9 +36,20 @@ describe('createProgressionObject', function() {
 		var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
 
 		// verify properties are set
+		// Progression
 		expect(progression.Category)
 			.to.be.a('string')
 			.that.equals('a category');
+		expect(progression.ShrId.Value)
+			.to.be.a('string')
+			.that.equals('788dcbc3-ed18-470c-89ef-35ff91854c7d');
+		
+		// Toxicity
+		
+		// Staging
+		
+		// Person of Record
+		
 		// TODO: finish tests, verify they pass
 	});
 	
