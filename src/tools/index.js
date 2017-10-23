@@ -21,6 +21,7 @@ const fs = require('fs');
 	originalCreationDate: "13 JUN 2012",
 	lastUpdateDate: "13 JUN 2012"
 };*/
+// Assessment.Status.Value can be String, Coding, or CodeableConcept. I think we use Coding.
 var progressionWireFormat = {
 	"AssessmentFocus" : "a string",
 	"Category" : "a category",
@@ -32,7 +33,7 @@ var progressionWireFormat = {
 	"FocalSubject" : "q",
 	"OriginalCreationDate" : { "value" : "2017-01-01" },
 	"LastUpdateDate" : { "value" : "2017-01-02" },
-	"Status" : {"value" : "a status coding" }
+	"Status" : {"Value" : {"Value" : "status value", "CodeSystem" : {"Value" : "http://SomeURI"}, "CodeSystemVersion": {"Value" : "1.0"}, "DisplayText" : {"Value" : "display text"} } }
 };
 var toxicityWireFormat = {
 	"AdverseEvent" : {"ShrId" : "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryType" : "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseEvent", "EntryId" : "100" },
@@ -40,7 +41,7 @@ var toxicityWireFormat = {
 };
 var stagingWireFormat = {
 	"StagingSystem" : { "Value" : "a staging system"},
-	"T-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "T0"}},
+	"T-Stage" : {"Value" : {"Coding" : [{"Value" : "codingSystem"}]}, "DisplayText" : {"Value" : "T0"}},
 	"N-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "N1"}},
 	"M-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "M0"}},
 	"Reason" : "a reason for this observation"

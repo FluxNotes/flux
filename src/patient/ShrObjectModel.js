@@ -508,6 +508,56 @@
 		enumerable: true,
 		configurable: true
 	});
+	
+	/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status/properties/Value */
+	var BaseDefinitionsStatusPropertiesValueClass = classes.BaseDefinitionsStatusPropertiesValue = function BaseDefinitionsStatusPropertiesValueClass(value) {
+		if (!(this instanceof BaseDefinitionsStatusPropertiesValueClass)) return new BaseDefinitionsStatusPropertiesValueClass(value);
+		
+		superclass.apply(this, arguments);
+	};
+	BaseDefinitionsStatusPropertiesValueClass.prototype = Object.create(superclass.prototype);
+	BaseDefinitionsStatusPropertiesValueClass.prototype.constructor = BaseDefinitionsStatusPropertiesValueClass;
+	BaseDefinitionsStatusPropertiesValueClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status/properties/Value";
+	BaseDefinitionsStatusPropertiesValueClass.links = {};
+	BaseDefinitionsStatusPropertiesValueClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		var actualErrors = errors;
+		var anyOfPassCount = 0;
+		var anyOfSubErrors = [];
+		errors = [];
+		errors = errors.concat(classes.BaseDefinitionsStatusPropertiesValueAnyOf0.validationErrors(value, dataPath, missing));
+		if (!errors.length) {
+			anyOfPassCount++;
+		}
+		anyOfSubErrors[0] = errors;
+		errors = [];
+		errors = errors.concat(classes.CoreDefinitionsCoding.validationErrors(value, dataPath, missing));
+		if (!errors.length) {
+			anyOfPassCount++;
+		}
+		anyOfSubErrors[1] = errors;
+		errors = [];
+		errors = errors.concat(classes.CoreDefinitionsCodeableConcept.validationErrors(value, dataPath, missing));
+		if (!errors.length) {
+			anyOfPassCount++;
+		}
+		anyOfSubErrors[2] = errors;
+		errors = actualErrors;
+		if (!anyOfPassCount) {
+			errors.push({code: 10, params: {errors: anyOfSubErrors}, path: dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status/properties/Value"});
+		}
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	BaseDefinitionsStatusPropertiesValueClass.validate = function (value) {
+		var missing = {};
+		var errors = BaseDefinitionsStatusPropertiesValueClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
 	/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status */
 	var BaseDefinitionsStatusClass = classes.BaseDefinitionsStatus = function BaseDefinitionsStatusClass(value) {
 		if (!(this instanceof BaseDefinitionsStatusClass)) return new BaseDefinitionsStatusClass(value);
