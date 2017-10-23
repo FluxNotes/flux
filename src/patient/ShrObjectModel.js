@@ -756,9 +756,854 @@
 		enumerable: true,
 		configurable: true
 	});
+//////////////////////////end of Progression
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry */
+	var BaseDefinitionsEntryClass = classes.BaseDefinitionsEntry = function BaseDefinitionsEntryClass(value) {
+		if (!(this instanceof BaseDefinitionsEntryClass)) return new BaseDefinitionsEntryClass(value);
+		if (typeof value.ShrId !== "undefined") {
+			this.ShrId = value.ShrId;
+		}
+		if (this.ShrId && !Array.isArray(this.ShrId)) {
+			this.ShrId = new classes.BaseDefinitionsShrId(this.ShrId);
+		}
+		if (typeof value.EntryId !== "undefined") {
+			this.EntryId = value.EntryId;
+		}
+		if (this.EntryId && !Array.isArray(this.EntryId)) {
+			this.EntryId = new classes.BaseDefinitionsEntryId(this.EntryId);
+		}
+		if (typeof value.Version !== "undefined") {
+			this.Version = value.Version;
+		}
+		if (this.Version && !Array.isArray(this.Version) && this.Version) {
+			this.Version = new classes.CoreDefinitionsVersion(this.Version);
+		}
+		if (typeof value.EntryType !== "undefined") {
+			this.EntryType = value.EntryType;
+		}
+		if (typeof value.FocalSubject !== "undefined") {
+			this.FocalSubject = value.FocalSubject;
+		}
+		if (this.FocalSubject && !Array.isArray(this.FocalSubject)) {
+			this.FocalSubject = new classes.BaseDefinitionsFocalSubject(this.FocalSubject);
+		}
+		if (typeof value.SubjectIsThirdPartyFlag !== "undefined") {
+			this.SubjectIsThirdPartyFlag = value.SubjectIsThirdPartyFlag;
+		}
+		if (this.SubjectIsThirdPartyFlag && !Array.isArray(this.SubjectIsThirdPartyFlag) && this.SubjectIsThirdPartyFlag) {
+			this.SubjectIsThirdPartyFlag = new classes.BaseDefinitionsSubjectIsThirdPartyFlag(this.SubjectIsThirdPartyFlag);
+		}
+		if (typeof value.Narrative !== "undefined") {
+			this.Narrative = value.Narrative;
+		}
+		if (this.Narrative && !Array.isArray(this.Narrative) && this.Narrative) {
+			this.Narrative = new classes.BaseDefinitionsNarrative(this.Narrative);
+		}
+		if (typeof value.Informant !== "undefined") {
+			this.Informant = value.Informant;
+		}
+		if (this.Informant && !Array.isArray(this.Informant) && this.Informant) {
+			this.Informant = new classes.BaseDefinitionsInformant(this.Informant);
+		}
+		if (typeof value.Author !== "undefined") {
+			this.Author = value.Author;
+		}
+		if (this.Author && !Array.isArray(this.Author) && this.Author) {
+			this.Author = new classes.BaseDefinitionsAuthor(this.Author);
+		}
+		if (typeof value.AssociatedEncounter !== "undefined") {
+			this.AssociatedEncounter = value.AssociatedEncounter;
+		}
+		if (this.AssociatedEncounter && !Array.isArray(this.AssociatedEncounter) && this.AssociatedEncounter) {
+			this.AssociatedEncounter = new classes.BaseDefinitionsAssociatedEncounter(this.AssociatedEncounter);
+		}
+		if (typeof value.OriginalCreationDate !== "undefined") {
+			this.OriginalCreationDate = value.OriginalCreationDate;
+		}
+		if (this.OriginalCreationDate && !Array.isArray(this.OriginalCreationDate)) {
+			this.OriginalCreationDate = new classes.BaseDefinitionsOriginalCreationDate(this.OriginalCreationDate);
+		}
+		if (typeof value.LastUpdateDate !== "undefined") {
+			this.LastUpdateDate = value.LastUpdateDate;
+		}
+		if (this.LastUpdateDate && !Array.isArray(this.LastUpdateDate)) {
+			this.LastUpdateDate = new classes.BaseDefinitionsLastUpdateDate(this.LastUpdateDate);
+		}
+		if (typeof value.Language !== "undefined") {
+			this.Language = value.Language;
+		}
+		if (this.Language && !Array.isArray(this.Language) && this.Language) {
+			this.Language = new classes.BaseDefinitionsLanguage(this.Language);
+		}
+		
+		superclass.apply(this, arguments);
+	};
+	BaseDefinitionsEntryClass.prototype = Object.create(superclass.prototype);
+	BaseDefinitionsEntryClass.prototype.constructor = BaseDefinitionsEntryClass;
+	BaseDefinitionsEntryClass.description = "An item inserted in an electronic record.\nConcepts: http://ncimeta.nci.nih.gov:C1705654\nTBD Fields: SecurityLabel\nTag";
+	BaseDefinitionsEntryClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry";
+	BaseDefinitionsEntryClass.links = {};
+	BaseDefinitionsEntryClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		if (Array.isArray(value)) {
+			errors.push({code: 0, params: {type: "array", expected: "object"}, path: dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+		} else if (value == null) {
+			errors.push({code: 0, params: {type: "null", expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+		} else if (typeof value === "object") {
+			if ("ShrId" in value) {
+				errors = errors.concat(classes.BaseDefinitionsShrId.validationErrors(value.ShrId, dataPath + "/ShrId", missing));
+			} else {
+				errors.push({code: 302, params: {key: "ShrId"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("EntryId" in value) {
+				errors = errors.concat(classes.BaseDefinitionsEntryId.validationErrors(value.EntryId, dataPath + "/EntryId", missing));
+			} else {
+				errors.push({code: 302, params: {key: "EntryId"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("Version" in value) {
+				errors = errors.concat(classes.CoreDefinitionsVersion.validationErrors(value.Version, dataPath + "/Version", missing));
+			}
+			if ("EntryType" in value) {
+				errors = errors.concat(classes.BaseDefinitionsEntryPropertiesEntryType.validationErrors(value.EntryType, dataPath + "/EntryType", missing));
+			} else {
+				errors.push({code: 302, params: {key: "EntryType"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("FocalSubject" in value) {
+				errors = errors.concat(classes.BaseDefinitionsFocalSubject.validationErrors(value.FocalSubject, dataPath + "/FocalSubject", missing));
+			} else {
+				errors.push({code: 302, params: {key: "FocalSubject"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("SubjectIsThirdPartyFlag" in value) {
+				errors = errors.concat(classes.BaseDefinitionsSubjectIsThirdPartyFlag.validationErrors(value.SubjectIsThirdPartyFlag, dataPath + "/SubjectIsThirdPartyFlag", missing));
+			}
+			if ("Narrative" in value) {
+				errors = errors.concat(classes.BaseDefinitionsNarrative.validationErrors(value.Narrative, dataPath + "/Narrative", missing));
+			}
+			if ("Informant" in value) {
+				errors = errors.concat(classes.BaseDefinitionsInformant.validationErrors(value.Informant, dataPath + "/Informant", missing));
+			}
+			if ("Author" in value) {
+				errors = errors.concat(classes.BaseDefinitionsAuthor.validationErrors(value.Author, dataPath + "/Author", missing));
+			}
+			if ("AssociatedEncounter" in value) {
+				errors = errors.concat(classes.BaseDefinitionsAssociatedEncounter.validationErrors(value.AssociatedEncounter, dataPath + "/AssociatedEncounter", missing));
+			}
+			if ("OriginalCreationDate" in value) {
+				errors = errors.concat(classes.BaseDefinitionsOriginalCreationDate.validationErrors(value.OriginalCreationDate, dataPath + "/OriginalCreationDate", missing));
+			} else {
+				errors.push({code: 302, params: {key: "OriginalCreationDate"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("LastUpdateDate" in value) {
+				errors = errors.concat(classes.BaseDefinitionsLastUpdateDate.validationErrors(value.LastUpdateDate, dataPath + "/LastUpdateDate", missing));
+			} else {
+				errors.push({code: 302, params: {key: "LastUpdateDate"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+			}
+			if ("Language" in value) {
+				errors = errors.concat(classes.BaseDefinitionsLanguage.validationErrors(value.Language, dataPath + "/Language", missing));
+			}
+		} else {
+			errors.push({code: 0, params: {type: typeof value, expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"});
+		}
+		return errors;
+	}
+	BaseDefinitionsEntryClass.validate = function (value) {
+		var missing = {};
+		var errors = BaseDefinitionsEntryClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.ShrId, {
+		get: function() { return BaseDefinitionsEntryClass.ShrId; },
+		set: function(newValue) { BaseDefinitionsEntryClass.ShrId = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.EntryId, {
+		get: function() { return BaseDefinitionsEntryClass.EntryId; },
+		set: function(newValue) { BaseDefinitionsEntryClass.EntryId = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.Version, {
+		get: function() { return BaseDefinitionsEntryClass.Version; },
+		set: function(newValue) { BaseDefinitionsEntryClass.Version = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.EntryType, {
+		get: function() { return BaseDefinitionsEntryClass.EntryType; },
+		set: function(newValue) { BaseDefinitionsEntryClass.EntryType = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.FocalSubject, {
+		get: function() { return BaseDefinitionsEntryClass.FocalSubject; },
+		set: function(newValue) { BaseDefinitionsEntryClass.FocalSubject = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.SubjectIsThirdPartyFlag, {
+		get: function() { return BaseDefinitionsEntryClass.SubjectIsThirdPartyFlag; },
+		set: function(newValue) { BaseDefinitionsEntryClass.SubjectIsThirdPartyFlag = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.Narrative, {
+		get: function() { return BaseDefinitionsEntryClass.Narrative; },
+		set: function(newValue) { BaseDefinitionsEntryClass.Narrative = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.Informant, {
+		get: function() { return BaseDefinitionsEntryClass.Informant; },
+		set: function(newValue) { BaseDefinitionsEntryClass.Informant = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.Author, {
+		get: function() { return BaseDefinitionsEntryClass.Author; },
+		set: function(newValue) { BaseDefinitionsEntryClass.Author = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.AssociatedEncounter, {
+		get: function() { return BaseDefinitionsEntryClass.AssociatedEncounter; },
+		set: function(newValue) { BaseDefinitionsEntryClass.AssociatedEncounter = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.OriginalCreationDate, {
+		get: function() { return BaseDefinitionsEntryClass.OriginalCreationDate; },
+		set: function(newValue) { BaseDefinitionsEntryClass.OriginalCreationDate = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.LastUpdateDate, {
+		get: function() { return BaseDefinitionsEntryClass.LastUpdateDate; },
+		set: function(newValue) { BaseDefinitionsEntryClass.LastUpdateDate = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(BaseDefinitionsEntryClass, BaseDefinitionsEntryClass.Language, {
+		get: function() { return BaseDefinitionsEntryClass.Language; },
+		set: function(newValue) { BaseDefinitionsEntryClass.Language = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction/properties/AdverseEvent */
+	var AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass = classes.AdverseDefinitionsAdverseReactionPropertiesAdverseEvent = function AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass(value) {
+		if (!(this instanceof AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass)) return new AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass(value);
+		
+		superclass.apply(this, arguments);
+	};
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.prototype = Object.create(superclass.prototype);
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.prototype.constructor = AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass;
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.description = "Missing schema: http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction/properties/AdverseEvent";
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction/properties/AdverseEvent";
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.links = {};
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		if (missing) {
+			(missing[dataPath] = missing[dataPath] || []).push("http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction/properties/AdverseEvent");
+		}
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.validate = function (value) {
+		var missing = {};
+		var errors = AdverseDefinitionsAdverseReactionPropertiesAdverseEventClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
 
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction */
+	var AdverseDefinitionsAdverseReactionClass = classes.AdverseDefinitionsAdverseReaction = function AdverseDefinitionsAdverseReactionClass(value) {
+		if (!(this instanceof AdverseDefinitionsAdverseReactionClass)) return new AdverseDefinitionsAdverseReactionClass(value);
+		if (typeof value.AdverseEvent !== "undefined") {
+			this.AdverseEvent = value.AdverseEvent;
+		}
+		if (this.AdverseEvent && !Array.isArray(this.AdverseEvent) && this.AdverseEvent) {
+			this.AdverseEvent = new classes.AdverseDefinitionsAdverseReactionPropertiesAdverseEvent(this.AdverseEvent);
+		}
+		if (typeof value.AdverseReactionAttribution !== "undefined") {
+			this.AdverseReactionAttribution = value.AdverseReactionAttribution;
+		}
+		
+		BaseDefinitionsEntryClass.apply(this, arguments);
+	};
+	AdverseDefinitionsAdverseReactionClass.prototype = Object.create(BaseDefinitionsEntryClass.prototype);
+	AdverseDefinitionsAdverseReactionClass.prototype.constructor = AdverseDefinitionsAdverseReactionClass;
+	AdverseDefinitionsAdverseReactionClass.description = "Any noxious and unintended response to a medical product, procedure, or other intervention, for which a causal relationship to an intervention is at least a reasonable possibility i.e., the relationship cannot be ruled out. It is not necessarily associated with a previously-recorded SubstanceRisk. This entry could be used to record the occurrence or non-occurrence of an adverse reaction.\nTBD Fields: ActionTakenWithMedication\nOtherActionTaken";
+	AdverseDefinitionsAdverseReactionClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction";
+	AdverseDefinitionsAdverseReactionClass.links = {};
+	AdverseDefinitionsAdverseReactionClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		errors = errors.concat(classes.BaseDefinitionsEntry.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.AdverseDefinitionsAdverseReactionAllOf1.validationErrors(value, dataPath, missing));
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	AdverseDefinitionsAdverseReactionClass.validate = function (value) {
+		var missing = {};
+		var errors = AdverseDefinitionsAdverseReactionClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(AdverseDefinitionsAdverseReactionClass, AdverseDefinitionsAdverseReactionClass.AdverseEvent, {
+		get: function() { return AdverseDefinitionsAdverseReactionClass.AdverseEvent; },
+		set: function(newValue) { AdverseDefinitionsAdverseReactionClass.AdverseEvent = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(AdverseDefinitionsAdverseReactionClass, AdverseDefinitionsAdverseReactionClass.AdverseReactionAttribution, {
+		get: function() { return AdverseDefinitionsAdverseReactionClass.AdverseReactionAttribution; },
+		set: function(newValue) { AdverseDefinitionsAdverseReactionClass.AdverseReactionAttribution = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment/properties/AdverseEvent */
+	var OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass = classes.OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEvent = function OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass(value) {
+		if (!(this instanceof OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass)) return new OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass(value);
+		
+		superclass.apply(this, arguments);
+	};
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.prototype = Object.create(superclass.prototype);
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.prototype.constructor = OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass;
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.description = "Missing schema: http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment/properties/AdverseEvent";
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment/properties/AdverseEvent";
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.links = {};
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		if (missing) {
+			(missing[dataPath] = missing[dataPath] || []).push("http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment/properties/AdverseEvent");
+		}
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.validate = function (value) {
+		var missing = {};
+		var errors = OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEventClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment */
+	var OncologyDefinitionsToxicReactionToTreatmentClass = classes.OncologyDefinitionsToxicReactionToTreatment = function OncologyDefinitionsToxicReactionToTreatmentClass(value) {
+		if (!(this instanceof OncologyDefinitionsToxicReactionToTreatmentClass)) return new OncologyDefinitionsToxicReactionToTreatmentClass(value);
+		if (typeof value.AdverseEvent !== "undefined") {
+			this.AdverseEvent = value.AdverseEvent;
+		}
+		if (this.AdverseEvent && !Array.isArray(this.AdverseEvent) && typeof this.AdverseEvent === "object") {
+			this.AdverseEvent = new classes.OncologyDefinitionsToxicReactionToTreatmentPropertiesAdverseEvent(this.AdverseEvent);
+		}
+		
+		AdverseDefinitionsAdverseReactionClass.apply(this, arguments);
+	};
+	OncologyDefinitionsToxicReactionToTreatmentClass.prototype = Object.create(AdverseDefinitionsAdverseReactionClass.prototype);
+	OncologyDefinitionsToxicReactionToTreatmentClass.prototype.constructor = OncologyDefinitionsToxicReactionToTreatmentClass;
+	OncologyDefinitionsToxicReactionToTreatmentClass.description = "A grade 3 or 4 adverse reaction to medication, radiation treatment, or other therapy.";
+	OncologyDefinitionsToxicReactionToTreatmentClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/ToxicReactionToTreatment";
+	OncologyDefinitionsToxicReactionToTreatmentClass.links = {};
+	OncologyDefinitionsToxicReactionToTreatmentClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		errors = errors.concat(classes.BaseDefinitionsEntry.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.AdverseDefinitionsAdverseReaction.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.OncologyDefinitionsToxicReactionToTreatmentAllOf2.validationErrors(value, dataPath, missing));
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	OncologyDefinitionsToxicReactionToTreatmentClass.validate = function (value) {
+		var missing = {};
+		var errors = OncologyDefinitionsToxicReactionToTreatmentClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(OncologyDefinitionsToxicReactionToTreatmentClass, OncologyDefinitionsToxicReactionToTreatmentClass.AdverseEvent, {
+		get: function() { return OncologyDefinitionsToxicReactionToTreatmentClass.AdverseEvent; },
+		set: function(newValue) { OncologyDefinitionsToxicReactionToTreatmentClass.AdverseEvent = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+///////////////////////end of Toxicity
 
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason */
+	var CoreDefinitionsReasonClass = classes.CoreDefinitionsReason = function CoreDefinitionsReasonClass(value) {
+		if (!(this instanceof CoreDefinitionsReasonClass)) return new CoreDefinitionsReasonClass(value);
+		if (typeof value.Value !== "undefined") {
+			this.Value = value.Value;
+		}
+		if (this.Value && !Array.isArray(this.Value) && typeof this.Value === "object") {
+			this.Value = new classes.CoreDefinitionsReasonPropertiesValue(this.Value);
+		}
+		
+		superclass.apply(this, arguments);
+	};
+	CoreDefinitionsReasonClass.prototype = Object.create(superclass.prototype);
+	CoreDefinitionsReasonClass.prototype.constructor = CoreDefinitionsReasonClass;
+	CoreDefinitionsReasonClass.description = "The justification for an action or non-action, conclusion, opinion, etc.\nConcepts: http://ncimeta.nci.nih.gov:C0566251";
+	CoreDefinitionsReasonClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason";
+	CoreDefinitionsReasonClass.links = {};
+	CoreDefinitionsReasonClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		if (Array.isArray(value)) {
+			errors.push({code: 0, params: {type: "array", expected: "object"}, path: dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"});
+		} else if (value == null) {
+			errors.push({code: 0, params: {type: "null", expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"});
+		} else if (typeof value === "object") {
+			if ("Value" in value) {
+				errors = errors.concat(classes.CoreDefinitionsReasonPropertiesValue.validationErrors(value.Value, dataPath + "/Value", missing));
+			} else {
+				errors.push({code: 302, params: {key: "Value"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"});
+			}
+		} else {
+			errors.push({code: 0, params: {type: typeof value, expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"});
+		}
+		return errors;
+	}
+	CoreDefinitionsReasonClass.validate = function (value) {
+		var missing = {};
+		var errors = CoreDefinitionsReasonClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(CoreDefinitionsReasonClass, CoreDefinitionsReasonClass.Value, {
+		get: function() { return CoreDefinitionsReasonClass.Value; },
+		set: function(newValue) { CoreDefinitionsReasonClass.Value = newValue; },
+		enumerable: true,
+		configurable: true
+	});
 
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation */
+	var ObservationDefinitionsObservationClass = classes.ObservationDefinitionsObservation = function ObservationDefinitionsObservationClass(value) {
+		if (!(this instanceof ObservationDefinitionsObservationClass)) return new ObservationDefinitionsObservationClass(value);
+		if (typeof value.Value !== "undefined") {
+			this.Value = value.Value;
+		}
+		if (this.Value && !Array.isArray(this.Value) && typeof this.Value === "object") {
+			this.Value = new classes.ObservationDefinitionsObservationPropertiesValue(this.Value);
+		}
+		if (typeof value.SpecificType !== "undefined") {
+			this.SpecificType = value.SpecificType;
+		}
+		if (this.SpecificType && !Array.isArray(this.SpecificType) && this.SpecificType) {
+			this.SpecificType = new classes.CoreDefinitionsSpecificType(this.SpecificType);
+		}
+		if (typeof value.Category !== "undefined") {
+			this.Category = value.Category;
+		}
+		if (typeof value.BodySite !== "undefined") {
+			this.BodySite = value.BodySite;
+		}
+		if (this.BodySite && !Array.isArray(this.BodySite) && this.BodySite) {
+			this.BodySite = new classes.CoreDefinitionsBodySite(this.BodySite);
+		}
+		if (typeof value.Reason !== "undefined") {
+			this.Reason = value.Reason;
+		}
+		if (this.Reason && !Array.isArray(this.Reason) && this.Reason) {
+			this.Reason = new classes.CoreDefinitionsReason(this.Reason);
+		}
+		if (typeof value.AssociatedStudy !== "undefined") {
+			this.AssociatedStudy = value.AssociatedStudy;
+		}
+		if (this.AssociatedStudy && !Array.isArray(this.AssociatedStudy) && this.AssociatedStudy) {
+			this.AssociatedStudy = new classes.ObservationDefinitionsAssociatedStudy(this.AssociatedStudy);
+		}
+		if (typeof value.Status !== "undefined") {
+			this.Status = value.Status;
+		}
+		if (this.Status && !Array.isArray(this.Status) && this.Status) {
+			this.Status = new classes.BaseDefinitionsStatus(this.Status);
+		}
+		if (typeof value.NonOccurrenceModifier !== "undefined") {
+			this.NonOccurrenceModifier = value.NonOccurrenceModifier;
+		}
+		if (this.NonOccurrenceModifier && !Array.isArray(this.NonOccurrenceModifier) && typeof this.NonOccurrenceModifier === "object") {
+			this.NonOccurrenceModifier = new classes.ObservationDefinitionsObservationPropertiesNonOccurrenceModifier(this.NonOccurrenceModifier);
+		}
+		if (typeof value.Method !== "undefined") {
+			this.Method = value.Method;
+		}
+		if (this.Method && !Array.isArray(this.Method) && this.Method) {
+			this.Method = new classes.ObservationDefinitionsMethod(this.Method);
+		}
+		if (typeof value.AssertionNegationModifier !== "undefined") {
+			this.AssertionNegationModifier = value.AssertionNegationModifier;
+		}
+		if (this.AssertionNegationModifier && !Array.isArray(this.AssertionNegationModifier) && this.AssertionNegationModifier) {
+			this.AssertionNegationModifier = new classes.BaseDefinitionsAssertionNegationModifier(this.AssertionNegationModifier);
+		}
+		if (typeof value.ObservationQualifier !== "undefined") {
+			this.ObservationQualifier = value.ObservationQualifier;
+		}
+		if (typeof value.DataAbsentReason !== "undefined") {
+			this.DataAbsentReason = value.DataAbsentReason;
+		}
+		if (this.DataAbsentReason && !Array.isArray(this.DataAbsentReason) && this.DataAbsentReason) {
+			this.DataAbsentReason = new classes.ObservationDefinitionsDataAbsentReason(this.DataAbsentReason);
+		}
+		if (typeof value.shr_observation_ClinicallyRelevantTime !== "undefined") {
+			this.shr_observation_ClinicallyRelevantTime = value.shr_observation_ClinicallyRelevantTime;
+		}
+		if (this.shr_observation_ClinicallyRelevantTime && !Array.isArray(this.shr_observation_ClinicallyRelevantTime) && this.shr_observation_ClinicallyRelevantTime) {
+			this.shr_observation_ClinicallyRelevantTime = new classes.ObservationDefinitionsClinicallyRelevantTime(this.shr_observation_ClinicallyRelevantTime);
+		}
+		if (typeof value.ReferenceRange !== "undefined") {
+			this.ReferenceRange = value.ReferenceRange;
+		}
+		if (typeof value.Interpretation !== "undefined") {
+			this.Interpretation = value.Interpretation;
+		}
+		if (this.Interpretation && !Array.isArray(this.Interpretation) && this.Interpretation) {
+			this.Interpretation = new classes.LabDefinitionsInterpretation(this.Interpretation);
+		}
+		if (typeof value.Comment !== "undefined") {
+			this.Comment = value.Comment;
+		}
+		if (this.Comment && !Array.isArray(this.Comment) && this.Comment) {
+			this.Comment = new classes.CoreDefinitionsComment(this.Comment);
+		}
+		if (typeof value.PanelMembers !== "undefined") {
+			this.PanelMembers = value.PanelMembers;
+		}
+		if (this.PanelMembers && !Array.isArray(this.PanelMembers) && this.PanelMembers) {
+			this.PanelMembers = new classes.ObservationDefinitionsPanelMembers(this.PanelMembers);
+		}
+		if (typeof value.Participant !== "undefined") {
+			this.Participant = value.Participant;
+		}
+		if (typeof value.Setting !== "undefined") {
+			this.Setting = value.Setting;
+		}
+		if (typeof value.Location !== "undefined") {
+			this.Location = value.Location;
+		}
+		
+		BaseDefinitionsActionClass.apply(this, arguments);
+	};
+	ObservationDefinitionsObservationClass.prototype = Object.create(BaseDefinitionsActionClass.prototype);
+	ObservationDefinitionsObservationClass.prototype.constructor = ObservationDefinitionsObservationClass;
+	ObservationDefinitionsObservationClass.description = "An Observation represents evidence, both subjective and objective. Observation includes any information about a subject that results from an act of observing, measuring, or evaluation. The focus of an observation can include the subject's behavior, physiological state, health state, functional status, environment, exposures to substances, etc. An Observation contains information about the act of observing or measuring, and the result of the observation. The method of observing can vary widely, from questioning, physical examination, formal assessment vehicles, laboratory tests, imaging procedures, etc. Patient-reported information is also considered an observation, where subject and observer are the same individual.\nConcepts: http://ncimeta.nci.nih.gov:C1554188";
+	ObservationDefinitionsObservationClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation";
+	ObservationDefinitionsObservationClass.links = {};
+	ObservationDefinitionsObservationClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		errors = errors.concat(classes.BaseDefinitionsEntry.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.BaseDefinitionsAction.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.ObservationDefinitionsObservationAllOf2.validationErrors(value, dataPath, missing));
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	ObservationDefinitionsObservationClass.validate = function (value) {
+		var missing = {};
+		var errors = ObservationDefinitionsObservationClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Value, {
+		get: function() { return ObservationDefinitionsObservationClass.Value; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Value = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.SpecificType, {
+		get: function() { return ObservationDefinitionsObservationClass.SpecificType; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.SpecificType = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Category, {
+		get: function() { return ObservationDefinitionsObservationClass.Category; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Category = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.BodySite, {
+		get: function() { return ObservationDefinitionsObservationClass.BodySite; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.BodySite = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Reason, {
+		get: function() { return ObservationDefinitionsObservationClass.Reason; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Reason = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.AssociatedStudy, {
+		get: function() { return ObservationDefinitionsObservationClass.AssociatedStudy; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.AssociatedStudy = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Status, {
+		get: function() { return ObservationDefinitionsObservationClass.Status; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Status = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.NonOccurrenceModifier, {
+		get: function() { return ObservationDefinitionsObservationClass.NonOccurrenceModifier; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.NonOccurrenceModifier = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Method, {
+		get: function() { return ObservationDefinitionsObservationClass.Method; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Method = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.AssertionNegationModifier, {
+		get: function() { return ObservationDefinitionsObservationClass.AssertionNegationModifier; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.AssertionNegationModifier = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.ObservationQualifier, {
+		get: function() { return ObservationDefinitionsObservationClass.ObservationQualifier; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.ObservationQualifier = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.DataAbsentReason, {
+		get: function() { return ObservationDefinitionsObservationClass.DataAbsentReason; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.DataAbsentReason = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.shr_observation_ClinicallyRelevantTime, {
+		get: function() { return ObservationDefinitionsObservationClass.shr_observation_ClinicallyRelevantTime; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.shr_observation_ClinicallyRelevantTime = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.ReferenceRange, {
+		get: function() { return ObservationDefinitionsObservationClass.ReferenceRange; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.ReferenceRange = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Interpretation, {
+		get: function() { return ObservationDefinitionsObservationClass.Interpretation; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Interpretation = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Comment, {
+		get: function() { return ObservationDefinitionsObservationClass.Comment; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Comment = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.PanelMembers, {
+		get: function() { return ObservationDefinitionsObservationClass.PanelMembers; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.PanelMembers = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Participant, {
+		get: function() { return ObservationDefinitionsObservationClass.Participant; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Participant = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Setting, {
+		get: function() { return ObservationDefinitionsObservationClass.Setting; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Setting = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(ObservationDefinitionsObservationClass, ObservationDefinitionsObservationClass.Location, {
+		get: function() { return ObservationDefinitionsObservationClass.Location; },
+		set: function(newValue) { ObservationDefinitionsObservationClass.Location = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem */
+	var OncologyDefinitionsStagingSystemClass = classes.OncologyDefinitionsStagingSystem = function OncologyDefinitionsStagingSystemClass(value) {
+		if (!(this instanceof OncologyDefinitionsStagingSystemClass)) return new OncologyDefinitionsStagingSystemClass(value);
+		if (typeof value.Value !== "undefined") {
+			this.Value = value.Value;
+		}
+		if (typeof value.Version !== "undefined") {
+			this.Version = value.Version;
+		}
+		if (this.Version && !Array.isArray(this.Version) && this.Version) {
+			this.Version = new classes.CoreDefinitionsVersion(this.Version);
+		}
+		
+		superclass.apply(this, arguments);
+	};
+	OncologyDefinitionsStagingSystemClass.prototype = Object.create(superclass.prototype);
+	OncologyDefinitionsStagingSystemClass.prototype.constructor = OncologyDefinitionsStagingSystemClass;
+	OncologyDefinitionsStagingSystemClass.description = "What staging system are used ";
+	OncologyDefinitionsStagingSystemClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem";
+	OncologyDefinitionsStagingSystemClass.links = {};
+	OncologyDefinitionsStagingSystemClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		if (Array.isArray(value)) {
+			errors.push({code: 0, params: {type: "array", expected: "object"}, path: dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem"});
+		} else if (value == null) {
+			errors.push({code: 0, params: {type: "null", expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem"});
+		} else if (typeof value === "object") {
+			if ("Value" in value) {
+				if (Array.isArray(value.Value)) {
+					errors.push({code: 0, params: {type: "array", expected: "string"}, path: dataPath + "/Value", schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem/properties/Value"});
+				} else if (value.Value == null) {
+					errors.push({code: 0, params: {type: "null", expected: "string"}, path:dataPath + "/Value", schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem/properties/Value"});
+				} else if (typeof value.Value === "object" || typeof value.Value === "number" || typeof value.Value === "boolean") {
+					errors.push({code: 0, params: {type: typeof value.Value, expected: "string"}, path:dataPath + "/Value", schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem/properties/Value"});
+				}
+			} else {
+				errors.push({code: 302, params: {key: "Value"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem"});
+			}
+			if ("Version" in value) {
+				errors = errors.concat(classes.CoreDefinitionsVersion.validationErrors(value.Version, dataPath + "/Version", missing));
+			}
+		} else {
+			errors.push({code: 0, params: {type: typeof value, expected: "object"}, path:dataPath, schema: "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/StagingSystem"});
+		}
+		return errors;
+	}
+	OncologyDefinitionsStagingSystemClass.validate = function (value) {
+		var missing = {};
+		var errors = OncologyDefinitionsStagingSystemClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(OncologyDefinitionsStagingSystemClass, OncologyDefinitionsStagingSystemClass.Value, {
+		get: function() { return OncologyDefinitionsStagingSystemClass.Value; },
+		set: function(newValue) { OncologyDefinitionsStagingSystemClass.Value = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsStagingSystemClass, OncologyDefinitionsStagingSystemClass.Version, {
+		get: function() { return OncologyDefinitionsStagingSystemClass.Version; },
+		set: function(newValue) { OncologyDefinitionsStagingSystemClass.Version = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	
+/* Schema: http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/TNMStage */
+	var OncologyDefinitionsTNMStageClass = classes.OncologyDefinitionsTNMStage = function OncologyDefinitionsTNMStageClass(value) {
+		if (!(this instanceof OncologyDefinitionsTNMStageClass)) return new OncologyDefinitionsTNMStageClass(value);
+		if (typeof value.Value !== "undefined") {
+			this.Value = value.Value;
+		}
+		if (this.Value && !Array.isArray(this.Value) && this.Value) {
+			this.Value = new classes.CoreDefinitionsCodeableConcept(this.Value);
+		}
+		if (typeof value.StagingSystem !== "undefined") {
+			this.StagingSystem = value.StagingSystem;
+		}
+		if (this.StagingSystem && !Array.isArray(this.StagingSystem) && this.StagingSystem) {
+			this.StagingSystem = new classes.OncologyDefinitionsStagingSystem(this.StagingSystem);
+		}
+		if (typeof value.StagingTiming !== "undefined") {
+			this.StagingTiming = value.StagingTiming;
+		}
+		if (this.StagingTiming && !Array.isArray(this.StagingTiming) && this.StagingTiming) {
+			this.StagingTiming = new classes.OncologyDefinitionsStagingTiming(this.StagingTiming);
+		}
+		if (typeof value.T_Stage !== "undefined") {
+			this.T_Stage = value.T_Stage;
+		}
+		if (this.T_Stage && !Array.isArray(this.T_Stage) && typeof this.T_Stage === "object") {
+			this.T_Stage = new classes.OncologyDefinitionsTStage(this.T_Stage);
+		}
+		if (typeof value.N_Stage !== "undefined") {
+			this.N_Stage = value.N_Stage;
+		}
+		if (this.N_Stage && !Array.isArray(this.N_Stage) && typeof this.N_Stage === "object") {
+			this.N_Stage = new classes.OncologyDefinitionsNStage(this.N_Stage);
+		}
+		if (typeof value.M_Stage !== "undefined") {
+			this.M_Stage = value.M_Stage;
+		}
+		if (this.M_Stage && !Array.isArray(this.M_Stage) && typeof this.M_Stage === "object") {
+			this.M_Stage = new classes.OncologyDefinitionsMStage(this.M_Stage);
+		}
+		
+		ObservationDefinitionsObservationClass.apply(this, arguments);
+	};
+	OncologyDefinitionsTNMStageClass.prototype = Object.create(ObservationDefinitionsObservationClass.prototype);
+	OncologyDefinitionsTNMStageClass.prototype.constructor = OncologyDefinitionsTNMStageClass;
+	OncologyDefinitionsTNMStageClass.description = "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system. See Table 140 in HL7 CDA® R2 Implementation Guide: Clinical Oncology Treatment Plan and Summary, Release 1 - US Realm\nConcepts: http://loinc.org:21908-9";
+	OncologyDefinitionsTNMStageClass.schema = "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/TNMStage";
+	OncologyDefinitionsTNMStageClass.links = {};
+	OncologyDefinitionsTNMStageClass.validationErrors = function (value, dataPath, missing) {
+		dataPath = dataPath || "";
+		var errors = [];
+		errors = errors.concat(classes.BaseDefinitionsEntry.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.ObservationDefinitionsObservation.validationErrors(value, dataPath, missing));
+		errors = errors.concat(classes.OncologyDefinitionsTNMStageAllOf2.validationErrors(value, dataPath, missing));
+		if (Array.isArray(value)) {
+		} else if (value == null) {
+		}
+		return errors;
+	}
+	OncologyDefinitionsTNMStageClass.validate = function (value) {
+		var missing = {};
+		var errors = OncologyDefinitionsTNMStageClass.validationErrors(value, "", missing);
+		return {valid: !errors.length, errors: errors, missing: missing};
+	}
+	
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.Value, {
+		get: function() { return OncologyDefinitionsTNMStageClass.Value; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.Value = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.StagingSystem, {
+		get: function() { return OncologyDefinitionsTNMStageClass.StagingSystem; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.StagingSystem = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.StagingTiming, {
+		get: function() { return OncologyDefinitionsTNMStageClass.StagingTiming; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.StagingTiming = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.T_Stage, {
+		get: function() { return OncologyDefinitionsTNMStageClass.T_Stage; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.T_Stage = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.N_Stage, {
+		get: function() { return OncologyDefinitionsTNMStageClass.N_Stage; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.N_Stage = newValue; },
+		enumerable: true,
+		configurable: true
+	});
+	Object.defineProperty(OncologyDefinitionsTNMStageClass, OncologyDefinitionsTNMStageClass.M_Stage, {
+		get: function() { return OncologyDefinitionsTNMStageClass.M_Stage; },
+		set: function(newValue) { OncologyDefinitionsTNMStageClass.M_Stage = newValue; },
+		enumerable: true,
+		configurable: true
+	});
 
 
 

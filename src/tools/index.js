@@ -3,7 +3,7 @@
 const {schema2js} = require('json-model');
 const fs = require('fs');
 
-var progressionEntry = {
+/*var progressionEntry = {
 	shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d",
 	entryId: "20",
 	entryType:	[	"http://standardhealthrecord.org/oncology/Progression",
@@ -20,11 +20,11 @@ var progressionEntry = {
 	status: "completed",
 	originalCreationDate: "13 JUN 2012",
 	lastUpdateDate: "13 JUN 2012"
-};
+};*/
 var progressionWireFormat = {
 	"AssessmentFocus" : "a string",
 	"Category" : "a category",
-	"Value" : "a value",
+	"Value" : { "coding" : [{"value" : "codableConcepValue", "displayText" : {"value" : "text"}}], "displayType" : "?" },
 	"Evidence" : [ 	{ "coding" : { "value" : "C0031809", "codeSystem" : "http://ncimeta.nci.nih.gov", "displayText" : "physical examination"}} ],
 	"ShrId" : { "value" : "788dcbc3-ed18-470c-89ef-35ff91854c7d" },
 	"EntryId" : { "value" : "20" },
@@ -34,7 +34,17 @@ var progressionWireFormat = {
 	"LastUpdateDate" : { "value" : "2017-01-02" },
 	"Status" : {"value" : "a status coding" }
 };
-
+var toxicityWireFormat = {
+	"AdverseEvent" : {"ShrId" : "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryType" : "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseEvent", "EntryId" : "100" },
+	"AdverseReactionAttribution" : "due to medication"
+};
+var stagingWireFormat = {
+	"StagingSystem" : { "Value" : "a staging system"},
+	"T-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "T0"}},
+	"N-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "N1"}},
+	"M-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "M0"}},
+	"Reason" : "a reason for this observation"
+};
 
 /* After you have run the schema2js.Generator() in the block at the bottom of this file,
 	comment that block and uncomment this block to make an object with your generated code */
@@ -42,7 +52,12 @@ const classDefs = require("./reordered-object-definitions.js"); 	// The file whe
 const hier = new classDefs.makeHierarchy();
 var onco = hier.OncologyDefinitionsProgression(progressionWireFormat);
 console.log(onco);
-																				
+console.log("###############");
+var toxicity = hier.OncologyDefinitionsToxicReactionToTreatment(toxicityWireFormat);
+console.log(toxicity);
+console.log("###############");
+var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
+console.log(staging);																	
 																				
 
 /* Example of instantiating a type that does not have a superclass. The Reason is stored but Nonsense is not.
@@ -64,7 +79,6 @@ for (const fn of dir) {
   const data = fs.readFileSync(process.argv[3] + '/' + fn);
   store.add(JSON.parse(data.toString()));
 }
-
 fs.readFile(process.argv[2], (err, data) => {
   if (err) throw err;
   const gen = schema2js.Generator({schemaStore: store, trackMissing: true, validation: true}).addSchema(JSON.parse(data.toString())); // was trackMissing: true and validation: true

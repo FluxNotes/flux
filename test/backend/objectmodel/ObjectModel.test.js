@@ -1,18 +1,30 @@
 const objectModel = require('../../src/patient/ShrObjectModel.js');
 import {expect} from 'chai';
 
-// a sample Progression
+// a sample Progression, Toxicity, and Staging
 const progressionWireFormat = {
-	"AssessmentFocus" : { "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryType" : "http://jstars-linux-1.mitre.org/json-schema/shr/assessment#/definitions/AssessmentFocus", "EntryId" : "99",
+	"AssessmentFocus" : "a string",
 	"Category" : "a category",
-	"Value" : "a value",
+	"Value" : { "coding" : [{"value" : "codableConcepValue", "displayText" : {"value" : "text"}}], "displayType" : "?" },
 	"Evidence" : [ 	{ "coding" : { "value" : "C0031809", "codeSystem" : "http://ncimeta.nci.nih.gov", "displayText" : "physical examination"}} ],
-	"ShrId" : "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+	"ShrId" : { "value" : "788dcbc3-ed18-470c-89ef-35ff91854c7d" },
 	"EntryId" : { "value" : "20" },
-	"EntryType" : [ { "value" : "http://jstars-linux-1.mitre.org/json-schema/shr/oncology#/definitions/Progression" } ],
-	"FocalSubject" : "a subject",
+	"EntryType" : [ { "value" : "someUri" } ],
+	"FocalSubject" : "q",
 	"OriginalCreationDate" : { "value" : "2017-01-01" },
-	"LastUpdateDate" : { "value" : "2017-01-02" }
+	"LastUpdateDate" : { "value" : "2017-01-02" },
+	"Status" : {"value" : "a status coding" }
+};
+const toxicityWireFormat = {
+	"AdverseEvent" : {"ShrId" : "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryType" : "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseEvent", "EntryId" : "100" },
+	"AdverseReactionAttribution" : "due to medication"
+};
+const stagingWireFormat = {
+	"StagingSystem" : { "Value" : "a staging system"},
+	"T-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "T0"}},
+	"N-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "N1"}},
+	"M-Stage" : {"Value" : {"Coding" : "codingSystem", "DisplayText" : "M0"}},
+	"Reason" : "a reason for this observation"
 };
 
 /* example
@@ -45,10 +57,22 @@ describe('getEntriesOfType', function() {
 describe('createProgressionObject', function() {
 	it('should return a Progression with inherited properties set', function() {
 		// invoke object model constructor
-		
+		const classDefs = require("./reordered-object-definitions.js"); 	// The file where you stored the output of the block below with schema2js.Generator (this file contains class definitions)		
+		const hier = new classDefs.makeHierarchy();
+		var progression = hier.OncologyDefinitionsProgression(progressionWireFormat);
+		//console.log(progression);
+		//console.log("###############");
+		var toxicity = hier.OncologyDefinitionsToxicReactionToTreatment(toxicityWireFormat);
+		//console.log(toxicity);
+		//console.log("###############");
+		var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
+		//console.log(staging);	
 		
 		// verify properties are set
-		
+		expect(progression.Category
+			.to.be.a('string')
+			.that.equals('a category'));
+		// TODO: finish tests, verify they pass
 	});
 	
 	
