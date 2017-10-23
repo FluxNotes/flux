@@ -12,11 +12,11 @@ class LandingPage extends Component {
                     <h1 className="landing-page-title">Welcome to Flux Notes</h1>
                     
                     <Divider className="divider"/>
-                    <h3><img src="./logos/ICARE.png" alt="ICARE Data Study" className="landing-logo" height="22px"></img>ICARE Data Study</h3>
+                    <h3><img src="./logos/ICARE.png" alt="ICAREdata Study" className="landing-logo" height="22px"></img>ICAREdata Study</h3>
                     <div className="section">
                         <p>
-                            Flux Notes supports the ICARE data study capture of treatment data during the
-                            authoring of clinical notes. The goal of the ICARE data study is to support the collection of
+                            Flux Notes supports the ICAREdata study capture of treatment data during the
+                            authoring of clinical notes. The goal of the ICAREdata study is to support the collection of
                             high quality real-world data (RWD) in a way that enables clinical oncology research.
                         </p>
                     </div>
