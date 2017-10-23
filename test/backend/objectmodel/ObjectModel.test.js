@@ -1,4 +1,4 @@
-const objectModel = require('../../src/patient/ShrObjectModel.js');
+const objectModel = require('../../../src/patient/ShrObjectModel.js');
 import {expect} from 'chai';
 
 // a sample Progression, Toxicity, and Staging
@@ -27,6 +27,24 @@ const stagingWireFormat = {
 	"Reason" : "a reason for this observation"
 };
 
+describe('createProgressionObject', function() {
+	it('should return a Progression with inherited properties set', function() {
+		// invoke object model constructor	
+		const hier = new objectModel.makeHierarchy();
+		var progression = hier.OncologyDefinitionsProgression(progressionWireFormat);
+		var toxicity = hier.OncologyDefinitionsToxicReactionToTreatment(toxicityWireFormat);
+		var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
+
+		// verify properties are set
+		expect(progression.Category
+			.to.be.a('string')
+			.that.equals('a category'));
+		// TODO: finish tests, verify they pass
+	});
+	
+	
+});
+
 /* example
 describe('getEntriesOfType', function() { 
 
@@ -53,27 +71,3 @@ describe('getEntriesOfType', function() {
             .that.is.not.empty;
     });
 });*/ 
-
-describe('createProgressionObject', function() {
-	it('should return a Progression with inherited properties set', function() {
-		// invoke object model constructor
-		const classDefs = require("./reordered-object-definitions.js"); 	// The file where you stored the output of the block below with schema2js.Generator (this file contains class definitions)		
-		const hier = new classDefs.makeHierarchy();
-		var progression = hier.OncologyDefinitionsProgression(progressionWireFormat);
-		//console.log(progression);
-		//console.log("###############");
-		var toxicity = hier.OncologyDefinitionsToxicReactionToTreatment(toxicityWireFormat);
-		//console.log(toxicity);
-		//console.log("###############");
-		var staging = hier.OncologyDefinitionsTNMStage(stagingWireFormat);
-		//console.log(staging);	
-		
-		// verify properties are set
-		expect(progression.Category
-			.to.be.a('string')
-			.that.equals('a category'));
-		// TODO: finish tests, verify they pass
-	});
-	
-	
-});
