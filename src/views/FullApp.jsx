@@ -35,7 +35,6 @@ class FullApp extends Component {
         "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
         this.clinicalSettings = ["pre-encounter", "encounter", "post-encounter"];
 
-
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
@@ -146,6 +145,7 @@ class FullApp extends Component {
                             <Col sm={12}>
                                 <PatientSummaryPanel
                                     patient={this.state.patient}
+                                    clinicalSettings={this.clinicalSettings}
                                     setFullAppState={this.setFullAppState} />
                             </Col>
                         </Row>

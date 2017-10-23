@@ -42,6 +42,7 @@ export default class PatientSummaryPanel extends Component {
                             <Col sm={6}>
                                 <ConditionSelection
                                     conditions={conditions}
+                                    clinicalSettings={this.props.clinicalSettings}
                                     activeConditionIndex={activeConditionIndex}
                                     changeConditionIndex={this.changeConditionIndex}
                                     setFullAppState={this.props.setFullAppState} />

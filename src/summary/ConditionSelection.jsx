@@ -13,7 +13,7 @@ class ConditionSelection extends Component {
 
         this.state = {
             conditionIndex: null,
-            event: null
+            clinicalSetting: null
         };
     }
 
@@ -22,7 +22,7 @@ class ConditionSelection extends Component {
             this.selectCondition(0);
         }
 
-        this.selectEvent('preEncounter');
+        this.selectClinicalSetting('pre-encounter');
     }
 
     selectCondition(conditionIndex) {
@@ -31,33 +31,39 @@ class ConditionSelection extends Component {
         this.setState({ conditionIndex });
     }
 
-    selectEvent(event) {
-        this.props.setFullAppState('event', event);
-        this.setState({ event });
+    selectClinicalSetting(clinicalSetting) {
+        this.props.setFullAppState('clinicalSetting', clinicalSetting);
+        this.setState({ clinicalSetting });
     }
 
     buttonClass(buttonType) {
-        let event = this.state.event;
+        let clinicalSetting = this.state.clinicalSetting;
         let klass = `button ${buttonType}`;
-
-        if (event === buttonType) {
+        
+        if (clinicalSetting === buttonType) {
             klass += " active";
         }
 
         return klass;
     }
 
-    renderedClinicalSettingList() { 
-        return this.props.clinicalSettings.map((setting, index) => { 
-            return (
-                <Button raised onClick={() => this.selectEvent(setting)} data-test-pre-encounter-button>
-                    {setting}
-                </Button>
-            )
-        })
+    renderClinicalSettingList() { 
+        return (
+            <Row start="xs" className="event-buttons">
+                {this.props.clinicalSettings.map((setting, index) => { 
+                    return (
+                        <Col xs className={this.buttonClass(setting)} key={`clinical-setting-${index}`}>
+                            <Button raised onClick={() => {this.selectClinicalSetting(setting)}} data-test-pre-encounter-button>
+                                {titlecase(setting)}
+                            </Button>
+                        </Col>
+                    )
+                })}
+            </Row>                
+        )
     }
 
-    renderedConditionList() {
+    renderConditionList() {
         return this.props.conditions.map((condition, index) =>
             <MenuItem
                 className="condition-item"
@@ -77,26 +83,7 @@ class ConditionSelection extends Component {
                     <Row start="xs">
                         <Col sm={6} className="full-app-event">
                             <h3>Event</h3>
-
-                            <Row start="xs" className="event-buttons">
-                                <Col xs className={this.buttonClass("preEncounter")}>
-                                    <Button raised onClick={this.setEventToPreEncounter} data-test-pre-encounter-button>
-                                        Pre-encounter
-                                    </Button>
-                                </Col>
-
-                                <Col xs className={this.buttonClass("encounter")}>
-                                    <Button raised onClick={this.setEventToEncounter} data-test-encounter-button>
-                                        Encounter
-                                    </Button>
-                                </Col>
-
-                                <Col xs className={this.buttonClass("treatment")}>
-                                    <Button raised onClick={this.setEventToTreatment} data-test-treatment-button>
-                                        Treatment
-                                    </Button>
-                                </Col>
-                            </Row>
+                            {this.renderClinicalSettingList()}
                         </Col>
 
                         <Col sm={6} className="condition">
@@ -108,7 +95,7 @@ class ConditionSelection extends Component {
                                 onChange={(event) => this.selectCondition(event.target.value)}
                                 data-test-condition-selector
                             >
-                                {this.renderedConditionList()}
+                                {this.renderConditionList()}
                             </Select>
                         </Col>
                     </Row>
@@ -116,6 +103,12 @@ class ConditionSelection extends Component {
             </div>
         );
     }
+}
+
+function titlecase(label) {
+  return label.toLowerCase().split(' ').map(function(word) {
+    return word.replace(word[0], word[0].toUpperCase());
+  }).join(' ');
 }
 
 ConditionSelection.propTypes = {
