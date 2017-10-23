@@ -33,6 +33,8 @@ class FullApp extends Component {
 
         this.shortcuts = [ "#disease status", "#staging", "#toxicity", "@name",
         "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
+        this.clinicalSettings = ["pre-encounter", "encounter", "post-encounter"];
+
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");

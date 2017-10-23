@@ -36,18 +36,6 @@ class ConditionSelection extends Component {
         this.setState({ event });
     }
 
-    setEventToPreEncounter = () => {
-        this.selectEvent('preEncounter');
-    }
-
-    setEventToEncounter = () => {
-        this.selectEvent('encounter');
-    }
-
-    setEventToTreatment = () => {
-        this.selectEvent('treatment');
-    }
-
     buttonClass(buttonType) {
         let event = this.state.event;
         let klass = `button ${buttonType}`;
@@ -57,6 +45,16 @@ class ConditionSelection extends Component {
         }
 
         return klass;
+    }
+
+    renderedClinicalSettingList() { 
+        return this.props.clinicalSettings.map((setting, index) => { 
+            return (
+                <Button raised onClick={() => this.selectEvent(setting)} data-test-pre-encounter-button>
+                    {setting}
+                </Button>
+            )
+        })
     }
 
     renderedConditionList() {
@@ -108,7 +106,8 @@ class ConditionSelection extends Component {
                                 className="condition-select"
                                 value={this.state.conditionIndex}
                                 onChange={(event) => this.selectCondition(event.target.value)}
-                                data-test-condition-selector>
+                                data-test-condition-selector
+                            >
                                 {this.renderedConditionList()}
                             </Select>
                         </Col>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import withTracker from './analyticsTracker/withTracker';
+import WithTracker from './analyticsTracker/WithTracker';
 import ViewManager from './views/ViewManager';
 
 class App extends Component {
@@ -15,9 +15,9 @@ class App extends Component {
                 <div>
                     {this.views.map((viewObject, i) => {
                         if (viewObject.isExact) {
-                            return <Route exact path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
+                            return <Route exact path={viewObject.path} render={(props) => { return React.createElement(WithTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
                         } else {
-                            return <Route path={viewObject.path} render={(props) => { return React.createElement(withTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
+                            return <Route path={viewObject.path} render={(props) => { return React.createElement(WithTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
                         }
                     })}
                 </div>
