@@ -3,14 +3,14 @@ import {expect} from 'chai';
 
 // a sample Progression, Toxicity, and Staging
 const progressionWireFormat = {
-	"AssessmentFocus" : "a string",
+	"AssessmentFocus" : "an assessment focus",
 	"Category" : "a category",
 	"Value" : { "coding" : [{"value" : "codableConcepValue", "displayText" : {"value" : "text"}}], "displayType" : "?" },
 	"Evidence" : [ 	{ "coding" : { "value" : "C0031809", "codeSystem" : "http://ncimeta.nci.nih.gov", "displayText" : "physical examination"}} ],
-	"ShrId" : { "value" : "788dcbc3-ed18-470c-89ef-35ff91854c7d" },
-	"EntryId" : { "value" : "20" },
-	"EntryType" : [ { "value" : "someUri" } ],
-	"FocalSubject" : "q",
+	"ShrId" : { "Value" : "788dcbc3-ed18-470c-89ef-35ff91854c7d" },
+	"EntryId" : { "Value" : "20" },
+	"EntryType" : [ { "Value" : "someUri" } ],
+	"FocalSubject" : "a focal subject",
 	"OriginalCreationDate" : { "value" : "2017-01-01" },
 	"LastUpdateDate" : { "value" : "2017-01-02" },
 	"Status" : {"value" : "a status coding" }
@@ -40,9 +40,9 @@ describe('createProgressionObject', function() {
 		expect(progression.Category)
 			.to.be.a('string')
 			.that.equals('a category');
-		expect(progression.ShrId.Value)
+		expect(progression.AssessmentFocus)
 			.to.be.a('string')
-			.that.equals('788dcbc3-ed18-470c-89ef-35ff91854c7d');
+			.that.equals('an assessment focus');
 		
 		// Toxicity
 		
