@@ -2,9 +2,9 @@ import FullApp from './FullApp';
 import SlimApp from './SlimApp';
 import LandingPage from './LandingPage';
 
-class ViewManager {
+class AppManager {
     constructor() {
-        this.views = [{
+        this.apps = [{
                 path: '/',
                 display: 'Flux Notes',
                 app: LandingPage,
@@ -29,9 +29,9 @@ class ViewManager {
         ];
     }
     
-    getSupportedViews() {
-        return this.views;
+    getSupportedApps() {
+        return this.apps;
     }
 }
 
-export default ViewManager;
+export default AppManager;

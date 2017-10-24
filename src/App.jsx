@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import WithTracker from './analyticsTracker/WithTracker';
-import ViewManager from './views/ViewManager';
+import AppManager from './apps/AppManager';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.views = new ViewManager().getSupportedViews();
+        this.apps = new AppManager().getSupportedApps();
     }
 
     render() {
         return (
             <Router>
                 <div>
-                    {this.views.map((viewObject, i) => {
-                        if (viewObject.isExact) {
-                            return <Route exact path={viewObject.path} render={(props) => { return React.createElement(WithTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
+                    {this.apps.map((appObject, i) => {
+                        if (appObject.isExact) {
+                            return <Route exact path={appObject.path} render={(props) => { return React.createElement(WithTracker(appObject.app), Object.assign(props, appObject)); }} key={i}/>
                         } else {
-                            return <Route path={viewObject.path} render={(props) => { return React.createElement(WithTracker(viewObject.app), Object.assign(props, viewObject)); }} key={i}/>
+                            return <Route path={appObject.path} render={(props) => { return React.createElement(WithTracker(appObject.app), Object.assign(props, appObject)); }} key={i}/>
                         }
                     })}
                 </div>
