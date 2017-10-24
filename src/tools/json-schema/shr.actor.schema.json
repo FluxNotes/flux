@@ -1,0 +1,595 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/actor",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "ActiveFlag": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "If the ActiveFlag is false, it indicates the record is no longer to be used and should generally be hidden for the user in the UI.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AdministrativeGender": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/administrative-gender, REQUIRED"
+        }
+      },
+      "description": "A gender classification used for administrative purposes. Administrative gender is not necessarily the same as a biological description or a gender identity. This attribute does not include terms related to clinical gender.\nConcepts: http://ncimeta.nci.nih.gov:C1550327",
+      "required": [
+        "Value"
+      ]
+    },
+    "Affiliation": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/Organization"
+        }
+      },
+      "description": "Membership, association, or connection to an organization.\nConcepts: http://ncimeta.nci.nih.gov:C0932026",
+      "required": [
+        "Value"
+      ]
+    },
+    "AgeAtDeath": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedAge"
+        }
+      },
+      "description": "The age, age range, or age group when the cessation of life happens.\nConcepts: http://ncimeta.nci.nih.gov:C1546180",
+      "required": [
+        "Value"
+      ]
+    },
+    "AnonymizedFlag": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Flag indicating if personally identifiable information has been withheld or disguised.\nConcepts: http://ncimeta.nci.nih.gov:C3858751",
+      "required": [
+        "Value"
+      ]
+    },
+    "DateOfBirth": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+            }
+          ]
+        }
+      },
+      "description": "A date of birth or approximate year or period (year or date range), if estimated.\nConcepts: http://ncimeta.nci.nih.gov:C2919018,http://loinc.org:21112-8",
+      "required": [
+        "Value"
+      ]
+    },
+    "DateOfDeath": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedDateTime"
+        }
+      },
+      "description": "The calendar date of subject's death.\nConcepts: http://ncimeta.nci.nih.gov:C1148348",
+      "required": [
+        "Value"
+      ]
+    },
+    "Deceased": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        },
+        "DateOfDeath": {
+          "$ref": "#/definitions/DateOfDeath"
+        },
+        "AgeAtDeath": {
+          "$ref": "#/definitions/AgeAtDeath"
+        }
+      },
+      "description": "An indication that the person is no longer living, given by a date, time of death, or a boolean value which, when true, indicates the person is deceased.\nConcepts: http://ncimeta.nci.nih.gov:C0011065",
+      "required": [
+        "Value"
+      ]
+    },
+    "EmergencyContact": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ProviderRelationship"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "HealthcareRole": {
+              "$ref": "#/definitions/HealthcareRole"
+            },
+            "Provider": {
+              "$ref": "#/definitions/Provider"
+            }
+          },
+          "required": [
+            "Provider"
+          ]
+        }
+      ],
+      "description": "A personal contact specifically designated to be used for emergencies.\nConcepts: http://ncimeta.nci.nih.gov:C1552023"
+    },
+    "FictionalPersonFlag": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Flag indicating if this record represents a fictional (synthetic, not real) person.\nConcepts: http://ncimeta.nci.nih.gov:C0887933",
+      "required": [
+        "Value"
+      ]
+    },
+    "HealthcareRole": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A type of service provided to the subject.",
+      "required": [
+        "Value"
+      ]
+    },
+    "LanguageQualifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Additional information about a person's use of language.",
+      "required": [
+        "Value"
+      ]
+    },
+    "LanguageUsed": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Language"
+        },
+        "SpokenLanguageProficiency": {
+          "$ref": "#/definitions/SpokenLanguageProficiency"
+        },
+        "WrittenLanguageProficiency": {
+          "$ref": "#/definitions/WrittenLanguageProficiency"
+        },
+        "LanguageQualifier": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/LanguageQualifier"
+          }
+        }
+      },
+      "description": "Language used for communication by a human, either the subject of record, parent, or other involved person.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicalSpecialty": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A branch of medicine practiced by the provider.\nConcepts: http://ncimeta.nci.nih.gov:C0037778",
+      "required": [
+        "Value"
+      ]
+    },
+    "NationalProviderIdentifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OrganizationalIdentifier"
+        }
+      },
+      "description": "A unique 10-digit number to allow providers to identify themselves in a standard way throughout their industry.\nConcepts: http://ncimeta.nci.nih.gov:C1549728",
+      "required": [
+        "Value"
+      ]
+    },
+    "NoPrimaryCareProvider": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ProviderRelationship"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "HealthcareRole": {
+              "$ref": "#/definitions/HealthcareRole"
+            },
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            }
+          }
+        }
+      ],
+      "description": "The medical professional responsible for first-line care of an individual."
+    },
+    "Organization": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/OrganizationName"
+        },
+        "OrganizationAlias": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/OrganizationAlias"
+          }
+        },
+        "SpecificType": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        },
+        "OrganizationIdentifyingCode": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/OrganizationIdentifyingCode"
+          }
+        },
+        "AddressUsed": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/AddressUsed"
+          }
+        },
+        "Telecom": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/Telecom"
+          }
+        },
+        "ActiveFlag": {
+          "$ref": "#/definitions/ActiveFlag"
+        }
+      },
+      "description": "A social or legal structure formed by human beings.\nConcepts: http://ncimeta.nci.nih.gov:C1561598",
+      "required": [
+        "Value",
+        "SpecificType"
+      ]
+    },
+    "OrganizationAlias": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A list of alternate names that the organization is known as, or was known as in the past.",
+      "required": [
+        "Value"
+      ]
+    },
+    "OrganizationIdentifyingCode": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OrganizationalIdentifier"
+        }
+      },
+      "description": "A code identifying a specific organization. The NPI should be provided, if available. Other business identifiers, such employer tax ID, or MVX code for vaccine manufacturers, should also be provided.",
+      "required": [
+        "Value"
+      ]
+    },
+    "OrganizationName": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The name of the organization.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Participant": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/PersonOfRecord"
+            },
+            {
+              "$ref": "#/definitions/Practitioner"
+            },
+            {
+              "$ref": "#/definitions/RelatedPerson"
+            }
+          ]
+        },
+        "ParticipationType": {
+          "$ref": "#/definitions/ParticipationType"
+        },
+        "NonOccurrenceModifier": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+        },
+        "Reason": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+        },
+        "OccurrenceTime": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OccurrenceTime"
+        }
+      },
+      "description": "A statement about an actor who did (or did not) participate in a certain task or activity. Unlike a HealthcareInvolvement which continues over period of time, the participant is associated with doing or not doing a specific task, such admitting a patient, performing a procedure, or taking a measurement.\nConcepts: http://ncimeta.nci.nih.gov:C1550369",
+      "required": [
+        "Value"
+      ]
+    },
+    "ParticipationType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The detail of how the performer engaged in the task, for example, as the attending physician, surgical assistant, etc.\nConcepts: http://ncimeta.nci.nih.gov:C1553854",
+      "required": [
+        "Value"
+      ]
+    },
+    "Person": {
+      "type": "object",
+      "properties": {
+        "HumanName": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/HumanName"
+          }
+        },
+        "AnonymizedFlag": {
+          "$ref": "#/definitions/AnonymizedFlag"
+        },
+        "FictionalPersonFlag": {
+          "$ref": "#/definitions/FictionalPersonFlag"
+        },
+        "DateOfBirth": {
+          "$ref": "#/definitions/DateOfBirth"
+        },
+        "AdministrativeGender": {
+          "$ref": "#/definitions/AdministrativeGender"
+        },
+        "AddressUsed": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/AddressUsed"
+          }
+        },
+        "Telecom": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics#/definitions/Telecom"
+          }
+        },
+        "LanguageUsed": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/LanguageUsed"
+          }
+        },
+        "Deceased": {
+          "$ref": "#/definitions/Deceased"
+        }
+      },
+      "description": "A person. In practical terms, people relevant to the health or social situation of the subject (including the person of record).\nConcepts: http://ncimeta.nci.nih.gov:C0027361"
+    },
+    "Practitioner": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Person"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "HumanName": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/HumanName"
+              }
+            },
+            "Affiliation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/Affiliation"
+              }
+            },
+            "NationalProviderIdentifier": {
+              "$ref": "#/definitions/NationalProviderIdentifier"
+            },
+            "MedicalSpecialty": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/MedicalSpecialty"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A person who practices a healing art.\nConcepts: http://ncimeta.nci.nih.gov:C2220264"
+    },
+    "PrimaryCareProvider": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ProviderRelationship"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "HealthcareRole": {
+              "$ref": "#/definitions/HealthcareRole"
+            },
+            "Provider": {
+              "$ref": "#/definitions/Provider"
+            }
+          },
+          "required": [
+            "Provider"
+          ]
+        }
+      ],
+      "description": "The medical professional responsible for first-line care of an individual.\nConcepts: http://ncimeta.nci.nih.gov:C2735026"
+    },
+    "Provider": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/RelatedPerson"
+            },
+            {
+              "$ref": "#/definitions/Practitioner"
+            },
+            {
+              "$ref": "#/definitions/Organization"
+            }
+          ]
+        }
+      },
+      "description": "A person or organization who provides services. This includes healthcare and relevant non-healthcare services, including personal services such as transportation.\nConcepts: http://ncimeta.nci.nih.gov:C1138603",
+      "required": [
+        "Value"
+      ]
+    },
+    "ProviderRelationship": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Provider": {
+              "$ref": "#/definitions/Provider"
+            },
+            "HealthcareRole": {
+              "$ref": "#/definitions/HealthcareRole"
+            },
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            },
+            "GeneralizedTemporalContext": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedTemporalContext"
+            },
+            "Priority": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Priority"
+            }
+          },
+          "required": [
+            "HealthcareRole"
+          ]
+        }
+      ],
+      "description": "A person or organization responsible for providing a service to the person of record. Such a relationship can exist without a specific encounter or services being rendered; for example, an emergency contact relationship can exist without ever calling upon that person. The entry can also be used to state that a provider relationship does not exist, e.g., patient does not have a primary care provider.\nConcepts: http://ncimeta.nci.nih.gov:C1314939"
+    },
+    "RelatedPerson": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Person"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "description": "Empty DataElement?"
+        }
+      ],
+      "description": "A person, other than a practitioner or the patient (the person of record) who is relevant to the health or social situation of the subject."
+    },
+    "SpokenLanguageProficiency": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Accuracy and fluency in spoken communication in a language.\nConcepts: http://ncimeta.nci.nih.gov:C0678997",
+      "required": [
+        "Value"
+      ]
+    },
+    "WrittenLanguageProficiency": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Accuracy and fluency of reading and writing in a language.\nConcepts: http://ncimeta.nci.nih.gov:C0586739",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Actor domain contains definitions for people and organizations that are involved with the person of record, in some capacity.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/EmergencyContact"
+    },
+    {
+      "$ref": "#/definitions/NoPrimaryCareProvider"
+    },
+    {
+      "$ref": "#/definitions/PrimaryCareProvider"
+    },
+    {
+      "$ref": "#/definitions/ProviderRelationship"
+    }
+  ]
+}

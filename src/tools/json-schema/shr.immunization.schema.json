@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/immunization",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Immunization": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Vaccine": {
+              "$ref": "#/definitions/Vaccine"
+            },
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            },
+            "RouteIntoBody": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/RouteIntoBody"
+            },
+            "AmountOfMedication": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/AmountOfMedication"
+            }
+          },
+          "required": [
+            "Vaccine",
+            "NonOccurrenceModifier"
+          ]
+        }
+      ],
+      "description": "A statement relating to a vaccination that was or was not administered to the subject.\nConcepts: http://ncimeta.nci.nih.gov:C0020971\nTBD Fields: DoseSequenceNumber"
+    },
+    "ImmunizationAdministered": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Immunization"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Vaccine": {},
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            },
+            "RouteIntoBody": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/RouteIntoBody"
+            },
+            "AmountOfMedication": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/AmountOfMedication"
+            }
+          }
+        }
+      ],
+      "description": "Represents an immunization that was administered to the subject.\nConcepts: http://ncimeta.nci.nih.gov:C0580520\nTBD Fields: DoseSequenceNumber"
+    },
+    "ImmunizationNotGiven": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Immunization"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            }
+          }
+        }
+      ],
+      "description": "Represents an immunization that was not given.\nConcepts: http://ncimeta.nci.nih.gov:C0580520\nTBD Fields: DoseSequenceNumber"
+    },
+    "LotNumber": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A distinctive alpha-numeric identification code assigned by the manufacturer or distributor to a specific quantity of manufactured material or product within a batch.\nConcepts: http://ncimeta.nci.nih.gov:C1115660",
+      "required": [
+        "Value"
+      ]
+    },
+    "Vaccine": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        },
+        "VaccineManufacturer": {
+          "$ref": "#/definitions/VaccineManufacturer"
+        },
+        "LotNumber": {
+          "$ref": "#/definitions/LotNumber"
+        }
+      },
+      "description": "A specific type or manufactured instance of a vaccine, a prophylactic or therapeutic preparation given to produce immune response to pathogenic organisms or substances.\nConcepts: http://ncimeta.nci.nih.gov:C1543322",
+      "required": [
+        "Value"
+      ]
+    },
+    "VaccineManufacturer": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Organization"
+        }
+      },
+      "description": "The organization that produces the vaccine.\nConcepts: http://ncimeta.nci.nih.gov:C1114744",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Immunization domain contains definitions related to vaccinations, whether they are received, recommended, missing, or refused.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/Immunization"
+    },
+    {
+      "$ref": "#/definitions/ImmunizationAdministered"
+    },
+    {
+      "$ref": "#/definitions/ImmunizationNotGiven"
+    }
+  ]
+}

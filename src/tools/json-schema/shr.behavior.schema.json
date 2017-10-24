@@ -1,0 +1,1069 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/behavior",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AlcoholBingeFrequency": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "SpecificType": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        }
+      },
+      "description": "How often have you had 6 or more Units if female, or 8 or more if male, on a single occasion in the last year?.\nConcepts: http://ncimeta.nci.nih.gov:C0556346",
+      "required": [
+        "Value",
+        "SpecificType"
+      ]
+    },
+    "AlcoholUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/SubstanceUse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Substance": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Substance"
+            },
+            "AssessmentTool": {
+              "$ref": "#/definitions/AssessmentTool"
+            },
+            "AlcoholBingeFrequency": {
+              "$ref": "#/definitions/AlcoholBingeFrequency"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The history of the subject's use of alcohol.\nConcepts: http://ncimeta.nci.nih.gov:C0001948"
+    },
+    "AssessmentTool": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The name of the formal assessment or screening tool used to assess the behavior."
+    },
+    "BehavioralObservation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            },
+            "ReadinessToChange": {
+              "$ref": "#/definitions/ReadinessToChange"
+            },
+            "Method": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+            }
+          }
+        }
+      ],
+      "description": "A statement about observable responses, actions, or activities of the subject. Can be used to assert or deny behaviors.\nConcepts: http://ncimeta.nci.nih.gov:C0004927\nTBD Fields: Impact"
+    },
+    "DietAndNutrition": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "SpecialDietFollowed": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/SpecialDietFollowed"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            },
+            "HasSufficientFood": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/HasSufficientFood"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "DietNutritionConcern": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/DietNutritionConcern"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            },
+            "FoodAllergy": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/allergy#/definitions/FoodAllergy"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The usual food and drink consumed by an individual.\nConcepts: http://ncimeta.nci.nih.gov:C0012155"
+    },
+    "DietNutritionConcern": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "An anxiety or worry about the diet or nutritional intake of the subject."
+    },
+    "ExerciseHoursPerWeek": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Hours of moderate or vigorous activity per week."
+    },
+    "HasSufficientFood": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Frequency that the person of record unable to obtain food to stay hunger."
+    },
+    "HoursSleepPerNight": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Typical hours spent sleeping per night.\nConcepts: http://loinc.org:65968-0"
+    },
+    "IntravenousDrugUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/SubstanceUse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "RouteIntoBody": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/RouteIntoBody"
+            },
+            "ExposureMethod": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/ExposureMethod"
+            }
+          },
+          "required": [
+            "Value",
+            "RouteIntoBody",
+            "ExposureMethod"
+          ]
+        }
+      ],
+      "description": "Records whether the subject injects recreational drugs.\nConcepts: http://ncimeta.nci.nih.gov:C0242566"
+    },
+    "NicotineUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/SubstanceUse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Substance": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Substance"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "RouteIntoBody": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/RouteIntoBody"
+            },
+            "ExposureMethod": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/ExposureMethod"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Records the history of a subject's use of nicotine.\nConcepts: http://ncimeta.nci.nih.gov:C2363943"
+    },
+    "ONCSmokingStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Records the subject's use of tobacco.\nConcepts: http://loinc.org:11367-0"
+    },
+    "PhysicalActivityLevel": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "ExerciseHoursPerWeek": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/ExerciseHoursPerWeek"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "PhysicalActivityLimitation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/PhysicalActivityLimitation"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The amount of exercise or other physical activity compared to others of the same age.  See BMC Medical Research Methodology 2012 12:20 1471-2288.\nConcepts: http://ncimeta.nci.nih.gov:C0026606\nTBD Fields: MetabolicEquivalent"
+    },
+    "PhysicalActivityLimitation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Anything that limits physical activity, including health factors, logistical, monetary, or social restrictions."
+    },
+    "ReadinessToChange": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "How motivated the subject is to change the behavior, if the behavior is ongoing, and change would be beneficial.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Religion": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ]
+    },
+    "ReligiousCongregation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A group of place of religious practice."
+    },
+    "ReligiousPractice": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Religion": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/Religion"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "ReligiousPracticeStatus": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/ReligiousPracticeStatus"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "ReligiousRestriction": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/ReligiousRestriction"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            },
+            "ReligiousCongregation": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/ReligiousCongregation"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            }
+          },
+          "required": [
+            "Religion"
+          ]
+        }
+      ],
+      "description": "The religion practiced by the focal subject.\nConcepts: http://ncimeta.nci.nih.gov:C0035039\nTBD Fields: ReligiousRepresentative"
+    },
+    "ReligiousPracticeStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The extent to which the religious practice is actively followed."
+    },
+    "ReligiousRestriction": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Any restriction on that derives from religion and may impact medical treatment, other than dietary (handled elsewhere)."
+    },
+    "SleepQuality": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "TroubleFallingAsleep": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/TroubleFallingAsleep"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "TroubleStayingAsleep": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/TroubleStayingAsleep"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "WakeFeelingRested": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/WakeFeelingRested"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "HoursSleepPerNight": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/HoursSleepPerNight"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "SleepQualityReason": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/behavior#/definitions/SleepQualityReason"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Self-reported sleep quality.\nConcepts: http://ncimeta.nci.nih.gov:C0424563"
+    },
+    "SleepQualityReason": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Reason for poor sleep quality."
+    },
+    "SpecialDietFollowed": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A type of nutritional plan followed by the subject."
+    },
+    "SubstanceAbuseTreatment": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/procedure#/definitions/Procedure"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The treatment program used to address a substance abuse problem."
+    },
+    "SubstanceUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/ExposureToSubstance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Substance": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Substance"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Assertion concerning the past or current use of a substance (alcohol, recreational drugs, illegal drugs, or abuse of prescription medication) that could negatively impact the subject's health.\nConcepts: http://ncimeta.nci.nih.gov:C024251"
+    },
+    "TroubleFallingAsleep": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often the subject has trouble falling asleep."
+    },
+    "TroubleStayingAsleep": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often the subject has trouble staying asleep."
+    },
+    "ViolentBehaviorRisk": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ViolentRiskToOthers": {
+              "$ref": "#/definitions/ViolentRiskToOthers"
+            },
+            "ViolentRiskToSelf": {
+              "$ref": "#/definitions/ViolentRiskToSelf"
+            }
+          },
+          "required": [
+            "ViolentRiskToOthers",
+            "ViolentRiskToSelf"
+          ]
+        }
+      ],
+      "description": "Risk or danger posed by the focal subject to others and/or his or herself due to violent behavior."
+    },
+    "ViolentRiskToOthers": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Risk or danger posed by the focal subject to others."
+    },
+    "ViolentRiskToSelf": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Risk or danger posed by the focal subject to his or herself."
+    },
+    "WakeFeelingRested": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often the subject feels rested when they wake up."
+    }
+  },
+  "description": "The SHR Behavior domain contains data definitions related to how the person of record acts, feels, or responds to situations.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/AlcoholUse"
+    },
+    {
+      "$ref": "#/definitions/DietAndNutrition"
+    },
+    {
+      "$ref": "#/definitions/IntravenousDrugUse"
+    },
+    {
+      "$ref": "#/definitions/NicotineUse"
+    },
+    {
+      "$ref": "#/definitions/ONCSmokingStatus"
+    },
+    {
+      "$ref": "#/definitions/PhysicalActivityLevel"
+    },
+    {
+      "$ref": "#/definitions/ReligiousPractice"
+    },
+    {
+      "$ref": "#/definitions/SleepQuality"
+    },
+    {
+      "$ref": "#/definitions/SubstanceAbuseTreatment"
+    },
+    {
+      "$ref": "#/definitions/SubstanceUse"
+    },
+    {
+      "$ref": "#/definitions/ViolentBehaviorRisk"
+    }
+  ]
+}

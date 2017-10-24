@@ -1,0 +1,307 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/careplan",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AssociatedGoal": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "ShrId": {
+              "type": "string"
+            },
+            "EntryType": {
+              "type": "string",
+              "enum": [
+                "http://jstars-linux-1.mitre.org/json-schema/shr/careplan#/definitions/Goal"
+              ]
+            },
+            "EntryId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ShrId",
+            "EntryType",
+            "EntryId"
+          ]
+        }
+      },
+      "description": "The goal  associated with this objective.",
+      "required": [
+        "Value"
+      ]
+    },
+    "CarePlan": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Title"
+            },
+            "Description": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Description"
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "Reason": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+              }
+            },
+            "Goal": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/Goal"
+              }
+            },
+            "Action": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+              }
+            }
+          },
+          "required": [
+            "Status",
+            "Goal",
+            "Action"
+          ]
+        }
+      ],
+      "description": "Describes how one or more practitioners intend to deliver care for a particular patient, group or community for a period of time, possibly limited to care for a specific condition or set of conditions.\nConcepts: http://ncimeta.nci.nih.gov:C0178916"
+    },
+    "Goal": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Title"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "RequestedPerformanceTime": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/RequestedPerformanceTime"
+            },
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            },
+            "ResultAchieved": {
+              "$ref": "#/definitions/ResultAchieved"
+            },
+            "Annotation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Annotation"
+              }
+            },
+            "Objective": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/Objective"
+              }
+            }
+          },
+          "required": [
+            "SpecificType",
+            "Status"
+          ]
+        }
+      ],
+      "description": "A broad statement about what should be accomplished and the progress towards that goal. It represents the intended long-term outcome toward which an individual or a group aspires, and toward which, effort is directed, in the form of activities.\nConcepts: http://ncimeta.nci.nih.gov:C0018017"
+    },
+    "Objective": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "AssociatedGoal": {
+              "$ref": "#/definitions/AssociatedGoal"
+            },
+            "RequestedPerformanceTime": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/RequestedPerformanceTime"
+            },
+            "ResultTargeted": {
+              "$ref": "#/definitions/ResultTargeted"
+            },
+            "ResultAchieved": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ResultAchieved"
+              }
+            },
+            "Annotation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Annotation"
+              }
+            },
+            "Evidence": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Evidence"
+              }
+            }
+          },
+          "required": [
+            "SpecificType",
+            "Status",
+            "ResultTargeted"
+          ]
+        }
+      ],
+      "description": "Describes the  of an expected or desired achievement that is well-defined, specific, measurable, and derived from one or more goals. There are similarities with Observation, since an objective can sometimes be interpreted as a yet-to-be-made, future observation with a certain target result. "
+    },
+    "ResultAchieved": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Range"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Ratio"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+            }
+          ]
+        }
+      },
+      "description": "The actual value or status achieved.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ResultTargeted": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Range"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Ratio"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+            }
+          ]
+        }
+      },
+      "description": "The desired value or status to be achieved.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/CarePlan"
+    },
+    {
+      "$ref": "#/definitions/Goal"
+    }
+  ]
+}

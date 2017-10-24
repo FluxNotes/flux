@@ -1,0 +1,595 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/demographics",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AddressUse": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Describes how the address is used, in particular, as a dwelling (primary, secondary, temporary), a former address, mailing address, etc.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AddressUsed": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Address"
+        },
+        "AddressUse": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/AddressUse"
+          }
+        },
+        "Setting": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Setting"
+          }
+        },
+        "EffectiveTimePeriod": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+        }
+      },
+      "description": "An address used by for dwelling, work, or other purposes. May be a physical location or an address used only for deliveries, such as a PO box.\nConcepts: http://ncimeta.nci.nih.gov:C0682130",
+      "required": [
+        "Value",
+        "AddressUse"
+      ]
+    },
+    "BirthSex": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Administrative sex assigned at birth and recorded on birth certificate.\nConcepts: http://ncimeta.nci.nih.gov:C4086849",
+      "required": [
+        "Value"
+      ]
+    },
+    "CountryOfIssue": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Country"
+        }
+      },
+      "description": "A country acting as an assuing authority for a document.",
+      "required": [
+        "Value"
+      ]
+    },
+    "DriversLicenseNumber": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        },
+        "StateOfIssue": {
+          "$ref": "#/definitions/StateOfIssue"
+        },
+        "EffectiveTimePeriod": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+        }
+      },
+      "description": "Identifying information from a drivers license.",
+      "required": [
+        "Value",
+        "StateOfIssue"
+      ]
+    },
+    "Ethnicity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "EthnicityDetail": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/EthnicityDetail"
+          }
+        }
+      },
+      "description": "Indicator of Hispanic or Latino origin.\nConcepts: http://ncimeta.nci.nih.gov:C0015031",
+      "required": [
+        "Value"
+      ]
+    },
+    "EthnicityDetail": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          ]
+        }
+      },
+      "description": "Additional description of ethnicity.",
+      "required": [
+        "Value"
+      ]
+    },
+    "FamilialRelationship": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "NonOccurrenceModifier": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+        }
+      },
+      "description": "The relationship of the subject to another person in the same (extended) family. May or may not be a blood relative (determined by value). Can be used to indicate there is no relation of the given type (e.g., no siblings), using the NonOccurrenceModifier.\nConcepts: http://ncimeta.nci.nih.gov:C0015608",
+      "required": [
+        "Value"
+      ]
+    },
+    "FathersName": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/HumanName"
+        }
+      },
+      "description": "The name of the father as it was or likely to have been recorded on the birth certificate of the subject; most likely the name of the father at the time of birth of the subject.",
+      "required": [
+        "Value"
+      ]
+    },
+    "HealthInsurance": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "InsuranceMemberId": {
+              "$ref": "#/definitions/InsuranceMemberId"
+            },
+            "EffectiveTimePeriod": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Health insurance coverage available (even if not used for payment for a given encounter).\nConcepts: HealthInsurance (http://ncimeta.nci.nih.gov:C0021682)"
+    },
+    "HomeTelephoneNumber": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "TelecomQualifier": {
+              "$ref": "#/definitions/TelecomQualifier"
+            }
+          }
+        }
+      ],
+      "description": "A telephone number associated with a person's residence."
+    },
+    "InsuranceMemberId": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "Patient identifier at a healthcare provider, insurer, or other related organization.",
+      "required": [
+        "Value"
+      ]
+    },
+    "MaritalStatus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The most recent marital status of a person.\nConcepts: http://ncimeta.nci.nih.gov:C0024819",
+      "required": [
+        "Value"
+      ]
+    },
+    "MedicalInterpreterNeeded": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        },
+        "Language": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Language"
+        }
+      },
+      "description": "Whether the subject requires an interpreter to communicate with an English-speaking provider.\nConcepts: http://ncimeta.nci.nih.gov:C1442531",
+      "required": [
+        "Value",
+        "Language"
+      ]
+    },
+    "MothersMaidenName": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/HumanName"
+        }
+      },
+      "description": "The name of the mother as it was or likely to have been recorded on the birth certificate of the subject. This is most likely the name prior to marriage of the mother (aka the maiden name).\nConcepts: http://ncimeta.nci.nih.gov:C0806887",
+      "required": [
+        "Value"
+      ]
+    },
+    "MultipleBirth": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        },
+        "MultipleBirthOrder": {
+          "$ref": "#/definitions/MultipleBirthOrder"
+        }
+      },
+      "description": "Indication if the person was part of a multiple birth event.\nConcepts: http://ncimeta.nci.nih.gov:C0026753",
+      "required": [
+        "Value"
+      ]
+    },
+    "MultipleBirthOrder": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "integer"
+        }
+      },
+      "description": "Order of birth of the person in multiple birth event (if part of multiple birth).\nConcepts: http://loinc.org:73771-8",
+      "required": [
+        "Value"
+      ]
+    },
+    "PassportNumber": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        },
+        "CountryOfIssue": {
+          "$ref": "#/definitions/CountryOfIssue"
+        },
+        "EffectiveTimePeriod": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+        }
+      },
+      "description": "Indicator of citizenship and identity.\nConcepts: http://ncimeta.nci.nih.gov:C1549737",
+      "required": [
+        "Value",
+        "CountryOfIssue"
+      ]
+    },
+    "PersonOfRecord": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Person"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "DateOfBirth": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/DateOfBirth"
+            },
+            "PlaceOfBirth": {
+              "$ref": "#/definitions/PlaceOfBirth"
+            },
+            "MultipleBirth": {
+              "$ref": "#/definitions/MultipleBirth"
+            },
+            "BirthSex": {
+              "$ref": "#/definitions/BirthSex"
+            },
+            "AdministrativeGender": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/AdministrativeGender"
+            },
+            "Race": {
+              "$ref": "#/definitions/Race"
+            },
+            "Ethnicity": {
+              "$ref": "#/definitions/Ethnicity"
+            },
+            "MaritalStatus": {
+              "$ref": "#/definitions/MaritalStatus"
+            },
+            "MothersMaidenName": {
+              "$ref": "#/definitions/MothersMaidenName"
+            },
+            "FathersName": {
+              "$ref": "#/definitions/FathersName"
+            },
+            "SocialSecurityNumber": {
+              "$ref": "#/definitions/SocialSecurityNumber"
+            },
+            "DriversLicenseNumber": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/DriversLicenseNumber"
+              }
+            },
+            "PassportNumber": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/PassportNumber"
+              }
+            },
+            "AddressUsed": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/AddressUsed"
+              }
+            },
+            "Telecom": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/Telecom"
+              }
+            },
+            "LanguageUsed": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/LanguageUsed"
+              }
+            },
+            "MedicalInterpreterNeeded": {
+              "$ref": "#/definitions/MedicalInterpreterNeeded"
+            },
+            "FamilialRelationship": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/FamilialRelationship"
+              }
+            }
+          },
+          "required": [
+            "DateOfBirth",
+            "PlaceOfBirth",
+            "BirthSex",
+            "AdministrativeGender",
+            "Race",
+            "Ethnicity",
+            "MaritalStatus",
+            "MothersMaidenName",
+            "FathersName",
+            "AddressUsed",
+            "Telecom",
+            "LanguageUsed"
+          ]
+        }
+      ],
+      "description": "Extended demographic information about the subject of this SHR.\nConcepts: http://ncimeta.nci.nih.gov:C1299487,http://loinc.org:54125-0"
+    },
+    "PlaceOfBirth": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeopoliticalLocation"
+        }
+      },
+      "description": "The location of a birth event. There may be multiple entries, but a person has only one place of birth.\nConcepts: http://ncimeta.nci.nih.gov:C0032040",
+      "required": [
+        "Value"
+      ]
+    },
+    "Race": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "RaceDetail": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/RaceDetail"
+          }
+        }
+      },
+      "description": "Subjective association of a person with a named category of humans sharing common history, traits, place of family origin, nationality, tribe, or other inherited background.\nConcepts: http://ncimeta.nci.nih.gov:C0034510",
+      "required": [
+        "Value"
+      ]
+    },
+    "RaceDetail": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          ]
+        }
+      },
+      "description": "Additional description of race or heritage.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SocialSecurityNumber": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A US social security number (SSN).\nConcepts: http://ncimeta.nci.nih.gov:C1301821",
+      "required": [
+        "Value"
+      ]
+    },
+    "StateOfIssue": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/State"
+        }
+      },
+      "description": "Issuing authority for a drivers license.\nConcepts: http://ncimeta.nci.nih.gov:C1547728",
+      "required": [
+        "Value"
+      ]
+    },
+    "Telecom": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/TelecomNumberOrAddress"
+        },
+        "TelecomType": {
+          "$ref": "#/definitions/TelecomType"
+        },
+        "TelecomTypeOther": {
+          "$ref": "#/definitions/TelecomTypeOther"
+        },
+        "TelecomQualifier": {
+          "$ref": "#/definitions/TelecomQualifier"
+        },
+        "EffectiveTimePeriod": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+        }
+      },
+      "description": "An electronic means of contacting an organization or individual.\nConcepts: http://ncimeta.nci.nih.gov:C2986441",
+      "required": [
+        "Value",
+        "TelecomType"
+      ]
+    },
+    "TelecomNumberOrAddress": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "A user name or other identifier on a telecommunication network, such as a telephone number (including country code and extension, if necessary), email address, or SkypeID.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TelecomQualifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/contact-point-use, REQUIRED"
+        }
+      },
+      "description": "Provides more information about the type and uses of the telecom address.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TelecomType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/contact-point-system, REQUIRED"
+        }
+      },
+      "description": "The type or channel of the communication, such as email or telephone. If an messaging app, such as Skype, specify other.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TelecomTypeOther": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "Specification of the type of telecom channel, if the TelecomType is other.",
+      "required": [
+        "Value"
+      ]
+    },
+    "TelephoneNumber": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Telecom"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "TelecomType": {
+              "$ref": "#/definitions/TelecomType"
+            }
+          }
+        }
+      ],
+      "description": "A sequence of decimal digits (0-9) that is used for identifying a destination telephone line or other device in a telephone network.\nConcepts: http://ncimeta.nci.nih.gov:C1515258"
+    },
+    "WorkTelephoneNumber": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/TelephoneNumber"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "TelecomQualifier": {
+              "$ref": "#/definitions/TelecomQualifier"
+            }
+          }
+        }
+      ],
+      "description": "A telephone number associated with a person's residence."
+    }
+  },
+  "description": "The SHR Demographics domain contains definitions that describe basic characteristics of the person of record, such as name, address, and date of birth. Elements in the demographics domains are used for unique identification and patient matching.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/HealthInsurance"
+    },
+    {
+      "$ref": "#/definitions/PersonOfRecord"
+    }
+  ]
+}

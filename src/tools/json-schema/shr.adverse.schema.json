@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/adverse",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AdverseEvent": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "AdverseEventGrade": {
+              "$ref": "#/definitions/AdverseEventGrade"
+            },
+            "SeriousAdverseEvent": {
+              "$ref": "#/definitions/SeriousAdverseEvent"
+            },
+            "AdverseEventOutcome": {
+              "$ref": "#/definitions/AdverseEventOutcome"
+            },
+            "AssociatedStudy": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/AssociatedStudy"
+            },
+            "CauseCategory": {
+              "$ref": "#/definitions/CauseCategory"
+            }
+          },
+          "required": [
+            "Value",
+            "AdverseEventGrade",
+            "CauseCategory"
+          ]
+        }
+      ],
+      "description": "Any unfavorable and unintended sign, symptom, disease, or other medical occurrence with a temporal association with the use of a medical product, procedure or other therapy, or in conjunction with a research study, regardless of causal relationship. EXAMPLE(S): death, back pain, headache, pulmonary embolism, heart attack.\nConcepts: http://ncimeta.nci.nih.gov:C0877248\nTBD Fields: PatternOfEvent"
+    },
+    "AdverseEventGrade": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A coded value specifying the level of injury suffered by the subject for whom the event is reported, using the CTCAE coding system.\nConcepts: http://ncimeta.nci.nih.gov:C2985911",
+      "required": [
+        "Value"
+      ]
+    },
+    "AdverseEventOutcome": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The eventual result and impact of an adverse event",
+      "required": [
+        "Value"
+      ]
+    },
+    "AdverseReaction": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "AdverseEvent": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseEvent"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "AdverseReactionAttribution": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/AdverseReactionAttribution"
+              }
+            }
+          },
+          "required": [
+            "AdverseEvent"
+          ]
+        }
+      ],
+      "description": "Any noxious and unintended response to a medical product, procedure, or other intervention, for which a causal relationship to an intervention is at least a reasonable possibility i.e., the relationship cannot be ruled out. It is not necessarily associated with a previously-recorded SubstanceRisk. This entry could be used to record the occurrence or non-occurrence of an adverse reaction.\nTBD Fields: ActionTakenWithMedication\nOtherActionTaken"
+    },
+    "AdverseReactionAttribution": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/MedicationUse",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/procedure#/definitions/Procedure",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/Medication",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "Certainty": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Certainty"
+            }
+          },
+          "required": [
+            "Value",
+            "Certainty"
+          ]
+        }
+      ],
+      "description": "If an adverse reaction to treatment, a possible cause of the adverse reaction (either known or theorized). There can be more than one possible cause.\nConcepts: Adverse Event Attribution to Product or Procedure (http://ncimeta.nci.nih.gov:C1510821)"
+    },
+    "CauseCategory": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Whether the adverse event is attributed to a treatment, course of the disease, unrelated to either, or unknown. ",
+      "required": [
+        "Value"
+      ]
+    },
+    "SeriousAdverseEvent": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Clinical significance of adverse event defined based on the patient and event outcome or action criteria usually associated with events that pose a threat to a patient's life or functioning. Seriousness of adverse event serves as a primary guide for defining regulatory reporting obligations and changes in medicinal product development and usage.\nConcepts: http://ncimeta.nci.nih.gov:C1710056",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Adverse domain contains definitions for describing adverse events and adverse reactions.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/AdverseEvent"
+    },
+    {
+      "$ref": "#/definitions/AdverseReaction"
+    },
+    {
+      "$ref": "#/definitions/AdverseReactionAttribution"
+    }
+  ]
+}

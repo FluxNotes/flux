@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/assessment",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Assessment": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "AssessmentFocus": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/AssessmentFocus"
+              }
+            },
+            "AssessmentResult": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/AssessmentResult"
+              }
+            },
+            "Method": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+            },
+            "ClinicallyRelevantTime": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ClinicallyRelevantTime"
+            },
+            "EvidenceQuality": {
+              "$ref": "#/definitions/EvidenceQuality"
+            },
+            "Evidence": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Evidence"
+              }
+            },
+            "Summary": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Summary"
+            }
+          },
+          "required": [
+            "Status"
+          ]
+        }
+      ],
+      "description": "A conclusion (tentative or final) resulting from synthesis of evidence (one or more observations). An Assessment is a judgment rendered at a point in time. A diagnosis is a type of Assessment that can lead to creation of a Condition.\nConcepts: http://ncimeta.nci.nih.gov:C0220825"
+    },
+    "AssessmentFocus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/procedure#/definitions/Procedure",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Condition",
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/allergy#/definitions/AllergyIntolerance"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          ]
+        }
+      },
+      "description": "The topic or target of an analysis or assessment. For example, if the assessment involves the progression of the subject's diabetes, then the AssessmentFocus would be diabetes and the category would be progression. If the investigation involves the toxicity of chemotherapy regimen, the focus would be that regimen and the category would be toxicity.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AssessmentResult": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "AssertionNegationModifier": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+        },
+        "Certainty": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Certainty"
+        }
+      },
+      "description": "A statement of judgment or opinion, often the outcome, finding, or conclusion of the investigation or analysis.",
+      "required": [
+        "Value"
+      ]
+    },
+    "EvidenceQuality": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "An estimate of the quality and/or quantity of the source information that supports the assessment.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Assessment domain contains definitions used to capture judgments, medical opinions, clinical impressions, diagnoses, and inferences drawn from evidence.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/Assessment"
+    }
+  ]
+}

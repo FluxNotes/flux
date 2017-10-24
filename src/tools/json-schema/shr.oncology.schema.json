@@ -1,0 +1,1053 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/oncology",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "BRCA1Variant": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeneticVariant"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "GeneIdentifier": {
+              "$ref": "#/definitions/GeneIdentifier"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the patient has a mutation in the BRCA1 gene."
+    },
+    "BRCA2Variant": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/GeneticVariant"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "GeneIdentifier": {
+              "$ref": "#/definitions/GeneIdentifier"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the patient has a mutation in the BRCA2 gene."
+    },
+    "BreastCancer": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            },
+            "Stage": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Stage"
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            }
+          }
+        }
+      ],
+      "description": "A cancer originating in the tissues of the breast, and potentially spread to other organs of the body.\nConcepts: http://ncimeta.nci.nih.gov:C1446377"
+    },
+    "BreastCancerGeneticAnalysis": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "PanelMembers": {}
+          }
+        }
+      ],
+      "description": "The status of genes known or suspected to play a role in breast cancer risk, for example, the tumor suppressor genes, BRCA1 and BRCA2."
+    },
+    "BreastCancerReceptorStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "EstrogenReceptorStatus": {
+              "$ref": "#/definitions/EstrogenReceptorStatus"
+            },
+            "ProgesteroneReceptorStatus": {
+              "$ref": "#/definitions/ProgesteroneReceptorStatus"
+            },
+            "HumanEpiduralGrowthFactorReceptor2Status": {
+              "$ref": "#/definitions/HumanEpiduralGrowthFactorReceptor2Status"
+            }
+          }
+        }
+      ],
+      "description": "Immunohistochemistry (IHC) assessment for estrogen receptor (ER) and progesterone receptor (PR) as well as IHC or in situ hybridization (ISH) determination of human epidermal growth factor receptor 2 (HER2) status\nTBD Fields: Specimen"
+    },
+    "CancerGrowthPotential": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Ki-67LabelingIndex": {
+              "$ref": "#/definitions/Ki-67LabelingIndex"
+            },
+            "S-PhaseFraction": {
+              "$ref": "#/definitions/S-PhaseFraction"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Information relating to rate of cell growth or proportion of cancer cells within the tumor that are growing and dividing to form new cancer cells.\nConcepts: Cancer Cell Growth (http://ncimeta.nci.nih.gov:C1516170)"
+    },
+    "CancerLymphaticInvolvement": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "LymphaticSystemSubdivision": {
+              "$ref": "#/definitions/LymphaticSystemSubdivision"
+            },
+            "LargestLymphNodeSize": {
+              "$ref": "#/definitions/LargestLymphNodeSize"
+            },
+            "NumberOfLymphNodesInvolved": {
+              "$ref": "#/definitions/NumberOfLymphNodesInvolved"
+            },
+            "DegreeOfLymphaticInvolvement": {
+              "$ref": "#/definitions/DegreeOfLymphaticInvolvement"
+            }
+          },
+          "required": [
+            "Value",
+            "LymphaticSystemSubdivision"
+          ]
+        }
+      ],
+      "description": "Whether or not lymph nodes contain cancer cells.\nConcepts: http://ncimeta.nci.nih.gov:C0746333"
+    },
+    "Cellularity": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Percentage of cells in a sample that are cancerous\nConcepts: http://ncimeta.nci.nih.gov:C4055283"
+    },
+    "DegreeOfLymphaticInvolvement": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Assessment of how much cancer is in a lymph node."
+    },
+    "EstrogenReceptorStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ReceptorStatusObservation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "ReceptorType": {
+              "$ref": "#/definitions/ReceptorType"
+            }
+          }
+        }
+      ],
+      "description": "Estrogen receptor alpha is the predominant estrogen receptor expressed in breast tissue and is overexpressed in around 50% of breast carcinomas. ER status (positive=present or overexpressed; negative=absent) is a factor in determining prognosis and treatment options."
+    },
+    "GeneIdentifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A unique code for a gene, including protein coding genes, ncRNA genes and pseudogenes, to allow unambiguous communication, drawn from HUGO Gene Nomenclature Committee.\nConcepts: http://ncimeta.nci.nih.gov:C1706509",
+      "required": [
+        "Value"
+      ]
+    },
+    "GeneticVariant": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "GeneIdentifier": {
+              "$ref": "#/definitions/GeneIdentifier"
+            },
+            "Refseq": {
+              "$ref": "#/definitions/Refseq"
+            }
+          },
+          "required": [
+            "Value",
+            "GeneIdentifier"
+          ]
+        }
+      ],
+      "description": "Whether the patient carries a mutation in a particular gene.\nConcepts: http://ncimeta.nci.nih.gov:C0678941"
+    },
+    "HistologicGrade": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "TubuleFormationScore": {
+              "$ref": "#/definitions/TubuleFormationScore"
+            },
+            "NuclearPleomorphismScore": {
+              "$ref": "#/definitions/NuclearPleomorphismScore"
+            },
+            "MitoticCountScore": {
+              "$ref": "#/definitions/MitoticCountScore"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The Elston Grade/Nottingham Score, representative of the aggressive potential of the tumor. Well differentiated (Grade 1) look similar to normal cells and are usually slow growing, while poorly differentiated cells (Grade 3) look very different than normal and are fast-growing.\nConcepts: http://ncimeta.nci.nih.gov:C1511980"
+    },
+    "HumanEpiduralGrowthFactorReceptor2Status": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ReceptorStatusObservation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "ReceptorType": {
+              "$ref": "#/definitions/ReceptorType"
+            },
+            "Method": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+            }
+          }
+        }
+      ],
+      "description": "HER2 is a member of the human epidermal growth factor receptor family of proteins and is encoded by the ERBB2 oncogene. HER2 is overexpressed in 20-30% of breast tumors,10 and is associated with an aggressive clinical course and poor prognosis. HER2 status (positive=present or overexpressed; negative=absent) is a factor in determining prognosis and treatment options.\nConcepts: http://ncimeta.nci.nih.gov:C3810543"
+    },
+    "Ki-67LabelingIndex": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Ki-67 is a protein phosphatase whose expression is strongly associated with cell proliferation and encoded by the MKI67 gene. The Ki67 labeling index is the fraction of Ki-67-positive cells to total cells in a tumor specimen and may be useful for determining prognosis with respect to survival and disease recurrence. The more positive cells there are, the more quickly they are dividing and forming new cells.\tReferenceRange: Low <10, Intermediate 10-20, >20 High\nConcepts: http://ncimeta.nci.nih.gov:C4049944"
+    },
+    "LargestLymphNodeSize": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The largest dimension of the largest lymph node invaded by cancer cells.\nConcepts: http://ncimeta.nci.nih.gov:C1285847"
+    },
+    "LymphaticSystemSubdivision": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A lymph node area or nodal group; a subdivision of the entire lymphatic system. For breast cancer, this includes 5 areas: internal mammary lymph nodes, axillary lymph nodes level I, II, and III, and the supraclavicular lymph nodes."
+    },
+    "M-Stage": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Part of the TNM classification system representing metastases.  The system is used to describe the spread of cancer to other parts of the body. See Table 144 in HL7 CDA® R2 Implementation Guide: Clinical Oncology Treatment Plan and Summary, Release 1 - US Realm\nConcepts: http://loinc.org:59522-3"
+    },
+    "MitoticCountScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How fast the tumor cells are growing and dividing, determined from the number of mitotic cells present. Scored 1 to 3, with 3 being the most mitotic cells.\nConcepts: http://snomed.info/sct:371472000"
+    },
+    "N-Stage": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The presence of metastases in regional lymph nodes. TNM node category for staging derived from the American Joint Committee on Cancer. See Table 147 in HL7 CDA® R2 Implementation Guide: Clinical Oncology Treatment Plan and Summary, Release 1 - US Realm\nConcepts: http://loinc.org:59525-6"
+    },
+    "NeoplasmObservation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/BodyStructureObservation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Identifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Identifier"
+            },
+            "Method": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Observation of a unusual growth, for example, a tumor. The body site allows the abnormality to be located and identified. The abnormality identifier allows the tumor to be tracked over time."
+    },
+    "NuclearPleomorphismScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How large and varied the nuclei of the tumor cells are. Scored 1 to 3, with 3 being the most pleomorphism."
+    },
+    "NumberOfLymphNodesInvolved": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A count of lymph nodes invaded by cancer cells of those examined."
+    },
+    "PercentageInSituCarcinoma": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The percentage of the cancer that is in situ, as opposed to invading other tissues."
+    },
+    "PrimaryTumorSite": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "description": "Empty DataElement?"
+        }
+      ],
+      "description": "The location of the primary tumor.\nConcepts: http://ncimeta.nci.nih.gov:C0475447"
+    },
+    "ProgesteroneReceptorStatus": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ReceptorStatusObservation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "ReceptorType": {
+              "$ref": "#/definitions/ReceptorType"
+            }
+          }
+        }
+      ],
+      "description": "Progesterone receptor is expressed in 65% of breast carcinomas. PR status (positive=present or overexpressed; negative=absent) is a factor in determining prognosis and treatment options.\nConcepts: http://ncimeta.nci.nih.gov:C1514471"
+    },
+    "Progression": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/assessment#/definitions/Assessment"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            },
+            "AssessmentFocus": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/assessment#/definitions/AssessmentFocus"
+            },
+            "Evidence": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Evidence"
+              }
+            }
+          },
+          "required": [
+            "Value",
+            "AssessmentFocus"
+          ]
+        }
+      ],
+      "description": "A finding related to the current trend of a disease. This concept is most often used for chronic and incurable diseases where the status and trendline of the disease is an important determinant of therapy and prognosis. The specific disorder being evaluated must be cited in the AssessmentFocus as a reference to a Condition.\nConcepts: http://ncimeta.nci.nih.gov:C0449258"
+    },
+    "ReceptorAllredTotalScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Part of the Allred scoring, the total of proportion and intensity scores, from 0 to 8."
+    },
+    "ReceptorIntensityScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Part of the Allred scoring, based on the intensity of that staining, on a scale of 0 to 3."
+    },
+    "ReceptorPositivityPercentage": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The percentage of cells that test (stain) positive for the presence of a receptor."
+    },
+    "ReceptorProportionScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Part of Allred scoring, based on the percentage of cells that stain for a receptor, on a scale of 0 to 5."
+    },
+    "ReceptorStatusObservation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "ReceptorType": {
+              "$ref": "#/definitions/ReceptorType"
+            },
+            "ReceptorPositivityPercentage": {
+              "$ref": "#/definitions/ReceptorPositivityPercentage"
+            },
+            "ReceptorAllredTotalScore": {
+              "$ref": "#/definitions/ReceptorAllredTotalScore"
+            },
+            "ReceptorProportionScore": {
+              "$ref": "#/definitions/ReceptorProportionScore"
+            },
+            "ReceptorIntensityScore": {
+              "$ref": "#/definitions/ReceptorIntensityScore"
+            }
+          },
+          "required": [
+            "Value",
+            "ReceptorType"
+          ]
+        }
+      ],
+      "description": "Refers to the presence or absence of specific receptor molecules on the surface of a cells in a specimen.\nConcepts: http://ncimeta.nci.nih.gov:C0449443"
+    },
+    "ReceptorType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A protein located on the cell surface, or in the cytoplasm, that binds to a specific signaling factor, such as a hormone, antigen, or neurotransmitter, causing a conformational and functional change in the receptor molecule. The ligand-bound receptor then alters its interaction with target molecules, which leads to changes in cellular physiology through modification of the activity of one or more signal transduction pathways.\nConcepts: http://ncimeta.nci.nih.gov:C0597357",
+      "required": [
+        "Value"
+      ]
+    },
+    "Refseq": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The Reference Sequence (RefSeq) collection provides a comprehensive, integrated, non-redundant, well-annotated set of sequences, including genomic DNA, transcripts, and proteins. RefSeq sequences form a foundation for medical, functional, and diversity studies. They provide a stable reference for genome annotation, gene identification and characterization, mutation and polymorphism analysis (especially RefSeqGene records), expression studies, and comparative analyses.",
+      "required": [
+        "Value"
+      ]
+    },
+    "S-PhaseFraction": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "An expression of the number of mitoses found in a stated number of cells. The S-phase fraction number tells you what percentage of cells in the tissue sample are in the process of copying their genetic information (DNA). This S-phase, short for synthesis phase, happens just before a cell divides into two new cells. ReferenceRange: Low <6, Intermediate 6-10, >10 High.\nConcepts: http://ncimeta.nci.nih.gov:C0812425"
+    },
+    "SizeOfGrossTumorBed": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The largest dimension of the gross tumor bed/fibrotic area."
+    },
+    "StagingSystem": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        },
+        "Version": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Version"
+        }
+      },
+      "description": "What staging system are used ",
+      "required": [
+        "Value"
+      ]
+    },
+    "StagingTiming": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Indicates when the staging was done, in terms of treatment landmarks, for example, at diagnosis (clinical), at surgery(pathologic), after treatment (post-neoadjuvant), at entry to a clinical trial, or at recurrence.",
+      "required": [
+        "Value"
+      ]
+    },
+    "T-Stage": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The size and extent of the primary tumor (greatest dimension), based on criteria from the American Joint Committee on Cancer. See Table 152 in HL7 CDA® R2 Implementation Guide: Clinical Oncology Treatment Plan and Summary, Release 1 - US Realm\nConcepts: http://loinc.org:59528-0"
+    },
+    "TNMStage": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "StagingSystem": {
+              "$ref": "#/definitions/StagingSystem"
+            },
+            "StagingTiming": {
+              "$ref": "#/definitions/StagingTiming"
+            },
+            "T-Stage": {
+              "$ref": "#/definitions/T-Stage"
+            },
+            "N-Stage": {
+              "$ref": "#/definitions/N-Stage"
+            },
+            "M-Stage": {
+              "$ref": "#/definitions/M-Stage"
+            }
+          },
+          "required": [
+            "Value",
+            "StagingSystem",
+            "T-Stage",
+            "N-Stage",
+            "M-Stage"
+          ]
+        }
+      ],
+      "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system. See Table 140 in HL7 CDA® R2 Implementation Guide: Clinical Oncology Treatment Plan and Summary, Release 1 - US Realm\nConcepts: http://loinc.org:21908-9"
+    },
+    "ToxicReactionToTreatment": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "AdverseEvent": {}
+          }
+        }
+      ],
+      "description": "A grade 3 or 4 adverse reaction to medication, radiation treatment, or other therapy."
+    },
+    "TubuleFormationScore": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A comparison between structures formed by the tumor cells as opposed to those formed by normal cells. Scored 1 to 3 with 3 being the most abnormal.\nConcepts: http://snomed.info/sct:371470008"
+    },
+    "TumorMarginDescription": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Description of the edge or border of tumor in situ by radiologist or of removed tumor by pathologist."
+    },
+    "TumorMargins": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The edge or border of the tissue removed in cancer surgery. The margin is described as negative or clean when the pathologist finds no cancer cells at the edge of the tissue, suggesting that all of the cancer has been removed. The margin is described as positive or involved when the pathologist finds cancer cells at the edge of the tissue, suggesting that all of the cancer has not been removed.\nConcepts: http://ncimeta.nci.nih.gov:C1269830"
+    },
+    "TumorSecondaryDimensionSize": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The longest perpendicular diameter of the primary tumor."
+    },
+    "TumorSize": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            "TumorSecondaryDimensionSize": {
+              "$ref": "#/definitions/TumorSecondaryDimensionSize"
+            },
+            "SizeOfGrossTumorBed": {
+              "$ref": "#/definitions/SizeOfGrossTumorBed"
+            },
+            "TumorMargins": {
+              "$ref": "#/definitions/TumorMargins"
+            },
+            "Cellularity": {
+              "$ref": "#/definitions/Cellularity"
+            },
+            "PercentageInSituCarcinoma": {
+              "$ref": "#/definitions/PercentageInSituCarcinoma"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Measurement of the longest diameter of a tumor, in situ or on a excised tumor. See CDISC Table 3.3.2\nConcepts: http://ncimeta.nci.nih.gov:C4086369\nTBD Fields: Specimen"
+    }
+  },
+  "description": "SHR implementation of ASCO requirements.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/BreastCancer"
+    },
+    {
+      "$ref": "#/definitions/BreastCancerGeneticAnalysis"
+    },
+    {
+      "$ref": "#/definitions/BreastCancerReceptorStatus"
+    },
+    {
+      "$ref": "#/definitions/CancerGrowthPotential"
+    },
+    {
+      "$ref": "#/definitions/CancerLymphaticInvolvement"
+    },
+    {
+      "$ref": "#/definitions/EstrogenReceptorStatus"
+    },
+    {
+      "$ref": "#/definitions/HistologicGrade"
+    },
+    {
+      "$ref": "#/definitions/HumanEpiduralGrowthFactorReceptor2Status"
+    },
+    {
+      "$ref": "#/definitions/NeoplasmObservation"
+    },
+    {
+      "$ref": "#/definitions/ProgesteroneReceptorStatus"
+    },
+    {
+      "$ref": "#/definitions/Progression"
+    },
+    {
+      "$ref": "#/definitions/ReceptorStatusObservation"
+    },
+    {
+      "$ref": "#/definitions/TNMStage"
+    },
+    {
+      "$ref": "#/definitions/ToxicReactionToTreatment"
+    },
+    {
+      "$ref": "#/definitions/TumorSize"
+    }
+  ]
+}

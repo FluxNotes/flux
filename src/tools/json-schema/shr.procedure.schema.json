@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/procedure",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Procedure": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "Facility": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/encounter#/definitions/Facility"
+            }
+          },
+          "required": [
+            "Status"
+          ]
+        }
+      ],
+      "description": "An action that is or was performed on a patient. This can be a physical intervention like an operation, or less invasive like counseling or hypnotherapy."
+    }
+  },
+  "description": "The SHR Procedure domain contains base definitions for interventions.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/Procedure"
+    }
+  ]
+}
