@@ -9,6 +9,7 @@ import lookup from '../lib/tnmstage_lookup';
 import Patient from '../patient/Patient';
 import TNMStage from '../model/shr/oncology/TNMStage';
 import Entry from '../model/shr/base/Entry';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
 import Lang from 'lodash'
 
 class StagingCreator extends CreatorShortcut {
@@ -174,7 +175,7 @@ class StagingCreator extends CreatorShortcut {
 	}
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
 
 	validateInCurrentContext(contextManager) {
