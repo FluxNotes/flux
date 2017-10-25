@@ -1,0 +1,48 @@
+/** Generated from SHR definition for shr.oncology.StagingSystem */
+class StagingSystem {
+
+  /**
+   * Convenience getter for value (accesses this.string)
+   */
+  get value() {
+    return this.string;
+  }
+
+  /**
+   * Convenience setter for value (sets this.string)
+   */
+  set value(val) {
+    this.string = val;
+  }
+
+  /**
+   * Getter for string
+   */
+  get string() {
+    return this._string;
+  }
+
+  /**
+   * Setter for string
+   */
+  set string(stringVal) {
+    this._string = stringVal;
+  }
+
+  /**
+   * Getter for shr.core.Version
+   */
+  get version() {
+    return this._version;
+  }
+
+  /**
+   * Setter for shr.core.Version
+   */
+  set version(versionVal) {
+    this._version = versionVal;
+  }
+
+}
+
+export default StagingSystem;
