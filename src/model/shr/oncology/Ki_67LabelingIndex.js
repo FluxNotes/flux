@@ -1,7 +1,7 @@
 import ObservationComponent from '../observation/ObservationComponent';
 
 /** Generated from SHR definition for shr.oncology.Ki-67LabelingIndex */
-class Ki-67LabelingIndex extends ObservationComponent {
+class Ki_67LabelingIndex extends ObservationComponent {
 
   /**
    * Convenience getter for value (accesses this.quantity)
@@ -33,4 +33,4 @@ class Ki-67LabelingIndex extends ObservationComponent {
 
 }
 
-export default Ki-67LabelingIndex;
+export default Ki_67LabelingIndex;

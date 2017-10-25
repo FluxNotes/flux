@@ -60,34 +60,19 @@ class Request extends Action {
   }
 
   /**
-   * Getter for shr.base.RequestedPerformerType (option in a choice field).
+   * Getter for Choice<shr.base.RequestedPerformerType | shr.base.RequestedPerformer>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
-  get requestedPerformerType() {
+  get requestedPerformerTypeOrRequestedPerformer() {
     return this._requestedPerformerTypeOrRequestedPerformer;
   }
 
   /**
-   * Setter for shr.base.RequestedPerformerType (option in a choice field).
+   * Setter for Choice<shr.base.RequestedPerformerType | shr.base.RequestedPerformer>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
-  set requestedPerformerType(requestedPerformerTypeVal) {
-    this._requestedPerformerTypeOrRequestedPerformer = requestedPerformerTypeVal;
-  }
-  /**
-   * Getter for shr.base.RequestedPerformer (option in a choice field).
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
-   */
-  get requestedPerformer() {
-    return this._requestedPerformerTypeOrRequestedPerformer;
-  }
-
-  /**
-   * Setter for shr.base.RequestedPerformer (option in a choice field).
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
-   */
-  set requestedPerformer(requestedPerformerVal) {
-    this._requestedPerformerTypeOrRequestedPerformer = requestedPerformerVal;
+  set requestedPerformerTypeOrRequestedPerformer(choiceVal) {
+    this._requestedPerformerTypeOrRequestedPerformer = choiceVal;
   }
 
   /**

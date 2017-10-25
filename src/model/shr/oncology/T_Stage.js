@@ -1,7 +1,7 @@
 import ObservationComponent from '../observation/ObservationComponent';
 
-/** Generated from SHR definition for shr.oncology.N-Stage */
-class N-Stage extends ObservationComponent {
+/** Generated from SHR definition for shr.oncology.T-Stage */
+class T_Stage extends ObservationComponent {
 
   /**
    * Convenience getter for value (accesses this.codeableConcept)
@@ -33,4 +33,4 @@ class N-Stage extends ObservationComponent {
 
 }
 
-export default N-Stage;
+export default T_Stage;

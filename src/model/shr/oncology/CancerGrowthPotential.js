@@ -48,29 +48,29 @@ class CancerGrowthPotential extends Observation {
   /**
    * Getter for shr.oncology.Ki-67LabelingIndex
    */
-  get ki-67LabelingIndex() {
-    return this._ki-67LabelingIndex;
+  get ki_67LabelingIndex() {
+    return this._ki_67LabelingIndex;
   }
 
   /**
    * Setter for shr.oncology.Ki-67LabelingIndex
    */
-  set ki-67LabelingIndex(ki-67LabelingIndexVal) {
-    this._ki-67LabelingIndex = ki-67LabelingIndexVal;
+  set ki_67LabelingIndex(ki_67LabelingIndexVal) {
+    this._ki_67LabelingIndex = ki_67LabelingIndexVal;
   }
 
   /**
    * Getter for shr.oncology.S-PhaseFraction
    */
-  get s-PhaseFraction() {
-    return this._s-PhaseFraction;
+  get s_PhaseFraction() {
+    return this._s_PhaseFraction;
   }
 
   /**
    * Setter for shr.oncology.S-PhaseFraction
    */
-  set s-PhaseFraction(s-PhaseFractionVal) {
-    this._s-PhaseFraction = s-PhaseFractionVal;
+  set s_PhaseFraction(s_PhaseFractionVal) {
+    this._s_PhaseFraction = s_PhaseFractionVal;
   }
 
 }

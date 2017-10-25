@@ -30,34 +30,19 @@ class FamilialRelationship {
   }
 
   /**
-   * Getter for shr.actor.RelatedPerson (option in a choice field).
+   * Getter for Choice<shr.actor.RelatedPerson | shr.actor.Practitioner>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
-  get relatedPerson() {
+  get relatedPersonOrPractitioner() {
     return this._relatedPersonOrPractitioner;
   }
 
   /**
-   * Setter for shr.actor.RelatedPerson (option in a choice field).
+   * Setter for Choice<shr.actor.RelatedPerson | shr.actor.Practitioner>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
-  set relatedPerson(relatedPersonVal) {
-    this._relatedPersonOrPractitioner = relatedPersonVal;
-  }
-  /**
-   * Getter for shr.actor.Practitioner (option in a choice field).
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
-   */
-  get practitioner() {
-    return this._relatedPersonOrPractitioner;
-  }
-
-  /**
-   * Setter for shr.actor.Practitioner (option in a choice field).
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
-   */
-  set practitioner(practitionerVal) {
-    this._relatedPersonOrPractitioner = practitionerVal;
+  set relatedPersonOrPractitioner(choiceVal) {
+    this._relatedPersonOrPractitioner = choiceVal;
   }
 
   /**
