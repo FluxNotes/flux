@@ -24,4 +24,4 @@ class NewHardCodedReadOnlyDataSource extends IDataSource {
     }
 }
 
-export default HardCodedReadOnlyDataSource;
+export default NewHardCodedReadOnlyDataSource;

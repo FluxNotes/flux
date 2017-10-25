@@ -5,8 +5,7 @@ import Guid from 'guid';
 class PatientRecord {
 	constructor(shrJson = null) {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
-            this.loadJSON(shrJson);
-            //this.entries = shrJson; 
+            this.entries = this.loadJSON(shrJson);
             this.personOfRecord = this.getPersonOfRecord();
             this.shrId = this.personOfRecord.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;
@@ -23,9 +22,8 @@ class PatientRecord {
     }
     
     loadJSON(shrJson) {
-        shrJson.forEach((entry) => {
+        return shrJson.map((entry) => {
             
-            let lib = require(this._entryTypeToImportPath(entry.entryType[0]));
             
         });
     }
