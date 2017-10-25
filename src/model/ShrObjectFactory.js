@@ -7,7 +7,7 @@ export default class ShrObjectFactory {
     createInstance(entryType) {
         const classSpec = this._entryTypeToClassSpec(entryType);
         const factory = namespaceFactories[classSpec.namespace];
-        return factory.createInstance(classSpec.class);
+        return factory.createInstance(classSpec.elementName);
     }
 
     _entryTypeToClassSpec(entryType) {
@@ -16,8 +16,8 @@ export default class ShrObjectFactory {
             let path = entryType.substring("http://standardhealthrecord.org/".length);
             let slashPos = path.indexOf("/");
             let namespace = path.substring(0, slashPos);
-            let className = path.substring(slashPos+1);
-            return { "namespace": namespace, "class":className };
+            let elementName = path.substring(slashPos+1);
+            return { "namespace": namespace, "elementName":elementName };
         }
         throw new Error("unexpected path in entryType: " + entryType);
     }
