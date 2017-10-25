@@ -23,7 +23,8 @@ class PatientRecord {
     
     loadJSON(shrJson) {
         return shrJson.map((entry) => {
-            
+            // TODO implement this to correctly load JSON
+			return entry;
             
         });
     }
