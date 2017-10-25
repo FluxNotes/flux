@@ -1,3 +1,5 @@
+const Lang = require('lodash/lang');
+
 const statusOptions = [
     {
         name: 'Complete Response', 
