@@ -1,11 +1,11 @@
 import CreatorShortcut from './CreatorShortcut';
-import Patient from '../patient/Patient';
+// import Patient from '../patient/Patient';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
 import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
 import Study from '../model/shr/base/Study';
-import Entry from '../model/Reference';
+import Entry from '../model/shr/base/Entry';
 import Lang from 'lodash';
 import moment from 'moment';
 
