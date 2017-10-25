@@ -9,6 +9,7 @@ export default class CreatorShortcut extends Shortcut {
 	initialize(contextManager) {
 		super.initialize(contextManager);
         let text = this.determineText(contextManager);
+        if (Lang.isUndefined(text)) return;
         if (Lang.isArray(text)) {
 			this.flagForTextSelection(text);
 		} else {

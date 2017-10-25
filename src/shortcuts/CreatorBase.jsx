@@ -25,8 +25,15 @@ export default class CreatorBase extends Shortcut {
             if (Lang.isUndefined(attrib["attribute"])) {
                 this.values[attrib.name] = false;
                 attrib["attributePath"] = null;
+                attrib["type"] = "boolean";
             } else {
+                if (attrib["attribute"].includes("[]")) {
+                    attrib["type"] = "list";
+                } else {    
+                    attrib["type"] = "string";
+                }
                 attrib["attributePath"] = attrib["attribute"].split(".");
+                
             }
             this.valueObjectAttributes[attrib.name] = attrib;
         });
@@ -37,6 +44,14 @@ export default class CreatorBase extends Shortcut {
 	initialize(contextManager) {
 		super.initialize(contextManager);
 	}
+    
+    isContext() {
+        return this.metadata.isContext;
+    }
+
+    getShortcutType() {
+        return this.metadata["id"];
+    }
 
     getFormSpec() {
         return  {
@@ -93,7 +108,8 @@ export default class CreatorBase extends Shortcut {
                 }
             } else {
                 value = this.getAttributeValue(valueName);
-                if (Lang.isNull(value) || value === '') {
+                //console.log(value);
+                if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                     value = '?';
                 } else {
                     haveAValue = true;
@@ -125,7 +141,7 @@ export default class CreatorBase extends Shortcut {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
                 //console.log("list attribute " + attributeName);
                 list = result[attributeName];
-                return list.map(perItemFollowPath).join();
+                return list.map(perItemFollowPath);
             } else {
                 //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
@@ -152,13 +168,19 @@ export default class CreatorBase extends Shortcut {
         const setMethod = voa["setMethod"];
         if (Lang.isUndefined(patientSetMethod)) {
             if (Lang.isUndefined(setMethod)) {
-                this.value[name] = value;
+                this.values[name] = value;
             } else {
                 this.object[setMethod](value);
             }
         } else {
             //console.log(this.object);
-            Patient[patientSetMethod](this.object, value);
+            if (voa["type"] === "list" && !Lang.isArray(value)) {
+                let list = this.getAttributeValue(name);
+                list.push(value);
+                Patient[patientSetMethod](this.object, list);
+            } else {
+                Patient[patientSetMethod](this.object, value);
+            }
         }
         if (this.isContext()) this.updateContextStatus();
 		if (this.onUpdate) this.onUpdate(this);
@@ -166,4 +188,25 @@ export default class CreatorBase extends Shortcut {
 			this.notifyValueChangeHandlers(name);
 		}
 	}
+    
+    getLabel() {
+        return this.metadata["name"];
+    }
+    
+    getText() {
+        return "#" + this.metadata["name"];
+    }
+    
+    getId() {
+        return this.metadata["id"];
+    }
+
+    updatePatient(patient, contextManager) {
+        //if (this.object.title.length === 0) return; // Not complete value
+        // TODO: is it complete?
+        if (this.isObjectNew) {
+            patient.addEntryToPatientWithPatientFocalSubject(this.object);
+            this.isObjectNew = false;
+        }
+    }
 }

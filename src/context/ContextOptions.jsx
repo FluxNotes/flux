@@ -25,12 +25,15 @@ export default class ContextOptions extends Component {
 			// patient
 			context = this.props.contextManager.getPatientContext();
 		}
-		let validShortcuts = context.getValidChildShortcuts();
+        
+		//let validShortcuts = context.getValidChildShortcuts();
+        let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
         
         // count how many triggers we have
         let count = 0;
         validShortcuts.forEach((shortcut, i) => {
-            shortcut.getStringTriggers(context).forEach((trigger, j) => {
+//            shortcut.getStringTriggers(context).forEach((trigger, j) => {
+            this.props.shortcutManager.getTriggersForShortcut(shortcut).forEach((trigger, j) => {
                 count++;
             });
         });
@@ -46,7 +49,8 @@ export default class ContextOptions extends Component {
             if(typeof shortcut.getShortcutGroupName !== 'undefined'){
                 groupName = shortcut.getShortcutGroupName();
             }
-            shortcut.getStringTriggers(context).forEach((trigger, j) => {
+            //shortcut.getStringTriggers(context).forEach((trigger, j) => {
+            this.props.shortcutManager.getTriggersForShortcut(shortcut).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });

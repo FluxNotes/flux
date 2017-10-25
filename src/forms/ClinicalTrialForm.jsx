@@ -36,7 +36,7 @@ class ClinicalTrialForm extends Component {
         });
 
         if (this.state.selectedDateChoice === "enrollmentDate") {
-            this.props.updateValue("enrollmentDate", selectedDate.format('D MMM YYYY'));
+            this.props.updateValue("enrollmentDateDate", selectedDate.format('D MMM YYYY'));
         }
     }
 
@@ -45,7 +45,7 @@ class ClinicalTrialForm extends Component {
             selectedEndDate: selectedDate
         });
         if (this.state.selectedDateChoice === "endDate") {
-            this.props.updateValue("endDate", selectedDate.format('D MMM YYYY'));
+            this.props.updateValue("endDateDate", selectedDate.format('D MMM YYYY'));
         }
     }
 
@@ -54,11 +54,11 @@ class ClinicalTrialForm extends Component {
         // When changing the choice of date, set the other to null to clear it from the copy button
         // and reset the chosen date to the value displayed in the picker.
         if (choice === 'enrollmentDate') {
-            this.props.updateValue('endDate', null);
-            this.props.updateValue('enrollmentDate', this.state.selectedEnrollmentDate);
+            this.props.updateValue('endDateDate', null);
+            this.props.updateValue('enrollmentDateDate', this.state.selectedEnrollmentDate);
         } else if (choice === 'endDate') {
-            this.props.updateValue('enrollmentDate', null);
-            this.props.updateValue('endDate', this.state.selectedEndDate);
+            this.props.updateValue('enrollmentDateDate', null);
+            this.props.updateValue('endDateDate', this.state.selectedEndDate);
         }
         this.setState({selectedDateChoice: choice});
     }

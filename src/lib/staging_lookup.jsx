@@ -110,7 +110,7 @@ exports.getDescription = (dataElement) => {
 }
 
 exports.getTsForEdition = (ed) => {
-    switch (ed) {
+    switch (Number(ed)) {
         case 5:
             return ts5thEdition;
         case 6:
@@ -133,7 +133,7 @@ exports.getTsNamesForEdition = (ed) => {
 }
 
 exports.getNsForEdition = (ed) => {
-    switch (ed) {
+    switch (Number(ed)) {
         case 5:
             return ns5thEdition;
         case 6:
@@ -156,7 +156,7 @@ exports.getNsNamesForEdition = (ed) => {
 }
 
 exports.getMsForEdition = (ed) => {
-    switch (ed) {
+    switch (Number(ed)) {
         case 5:
         case 6:
         case 7:

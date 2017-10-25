@@ -22,8 +22,9 @@ class ContextManager {
 		return this.activeContexts;
 	}
 	
-	getCurrentlyValidShortcuts() {
-		let result = this.patientContext.getValidChildShortcuts(true);
+	getCurrentlyValidShortcuts(shortcutManager) {
+		//let result = this.patientContext.getValidChildShortcuts(true);
+        let result = this.props.shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
 		this.activeContexts.forEach((shortcut) => {
 			result = result.concat(shortcut.getValidChildShortcuts(true));
 		});
@@ -40,9 +41,10 @@ class ContextManager {
 		let object = shortcut.getValueObject();
 		return (object.entryType[0] === valueType);
 	}
-	
+	    
 	// returns undefined if not found
 	getActiveContextOfType(contextType) {
+        //console.log(this.activeContexts);
 		let context = this.activeContexts.find((item) => {
 			return (item.getShortcutType() === contextType);
 		});

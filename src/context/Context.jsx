@@ -8,6 +8,10 @@ export default class Context {
         this.contextManager = contextManager;
         this.isInContext = false;
 	}
+    
+    getId() {
+        throw new Error("implement getId in all Context implementations. not done in " + constructor.name);
+    }
 
 	getValidChildShortcuts(recurse = false) {
 		return [];

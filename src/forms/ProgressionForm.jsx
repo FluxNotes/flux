@@ -72,15 +72,7 @@ class ProgressionForm extends Component {
     }
 
     handleReferenceDateChange = (selectedReferenceDate) => {
-<<<<<<< HEAD
-        console.log(selectedReferenceDate);
-        this.setState({
-            selectedReferenceDate
-        });
         this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
-=======
-        this.props.updateValue("referenceDateDate", selectedReferenceDate);
->>>>>>> master
     };
 
     renderStatusButtonGroup = (status, i) => {

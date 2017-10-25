@@ -25,7 +25,7 @@ export default class NoteParser {
         
         // build up all trigger string regular expression
         let allTriggers = this.shortcutManager.getAllStringTriggers();
-        //let allShortcuts = this.shortcutManager.getAllShortcutClasses();
+        let allShortcuts = this.shortcutManager.getAllShortcutDefinitions();
         /*let curTriggers;
         allShortcuts.forEach((shortcutC) => {
             curTriggers = shortcutC.getStringTriggers().map((obj) => { return obj.name; });;
@@ -39,10 +39,10 @@ export default class NoteParser {
         // build list of regular expression triggers
         this.allTriggersRegExps = [];
         let regexp;
-        allShortcuts.forEach((shortcutC) => {
-           regexp = shortcutC.getTriggerRegExp(); 
-           if (!Lang.isNull(regexp)) {
-               this.allTriggersRegExps.push({ regexp: regexp, shortcut: shortcutC});
+        allShortcuts.forEach((def) => {
+           regexp = def.regexpTrigger; 
+           if (regexp) {
+               this.allTriggersRegExps.push({ regexp: regexp, definition: def});
            }
         });
         
@@ -62,7 +62,8 @@ export default class NoteParser {
             
         }
         const shortcut = new shortcutC();*/
-        const shortcut = this.shortcutManager.createShortcut(shortcutC, trigger, onUpdate, object)
+        //console.log(trigger);
+        const shortcut = this.shortcutManager.createShortcut(trigger.definition, trigger.trigger); //, onUpdate, object
         shortcut.initialize(this.contextManager, trigger.trigger);
         shortcut.setKey(null);
         return shortcut;
@@ -77,10 +78,11 @@ export default class NoteParser {
         let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         let checkForTriggerRegExpMatch = (tocheck) => {
             //console.log(tocheck.regexp + " against '" + substr + "'");
+            //console.log(tocheck);
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
                 //console.log("matched " + tocheck.regexp);
-                matches.push({trigger: match[0], shortcut: tocheck.shortcut});
+                matches.push({trigger: match[0], definition: tocheck.definition});
                 found = true;
             }
         }
@@ -102,7 +104,7 @@ export default class NoteParser {
                 }
             } else {
                 //console.log(match[0]);
-                matches.push({trigger: match[0], shortcut: null});
+                matches.push({trigger: match[0], definition: null});
             }
             pos = hashPos + 1;
             hashPos = nextPos;

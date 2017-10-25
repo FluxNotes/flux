@@ -1,74 +1,47 @@
 //import Lang from 'lodash'
-/*import ProgressionCreator from './ProgressionCreator';
-import StagingCreator from './StagingCreator';
-import ToxicityCreator from './ToxicityCreator';
-import ConditionInserter from './ConditionInserter';
-import NameInserter from './NameInserter';
-import AgeInserter from './AgeInserter';
-import GenderInserter from './GenderInserter';
+/*import ConditionInserter from './ConditionInserter';
 import PatientInserter from './PatientInserter';
-import DateOfBirthInserter from './DateOfBirthInserter';
-import StageInserter from './StageInserter';
-import StagingTCreator from './StagingTCreator';
-import StagingNCreator from './StagingNCreator';
-import StagingMCreator from './StagingMCreator';
-import ProgressionStatusCreator from './ProgressionStatusCreator';
-import ProgressionReasonsCreator from './ProgressionReasonsCreator';
-import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
-import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
-import DateCreator from './DateCreator';
-import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
-import ToxicityGradeCreator from './ToxicityGradeCreator';
-import ToxicityAttributionCreator from './ToxicityAttributionCreator';
-import DeceasedCreator from './DeceasedCreator';
-import ClinicalTrialCreator from './ClinicalTrialCreator';
-import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
-import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
-import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';*/
+import StageInserter from './StageInserter';*/
 import CreatorBase from './CreatorBase';
+import CreatorIntermediary from './CreatorIntermediary';
+import CreatorChild from './CreatorChild';
+import InsertValue from './InsertValue';
+import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
 
 function addTriggerForKey(trigger) {
-    this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
+    //console.log("add trigger " + trigger.name + " for shortcut " + this.currentShortcut);
+    if (trigger.name) {
+        this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
+    } else {
+        // {"category":"staging", "valueSet":"T", "args":"7"}
+        // args optional
+        let args = trigger["args"];
+        let category = trigger["category"];
+        let valueSet = trigger["valueSet"];
+        let list;
+        if (args) {
+            //console.log(category + "/" + valueSet + " with " + args);
+            list = ValueSetManager.getValueList(category, valueSet, ...args);
+        } else {
+            //console.log(category + "/" + valueSet);
+            list = ValueSetManager.getValueList(category, valueSet);
+        }
+        //console.log(list);
+        this.triggersPerShortcut[this.currentShortcut] = list;
+        list.forEach(addTriggerForKey, this);
+    }
 }
 
 class ShortcutManager {
-/*    shortcuts = {
-        '#disease status': ProgressionCreator,
-        '#progression-status': ProgressionStatusCreator,
-        '#progression-reasons': ProgressionReasonsCreator,
-        '#progression-as-of': ProgressionAsOfDateCreator,
-        '#progression-reference': ProgressionReferenceDateCreator,
-        '#staging': StagingCreator,
-        '#toxicity': ToxicityCreator,
-        '#toxicity-adverse-event': ToxicityAdverseEventCreator,
-        '#toxicity-grade': ToxicityGradeCreator,
-        '#toxicity-attribution': ToxicityAttributionCreator,
-        '#date': DateCreator,
-        '@condition': ConditionInserter,
-        '@name': NameInserter,
-        '@age': AgeInserter,
-        '@gender': GenderInserter,
-        '@patient': PatientInserter,
-        '@dateofbirth': DateOfBirthInserter,
-        '@stage': StageInserter,
-        '#staging-t': StagingTCreator,
-        '#staging-n': StagingNCreator,
-        '#staging-m': StagingMCreator,
-        '#clinical trial': ClinicalTrialCreator,
-        '#title': ClinicalTrialTitleCreator,
-        '#enrolled on': ClinicalTrialEnrollmentDateCreator,
-        '#ended on': ClinicalTrialEndDateCreator,
-        '#deceased': DeceasedCreator
-    };*/
-
-    shortcutClasses = [];
+    shortcutDefinitions = [];
     shortcutMap = {};
     
-/*    getAllShortcutClasses() {
-        return this.shortcutClasses;
-    }*/
+    getAllShortcutDefinitions() {
+        return this.shortcutDefinitions;
+    }
+    
     getAllStringTriggers() {
         return Object.keys(this.shortcutMap);
     }
@@ -89,89 +62,114 @@ class ShortcutManager {
         return this.shortcutsToSupportList;
     }
     
-    createShortcut(shortcutC, trigger, onUpdate, object) {
+    createShortcut(definition, trigger, onUpdate, object) {
 /*        if (!Lang.includes(this.shortcutsToSupportList, shortcutType.toLowerCase())) {
             throw new Error("Invalid shortcut type: " + shortcutType);
         }*/
-        //console.log(trigger.toLowerCase());
+        //console.log("create shortcut for " + trigger);
         //console.log(this.shortcutMap);
         let className;
-        if (!Lang.isNull(shortcutC)) {
-            className = shortcutC;
-            return new className(onUpdate, object);
+        let metadata;
+        if (!Lang.isNull(definition)) {
+            metadata = definition;
+            //console.log("by definition:");
         } else {
-            const metadata = this.shortcutMap[trigger.toLowerCase()];
-            if (Lang.isUndefined(metadata)) {
-                throw new Error("Unknown trigger '" + trigger + "'. No structured phrase found.");
-            }
-            className = metadata["type"];
-            //console.log(className);
-            //return new CreatorBase(onUpdate, metadata);
-            return new className(onUpdate, metadata);
+            metadata = this.shortcutMap[trigger.toLowerCase()];
+            //console.log("by trigger " + trigger);
         }
+        //console.log(metadata);
+        if (Lang.isUndefined(metadata)) {
+            throw new Error("Unknown trigger '" + trigger + "'. No structured phrase found.");
+        }
+        className = metadata["type"];
+        //console.log(className);
+        if (className === "CreatorBase") {
+            return new CreatorBase(onUpdate, metadata);
+        } else if (className === "CreatorChild") {
+            return new CreatorChild(onUpdate, metadata);
+        } else if (className === "CreatorIntermediary") {
+            return new CreatorIntermediary(onUpdate, metadata);
+        } else if (className === "InsertValue") {
+            return new InsertValue(onUpdate, metadata);
+        } else {
+            console.error("unsupported type: " + className);
+            return null;
+        }
+        //return new className(onUpdate, metadata);
     }
     
     loadShortcutMetadata(shortcutList, shortcutMetadata) {
         //console.log(shortcutMetadata);
         this.childShortcuts = {};
         this.shortcuts = {};
+        this.triggersPerShortcut = {};
         shortcutMetadata.forEach((item) => {
-            //console.log(item["name"] + " ==> " + item["id"])
-            this.shortcuts[item["name"]] = item;
+            //console.log("shortcut " + item["id"])
+            this.shortcuts[item["id"]] = item;
 
             // add as child to its known parent
             if (item["knownParentContexts"]) {
                 const parent = item["knownParentContexts"];
+                //console.log("parent = " + parent);
                 let list = this.childShortcuts[parent];
                 if (Lang.isUndefined(list)) {
                     list = [];
                     this.childShortcuts[parent] = list;
                 }
-                if (!list.includes(item.name)) {
-                    list.push(item.name);
+                if (!list.includes(item.id)) {
+                    list.push(item.id);
                 }
             }
             
             // add known children to it
             if (item["valueObjectAttributes"]) {
-                let list = this.childShortcuts[item.name];
+                let list = this.childShortcuts[item.id];
                 if (Lang.isUndefined(list)) {
                     list = [];
-                    this.childShortcuts[item.name] = list;
+                    this.childShortcuts[item.id] = list;
                 }
                 let voas = item["valueObjectAttributes"];
                 voas.forEach((voa) => {
-                    if (!list.includes(voa["childShortcut"])) {
+                    if (voa["childShortcut"] && !list.includes(voa["childShortcut"])) {
                         list.push(voa["childShortcut"]);
                     }
                 });
             }
             
+            this.shortcutDefinitions.push(item);
             // build up trigger to shortcut mapping
             const triggers = item["stringTriggers"];
+            this.currentShortcut = item["id"];
+            this.triggersPerShortcut[this.currentShortcut] = triggers;
             if (Lang.isArray(triggers)) {
-                this.currentShortcut = item["name"];
                 triggers.forEach(addTriggerForKey, this);
-                //this.shortcutClasses.push(item["id"]);
             } else {
-                //"stringTriggers": {"lookup":"../lib/staging_lookup", "method":"getTsForEdition", "args":"7"},
-                //import stagingLookup from '../lib/staging_lookup';
-                let lookup = triggers["lookup"];
-                let method = triggers["method"];
-                let args = triggers["args"];
-                let lib = require("../lib/staging_lookup");
-                lib[method](...args).forEach(addTriggerForKey, this);
-                //console.log("don't support function-based trigger lists yet");
+                addTriggerForKey.bind(this)(triggers);
+                //let list = ShortcutManager.callFunctionInModule(triggers);
+                //list.forEach(addTriggerForKey, this);
             }
         });
         //console.log(this.childShortcuts);
     }
     
-    getValidChildShortcutsInContext(context) {
-        const currentContextName = context.getName();
-        //console.log(currentContextName);
-        return this.childShortcuts[currentContextName];
+    getValidChildShortcutsInContext(context, recurse = false) {
+        const currentContextId = context.getId();
+        //console.log("getValidChildShortcutsInContext" + currentContextId);
+        //console.log(this.childShortcuts[currentContextId]);
+        let result = this.childShortcuts[currentContextId];
+		if (recurse) {
+			context.getChildren().forEach((subcontext) => {
+				result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
+			});
+		}        
+        return result;
         //return context.getValidChildShortcuts();
+    }
+    
+    getTriggersForShortcut(shortcutId) {
+        //console.log("getTriggersForShortcut " + shortcutId);
+        //console.log(this.triggersPerShortcut[shortcutId]);
+        return this.triggersPerShortcut[shortcutId];
     }
 }
 

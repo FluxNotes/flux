@@ -455,7 +455,9 @@ class Patient {
     
     static updateReasonsForProgression(progression, reasons) {
         let reasonObjects = [];
+        //console.log(reasons);
         reasons.forEach((reason) => {
+            //console.log(reason);
             reasonObjects.push({coding: this._progressionReasonToCodeableConcept(reason)});
         });
         progression.evidence = reasonObjects;

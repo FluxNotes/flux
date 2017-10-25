@@ -178,6 +178,7 @@ class FullApp extends Component {
                                     ref={(comp) => { this.contextTray = comp; }}
                                     patient={this.state.patient}
                                     contextManager={this.contextManager}
+                                    shortcutManager={this.shortcutManager}
                                     onShortcutClicked={this.handleSummaryItemSelected}
                                 />
                             </Col>

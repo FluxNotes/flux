@@ -1,0 +1,10 @@
+[ ]1.  Need Grade to support getting grades based on current adverse event if there is one
+[ ]2.  Need Adverse Event to support getting adverse events based on current grade if there is one
+[ ]3.  Function calls specified in json do not work in browser. need to create separate data manager that loads 
+    data from json files and can provide it by an identifier
+[ ]4.  Add child shortcuts for progression to shortcuts.json
+[ ]5.  Full mode support for declarative shortcuts
+[ ]6.  Document JSON format
+[ ]7.  Test cases for declarative
+[X]8.  Need to support list values like progression reasons
+[ ]9.  Auto-form generation with override for manually created form

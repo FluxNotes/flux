@@ -96,12 +96,14 @@ class ContextTray extends Component {
                 {value === 1 && <TabContainer>
 						<ContextOptions
 							contextManager={this.props.contextManager}
+                            shortcutManager={this.props.shortcutManager}
 							handleClick={this._handleShortcutClick}
 						/>
                 </TabContainer>}
                 {value > 1 && <TabContainer>
                         <ContextOptions
                             contextManager={this.props.contextManager}
+                            shortcutManager={this.props.shortcutManager}
                             handleClick={this._handleShortcutClick}
                             context={activeContexts[value - 2]}
                         />
