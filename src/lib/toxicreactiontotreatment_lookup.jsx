@@ -1,4 +1,5 @@
 const Lang = require('lodash/lang');
+const codeableConcept = require('./codeable_concept.jsx');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
@@ -8789,18 +8790,21 @@ exports.findAttribution = (possibleAttribution) => {
 
 exports.getAttributionCodeableConcept = (possibleAttribution) => {
     const attribution = exports.findAttribution(possibleAttribution);
-    if(Lang.isNull(attribution)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(attribution)) {
+        tuple = {
+            value: `#${attribution.name}`,
+            codeSystem: "https://www.meddra.org/",
+            displayText: attribution.name
         };
     }
-    return {
-        value: `#${attribution.name}`,
-        codeSystem: "https://www.meddra.org/",
-        displayText: attribution.name
-    };
+
+    return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
 
 /* 
@@ -8816,20 +8820,23 @@ exports.findGrade = (possibleGrade) => {
     return gradeOptions[index];
 }
 
-exports.getGradeCodeableConcept = (possibleGrade) => {
+exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
     const grade = exports.findGrade(possibleGrade);
-    if(Lang.isNull(grade)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(grade)) {
+        tuple = {
+            value: grade.code,
+            codeSystem: "http://ncimeta.nci.nih.gov",
+            displayText: grade.name
         };
     }
-    return {
-        value: grade.code,
-        codeSystem: "http://ncimeta.nci.nih.gov",
-        displayText: grade.name
-    };
+    
+    return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
 
 /* 
@@ -8847,18 +8854,21 @@ exports.findAdverseEvent = (possibleAdverseEvent) => {
 
 exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
     const adverseEvent = exports.findAdverseEvent(possibleAdverseEvent);
-    if(Lang.isNull(adverseEvent)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(adverseEvent)) {
+        tuple = {
+            value: adverseEvent['MedDRA v12.0 Code'], 
+            codeSystem: "https://www.meddra.org/", 
+            displayText: adverseEvent['name']
         };
     }
-    return {
-        value: adverseEvent['MedDRA v12.0 Code'], 
-        codeSystem: "https://www.meddra.org/", 
-        displayText: adverseEvent['name']
-    };
+    
+    return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
 
 /* 
