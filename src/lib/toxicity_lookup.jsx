@@ -10,11 +10,31 @@ const attributionOptions = [
 ]
 
 const gradeOptions = [
-    {name: 'Grade 1', description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated."},
-    {name: 'Grade 2', description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life."},
-    {name: 'Grade 3', description: "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self care ADL"},
-    {name: 'Grade 4', description: "Life-threatening consequences; urgent intervention indicated. "},
-    {name: 'Grade 5', description: "Death related to adverse effect"}
+    {
+        name: 'Grade 1', 
+        description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated.",
+        code: "C1513302"
+    },
+    {
+        name: 'Grade 2', 
+        description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life.",
+        code: "C1513374"
+    },
+    {
+        name: 'Grade 3', 
+        description: "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self care ADL",
+        code: "C1519275"
+    },
+    {
+        name: 'Grade 4', 
+        description: "Life-threatening consequences; urgent intervention indicated. ",
+        code: "C1517874"
+    },
+    {
+        name: 'Grade 5', 
+        description: "Death related to adverse effect",
+        code: "C1559081"
+    }
 ]
 
 // V4.0 CTCAE info from CTCAE_4.03_2010-06-14.xls
@@ -8754,11 +8774,62 @@ exports.getAdverseEventOptions = () => {
     return adverseEventOptions;
 }
 
+/*
+ * Finds the index of a possible attribution; returns -1 if it's invalid
+ */
+exports.findAttributionIndex = (possibleAttribution) => {
+    return attributionOptions.findIndex((attribution) => { return attribution.name.toLowerCase() === possibleAttribution.toLowerCase()});
+}
+
+exports.findAttribution = (possibleAttribution) => {
+    const index = exports.findAttributionIndex(possibleAttribution);
+    if (index === -1) return null;
+    return attributionOptions[index];
+}
+
+exports.getAttributionCodeableConcept = (possibleAttribution) => {
+    const attribution = exports.findAttribution(possibleAttribution);
+    if(Lang.isNull(attribution)) {
+        return {
+            value: "",
+            codeSystem: "",
+            displayText: ""
+        };
+    }
+    return {
+        value: `#${attribution.name}`,
+        codeSystem: "https://www.meddra.org/",
+        displayText: attribution.name
+    };
+}
+
 /* 
  * Finds the index of a possible grade; returns -1 if it's invalid
  */ 
 exports.findGradeIndex = (possibleGrade) => {
     return gradeOptions.findIndex((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
+}
+
+exports.findGrade = (possibleGrade) => {
+    const index = exports.findGradeIndex(possibleGrade);
+    if (index === -1) return null;
+    return gradeOptions[index];
+}
+
+exports.getGradeCodeableConcept = (possibleGrade) => {
+    const grade = exports.findGrade(possibleGrade);
+    if(Lang.isNull(grade)) {
+        return {
+            value: "",
+            codeSystem: "",
+            displayText: ""
+        };
+    }
+    return {
+        value: grade.code,
+        codeSystem: "http://ncimeta.nci.nih.gov",
+        displayText: grade.name
+    };
 }
 
 /* 
@@ -8772,6 +8843,22 @@ exports.findAdverseEvent = (possibleAdverseEvent) => {
     const index = exports.findAdverseEventIndex(possibleAdverseEvent);
     if (index === -1) return null;
     return adverseEventOptions[index];
+}
+
+exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
+    const adverseEvent = exports.findAdverseEvent(possibleAdverseEvent);
+    if(Lang.isNull(adverseEvent)) {
+        return {
+            value: "",
+            codeSystem: "",
+            displayText: ""
+        };
+    }
+    return {
+        value: adverseEvent['MedDRA v12.0 Code'], 
+        codeSystem: "https://www.meddra.org/", 
+        displayText: adverseEvent['name']
+    };
 }
 
 /* 
