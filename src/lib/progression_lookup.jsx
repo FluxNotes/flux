@@ -1,4 +1,5 @@
 const Lang = require('lodash/lang');
+const codeableConcept = require('./codeable_concept.jsx');
 
 const statusOptions = [
     {
@@ -102,20 +103,23 @@ exports.findStatus = (possibleStatus) => {
     return statusOptions[index];  
 }
 
-exports.getStatusCodeableConcept = (possibleStatus) => {
+exports.getValueCodeableConcept = (possibleStatus) => {
     const status = exports.findStatus(possibleStatus);
-    if(Lang.isNull(status)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(status)) {
+        tuple = {
+            value: status.code,
+            codeSystem: "http://ncimeta.nci.nih.gov",
+            displayText: status.name
         };
     }
-    return {
-        value: status.code,
-        codeSystem: "http://ncimeta.nci.nih.gov",
-        displayText: status.name
-    };
+
+    return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
 
 exports.findReasonIndex = (possibleReason) => { 
@@ -128,18 +132,21 @@ exports.findReason = (possibleReason) => {
     return reasonOptions[index];
 }
 
-exports.getReasonCodeableConcept = (possibleReason) => {
+exports.getEvidenceCodeableConcept = (possibleReason) => {
     const reason = exports.findReason(possibleReason);
-    if(Lang.isNull(reason)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(reason)) {
+        tuple = {
+            value: reason.code,
+            codeSystem: "http://ncimeta.nci.nih.gov",
+            displayText: reason.name
         };
     }
-    return {
-        value: reason.code,
-        codeSystem: "http://ncimeta.nci.nih.gov",
-        displayText: reason.name
-    }
+    
+    return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
