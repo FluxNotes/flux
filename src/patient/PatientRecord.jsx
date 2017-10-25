@@ -24,7 +24,9 @@ class PatientRecord {
     
     loadJSON(shrJson) {
         shrJson.forEach((entry) => {
+            
             let lib = require(this._entryTypeToImportPath(entry.entryType[0]));
+            
         });
     }
 
@@ -328,14 +330,6 @@ class PatientRecord {
 		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) return null;
 		return result[0];
 	}
-    
-    _entryTypeToImportPath(entryType) {
-        //http://standardhealthrecord.org/demographics/PersonOfRecord
-        if (entryType.startsWith("http://standardhealthrecord.org/")) {
-            return "../model/shr/" + entryType.substring("http://standardhealthrecord.org/".length);
-        }
-        throw new Error("unexpected path in entryType: " + entryType);
-    }
 }
 
 export default PatientRecord;
