@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import lookup from '../../../src/lib/toxicity_lookup.jsx';
+import lookup from '../../../src/lib/toxicreactiontotreatment_lookup.jsx';
 
 
 describe('getDescription', function () { 
