@@ -7,6 +7,8 @@ import StageInserter from './StageInserter';
 //import StagingForm from '../forms/StagingForm';
 import lookup from '../lib/tnmstage_lookup';
 import Patient from '../patient/Patient';
+import TNMStage from '../model/shr/oncology/TNMStage';
+import Entry from '../model/shr/base/Entry';
 import Lang from 'lodash'
 
 class StagingCreator extends CreatorShortcut {
@@ -16,7 +18,11 @@ class StagingCreator extends CreatorShortcut {
     constructor(onUpdate, staging) {
         super();
         if (Lang.isUndefined(staging)) { 
-			this.staging = Patient.createNewTNMStageObservation();
+            this.staging = new TNMStage();
+            this.staging.entryInfo = new Entry();
+            this.staging.entryInfo.entryType = ["http://standardhealthrecord.org/oncology/TNMStage",
+                                                "http://standardhealthrecord.org/observation/Observation",
+                                                "http://standardhealthrecord.org/base/Action" ];
 			this.isStagingNew = true;
         } else {
 			this.staging = staging; //Lang.clone(staging);
@@ -122,11 +128,11 @@ class StagingCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
-			Patient.updateTForStaging(this.staging, value);
+            this.staging.t_Stage = value;
 		} else if (name === "N") {
-			Patient.updateNForStaging(this.staging, value);
+            this.staging.n_Stage = value;
 		} else if (name === "M") {
-			Patient.updateMForStaging(this.staging, value);
+            this.staging.m_Stage = value;
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
