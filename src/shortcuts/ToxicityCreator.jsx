@@ -4,15 +4,22 @@ import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 //import ToxicityForm from '../forms/ToxicityForm';
-import lookup from '../lib/toxicreactiontotreatment_lookup';
-import Patient from '../patient/Patient';
+import lookup from '../lib/toxicity_lookup';
+// import Patient from '../patient/Patient';
+import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
+import Entry from '../model/shr/base/Entry';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
 import Lang from 'lodash'
 
 class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            this.toxicity = Patient.createNewToxicity();
+            this.toxicity = new ToxicReactionToTreatment();
+            this.toxicity.entryInfo = new Entry();
+            this.toxicity.entryInfo.entryType = ["http://standardhealthrecord.org/oncology/ToxicReaction",
+                                                "http://standardhealthrecord.org/adverse/AdverseReaction",
+                                                "http://standardhealthrecord.org/adverse/AdverseEvent"];
             this.isToxicityNew = true;
         } else {
             this.toxicity = toxicity;
@@ -132,11 +139,11 @@ class ToxicityCreator extends CreatorShortcut {
 
     setAttributeValue(name, value, publishChanges) {
         if (name === "adverseEvent") {
-            Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
+            this.toxicity.value = value;
         } else if (name === "grade") {
-            Patient.updateGradeForToxicReaction(this.toxicity, value);
+            this.toxicity.adverseEventGrade = value;
         } else if (name === "attribution") {
-            Patient.updateAttributionForToxicReaction(this.toxicity, value);
+            this.toxicity.attribution = value;
         } else {
             console.error("Error: Unexpected value selected for toxicity: " + name);
             return;
@@ -171,7 +178,7 @@ class ToxicityCreator extends CreatorShortcut {
     }
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
     validateInCurrentContext(contextManager) {
         let errors = [];

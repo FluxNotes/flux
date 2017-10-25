@@ -325,65 +325,65 @@ class Patient {
 	}
 
     // Toxicity Creation
-    static createNewToxicity(adverseEvent, grade, attribution) {
-        const today = new moment().format("D MMM YYYY");
-        let adverseEventCoding, gradeCoding, attributionCoding;
-        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
-            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-        } else {
-            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
-        }
-        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
-            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-        } else {
-            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
-        }
-        if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
-            attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-        } else {
-            attributionCoding = this._toxicityAttributionToCodeableConcept(grade);
-        }
-        return {
-			"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
-                                "http://standardhealthrecord.org/adverse/AdverseReaction",
-                                "http://standardhealthrecord.org/adverse/AdverseEvent"],
-			"value": { "coding": adverseEventCoding },
-            "adverseEventGrade": { "coding": gradeCoding },
-			"attribution": { "coding": attributionCoding },
-			"originalCreationDate": today,
-			"lastUpdateDate": today
-		};
-    }
+    // static createNewToxicity(adverseEvent, grade, attribution) {
+    //     const today = new moment().format("D MMM YYYY");
+    //     let adverseEventCoding, gradeCoding, attributionCoding;
+    //     if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+    //         adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+    //     } else {
+    //         adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+    //     }
+    //     if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+    //         gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+    //     } else {
+    //         gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+    //     }
+    //     if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+    //         attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+    //     } else {
+    //         attributionCoding = this._toxicityAttributionToCodeableConcept(grade);
+    //     }
+    //     return {
+	// 		"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
+    //                             "http://standardhealthrecord.org/adverse/AdverseReaction",
+    //                             "http://standardhealthrecord.org/adverse/AdverseEvent"],
+	// 		"value": { "coding": adverseEventCoding },
+    //         "adverseEventGrade": { "coding": gradeCoding },
+	// 		"attribution": { "coding": attributionCoding },
+	// 		"originalCreationDate": today,
+	// 		"lastUpdateDate": today
+	// 	};
+    // }
 
-    static updateAdverseEventForToxicReaction(toxicity, adverseEvent) {
-        let adverseEventCoding;
-        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
-            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-        } else {
-            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
-        }
-        toxicity.value.coding = adverseEventCoding;
-    }
-    
-    static updateGradeForToxicReaction(toxicity, grade) {
-        let gradeCoding;
-        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
-            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-        } else {
-            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
-        }
-        toxicity.adverseEventGrade.coding = gradeCoding;
-    }
-	
-	static updateAttributionForToxicReaction(toxicity, attribution) {
-		let attributionCoding;
-		if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
-			attributionCoding = { "value": "", "codeSystem": "", "displayText": ""};
-		} else {
-			attributionCoding = this._toxicityAttributionToCodeableConcept(attribution);
-		}
-		toxicity.attribution.coding = attributionCoding;
-	}
+    // static updateAdverseEventForToxicReaction(toxicity, adverseEvent) {
+    //     let adverseEventCoding;
+    //     if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+    //         adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+    //     } else {
+    //         adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+    //     }
+    //     toxicity.value.coding = adverseEventCoding;
+    // }
+    // 
+    // static updateGradeForToxicReaction(toxicity, grade) {
+    //     let gradeCoding;
+    //     if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+    //         gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+    //     } else {
+    //         gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+    //     }
+    //     toxicity.adverseEventGrade.coding = gradeCoding;
+    // }
+	// 
+	// static updateAttributionForToxicReaction(toxicity, attribution) {
+	// 	let attributionCoding;
+	// 	if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+	// 		attributionCoding = { "value": "", "codeSystem": "", "displayText": ""};
+	// 	} else {
+	// 		attributionCoding = this._toxicityAttributionToCodeableConcept(attribution);
+	// 	}
+	// 	toxicity.attribution.coding = attributionCoding;
+	// }
     
     static _adverseEventToCodeableConcept(adverseEventName) {
         const adverseEvent = toxicityLookup.findAdverseEvent(adverseEventName);
