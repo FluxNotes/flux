@@ -657,34 +657,34 @@ class Patient {
     }
 
 
-    // Clinical Trial Creator
-    static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
-        // TODO: This Study data element in the SHR will be updated.
-        /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
-        return {
-            "entryType" : ["http://standardhealthrecord.org/base/Study"],
-            "title": title,
-            "identifier": identifier,
-            "enrollmentDate": enrollmentDate, // TODO: Not on SHR Study element yet
-            "endDate": endDate // TODO: Not on SHR Study element yet
-        };
-    }
-
-    static updateTitleForStudyEnrollment(study, title) {
-        study.title = title;
-    }
-
-    static updateIdentifierForStudyEnrollment(study, identifier) {
-        study.identifier = identifier;
-    }
-
-    static updateEnrollmentDateForStudyEnrollment(study, date) {
-        study.enrollmentDate = date;
-    }
-
-    static updateEndDateForStudyEnrollment(study, date) {
-        study.endDate = date;
-    }
+    // // Clinical Trial Creator
+    // static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
+    //     // TODO: This Study data element in the SHR will be updated.
+    //     /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
+    //     return {
+    //         "entryType" : ["http://standardhealthrecord.org/base/Study"],
+    //         "title": title,
+    //         "identifier": identifier,
+    //         "enrollmentDate": enrollmentDate, // TODO: Not on SHR Study element yet
+    //         "endDate": endDate // TODO: Not on SHR Study element yet
+    //     };
+    // }
+    // 
+    // static updateTitleForStudyEnrollment(study, title) {
+    //     study.title = title;
+    // }
+    // 
+    // static updateIdentifierForStudyEnrollment(study, identifier) {
+    //     study.identifier = identifier;
+    // }
+    // 
+    // static updateEnrollmentDateForStudyEnrollment(study, date) {
+    //     study.enrollmentDate = date;
+    // }
+    // 
+    // static updateEndDateForStudyEnrollment(study, date) {
+    //     study.endDate = date;
+    // }
 }
 
 export default Patient;
