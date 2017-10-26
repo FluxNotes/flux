@@ -46,7 +46,7 @@ class TestRequest extends Request {
   }
 
   /**
-   * Getter for shr.lab.SpecimenType (option in a choice field).
+   * Getter for Choice<TBD<Specimen> | shr.lab.SpecimenType>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
   get specimenType() {
@@ -54,11 +54,11 @@ class TestRequest extends Request {
   }
 
   /**
-   * Setter for shr.lab.SpecimenType (option in a choice field).
+   * Setter for Choice<TBD<Specimen> | shr.lab.SpecimenType>.
    * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
    */
-  set specimenType(specimenTypeVal) {
-    this._specimenType = specimenTypeVal;
+  set specimenType(choiceVal) {
+    this._specimenType = choiceVal;
   }
 
 }

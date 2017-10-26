@@ -1,6 +1,21 @@
 /** Generated from SHR definition for shr.medication.Adherence */
 class Adherence {
 
+  /**
+   * Getter for Choice<TBD<MedicationTreatment> | TBD<SupplementTreatment>>[].
+   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
+   */
+  get () {
+    return this._;
+  }
+
+  /**
+   * Setter for Choice<TBD<MedicationTreatment> | TBD<SupplementTreatment>>[].
+   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
+   */
+  set (choiceVal) {
+    this._ = choiceVal;
+  }
 
   /**
    * Getter for shr.medication.AdherenceLevel

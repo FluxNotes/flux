@@ -1,7 +1,7 @@
 import ObservationComponent from '../observation/ObservationComponent';
 
 /** Generated from SHR definition for shr.oncology.S-PhaseFraction */
-class S-PhaseFraction extends ObservationComponent {
+class S_PhaseFraction extends ObservationComponent {
 
   /**
    * Convenience getter for value (accesses this.quantity)
@@ -33,4 +33,4 @@ class S-PhaseFraction extends ObservationComponent {
 
 }
 
-export default S-PhaseFraction;
+export default S_PhaseFraction;
