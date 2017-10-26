@@ -28,6 +28,7 @@ const _elementsToClassNames = { "BreastCancer": BreastCancer,
 
 export default class ShrOncologyObjectFactory {
     static createInstance(elementName, entry) {
+        console.log(elementName);
         return new _elementsToClassNames[elementName](entry);
     }
     

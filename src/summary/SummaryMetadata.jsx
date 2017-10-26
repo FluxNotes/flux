@@ -77,7 +77,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart;
+                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart.value;
                             }
                         },
                         {
@@ -190,7 +190,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart;
+                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart.value;
                             }
                         }
                     ]
