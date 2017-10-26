@@ -6,10 +6,12 @@ import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
 import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import lookup from '../lib/progression_lookup';
-import Patient from '../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
-
+import Progression from '../model/shr/oncology/Progression';
+import Entry from '../model/shr/base/Entry';
+import Reference from '../model/Reference';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -17,7 +19,16 @@ class ProgressionCreator extends CreatorShortcut {
     constructor(onUpdate, progression) {
         super();
         if (Lang.isUndefined(progression)) {
-            this.progression = Patient.createNewProgression();
+            this.progression = new Progression();
+            this.progression.value = 'unknown';
+            this.progression.evidence = '';
+            this.progression.asOfDate = null;
+            this.progression.clinicallyRelevantTime = null;
+
+            // TODO: This will be auto generated so this should be taken out when that code is merged
+            this.progression.entryInfo = new Entry();
+            this.progression.entryInfo.entryType = ["http://standardhealthrecord.org/oncology/Progression",
+                "http://standardhealthrecord.org/assessment/Assessment" ];
             this.isProgressionNew = true;
         } else {
             this.progression = progression;
@@ -142,62 +153,62 @@ class ProgressionCreator extends CreatorShortcut {
     }
 
 	setAttributeValue(name, value, publishChanges) {
-		if (name === "status") {
-			Patient.updateStatusForProgression(this.progression, value);
-		} else if (name === "reasons") {
-			Patient.updateReasonsForProgression(this.progression, value);
+        if (name === "status") {
+            this.progression.value = value;
+        } else if (name === "reasons") {
+            this.progression.evidence = value;
         } else if (name === "asOf") {
             this.asOf = value === true;
-		} else if (name === "asOfDate") {
-            Patient.updateAsOfDateForProgression(this.progression, value);
+        } else if (name === "asOfDate") {
+            this.progression.asOfDate = value; //TODO: Extend progression object to include asOfDate
         } else if (name === "referenceDate") {
             this.referenceDate = value === true;
         } else if (name === "referenceDateDate") {
-            Patient.updateClinicallyRelevantTimeForProgression(this.progression, value);
+            this.progression.clinicallyRelevantTime = value;
         } else {
-			console.error("Error: Unexpected value selected for progression: " + name);
-			return;
-		}
+            console.error("Error: Unexpected value selected for progression: " + name);
+            return;
+        }
         if (this.isContext()) this.updateContextStatus();
-		if (this.onUpdate) this.onUpdate(this);
-		if (publishChanges) {
-			this.notifyValueChangeHandlers(name);
-		}
+        if (this.onUpdate) this.onUpdate(this);
+        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }
 	}
 	getAttributeValue(name) {
-		if (name === "status") {
-			return this.progression.value.coding.displayText;
-		} else if (name === "reasons") {
+        if (name === "status") {
+            return this.progression.value.coding.displayText;
+        } else if (name === "reasons") {
             return this.progression.evidence.map((e) => {
                 return e.coding.displayText;
             });
         } else if (name === "asOf") {
             return this.asOf === true;
-		} else if (name === "asOfDate") {
-            // TODO: Check with Mark on this
+        } else if (name === "asOfDate") {
+            // TODO: extend progression object to include asOfDate
             return this.progression.asOfDate;
         } else if (name === "referenceDate") {
             return this.referenceDate === true;
         } else if (name === "referenceDateDate") {
             return this.progression.clinicallyRelevantTime;
         } else {
-			console.error("Error: Unexpected value requested for progression: " + name);
-			return null;
-		}
+            console.error("Error: Unexpected value requested for progression: " + name);
+            return null;
+        }
 	}
 	
 	updatePatient(patient, contextManager) {
 		if (this.progression.value.coding.displayText.length === 0) return; // not complete value
 		let condition = this.parentContext.getValueObject();
 		if (this.isProgressionNew) {
-            this.progression.focalCondition = Patient.createEntryReferenceTo(condition);
+            this.progression.focalcondition = new Reference(condition.entryInfo);
             patient.addEntryToPatientWithPatientFocalSubject(this.progression);
 			this.isProgressionNew = false;
 		}
 	}
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
 
 	validateInCurrentContext(contextManager) {
