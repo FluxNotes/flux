@@ -1,3 +1,4 @@
+import Entry from './shr/base/Entry';
 import Study from './shr/base/Study';
 
 export default class ShrBaseObjectFactory {
