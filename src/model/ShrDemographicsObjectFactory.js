@@ -1,9 +1,9 @@
 import PersonOfRecord from './shr/demographics/PersonOfRecord';
 
-class ShrDemographicsObjectFactory {
-    createInstance(elementName) {
-        return new _elementsToClassNames[elementName]();
+const _elementsToClassNames = { "PersonOfRecord": PersonOfRecord };
+
+export default class ShrDemographicsObjectFactory {
+    static createInstance(elementName, entry) {
+        return new _elementsToClassNames[elementName](entry);
     }
-    
-    _elementsToClassNames = { "PersonOfRecord": PersonOfRecord };
 }

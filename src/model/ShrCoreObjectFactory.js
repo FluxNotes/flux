@@ -3,11 +3,11 @@ import CodeSystem from './shr/core/CodeSystem';
 import CodeSystemVersion from './shr/core/CodeSystemVersion';
 import CodeableConcept from './shr/core/CodeableConcept';
 
-class ShrCoreObjectFactory {
-    createInstance(elementName) {
-        return new _elementsToClassNames[elementName]();
+const _elementsToClassNames = { "Coding": Coding, "CodeSystem":CodeSystem, "CodeSystemVersion": CodeSystemVersion,
+        "CodeableConcept": CodeableConcept };
+
+export default class ShrCoreObjectFactory {
+    static createInstance(elementName, entry) {
+        return new _elementsToClassNames[elementName](entry);
     }
-    
-    _elementsToClassNames = { "Coding": Coding, "CodeSystem":CodeSystem, "CodeSystemVersion": CodeSystemVersion,
-            "CodeableConcept": CodeableConcept };
 }
