@@ -1,5 +1,14 @@
+import Category from '../base/Category';
+import Entry from '../base/Entry';
+import SpecificType from '../core/SpecificType';
+
 /** Generated from SHR definition for shr.condition.Condition */
 class Condition {
+  constructor(json) {
+        this._entryInfo = new Entry(json);
+        this._specificType = new SpecificType(json.specificType);
+        if (json.category) this._category = json.category.map((c) => new Category(c));
+  }
 
   /**
    * Getter for entry information (shr.base.Entry)

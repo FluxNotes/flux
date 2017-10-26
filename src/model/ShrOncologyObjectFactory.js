@@ -6,13 +6,13 @@ import M_Stage from './shr/oncology/M_Stage';
 import Progression from './shr/oncology/Progression';
 import ToxicReactionToTreatment from './shr/oncology/ToxicReactionToTreatment';
 
-_elementsToClassNames = {   "BreastCancer": BreastCancer,
-                            "TNMStage": TNMStage,
-                            "T_Stage": T_Stage,
-                            "N_Stage": N_Stage,
-                            "M_Stage": M_Stage,
-                            "Progression": Progression,
-                            "ToxicReactionToTreatment":ToxicReactionToTreatment};
+const _elementsToClassNames = { "BreastCancer": BreastCancer,
+                                "TNMStage": TNMStage,
+                                "T_Stage": T_Stage,
+                                "N_Stage": N_Stage,
+                                "M_Stage": M_Stage,
+                                "Progression": Progression,
+                                "ToxicReactionToTreatment":ToxicReactionToTreatment};
 
 
 export default class ShrOncologyObjectFactory {

@@ -51,7 +51,7 @@ class SummaryHeader extends Component {
                         <Col sm={2}>
                             <div className="location item">
                                 <h3>Location</h3>
-                                <span>{address.city}, {address.state}</span>
+                                <span>{address ? address.city : ""}, {address ? address.state : ""}</span>
                             </div>
                         </Col>
                     </Row>

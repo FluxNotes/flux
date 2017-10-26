@@ -1,6 +1,13 @@
+import Deceased from '../actor/Deceased';
+
 /** Generated from SHR definition for shr.actor.Person */
 class Person {
-
+  constructor(json) {
+      this._humanName = json.humanName;
+      this._dateOfBirth = json.dateOfBirth;
+      this._administrativeGender = json.administrativeGender;
+      this._deceased = new Deceased(json.deceased);
+  }
   /**
    * Getter for shr.core.HumanName[]
    */
