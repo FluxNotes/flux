@@ -1,3 +1,4 @@
+import ShrObjectFactory from '../model/ShrObjectFactory';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -24,7 +25,7 @@ class PatientRecord {
     loadJSON(shrJson) {
         return shrJson.map((entry) => {
             // TODO implement this to correctly load JSON
-			return entry;
+			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
             
         });
     }
