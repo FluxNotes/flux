@@ -1,5 +1,11 @@
+import GeneralizedAge from './GeneralizedAge';
+import GeneralizedDateTime from './GeneralizedDateTime';
+
 /** Generated from SHR definition for shr.core.GeneralizedTemporalContext */
 class GeneralizedTemporalContext {
+    constructor(json) {
+        this._value = new GeneralizedDateTime(json);
+    }
 
   /**
    * Getter for choice value

@@ -1,7 +1,15 @@
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
 import Observation from '../observation/Observation';
 
 /** Generated from SHR definition for shr.oncology.HistologicGrade */
 class HistologicGrade extends Observation {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this.codeableConcept = new CodeableConcept(json.value);
+        this._codeableConcept = this.codeableConcept;
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

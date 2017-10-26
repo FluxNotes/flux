@@ -3,11 +3,10 @@ import CodeableConcept from '../core/CodeableConcept';
 /** Generated from SHR definition for shr.core.SpecificType */
 class SpecificType {
     constructor(json) {
-        console.log(json);
-        this.codeableConcept = new CodeableConcept(json);
-        this._codeableConcept = new CodeableConcept(json);
+        this.codeableConcept = new CodeableConcept(json.value);
+        this._codeableConcept = new CodeableConcept(json.value);
     }
-
+    
   /**
    * Convenience getter for value (accesses this.codeableConcept)
    */

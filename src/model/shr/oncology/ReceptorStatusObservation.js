@@ -1,7 +1,17 @@
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
 import Observation from '../observation/Observation';
+import ReceptorType from './ReceptorType';
 
 /** Generated from SHR definition for shr.oncology.ReceptorStatusObservation */
 class ReceptorStatusObservation extends Observation {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this.codeableConcept = new CodeableConcept(json.value);
+        this._codeableConcept = this.codeableConcept;
+        if (json.receptorType) this._receptorType = new ReceptorType(json.receptorType);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

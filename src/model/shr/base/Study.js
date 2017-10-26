@@ -43,6 +43,22 @@ class Study {
     this._identifier = identifierVal;
   }
 
+  // Flux added
+  get enrollmentDate() {
+      return this._enrollmentDate;
+  }
+  
+  set enrollmentDate(val) {
+      this._enrollmentDate = val;
+  }
+  
+  get endDate() {
+      return this._endDate;
+  }
+  
+  set endDate(val) {
+      this._endDate = val;
+  }
 }
 
 export default Study;

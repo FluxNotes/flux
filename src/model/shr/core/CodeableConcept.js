@@ -4,7 +4,6 @@ import DisplayText from '../core/DisplayText';
 /** Generated from SHR definition for shr.core.CodeableConcept */
 class CodeableConcept {
     constructor(json) {
-        console.log(json);
         //this._coding = json.coding.map((c) => new Coding(c));
         this._coding = new Coding(json.coding);
         if (json.displayText) this._displayText = new DisplayText(json.displayText);

@@ -1,6 +1,9 @@
 import Category from '../base/Category';
+import ClinicalStatus from './ClinicalStatus';
 import Entry from '../base/Entry';
+import ShrObjectFactory from '../../ShrObjectFactory';
 import SpecificType from '../core/SpecificType';
+import WhenClinicallyRecognized from './WhenClinicallyRecognized';
 
 /** Generated from SHR definition for shr.condition.Condition */
 class Condition {
@@ -8,6 +11,10 @@ class Condition {
         this._entryInfo = new Entry(json);
         this._specificType = new SpecificType(json.specificType);
         if (json.category) this._category = json.category.map((c) => new Category(c));
+        if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
+        this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
+        
+        if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
   }
 
   /**

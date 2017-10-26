@@ -1,5 +1,8 @@
 /** Generated from SHR definition for shr.core.TimePeriodEnd */
 class TimePeriodEnd {
+    constructor(json) {
+        this._value = json;
+    }
 
   /**
    * Getter for choice value

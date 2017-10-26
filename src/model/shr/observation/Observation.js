@@ -1,7 +1,25 @@
+import Lang from 'lodash';
 import Action from '../base/Action';
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
+import Status from '../base/Status';
 
 /** Generated from SHR definition for shr.observation.Observation */
 class Observation extends Action {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        if (Lang.isObject(json.value)) {
+            if (json.value.coding) {
+                this._value = new CodeableConcept(json.value);
+            } else {
+                //TODO: Quanity, Range, Ratio, TimePeriod
+            }
+        } else {
+            //TODO
+        }
+        this._status = new Status(json.status);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)
