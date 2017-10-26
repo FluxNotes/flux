@@ -325,65 +325,65 @@ class Patient {
 	}
 
     // Toxicity Creation
-    // static createNewToxicity(adverseEvent, grade, attribution) {
-    //     const today = new moment().format("D MMM YYYY");
-    //     let adverseEventCoding, gradeCoding, attributionCoding;
-    //     if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
-    //         adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-    //     } else {
-    //         adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
-    //     }
-    //     if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
-    //         gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-    //     } else {
-    //         gradeCoding = this._toxicityGradeToCodeableConcept(grade);
-    //     }
-    //     if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
-    //         attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-    //     } else {
-    //         attributionCoding = this._toxicityAttributionToCodeableConcept(grade);
-    //     }
-    //     return {
-	// 		"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
-    //                             "http://standardhealthrecord.org/adverse/AdverseReaction",
-    //                             "http://standardhealthrecord.org/adverse/AdverseEvent"],
-	// 		"value": { "coding": adverseEventCoding },
-    //         "adverseEventGrade": { "coding": gradeCoding },
-	// 		"attribution": { "coding": attributionCoding },
-	// 		"originalCreationDate": today,
-	// 		"lastUpdateDate": today
-	// 	};
-    // }
+    static createNewToxicity(adverseEvent, grade, attribution) {
+        const today = new moment().format("D MMM YYYY");
+        let adverseEventCoding, gradeCoding, attributionCoding;
+        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+        }
+        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+        }
+        if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+            attributionCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            attributionCoding = this._toxicityAttributionToCodeableConcept(grade);
+        }
+        return {
+			"entryType":	[	"http://standardhealthrecord.org/oncology/ToxicReaction",
+                                "http://standardhealthrecord.org/adverse/AdverseReaction",
+                                "http://standardhealthrecord.org/adverse/AdverseEvent"],
+			"value": { "coding": adverseEventCoding },
+            "adverseEventGrade": { "coding": gradeCoding },
+			"attribution": { "coding": attributionCoding },
+			"originalCreationDate": today,
+			"lastUpdateDate": today
+		};
+    }
 
-    // static updateAdverseEventForToxicReaction(toxicity, adverseEvent) {
-    //     let adverseEventCoding;
-    //     if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
-    //         adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-    //     } else {
-    //         adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
-    //     }
-    //     toxicity.value.coding = adverseEventCoding;
-    // }
-    // 
-    // static updateGradeForToxicReaction(toxicity, grade) {
-    //     let gradeCoding;
-    //     if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
-    //         gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
-    //     } else {
-    //         gradeCoding = this._toxicityGradeToCodeableConcept(grade);
-    //     }
-    //     toxicity.adverseEventGrade.coding = gradeCoding;
-    // }
-	// 
-	// static updateAttributionForToxicReaction(toxicity, attribution) {
-	// 	let attributionCoding;
-	// 	if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
-	// 		attributionCoding = { "value": "", "codeSystem": "", "displayText": ""};
-	// 	} else {
-	// 		attributionCoding = this._toxicityAttributionToCodeableConcept(attribution);
-	// 	}
-	// 	toxicity.attribution.coding = attributionCoding;
-	// }
+    static updateAdverseEventForToxicReaction(toxicity, adverseEvent) {
+        let adverseEventCoding;
+        if (Lang.isUndefined(adverseEvent) || Lang.isNull(adverseEvent) || adverseEvent.length === 0) {
+            adverseEventCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            adverseEventCoding = this._adverseEventToCodeableConcept(adverseEvent);
+        }
+        toxicity.value.coding = adverseEventCoding;
+    }
+    
+    static updateGradeForToxicReaction(toxicity, grade) {
+        let gradeCoding;
+        if (Lang.isUndefined(grade) || Lang.isNull(grade) || grade.length === 0) {
+            gradeCoding = { "value" : "", "codeSystem": "", "displayText": ""};
+        } else {
+            gradeCoding = this._toxicityGradeToCodeableConcept(grade);
+        }
+        toxicity.adverseEventGrade.coding = gradeCoding;
+    }
+	
+	static updateAttributionForToxicReaction(toxicity, attribution) {
+		let attributionCoding;
+		if (Lang.isUndefined(attribution) || Lang.isNull(attribution) || attribution.length === 0) {
+			attributionCoding = { "value": "", "codeSystem": "", "displayText": ""};
+		} else {
+			attributionCoding = this._toxicityAttributionToCodeableConcept(attribution);
+		}
+		toxicity.attribution.coding = attributionCoding;
+	}
     
     static _adverseEventToCodeableConcept(adverseEventName) {
         const adverseEvent = toxicityLookup.findAdverseEvent(adverseEventName);
@@ -489,93 +489,93 @@ class Patient {
         return { value: "", codeSystem: "", displayText: ""}
    }
     
-    // // Staging Creation
-	// static createNewTNMStageObservation(t, n, m) {
-	// 	let tCoding, nCoding, mCoding;
-	// 	let gotAllThree = true;
-	// 	if (Lang.isUndefined(t) || Lang.isNull(t) || t.length === 0) {
-	// 		tCoding = { "value": "", "codeSystem": "", "displayText": ""};
-	// 		gotAllThree = false;
-	// 	} else {
-	// 		const t_code = this._tToCodeableConcept(t);
-	// 		tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t_code.displayText}
-	// 	}
-	// 	if (Lang.isUndefined(n) || Lang.isNull(n) || n.length === 0) {
-	// 		nCoding = { "value": "", "codeSystem": "", "displayText": ""};
-	// 		gotAllThree = false;
-	// 	} else {
-	// 		const n_code = this._nToCodeableConcept(n);
-	// 		nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n_code.displayText};
-	// 	}
-	// 	if (Lang.isUndefined(m) || Lang.isNull(m) || m.length === 0) {
-	// 		mCoding = { "value": "", "codeSystem": "", "displayText": ""};
-	// 		gotAllThree = false;
-	// 	} else {
-	// 		const m_code = this._mToCodeableConcept(m);
-	// 		mCoding = { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m_code.displayText};
-	// 	}
-	// 	let stage, stage_code;
-	// 	if (gotAllThree) {
-	// 		stage = staging.breastCancerPrognosticStage(t, n, m);
-	// 		stage_code = this._stageToCodeableConcept(stage);
-	// 	} else {
-	// 		stage = "";
-	// 		stage_code = {code: "", codesystem: ""};
-	// 	}
-	// 	//if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
-	// 	return {
-	// 		"entryType":	[	"http://standardhealthrecord.org/oncology/TNMStage",
-	// 							"http://standardhealthrecord.org/observation/Observation",
-	// 							"http://standardhealthrecord.org/base/Action" ],
-	// 		"value": {"coding": { "value": stage_code.code, "codeSystem": stage_code.codesystem, "displayText": stage}},
-	// 		"specificType": {"coding": {"value": "21908-9", "codeSystem": "http://loinc.org", "displayText": "Stage"}},
-	// 		"status": "unknown",
-	// 		"occurrenceTime": new moment().format("D MMM YYYY"),
-	// 		"tStage": {"coding": tCoding},
-	// 		"nStage": {"coding": nCoding},
-	// 		"mStage": {"coding": mCoding}
-	// 	};
-	// }
+    // Staging Creation
+	static createNewTNMStageObservation(t, n, m) {
+		let tCoding, nCoding, mCoding;
+		let gotAllThree = true;
+		if (Lang.isUndefined(t) || Lang.isNull(t) || t.length === 0) {
+			tCoding = { "value": "", "codeSystem": "", "displayText": ""};
+			gotAllThree = false;
+		} else {
+			const t_code = this._tToCodeableConcept(t);
+			tCoding = { "value": t_code.code, "codeSystem": t_code.codesystem, "displayText": t_code.displayText}
+		}
+		if (Lang.isUndefined(n) || Lang.isNull(n) || n.length === 0) {
+			nCoding = { "value": "", "codeSystem": "", "displayText": ""};
+			gotAllThree = false;
+		} else {
+			const n_code = this._nToCodeableConcept(n);
+			nCoding = { "value": n_code.code, "codeSystem": n_code.codesystem, "displayText": n_code.displayText};
+		}
+		if (Lang.isUndefined(m) || Lang.isNull(m) || m.length === 0) {
+			mCoding = { "value": "", "codeSystem": "", "displayText": ""};
+			gotAllThree = false;
+		} else {
+			const m_code = this._mToCodeableConcept(m);
+			mCoding = { "value": m_code.code, "codeSystem": m_code.codesystem, "displayText": m_code.displayText};
+		}
+		let stage, stage_code;
+		if (gotAllThree) {
+			stage = staging.breastCancerPrognosticStage(t, n, m);
+			stage_code = this._stageToCodeableConcept(stage);
+		} else {
+			stage = "";
+			stage_code = {code: "", codesystem: ""};
+		}
+		//if (Lang.isNull(stage_code) || Lang.isUndefined(stage_code)) return null;
+		return {
+			"entryType":	[	"http://standardhealthrecord.org/oncology/TNMStage",
+								"http://standardhealthrecord.org/observation/Observation",
+								"http://standardhealthrecord.org/base/Action" ],
+			"value": {"coding": { "value": stage_code.code, "codeSystem": stage_code.codesystem, "displayText": stage}},
+			"specificType": {"coding": {"value": "21908-9", "codeSystem": "http://loinc.org", "displayText": "Stage"}},
+			"status": "unknown",
+			"occurrenceTime": new moment().format("D MMM YYYY"),
+			"tStage": {"coding": tCoding},
+			"nStage": {"coding": nCoding},
+			"mStage": {"coding": mCoding}
+		};
+	}
 
-	// static updateTForStaging(stagingObservation, t) {		
-	// 	const t_code = this._tToCodeableConcept(t);
-    //     if (Lang.isNull(t_code)) {
-    //         stagingObservation.tStage.coding.displayText = "";
-    //         stagingObservation.tStage.coding.value = "";
-    //         stagingObservation.tStage.coding.codeSystem = "";
-    //     } else {
-    //         stagingObservation.tStage.coding.displayText = t_code.displayText;
-    //         stagingObservation.tStage.coding.value = t_code.code;
-    //         stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
-    //     }
-	// 	this.updateStage(stagingObservation);
-	// }
-	// static updateNForStaging(stagingObservation, n) {		
-	// 	const n_code = this._nToCodeableConcept(n);
-    //     if (Lang.isNull(n_code)) {
-    //         stagingObservation.nStage.coding.displayText = "";
-    //         stagingObservation.nStage.coding.value = "";
-    //         stagingObservation.nStage.coding.codeSystem = "";
-    //     } else {
-    //         stagingObservation.nStage.coding.displayText = n_code.displayText;
-    //         stagingObservation.nStage.coding.value = n_code.code;
-    //         stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
-    //     }
-	// 	this.updateStage(stagingObservation);
-	// }
-	// static updateMForStaging(stagingObservation, m) {		
-	// 	const m_code = this._mToCodeableConcept(m);
-    //     if (Lang.isNull(m_code)) {
-    //         stagingObservation.mStage.coding.displayText = "";
-    //         stagingObservation.mStage.coding.value = "";
-    //         stagingObservation.mStage.coding.codeSystem = "";
-    //     } else {
-    //         stagingObservation.mStage.coding.displayText = m_code.displayText;
-    //         stagingObservation.mStage.coding.value = m_code.code;
-    //         stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
-    //     }
-	// 	this.updateStage(stagingObservation);
-	// }
+	static updateTForStaging(stagingObservation, t) {		
+		const t_code = this._tToCodeableConcept(t);
+        if (Lang.isNull(t_code)) {
+            stagingObservation.tStage.coding.displayText = "";
+            stagingObservation.tStage.coding.value = "";
+            stagingObservation.tStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.tStage.coding.displayText = t_code.displayText;
+            stagingObservation.tStage.coding.value = t_code.code;
+            stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
+        }
+		this.updateStage(stagingObservation);
+	}
+	static updateNForStaging(stagingObservation, n) {		
+		const n_code = this._nToCodeableConcept(n);
+        if (Lang.isNull(n_code)) {
+            stagingObservation.nStage.coding.displayText = "";
+            stagingObservation.nStage.coding.value = "";
+            stagingObservation.nStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.nStage.coding.displayText = n_code.displayText;
+            stagingObservation.nStage.coding.value = n_code.code;
+            stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
+        }
+		this.updateStage(stagingObservation);
+	}
+	static updateMForStaging(stagingObservation, m) {		
+		const m_code = this._mToCodeableConcept(m);
+        if (Lang.isNull(m_code)) {
+            stagingObservation.mStage.coding.displayText = "";
+            stagingObservation.mStage.coding.value = "";
+            stagingObservation.mStage.coding.codeSystem = "";
+        } else {
+            stagingObservation.mStage.coding.displayText = m_code.displayText;
+            stagingObservation.mStage.coding.value = m_code.code;
+            stagingObservation.mStage.coding.codeSystem = m_code.codesystem;
+        }
+		this.updateStage(stagingObservation);
+	}
 	
 	static updateStage(stagingObservation) {
 		let curT = stagingObservation.tStage.coding.displayText;
@@ -657,34 +657,34 @@ class Patient {
     }
 
 
-    // // Clinical Trial Creator
-    // static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
-    //     // TODO: This Study data element in the SHR will be updated.
-    //     /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
-    //     return {
-    //         "entryType" : ["http://standardhealthrecord.org/base/Study"],
-    //         "title": title,
-    //         "identifier": identifier,
-    //         "enrollmentDate": enrollmentDate, // TODO: Not on SHR Study element yet
-    //         "endDate": endDate // TODO: Not on SHR Study element yet
-    //     };
-    // }
-    // 
-    // static updateTitleForStudyEnrollment(study, title) {
-    //     study.title = title;
-    // }
-    // 
-    // static updateIdentifierForStudyEnrollment(study, identifier) {
-    //     study.identifier = identifier;
-    // }
-    // 
-    // static updateEnrollmentDateForStudyEnrollment(study, date) {
-    //     study.enrollmentDate = date;
-    // }
-    // 
-    // static updateEndDateForStudyEnrollment(study, date) {
-    //     study.endDate = date;
-    // }
+    // Clinical Trial Creator
+    static createNewStudyEnrollment(title = '', identifier = '', enrollmentDate = null, endDate = null) {
+        // TODO: This Study data element in the SHR will be updated.
+        /* leaves out shrId, entryId, focalSubject. Should be filled out if added to a patient */
+        return {
+            "entryType" : ["http://standardhealthrecord.org/base/Study"],
+            "title": title,
+            "identifier": identifier,
+            "enrollmentDate": enrollmentDate, // TODO: Not on SHR Study element yet
+            "endDate": endDate // TODO: Not on SHR Study element yet
+        };
+    }
+
+    static updateTitleForStudyEnrollment(study, title) {
+        study.title = title;
+    }
+
+    static updateIdentifierForStudyEnrollment(study, identifier) {
+        study.identifier = identifier;
+    }
+
+    static updateEnrollmentDateForStudyEnrollment(study, date) {
+        study.enrollmentDate = date;
+    }
+
+    static updateEndDateForStudyEnrollment(study, date) {
+        study.endDate = date;
+    }
 }
 
 export default Patient;
