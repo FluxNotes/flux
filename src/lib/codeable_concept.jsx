@@ -8,7 +8,7 @@ exports.getCodeableConceptFromTuple = (tuple) => {
     let coding = new Coding();
     coding.code = tuple.value;
     coding.codeSystem = tuple.codeSystem;
-    codeableConcept.coding = coding;
+    codeableConcept.coding = [coding];
 
     let displayText = new DisplayText();
     displayText.value = tuple.displayText;
