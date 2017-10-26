@@ -1,7 +1,6 @@
 /** Generated from SHR definition for shr.core.DisplayText */
 class DisplayText {
     constructor(json) {
-        console.log("DisplayText: " + json);
         this.string = json;
         this._string = json;
     }

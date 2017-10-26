@@ -1,16 +1,21 @@
+import AdministrativeGender from '../actor/AdministrativeGender';
+import BirthSex from './BirthSex';
+import DateOfBirth from '../actor/DateOfBirth';
 import Entry from '../base/Entry';
+import MultipleBirth from './MultipleBirth';
 import Person from '../actor/Person';
+import PlaceOfBirth from './PlaceOfBirth';
 
 /** Generated from SHR definition for shr.demographics.PersonOfRecord */
 class PersonOfRecord extends Person {
   constructor(json) {
         super(json);
         this._entryInfo = new Entry(json);
-        this._dateOfBirth = json.dateOfBirth;
-        this._placeOfBirth = json.placeOfBirth;
-        this._multipleBirth = json.multipleBirth;
-        this._birthSex = json.birthSex;
-        this._administrativeGender = json.administrativeGender;
+        this._dateOfBirth = new DateOfBirth(json.dateOfBirth);
+        this._placeOfBirth = new PlaceOfBirth(json.placeOfBirth);
+        this._multipleBirth = new MultipleBirth(json.multipleBirth);
+        this._birthSex = new BirthSex(json.birthSex);
+        this._administrativeGender = new AdministrativeGender(json.administrativeGender);
   }
 
   /**

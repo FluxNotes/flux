@@ -1,8 +1,8 @@
 /** Generated from SHR definition for shr.core.CodeSystem */
 class CodeSystem {
     constructor(json) {
-        this.uri = json.uri;
-        this._uri = json.uri;
+        this.uri = json.value;
+        this._uri = json.value;
     }
 
   /**

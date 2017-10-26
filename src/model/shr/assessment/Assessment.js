@@ -1,7 +1,18 @@
 import Action from '../base/Action';
+import AssessmentFocus from '../assessment/AssessmentFocus';
+import Category from '../base/Category';
+import Entry from '../base/Entry';
+import Status from '../base/Status';
 
 /** Generated from SHR definition for shr.assessment.Assessment */
 class Assessment extends Action {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        if (json.category) this._category = json.category.map((c) => new Category(c));
+        this._status = new Status(json.status);
+        if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

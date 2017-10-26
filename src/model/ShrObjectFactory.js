@@ -30,7 +30,7 @@ const namespaceFactories = {
 export default class ShrObjectFactory {
     static createInstance(entryType, entry) {
         const classSpec = _entryTypeToClassSpec(entryType);
-        console.log(classSpec.namespace + "/" + classSpec.elementName);
+        //console.log(classSpec.namespace + "/" + classSpec.elementName);
         const factory = namespaceFactories[classSpec.namespace];
         return factory.createInstance(classSpec.elementName, entry);
     }

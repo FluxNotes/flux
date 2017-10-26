@@ -1,7 +1,14 @@
+import Entry from '../base/Entry';
+import Medication from './Medication';
 import Request from '../base/Request';
 
 /** Generated from SHR definition for shr.medication.MedicationPrescription */
 class MedicationPrescription extends Request {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this._medication = new Medication(json.medication);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

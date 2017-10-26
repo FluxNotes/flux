@@ -1,7 +1,16 @@
+import Entry from '../base/Entry';
 import ReceptorStatusObservation from './ReceptorStatusObservation';
+import ReceptorType from './ReceptorType';
+import SpecificType from '../core/SpecificType';
 
 /** Generated from SHR definition for shr.oncology.EstrogenReceptorStatus */
 class EstrogenReceptorStatus extends ReceptorStatusObservation {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        if (json.specificType) this._specificType = new SpecificType(json.specificType);
+        if (json.receptorType) this._receptorType = new ReceptorType(json.receptorType);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

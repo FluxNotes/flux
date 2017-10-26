@@ -23,7 +23,7 @@ class AppManager {
                 path: '/patient',
                 display: 'Flux Notes',
                 app: FullApp,
-                dataSource: 'NewHardCodedReadOnlyDataSource',
+                dataSource: 'HardCodedReadOnlyDataSource',
                 isExact: true
             }
         ];

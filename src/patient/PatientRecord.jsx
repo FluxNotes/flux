@@ -1,8 +1,15 @@
 import ShrObjectFactory from '../model/ShrObjectFactory';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
+import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
+import MedicationPrescription from '../model/shr/medication/MedicationPrescription';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
+import Procedure from '../model/shr/procedure/Procedure';
+import Progression from '../model/shr/oncology/Progression';
+import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
+import TNMStage from '../model/shr/oncology/TNMStage';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -81,7 +88,7 @@ class PatientRecord {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
 		var today = new Date();
-		var birthDate = new Date(personOfRecord.dateOfBirth);
+		var birthDate = new Date(personOfRecord.dateOfBirth.value);
 		var age = today.getFullYear() - birthDate.getFullYear();
 		var m = today.getMonth() - birthDate.getMonth();
 		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -130,12 +137,12 @@ class PatientRecord {
 	}
 	
 	getLastBreastCancerCondition() {
-		let result = this.getEntriesOfType("http://standardhealthrecord.org/oncology/BreastCancer");
+		let result = this.getEntriesOfType(BreastCancer);
 		return result[result.length - 1];
 	}
 	
 	getNotes() {
-		return this.getEntriesOfType("http://standardhealthrecord.org/core/ClinicalNote");
+		return this.getEntriesOfType(ClinicalNote);
 	}
 	
 	getKeyEventsChronologicalOrder() {
@@ -161,7 +168,7 @@ class PatientRecord {
     }
 	
 	getMedications() {
-		return this.getEntriesOfType("http://standardhealthrecord.org/medication/MedicationPrescription");
+		return this.getEntriesOfType(MedicationPrescription);
 	}
 	
 	getMedicationsChronologicalOrder() {
@@ -179,7 +186,7 @@ class PatientRecord {
     }
 	
 	getProcedures() {
-		return this.getEntriesOfType("http://standardhealthrecord.org/procedure/Procedure");
+		return this.getEntriesOfType(Procedure);
 	}
 	
 	getProceduresChronologicalOrder() {
@@ -190,7 +197,7 @@ class PatientRecord {
 	
 	getProceduresForCondition(condition) {
 		return this.entries.filter((item) => { 
-			return item.entryType[0] === "http://standardhealthrecord.org/procedure/Procedure" && item.reason.entryId === condition.entryId;
+			return item instanceof Procedure && item.reason.entryId === condition.entryId;
 		});
 	}
 	
@@ -201,13 +208,16 @@ class PatientRecord {
 	}
 
 	getObservationsForCondition(condition, type) {
+        if (!condition.observation) return [];
+        //console.log("look for type " + type);
+        //console.log(condition.observation);
 		return condition.observation.filter((item) => { 
-			return item.entryType[0] === type;
+			return item instanceof type;
 		});
 	}
 	
 	getMostRecentStagingForCondition(condition, sinceDate = null) {
-		let stagingList = this.getObservationsForCondition(condition, "http://standardhealthrecord.org/oncology/TNMStage");
+		let stagingList = this.getObservationsForCondition(condition, TNMStage);
 		if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._observationTimeSorter);
         const length = sortedStagingList.length;
@@ -222,16 +232,15 @@ class PatientRecord {
     }
 	
 	getReceptorStatus(condition, receptorType) {
-		let listObs = this.getObservationsForCondition(condition, "http://standardhealthrecord.org/oncology/BreastCancerReceptorStatus");
-		let obs = listObs[0];
-		let list = obs.panelMembers.filter((item) => {
-			return item.receptorType.coding.value === receptorType;
+		let listObs = this.getObservationsForCondition(condition, ReceptorStatusObservation);
+		let list = listObs.filter((item) => {
+			return item.receptorType.value.coding.value === receptorType;
 		});
 		if (list.length === 0) return null; else return list[0];
 	}
 	
 	getProgressions() {
-		return this.getEntriesOfType("http://standardhealthrecord.org/oncology/Progression");
+		return this.getEntriesOfType(Progression);
 	}
 
     getProgressionsChronologicalOrder() {
@@ -241,21 +250,22 @@ class PatientRecord {
     }
 	
 	getProgressionsForCondition(condition) {
-		return this.entries.filter((item) => { 
-			return item.entryType[0] === "http://standardhealthrecord.org/oncology/Progression" && item.focalCondition.entryId === condition.entryId;
+		return this.entries.filter((item) => {
+            console.log(item);
+			return item instanceof Progression && item.assessmentFocus.value.entryId === condition.entryInfo.entryId;
 		});
 	}
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.focalCondition.entryId === condition.entryId;
+            return progression.assessmentFocus.value.entryId === condition.entryId;
         });
         return progressions;
     }
 	
 	getFocalConditionForProgression(progression) {
-		let result = this.entries.filter((item) => { return item.entryType.some((t) => { return t === "http://standardhealthrecord.org/condition/Condition"; }) && item.entryId === progression.focalCondition.entryId});
+		let result = this.entries.filter((item) => { return item.entryType.some((t) => { return t === "http://standardhealthrecord.org/condition/Condition"; }) && item.entryId === progression.assessmentFocus.value.entryId});
 		return result[0];
 	}
 	
@@ -265,7 +275,7 @@ class PatientRecord {
         const length = sortedProgressionList.length;
         let p = (sortedProgressionList[length - 1]);
 		if (Lang.isNull(sinceDate)) return p;
-		const startTime = new moment(p.clinicallyRelevantTime, "D MMM YYYY");
+		const startTime = new moment(p.asOfDate, "D MMM YYYY");
 		if (startTime < sinceDate) {
 			return null;
 		} else {
@@ -281,8 +291,8 @@ class PatientRecord {
 		return 0;
 	}
 	_progressionTimeSorter(a, b) {
-		const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
-		const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+		const a_startTime = new moment(a.asOfDate, "D MMM YYYY");
+		const b_startTime = new moment(b.asOfDate, "D MMM YYYY");
 		if (a_startTime < b_startTime) { return -1; }
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
