@@ -83,6 +83,178 @@ describe('getDescription', function () {
     });
 });
 
+describe('getValueCodeableConcept', function() {
+    it('should return CodeableConcept object with empty strings when passed a value not in the list.', function() {
+        const badValue = 'id';
+        const codeableConcept = lookup.getValueCodeableConcept(badValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .that.is.empty;
+    });
+
+    
+    it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
+        const goodValue = 'IIIB';
+        const codeableConcept = lookup.getValueCodeableConcept(goodValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .eql(goodValue);
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .eql('64062008');
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .eql('urn:oid:2.16.840.1.113883.6.96');
+    });
+});
+
+describe('getTStageCodeableConcept', function() {
+    it('should return CodeableConcept object with empty strings when passed a value not in the list.', function() {
+        const badValue = 't5';
+        const codeableConcept = lookup.getTStageCodeableConcept(badValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .that.is.empty;
+    });
+
+    
+    it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
+        const goodValue = 'T3';
+        const codeableConcept = lookup.getTStageCodeableConcept(goodValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .eql(goodValue);
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .eql('369901004');
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .eql('urn:oid:2.16.840.1.113883.6.96');
+    });
+});
+
+describe('getNStageCodeableConcept', function() {
+    it('should return CodeableConcept object with empty strings when passed a value not in the list.', function() {
+        const badValue = 'n4';
+        const codeableConcept = lookup.getNStageCodeableConcept(badValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .that.is.empty;
+    });
+
+    
+    it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
+        const goodValue = 'N1mi';
+        const codeableConcept = lookup.getNStageCodeableConcept(goodValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .eql(goodValue);
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .eql('C95955');
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .eql('urn:oid:2.16.840.1.113883.3.26.1.1');
+    });
+});
+
+describe('getMStageCodeableConcept', function() {
+    it('should return CodeableConcept object with empty strings when passed a value not in the list.', function() {
+        const badValue = 'm2';
+        const codeableConcept = lookup.getMStageCodeableConcept(badValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .that.is.empty;
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .that.is.empty;
+    });
+
+    
+    it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
+        const goodValue = 'M0';
+        const codeableConcept = lookup.getMStageCodeableConcept(goodValue);
+
+        expect(codeableConcept)
+            .to.be.an('object');
+        expect(codeableConcept.displayText.value)
+            .to.be.a('string')
+            .eql(goodValue);
+        expect(codeableConcept.coding)
+            .to.be.an('array')
+            .that.is.not.empty;
+        expect(codeableConcept.coding[0].value)
+            .to.be.a('string')
+            .eql('433581000124101');
+        expect(codeableConcept.coding[0].codeSystem)
+            .to.be.a('string')
+            .eql('urn:oid:2.16.840.1.113883.6.96');
+    });
+});
+
 
 // describe('getTsForEdition', function () { 
 

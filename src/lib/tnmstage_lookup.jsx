@@ -1,3 +1,5 @@
+const codeableConcept = require('./codeable_concept.jsx');
+
 // Breast Cancer Staging lookups
 
 // 5th Edition, p.174:
@@ -19,8 +21,28 @@ const ns5thEdition = [
 ];
 
 const ms = [
-    {name: 'M0', description: 'No clinical or radiographic evidence of distant metastases'},
-    {name: 'M1', description: 'Distant detectable metastases as determined by classic clinical and radiographic means and/or histologically proven larger than 0.2 mm'}
+    {
+        name: 'M0', 
+        description: 'No clinical or radiographic evidence of distant metastases',
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"433581000124101"
+    },
+    {
+        name: 'M1', 
+        description: 'Distant detectable metastases as determined by classic clinical and radiographic means and/or histologically proven larger than 0.2 mm',
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"436331000124104"
+    }
+    // {
+    //     name: "M1a", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"436341000124109"
+    // },
+    // {
+    //     name: "M1b", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"436321000124102"
+    // }
 ];
 
 const table5thEdition = [
@@ -66,20 +88,96 @@ const table6thEdition = [
 
 // const ts7thEdition = ['Tis', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
 const ts7thEdition = [
-    {name: 'Tis', description: "Carcinoma in situ"},
-    {name: 'T0', description: "No evidence of primary tumor"},
-    {name: 'T1', description: "Tumor ≤ 1 mm in greatest dimension"},
-    {name: 'T2', description: "20 < Tumor ≤ 50 mm in greatest dimension"},
-    {name: 'T3', description: "Tumor > 50 mm in greatest dimension"},
-    {name: 'T4', description: "Tumor of any size with direct extension to the chest wall and/or to the skin (ulceration or skin nodules)"}
+    {
+        name: 'Tis', 
+        description: "Carcinoma in situ",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"44401000"
+    },
+    {
+        name: 'T0', 
+        description: "No evidence of primary tumor",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"433371000124106"
+    },
+    {
+        name: 'T1', 
+        description: "Tumor ≤ 1 mm in greatest dimension",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"369895002"
+    },
+    // We are currently not using these
+    // {
+    //     name: "T1mi", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"433381000124109"
+    // },
+    // {
+    //     name: "T1a", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"369897005"
+    // },
+    // {
+    //     name: "T1b", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"369898000"
+    // },
+    // {
+    //     name: "T1c", 
+    //     codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+    //     code:"433391000124107"
+    // },
+    {
+        name: 'T2', 
+        description: "20 < Tumor ≤ 50 mm in greatest dimension",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"369900003"
+    },
+    {
+        name: 'T3', 
+        description: "Tumor > 50 mm in greatest dimension",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"369901004"
+    },
+    {
+        name: 'T4', 
+        description: "Tumor of any size with direct extension to the chest wall and/or to the skin (ulceration or skin nodules)",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96",
+        code:"433401000124109"
+    }
 ];
 // const ns7thEdition = ['N0', 'N1mi', 'N1', 'N2', 'N3'];
 const ns7thEdition = [
-    {name: 'N0', description: "No regional lymph node metastases"},
-    {name: 'N1mi', description: "Micrometastases (greater than 0.2 mm and/or more than 200 cells, but none greater than 2.0 mm)"},
-    {name: 'N1', description: "Micrometastases; or metastases in 1–3 axillary lymph nodes; and/or in internal mammary nodes with metastases detected by sentinel lymph node biopsy but not clinically detected"},
-    {name: 'N2', description: "Metastases in 4–9 axillary lymph nodes; or in clinically detected internal mammary lymph nodes in the absence of axillary lymph node metastases"},
-    {name: 'N3', description: "Metastases in 10 or more axillary lymph nodes; or in infraclavicular (level III axillary) lymph nodes; or in clinically detected ipsilateral internal mammary lymph nodes in the presence of one or more positive level I, II axillary lymph nodes; or in more than three axillary lymph nodes and in internal mammary lymph nodes with micrometastases or macrometastases detected by sentinel lymph node biopsy but not clinically detected; or in ipsilateral supraclavicular lymph nodes"}
+    {
+        name: 'N0', 
+        description: "No regional lymph node metastases",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"436311000124105"
+    },
+    {
+        name: 'N1mi', 
+        description: "Micrometastases (greater than 0.2 mm and/or more than 200 cells, but none greater than 2.0 mm)",
+        codeSystem: "urn:oid:2.16.840.1.113883.3.26.1.1", 
+        code: "C95955"
+    },
+    {
+        name: 'N1', 
+        description: "Micrometastases; or metastases in 1–3 axillary lymph nodes; and/or in internal mammary nodes with metastases detected by sentinel lymph node biopsy but not clinically detected",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"433511000124108"
+    },
+    {
+        name: 'N2', 
+        description: "Metastases in 4–9 axillary lymph nodes; or in clinically detected internal mammary lymph nodes in the absence of axillary lymph node metastases",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"433551000124109"
+    },
+    {
+        name: 'N3', 
+        description: "Metastases in 10 or more axillary lymph nodes; or in infraclavicular (level III axillary) lymph nodes; or in clinically detected ipsilateral internal mammary lymph nodes in the presence of one or more positive level I, II axillary lymph nodes; or in more than three axillary lymph nodes and in internal mammary lymph nodes with micrometastases or macrometastases detected by sentinel lymph node biopsy but not clinically detected; or in ipsilateral supraclavicular lymph nodes",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"433431000124101"
+    }
 ];
 const table7thEdition = [
   // N0 , N1mi , N1 ,  N2  , N3
@@ -90,6 +188,86 @@ const table7thEdition = [
     ['IIB', null, 'IIIA', 'IIIA', 'IIIC'], // T3
     ['IIIB', null, 'IIIB', 'IIIB', 'IIIC'] // T4
 ];
+
+// stageOptions
+const stageOptions = [
+    {
+        name: "IA",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"46333007"
+    },
+    {
+        name: "IB",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"786005"
+    },
+    {
+        name: "IIA",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"52774001"
+    },
+    {
+        name: "IIB",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"17816005"
+    },
+    {
+        name: "IIIA",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"73082003"
+    },
+    {
+        name: "IIIB",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"64062008"
+    },
+    {
+        name: "IIIC",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"48105005"
+    },
+    {
+        name: "IV",
+        codeSystem: "urn:oid:2.16.840.1.113883.6.96", 
+        code:"2640006"
+    }
+];
+
+/*
+ *  Searches for value in stageOptions in list
+ *  Will return CodeableConcept object with empty strings if not found
+ *  If value found in list, function will return CodeableConcept with value, codeSystem, and displayText  
+ */
+exports.getValueCodeableConcept = (possibleStage) => {
+    return codeableConcept.getCodeableConceptFromOptions(possibleStage, stageOptions);
+}
+
+/*
+ *  Searches for tStage in ts7thEdition in list
+ *  Will return CodeableConcept object with empty strings if not found
+ *  If tStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
+ */
+exports.getTStageCodeableConcept = (possibleTStage) => {
+    return codeableConcept.getCodeableConceptFromOptions(possibleTStage, ts7thEdition);
+}
+
+/*
+ *  Searches for nStage in ns7thEdition in list
+ *  Will return CodeableConcept object with empty strings if not found
+ *  If nStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
+ */
+exports.getNStageCodeableConcept = (possibleNStage) => {
+    return codeableConcept.getCodeableConceptFromOptions(possibleNStage, ns7thEdition);
+}
+
+/*
+ *  Searches for mStage in ms in list
+ *  Will return CodeableConcept object with empty strings if not found
+ *  If mStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
+ */
+exports.getMStageCodeableConcept = (possibleMStage) => {
+    return codeableConcept.getCodeableConceptFromOptions(possibleMStage, ms);
+}
 
 exports.getDescription = (dataElement) => {
     if(typeof(dataElement) !== 'string') {return null;}
