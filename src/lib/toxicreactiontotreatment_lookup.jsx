@@ -8788,6 +8788,11 @@ exports.findAttribution = (possibleAttribution) => {
     return attributionOptions[index];
 }
 
+/*
+ * Searches for attribution in attributionOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If attribution found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getAttributionCodeableConcept = (possibleAttribution) => {
     const attribution = exports.findAttribution(possibleAttribution);
     let tuple = {
@@ -8820,6 +8825,11 @@ exports.findGrade = (possibleGrade) => {
     return gradeOptions[index];
 }
 
+/*
+ * Searches for adverse event grade in gradeOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If adverse event grade found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
     const grade = exports.findGrade(possibleGrade);
     let tuple = {
@@ -8852,6 +8862,11 @@ exports.findAdverseEvent = (possibleAdverseEvent) => {
     return adverseEventOptions[index];
 }
 
+/*
+ * Searches for adverse event in adverseEventOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If adverse event found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
     const adverseEvent = exports.findAdverseEvent(possibleAdverseEvent);
     let tuple = {
@@ -8862,7 +8877,7 @@ exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
 
     if(!Lang.isNull(adverseEvent)) {
         tuple = {
-            value: adverseEvent['MedDRA v12.0 Code'], 
+            value: `${adverseEvent['MedDRA v12.0 Code']}`, 
             codeSystem: "https://www.meddra.org/", 
             displayText: adverseEvent['name']
         };

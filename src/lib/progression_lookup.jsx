@@ -103,6 +103,11 @@ exports.findStatus = (possibleStatus) => {
     return statusOptions[index];  
 }
 
+/*
+ * Searches for value in statusOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getValueCodeableConcept = (possibleStatus) => {
     const status = exports.findStatus(possibleStatus);
     let tuple = {
@@ -132,6 +137,11 @@ exports.findReason = (possibleReason) => {
     return reasonOptions[index];
 }
 
+/*
+ * Searches for evidence in reasonOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If evidence found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getEvidenceCodeableConcept = (possibleReason) => {
     const reason = exports.findReason(possibleReason);
     let tuple = {
