@@ -1,4 +1,4 @@
-import GeneralizedAge from './GeneralizedAge';
+//import GeneralizedAge from './GeneralizedAge';
 import GeneralizedDateTime from './GeneralizedDateTime';
 
 /** Generated from SHR definition for shr.core.GeneralizedTemporalContext */
