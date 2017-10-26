@@ -1,6 +1,6 @@
 import CreatorShortcut from './CreatorShortcut';
 
-const lookup = require('../lib/staging_lookup');
+const lookup = require('../lib/tnmstage_lookup');
 
 export default class StagingMCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {

@@ -1,6 +1,6 @@
 import CreatorShortcut from './CreatorShortcut';
 import Lang from 'lodash';
-const lookup = require('../lib/toxicity_lookup');
+const lookup = require('../lib/toxicreactiontotreatment_lookup');
 
 export default class ToxicityAdverseEventCreator extends CreatorShortcut {
     constructor(onUpdate, obj) {

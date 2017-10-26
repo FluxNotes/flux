@@ -1,39 +1,70 @@
 const Lang = require('lodash/lang');
+const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
-    {name: 'Treatment', description: "Adverse event is attributed to a treatment."},
-    {name: 'Disease',  description: "Adverse event is attributed to the course of the disease"},
-    {name: 'Error', description: "Adverse event is attributed to a medical error"},
-    {name: 'Unrelated', description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error."},
-    {name: 'Unknown', description: "The causal category of the adverse event is unknown"}
+    {
+        name: 'Treatment', 
+        description: "Adverse event is attributed to a treatment.",
+        code: '#Treatment',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Disease',  
+        description: "Adverse event is attributed to the course of the disease",
+        code: '#Disease',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Error', 
+        description: "Adverse event is attributed to a medical error",
+        code: '#Error',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Unrelated', 
+        description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error.",
+        code: '#Unrelated',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Unknown', 
+        description: "The causal category of the adverse event is unknown",
+        code: '#Unknown',
+        codeSystem: 'https://www.meddra.org/'
+    }
 ]
 
 const gradeOptions = [
     {
         name: 'Grade 1', 
         description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated.",
-        code: "C1513302"
+        code: "C1513302",
+        codeSystem: "http://ncimeta.nci.nih.gov",
     },
     {
         name: 'Grade 2', 
         description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life.",
-        code: "C1513374"
+        code: "C1513374",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 3', 
         description: "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self care ADL",
-        code: "C1519275"
+        code: "C1519275",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 4', 
         description: "Life-threatening consequences; urgent intervention indicated. ",
-        code: "C1517874"
+        code: "C1517874",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 5', 
         description: "Death related to adverse effect",
-        code: "C1559081"
+        code: "C1559081",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     }
 ]
 
@@ -8787,20 +8818,13 @@ exports.findAttribution = (possibleAttribution) => {
     return attributionOptions[index];
 }
 
+/*
+ * Searches for attribution in attributionOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If attribution found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getAttributionCodeableConcept = (possibleAttribution) => {
-    const attribution = exports.findAttribution(possibleAttribution);
-    if(Lang.isNull(attribution)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
-        };
-    }
-    return {
-        value: `#${attribution.name}`,
-        codeSystem: "https://www.meddra.org/",
-        displayText: attribution.name
-    };
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleAttribution, attributionOptions);
 }
 
 /* 
@@ -8816,20 +8840,13 @@ exports.findGrade = (possibleGrade) => {
     return gradeOptions[index];
 }
 
-exports.getGradeCodeableConcept = (possibleGrade) => {
-    const grade = exports.findGrade(possibleGrade);
-    if(Lang.isNull(grade)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
-        };
-    }
-    return {
-        value: grade.code,
-        codeSystem: "http://ncimeta.nci.nih.gov",
-        displayText: grade.name
-    };
+/*
+ * Searches for adverse event grade in gradeOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If adverse event grade found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
+exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleGrade, gradeOptions);
 }
 
 /* 
@@ -8845,20 +8862,28 @@ exports.findAdverseEvent = (possibleAdverseEvent) => {
     return adverseEventOptions[index];
 }
 
+/*
+ * Searches for adverse event in adverseEventOptions list
+ * Will return CodeableConcept object with empty strings if not found
+ * If adverse event found in list, function will return CodeableConcept with value, codeSystem, and displayText
+ */
 exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
     const adverseEvent = exports.findAdverseEvent(possibleAdverseEvent);
-    if(Lang.isNull(adverseEvent)) {
-        return {
-            value: "",
-            codeSystem: "",
-            displayText: ""
+    let tuple = {
+        value: "",
+        codeSystem: "",
+        displayText: ""
+    };
+
+    if(!Lang.isNull(adverseEvent)) {
+        tuple = {
+            value: `${adverseEvent['MedDRA v12.0 Code']}`,
+            codeSystem: 'https://www.meddra.org/',
+            displayText: adverseEvent.name
         };
     }
-    return {
-        value: adverseEvent['MedDRA v12.0 Code'], 
-        codeSystem: "https://www.meddra.org/", 
-        displayText: adverseEvent['name']
-    };
+
+    return codeableConceptUtils.getCodeableConceptFromTuple(tuple);
 }
 
 /* 
