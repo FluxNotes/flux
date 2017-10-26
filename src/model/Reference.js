@@ -4,7 +4,13 @@ class Reference {
     this._entryId = entryId;
     this._entryType = entryType;
   }
-  
+
+  constructor(entryInfo) {
+    this._shrId = entryInfo.shrId;
+    this._entryId = entryInfo.entryId;
+    this._entryType = entryInfo.entryType;
+  }
+
   /**
    * Getter for shr.base.ShrId
    */
