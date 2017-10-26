@@ -5,7 +5,7 @@ import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
 //import StagingForm from '../forms/StagingForm';
-import lookup from '../lib/staging_lookup';
+import lookup from '../lib/tnmstage_lookup';
 import Patient from '../patient/Patient';
 import Lang from 'lodash'
 
