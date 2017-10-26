@@ -1,7 +1,17 @@
+import Entry from '../base/Entry';
 import Person from '../actor/Person';
 
 /** Generated from SHR definition for shr.demographics.PersonOfRecord */
 class PersonOfRecord extends Person {
+  constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this._dateOfBirth = json.dateOfBirth;
+        this._placeOfBirth = json.placeOfBirth;
+        this._multipleBirth = json.multipleBirth;
+        this._birthSex = json.birthSex;
+        this._administrativeGender = json.administrativeGender;
+  }
 
   /**
    * Getter for entry information (shr.base.Entry)

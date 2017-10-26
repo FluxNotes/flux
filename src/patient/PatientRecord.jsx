@@ -1,4 +1,8 @@
 import ShrObjectFactory from '../model/ShrObjectFactory';
+import Condition from '../model/shr/condition/Condition';
+import PatientIdentifier from '../model/shr/base/PatientIdentifier';
+import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
+import Photograph from '../model/shr/demographics/Photograph';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -6,13 +10,13 @@ import Guid from 'guid';
 class PatientRecord {
 	constructor(shrJson = null) {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
-            this.entries = this.loadJSON(shrJson);
+            this.entries = this._loadJSON(shrJson);
             this.personOfRecord = this.getPersonOfRecord();
-            this.shrId = this.personOfRecord.shrId;
+            this.shrId = this.personOfRecord.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;
-            this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
+            /*this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
                                             "shrId": this.shrId,
-                                            "entryId": this.personOfRecord.entryId };
+                                            "entryId": this.personOfRecord.entryId };*/
         } else { // create a new patient
             this.entries = [];
             this.personOfRecord = null;
@@ -22,9 +26,8 @@ class PatientRecord {
         }
     }
     
-    loadJSON(shrJson) {
+    _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-            // TODO implement this to correctly load JSON
 			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
             
         });
@@ -65,7 +68,7 @@ class PatientRecord {
 	getName() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return personOfRecord.value.value;
+		return personOfRecord.humanName;
 	}
 	
 	getDateOfBirth() {
@@ -94,32 +97,35 @@ class PatientRecord {
 	}
 	
 	getPersonOfRecord() {
-		return this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/PersonOfRecord");
+		//return this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/PersonOfRecord");
+        return this.getMostRecentEntryOfType(PersonOfRecord);
 	}
 	
 	getMRN() {
-		let list = this.entries.filter((item) => { return item.entryType[0] === "http://standardhealthrecord.org/base/PatientIdentifier" && item.identifierType === "MRN" });
+		let list = this.entries.filter((item) => { return item instanceof PatientIdentifier && item.identifierType === "MRN" });
 		let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
 		if (Lang.isNull(identifierEntry)) return null;
 		return identifierEntry.value;
 	}
 	
 	getMostRecentPhoto() {
-		let photoEntry = this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/Photograph");
+		//let photoEntry = this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/Photograph");
+        let photoEntry = this.getMostRecentEntryOfType(Photograph);
 		if (Lang.isNull(photoEntry)) return null;
 		return photoEntry.filePath;
 	}
 	
 	getCurrentHomeAddress() {
 		let personOfRecord = this.getPersonOfRecord();
-		if (Lang.isNull(personOfRecord)) return null;
+		if (Lang.isNull(personOfRecord) || !personOfRecord.addressUsed) return null;
 		let addressUsed = personOfRecord.addressUsed.filter((item) => { return item.addressUse.coding.value === "primary_residence" });
 		if (addressUsed.length === 0) return null;
 		return addressUsed[0].value;
 	}
 	
 	getConditions() {
-		let result = this.getEntriesIncludingType("http://standardhealthrecord.org/condition/Condition");
+		//let result = this.getEntriesIncludingType("http://standardhealthrecord.org/condition/Condition");
+        let result = this.getEntriesIncludingType(Condition);
 		return result;
 	}
 	
@@ -307,11 +313,12 @@ class PatientRecord {
 
 	// generic methods
 	getEntriesIncludingType(type) {
-		return this.entries.filter((item) => { return item.entryType.some((t) => { return t === type; }) });
+		//return this.entries.filter((item) => { return item.itemInfo.entryType.some((t) => { return t === type; }) });
+        return this.entries.filter((item) => { return item instanceof type });
 	}
 	
 	getEntriesOfType(type) {
-		return this.entries.filter((item) => { return item.entryType[0] === type });
+		return this.entries.filter((item) => { return item instanceof type });
 	}
     
     static getEntriesOfTypeFromList(list, type) {
@@ -325,6 +332,7 @@ class PatientRecord {
 	
 	static getMostRecentEntryFromList(list) {
 		if (list.length === 0) return null;
+        if (list.length === 1) return list[0];
 		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o.lastUpdateDate);}));
 		let result = list.filter((item) => { return new Date(item.lastUpdateDate).getTime() === new Date(maxDate).getTime() });
 		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) return null;

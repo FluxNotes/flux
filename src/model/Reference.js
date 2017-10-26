@@ -4,7 +4,7 @@ class Reference {
     this._entryId = entryId;
     this._entryType = entryType;
   }
-
+  
   /**
    * Getter for shr.base.ShrId
    */

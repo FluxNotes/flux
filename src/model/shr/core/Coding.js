@@ -1,6 +1,17 @@
+import CodeSystem from '../core/CodeSystem';
+import CodeSystemVersion from '../core/CodeSystemVersion';
+import DisplayText from '../core/DisplayText';
+
 /** Generated from SHR definition for shr.core.Coding */
 class Coding {
-
+    constructor(json) {
+        console.log(json);
+        this.code = json.code;
+        this._code = json.code;
+        this._codeSystem = new CodeSystem(json.codeSystem);
+        this._codeSystemVersion = new CodeSystemVersion(json.codeSystemVersion);
+        this._displayText = new DisplayText(json.displayText);
+    }
   /**
    * Convenience getter for value (accesses this.code)
    */

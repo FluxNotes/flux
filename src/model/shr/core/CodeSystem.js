@@ -1,5 +1,9 @@
 /** Generated from SHR definition for shr.core.CodeSystem */
 class CodeSystem {
+    constructor(json) {
+        this.uri = json.uri;
+        this._uri = json.uri;
+    }
 
   /**
    * Convenience getter for value (accesses this.uri)

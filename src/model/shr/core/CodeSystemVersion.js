@@ -1,6 +1,9 @@
 /** Generated from SHR definition for shr.core.CodeSystemVersion */
 class CodeSystemVersion {
-
+    constructor(json) {
+        this.string = json;
+        this._string = json;
+    }
   /**
    * Convenience getter for value (accesses this.string)
    */
