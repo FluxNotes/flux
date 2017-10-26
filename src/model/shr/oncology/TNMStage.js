@@ -76,43 +76,43 @@ class TNMStage extends Observation {
   /**
    * Getter for shr.oncology.T-Stage
    */
-  get t_Stage() {
-    return this._t_Stage;
+  get t-Stage() {
+    return this._t-Stage;
   }
 
   /**
    * Setter for shr.oncology.T-Stage
    */
-  set t_Stage(t_StageVal) {
-    this._t_Stage = t_StageVal;
+  set t-Stage(t-StageVal) {
+    this._t-Stage = t-StageVal;
   }
 
   /**
    * Getter for shr.oncology.N-Stage
    */
-  get n_Stage() {
-    return this._n_Stage;
+  get n-Stage() {
+    return this._n-Stage;
   }
 
   /**
    * Setter for shr.oncology.N-Stage
    */
-  set n_Stage(n_StageVal) {
-    this._n_Stage = n_StageVal;
+  set n-Stage(n-StageVal) {
+    this._n-Stage = n-StageVal;
   }
 
   /**
    * Getter for shr.oncology.M-Stage
    */
-  get m_Stage() {
-    return this._m_Stage;
+  get m-Stage() {
+    return this._m-Stage;
   }
 
   /**
    * Setter for shr.oncology.M-Stage
    */
-  set m_Stage(m_StageVal) {
-    this._m_Stage = m_StageVal;
+  set m-Stage(m-StageVal) {
+    this._m-Stage = m-StageVal;
   }
 
 }
