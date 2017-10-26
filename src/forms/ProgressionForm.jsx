@@ -43,12 +43,12 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.progression.evidence.findIndex((e) => e.coding.displayText === reason.name);
+        const reasonIndex = this.props.progression.evidence.findIndex((e) => e === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
                 const newReasons = this.props.progression.evidence.map((e) => {
-                    return e.coding.displayText;
+                    return e;
                 });
                 newReasons.push(reason.name);
                 this.props.updateValue("reasons", newReasons);
@@ -59,9 +59,9 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                const filteredReasons = this.props.progression.evidence.filter((e) => e.coding.displayText !== reason.name);
+                const filteredReasons = this.props.progression.evidence.filter((e) => e !== reason.name);
                 const newReasons = filteredReasons.map((e) => {
-                    return e.coding.displayText;
+                    return e;
                 });
                 this.props.updateValue("reasons", newReasons);
             } else {
