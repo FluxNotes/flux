@@ -1,4 +1,4 @@
-const codeableConcept = require('./codeable_concept.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 // Breast Cancer Staging lookups
 
@@ -239,7 +239,7 @@ const stageOptions = [
  *  If value found in list, function will return CodeableConcept with value, codeSystem, and displayText  
  */
 exports.getValueCodeableConcept = (possibleStage) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleStage, stageOptions);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleStage, stageOptions);
 }
 
 /*
@@ -248,7 +248,7 @@ exports.getValueCodeableConcept = (possibleStage) => {
  *  If tStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
  */
 exports.getTStageCodeableConcept = (possibleTStage) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleTStage, ts7thEdition);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleTStage, ts7thEdition);
 }
 
 /*
@@ -257,7 +257,7 @@ exports.getTStageCodeableConcept = (possibleTStage) => {
  *  If nStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
  */
 exports.getNStageCodeableConcept = (possibleNStage) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleNStage, ns7thEdition);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleNStage, ns7thEdition);
 }
 
 /*
@@ -266,7 +266,7 @@ exports.getNStageCodeableConcept = (possibleNStage) => {
  *  If mStage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
  */
 exports.getMStageCodeableConcept = (possibleMStage) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleMStage, ms);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleMStage, ms);
 }
 
 exports.getDescription = (dataElement) => {

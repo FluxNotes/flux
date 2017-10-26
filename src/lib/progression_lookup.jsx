@@ -1,4 +1,4 @@
-const codeableConcept = require('./codeable_concept.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 const statusOptions = [
     {
@@ -119,7 +119,7 @@ exports.findStatus = (possibleStatus) => {
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getValueCodeableConcept = (possibleStatus) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleStatus, statusOptions);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, statusOptions);
 }
 
 exports.findReasonIndex = (possibleReason) => { 
@@ -138,5 +138,5 @@ exports.findReason = (possibleReason) => {
  * If evidence found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getEvidenceCodeableConcept = (possibleReason) => {    
-    return codeableConcept.getCodeableConceptFromOptions(possibleReason, reasonOptions);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleReason, reasonOptions);
 }

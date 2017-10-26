@@ -1,5 +1,5 @@
 const Lang = require('lodash/lang');
-const codeableConcept = require('./codeable_concept.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
@@ -8824,7 +8824,7 @@ exports.findAttribution = (possibleAttribution) => {
  * If attribution found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getAttributionCodeableConcept = (possibleAttribution) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleAttribution, attributionOptions);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleAttribution, attributionOptions);
 }
 
 /* 
@@ -8846,7 +8846,7 @@ exports.findGrade = (possibleGrade) => {
  * If adverse event grade found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
-    return codeableConcept.getCodeableConceptFromOptions(possibleGrade, gradeOptions);
+    return codeableConceptUtils.getCodeableConceptFromOptions(possibleGrade, gradeOptions);
 }
 
 /* 
@@ -8883,7 +8883,7 @@ exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
         };
     }
 
-    return codeableConcept.getCodeableConceptFromTuple(tuple);
+    return codeableConceptUtils.getCodeableConceptFromTuple(tuple);
 }
 
 /* 

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import codeableConcept from '../../../src/lib/codeable_concept.jsx';
+import codeableConceptUtils from '../../../src/model/CodeableConceptUtils.jsx';
 
 describe('getCodeableConceptFromTuple', function() {
     const tuple = {
@@ -7,7 +7,7 @@ describe('getCodeableConceptFromTuple', function() {
         codeSystem: '1234',
         displayText: 'display!'
     };
-    const concept = codeableConcept.getCodeableConceptFromTuple(tuple);
+    const concept = codeableConceptUtils.getCodeableConceptFromTuple(tuple);
 
     it('should return CodeableConcept object with corresponding code, codeySystem, and displayText', function() {
         expect(concept)
