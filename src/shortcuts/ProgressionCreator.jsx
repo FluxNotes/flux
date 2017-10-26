@@ -21,7 +21,7 @@ class ProgressionCreator extends CreatorShortcut {
         if (Lang.isUndefined(progression)) {
             this.progression = new Progression();
             this.progression.value = 'unknown';
-            this.progression.evidence = '';
+            this.progression.evidence = [];
             this.progression.asOfDate = null;
             this.progression.clinicallyRelevantTime = null;
 
