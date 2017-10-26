@@ -98,7 +98,7 @@ class ProgressionForm extends Component {
                             backgroundColor: "white",
                             textTransform: "none"
                         }}
-                        disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                        disabled={this.currentlySelected(this.props.progression.value, this.state.statusOptions[i].name)}
                 >{statusName}
                 </Button>
             </div>
