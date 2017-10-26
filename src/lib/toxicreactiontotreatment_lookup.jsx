@@ -3,38 +3,68 @@ const codeableConcept = require('./codeable_concept.jsx');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
-    {name: 'Treatment', description: "Adverse event is attributed to a treatment."},
-    {name: 'Disease',  description: "Adverse event is attributed to the course of the disease"},
-    {name: 'Error', description: "Adverse event is attributed to a medical error"},
-    {name: 'Unrelated', description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error."},
-    {name: 'Unknown', description: "The causal category of the adverse event is unknown"}
+    {
+        name: 'Treatment', 
+        description: "Adverse event is attributed to a treatment.",
+        code: '#Treatment',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Disease',  
+        description: "Adverse event is attributed to the course of the disease",
+        code: '#Disease',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Error', 
+        description: "Adverse event is attributed to a medical error",
+        code: '#Error',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Unrelated', 
+        description: "Adverse event is attributed to an cause unrelated to the treatment, disease, or medical error.",
+        code: '#Unrelated',
+        codeSystem: 'https://www.meddra.org/'
+    },
+    {
+        name: 'Unknown', 
+        description: "The causal category of the adverse event is unknown",
+        code: '#Unknown',
+        codeSystem: 'https://www.meddra.org/'
+    }
 ]
 
 const gradeOptions = [
     {
         name: 'Grade 1', 
         description: "Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated.",
-        code: "C1513302"
+        code: "C1513302",
+        codeSystem: "http://ncimeta.nci.nih.gov",
     },
     {
         name: 'Grade 2', 
         description: "Moderate; minimal, local or noninvasive intervention indicated; limiting age-appropriate instrumental activities of daily life.",
-        code: "C1513374"
+        code: "C1513374",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 3', 
         description: "Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self care ADL",
-        code: "C1519275"
+        code: "C1519275",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 4', 
         description: "Life-threatening consequences; urgent intervention indicated. ",
-        code: "C1517874"
+        code: "C1517874",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Grade 5', 
         description: "Death related to adverse effect",
-        code: "C1559081"
+        code: "C1559081",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     }
 ]
 
@@ -8794,22 +8824,7 @@ exports.findAttribution = (possibleAttribution) => {
  * If attribution found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getAttributionCodeableConcept = (possibleAttribution) => {
-    const attribution = exports.findAttribution(possibleAttribution);
-    let tuple = {
-        value: "",
-        codeSystem: "",
-        displayText: ""
-    };
-
-    if(!Lang.isNull(attribution)) {
-        tuple = {
-            value: `#${attribution.name}`,
-            codeSystem: "https://www.meddra.org/",
-            displayText: attribution.name
-        };
-    }
-
-    return codeableConcept.getCodeableConceptFromTuple(tuple);
+    return codeableConcept.getCodeableConceptFromOptions(possibleAttribution, attributionOptions);
 }
 
 /* 
@@ -8831,22 +8846,7 @@ exports.findGrade = (possibleGrade) => {
  * If adverse event grade found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
-    const grade = exports.findGrade(possibleGrade);
-    let tuple = {
-        value: "",
-        codeSystem: "",
-        displayText: ""
-    };
-
-    if(!Lang.isNull(grade)) {
-        tuple = {
-            value: grade.code,
-            codeSystem: "http://ncimeta.nci.nih.gov",
-            displayText: grade.name
-        };
-    }
-    
-    return codeableConcept.getCodeableConceptFromTuple(tuple);
+    return codeableConcept.getCodeableConceptFromOptions(possibleGrade, gradeOptions);
 }
 
 /* 
@@ -8877,12 +8877,12 @@ exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
 
     if(!Lang.isNull(adverseEvent)) {
         tuple = {
-            value: `${adverseEvent['MedDRA v12.0 Code']}`, 
-            codeSystem: "https://www.meddra.org/", 
-            displayText: adverseEvent['name']
+            value: `${adverseEvent['MedDRA v12.0 Code']}`,
+            codeSystem: 'https://www.meddra.org/',
+            displayText: adverseEvent.name
         };
     }
-    
+
     return codeableConcept.getCodeableConceptFromTuple(tuple);
 }
 

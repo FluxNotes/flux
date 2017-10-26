@@ -1,36 +1,41 @@
-const Lang = require('lodash/lang');
 const codeableConcept = require('./codeable_concept.jsx');
 
 const statusOptions = [
     {
         name: 'Complete Response', 
         description: "The patient's disease is presenting a complete response.",
-        code: "C0677874"
+        code: "C0677874",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Complete Resection', 
         description: "The patients' disease has undergone complete resection.",
-        code: "C0015250"
+        code: "C0015250",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     { 
         name: 'Responding', 
         description: "The patient's disease is currently responding to treatment.",
-        code: "C1272745"
+        code: "C1272745",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     { 
         name: 'Stable', 
         description: "The patient's disease is effectively stable.",
-        code: "C0205360"
+        code: "C0205360",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Progressing', 
         description: "The patient's disease continues to progress.",
-        code: "C1546960"
+        code: "C1546960",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: 'Inevaluable', 
         description: "The patients progression status is inevaluable at this current time.",
-        code: "C3858734"
+        code: "C3858734",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     }
 ]
 
@@ -38,27 +43,32 @@ const reasonOptions = [
     {
         name: "Pathology", 
         description: "Pathologic evidence of locoregional or distant evidence of tumor.",
-        code: "C0030664"
+        code: "C0030664",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: "Imaging", 
         description: "Imaging evidence of locoregional, distant or disseminated tumor.",
-        code: "C0011923"
+        code: "C0011923",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: "Symptoms", 
         description: "Symptoms the patient has reported or presented that can be attributed to tumor.",
-        code: "C1457887"
+        code: "C1457887",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: "Physical exam", 
         description: "Signs of tumor on physical exam.",
-        code: "C0031809"
+        code: "C0031809",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     },
     {
         name: "Markers", 
         description: "Biomarker evidence of persistent/recurrent tumor.",
-        code: "C0005516"
+        code: "C0005516",
+        codeSystem: "http://ncimeta.nci.nih.gov"
     }
 ]
 
@@ -109,22 +119,7 @@ exports.findStatus = (possibleStatus) => {
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
 exports.getValueCodeableConcept = (possibleStatus) => {
-    const status = exports.findStatus(possibleStatus);
-    let tuple = {
-        value: "",
-        codeSystem: "",
-        displayText: ""
-    };
-
-    if(!Lang.isNull(status)) {
-        tuple = {
-            value: status.code,
-            codeSystem: "http://ncimeta.nci.nih.gov",
-            displayText: status.name
-        };
-    }
-
-    return codeableConcept.getCodeableConceptFromTuple(tuple);
+    return codeableConcept.getCodeableConceptFromOptions(possibleStatus, statusOptions);
 }
 
 exports.findReasonIndex = (possibleReason) => { 
@@ -142,21 +137,6 @@ exports.findReason = (possibleReason) => {
  * Will return CodeableConcept object with empty strings if not found
  * If evidence found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getEvidenceCodeableConcept = (possibleReason) => {
-    const reason = exports.findReason(possibleReason);
-    let tuple = {
-        value: "",
-        codeSystem: "",
-        displayText: ""
-    };
-
-    if(!Lang.isNull(reason)) {
-        tuple = {
-            value: reason.code,
-            codeSystem: "http://ncimeta.nci.nih.gov",
-            displayText: reason.name
-        };
-    }
-    
-    return codeableConcept.getCodeableConceptFromTuple(tuple);
+exports.getEvidenceCodeableConcept = (possibleReason) => {    
+    return codeableConcept.getCodeableConceptFromOptions(possibleReason, reasonOptions);
 }
