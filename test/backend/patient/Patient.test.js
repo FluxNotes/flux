@@ -1,14 +1,15 @@
-import Patient from '../../../src/patient/Patient';
+import PatientRecord from '../../../src/patient/PatientRecord';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import FakeDataElement from "FakeDataElement";
 import Moment from 'moment';
 import {expect} from 'chai';
 
 // The empty Patient.jsx obj
-const emptyPatientObj = new Patient(null);
+const emptyPatientObj = new PatientRecord(null);
 // The empty patient shr object -- an empty array 
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
-const emptyPatientRecord = emptyPatientObj.getPersonOfRecord()
+const emptyPatientRecord = emptyPatientObj.getPersonOfRecord();
 
 // The hardcoded Patient.jsx obj
 const hardCodedPatientObj = new Patient(hardCodedPatient);
@@ -27,7 +28,7 @@ describe('getEntriesOfType', function() {
 
     it('should return empty list for nonsense types', function () { 
         const invalidType1 = "nonsense";
-        const invalidType2 = "http://standardhealthrecord.org/fakeNamespace/fakeDataElement";
+        const invalidType2 = new FakeDataElement();
         expect(hardCodedPatientObj.getEntriesOfType(invalidType1))
             .to.be.an('array')
             .that.is.empty;
