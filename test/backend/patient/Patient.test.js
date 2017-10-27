@@ -707,29 +707,86 @@ describe('getProgressionsForConditionChronologicalOrder', function () {
     });
 });
 
-// describe('getPersonOfRecord', function () {
+describe('getMRN', function () { 
  
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getPersonOfRecord()).to.equal();
-//     });
-// });
+    it('should return the string value for MRN', function () { 
+         const expected = "";
+         expect(hardCodedPatientObj.getMRN()).to.equal('026-DH-678944');
+     });
+});
 
-// describe('getMRN', function () { 
- 
-//    it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getMRN()).to.equal();
-//     });
-// });
+describe('getCurrentHomeAddress', function () { 
 
-// describe('getCurrentHomeAddress', function () { 
+    it('should return an object with addressLine, city, state, country', function () { 
+        const expected = { addressLine : ['123 Main Street'], city: 'Boston', state: 'MA', country: 'US' };
+        expect(hardCodedPatientObj.getCurrentHomeAddress()).to.deep.equal(expected);
+    });
+});
 
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getCurrentHomeAddress()).to.equal();
-//     });
-// });
+describe('addEntryToPatient', function () { 
+	let testPatient = new Patient(null);
+	const today = new Moment().format("D MMM YYYY");
+	const procedureEntryToAdd = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: "12 JUL 2005",
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    it('should return a Patient with one Entry', function () { 
+		testPatient.addEntryToPatient(procedureEntryToAdd);
+        expect(testPatient.getEntriesOfType("http://standardhealthrecord.org/procedure/Procedure")[0]).to.deep.equal(procedureEntryToAdd);
+    });
+});
+
+describe('isEntryOfType', function () { 
+	const today = new Moment().format("D MMM YYYY");
+	const procedureEntryToAdd = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: "12 JUL 2005",
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    it('should return a Patient with one Entry of type Procedure', function () { 
+        expect(Patient.isEntryOfType(procedureEntryToAdd, "http://standardhealthrecord.org/procedure/Procedure")).to.equal(true);
+    });
+});
+
+describe('isEntryBasedOnType', function () { 
+	const today = new Moment().format("D MMM YYYY");
+	const procedureEntryToAdd = {
+        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
+                        "http://standardhealthrecord.org/base/Intervention",
+                        "http://standardhealthrecord.org/base/Action" ],
+        originalCreateDate: today,
+        asOfDate: today,
+        lastUpdateDate: today,
+        occurrenceTime: "12 JUL 2005",
+        reason: {
+                    entryType: "http://standardhealthrecord.org/condition/Condition", 
+                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
+                    entryId: "8" }
+    };
+    it('should return a Patient with one Entry of type Procedure', function () { 
+        expect(Patient.isEntryBasedOnType(procedureEntryToAdd, "http://standardhealthrecord.org/base/Action")).to.equal(true);
+    });
+});
+
+// Specific entries don't need tests, e.g.:  getMostRecentPhoto, getNotes
+// Patient should not know the details of Entries, including Conditions
 
 // describe('getLastBreastCancerCondition', function () { 
 
