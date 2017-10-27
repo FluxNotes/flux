@@ -715,6 +715,7 @@ describe('getMRN', function () {
      });
 });
 
+// Because we are checking that all the fields match, checking for deep equality is needed here.
 describe('getCurrentHomeAddress', function () { 
 
     it('should return an object with addressLine, city, state, country', function () { 
@@ -745,6 +746,7 @@ describe('addEntryToPatient', function () {
     });
 });
 
+// This is testing a static function on Patient, so no Patient instance is required, only an Entry
 describe('isEntryOfType', function () { 
 	const today = new Moment().format("D MMM YYYY");
 	const procedureEntryToAdd = {
@@ -765,6 +767,7 @@ describe('isEntryOfType', function () {
     });
 });
 
+// This is testing a static function on Patient, so no Patient instance is required, only an Entry
 describe('isEntryBasedOnType', function () { 
 	const today = new Moment().format("D MMM YYYY");
 	const procedureEntryToAdd = {
