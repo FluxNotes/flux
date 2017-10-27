@@ -191,13 +191,13 @@ fixture('Patient Mode - Patient Summary Panel')
     .page(startPage);
 
 test('Clicking event buttons selects corresponding event', async t => {
-    const preEncounterButton = Selector("[data-test-pre-encounter-button]");
-    const encounterButton = Selector("[data-test-encounter-button]");
-    const treatmentButton = Selector("[data-test-treatment-button]");
+    const preEncounterButton = Selector(".clinical-event-buttons .button [id='pre-encounter-button']");
+    const encounterButton = Selector(".clinical-event-buttons .button [id='encounter-button']");
+    const postEncounterButton = Selector(".clinical-event-buttons .button [id='post-encounter-button']");
 
-    // pre-encounter button is pre-selected
+    // post-encounter button is pre-selected
     await t
-        .expect(preEncounterButton.parent().hasClass("active"))
+        .expect(postEncounterButton.parent().hasClass("active"))
         .ok();
 
     // encounter button should be selected after clicking on it
@@ -207,15 +207,15 @@ test('Clicking event buttons selects corresponding event', async t => {
         .expect(encounterButton.parent().hasClass("active"))
         .ok();
 
-    // treatment button should be selected after clicking on it
-    await t.click(treatmentButton);
+    // pre-encounter button should be selected after clicking on it
+    await t.click(preEncounterButton);
 
     await t
         .expect(treatmentButton.parent().hasClass("active"))
         .ok();
 
-    // pre-encounter button should be selected after clicking on it
-    await t.click(preEncounterButton);
+    // post-encounter button should be selected after clicking on it
+    await t.click(postEncounterButton);
 
     await t
         .expect(preEncounterButton.parent().hasClass("active"))

@@ -34,8 +34,8 @@ class ClinicalEventSelection extends Component {
             <Row start="xs" className="event-buttons">
                 {this.props.possibleClinicalEvents.map((setting, index) => { 
                     return (
-                        <Col xs className={this.buttonClass(setting)} key={`clinical-setting-${index}`}>
-                            <Button raised onClick={() => {this.selectClinicalEvent(setting)}} data-test-pre-encounter-button>
+                        <Col xs className={this.buttonClass(setting)} key={`clinical-event-${setting}`}>
+                            <Button raised onClick={() => {this.selectClinicalEvent(setting)}}>
                                 {titlecase(setting)}
                             </Button>
                         </Col>
