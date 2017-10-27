@@ -198,11 +198,11 @@ class TimelinePanel extends Component {
     let items = [];
 
     meds.forEach((med, i) => {
-	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+	  const startTime = new moment(med.requestedPerformanceTime.value.timePeriodStart.value, "D MMM YYYY");
+	  const endTime = new moment(med.requestedPerformanceTime.value.timePeriodEnd.value, "D MMM YYYY");
       const assignedGroup = this._assignItemToGroup(items, startTime, 1);
-	  const name = med.medication.value.coding.displayText;
-	  const dosage = med.dosage.amountPerDose.value + " " + med.dosage.amountPerDose.units.coding.value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units.coding.value;
+	  const name = med.medication.value.value.coding.displayText.value.value;
+	  const dosage = med.dosage.amountPerDose.value.value + " " + med.dosage.amountPerDose.value.units.coding.coding.value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units;
       items.push({
         group: assignedGroup,
         title: name,
@@ -221,8 +221,8 @@ class TimelinePanel extends Component {
     let items = [];
 
     events.forEach((proc, i) => {
-	  let startTime = new moment(Lang.isObject(proc.occurrenceTime) ? proc.occurrenceTime.timePeriodStart : proc.occurrenceTime, "D MMM YYYY");
-	  let endTime = Lang.isObject(proc.occurrenceTime) ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
+	  let startTime = new moment(proc.occurrenceTime.value.timePeriodStart ? proc.occurrenceTime.value.timePeriodStart.value : proc.occurrenceTime.value, "D MMM YYYY");
+	  let endTime = proc.occurrenceTime.value.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.value.timePeriodEnd) ? new moment(proc.occurrenceTime.value.timePeriodEnd.value, "D MMM YYYY") : null) : null;
       const assignedGroup = this._assignItemToGroup(items, startTime, groupStartIndex);
 
       let classes = 'event-item';
@@ -237,15 +237,15 @@ class TimelinePanel extends Component {
         classes += ' point-in-time';
       }
 
-      if (proc.specificType.coding.displayText) {
-        hoverText += ` : ${proc.specificType.coding.displayText}`;
+      if (proc.specificType.value.coding.displayText) {
+        hoverText += ` : ${proc.specificType.value.coding.displayText.value}`;
       }
 
       items.push({
         group: assignedGroup,
         icon: 'hospital-o',
         className: classes,
-        hoverTitle: proc.specificType.coding.displayText,
+        hoverTitle: proc.specificType.value.coding.displayText.value,
         hoverText: hoverText,
         start_time: startTime,
         end_time: endTime
@@ -276,7 +276,7 @@ class TimelinePanel extends Component {
 		}
 		  
 		hoverTitle = evt.name;
-
+        
 		items.push({
 			group: assignedGroup,
 			icon: 'heartbeat',
@@ -305,9 +305,9 @@ class TimelinePanel extends Component {
           classes += ' point-in-time';
         	
           let focalCondition = patient.getFocalConditionForProgression(prog);
-          let focalConditionName = focalCondition.specificType.coding.displayText;
+          let focalConditionName = focalCondition.specificType.value.coding.displayText.value;
           
-          let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText + " based on " + prog.evidence.map(function(ev){ return ev.coding.displayText; }).join();;
+          let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText.value + " based on " + prog.evidence.map(function(ev){ return ev.value.coding.displayText.value; }).join();;
 
           items.push({
               group: assignedGroup,

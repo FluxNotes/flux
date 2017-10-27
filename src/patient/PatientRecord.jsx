@@ -160,7 +160,7 @@ class PatientRecord {
         let result = [];
         conditions.forEach((c) => {
             if(c.entryId === condition.entryId) {
-                result.push({name: "diagnosis date - " + c.specificType.coding.displayText, start_time: c.whenClinicallyRecognized});
+                result.push({name: "diagnosis date - " + c.specificType.value.coding.displayText.value, start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value});
             }
         });
         result.sort(this._eventTimeSorter);
@@ -251,7 +251,6 @@ class PatientRecord {
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => {
-            console.log(item);
 			return item instanceof Progression && item.assessmentFocus.value.entryId === condition.entryInfo.entryId;
 		});
 	}
@@ -259,13 +258,14 @@ class PatientRecord {
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.assessmentFocus.value.entryId === condition.entryId;
+            return progression.assessmentFocus.value.entryId === condition.entryInfo.entryId;
         });
         return progressions;
     }
 	
 	getFocalConditionForProgression(progression) {
-		let result = this.entries.filter((item) => { return item.entryType.some((t) => { return t === "http://standardhealthrecord.org/condition/Condition"; }) && item.entryId === progression.assessmentFocus.value.entryId});
+		let result = this.entries.filter((item) => { return (item instanceof Condition) 
+            && (item.entryInfo.entryId === progression.assessmentFocus.value.entryId)});
 		return result[0];
 	}
 	

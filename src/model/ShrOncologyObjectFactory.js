@@ -10,8 +10,12 @@ import Progression from './shr/oncology/Progression';
 import ProgesteroneReceptorStatus from './shr/oncology/ProgesteroneReceptorStatus';
 import ToxicReactionToTreatment from './shr/oncology/ToxicReactionToTreatment';
 import TumorSize from './shr/oncology/TumorSize';
+import Lang from 'lodash';
 
-const _elementsToClassNames = { "BreastCancer": BreastCancer,
+export default class ShrOncologyObjectFactory {
+    static createInstance(elementName, entry) {
+        const _elementsToClassNames = { 
+                                "BreastCancer": BreastCancer,
                                 "BreastCancerReceptorStatus": BreastCancerReceptorStatus,
                                 "EstrogenReceptorStatus": EstrogenReceptorStatus,
                                 "HistologicGrade": HistologicGrade,
@@ -25,10 +29,9 @@ const _elementsToClassNames = { "BreastCancer": BreastCancer,
                                 "TumorSize" : TumorSize
                               };
 
-
-export default class ShrOncologyObjectFactory {
-    static createInstance(elementName, entry) {
-        return new _elementsToClassNames[elementName](entry);
+        let constructorName = _elementsToClassNames[elementName];
+        if (Lang.isUndefined(constructorName)) throw new Error("Unsupported class in factory '" + this.name + "': '" + elementName + "'");
+        return new constructorName(entry);
     }
     
 }

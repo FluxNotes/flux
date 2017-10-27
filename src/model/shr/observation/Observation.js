@@ -292,20 +292,6 @@ class Observation extends Action {
   }
 
   /**
-   * Getter for shr.observation.ClinicallyRelevantTime
-   */
-  get clinicallyRelevantTime() {
-    return this._clinicallyRelevantTime;
-  }
-
-  /**
-   * Setter for shr.observation.ClinicallyRelevantTime
-   */
-  set clinicallyRelevantTime(clinicallyRelevantTimeVal) {
-    this._clinicallyRelevantTime = clinicallyRelevantTimeVal;
-  }
-
-  /**
    * Getter for shr.actor.Participant[]
    */
   get participant() {
