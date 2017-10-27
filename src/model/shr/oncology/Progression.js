@@ -9,13 +9,18 @@ import Evidence from '../observation/Evidence';
 class Progression extends Assessment {
     constructor(json) {
         super(json);
-        this._entryInfo = new Entry(json);
-        this.codeableConcept = new CodeableConcept(json.value);
-        this._codeableConcept = this.codeableConcept;
-        this._category = new Category(json.category);
-        if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
-        if (json.evidence) this._evidence = json.evidence.map((e) => new Evidence(e));
-        this._asOfDate = json.asOfDate;
+        if (json) {
+            this._entryInfo = new Entry(json);
+            this.codeableConcept = new CodeableConcept(json.value);
+            this._codeableConcept = this.codeableConcept;
+            this._category = new Category(json.category);
+            if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
+            if (json.evidence) this._evidence = json.evidence.map((e) => new Evidence(e));
+            this._asOfDate = json.asOfDate;
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/Progression",
+                                                    "http://standardhealthrecord.org/assessment/Assessment");
+        }
     }
 
   /**

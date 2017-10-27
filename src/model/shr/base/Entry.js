@@ -1,15 +1,25 @@
+import moment from 'moment';
 import Reference from '../../Reference';
 
 /** Generated from SHR definition for shr.base.Entry */
 class Entry {
     constructor(json) {
-        this._shrId = json.shrId;
-        this._entryId = json.entryId;
-        this._version = json.version;
+        if (json.shrId) this._shrId = json.shrId;
+        if (json.entryId) this._entryId = json.entryId;
+        if (json.version) this._version = json.version;
         this._entryType = json.entryType;
         if (json.focalSubject) this._focalSubject = new Reference(json.focalSubject.shrId, json.focalSubject.entryId, json.focalSubject.entryType);
         this._originalCreationDate = json.originalCreationDate;
         this._lastUpdateDate = json.lastUpdateDate;
+    }
+    
+    static createEntry(...entryTypes) {
+        const today = new moment().format("D MMM YYYY");
+        return new Entry(   {
+                                "entryType": entryTypes,
+                                "originalCreationDate": today,
+                                "lastUpdateDate": today
+                            });
     }
 
   /**

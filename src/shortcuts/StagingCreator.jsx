@@ -5,7 +5,7 @@ import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
 //import StagingForm from '../forms/StagingForm';
-import lookup from '../lib/staging_lookup';
+import lookup from '../lib/tnmstage_lookup';
 import TNMStage from '../model/shr/oncology/TNMStage';
 import Entry from '../model/shr/base/Entry';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
