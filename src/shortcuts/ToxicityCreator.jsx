@@ -4,7 +4,7 @@ import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 //import ToxicityForm from '../forms/ToxicityForm';
-import lookup from '../lib/toxicity_lookup';
+import lookup from '../lib/toxicreactiontotreatment_lookup';
 // import Patient from '../patient/Patient';
 import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import Entry from '../model/shr/base/Entry';

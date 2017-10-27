@@ -1,17 +1,12 @@
 class Reference {
   constructor(shrId, entryId, entryType) {
-
-    if(arguments.length > 1) {
-      this._shrId = shrId;
-      this._entryId = entryId;
-      this._entryType = entryType;
-    }
-    else {
-      // else argument passed in is a single entryInfo
-      this._shrId = entryInfo.shrId;
-      this._entryId = entryInfo.entryId;
-      this._entryType = entryInfo.entryType;
-    }
+    this._shrId = shrId;
+    this._entryId = entryId;
+    this._entryType = entryType;
+  }
+  
+  static createReferenceFromEntry(entry) {
+      return new Reference(entry.shrId, entry.entryId, entry.entryType);
   }
 
   /**
