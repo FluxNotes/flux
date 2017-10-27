@@ -11,15 +11,17 @@ import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
 
 function addTriggerForKey(trigger) {
-    console.log("add trigger " + trigger.name + " for shortcut " + this.currentShortcut);
     if (trigger.name) {
+        //console.log("add trigger " + trigger.name + " for shortcut " + this.currentShortcut);
         this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
+        this.triggersPerShortcut[this.currentShortcut].push(trigger);
     } else {
         // {"category":"staging", "valueSet":"T", "args":"7"}
         // args optional
         let args = trigger["args"];
         let category = trigger["category"];
         let valueSet = trigger["valueSet"];
+        let prefix = trigger["prefix"];
         let list;
         if (args) {
             //console.log(category + "/" + valueSet + " with " + args);
@@ -29,7 +31,9 @@ function addTriggerForKey(trigger) {
             list = ValueSetManager.getValueList(category, valueSet);
         }
         //console.log(list);
-        this.triggersPerShortcut[this.currentShortcut] = list;
+        if (prefix) {
+            list.forEach((t) => { t.name = prefix + t.name; });
+        }
         list.forEach(addTriggerForKey, this);
     }
 }
@@ -49,13 +53,6 @@ class ShortcutManager {
     constructor(shortcutList) {
         this.shortcutsToSupportList = shortcutList;
         this.loadShortcutMetadata(shortcutList, shortcutMetadata);
-        /*
-        for (var key in this.shortcuts) {
-            this.shortcutClasses.push(this.shortcuts[key]);
-            const triggers = this.shortcuts[key].getStringTriggers();
-            this.currentShortcut = key;
-            triggers.forEach(addTriggerForKey, this);
-        }*/
     }
     
     getSupportedShortcuts() {
@@ -140,13 +137,11 @@ class ShortcutManager {
             // build up trigger to shortcut mapping
             const triggers = item["stringTriggers"];
             this.currentShortcut = item["id"];
-            this.triggersPerShortcut[this.currentShortcut] = triggers;
+            this.triggersPerShortcut[this.currentShortcut] = [];
             if (Lang.isArray(triggers)) {
                 triggers.forEach(addTriggerForKey, this);
             } else {
                 addTriggerForKey.bind(this)(triggers);
-                //let list = ShortcutManager.callFunctionInModule(triggers);
-                //list.forEach(addTriggerForKey, this);
             }
         });
         //console.log(this.childShortcuts);

@@ -249,9 +249,9 @@
   { "type": "CreatorChild",
     "id": "ClinicalTrialTitleCreator",
     "parentAttribute": "title",
-    "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials"},
+    "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"},
                         { "name": "#title", "description": "Pick list for clinical trial"}],
-    "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrial"},
+    "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrials"},
     "knownParentContexts": "ClinicalTrialCreator",
     "description":"Allows selection of the clinical trial.",
     "shortcutGroupName":"Clinical Trial"
