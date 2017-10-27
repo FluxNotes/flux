@@ -5,24 +5,14 @@ import Paper from 'material-ui/Paper';
 
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
+import ClinicalEventSelection from './ClinicalEventSelection';
 import './PatientSummaryPanel.css';
 
 export default class PatientSummaryPanel extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { activeConditionIndex: 0 };
-    }
-
-    changeConditionIndex(newIndex) {
-        this.setState({ activeConditionIndex: newIndex });
-    }
 
     render() {
-        const { patient } = this.props;
-        const { activeConditionIndex } = this.state;
+        const { patient, clinicalEvent } = this.props;
         const conditions = patient.getConditions();
-
         return (
             <div className="patient-summary-panel">
                 <Paper className="panel-content">
@@ -40,12 +30,22 @@ export default class PatientSummaryPanel extends Component {
                             </Col>
 
                             <Col sm={6}>
-                                <ConditionSelection
-                                    conditions={conditions}
-                                    clinicalSettings={this.props.clinicalSettings}
-                                    activeConditionIndex={activeConditionIndex}
-                                    changeConditionIndex={this.changeConditionIndex}
-                                    setFullAppState={this.props.setFullAppState} />
+                                <Row start="xs">
+                                    <Col sm={6} id="clinicalEventSelector">
+                                        <ClinicalEventSelection
+                                            possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                            clinicalEvent={clinicalEvent}
+                                            setFullAppState={this.props.setFullAppState} 
+                                        />
+                                    </Col>
+
+                                    <Col sm={6} className="condition">
+                                        <ConditionSelection
+                                            conditions={conditions}
+                                            setFullAppState={this.props.setFullAppState} 
+                                        />
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </Grid>

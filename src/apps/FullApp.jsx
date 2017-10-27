@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 
 import NavBar from '../nav/NavBar';
-import FluxNotesEditor from '../notes/FluxNotesEditor';
-import PatientSummaryPanel from '../summary/PatientSummaryPanel';
-import DataSummaryPanel from '../summary/DataSummaryPanel';
-import ContextTray from '../context/ContextTray';
-import TimelinePanel from '../timeline/TimelinePanel';
+import DashboardViewManager from '../dashboardViews/DashboardViewManager'
+
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
-//import Patient from '../patient/Patient';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import Lang from 'lodash';
@@ -31,9 +26,23 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [ "#disease status", "#staging", "#toxicity", "@name",
-        "@condition", "@age", "@dateofbirth", "@gender", "@patient", "@stage" ];
-        this.clinicalSettings = ["pre-encounter", "encounter", "post-encounter"];
+        this.shortcuts = [ 
+            "#disease status", 
+            "#staging", 
+            "#toxicity", 
+            "@name",
+            "@condition", 
+            "@age", 
+            "@dateofbirth", 
+            "@gender", 
+            "@patient", 
+            "@stage" 
+        ];
+        this.possibleClinicalEvents = [
+            "pre-encounter", 
+            "encounter", 
+            "post-encounter"
+        ];
 
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
@@ -50,7 +59,7 @@ class FullApp extends Component {
         this.state = {
             patient: patient,
             condition: null,
-            event: null,
+            clinicalEvent: "post-encounter",
             errors: null,
             SummaryItemToInsert: '',
             selectedText: null,
@@ -64,12 +73,12 @@ class FullApp extends Component {
         this.setState({ [state]: value });
     }
 
-    updateErrors = (errors) => {
-        this.setState({ errors });
-    }
-
     onContextUpdate = () => {
         this.setState({ contextManager: this.contextManager });
+    }
+
+    updateErrors = (errors) => {
+        this.setState({ errors });
     }
 
     itemInserted = () => {
@@ -139,61 +148,31 @@ class FullApp extends Component {
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
                     <NavBar title={this.props.display} supportLogin={true} menuItems={this.menuItems} />
+                    <DashboardViewManager
+                        // App default settings
+                        shortcuts={this.shortcuts}
+                        possibleClinicalEvents={this.possibleClinicalEvents}
+                        dataAccess={this.dataAccess}
+                        summaryMetadata={this.summaryMetadata}
+                        shortcutManager={this.shortcutManager}
+                        contextManager={this.contextManager}
 
-                    <Grid className="FullApp-content" fluid>
-                        <Row center="xs">
-                            <Col sm={12}>
-                                <PatientSummaryPanel
-                                    patient={this.state.patient}
-                                    clinicalSettings={this.clinicalSettings}
-                                    setFullAppState={this.setFullAppState} />
-                            </Col>
-                        </Row>
+                        // State
+                        appState={this.state}
 
-                        <Row center="xs">
-                            <Col sm={4}>
-                                <DataSummaryPanel
-                                    patient={this.state.patient}
-                                    condition={this.state.condition}
-                                    summaryMetadata={this.state.summaryMetadata}
-                                    onItemClicked={this.handleSummaryItemSelected}
-                                    allowItemClick={true}
-                                />
-                            </Col>
-
-                            <Col sm={5}>
-                                <FluxNotesEditor
-                                    onSelectionChange={this.handleSelectionChange}
-                                    newCurrentShortcut={this.newCurrentShortcut}
-                                    itemInserted={this.itemInserted}
-                                    itemToBeInserted={this.state.SummaryItemToInsert}
-                                    patient={this.state.patient}
-                                    contextManager={this.contextManager}
-                                    shortcutManager={this.shortcutManager}
-                                    updateErrors={this.updateErrors}
-                                    errors={this.state.errors}
-                                />
-                            </Col>
-
-                            <Col sm={3}>
-                                <ContextTray
-                                    ref={(comp) => { this.contextTray = comp; }}
-                                    patient={this.state.patient}
-                                    contextManager={this.contextManager}
-                                    onShortcutClicked={this.handleSummaryItemSelected}
-                                />
-                            </Col>
-                        </Row>
-
-                        <Row center="xs">
-                            <Col sm={12}>
-                                <TimelinePanel
-                                    patient={this.state.patient} 
-                                    condition={this.state.condition}
-                                />
-                            </Col>
-                        </Row>
-                    </Grid>
+                        // Functions
+                        setFullAppState={this.setFullAppState}
+                        updateErrors={this.updateErrors}
+                        onContextUpdate={this.onContextUpdate}
+                        itemInserted={this.itemInserted}
+                        newCurrentShortcut={this.newCurrentShortcut}
+                        handleShortcutUpdate={this.handleShortcutUpdate}
+                        handleStructuredFieldEntered={this.handleStructuredFieldEntered}
+                        handleStructuredFieldExited={this.handleStructuredFieldExited}
+                        handleSelectionChange={this.handleSelectionChange}
+                        handleSummaryItemSelected={this.handleSummaryItemSelected}
+                    />
+                    
                 </div>
             </MuiThemeProvider>
         );
