@@ -4,7 +4,7 @@ import CodeableConcept from '../core/CodeableConcept';
 class SpecificType {
     constructor(json) {
         this.codeableConcept = new CodeableConcept(json.value);
-        this._codeableConcept = new CodeableConcept(json.value);
+        this._codeableConcept = this.codeableConcept;
     }
     
   /**

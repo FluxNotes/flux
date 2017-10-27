@@ -1,5 +1,13 @@
+import BoundType from './BoundType';
+import Quantity from '../core/Quantity';
+
 /** Generated from SHR definition for shr.core.UpperBound */
 class UpperBound {
+    constructor(json) {
+        this.quantity = new Quantity(json.value);
+        this._quantity = this.quantity;
+        if (json.boundType) this._boundType = new BoundType(json.boundType);
+    }
 
   /**
    * Convenience getter for value (accesses this.quantity)

@@ -1,5 +1,8 @@
 /** Generated from SHR definition for shr.core.Units */
 class Units {
+    constructor(json) {
+        this.coding = json;
+    }
 
   /**
    * Convenience getter for value (accesses this.coding)

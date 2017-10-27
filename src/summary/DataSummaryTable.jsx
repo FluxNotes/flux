@@ -52,12 +52,11 @@ class DataSummaryTable extends Component {
             </tr>
         );
     }
-
+    
     renderedListItems(list) {
         let onClick, hoverClass, rowClass, itemClass, itemText = "";
 
         return list.map((item, index) => {
-            console.log(item.value);
             if (!Lang.isEmpty(item.value)) {
                 rowClass = "captured";
                 itemClass = "captured";

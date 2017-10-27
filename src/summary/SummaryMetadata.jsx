@@ -77,7 +77,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart.value;
+                                return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
                             }
                         },
                         {
@@ -106,7 +106,7 @@ class SummaryMetadata {
                             name: "Size",
                             value: (patient, currentConditionEntry) => {
                                 let list = patient.getObservationsForCondition(currentConditionEntry, TumorSize);
-                                return list[0].value.value + " " + list[0].value.units.value;
+                                return list[0].value.value + " " + list[0].value.units.value.value;
                             }
                         },
                         {
@@ -127,7 +127,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(er)) {
                                     return null;
                                 } else {
-                                    return er.value.coding.displayText.value;
+                                    return er.value.coding.displayText.value.value;
                                 }
                             }
                         },
@@ -138,7 +138,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(pr)) {
                                     return null;
                                 } else {
-                                    return pr.value.coding.displayText.value;
+                                    return pr.value.coding.displayText.value.value;
                                 }
                             }
                         },
@@ -149,7 +149,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(her2)) {
                                     return null;
                                 } else {
-                                    return her2.value.coding.displayText.value;
+                                    return her2.value.coding.displayText.value.value;
                                 }
                             }
                         }
@@ -214,14 +214,13 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            console.log(p.specificType.value.coding.displayText.value);
-            console.log(p.occurrenceTime.value);
+            //console.log(p.specificType.value.coding.displayText.value);
             if (p.occurrenceTime.value instanceof TimePeriod) {
-                console.log(p.occurrenceTime.value.timePeriodStart.value);
-                console.log(p.occurrenceTime.value.timePeriodEnd.value);
-                return {name: p.specificType.value.coding.displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.timePeriodEnd.value};
+                //console.log(p.occurrenceTime.value.timePeriodStart.value);
+                //console.log(p.occurrenceTime.value.timePeriodEnd.value);
+                return {name: p.specificType.value.coding.displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
             } else {
-                console.log(p.occurrenceTime.value);
+                //console.log(p.occurrenceTime.value);
                 return {name: p.specificType.value.coding.displayText.value, value: p.occurrenceTime.value };
             }
         });

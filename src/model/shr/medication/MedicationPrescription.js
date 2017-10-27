@@ -1,13 +1,27 @@
+import Dosage from './Dosage';
 import Entry from '../base/Entry';
 import Medication from './Medication';
+import NonOccurrenceModifier from '../base/NonOccurrenceModifier';
+import NumberOfRepeatsAllowed from './NumberOfRepeatsAllowed';
+import PriorityOfRequest from '../base/PriorityOfRequest';
+import QuantityPerDispense from './QuantityPerDispense';
 import Request from '../base/Request';
+import Status from '../base/Status';
+import SupplyDuration from './SupplyDuration';
 
 /** Generated from SHR definition for shr.medication.MedicationPrescription */
 class MedicationPrescription extends Request {
     constructor(json) {
         super(json);
         this._entryInfo = new Entry(json);
-        this._medication = new Medication(json.medication);
+        if (json.medication) this._medication = new Medication(json.medication);
+        if (json.nonOccurrenceModifier) this._nonOccurrenceModifier = new NonOccurrenceModifier(json.nonOccurrenceModifier);
+        if (json.status) this._status = new Status(json.status);
+        if (json.priorityOfRequest) this._priorityOfRequest = new PriorityOfRequest(json.priorityOfRequest);
+        if (json.dosage) this._dosage = new Dosage(json.dosage);
+        if (json.numberOfRepeatsAllowed) this._numberOfRepeatsAllowed = new NumberOfRepeatsAllowed(json.numberOfRepeatsAllowed);
+        if (json.quantityPerDispense) this._quantityPerDispense = new QuantityPerDispense(json.quantityPerDispense);
+        if (json.supplyDuration) this._supplyDuration = new SupplyDuration(json.supplyDuration);
     }
 
   /**
