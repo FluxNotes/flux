@@ -11,7 +11,7 @@ import shortcutMetadata from './Shortcuts.json';
 import Lang from 'lodash';
 
 function addTriggerForKey(trigger) {
-    //console.log("add trigger " + trigger.name + " for shortcut " + this.currentShortcut);
+    console.log("add trigger " + trigger.name + " for shortcut " + this.currentShortcut);
     if (trigger.name) {
         this.shortcutMap[trigger.name.toLowerCase()] = this.shortcuts[this.currentShortcut];
     } else {
