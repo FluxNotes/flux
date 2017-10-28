@@ -81,7 +81,7 @@ class PatientRecord {
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return new moment(personOfRecord.dateOfBirth, "D MMM YYYY");
+		return new moment(personOfRecord.dateOfBirth.value, "D MMM YYYY");
 	}
 	
 	getAge() {
@@ -100,7 +100,7 @@ class PatientRecord {
 	getGender() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return personOfRecord.administrativeGender;
+		return personOfRecord.administrativeGender.value;
 	}
 	
 	getPersonOfRecord() {
