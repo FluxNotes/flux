@@ -22,7 +22,8 @@ export default class ConditionInserter extends InserterShortcut {
 	
 	determineText(contextManager) {
         return contextManager.getPatient().getConditions().map((item) => {
-            return {key: item.entryId, context: item.specificType.coding.displayText, object: item};
+            console.log(item);
+            return {key: item.entryInfo.entryId, context: item.specificType.value.coding.displayText.value, object: item};
         });
 	}
     
