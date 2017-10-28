@@ -4,7 +4,6 @@ import Lang from 'lodash';
 import moment from 'moment';
 import PatientRecord from "../patient/PatientRecord";
 import Deceased from '../model/shr/actor/Deceased';
-import Entry from '../model/shr/base/Entry';
 
 class DeceasedCreator extends CreatorShortcut {
 
@@ -16,10 +15,6 @@ class DeceasedCreator extends CreatorShortcut {
             this.deceased = new Deceased();
             this.deceased.value = false;
             this.deceased.dateOfDeath = null;
-
-            // TODO: This will be auto generated so this should be taken out when that code is merged
-            this.deceased.entryInfo = new Entry();
-            this.deceased.entryInfo.entryType = ["http://standardhealthrecord.org/shr/actor/Deceased"];
             this.isDeceasedNew = true;
         } else {
             this.deceased = deceased;

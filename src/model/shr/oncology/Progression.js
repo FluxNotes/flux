@@ -19,7 +19,8 @@ class Progression extends Assessment {
             this._asOfDate = json.asOfDate;
         } else {
             this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/Progression",
-                                                    "http://standardhealthrecord.org/assessment/Assessment");
+                                                    "http://standardhealthrecord.org/assessment/Assessment",
+                                                    "http://standardhealthrecord.org/base/Action");
         }
     }
 

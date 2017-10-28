@@ -41,13 +41,12 @@ class PatientRecord {
     }
 
     addEntryToPatient(entry) {
-        entry.shrId = this.shrId;
-        entry.entryId = this.nextEntryId;
+        entry.entryInfo.shrId = this.shrId;
+        entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
         let today = new moment().format("D MMM YYYY");
-        entry.originalCreationDate = today;
-        entry.asOfDate = null;
-        entry.lastUpdateDate = today;
+        entry.entryInfo.originalCreationDate = today;
+        entry.entryInfo.lastUpdateDate = today;
         this.entries.push(entry);
     }
 

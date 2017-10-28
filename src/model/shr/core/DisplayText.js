@@ -1,8 +1,10 @@
 /** Generated from SHR definition for shr.core.DisplayText */
 class DisplayText {
     constructor(json) {
-        this.string = json;
-        this._string = json;
+        if (json) {
+            this.string = json;
+            this._string = json;
+        }
     }
 
   /**
