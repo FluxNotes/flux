@@ -9,11 +9,16 @@ import Stage from '../condition/Stage';
 class BreastCancer extends Condition {
     constructor(json) {
         super(json);
-        this._entryInfo = new Entry(json);
-        if (json.specificType) this._specificType = new SpecificType(json.specificType);
-        if (json.category) this._category = new Category(json.category);
-        if (json.stage) this._stage = new Stage(json.stage);
-        if (json.bodySite) this._bodySite = new BodySite(json.bodySite);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (json.specificType) this._specificType = new SpecificType(json.specificType);
+            if (json.category) this._category = new Category(json.category);
+            if (json.stage) this._stage = new Stage(json.stage);
+            if (json.bodySite) this._bodySite = new BodySite(json.bodySite);
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/BreastCancer",
+                                                    "http://standardhealthrecord.org/condition/Condition");
+        }
     }
 
   /**

@@ -1,5 +1,13 @@
+import CodeableConcept from '../core/CodeableConcept';
+
 /** Generated from SHR definition for shr.demographics.BirthSex */
 class BirthSex {
+    constructor(json) {
+        if (json) {
+            this.codeableConcept = new CodeableConcept(json);
+            this._codeableConcept = this.codeableConcept;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.codeableConcept)

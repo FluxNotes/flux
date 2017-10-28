@@ -8,10 +8,15 @@ import Status from '../base/Status';
 class Assessment extends Action {
     constructor(json) {
         super(json);
-        this._entryInfo = new Entry(json);
-        if (json.category) this._category = json.category.map((c) => new Category(c));
-        this._status = new Status(json.status);
-        if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (json.category) this._category = json.category.map((c) => new Category(c));
+            this._status = new Status(json.status);
+            if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/assessment/Assessment",
+                                                    "http://standardhealthrecord.org/base/Action");
+        }
     }
 
   /**

@@ -5,11 +5,15 @@ import DisplayText from '../core/DisplayText';
 /** Generated from SHR definition for shr.core.Coding */
 class Coding {
     constructor(json) {
-        this.code = json.value;
-        this._code = json.value;
-        if (json.codeSystem) this._codeSystem = new CodeSystem(json.codeSystem);
-        if (json.codeSystemVersion) this._codeSystemVersion = new CodeSystemVersion(json.codeSystemVersion);
-        this._displayText = new DisplayText(json.displayText);
+        if (json) {
+            this.code = json.value;
+            this._code = json.value;
+            if (json.codeSystem) this._codeSystem = new CodeSystem(json.codeSystem);
+            if (json.codeSystemVersion) this._codeSystemVersion = new CodeSystemVersion(json.codeSystemVersion);
+            this._displayText = new DisplayText(json.displayText);
+        } else {
+            this._displayText = new DisplayText();
+        }
     }
   /**
    * Convenience getter for value (accesses this.code)

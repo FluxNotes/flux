@@ -8,10 +8,12 @@ import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import lookup from '../lib/progression_lookup';
 import Lang from 'lodash'
 import moment from 'moment';
-import Progression from '../model/shr/oncology/Progression';
-import Entry from '../model/shr/base/Entry';
-import Reference from '../model/Reference';
+import AssessmentFocus from '../model/shr/assessment/AssessmentFocus';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
+import CodeableConcept from '../model/shr/core/CodeableConcept';
+import Evidence from '../model/shr/observation/Evidence';
+import Progression from '../model/shr/oncology/Progression';
+import Reference from '../model/Reference';
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -20,15 +22,11 @@ class ProgressionCreator extends CreatorShortcut {
         super();
         if (Lang.isUndefined(progression)) {
             this.progression = new Progression();
-            this.progression.value = 'unknown';
+            this.progression.value = new CodeableConcept();
+            this.progression.value.coding.displayText.value = "";
             this.progression.evidence = [];
-            this.progression.asOfDate = null;
+            this.progression.asOfDate = new moment().format("D MMM YYYY");
             this.progression.clinicallyRelevantTime = null;
-
-            // TODO: This will be auto generated so this should be taken out when that code is merged
-            this.progression.entryInfo = new Entry();
-            this.progression.entryInfo.entryType = ["http://standardhealthrecord.org/oncology/Progression",
-                "http://standardhealthrecord.org/assessment/Assessment" ];
             this.isProgressionNew = true;
         } else {
             this.progression = progression;
@@ -65,11 +63,11 @@ class ProgressionCreator extends CreatorShortcut {
         let statusString = ``;
         if (    Lang.isEmpty(curProgression.value) || 
                 Lang.isUndefined(curProgression.value) || 
-                curProgression.value.coding.displayText.length === 0)
+                curProgression.value.coding.displayText.value.length === 0)
         {
             statusString = ``;
         } else { 
-            statusString = ` is #${curProgression.value.coding.displayText}`
+            statusString = ` is #${curProgression.value.coding.displayText.value}`
         }
         return statusString;
     }
@@ -81,10 +79,10 @@ class ProgressionCreator extends CreatorShortcut {
             if (numReasons > 0) { 
                 reasonString = ` based on `;
                 for (let i = 0; i < numReasons - 1; i++) {
-                    reasonString += "#" + curProgression.evidence[i].coding.displayText;
+                    reasonString += "#" + curProgression.evidence[i].coding.displayText.value;
                     reasonString += `, `;
                 }
-                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText;
+                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText.value;
             } 
         }
         return reasonString
@@ -114,7 +112,7 @@ class ProgressionCreator extends CreatorShortcut {
     }
     
     getAsString() { 
-        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0)
+        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.value.length === 0)
             && Lang.isEmpty(this.progression.evidence)){ 
             // No value or status or updated reference date, return just the hash
             return `#disease status`;
@@ -130,16 +128,6 @@ class ProgressionCreator extends CreatorShortcut {
         }
     }
     
-/*    getForm() {
-        return (
-            <ProgressionForm
-                updateValue={this.setAttributeValue}
-                progression={this.progression}
-            />
-        );      
-    }
-*/
-
     getFormSpec() {
         return  {
                     tagName: 'ProgressionForm',
@@ -154,13 +142,19 @@ class ProgressionCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges) {
         if (name === "status") {
-            this.progression.value = value;
+            this.progression.value.coding.displayText.value = value;
         } else if (name === "reasons") {
-            this.progression.evidence = value;
+            let result = value.map((v) => {
+                let e = new Evidence();
+                e.value = new CodeableConcept();
+                e.value.coding.displayText.value = v;
+                return e;
+            });
+            this.progression.evidence = result;
         } else if (name === "asOf") {
             this.asOf = value === true;
         } else if (name === "asOfDate") {
-            this.progression.asOfDate = value; //TODO: Extend progression object to include asOfDate
+            this.progression.asOfDate = value;
         } else if (name === "referenceDate") {
             this.referenceDate = value === true;
         } else if (name === "referenceDateDate") {
@@ -177,15 +171,14 @@ class ProgressionCreator extends CreatorShortcut {
 	}
 	getAttributeValue(name) {
         if (name === "status") {
-            return this.progression.value.coding.displayText;
+            return this.progression.value.coding.displayText.value;
         } else if (name === "reasons") {
             return this.progression.evidence.map((e) => {
-                return e.coding.displayText;
+                return e.value.coding.displayText.value;
             });
         } else if (name === "asOf") {
             return this.asOf === true;
         } else if (name === "asOfDate") {
-            // TODO: extend progression object to include asOfDate
             return this.progression.asOfDate;
         } else if (name === "referenceDate") {
             return this.referenceDate === true;
@@ -198,10 +191,11 @@ class ProgressionCreator extends CreatorShortcut {
 	}
 	
 	updatePatient(patient, contextManager) {
-		if (this.progression.value.coding.displayText.length === 0) return; // not complete value
-		let condition = this.parentContext.getValueObject();
+		if (this.progression.value.coding.displayText.value.length === 0) return; // not complete value
 		if (this.isProgressionNew) {
-            this.progression.focalcondition = new Reference(condition.entryInfo);
+            let condition = this.parentContext.getValueObject();
+            this.progression.assessmentFocus = new AssessmentFocus();
+            this.progression.assessmentFocus.value = Reference.createReferenceFromEntry(condition.entryInfo);
             patient.addEntryToPatientWithPatientFocalSubject(this.progression);
 			this.isProgressionNew = false;
 		}

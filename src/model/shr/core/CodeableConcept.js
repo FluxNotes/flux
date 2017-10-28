@@ -4,9 +4,12 @@ import DisplayText from '../core/DisplayText';
 /** Generated from SHR definition for shr.core.CodeableConcept */
 class CodeableConcept {
     constructor(json) {
-        //this._coding = json.coding.map((c) => new Coding(c));
-        this._coding = new Coding(json.coding);
-        if (json.displayText) this._displayText = new DisplayText(json.displayText);
+        if (json) {
+            this._coding = new Coding(json.coding);
+            if (json.displayText) this._displayText = new DisplayText(json.displayText);
+        } else {
+            this._coding = new Coding();
+        }
     }
 
   /**
