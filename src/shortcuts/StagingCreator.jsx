@@ -16,6 +16,7 @@ import TNMStage from '../model/shr/oncology/TNMStage';
 import T_Stage from '../model/shr/oncology/T_Stage';
 import N_Stage from '../model/shr/oncology/N_Stage';
 import M_Stage from '../model/shr/oncology/M_Stage';
+import staging from '../lib/staging.jsx';
 
 class StagingCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the staging value(s) change
@@ -174,7 +175,13 @@ class StagingCreator extends CreatorShortcut {
 	   one
 	 */
 	updatePatient(patient, contextManager) {
-		if (this.staging.value.coding[0].displayText.length === 0) return; // not complete value
+		//if (this.staging.value.coding[0].displayText.length === 0) return; // not complete value
+        const t = this.getAttributeValue("T");
+        const n = this.getAttributeValue("N");
+        const m = this.getAttributeValue("M");
+        if (t.length === 0 || n.length === 0 || m.length === 0) return; // not complete value
+        const stage = staging.breastCancerPrognosticStage(t, n, m);
+        this.staging.value = lookup.getValueCodeableConcept(stage);
 		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
             condition.observation.push(this.staging);

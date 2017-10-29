@@ -23,10 +23,9 @@ class ProgressionCreator extends CreatorShortcut {
         if (Lang.isUndefined(progression)) {
             this.progression = new Progression();
             this.progression.value = new CodeableConcept();
-            console.log(this.progression);
             this.progression.value.coding[0].displayText.value = "";
             this.progression.evidence = [];
-            this.progression.asOfDate = new moment().format("D MMM YYYY");
+            this.progression.asOfDate = null; //new moment().format("D MMM YYYY");
             this.progression.clinicallyRelevantTime = null;
             this.isProgressionNew = true;
         } else {
