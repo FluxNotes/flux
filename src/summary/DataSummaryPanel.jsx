@@ -23,8 +23,8 @@ class DataSummaryPanel extends Component {
 
         let codeSystem, code, conditionMetadata = null;
         if (condition != null) {
-            codeSystem = condition.specificType.value.coding.codeSystem.value;
-            code = condition.specificType.value.coding.value;
+            codeSystem = condition.specificType.value.coding[0].codeSystem.value;
+            code = condition.specificType.value.coding[0].value;
             conditionMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
         }
 

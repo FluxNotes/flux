@@ -1,5 +1,13 @@
+import GeneralizedDateTime from '../core/GeneralizedDateTime';
+
 /** Generated from SHR definition for shr.actor.DateOfDeath */
 class DateOfDeath {
+    constructor(json) {
+        if (json) {
+            this.generalizedDateTime = new GeneralizedDateTime(json);
+            this._generalizedDateTime = this.generalizedDateTime;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.generalizedDateTime)

@@ -14,15 +14,15 @@ class SummaryMetadata {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.specificType.value.coding.displayText.value;
+                                return currentConditionEntry.specificType.value.coding[0].displayText.value;
                             },
                             shortcut: "@condition"
                         }, {
                              name: "Stage",
                              value: (patient, currentConditionEntry) => {
                                 let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                if (s && s.value.coding.displayText.value.length > 0) {
-                                    return s.value.coding.displayText.value + " (" + s.tStage.coding.displayText.value + s.nStage.coding.displayText.value + s.mStage.coding.displayText.value + ")";
+                                if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
+                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.coding[0].displayText.value + s.n_Stage.coding[0].displayText.value + s.m_Stage.coding[0].displayText.value + ")";
                                 } else {
                                     return null;
                                 }
@@ -41,7 +41,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.value.coding.displayText.value;
+                                    return p.value.coding[0].displayText.value;
                                 }
                             }
                         },
@@ -64,7 +64,7 @@ class SummaryMetadata {
                                     return null;
                                 } else {
                                     return p.evidence.map(function(ev){
-                                        return ev.value.coding.displayText.value;
+                                        return ev.value.coding[0].displayText.value;
                                     }).join();
                                 }
                             }
@@ -117,7 +117,7 @@ class SummaryMetadata {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
                                 let list = patient.getObservationsForCondition(currentConditionEntry, HistologicGrade);
-                                return list[0].value.coding.displayText.value;
+                                return list[0].value.coding[0].displayText.value;
                             }
                         },
                         {
@@ -127,7 +127,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(er)) {
                                     return null;
                                 } else {
-                                    return er.value.coding.displayText.value.value;
+                                    return er.value.coding[0].displayText.value.value;
                                 }
                             }
                         },
@@ -138,7 +138,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(pr)) {
                                     return null;
                                 } else {
-                                    return pr.value.coding.displayText.value.value;
+                                    return pr.value.coding[0].displayText.value.value;
                                 }
                             }
                         },
@@ -149,7 +149,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(her2)) {
                                     return null;
                                 } else {
-                                    return her2.value.coding.displayText.value.value;
+                                    return her2.value.coding[0].displayText.value.value;
                                 }
                             }
                         }
@@ -178,7 +178,7 @@ class SummaryMetadata {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.specificType.value.coding.displayText.value;
+                                return currentConditionEntry.specificType.value.coding[0].displayText.value;
                             },
                             shortcut: "@condition"
                         }
@@ -214,14 +214,14 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            //console.log(p.specificType.value.coding.displayText.value);
+            //console.log(p.specificType.value.coding[0].displayText.value);
             if (p.occurrenceTime.value instanceof TimePeriod) {
                 //console.log(p.occurrenceTime.value.timePeriodStart.value);
                 //console.log(p.occurrenceTime.value.timePeriodEnd.value);
-                return {name: p.specificType.value.coding.displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
             } else {
                 //console.log(p.occurrenceTime.value);
-                return {name: p.specificType.value.coding.displayText.value, value: p.occurrenceTime.value };
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
             }
         });
     }

@@ -8,17 +8,19 @@ import Status from '../base/Status';
 class Observation extends Action {
     constructor(json) {
         super(json);
-        this._entryInfo = new Entry(json);
-        if (Lang.isObject(json.value)) {
-            if (json.value.coding) {
-                this._value = new CodeableConcept(json.value);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (Lang.isObject(json.value)) {
+                if (json.value.coding) {
+                    this._value = new CodeableConcept(json.value);
+                } else {
+                    //TODO: Quanity, Range, Ratio, TimePeriod
+                }
             } else {
-                //TODO: Quanity, Range, Ratio, TimePeriod
+                //TODO
             }
-        } else {
-            //TODO
+            if (json.status) this._status = new Status(json.status);
         }
-        this._status = new Status(json.status);
     }
 
   /**

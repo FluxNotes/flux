@@ -124,7 +124,7 @@ class PatientRecord {
 	getCurrentHomeAddress() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord) || !personOfRecord.addressUsed) return null;
-		let addressUsed = personOfRecord.addressUsed.filter((item) => { return item.addressUse.some((au) => au.value.coding.value === "primary_residence") });
+		let addressUsed = personOfRecord.addressUsed.filter((item) => { return item.addressUse.some((au) => au.value.coding[0].value === "primary_residence") });
 		if (addressUsed.length === 0) return null;
 		return addressUsed[0].value;
 	}
@@ -148,7 +148,7 @@ class PatientRecord {
 		let conditions = this.getConditions();
 		let result = [];
 		conditions.forEach((c, i) => {
-			result.push({name: "diagnosis date - " + c.specificType.coding.displayText, start_time: c.whenClinicallyRecognized});
+			result.push({name: "diagnosis date - " + c.specificType.coding[0].displayText, start_time: c.whenClinicallyRecognized});
 		});
 		result.sort(this._eventTimeSorter);
 		return result;
@@ -159,7 +159,7 @@ class PatientRecord {
         let result = [];
         conditions.forEach((c) => {
             if(c.entryId === condition.entryId) {
-                result.push({name: "diagnosis date - " + c.specificType.value.coding.displayText.value, start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value});
+                result.push({name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value, start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value});
             }
         });
         result.sort(this._eventTimeSorter);
@@ -231,7 +231,7 @@ class PatientRecord {
 	getReceptorStatus(condition, receptorType) {
 		let listObs = this.getObservationsForCondition(condition, ReceptorStatusObservation);
 		let list = listObs.filter((item) => {
-			return item.receptorType.value.coding.value === receptorType;
+			return item.receptorType.value.coding[0].value === receptorType;
 		});
 		if (list.length === 0) return null; else return list[0];
 	}

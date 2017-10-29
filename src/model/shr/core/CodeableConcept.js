@@ -5,10 +5,10 @@ import DisplayText from '../core/DisplayText';
 class CodeableConcept {
     constructor(json) {
         if (json) {
-            this._coding = new Coding(json.coding);
+            if (json.coding) this._coding = json.coding.map((c) => new Coding(c));
             if (json.displayText) this._displayText = new DisplayText(json.displayText);
         } else {
-            this._coding = new Coding();
+            this._coding = [ new Coding() ];
         }
     }
 

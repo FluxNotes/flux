@@ -1,8 +1,21 @@
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
 import Observation from '../observation/Observation';
 
 /** Generated from SHR definition for shr.oncology.TNMStage */
 class TNMStage extends Observation {
-
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            this.codeableConcept = new CodeableConcept(json.value);
+            this._codeableConcept = this.codeableConcept;
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/TNMStage",
+                                                    "http://standardhealthrecord.org/observation/Observation",
+                                                    "http://standardhealthrecord.org/base/Action");
+        }
+    }
   /**
    * Getter for entry information (shr.base.Entry)
    */
