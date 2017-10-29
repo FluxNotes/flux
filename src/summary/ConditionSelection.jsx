@@ -32,8 +32,8 @@ class ConditionSelection extends Component {
                 className="condition-item"
                 key={`condition-${index}`}
                 value={index}
-                data-test-condition-selector-item={condition.specificType.value.coding.displayText.value}>
-                {condition.specificType.value.coding.displayText.value}
+                data-test-condition-selector-item={condition.specificType.value.coding[0].displayText.value}>
+                {condition.specificType.value.coding[0].displayText.value}
             </MenuItem>
         );
     }

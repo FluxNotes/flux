@@ -2,7 +2,7 @@
 class TimingOfDoses {
     constructor(json) {
         this._value = json.value;
-        this._units = json.units.coding.value;
+        this._units = json.units;
     }
   // Ommitting getter/setter for value: TBD<Timing>
     get value() {

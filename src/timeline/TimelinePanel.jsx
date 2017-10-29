@@ -201,8 +201,8 @@ class TimelinePanel extends Component {
 	  const startTime = new moment(med.requestedPerformanceTime.value.timePeriodStart.value, "D MMM YYYY");
 	  const endTime = new moment(med.requestedPerformanceTime.value.timePeriodEnd.value, "D MMM YYYY");
       const assignedGroup = this._assignItemToGroup(items, startTime, 1);
-	  const name = med.medication.value.value.coding.displayText.value.value;
-	  const dosage = med.dosage.amountPerDose.value.value + " " + med.dosage.amountPerDose.value.units.coding.coding.value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units;
+	  const name = med.medication.value.value.coding[0].displayText.value.value;
+	  const dosage = med.dosage.amountPerDose.value.value + " " + med.dosage.amountPerDose.value.units.coding.coding[0].value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units;
       items.push({
         group: assignedGroup,
         title: name,
@@ -237,15 +237,15 @@ class TimelinePanel extends Component {
         classes += ' point-in-time';
       }
 
-      if (proc.specificType.value.coding.displayText) {
-        hoverText += ` : ${proc.specificType.value.coding.displayText.value}`;
+      if (proc.specificType.value.coding[0].displayText) {
+        hoverText += ` : ${proc.specificType.value.coding[0].displayText.value}`;
       }
 
       items.push({
         group: assignedGroup,
         icon: 'hospital-o',
         className: classes,
-        hoverTitle: proc.specificType.value.coding.displayText.value,
+        hoverTitle: proc.specificType.value.coding[0].displayText.value,
         hoverText: hoverText,
         start_time: startTime,
         end_time: endTime
@@ -305,9 +305,9 @@ class TimelinePanel extends Component {
           classes += ' point-in-time';
         	
           let focalCondition = patient.getFocalConditionForProgression(prog);
-          let focalConditionName = focalCondition.specificType.value.coding.displayText.value;
+          let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
           
-          let hoverTitle = focalConditionName + " is " + prog.value.coding.displayText.value + " based on " + prog.evidence.map(function(ev){ return ev.value.coding.displayText.value; }).join();;
+          let hoverTitle = focalConditionName + " is " + prog.value.coding[0].displayText.value + " based on " + prog.evidence.map(function(ev){ return ev.value.coding[0].displayText.value; }).join();;
 
           items.push({
               group: assignedGroup,

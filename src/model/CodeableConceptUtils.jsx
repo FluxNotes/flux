@@ -16,6 +16,7 @@ exports.getCodeableConceptFromTuple = (tuple) => {
 
     let displayText = new DisplayText();
     displayText.value = tuple.displayText;
+    coding.displayText = displayText;
     codeableConcept.displayText = displayText;
 
     return codeableConcept;

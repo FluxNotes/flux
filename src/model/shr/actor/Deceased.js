@@ -1,5 +1,16 @@
+import AgeAtDeath from './AgeAtDeath';
+import DateOfDeath from './DateOfDeath';
+
 /** Generated from SHR definition for shr.actor.Deceased */
 class Deceased {
+    contructor(json) {
+        if (json) {
+            this.boolean = json.value;
+            this._boolean = this.boolean;
+            if (json.dateOfDeath) this._dateOfDeath = new DateOfDeath(json.dateOfDeath);
+            if (json.ageAtDeath) this._ageAtDeath = new AgeAtDeath(json.ageAtDeath);
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.boolean)

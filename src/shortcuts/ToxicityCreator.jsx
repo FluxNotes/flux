@@ -62,9 +62,9 @@ class ToxicityCreator extends CreatorShortcut {
      */
     getGradeString = (curToxicity) => { 
         if (Lang.isNull(curToxicity.adverseEventGrade.coding)) return "";
-        let gradeString = `${curToxicity.adverseEventGrade.coding.displayText}`;
+        let gradeString = `${curToxicity.adverseEventGrade.coding[0].displayText}`;
         // If nothing is selected yet, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEventGrade.coding.displayText)) {
+        if (Lang.isEmpty(curToxicity.adverseEventGrade.coding[0].displayText)) {
             gradeString = 'Grade ?'
         }
         return gradeString;
@@ -75,9 +75,9 @@ class ToxicityCreator extends CreatorShortcut {
      */
     getAdverseEventString = (curToxicity) => { 
         if (Lang.isNull(curToxicity.value.coding)) return "";
-        let adverseEventString = `${curToxicity.value.coding.displayText}`;
+        let adverseEventString = `${curToxicity.value.coding[0].displayText}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.value.coding.displayText)){
+        if (Lang.isEmpty(curToxicity.value.coding[0].displayText)){
             adverseEventString = '?';
         }
         return adverseEventString;
@@ -88,9 +88,9 @@ class ToxicityCreator extends CreatorShortcut {
      */
     getAttributionString = (curToxicity) => {
         if(Lang.isNull(curToxicity.attribution.coding)) return "";
-        let attributionString = `${curToxicity.attribution.coding.displayText}`;
+        let attributionString = `${curToxicity.attribution.coding[0].displayText}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.attribution.coding.displayText)){
+        if (Lang.isEmpty(curToxicity.attribution.coding[0].displayText)){
             attributionString = '?';
         }
         return attributionString;
@@ -164,11 +164,11 @@ class ToxicityCreator extends CreatorShortcut {
     }
     getAttributeValue(name) {
         if (name === "adverseEvent") {
-            return this.toxicity.value.coding.displayText;
+            return this.toxicity.value.coding[0].displayText;
         } else if (name === "grade") {
-            return this.toxicity.adverseEventGrade.coding.displayText;
+            return this.toxicity.adverseEventGrade.coding[0].displayText;
         } else if (name === "attribution") {
-            return this.toxicity.attribution.coding.displayText;
+            return this.toxicity.attribution.coding[0].displayText;
         } else {
             console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
             return null;
@@ -176,7 +176,7 @@ class ToxicityCreator extends CreatorShortcut {
     }
     
     updatePatient(patient, contextManager) {
-        if (this.toxicity.value.coding.displayText.length === 0) return; // not complete value
+        if (this.toxicity.value.coding[0].displayText.length === 0) return; // not complete value
         //let condition = this.parentContext.getValueObject();
         if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);

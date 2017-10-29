@@ -23,7 +23,8 @@ class ProgressionCreator extends CreatorShortcut {
         if (Lang.isUndefined(progression)) {
             this.progression = new Progression();
             this.progression.value = new CodeableConcept();
-            this.progression.value.coding.displayText.value = "";
+            console.log(this.progression);
+            this.progression.value.coding[0].displayText.value = "";
             this.progression.evidence = [];
             this.progression.asOfDate = new moment().format("D MMM YYYY");
             this.progression.clinicallyRelevantTime = null;
@@ -63,11 +64,11 @@ class ProgressionCreator extends CreatorShortcut {
         let statusString = ``;
         if (    Lang.isEmpty(curProgression.value) || 
                 Lang.isUndefined(curProgression.value) || 
-                curProgression.value.coding.displayText.value.length === 0)
+                curProgression.value.coding[0].displayText.value.length === 0)
         {
             statusString = ``;
         } else { 
-            statusString = ` is #${curProgression.value.coding.displayText.value}`
+            statusString = ` is #${curProgression.value.coding[0].displayText.value}`
         }
         return statusString;
     }
@@ -79,10 +80,10 @@ class ProgressionCreator extends CreatorShortcut {
             if (numReasons > 0) { 
                 reasonString = ` based on `;
                 for (let i = 0; i < numReasons - 1; i++) {
-                    reasonString += "#" + curProgression.evidence[i].coding.displayText.value;
+                    reasonString += "#" + curProgression.evidence[i].coding[0].displayText.value;
                     reasonString += `, `;
                 }
-                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText.value;
+                reasonString += "#" + curProgression.evidence[numReasons - 1].coding[0].displayText.value;
             } 
         }
         return reasonString
@@ -112,7 +113,7 @@ class ProgressionCreator extends CreatorShortcut {
     }
     
     getAsString() { 
-        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.value.length === 0)
+        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding[0].displayText.value.length === 0)
             && Lang.isEmpty(this.progression.evidence)){ 
             // No value or status or updated reference date, return just the hash
             return `#disease status`;
@@ -142,12 +143,12 @@ class ProgressionCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges) {
         if (name === "status") {
-            this.progression.value.coding.displayText.value = value;
+            this.progression.value.coding[0].displayText.value = value;
         } else if (name === "reasons") {
             let result = value.map((v) => {
                 let e = new Evidence();
                 e.value = new CodeableConcept();
-                e.value.coding.displayText.value = v;
+                e.value.coding[0].displayText.value = v;
                 return e;
             });
             this.progression.evidence = result;
@@ -171,10 +172,10 @@ class ProgressionCreator extends CreatorShortcut {
 	}
 	getAttributeValue(name) {
         if (name === "status") {
-            return this.progression.value.coding.displayText.value;
+            return this.progression.value.coding[0].displayText.value;
         } else if (name === "reasons") {
             return this.progression.evidence.map((e) => {
-                return e.value.coding.displayText.value;
+                return e.value.coding[0].displayText.value;
             });
         } else if (name === "asOf") {
             return this.asOf === true;
@@ -191,7 +192,7 @@ class ProgressionCreator extends CreatorShortcut {
 	}
 	
 	updatePatient(patient, contextManager) {
-		if (this.progression.value.coding.displayText.value.length === 0) return; // not complete value
+		if (this.progression.value.coding[0].displayText.value.length === 0) return; // not complete value
 		if (this.isProgressionNew) {
             let condition = this.parentContext.getValueObject();
             this.progression.assessmentFocus = [];

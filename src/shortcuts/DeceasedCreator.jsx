@@ -2,14 +2,12 @@ import CreatorShortcut from './CreatorShortcut';
 import DateCreator from './DateCreator';
 import Lang from 'lodash';
 import moment from 'moment';
-import PatientRecord from "../patient/PatientRecord";
 import Deceased from '../model/shr/actor/Deceased';
 
 class DeceasedCreator extends CreatorShortcut {
 
     constructor(onUpdate, deceased) {
         super();
-        this.personOfRecord = new PatientRecord().getPersonOfRecord();
 
         if (Lang.isUndefined(deceased)) {
             this.deceased = new Deceased();
@@ -106,7 +104,8 @@ class DeceasedCreator extends CreatorShortcut {
 
     updatePatient(patient, contextManager) {
         if (this.isDeceasedNew) {
-            this.personOfRecord.deceased = this.deceased;
+            const personOfRecord = patient.getPersonOfRecord();
+            personOfRecord.deceased = this.deceased;
             this.isDeceasedNew = false;
         }
     }
