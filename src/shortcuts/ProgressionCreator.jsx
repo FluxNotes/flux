@@ -194,8 +194,10 @@ class ProgressionCreator extends CreatorShortcut {
 		if (this.progression.value.coding.displayText.value.length === 0) return; // not complete value
 		if (this.isProgressionNew) {
             let condition = this.parentContext.getValueObject();
-            this.progression.assessmentFocus = new AssessmentFocus();
-            this.progression.assessmentFocus.value = Reference.createReferenceFromEntry(condition.entryInfo);
+            this.progression.assessmentFocus = [];
+            const af = new AssessmentFocus();
+            af.value = Reference.createReferenceFromEntry(condition.entryInfo);
+            this.progression.assessmentFocus.push(af);
             patient.addEntryToPatientWithPatientFocalSubject(this.progression);
 			this.isProgressionNew = false;
 		}

@@ -14,7 +14,7 @@ class Progression extends Assessment {
             this.codeableConcept = new CodeableConcept(json.value);
             this._codeableConcept = this.codeableConcept;
             this._category = new Category(json.category);
-            if (json.assessmentFocus) this._assessmentFocus = new AssessmentFocus(json.assessmentFocus);
+            if (json.assessmentFocus) this._assessmentFocus = json.assessmentFocus.map((a) => new AssessmentFocus(a));
             if (json.evidence) this._evidence = json.evidence.map((e) => new Evidence(e));
             this._asOfDate = json.asOfDate;
         } else {
