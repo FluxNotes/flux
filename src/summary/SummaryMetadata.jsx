@@ -22,7 +22,7 @@ class SummaryMetadata {
                              value: (patient, currentConditionEntry) => {
                                 let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
                                 if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
-                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.coding[0].displayText.value + s.n_Stage.coding[0].displayText.value + s.m_Stage.coding[0].displayText.value + ")";
+                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.value.coding[0].displayText.value + s.n_Stage.value.coding[0].displayText.value + s.m_Stage.value.coding[0].displayText.value + ")";
                                 } else {
                                     return null;
                                 }
