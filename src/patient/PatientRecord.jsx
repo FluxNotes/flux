@@ -124,7 +124,7 @@ class PatientRecord {
 	getCurrentHomeAddress() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord) || !personOfRecord.addressUsed) return null;
-		let addressUsed = personOfRecord.addressUsed.filter((item) => { return item.addressUse.coding.value === "primary_residence" });
+		let addressUsed = personOfRecord.addressUsed.filter((item) => { return item.addressUse.some((au) => au.value.coding.value === "primary_residence") });
 		if (addressUsed.length === 0) return null;
 		return addressUsed[0].value;
 	}
@@ -208,8 +208,6 @@ class PatientRecord {
 
 	getObservationsForCondition(condition, type) {
         if (!condition.observation) return [];
-        //console.log("look for type " + type);
-        //console.log(condition.observation);
 		return condition.observation.filter((item) => { 
 			return item instanceof type;
 		});
@@ -250,21 +248,21 @@ class PatientRecord {
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => {
-			return item instanceof Progression && item.assessmentFocus.value.entryId === condition.entryInfo.entryId;
+			return item instanceof Progression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.assessmentFocus.value.entryId === condition.entryInfo.entryId;
+            return progression.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
         });
         return progressions;
     }
 	
 	getFocalConditionForProgression(progression) {
 		let result = this.entries.filter((item) => { return (item instanceof Condition) 
-            && (item.entryInfo.entryId === progression.assessmentFocus.value.entryId)});
+            && progression.assessmentFocus.some((a) => { return a.value.entryId === item.entryInfo.entryId }) });
 		return result[0];
 	}
 	

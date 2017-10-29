@@ -1,5 +1,19 @@
+import Address from '../core/Address';
+import AddressUse from './AddressUse';
+import EffectiveTimePeriod from '../core/EffectiveTimePeriod';
+import Setting from '../core/Setting';
+
 /** Generated from SHR definition for shr.demographics.AddressUsed */
 class AddressUsed {
+    constructor(json) {
+        if (json) {
+            this._address = new Address(json.value);
+            this.address = this._address;
+            if (json.addressUse) this._addressUse = json.addressUse.map((a) => new AddressUse(a));
+            if (json.setting) this._setting = json.setting.map((s) => new Setting(s));
+            if (json.effectiveTimePeriod) this._effectiveTimePeriod = new EffectiveTimePeriod(json.effectiveTimePeriod);
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.address)
