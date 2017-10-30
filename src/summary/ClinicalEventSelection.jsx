@@ -31,10 +31,10 @@ class ClinicalEventSelection extends Component {
 
     renderClinicalEventList() { 
         return (
-            <Row start="xs" className="event-buttons">
+            <Row start="xs" className="clinical-event-buttons">
                 {this.props.possibleClinicalEvents.map((setting, index) => { 
                     return (
-                        <Col xs className={this.buttonClass(setting)} key={`clinical-event-${setting}`}>
+                        <Col xs className={this.buttonClass(setting)} key={`clinical-event-${setting}`} id={`${setting}-button`}>
                             <Button raised onClick={() => {this.selectClinicalEvent(setting)}}>
                                 {titlecase(setting)}
                             </Button>
