@@ -28,7 +28,7 @@ describe('getAttributionCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -49,7 +49,7 @@ describe('getAttributionCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql(`#${goodValue}`);
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('https://www.meddra.org/');
     });
@@ -71,7 +71,7 @@ describe('getAdverseEventGradeCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -92,7 +92,7 @@ describe('getAdverseEventGradeCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('C1513302');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('http://ncimeta.nci.nih.gov');
     });
@@ -114,7 +114,7 @@ describe('getAdverseEventCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -135,7 +135,7 @@ describe('getAdverseEventCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('10002272');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('https://www.meddra.org/');
     });

@@ -28,7 +28,7 @@ describe('getValueCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -49,7 +49,7 @@ describe('getValueCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('C0677874');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('http://ncimeta.nci.nih.gov');
     });
@@ -71,7 +71,7 @@ describe('getEvidenceCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -92,7 +92,7 @@ describe('getEvidenceCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('C0031809');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('http://ncimeta.nci.nih.gov');
     });
