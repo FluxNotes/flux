@@ -207,8 +207,9 @@ class StagingCreator extends CreatorShortcut {
 		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
 		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
 		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
-		if (this.staging.value.coding[0].displayText.length > 0) result.push(StageInserter);
-		return result; //[ StagingTCreator, StagingNCreator, StagingMCreator ];
+		if (this.staging.value.coding[0].displayText.value && 
+            this.staging.value.coding[0].displayText.value.length > 0) result.push(StageInserter);
+		return result;
 	}
 
 	isContext() {

@@ -194,7 +194,7 @@ class ToxicityCreator extends CreatorShortcut {
         const adverseEvent = this.getAttributeValue("adverseEvent");
         const grade = this.getAttributeValue("grade");
         const attribution = this.getAttributeValue("attribution");
-        console.log(adverseEvent);
+
         if (!adverseEvent || adverseEvent.length === 0) result.push(ToxicityAdverseEventCreator);
         if (!grade || grade.length === 0) result.push(ToxicityGradeCreator);
         if (!attribution || attribution.length === 0) result.push(ToxicityAttributionCreator);
