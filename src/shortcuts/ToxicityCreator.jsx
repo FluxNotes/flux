@@ -60,10 +60,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEventGrade.coding)) return "";
-        let gradeString = `${curToxicity.adverseEventGrade.coding[0].displayText}`;
+        if (Lang.isNull(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value)) return "";
+        let gradeString = `${curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value}`;
         // If nothing is selected yet, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEventGrade.coding[0].displayText)) {
+        if (Lang.isEmpty(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText)) {
             gradeString = 'Grade ?'
         }
         return gradeString;
@@ -73,10 +73,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.value.coding)) return "";
-        let adverseEventString = `${curToxicity.value.coding[0].displayText}`;
+        if (Lang.isNull(curToxicity.adverseEvent.value.coding)) return "";
+        let adverseEventString = `${curToxicity.adverseEvent.value.coding[0].displayText.value}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.value.coding[0].displayText)){
+        if (Lang.isEmpty(curToxicity.adverseEvent.value.coding[0].displayText.value)){
             adverseEventString = '?';
         }
         return adverseEventString;
@@ -86,10 +86,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get attribution string for given toxicity
      */
     getAttributionString = (curToxicity) => {
-        if(Lang.isNull(curToxicity.attribution.coding)) return "";
-        let attributionString = `${curToxicity.attribution.coding[0].displayText}`;
+        if(Lang.isNull(curToxicity.adverseEvent.causeCategory.value.coding)) return "";
+        let attributionString = `${curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.attribution.coding[0].displayText)){
+        if (Lang.isEmpty(curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value)){
             attributionString = '?';
         }
         return attributionString;

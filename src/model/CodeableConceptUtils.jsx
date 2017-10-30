@@ -28,21 +28,22 @@ exports.getCodeableConceptFromTuple = (tuple) => {
  * options is a list of objects with properties name, codeSystem, code
  */
 exports.getCodeableConceptFromOptions = (possibleValue, options) => {
-    const index = options.findIndex((option) => { return option.name.toLowerCase() === possibleValue.toLowerCase()});
     let tuple = {
         value: "",
         codeSystem: "",
         displayText: ""
     };
+    if (!Lang.isNull(possibleValue)) {
+        const index = options.findIndex((option) => { return option.name.toLowerCase() === possibleValue.toLowerCase()});
 
-    let value = index === -1 ? null : options[index];
-    if(!Lang.isNull(value)) {
-        tuple = {
-            value: value.code,
-            codeSystem: value.codeSystem,
-            displayText: value.name
-        };
+        let value = index === -1 ? null : options[index];
+        if(!Lang.isNull(value)) {
+            tuple = {
+                value: value.code,
+                codeSystem: value.codeSystem,
+                displayText: value.name
+            };
+        }
     }
-
     return exports.getCodeableConceptFromTuple(tuple);
 }

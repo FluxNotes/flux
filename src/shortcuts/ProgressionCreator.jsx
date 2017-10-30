@@ -79,10 +79,10 @@ class ProgressionCreator extends CreatorShortcut {
             if (numReasons > 0) { 
                 reasonString = ` based on `;
                 for (let i = 0; i < numReasons - 1; i++) {
-                    reasonString += "#" + curProgression.evidence[i].coding[0].displayText.value;
+                    reasonString += "#" + curProgression.evidence[i].value.coding[0].displayText.value;
                     reasonString += `, `;
                 }
-                reasonString += "#" + curProgression.evidence[numReasons - 1].coding[0].displayText.value;
+                reasonString += "#" + curProgression.evidence[numReasons - 1].value.coding[0].displayText.value;
             } 
         }
         return reasonString
