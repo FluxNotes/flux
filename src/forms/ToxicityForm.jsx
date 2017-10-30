@@ -3,7 +3,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import toxicityLookup from '../lib/toxicity_lookup';
+import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
 import Lang from 'lodash'
 import Array from 'lodash'
 import './ToxicityForm.css';

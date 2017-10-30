@@ -1,0 +1,39 @@
+
+.event-buttons {
+    margin: 5px 0;
+}
+
+.button {
+    padding: 0;
+}
+
+.button button {
+    width: 100%;
+    background-color: white;
+}
+
+.button.active button {
+    background-color: #1384B5;
+    color: white;
+    box-shadow: none;
+}
+
+.button span {
+    font-size: 0.9em;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.preEncounter button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.encounter button {
+    border-radius: 0;
+}
+
+.treatment button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

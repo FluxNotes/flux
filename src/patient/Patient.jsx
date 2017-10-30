@@ -1,7 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import staging from '../lib/staging.jsx';
-import toxicityLookup from '../lib/toxicity_lookup.jsx';
+import toxicityLookup from '../lib/toxicreactiontotreatment_lookup.jsx';
 import Guid from 'guid';
 
 class Patient {

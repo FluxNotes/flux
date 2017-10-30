@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import staging from '../lib/staging';
-import stagingLookup from '../lib/staging_lookup';
+import stagingLookup from '../lib/tnmstage_lookup';
 import './StagingForm.css';
 
 class StagingForm extends Component {

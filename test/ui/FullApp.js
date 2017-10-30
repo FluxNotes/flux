@@ -8,6 +8,65 @@ const pagePort = "3000";
 const pageRoute = "/patient"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
+fixture('Patient Mode - Patient Summary Panel')
+    .page(startPage);
+
+test('Clicking event buttons selects corresponding event', async t => {
+    const preEncounterButton = Selector(".clinical-event-buttons #pre-encounter-button");
+    const encounterButton = Selector(".clinical-event-buttons #encounter-button");
+    const postEncounterButton = Selector(".clinical-event-buttons #post-encounter-button");
+
+    // post-encounter button is pre-selected
+    await t
+        .expect(postEncounterButton.hasClass("active"))
+        .ok();
+
+    // encounter button should be selected after clicking on it
+    await t.click(encounterButton);
+
+    await t
+        .expect(encounterButton.hasClass("active"))
+        .ok();
+
+    // pre-encounter button should be selected after clicking on it
+    await t.click(preEncounterButton);
+
+    await t
+        .expect(preEncounterButton.hasClass("active"))
+        .ok();
+
+    // post-encounter button should be selected after clicking on it
+    await t.click(postEncounterButton);
+
+    await t
+        .expect(postEncounterButton.hasClass("active"))
+        .ok();
+});
+    
+test('Selecting a condition changes the active condition', async t => {
+    const conditionSelector = Selector('.condition-select');
+
+    // first condition is selected by default
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Invasive ductal carcinoma of breast");
+
+    // clicking on Fracture changes the condition
+    await t
+        .click(conditionSelector)
+        .click(Selector('[data-test-condition-selector-item=Fracture]'));
+
+    await t
+        .expect(await conditionSelector.textContent)
+        .eql("Fracture");
+
+    const conditionName = Selector('[data-test-summary-section="Current Diagnosis"] [data-test-summary-item="Name"]')
+
+    await t
+        .expect(await conditionName.textContent)
+        .eql("Fracture");
+});
+
 fixture('Patient Mode - Editor')
     .page(startPage);
 
@@ -187,64 +246,6 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
 
 });
 
-fixture('Patient Mode - Patient Summary Panel')
-    .page(startPage);
-
-test('Clicking event buttons selects corresponding event', async t => {
-    const preEncounterButton = Selector("[data-test-pre-encounter-button]");
-    const encounterButton = Selector("[data-test-encounter-button]");
-    const treatmentButton = Selector("[data-test-treatment-button]");
-
-    // pre-encounter button is pre-selected
-    await t
-        .expect(preEncounterButton.parent().hasClass("active"))
-        .ok();
-
-    // encounter button should be selected after clicking on it
-    await t.click(encounterButton);
-
-    await t
-        .expect(encounterButton.parent().hasClass("active"))
-        .ok();
-
-    // treatment button should be selected after clicking on it
-    await t.click(treatmentButton);
-
-    await t
-        .expect(treatmentButton.parent().hasClass("active"))
-        .ok();
-
-    // pre-encounter button should be selected after clicking on it
-    await t.click(preEncounterButton);
-
-    await t
-        .expect(preEncounterButton.parent().hasClass("active"))
-        .ok();
-});
-
-test('Selecting a condition changes the active condition', async t => {
-    const conditionSelector = Selector('.condition-select');
-
-    // first condition is selected by default
-    await t
-        .expect(await conditionSelector.textContent)
-        .eql("Invasive ductal carcinoma of breast");
-
-    // clicking on Fracture changes the condition
-    await t
-        .click(conditionSelector)
-        .click(Selector('[data-test-condition-selector-item=Fracture]'));
-
-    await t
-        .expect(await conditionSelector.textContent)
-        .eql("Fracture");
-
-    const conditionName = Selector('[data-test-summary-section="Current Diagnosis"] [data-test-summary-item="Name"]')
-
-    await t
-        .expect(await conditionName.textContent)
-        .eql("Fracture");
-});
 
 fixture('Patient Mode - Data Summary Panel')
     .page(startPage);

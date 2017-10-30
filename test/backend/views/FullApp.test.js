@@ -3,7 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
-import FullApp from '../../../src/views/FullApp';
+import FullApp from '../../../src/apps/FullApp';
 
 Enzyme.configure({ adapter: new Adapter() });
 
