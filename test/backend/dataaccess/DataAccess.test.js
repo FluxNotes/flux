@@ -1,12 +1,12 @@
 import DataAccess from '../../../src/dataaccess/DataAccess';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
-import Patient from '../../../src/patient/Patient';
+import PatientRecord from '../../../src/patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import Moment from 'moment';
 import {expect} from 'chai';
 
 // reference hard coded Patient
-const referenceHardCodedPatient = new Patient(hardCodedPatient);
+const referenceHardCodedPatient = new PatientRecord(hardCodedPatient);
 
 // Data Access with hard coded read only data source
 const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedReadOnlyDataSource");
@@ -28,7 +28,7 @@ const newPatientEntries = newPatient.entries;
 describe('create hard coded read only data source', function() {
     it('get demo patient should return the hard coded patient', function () { 
         expect(hardCodedPatientPersonOfRecord)
-            .to.equal(referencePersonOfRecord);
+            .eql(referencePersonOfRecord);
     });
     it('get list of patients should return the hard coded patient', function () { 
         expect(hardCodedReadOnlyDataAccess.getListOfPatients())
@@ -41,7 +41,7 @@ describe('create hard coded read only data source', function() {
     });
     it('savePatient should return undefined', function () {
         expect(newPatientOnlyDataAccess.savePatient(hardCodedPatientObj))
-            .to.be.undefined
+            .to.be.undefined;
     });
 });
 
