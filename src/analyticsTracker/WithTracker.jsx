@@ -3,7 +3,7 @@ import ReactGA from 'react-ga';
 
 ReactGA.initialize('UA-82650858-3');
 
-const withTracker = (WrappedComponent, options = {}) => {
+const WithTracker = (WrappedComponent, options = {}) => {
   const trackPage = page => {
     ReactGA.set({
       page,
@@ -35,4 +35,4 @@ const withTracker = (WrappedComponent, options = {}) => {
   return HOC;
 };
 
-export default withTracker;
+export default WithTracker;
