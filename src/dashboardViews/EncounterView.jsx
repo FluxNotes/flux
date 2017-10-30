@@ -8,7 +8,7 @@ import DataSummaryPanel from '../summary/DataSummaryPanel';
 import ContextTray from '../context/ContextTray';
 import TimelinePanel from '../timeline/TimelinePanel';
 
-class PostEncounterView extends Component { 
+class EncounterView extends Component { 
     render () { 
         return (
             
@@ -16,4 +16,4 @@ class PostEncounterView extends Component {
     }
 }
 
-export default PostEncounterView;
+export default EncounterView;
