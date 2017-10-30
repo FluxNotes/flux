@@ -52,6 +52,7 @@ class NavBar extends Component {
                             <IconButton style={{margin: '0px 8px 0px -16px' }} color="contrast" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
                                 <MenuIcon/>
                             </IconButton> : null}
+                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" />&nbsp;&nbsp;
                         <Typography type="title" color="inherit" className={classes.flex}>
                         {this.props.title}
                         </Typography>
