@@ -1,7 +1,11 @@
 class ClinicalTrialsList {
     constructor() {
         this.clinicalTrials = [
-            {id: 'patina', name: 'PATINA', description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer'}
+            {
+                id: 'patina', 
+                name: 'PATINA', 
+                description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer'
+            }
         ];
     }
     
