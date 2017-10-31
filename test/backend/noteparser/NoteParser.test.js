@@ -1,6 +1,9 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import Progression from '../../../src/model/shr/oncology/Progression';
 import TNMStage from '../../../src/model/shr/oncology/TNMStage';
+import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
+import Deceased from '../../../src/model/shr/actor/Deceased';
+import Study from '../../../src/model/shr/base/Study';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
@@ -151,49 +154,76 @@ const expectedOutputDiseaseStatus2 = [[
         lastUpdateDate: today 
     })
 ], []];
-const expectedOutputToxicity = [[{ 
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/ToxicReaction',
-         'http://standardhealthrecord.org/adverse/AdverseReaction',
-         'http://standardhealthrecord.org/adverse/AdverseEvent' ],
-    value:
-     { coding:
-        { value: 10028813,
-          codeSystem: 'https://www.meddra.org/',
-          displayText: 'Nausea' } },
-    adverseEventGrade:
-     { coding:
-        { value: 'C1513374',
-          codeSystem: 'http://ncimeta.nci.nih.gov',
-          displayText: 'Grade 2' } },
-    attribution:
-     { coding:
-        { value: '#Treatment',
-          codeSystem: 'https://www.meddra.org/',
-          displayText: 'Treatment' } },
-    originalCreationDate: today,
-    lastUpdateDate: today 
-}], []];
-const expectedOutputDeceased = [[{
-     entryType:
-         [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
-     value: true,
-     dateOfDeath: '1 Oct 2017'
-}], []];
-const expectedOutputClinicalTrial = [[{
-    entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-    title: 'PATINA',
-    identifier: '',
-    enrollmentDate: '4 Sep 2017',
-    endDate: '6 Oct 2017'
-}], []];
-const expectedOutputClinicalTrialMinimal = [[{
-    entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-    title: '',
-    identifier: '',
-    enrollmentDate: null,
-    endDate: null
-}], []];
+const expectedOutputToxicity = [[
+    new ToxicReactionToTreatment({ 
+        entryType: [
+            'http://standardhealthrecord.org/oncology/ToxicReactionToTreatment',
+            'http://standardhealthrecord.org/adverse/AdverseReaction'
+        ],
+        adverseEvent: {
+            entryType: [ 
+                'http://standardhealthrecord.org/adverse/AdverseEvent' 
+            ],
+            value: { 
+                coding: [{ 
+                    value: '10028813',
+                    codeSystem: { value:'https://www.meddra.org/'},
+                    displayText: 'Nausea' 
+                }]
+            },
+            adverseEventGrade: {
+                value: { 
+                    coding: [{ 
+                        value: 'C1513374',
+                        codeSystem: { value:'http://ncimeta.nci.nih.gov'},
+                        displayText: 'Grade 2' 
+                    }]
+                } 
+            },
+            causeCategory: {
+                value: { 
+                    coding: [{ 
+                        value: '#Treatment',
+                        codeSystem: { value:'https://www.meddra.org/'},
+                        displayText: 'Treatment' 
+                    }] 
+                }
+            },
+            originalCreationDate: today,
+            lastUpdateDate: today 
+        },
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputDeceased = [[
+    new Deceased({
+        entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
+        value: true,
+        dateOfDeath: '1 Oct 2017'
+    })
+], []];
+const expectedOutputClinicalTrial = [[
+    new Study({
+        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+        title: 'PATINA',
+        identifier: { value: ''},
+        enrollmentDate: '4 Sep 2017',
+        endDate: '6 Oct 2017',
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputClinicalTrialMinimal = [[
+    new Study({
+        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+        identifier: { value: ''},
+        enrollmentDate: null,
+        endDate: null,
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
 
 
 describe('getAllTriggersRegularExpression', function () { 
@@ -257,8 +287,6 @@ describe('parse', function() {
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
-        // console.log(util.inspect(record, false, null));
-        // console.log(util.inspect(expectedOutputDiseaseStatus, false, null));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);

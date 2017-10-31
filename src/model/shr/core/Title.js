@@ -1,6 +1,13 @@
 /** Generated from SHR definition for shr.core.Title */
 class Title {
 
+  constructor(json) {
+      if (json) {
+          if (json.value) this.string = json.value;
+          if (json.value) this._string = json.value;
+      }
+  }
+
   /**
    * Convenience getter for value (accesses this.string)
    */

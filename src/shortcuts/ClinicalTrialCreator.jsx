@@ -4,6 +4,7 @@ import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
 import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
 import Study from '../model/shr/base/Study';
+import Identifier from '../model/shr/core/Identifier';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -12,8 +13,8 @@ class ClinicalTrialCreator extends CreatorShortcut {
         super();
         if (Lang.isUndefined(clinicalTrial)) {
             this.clinicalTrial = new Study();
-            this.clinicalTrial.title = '';
-            this.clinicalTrial.identifier = '';
+            //this.clinicalTrial.title = '';
+            this.clinicalTrial.identifier = new Identifier({value:''});
             this.clinicalTrial.enrollmentDate = null;
             this.clinicalTrial.endDate = null;
             this.isClinicalTrialNew = true;
@@ -109,7 +110,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
         if (name === "title") {
             this.clinicalTrial.title = value;
         } else if (name === "identifier") {
-            this.clinicalTrial.indentifier = value;
+            this.clinicalTrial.indentifier.value = value;
         } else if (name === "enrollmentDateFlag") {
             this.enrollmentDateFlag = value === true;
         } else if (name === "enrollmentDate") {

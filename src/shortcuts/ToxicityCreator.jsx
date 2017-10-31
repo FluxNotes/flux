@@ -11,13 +11,13 @@ import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import lookup from '../lib/toxicreactiontotreatment_lookup';
 import Lang from 'lodash';
-import moment from 'moment';
+// import moment from 'moment';
 
 class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            const today = new moment().format("D MMM YYYY");
+            //const today = new moment().format("D MMM YYYY");
             this.toxicity = new ToxicReactionToTreatment();
             this.toxicity.adverseEvent = new AdverseEvent();
             this.toxicity.adverseEvent.value = new CodeableConcept();
@@ -25,8 +25,8 @@ class ToxicityCreator extends CreatorShortcut {
             this.toxicity.adverseEvent.adverseEventGrade.value = new CodeableConcept();
             this.toxicity.adverseEvent.causeCategory = new CauseCategory();
             this.toxicity.adverseEvent.causeCategory.value = new CodeableConcept();
-            this.toxicity.originalCreationDate = today;
-            this.toxicity.lastUpdateDate = today;
+            // this.toxicity.originalCreationDate = today;
+            // this.toxicity.lastUpdateDate = today;
             this.isToxicityNew = true;
         } else {
             this.toxicity = toxicity;

@@ -1,16 +1,15 @@
 import Entry from '../base/Entry';
 import Identifier from '../core/Identifier';
-import Title from '../core/Title';
 
 /** Generated from SHR definition for shr.base.Study */
 class Study {
     constructor(json) {
         if (json) {
             this._entryInfo = new Entry(json);
-            if (json.title) this._title = new Title(json.title);
+            if (json.title) this._title = json.title;
             if (json.identifier) this._identifier = new Identifier(json.identifier);
-            if (json.enrollmentDate) this._enrollmentDate = json.enrollmentDate;
-            if (json.endDate) this._endDate = json.endDate;
+            this._enrollmentDate = json.enrollmentDate;
+            this._endDate = json.endDate;
         } else {
             this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/base/Study");            
         }        
