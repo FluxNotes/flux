@@ -80,6 +80,7 @@ class DataSummaryTable extends Component {
 
 		return (
             <table>
+                <p>is it here?</p>
                 <tbody>
                     {this.renderedListItems(list)}
                 </tbody>

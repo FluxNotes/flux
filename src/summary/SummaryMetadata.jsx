@@ -8,6 +8,15 @@ class SummaryMetadata {
     hardCodedMetadata = {
         "http://snomed.info/sct/408643008" : {
             sections: [
+                // {
+                //     name: "Summary",
+                //     items: {
+                //         groupName: "Identification",
+                //         itemsArray: [
+                //
+                //         ]
+                //     }
+                // },
                 {
                     name: "Current Diagnosis",
                     items:  [
