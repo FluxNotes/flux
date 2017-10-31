@@ -32,7 +32,8 @@ function addTriggerForKey(trigger) {
         }
         //console.log(list);
         if (prefix) {
-            list.forEach((t) => { t.name = prefix + t.name; });
+            list = list.map((t) => { return { "name": prefix + t.name, "description":t.description }; });
+            //list.forEach((t) => { t.name = prefix + t.name; });
         }
         list.forEach(addTriggerForKey, this);
     }
@@ -146,12 +147,18 @@ class ShortcutManager {
         });
         //console.log(this.childShortcuts);
     }
-    
+
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
-        //console.log("getValidChildShortcutsInContext" + currentContextId);
+        //console.log("getValidChildShortcutsInContext " + currentContextId);
         //console.log(this.childShortcuts[currentContextId]);
-        let result = this.childShortcuts[currentContextId];
+        let result = this.childShortcuts[currentContextId], parentAttribute;
+        result = result.filter((shortcutId) => {
+            //console.log(shortcutId);
+            parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
+            return (Lang.isUndefined(parentAttribute) || context.getAttributeValue(parentAttribute).length === 0);
+        });
+        console.log(result);
 		if (recurse) {
 			context.getChildren().forEach((subcontext) => {
 				result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
@@ -165,6 +172,10 @@ class ShortcutManager {
         //console.log("getTriggersForShortcut " + shortcutId);
         //console.log(this.triggersPerShortcut[shortcutId]);
         return this.triggersPerShortcut[shortcutId];
+    }
+    
+    getShortcutGroupName(shortcutId) {
+        return this.shortcuts[shortcutId]["shortcutGroupName"];
     }
 }
 

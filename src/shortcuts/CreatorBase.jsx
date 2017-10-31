@@ -43,6 +43,10 @@ export default class CreatorBase extends Shortcut {
     
 	initialize(contextManager) {
 		super.initialize(contextManager);
+        this.parentContext = contextManager.getCurrentContext();
+        if (!Lang.isUndefined(this.parentContext)) {
+            this.parentContext.addChild(this);
+        }
 	}
     
     isContext() {
@@ -202,11 +206,33 @@ export default class CreatorBase extends Shortcut {
     }
 
     updatePatient(patient, contextManager) {
-        //if (this.object.title.length === 0) return; // Not complete value
-        // TODO: is it complete?
-        if (this.isObjectNew) {
-            patient.addEntryToPatientWithPatientFocalSubject(this.object);
-            this.isObjectNew = false;
+/*        let attributeSpec;
+        const allSettableDataFields = Object.keys(this.valueObjectAttributes).filter((attribute) => {
+            attributeSpec = this.valueObjectAttributes[attribute];
+            return (!Lang.isUndefined(attributeSpec["childShortcut"]));
+        });*/
+        
+        const updatePatientSpec = this.metadata["updatePatient"];
+        if (updatePatientSpec) {
+            //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
+            const obj = updatePatientSpec["object"];
+            const method = updatePatientSpec["method"];
+            const argSpecs = updatePatientSpec["args"];
+            let args = argSpecs.map((argSpec) => {
+                if (argSpec === "$valueObject") return this.object;
+                if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+                return argSpec;
+            });
+            if (obj === "patient") {
+                patient[method](...args);
+            } else {
+                console.error("unsupported object type: " + obj + " for updatePatient");
+            }
+        } else {
+            if (this.isObjectNew) {
+                patient.addEntryToPatientWithPatientFocalSubject(this.object);
+                this.isObjectNew = false;
+            }
         }
     }
 }

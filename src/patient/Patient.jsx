@@ -216,6 +216,10 @@ class Patient {
 		});
 		if (list.length === 0) return null; else return list[0];
 	}
+    
+    setFocalCondition(target, condition) {
+        target.focalCondition = Patient.createEntryReferenceTo(condition);
+    }
 	
 	getProgressions() {
 		return this.getEntriesOfType("http://standardhealthrecord.org/oncology/Progression");
@@ -540,12 +544,12 @@ class Patient {
 	}
 
 	static updateTForStaging(stagingObservation, t) {		
-		const t_code = this._tToCodeableConcept(t);
-        if (Lang.isNull(t_code)) {
+        if (Lang.isNull(t)) {
             stagingObservation.tStage.coding.displayText = "";
             stagingObservation.tStage.coding.value = "";
             stagingObservation.tStage.coding.codeSystem = "";
         } else {
+            const t_code = this._tToCodeableConcept(t);
             stagingObservation.tStage.coding.displayText = t_code.displayText;
             stagingObservation.tStage.coding.value = t_code.code;
             stagingObservation.tStage.coding.codeSystem = t_code.codesystem;
@@ -553,12 +557,12 @@ class Patient {
 		this.updateStage(stagingObservation);
 	}
 	static updateNForStaging(stagingObservation, n) {		
-		const n_code = this._nToCodeableConcept(n);
-        if (Lang.isNull(n_code)) {
+		if (Lang.isNull(n)) {
             stagingObservation.nStage.coding.displayText = "";
             stagingObservation.nStage.coding.value = "";
             stagingObservation.nStage.coding.codeSystem = "";
         } else {
+            const n_code = this._nToCodeableConcept(n);
             stagingObservation.nStage.coding.displayText = n_code.displayText;
             stagingObservation.nStage.coding.value = n_code.code;
             stagingObservation.nStage.coding.codeSystem = n_code.codesystem;
@@ -566,12 +570,12 @@ class Patient {
 		this.updateStage(stagingObservation);
 	}
 	static updateMForStaging(stagingObservation, m) {		
-		const m_code = this._mToCodeableConcept(m);
-        if (Lang.isNull(m_code)) {
+        if (Lang.isNull(m)) {
             stagingObservation.mStage.coding.displayText = "";
             stagingObservation.mStage.coding.value = "";
             stagingObservation.mStage.coding.codeSystem = "";
         } else {
+            const m_code = this._mToCodeableConcept(m);
             stagingObservation.mStage.coding.displayText = m_code.displayText;
             stagingObservation.mStage.coding.value = m_code.code;
             stagingObservation.mStage.coding.codeSystem = m_code.codesystem;

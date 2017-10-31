@@ -20,11 +20,12 @@ export default class NoteParser {
         } else {
             this.contextManager = contextManager;
         }
-        this.allTriggersRegExp = undefined;
+        this.allStringTriggersRegExp = undefined;
         //this.triggerMap = {};
         
         // build up all trigger string regular expression
         let allTriggers = this.shortcutManager.getAllStringTriggers();
+        //console.log(allTriggers);
         let allShortcuts = this.shortcutManager.getAllShortcutDefinitions();
         /*let curTriggers;
         allShortcuts.forEach((shortcutC) => {
@@ -34,7 +35,7 @@ export default class NoteParser {
                 this.triggerMap[item.toLowerCase()] = shortcutC; 
             });
         });*/
-        this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
+        this.allStringTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
         
         // build list of regular expression triggers
         this.allTriggersRegExps = [];
@@ -50,7 +51,7 @@ export default class NoteParser {
     }
     
     getAllTriggersRegularExpression() {
-        return this.allTriggersRegExp;
+        return this.allStringTriggersRegExp;
     }
     
     createShortcut(trigger) {
@@ -75,17 +76,17 @@ export default class NoteParser {
         let pos = 0;
         let matches = [];
         let match, substr, nextPos, found;
-        let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         let checkForTriggerRegExpMatch = (tocheck) => {
             //console.log(tocheck.regexp + " against '" + substr + "'");
             //console.log(tocheck);
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
-                //console.log("matched " + tocheck.regexp);
+                console.log("matched " + tocheck.regexp);
                 matches.push({trigger: match[0], definition: tocheck.definition});
                 found = true;
             }
         }
+        let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         while (hashPos !== -1) {
             //console.log(hashPos);
             nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
@@ -94,7 +95,7 @@ export default class NoteParser {
             } else {
                 substr = note.substring(hashPos, nextPos);
             }
-            match = substr.match(this.allTriggersRegExp);
+            match = substr.match(this.allStringTriggersRegExp);
             if (Lang.isNull(match)) {
                 found = false;
                 this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);

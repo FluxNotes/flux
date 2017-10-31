@@ -1,4 +1,5 @@
 import InserterShortcut from './InserterShortcut';
+import Lang from 'lodash';
 
 export default class InsertValue extends InserterShortcut {
     constructor(onUpdate, metadata) {
@@ -6,21 +7,49 @@ export default class InsertValue extends InserterShortcut {
         this.metadata = metadata;
     }
     
+    _getValueUsingPath(item, attributePath) {
+        let result = item, i;
+        for (i = 0; i < attributePath.length; i++) {
+            result = result[attributePath[i]];
+        }
+        return result;
+    }
+    
 	determineText(contextManager) {
 		//return contextManager.getPatient().getAge();
         //"getData": [ {"object": "patient", "method": "getAge"}],
-        const getDataMetadata = this.metadata["getData"];
-        let result = "";
-        getDataMetadata.forEach((callSpec) => {
-            if (callSpec["object"] === "patient") {
-                result += contextManager.getPatient()[callSpec["method"]]();
-            } else {
-                console.error("not support yet " + callSpec.object + " / " + callSpec.method);
+        const callSpec = this.metadata["getData"];
+        let result;
+        const callObject = callSpec["object"];
+        if (callObject === "patient") {
+            result = contextManager.getPatient()[callSpec["method"]]();
+            if (Lang.isArray(result)) {
+                const itemKey = callSpec["itemKey"];
+                const itemContext = callSpec["itemContext"].split(".");
+                return result.map((item) => {
+                    return {key: item[itemKey], context: this._getValueUsingPath(item, itemContext), object: item};
+                });
             }
-        });
-        return result;
+            return result;
+        } else if (callObject === "parent") {
+        //   "getData": {"object": "parent", "attribute": "stage"},
+            const attribute = callSpec["attribute"];
+            return this.contextManager.getActiveContexts()[0].getAttributeValue(attribute);
+        } else {
+            console.error("not support yet " + callSpec.object + " / " + callSpec.method);
+        }
 	}
     getShortcutType() { 
+        return this.metadata["id"];
+    }
+ 
+    isContext() {
+        return this.metadata.isContext;
+    }
+	getLabel() {
+		return this.getText();
+	}
+    getId() {
         return this.metadata["id"];
     }
 }

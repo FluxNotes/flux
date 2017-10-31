@@ -155,11 +155,12 @@ class FluxNotesEditor extends React.Component {
         
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
-        let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.shortcutManager);
+        let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
-            const triggers = shortcut.getStringTriggers();
+            //const triggers = shortcut.getStringTriggers();
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
@@ -357,6 +358,7 @@ class FluxNotesEditor extends React.Component {
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
+        //console.log(itemToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted)[0];
         //console.log(triggers);
         if (!Lang.isNull(triggers)) {
