@@ -1,10 +1,12 @@
-//import Condition from './Condition';
+import Condition, {initCondition} from './Condition';
 import Entry from '../base/Entry';
 
+initCondition();
+
 /** Generated from SHR definition for shr.condition.Injury */
-class Injury { //extends Condition {
+class Injury extends Condition {
   constructor(json) {
-        //super(json);
+        super(json);
         this._entryInfo = new Entry(json);
   }
   
@@ -52,4 +54,4 @@ class Injury { //extends Condition {
 
 }
 
-export default Injury;
+export {Injury as default};

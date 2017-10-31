@@ -5,132 +5,142 @@ import ShrObjectFactory from '../../ShrObjectFactory';
 import SpecificType from '../core/SpecificType';
 import WhenClinicallyRecognized from './WhenClinicallyRecognized';
 
-/** Generated from SHR definition for shr.condition.Condition */
-class Condition {
-    constructor(json) {
-        if (json) {
-            this._entryInfo = new Entry(json);
-            this._specificType = new SpecificType(json.specificType);
-            if (json.category) this._category = json.category.map((c) => new Category(c));
-            if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
-            this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
-            if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
-        } else {
-            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/condition/Condition");
-        }
+var Condition;
+
+export function initCondition() {
+    if (Condition) {
+        return;
     }
+    
+    /** Generated from SHR definition for shr.condition.Condition */
+    Condition = class Condition {
+        constructor(json) {
+            if (json) {
+                this._entryInfo = new Entry(json);
+                this._specificType = new SpecificType(json.specificType);
+                if (json.category) this._category = json.category.map((c) => new Category(c));
+                if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
+                this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
+                if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
+            } else {
+                this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/condition/Condition");
+            }
+        }
 
-  get entryInfo() {
-    return this._entryInfo;
-  }
+      get entryInfo() {
+        return this._entryInfo;
+      }
 
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
-  }
+      set entryInfo(entryVal) {
+        this._entryInfo = entryVal;
+      }
 
-  get specificType() {
-    return this._specificType;
-  }
+      get specificType() {
+        return this._specificType;
+      }
 
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
+      set specificType(specificTypeVal) {
+        this._specificType = specificTypeVal;
+      }
 
-  get category() {
-    return this._category;
-  }
+      get category() {
+        return this._category;
+      }
 
-  set category(categoryVal) {
-    this._category = categoryVal;
-  }
+      set category(categoryVal) {
+        this._category = categoryVal;
+      }
 
-  get clinicalStatus() {
-    return this._clinicalStatus;
-  }
+      get clinicalStatus() {
+        return this._clinicalStatus;
+      }
 
-  set clinicalStatus(clinicalStatusVal) {
-    this._clinicalStatus = clinicalStatusVal;
-  }
+      set clinicalStatus(clinicalStatusVal) {
+        this._clinicalStatus = clinicalStatusVal;
+      }
 
-  get includeOnProblemList() {
-    return this._includeOnProblemList;
-  }
+      get includeOnProblemList() {
+        return this._includeOnProblemList;
+      }
 
-  set includeOnProblemList(includeOnProblemListVal) {
-    this._includeOnProblemList = includeOnProblemListVal;
-  }
+      set includeOnProblemList(includeOnProblemListVal) {
+        this._includeOnProblemList = includeOnProblemListVal;
+      }
 
-  get onset() {
-    return this._onset;
-  }
+      get onset() {
+        return this._onset;
+      }
 
-  set onset(onsetVal) {
-    this._onset = onsetVal;
-  }
+      set onset(onsetVal) {
+        this._onset = onsetVal;
+      }
 
-  get whenClinicallyRecognized() {
-    return this._whenClinicallyRecognized;
-  }
+      get whenClinicallyRecognized() {
+        return this._whenClinicallyRecognized;
+      }
 
-  set whenClinicallyRecognized(whenClinicallyRecognizedVal) {
-    this._whenClinicallyRecognized = whenClinicallyRecognizedVal;
-  }
+      set whenClinicallyRecognized(whenClinicallyRecognizedVal) {
+        this._whenClinicallyRecognized = whenClinicallyRecognizedVal;
+      }
 
-  get preexisting() {
-    return this._preexisting;
-  }
+      get preexisting() {
+        return this._preexisting;
+      }
 
-  set preexisting(preexistingVal) {
-    this._preexisting = preexistingVal;
-  }
+      set preexisting(preexistingVal) {
+        this._preexisting = preexistingVal;
+      }
 
-  get abatement() {
-    return this._abatement;
-  }
+      get abatement() {
+        return this._abatement;
+      }
 
-  set abatement(abatementVal) {
-    this._abatement = abatementVal;
-  }
+      set abatement(abatementVal) {
+        this._abatement = abatementVal;
+      }
 
-  get bodySite() {
-    return this._bodySite;
-  }
+      get bodySite() {
+        return this._bodySite;
+      }
 
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
-  }
+      set bodySite(bodySiteVal) {
+        this._bodySite = bodySiteVal;
+      }
 
-  get severity() {
-    return this._severity;
-  }
+      get severity() {
+        return this._severity;
+      }
 
-  set severity(severityVal) {
-    this._severity = severityVal;
-  }
+      set severity(severityVal) {
+        this._severity = severityVal;
+      }
 
-  get criticality() {
-    return this._criticality;
-  }
+      get criticality() {
+        return this._criticality;
+      }
 
-  set criticality(criticalityVal) {
-    this._criticality = criticalityVal;
-  }
+      set criticality(criticalityVal) {
+        this._criticality = criticalityVal;
+      }
 
-  get stage() {
-    return this._stage;
-  }
+      get stage() {
+        return this._stage;
+      }
 
-  set stage(stageVal) {
-    this._stage = stageVal;
-  }
+      set stage(stageVal) {
+        this._stage = stageVal;
+      }
 
-  get observation() {
-    return this._observation;
-  }
+      get observation() {
+        return this._observation;
+      }
 
-  set observation(observationVal) {
-    this._observation = observationVal;
-  }
+      set observation(observationVal) {
+        this._observation = observationVal;
+      }
+    }
 }
 
-export default Condition;
+initCondition();
+
+export {Condition as default};
