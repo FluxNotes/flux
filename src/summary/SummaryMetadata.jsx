@@ -10,81 +10,92 @@ class SummaryMetadata {
             sections: [
                 {
                     name: "Summary",
-                    items: [
+                    collections: [
                         {
-                            name: "Family Name",
-                            value: (patient, currentConditionEntry) => {
-                                return patient.getName(patient);
-                            },
-                            shortcut: "@name"
-                        },
-                        {
-                            name: "Street",
-                            value: (patient, currentConditionEntry) => {
-                                console.log("patient address");
-                                console.log(patient.getCurrentHomeAddress());
-                                return patient.getCurrentHomeAddress(patient).addressLine[0];
-                            }
-                        },
-                        {
-                            name: "City, state",
-                            value: (patient, currentConditionEntry) => {
-                                console.log("patient address");
-                                console.log(patient.getCurrentHomeAddress());
-                                return (`${patient.getCurrentHomeAddress(patient).city}, ${patient.getCurrentHomeAddress(patient).state}`);
-                            }
-                        },
-                        {
-                            name: "Postal Code",
-                            value: (patient, currentConditionEntry) => {
-                                return patient.getCurrentHomeAddress(patient).postalcode;
-                            }
-                        },
-                        {
-                            name: "Name",
-                            value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.specificType.coding.displayText;
-                            },
-                            shortcut: "@condition"
-                        },
-                        {
-                            name: "Stage",
-                            value: (patient, currentConditionEntry) => {
-                                let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                if (s && s.value.coding.displayText.length > 0) {
-                                    return s.value.coding.displayText;
-                                } else {
-                                    return null;
+                            name: "Identification",
+                            items: [
+                                {
+                                    name: "Family Name",
+                                    value: (patient, currentConditionEntry) => {
+                                        return patient.getName(patient);
+                                    },
+                                    shortcut: "@name"
                                 }
-                            },
-                            shortcut: "@stage"
+                            ]
                         },
                         {
-                            name: "Progression",
-                            value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p)) {
-                                    return null;
-                                } else {
-                                    return p.value.coding.displayText;
-                                }
-                            }
+                            name: "Address",
+                            items: [
+                                {
+                                    name: "Street",
+                                    value: (patient, currentConditionEntry) => {
+                                        return patient.getCurrentHomeAddress(patient).addressLine[0];
+                                    }
+                                },
+                                {
+                                    name: "City, state",
+                                    value: (patient, currentConditionEntry) => {
+                                        return (`${patient.getCurrentHomeAddress(patient).city}, ${patient.getCurrentHomeAddress(patient).state}`);
+                                    }
+                                },
+                                {
+                                    name: "Postal Code",
+                                    value: (patient, currentConditionEntry) => {
+                                        return patient.getCurrentHomeAddress(patient).postalcode;
+                                    }
+                                },
+                            ]
                         },
                         {
-                            name: "Rationale",
-                            value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p)) {
-                                    return null;
-                                } else {
-                                    return p.evidence.map(function (ev) {
-                                        return ev.coding.displayText;
-                                    }).join();
+                            name: "Current Diagnosis",
+                            items: [
+                                {
+                                    name: "Name",
+                                    value: (patient, currentConditionEntry) => {
+                                        return currentConditionEntry.specificType.coding.displayText;
+                                    },
+                                    shortcut: "@condition"
+                                },
+                                {
+                                    name: "Stage",
+                                    value: (patient, currentConditionEntry) => {
+                                        let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
+                                        if (s && s.value.coding.displayText.length > 0) {
+                                            return s.value.coding.displayText;
+                                        } else {
+                                            return null;
+                                        }
+                                    },
+                                    shortcut: "@stage"
+                                },
+                                {
+                                    name: "Progression",
+                                    value: (patient, currentConditionEntry) => {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p)) {
+                                            return null;
+                                        } else {
+                                            return p.value.coding.displayText;
+                                        }
+                                    }
+                                },
+                                {
+                                    name: "Rationale",
+                                    value: (patient, currentConditionEntry) => {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p)) {
+                                            return null;
+                                        } else {
+                                            return p.evidence.map(function (ev) {
+                                                return ev.coding.displayText;
+                                            }).join();
+                                        }
+                                    }
                                 }
-                            }
+
+                            ]
                         }
                     ]
-
                 },
                 {
                     name: "Current Diagnosis",
