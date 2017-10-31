@@ -6,7 +6,7 @@ class T_Stage extends ObservationComponent {
     constructor(json) {
         super(json);
         if (json) {
-            this.codeableConcept = new CodeableConcept(json.value);
+            this.codeableConcept = new CodeableConcept(json);
             this._codeableConcept = this.codeableConcept;
         }
     }

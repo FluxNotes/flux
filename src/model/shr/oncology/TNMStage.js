@@ -1,6 +1,9 @@
 import CodeableConcept from '../core/CodeableConcept';
 import Entry from '../base/Entry';
 import Observation from '../observation/Observation';
+import T_Stage from './T_Stage';
+import N_Stage from './N_Stage';
+import M_Stage from './M_Stage';
 
 /** Generated from SHR definition for shr.oncology.TNMStage */
 class TNMStage extends Observation {
@@ -10,6 +13,10 @@ class TNMStage extends Observation {
             this._entryInfo = new Entry(json);
             this.codeableConcept = new CodeableConcept(json.value);
             this._codeableConcept = this.codeableConcept;
+            this._value = this.codeableConcept;
+            if (json.tStage) this._t_Stage = new T_Stage(json.tStage);
+            if (json.nStage) this._n_Stage = new N_Stage(json.nStage);
+            if (json.mStage) this._m_Stage = new M_Stage(json.mStage);
         } else {
             this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/TNMStage",
                                                     "http://standardhealthrecord.org/observation/Observation",

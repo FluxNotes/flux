@@ -28,7 +28,7 @@ class StagingCreator extends CreatorShortcut {
             const today = new moment().format("D MMM YYYY");
             this.staging = new TNMStage();
             this.staging.value = new CodeableConcept();
-            this.staging.specificType = new SpecificType({"value":{"coding": [{"value": "21908-9", "codeSystem": "http://loinc.org", "displayText": "Stage"}]}});
+            this.staging.specificType = new SpecificType({"value":{"coding": [{"value": "21908-9", "codeSystem": {value: "http://loinc.org"}, "displayText": "Stage"}]}});
             this.staging.status = new Status();
             this.staging.status.value = "unknown";
             this.staging.occurrenceTime = new OccurrenceTime();

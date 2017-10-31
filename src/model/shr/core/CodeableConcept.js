@@ -6,7 +6,7 @@ class CodeableConcept {
     constructor(json) {
         if (json) {
             if (json.coding) this._coding = json.coding.map((c) => new Coding(c));
-            if (json.displayText) this._displayText = new DisplayText(json.displayText);
+            if (json.coding[0].displayText) this._displayText = new DisplayText(json.coding[0].displayText);
         } else {
             this._coding = [ new Coding() ];
         }
