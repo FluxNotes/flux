@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
-import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
 import Button from 'material-ui/Button';
 import 'font-awesome/css/font-awesome.min.css';
@@ -104,19 +103,17 @@ class DataSummaryPanel extends Component {
         const { tabValue } = this.state;
 
         return (
-            <div className="dashboard-panel">
-                <Paper className="panel-content trio">
-                    <Tabs
-                        value={tabValue}
-                        onChange={this.selectTab}
-                        indicatorColor="steelblue"
-                        centered={true}>
-                        <Tab label="Problem Summary" value={0}/>
-                        <Tab label="Clinical Notes" value={1}/>
-                    </Tabs>
+            <div id="condition-summary-section">
+                <Tabs
+                    value={tabValue}
+                    onChange={this.selectTab}
+                    indicatorColor="steelblue"
+                    centered={true}>
+                    <Tab label="Problem Summary" value={0}/>
+                    <Tab label="Clinical Notes" value={1}/>
+                </Tabs>
 
-                    {this.renderedTabs()}
-                </Paper>
+                {this.renderedTabs()}
             </div>
         );
     }

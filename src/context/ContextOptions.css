@@ -10,7 +10,6 @@
 .context-options-list {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 710px;
 }
 
 #shortcut-search {

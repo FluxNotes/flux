@@ -16,7 +16,7 @@ export default class PatientSummaryPanel extends Component {
         return (
             <div className="patient-summary-panel">
                 <Paper className="panel-content">
-                    <Grid className="FullApp-content" fluid>
+                    <Grid fluid>
                         <Row middle="xs">
                             <Col sm={6}>
                                 <SummaryHeader

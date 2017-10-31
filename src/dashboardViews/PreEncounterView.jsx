@@ -5,12 +5,14 @@ import { Row, Col } from 'react-flexbox-grid';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import TimelinePanel from '../timeline/TimelinePanel';
 
+import './PreEncounterView.css';
+
 class PreEncounterView extends Component { 
     render () { 
         return (
-            <div className="pre-encounter-view-content">
+            <div id="pre-encounter-view-content">
                 <Row center="xs">
-                    <Col sm={12}>
+                    <Col sm={12} class="full-panel">
                         <DataSummaryPanel
                             patient={this.props.appState.patient}
                             condition={this.props.appState.condition}
@@ -18,11 +20,7 @@ class PreEncounterView extends Component {
                             onItemClicked={this.props.handleSummaryItemSelected}
                             allowItemClick={true}
                         />
-                    </Col>
-                </Row>
-
-                <Row center="xs">
-                    <Col sm={12}>
+                        
                         <TimelinePanel
                             patient={this.props.appState.patient} 
                             condition={this.props.appState.condition}

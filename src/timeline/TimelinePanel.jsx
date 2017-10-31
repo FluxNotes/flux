@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-// Material UI components:
-import Paper from 'material-ui/Paper';
-// Timeline components:
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
@@ -141,34 +138,32 @@ class TimelinePanel extends Component {
 
   render() {
     return (
-      <div id="timeline" className="dashboard-panel">
-        <Paper className="panel-content">
-          <HoverItem
-            title={this.state.hoverItem.title}
-            text={this.state.hoverItem.text}
-            style={this.state.hoverItem.style}
-          />
-          <Timeline
-              groups={this.state.groups}
-              items={this.state.items}
-              defaultTimeStart={this.state.defaultTimeStart}
-              defaultTimeEnd={this.state.defaultTimeEnd}
-              rightSidebarWidth={0}
-              rightSidebarContent={null}
-              sidebarWidth={0}
-              sidebarContent={null}
-              timeSteps={this.state.timeSteps}
-              lineHeight={40}
-              itemHeightRatio={0.7}
-              itemRenderer={Item}
-              canMove={false}
-              canResize={false}
-              canSelect={false}
-          />
-          <Legend
-            items={this.state.legendItems}
-          />
-        </Paper>
+      <div id="timeline">
+        <HoverItem
+          title={this.state.hoverItem.title}
+          text={this.state.hoverItem.text}
+          style={this.state.hoverItem.style}
+        />
+        <Timeline
+            groups={this.state.groups}
+            items={this.state.items}
+            defaultTimeStart={this.state.defaultTimeStart}
+            defaultTimeEnd={this.state.defaultTimeEnd}
+            rightSidebarWidth={0}
+            rightSidebarContent={null}
+            sidebarWidth={0}
+            sidebarContent={null}
+            timeSteps={this.state.timeSteps}
+            lineHeight={40}
+            itemHeightRatio={0.7}
+            itemRenderer={Item}
+            canMove={false}
+            canResize={false}
+            canSelect={false}
+        />
+        <Legend
+          items={this.state.legendItems}
+        />
       </div>
     )
   }

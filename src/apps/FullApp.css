@@ -1,12 +1,12 @@
 .FullApp {
     min-height: 100vh;
-    background-color: #F3F3F3;
+    background-color: #FFFFFF;
 }
 
 /* Restricts app to max fixed width for very wide screens. */
 .FullApp-content {
     max-width: 1750px;
-    background-color: #F3F3F3;
+    /*background-color: #F3F3F3;*/
 }
 
 .FullApp-content .container-fluid {
@@ -14,18 +14,16 @@
     padding-right: 12px;
 }
 
+.FullApp-content .panel-content {
+    padding: 10px;
+    text-align: left;
+}
+
 .FullApp-content .dashboard-panel {
     margin-top: 16px;
     text-align: left;
 }
 
-.FullApp-content .trio {
-    min-height: 810px !important;
-}
-
-.FullApp-content .panel-content {
-    padding: 10px;
-}
 
 .FullApp-content .divider {
     margin: 20px 0px !important;
