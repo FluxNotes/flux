@@ -1,3 +1,7 @@
+#condition-summary-section { 
+    text-align: left;
+ }
+
 .tabs-container div .tab{
     color: black !important;
 }

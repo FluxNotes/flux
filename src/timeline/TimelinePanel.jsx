@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
@@ -57,8 +58,11 @@ class TimelinePanel extends Component {
         }
 
         // Define the bounds of the timeline
-        const defaultTimeStart = moment().clone().add(-3, 'years');  // 3 years ago
-        const defaultTimeEnd = moment().clone().add(3, 'months'); // 3 months from now
+        let defaultTimeStart =moment().clone().add(-1, 'years');  // default - 1 years ago
+        if (this.props.isWide) { 
+          defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+        } 
+        const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
 
         this.state = {
             items: items,
@@ -380,5 +384,9 @@ class TimelinePanel extends Component {
     return subset;
   }
 }
+
+TimelinePanel.propTypes = { 
+    isWide: PropTypes.bool.isRequired
+};
 
 export default TimelinePanel;

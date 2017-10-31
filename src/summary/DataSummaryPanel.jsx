@@ -129,7 +129,7 @@ DataSummaryPanel.propTypes = {
 
 function TabContainer(props) {
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ paddingLeft: 20}}>
       {props.children}
     </div>
   );
