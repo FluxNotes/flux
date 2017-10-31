@@ -1,5 +1,5 @@
-import stagingLookup from "../lib/staging_lookup";
-import toxicityLookup from "../lib/toxicity_lookup";
+import stagingLookup from "../lib/tnmstage_lookup";
+import toxicityLookup from "../lib/toxicreactiontotreatment_lookup";
 import progressionLookup from "../lib/progression_lookup";
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 
