@@ -1,4 +1,4 @@
-# Architecture of View-Based Components 
+# Architecture of Visual Components 
 
 So that we may be more precise in our descriptions of FluxNotes' many components, I propose the following ontology of visual components on a given FluxNotes Application in Patient mode: 
 
