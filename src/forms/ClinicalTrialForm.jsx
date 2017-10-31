@@ -55,10 +55,12 @@ class ClinicalTrialForm extends Component {
         // and reset the chosen date to the value displayed in the picker.
         if (choice === 'enrollmentDate') {
             this.props.updateValue('endDateDate', null);
-            this.props.updateValue('enrollmentDateDate', this.state.selectedEnrollmentDate);
+            this.props.updateValue('enrollmentDateDate', 
+                (this.state.selectedEnrollmentDate !== null) ? this.state.selectedEnrollmentDate.format('D MMM YYYY'): null);
         } else if (choice === 'endDate') {
             this.props.updateValue('enrollmentDateDate', null);
-            this.props.updateValue('endDateDate', this.state.selectedEndDate);
+            this.props.updateValue('endDateDate', 
+                (this.state.selectedEndDate !== null) ? this.state.selectedEndDate.format('D MMM YYYY') : null);
         }
         this.setState({selectedDateChoice: choice});
     }
