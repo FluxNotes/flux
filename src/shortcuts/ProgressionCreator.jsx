@@ -142,12 +142,11 @@ class ProgressionCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges) {
         if (name === "status") {
-            this.progression.value.coding[0].displayText.value = value;
+            this.progression.value = lookup.getValueCodeableConcept(value);
         } else if (name === "reasons") {
             let result = value.map((v) => {
                 let e = new Evidence();
-                e.value = new CodeableConcept();
-                e.value.coding[0].displayText.value = v;
+                e.value = lookup.getEvidenceCodeableConcept(v);
                 return e;
             });
             this.progression.evidence = result;

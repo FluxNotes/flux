@@ -1,4 +1,5 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
+import Progression from '../../../src/model/shr/oncology/Progression';
 import moment from 'moment';
 import {expect} from 'chai';
 
@@ -53,31 +54,47 @@ const expectedOutputStaging = [ [{
           codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
           displayText: 'M0' } } 
 }], []];
-const expectedOutputDiseaseStatus = [[{
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/Progression',
-         'http://standardhealthrecord.org/assessment/Assessment' ],
-    value:
-     { coding:
-        { value: 'C0205360',
-          codeSystem: 'http://ncimeta.nci.nih.gov',
-          displayText: 'Stable' } },
-    clinicallyRelevantTime: null,
-    evidence:
-     [ { coding:
-          { value: 'C0011923',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Imaging' } },
-       { coding:
-          { value: 'C0031809',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Physical exam' } } ],
-    assessmentType: { coding: { value: '#disease status' } },
-    status: 'unknown',
-    originalCreationDate: today,
-    asOfDate: null,
-    lastUpdateDate: today 
-}], []];
+const expectedOutputDiseaseStatus = [[
+    new Progression({
+        entryType: [ 
+            'http://standardhealthrecord.org/oncology/Progression',
+            'http://standardhealthrecord.org/assessment/Assessment',
+            'http://standardhealthrecord.org/base/Action' 
+        ],
+        value: { 
+            coding: [{ 
+                value: 'C0205360',
+                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                displayText: 'Stable' 
+            }]
+        },
+        clinicallyRelevantTime: null,
+        evidence: [ 
+            { 
+                coding: [{ 
+                    value: 'C0011923',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Imaging' 
+                }] 
+            },
+            { 
+                coding: [{ 
+                    value: 'C0031809',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Physical exam' 
+                }] 
+            } 
+        ],
+        assessmentType: { 
+            coding: { 
+                value: '#disease status' 
+            } 
+        },
+        originalCreationDate: today,
+        asOfDate: null,
+        lastUpdateDate: today 
+    })
+], []];
 const expectedOutputDiseaseStatus2 = [[{
     entryType:
       [ 'http://standardhealthrecord.org/oncology/Progression',
@@ -190,6 +207,9 @@ describe('parse', function() {
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
+        console.log(record);
+        console.log(record[0][0].value.coding[0]);
+        console.log(expectedOutputDiseaseStatus[0][0].evidence[0].value.coding[0]);
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);
