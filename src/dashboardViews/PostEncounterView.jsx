@@ -41,6 +41,7 @@ class PostEncounterView extends Component {
                             ref={(comp) => { this.contextTray = comp; }}
                             patient={this.props.appState.patient}
                             contextManager={this.props.contextManager}
+                            shortcutManager={this.props.shortcutManager}
                             onShortcutClicked={this.props.handleSummaryItemSelected}
                         />
                     </Col>
