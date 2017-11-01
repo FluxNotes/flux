@@ -158,7 +158,7 @@ class PatientRecord {
         let conditions = this.getConditions();
         let result = [];
         conditions.forEach((c) => {
-            if(c.entryId === condition.entryId) {
+            if(c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value, start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value});
             }
         });
@@ -179,7 +179,7 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med.reason.entryId === condition.entryId;
+            return med instanceof MedicationPrescription && med.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
         });
         return medications;
     }
