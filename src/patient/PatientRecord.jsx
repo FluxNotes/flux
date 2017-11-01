@@ -74,20 +74,20 @@ class PatientRecord {
 	getName() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return personOfRecord.humanName;
+		return personOfRecord._humanName;
 	}
 	
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return new moment(personOfRecord.dateOfBirth.value, "D MMM YYYY");
+		return new moment(personOfRecord._dateOfBirth._value, "D MMM YYYY");
 	}
 	
 	getAge() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
 		var today = new Date();
-		var birthDate = new Date(personOfRecord.dateOfBirth.value);
+		var birthDate = new Date(personOfRecord._dateOfBirth._value);
 		var age = today.getFullYear() - birthDate.getFullYear();
 		var m = today.getMonth() - birthDate.getMonth();
 		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -340,9 +340,12 @@ class PatientRecord {
 	static getMostRecentEntryFromList(list) {
 		if (list.length === 0) return null;
         if (list.length === 1) return list[0];
-		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o.lastUpdateDate);}));
-		let result = list.filter((item) => { return new Date(item.lastUpdateDate).getTime() === new Date(maxDate).getTime() });
-		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) return null;
+        
+		let maxDate = Math.max.apply(null, list.map(function(o) { return new Date(o._entryInfo._lastUpdateDate);}));
+		let result = list.filter((item) => { return new Date(item._entryInfo._lastUpdateDate).getTime() === new Date(maxDate).getTime() });
+		if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
+            return null;
+        }
 		return result[0];
 	}
 }
