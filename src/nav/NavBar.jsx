@@ -34,7 +34,7 @@ class NavBar extends Component {
 
     render() {
         const classes = this.props.classes;
-        const login = (this.props.supportLogin) ? ( <Button color="#17263f">Dr. X123 logged in</Button> ) : "";
+        const login = (this.props.supportLogin) ? ( <Button style={{color:"#17263f"}}>Dr. X123 logged in</Button> ) : "";
         const showMenu = (this.props.menuItems && this.props.menuItems.length > 0);
         let menuItemComponents = "";
 
@@ -49,11 +49,11 @@ class NavBar extends Component {
                 <AppBar position="static" className="navbar">
                     <Toolbar>
                         {showMenu ?
-                            <IconButton style={{margin: '0px 8px 0px -16px' }} color="" aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
+                            <IconButton style={{margin: '0px 8px 0px -16px' }} aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
                                 <MenuIcon/>
                             </IconButton> : null}
                         <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />&nbsp;&nbsp;
-                        <Typography type="title" color="#17263f" className={classes.flex}>
+                        <Typography type="title" style={{color:"#17263f"}} className={classes.flex}>
                             {this.props.title}
                         </Typography>
                         {login}
