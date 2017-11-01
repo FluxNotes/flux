@@ -14,7 +14,8 @@ class PostEncounterView extends Component {
                 <Row center="xs">
                     <Col sm={4} className="right-border-box">
                         <div className="fitted-panel panel-content dashboard-panel">
-                            <SummaryPanel 
+                            <SummaryPanel
+                                isSingleColumn={true}
                                 isWide={false}
                                 {...this.props}
                             />

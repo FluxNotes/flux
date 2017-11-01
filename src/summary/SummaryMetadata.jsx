@@ -17,7 +17,20 @@ class SummaryMetadata {
                                 {
                                     name: "Family Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return patient.getName(patient);
+                                        let name = patient.getName(patient);
+                                        let string = name.split(" ");
+                                        let familyName = string[1];
+                                        return familyName;
+                                    },
+                                    shortcut: "@name"
+                                },
+                                {
+                                    name: "Given Name",
+                                    value: (patient, currentConditionEntry) => {
+                                        let name = patient.getName(patient);
+                                        let string = name.split(" ");
+                                        let givenName = string[0];
+                                        return givenName;
                                     },
                                     shortcut: "@name"
                                 }
