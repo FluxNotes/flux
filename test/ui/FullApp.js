@@ -287,13 +287,6 @@ test('Hovering over calendar medication items should add medication name to hove
 test('Selecting a condition changes the timeline summary', async t => {
     const conditionSelector = Selector('.condition-select');
 
-    let progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    let numItems = await progressionItems.count;
-
-    // There should be no progression items on the timeline now
-    await t
-        .expect(0).eql(numItems, 'There should be 0 progression items on the timeline.');
-
     // first condition is selected by default
     await t
         .expect(await conditionSelector.textContent)
@@ -308,8 +301,8 @@ test('Selecting a condition changes the timeline summary', async t => {
         .expect(await conditionSelector.textContent)
         .eql("Fracture");
 
-    progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
-    numItems = await progressionItems.count;
+    let progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
+    let numItems = await progressionItems.count;
     
     // There should be one progression item on the timeline now
     await t
