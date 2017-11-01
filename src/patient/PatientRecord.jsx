@@ -196,7 +196,7 @@ class PatientRecord {
 	
 	getProceduresForCondition(condition) {
 		return this.entries.filter((item) => { 
-			return item instanceof Procedure && item.reason.entryId === condition.entryId;
+			return item instanceof Procedure && item.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 	
