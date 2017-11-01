@@ -190,7 +190,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized.generalizedTemporalContext.timePeriodStart.value;
+                                return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
                             }
                         }
                     ]
