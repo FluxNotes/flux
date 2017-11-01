@@ -11,6 +11,16 @@ class DataSummaryTable extends Component {
 
     getCollections() {
         const {patient, condition, conditionSection} = this.props;
+        //
+        // console.log("condition section");
+        // console.log(conditionSection);
+        //
+        // console.log("condition");
+        // console.log(condition);
+        //
+        // console.log("patient");
+        // console.log(patient);
+
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }

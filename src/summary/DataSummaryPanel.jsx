@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
 import Tabs, {Tab} from 'material-ui/Tabs';
@@ -37,19 +38,55 @@ class DataSummaryPanel extends Component {
     renderedTabSections() {
         const { patient, condition, onItemClicked, allowItemClick } = this.props;
         const conditionMetadata = this.getConditionMetadata();
-        if (conditionMetadata == null) { return null; }
+        if (conditionMetadata == null) {
+            return null;
+        }
+
+        let numberOfFirstHalfSections = Math.ceil(conditionMetadata.sections.length/2);
+        let numberOfSecondHalfSections = conditionMetadata.sections.length - numberOfFirstHalfSections;
+        let firstHalfSections = [];
+
+        for (let i = 0; i < numberOfFirstHalfSections; i++) {
+            firstHalfSections.push(conditionMetadata.sections[i]);
+        }
+
+        console.log("number of first half");
+        console.log(numberOfFirstHalfSections);
+
+        console.log("number of second half");
+        console.log(numberOfSecondHalfSections);
+
+        console.log("first half sections");
+        console.log(firstHalfSections);
+
 
         return conditionMetadata.sections.map((section, i) =>
             <div key={i} data-test-summary-section={section.name}>
-                <h2>{section.name}</h2>
 
-                <DataSummaryTable
-                    patient={patient}
-                    condition={condition}
-                    conditionSection={section}
-                    onItemClicked={onItemClicked}
-                    allowItemClick={allowItemClick}
-                />
+                <Row center="xs">
+                    <Col sm={6}>
+                        <h2>{section.name}</h2>
+
+                        <DataSummaryTable
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                        />
+                    </Col>
+                    <Col sm={6}>
+                        <h2>{section.name}</h2>
+
+                        <DataSummaryTable
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                        />
+                    </Col>
+                </Row>
             </div>
         );
     }
