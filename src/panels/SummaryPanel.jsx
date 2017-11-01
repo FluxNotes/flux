@@ -8,6 +8,9 @@ class SummaryPanel extends Component {
     render () { 
         return (
             <div>
+                <h1 className="panel-heading">
+                    Condition Summary
+                </h1>
                 <DataSummaryPanel
                     patient={this.props.appState.patient}
                     condition={this.props.appState.condition}
@@ -15,6 +18,9 @@ class SummaryPanel extends Component {
                     onItemClicked={this.props.handleSummaryItemSelected}
                     allowItemClick={true}
                 />
+                <h1 className="panel-heading">
+                    Timeline 
+                </h1>
                 <TimelinePanel
                     isWide={this.props.isWide}
                     patient={this.props.appState.patient} 

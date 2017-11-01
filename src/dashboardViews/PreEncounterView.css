@@ -1,3 +1,7 @@
+#pre-encounter-view-content { 
+    margin-top: 16px;
+}
+
 #pre-encounter-view-content .fitted-panel { 
     overflow-y: scroll;
     height: 700px;
