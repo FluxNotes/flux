@@ -121,15 +121,21 @@ class ShortcutManager {
             
             // add known children to it
             if (item["valueObjectAttributes"]) {
+                //console.log("find child shortcuts for " + item.id);
                 let list = this.childShortcuts[item.id];
                 if (Lang.isUndefined(list)) {
                     list = [];
                     this.childShortcuts[item.id] = list;
                 }
                 let voas = item["valueObjectAttributes"];
+                let childShortcutId;
                 voas.forEach((voa) => {
-                    if (voa["childShortcut"] && !list.includes(voa["childShortcut"])) {
-                        list.push(voa["childShortcut"]);
+                    childShortcutId = voa["childShortcut"];
+                    if (!Lang.isUndefined(childShortcutId)) {
+                        //console.log(childShortcutId);
+                        if (childShortcutId && !list.includes(childShortcutId)) {
+                            list.push(childShortcutId);
+                        }
                     }
                 });
             }
@@ -153,12 +159,21 @@ class ShortcutManager {
         //console.log("getValidChildShortcutsInContext " + currentContextId);
         //console.log(this.childShortcuts[currentContextId]);
         let result = this.childShortcuts[currentContextId], parentAttribute;
+        //console.log(result);
+        let value;
         result = result.filter((shortcutId) => {
             //console.log(shortcutId);
+            //console.log(this.shortcuts[shortcutId]);
             parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
-            return (Lang.isUndefined(parentAttribute) || context.getAttributeValue(parentAttribute).length === 0);
+            //console.log(shortcutId + " ==> " + parentAttribute);
+            if (Lang.isUndefined(parentAttribute)) return true;
+            value = context.getAttributeValue(parentAttribute);
+            //console.log(value);
+            if (value === null) return true;
+            if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
+            if (Lang.isBoolean(value)) return !value;
+            return (value.length === 0);
         });
-        console.log(result);
 		if (recurse) {
 			context.getChildren().forEach((subcontext) => {
 				result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));

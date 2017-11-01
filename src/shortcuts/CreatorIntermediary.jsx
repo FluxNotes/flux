@@ -40,7 +40,7 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
 	getAttributeValue(name) {
-        //console.log(name);
+        //console.log("getAttribute of " + this.metadata["id"] + " called " + name);
         //"valueObjectAttributes": [  {"name":"date", "toParentAttribute":"asOfDateDate"} ],
         const voaList = this.metadata["valueObjectAttributes"];
         let result = voaList.filter(function( item ) {
@@ -60,6 +60,7 @@ export default class CreatorIntermediary extends Shortcut {
         });
         if (result && result[0]) {
             this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges);
+            this.updateContextStatus();
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }

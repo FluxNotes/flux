@@ -143,7 +143,10 @@ class FluxNotesEditor extends React.Component {
             triggerRegExp = def.regexpTrigger;
             if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
-                const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
+                //console.log(triggerRegExp);
+                //const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
+                const triggerRegExpModified = triggerRegExp;
+                //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
                     "trigger": 'space',
                     "before": triggerRegExpModified,
@@ -194,6 +197,7 @@ class FluxNotesEditor extends React.Component {
         }
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+//            console.log(text);
             if (text.length > 0) {
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();
