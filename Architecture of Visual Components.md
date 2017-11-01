@@ -2,7 +2,7 @@
 
 So that we may be more precise in our descriptions of FluxNotes' many components, I propose the following ontology of visual components on a given FluxNotes Application in Patient mode: 
 
-![Overview of visual ontology](C:\Users\dphelan\Desktop\FY17\SHR\Flux\design\personal-mockups\flux-ontology-img.png)
+![Overview of visual ontology](C:\Users\dphelan\Desktop\FY17\SHR\Flux\flux\flux-ontology-img.png)
 
 1. "Views" are collections of one or more "panels" organized and displayed to the user based on:
    1. The selected clinical event (e.g. pre-encounter, encounter, post-encounter, etc...)
