@@ -1,0 +1,11 @@
+#post-encounter-view-content .fitted-panel { 
+    overflow-y: scroll;
+    height: 850px;
+    margin-top: 16px;
+    text-align: left;
+    /*min-height: 810px !important;*/
+}
+
+#post-encounter-view-content .full-panel { 
+    height: auto;
+}

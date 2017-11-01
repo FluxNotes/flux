@@ -1,5 +1,5 @@
 .btn_template_ctx {
-    width: 100%;
+    width: 98%;
     margin-left: 2px;
     margin-right: 2px;
     margin-bottom: 20px;
@@ -10,7 +10,6 @@
 .context-options-list {
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 710px;
 }
 
 #shortcut-search {

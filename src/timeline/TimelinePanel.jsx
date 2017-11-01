@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-// Material UI components:
-import Paper from 'material-ui/Paper';
-// Timeline components:
+import PropTypes from 'prop-types';
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
@@ -60,8 +58,11 @@ class TimelinePanel extends Component {
         }
 
         // Define the bounds of the timeline
-        const defaultTimeStart = moment().clone().add(-3, 'years');  // 3 years ago
-        const defaultTimeEnd = moment().clone().add(3, 'months'); // 3 months from now
+        let defaultTimeStart =moment().clone().add(-1, 'years');  // default - 1 years ago
+        if (this.props.isWide) { 
+          defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+        } 
+        const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
 
         this.state = {
             items: items,
@@ -141,34 +142,32 @@ class TimelinePanel extends Component {
 
   render() {
     return (
-      <div id="timeline" className="dashboard-panel">
-        <Paper className="panel-content">
-          <HoverItem
-            title={this.state.hoverItem.title}
-            text={this.state.hoverItem.text}
-            style={this.state.hoverItem.style}
-          />
-          <Timeline
-              groups={this.state.groups}
-              items={this.state.items}
-              defaultTimeStart={this.state.defaultTimeStart}
-              defaultTimeEnd={this.state.defaultTimeEnd}
-              rightSidebarWidth={0}
-              rightSidebarContent={null}
-              sidebarWidth={0}
-              sidebarContent={null}
-              timeSteps={this.state.timeSteps}
-              lineHeight={40}
-              itemHeightRatio={0.7}
-              itemRenderer={Item}
-              canMove={false}
-              canResize={false}
-              canSelect={false}
-          />
-          <Legend
-            items={this.state.legendItems}
-          />
-        </Paper>
+      <div id="timeline">
+        <HoverItem
+          title={this.state.hoverItem.title}
+          text={this.state.hoverItem.text}
+          style={this.state.hoverItem.style}
+        />
+        <Timeline
+            groups={this.state.groups}
+            items={this.state.items}
+            defaultTimeStart={this.state.defaultTimeStart}
+            defaultTimeEnd={this.state.defaultTimeEnd}
+            rightSidebarWidth={0}
+            rightSidebarContent={null}
+            sidebarWidth={0}
+            sidebarContent={null}
+            timeSteps={this.state.timeSteps}
+            lineHeight={40}
+            itemHeightRatio={0.7}
+            itemRenderer={Item}
+            canMove={false}
+            canResize={false}
+            canSelect={false}
+        />
+        <Legend
+          items={this.state.legendItems}
+        />
       </div>
     )
   }
@@ -385,5 +384,9 @@ class TimelinePanel extends Component {
     return subset;
   }
 }
+
+TimelinePanel.propTypes = { 
+    isWide: PropTypes.bool.isRequired
+};
 
 export default TimelinePanel;
