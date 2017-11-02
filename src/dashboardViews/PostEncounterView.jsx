@@ -13,7 +13,7 @@ class PostEncounterView extends Component {
         return (
             <div id="post-encounter-view-content">
                 <Row center="xs">
-                    <Col sm={4}>
+                    <Col sm={4} className="right-border-box">
                         <div className="fitted-panel panel-content dashboard-panel">
                             <SummaryPanel 
                                 isWide={false}
