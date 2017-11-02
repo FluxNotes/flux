@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Row, Col } from 'react-flexbox-grid';
-import Paper from 'material-ui/Paper';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import ContextTray from '../context/ContextTray';
 import SummaryPanel from '../panels/SummaryPanel'
