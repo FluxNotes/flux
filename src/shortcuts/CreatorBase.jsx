@@ -52,7 +52,37 @@ export default class CreatorBase extends Shortcut {
     isContext() {
         return this.metadata.isContext;
     }
-
+    
+    shouldBeInContext() {
+        const voaList = this.metadata["valueObjectAttributes"];
+        let value;
+        let result = false;
+        voaList.forEach((voa) => {
+            value = this.getAttributeValue(voa.name);
+            if (Lang.isNull(value)) {
+                result = true;
+                return;
+            }
+            if (Lang.isString(value)) {
+                if (value.length === 0) {
+                    result = true;
+                    return;
+                }
+            } else if (Lang.isArray(value)) {
+                if (value.length === 0) {
+                    result = true;
+                    return true;
+                }
+            } else if (Lang.isBoolean(value)) {
+                if (!value) {
+                    result = true;
+                    return;
+                }
+            }
+        });
+        return result;
+    }
+    
     getShortcutType() {
         return this.metadata["id"];
     }

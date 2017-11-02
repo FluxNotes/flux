@@ -43,7 +43,6 @@ export default class CreatorIntermediary extends Shortcut {
             }
         });
         return false;
-        //return (Lang.isNull(this.parentContext.progression.clinicallyRelevantTime));
     }
     
     getShortcutType() {
