@@ -110,7 +110,7 @@ class ContextTray extends Component {
           panelContent2 = "";
 		}
         return (
-            <div id="forms-panel">
+            <div id="forms-panel" className="dashboard-panel panel-content trio">
                 {panelContent}
                 {panelContent2}
             </div>

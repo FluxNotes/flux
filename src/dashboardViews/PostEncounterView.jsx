@@ -14,16 +14,16 @@ class PostEncounterView extends Component {
             <div id="post-encounter-view-content">
                 <Row center="xs">
                     <Col sm={4}>
-                        <Paper className="fitted-panel panel-content dashboard-panel">
+                        <div className="fitted-panel panel-content dashboard-panel">
                             <SummaryPanel 
                                 isWide={false}
                                 {...this.props}
                             />
-                        </Paper>
+                        </div>
                     </Col>
 
                     <Col sm={5} >
-                        <Paper className="fitted-panel panel-content dashboard-panel">
+                        <div className="fitted-panel panel-content dashboard-panel">
                             <FluxNotesEditor
                                 onSelectionChange={this.props.handleSelectionChange}
                                 newCurrentShortcut={this.props.newCurrentShortcut}
@@ -35,18 +35,18 @@ class PostEncounterView extends Component {
                                 updateErrors={this.props.updateErrors}
                                 errors={this.props.appState.errors}
                             />
-                        </Paper>
+                        </div>
                     </Col>
 
                     <Col sm={3}>
-                        <Paper className="fitted-panel panel-content dashboard-panel">
+                        <div className="fitted-panel panel-content dashboard-panel">
                             <ContextTray
                                 ref={(comp) => { this.contextTray = comp; }}
                                 patient={this.props.appState.patient}
                                 contextManager={this.props.contextManager}
                                 onShortcutClicked={this.props.handleSummaryItemSelected}
                             />
-                        </Paper>
+                        </div>
                     </Col>
                 </Row>
             </div>
