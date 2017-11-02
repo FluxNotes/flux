@@ -13,7 +13,7 @@ class ClinicalTrialCreator extends CreatorShortcut {
         super();
         if (Lang.isUndefined(clinicalTrial)) {
             this.clinicalTrial = new Study();
-            //this.clinicalTrial.title = '';
+            this.clinicalTrial.title = '';
             this.clinicalTrial.identifier = new Identifier({value:''});
             this.clinicalTrial.enrollmentDate = null;
             this.clinicalTrial.endDate = null;
