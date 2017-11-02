@@ -179,7 +179,12 @@ class StagingCreator extends CreatorShortcut {
         const t = this.getAttributeValue("T");
         const n = this.getAttributeValue("N");
         const m = this.getAttributeValue("M");
-        if (t.length === 0 || n.length === 0 || m.length === 0) return; // not complete value
+        if (t.length === 0 || n.length === 0 || m.length === 0) {
+            if(!Lang.isNull(this.staging.value.coding[0].displayText)) {
+                this.staging.value = new CodeableConcept();
+            }
+            return; // not complete value
+        }
         const stage = staging.breastCancerPrognosticStage(t, n, m);
         this.staging.value = lookup.getValueCodeableConcept(stage);
 		let condition = this.parentContext.getValueObject();
