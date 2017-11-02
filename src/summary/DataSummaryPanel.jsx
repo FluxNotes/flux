@@ -103,7 +103,7 @@ class DataSummaryPanel extends Component {
         const { tabValue } = this.state;
 
         return (
-            <div id="condition-summary-section" className="dashboard-panel panel-content trio">
+            <div id="condition-summary-section" className="dashboard-panel panel-content">
                 <Tabs
                     value={tabValue}
                     onChange={this.selectTab}
