@@ -142,7 +142,7 @@ class TimelinePanel extends Component {
 
   render() {
     return (
-      <div id="timeline" className="dashboard-panel panel-content">
+      <div id="timeline" className="dashboard-panel">
         <HoverItem
           title={this.state.hoverItem.title}
           text={this.state.hoverItem.text}
