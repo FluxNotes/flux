@@ -83,7 +83,7 @@ class ShortcutViewer extends Component {
         return (
             <div>
                 <div id="shortcut-viewer">
-                    <div id="panel-content">
+                    <div id="viewer-panel-content">
                         {panelContent}
                     </div>
                     {copyComponent}

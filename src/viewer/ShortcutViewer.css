@@ -13,7 +13,7 @@
     overflow-y: scroll;
 }
 
-#panel-content {
+#viewer-panel-content {
     margin-bottom: 400px;
 }
 
@@ -21,7 +21,7 @@
     position: fixed;
     bottom: 0px;
     left: 25vw;
-    width: calc(75vw - 12px);
+    width: calc(75vw - 14px);
     background-color: #ffffff;
     border-top: 1px solid #d9d9d9 !important;
     text-align: left;
