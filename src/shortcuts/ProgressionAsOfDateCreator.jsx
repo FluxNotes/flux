@@ -49,16 +49,14 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
             return errors;
         }
         let parentContext = contextManager.getActiveContextOfType("#disease status");
-        let asOf = parentContext.getAttributeValue("asOf");
-        if (!Lang.isNull(asOf) && asOf === true) {
+        if (!Lang.isNull(parentContext.getAttributeValue("asOfDate"))) {
             errors.push("As of date already specified. Only one as of date allowed per #disease status.");
         }
         return errors;
     }
     
     shouldBeInContext() {
-        let asOf = this.parentContext.getAttributeValue("asOf");
-        return (Lang.isNull(asOf) || asOf === false);
+        return (Lang.isNull(this.parentContext.getAttributeValue("asOfDate")));
     }
     
     getValidChildShortcuts() {
