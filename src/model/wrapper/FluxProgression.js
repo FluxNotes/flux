@@ -23,7 +23,7 @@ class FluxProgression extends Progression {
     }
 
     /**
-     *  Getter for reasons
+     *  Getter for evidence
      *  This will return an array of displayText strings from Evidence array
      */
     get evidence() {
