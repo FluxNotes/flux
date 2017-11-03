@@ -23,9 +23,9 @@ export default class PatientSummaryPanel extends Component {
                                     photo={patient.getMostRecentPhoto()}
                                     patientName={patient.getName()}
                                     mrn={patient.getMRN()}
-                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth}
+                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
                                     age={patient.getAge()}
-                                    administrativeSex={patient.getPersonOfRecord().administrativeGender}
+                                    administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
                                     address={patient.getCurrentHomeAddress()} />
                             </Col>
 

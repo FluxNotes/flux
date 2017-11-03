@@ -1,5 +1,22 @@
+import AddressLine from './AddressLine';
+import City from './City';
+import Country from './Country';
+import County from './County';
+import PostalCode from './PostalCode';
+import State from './State';
+
 /** Generated from SHR definition for shr.core.Address */
 class Address {
+    constructor(json) {
+        if (json) {
+            this._addressLine = json.addressLine.map((a) => new AddressLine(a));
+            if (json.city) this._city = new City(json.city);
+            if (json.county) this._county = new County(json.county);
+            if (json.state) this._state = new State(json.state);
+            if (json.postalCode) this._postalCode = new PostalCode(json.postalCode);
+            if (json.country) this._country = new Country(json.country);
+        }
+    }
 
   /**
    * Getter for shr.core.AddressLine[]

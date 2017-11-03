@@ -1,7 +1,23 @@
 import Action from '../base/Action';
+import AssessmentFocus from '../assessment/AssessmentFocus';
+import Category from '../base/Category';
+import Entry from '../base/Entry';
+import Status from '../base/Status';
 
 /** Generated from SHR definition for shr.assessment.Assessment */
 class Assessment extends Action {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (json.category) this._category = json.category.map((c) => new Category(c));
+            if (json.status) this._status = new Status(json.status);
+            if (json.assessmentFocus) this._assessmentFocus = json.assessmentFocus.map((a) => new AssessmentFocus(a));
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/assessment/Assessment",
+                                                    "http://standardhealthrecord.org/base/Action");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

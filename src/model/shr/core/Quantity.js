@@ -1,5 +1,12 @@
+import Units from '../core/Units';
+
 /** Generated from SHR definition for shr.core.Quantity */
 class Quantity {
+    constructor(json) {
+        this.decimal = json.value;
+        this._decimal = json.value;
+        this._units = new Units(json.units);
+    }
 
   /**
    * Convenience getter for value (accesses this.decimal)

@@ -53,7 +53,7 @@ class Shortcut extends Context {
         return []; // no errors
     }
     
-    //options is array of {key: item.entryId, context: item.specificType.coding.displayText, object: item}
+    //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item}
     flagForTextSelection(options) {
         this.optionsToSelectFrom = options;
     }

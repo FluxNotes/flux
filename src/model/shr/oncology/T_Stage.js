@@ -1,7 +1,15 @@
+import CodeableConcept from '../core/CodeableConcept';
 import ObservationComponent from '../observation/ObservationComponent';
 
 /** Generated from SHR definition for shr.oncology.T-Stage */
 class T_Stage extends ObservationComponent {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this.codeableConcept = new CodeableConcept(json);
+            this._codeableConcept = this.codeableConcept;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.codeableConcept)

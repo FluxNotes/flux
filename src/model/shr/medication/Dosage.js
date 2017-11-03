@@ -1,5 +1,26 @@
+import AdditionalDoseInstruction from './AdditionalDoseInstruction';
+import AdministrationBodySite from './AdministrationBodySite';
+import AdministrationMethod from './AdministrationMethod';
+import AmountPerDose from './AmountPerDose';
+import DoseAsNeededIndicator from './DoseAsNeededIndicator';
+import DoseInstructionsText from './DoseInstructionsText';
+import MaximumDosePerTimePeriod from './MaximumDosePerTimePeriod';
+import RouteIntoBody from './RouteIntoBody';
+import TimingOfDoses from './TimingOfDoses';
+
 /** Generated from SHR definition for shr.medication.Dosage */
 class Dosage {
+    constructor(json) {
+        if (json.amountPerDose) this._amountPerDose = new AmountPerDose(json.amountPerDose);
+        if (json.timingOfDoses) this._timingOfDoses = new TimingOfDoses(json.timingOfDoses);
+        if (json.doseAsNeededIndicator) this._doseAsNeededIndicator = new DoseAsNeededIndicator(json.doseAsNeededIndicator);
+        if (json.doseInstructionsText) this._doseInstructionsText = new DoseInstructionsText(json.doseInstructionsText);
+        if (json.additionalDoseInstruction) this._additionalDoseInstruction = new AdditionalDoseInstruction(json.additionalDoseInstruction);
+        if (json.routeIntoBody) this._routeIntoBody = new RouteIntoBody(json.routeIntoBody);
+        if (json.administrationMethod) this._administrationMethod = new AdministrationMethod(json.administrationMethod);
+        if (json.administrationBodySite) this._administrationBodySite = new AdministrationBodySite(json.administrationBodySite);
+        if (json.maximumDosePerTimePeriod) this._maximumDosePerTimePeriod = new MaximumDosePerTimePeriod(json.maximumDosePerTimePeriod);
+    }
 
   /**
    * Getter for shr.medication.AmountPerDose

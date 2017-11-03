@@ -4,6 +4,10 @@ class Reference {
     this._entryId = entryId;
     this._entryType = entryType;
   }
+  
+  static createReferenceFromEntry(entry) {
+      return new Reference(entry.shrId, entry.entryId, entry.entryType);
+  }
 
   /**
    * Getter for shr.base.ShrId

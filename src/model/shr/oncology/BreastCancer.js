@@ -1,7 +1,25 @@
+import BodySite from '../core/BodySite';
+import Category from '../base/Category';
 import Condition from '../condition/Condition';
+import Entry from '../base/Entry';
+import SpecificType from '../core/SpecificType';
+import Stage from '../condition/Stage';
 
 /** Generated from SHR definition for shr.oncology.BreastCancer */
 class BreastCancer extends Condition {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (json.specificType) this._specificType = new SpecificType(json.specificType);
+            if (json.category) this._category = new Category(json.category);
+            if (json.stage) this._stage = new Stage(json.stage);
+            if (json.bodySite) this._bodySite = new BodySite(json.bodySite);
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/BreastCancer",
+                                                    "http://standardhealthrecord.org/condition/Condition");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

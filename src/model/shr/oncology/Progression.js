@@ -1,7 +1,29 @@
 import Assessment from '../assessment/Assessment';
+import AssessmentFocus from '../assessment/AssessmentFocus';
+import Category from '../base/Category';
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
+import Evidence from '../observation/Evidence';
 
 /** Generated from SHR definition for shr.oncology.Progression */
 class Progression extends Assessment {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._entryInfo = new Entry(json);
+            this.codeableConcept = new CodeableConcept(json.value);
+            this._codeableConcept = this.codeableConcept;
+            if (json.category) this._category = new Category(json.category);
+            if (json.assessmentFocus) this._assessmentFocus = json.assessmentFocus.map((a) => new AssessmentFocus(a));
+            if (json.evidence) this._evidence = json.evidence.map((e) => new Evidence(e));
+            this._asOfDate = json.asOfDate;
+            this._clinicallyRelevantTime = json.clinicallyRelevantTime;
+        } else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/Progression",
+                                                    "http://standardhealthrecord.org/assessment/Assessment",
+                                                    "http://standardhealthrecord.org/base/Action");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)
@@ -87,6 +109,14 @@ class Progression extends Assessment {
     this._evidence = evidenceVal;
   }
 
+  // Flux added
+  get asOfDate() {
+      return this._asOfDate;
+  }
+  
+  set asOfDate(val) {
+      this._asOfDate = val;
+  }
 }
 
 export default Progression;

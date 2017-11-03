@@ -1,5 +1,27 @@
+import AdverseEventGrade from './AdverseEventGrade';
+import AdverseEventOutcome from './AdverseEventOutcome';
+import AssociatedStudy from '../observation/AssociatedStudy';
+import CauseCategory from './CauseCategory';
+import CodeableConcept from '../core/CodeableConcept';
+import Entry from '../base/Entry';
+import SeriousAdverseEvent from './SeriousAdverseEvent';
+
 /** Generated from SHR definition for shr.adverse.AdverseEvent */
 class AdverseEvent {
+    constructor(json) {
+        if (json) {
+            this._entryInfo = new Entry(json);
+            this._codeableConcept = new CodeableConcept(json.value);
+            this.codeableConcept = this._codeableConcept;
+            if (json.adverseEventGrade) this._adverseEventGrade = new AdverseEventGrade(json.adverseEventGrade);
+            if (json.seriousAdverseEvent) this._seriousAdverseEvent = new SeriousAdverseEvent(json.seriousAdverseEvent);
+            if (json.adverseEventOutcome) this._adverseEventOutcome = new AdverseEventOutcome(json.adverseEventOutcome);
+            if (json.associatedStudy) this._associatedStudy = new AssociatedStudy(json.associatedStudy);
+            if (json.causeCategory) this._causeCategory = new CauseCategory(json.causeCategory);
+        } else {
+            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/adverse/AdverseEvent");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

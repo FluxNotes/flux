@@ -40,7 +40,8 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
             return errors;
 		}
 		let parentContext = contextManager.getActiveContextOfType("#toxicity");
-		if (parentContext.getAttributeValue("adverseEvent").length > 0) {
+        const adverseEvent = parentContext.getAttributeValue("adverseEvent");
+		if (adverseEvent && adverseEvent.length > 0) {
 			errors.push("Toxicity adverse event value already specified. Only one adverse event value allowed per toxicity.");
 		}
 		return errors;
@@ -51,7 +52,7 @@ export default class ToxicityAdverseEventCreator extends CreatorShortcut {
         if (!Lang.isUndefined(parentContext)) {
             currentGrade = parentContext.getAttributeValue("grade");
         }
-        if (currentGrade.length === 0) {
+        if (!currentGrade || currentGrade.length === 0) {
             adverseEvents = lookup.getAdverseEventOptions();
         } else {
             adverseEvents = lookup.getAdverseEventOptionsForGrade(currentGrade);

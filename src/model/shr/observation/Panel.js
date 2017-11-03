@@ -1,7 +1,14 @@
+import Entry from '../base/Entry';
 import Observation from './Observation';
+import PanelMembers from './PanelMembers';
 
 /** Generated from SHR definition for shr.observation.Panel */
 class Panel extends Observation {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        if (json.panelMembers) this._panelMembers = new PanelMembers(json.panelMembers);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

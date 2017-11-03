@@ -99,7 +99,7 @@ describe('getValueCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -120,7 +120,7 @@ describe('getValueCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('64062008');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('urn:oid:2.16.840.1.113883.6.96');
     });
@@ -142,7 +142,7 @@ describe('getTStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -163,7 +163,7 @@ describe('getTStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('369901004');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('urn:oid:2.16.840.1.113883.6.96');
     });
@@ -185,7 +185,7 @@ describe('getNStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -206,7 +206,7 @@ describe('getNStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('C95955');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('urn:oid:2.16.840.1.113883.3.26.1.1');
     });
@@ -228,7 +228,7 @@ describe('getMStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .that.is.empty;
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .that.is.empty;
     });
@@ -249,7 +249,7 @@ describe('getMStageCodeableConcept', function() {
         expect(codeableConcept.coding[0].value)
             .to.be.a('string')
             .eql('433581000124101');
-        expect(codeableConcept.coding[0].codeSystem)
+        expect(codeableConcept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql('urn:oid:2.16.840.1.113883.6.96');
     });

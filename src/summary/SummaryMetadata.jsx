@@ -1,5 +1,8 @@
 import Lang from 'lodash'
 import moment from 'moment';
+import HistologicGrade from '../model/shr/oncology/HistologicGrade';
+import TimePeriod from '../model/shr/core/TimePeriod';
+import TumorSize from '../model/shr/oncology/TumorSize';
 
 class SummaryMetadata {
     hardCodedMetadata = {
@@ -11,15 +14,15 @@ class SummaryMetadata {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.specificType.coding.displayText;
+                                return currentConditionEntry.specificType.value.coding[0].displayText.value;
                             },
                             shortcut: "@condition"
                         }, {
                              name: "Stage",
                              value: (patient, currentConditionEntry) => {
                                 let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                if (s && s.value.coding.displayText.length > 0) {
-                                    return s.value.coding.displayText + " (" + s.tStage.coding.displayText + s.nStage.coding.displayText + s.mStage.coding.displayText + ")";
+                                if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
+                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.value.coding[0].displayText.value + s.n_Stage.value.coding[0].displayText.value + s.m_Stage.value.coding[0].displayText.value + ")";
                                 } else {
                                     return null;
                                 }
@@ -38,7 +41,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.value.coding.displayText;
+                                    return p.value.coding[0].displayText.value;
                                 }
                             }
                         },
@@ -49,7 +52,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.clinicallyRelevantTime;
+                                    return p.asOfDate;
                                 }
                             }
                         },
@@ -61,7 +64,7 @@ class SummaryMetadata {
                                     return null;
                                 } else {
                                     return p.evidence.map(function(ev){
-                                        return ev.coding.displayText;
+                                        return ev.value.coding[0].displayText.value;
                                     }).join();
                                 }
                             }
@@ -74,7 +77,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized
+                                return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
                             }
                         },
                         {
@@ -102,8 +105,8 @@ class SummaryMetadata {
                         {
                             name: "Size",
                             value: (patient, currentConditionEntry) => {
-                                let list = patient.getObservationsForCondition(currentConditionEntry, "http://standardhealthrecord.org/oncology/TumorSize");
-                                return list[0].value.value + " " + list[0].value.units.value;
+                                let list = patient.getObservationsForCondition(currentConditionEntry, TumorSize);
+                                return list[0].value.value + " " + list[0].value.units.value.value;
                             }
                         },
                         {
@@ -113,7 +116,8 @@ class SummaryMetadata {
                         {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.breastCancerHistologicGrade.coding.displayText;
+                                let list = patient.getObservationsForCondition(currentConditionEntry, HistologicGrade);
+                                return list[0].value.coding[0].displayText.value;
                             }
                         },
                         {
@@ -123,7 +127,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(er)) {
                                     return null;
                                 } else {
-                                    return er.value.coding.displayText;
+                                    return er.value.coding[0].displayText.value.value;
                                 }
                             }
                         },
@@ -134,7 +138,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(pr)) {
                                     return null;
                                 } else {
-                                    return pr.value.coding.displayText;
+                                    return pr.value.coding[0].displayText.value.value;
                                 }
                             }
                         },
@@ -145,7 +149,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(her2)) {
                                     return null;
                                 } else {
-                                    return her2.value.coding.displayText;
+                                    return her2.value.coding[0].displayText.value.value;
                                 }
                             }
                         }
@@ -174,7 +178,7 @@ class SummaryMetadata {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.specificType.coding.displayText;
+                                return currentConditionEntry.specificType.value.coding[0].displayText.value;
                             },
                             shortcut: "@condition"
                         }
@@ -186,7 +190,7 @@ class SummaryMetadata {
                         {
                             name: "Diagnosis",
                             value: (patient, currentConditionEntry) => {
-                                return currentConditionEntry.whenClinicallyRecognized
+                                return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
                             }
                         }
                     ]
@@ -210,10 +214,14 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            if (Lang.isObject(p.occurrenceTime)) {
-                return {name: p.specificType.coding.displayText, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
+            //console.log(p.specificType.value.coding[0].displayText.value);
+            if (p.occurrenceTime.value instanceof TimePeriod) {
+                //console.log(p.occurrenceTime.value.timePeriodStart.value);
+                //console.log(p.occurrenceTime.value.timePeriodEnd.value);
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
             } else {
-                return {name: p.specificType.coding.displayText, value: p.occurrenceTime };
+                //console.log(p.occurrenceTime.value);
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
             }
         });
     }

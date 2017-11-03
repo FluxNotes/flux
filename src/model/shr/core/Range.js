@@ -1,6 +1,12 @@
+import LowerBound from './LowerBound';
+import UpperBound from './UpperBound';
+
 /** Generated from SHR definition for shr.core.Range */
 class Range {
-
+    constructor(json) {
+        if (json.lowerBound) this._lowerBound = new LowerBound(json.lowerBound);
+        if (json.upperBound) this._upperBound = new UpperBound(json.upperBound);
+    }
   /**
    * Getter for shr.core.LowerBound
    */

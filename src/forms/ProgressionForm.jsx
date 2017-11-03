@@ -43,12 +43,12 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.progression.evidence.findIndex((e) => e.coding.displayText === reason.name);
+        const reasonIndex = this.props.progression.evidence.findIndex((e) => e.value.coding[0].displayText.value === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
                 const newReasons = this.props.progression.evidence.map((e) => {
-                    return e.coding.displayText;
+                    return e.value.coding[0].displayText.value;
                 });
                 newReasons.push(reason.name);
                 this.props.updateValue("reasons", newReasons);
@@ -59,9 +59,9 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                const filteredReasons = this.props.progression.evidence.filter((e) => e.coding.displayText !== reason.name);
+                const filteredReasons = this.props.progression.evidence.filter((e) => e.value.coding[0].displayText.value !== reason.name);
                 const newReasons = filteredReasons.map((e) => {
-                    return e.coding.displayText;
+                    return e.value.coding[0].displayText.value;
                 });
                 this.props.updateValue("reasons", newReasons);
             } else {
@@ -98,7 +98,7 @@ class ProgressionForm extends Component {
                             backgroundColor: "white",
                             textTransform: "none"
                         }}
-                        disabled={this.currentlySelected(this.props.progression.value.coding.displayText, this.state.statusOptions[i].name)}
+                        disabled={this.currentlySelected(this.props.progression.value.coding[0].displayText.value, this.state.statusOptions[i].name)}
                 >{statusName}
                 </Button>
             </div>

@@ -1,15 +1,18 @@
 import CreatorShortcut from './CreatorShortcut';
 import DateCreator from './DateCreator';
-import Patient from '../patient/Patient';
 import Lang from 'lodash';
 import moment from 'moment';
+import Deceased from '../model/shr/actor/Deceased';
 
 class DeceasedCreator extends CreatorShortcut {
 
     constructor(onUpdate, deceased) {
         super();
+
         if (Lang.isUndefined(deceased)) {
-            this.deceased = Patient.createNewDeceased();
+            this.deceased = new Deceased();
+            this.deceased.value = false;
+            this.deceased.dateOfDeath = null;
             this.isDeceasedNew = true;
         } else {
             this.deceased = deceased;
@@ -76,7 +79,8 @@ class DeceasedCreator extends CreatorShortcut {
     setAttributeValue(name, value, publishChanges) {
 
         if (name === "date") {
-            Patient.updateDateOfDeath(this.deceased, value);
+            this.deceased.value = true;
+            this.deceased.dateOfDeath = value;
         } else {
             console.error("Error: Unexpected value selected for deceased: " + name);
             return;
@@ -99,9 +103,9 @@ class DeceasedCreator extends CreatorShortcut {
     }
 
     updatePatient(patient, contextManager) {
-
         if (this.isDeceasedNew) {
-            patient.setDeceased(this.deceased);
+            const personOfRecord = patient.getPersonOfRecord();
+            personOfRecord.deceased = this.deceased;
             this.isDeceasedNew = false;
         }
     }

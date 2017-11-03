@@ -1,7 +1,15 @@
+import Entry from '../base/Entry';
 import Observation from '../observation/Observation';
+import Quantity from '../core/Quantity';
 
 /** Generated from SHR definition for shr.oncology.TumorSize */
 class TumorSize extends Observation {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this.quantity = new Quantity(json.value);
+        this._quantity = this.quantity;
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

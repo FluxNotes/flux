@@ -1,7 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import staging from '../lib/staging.jsx';
-import toxicityLookup from '../lib/toxicreactiontotreatment_lookup.jsx';
+import toxicityLookup from '../lib/toxicity_lookup.jsx';
 import Guid from 'guid';
 
 class Patient {
@@ -64,7 +64,7 @@ class Patient {
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return new moment(personOfRecord.dateOfBirth, "D MMM YYYY");
+		return new moment(personOfRecord.dateOfBirth, "D MMM YYYY").format("D MMM YYYY");
 	}
 	
 	getAge() {
@@ -455,7 +455,9 @@ class Patient {
     
     static updateReasonsForProgression(progression, reasons) {
         let reasonObjects = [];
+        //console.log(reasons);
         reasons.forEach((reason) => {
+            //console.log(reason);
             reasonObjects.push({coding: this._progressionReasonToCodeableConcept(reason)});
         });
         progression.evidence = reasonObjects;

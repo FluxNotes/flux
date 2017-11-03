@@ -1,7 +1,16 @@
 import Action from '../base/Action';
+import Entry from '../base/Entry';
+import Facility from '../encounter/Facility';
+import Status from '../base/Status';
 
 /** Generated from SHR definition for shr.procedure.Procedure */
 class Procedure extends Action {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        this._status = new Status(json.status);
+        this._facility = new Facility(json.facility);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

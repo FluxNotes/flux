@@ -6,10 +6,14 @@ import ProgressionReasonsCreator from './ProgressionReasonsCreator';
 import ProgressionAsOfDateCreator from './ProgressionAsOfDateCreator';
 import ProgressionReferenceDateCreator from './ProgressionReferenceDateCreator';
 import lookup from '../lib/progression_lookup';
-import Patient from '../patient/Patient';
 import Lang from 'lodash'
 import moment from 'moment';
-
+import AssessmentFocus from '../model/shr/assessment/AssessmentFocus';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
+import CodeableConcept from '../model/shr/core/CodeableConcept';
+import Evidence from '../model/shr/observation/Evidence';
+import Progression from '../model/shr/oncology/Progression';
+import Reference from '../model/Reference';
 
 class ProgressionCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the progression value(s) change
@@ -17,7 +21,12 @@ class ProgressionCreator extends CreatorShortcut {
     constructor(onUpdate, progression) {
         super();
         if (Lang.isUndefined(progression)) {
-            this.progression = Patient.createNewProgression();
+            this.progression = new Progression();
+            this.progression.value = new CodeableConcept();
+            this.progression.value.coding[0].displayText.value = "";
+            this.progression.evidence = [];
+            this.progression.asOfDate = null; //new moment().format("D MMM YYYY");
+            this.progression.clinicallyRelevantTime = null;
             this.isProgressionNew = true;
         } else {
             this.progression = progression;
@@ -54,11 +63,11 @@ class ProgressionCreator extends CreatorShortcut {
         let statusString = ``;
         if (    Lang.isEmpty(curProgression.value) || 
                 Lang.isUndefined(curProgression.value) || 
-                curProgression.value.coding.displayText.length === 0)
+                curProgression.value.coding[0].displayText.value.length === 0)
         {
             statusString = ``;
         } else { 
-            statusString = ` is #${curProgression.value.coding.displayText}`
+            statusString = ` is #${curProgression.value.coding[0].displayText.value}`
         }
         return statusString;
     }
@@ -70,10 +79,10 @@ class ProgressionCreator extends CreatorShortcut {
             if (numReasons > 0) { 
                 reasonString = ` based on `;
                 for (let i = 0; i < numReasons - 1; i++) {
-                    reasonString += "#" + curProgression.evidence[i].coding.displayText;
+                    reasonString += "#" + curProgression.evidence[i].value.coding[0].displayText.value;
                     reasonString += `, `;
                 }
-                reasonString += "#" + curProgression.evidence[numReasons - 1].coding.displayText;
+                reasonString += "#" + curProgression.evidence[numReasons - 1].value.coding[0].displayText.value;
             } 
         }
         return reasonString
@@ -103,7 +112,7 @@ class ProgressionCreator extends CreatorShortcut {
     }
     
     getAsString() { 
-        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding.displayText.length === 0)
+        if((Lang.isUndefined(this.progression.value) || this.progression.value.coding[0].displayText.value.length === 0)
             && Lang.isEmpty(this.progression.evidence)){ 
             // No value or status or updated reference date, return just the hash
             return `#disease status`;
@@ -119,16 +128,6 @@ class ProgressionCreator extends CreatorShortcut {
         }
     }
     
-/*    getForm() {
-        return (
-            <ProgressionForm
-                updateValue={this.setAttributeValue}
-                progression={this.progression}
-            />
-        );      
-    }
-*/
-
     getFormSpec() {
         return  {
                     tagName: 'ProgressionForm',
@@ -142,62 +141,69 @@ class ProgressionCreator extends CreatorShortcut {
     }
 
 	setAttributeValue(name, value, publishChanges) {
-		if (name === "status") {
-			Patient.updateStatusForProgression(this.progression, value);
-		} else if (name === "reasons") {
-			Patient.updateReasonsForProgression(this.progression, value);
+        if (name === "status") {
+            this.progression.value = lookup.getValueCodeableConcept(value);
+        } else if (name === "reasons") {
+            let result = value.map((v) => {
+                let e = new Evidence();
+                e.value = lookup.getEvidenceCodeableConcept(v);
+                return e;
+            });
+            this.progression.evidence = result;
         } else if (name === "asOf") {
             this.asOf = value === true;
-		} else if (name === "asOfDate") {
-            Patient.updateAsOfDateForProgression(this.progression, value);
+        } else if (name === "asOfDate") {
+            this.progression.asOfDate = value;
         } else if (name === "referenceDate") {
             this.referenceDate = value === true;
         } else if (name === "referenceDateDate") {
-            Patient.updateClinicallyRelevantTimeForProgression(this.progression, value);
+            this.progression.clinicallyRelevantTime = value;
         } else {
-			console.error("Error: Unexpected value selected for progression: " + name);
-			return;
-		}
+            console.error("Error: Unexpected value selected for progression: " + name);
+            return;
+        }
         if (this.isContext()) this.updateContextStatus();
-		if (this.onUpdate) this.onUpdate(this);
-		if (publishChanges) {
-			this.notifyValueChangeHandlers(name);
-		}
+        if (this.onUpdate) this.onUpdate(this);
+        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }
 	}
 	getAttributeValue(name) {
-		if (name === "status") {
-			return this.progression.value.coding.displayText;
-		} else if (name === "reasons") {
+        if (name === "status") {
+            return this.progression.value.coding[0].displayText.value;
+        } else if (name === "reasons") {
             return this.progression.evidence.map((e) => {
-                return e.coding.displayText;
+                return e.value.coding[0].displayText.value;
             });
         } else if (name === "asOf") {
             return this.asOf === true;
-		} else if (name === "asOfDate") {
-            // TODO: Check with Mark on this
+        } else if (name === "asOfDate") {
             return this.progression.asOfDate;
         } else if (name === "referenceDate") {
             return this.referenceDate === true;
         } else if (name === "referenceDateDate") {
             return this.progression.clinicallyRelevantTime;
         } else {
-			console.error("Error: Unexpected value requested for progression: " + name);
-			return null;
-		}
+            console.error("Error: Unexpected value requested for progression: " + name);
+            return null;
+        }
 	}
 	
 	updatePatient(patient, contextManager) {
-		if (this.progression.value.coding.displayText.length === 0) return; // not complete value
-		let condition = this.parentContext.getValueObject();
+		if (this.progression.value.coding[0].displayText.value.length === 0) return; // not complete value
 		if (this.isProgressionNew) {
-            this.progression.focalCondition = Patient.createEntryReferenceTo(condition);
+            let condition = this.parentContext.getValueObject();
+            this.progression.assessmentFocus = [];
+            const af = new AssessmentFocus();
+            af.value = Reference.createReferenceFromEntry(condition.entryInfo);
+            this.progression.assessmentFocus.push(af);
             patient.addEntryToPatientWithPatientFocalSubject(this.progression);
 			this.isProgressionNew = false;
 		}
 	}
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
 
 	validateInCurrentContext(contextManager) {

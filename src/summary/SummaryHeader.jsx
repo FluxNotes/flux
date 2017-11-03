@@ -51,7 +51,7 @@ class SummaryHeader extends Component {
                         <Col sm={2}>
                             <div className="location item">
                                 <h3>Location</h3>
-                                <span>{address.city}, {address.state}</span>
+                                <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span>
                             </div>
                         </Col>
                     </Row>
@@ -69,8 +69,12 @@ SummaryHeader.propTypes = {
     age: PropTypes.number,
     administrativeSex: PropTypes.string,
     address: PropTypes.shape({
-        city: PropTypes.string,
-        state: PropTypes.state
+        city: PropTypes.shape({
+            value: PropTypes.string
+        }),
+        state: PropTypes.shape({
+            value: PropTypes.state
+        })
     })
 };
 

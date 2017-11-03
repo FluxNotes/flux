@@ -1,5 +1,12 @@
+import TimePeriodEnd from './TimePeriodEnd';
+import TimePeriodStart from './TimePeriodStart';
+
 /** Generated from SHR definition for shr.core.TimePeriod */
 class TimePeriod {
+    constructor(json) {
+        this._timePeriodStart = new TimePeriodStart(json.timePeriodStart);
+        this._timePeriodEnd = new TimePeriodEnd(json.timePeriodEnd);
+    }
 
   /**
    * Getter for shr.core.TimePeriodStart
