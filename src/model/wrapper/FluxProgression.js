@@ -1,8 +1,5 @@
 import Progression from '../shr/oncology/Progression';
-// import CodeableConcept from '../core/CodeableConcept';
-// import Coding from '../core/Coding';
-// import DisplayText from '../core/DisplayText';
-import Evidence from '../observation/Evidence';
+import Evidence from '../shr/observation/Evidence';
 import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
@@ -39,7 +36,7 @@ class FluxProgression extends Progression {
     }
 
     /**
-     *  Setter for reasons
+     *  Setter for evidence
      *  The method is expecting an array of reason strings
      *  The method will lookup the corresponding coding/codesystem and set the evidence array
      */

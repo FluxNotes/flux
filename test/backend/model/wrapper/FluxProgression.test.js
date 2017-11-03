@@ -1,14 +1,14 @@
-import NewProgression from '../../../../../src/model/shr/oncology/NewProgression';
+import FluxProgression from '../../../../src/model/wrapper/FluxProgression';
 import {expect} from 'chai';
 import util from 'util';
 
-let prog = new NewProgression();
+let prog = new FluxProgression();
 prog.evidence = ['pathology', 'imaging'];
-prog.value = 'Responding';
+prog.status = 'Responding';
 
 describe('getStatus()', function() { 
     it('should return "Responding"', function() { 
-        expect(prog.value)
+        expect(prog.status)
             .to.be.a('string')
             .eql('Responding');
     });
@@ -16,26 +16,28 @@ describe('getStatus()', function() {
 
 describe('setStatus()', function() {
     it('should set status to "Stable"', function() {
-        prog.value = 'Stable';
-        expect(prog.value)
+        prog.status = 'Stable';
+        expect(prog.status)
             .to.be.a('string')
             .eql('Stable');
     });
 });
 
-describe('getReasons()', function() {
+describe('getEvidence()', function() {
     it('should return ["Pathology", "Imaging]"', function() {
+        const expectedEvidence = ['Pathology', 'Imaging'];
         expect(prog.evidence)
             .to.be.an('array')
-            .eql(['Pathology', 'Imaging']);
+            .eql(expectedEvidence);
     });
 });
 
-describe('setReasons()', function() {
-    it('should set reaons to ["Symptoms"]', function() {
+describe('setEvidence()', function() {
+    it('should set evidence to ["Symptoms"]', function() {
+        const expectedEvidence = ['Symptoms'];
         prog.evidence = ['Symptoms'];
         expect(prog.evidence)
             .to.be.an('array')
-            .eql(['Symptoms']);
+            .eql(expectedEvidence);
     });
 });
