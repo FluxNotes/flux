@@ -41,7 +41,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.value.coding[0].displayText.value;
+                                    return p.status;
                                 }
                             }
                         },
@@ -63,9 +63,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.evidence.map(function(ev){
-                                        return ev.value.coding[0].displayText.value;
-                                    }).join();
+                                    return p.evidence;
                                 }
                             }
                         }
