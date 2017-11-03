@@ -1,4 +1,4 @@
-const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
+import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
 const statusOptions = [
     {
@@ -118,7 +118,7 @@ exports.findStatus = (possibleStatus) => {
  * Will return CodeableConcept object with empty strings if not found
  * If value found in list, function will return CodeableConcept with value, codeSystem, and displayText
  */
-exports.getValueCodeableConcept = (possibleStatus) => {
+exports.getStatusCodeableConcept = (possibleStatus) => {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleStatus, statusOptions);
 }
 
