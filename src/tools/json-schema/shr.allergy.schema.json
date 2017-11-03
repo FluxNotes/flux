@@ -1,0 +1,328 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/allergy",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AdverseReactionType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/allergy-intolerance-type, REQUIRED"
+        }
+      },
+      "description": "Identification of the underlying physiological mechanism for a Reaction Risk.",
+      "required": [
+        "Value"
+      ]
+    },
+    "AllergenIrritant": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A material, mixture, class or category of substance, including drugs, foods, environmental agents, etc. that may be implicated as a cause of intolerances and allergies.\nConcepts: http://snomed.info/sct:105590001",
+      "required": [
+        "Value"
+      ]
+    },
+    "AllergyIntolerance": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "AllergenIrritant": {
+              "$ref": "#/definitions/AllergenIrritant"
+            },
+            "SubstanceCategory": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/SubstanceCategory"
+              }
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "AllergyVerificationStatus": {
+              "$ref": "#/definitions/AllergyVerificationStatus"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            },
+            "Criticality": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Criticality"
+            },
+            "Manifestation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Manifestation"
+              }
+            },
+            "Onset": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Onset"
+            },
+            "Abatement": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Abatement"
+            },
+            "MostRecentOccurrence": {
+              "$ref": "#/definitions/MostRecentOccurrence"
+            },
+            "AdverseReaction": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/adverse#/definitions/AdverseReaction"
+              }
+            }
+          },
+          "required": [
+            "AssertionNegationModifier",
+            "AllergyVerificationStatus"
+          ]
+        }
+      ],
+      "description": "A statement pertaining to an individual's allergies and intolerances to substances or classes of substances. Can be used to record that a substance does not pose an elevated risk to the subject (AssertionNegationModifier = true).\nConcepts: Propensity to adverse reactions (http://snomed.info/sct:420134006)"
+    },
+    "AllergyVerificationStatus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: undefined/shr/allergy/vs/AllergyVerificationStatusVS, REQUIRED"
+        }
+      },
+      "description": "Whether an assessment has been confirmed by testing or observation.",
+      "required": [
+        "Value"
+      ]
+    },
+    "DrugAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          },
+          "required": [
+            "SubstanceCategory"
+          ]
+        }
+      ],
+      "description": "An immune or biochemical adverse reaction to a medication.\nConcepts: http://ncimeta.nci.nih.gov:C0013182"
+    },
+    "FoodAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          },
+          "required": [
+            "SubstanceCategory"
+          ]
+        }
+      ],
+      "description": "An immune or biochemical adverse reaction to a food substance.\nConcepts: http://ncimeta.nci.nih.gov:C0016470"
+    },
+    "MostRecentOccurrence": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OccurrenceTime"
+        }
+      },
+      "description": "The time of the last or latest of a series of events.",
+      "required": [
+        "Value"
+      ]
+    },
+    "NoKnownAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "AllergyVerificationStatus": {
+              "$ref": "#/definitions/AllergyVerificationStatus"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          }
+        }
+      ],
+      "description": "The subject has no known allergies to drugs, foods, biologics, or environmental factors.\nConcepts: http://ncimeta.nci.nih.gov:C0262580"
+    },
+    "NoKnownDrugAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "AllergyVerificationStatus": {
+              "$ref": "#/definitions/AllergyVerificationStatus"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          },
+          "required": [
+            "SubstanceCategory"
+          ]
+        }
+      ],
+      "description": "The subject has no known allergies to any medications.\nConcepts: http://ncimeta.nci.nih.gov:C0262581"
+    },
+    "NoKnownEnvironmentalAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "AllergyVerificationStatus": {
+              "$ref": "#/definitions/AllergyVerificationStatus"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          },
+          "required": [
+            "SubstanceCategory"
+          ]
+        }
+      ],
+      "description": "The subject has no known allergies to any environmental factors.\nConcepts: http://ncimeta.nci.nih.gov:C1998290"
+    },
+    "NoKnownFoodAllergy": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/AllergyIntolerance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SubstanceCategory": {
+              "$ref": "#/definitions/SubstanceCategory"
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "AllergyVerificationStatus": {
+              "$ref": "#/definitions/AllergyVerificationStatus"
+            },
+            "AdverseReactionType": {
+              "$ref": "#/definitions/AdverseReactionType"
+            }
+          },
+          "required": [
+            "SubstanceCategory"
+          ]
+        }
+      ],
+      "description": "The subject has no known allergies to any foods.\nConcepts: http://ncimeta.nci.nih.gov:C1997970"
+    },
+    "SubstanceCategory": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/allergy-intolerance-category, REQUIRED"
+        }
+      },
+      "description": "Categorization of the risk substance as a food, drug, or environmental agent. For difficult-to-classify substances, one can leave this field empty or choose the most typical category.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Allergy domain contains definitions for statements dealing with substance-related risks, including allergies and intolerances.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/AllergyIntolerance"
+    },
+    {
+      "$ref": "#/definitions/DrugAllergy"
+    },
+    {
+      "$ref": "#/definitions/FoodAllergy"
+    },
+    {
+      "$ref": "#/definitions/NoKnownAllergy"
+    },
+    {
+      "$ref": "#/definitions/NoKnownDrugAllergy"
+    },
+    {
+      "$ref": "#/definitions/NoKnownEnvironmentalAllergy"
+    },
+    {
+      "$ref": "#/definitions/NoKnownFoodAllergy"
+    }
+  ]
+}

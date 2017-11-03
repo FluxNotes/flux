@@ -1,0 +1,1243 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/environment",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AnimalExposure": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/ExposureToSubstance"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ExposureSourceOrVector": {
+              "$ref": "#/definitions/ExposureSourceOrVector"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "ExposureSourceOrVector"
+          ]
+        }
+      ],
+      "description": "The type of animals or pets the subject is exposed to.\nConcepts: http://ncimeta.nci.nih.gov:C0238646"
+    },
+    "AnnualIncome": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The amount of earnings made by a family unit in one year, estimated or self-reported.\nConcepts: http://ncimeta.nci.nih.gov:C0557163"
+    },
+    "CanAffordChildCare": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford child care?"
+    },
+    "CanAffordClothing": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford clothing?"
+    },
+    "CanAffordDentalCare": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford dental care?"
+    },
+    "CanAffordFood": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford food?"
+    },
+    "CanAffordHousing": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford housing?"
+    },
+    "CanAffordMedication": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford medications?"
+    },
+    "CanAffordTransportation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford transportation?"
+    },
+    "CanAffordUtilities": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often can the subject afford utilities?"
+    },
+    "Coinhabitant": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A person living with the subject."
+    },
+    "DomesticViolence": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "OccurrenceTime": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/OccurrenceTime"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject experiences domestic violence.\nConcepts: http://ncimeta.nci.nih.gov:C0206073"
+    },
+    "EmotionalSafety": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject feels physically safe in the subject's home environment."
+    },
+    "EnvironmentalExposures": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "AnimalExposure": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/AnimalExposure"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ExposureMethod": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "How the exposure occurred, e.g. cutaneous contact, injection, ingestion, sexual contact, inhalation.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ExposureReason": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Why the exposure occurred."
+    },
+    "ExposureSourceOrVector": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Where the substance originated. Vectors include animals (e.g., tick, mosquito, cats, livestock) capable of transmitting an infectious agent among vertebrates. Sources could include food, contaminated drinking water, air, radon gas in the home, etc.\nConcepts: http://ncimeta.nci.nih.gov:C0012656",
+      "required": [
+        "Value"
+      ]
+    },
+    "ExposureToSubstance": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Substance": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Substance"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            },
+            "ExposureSourceOrVector": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ExposureSourceOrVector"
+              }
+            },
+            "ExposureReason": {
+              "$ref": "#/definitions/ExposureReason"
+            },
+            "ExposureMethod": {
+              "$ref": "#/definitions/ExposureMethod"
+            },
+            "RouteIntoBody": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/medication#/definitions/RouteIntoBody"
+            },
+            "Test": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/lab#/definitions/Test"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A statement about exposure to a substance, type of substance, or disease vector potentially affecting health, including pollutants, blood products, pets, recreational drugs, sexual transmitted diseases, foods, toxins, pathogens, or prenatal exposures to teratogens. Can be used to assert or deny such exposures.\nConcepts: http://ncimeta.nci.nih.gov:C0332157\nTBD Fields: AmountOrDosage\nImpact"
+    },
+    "FinancialSituation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "AnnualIncome": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/AnnualIncome"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "IncomeSource": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/IncomeSource"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            },
+            "IncomeStability": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/IncomeStability"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordFood": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordFood"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordHousing": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordHousing"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordClothing": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordClothing"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordUtilities": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordUtilities"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordTransportation": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordTransportation"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordMedication": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordMedication"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordDentalCare": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordDentalCare"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "CanAffordChildCare": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/CanAffordChildCare"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "NonCashBenefit": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/NonCashBenefit"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Measures of the ability of the subject to obtain and pay for the necessities of life.\nConcepts: http://ncimeta.nci.nih.gov:C0516918"
+    },
+    "HomeEnvironmentRisk": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A risk experienced in the home environment."
+    },
+    "HouseholdSituation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "PanelMembers": {}
+          }
+        }
+      ],
+      "description": "Information about the makeup of the household of the subject."
+    },
+    "HouseholdSize": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The number of people living together with mutual financial dependency. Besides the subject, the household size may include spouse or partner, dependent children including adopted and foster children, dependent parents, dependent siblings and other relatives, but not roommates, ex-spouses, non-dependent children, and unborn children. If the subject lives alone, the household size is 1.\nConcepts: http://ncimeta.nci.nih.gov:C0000768"
+    },
+    "HousingSecurity": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject is at-risk of losing their housing or in a stable housing situation."
+    },
+    "IncomeSource": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Where the household income comes from.\nConcepts: http://ncimeta.nci.nih.gov:C0557162"
+    },
+    "IncomeStability": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject regards his or her source of income as dependable.\nConcepts: http://ncimeta.nci.nih.gov:C1820459"
+    },
+    "NonCashBenefit": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "EffectiveTimePeriod": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/EffectiveTimePeriod"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Government benefits received by the focal subject, other than cash benefits."
+    },
+    "NumberOfDependents": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The number of dependents supported by the subject.\nConcepts: http://ncimeta.nci.nih.gov:C0557509"
+    },
+    "PhysicalSafety": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "How often the subject feels physically safe in the subject's home environment."
+    },
+    "SocialEnvironment": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Panel"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "TransportationAvailability": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/TransportationAvailability"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "HousingSecurity": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/HousingSecurity"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "PhysicalSafety": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/PhysicalSafety"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "EmotionalSafety": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/EmotionalSafety"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "DomesticViolence": {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/DomesticViolence"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            "HomeEnvironmentRisk": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ShrId": {
+                    "type": "string"
+                  },
+                  "EntryType": {
+                    "type": "string",
+                    "enum": [
+                      "http://jstars-linux-1.mitre.org/json-schema/shr/environment#/definitions/HomeEnvironmentRisk"
+                    ]
+                  },
+                  "EntryId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "ShrId",
+                  "EntryType",
+                  "EntryId"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "description": "Factors affecting the health of the subject in their daily living environment."
+    },
+    "TransportationAvailability": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Whether the subject has reliable transportation to bring him or her to medical appointments and to get medications."
+    }
+  },
+  "description": "The SHR Environment domain contains definitions related to surroundings experienced by the person of record, including both the physical and sociological environments.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/AnimalExposure"
+    },
+    {
+      "$ref": "#/definitions/AnnualIncome"
+    },
+    {
+      "$ref": "#/definitions/CanAffordChildCare"
+    },
+    {
+      "$ref": "#/definitions/CanAffordClothing"
+    },
+    {
+      "$ref": "#/definitions/CanAffordDentalCare"
+    },
+    {
+      "$ref": "#/definitions/CanAffordFood"
+    },
+    {
+      "$ref": "#/definitions/CanAffordHousing"
+    },
+    {
+      "$ref": "#/definitions/CanAffordMedication"
+    },
+    {
+      "$ref": "#/definitions/CanAffordTransportation"
+    },
+    {
+      "$ref": "#/definitions/CanAffordUtilities"
+    },
+    {
+      "$ref": "#/definitions/Coinhabitant"
+    },
+    {
+      "$ref": "#/definitions/DomesticViolence"
+    },
+    {
+      "$ref": "#/definitions/EmotionalSafety"
+    },
+    {
+      "$ref": "#/definitions/EnvironmentalExposures"
+    },
+    {
+      "$ref": "#/definitions/ExposureToSubstance"
+    },
+    {
+      "$ref": "#/definitions/FinancialSituation"
+    },
+    {
+      "$ref": "#/definitions/HomeEnvironmentRisk"
+    },
+    {
+      "$ref": "#/definitions/HouseholdSituation"
+    },
+    {
+      "$ref": "#/definitions/HouseholdSize"
+    },
+    {
+      "$ref": "#/definitions/HousingSecurity"
+    },
+    {
+      "$ref": "#/definitions/IncomeSource"
+    },
+    {
+      "$ref": "#/definitions/IncomeStability"
+    },
+    {
+      "$ref": "#/definitions/NonCashBenefit"
+    },
+    {
+      "$ref": "#/definitions/NumberOfDependents"
+    },
+    {
+      "$ref": "#/definitions/PhysicalSafety"
+    },
+    {
+      "$ref": "#/definitions/SocialEnvironment"
+    },
+    {
+      "$ref": "#/definitions/TransportationAvailability"
+    }
+  ]
+}

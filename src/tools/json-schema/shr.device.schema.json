@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/device",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "Device": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        },
+        "DeviceUdi": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/DeviceUdi"
+          }
+        },
+        "VendorModelNumber": {
+          "$ref": "#/definitions/VendorModelNumber"
+        }
+      },
+      "description": "A specific durable physical device used in diagnosis or treatment. The value is the coding for a type of device, for example, a CPAP machine. The same device might be used on multiple patients.",
+      "required": [
+        "Value"
+      ]
+    },
+    "DeviceUdi": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "Unique Device Identifier (UDI) Barcode string number for a device, assigned by the organization using the device.",
+      "required": [
+        "Value"
+      ]
+    },
+    "DeviceUse": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Device": {
+              "$ref": "#/definitions/Device"
+            },
+            "DeviceUseStatus": {
+              "$ref": "#/definitions/DeviceUseStatus"
+            },
+            "NonOccurrenceModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/NonOccurrenceModifier"
+            },
+            "Implanted": {
+              "$ref": "#/definitions/Implanted"
+            },
+            "Reason": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+              }
+            },
+            "PeriodOfUse": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/PeriodOfUse"
+            }
+          },
+          "required": [
+            "Device",
+            "DeviceUseStatus"
+          ]
+        }
+      ],
+      "description": "A statement pertaining to the use of a device by a subject. May document the use of a device, or that the subject does not use a particular type of device."
+    },
+    "DeviceUseStatus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/device-statement-status, REQUIRED"
+        }
+      },
+      "description": "A code representing the patient or other source's judgment about the state of the device used that this statement is about. Generally this will be active or completed.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Implanted": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "boolean"
+        }
+      },
+      "description": "Whether this device is implanted in the body.",
+      "required": [
+        "Value"
+      ]
+    },
+    "VendorModelNumber": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string"
+        }
+      },
+      "description": "The model number of the device, assigned by the manufacturer or vendor.",
+      "required": [
+        "Value"
+      ]
+    }
+  },
+  "description": "The SHR Device domain contains definitions relating to devices used to treat the person of record, either in measurements and observations, durable medical equipment used by the patient, and device implants.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/DeviceUse"
+    }
+  ]
+}

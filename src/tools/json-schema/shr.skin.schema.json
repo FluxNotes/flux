@@ -1,0 +1,382 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/skin",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "CausativeFactor": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+            }
+          ]
+        }
+      },
+      "description": "The cause the irritation or inflammation.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ImmersionDepth": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+        }
+      },
+      "description": "Depth of penetration (sinking) into a support surface.",
+      "required": [
+        "Value"
+      ]
+    },
+    "PressureUlcer": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Condition"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "BodySite": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+              }
+            },
+            "Manifestation": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Manifestation"
+              }
+            },
+            "CausativeFactor": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/CausativeFactor"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A single pressure ulcer, tracked over a period of time. Multiple PressureUlcerAssessments (at different times) may be associated with a single PressureUlcer.\nConcepts: http://ncimeta.nci.nih.gov:C0011127\nTBD Fields: PressureUlcerIntervention"
+    },
+    "PressureUlcerManifestation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Manifestation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            },
+            "VisibleInternalStructure": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/VisibleInternalStructure"
+              }
+            },
+            "WoundSize": {
+              "$ref": "#/definitions/WoundSize"
+            },
+            "WoundTunnelling": {
+              "$ref": "#/definitions/WoundTunnelling"
+            },
+            "WoundUndermining": {
+              "$ref": "#/definitions/WoundUndermining"
+            },
+            "WoundBedAndEdge": {
+              "$ref": "#/definitions/WoundBedAndEdge"
+            },
+            "WoundExudate": {
+              "$ref": "#/definitions/WoundExudate"
+            },
+            "ChangeFlag": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/lab#/definitions/ChangeFlag"
+            }
+          },
+          "required": [
+            "BodySite"
+          ]
+        }
+      ],
+      "description": "Observation regarding the properties and severity of a single pressure ulcer.\nConcepts: http://loinc.org:54574-9"
+    },
+    "SupportSurface": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SupportSurfaceCategory": {
+              "$ref": "#/definitions/SupportSurfaceCategory"
+            },
+            "SupportSurfaceBodyPosition": {
+              "$ref": "#/definitions/SupportSurfaceBodyPosition"
+            },
+            "SupportSurfaceComponent": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/SupportSurfaceComponent"
+              }
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A specific instance of a support surface used to distribute pressure and support a patient. The value is coding of the type of support surface.\nConcepts: http://snomed.info/sct:272243001"
+    },
+    "SupportSurfaceBodyPosition": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "What body positions the surface can be used for, specifically, sitting or lying.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SupportSurfaceCategory": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The category of support surface.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SupportSurfaceComponent": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A physical material, structure, or system used alone or in combination with other components to fashion a support surface.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SupportSurfaceEmployed": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/DeviceUse"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+            },
+            "Implanted": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Implanted"
+            },
+            "ImmersionDepth": {
+              "$ref": "#/definitions/ImmersionDepth"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A paricular instance of the use of a support surface in patient care."
+    },
+    "VisibleInternalStructure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "An internal body structure visible from outside the body, for example, due to injury.",
+      "required": [
+        "Value"
+      ]
+    },
+    "WoundBedAndEdge": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "WoundEdgeAppearance": {
+              "$ref": "#/definitions/WoundEdgeAppearance"
+            }
+          },
+          "required": [
+            "WoundEdgeAppearance"
+          ]
+        }
+      ],
+      "description": "TBD Fields: WoundBaseAppearance\nWoundBaseColor\nWoundEdgeColor\nWoundClosureType"
+    },
+    "WoundEdgeAppearance": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Evaluation of the state of the tissue at the edge of the wound.\nConcepts: http://loinc.org:723204-9",
+      "required": [
+        "Value"
+      ]
+    },
+    "WoundExudate": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A mass of cells and fluid that has seeped out of a wound.\nTBD Fields: WoundExudateOdor\nWoundExudateColor\nDrainageAmount\nWoundExudateAppearance"
+    },
+    "WoundSize": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Area": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Area"
+            },
+            "Circumference": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Circumference"
+            },
+            "Volume": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Volume"
+            },
+            "Width": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Width"
+            },
+            "Depth": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Depth"
+            },
+            "Length": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Length"
+            }
+          },
+          "required": [
+            "Width",
+            "Depth",
+            "Length"
+          ]
+        }
+      ],
+      "description": "The estimated or measured dimensions of a wound.\nConcepts: http://ncimeta.nci.nih.gov:C3496620"
+    },
+    "WoundTunnelling": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "boolean"
+            },
+            "ClockDirection": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/ClockDirection"
+            },
+            "Length": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Length"
+            }
+          },
+          "required": [
+            "Value",
+            "ClockDirection",
+            "Length"
+          ]
+        }
+      ],
+      "description": "A discharging blind-ended track that extends from the surface of an organ to an underlying area or abscess cavity. The track is invariably lined with granulation tissue. In chronic cases this may be augmented with epithelial tissue.\nConcepts: http://ncimeta.nci.nih.gov:C0406830"
+    },
+    "WoundUndermining": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ObservationComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "boolean"
+            },
+            "ClockDirection": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/ClockDirection"
+            }
+          },
+          "required": [
+            "Value",
+            "ClockDirection"
+          ]
+        }
+      ],
+      "description": "Assessment of deep tissue (subcutaneous fat and muscle) damage around the wound margin. Tunneling is just under the skin surface and doesn't involve deep tissue, and sinus tracts are a narrow tract that are away from the wound margins and go downward into the wound.\nTBD Fields: WoundUnderminingLength"
+    }
+  },
+  "description": "SHR implementation of the HL7 Pressure Ulcer Prevention Domain Analysis Model (May, 2011).",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/PressureUlcer"
+    },
+    {
+      "$ref": "#/definitions/PressureUlcerManifestation"
+    }
+  ]
+}

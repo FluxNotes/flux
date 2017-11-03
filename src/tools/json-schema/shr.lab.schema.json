@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/lab",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "ChangeFlag": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Indicator of significant change (delta) from the last or previous measurement.\nConcepts: http://ncimeta.nci.nih.gov:C1705241",
+      "required": [
+        "Value"
+      ]
+    },
+    "HIVScreeningTest": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Test"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value",
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "The result of an HIV Screening Test."
+    },
+    "HIVScreeningTestRequest": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/TestRequest"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "A request for a rapid HIV screening test."
+    },
+    "HIVSupplementalTest": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Test"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "Value",
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "The result of a supplement HIV test, following up an initial screening."
+    },
+    "HIVSupplementalTestRequest": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/TestRequest"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            }
+          },
+          "required": [
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "A request for a confirmatory or additional test for HIV infection."
+    },
+    "Interpretation": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A clinical interpretation of a measurement.\nConcepts: http://ncimeta.nci.nih.gov:C0420833",
+      "required": [
+        "Value"
+      ]
+    },
+    "SpecimenType": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Kind of material that forms the specimen.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Test": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Method": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+            },
+            "BodyPosition": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodyPosition"
+            },
+            "Device": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/device#/definitions/Device"
+            },
+            "ReferenceRange": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/ReferenceRange"
+            },
+            "ChangeFlag": {
+              "$ref": "#/definitions/ChangeFlag"
+            },
+            "TestRequest": {
+              "$ref": "#/definitions/TestRequest"
+            }
+          },
+          "required": [
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "A laboratory, radiologic, or other clinical test or measurement used to determine the presence, absence, or degree of a condition, or assess the function or health of an individual. This includes patient-generated data, such as pedometer readings.\nConcepts: http://ncimeta.nci.nih.gov:C0456984\nTBD Fields: Specimen"
+    },
+    "TestMethod": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Method"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "The technique used to carry out a procedure, if not implicit in the test code.\nConcepts: http://ncimeta.nci.nih.gov:C1299991"
+    },
+    "TestRequest": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Request"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            }
+          },
+          "required": [
+            "SpecificType"
+          ]
+        }
+      ],
+      "description": "A record of a request (order) for a test to be performed.\nConcepts: http://ncimeta.nci.nih.gov:C1273874"
+    }
+  },
+  "description": "The SHR Lab domain contains definitions for elements related to laboratory measurements.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/HIVScreeningTest"
+    },
+    {
+      "$ref": "#/definitions/HIVScreeningTestRequest"
+    },
+    {
+      "$ref": "#/definitions/HIVSupplementalTest"
+    },
+    {
+      "$ref": "#/definitions/HIVSupplementalTestRequest"
+    },
+    {
+      "$ref": "#/definitions/TestRequest"
+    }
+  ]
+}

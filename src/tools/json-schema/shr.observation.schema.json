@@ -1,0 +1,482 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jstars-linux-1.mitre.org/json-schema/shr/observation",
+  "title": "TODO: Figure out what the title should be.",
+  "definitions": {
+    "AssociatedStudy": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "object",
+          "properties": {
+            "ShrId": {
+              "type": "string"
+            },
+            "EntryType": {
+              "type": "string",
+              "enum": [
+                "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Study"
+              ]
+            },
+            "EntryId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ShrId",
+            "EntryType",
+            "EntryId"
+          ]
+        }
+      },
+      "description": "The clinical trial or other formal study related to this finding.",
+      "required": [
+        "Value"
+      ]
+    },
+    "BodyStructureObservation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "Observation of the existence (or non-existence) distinct anatomical or pathological morphological feature or organizational pattern, acquired or innate. Examples include tissue types, tumors, and wounds. The observation has a body site that allows the the structure to be located in the body. The observation identifier allows other observations of the same body structure to be related to QualitativeValueScaleVSthis observation and tracked over time.\nConcepts: http://ncimeta.nci.nih.gov:C1268086"
+    },
+    "ClinicallyRelevantTime": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/GeneralizedTemporalContext"
+        }
+      },
+      "description": "The time or time period that the observation addresses. The clinically relevant time is not necessarily when the information is gathered or when a test is carried out, but for example, when a specimen was collected, or the time period referred to by the question. Use a TimePeriod for a measurement or specimen collection continued over a significant period of time (e.g. 24 hour Urine Sodium).",
+      "required": [
+        "Value"
+      ]
+    },
+    "DataAbsentReason": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "Provides a reason why the value of the observation is missing, if it is expected (some observations are not expected to have a value).",
+      "required": [
+        "Value"
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ShrId": {
+                  "type": "string"
+                },
+                "EntryType": {
+                  "type": "string",
+                  "enum": [
+                    "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+                  ]
+                },
+                "EntryId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "ShrId",
+                "EntryType",
+                "EntryId"
+              ]
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            }
+          ]
+        }
+      },
+      "description": "An observation that serves as evidence for some type of assessment.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Manifestation": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            },
+            "Severity": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/condition#/definitions/Severity"
+            }
+          },
+          "required": [
+            "Value"
+          ]
+        }
+      ],
+      "description": "A complaint or observed indication that a person has a condition or disease. Some examples of symptoms are headache, fever, fatigue, nausea, vomiting, and pain.\nConcepts: http://ncimeta.nci.nih.gov:C1457887"
+    },
+    "Method": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "The method of the observation, for example, the specific imaging technical or assessment vehicle.",
+      "required": [
+        "Value"
+      ]
+    },
+    "Observation": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Action"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "anyOf": [
+                {
+                  "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+                },
+                {
+                  "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Range"
+                },
+                {
+                  "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Ratio"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+                }
+              ]
+            },
+            "SpecificType": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+            },
+            "Category": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+              }
+            },
+            "BodySite": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/BodySite"
+            },
+            "Reason": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Reason"
+            },
+            "AssociatedStudy": {
+              "$ref": "#/definitions/AssociatedStudy"
+            },
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "NonOccurrenceModifier": {},
+            "Method": {
+              "$ref": "#/definitions/Method"
+            },
+            "AssertionNegationModifier": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/AssertionNegationModifier"
+            },
+            "ObservationQualifier": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ObservationQualifier"
+              }
+            },
+            "DataAbsentReason": {
+              "$ref": "#/definitions/DataAbsentReason"
+            },
+            "shr/observation/ClinicallyRelevantTime": {
+              "$ref": "#/definitions/ClinicallyRelevantTime"
+            },
+            "ReferenceRange": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "#/definitions/ReferenceRange"
+              }
+            },
+            "Interpretation": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/lab#/definitions/Interpretation"
+            },
+            "Comment": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Comment"
+            },
+            "PanelMembers": {
+              "$ref": "#/definitions/PanelMembers"
+            },
+            "Participant": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/actor#/definitions/Participant"
+              }
+            },
+            "Setting": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Setting"
+              }
+            },
+            "Location": {
+              "type": "array",
+              "minItems": 0,
+              "items": {
+                "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Location"
+              }
+            }
+          },
+          "required": [
+            "SpecificType",
+            "Status"
+          ]
+        }
+      ],
+      "description": "An Observation represents evidence, both subjective and objective. Observation includes any information about a subject that results from an act of observing, measuring, or evaluation. The focus of an observation can include the subject's behavior, physiological state, health state, functional status, environment, exposures to substances, etc. An Observation contains information about the act of observing or measuring, and the result of the observation. The method of observing can vary widely, from questioning, physical examination, formal assessment vehicles, laboratory tests, imaging procedures, etc. Patient-reported information is also considered an observation, where subject and observer are the same individual.\nConcepts: http://ncimeta.nci.nih.gov:C1554188"
+    },
+    "ObservationComponent": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "anyOf": [
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Quantity"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Range"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/Ratio"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/TimePeriod"
+            }
+          ]
+        },
+        "SpecificType": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/SpecificType"
+        },
+        "DataAbsentReason": {
+          "$ref": "#/definitions/DataAbsentReason"
+        },
+        "Interpretation": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/lab#/definitions/Interpretation"
+        },
+        "ReferenceRange": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/ReferenceRange"
+          }
+        }
+      },
+      "description": "A simplified observation consisting of a type code, value (or data absent reason), reference range, and interpretation. Can be used in place of an observation when a full observation cannot be mapped, for example, in the components of an observation. Note that although Status is required, the value is not mapped to FHIR and is essentially ignored."
+    },
+    "ObservationQualifier": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A description of the conditions or context of an observation, for example, under sedation, fasting or post-exercise. Body position and body site are also qualifiers, but handled separately. A qualifier cannot modify the measurement type; for example, a fasting blood sugar is still a blood sugar.\nConcepts: http://ncimeta.nci.nih.gov:C1443279",
+      "required": [
+        "Value"
+      ]
+    },
+    "Panel": {
+      "allOf": [
+        {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Entry"
+        },
+        {
+          "$ref": "#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "PanelMembers": {
+              "$ref": "#/definitions/PanelMembers"
+            }
+          },
+          "required": [
+            "PanelMembers"
+          ]
+        }
+      ],
+      "description": "A grouped set of related observations, frequently captured at the same time. An example is a complete blood count (CBC), with separate observations for hemoglobin, hematocrit, etc. Could represent the content of a diagnostic report, such as a pathology report. Typically the Category and Reason are not given for individual observations that are part of the panel, but rather given at the level of the panel itself. The panel and all its sub-observations share the same metadata (provenance)."
+    },
+    "PanelMembers": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "ShrId": {
+                "type": "string"
+              },
+              "EntryType": {
+                "type": "string",
+                "enum": [
+                  "http://jstars-linux-1.mitre.org/json-schema/shr/observation#/definitions/Observation"
+                ]
+              },
+              "EntryId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ShrId",
+              "EntryType",
+              "EntryId"
+            ]
+          }
+        }
+      },
+      "description": "PanelMembers represent the elements of a group of a related observations. Examples are the measurements that compose a complete blood count (CBC), or the elements of a pathology report. Each member is an independent observation, but the grouping reflects a composite lab order, shared specimen, or a single report author."
+    },
+    "ReferenceRange": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "description": "TBD: Range"
+        }
+      },
+      "description": "The usual or acceptable range for a test result.\nConcepts: http://ncimeta.nci.nih.gov:C0883335",
+      "required": [
+        "Value"
+      ]
+    },
+    "ReportStatus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "string",
+          "description": "Constraints: ValueSet: http://hl7.org/fhir/ValueSet/diagnostic-report-status, REQUIRED"
+        }
+      },
+      "description": "The status of the report associated with this panel.",
+      "required": [
+        "Value"
+      ]
+    },
+    "ServiceCategory": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/core#/definitions/CodeableConcept"
+        }
+      },
+      "description": "A code that classifies the clinical discipline, department or diagnostic service that created the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching, sorting and display purposes.",
+      "required": [
+        "Value"
+      ]
+    },
+    "SocialHistory": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Observation"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Status": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Status"
+            },
+            "Category": {
+              "$ref": "http://jstars-linux-1.mitre.org/json-schema/shr/base#/definitions/Category"
+            }
+          },
+          "required": [
+            "Status"
+          ]
+        }
+      ],
+      "description": "The external elements and conditions which surround, influence, and affect the life and development of the subject. Includes social conditions such as poverty, violence, bullying.\nConcepts: http://ncimeta.nci.nih.gov:C3714536"
+    }
+  },
+  "description": "The SHR Observation domain contains basic definitions used to capture information about measurements, lab tests, and assessments.",
+  "type": "object",
+  "anyOf": [
+    {
+      "$ref": "#/definitions/BodyStructureObservation"
+    },
+    {
+      "$ref": "#/definitions/Observation"
+    },
+    {
+      "$ref": "#/definitions/Panel"
+    }
+  ]
+}
