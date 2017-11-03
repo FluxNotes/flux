@@ -4,9 +4,6 @@ import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
 class FluxProgression extends Progression {
-    constructor(json) {
-        super(json);
-    }
 
     /**
      *  Getter for status
@@ -31,7 +28,7 @@ class FluxProgression extends Progression {
      */
     get evidence() {
         return this._evidence.map((e) => {
-            return e.value.displayText.value;
+            return e.value.coding[0].displayText.value;
         });
     }
 

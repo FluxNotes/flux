@@ -306,7 +306,7 @@ class TimelinePanel extends Component {
           let focalCondition = patient.getFocalConditionForProgression(prog);
           let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
           
-          let hoverTitle = focalConditionName + " is " + prog.value.coding[0].displayText.value + " based on " + prog.evidence.map(function(ev){ return ev.value.coding[0].displayText.value; }).join();;
+          let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence;
 
           items.push({
               group: assignedGroup,

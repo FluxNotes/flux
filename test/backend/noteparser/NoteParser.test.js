@@ -1,5 +1,5 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import Progression from '../../../src/model/shr/oncology/Progression';
+import FluxProgression from '../../../src/model/wrapper/FluxProgression';
 import TNMStage from '../../../src/model/shr/oncology/TNMStage';
 import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
 import Deceased from '../../../src/model/shr/actor/Deceased';
@@ -73,7 +73,7 @@ const expectedOutputStaging = [[
     })
 ], []];
 const expectedOutputDiseaseStatus = [[
-    new Progression({
+    new FluxProgression({
         entryType: [ 
             'http://standardhealthrecord.org/oncology/Progression',
             'http://standardhealthrecord.org/assessment/Assessment',
@@ -114,7 +114,7 @@ const expectedOutputDiseaseStatus = [[
     })
 ], []];
 const expectedOutputDiseaseStatus2 = [[
-    new Progression({
+    new FluxProgression({
         entryType: [ 
             'http://standardhealthrecord.org/oncology/Progression',
             'http://standardhealthrecord.org/assessment/Assessment',

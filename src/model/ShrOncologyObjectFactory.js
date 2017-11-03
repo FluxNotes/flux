@@ -6,7 +6,7 @@ import TNMStage from './shr/oncology/TNMStage';
 import T_Stage from './shr/oncology/T_Stage';
 import N_Stage from './shr/oncology/N_Stage';
 import M_Stage from './shr/oncology/M_Stage';
-import Progression from './shr/oncology/Progression';
+import FluxProgression from './wrapper/FluxProgression';
 import ProgesteroneReceptorStatus from './shr/oncology/ProgesteroneReceptorStatus';
 import ToxicReactionToTreatment from './shr/oncology/ToxicReactionToTreatment';
 import TumorSize from './shr/oncology/TumorSize';
@@ -23,7 +23,7 @@ export default class ShrOncologyObjectFactory {
                                 "T_Stage": T_Stage,
                                 "N_Stage": N_Stage,
                                 "M_Stage": M_Stage,
-                                "Progression": Progression,
+                                "Progression": FluxProgression,
                                 "ProgesteroneReceptorStatus": ProgesteroneReceptorStatus,
                                 "ToxicReactionToTreatment":ToxicReactionToTreatment,
                                 "TumorSize" : TumorSize

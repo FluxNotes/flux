@@ -7,8 +7,8 @@ import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import Procedure from '../model/shr/procedure/Procedure';
-import Progression from '../model/shr/oncology/Progression';
 import Test from '../model/shr/lab/Test';
+import FluxProgression from '../model/wrapper/FluxProgression';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
 import TNMStage from '../model/shr/oncology/TNMStage';
 import Lang from 'lodash'
@@ -242,7 +242,7 @@ class PatientRecord {
 	}
 	
 	getProgressions() {
-		return this.getEntriesOfType(Progression);
+		return this.getEntriesOfType(FluxProgression);
 	}
 
     getProgressionsChronologicalOrder() {
@@ -253,7 +253,7 @@ class PatientRecord {
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => {
-			return item instanceof Progression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
+			return item instanceof FluxProgression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 
