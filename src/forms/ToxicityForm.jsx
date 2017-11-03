@@ -222,6 +222,18 @@ class ToxicityForm extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
+        
+        let gradesToDisplay = this.state.gradeOptions
+        if (!Lang.isUndefined(this.props.gradesToDisplay)) {
+            gradesToDisplay = this.state.gradeOptions.filter((g, i) => {
+                return (this.props.gradesToDisplay.includes(i+1));
+            });
+        }
+        
+        let customGradePrompt = "";
+        if (!Lang.isUndefined(this.props.gradesPrompt)) {
+            customGradePrompt = this.props.gradesPrompt;
+        }
 
         return (
             <div>
@@ -252,10 +264,11 @@ class ToxicityForm extends Component {
                 <h4 className="header-spacing">Grade</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
+                    {customGradePrompt}
                     <span className="helper-text"> Choose one</span>
                 </p>
                 <div id="grade-menu">
-                    {this.state.gradeOptions.map((grade, i) => {
+                    {gradesToDisplay.map((grade, i) => {
                         if (Lang.isUndefined(potentialToxicity.adverseEvent.value.coding[0].displayText.value)) {
                             return this.renderGradeMenuItem(grade)
                         } else {
