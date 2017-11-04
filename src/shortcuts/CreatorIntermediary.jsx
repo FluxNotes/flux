@@ -33,7 +33,7 @@ export default class CreatorIntermediary extends Shortcut {
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
             if (Lang.isNull(value)) return true;
-            console.log(value);
+            //console.log(value);
             if (Lang.isString(value)) {
                 if (value.length === 0) return true;
             } else if (Lang.isArray(value)) {

@@ -55,26 +55,34 @@ export default class CreatorBase extends Shortcut {
     
     shouldBeInContext() {
         const voaList = this.metadata["valueObjectAttributes"];
-        let value;
+        let value, isSettable;
         let result = false;
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
-            if (Lang.isNull(value)) {
-                result = true;
-                return;
-            }
-            if (Lang.isString(value)) {
-                if (value.length === 0) {
+            isSettable = !Lang.isUndefined(voa.patientSetMethod);
+            if (isSettable) {
+                if (Lang.isNull(value)) {
                     result = true;
                     return;
                 }
-            } else if (Lang.isArray(value)) {
-                if (value.length === 0) {
-                    result = true;
-                    return true;
+                if (Lang.isString(value)) {
+                    if (value.length === 0) {
+                        result = true;
+                        return;
+                    }
+                } else if (Lang.isArray(value)) {
+                    if (value.length === 0) {
+                        result = true;
+                        return true;
+                    }
+                } else if (Lang.isBoolean(value)) {
+                    if (!value) {
+                        result = true;
+                        return;
+                    }
                 }
-            } else if (Lang.isBoolean(value)) {
-                if (!value) {
+            } else {
+                if (value.length > 0) {
                     result = true;
                     return;
                 }

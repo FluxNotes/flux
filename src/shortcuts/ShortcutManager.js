@@ -156,23 +156,34 @@ class ShortcutManager {
 
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
-        //console.log("getValidChildShortcutsInContext " + currentContextId);
-        //console.log(this.childShortcuts[currentContextId]);
+        // Let's get all child shortcuts registered in shortcuts metadata via the current context
+        // They can be registered in 2 ways:
+        //      as a childShortcut on valueObjectAttributes
+        //      OR as a shortcut having this context shortcut as a parent via knownParentContexts
         let result = this.childShortcuts[currentContextId], parentAttribute;
-        //console.log(result);
-        let value;
+        let value, parentVOAs, voa, isSettable;
         result = result.filter((shortcutId) => {
-            //console.log(shortcutId);
-            //console.log(this.shortcuts[shortcutId]);
+            // to determine if a shortcut should be valid right now, we need to get its value
+            // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
+            // valid if it is set!
             parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
-            //console.log(shortcutId + " ==> " + parentAttribute);
             if (Lang.isUndefined(parentAttribute)) return true;
+            parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
+            console.log(parentVOAs);
+            console.log(parentAttribute);
+            voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
+            console.log(voa);
             value = context.getAttributeValue(parentAttribute);
-            //console.log(value);
-            if (value === null) return true;
-            if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
-            if (Lang.isBoolean(value)) return !value;
-            return (value.length === 0);
+            console.log(value);
+            isSettable = !Lang.isUndefined(voa.patientSetMethod);
+            if (isSettable) { // if is settable and not set, then we want to include the shortcut
+                if (value === null) return true;
+                if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
+                if (Lang.isBoolean(value)) return !value;
+                return (value.length === 0);
+            } else {
+                return value.length > 0;
+            }
         });
 		if (recurse) {
 			context.getChildren().forEach((subcontext) => {
@@ -180,7 +191,6 @@ class ShortcutManager {
 			});
 		}        
         return result;
-        //return context.getValidChildShortcuts();
     }
     
     getTriggersForShortcut(shortcutId) {
