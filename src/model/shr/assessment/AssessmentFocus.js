@@ -1,5 +1,19 @@
+import CodeableConcept from '../core/CodeableConcept';
+import Reference from '../../Reference';
+
 /** Generated from SHR definition for shr.assessment.AssessmentFocus */
 class AssessmentFocus {
+    constructor(json) {
+        if (json) {
+            if (json.shrId) {
+                this._value = new Reference(json.shrId, json.entryId, json.entryType);
+            } else if (json.coding) {
+                this._value = new CodeableConcept(json);
+            } else {
+                throw new Error("unrecognized assessment focus value: " + json);
+            }
+        }
+    }
 
   /**
    * Getter for choice value

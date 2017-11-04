@@ -52,7 +52,7 @@ class DataSummaryTable extends Component {
             </tr>
         );
     }
-
+    
     renderedListItems(list) {
         let onClick, hoverClass, rowClass, itemClass, itemText = "";
 

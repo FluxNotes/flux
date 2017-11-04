@@ -1,18 +1,32 @@
 //import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
+import AdverseEvent from '../model/shr/adverse/AdverseEvent';
+import AdverseEventGrade from '../model/shr/adverse/AdverseEventGrade';
+import BreastCancer from '../model/shr/oncology/BreastCancer';
+import CauseCategory from '../model/shr/adverse/CauseCategory';
+import CodeableConcept from '../model/shr/core/CodeableConcept';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
-import ToxicityGradeCreator from './ToxicityGradeCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
-//import ToxicityForm from '../forms/ToxicityForm';
+import ToxicityGradeCreator from './ToxicityGradeCreator';
+import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import lookup from '../lib/toxicreactiontotreatment_lookup';
-import Patient from '../patient/Patient';
-import Lang from 'lodash'
+import Lang from 'lodash';
+// import moment from 'moment';
 
 class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            this.toxicity = Patient.createNewToxicity();
+            //const today = new moment().format("D MMM YYYY");
+            this.toxicity = new ToxicReactionToTreatment();
+            this.toxicity.adverseEvent = new AdverseEvent();
+            this.toxicity.adverseEvent.value = new CodeableConcept();
+            this.toxicity.adverseEvent.adverseEventGrade = new AdverseEventGrade();
+            this.toxicity.adverseEvent.adverseEventGrade.value = new CodeableConcept();
+            this.toxicity.adverseEvent.causeCategory = new CauseCategory();
+            this.toxicity.adverseEvent.causeCategory.value = new CodeableConcept();
+            // this.toxicity.originalCreationDate = today;
+            // this.toxicity.lastUpdateDate = today;
             this.isToxicityNew = true;
         } else {
             this.toxicity = toxicity;
@@ -46,10 +60,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEventGrade.coding)) return "";
-        let gradeString = `${curToxicity.adverseEventGrade.coding.displayText}`;
+        if (Lang.isNull(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value)) return "";
+        let gradeString = `${curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value}`;
         // If nothing is selected yet, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEventGrade.coding.displayText)) {
+        if (Lang.isEmpty(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText)) {
             gradeString = 'Grade ?'
         }
         return gradeString;
@@ -59,10 +73,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.value.coding)) return "";
-        let adverseEventString = `${curToxicity.value.coding.displayText}`;
+        if (Lang.isNull(curToxicity.adverseEvent.value.coding)) return "";
+        let adverseEventString = `${curToxicity.adverseEvent.value.coding[0].displayText.value}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.value.coding.displayText)){
+        if (Lang.isEmpty(curToxicity.adverseEvent.value.coding[0].displayText.value)){
             adverseEventString = '?';
         }
         return adverseEventString;
@@ -72,10 +86,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get attribution string for given toxicity
      */
     getAttributionString = (curToxicity) => {
-        if(Lang.isNull(curToxicity.attribution.coding)) return "";
-        let attributionString = `${curToxicity.attribution.coding.displayText}`;
+        if(Lang.isNull(curToxicity.adverseEvent.causeCategory.value.coding)) return "";
+        let attributionString = `${curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.attribution.coding.displayText)){
+        if (Lang.isEmpty(curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value)){
             attributionString = '?';
         }
         return attributionString;
@@ -108,16 +122,6 @@ class ToxicityCreator extends CreatorShortcut {
         }
     }
 
-/*    getForm() {
-        return (
-            <ToxicityForm
-                updateValue={this.setAttributeValue}
-                toxicity={this.toxicity}
-            />
-        );      
-    }
-*/
-
     getFormSpec() {
         return  {
                     tagName: 'ToxicityForm',
@@ -132,11 +136,11 @@ class ToxicityCreator extends CreatorShortcut {
 
     setAttributeValue(name, value, publishChanges) {
         if (name === "adverseEvent") {
-            Patient.updateAdverseEventForToxicReaction(this.toxicity, value);
+            this.toxicity.adverseEvent.value = lookup.getAdverseEventCodeableConcept(value);
         } else if (name === "grade") {
-            Patient.updateGradeForToxicReaction(this.toxicity, value);
+            this.toxicity.adverseEvent.adverseEventGrade.value = lookup.getAdverseEventGradeCodeableConcept(value);
         } else if (name === "attribution") {
-            Patient.updateAttributionForToxicReaction(this.toxicity, value);
+            this.toxicity.adverseEvent.causeCategory.value = lookup.getAttributionCodeableConcept(value);
         } else {
             console.error("Error: Unexpected value selected for toxicity: " + name);
             return;
@@ -149,11 +153,14 @@ class ToxicityCreator extends CreatorShortcut {
     }
     getAttributeValue(name) {
         if (name === "adverseEvent") {
-            return this.toxicity.value.coding.displayText;
+            if (!this.toxicity.adverseEvent.value.coding[0].displayText.value) return "";
+            return this.toxicity.adverseEvent.value.coding[0].displayText.value;
         } else if (name === "grade") {
-            return this.toxicity.adverseEventGrade.coding.displayText;
+            if (!this.toxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value) return "";
+            return this.toxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value;
         } else if (name === "attribution") {
-            return this.toxicity.attribution.coding.displayText;
+            if (!this.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value) return "";
+            return this.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value;
         } else {
             console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
             return null;
@@ -161,7 +168,8 @@ class ToxicityCreator extends CreatorShortcut {
     }
     
     updatePatient(patient, contextManager) {
-        if (this.toxicity.value.coding.displayText.length === 0) return; // not complete value
+        if (    !this.toxicity.adverseEvent.value.coding[0].displayText.value ||
+                this.toxicity.adverseEvent.value.coding[0].displayText.value.length === 0) return; // not complete value
         //let condition = this.parentContext.getValueObject();
         if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);
@@ -171,7 +179,7 @@ class ToxicityCreator extends CreatorShortcut {
     }
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
     validateInCurrentContext(contextManager) {
         let errors = [];
@@ -183,15 +191,22 @@ class ToxicityCreator extends CreatorShortcut {
 
     getValidChildShortcuts() {
         let result = [];
-        if (this.getAttributeValue("adverseEvent").length === 0) result.push(ToxicityAdverseEventCreator);
-        if (this.getAttributeValue("grade").length === 0) result.push(ToxicityGradeCreator);
-        if (this.getAttributeValue("attribution").length === 0) result.push(ToxicityAttributionCreator);
-        return result; //[ ToxicityAdverseEventCreator, ToxicityGradeCreator, ToxicityAttributionCreator ];
+        const adverseEvent = this.getAttributeValue("adverseEvent");
+        const grade = this.getAttributeValue("grade");
+        const attribution = this.getAttributeValue("attribution");
+
+        if (!adverseEvent || adverseEvent.length === 0) result.push(ToxicityAdverseEventCreator);
+        if (!grade || grade.length === 0) result.push(ToxicityGradeCreator);
+        if (!attribution || attribution.length === 0) result.push(ToxicityAttributionCreator);
+        return result;
     }
     shouldBeInContext() {
-        return  (this.getAttributeValue("adverseEvent").length === 0) ||
-                (this.getAttributeValue("grade").length === 0) ||
-                (this.getAttributeValue("attribution").length === 0) ;
+        const adverseEvent = this.getAttributeValue("adverseEvent");
+        const grade = this.getAttributeValue("grade");
+        const attribution = this.getAttributeValue("attribution");
+        return  (!adverseEvent || adverseEvent.length === 0) ||
+                (!grade || grade.length === 0) ||
+                (!attribution && attribution.length === 0) ;
     }
     
     isContext() {

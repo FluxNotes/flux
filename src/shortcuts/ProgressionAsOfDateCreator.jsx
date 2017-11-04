@@ -56,7 +56,7 @@ export default class ProgressionAsOfDateCreator extends CreatorShortcut {
     }
     
     shouldBeInContext() {
-        return (Lang.isNull(this.parentContext.progression.asOfDate));
+        return (Lang.isNull(this.parentContext.getAttributeValue("asOfDate")));
     }
     
     getValidChildShortcuts() {

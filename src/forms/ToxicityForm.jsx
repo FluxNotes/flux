@@ -4,6 +4,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
+import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import Lang from 'lodash'
 import Array from 'lodash'
 import './ToxicityForm.css';
@@ -50,7 +51,7 @@ class ToxicityForm extends Component {
      */
     currentlySelectedAttribution = (attribution) => {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.object.attribution.coding.displayText===attribution.name ? 'button_selected' : '';
+        return this.props.object.adverseEvent.causeCategory.value.coding[0].displayText.value===attribution.name ? 'button_selected' : '';
     }
     
     /*
@@ -84,7 +85,7 @@ class ToxicityForm extends Component {
             this.props.updateValue("adverseEvent", titlecase(newAdverseEvent));
         }
         // Make sure grade is possible with given new tox
-        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.adverseEventGrade.coding.displayText, newAdverseEvent)) {
+        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.object.adverseEvent.adverseEventGrade.value.coding[0].displayText.value, newAdverseEvent)) {
             this.props.updateValue("grade", null);
         }
     }
@@ -99,7 +100,7 @@ class ToxicityForm extends Component {
         });
         if (toxicityLookup.isValidAdverseEvent(newValue)) {
             this.handleAdverseEventSelection(newValue)
-        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.object.value.coding.displayText)) {
+        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.object.adverseEvent.value.coding[0].displayText.value)) {
             this.handleAdverseEventSelection(null)
         }
     }
@@ -170,7 +171,7 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEventGrade.coding) && this.props.object.adverseEventGrade.coding.displayText === grade.name
+        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.adverseEvent.adverseEventGrade.value.coding[0].displayText.value === grade.name
         let gradeMenuClass = "grade-menu-item";
         if (isDisabled) {
             gradeMenuClass += " disabled"
@@ -215,12 +216,24 @@ class ToxicityForm extends Component {
     }
 
     render() {
-        let potentialToxicity = Lang.isNull(this.props.object) ? {} : {...this.props.object};
+        let potentialToxicity = Lang.isNull(this.props.object) ? new ToxicReactionToTreatment() : this.props.object;
         const inputProps = {
             placeholder: 'Enter symptom',
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
+        
+        let gradesToDisplay = this.state.gradeOptions
+        if (!Lang.isUndefined(this.props.gradesToDisplay)) {
+            gradesToDisplay = this.state.gradeOptions.filter((g, i) => {
+                return (this.props.gradesToDisplay.includes(i+1));
+            });
+        }
+        
+        let customGradePrompt = "";
+        if (!Lang.isUndefined(this.props.gradesPrompt)) {
+            customGradePrompt = this.props.gradesPrompt;
+        }
 
         return (
             <div>
@@ -251,14 +264,15 @@ class ToxicityForm extends Component {
                 <h4 className="header-spacing">Grade</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
+                    {customGradePrompt}
                     <span className="helper-text"> Choose one</span>
                 </p>
                 <div id="grade-menu">
-                    {this.state.gradeOptions.map((grade, i) => {
-                        if (Lang.isUndefined(potentialToxicity.value.coding.displayText)) {
+                    {gradesToDisplay.map((grade, i) => {
+                        if (Lang.isUndefined(potentialToxicity.adverseEvent.value.coding[0].displayText.value)) {
                             return this.renderGradeMenuItem(grade)
                         } else {
-                            return this.renderGradeMenuItem(grade, potentialToxicity.value.coding.displayText);
+                            return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent.value.coding[0].displayText.value);
                         }
                     })}
                 </div>

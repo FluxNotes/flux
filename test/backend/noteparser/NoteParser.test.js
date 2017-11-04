@@ -1,6 +1,12 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
+import Progression from '../../../src/model/shr/oncology/Progression';
+import TNMStage from '../../../src/model/shr/oncology/TNMStage';
+import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
+import Deceased from '../../../src/model/shr/actor/Deceased';
+import Study from '../../../src/model/shr/base/Study';
 import moment from 'moment';
 import {expect} from 'chai';
+import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -20,132 +26,204 @@ const sampleTextClinicalTrialMinimal = "Debra Hernandez672 is presenting with ca
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
-const expectedOutputStaging = [ [{ 
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/TNMStage',
-         'http://standardhealthrecord.org/observation/Observation',
-         'http://standardhealthrecord.org/base/Action' ],
-    value:
-     { coding:
-        { value: '52774001',
-          codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
-          displayText: 'IIA' } },
-    specificType:
-     { coding:
-        { value: '21908-9',
-          codeSystem: 'http://loinc.org',
-          displayText: 'Stage' } },
-    status: 'unknown',
-    occurrenceTime: today,
-    tStage:
-     { coding:
-        { value: '369900003',
-          codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
-          displayText: 'T2' } },
-    nStage:
-     { coding:
-        { value: '436311000124105',
-          codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
-          displayText: 'N0' } },
-    mStage:
-     { coding:
-        { value: '433581000124101',
-          codeSystem: 'urn:oid:2.16.840.1.113883.6.96',
-          displayText: 'M0' } } 
-}], []];
-const expectedOutputDiseaseStatus = [[{
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/Progression',
-         'http://standardhealthrecord.org/assessment/Assessment' ],
-    value:
-     { coding:
-        { value: 'C0205360',
-          codeSystem: 'http://ncimeta.nci.nih.gov',
-          displayText: 'Stable' } },
-    clinicallyRelevantTime: null,
-    evidence:
-     [ { coding:
-          { value: 'C0011923',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Imaging' } },
-       { coding:
-          { value: 'C0031809',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Physical exam' } } ],
-    assessmentType: { coding: { value: '#disease status' } },
-    status: 'unknown',
-    originalCreationDate: today,
-    asOfDate: null,
-    lastUpdateDate: today 
-}], []];
-const expectedOutputDiseaseStatus2 = [[{
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/Progression',
-         'http://standardhealthrecord.org/assessment/Assessment' ],
-    value:
-     { coding:
-        { value: 'C0205360',
-          codeSystem: 'http://ncimeta.nci.nih.gov',
-          displayText: 'Stable' } },
-    clinicallyRelevantTime: '7 Jun 2017',
-    evidence:
-     [ { coding:
-          { value: 'C0011923',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Imaging' } },
-       { coding:
-          { value: 'C0031809',
-            codeSystem: 'http://ncimeta.nci.nih.gov',
-            displayText: 'Physical exam' } } ],
-    assessmentType: { coding: { value: '#disease status' } },
-    status: 'unknown',
-    originalCreationDate: today,
-    asOfDate: '5 Oct 2017',
-    lastUpdateDate: today 
-}], []];
-const expectedOutputToxicity = [[{ 
-    entryType:
-      [ 'http://standardhealthrecord.org/oncology/ToxicReaction',
-         'http://standardhealthrecord.org/adverse/AdverseReaction',
-         'http://standardhealthrecord.org/adverse/AdverseEvent' ],
-    value:
-     { coding:
-        { value: 10028813,
-          codeSystem: 'https://www.meddra.org/',
-          displayText: 'Nausea' } },
-    adverseEventGrade:
-     { coding:
-        { value: 'C1513374',
-          codeSystem: 'http://ncimeta.nci.nih.gov',
-          displayText: 'Grade 2' } },
-    attribution:
-     { coding:
-        { value: '#Treatment',
-          codeSystem: 'https://www.meddra.org/',
-          displayText: 'Treatment' } },
-    originalCreationDate: today,
-    lastUpdateDate: today 
-}], []];
-const expectedOutputDeceased = [[{
-     entryType:
-         [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
-     value: true,
-     dateOfDeath: '1 Oct 2017'
-}], []];
-const expectedOutputClinicalTrial = [[{
-    entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-    title: 'PATINA',
-    identifier: '',
-    enrollmentDate: '4 Sep 2017',
-    endDate: '6 Oct 2017'
-}], []];
-const expectedOutputClinicalTrialMinimal = [[{
-    entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-    title: '',
-    identifier: '',
-    enrollmentDate: null,
-    endDate: null
-}], []];
+const expectedOutputStaging = [[
+    new TNMStage({ 
+        entryType: [ 
+            'http://standardhealthrecord.org/oncology/TNMStage',
+            'http://standardhealthrecord.org/observation/Observation',
+            'http://standardhealthrecord.org/base/Action' 
+        ],
+        value: { 
+            coding: [{}]
+        },
+        specificType: {
+            value: { 
+                coding: [{ 
+                    value: '21908-9',
+                    codeSystem: { value: 'http://loinc.org'},
+                    displayText: 'Stage' 
+                }] 
+            }
+        },
+        status: 'unknown',
+        occurrenceTime: today,
+        originalCreationDate: today,
+        lastUpdateDate: today,
+        tStage: { 
+            coding: [{ 
+                  value: '369900003',
+                  codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
+                  displayText: 'T2' 
+            }] 
+        },
+        nStage: { 
+            coding: [{ 
+                value: '436311000124105',
+                codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
+                displayText: 'N0' 
+            }] 
+        },
+        mStage: { 
+            coding: [{ 
+                value: '433581000124101',
+                codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
+                displayText: 'M0' 
+            }] 
+        } 
+    })
+], []];
+const expectedOutputDiseaseStatus = [[
+    new Progression({
+        entryType: [ 
+            'http://standardhealthrecord.org/oncology/Progression',
+            'http://standardhealthrecord.org/assessment/Assessment',
+            'http://standardhealthrecord.org/base/Action' 
+        ],
+        value: { 
+            coding: [{ 
+                value: 'C0205360',
+                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                displayText: 'Stable' 
+            }]
+        },
+        clinicallyRelevantTime: null,
+        evidence: [ 
+            { 
+                coding: [{ 
+                    value: 'C0011923',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Imaging' 
+                }] 
+            },
+            { 
+                coding: [{ 
+                    value: 'C0031809',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Physical exam' 
+                }] 
+            } 
+        ],
+        assessmentType: { 
+            coding: { 
+                value: '#disease status' 
+            } 
+        },
+        originalCreationDate: today,
+        asOfDate: null,
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputDiseaseStatus2 = [[
+    new Progression({
+        entryType: [ 
+            'http://standardhealthrecord.org/oncology/Progression',
+            'http://standardhealthrecord.org/assessment/Assessment',
+            'http://standardhealthrecord.org/base/Action'  
+        ],
+        value: { 
+            coding: [{ 
+                value: 'C0205360',
+                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                displayText: 'Stable' 
+            }] 
+        },
+        clinicallyRelevantTime: '7 Jun 2017',
+        evidence: [ 
+            { 
+                coding: [{ 
+                    value: 'C0011923',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Imaging' 
+                }] 
+            },
+            { 
+                coding: [{ 
+                    value: 'C0031809',
+                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Physical exam' 
+                }] 
+            } 
+        ],
+        assessmentType: { 
+            coding: { 
+                value: '#disease status' 
+            } 
+        },
+        originalCreationDate: today,
+        asOfDate: '5 Oct 2017',
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputToxicity = [[
+    new ToxicReactionToTreatment({ 
+        entryType: [
+            'http://standardhealthrecord.org/oncology/ToxicReactionToTreatment',
+            'http://standardhealthrecord.org/adverse/AdverseReaction'
+        ],
+        adverseEvent: {
+            entryType: [ 
+                'http://standardhealthrecord.org/adverse/AdverseEvent' 
+            ],
+            value: { 
+                coding: [{ 
+                    value: '10028813',
+                    codeSystem: { value:'https://www.meddra.org/'},
+                    displayText: 'Nausea' 
+                }]
+            },
+            adverseEventGrade: {
+                value: { 
+                    coding: [{ 
+                        value: 'C1513374',
+                        codeSystem: { value:'http://ncimeta.nci.nih.gov'},
+                        displayText: 'Grade 2' 
+                    }]
+                } 
+            },
+            causeCategory: {
+                value: { 
+                    coding: [{ 
+                        value: '#Treatment',
+                        codeSystem: { value:'https://www.meddra.org/'},
+                        displayText: 'Treatment' 
+                    }] 
+                }
+            },
+            originalCreationDate: today,
+            lastUpdateDate: today 
+        },
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputDeceased = [[
+    new Deceased({
+        entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
+        value: true,
+        dateOfDeath: '1 Oct 2017'
+    })
+], []];
+const expectedOutputClinicalTrial = [[
+    new Study({
+        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+        title: 'PATINA',
+        identifier: { value: ''},
+        enrollmentDate: '4 Sep 2017',
+        endDate: '6 Oct 2017',
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
+const expectedOutputClinicalTrialMinimal = [[
+    new Study({
+        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
+        identifier: { value: ''},
+        enrollmentDate: null,
+        endDate: null,
+        originalCreationDate: today,
+        lastUpdateDate: today 
+    })
+], []];
 
 
 describe('getAllTriggersRegularExpression', function () { 
@@ -183,9 +261,28 @@ describe('parse', function() {
 
     it('should return a patient record with staging data when parsing a note with staging phrases', function () {
         const record = noteParser.parse(sampleTextStaging);
+        // This test is different from the others because Observation sets the _value property which we cannot set in TNMStage using getters and setters.
+        // Instead this test will compare all the properties in each object expect _value property.
         expect(record)
-            .to.be.an('array')
-            .and.to.eql(expectedOutputStaging);
+            .to.be.an('array');
+        expect(record[0][1])
+            .eql(expectedOutputStaging[0][1]);
+        expect(record[0][0].value)
+            .eql(expectedOutputStaging[0][0].value);
+        expect(record[0][0].entryInfo)
+            .eql(expectedOutputStaging[0][0].entryInfo);
+        expect(record[0][0].occurrenceTime)
+            .eql(expectedOutputStaging[0][0].occurrenceTime);
+        expect(record[0][0].specificType)
+            .eql(expectedOutputStaging[0][0].specificType);
+        expect(record[0][0].status)
+            .eql(expectedOutputStaging[0][0].status);
+        expect(record[0][0].t_stage)
+            .eql(expectedOutputStaging[0][0].t_stage);
+        expect(record[0][0].n_stage)
+            .eql(expectedOutputStaging[0][0].n_stage);
+        expect(record[0][0].m_stage)
+            .eql(expectedOutputStaging[0][0].m_stage);
     });
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {

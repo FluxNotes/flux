@@ -16,16 +16,16 @@ export default class PatientSummaryPanel extends Component {
         return (
             <div className="patient-summary-panel">
                 <Paper className="panel-content">
-                    <Grid className="FullApp-content" fluid>
+                    <Grid fluid>
                         <Row middle="xs">
                             <Col sm={6}>
                                 <SummaryHeader
                                     photo={patient.getMostRecentPhoto()}
                                     patientName={patient.getName()}
                                     mrn={patient.getMRN()}
-                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth}
+                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
                                     age={patient.getAge()}
-                                    administrativeSex={patient.getPersonOfRecord().administrativeGender}
+                                    administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
                                     address={patient.getCurrentHomeAddress()} />
                             </Col>
 

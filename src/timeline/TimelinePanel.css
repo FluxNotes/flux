@@ -1,5 +1,7 @@
 #timeline {
   margin-bottom: 10px !important;
+  padding: 20px;
+  text-align: left;
 }
 
 /* Timeline bounding box */

@@ -1,15 +1,15 @@
 import InserterShortcut from './InserterShortcut';
-import Patient from '../patient/Patient';
+import TNMStage from '../model/shr/oncology/TNMStage';
 
 export default class StageInserter extends InserterShortcut {
 	determineText(contextManager) {		
 		this.parentContext = contextManager.getActiveContextOfType("#staging");
 		let staging = this.parentContext.getValueObject();
-		return `stage ${staging.value.coding.displayText}`;
+		return `stage ${staging.value.coding[0].displayText.value}`;
 	}
 	
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/TNMStage"));
+        return context.getValueObject() instanceof TNMStage;
     }
     
 	validateInCurrentContext(contextManager) {

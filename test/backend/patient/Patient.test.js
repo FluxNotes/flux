@@ -1,17 +1,21 @@
-import Patient from '../../../src/patient/Patient';
+import PatientRecord from '../../../src/patient/PatientRecord';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import FakeDataElement from './FakeDataElement';
+import AdministrativeGender from '../../../src/model/shr/actor/AdministrativeGender'
+import ShrDemographicsObjectFactory from '../../../src/model/ShrDemographicsObjectFactory'
+import PersonOfRecord from '../../../src/model/shr/demographics/PersonOfRecord'
 import Moment from 'moment';
 import {expect} from 'chai';
 
-// The empty Patient.jsx obj
-const emptyPatientObj = new Patient(null);
+// The empty PatientRecord.jsx obj
+const emptyPatientObj = new PatientRecord(null);
 // The empty patient shr object -- an empty array 
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
-const emptyPatientRecord = emptyPatientObj.getPersonOfRecord()
+const emptyPatientRecord = emptyPatientObj.getPersonOfRecord();
 
-// The hardcoded Patient.jsx obj
-const hardCodedPatientObj = new Patient(hardCodedPatient);
+// The hardcoded PatientRecord.jsx obj
+const hardCodedPatientObj = new PatientRecord(hardCodedPatient);
 // The patient shr object -- an array of entries
 const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
@@ -19,113 +23,37 @@ const hardCodedPatientRecord = hardCodedPatientObj.getPersonOfRecord();
 
 // Helpers
 function getValidTypeFrom(patient) { 
-    return patient[0].entryType[0];
+    const typeUrl = patient[0]._entryInfo._entryType[0];
+    const typeName = typeUrl.substr(typeUrl.lastIndexOf('/')+1);
+    return ShrDemographicsObjectFactory.createInstance(typeName);
 } 
-
-
-describe('getEntriesOfType', function() { 
-
-    it('should return empty list for nonsense types', function () { 
-        const invalidType1 = "nonsense";
-        const invalidType2 = "http://standardhealthrecord.org/fakeNamespace/fakeDataElement";
-        expect(hardCodedPatientObj.getEntriesOfType(invalidType1))
-            .to.be.an('array')
-            .that.is.empty;
-        expect(hardCodedPatientObj.getEntriesOfType(invalidType2))
-            .to.be.an('array')
-            .that.is.empty;
-    });
-
-    it('should return non-empty list for type found in patient', function () { 
-        // First check that hardCodedPatientEntries isn't empty
-        expect(hardCodedPatientEntries)
-            .to.be.an('array')
-            .that.is.not.empty;
-
-        const validType = getValidTypeFrom(hardCodedPatientEntries);
-        expect(hardCodedPatientObj.getEntriesOfType(validType))
-            .to.be.an('array')
-            .that.is.not.empty;
-    });
-});
-
 
 describe('getMostRecentEntryFromList', function () { 
 
     it('should return null when the list is empty', function () { 
-        expect(Patient.getMostRecentEntryFromList(emptyPatient))
+        expect(PatientRecord.getMostRecentEntryFromList(emptyPatient))
             .to.be.null;
     });
 
     it('should return an element from non-empty list of entries that have the attribute lastUpdateDate', function () { 
-        expect(Patient.getMostRecentEntryFromList(hardCodedPatientEntries))
+        expect(PatientRecord.getMostRecentEntryFromList(hardCodedPatientEntries))
             .to.not.be.null;
     });
 
     it('should return the first element from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
         //slice to clone obj
         const sortedList = hardCodedPatientEntries.slice().sort(function (a,b) { 
-            const a_lastUpdateDate = new Moment(a.lastUpdateDate, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b.lastUpdateDate, "D MMM YYYY");
+            const a_lastUpdateDate = new Moment(a._entryInfo._lastUpdateDate, "D MMM YYYY");
+            const b_lastUpdateDate = new Moment(b._entryInfo._lastUpdateDate, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
             if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
             return 0;
         });
         const firstElem = sortedList[0];
-        expect(Patient.getMostRecentEntryFromList(hardCodedPatientEntries))
+        expect(PatientRecord.getMostRecentEntryFromList(hardCodedPatientEntries))
             .to.eql(firstElem);
     });
 });
-
-
-describe('getMostRecentEntryOfType', function () { 
-
-    it('should return null when the list is empty', function () { 
-        expect(emptyPatientObj.getMostRecentEntryOfType(''))
-            .to.be.null;
-    });
-
-    it('should return null when the type is nonsense', function () { 
-        const invalidType1 = "nonsense";
-        const invalidType2 = "http://standardhealthrecord.org/fakeNamespace/fakeDataElement";
-        expect(hardCodedPatientObj.getMostRecentEntryOfType(invalidType1))
-            .to.be.null;
-        expect(hardCodedPatientObj.getMostRecentEntryOfType(invalidType2))
-            .to.be.null;
-    });
-
-    it('should return an element from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatientEntries);
-        expect(hardCodedPatientObj.getMostRecentEntryOfType(validType))
-            .to.be.an('object')
-            .that.is.not.null;
-    });
-
-    it('should return an element with the given type from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatientEntries);
-        expect(hardCodedPatientObj.getMostRecentEntryOfType(validType))
-            .to.be.an('object')
-            .that.is.not.null
-            .that.has.property(validType);
-    });
-
-    it('should return the most recent element with type from a non-empty list where >= 1 of them has the specifed type', function () { 
-        const validType = getValidTypeFrom(hardCodedPatientEntries);
-        const filteredElems = hardCodedPatientObj.getEntriesOfType(validType);
-        //slice to clone obj
-        const sortedList = filteredElems.slice().sort(function (a,b) { 
-            const a_lastUpdateDate = new Moment(a.lastUpdateDate, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b.lastUpdateDate, "D MMM YYYY");
-            if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
-            if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
-            return 0;
-        });
-        const firstElem = sortedList[0];
-        expect(hardCodedPatientObj.getMostRecentEntryOfType(validType))
-            .to.eql(firstElem);
-    });
-});
-
 
 describe('getPersonOfRecord', function () { 
 
@@ -135,12 +63,11 @@ describe('getPersonOfRecord', function () {
     });
 
     it('should return the patient when there is a patient', function () { 
-        const personRecord = hardCodedPatientObj.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/PersonOfRecord");
+        const personRecord = hardCodedPatientObj.getMostRecentEntryOfType(PersonOfRecord);
         expect(hardCodedPatientObj.getPersonOfRecord())
             .to.equal(personRecord);
     });
 });
-
 
 describe('getName', function () { 
 
@@ -153,13 +80,12 @@ describe('getName', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
         // Path to name based on SHR record api. 
-        const expectedName = hardCodedPatientRecord.value.value;
+        const expectedName = hardCodedPatientRecord._humanName;
         expect(hardCodedPatientObj.getName())
             .to.be.a('string')
             .and.to.eql(expectedName);
     });
 });
-
 
 describe('getDateOfBirth', function () { 
 
@@ -168,17 +94,16 @@ describe('getDateOfBirth', function () {
             .to.be.null;
     });
 
-    it('should return valid date on getDateOfBirth when there is a person of ', function () { 
-        expect(hardCodedPatientRecord)
+    it('should return valid date on getDateOfBirth when there is a person of record', function () { 
+        expect(hardCodedPatientObj)
             .to.not.be.null;
         // Path to date based on SHR record api, use to create moment obj. 
-        const expectedDate = new Moment(hardCodedPatientRecord.dateOfBirth, "D MMM YYYY");
+        const expectedDate = new Moment(hardCodedPatient[0].dateOfBirth, "D MMM YYYY");
         expect(hardCodedPatientObj.getDateOfBirth())
             .to.be.instanceOf(Moment)
             .and.to.eql(expectedDate);
     });
 });
-
 
 describe('getAge', function () { 
 
@@ -202,7 +127,6 @@ describe('getAge', function () {
     });
 });
 
-
 describe('getGender', function () { 
 
     it('should return null when there is no patient record', function () { 
@@ -213,139 +137,10 @@ describe('getGender', function () {
     it('should return patients administrative gender when there is a patient record', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
-        const expectedGender = hardCodedPatientRecord.administrativeGender;
+        const expectedGender = hardCodedPatientRecord.administrativeGender.code;
         expect(hardCodedPatientObj.getGender())
             .to.be.a('string')
             .and.to.equal(expectedGender);
-    });
-});
-
-describe('createNewDeceased', function() {
-    it('should create a new blank deceased object when nothing passed in', function() {
-        const emptyDeceasedObject = {
-            "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
-            "value": false,
-            "dateOfDeath": null
-        };
-        expect(Patient.createNewDeceased())
-            .to.be.an('object')
-            .and.to.deep.equal(emptyDeceasedObject);
-    });
-});
-
-describe('setDeceased - deceased', function() {
-    it('should add a new deceased object to patient of record', function() {
-        const emptyDeceasedObject = {
-            "entryType": [ "http://standardhealthrecord.org/shr/actor/Deceased"],
-            "value": false,
-            "dateOfDeath": null
-        };
-
-        const deceased = Patient.createNewDeceased();
-
-        // Add the deceased object to the person of record
-        hardCodedPatientObj.setDeceased(deceased);
-
-        expect(hardCodedPatientRecord.deceased)
-            .to.be.an('object')
-            .and.to.deep.equal(emptyDeceasedObject);
-    });
-})
-
-describe('update method for deceased: ', function() {
-    // Create and add deceased to person of record to test if it is updated
-    const deceased = Patient.createNewDeceased();
-    hardCodedPatientObj.setDeceased(deceased);
-
-    it('updateDateOfDeathForDeceased should change the date of death attribute', function() {
-        Patient.updateDateOfDeath(deceased, '01 Oct 2017');
-        expect(deceased)
-            .to.include({"dateOfDeath": '01 Oct 2017'});
-    })
-})
-
-
-describe('createNewStudyEnrollment', function() {
-    it('should create a new blank study enrollment when nothing passed in', function () {
-        const emptyStudyObject = {
-            "entryType": [ 'http://standardhealthrecord.org/base/Study' ],
-            "title": '',
-            "identifier": '',
-            "enrollmentDate": null,
-            "endDate": null
-        };
-        expect(Patient.createNewStudyEnrollment())
-            .to.be.an('object')
-            .and.to.deep.equal(emptyStudyObject);
-    });
-    it('should create study enrollment with specified arguments', function () {
-        const title = 'StudyTitle';
-        const identifier = 'StudyIdenfier';
-        const enrollmentDate = '10 Oct 2017';
-        const endDate = '11 Oct 2017';
-
-        const nonEmptyStudyObject = {
-            entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-            title,
-            identifier,
-            enrollmentDate,
-            endDate
-        };
-
-        expect(Patient.createNewStudyEnrollment(title, identifier, enrollmentDate, endDate))
-            .to.be.an('object')
-            .and.to.deep.equal(nonEmptyStudyObject);
-    });
-});
-
-describe('addEntryToPatientWithPatientFocalSubject - studyEnrollment', function() {
-    it('should add new study enrollment object to patient with patient focal subject', function() {
-        const studyEnrollment = Patient.createNewStudyEnrollment();
-        // Add the study enrollment object to the patient's record
-        hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
-        const length = hardCodedPatient.length;
-        const lastEntry = hardCodedPatient[length - 1];
-        expect(lastEntry.entryType)
-            .to.include.members([ 'http://standardhealthrecord.org/base/Study' ]);
-    });
-});
-
-describe('update methods for study enrollment: ', function () {
-    // Create and add study enrollment to patient to test if it is updated
-    const studyEnrollment = Patient.createNewStudyEnrollment();
-    hardCodedPatientObj.addEntryToPatientWithPatientFocalSubject(studyEnrollment);
-    const lastEntry = hardCodedPatient[hardCodedPatient.length - 1];
-
-    it('updateTitleForStudyEnrollment should change the study title attribute', function () {
-        Patient.updateTitleForStudyEnrollment(studyEnrollment, 'newTitle');
-        expect(studyEnrollment)
-            .to.include({"title": 'newTitle'});
-        expect(lastEntry)
-            .to.include({"title": 'newTitle'});
-    });
-
-    it('updateIdentifierForStudyEnrollment should change the study identifier attribute', function () {
-        Patient.updateIdentifierForStudyEnrollment(studyEnrollment, 'newIdentifier');
-        expect(studyEnrollment)
-            .to.include({"identifier": 'newIdentifier'});
-        expect(lastEntry)
-            .to.include({"identifier": 'newIdentifier'});
-    });
-
-    it('updateEnrollmentDateForStudyEnrollment should change enrollmentDate attribute', function () {
-        Patient.updateEnrollmentDateForStudyEnrollment(studyEnrollment, '10 Oct 2017');
-        expect(studyEnrollment)
-            .to.include({"enrollmentDate": '10 Oct 2017'});
-        expect(lastEntry)
-            .to.include({"enrollmentDate": '10 Oct 2017'});
-    });
-
-    it('updateEndDateForStudyEnrollment should change endDate attribute', function () {
-        Patient.updateEndDateForStudyEnrollment(studyEnrollment, '11 Oct 2017');
-        expect(studyEnrollment)
-            .to.include({"endDate": '11 Oct 2017'});
-        expect(lastEntry)
-            .to.include({"endDate": '11 Oct 2017'});
     });
 });
 
@@ -362,37 +157,15 @@ describe('getConditions', function () {
                 .to.be.an('array')
                 .that.is.not.empty;
     });
-
-    conditions.forEach((condition) => {
-        it('should return objects with an entry type of condition', function () { 
-            expect(condition.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/condition/Condition' ]);
-        });
-    });
 });
 
+// below here havent been examined.
 describe('getKeyEventsChronologicalOrder', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getKeyEventsChronologicalOrder())
                 .to.be.an('array')
                 .that.is.empty;
     });
-
-    const events = hardCodedPatientObj.getKeyEventsChronologicalOrder();
-    it('should return a non empty array when there are key events', function () { 
-        expect(events)
-                .to.be.an('array')
-                .that.is.not.empty;
-    });
-
-    // test that the array is sorted in chronological order
-    for (let i = 0; i < events.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            const firstDate = new Moment(events[i].start_time, "D MMM YYYY");
-            const secondDate = new Moment(events[i + 1].start_time, "D MMM YYYY");
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
 });
 
 describe('getKeyEventsForConditionChronologicalOrder', function () { 
@@ -419,10 +192,6 @@ describe('getKeyEventsForConditionChronologicalOrder', function () {
             expect(firstDate <= secondDate).to.be.true;
         });
     }
-
-    it('should have at most the same number of events as getKeyEventsChronologicalOrder', function () {
-        expect(events.length).to.be.at.most(hardCodedPatientObj.getKeyEventsChronologicalOrder().length);
-    });
 });
 
 describe('getMedications', function () { 
@@ -437,39 +206,6 @@ describe('getMedications', function () {
         expect(medications)
                 .to.be.an('array')
                 .that.is.not.empty;
-    });
-
-    medications.forEach((medication) => {
-        it('should return objects with an entry type of MedicationPrescription', function () { 
-            expect(medication.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/medication/MedicationPrescription' ]);
-        });
-    });
-});
-
-describe('getMedicationsChronologicalOrder', function () { 
-    const medications = hardCodedPatientObj.getMedicationsChronologicalOrder();
-    // test that the array is sorted in chronological order
-    for (let i = 0; i < medications.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            const firstDate = new Moment(medications[i].requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            const secondDate = new Moment(medications[i + 1].requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-});
-
-describe('getMedicationsForConditionChronologicalOrder', function () { 
-    const condition = hardCodedPatientObj.getConditions()[0];
-    const medications = hardCodedPatientObj.getMedicationsForConditionChronologicalOrder(condition);
-    
-    medications.forEach((medication) => {
-        it('should return objects with an entry type of MedicationPrescription and the reason should be for the specific condition.', function () { 
-            expect(medication.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/medication/MedicationPrescription' ]);
-            expect(medication.reason.entryId)
-                    .to.be.eql(condition.entryId);
-        });
     });
 });
 
@@ -486,155 +222,6 @@ describe('getProcedures', function () {
                 .to.be.an('array')
                 .that.is.not.empty;
     });
-
-    procedures.forEach((procedure) => {
-        it('should return objects with an entry type of Procedure', function () { 
-            expect(procedure.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
-        });
-    });
-});
-
-describe('getProceduresChronologicalOrder', function () { 
-    const procedures = hardCodedPatientObj.getProceduresChronologicalOrder();
-    // test that the array is sorted in chronological order
-    for (let i = 0; i < procedures.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
-            if(!firstDate.isValid()) {
-                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
-            if(!secondDate.isValid()) {
-                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-});
-
-describe('Test sorting in getProceduresChronologicalOrder', function () { 
-    let testPatient = new Patient(null);
-    const today = new Moment().format("D MMM YYYY");
-    const procedureEntry1 = {
-        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        originalCreateDate: today,
-        asOfDate: today,
-        lastUpdateDate: today,
-        occurrenceTime: {
-                            timePeriodStart: "12 JUL 2010",
-                            timePeriodEnd: "30 JUL 2010" },
-        reason: {
-                    entryType: "http://standardhealthrecord.org/condition/Condition", 
-                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
-                    entryId: "8" }
-    };
-    const procedureEntry2 = {
-        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        originalCreateDate: today,
-        asOfDate: today,
-        lastUpdateDate: today,
-        occurrenceTime: {
-                            timePeriodStart: "12 JUL 2009",
-                            timePeriodEnd: "30 JUL 2009" },
-        reason: {
-                    entryType: "http://standardhealthrecord.org/condition/Condition", 
-                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
-                    entryId: "8" }
-    };
-    const procedureEntry3 = {
-        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        originalCreateDate: today,
-        asOfDate: today,
-        lastUpdateDate: today,
-        occurrenceTime: {
-                            timePeriodStart: "12 JUL 2007",
-                            timePeriodEnd: "30 JUL 2007" },
-        reason: {
-                    entryType: "http://standardhealthrecord.org/condition/Condition", 
-                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
-                    entryId: "8" }
-    };
-    const procedureEntry4 = {
-        entryType: [    "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        originalCreateDate: today,
-        asOfDate: today,
-        lastUpdateDate: today,
-        occurrenceTime: "12 JUL 2005",
-        reason: {
-                    entryType: "http://standardhealthrecord.org/condition/Condition", 
-                    shrId: "788dcbc3-ed18-470c-89ef-35ff91854c7d", 
-                    entryId: "8" }
-    };
-    testPatient.addEntryToPatient(procedureEntry1);
-    testPatient.addEntryToPatient(procedureEntry2);
-    testPatient.addEntryToPatient(procedureEntry3);
-    testPatient.addEntryToPatient(procedureEntry4);
-    const procedures = testPatient.getProceduresChronologicalOrder();
-    // test that the array is sorted in chronological order
-    for (let i = 0; i < procedures.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
-            if(!firstDate.isValid()) {
-                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
-            if(!secondDate.isValid()) {
-                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-});
-
-describe('getProceduresForCondition', function() { 
-    const condition = hardCodedPatientObj.getConditions()[0];
-    const procedures = hardCodedPatientObj.getProceduresForCondition(condition);
-
-    procedures.forEach((procedure) => {
-        it('should return objects with an entry type of Procedure and the reason should be for the specific condition.', function () { 
-            expect(procedure.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
-            expect(procedure.reason.entryId)
-                    .to.be.eql(condition.entryId);
-        });
-    });
-});
-
-describe('getProceduresForConditionChronologicalOrder', function() { 
-    const condition = hardCodedPatientObj.getConditions()[0];
-    const procedures = hardCodedPatientObj.getProceduresForConditionChronologicalOrder(condition);
-    // test that the array is sorted in chronological order
-    for (let i = 0; i < procedures.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            let firstDate = new Moment(procedures[i].occurrenceTime, "D MMM YYYY");
-            if(!firstDate.isValid()) {
-                firstDate = new Moment(procedures[i].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            let secondDate = new Moment(procedures[i + 1].occurrenceTime, "D MMM YYYY");
-            if(!secondDate.isValid()) {
-                secondDate = new Moment(procedures[i + 1].occurrenceTime.timePeriodStart, "D MMM YYYY");
-            }
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-
-    procedures.forEach((procedure) => {
-        it('should return objects with an entry type of Procedure and the reason should be for the specific condition.', function () { 
-            expect(procedure.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/procedure/Procedure' ]);
-            expect(procedure.reason.entryId)
-                    .to.be.eql(condition.entryId);
-        });
-    });
 });
 
 describe('getProgressions', function () { 
@@ -649,61 +236,6 @@ describe('getProgressions', function () {
         expect(progressions)
                 .to.be.an('array')
                 .that.is.not.empty;
-    });
-
-    progressions.forEach((progression) => {
-        it('should return objects with an entry type of Progression', function () { 
-            expect(progression.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
-        });
-    });
-});
-
-describe('getProgressionsChronologicalOrder', function () { 
-    const progressions = hardCodedPatientObj.getProgressionsChronologicalOrder();
-
-    for (let i = 0; i < progressions.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            let firstDate = new Moment(progressions[i].clinicallyRelevantTime, "D MMM YYYY");
-            let secondDate = new Moment(progressions[i + 1].clinicallyRelevantTime, "D MMM YYYY");
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-});
-
-describe('getProgressionsForCondition', function () { 
-    const condition = hardCodedPatientObj.getConditions()[0];
-    const progressions = hardCodedPatientObj.getProgressionsForCondition(condition);
-
-    progressions.forEach((progression) => {
-        it('should return objects with an entry type of Progression and the reason should be for the specific condition.', function () { 
-            expect(progression.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
-            expect(progression.focalCondition.entryId)
-                    .to.be.eql(condition.entryId);
-        });
-    });
-});
-
-describe('getProgressionsForConditionChronologicalOrder', function () { 
-    const condition = hardCodedPatientObj.getConditions()[0];
-    const progressions = hardCodedPatientObj.getProgressionsForConditionChronologicalOrder(condition);
-
-    for (let i = 0; i < progressions.length - 1; i++) {
-        it('should return an array sorted by date.', function () {
-            let firstDate = new Moment(progressions[i].clinicallyRelevantTime, "D MMM YYYY");
-            let secondDate = new Moment(progressions[i + 1].clinicallyRelevantTime, "D MMM YYYY");
-            expect(firstDate <= secondDate).to.be.true;
-        });
-    }
-
-    progressions.forEach((progression) => {
-        it('should return objects with an entry type of Progression and the reason should be for the specific condition.', function () { 
-            expect(progression.entryType)
-                    .to.include.members([ 'http://standardhealthrecord.org/oncology/Progression' ]);
-            expect(progression.focalCondition.entryId)
-                    .to.be.eql(condition.entryId);
-        });
     });
 });
 

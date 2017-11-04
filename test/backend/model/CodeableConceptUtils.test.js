@@ -21,7 +21,7 @@ describe('getCodeableConceptFromTuple', function() {
         expect(concept.coding[0].value)
             .to.be.a('string')
             .eql(tuple.value);
-        expect(concept.coding[0].codeSystem)
+        expect(concept.coding[0].codeSystem.value)
             .to.be.a('string')
             .eql(tuple.codeSystem);
     });

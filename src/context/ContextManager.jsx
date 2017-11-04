@@ -39,7 +39,7 @@ class ContextManager {
 		let shortcut = this.getActiveContextOfType(contextType);
 		if (Lang.isUndefined(shortcut)) return false;
 		let object = shortcut.getValueObject();
-		return (object.entryType[0] === valueType);
+		return (object.entryInfo.entryType[0] === valueType);
 	}
 	    
 	// returns undefined if not found

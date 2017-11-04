@@ -1,5 +1,4 @@
 import HardCodedReadOnlyDataSource from './HardCodedReadOnlyDataSource';
-import NewHardCodedReadOnlyDataSource from './NewHardCodedReadOnlyDataSource';
 import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 
 export default class DataAccess {
@@ -8,8 +7,6 @@ export default class DataAccess {
     constructor(dataSourceName) {
         if (dataSourceName === 'HardCodedReadOnlyDataSource') {
             this.dataSource = new HardCodedReadOnlyDataSource();
-        } else if (dataSourceName === 'NewHardCodedReadOnlyDataSource') {
-            this.dataSource = new NewHardCodedReadOnlyDataSource();
         } else if (dataSourceName === 'NewPatientOnlyDataSource') {
             this.dataSource = new NewPatientOnlyDataSource();
         } else {

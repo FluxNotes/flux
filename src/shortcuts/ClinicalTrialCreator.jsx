@@ -1,9 +1,10 @@
 import CreatorShortcut from './CreatorShortcut';
-import Patient from '../patient/Patient';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import ClinicalTrialTitleCreator from './ClinicalTrialTitleCreator';
 import ClinicalTrialEnrollmentDateCreator from './ClinicalTrialEnrollmentDateCreator';
 import ClinicalTrialEndDateCreator from './ClinicalTrialEndDateCreator';
+import Study from '../model/shr/base/Study';
+import Identifier from '../model/shr/core/Identifier';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -11,7 +12,11 @@ class ClinicalTrialCreator extends CreatorShortcut {
     constructor(onUpdate, clinicalTrial) {
         super();
         if (Lang.isUndefined(clinicalTrial)) {
-            this.clinicalTrial = Patient.createNewStudyEnrollment();
+            this.clinicalTrial = new Study();
+            this.clinicalTrial.title = '';
+            this.clinicalTrial.identifier = new Identifier({value:''});
+            this.clinicalTrial.enrollmentDate = null;
+            this.clinicalTrial.endDate = null;
             this.isClinicalTrialNew = true;
         } else {
             this.clinicalTrial = clinicalTrial;
@@ -103,17 +108,17 @@ class ClinicalTrialCreator extends CreatorShortcut {
     
     setAttributeValue(name, value, publishChanges) {
         if (name === "title") {
-            Patient.updateTitleForStudyEnrollment(this.clinicalTrial, value);
+            this.clinicalTrial.title = value;
         } else if (name === "identifier") {
-            Patient.updateIdentifierForStudyEnrollment(this.clinicalTrial, value);
+            this.clinicalTrial.indentifier.value = value;
         } else if (name === "enrollmentDateFlag") {
             this.enrollmentDateFlag = value === true;
         } else if (name === "enrollmentDate") {
-            Patient.updateEnrollmentDateForStudyEnrollment(this.clinicalTrial, value);
+            this.clinicalTrial.enrollmentDate = value;
         } else if (name === "endDateFlag") {
             this.endDateFlag = value === true;
         } else if (name === "endDate") {
-            Patient.updateEndDateForStudyEnrollment(this.clinicalTrial, value);
+            this.clinicalTrial.endDate = value;
         } else {
             console.error(`Error: Unexpected value selected for clinical trial: ${name}`);
             return;

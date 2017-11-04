@@ -74,7 +74,7 @@ class StagingForm extends Component {
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                          disabled={this._currentlySelected(this.props.object.tStage.coding.displayText, this.state.tumorValues[i].name)}
+                          disabled={this._currentlySelected(this.props.object.tStage, this.state.tumorValues[i].name)}
                       >{titlecase(t.name)}</Button>
                   </div>
                 );
@@ -100,7 +100,7 @@ class StagingForm extends Component {
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                          disabled={this._currentlySelected(this.props.object.nStage.coding.displayText, this.state.nodeValues[i].name)}
+                          disabled={this._currentlySelected(this.props.object.nStage, this.state.nodeValues[i].name)}
                       >{titlecase(n.name)}</Button>
                   </div>
                 );
@@ -126,7 +126,7 @@ class StagingForm extends Component {
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                        disabled={this._currentlySelected(this.props.object.mStage.coding.displayText, this.state.metastasisValues[i].name)}
+                        disabled={this._currentlySelected(this.props.object.mStage, this.state.metastasisValues[i].name)}
                     >{titlecase(m.name)}</Button>
                   </div>
                 );
@@ -136,7 +136,7 @@ class StagingForm extends Component {
             <p id="data-element-description">
               {stagingLookup.getDescription("prognosticStage")}
             </p>
-            <div className="stage">{staging.breastCancerPrognosticStage(this.props.object.tStage.coding.displayText, this.props.object.nStage.coding.displayText, this.props.object.mStage.coding.displayText) || 'Undefined'}</div>
+            <div className="stage">{staging.breastCancerPrognosticStage(this.props.object.tStage, this.props.object.nStage, this.props.object.mStage) || 'Undefined'}</div>
         </div>
     );
   }

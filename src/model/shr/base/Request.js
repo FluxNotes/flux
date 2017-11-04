@@ -1,8 +1,14 @@
 import Action from './Action';
+import RequestedPerformanceTime from './RequestedPerformanceTime';
+import Status from './Status';
 
 /** Generated from SHR definition for shr.base.Request */
 class Request extends Action {
-
+  constructor(json) {
+      super(json);
+      this._status = new Status(json.status);
+      this._requestedPerformanceTime = new RequestedPerformanceTime(json.requestedPerformanceTime);
+  }
   /**
    * Getter for shr.base.Status
    */

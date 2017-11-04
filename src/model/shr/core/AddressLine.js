@@ -1,5 +1,11 @@
 /** Generated from SHR definition for shr.core.AddressLine */
 class AddressLine {
+    constructor(json) {
+        if (json) {
+            this.string = json;
+            this._string = json;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.string)

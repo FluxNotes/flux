@@ -1,5 +1,16 @@
+import TimePeriod from '../core/TimePeriod';
+
 /** Generated from SHR definition for shr.core.OccurrenceTime */
 class OccurrenceTime {
+    constructor(json) {
+        if (json) {
+            if (json.timePeriodStart) {
+                this._value = new TimePeriod(json);
+            } else {
+                this._value = json;
+            }
+        }
+    }
 
   /**
    * Getter for choice value

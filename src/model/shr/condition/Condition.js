@@ -1,202 +1,146 @@
-/** Generated from SHR definition for shr.condition.Condition */
-class Condition {
+import Category from '../base/Category';
+import ClinicalStatus from './ClinicalStatus';
+import Entry from '../base/Entry';
+import ShrObjectFactory from '../../ShrObjectFactory';
+import SpecificType from '../core/SpecificType';
+import WhenClinicallyRecognized from './WhenClinicallyRecognized';
 
-  /**
-   * Getter for entry information (shr.base.Entry)
-   */
-  get entryInfo() {
-    return this._entryInfo;
-  }
+var Condition;
 
-  /**
-   * Setter for entry information (shr.base.Entry)
-   */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
-  }
+export function initCondition() {
+    if (Condition) {
+        return;
+    }
+    
+    /** Generated from SHR definition for shr.condition.Condition */
+    Condition = class Condition {
+        constructor(json) {
+            if (json) {
+                this._entryInfo = new Entry(json);
+                this._specificType = new SpecificType(json.specificType);
+                if (json.category) this._category = json.category.map((c) => new Category(c));
+                if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
+                this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
+                if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
+            } else {
+                this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/condition/Condition");
+            }
+        }
 
-  /**
-   * Getter for shr.core.SpecificType
-   */
-  get specificType() {
-    return this._specificType;
-  }
+      get entryInfo() {
+        return this._entryInfo;
+      }
 
-  /**
-   * Setter for shr.core.SpecificType
-   */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
+      set entryInfo(entryVal) {
+        this._entryInfo = entryVal;
+      }
 
-  /**
-   * Getter for shr.base.Category[]
-   */
-  get category() {
-    return this._category;
-  }
+      get specificType() {
+        return this._specificType;
+      }
 
-  /**
-   * Setter for shr.base.Category[]
-   */
-  set category(categoryVal) {
-    this._category = categoryVal;
-  }
+      set specificType(specificTypeVal) {
+        this._specificType = specificTypeVal;
+      }
 
-  /**
-   * Getter for shr.condition.ClinicalStatus
-   */
-  get clinicalStatus() {
-    return this._clinicalStatus;
-  }
+      get category() {
+        return this._category;
+      }
 
-  /**
-   * Setter for shr.condition.ClinicalStatus
-   */
-  set clinicalStatus(clinicalStatusVal) {
-    this._clinicalStatus = clinicalStatusVal;
-  }
+      set category(categoryVal) {
+        this._category = categoryVal;
+      }
 
-  /**
-   * Getter for shr.condition.IncludeOnProblemList
-   */
-  get includeOnProblemList() {
-    return this._includeOnProblemList;
-  }
+      get clinicalStatus() {
+        return this._clinicalStatus;
+      }
 
-  /**
-   * Setter for shr.condition.IncludeOnProblemList
-   */
-  set includeOnProblemList(includeOnProblemListVal) {
-    this._includeOnProblemList = includeOnProblemListVal;
-  }
+      set clinicalStatus(clinicalStatusVal) {
+        this._clinicalStatus = clinicalStatusVal;
+      }
 
-  /**
-   * Getter for shr.condition.Onset
-   */
-  get onset() {
-    return this._onset;
-  }
+      get includeOnProblemList() {
+        return this._includeOnProblemList;
+      }
 
-  /**
-   * Setter for shr.condition.Onset
-   */
-  set onset(onsetVal) {
-    this._onset = onsetVal;
-  }
+      set includeOnProblemList(includeOnProblemListVal) {
+        this._includeOnProblemList = includeOnProblemListVal;
+      }
 
-  /**
-   * Getter for shr.condition.WhenClinicallyRecognized
-   */
-  get whenClinicallyRecognized() {
-    return this._whenClinicallyRecognized;
-  }
+      get onset() {
+        return this._onset;
+      }
 
-  /**
-   * Setter for shr.condition.WhenClinicallyRecognized
-   */
-  set whenClinicallyRecognized(whenClinicallyRecognizedVal) {
-    this._whenClinicallyRecognized = whenClinicallyRecognizedVal;
-  }
+      set onset(onsetVal) {
+        this._onset = onsetVal;
+      }
 
-  /**
-   * Getter for shr.condition.Preexisting
-   */
-  get preexisting() {
-    return this._preexisting;
-  }
+      get whenClinicallyRecognized() {
+        return this._whenClinicallyRecognized;
+      }
 
-  /**
-   * Setter for shr.condition.Preexisting
-   */
-  set preexisting(preexistingVal) {
-    this._preexisting = preexistingVal;
-  }
+      set whenClinicallyRecognized(whenClinicallyRecognizedVal) {
+        this._whenClinicallyRecognized = whenClinicallyRecognizedVal;
+      }
 
-  /**
-   * Getter for shr.condition.Abatement
-   */
-  get abatement() {
-    return this._abatement;
-  }
+      get preexisting() {
+        return this._preexisting;
+      }
 
-  /**
-   * Setter for shr.condition.Abatement
-   */
-  set abatement(abatementVal) {
-    this._abatement = abatementVal;
-  }
+      set preexisting(preexistingVal) {
+        this._preexisting = preexistingVal;
+      }
 
-  /**
-   * Getter for shr.core.BodySite[]
-   */
-  get bodySite() {
-    return this._bodySite;
-  }
+      get abatement() {
+        return this._abatement;
+      }
 
-  /**
-   * Setter for shr.core.BodySite[]
-   */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
-  }
+      set abatement(abatementVal) {
+        this._abatement = abatementVal;
+      }
 
-  /**
-   * Getter for shr.condition.Severity
-   */
-  get severity() {
-    return this._severity;
-  }
+      get bodySite() {
+        return this._bodySite;
+      }
 
-  /**
-   * Setter for shr.condition.Severity
-   */
-  set severity(severityVal) {
-    this._severity = severityVal;
-  }
+      set bodySite(bodySiteVal) {
+        this._bodySite = bodySiteVal;
+      }
 
-  /**
-   * Getter for shr.condition.Criticality
-   */
-  get criticality() {
-    return this._criticality;
-  }
+      get severity() {
+        return this._severity;
+      }
 
-  /**
-   * Setter for shr.condition.Criticality
-   */
-  set criticality(criticalityVal) {
-    this._criticality = criticalityVal;
-  }
+      set severity(severityVal) {
+        this._severity = severityVal;
+      }
 
-  /**
-   * Getter for shr.condition.Stage
-   */
-  get stage() {
-    return this._stage;
-  }
+      get criticality() {
+        return this._criticality;
+      }
 
-  /**
-   * Setter for shr.condition.Stage
-   */
-  set stage(stageVal) {
-    this._stage = stageVal;
-  }
+      set criticality(criticalityVal) {
+        this._criticality = criticalityVal;
+      }
 
-  /**
-   * Getter for shr.observation.Observation[]
-   */
-  get observation() {
-    return this._observation;
-  }
+      get stage() {
+        return this._stage;
+      }
 
-  /**
-   * Setter for shr.observation.Observation[]
-   */
-  set observation(observationVal) {
-    this._observation = observationVal;
-  }
+      set stage(stageVal) {
+        this._stage = stageVal;
+      }
 
+      get observation() {
+        return this._observation;
+      }
+
+      set observation(observationVal) {
+        this._observation = observationVal;
+      }
+    }
 }
 
-export default Condition;
+initCondition();
+
+export {Condition as default};

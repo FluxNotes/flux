@@ -1,5 +1,5 @@
 import IDataSource from './IDataSource';
-import Patient from '../patient/Patient';
+import PatientRecord from '../patient/PatientRecord';
 
 class NewPatientOnlyDataSource extends IDataSource {
     getPatient(id) {
@@ -10,7 +10,7 @@ class NewPatientOnlyDataSource extends IDataSource {
     }
     
     newPatient() {
-        return new Patient(null);
+        return new PatientRecord(null);
     }
     
     savePatient(patient) {

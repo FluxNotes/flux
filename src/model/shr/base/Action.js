@@ -1,5 +1,24 @@
+import Category from '../base/Category';
+import NonOccurrenceModifier from '../base/NonOccurrenceModifier';
+import OccurrenceTime from '../core/OccurrenceTime';
+import Participant from '../actor/Participant';
+import Reason from '../core/Reason';
+import SpecificType from '../core/SpecificType';
+import Status from '../base/Status';
+
 /** Generated from SHR definition for shr.base.Action */
 class Action {
+    constructor(json) {
+        if (json) {
+            if (json.specificType) this._specificType = new SpecificType(json.specificType);
+            if (json.status) this._status = new Status(json.status);
+            if (json.category) this._category = json.category.map((c) => new Category(c));
+            if (json.nonOccurrenceModifier) this._nonOccurrenceModifier = new NonOccurrenceModifier(json.nonOccurrenceModifier);
+            if (json.reason) this._reason = json.reason.map((r) => new Reason(r));
+            if (json.occurrenceTime) this._occurrenceTime = new OccurrenceTime(json.occurrenceTime);
+            if (json.participant) this._participant = json.participant.map((p) => new Participant(p));
+        }
+    }
 
   /**
    * Getter for shr.core.SpecificType

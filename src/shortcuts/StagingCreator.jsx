@@ -4,10 +4,19 @@ import StagingTCreator from './StagingTCreator';
 import StagingNCreator from './StagingNCreator';
 import StagingMCreator from './StagingMCreator';
 import StageInserter from './StageInserter';
-//import StagingForm from '../forms/StagingForm';
+import Lang from 'lodash';
+import moment from 'moment';
 import lookup from '../lib/tnmstage_lookup';
-import Patient from '../patient/Patient';
-import Lang from 'lodash'
+import BreastCancer from '../model/shr/oncology/BreastCancer';
+import CodeableConcept from '../model/shr/core/CodeableConcept';
+import OccurrenceTime from '../model/shr/core/OccurrenceTime';
+import SpecificType from '../model/shr/core/SpecificType';
+import Status from '../model/shr/base/Status';
+import TNMStage from '../model/shr/oncology/TNMStage';
+import T_Stage from '../model/shr/oncology/T_Stage';
+import N_Stage from '../model/shr/oncology/N_Stage';
+import M_Stage from '../model/shr/oncology/M_Stage';
+import staging from '../lib/staging.jsx';
 
 class StagingCreator extends CreatorShortcut {
     // onUpdate is passed from React components that need to be notified when the staging value(s) change
@@ -16,7 +25,20 @@ class StagingCreator extends CreatorShortcut {
     constructor(onUpdate, staging) {
         super();
         if (Lang.isUndefined(staging)) { 
-			this.staging = Patient.createNewTNMStageObservation();
+            const today = new moment().format("D MMM YYYY");
+            this.staging = new TNMStage();
+            this.staging.value = new CodeableConcept();
+            this.staging.specificType = new SpecificType({"value":{"coding": [{"value": "21908-9", "codeSystem": {value: "http://loinc.org"}, "displayText": "Stage"}]}});
+            this.staging.status = new Status();
+            this.staging.status.value = "unknown";
+            this.staging.occurrenceTime = new OccurrenceTime();
+            this.staging.occurrenceTime.value = today;
+            this.staging.t_Stage = new T_Stage();
+            this.staging.t_Stage.value = null;
+            this.staging.n_Stage = new N_Stage();
+            this.staging.n_Stage.value = null;
+            this.staging.m_Stage = new M_Stage();
+            this.staging.m_Stage.value = null;
 			this.isStagingNew = true;
         } else {
 			this.staging = staging; //Lang.clone(staging);
@@ -52,10 +74,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getTumorSizeString(curStaging) { 
         let tString;
-        if (curStaging.tStage.coding.displayText.length === 0) { 
+        if (curStaging.t_Stage.coding[0].displayText.length === 0) { 
             tString = `?`;
         } else { 
-            tString = `${curStaging.tStage.coding.displayText}`
+            tString = `${curStaging.t_Stage.coding[0].displayText}`
         }
         return tString;
     }
@@ -65,10 +87,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getNodeSizeString(curStaging) { 
         let nString;
-        if (curStaging.nStage.coding.displayText.length === 0) { 
+        if (curStaging.nStage.coding[0].displayText.length === 0) { 
             nString = `?`;
         } else { 
-            nString = `${curStaging.nStage.coding.displayText}`
+            nString = `${curStaging.nStage.coding[0].displayText}`
         }
         return nString;
     }
@@ -78,10 +100,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getMetastasisString(curStaging) { 
         let mString = ``;
-        if (curStaging.mStage.coding.displayText.length === 0) { 
+        if (curStaging.mStage.coding[0].displayText.length === 0) { 
             mString = `?`;
         } else { 
-            mString = `${curStaging.mStage.coding.displayText}`
+            mString = `${curStaging.mStage.coding[0].displayText}`
         }
         return mString;
     }
@@ -98,16 +120,7 @@ class StagingCreator extends CreatorShortcut {
 		}
 		return `#staging #${tString} #${nString} #${mString}`;
     }
-/*    
-    getForm() {
-        return (
-            <StagingForm
-				updateValue={this.setAttributeValue}
-                staging={this.staging}
-            />
-        );
-    }
-*/
+
     getFormSpec() {
         return  {
                     tagName: 'StagingForm',
@@ -122,11 +135,11 @@ class StagingCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
-			Patient.updateTForStaging(this.staging, value);
+            this.staging.t_Stage.value = lookup.getTStageCodeableConcept(value);
 		} else if (name === "N") {
-			Patient.updateNForStaging(this.staging, value);
+            this.staging.n_Stage.value = lookup.getNStageCodeableConcept(value);
 		} else if (name === "M") {
-			Patient.updateMForStaging(this.staging, value);
+            this.staging.m_Stage.value = lookup.getMStageCodeableConcept(value);
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
@@ -140,13 +153,16 @@ class StagingCreator extends CreatorShortcut {
 
 	getAttributeValue(name) {
 		if (name === "T") {
-			return this.staging.tStage.coding.displayText;
+			if (!this.staging.t_Stage.value) return "";
+            return this.staging.t_Stage.value.coding[0].displayText.value;
 		} else if (name === "N") {
-			return this.staging.nStage.coding.displayText;
+			if (!this.staging.n_Stage.value) return "";
+			return this.staging.n_Stage.value.coding[0].displayText.value;
 		} else if (name === "M") {
-			return this.staging.mStage.coding.displayText;
+			if (!this.staging.m_Stage.value) return "";
+			return this.staging.m_Stage.value.coding[0].displayText.value;
 		} else if (name === "stage") {
-			return this.staging.value.coding.displayText;
+			return this.staging.value.coding[0].displayText.value;
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
@@ -159,16 +175,28 @@ class StagingCreator extends CreatorShortcut {
 	   one
 	 */
 	updatePatient(patient, contextManager) {
-		if (this.staging.value.coding.displayText.length === 0) return; // not complete value
+		//if (this.staging.value.coding[0].displayText.length === 0) return; // not complete value
+        const t = this.getAttributeValue("T");
+        const n = this.getAttributeValue("N");
+        const m = this.getAttributeValue("M");
+        if (t.length === 0 || n.length === 0 || m.length === 0) {
+            if(!Lang.isNull(this.staging.value.coding[0].displayText)) {
+                this.staging.value = new CodeableConcept();
+            }
+            return; // not complete value
+        }
+        const stage = staging.breastCancerPrognosticStage(t, n, m);
+        this.staging.value = lookup.getValueCodeableConcept(stage);
 		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
-			patient.addObservationToCondition(this.staging, condition);
+            condition.observation.push(this.staging);
+			//patient.addObservationToCondition(this.staging, condition);
 			this.isStagingNew = false;
 		}
 	}
 
     static validateInContext(context) {
-        return (Patient.isEntryOfType(context.getValueObject(), "http://standardhealthrecord.org/oncology/BreastCancer"));
+        return context.getValueObject() instanceof BreastCancer;
     }
 
 	validateInCurrentContext(contextManager) {
@@ -184,8 +212,9 @@ class StagingCreator extends CreatorShortcut {
 		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
 		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
 		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
-		if (this.staging.value.coding.displayText.length > 0) result.push(StageInserter);
-		return result; //[ StagingTCreator, StagingNCreator, StagingMCreator ];
+		if (this.staging.value.coding[0].displayText.value && 
+            this.staging.value.coding[0].displayText.value.length > 0) result.push(StageInserter);
+		return result;
 	}
 
 	isContext() {

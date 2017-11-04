@@ -1,5 +1,11 @@
+import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+
 /** Generated from SHR definition for shr.condition.WhenClinicallyRecognized */
 class WhenClinicallyRecognized {
+    constructor(json) {
+        this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
+        this._generalizedTemporalContext = this.generalizedTemporalContext;
+    }
 
   /**
    * Convenience getter for value (accesses this.generalizedTemporalContext)

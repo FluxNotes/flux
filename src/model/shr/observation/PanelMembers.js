@@ -1,5 +1,11 @@
+import Reference from '../../Reference';
+
 /** Generated from SHR definition for shr.observation.PanelMembers */
 class PanelMembers {
+    constructor(json) {
+        this.observation = json.observation.map((o) => new Reference(o.shrId, o.entryId, o.entryType));
+        this._observation = this.observation;
+    }
 
   /**
    * Convenience getter for value (accesses this.observation)

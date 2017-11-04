@@ -1,7 +1,14 @@
+import Entry from '../base/Entry';
 import Panel from '../observation/Panel';
+import SpecificType from '../core/SpecificType';
 
 /** Generated from SHR definition for shr.oncology.BreastCancerReceptorStatus */
 class BreastCancerReceptorStatus extends Panel {
+    constructor(json) {
+        super(json);
+        this._entryInfo = new Entry(json);
+        if (json.specificType) this._specificType = new SpecificType(json.specificType);
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)

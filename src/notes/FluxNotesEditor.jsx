@@ -9,7 +9,6 @@ import ContextPortal from '../context/ContextPortal';
 // This issue should no longer affect us in our current approach. consider allowing newer version of Slate
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
-import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
@@ -511,48 +510,46 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel">
-                <Paper className="panel-content trio" onClick={(event) => { editor.focus(); }}>
-                    {noteDescriptionContent}
-                    <div className="MyEditor-root">
-                        <EditorToolbar
-                            onMarkCheck={this.handleMarkCheck}
-                            onBlockCheck={this.handleBlockCheck}
+            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => { editor.focus(); }}>
+                {noteDescriptionContent}
+                <div className="MyEditor-root">
+                    <EditorToolbar
+                        onMarkCheck={this.handleMarkCheck}
+                        onBlockCheck={this.handleBlockCheck}
 
-                            onMarkUpdate={this.handleMarkUpdate}
-                            onBlockUpdate={this.handleBlockUpdate}
-                            patient={this.props.patient}
-                        />
-                        <Slate.Editor
-                            placeholder={'Enter your clinical note here or choose a template to start from...'}
-                            plugins={this.plugins}
-                            state={this.state.state}
-                            ref={function(c) { editor = c; }}
-                            onChange={this.onChange}
-                            onInput={this.onInput}
-                            onSelectionChange={this.onSelectionChange}
-                            schema={schema}
-                        />
-                        {errorDisplay}
-                        <CreatorsPortal 
-                            state={this.state.state} />
-                        <InsertersPortal
-                            state={this.state.state} />
-                        <ContextPortal
-                            left={this.state.left}
-                            top={this.state.top}
-                            state={this.state.state}
-                            callback={callback}
-                            onSelected={this.onPortalSelection}
-                            contexts={this.state.portalOptions}
-                            capture={/@([\w]*)/}
-                            trigger={"@"}
-                            onChange={this.onChange}
-                            isOpened={this.state.isPortalOpen}
-                            contextManager={this.contextManager}
-                        />
-                    </div>
-                </Paper>
+                        onMarkUpdate={this.handleMarkUpdate}
+                        onBlockUpdate={this.handleBlockUpdate}
+                        patient={this.props.patient}
+                    />
+                    <Slate.Editor
+                        placeholder={'Enter your clinical note here or choose a template to start from...'}
+                        plugins={this.plugins}
+                        state={this.state.state}
+                        ref={function(c) { editor = c; }}
+                        onChange={this.onChange}
+                        onInput={this.onInput}
+                        onSelectionChange={this.onSelectionChange}
+                        schema={schema}
+                    />
+                    {errorDisplay}
+                    <CreatorsPortal 
+                        state={this.state.state} />
+                    <InsertersPortal
+                        state={this.state.state} />
+                    <ContextPortal
+                        left={this.state.left}
+                        top={this.state.top}
+                        state={this.state.state}
+                        callback={callback}
+                        onSelected={this.onPortalSelection}
+                        contexts={this.state.portalOptions}
+                        capture={/@([\w]*)/}
+                        trigger={"@"}
+                        onChange={this.onChange}
+                        isOpened={this.state.isPortalOpen}
+                        contextManager={this.contextManager}
+                    />
+                </div>
             </div>
         );
     }

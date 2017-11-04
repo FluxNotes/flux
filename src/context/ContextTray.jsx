@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import TemplateForm from '../forms/TemplateForm';
 import DataCaptureForm from '../forms/DataCaptureForm';
-import Paper from 'material-ui/Paper';
 import Tabs, {Tab} from 'material-ui/Tabs';
 //import { Tabs, Tab } from 'material-ui-scrollable-tabs/Tabs';
 import Lang from 'lodash'
@@ -114,10 +113,8 @@ class ContextTray extends Component {
 		}
         return (
             <div id="forms-panel" className="dashboard-panel">
-                <Paper className="panel-content trio">
-                    {panelContent}
-                    {panelContent2}
-                </Paper>
+                {panelContent}
+                {panelContent2}
             </div>
         )
     }

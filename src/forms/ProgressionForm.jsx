@@ -43,12 +43,12 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.object.evidence.findIndex((e) => e.coding.displayText === reason.name);
+        const reasonIndex = this.props.object.evidence.findIndex((e) => e.value.coding[0].displayText.value === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
                 const newReasons = this.props.object.evidence.map((e) => {
-                    return e.coding.displayText;
+                    return e.value.coding[0].displayText.value;
                 });
                 newReasons.push(reason.name);
                 this.props.updateValue("reasons", newReasons);
@@ -59,9 +59,9 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                const filteredReasons = this.props.object.evidence.filter((e) => e.coding.displayText !== reason.name);
+                const filteredReasons = this.props.object.evidence.filter((e) => e.value.coding[0].displayText.value !== reason.name);
                 const newReasons = filteredReasons.map((e) => {
-                    return e.coding.displayText;
+                    return e.value.coding[0].displayText.value;
                 });
                 this.props.updateValue("reasons", newReasons);
             } else {
@@ -84,21 +84,21 @@ class ProgressionForm extends Component {
         return (
             <div key={statusName} className="tooltip">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                    <Button raised
-                    key={i}
-                    label={statusName}
-                    onClick={(e) => this.handleStatusSelection(e, i)}
-                    className="button_disabled_is_selected"
-                    style={{
-                        marginBottom: marginSize,
-                        marginLeft:   marginSize,
-                        height: "75px",
-                        width: "180px",
-                        padding: "20px 0 20px 0",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
-                    disabled={this.currentlySelected(this.props.object.value.coding.displayText, this.state.statusOptions[i].name)}
+                <Button raised
+                        key={i}
+                        label={statusName}
+                        onClick={(e) => this.handleStatusSelection(e, i)}
+                        className="button_disabled_is_selected"
+                        style={{
+                            marginBottom: marginSize,
+                            marginLeft: marginSize,
+                            height: "75px",
+                            width: "180px",
+                            padding: "20px 0 20px 0",
+                            backgroundColor: "white",
+                            textTransform: "none"
+                        }}
+                        disabled={this.currentlySelected(this.props.object.value.coding[0].displayText.value, this.state.statusOptions[i].name)}
                 >{statusName}
                 </Button>
             </div>

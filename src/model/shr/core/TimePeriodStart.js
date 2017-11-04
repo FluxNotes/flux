@@ -1,5 +1,8 @@
 /** Generated from SHR definition for shr.core.TimePeriodStart */
 class TimePeriodStart {
+    constructor(json) {
+        this._value = json;
+    }
 
   /**
    * Getter for choice value
