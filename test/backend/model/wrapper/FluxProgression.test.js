@@ -1,4 +1,4 @@
-import FluxProgression from '../../../../src/model/wrapper/FluxProgression';
+import FluxProgression from '../../../../src/model/oncology/FluxProgression';
 import {expect} from 'chai';
 import util from 'util';
 

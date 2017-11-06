@@ -10,7 +10,7 @@ import Lang from 'lodash'
 import moment from 'moment';
 import AssessmentFocus from '../model/shr/assessment/AssessmentFocus';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
-import FluxProgression from '../model/wrapper/FluxProgression';
+import FluxProgression from '../model/oncology/FluxProgression';
 import Reference from '../model/Reference';
 
 class ProgressionCreator extends CreatorShortcut {

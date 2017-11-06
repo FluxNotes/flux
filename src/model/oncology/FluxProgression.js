@@ -4,7 +4,6 @@ import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
 class FluxProgression extends Progression {
-
     /**
      *  Getter for status
      *  This will return the displayText string from CodeableConcept Value

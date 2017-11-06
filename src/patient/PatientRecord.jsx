@@ -8,9 +8,9 @@ import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import Procedure from '../model/shr/procedure/Procedure';
 import Test from '../model/shr/lab/Test';
-import FluxProgression from '../model/wrapper/FluxProgression';
+import FluxProgression from '../model/oncology/FluxProgression';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
-import TNMStage from '../model/shr/oncology/TNMStage';
+import FluxTNMStage from '../model/oncology/FluxTNMStage';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -219,7 +219,7 @@ class PatientRecord {
 	}
 	
 	getMostRecentStagingForCondition(condition, sinceDate = null) {
-		let stagingList = this.getObservationsForCondition(condition, TNMStage);
+		let stagingList = this.getObservationsForCondition(condition, FluxTNMStage);
 		if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._observationTimeSorter);
         const length = sortedStagingList.length;

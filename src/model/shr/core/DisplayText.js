@@ -4,6 +4,9 @@ class DisplayText {
         if (json) {
             this.string = json;
             this._string = json;
+        } else {
+            this.string = '';
+            this._string = this.string;
         }
     }
 
