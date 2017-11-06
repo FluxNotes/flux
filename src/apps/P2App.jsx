@@ -51,21 +51,32 @@ class FullApp extends Component {
         }
 
         //let patient = new Patient();
-        let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
         this.shortcutManager = new ShortcutManager(this.shortcuts);
-        this.contextManager = new ContextManager(patient, this.onContextUpdate);
 
         this.state = {
-            patient: patient,
             condition: null,
             clinicalEvent: "post-encounter",
             errors: null,
             SummaryItemToInsert: '',
             selectedText: null,
             summaryMetadata: this.summaryMetadata.getMetadata(),
-            contextManager: this.contextManager
         };
+    }
+
+    componentWillMount = () => { 
+        let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+        console.log('in componentWillMount')
+        console.log(patient)
+        this.contextManager = new ContextManager(patient, this.onContextUpdate);
+
+        this.setState({
+            patient: patient,
+            contextManager: this.contextManager
+        });
+    }
+    async _componentWillMount() {
+     
     }
 
     // pass this function to children to set full app global state

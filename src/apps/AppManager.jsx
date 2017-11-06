@@ -1,5 +1,6 @@
 import FullApp from './FullApp';
 import SlimApp from './SlimApp';
+import P2App from './P2App';
 import LandingPage from './LandingPage';
 
 class AppManager {
@@ -30,7 +31,7 @@ class AppManager {
             },  {
                 path: '/p2',
                 display: 'Flux Notes',
-                app: FullApp,
+                app: P2App,
                 dataSource: 'RestApiDataSource',
                 isExact: false
             }
