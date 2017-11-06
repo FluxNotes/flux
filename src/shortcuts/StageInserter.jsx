@@ -1,15 +1,15 @@
 import InserterShortcut from './InserterShortcut';
-import TNMStage from '../model/shr/oncology/TNMStage';
+import FluxTNMStage from '../model/oncology/FluxTNMStage';
 
 export default class StageInserter extends InserterShortcut {
 	determineText(contextManager) {		
 		this.parentContext = contextManager.getActiveContextOfType("#staging");
 		let staging = this.parentContext.getValueObject();
-		return `stage ${staging.value.coding[0].displayText.value}`;
+		return `stage ${staging.staging}`;
 	}
 	
     static validateInContext(context) {
-        return context.getValueObject() instanceof TNMStage;
+        return context.getValueObject() instanceof FluxTNMStage;
     }
     
 	validateInCurrentContext(contextManager) {

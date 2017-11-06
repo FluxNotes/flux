@@ -6,9 +6,15 @@ import DisplayText from '../core/DisplayText';
 class Coding {
     constructor(json) {
         if (json) {
-            if(json.value) this.code = json.value;
-            if(json.value) this._code = json.value;
-            if (json.codeSystem) this._codeSystem = new CodeSystem(json.codeSystem);
+            this.code = json.value ? json.value : '';
+            this._code = this.code;
+            if (json.codeSystem) 
+                this._codeSystem = new CodeSystem(json.codeSystem);
+            else {
+                let codeSystem = new CodeSystem();
+                codeSystem.uri = '';
+                this._codeSystem = codeSystem;
+            }
             if (json.codeSystemVersion) this._codeSystemVersion = new CodeSystemVersion(json.codeSystemVersion);
             this._displayText = new DisplayText(json.displayText);
         } else {

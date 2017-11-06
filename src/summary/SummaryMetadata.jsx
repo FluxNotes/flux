@@ -21,8 +21,8 @@ class SummaryMetadata {
                              name: "Stage",
                              value: (patient, currentConditionEntry) => {
                                 let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
-                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.value.coding[0].displayText.value + s.n_Stage.value.coding[0].displayText.value + s.m_Stage.value.coding[0].displayText.value + ")";
+                                if (s && s.staging && s.staging.length > 0) {
+                                    return s.staging + " (" + s.t_Stage + s.n_Stage + s.m_Stage + ")";
                                 } else {
                                     return null;
                                 }
@@ -63,7 +63,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.evidence;
+                                    return p.evidence.join();
                                 }
                             }
                         }

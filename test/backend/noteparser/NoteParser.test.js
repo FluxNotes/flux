@@ -1,6 +1,6 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import FluxProgression from '../../../src/model/wrapper/FluxProgression';
-import TNMStage from '../../../src/model/shr/oncology/TNMStage';
+import FluxProgression from '../../../src/model/oncology/FluxProgression';
+import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
 import Deceased from '../../../src/model/shr/actor/Deceased';
 import Study from '../../../src/model/shr/base/Study';
@@ -27,14 +27,18 @@ const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[
-    new TNMStage({ 
+    new FluxTNMStage({ 
         entryType: [ 
             'http://standardhealthrecord.org/oncology/TNMStage',
             'http://standardhealthrecord.org/observation/Observation',
             'http://standardhealthrecord.org/base/Action' 
         ],
         value: { 
-            coding: [{}]
+            coding: [{
+                value: '',
+                codeSystem: { value: ''},
+                displayText: ''
+            }]
         },
         specificType: {
             value: { 
