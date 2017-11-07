@@ -1,7 +1,7 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import FluxProgression from '../../../src/model/oncology/FluxProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
-import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
+import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
 import Deceased from '../../../src/model/shr/actor/Deceased';
 import Study from '../../../src/model/shr/base/Study';
 import moment from 'moment';
@@ -159,7 +159,7 @@ const expectedOutputDiseaseStatus2 = [[
     })
 ], []];
 const expectedOutputToxicity = [[
-    new ToxicReactionToTreatment({ 
+    new FluxToxicReactionToTreatment({ 
         entryType: [
             'http://standardhealthrecord.org/oncology/ToxicReactionToTreatment',
             'http://standardhealthrecord.org/adverse/AdverseReaction'

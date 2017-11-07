@@ -23,8 +23,6 @@ class FluxAdverseEvent extends AdverseEvent{
     }
 
     set adverseEvent(adverseEvent) {
-        console.log(adverseEvent);
-        console.log(this._codeableConcept);
         this._codeableConcept = lookup.getAdverseEventCodeableConcept(adverseEvent);
     }
 
