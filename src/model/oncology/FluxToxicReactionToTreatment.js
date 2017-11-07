@@ -1,8 +1,8 @@
 import ToxicReactionToTreatment from '../shr/oncology/ToxicReactionToTreatment';
 import FluxAdverseEvent from '../adverse/FluxAdverseEvent';
 
-// FluxToxicReactionToTreament class to hide codeableconcepts
-class FluxToxicReactionToTreament extends ToxicReactionToTreatment {
+// FluxToxicReactionToTreatment class to hide codeableconcepts
+class FluxToxicReactionToTreatment extends ToxicReactionToTreatment {
     constructor(json) {
         super(json);
 
@@ -14,4 +14,4 @@ class FluxToxicReactionToTreament extends ToxicReactionToTreatment {
     }
 }
 
-export default FluxToxicReactionToTreament;
+export default FluxToxicReactionToTreatment;

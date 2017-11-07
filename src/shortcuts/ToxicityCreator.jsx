@@ -4,7 +4,7 @@ import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
-import FluxToxicReactionToTreament from '../model//oncology/FluxToxicReactionToTreament';
+import FluxToxicReactionToTreatment from '../model//oncology/FluxToxicReactionToTreatment';
 import lookup from '../lib/toxicreactiontotreatment_lookup';
 import Lang from 'lodash';
 
@@ -12,7 +12,7 @@ class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            this.toxicity = new FluxToxicReactionToTreament();
+            this.toxicity = new FluxToxicReactionToTreatment();
             this.isToxicityNew = true;
         } else {
             this.toxicity = toxicity;
