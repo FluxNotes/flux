@@ -197,11 +197,11 @@ class TimelinePanel extends Component {
     let items = [];
 
     meds.forEach((med, i) => {
-	  const startTime = new moment(med.requestedPerformanceTime.value.timePeriodStart.value, "D MMM YYYY");
-	  const endTime = new moment(med.requestedPerformanceTime.value.timePeriodEnd.value, "D MMM YYYY");
+	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
       const assignedGroup = this._assignItemToGroup(items, startTime, 1);
-	  const name = med.medication.value.value.coding[0].displayText.value.value;
-	  const dosage = med.dosage.amountPerDose.value.value + " " + med.dosage.amountPerDose.value.units.coding.coding[0].value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units;
+	  const name = med.medication;
+	  const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
       items.push({
         group: assignedGroup,
         title: name,

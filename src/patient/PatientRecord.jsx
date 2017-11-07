@@ -2,7 +2,7 @@ import ShrObjectFactory from '../model/ShrObjectFactory';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
-import MedicationPrescription from '../model/shr/medication/MedicationPrescription';
+import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
@@ -168,7 +168,7 @@ class PatientRecord {
     }
 	
 	getMedications() {
-		return this.getEntriesOfType(MedicationPrescription);
+		return this.getEntriesOfType(FluxMedicationPrescription);
 	}
 	
 	getMedicationsChronologicalOrder() {
@@ -180,7 +180,7 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med instanceof MedicationPrescription && med.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
+            return med instanceof FluxMedicationPrescription && med.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
         });
         return medications;
     }
