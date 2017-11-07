@@ -2,7 +2,7 @@ import NoteParser from '../../../src/noteparser/NoteParser';
 import FluxProgression from '../../../src/model/oncology/FluxProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
-import Deceased from '../../../src/model/shr/actor/Deceased';
+import FluxDeceased from '../../../src/model/actor/FluxDeceased';
 import Study from '../../../src/model/shr/base/Study';
 import moment from 'moment';
 import {expect} from 'chai';
@@ -201,7 +201,7 @@ const expectedOutputToxicity = [[
     })
 ], []];
 const expectedOutputDeceased = [[
-    new Deceased({
+    new FluxDeceased({
         entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
         value: true,
         dateOfDeath: '1 Oct 2017'
