@@ -2,7 +2,7 @@ import CreatorShortcut from './CreatorShortcut';
 import DateCreator from './DateCreator';
 import Lang from 'lodash';
 import moment from 'moment';
-import Deceased from '../model/shr/actor/Deceased';
+import FluxDeceased from '../model/actor/FluxDeceased';
 
 class DeceasedCreator extends CreatorShortcut {
 
@@ -10,7 +10,7 @@ class DeceasedCreator extends CreatorShortcut {
         super();
 
         if (Lang.isUndefined(deceased)) {
-            this.deceased = new Deceased();
+            this.deceased = new FluxDeceased();
             this.deceased.value = false;
             this.deceased.dateOfDeath = null;
             this.isDeceasedNew = true;
