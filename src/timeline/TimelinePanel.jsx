@@ -220,8 +220,8 @@ class TimelinePanel extends Component {
     let items = [];
 
     events.forEach((proc, i) => {
-	  let startTime = new moment(proc.occurrenceTime.value.timePeriodStart ? proc.occurrenceTime.value.timePeriodStart.value : proc.occurrenceTime.value, "D MMM YYYY");
-	  let endTime = proc.occurrenceTime.value.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.value.timePeriodEnd) ? new moment(proc.occurrenceTime.value.timePeriodEnd.value, "D MMM YYYY") : null) : null;
+	  let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
+	  let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
       const assignedGroup = this._assignItemToGroup(items, startTime, groupStartIndex);
 
       let classes = 'event-item';

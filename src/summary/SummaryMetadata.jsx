@@ -1,7 +1,6 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import HistologicGrade from '../model/shr/oncology/HistologicGrade';
-import TimePeriod from '../model/shr/core/TimePeriod';
 import TumorSize from '../model/shr/oncology/TumorSize';
 
 class SummaryMetadata {
@@ -369,14 +368,10 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            //console.log(p.specificType.value.coding[0].displayText.value);
-            if (p.occurrenceTime.value instanceof TimePeriod) {
-                //console.log(p.occurrenceTime.value.timePeriodStart.value);
-                //console.log(p.occurrenceTime.value.timePeriodEnd.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
+            if (typeof p.occurrenceTime !== 'string') {
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
             } else {
-                //console.log(p.occurrenceTime.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime };
             }
 
 
