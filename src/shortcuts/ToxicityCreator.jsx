@@ -59,7 +59,7 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEvent)) return "";
+        if (Lang.isNull(curToxicity.adverseEvent.adverseEvent)) return "";
         let adverseEventString = `${curToxicity.adverseEvent.adverseEvent}`;
         // If nothing is selected, this is the default placeholder
         if (Lang.isEmpty(curToxicity.adverseEvent.adverseEvent)){
@@ -139,8 +139,8 @@ class ToxicityCreator extends CreatorShortcut {
     }
     getAttributeValue(name) {
         if (name === "adverseEvent") {
-            if (!this.toxicity.adverseEvent) return "";
-            return this.toxicity.adverseEvent;
+            if (!this.toxicity.adverseEvent.adverseEvent) return "";
+            return this.toxicity.adverseEvent.adverseEvent;
         } else if (name === "grade") {
             if (!this.toxicity.adverseEvent.adverseEventGrade) return "";
             return this.toxicity.adverseEvent.adverseEventGrade;
@@ -154,8 +154,8 @@ class ToxicityCreator extends CreatorShortcut {
     }
     
     updatePatient(patient, contextManager) {
-        if (    !this.toxicity.adverseEvent ||
-                this.toxicity.adverseEvent.length === 0) return; // not complete value
+        if (    !this.toxicity.adverseEvent.adverseEvent ||
+                this.toxicity.adverseEvent.adverseEvent.length === 0) return; // not complete value
         //let condition = this.parentContext.getValueObject();
         if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);
