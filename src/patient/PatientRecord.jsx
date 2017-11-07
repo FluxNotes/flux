@@ -8,6 +8,7 @@ import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import Procedure from '../model/shr/procedure/Procedure';
 import Progression from '../model/shr/oncology/Progression';
+import Test from '../model/shr/lab/Test';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
 import TNMStage from '../model/shr/oncology/TNMStage';
 import Lang from 'lodash'
@@ -183,6 +184,10 @@ class PatientRecord {
         });
         return medications;
     }
+
+	getTestsForCondition(condition) {
+		return this.getObservationsForCondition(condition, Test);
+	}
 	
 	getProcedures() {
 		return this.getEntriesOfType(Procedure);

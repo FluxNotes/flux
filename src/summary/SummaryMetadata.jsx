@@ -11,60 +11,59 @@ class SummaryMetadata {
                 {
                     name: "Summary",
                     collections: [
-                        {
-                            name: "Identification",
-                            items: [
-                                {
-                                    name: "Family Name",
-                                    value: (patient, currentConditionEntry) => {
-                                        let name = patient.getName(patient);
-                                        let string = name.split(" ");
-                                        let familyName = string[1];
-                                        return familyName;
-                                    },
-                                    shortcut: "@name"
-                                },
-                                {
-                                    name: "Given Name",
-                                    value: (patient, currentConditionEntry) => {
-                                        let name = patient.getName(patient);
-                                        let string = name.split(" ");
-                                        let givenName = string[0];
-                                        return givenName;
-                                    },
-                                    shortcut: "@name"
-                                }
-                            ]
-                        },
-                        {
-                            name: "Address",
-                            items: [
-                                {
-                                    name: "Street",
-                                    value: (patient, currentConditionEntry) => {
-                                        return patient.getCurrentHomeAddress(patient)._addressLine[0]._string;
-                                    }
-                                },
-                                {
-                                    name: "City, state",
-                                    value: (patient, currentConditionEntry) => {
-                                        return (`${patient.getCurrentHomeAddress(patient)._city._string}, ${patient.getCurrentHomeAddress(patient)._state._string}`);
-                                    }
-                                },
-                                {
-                                    name: "Postal Code",
-                                    value: (patient, currentConditionEntry) => {
-                                        if (patient.getCurrentHomeAddress(patient)._postalCode) {
-                                            return patient.getCurrentHomeAddress(patient)._postalCode._string;
-                                        } else {
-                                            return patient.getCurrentHomeAddress(patient)._postalCode;
-                                        }
-
-                                    }
-                                },
-                            ]
-                        },
-
+                        // {
+                        //     name: "Identification",
+                        //     items: [
+                        //         {
+                        //             name: "Family Name",
+                        //             value: (patient, currentConditionEntry) => {
+                        //                 let name = patient.getName(patient);
+                        //                 let string = name.split(" ");
+                        //                 let familyName = string[1];
+                        //                 return familyName;
+                        //             },
+                        //             shortcut: "@name"
+                        //         },
+                        //         {
+                        //             name: "Given Name",
+                        //             value: (patient, currentConditionEntry) => {
+                        //                 let name = patient.getName(patient);
+                        //                 let string = name.split(" ");
+                        //                 let givenName = string[0];
+                        //                 return givenName;
+                        //             },
+                        //             shortcut: "@name"
+                        //         }
+                        //     ]
+                        // },
+                        // {
+                        //     name: "Address",
+                        //     items: [
+                        //         {
+                        //             name: "Street",
+                        //             value: (patient, currentConditionEntry) => {
+                        //                 return patient.getCurrentHomeAddress(patient).addressLine[0].value;
+                        //             }
+                        //         },
+                        //         {
+                        //             name: "City, state",
+                        //             value: (patient, currentConditionEntry) => {
+                        //                 return (`${patient.getCurrentHomeAddress(patient).city.value}, ${patient.getCurrentHomeAddress(patient).state.value}`);
+                        //             }
+                        //         },
+                        //         {
+                        //             name: "Postal Code",
+                        //             value: (patient, currentConditionEntry) => {
+                        //                 if (patient.getCurrentHomeAddress(patient)._postalCode) {
+                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value
+                        //                 } else {
+                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value;
+                        //                 }
+                        //
+                        //             }
+                        //         },
+                        //     ]
+                        // },
                         {
                             name: "Current Diagnosis",
                             items: [
@@ -111,8 +110,11 @@ class SummaryMetadata {
                                         }
                                     }
                                 }
-
                             ]
+                        },
+                        {
+                            name: "Recent Lab Results",
+                            itemsFunction: this.getItemListForLabResults
                         }
                     ]
                 },
@@ -376,6 +378,23 @@ class SummaryMetadata {
                 //console.log(p.occurrenceTime.value);
                 return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
             }
+
+
+        });
+    }
+
+    getItemListForLabResults(patient, currentConditionEntry) {
+        const labResults = patient.getTestsForCondition(currentConditionEntry);
+
+        return labResults.map((l, i) => {
+            const number = l.value.value.toString();
+            const unit = l.value.units.value.value.toString();
+            const value = `${number} ${unit}`;
+
+            return {
+                name: l.specificType.value.coding[0].displayText.value,
+                value: value
+            };
         });
     }
 }
