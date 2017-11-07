@@ -1,5 +1,6 @@
-import Patient from '../patient/Patient';
+import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
+import ShrObjectFactory from '../model/ShrObjectFactory';
 import Lang from 'lodash';
 
 export default class CreatorBase extends Shortcut {
@@ -8,8 +9,9 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            let createMethod = "createNew" + this.metadata["valueObject"];
-            this.object = Patient[createMethod]();
+            //let createMethod = "createNew" + this.metadata["valueObject"];
+            //this.object = PatientRecord[createMethod]();
+            this.object = ShrObjectFactory.createInstance(this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
             this.object = object;
@@ -171,8 +173,9 @@ export default class CreatorBase extends Shortcut {
     }
     
     _followPath(object, attributePath, startIndex) {
-        //console.log(object);
-        let i, attributeName, list;
+        console.log("_followPath");
+        console.log(object);
+        let i, attributeName, list, index, start, end;
         const len = attributePath.length;
         let result = object;
         
@@ -181,13 +184,23 @@ export default class CreatorBase extends Shortcut {
         for (i = startIndex; i < len; i++) {
             if (attributePath[i].endsWith("[]")) {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
-                //console.log("list attribute " + attributeName);
                 list = result[attributeName];
+                if (Lang.isUndefined(list)) return null;
                 return list.map(perItemFollowPath);
+            } else if (attributePath[i].endsWith("]")) {
+                start = attributePath[i].indexOf("[");
+                end = attributePath[i].indexOf("]", start);
+                attributeName = attributePath[i].substring(0, start);
+                index = attributePath[i].substring(start + 1, end);
+                list = result[attributeName];
+                result = list[index];
             } else {
                 //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
             }
+            console.log(attributePath[i]);
+            console.log(result);
+            if (Lang.isUndefined(result)) return null;
         }
         return result;
     }
@@ -219,9 +232,9 @@ export default class CreatorBase extends Shortcut {
             if (voa["type"] === "list" && !Lang.isArray(value)) {
                 let list = this.getAttributeValue(name);
                 list.push(value);
-                Patient[patientSetMethod](this.object, list);
+                PatientRecord[patientSetMethod](this.object, list);
             } else {
-                Patient[patientSetMethod](this.object, value);
+                PatientRecord[patientSetMethod](this.object, value);
             }
         }
         if (this.isContext()) this.updateContextStatus();
