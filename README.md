@@ -58,3 +58,11 @@ This command will determine your machine's OS and run all possible tests. When i
 
 - *Using Git Bash on Windows?* It may look like the test aren't working on your machine. Hit enter a second time after running your yarn test command. The specifics of why this happens are still unknown, but this should help when running your tests.
 
+
+## Using the REST API
+
+To use the REST API to retrieve application data, you need to clone the shr-node-server [repository](https://github.com/standardhealth/shr-node-server) and follow the instructions there to run the server.
+
+While the server is running, you can access a version of the Flux Application that uses the REST API by navigating to `/p2`.
+
+NOTE: The REST API is still in development and will continue to change. Processes for changing the API and its implementations are outlined in the respective repositories, which can be found at the Standard Health Record Collaborative GitHub project, [here](https://github.com/standardhealth).
