@@ -61,10 +61,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getTumorSizeString(curStaging) { 
         let tString;
-        if (curStaging.t_Stage.coding[0].displayText.length === 0) { 
+        if (curStaging.t_Stage.length === 0) { 
             tString = `?`;
         } else { 
-            tString = `${curStaging.t_Stage.coding[0].displayText}`
+            tString = `${curStaging.t_Stage}`
         }
         return tString;
     }
@@ -74,10 +74,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getNodeSizeString(curStaging) { 
         let nString;
-        if (curStaging.nStage.coding[0].displayText.length === 0) { 
+        if (curStaging.nStage.length === 0) { 
             nString = `?`;
         } else { 
-            nString = `${curStaging.nStage.coding[0].displayText}`
+            nString = `${curStaging.nStage}`
         }
         return nString;
     }
@@ -87,10 +87,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getMetastasisString(curStaging) { 
         let mString = ``;
-        if (curStaging.mStage.coding[0].displayText.length === 0) { 
+        if (curStaging.mStage.length === 0) { 
             mString = `?`;
         } else { 
-            mString = `${curStaging.mStage.coding[0].displayText}`
+            mString = `${curStaging.mStage}`
         }
         return mString;
     }
@@ -162,7 +162,6 @@ class StagingCreator extends CreatorShortcut {
 	   one
 	 */
 	updatePatient(patient, contextManager) {
-		//if (this.staging.value.coding[0].displayText.length === 0) return; // not complete value
         const t = this.getAttributeValue("T");
         const n = this.getAttributeValue("N");
         const m = this.getAttributeValue("M");
