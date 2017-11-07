@@ -1,19 +1,11 @@
 import IDataSource from './IDataSource';
 import PatientRecord from '../patient/PatientRecord';
-import PatientApi from 'patient_api'
+import PatientApi from 'shr_rest_client';
 
 class RestApiDataSource extends IDataSource {
     constructor() { 
         super();
-        this.api = new PatientApi.DefaultApi()
-
-        // this.callback = function(error, data, response) {
-        //   if (error) {
-        //     console.error(error);
-        //   } else {
-        //     console.log('API called successfully.');
-        //   }
-        // };
+        this.api = new PatientApi.DefaultApi();
     }
     getPatient(id) {
         // TODO: This should be used intead of the synchronous call below
