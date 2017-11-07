@@ -6,7 +6,7 @@ import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescr
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
-import Procedure from '../model/shr/procedure/Procedure';
+import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
 import FluxTNMStage from '../model/oncology/FluxTNMStage';
@@ -185,7 +185,7 @@ class PatientRecord {
     }
 	
 	getProcedures() {
-		return this.getEntriesOfType(Procedure);
+		return this.getEntriesOfType(FluxProcedure);
 	}
 	
 	getProceduresChronologicalOrder() {
@@ -196,7 +196,7 @@ class PatientRecord {
 	
 	getProceduresForCondition(condition) {
 		return this.entries.filter((item) => { 
-			return item instanceof Procedure && item.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
+			return item instanceof FluxProcedure && item.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 	
