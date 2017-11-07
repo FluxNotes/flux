@@ -16,11 +16,17 @@ class RestApiDataSource extends IDataSource {
         // };
     }
     getPatient(id) {
-        const callback = function(error, data, response) { 
-            console.log(response.text)
-            return new PatientRecord(response.text);
-        }
-        return this.api.getPatientById(id, callback);
+        // TODO: This should be used intead of the synchronous call below
+        // const callback = function(error, data, response) {
+        //     return new PatientRecord(response.text);
+        // }
+        // return this.api.getPatientById(id, callback);
+        
+        // Synchronous call
+        // TODO: javascript client generated code was changed to be synchronous. It should be changed back and
+        // the above async code should be used instead.
+        const patient = this.api.getPatientById(id);
+        return new PatientRecord(JSON.parse(patient));
     }
     getListOfPatients() {
         console.error("listing of patients is not implemented in restapidataSource.");
