@@ -382,9 +382,7 @@ class SummaryMetadata {
         const labResults = patient.getTestsForCondition(currentConditionEntry);
 
         return labResults.map((l, i) => {
-            const number = l.value.value.toString();
-            const unit = l.value.units.value.value.toString();
-            const value = `${number} ${unit}`;
+            const value = `${l.quantity.number} ${l.quantity.unit}`;
 
             return {
                 name: l.specificType.value.coding[0].displayText.value,
