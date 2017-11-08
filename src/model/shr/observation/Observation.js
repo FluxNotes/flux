@@ -1,6 +1,7 @@
 import Lang from 'lodash';
 import Action from '../base/Action';
 import CodeableConcept from '../core/CodeableConcept';
+import Quantity from '../core/Quantity';
 import Entry from '../base/Entry';
 import Status from '../base/Status';
 
@@ -14,7 +15,9 @@ class Observation extends Action {
                 if (json.value.coding) {
                     this._value = new CodeableConcept(json.value);
                 } else {
-                    //TODO: Quanity, Range, Ratio, TimePeriod
+                    //TODO: Quanity, Range, Ratio, TimePeriod. Check if it's a quantity vs. range vs. ratio vs. timeperoid.
+                    // Currently this just assumes that if it's not a codeable concept, it's a quantity
+                    this._value = new Quantity(json.value);
                 }
             } else {
                 //TODO

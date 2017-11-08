@@ -2,6 +2,7 @@ import ShrBaseObjectFactory from './ShrBaseObjectFactory';
 import ShrConditionObjectFactory from './ShrConditionObjectFactory';
 import ShrCoreObjectFactory from './ShrCoreObjectFactory';
 import ShrDemographicsObjectFactory from './ShrDemographicsObjectFactory';
+import ShrLabObjectFactory from './ShrLabObjectFactory';
 import ShrMedicationObjectFactory from './ShrMedicationObjectFactory';
 import ShrOncologyObjectFactory from './ShrOncologyObjectFactory';
 import ShrProcedureObjectFactory from './ShrProcedureObjectFactory';
@@ -23,6 +24,7 @@ const namespaceFactories = {
     "condition": ShrConditionObjectFactory,
     "core": ShrCoreObjectFactory,
     "demographics": ShrDemographicsObjectFactory,
+    "lab": ShrLabObjectFactory,
     "medication": ShrMedicationObjectFactory,
     "oncology": ShrOncologyObjectFactory,
     "procedure": ShrProcedureObjectFactory

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './DataSummaryTable.css';
@@ -8,27 +8,70 @@ import './DataSummaryTable.css';
  diagnosis-related, genetics-related, etc.
  */
 class DataSummaryTable extends Component {
-    getList() {
-        const { patient, condition, conditionSection } = this.props;
-        if (patient == null || condition == null || conditionSection == null) { return []; }
 
-        const items = conditionSection.items;
-        const itemsFunction = conditionSection.itemsFunction;
+    getCollections() {
+        const {patient, condition, conditionSection} = this.props;
+
+        if (patient == null || condition == null || conditionSection == null) {
+            return [];
+        }
+
+        let collections = [];
+        for (let i = 0; i < conditionSection.collections.length; i++) {
+            collections.push(conditionSection.collections[i]);
+        }
+        return collections;
+    }
+
+    getList(collection) {
+        const {patient, condition, conditionSection} = this.props;
+        if (patient == null || condition == null || conditionSection == null) {
+            return [];
+        }
+
+        const items = collection.items;
+        const itemsFunction = collection.itemsFunction;
 
         let list = null;
+
         if (Lang.isUndefined(items)) {
             list = itemsFunction(patient, condition);
         } else {
             list = items.map((item, i) => {
                 if (Lang.isNull(item.value)) {
-                    return { name: item.name, value: null };
+                    return {name: item.name, value: null};
                 } else {
-                    return { name: item.name, value: item.value(patient, condition), shortcut: item.shortcut };
+                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
                 }
             });
         }
 
         return list;
+    }
+
+    renderedCollections(collections) {
+        return collections.map((collection, index) => {
+            return this.renderedCollection(collection, index);
+        });
+    }
+
+    renderedCollection(collection, index) {
+        const list = this.getList(collection);
+        if (list.length <= 0) {
+            return <h2>None</h2>;
+        }
+        return (
+            <table key={index}>
+                <tbody>
+                <tr>
+                    <td className="collection-header">
+                        {collection.name}
+                    </td>
+                </tr>
+                {this.renderedListItems(list)}
+                </tbody>
+            </table>
+        );
     }
 
     renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass) {
@@ -74,16 +117,14 @@ class DataSummaryTable extends Component {
         });
     }
 
+    // Gets called for each section in SummaryMetaData.jsx
     render() {
-        const list = this.getList();
-        if (list.length <= 0) { return <h2>None</h2>; }
+        const collections = this.getCollections();
 
-		return (
-            <table>
-                <tbody>
-                    {this.renderedListItems(list)}
-                </tbody>
-            </table>
+        return (
+            <div>
+                {this.renderedCollections(collections)}
+            </div>
         );
     }
 }
