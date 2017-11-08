@@ -24,6 +24,12 @@ const newPatientOnlyDataAccess = new DataAccess("NewPatientOnlyDataSource");
 const newPatient = newPatientOnlyDataAccess.newPatient();
 const newPatientEntries = newPatient.entries;
 
+// Data Access with REST API
+const restApiDataAccess = new DataAccess("RestApiDataSource");
+const newPatientRest = restApiDataAccess.newPatient();
+const hardCodedPatientObjectRest = restApiDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+const hardCodedPatientPersonOfRecordRest = hardCodedPatientObjectRest.getPersonOfRecord();
+
 
 describe('create hard coded read only data source', function() {
     it('get demo patient should return the hard coded patient', function () { 
@@ -63,4 +69,23 @@ describe('create new patient only data source', function() {
         expect(newPatientOnlyDataAccess.savePatient(newPatient))
             .to.be.undefined
     });
+});
+
+describe('use rest api as data source', function() {
+    it('getPatient should return the hard coded patient', function() {
+        expect(hardCodedPatientPersonOfRecordRest)
+            .eql(referencePersonOfRecord);
+    });
+    it('getListOfPatients should return undefined', function() {
+        expect(restApiDataAccess.getListOfPatients())
+            .to.be.undefined;
+    });
+    it('new patient should return undefined', function() {
+        expect(newPatientRest)
+            .to.be.undefined;
+    });
+    it('savePatient should return undefined', function() {
+        expect(restApiDataAccess.savePatient(newPatientRest))
+            .to.be.undefined;
+    })
 });

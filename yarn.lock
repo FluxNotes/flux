@@ -6107,11 +6107,12 @@ shortid@^2.2.4, shortid@^2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.8.tgz#033b117d6a2e975804f6f0969dbe7d3d0b355131"
 
-shr_rest_client@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/shr_rest_client/-/shr_rest_client-0.0.2.tgz#fb04f51074db6deccc11b6cadb6b2aff3ebe3cd4"
+shr_rest_client@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/shr_rest_client/-/shr_rest_client-0.0.3.tgz#956df2c6604aaf3028c15332e5a48b263ec45d2e"
   dependencies:
     superagent "3.5.2"
+    xmlhttprequest "^1.8.0"
 
 signal-exit@^3.0.0:
   version "3.0.2"
@@ -7149,6 +7150,10 @@ xml-char-classes@^1.0.0:
 xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
+
+xmlhttprequest@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz#67fe075c5c24fef39f9d65f5f7b7fe75171968fc"
 
 xtend@^4.0.0, xtend@^4.0.1:
   version "4.0.1"
