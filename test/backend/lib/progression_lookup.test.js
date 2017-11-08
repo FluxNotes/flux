@@ -12,10 +12,10 @@ describe('getDescription', function () {
     });
 });
 
-describe('getValueCodeableConcept', function() {
+describe('getStatusCodeableConcept', function() {
     it('should return CodeableConcept object with empty strings when passed a value not in the list.', function() {
         const badValue = 'response';
-        const codeableConcept = lookup.getValueCodeableConcept(badValue);
+        const codeableConcept = lookup.getStatusCodeableConcept(badValue);
 
         expect(codeableConcept)
             .to.be.an('object');
@@ -36,7 +36,7 @@ describe('getValueCodeableConcept', function() {
     
     it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
         const goodValue = 'Complete Response';
-        const codeableConcept = lookup.getValueCodeableConcept(goodValue);
+        const codeableConcept = lookup.getStatusCodeableConcept(goodValue);
 
         expect(codeableConcept)
             .to.be.an('object');

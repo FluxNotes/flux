@@ -2,14 +2,14 @@ import ShrObjectFactory from '../model/ShrObjectFactory';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
-import MedicationPrescription from '../model/shr/medication/MedicationPrescription';
+import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
-import Procedure from '../model/shr/procedure/Procedure';
-import Progression from '../model/shr/oncology/Progression';
+import FluxProcedure from '../model/procedure/FluxProcedure';
+import FluxProgression from '../model/oncology/FluxProgression';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
-import TNMStage from '../model/shr/oncology/TNMStage';
+import FluxTNMStage from '../model/oncology/FluxTNMStage';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -167,7 +167,7 @@ class PatientRecord {
     }
 	
 	getMedications() {
-		return this.getEntriesOfType(MedicationPrescription);
+		return this.getEntriesOfType(FluxMedicationPrescription);
 	}
 	
 	getMedicationsChronologicalOrder() {
@@ -179,13 +179,13 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med instanceof MedicationPrescription && med.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
+            return med instanceof FluxMedicationPrescription && med.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
         });
         return medications;
     }
 	
 	getProcedures() {
-		return this.getEntriesOfType(Procedure);
+		return this.getEntriesOfType(FluxProcedure);
 	}
 	
 	getProceduresChronologicalOrder() {
@@ -196,7 +196,7 @@ class PatientRecord {
 	
 	getProceduresForCondition(condition) {
 		return this.entries.filter((item) => { 
-			return item instanceof Procedure && item.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
+			return item instanceof FluxProcedure && item.reason.some((r) => { return r.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 	
@@ -214,7 +214,7 @@ class PatientRecord {
 	}
 	
 	getMostRecentStagingForCondition(condition, sinceDate = null) {
-		let stagingList = this.getObservationsForCondition(condition, TNMStage);
+		let stagingList = this.getObservationsForCondition(condition, FluxTNMStage);
 		if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._observationTimeSorter);
         const length = sortedStagingList.length;
@@ -237,7 +237,7 @@ class PatientRecord {
 	}
 	
 	getProgressions() {
-		return this.getEntriesOfType(Progression);
+		return this.getEntriesOfType(FluxProgression);
 	}
 
     getProgressionsChronologicalOrder() {
@@ -248,7 +248,7 @@ class PatientRecord {
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => {
-			return item instanceof Progression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
+			return item instanceof FluxProgression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
 		});
 	}
 

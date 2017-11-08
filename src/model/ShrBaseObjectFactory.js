@@ -1,12 +1,12 @@
 import Entry from './shr/base/Entry';
 import PatientIdentifier from './shr/base/PatientIdentifier';
-import Study from './shr/base/Study';
+import FluxStudy from './base/FluxStudy';
 import Lang from 'lodash';
 
 export default class ShrBaseObjectFactory {
     static createInstance(elementName, entry) {
         const _elementsToClassNames = { 
-                                "Study": Study, 
+                                "Study": FluxStudy, 
                                 "Entry": Entry,
                                 "PatientIdentifier": PatientIdentifier
                               };

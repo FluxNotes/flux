@@ -1,7 +1,6 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import HistologicGrade from '../model/shr/oncology/HistologicGrade';
-import TimePeriod from '../model/shr/core/TimePeriod';
 import TumorSize from '../model/shr/oncology/TumorSize';
 
 class SummaryMetadata {
@@ -21,8 +20,8 @@ class SummaryMetadata {
                              name: "Stage",
                              value: (patient, currentConditionEntry) => {
                                 let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
-                                    return s.value.coding[0].displayText.value + " (" + s.t_Stage.value.coding[0].displayText.value + s.n_Stage.value.coding[0].displayText.value + s.m_Stage.value.coding[0].displayText.value + ")";
+                                if (s && s.staging && s.staging.length > 0) {
+                                    return s.staging + " (" + s.t_Stage + s.n_Stage + s.m_Stage + ")";
                                 } else {
                                     return null;
                                 }
@@ -41,7 +40,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.value.coding[0].displayText.value;
+                                    return p.status;
                                 }
                             }
                         },
@@ -63,9 +62,7 @@ class SummaryMetadata {
                                 if (Lang.isNull(p)) {
                                     return null;
                                 } else {
-                                    return p.evidence.map(function(ev){
-                                        return ev.value.coding[0].displayText.value;
-                                    }).join();
+                                    return p.evidence.join();
                                 }
                             }
                         }
@@ -214,14 +211,10 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            //console.log(p.specificType.value.coding[0].displayText.value);
-            if (p.occurrenceTime.value instanceof TimePeriod) {
-                //console.log(p.occurrenceTime.value.timePeriodStart.value);
-                //console.log(p.occurrenceTime.value.timePeriodEnd.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
+            if (typeof p.occurrenceTime !== 'string') {
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
             } else {
-                //console.log(p.occurrenceTime.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime };
             }
         });
     }

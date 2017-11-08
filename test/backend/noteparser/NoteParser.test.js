@@ -1,8 +1,8 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import Progression from '../../../src/model/shr/oncology/Progression';
-import TNMStage from '../../../src/model/shr/oncology/TNMStage';
-import ToxicReactionToTreatment from '../../../src/model/shr/oncology/ToxicReactionToTreatment';
-import Deceased from '../../../src/model/shr/actor/Deceased';
+import FluxProgression from '../../../src/model/oncology/FluxProgression';
+import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
+import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
+import FluxDeceased from '../../../src/model/actor/FluxDeceased';
 import Study from '../../../src/model/shr/base/Study';
 import moment from 'moment';
 import {expect} from 'chai';
@@ -27,14 +27,18 @@ const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[
-    new TNMStage({ 
+    new FluxTNMStage({ 
         entryType: [ 
             'http://standardhealthrecord.org/oncology/TNMStage',
             'http://standardhealthrecord.org/observation/Observation',
             'http://standardhealthrecord.org/base/Action' 
         ],
         value: { 
-            coding: [{}]
+            coding: [{
+                value: '',
+                codeSystem: { value: ''},
+                displayText: ''
+            }]
         },
         specificType: {
             value: { 
@@ -73,7 +77,7 @@ const expectedOutputStaging = [[
     })
 ], []];
 const expectedOutputDiseaseStatus = [[
-    new Progression({
+    new FluxProgression({
         entryType: [ 
             'http://standardhealthrecord.org/oncology/Progression',
             'http://standardhealthrecord.org/assessment/Assessment',
@@ -114,7 +118,7 @@ const expectedOutputDiseaseStatus = [[
     })
 ], []];
 const expectedOutputDiseaseStatus2 = [[
-    new Progression({
+    new FluxProgression({
         entryType: [ 
             'http://standardhealthrecord.org/oncology/Progression',
             'http://standardhealthrecord.org/assessment/Assessment',
@@ -155,7 +159,7 @@ const expectedOutputDiseaseStatus2 = [[
     })
 ], []];
 const expectedOutputToxicity = [[
-    new ToxicReactionToTreatment({ 
+    new FluxToxicReactionToTreatment({ 
         entryType: [
             'http://standardhealthrecord.org/oncology/ToxicReactionToTreatment',
             'http://standardhealthrecord.org/adverse/AdverseReaction'
@@ -197,7 +201,7 @@ const expectedOutputToxicity = [[
     })
 ], []];
 const expectedOutputDeceased = [[
-    new Deceased({
+    new FluxDeceased({
         entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
         value: true,
         dateOfDeath: '1 Oct 2017'

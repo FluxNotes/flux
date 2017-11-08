@@ -234,11 +234,11 @@ const stageOptions = [
 ];
 
 /*
- *  Searches for value in stageOptions in list
+ *  Searches for stage in stageOptions in list
  *  Will return CodeableConcept object with empty strings if not found
- *  If value found in list, function will return CodeableConcept with value, codeSystem, and displayText  
+ *  If stage found in list, function will return CodeableConcept with value, codeSystem, and displayText  
  */
-exports.getValueCodeableConcept = (possibleStage) => {
+exports.getStagingCodeableConcept = (possibleStage) => {
     return codeableConceptUtils.getCodeableConceptFromOptions(possibleStage, stageOptions);
 }
 
