@@ -8,8 +8,6 @@ class Study {
             this._entryInfo = new Entry(json);
             this._title = json.title ? json.title : '';
             if (json.identifier) this._identifier = new Identifier(json.identifier);
-            this._enrollmentDate = json.enrollmentDate;
-            this._endDate = json.endDate;
         } else {
             this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/base/Study");            
         }        
