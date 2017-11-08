@@ -1,7 +1,7 @@
 import BreastCancer from './shr/oncology/BreastCancer';
 import BreastCancerReceptorStatus from './shr/oncology/BreastCancerReceptorStatus';
 import EstrogenReceptorStatus from './shr/oncology/EstrogenReceptorStatus';
-import HistologicGrade from './shr/oncology/HistologicGrade';
+import FluxHistologicGrade from './oncology/FluxHistologicGrade';
 import FluxTNMStage from './oncology/FluxTNMStage';
 import T_Stage from './shr/oncology/T_Stage';
 import N_Stage from './shr/oncology/N_Stage';
@@ -9,7 +9,7 @@ import M_Stage from './shr/oncology/M_Stage';
 import FluxProgression from './oncology/FluxProgression';
 import ProgesteroneReceptorStatus from './shr/oncology/ProgesteroneReceptorStatus';
 import FluxToxicReactionToTreatment from './oncology/FluxToxicReactionToTreatment';
-import TumorSize from './shr/oncology/TumorSize';
+import FluxTumorSize from './oncology/FluxTumorSize';
 import Lang from 'lodash';
 
 export default class ShrOncologyObjectFactory {
@@ -18,7 +18,7 @@ export default class ShrOncologyObjectFactory {
                                 "BreastCancer": BreastCancer,
                                 "BreastCancerReceptorStatus": BreastCancerReceptorStatus,
                                 "EstrogenReceptorStatus": EstrogenReceptorStatus,
-                                "HistologicGrade": HistologicGrade,
+                                "HistologicGrade": FluxHistologicGrade,
                                 "TNMStage": FluxTNMStage,
                                 "T_Stage": T_Stage,
                                 "N_Stage": N_Stage,
@@ -26,7 +26,7 @@ export default class ShrOncologyObjectFactory {
                                 "Progression": FluxProgression,
                                 "ProgesteroneReceptorStatus": ProgesteroneReceptorStatus,
                                 "ToxicReactionToTreatment": FluxToxicReactionToTreatment,
-                                "TumorSize" : TumorSize
+                                "TumorSize" : FluxTumorSize
                               };
 
         let constructorName = _elementsToClassNames[elementName];

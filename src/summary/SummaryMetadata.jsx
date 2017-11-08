@@ -1,7 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
-import HistologicGrade from '../model/shr/oncology/HistologicGrade';
-import TumorSize from '../model/shr/oncology/TumorSize';
+import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
+import FluxTumorSize from '../model/oncology/FluxTumorSize';
 
 class SummaryMetadata {
     hardCodedMetadata = {
@@ -237,8 +237,8 @@ class SummaryMetadata {
                                 {
                                     name: "Size",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, TumorSize);
-                                        return list[0].value.value + " " + list[0].value.units.value.value;
+                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxTumorSize);
+                                        return list[0].quantity.value + " " + list[0].quantity.unit;
                                     }
                                 },
                                 {
@@ -248,8 +248,8 @@ class SummaryMetadata {
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, HistologicGrade);
-                                        return list[0].value.coding[0].displayText.value;
+                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxHistologicGrade);
+                                        return list[0].grade;
                                     }
                                 },
                                 {
