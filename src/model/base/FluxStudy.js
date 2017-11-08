@@ -10,6 +10,9 @@ class FluxStudy extends Study {
             let title = new Title();
             title.value = json.title ? json.title : '';
             this._title = title;
+            let identifier = new Identifier();
+            identifier.value = json.identifier ? json.identifier : '';
+            this._identifier = identifier;
             this._enrollmentDate = json.enrollmentDate;
             this._endDate = json.endDate;
         }
