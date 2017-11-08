@@ -37,7 +37,7 @@ class DataSummaryPanel extends Component {
     renderedTabSections() {
 
         // This variable indicates if the panel is to display data in a single column or not
-        let isSingleColumn = this.props.isSingleColumn;
+        let isSingleColumn = !this.props.isWide;
 
         const {patient, condition, onItemClicked, allowItemClick} = this.props;
         const conditionMetadata = this.getConditionMetadata();

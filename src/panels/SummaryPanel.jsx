@@ -12,7 +12,7 @@ class SummaryPanel extends Component {
                     Condition Summary
                 </h1>
                 <DataSummaryPanel
-                    isSingleColumn={this.props.isSingleColumn}
+                    isWide={this.props.isWide}
                     patient={this.props.appState.patient}
                     condition={this.props.appState.condition}
                     summaryMetadata={this.props.appState.summaryMetadata}

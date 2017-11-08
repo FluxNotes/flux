@@ -10,7 +10,6 @@ class PreEncounterView extends Component {
                 <Row center="xs">
                     <Col sm={12} className="full-panel">
                         <SummaryPanel
-                            isSingleColumn={false}
                             isWide={true} 
                             {...this.props}
                         />
