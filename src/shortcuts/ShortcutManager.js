@@ -175,7 +175,7 @@ class ShortcutManager {
             console.log(voa);
             value = context.getAttributeValue(parentAttribute);
             console.log(value);
-            isSettable = !Lang.isUndefined(voa.patientSetMethod);
+            isSettable = Lang.isUndefined(voa.isSettable) ? false : voa.isSettable;
             if (isSettable) { // if is settable and not set, then we want to include the shortcut
                 if (value === null) return true;
                 if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;

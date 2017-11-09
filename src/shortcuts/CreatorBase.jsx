@@ -61,7 +61,7 @@ export default class CreatorBase extends Shortcut {
         let result = false;
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
-            isSettable = !Lang.isUndefined(voa.patientSetMethod);
+            isSettable = Lang.isUndefined(voa.isSettable) ? false : voa.isSettable;
             if (isSettable) {
                 if (Lang.isNull(value)) {
                     result = true;
