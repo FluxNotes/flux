@@ -2,8 +2,8 @@
 class CodeSystem {
     constructor(json) {
         if (json) {
-            if (json.value) this.uri = json.value;
-            if (json.value) this._uri = json.value;
+            this.uri = json.value ? json.value : '';
+            this._uri = this.uri;
         }
     }
 

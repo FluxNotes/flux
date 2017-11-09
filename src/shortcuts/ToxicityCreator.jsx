@@ -1,32 +1,18 @@
 //import React from 'react';
 import CreatorShortcut from './CreatorShortcut';
-import AdverseEvent from '../model/shr/adverse/AdverseEvent';
-import AdverseEventGrade from '../model/shr/adverse/AdverseEventGrade';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
-import CauseCategory from '../model/shr/adverse/CauseCategory';
-import CodeableConcept from '../model/shr/core/CodeableConcept';
 import ToxicityAdverseEventCreator from './ToxicityAdverseEventCreator';
 import ToxicityAttributionCreator from './ToxicityAttributionCreator';
 import ToxicityGradeCreator from './ToxicityGradeCreator';
-import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
+import FluxToxicReactionToTreatment from '../model//oncology/FluxToxicReactionToTreatment';
 import lookup from '../lib/toxicreactiontotreatment_lookup';
 import Lang from 'lodash';
-// import moment from 'moment';
 
 class ToxicityCreator extends CreatorShortcut {
     constructor(onUpdate, toxicity) {
         super();
         if (Lang.isUndefined(toxicity)) {
-            //const today = new moment().format("D MMM YYYY");
-            this.toxicity = new ToxicReactionToTreatment();
-            this.toxicity.adverseEvent = new AdverseEvent();
-            this.toxicity.adverseEvent.value = new CodeableConcept();
-            this.toxicity.adverseEvent.adverseEventGrade = new AdverseEventGrade();
-            this.toxicity.adverseEvent.adverseEventGrade.value = new CodeableConcept();
-            this.toxicity.adverseEvent.causeCategory = new CauseCategory();
-            this.toxicity.adverseEvent.causeCategory.value = new CodeableConcept();
-            // this.toxicity.originalCreationDate = today;
-            // this.toxicity.lastUpdateDate = today;
+            this.toxicity = new FluxToxicReactionToTreatment();
             this.isToxicityNew = true;
         } else {
             this.toxicity = toxicity;
@@ -60,10 +46,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value)) return "";
-        let gradeString = `${curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value}`;
+        if (Lang.isNull(curToxicity.adverseEventGrade)) return "";
+        let gradeString = `${curToxicity.adverseEventGrade}`;
         // If nothing is selected yet, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText)) {
+        if (Lang.isEmpty(curToxicity.adverseEventGrade)) {
             gradeString = 'Grade ?'
         }
         return gradeString;
@@ -73,10 +59,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEvent.value.coding)) return "";
-        let adverseEventString = `${curToxicity.adverseEvent.value.coding[0].displayText.value}`;
+        if (Lang.isNull(curToxicity.adverseEvent)) return "";
+        let adverseEventString = `${curToxicity.adverseEvent}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.value.coding[0].displayText.value)){
+        if (Lang.isEmpty(curToxicity.adverseEvent)){
             adverseEventString = '?';
         }
         return adverseEventString;
@@ -86,10 +72,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get attribution string for given toxicity
      */
     getAttributionString = (curToxicity) => {
-        if(Lang.isNull(curToxicity.adverseEvent.causeCategory.value.coding)) return "";
-        let attributionString = `${curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value}`;
+        if(Lang.isNull(curToxicity.causeCategory)) return "";
+        let attributionString = `${curToxicity.causeCategory}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.causeCategory.value.coding[0].displayText.value)){
+        if (Lang.isEmpty(curToxicity.causeCategory)){
             attributionString = '?';
         }
         return attributionString;
@@ -136,11 +122,11 @@ class ToxicityCreator extends CreatorShortcut {
 
     setAttributeValue(name, value, publishChanges) {
         if (name === "adverseEvent") {
-            this.toxicity.adverseEvent.value = lookup.getAdverseEventCodeableConcept(value);
+            this.toxicity.adverseEvent = value;
         } else if (name === "grade") {
-            this.toxicity.adverseEvent.adverseEventGrade.value = lookup.getAdverseEventGradeCodeableConcept(value);
+            this.toxicity.adverseEventGrade = value;
         } else if (name === "attribution") {
-            this.toxicity.adverseEvent.causeCategory.value = lookup.getAttributionCodeableConcept(value);
+            this.toxicity.causeCategory = value;
         } else {
             console.error("Error: Unexpected value selected for toxicity: " + name);
             return;
@@ -153,14 +139,14 @@ class ToxicityCreator extends CreatorShortcut {
     }
     getAttributeValue(name) {
         if (name === "adverseEvent") {
-            if (!this.toxicity.adverseEvent.value.coding[0].displayText.value) return "";
-            return this.toxicity.adverseEvent.value.coding[0].displayText.value;
+            if (!this.toxicity.adverseEvent) return "";
+            return this.toxicity.adverseEvent;
         } else if (name === "grade") {
-            if (!this.toxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value) return "";
-            return this.toxicity.adverseEvent.adverseEventGrade.value.coding[0].displayText.value;
+            if (!this.toxicity.adverseEventGrade) return "";
+            return this.toxicity.adverseEventGrade;
         } else if (name === "attribution") {
-            if (!this.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value) return "";
-            return this.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value;
+            if (!this.toxicity.causeCategory) return "";
+            return this.toxicity.causeCategory;
         } else {
             console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
             return null;
@@ -168,8 +154,8 @@ class ToxicityCreator extends CreatorShortcut {
     }
     
     updatePatient(patient, contextManager) {
-        if (    !this.toxicity.adverseEvent.value.coding[0].displayText.value ||
-                this.toxicity.adverseEvent.value.coding[0].displayText.value.length === 0) return; // not complete value
+        if (    !this.toxicity.adverseEvent ||
+                this.toxicity.adverseEvent.length === 0) return; // not complete value
         //let condition = this.parentContext.getValueObject();
         if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);

@@ -8,14 +8,7 @@ import Lang from 'lodash';
 import moment from 'moment';
 import lookup from '../lib/tnmstage_lookup';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
-import CodeableConcept from '../model/shr/core/CodeableConcept';
-import OccurrenceTime from '../model/shr/core/OccurrenceTime';
-import SpecificType from '../model/shr/core/SpecificType';
-import Status from '../model/shr/base/Status';
-import TNMStage from '../model/shr/oncology/TNMStage';
-import T_Stage from '../model/shr/oncology/T_Stage';
-import N_Stage from '../model/shr/oncology/N_Stage';
-import M_Stage from '../model/shr/oncology/M_Stage';
+import FluxTNMStage from '../model/oncology/FluxTNMStage';
 import staging from '../lib/staging.jsx';
 
 class StagingCreator extends CreatorShortcut {
@@ -26,19 +19,13 @@ class StagingCreator extends CreatorShortcut {
         super();
         if (Lang.isUndefined(staging)) { 
             const today = new moment().format("D MMM YYYY");
-            this.staging = new TNMStage();
-            this.staging.value = new CodeableConcept();
-            this.staging.specificType = new SpecificType({"value":{"coding": [{"value": "21908-9", "codeSystem": {value: "http://loinc.org"}, "displayText": "Stage"}]}});
-            this.staging.status = new Status();
-            this.staging.status.value = "unknown";
-            this.staging.occurrenceTime = new OccurrenceTime();
-            this.staging.occurrenceTime.value = today;
-            this.staging.t_Stage = new T_Stage();
-            this.staging.t_Stage.value = null;
-            this.staging.n_Stage = new N_Stage();
-            this.staging.n_Stage.value = null;
-            this.staging.m_Stage = new M_Stage();
-            this.staging.m_Stage.value = null;
+            this.staging = new FluxTNMStage();
+            this.staging.staging = '';
+            this.staging.status = "unknown";
+            this.staging.occurrenceTime = today;
+            this.staging.t_Stage = '';
+            this.staging.n_Stage = '';
+            this.staging.m_Stage = '';
 			this.isStagingNew = true;
         } else {
 			this.staging = staging; //Lang.clone(staging);
@@ -74,10 +61,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getTumorSizeString(curStaging) { 
         let tString;
-        if (curStaging.t_Stage.coding[0].displayText.length === 0) { 
+        if (curStaging.t_Stage.length === 0) { 
             tString = `?`;
         } else { 
-            tString = `${curStaging.t_Stage.coding[0].displayText}`
+            tString = `${curStaging.t_Stage}`
         }
         return tString;
     }
@@ -87,10 +74,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getNodeSizeString(curStaging) { 
         let nString;
-        if (curStaging.nStage.coding[0].displayText.length === 0) { 
+        if (curStaging.nStage.length === 0) { 
             nString = `?`;
         } else { 
-            nString = `${curStaging.nStage.coding[0].displayText}`
+            nString = `${curStaging.nStage}`
         }
         return nString;
     }
@@ -100,10 +87,10 @@ class StagingCreator extends CreatorShortcut {
      */
     getMetastasisString(curStaging) { 
         let mString = ``;
-        if (curStaging.mStage.coding[0].displayText.length === 0) { 
+        if (curStaging.mStage.length === 0) { 
             mString = `?`;
         } else { 
-            mString = `${curStaging.mStage.coding[0].displayText}`
+            mString = `${curStaging.mStage}`
         }
         return mString;
     }
@@ -135,11 +122,11 @@ class StagingCreator extends CreatorShortcut {
 
 	setAttributeValue(name, value, publishChanges = true) {
 		if (name === "T") {
-            this.staging.t_Stage.value = lookup.getTStageCodeableConcept(value);
+            this.staging.t_Stage = value;
 		} else if (name === "N") {
-            this.staging.n_Stage.value = lookup.getNStageCodeableConcept(value);
+            this.staging.n_Stage = value;
 		} else if (name === "M") {
-            this.staging.m_Stage.value = lookup.getMStageCodeableConcept(value);
+            this.staging.m_Stage = value;
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return;
@@ -153,16 +140,16 @@ class StagingCreator extends CreatorShortcut {
 
 	getAttributeValue(name) {
 		if (name === "T") {
-			if (!this.staging.t_Stage.value) return "";
-            return this.staging.t_Stage.value.coding[0].displayText.value;
+			if (!this.staging.t_Stage) return "";
+            return this.staging.t_Stage;
 		} else if (name === "N") {
-			if (!this.staging.n_Stage.value) return "";
-			return this.staging.n_Stage.value.coding[0].displayText.value;
+			if (!this.staging.n_Stage) return "";
+			return this.staging.n_Stage;
 		} else if (name === "M") {
-			if (!this.staging.m_Stage.value) return "";
-			return this.staging.m_Stage.value.coding[0].displayText.value;
+			if (!this.staging.m_Stage) return "";
+			return this.staging.m_Stage;
 		} else if (name === "stage") {
-			return this.staging.value.coding[0].displayText.value;
+			return this.staging.staging;
 		} else {
 			console.error("Error: Unexpected value selected in staging dropdown: " + name);
 			return null;
@@ -175,18 +162,17 @@ class StagingCreator extends CreatorShortcut {
 	   one
 	 */
 	updatePatient(patient, contextManager) {
-		//if (this.staging.value.coding[0].displayText.length === 0) return; // not complete value
         const t = this.getAttributeValue("T");
         const n = this.getAttributeValue("N");
         const m = this.getAttributeValue("M");
         if (t.length === 0 || n.length === 0 || m.length === 0) {
-            if(!Lang.isNull(this.staging.value.coding[0].displayText)) {
-                this.staging.value = new CodeableConcept();
+            if(!Lang.isNull(this.staging.staging)) {
+                this.staging.staging = '';
             }
             return; // not complete value
         }
         const stage = staging.breastCancerPrognosticStage(t, n, m);
-        this.staging.value = lookup.getValueCodeableConcept(stage);
+        this.staging.staging = stage;
 		let condition = this.parentContext.getValueObject();
 		if (this.isStagingNew) {
             condition.observation.push(this.staging);
@@ -212,8 +198,8 @@ class StagingCreator extends CreatorShortcut {
 		if (this.getAttributeValue("T").length === 0) result.push(StagingTCreator);
 		if (this.getAttributeValue("N").length === 0) result.push(StagingNCreator);
 		if (this.getAttributeValue("M").length === 0) result.push(StagingMCreator);
-		if (this.staging.value.coding[0].displayText.value && 
-            this.staging.value.coding[0].displayText.value.length > 0) result.push(StageInserter);
+		if (this.staging.staging && 
+            this.staging.staging.length > 0) result.push(StageInserter);
 		return result;
 	}
 

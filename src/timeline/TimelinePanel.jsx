@@ -197,11 +197,11 @@ class TimelinePanel extends Component {
     let items = [];
 
     meds.forEach((med, i) => {
-	  const startTime = new moment(med.requestedPerformanceTime.value.timePeriodStart.value, "D MMM YYYY");
-	  const endTime = new moment(med.requestedPerformanceTime.value.timePeriodEnd.value, "D MMM YYYY");
+	  const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+	  const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
       const assignedGroup = this._assignItemToGroup(items, startTime, 1);
-	  const name = med.medication.value.value.coding[0].displayText.value.value;
-	  const dosage = med.dosage.amountPerDose.value.value + " " + med.dosage.amountPerDose.value.units.coding.coding[0].value + " " + med.dosage.timingOfDoses.value + " " + med.dosage.timingOfDoses.units;
+	  const name = med.medication;
+	  const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
       items.push({
         group: assignedGroup,
         title: name,
@@ -220,8 +220,8 @@ class TimelinePanel extends Component {
     let items = [];
 
     events.forEach((proc, i) => {
-	  let startTime = new moment(proc.occurrenceTime.value.timePeriodStart ? proc.occurrenceTime.value.timePeriodStart.value : proc.occurrenceTime.value, "D MMM YYYY");
-	  let endTime = proc.occurrenceTime.value.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.value.timePeriodEnd) ? new moment(proc.occurrenceTime.value.timePeriodEnd.value, "D MMM YYYY") : null) : null;
+	  let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
+	  let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
       const assignedGroup = this._assignItemToGroup(items, startTime, groupStartIndex);
 
       let classes = 'event-item';
@@ -306,7 +306,7 @@ class TimelinePanel extends Component {
           let focalCondition = patient.getFocalConditionForProgression(prog);
           let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
           
-          let hoverTitle = focalConditionName + " is " + prog.value.coding[0].displayText.value + " based on " + prog.evidence.map(function(ev){ return ev.value.coding[0].displayText.value; }).join();;
+          let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
 
           items.push({
               group: assignedGroup,
