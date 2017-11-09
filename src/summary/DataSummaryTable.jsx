@@ -58,7 +58,7 @@ class DataSummaryTable extends Component {
     renderedCollection(collection, index) {
         const list = this.getList(collection);
         if (list.length <= 0) {
-            return <h2>None</h2>;
+            return <h2 key={index}>None</h2>;
         }
         return (
             <table key={index}>
