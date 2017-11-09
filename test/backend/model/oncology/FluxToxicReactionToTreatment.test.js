@@ -1,15 +1,15 @@
-import FluxAdverseEvent from '../../../../src/model/adverse/FluxAdverseEvent';
+import FluxToxicReactionToTreatment from '../../../../src/model/oncology/FluxToxicReactionToTreatment';
 import {expect} from 'chai';
 import util from 'util';
 
-let adverseEvent = new FluxAdverseEvent();
-adverseEvent.adverseEvent = 'Anemia';
-adverseEvent.adverseEventGrade = 'grade 1';
-adverseEvent.causeCategory = 'treatment';
+let toxicReaction = new FluxToxicReactionToTreatment();
+toxicReaction.adverseEvent = 'Anemia';
+toxicReaction.adverseEventGrade = 'grade 1';
+toxicReaction.causeCategory = 'treatment';
 
 describe('getAdverseEvent()', function() { 
     it('should return "Anemia"', function() { 
-        expect(adverseEvent.adverseEvent)
+        expect(toxicReaction.adverseEvent)
             .to.be.a('string')
             .eql('Anemia');
     });
@@ -17,8 +17,8 @@ describe('getAdverseEvent()', function() {
 
 describe('setAdverseEvent()', function() {
     it('should set adverseEvent to "Bone marrow hypocellular"', function() {
-        adverseEvent.adverseEvent = 'Bone Marrow Hypocellular';
-        expect(adverseEvent.adverseEvent)
+        toxicReaction.adverseEvent = 'Bone Marrow Hypocellular';
+        expect(toxicReaction.adverseEvent)
             .to.be.a('string')
             .eql('Bone marrow hypocellular');
     });
@@ -26,7 +26,7 @@ describe('setAdverseEvent()', function() {
 
 describe('getAdverseEventGrade()', function() {
     it('should return "Grade 1"', function() {
-        expect(adverseEvent.adverseEventGrade)
+        expect(toxicReaction.adverseEventGrade)
             .to.be.an('string')
             .eql('Grade 1');
     });
@@ -34,8 +34,8 @@ describe('getAdverseEventGrade()', function() {
 
 describe('setAdverseEventGrade()', function() {
     it('should set adverseEventGrade to "Grade 5"', function() {
-        adverseEvent.adverseEventGrade = 'grade 5';
-        expect(adverseEvent.adverseEventGrade)
+        toxicReaction.adverseEventGrade = 'grade 5';
+        expect(toxicReaction.adverseEventGrade)
             .to.be.an('string')
             .eql('Grade 5');
     });
@@ -43,7 +43,7 @@ describe('setAdverseEventGrade()', function() {
 
 describe('getCauseCategory()', function() {
     it('should return "Treatment"', function() {
-        expect(adverseEvent.causeCategory)
+        expect(toxicReaction.causeCategory)
             .to.be.an('string')
             .eql('Treatment');
     });
@@ -51,8 +51,8 @@ describe('getCauseCategory()', function() {
 
 describe('setCauseCategory()', function() {
     it('should set causeCategory to "Unknown"', function() {
-        adverseEvent.causeCategory = 'unknown';
-        expect(adverseEvent.causeCategory)
+        toxicReaction.causeCategory = 'unknown';
+        expect(toxicReaction.causeCategory)
             .to.be.an('string')
             .eql('Unknown');
     });

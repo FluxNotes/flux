@@ -46,10 +46,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get grade string for given toxicity
      */
     getGradeString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEvent.adverseEventGrade)) return "";
-        let gradeString = `${curToxicity.adverseEvent.adverseEventGrade}`;
+        if (Lang.isNull(curToxicity.adverseEventGrade)) return "";
+        let gradeString = `${curToxicity.adverseEventGrade}`;
         // If nothing is selected yet, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.adverseEventGrade)) {
+        if (Lang.isEmpty(curToxicity.adverseEventGrade)) {
             gradeString = 'Grade ?'
         }
         return gradeString;
@@ -59,10 +59,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get adverse event string string for given toxicity
      */
     getAdverseEventString = (curToxicity) => { 
-        if (Lang.isNull(curToxicity.adverseEvent.adverseEvent)) return "";
-        let adverseEventString = `${curToxicity.adverseEvent.adverseEvent}`;
+        if (Lang.isNull(curToxicity.adverseEvent)) return "";
+        let adverseEventString = `${curToxicity.adverseEvent}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.adverseEvent)){
+        if (Lang.isEmpty(curToxicity.adverseEvent)){
             adverseEventString = '?';
         }
         return adverseEventString;
@@ -72,10 +72,10 @@ class ToxicityCreator extends CreatorShortcut {
      * Get attribution string for given toxicity
      */
     getAttributionString = (curToxicity) => {
-        if(Lang.isNull(curToxicity.adverseEvent.causeCategory)) return "";
-        let attributionString = `${curToxicity.adverseEvent.causeCategory}`;
+        if(Lang.isNull(curToxicity.causeCategory)) return "";
+        let attributionString = `${curToxicity.causeCategory}`;
         // If nothing is selected, this is the default placeholder
-        if (Lang.isEmpty(curToxicity.adverseEvent.causeCategory)){
+        if (Lang.isEmpty(curToxicity.causeCategory)){
             attributionString = '?';
         }
         return attributionString;
@@ -122,11 +122,11 @@ class ToxicityCreator extends CreatorShortcut {
 
     setAttributeValue(name, value, publishChanges) {
         if (name === "adverseEvent") {
-            this.toxicity.adverseEvent.adverseEvent = value;
+            this.toxicity.adverseEvent = value;
         } else if (name === "grade") {
-            this.toxicity.adverseEvent.adverseEventGrade = value;
+            this.toxicity.adverseEventGrade = value;
         } else if (name === "attribution") {
-            this.toxicity.adverseEvent.causeCategory = value;
+            this.toxicity.causeCategory = value;
         } else {
             console.error("Error: Unexpected value selected for toxicity: " + name);
             return;
@@ -139,14 +139,14 @@ class ToxicityCreator extends CreatorShortcut {
     }
     getAttributeValue(name) {
         if (name === "adverseEvent") {
-            if (!this.toxicity.adverseEvent.adverseEvent) return "";
-            return this.toxicity.adverseEvent.adverseEvent;
+            if (!this.toxicity.adverseEvent) return "";
+            return this.toxicity.adverseEvent;
         } else if (name === "grade") {
-            if (!this.toxicity.adverseEvent.adverseEventGrade) return "";
-            return this.toxicity.adverseEvent.adverseEventGrade;
+            if (!this.toxicity.adverseEventGrade) return "";
+            return this.toxicity.adverseEventGrade;
         } else if (name === "attribution") {
-            if (!this.toxicity.adverseEvent.causeCategory) return "";
-            return this.toxicity.adverseEvent.causeCategory;
+            if (!this.toxicity.causeCategory) return "";
+            return this.toxicity.causeCategory;
         } else {
             console.error("Error: Unexpected value selected in toxicity dropdown: " + name);
             return null;
@@ -154,8 +154,8 @@ class ToxicityCreator extends CreatorShortcut {
     }
     
     updatePatient(patient, contextManager) {
-        if (    !this.toxicity.adverseEvent.adverseEvent ||
-                this.toxicity.adverseEvent.adverseEvent.length === 0) return; // not complete value
+        if (    !this.toxicity.adverseEvent ||
+                this.toxicity.adverseEvent.length === 0) return; // not complete value
         //let condition = this.parentContext.getValueObject();
         if (this.isToxicityNew) {
             //this.toxicity.focalCondition = Patient.createEntryReferenceTo(condition);

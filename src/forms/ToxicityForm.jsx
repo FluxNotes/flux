@@ -51,7 +51,7 @@ class ToxicityForm extends Component {
      */
     currentlySelectedAttribution = (attribution) => {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.toxicity.adverseEvent.causeCategory===attribution.name ? 'button_selected' : '';
+        return this.props.toxicity.causeCategory === attribution.name ? 'button_selected' : '';
     }
     
     /*
@@ -85,7 +85,7 @@ class ToxicityForm extends Component {
             this.props.updateValue("adverseEvent", titlecase(newAdverseEvent));
         }
         // Make sure grade is possible with given new tox
-        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.toxicity.adverseEvent.adverseEventGrade, newAdverseEvent)) {
+        if (!toxicityLookup.isValidGradeForAdverseEvent(this.props.toxicity.adverseEventGrade, newAdverseEvent)) {
             this.props.updateValue("grade", null);
         }
     }
@@ -100,7 +100,7 @@ class ToxicityForm extends Component {
         });
         if (toxicityLookup.isValidAdverseEvent(newValue)) {
             this.handleAdverseEventSelection(newValue)
-        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.adverseEvent.adverseEvent)) {
+        } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.toxicity.adverseEvent)) {
             this.handleAdverseEventSelection(null)
         }
     }
@@ -171,7 +171,7 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.adverseEvent) && this.props.toxicity.adverseEvent.adverseEventGrade === grade.name
+        const isSelected = !Lang.isEmpty(this.props.toxicity) && !Lang.isEmpty(this.props.toxicity.adverseEvent) && this.props.toxicity.adverseEventGrade === grade.name
         let gradeMenuClass = "grade-menu-item";
         if (isDisabled) {
             gradeMenuClass += " disabled"
@@ -272,7 +272,7 @@ class ToxicityForm extends Component {
                         if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
                             return this.renderGradeMenuItem(grade)
                         } else {
-                            return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent.adverseEvent);
+                            return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
                         }
                     })}
                 </div>
