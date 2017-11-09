@@ -1,5 +1,4 @@
-
-.grade-menu-item { 
+.grade-menu-item {
     display: flex; /* or inline-flex */
     padding: 15px 0;
     border-bottom: 1px solid rgba(224, 224, 224, 1);
@@ -9,16 +8,16 @@
     box-shadow: rgba(0, 0, 0, 0.12) -1px 0px 1px 0px, rgba(0, 0, 0, 0.12) 1px 0px 1px 0px;
 }
 
-.grade-menu-item:hover { 
+.grade-menu-item:hover {
     background-color: rgba(0,0,0,0.08);
     cursor: pointer;
 }
 
-.grade-menu-item:first-child { 
+.grade-menu-item:first-child {
     border-top: 1px solid rgba(224, 224, 224, 1);
 }
 
-.grade-menu-item .grade-menu-item-name { 
+.grade-menu-item .grade-menu-item-name {
     margin: 0 0 0 20px;
     min-width: 95px;
     display: inline-block;
@@ -36,22 +35,22 @@
     margin: -5px 20px -5px 20px;
 }
 
-.grade-menu-item .grade-menu-item-description { 
+.grade-menu-item .grade-menu-item-description {
     margin: 0 20px 0 0;
     display: inline-block;
     max-width: 75%;
 }
 
-.grade-menu-item.selected { 
+.grade-menu-item.selected {
     background-color: rgb(41, 125, 162);
     border: rgb(41, 125, 162);
     color: rgba(255,255,255,1);
 }
 
-.grade-menu-item.disabled { 
+.grade-menu-item.disabled {
     color: rgba(224, 224, 224, 1);
 }
-.grade-menu-item.disabled:hover { 
+.grade-menu-item.disabled:hover {
     background-color: initial;
     cursor: default;
 }
@@ -127,8 +126,8 @@
     transition-delay: 0.5s;
 }
 
-/* 
- * Autosuggest styling 
+/*
+ * Autosuggest styling
  */
 .react-autosuggest__container {
     position: relative;
@@ -215,4 +214,31 @@
 .helper-text {
     color: #b1b1b1;
 }
+
+/*
+ * Button styling
+ */
+.btn-group-adverse-event,
+.btn-group-attribution {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.btn-group-adverse-event button,
+.btn-group-attribution button {
+    margin: 5px;
+    height: 75px;
+    width: 180px;
+    padding: 20px 0;
+    background-color: white;
+    text-transform: none;
+}
+
+.btn-group-adverse-event button:hover,
+.btn-group-attribution button:hover {
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
 
