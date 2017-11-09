@@ -16,9 +16,10 @@ class AppManager {
                 display: 'Flux Notes Lite (for PATINA endpoints)',
                 app: SlimApp,
                 shortcutConfigurations: {
-                    'Disease Status': { referenceDateEnabled: false },
+                    'Disease Status': { referenceDateEnabled: true },
                     'Toxicity': {   gradesToDisplay: [2,3,4,5],
-                                    gradesPrompt: ' PATINA only calculates its endpoint based on adverse events of grades 2 through 5; therefore, only those are shown below. ' }
+                                    gradesPrompt: ' PATINA only calculates its endpoint based on adverse events of grades 2 through 5; therefore, only those are shown below. ',
+                                    topAdverseEvents: true }
                 },
                 isExact: true
             }, {

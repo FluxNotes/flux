@@ -53,7 +53,6 @@ class ToxicityForm extends Component {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
         return this.props.object.causeCategory === attribution.name;
     }
-    
     /*
      * Handle updating the attribution value on toxicity
      */
@@ -76,6 +75,10 @@ class ToxicityForm extends Component {
             this.props.updateValue("grade", grade);
         }
     }
+    currentlySelectedAdverseEvent = (adverseEvent) => {
+        // What it is checking might need to change if the toxicity.attribution structure changes in Patient
+        return this.props.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value===adverseEvent.name ? 'button_selected' : '';
+    }    
 
     /* 
      * When a valid adverse event is selected, update potential toxicity 
@@ -196,7 +199,7 @@ class ToxicityForm extends Component {
             });
             const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
             gradeDescription = currentAdverseEvent[currentGradeLevel];
-        }
+        }       
         return (
             <div
                 className={gradeMenuClass}
@@ -266,9 +269,7 @@ class ToxicityForm extends Component {
         
         let customGradePrompt = "";
         if (!Lang.isUndefined(this.props.gradesPrompt)) {
-            customGradePrompt = this.props.gradesPrompt;
-        }
-
+            customGradePrompt = this.props.gradesPrompt;          
         return (
             <div>
                 <h1>Toxicity</h1>
@@ -293,8 +294,37 @@ class ToxicityForm extends Component {
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps}
-                />
-
+                />  
+                <div className="btn-group-adverse-event">
+                    {toxicityLookup.getAdverseEventOptions().slice(0,20).map((adverseEvent, i) => {
+                        const buttonClass = this.currentlySelectedAdverseEvent(adverseEvent);
+                        if (adverseEvent.description === null) {
+                            return "";
+                        }                      
+                        const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+                        return (
+                            <div key={adverseEvent.name} className="tooltip">
+                                <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
+                                <Button raised
+                                    key={i}
+                                    label={adverseEvent.name}
+                                    className={buttonClass}
+                                    style={{
+                                        marginBottom: "10px",
+                                        marginLeft: "10px",
+                                        height: "75px",
+                                        width: "180px",
+                                        padding: "20px 0 20px 0",
+                                        backgroundColor: "white",
+                                        textTransform: "none"
+                                    }}
+                                    onClick={ () => this.handleAdverseEventSelection(adverseEvent.name)}
+                                >{adverseEvent.name}
+                                </Button>
+                            </div>
+                        )
+                    })}
+                </div>                
                 <h4 className="header-spacing">Grade</h4>
                 <p id="data-element-description">
                     {toxicityLookup.getDescription("grade")}
@@ -325,7 +355,10 @@ class ToxicityForm extends Component {
             </div>
         );
     }
+    }
 }
+
+
 
 export default ToxicityForm;
 
