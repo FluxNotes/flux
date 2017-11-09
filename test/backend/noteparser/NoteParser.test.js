@@ -3,7 +3,7 @@ import FluxProgression from '../../../src/model/oncology/FluxProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
 import FluxDeceased from '../../../src/model/actor/FluxDeceased';
-import Study from '../../../src/model/shr/base/Study';
+import FluxStudy from '../../../src/model/base/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
@@ -208,10 +208,10 @@ const expectedOutputDeceased = [[
     })
 ], []];
 const expectedOutputClinicalTrial = [[
-    new Study({
+    new FluxStudy({
         entryType: [ 'http://standardhealthrecord.org/base/Study' ],
         title: 'PATINA',
-        identifier: { value: ''},
+        identifier: '',
         enrollmentDate: '4 Sep 2017',
         endDate: '6 Oct 2017',
         originalCreationDate: today,
@@ -219,9 +219,9 @@ const expectedOutputClinicalTrial = [[
     })
 ], []];
 const expectedOutputClinicalTrialMinimal = [[
-    new Study({
+    new FluxStudy({
         entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        identifier: { value: ''},
+        identifier: '',
         enrollmentDate: null,
         endDate: null,
         originalCreationDate: today,

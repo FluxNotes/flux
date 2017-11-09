@@ -43,7 +43,7 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.object.evidence.findIndex((e) => e === reason.name);
+        const reasonIndex = this.props.progression.evidence.findIndex((e) => e === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {

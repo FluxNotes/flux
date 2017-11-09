@@ -6,6 +6,7 @@ import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescr
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
+import FluxTest from '../model/lab/FluxTest';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
 import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
@@ -183,6 +184,10 @@ class PatientRecord {
         });
         return medications;
     }
+
+	getTestsForCondition(condition) {
+		return this.getObservationsForCondition(condition, FluxTest);
+	}
 	
 	getProcedures() {
 		return this.getEntriesOfType(FluxProcedure);
