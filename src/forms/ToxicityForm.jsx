@@ -74,12 +74,7 @@ class ToxicityForm extends Component {
         } else {
             this.props.updateValue("grade", grade);
         }
-    }
-    currentlySelectedAdverseEvent = (adverseEvent) => {
-        // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.toxicity.adverseEvent.causeCategory.value.coding[0].displayText.value===adverseEvent.name ? 'button_selected' : '';
-    }    
-
+    }   
     /* 
      * When a valid adverse event is selected, update potential toxicity 
      */
@@ -297,7 +292,6 @@ class ToxicityForm extends Component {
                 />  
                 <div className="btn-group-adverse-event">
                     {toxicityLookup.getAdverseEventOptions().slice(0,20).map((adverseEvent, i) => {
-                        const buttonClass = this.currentlySelectedAdverseEvent(adverseEvent);
                         if (adverseEvent.description === null) {
                             return "";
                         }                      
@@ -308,7 +302,6 @@ class ToxicityForm extends Component {
                                 <Button raised
                                     key={i}
                                     label={adverseEvent.name}
-                                    className={buttonClass}
                                     style={{
                                         marginBottom: "10px",
                                         marginLeft: "10px",
