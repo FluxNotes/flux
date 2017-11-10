@@ -1,9 +1,18 @@
+import CodeableConcept from '../shr/core/CodeableConcept';
 import Progression from '../shr/oncology/Progression';
 import Evidence from '../shr/observation/Evidence';
 import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
 class FluxProgression extends Progression {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._asOfDate = json.asOfDate;
+        }
+        if (!this._codeableConcept) this._codeableConcept = new CodeableConcept();
+        if (!this._evidence) this._evidence = [];
+    }
     /**
      *  Getter for status
      *  This will return the displayText string from CodeableConcept Value
@@ -42,6 +51,15 @@ class FluxProgression extends Progression {
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;
         });
+    }
+
+    // Flux added
+    get asOfDate() {
+        return this._asOfDate;
+    }
+  
+    set asOfDate(val) {
+        this._asOfDate = val;
     }
 }
 

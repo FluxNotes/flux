@@ -2,7 +2,6 @@ import Quantity from './Quantity';
 
 /** Generated from SHR definition for shr.core.Duration */
 class Duration extends Quantity {
-
   /**
    * Getter for shr.core.Units
    */

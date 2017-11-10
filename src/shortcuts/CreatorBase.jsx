@@ -173,8 +173,8 @@ export default class CreatorBase extends Shortcut {
     }
     
     _followPath(object, attributePath, startIndex) {
-        console.log("_followPath");
-        console.log(object);
+        //console.log("_followPath");
+        //console.log(object);
         let i, attributeName, list, index, start, end;
         const len = attributePath.length;
         let result = object;
@@ -198,8 +198,8 @@ export default class CreatorBase extends Shortcut {
                 //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
             }
-            console.log(attributePath[i]);
-            console.log(result);
+            //console.log(attributePath[i]);
+            //console.log(result);
             if (Lang.isUndefined(result)) return null;
         }
         return result;
@@ -221,11 +221,16 @@ export default class CreatorBase extends Shortcut {
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
+        //console.log(this.object);
+        //console.log(setMethod);
         if (Lang.isUndefined(patientSetMethod)) {
             if (Lang.isUndefined(setMethod)) {
                 this.values[name] = value;
             } else {
-                this.object[setMethod](value);
+                //console.log(Object.getOwnPropertyDescriptor(this.object, setMethod));
+                Lang.set(this.object, setMethod, value);
+                //this.object[setMethod](value);
+                //Object.getOwnPropertyDescriptor(this.object, setMethod).set(value);
             }
         } else {
             //console.log(this.object);

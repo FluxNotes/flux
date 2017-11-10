@@ -16,7 +16,6 @@ class Progression extends Assessment {
             if (json.category) this._category = new Category(json.category);
             if (json.assessmentFocus) this._assessmentFocus = json.assessmentFocus.map((a) => new AssessmentFocus(a));
             if (json.evidence) this._evidence = json.evidence.map((e) => new Evidence(e));
-            this._asOfDate = json.asOfDate;
             this._clinicallyRelevantTime = json.clinicallyRelevantTime;
         } else {
             this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/Progression",
@@ -107,15 +106,6 @@ class Progression extends Assessment {
    */
   set evidence(evidenceVal) {
     this._evidence = evidenceVal;
-  }
-
-  // Flux added
-  get asOfDate() {
-      return this._asOfDate;
-  }
-  
-  set asOfDate(val) {
-      this._asOfDate = val;
   }
 }
 

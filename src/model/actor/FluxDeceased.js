@@ -3,18 +3,6 @@ import DateOfDeath from '../shr/actor/DateOfDeath';
 import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
 
 class FluxDeceased extends Deceased {
-    constructor(json) {
-        super(json);
-        if (json) {
-            if (json.dateOfDeath) {
-                let dateOfDeath = new DateOfDeath();
-                let generalizedDateTime = new GeneralizedDateTime();
-                generalizedDateTime.value = json.dateOfDeath;
-                dateOfDeath.generalizedDateTime = generalizedDateTime;
-                this._dateOfDeath = dateOfDeath;
-            }
-        }   
-    }
     /**
      *  Getter for dateOfDeath
      *  This will return the date value
