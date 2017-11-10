@@ -1,6 +1,8 @@
+import AssessmentFocus from '../shr/assessment/AssessmentFocus';
 import CodeableConcept from '../shr/core/CodeableConcept';
-import Progression from '../shr/oncology/Progression';
 import Evidence from '../shr/observation/Evidence';
+import Progression from '../shr/oncology/Progression';
+import Reference from '../Reference';
 import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
@@ -60,6 +62,25 @@ class FluxProgression extends Progression {
   
     set asOfDate(val) {
         this._asOfDate = val;
+    }
+    
+    get assessmentFocus() {
+        return this._assessmentFocus[0].value;
+    }
+    
+    set assessmentFocus(val) {
+        if (!this._assessmentFocus) {
+            this._assessmentFocus = [];
+        }
+        if (this._assessmentFocus.length === 0) {
+            this._assessmentFocus = new AssessmentFocus();
+        }
+        this._assessmentFocus.value = val;
+    }
+    
+    setAssessmentFocusReference(obj) {
+        const ref = Reference.createReferenceFromEntry(obj.entryInfo);
+        this.assessmentFocus = ref;
     }
 }
 

@@ -169,13 +169,13 @@ class ShortcutManager {
             parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
             if (Lang.isUndefined(parentAttribute)) return true;
             parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
-            console.log(parentVOAs);
-            console.log(parentAttribute);
+            //console.log(parentVOAs);
+            //console.log(parentAttribute);
             voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
-            console.log(voa);
+            //console.log(voa);
             value = context.getAttributeValue(parentAttribute);
-            console.log(value);
-            isSettable = Lang.isUndefined(voa.isSettable) ? false : voa.isSettable;
+            //console.log(value);
+            isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
             if (isSettable) { // if is settable and not set, then we want to include the shortcut
                 if (value === null) return true;
                 if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;

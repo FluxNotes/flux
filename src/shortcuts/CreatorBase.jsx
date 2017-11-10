@@ -56,12 +56,15 @@ export default class CreatorBase extends Shortcut {
     }
     
     shouldBeInContext() {
+        //console.log("shouldBeInContext " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
         let value, isSettable;
         let result = false;
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
-            isSettable = Lang.isUndefined(voa.isSettable) ? false : voa.isSettable;
+            //console.log(value);
+            isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+            //console.log("isSettable = " + isSettable);
             if (isSettable) {
                 if (Lang.isNull(value)) {
                     result = true;
@@ -90,6 +93,7 @@ export default class CreatorBase extends Shortcut {
                 }
             }
         });
+        //console.log(result);
         return result;
     }
     
@@ -261,6 +265,48 @@ export default class CreatorBase extends Shortcut {
         return this.metadata["id"];
     }
 
+    callMethod(patient, spec) {
+        //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
+        const obj = spec["object"];
+        const method = spec["method"];
+        const listAttribute = spec["listAttribute"];
+        const argSpecs = spec["args"];
+        let args = argSpecs.map((argSpec) => {
+            if (argSpec === "$valueObject") return this.object;
+            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            return argSpec;
+        });
+        if (Lang.isUndefined(listAttribute)) {
+            if (obj === "patient") {
+                patient[method](...args);
+            } else if (obj === "$valueObject") {
+                this.object[method](...args);
+            } else if (obj === "$parentValueObject") {
+                this.parentContext.getValueObject()[method](...args);
+            } else {
+                console.error("unsupported object type: " + obj + " for updatePatient");
+            }
+        } else {
+            if (obj === "patient") {
+                let list = Lang.get(patient, listAttribute);
+                args.forEach((a) => list.push(a));
+                Lang.set(patient, listAttribute, list);
+            } else if (obj === "$valueObject") {
+                let list = Lang.get(this.object, listAttribute);
+                args.forEach((a) => list.push(a));
+                Lang.set(this.object, listAttribute, list);
+            } else if (obj === "$parentValueObject") {
+                let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
+                //console.log(list);
+                args.forEach((a) => list.push(a));
+                //console.log(list);
+                Lang.set(this.parentContext.getValueObject(), listAttribute, list);
+            } else {
+                console.error("unsupported object type: " + obj + " for updatePatient");
+            }
+        }
+    }
+    
     updatePatient(patient, contextManager) {
 /*        let attributeSpec;
         const allSettableDataFields = Object.keys(this.valueObjectAttributes).filter((attribute) => {
@@ -268,27 +314,16 @@ export default class CreatorBase extends Shortcut {
             return (!Lang.isUndefined(attributeSpec["childShortcut"]));
         });*/
         
-        const updatePatientSpec = this.metadata["updatePatient"];
-        if (updatePatientSpec) {
-            //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
-            const obj = updatePatientSpec["object"];
-            const method = updatePatientSpec["method"];
-            const argSpecs = updatePatientSpec["args"];
-            let args = argSpecs.map((argSpec) => {
-                if (argSpec === "$valueObject") return this.object;
-                if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
-                return argSpec;
-            });
-            if (obj === "patient") {
-                patient[method](...args);
+        if (this.isObjectNew) {
+            const updatePatientSpecList = this.metadata["updatePatient"];
+            if (updatePatientSpecList) {
+                updatePatientSpecList.forEach((updatePatientSpec) => {
+                    this.callMethod(patient, updatePatientSpec);
+                });
             } else {
-                console.error("unsupported object type: " + obj + " for updatePatient");
-            }
-        } else {
-            if (this.isObjectNew) {
                 patient.addEntryToPatientWithPatientFocalSubject(this.object);
-                this.isObjectNew = false;
             }
+            this.isObjectNew = false;
         }
     }
 }

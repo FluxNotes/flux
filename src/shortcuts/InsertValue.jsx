@@ -24,16 +24,19 @@ export default class InsertValue extends InserterShortcut {
         if (callObject === "patient") {
             result = contextManager.getPatient()[callSpec["method"]]();
             if (Lang.isArray(result)) {
-                const itemKey = callSpec["itemKey"];
+                const itemKey = callSpec["itemKey"].split(".");
                 const itemContext = callSpec["itemContext"].split(".");
                 return result.map((item) => {
-                    return {key: item[itemKey], context: this._getValueUsingPath(item, itemContext), object: item};
+                    return {key: this._getValueUsingPath(item, itemKey), 
+                            context: this._getValueUsingPath(item, itemContext), 
+                            object: item};
                 });
             }
             return result;
         } else if (callObject === "parent") {
         //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
+            //console.log(this.contextManager.getActiveContexts());
             return this.contextManager.getActiveContexts()[0].getAttributeValue(attribute);
         } else {
             console.error("not support yet " + callSpec.object + " / " + callSpec.method);
