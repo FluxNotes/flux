@@ -65,17 +65,24 @@ class FluxProgression extends Progression {
     }
     
     get assessmentFocus() {
-        return this._assessmentFocus[0].value;
+        if (this._assessmentFocus && this._assessmentFocus.length > 0) {
+            return this._assessmentFocus[0].value;
+        }
+        return null;
     }
     
     set assessmentFocus(val) {
         if (!this._assessmentFocus) {
             this._assessmentFocus = [];
         }
+        let af;
         if (this._assessmentFocus.length === 0) {
-            this._assessmentFocus = new AssessmentFocus();
+            af = new AssessmentFocus();
+            this._assessmentFocus.push(af);
+        } else {
+            af = this._assessmentFocus[0];
         }
-        this._assessmentFocus.value = val;
+        af.value = val;
     }
     
     setAssessmentFocusReference(obj) {

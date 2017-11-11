@@ -50,7 +50,16 @@ export default class CreatorChild extends Shortcut {
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if(result && !Lang.isUndefined(this.parentContext)) {
-            this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+            if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
+                //console.log("onBeforeDeleted of a list item");
+                const parentAttributeName = this.metadata.parentAttribute;
+                let currentList = this.parentContext.getAttributeValue(parentAttributeName);
+                let oneToDelete = this.text;
+                let newList = currentList.filter((item) => { return item !== oneToDelete });
+                this.parentContext.setAttributeValue(parentAttributeName, newList, false);
+            } else {
+                this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+            }
             this.parentContext.removeChild(this);
         }
         return result;

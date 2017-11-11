@@ -26,16 +26,13 @@ export default class ContextOptions extends Component {
 			context = this.props.contextManager.getPatientContext();
 		}
         
-		//let validShortcuts = context.getValidChildShortcuts();
         //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
         
         // count how many triggers we have
         let count = 0;
         validShortcuts.forEach((shortcut, i) => {
-//            shortcut.getStringTriggers(context).forEach((trigger, j) => {
-            //console.log(shortcut);
-            this.props.shortcutManager.getTriggersForShortcut(shortcut).forEach((trigger, j) => {
+            this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
                 count++;
             });
         });
@@ -47,13 +44,8 @@ export default class ContextOptions extends Component {
         let triggers = [];
         count = 0;
         validShortcuts.forEach((shortcut, i) => {
-/*            let groupName = '';
-            if(typeof shortcut.getShortcutGroupName !== 'undefined'){
-                groupName = shortcut.getShortcutGroupName();
-            }*/
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
-            //shortcut.getStringTriggers(context).forEach((trigger, j) => {
-            this.props.shortcutManager.getTriggersForShortcut(shortcut).forEach((trigger, j) => {
+            this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
                 if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });

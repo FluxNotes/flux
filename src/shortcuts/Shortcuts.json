@@ -114,6 +114,7 @@
     "shortcutGroupName":"Status"
   },
   { "type": "CreatorChild",
+    "subtype": "list",
     "id": "ProgressionReasonsCreator",
     "parentAttribute": "reasons",
     "stringTriggers": {"category":"progression", "valueSet":"reason", "prefix": "#"},

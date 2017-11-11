@@ -76,7 +76,8 @@ export default class CreatorBase extends Shortcut {
                         return;
                     }
                 } else if (Lang.isArray(value)) {
-                    if (value.length === 0) {
+                    //console.log(voa.numberOfItems);
+                    if (value.length < voa.numberOfItems) {
                         result = true;
                         return true;
                     }
@@ -221,8 +222,10 @@ export default class CreatorBase extends Shortcut {
     }
 
 	setAttributeValue(name, value, publishChanges = true) {
+        //console.log("setAttributeValue " + name + " to " + value);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
+        //console.log(voa);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
         //console.log(this.object);
@@ -231,10 +234,13 @@ export default class CreatorBase extends Shortcut {
             if (Lang.isUndefined(setMethod)) {
                 this.values[name] = value;
             } else {
-                //console.log(Object.getOwnPropertyDescriptor(this.object, setMethod));
-                Lang.set(this.object, setMethod, value);
-                //this.object[setMethod](value);
-                //Object.getOwnPropertyDescriptor(this.object, setMethod).set(value);
+                if (voa["type"] === "list" && !Lang.isArray(value)) {
+                    let list = this.getAttributeValue(name);
+                    list.push(value);
+                    Lang.set(this.object, setMethod, list);
+                } else {
+                    Lang.set(this.object, setMethod, value);
+                }
             }
         } else {
             //console.log(this.object);

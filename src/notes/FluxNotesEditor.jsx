@@ -108,21 +108,6 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         let allShortcutDefinitions = this.props.shortcutManager.getAllShortcutDefinitions();
         allShortcutDefinitions.forEach((def) => {
-/*            let triggers;
-            if (Lang.isArray(def.stringTriggers)) {
-                triggers = def.stringTriggers;
-            } else {
-                let args = def.stringTriggers["args"];
-                let category = def.stringTriggers["category"];
-                let valueSet = def.stringTriggers["valueSet"];
-                if (args) {
-                    //console.log(category + "/" + valueSet + " with " + args);
-                    triggers = ValueSetManager.getValueList(category, valueSet, ...args);
-                } else {
-                    //console.log(category + "/" + valueSet);
-                    triggers = ValueSetManager.getValueList(category, valueSet);
-                }
-            }*/
             let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
