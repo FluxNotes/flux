@@ -15,13 +15,43 @@ export default class InsertValue extends InserterShortcut {
         return result;
     }
     
-	determineText(contextManager) {
-		//return contextManager.getPatient().getAge();
-        //"getData": [ {"object": "patient", "method": "getAge"}],
-        const callSpec = this.metadata["getData"];
+    _resolveCallSpec(callSpec, contextManager) {
         let result;
         const callObject = callSpec["object"];
-        if (callObject === "patient") {
+        const string = callSpec["string"];
+        if (Lang.isUndefined(callObject)) {
+            if (!Lang.isUndefined(string)) {
+/*
+"params":{"age": {"object": "patient", "method": "getAge"},
+                          "gender": {"object": "patient", "method": "getGender"},
+                          "name": {"object": "patient", "method": "getName"}
+                         }
+*/
+                const params = callSpec["params"];
+                result = "";
+                let start = 0, callId;
+                let index = string.indexOf("${"), index2;
+                while (index !== -1) {
+                    if (start !== index) result += string.substring(start, index);
+                    index2 = string.indexOf("}", index+2);
+                    callId = string.substring(index+2, index2);
+                    result += this._resolveCallSpec(params[callId], contextManager);
+                    start = index2 + 1;
+                    if (start < string.length) {
+                        index = string.indexOf("${", index2);
+                    } else {
+                        index = -1;
+                    }
+                }
+                if (start < string.length) {
+                    result += string.substring(start);
+                }
+                return result;
+            } else {
+                console.error("not supported yet " + callSpec);
+            }
+        } else if (callObject === "patient") {
+            //"getData": [ {"object": "patient", "method": "getAge"}],
             result = contextManager.getPatient()[callSpec["method"]]();
             if (Lang.isArray(result)) {
                 const itemKey = callSpec["itemKey"].split(".");
@@ -41,6 +71,12 @@ export default class InsertValue extends InserterShortcut {
         } else {
             console.error("not support yet " + callSpec.object + " / " + callSpec.method);
         }
+        return null;
+    }
+    
+	determineText(contextManager) {
+        const callSpec = this.metadata["getData"];
+        return this._resolveCallSpec(callSpec, contextManager);
 	}
     getShortcutType() { 
         return this.metadata["id"];

@@ -113,54 +113,58 @@ class ShortcutManager {
         this.childShortcuts = {};
         this.shortcuts = {};
         this.triggersPerShortcut = {};
+        let disabled;
         shortcutMetadata.forEach((item) => {
             //console.log("shortcut " + item["id"])
-            this.shortcuts[item["id"]] = item;
+            disabled = item["disabled"] || false;
+            if (!disabled && (shortcutList.length === 0 || shortcutList.includes(item["id"]))) {
+                this.shortcuts[item["id"]] = item;
 
-            // add as child to its known parent
-            if (item["knownParentContexts"]) {
-                const parent = item["knownParentContexts"];
-                //console.log("parent = " + parent);
-                let list = this.childShortcuts[parent];
-                if (Lang.isUndefined(list)) {
-                    list = [];
-                    this.childShortcuts[parent] = list;
-                }
-                if (!list.includes(item.id)) {
-                    list.push(item.id);
-                }
-            }
-            
-            // add known children to it
-            if (item["valueObjectAttributes"]) {
-                //console.log("find child shortcuts for " + item.id);
-                let list = this.childShortcuts[item.id];
-                if (Lang.isUndefined(list)) {
-                    list = [];
-                    this.childShortcuts[item.id] = list;
-                }
-                let voas = item["valueObjectAttributes"];
-                let childShortcutId;
-                voas.forEach((voa) => {
-                    childShortcutId = voa["childShortcut"];
-                    if (!Lang.isUndefined(childShortcutId)) {
-                        //console.log(childShortcutId);
-                        if (childShortcutId && !list.includes(childShortcutId)) {
-                            list.push(childShortcutId);
-                        }
+                // add as child to its known parent
+                if (item["knownParentContexts"]) {
+                    const parent = item["knownParentContexts"];
+                    //console.log("parent = " + parent);
+                    let list = this.childShortcuts[parent];
+                    if (Lang.isUndefined(list)) {
+                        list = [];
+                        this.childShortcuts[parent] = list;
                     }
-                });
-            }
-            
-            this.shortcutDefinitions.push(item);
-            // build up trigger to shortcut mapping
-            const triggers = item["stringTriggers"];
-            this.currentShortcut = item;
-            this.triggersPerShortcut[this.currentShortcut.id] = [];
-            if (Lang.isArray(triggers)) {
-                triggers.forEach(addTriggerForKey, this);
-            } else {
-                addTriggerForKey.bind(this)(triggers);
+                    if (!list.includes(item.id)) {
+                        list.push(item.id);
+                    }
+                }
+                
+                // add known children to it
+                if (item["valueObjectAttributes"]) {
+                    //console.log("find child shortcuts for " + item.id);
+                    let list = this.childShortcuts[item.id];
+                    if (Lang.isUndefined(list)) {
+                        list = [];
+                        this.childShortcuts[item.id] = list;
+                    }
+                    let voas = item["valueObjectAttributes"];
+                    let childShortcutId;
+                    voas.forEach((voa) => {
+                        childShortcutId = voa["childShortcut"];
+                        if (!Lang.isUndefined(childShortcutId)) {
+                            //console.log(childShortcutId);
+                            if (childShortcutId && !list.includes(childShortcutId)) {
+                                list.push(childShortcutId);
+                            }
+                        }
+                    });
+                }
+                
+                this.shortcutDefinitions.push(item);
+                // build up trigger to shortcut mapping
+                const triggers = item["stringTriggers"];
+                this.currentShortcut = item;
+                this.triggersPerShortcut[this.currentShortcut.id] = [];
+                if (Lang.isArray(triggers)) {
+                    triggers.forEach(addTriggerForKey, this);
+                } else {
+                    addTriggerForKey.bind(this)(triggers);
+                }
             }
         });
         //console.log(this.childShortcuts);
@@ -174,6 +178,7 @@ class ShortcutManager {
         //      OR as a shortcut having this context shortcut as a parent via knownParentContexts
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable;
+        if (Lang.isUndefined(result)) return [];
         result = result.filter((shortcutId) => {
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's

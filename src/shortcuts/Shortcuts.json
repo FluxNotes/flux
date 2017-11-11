@@ -3,6 +3,19 @@
     "getData": {"object": "patient", "method": "getMRN"},
     "isContext": false,
     "stringTriggers": [{"name":"@mrn", "description": "Medical Reference Number for patient"}],
+    "knownParentContexts": "Patient",
+    "disabled":true
+  },
+  { "type": "InsertValue",
+    "id": "PatientInserter",
+    "getData": {"string": "${name} is a ${age} year old ${gender}",
+                "params":{"age": {"object": "patient", "method": "getAge"},
+                          "gender": {"object": "patient", "method": "getGender"},
+                          "name": {"object": "patient", "method": "getName"}
+                         }
+               },
+    "isContext": false,
+    "stringTriggers": [{"name":"@patient", "description": "Basic patient information (e.g. Debra Hernandez672 is a 51 year old female)"}],
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",

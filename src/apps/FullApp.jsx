@@ -26,18 +26,6 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
 
-        this.shortcuts = [ 
-            "#disease status", 
-            "#staging", 
-            "#toxicity", 
-            "@name",
-            "@condition", 
-            "@age", 
-            "@dateofbirth", 
-            "@gender", 
-            "@patient", 
-            "@stage" 
-        ];
         this.possibleClinicalEvents = [
             "pre-encounter", 
             "encounter", 
@@ -53,7 +41,7 @@ class FullApp extends Component {
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
-        this.shortcutManager = new ShortcutManager(this.shortcuts);
+        this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
 
         this.state = {
@@ -150,7 +138,6 @@ class FullApp extends Component {
                     <NavBar title={this.props.display} supportLogin={true} menuItems={this.menuItems} />
                     <DashboardViewManager
                         // App default settings
-                        shortcuts={this.shortcuts}
                         possibleClinicalEvents={this.possibleClinicalEvents}
                         dataAccess={this.dataAccess}
                         summaryMetadata={this.summaryMetadata}
