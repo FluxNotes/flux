@@ -64,8 +64,9 @@ class ShortcutManager {
     }
     
     constructor(shortcutList) {
-        this.shortcutsToSupportList = shortcutList;
-        this.loadShortcutMetadata(shortcutList, shortcutMetadata);
+        let shortcuts = shortcutList || [];
+        this.shortcutsToSupportList = shortcuts;
+        this.loadShortcutMetadata(shortcuts, shortcutMetadata);
     }
     
     getSupportedShortcuts() {
