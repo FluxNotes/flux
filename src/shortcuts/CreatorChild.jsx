@@ -73,9 +73,9 @@ export default class CreatorChild extends Shortcut {
         } else if (Lang.isArray(this.metadata.picker)) {
             return this.metadata.picker;
         } else {
-            //{"lookup":"../lib/staging_lookup", "method":"getMsForEdition", "args":"7"}
-            //return CreatorChild.callFunctionInModule(this.metadata.picker);
-            return this.getValueSet(this.metadata.picker);
+            return this.getValueSet(this.metadata.picker).map((item) => {
+                return {"key": item.id, "context":item.name, "object": item};
+            });
         }
     }
     
