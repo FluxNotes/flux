@@ -28,21 +28,35 @@ export default class CreatorIntermediary extends Shortcut {
         return this.metadata.isContext;
     }
     shouldBeInContext() {
+        //console.log(this.getShortcutType() + " " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
-        let value;
+        let value, result = false;
         voaList.forEach((voa) => {
+            //console.log(voa);
             value = this.getAttributeValue(voa.name);
-            if (Lang.isNull(value)) return true;
+            if (Lang.isNull(value)) {
+                result = true;
+                return;
+            }
             //console.log(value);
             if (Lang.isString(value)) {
-                if (value.length === 0) return true;
+                if (value.length === 0) {
+                    result = true;
+                    return;
+                }
             } else if (Lang.isArray(value)) {
-                if (value.length === 0) return true;
+                if (value.length === 0) {
+                    result = true;
+                    return;
+                }
             } else if (Lang.isBoolean(value)) {
-                if (!value) return true;
+                if (!value) {
+                    result = true;
+                    return;
+                }
             }
         });
-        return false;
+        return result;
     }
     
     getShortcutType() {

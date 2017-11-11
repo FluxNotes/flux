@@ -234,6 +234,7 @@
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/actor/Deceased",
     "valueObjectAttributes": [  {"name":"date", "attribute":"dateOfDeath", "isSettable":"true", "setMethod": "dateOfDeath", "childShortcut": "DateCreator"} ],
+    "updatePatient": [{"object":"patient", "method": "setDeceased", "args": [ "$valueObject" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#deceased", "description": "An indication that the person is no longer living, given by a date"}],
     "regexpTrigger": null,

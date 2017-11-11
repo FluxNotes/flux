@@ -116,7 +116,7 @@ export default class CreatorBase extends Shortcut {
     
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
-        if (result) {
+        if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
         return result;
