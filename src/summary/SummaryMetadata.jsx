@@ -1,8 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
-import HistologicGrade from '../model/shr/oncology/HistologicGrade';
-import TimePeriod from '../model/shr/core/TimePeriod';
-import TumorSize from '../model/shr/oncology/TumorSize';
+import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
+import FluxTumorSize from '../model/oncology/FluxTumorSize';
 
 class SummaryMetadata {
     hardCodedMetadata = {
@@ -78,8 +77,8 @@ class SummaryMetadata {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
                                         let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                        if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
-                                            return s.value.coding[0].displayText.value;
+                                        if (s && s.staging && s.staging.length > 0) {
+                                            return s.staging;
                                         } else {
                                             return null;
                                         }
@@ -93,7 +92,7 @@ class SummaryMetadata {
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
-                                            return p.value.coding[0].displayText.value;
+                                            return p.status;
                                         }
                                     }
                                 },
@@ -105,7 +104,7 @@ class SummaryMetadata {
                                             return null;
                                         } else {
                                             return p.evidence.map(function (ev) {
-                                                return ev.value.coding[0].displayText.value;
+                                                return ev;
                                             }).join();
                                         }
                                     }
@@ -238,8 +237,8 @@ class SummaryMetadata {
                                 {
                                     name: "Size",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, TumorSize);
-                                        return list[0].value.value + " " + list[0].value.units.value.value;
+                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxTumorSize);
+                                        return list[0].quantity.value + " " + list[0].quantity.unit;
                                     }
                                 },
                                 {
@@ -249,8 +248,8 @@ class SummaryMetadata {
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, HistologicGrade);
-                                        return list[0].value.coding[0].displayText.value;
+                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxHistologicGrade);
+                                        return list[0].grade;
                                     }
                                 },
                                 {
@@ -369,14 +368,10 @@ class SummaryMetadata {
     getItemListForProcedures(patient, currentConditionEntry) {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
-            //console.log(p.specificType.value.coding[0].displayText.value);
-            if (p.occurrenceTime.value instanceof TimePeriod) {
-                //console.log(p.occurrenceTime.value.timePeriodStart.value);
-                //console.log(p.occurrenceTime.value.timePeriodEnd.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value.timePeriodStart.value + " to " + p.occurrenceTime.value.timePeriodEnd.value};
+            if (typeof p.occurrenceTime !== 'string') {
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
             } else {
-                //console.log(p.occurrenceTime.value);
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.value };
+                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime };
             }
 
 
@@ -387,9 +382,7 @@ class SummaryMetadata {
         const labResults = patient.getTestsForCondition(currentConditionEntry);
 
         return labResults.map((l, i) => {
-            const number = l.value.value.toString();
-            const unit = l.value.units.value.value.toString();
-            const value = `${number} ${unit}`;
+            const value = `${l.quantity.number} ${l.quantity.unit}`;
 
             return {
                 name: l.specificType.value.coding[0].displayText.value,

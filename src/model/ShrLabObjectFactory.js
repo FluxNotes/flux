@@ -1,10 +1,10 @@
-import Test from './shr/lab/Test';
+import FluxTest from './lab/FluxTest';
 import Lang from 'lodash';
 
 export default class ShrLabObjectFactory {
     static createInstance(elementName, entry) {
         const _elementsToClassNames = { 
-                                "Test": Test
+                                "Test": FluxTest
                               };
 
         let constructorName = _elementsToClassNames[elementName];

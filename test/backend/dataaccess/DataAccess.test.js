@@ -24,6 +24,10 @@ const newPatientOnlyDataAccess = new DataAccess("NewPatientOnlyDataSource");
 const newPatient = newPatientOnlyDataAccess.newPatient();
 const newPatientEntries = newPatient.entries;
 
+// Data Access with REST API
+const restApiDataAccess = new DataAccess("RestApiDataSource");
+const newPatientRest = restApiDataAccess.newPatient();
+
 
 describe('create hard coded read only data source', function() {
     it('get demo patient should return the hard coded patient', function () { 
@@ -63,4 +67,27 @@ describe('create new patient only data source', function() {
         expect(newPatientOnlyDataAccess.savePatient(newPatient))
             .to.be.undefined
     });
+});
+
+describe('use rest api as data source', function() {
+    // TODO: This test is commented out because the XMLHttpRequest that we are using to make the synchronous api call
+    // does not run in the Node environment. When that is fixed, this test should work again.
+    // it('getPatient should return the hard coded patient', function() {
+    //     const hardCodedPatientObjectRest = restApiDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+    //     const hardCodedPatientPersonOfRecordRest = hardCodedPatientObjectRest.getPersonOfRecord();
+    //     expect(hardCodedPatientPersonOfRecordRest)
+    //         .eql(referencePersonOfRecord);
+    // });
+    it('getListOfPatients should return undefined', function() {
+        expect(restApiDataAccess.getListOfPatients())
+            .to.be.undefined;
+    });
+    it('new patient should return undefined', function() {
+        expect(newPatientRest)
+            .to.be.undefined;
+    });
+    it('savePatient should return undefined', function() {
+        expect(restApiDataAccess.savePatient(newPatientRest))
+            .to.be.undefined;
+    })
 });

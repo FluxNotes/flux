@@ -27,6 +27,12 @@ class AppManager {
                 app: FullApp,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 isExact: true
+            },  {
+                path: '/p2',
+                display: 'Flux Notes',
+                app: FullApp,
+                dataSource: 'RestApiDataSource',
+                isExact: false
             }
         ];
     }
