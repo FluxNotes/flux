@@ -128,7 +128,7 @@ class FullApp extends Component {
     }
 
     menuItems = [
-        {label: "New Note", action: this.handleNewNote.bind(this)}
+//        {label: "New Note", action: this.handleNewNote.bind(this)}
     ];
 
     render() {
