@@ -81,7 +81,7 @@ export default class NoteParser {
             //console.log(tocheck);
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
-                console.log("matched " + tocheck.regexp);
+                //console.log("matched " + tocheck.regexp);
                 matches.push({trigger: match[0], definition: tocheck.definition});
                 found = true;
             }
@@ -111,13 +111,6 @@ export default class NoteParser {
             hashPos = nextPos;
         }
         return [ matches, unrecognizedTriggers ];
-// if putting below code back in, add global flag to allTriggersRegExp in constructor
-/*        const matches =  note.match(this.allTriggersRegExp);
-        if (Lang.isNull(matches)) { 
-            return [];
-        } else { 
-            return matches;
-        }*/
     }
     
     getNextTriggerIndex(note, triggerPrefixes, pos) {

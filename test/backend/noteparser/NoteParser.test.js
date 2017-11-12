@@ -37,8 +37,9 @@ const expectedOutputStaging = [[
             coding: [{
                 value: '',
                 codeSystem: { value: ''},
-                displayText: ''
-            }]
+                displayText: 'IIA'
+            }],
+            displayText: 'IIA'
         },
         specificType: {
             value: { 
@@ -49,8 +50,8 @@ const expectedOutputStaging = [[
                 }] 
             }
         },
-        status: 'unknown',
-        occurrenceTime: today,
+//        status: 'unknown',
+//        occurrenceTime: today,
         originalCreationDate: today,
         lastUpdateDate: today,
         tStage: { 
@@ -210,7 +211,7 @@ const expectedOutputDeceased = [[
 const expectedOutputClinicalTrial = [[
     new FluxStudy({
         entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        title: 'PATINA',
+        title: {value: 'PATINA' },
         identifier: '',
         enrollmentDate: '4 Sep 2017',
         endDate: '6 Oct 2017',
@@ -232,8 +233,8 @@ const expectedOutputClinicalTrialMinimal = [[
 
 describe('getAllTriggersRegularExpression', function () { 
 
-    it('should return allTriggersRegExp of the parser used', function () { 
-        const expectedTriggers = noteParser.allTriggersRegExp; 
+    it('should return allStringTriggersRegExp of the parser used', function () { 
+        const expectedTriggers = noteParser.allStringTriggersRegExp; 
         expect(noteParser.getAllTriggersRegularExpression())
             .to.eql(expectedTriggers);
     });
@@ -267,12 +268,14 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextStaging);
         // This test is different from the others because Observation sets the _value property which we cannot set in TNMStage using getters and setters.
         // Instead this test will compare all the properties in each object expect _value property.
+//        console.log(util.inspect(expectedOutputStaging[0][0]));
+//        console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array');
         expect(record[0][1])
             .eql(expectedOutputStaging[0][1]);
-        expect(record[0][0].value)
-            .eql(expectedOutputStaging[0][0].value);
+        expect(record[0][0].stage)
+            .eql(expectedOutputStaging[0][0].stage);
         expect(record[0][0].entryInfo)
             .eql(expectedOutputStaging[0][0].entryInfo);
         expect(record[0][0].occurrenceTime)

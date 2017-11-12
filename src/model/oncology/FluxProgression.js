@@ -10,7 +10,7 @@ class FluxProgression extends Progression {
     constructor(json) {
         super(json);
         if (json) {
-            this._asOfDate = json.asOfDate;
+            if (json.asOfDate) this._asOfDate = json.asOfDate;
         }
         if (!this._codeableConcept) this._codeableConcept = new CodeableConcept();
         if (!this._evidence) this._evidence = [];

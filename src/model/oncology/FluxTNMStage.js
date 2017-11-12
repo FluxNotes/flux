@@ -110,7 +110,11 @@ class FluxTNMStage extends TNMStage {
      * This will return the value string from _status
      */
     get status() {
-        return this._status.value;
+        if (this._status) {
+            return this._status.value;
+        } else {
+            return "";
+        }
     }
 
     /*

@@ -1,6 +1,7 @@
 import Deceased from '../shr/actor/Deceased';
 import DateOfDeath from '../shr/actor/DateOfDeath';
 import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
+import Lang from 'lodash';
 
 class FluxDeceased extends Deceased {
     /**
@@ -22,6 +23,7 @@ class FluxDeceased extends Deceased {
         generalizedDateTime.value = date;
         dateOfDeath.generalizedDateTime = generalizedDateTime;
         this._dateOfDeath = dateOfDeath;
+        this.value = (!Lang.isNull(date));
     }
 }
 
