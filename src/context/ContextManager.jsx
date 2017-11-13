@@ -25,9 +25,14 @@ class ContextManager {
 	getCurrentlyValidShortcuts(shortcutManager) {
 		//let result = this.patientContext.getValidChildShortcuts(true);
         let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
+        let childResults;
 		this.activeContexts.forEach((shortcut) => {
 			//result = result.concat(shortcut.getValidChildShortcuts(true));
-            result = result.concat(shortcutManager.getValidChildShortcutsInContext(shortcut, true));
+            //result = result.concat(shortcutManager.getValidChildShortcutsInContext(shortcut, true));
+            childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, true);
+            childResults.forEach((child) => {
+                if (!result.includes(child)) result.push(child);
+            });
 		});
 		return result;
 	}
