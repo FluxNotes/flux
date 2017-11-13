@@ -332,4 +332,8 @@ export default class CreatorBase extends Shortcut {
             this.isObjectNew = false;
         }
     }
+    
+    getPrefixCharacter() {
+        return "#";
+    }
 }
