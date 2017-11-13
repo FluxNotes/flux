@@ -5,7 +5,7 @@ import './DeceasedForm.css';
 
 class DeceasedForm extends Component {
     changeDate = (selectedDate) => {
-        this.props.updateValue("date", selectedDate.format('D MMM YYYY'));
+        this.props.updateValue("date", selectedDate);
     };
 
     render() {

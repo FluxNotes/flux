@@ -2,6 +2,7 @@ import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
 import ShrObjectFactory from '../model/ShrObjectFactory';
 import Lang from 'lodash';
+import moment from 'moment';
 
 export default class CreatorBase extends Shortcut {
     constructor(onUpdate, metadata, object) {
@@ -150,6 +151,7 @@ export default class CreatorBase extends Shortcut {
                 after = conditional.substring(end2+1);
                 value = this.getAttributeValue(valueName);
                 if (!Lang.isNull(value) && value !== '') {
+                    if (value instanceof moment) value = value.format('D MMM YYYY');
                     haveAValue = true;
                     result += before;
                     result += value;
@@ -157,10 +159,10 @@ export default class CreatorBase extends Shortcut {
                 }
             } else {
                 value = this.getAttributeValue(valueName);
-                //console.log(value);
                 if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                     value = '?';
                 } else {
+                    if (value instanceof moment) value = value.format('D MMM YYYY');
                     haveAValue = true;
                 }
                 result += value;

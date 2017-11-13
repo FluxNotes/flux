@@ -9,6 +9,8 @@ class FluxDeceased extends Deceased {
      *  This will return the date value
      */
     get dateOfDeath() {
+        if (Lang.isUndefined(this._dateOfDeath)) this._dateOfDeath = new DateOfDeath();
+        if (Lang.isUndefined(this._dateOfDeath.generalizedDateTime)) this._dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
         return this._dateOfDeath.generalizedDateTime.value;
     }
 
