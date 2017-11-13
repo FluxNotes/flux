@@ -108,4 +108,8 @@ export default class CreatorIntermediary extends Shortcut {
     getId() {
         return this.metadata["id"];
     }
+
+    getPrefixCharacter() {
+        return "#";
+    }
 }

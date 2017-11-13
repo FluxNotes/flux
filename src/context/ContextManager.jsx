@@ -26,7 +26,8 @@ class ContextManager {
 		//let result = this.patientContext.getValidChildShortcuts(true);
         let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
 		this.activeContexts.forEach((shortcut) => {
-			result = result.concat(shortcut.getValidChildShortcuts(true));
+			//result = result.concat(shortcut.getValidChildShortcuts(true));
+            result = result.concat(shortcutManager.getValidChildShortcutsInContext(shortcut, true));
 		});
 		return result;
 	}

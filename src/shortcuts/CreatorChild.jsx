@@ -136,4 +136,8 @@ export default class CreatorChild extends Shortcut {
     static getDescription() {
         return this.metadata.description;
     }
+
+    getId() {
+        return this.metadata["id"];
+    }
 }
