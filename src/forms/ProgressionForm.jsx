@@ -19,21 +19,26 @@ class ProgressionForm extends Component {
         };
     }
 
-    componentWillMount() {
+    /*
+     * Sets default asOfDate, updates props accordingly.
+     */
+    componentWillMount = () => {
         // Default the asOfDate to use in slim mode copy button
         this.props.updateValue("asOfDate", new moment().format('D MMM YYYY'));
     }
 
-    currentlySelected(item, i) {
-        return (item === i ? true : false);
-    }
-
+    /*
+     * Handles updating the Disease Status 'status'.
+     */
     handleStatusSelection = (e, i) => {
         e.preventDefault();
         const newStatus = this.state.statusOptions[i].name;
         this.props.updateValue("status", newStatus);
     }
 
+    /*
+     * Handles updating the Disease Status 'reason'.
+     */
     handleReasonSelection = (reason, i) => {
         // set active button state array
         let newArray = this.state.reasonButtonsActiveState;
@@ -66,10 +71,16 @@ class ProgressionForm extends Component {
         }
     }
 
+    /*
+     * Handles updating the Disease Status 'reference Date'.
+     */
     handleReferenceDateChange = (selectedReferenceDate) => {
         this.props.updateValue("referenceDateDate", selectedReferenceDate);
-    };
+    }
 
+    /* 
+     * Render the Disease Status 'status' button for the given status
+     */
     renderStatusButtonGroup = (status, i) => {
         const marginSize = "10px";
         const statusName = status.name;
@@ -89,17 +100,20 @@ class ProgressionForm extends Component {
                             marginLeft: marginSize,
                             height: "75px",
                             width: "180px",
-                            padding: "20px 0 20px 0",
                             backgroundColor: "white",
                             textTransform: "none"
                         }}
-                        disabled={this.currentlySelected(this.props.progression.status, this.state.statusOptions[i].name)}
-                >{statusName}
+                        disabled={this.props.progression.status === this.state.statusOptions[i].name}
+                >
+                    {statusName}
                 </Button>
             </div>
         );
     }
 
+    /* 
+     * Render the Disease Status 'reason' button for the given reason
+     */
     renderReasonButtonGroup = (reason, i) => {
 
         let reasonName = reason.name;
