@@ -96,6 +96,16 @@ test('Selecting adverseEvent, then selecting a valid grade updates copy-content'
             .contains(await gradeButtons.nth(i).innerText);
     }
 });
+test('Changing adverseEvemt via button updates copy-content', async t => {
+    const adverseEventButtons = Selector('.btn-group-attribution').find("span[class^='MuiButton-label']");
+    const numButtons = await adverseEventButtons.count;
+    for(let i = 0; i < numButtons; i++) {
+        await t
+            .click(attributionButtons.nth(i))
+            .expect(Selector("#copy-content").innerText)
+            .contains(await adverseEventButtons.nth(i).innerText);
+    }
+});
 test('Changing attribution via button updates copy-content', async t => {
     const attributionButtons = Selector('.btn-group-attribution').find("span[class^='MuiButton-label']");
     const numButtons = await attributionButtons.count;
