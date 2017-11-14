@@ -3,10 +3,8 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-
 import NavBar from '../nav/NavBar';
 import DashboardViewManager from '../dashboardViews/DashboardViewManager'
-
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
@@ -25,7 +23,6 @@ const theme = createMuiTheme({
 class FullApp extends Component {
     constructor(props) {
         super(props);
-
         this.possibleClinicalEvents = [
             "pre-encounter", 
             "encounter", 
