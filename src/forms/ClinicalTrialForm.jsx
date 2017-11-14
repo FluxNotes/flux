@@ -26,7 +26,7 @@ class ClinicalTrialForm extends Component {
 
     handleTrialSelection = (e, i) => {
         e.preventDefault();
-        const newTrial = this.state.trials[i].id;
+        const newTrial = this.state.trials[i].name; //.id; testcafe test fails to match due to case difference
         this.props.updateValue("title", newTrial);
     }
 

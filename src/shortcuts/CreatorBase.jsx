@@ -125,8 +125,7 @@ export default class CreatorBase extends Shortcut {
 
     getAsString() { 
         const structuredPhrase = this.metadata["structuredPhrase"];
-
-        
+   
         let last = 0, valueName, value;
         let start = structuredPhrase.indexOf("${"), end;
         let result = "";
@@ -151,7 +150,7 @@ export default class CreatorBase extends Shortcut {
                 after = conditional.substring(end2+1);
                 value = this.getAttributeValue(valueName);
                 if (!Lang.isNull(value) && value !== '') {
-                    if (value instanceof moment) value = value.format('D MMM YYYY');
+                    if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                     result += before;
                     result += value;
@@ -162,7 +161,7 @@ export default class CreatorBase extends Shortcut {
                 if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                     value = '?';
                 } else {
-                    if (value instanceof moment) value = value.format('D MMM YYYY');
+                    if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                 }
                 result += value;
