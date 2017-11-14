@@ -286,6 +286,7 @@
   { "type": "InsertValue",
     "id": "StageInserter",
     "getData": {"object": "parent", "attribute": "stage"},
+    "parentAttribute": "stage",
     "isContext": false,
     "stringTriggers": [{"name":"@stage", "description": "Stage of cancer based on AJCC"}],
     "knownParentContexts": "StagingCreator"

@@ -188,6 +188,7 @@ class ShortcutManager {
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
+            //console.log(shortcutId);
             contextValueObjectEntryType = this.shortcuts[shortcutId]["contextValueObjectEntryType"];
             if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.includes(contextValueObjectEntryType)) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
@@ -199,6 +200,7 @@ class ShortcutManager {
                 //console.log(voa);
                 value = context.getAttributeValue(parentAttribute);
                 //console.log(value);
+                //console.log(voa.isSettable);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
                 //console.log(isSettable);
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
@@ -207,7 +209,7 @@ class ShortcutManager {
                     if (Lang.isBoolean(value)) return !value;
                     return (value.length === 0);
                 } else {
-                    if (value === null) return true;
+                    if (value === null) return false;
                     if (Lang.isBoolean(value)) return !value;
                     return value.length > 0;
                 }
