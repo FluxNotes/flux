@@ -149,7 +149,9 @@ export default class CreatorBase extends Shortcut {
                 before = conditional.substring(0, start2);
                 after = conditional.substring(end2+1);
                 value = this.getAttributeValue(valueName);
-                if (!Lang.isNull(value) && value !== '') {
+                if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+                } else {
+                //if (!Lang.isNull(value) && value !== '') {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                     result += before;
