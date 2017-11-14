@@ -155,7 +155,11 @@ export default class CreatorBase extends Shortcut {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                     result += before;
-                    result += value;
+                    if (Lang.isArray(value)) {
+                        result += value.join(", ");
+                    } else {
+                        result += value;
+                    }
                     result += after;
                 }
             } else {
@@ -166,7 +170,11 @@ export default class CreatorBase extends Shortcut {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                 }
-                result += value;
+                if (Lang.isArray(value)) {
+                    result += value.join(", ");
+                } else {
+                    result += value;
+                }
             }
             last = end + 1;
             start = structuredPhrase.indexOf("${", last);
