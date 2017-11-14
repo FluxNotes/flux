@@ -24,7 +24,7 @@ class ProgressionForm extends Component {
      */
     componentWillMount = () => {
         // Default the asOfDate to use in slim mode copy button
-        this.props.updateValue("asOfDateDate", new moment().format('D MMM YYYY'));
+        this.props.updateValue("asOfDateDate", new moment()); //.format('D MMM YYYY'));
     }
 
     /*
