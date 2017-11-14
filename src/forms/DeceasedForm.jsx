@@ -4,7 +4,6 @@ import DatePicker from '../forms/DatePicker';
 import './DeceasedForm.css';
 
 class DeceasedForm extends Component {
-
     changeDate = (selectedDate) => {
         this.props.updateValue("date", selectedDate);
     };

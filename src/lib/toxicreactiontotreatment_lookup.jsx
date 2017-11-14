@@ -8853,6 +8853,7 @@ exports.getAdverseEventGradeCodeableConcept = (possibleGrade) => {
  * Finds the index of a possible adverseEvent; returns -1 if it's invalid
  */ 
 exports.findAdverseEventIndex = (possibleAdverseEvent) => {
+    if (Lang.isNull(possibleAdverseEvent)) return -1;
     return adverseEventOptions.findIndex((adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
 }
 

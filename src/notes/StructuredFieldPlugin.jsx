@@ -1,4 +1,5 @@
 import InserterShortcut from '../shortcuts/InserterShortcut';
+import CreatorChild from '../shortcuts/CreatorChild';
 import React from 'react';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
@@ -146,12 +147,12 @@ function StructuredFieldPlugin(opts) {
                 result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
-                if (shortcut instanceof InserterShortcut || Lang.isArray(shortcut.determineText(contextManager))) {
+                if (shortcut instanceof InserterShortcut || (shortcut instanceof CreatorChild && Lang.isArray(shortcut.determineText(contextManager)))) {
                     let text = shortcut.getText();
                     if (text.startsWith(shortcut.getPrefixCharacter())) {
                         text = text.substring(1);
                     }
-                    result += `${shortcut.getShortcutType()}[[${text}]]`;
+                    result += `${shortcut.initiatingTrigger}[[${text}]]`;
                 } else {
                     result += shortcut.getText();
                 }

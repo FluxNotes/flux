@@ -20,29 +20,30 @@ export default class NoteParser {
         } else {
             this.contextManager = contextManager;
         }
-        this.allTriggersRegExp = undefined;
-        this.triggerMap = {};
+        this.allStringTriggersRegExp = undefined;
+        //this.triggerMap = {};
         
         // build up all trigger string regular expression
-        let allTriggers = [];
-        let allShortcuts = this.shortcutManager.getAllShortcutClasses();
-        let curTriggers;
+        let allTriggers = this.shortcutManager.getAllStringTriggers();
+        //console.log(allTriggers);
+        let allShortcuts = this.shortcutManager.getAllShortcutDefinitions();
+        /*let curTriggers;
         allShortcuts.forEach((shortcutC) => {
             curTriggers = shortcutC.getStringTriggers().map((obj) => { return obj.name; });;
             allTriggers = allTriggers.concat(curTriggers);          
             curTriggers.forEach((item) => {
                 this.triggerMap[item.toLowerCase()] = shortcutC; 
             });
-        });
-        this.allTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
+        });*/
+        this.allStringTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
         
         // build list of regular expression triggers
         this.allTriggersRegExps = [];
         let regexp;
-        allShortcuts.forEach((shortcutC) => {
-           regexp = shortcutC.getTriggerRegExp(); 
-           if (!Lang.isNull(regexp)) {
-               this.allTriggersRegExps.push({ regexp: regexp, shortcut: shortcutC});
+        allShortcuts.forEach((def) => {
+           regexp = def.regexpTrigger; 
+           if (regexp) {
+               this.allTriggersRegExps.push({ regexp: regexp, definition: def});
            }
         });
         
@@ -50,18 +51,20 @@ export default class NoteParser {
     }
     
     getAllTriggersRegularExpression() {
-        return this.allTriggersRegExp;
+        return this.allStringTriggersRegExp;
     }
     
     createShortcut(trigger) {
-        let shortcutC;
+/*        let shortcutC;
         if (!Lang.isNull(trigger.shortcut)) {
             shortcutC = trigger.shortcut;
         } else {
             shortcutC = this.triggerMap[trigger.trigger.toLowerCase()];
             
         }
-        const shortcut = new shortcutC();
+        const shortcut = new shortcutC();*/
+        //console.log(trigger);
+        const shortcut = this.shortcutManager.createShortcut(trigger.definition, trigger.trigger); //, onUpdate, object
         shortcut.initialize(this.contextManager, trigger.trigger);
         shortcut.setKey(null);
         return shortcut;
@@ -73,16 +76,17 @@ export default class NoteParser {
         let pos = 0;
         let matches = [];
         let match, substr, nextPos, found;
-        let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         let checkForTriggerRegExpMatch = (tocheck) => {
             //console.log(tocheck.regexp + " against '" + substr + "'");
+            //console.log(tocheck);
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
                 //console.log("matched " + tocheck.regexp);
-                matches.push({trigger: match[0], shortcut: tocheck.shortcut});
+                matches.push({trigger: match[0], definition: tocheck.definition});
                 found = true;
             }
         }
+        let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         while (hashPos !== -1) {
             //console.log(hashPos);
             nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
@@ -91,7 +95,7 @@ export default class NoteParser {
             } else {
                 substr = note.substring(hashPos, nextPos);
             }
-            match = substr.match(this.allTriggersRegExp);
+            match = substr.match(this.allStringTriggersRegExp);
             if (Lang.isNull(match)) {
                 found = false;
                 this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
@@ -101,19 +105,12 @@ export default class NoteParser {
                 }
             } else {
                 //console.log(match[0]);
-                matches.push({trigger: match[0], shortcut: null});
+                matches.push({trigger: match[0], definition: null});
             }
             pos = hashPos + 1;
             hashPos = nextPos;
         }
         return [ matches, unrecognizedTriggers ];
-// if putting below code back in, add global flag to allTriggersRegExp in constructor
-/*        const matches =  note.match(this.allTriggersRegExp);
-        if (Lang.isNull(matches)) { 
-            return [];
-        } else { 
-            return matches;
-        }*/
     }
     
     getNextTriggerIndex(note, triggerPrefixes, pos) {

@@ -1,9 +1,20 @@
-import Progression from '../shr/oncology/Progression';
+import AssessmentFocus from '../shr/assessment/AssessmentFocus';
+import CodeableConcept from '../shr/core/CodeableConcept';
 import Evidence from '../shr/observation/Evidence';
+import Progression from '../shr/oncology/Progression';
+import Reference from '../Reference';
 import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxProgression class to hide codeableconcepts
 class FluxProgression extends Progression {
+    constructor(json) {
+        super(json);
+        if (json) {
+            if (json.asOfDate) this._asOfDate = json.asOfDate;
+        }
+        if (!this._codeableConcept) this._codeableConcept = new CodeableConcept();
+        if (!this._evidence) this._evidence = [];
+    }
     /**
      *  Getter for status
      *  This will return the displayText string from CodeableConcept Value
@@ -42,6 +53,41 @@ class FluxProgression extends Progression {
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;
         });
+    }
+
+    // Flux added
+    get asOfDate() {
+        return this._asOfDate;
+    }
+  
+    set asOfDate(val) {
+        this._asOfDate = val;
+    }
+    
+    get assessmentFocus() {
+        if (this._assessmentFocus && this._assessmentFocus.length > 0) {
+            return this._assessmentFocus[0].value;
+        }
+        return null;
+    }
+    
+    set assessmentFocus(val) {
+        if (!this._assessmentFocus) {
+            this._assessmentFocus = [];
+        }
+        let af;
+        if (this._assessmentFocus.length === 0) {
+            af = new AssessmentFocus();
+            this._assessmentFocus.push(af);
+        } else {
+            af = this._assessmentFocus[0];
+        }
+        af.value = val;
+    }
+    
+    setAssessmentFocusReference(obj) {
+        const ref = Reference.createReferenceFromEntry(obj.entryInfo);
+        this.assessmentFocus = ref;
     }
 }
 

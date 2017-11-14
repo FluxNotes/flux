@@ -98,10 +98,10 @@ describe('getDateOfBirth', function () {
         expect(hardCodedPatientObj)
             .to.not.be.null;
         // Path to date based on SHR record api, use to create moment obj. 
-        const expectedDate = new Moment(hardCodedPatient[0].dateOfBirth, "D MMM YYYY");
+        const expectedDate = new Moment(hardCodedPatient[0].dateOfBirth, "D MMM YYYY").format("D MMM YYYY").toUpperCase();
         expect(hardCodedPatientObj.getDateOfBirth())
-            .to.be.instanceOf(Moment)
-            .and.to.eql(expectedDate);
+            .to.be.a('string')
+            .and.to.equal(expectedDate);
     });
 });
 

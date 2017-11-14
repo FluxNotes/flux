@@ -24,7 +24,7 @@ class ProgressionForm extends Component {
      */
     componentWillMount = () => {
         // Default the asOfDate to use in slim mode copy button
-        this.props.updateValue("asOfDate", new moment().format('D MMM YYYY'));
+        this.props.updateValue("asOfDateDate", new moment()); //.format('D MMM YYYY'));
     }
 
     /*
@@ -48,11 +48,11 @@ class ProgressionForm extends Component {
             reasonButtonsActiveState: newArray
         });
 
-        const reasonIndex = this.props.progression.evidence.findIndex((e) => e === reason.name);
+        const reasonIndex = this.props.object.evidence.findIndex((e) => e === reason.name);
         if (this.state.reasonButtonsActiveState[i]) {
             // Index should be -1; if it isn't don't add to array
             if (reasonIndex === -1) {
-                const newReasons = this.props.progression.evidence;
+                const newReasons = this.props.object.evidence;
                 newReasons.push(reason.name);
                 this.props.updateValue("reasons", newReasons);
             } else {
@@ -62,7 +62,7 @@ class ProgressionForm extends Component {
         } else {
             // Index shouldn't be -1; if it is, don't remove it again;
             if (reasonIndex !== -1) {
-                const filteredReasons = this.props.progression.evidence.filter((e) => e !== reason.name);
+                const filteredReasons = this.props.object.evidence.filter((e) => e !== reason.name);
                 this.props.updateValue("reasons", filteredReasons);
             } else {
                 // Nothing -- the element is already removed from the array;
@@ -75,8 +75,8 @@ class ProgressionForm extends Component {
      * Handles updating the Disease Status 'reference Date'.
      */
     handleReferenceDateChange = (selectedReferenceDate) => {
-        this.props.updateValue("referenceDateDate", selectedReferenceDate);
-    }
+        this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
+    };
 
     /* 
      * Render the Disease Status 'status' button for the given status
@@ -103,7 +103,8 @@ class ProgressionForm extends Component {
                             backgroundColor: "white",
                             textTransform: "none"
                         }}
-                        disabled={this.props.progression.status === this.state.statusOptions[i].name}
+
+                        disabled={this.props.object.status === this.state.statusOptions[i].name}
                 >
                     {statusName}
                 </Button>
@@ -143,7 +144,7 @@ class ProgressionForm extends Component {
     }
 
     render() {
-        const clinicallyRelevantTime = this.props.progression.clinicallyRelevantTime;
+        const clinicallyRelevantTime = this.props.object.clinicallyRelevantTime;
         let referenceDateSection = null;
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
             referenceDateSection = (

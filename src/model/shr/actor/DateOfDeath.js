@@ -5,8 +5,10 @@ class DateOfDeath {
     constructor(json) {
         if (json) {
             this.generalizedDateTime = new GeneralizedDateTime(json);
-            this._generalizedDateTime = this.generalizedDateTime;
+        } else {
+            this.generalizedDateTime = new GeneralizedDateTime();
         }
+        this._generalizedDateTime = this.generalizedDateTime;
     }
 
   /**

@@ -1,25 +1,16 @@
 import Deceased from '../shr/actor/Deceased';
 import DateOfDeath from '../shr/actor/DateOfDeath';
 import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
+import Lang from 'lodash';
 
 class FluxDeceased extends Deceased {
-    constructor(json) {
-        super(json);
-        if (json) {
-            if (json.dateOfDeath) {
-                let dateOfDeath = new DateOfDeath();
-                let generalizedDateTime = new GeneralizedDateTime();
-                generalizedDateTime.value = json.dateOfDeath;
-                dateOfDeath.generalizedDateTime = generalizedDateTime;
-                this._dateOfDeath = dateOfDeath;
-            }
-        }   
-    }
     /**
      *  Getter for dateOfDeath
      *  This will return the date value
      */
     get dateOfDeath() {
+        if (Lang.isUndefined(this._dateOfDeath)) this._dateOfDeath = new DateOfDeath();
+        if (Lang.isUndefined(this._dateOfDeath.generalizedDateTime)) this._dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
         return this._dateOfDeath.generalizedDateTime.value;
     }
 
@@ -34,6 +25,7 @@ class FluxDeceased extends Deceased {
         generalizedDateTime.value = date;
         dateOfDeath.generalizedDateTime = generalizedDateTime;
         this._dateOfDeath = dateOfDeath;
+        this.value = (!Lang.isNull(date));
     }
 }
 

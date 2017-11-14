@@ -26,7 +26,7 @@ class ClinicalTrialForm extends Component {
 
     handleTrialSelection = (e, i) => {
         e.preventDefault();
-        const newTrial = this.state.trials[i].id;
+        const newTrial = this.state.trials[i].name; //.id; testcafe test fails to match due to case difference
         this.props.updateValue("title", newTrial);
     }
 
@@ -36,7 +36,7 @@ class ClinicalTrialForm extends Component {
         });
 
         if (this.state.selectedDateChoice === "enrollmentDate") {
-            this.props.updateValue("enrollmentDate", selectedDate);
+            this.props.updateValue("enrollmentDateDate", selectedDate); //.format('D MMM YYYY'));
         }
     }
 
@@ -45,7 +45,7 @@ class ClinicalTrialForm extends Component {
             selectedEndDate: selectedDate
         });
         if (this.state.selectedDateChoice === "endDate") {
-            this.props.updateValue("endDate", selectedDate);
+            this.props.updateValue("endDateDate", selectedDate); //.format('D MMM YYYY'));
         }
     }
 
@@ -54,11 +54,13 @@ class ClinicalTrialForm extends Component {
         // When changing the choice of date, set the other to null to clear it from the copy button
         // and reset the chosen date to the value displayed in the picker.
         if (choice === 'enrollmentDate') {
-            this.props.updateValue('endDate', null);
-            this.props.updateValue('enrollmentDate', this.state.selectedEnrollmentDate);
+            this.props.updateValue('endDateDate', null);
+            this.props.updateValue('enrollmentDateDate', 
+                (this.state.selectedEnrollmentDate) ? this.state.selectedEnrollmentDate : null); //.format('D MMM YYYY')
         } else if (choice === 'endDate') {
-            this.props.updateValue('enrollmentDate', null);
-            this.props.updateValue('endDate', this.state.selectedEndDate);
+            this.props.updateValue('enrollmentDateDate', null);
+            this.props.updateValue('endDateDate', 
+                (this.state.selectedEndDate) ? this.state.selectedEndDate : null); //.format('D MMM YYYY')
         }
         this.setState({selectedDateChoice: choice});
     }
@@ -73,21 +75,21 @@ class ClinicalTrialForm extends Component {
             <div key={trialName} className="tooltip-clinical-trial">
                 <span id={trialName} className={tooltipClass}>{trialDescription}</span>
                 <Button raised
-                        key={i}
-                        label={trialName}
-                        onClick={(e) => this.handleTrialSelection(e, i)}
-                        className="button_disabled_is_selected"
-                        style={{
-                            marginBottom: marginSize,
-                            marginLeft: marginSize,
-                            height: "75px",
-                            width: "180px",
-                            padding: "20px 0 20px 0",
-                            backgroundColor: "white",
-                            textTransform: "none"
-                        }}
-                        disabled={this.currentlySelected(this.props.clinicalTrial.title, this.state.trials[i].id)}
-                >{trialName}
+                    key={i}
+                    label={trialName}
+                    onClick={(e) => this.handleTrialSelection(e, i)}
+                    className="button_disabled_is_selected"
+                    style={{
+                        marginBottom: marginSize,
+                        marginLeft: marginSize,
+                        height: "75px",
+                        width: "180px",
+                        padding: "20px 0 20px 0",
+                        backgroundColor: "white",
+                        textTransform: "none"
+                    }}
+                    disabled={this.currentlySelected(this.props.object.title, this.state.trials[i].name)} //.id
+                    >{trialName}
                 </Button>
             </div>
         )

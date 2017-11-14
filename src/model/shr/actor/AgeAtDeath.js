@@ -1,5 +1,13 @@
+import GeneralizedAge from '../core/GeneralizedAge';
+
 /** Generated from SHR definition for shr.actor.AgeAtDeath */
 class AgeAtDeath {
+    constructor(json) {
+        if (json) {
+            this.generalizedAge = new GeneralizedAge(json.value);
+            this._generalizedAge = this.generalizedAge;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.generalizedAge)

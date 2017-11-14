@@ -106,9 +106,10 @@ class FluxNotesEditor extends React.Component {
         // global flag it looks like? TODO: evaluate
         this.autoReplaceBeforeRegExp = undefined;        
         let autoReplaceAfters = [];
-        let allShortcuts = this.props.shortcutManager.getAllShortcutClasses();
-        allShortcuts.forEach((shortcutC) => {
-            const shortcutNamesList = shortcutC.getStringTriggers().map(trigger => `${trigger.name}$`);
+        let allShortcutDefinitions = this.props.shortcutManager.getAllShortcutDefinitions();
+        allShortcutDefinitions.forEach((def) => {
+            let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
+            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
@@ -122,15 +123,18 @@ class FluxNotesEditor extends React.Component {
         
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;
-        allShortcuts.forEach((shortcutC) => {
-            triggerRegExp = shortcutC.getTriggerRegExp();
-            if (!Lang.isNull(triggerRegExp)) {
+        allShortcutDefinitions.forEach((def) => {
+            triggerRegExp = def.regexpTrigger;
+            if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
-                const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
+                //console.log(triggerRegExp);
+                //const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
+                const triggerRegExpModified = triggerRegExp;
+                //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
                     "trigger": 'space',
                     "before": triggerRegExpModified,
-                    "transform": this.autoReplaceTransform.bind(this, shortcutC)
+                    "transform": this.autoReplaceTransform.bind(this, def)
                 }));
             }
         });
@@ -138,11 +142,12 @@ class FluxNotesEditor extends React.Component {
         
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
-        let shortcuts = this.contextManager.getCurrentlyValidShortcuts();
+        let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
         shortcuts.forEach((shortcut) => {
-            const triggers = shortcut.getStringTriggers();
+            //const triggers = shortcut.getStringTriggers();
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
@@ -176,6 +181,7 @@ class FluxNotesEditor extends React.Component {
         }
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
+//            console.log(text);
             if (text.length > 0) {
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();
@@ -195,9 +201,9 @@ class FluxNotesEditor extends React.Component {
         }
     }
     
-    autoReplaceTransform(shortcutC, transform, e, data, matches) {
+    autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(shortcutC, matches.before[0], "", transform).insertText(' ');
+        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
     
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -340,6 +346,7 @@ class FluxNotesEditor extends React.Component {
         let remainder = itemToBeInserted;
         let start, before, end, after;
         
+        //console.log(itemToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted)[0];
         //console.log(triggers);
         if (!Lang.isNull(triggers)) {
@@ -360,7 +367,7 @@ class FluxNotesEditor extends React.Component {
                     after = "";
                 }
                 //console.log(remainder);
-                transform = this.insertShortcut(trigger.shortcut, trigger.trigger, after, transform);
+                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform);
             });
         }
 

@@ -41,6 +41,7 @@ let perFileFunc = (file) => {
         console.log("***************************************************");
         console.log(file);
         content = util.format(data);
+        console.log(content);
         result = noteParser.parse(content);
         console.log(util.inspect(result[0], false, null));
         console.log("Unrecognized structured phrases:");

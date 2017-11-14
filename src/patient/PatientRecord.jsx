@@ -81,7 +81,8 @@ class PatientRecord {
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		return new moment(personOfRecord._dateOfBirth._value, "D MMM YYYY");
+		//return new moment(personOfRecord.dateOfBirth.value, "D MMM YYYY");
+        return personOfRecord.dateOfBirth.value;
 	}
 	
 	getAge() {
@@ -253,21 +254,21 @@ class PatientRecord {
 	
 	getProgressionsForCondition(condition) {
 		return this.entries.filter((item) => {
-			return item instanceof FluxProgression && item.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
+			return item instanceof FluxProgression && item.assessmentFocus.entryId === condition.entryInfo.entryId;
 		});
 	}
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.assessmentFocus.some((a) => { return a.value.entryId === condition.entryInfo.entryId; });
+            return progression.assessmentFocus.entryId === condition.entryInfo.entryId;
         });
         return progressions;
     }
 	
 	getFocalConditionForProgression(progression) {
 		let result = this.entries.filter((item) => { return (item instanceof Condition) 
-            && progression.assessmentFocus.some((a) => { return a.value.entryId === item.entryInfo.entryId }) });
+            && progression.assessmentFocus.entryId === item.entryInfo.entryId });
 		return result[0];
 	}
 	

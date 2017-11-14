@@ -186,9 +186,19 @@ class ContextPortal extends React.Component {
      * View of the current menu
      */
     render = () => {
+        const TYPE_LIST = 0;
+        const TYPE_CALENDAR = 1;
         const { contexts } = this.props;
-  
-        if (Lang.isNull(contexts)) return null; 
+        let type;
+        if (Lang.isNull(contexts)) return null;
+        
+        if (Lang.isArray(contexts)) {
+            type = TYPE_LIST;
+        } else if (contexts === "date-id") {
+            type = TYPE_CALENDAR;
+        } else {
+            console.error("unknown picker type: " + contexts);
+        }
     
         return (
             <Portal 
@@ -199,7 +209,7 @@ class ContextPortal extends React.Component {
                 onClose={this.onClose}
             >
                 <div className="context-portal">
-                    {contexts[0].key === 'date-id' ? this.renderCalendar() : this.renderListOptions()}
+                    {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>
         )

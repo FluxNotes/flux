@@ -77,8 +77,8 @@ class SummaryMetadata {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
                                         let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                                        if (s && s.staging && s.staging.length > 0) {
-                                            return s.staging;
+                                        if (s && s.stage && s.stage.length > 0) {
+                                            return s.stage;
                                         } else {
                                             return null;
                                         }

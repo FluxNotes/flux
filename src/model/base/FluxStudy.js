@@ -5,16 +5,11 @@ import Identifier from '../shr/core/Identifier';
 class FluxStudy extends Study {
     constructor(json) {
         super(json);
-
         if (json) {
-            let title = new Title();
-            title.value = json.title ? json.title : '';
-            this._title = title;
-            let identifier = new Identifier();
-            identifier.value = json.identifier ? json.identifier : '';
-            this._identifier = identifier;
-            this._enrollmentDate = json.enrollmentDate;
-            this._endDate = json.endDate;
+            if (json.enrollmentDate) this._enrollmentDate = json.enrollmentDate;
+            if (json.endDate) this._endDate = json.endDate;
+        } else {
+            this._title = new Title();
         }
     }
 

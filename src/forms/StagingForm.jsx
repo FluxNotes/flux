@@ -38,6 +38,13 @@ class StagingForm extends Component {
     this.props.updateValue("M", newValue);
   }
 
+  /* all the Buttons had this:                           classes={{
+                            label: {
+                                textTransform: "none",
+                            }
+                          }}
+    */
+  
   render() {
     return (
        <div>
@@ -61,18 +68,13 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(t.name)}
                           onClick={(e) => this._handleTumorSizeClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                          disabled={this._currentlySelected(this.props.staging.tStage, this.state.tumorValues[i].name)}
+                          disabled={this._currentlySelected(this.props.object.tStage, this.state.tumorValues[i].name)}
                       >{titlecase(t.name)}</Button>
                   </div>
                 );
@@ -92,18 +94,13 @@ class StagingForm extends Component {
                           key={i}
                           label={titlecase(n.name)}
                           onClick={(e) => this._handleNodeClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                          disabled={this._currentlySelected(this.props.staging.nStage, this.state.nodeValues[i].name)}
+                          disabled={this._currentlySelected(this.props.object.nStage, this.state.nodeValues[i].name)}
                       >{titlecase(n.name)}</Button>
                   </div>
                 );
@@ -123,18 +120,13 @@ class StagingForm extends Component {
                         key={i}
                         label={titlecase(m.name)}
                         onClick={(e) => this._handleMetastasisClick(e, i)}
-                          classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
                           style={{
                             margin: 0.5,
                             height: "50px",
                             width: "180px",
                             padding: "20px 0 20px 0",
                           }}
-                        disabled={this._currentlySelected(this.props.staging.mStage, this.state.metastasisValues[i].name)}
+                        disabled={this._currentlySelected(this.props.object.mStage, this.state.metastasisValues[i].name)}
                     >{titlecase(m.name)}</Button>
                   </div>
                 );
@@ -144,7 +136,7 @@ class StagingForm extends Component {
             <p id="data-element-description">
               {stagingLookup.getDescription("prognosticStage")}
             </p>
-            <div className="stage">{staging.breastCancerPrognosticStage(this.props.staging.tStage, this.props.staging.nStage, this.props.staging.mStage) || 'Undefined'}</div>
+            <div className="stage">{staging.breastCancerPrognosticStage(this.props.object.tStage, this.props.object.nStage, this.props.object.mStage) || 'Undefined'}</div>
         </div>
     );
   }
