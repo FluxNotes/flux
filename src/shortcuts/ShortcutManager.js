@@ -94,18 +94,21 @@ class ShortcutManager {
         }
         className = metadata["type"];
         //console.log(className);
+        let newShortcut;
         if (className === "CreatorBase") {
-            return new CreatorBase(onUpdate, metadata);
+            newShortcut = new CreatorBase(onUpdate, metadata);
         } else if (className === "CreatorChild") {
-            return new CreatorChild(onUpdate, metadata);
+            newShortcut = new CreatorChild(onUpdate, metadata);
         } else if (className === "CreatorIntermediary") {
-            return new CreatorIntermediary(onUpdate, metadata);
+            newShortcut = new CreatorIntermediary(onUpdate, metadata);
         } else if (className === "InsertValue") {
-            return new InsertValue(onUpdate, metadata);
+            newShortcut = new InsertValue(onUpdate, metadata);
         } else {
             console.error("unsupported type: " + className);
             return null;
         }
+        newShortcut.initiatingTrigger = trigger;
+        return newShortcut;
         //return new className(onUpdate, metadata);
     }
     
