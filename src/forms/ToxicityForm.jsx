@@ -51,15 +51,18 @@ class ToxicityForm extends Component {
      */
     currentlySelectedAttribution = (attribution) => {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.object.causeCategory === attribution.name ? 'button_selected' : '';
+        return this.props.object.causeCategory === attribution.name;
     }
     
     /*
      * Handle updating the attribution value on toxicity
      */
-    handleAttributionSelection = (attribution) => {
-        // TODO: Possibly add appropriate null checks
-        this.props.updateValue("attribution", attribution.name);
+    handleAttributionSelection = (attribution, isSelected) => {
+        if (isSelected) {
+            this.props.updateValue("attribution", null);
+        } else {
+            this.props.updateValue("attribution", attribution.name);
+        }
     }
 
     /* 
@@ -117,7 +120,7 @@ class ToxicityForm extends Component {
             const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
             return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
         }).slice(0, 7);
-    };
+    }
 
     /* 
      * When suggestion is clicked, Autosuggest needs to populate the input
@@ -125,8 +128,8 @@ class ToxicityForm extends Component {
      * input value for every given suggestion.
      */
     getSuggestionValue = (suggestion) => {
-        return suggestion.name
-    };
+        return suggestion.name;
+    }
 
     /* 
      * Autosuggest will call this function every time you need to update suggestions.
@@ -136,7 +139,7 @@ class ToxicityForm extends Component {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
-    };
+    }
 
     /* 
      * Autosuggest will call this function every time you need to clear suggestions.
@@ -145,7 +148,7 @@ class ToxicityForm extends Component {
         this.setState({
             suggestions: []
         });
-    };
+    }
 
     /* 
      * Render the adverse event item for the adverse event suggestion
@@ -211,6 +214,37 @@ class ToxicityForm extends Component {
                 <div className="grade-menu-item-description">
                     {gradeDescription}
                 </div>
+            </div>
+        )
+    }
+
+    /* 
+     * Render the attribution button for the given attribution object, 
+     */
+    renderAttributionButton = (attribution, i) => { 
+        const isSelected = this.currentlySelectedAttribution(attribution);
+        const buttonClass = isSelected ? 'button_selected' : ''
+        const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+        const marginSize = "10px";  
+        return (
+            <div key={attribution.name} className="tooltip">
+                <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
+                <Button raised
+                    key={i}
+                    label={attribution.name}
+                    className={buttonClass}
+                    style={{
+                        marginBottom: marginSize,
+                        marginLeft: marginSize,
+                        borderRadius: "10px",
+                        height: "75px",
+                        width: "180px",
+                        backgroundColor: "white",
+                        textTransform: "none"
+                    }}
+                    onClick={ () => this.handleAttributionSelection(attribution, isSelected)}
+                >{attribution.name}
+                </Button>
             </div>
         )
     }
@@ -285,27 +319,7 @@ class ToxicityForm extends Component {
                 
                 <div className="btn-group-attribution">
                     {toxicityLookup.getAttributionOptions().map((attribution, i) => {
-                        const buttonClass = this.currentlySelectedAttribution(attribution);
-                        const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-                        return (
-                            <div key={attribution.name} className="tooltip">
-                                <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
-                                <Button raised
-                                    key={i}
-                                    label={attribution.name}
-                                    className={buttonClass}
-                                    style={{
-                                        margin: 0.5,
-                                        height: "75px",
-                                        width: "180px",
-                                        backgroundColor: "white",
-                                        textTransform: "none"
-                                    }}
-                                    onClick={ () => this.handleAttributionSelection(attribution)}
-                                >{attribution.name}
-                                </Button>
-                            </div>
-                        )
+                        return this.renderAttributionButton(attribution, i); 
                     })}
                 </div>
             </div>

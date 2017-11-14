@@ -56,11 +56,11 @@ class ClinicalTrialForm extends Component {
         if (choice === 'enrollmentDate') {
             this.props.updateValue('endDateDate', null);
             this.props.updateValue('enrollmentDateDate', 
-                (this.state.selectedEnrollmentDate !== null) ? this.state.selectedEnrollmentDate.format('D MMM YYYY'): null);
+                (this.state.selectedEnrollmentDate) ? this.state.selectedEnrollmentDate : null); //.format('D MMM YYYY')
         } else if (choice === 'endDate') {
             this.props.updateValue('enrollmentDateDate', null);
             this.props.updateValue('endDateDate', 
-                (this.state.selectedEndDate !== null) ? this.state.selectedEndDate.format('D MMM YYYY') : null);
+                (this.state.selectedEndDate) ? this.state.selectedEndDate : null); //.format('D MMM YYYY')
         }
         this.setState({selectedDateChoice: choice});
     }
@@ -88,7 +88,7 @@ class ClinicalTrialForm extends Component {
                         backgroundColor: "white",
                         textTransform: "none"
                     }}
-                    disabled={this.currentlySelected(this.props.object.title, this.state.trials[i].id)}
+                    disabled={this.currentlySelected(this.props.object.title, this.state.trials[i].name)} //.id
                     >{trialName}
                 </Button>
             </div>
