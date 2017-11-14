@@ -221,7 +221,7 @@
 .btn-group-adverse-event,
 .btn-group-attribution {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: left;
     flex-wrap: wrap;
     margin-top: 40px;
 }
@@ -234,6 +234,7 @@
     padding: 20px 0;
     background-color: white;
     text-transform: none;
+    border-radius: 10px;
 }
 
 .btn-group-adverse-event button:hover,
