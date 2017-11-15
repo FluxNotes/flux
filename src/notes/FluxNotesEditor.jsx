@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import ContextPortal from '../context/ContextPortal';
