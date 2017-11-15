@@ -71,6 +71,39 @@ const gradeOptions = [
 // V4.0 CTCAE info from CTCAE_4.03_2010-06-14.xls
 const adverseEventOptions = [
     {
+        "MedDRA v12.0 Code": 10016288,
+        "SOC": "Blood and lymphatic system disorders",
+        "name": "Febrile neutropenia",
+        "Grade 1": null,
+        "Grade 2": null,
+        "Grade 3": "ANC <1000/mm3 with a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by an ANC <1000/mm3 and a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour"
+    },
+    {
+        "MedDRA v12.0 Code": 10016256,
+        "SOC": "General disorders and administration site conditions",
+        "name": "Fatigue",
+        "Grade 1": "Fatigue relieved by rest",
+        "Grade 2": "Fatigue not relieved by rest; limiting instrumental ADL",
+        "Grade 3": "Fatigue not relieved by rest, limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by a state of generalized weakness with a pronounced inability to summon sufficient energy to accomplish daily activities."
+    },
+    {
+        "MedDRA v12.0 Code": 10062572,
+        "SOC": "Musculoskeletal and connective tissue disorders",
+        "name": "Generalized muscle weakness",
+        "Grade 1": "Symptomatic; weakness perceived by patient but not evident on physical exam",
+        "Grade 2": "Symptomatic; weakness evident on physical exam; weakness limiting instrumental ADL",
+        "Grade 3": "Weakness limiting self care ADL; disabling",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by a reduction in the strength of muscles in multiple anatomic sites."
+    },
+    {
         "MedDRA v12.0 Code": 10002272,
         "SOC": "Blood and lymphatic system disorders",
         "name": "Anemia",
@@ -80,6 +113,193 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by an reduction in the amount of hemoglobin in 100 ml of blood. Signs and symptoms of anemia may include pallor of the skin and mucous membranes, shortness of breath, palpitations of the heart, soft systolic murmurs, lethargy, and fatigability."
+    },
+    {
+        "MedDRA v12.0 Code": 10012727,
+        "SOC": "Gastrointestinal disorders",
+        "name": "Diarrhea",
+        "Grade 1": "Increase of <4 stools per day over baseline; mild increase in ostomy output compared to baseline",
+        "Grade 2": "Increase of 4 - 6 stools per day over baseline; moderate increase in ostomy output compared to baseline",
+        "Grade 3": "Increase of >=7 stools per day over baseline; incontinence; hospitalization indicated; severe increase in ostomy output compared to baseline; limiting self care ADL",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by frequent and watery bowel movements."
+    },
+    {
+        "MedDRA v12.0 Code": 10028813,
+        "SOC": "Gastrointestinal disorders",
+        "name": "Nausea",
+        "Grade 1": "Loss of appetite without alteration in eating habits",
+        "Grade 2": "Oral intake decreased without significant weight loss, dehydration or malnutrition",
+        "Grade 3": "Inadequate oral caloric or fluid intake; tube feeding, TPN, or hospitalization indicated",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by a queasy sensation and/or the urge to vomit."
+    },
+    {
+        "MedDRA v12.0 Code": 10035528,
+        "SOC": "Investigations",
+        "name": "Platelet count decreased",
+        "Grade 1": "<LLN - 75,000/mm3; <LLN - 75.0 x 10e9 /L",
+        "Grade 2": "<75,000 - 50,000/mm3; <75.0 - 50.0 x 10e9 /L",
+        "Grade 3": "<50,000 - 25,000/mm3; <50.0 - 25.0 x 10e9 /L",
+        "Grade 4": "<25,000/mm3; <25.0 x 10e9 /L",
+        "Grade 5": null,
+        "description": "A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen."
+    },
+    {
+        "MedDRA v12.0 Code": 10002646,
+        "SOC": "Metabolism and nutrition disorders",
+        "name": "Anorexia",
+        "Grade 1": "Loss of appetite without alteration in eating habits",
+        "Grade 2": "Oral intake altered without significant weight loss or malnutrition; oral nutritional supplements indicated",
+        "Grade 3": "Associated with significant weight loss or malnutrition (e.g., inadequate oral caloric and/or fluid intake); tube feeding or TPN indicated",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by a loss of appetite."
+    },
+    {
+        "MedDRA v12.0 Code": 10010774,
+        "SOC": "Gastrointestinal disorders",
+        "name": "Constipation",
+        "Grade 1": "Occasional or intermittent symptoms; occasional use of stool softeners, laxatives, dietary modification, or enema",
+        "Grade 2": "Persistent symptoms with regular use of laxatives or enemas; limiting instrumental ADL",
+        "Grade 3": "Obstipation with manual evacuation indicated; limiting self care ADL",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by irregular and infrequent or difficult evacuation of the bowels."
+    },
+    {
+        "MedDRA v12.0 Code": 10006556,
+        "SOC": "Skin and subcutaneous tissue disorders",
+        "name": "Bullous dermatitis",
+        "Grade 1": "Asymptomatic; blisters covering <10% BSA",
+        "Grade 2": "Blisters covering 10 - 30% BSA; painful blisters; limiting instrumental ADL",
+        "Grade 3": "Blisters covering >30% BSA; limiting self care ADL",
+        "Grade 4": "Blisters covering >30% BSA; associated with fluid or electrolyte abnormalities; ICU care or burn unit indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by inflammation of the skin characterized by the presence of bullae which are filled with fluid."
+    },
+    {
+        "MedDRA v12.0 Code": 10046300,
+        "SOC": "Infections and infestations",
+        "name": "Upper respiratory infection",
+        "Grade 1": null,
+        "Grade 2": "Moderate symptoms; oral intervention indicated (e.g., antibiotic, antifungal, antiviral)",
+        "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by an infectious process involving the upper respiratory tract (nose, paranasal sinuses, pharynx, larynx, or trachea)."
+    },
+    {
+        "MedDRA v12.0 Code": 10047700,
+        "SOC": "Gastrointestinal disorders",
+        "name": "Vomiting",
+        "Grade 1": "1 - 2 episodes (separated by 5 minutes) in 24 hrs",
+        "Grade 2": "3 - 5 episodes (separated by 5 minutes) in 24 hrs",
+        "Grade 3": ">=6 episodes (separated by 5 minutes) in 24 hrs; tube feeding, TPN or hospitalization indicated",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by the reflexive act of ejecting the contents of the stomach through the mouth."
+    },
+    {
+        "MedDRA v12.0 Code": 10020407,
+        "SOC": "Vascular disorders",
+        "name": "Hot flashes",
+        "Grade 1": "Mild symptoms; intervention not indicated",
+        "Grade 2": "Moderate symptoms; limiting instrumental ADL",
+        "Grade 3": "Severe symptoms; limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by an uncomfortable and temporary sensation of intense body warmth, flushing, sometimes accompanied by sweating upon cooling."
+    },
+    {
+        "MedDRA v12.0 Code": 10003239,
+        "SOC": "Musculoskeletal and connective tissue disorders",
+        "name": "Arthralgia",
+        "Grade 1": "Mild pain",
+        "Grade 2": "Moderate pain; limiting instrumental ADL",
+        "Grade 3": "Severe pain; limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by a sensation of marked discomfort in a joint."
+    },
+    {
+        "MedDRA v12.0 Code": 10031282,
+        "SOC": "Musculoskeletal and connective tissue disorders",
+        "name": "Osteoporosis",
+        "Grade 1": "Radiologic evidence of osteoporosis or Bone Mineral Density (BMD) t-score -1 to -2.5 (osteopenia); no loss of height or intervention indicated",
+        "Grade 2": "BMD t-score <-2.5; loss of height <2 cm; anti-osteoporotic therapy indicated; limiting instrumental ADL",
+        "Grade 3": "Loss of height >=2 cm; hospitalization indicated; limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by reduced bone mass, with a decrease in cortical thickness and in the number and size of the trabeculae of cancellous bone (but normal chemical composition), resulting in increased fracture incidence."
+    },
+    {
+        "MedDRA v12.0 Code": 10016558,
+        "SOC": "General disorders and administration site conditions",
+        "name": "Fever",
+        "Grade 1": "38.0 - 39.0 degrees C  (100.4 - 102.2 degrees F)",
+        "Grade 2": ">39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)",
+        "Grade 3": ">40.0 degrees C (>104.0 degrees F) for <=24 hrs",
+        "Grade 4": ">40.0 degrees C (>104.0 degrees F) for >24 hrs",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by elevation of the body's temperature above the upper limit of normal."
+    },
+    {
+        "MedDRA v12.0 Code": 10051792,
+        "SOC": "General disorders and administration site conditions",
+        "name": "Infusion related reaction",
+        "Grade 1": "Mild transient reaction; infusion interruption not indicated; intervention not indicated",
+        "Grade 2": "Therapy or infusion interruption indicated but responds promptly to symptomatic treatment (e.g., antihistamines, NSAIDS, narcotics, IV fluids); prophylactic medications indicated for <=24 hrs",
+        "Grade 3": "Prolonged (e.g., not rapidly responsive to symptomatic medication and/or brief interruption of infusion); recurrence of symptoms following initial improvement; hospitalization indicated for clinical sequelae",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by adverse reaction to the infusion of pharmacological or biological substances."
+    },
+    {
+        "MedDRA v12.0 Code": 10019211,
+        "SOC": "Nervous system disorders",
+        "name": "Headache",
+        "Grade 1": "Mild pain",
+        "Grade 2": "Moderate pain; limiting instrumental ADL",
+        "Grade 3": "Severe pain; limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by a sensation of marked discomfort in various parts of the head, not confined to the area of distribution of any nerve."
+    },
+    {
+        "MedDRA v12.0 Code": 10011224,
+        "SOC": "Respiratory, thoracic and mediastinal disorders",
+        "name": "Cough",
+        "Grade 1": "Mild symptoms; nonprescription intervention indicated",
+        "Grade 2": "Moderate symptoms, medical intervention indicated; limiting instrumental ADL",
+        "Grade 3": "Severe symptoms; limiting self care ADL",
+        "Grade 4": null,
+        "Grade 5": null,
+        "description": "A disorder characterized by sudden, often repetitive, spasmodic contraction of the thoracic cavity, resulting in violent release of air from the lungs and usually accompanied by a distinctive sound."
+    },
+    {
+        "MedDRA v12.0 Code": 10013963,
+        "SOC": "Respiratory, thoracic and mediastinal disorders",
+        "name": "Dyspnea",
+        "Grade 1": "Shortness of breath with moderate exertion",
+        "Grade 2": "Shortness of breath with minimal exertion; limiting instrumental ADL",
+        "Grade 3": "Shortness of breath at rest; limiting self care ADL",
+        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by an uncomfortable sensation of difficulty breathing."
+    },
+    {
+        "MedDRA v12.0 Code": 10069138,
+        "SOC": "Infections and infestations",
+        "name": "Papulopustular rash",
+        "Grade 1": "Papules and/or pustules covering <10% BSA, which may or may not be associated with symptoms of pruritus or tenderness",
+        "Grade 2": "Papules and/or pustules covering 10-30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; associated with psychosocial impact; limiting instrumental ADL",
+        "Grade 3": "Papules and/or pustules covering >30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; limiting self-care ADL; associated with local superinfection with oral antibiotics indicated",
+        "Grade 4": "Papules and/or pustules covering  any % BSA, which may or may not be associated with symptoms of pruritus or tenderness and are associated with extensive superinfection with IV antibiotics indicated; life-threatening consequences",
+        "Grade 5": "Death",
+        "description": "A disorder characterized by an eruption consisting of papules (a small, raised pimple) and pustules (a small pus filled blister), typically appearing in face, scalp, and upper chest and back Unlike acne, this rash does not present with whiteheads or blackheads, and can be symptomatic, with itchy or tender lesions."
     },
     {
         "MedDRA v12.0 Code": 10048580,
@@ -102,17 +322,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by systemic pathological activation of blood clotting mechanisms which results in clot formation throughout the body. There is an increase in the risk of hemorrhage as the body is depleted of platelets and coagulation factors."
-    },
-    {
-        "MedDRA v12.0 Code": 10016288,
-        "SOC": "Blood and lymphatic system disorders",
-        "name": "Febrile neutropenia",
-        "Grade 1": null,
-        "Grade 2": null,
-        "Grade 3": "ANC <1000/mm3 with a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by an ANC <1000/mm3 and a single temperature of >38.3 degrees C (101 degrees F) or a sustained temperature of >=38 degrees C (100.4 degrees F) for more than one hour"
     },
     {
         "MedDRA v12.0 Code": 10019491,
@@ -1314,17 +1523,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by a circumscribed, inflammatory and necrotic erosive lesion on the mucosal surface of the colon."
     },
     {
-        "MedDRA v12.0 Code": 10010774,
-        "SOC": "Gastrointestinal disorders",
-        "name": "Constipation",
-        "Grade 1": "Occasional or intermittent symptoms; occasional use of stool softeners, laxatives, dietary modification, or enema",
-        "Grade 2": "Persistent symptoms with regular use of laxatives or enemas; limiting instrumental ADL",
-        "Grade 3": "Obstipation with manual evacuation indicated; limiting self care ADL",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by irregular and infrequent or difficult evacuation of the bowels."
-    },
-    {
         "MedDRA v12.0 Code": 10012318,
         "SOC": "Gastrointestinal disorders",
         "name": "Dental caries",
@@ -1334,17 +1532,6 @@ const adverseEventOptions = [
         "Grade 4": null,
         "Grade 5": null,
         "description": "A disorder characterized by the decay of a tooth, in which it becomes softened, discolored and/or porous."
-    },
-    {
-        "MedDRA v12.0 Code": 10012727,
-        "SOC": "Gastrointestinal disorders",
-        "name": "Diarrhea",
-        "Grade 1": "Increase of <4 stools per day over baseline; mild increase in ostomy output compared to baseline",
-        "Grade 2": "Increase of 4 - 6 stools per day over baseline; moderate increase in ostomy output compared to baseline",
-        "Grade 3": "Increase of >=7 stools per day over baseline; incontinence; hospitalization indicated; severe increase in ostomy output compared to baseline; limiting self care ADL",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by frequent and watery bowel movements."
     },
     {
         "MedDRA v12.0 Code": 10013781,
@@ -1952,17 +2139,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by inflammation of the oral mucosal."
     },
     {
-        "MedDRA v12.0 Code": 10028813,
-        "SOC": "Gastrointestinal disorders",
-        "name": "Nausea",
-        "Grade 1": "Loss of appetite without alteration in eating habits",
-        "Grade 2": "Oral intake decreased without significant weight loss, dehydration or malnutrition",
-        "Grade 3": "Inadequate oral caloric or fluid intake; tube feeding, TPN, or hospitalization indicated",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by a queasy sensation and/or the urge to vomit."
-    },
-    {
         "MedDRA v12.0 Code": 10029957,
         "SOC": "Gastrointestinal disorders",
         "name": "Obstruction gastric",
@@ -2359,17 +2535,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by bleeding from the upper gastrointestinal tract (oral cavity, pharynx, esophagus, and stomach)."
     },
     {
-        "MedDRA v12.0 Code": 10047700,
-        "SOC": "Gastrointestinal disorders",
-        "name": "Vomiting",
-        "Grade 1": "1 - 2 episodes (separated by 5 minutes) in 24 hrs",
-        "Grade 2": "3 - 5 episodes (separated by 5 minutes) in 24 hrs",
-        "Grade 3": ">=6 episodes (separated by 5 minutes) in 24 hrs; tube feeding, TPN or hospitalization indicated",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by the reflexive act of ejecting the contents of the stomach through the mouth."
-    },
-    {
         "MedDRA v12.0 Code": 10017947,
         "SOC": "Gastrointestinal disorders",
         "name": "Gastrointestinal disorders - Other, specify",
@@ -2458,28 +2623,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by a sensation of marked discomfort in the face."
     },
     {
-        "MedDRA v12.0 Code": 10016256,
-        "SOC": "General disorders and administration site conditions",
-        "name": "Fatigue",
-        "Grade 1": "Fatigue relieved by rest",
-        "Grade 2": "Fatigue not relieved by rest; limiting instrumental ADL",
-        "Grade 3": "Fatigue not relieved by rest, limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by a state of generalized weakness with a pronounced inability to summon sufficient energy to accomplish daily activities."
-    },
-    {
-        "MedDRA v12.0 Code": 10016558,
-        "SOC": "General disorders and administration site conditions",
-        "name": "Fever",
-        "Grade 1": "38.0 - 39.0 degrees C  (100.4 - 102.2 degrees F)",
-        "Grade 2": ">39.0 - 40.0 degrees C (102.3 - 104.0 degrees F)",
-        "Grade 3": ">40.0 degrees C (>104.0 degrees F) for <=24 hrs",
-        "Grade 4": ">40.0 degrees C (>104.0 degrees F) for >24 hrs",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by elevation of the body's temperature above the upper limit of normal."
-    },
-    {
         "MedDRA v12.0 Code": 10016791,
         "SOC": "General disorders and administration site conditions",
         "name": "Flu like symptoms",
@@ -2511,17 +2654,6 @@ const adverseEventOptions = [
         "Grade 4": "<=28 degrees C; 82.4 degrees F; life-threatening consequences (e.g., coma, hypotension, pulmonary edema, acidemia, ventricular fibrillation)",
         "Grade 5": "Death",
         "description": "A disorder characterized by an abnormally low body temperature. Treatment is required when the body temperature is 35C (95F) or below."
-    },
-    {
-        "MedDRA v12.0 Code": 10051792,
-        "SOC": "General disorders and administration site conditions",
-        "name": "Infusion related reaction",
-        "Grade 1": "Mild transient reaction; infusion interruption not indicated; intervention not indicated",
-        "Grade 2": "Therapy or infusion interruption indicated but responds promptly to symptomatic treatment (e.g., antihistamines, NSAIDS, narcotics, IV fluids); prophylactic medications indicated for <=24 hrs",
-        "Grade 3": "Prolonged (e.g., not rapidly responsive to symptomatic medication and/or brief interruption of infusion); recurrence of symptoms following initial improvement; hospitalization indicated for clinical sequelae",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by adverse reaction to the infusion of pharmacological or biological substances."
     },
     {
         "MedDRA v12.0 Code": 10064774,
@@ -3351,7 +3483,7 @@ const adverseEventOptions = [
     {
         "MedDRA v12.0 Code": 10055005,
         "SOC": "Infections and infestations",
-        "name": "Ovarian infection",
+        "name": "Ovarian",
         "Grade 1": null,
         "Grade 2": "Localized; local intervention indicated (e.g., topical antibiotic, antifungal, or antiviral)",
         "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic or operative intervention indicated",
@@ -3369,17 +3501,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by an infectious process involving the pancreas."
-    },
-    {
-        "MedDRA v12.0 Code": 10069138,
-        "SOC": "Infections and infestations",
-        "name": "Papulopustular rash",
-        "Grade 1": "Papules and/or pustules covering <10% BSA, which may or may not be associated with symptoms of pruritus or tenderness",
-        "Grade 2": "Papules and/or pustules covering 10-30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; associated with psychosocial impact; limiting instrumental ADL",
-        "Grade 3": "Papules and/or pustules covering >30% BSA, which may or may not be associated with symptoms of pruritus or tenderness; limiting self-care ADL; associated with local superinfection with oral antibiotics indicated",
-        "Grade 4": "Papules and/or pustules covering  any % BSA, which may or may not be associated with symptoms of pruritus or tenderness and are associated with extensive superinfection with IV antibiotics indicated; life-threatening consequences",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by an eruption consisting of papules (a small, raised pimple) and pustules (a small pus filled blister), typically appearing in face, scalp, and upper chest and back Unlike acne, this rash does not present with whiteheads or blackheads, and can be symptomatic, with itchy or tender lesions."
     },
     {
         "MedDRA v12.0 Code": 10034016,
@@ -3633,17 +3754,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by an infectious process involving the trachea."
-    },
-    {
-        "MedDRA v12.0 Code": 10046300,
-        "SOC": "Infections and infestations",
-        "name": "Upper respiratory infection",
-        "Grade 1": null,
-        "Grade 2": "Moderate symptoms; oral intervention indicated (e.g., antibiotic, antifungal, antiviral)",
-        "Grade 3": "IV antibiotic, antifungal, or antiviral intervention indicated; radiologic, endoscopic, or operative intervention indicated",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by an infectious process involving the upper respiratory tract (nose, paranasal sinuses, pharynx, larynx, or trachea)."
     },
     {
         "MedDRA v12.0 Code": 10052298,
@@ -4911,17 +5021,6 @@ const adverseEventOptions = [
         "description": "A finding based on laboratory test results that indicate an decrease in levels of pancreatic enzymes in a biological specimen."
     },
     {
-        "MedDRA v12.0 Code": 10035528,
-        "SOC": "Investigations",
-        "name": "Platelet count decreased",
-        "Grade 1": "<LLN - 75,000/mm3; <LLN - 75.0 x 10e9 /L",
-        "Grade 2": "<75,000 - 50,000/mm3; <75.0 - 50.0 x 10e9 /L",
-        "Grade 3": "<50,000 - 25,000/mm3; <50.0 - 25.0 x 10e9 /L",
-        "Grade 4": "<25,000/mm3; <25.0 x 10e9 /L",
-        "Grade 5": null,
-        "description": "A finding based on laboratory test results that indicate a decrease in number of platelets in a blood specimen."
-    },
-    {
         "MedDRA v12.0 Code": 10040139,
         "SOC": "Investigations",
         "name": "Serum amylase increased",
@@ -5030,17 +5129,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences",
         "Grade 5": "Death",
         "description": "A disorder characterized by abnormally high alkalinity (low hydrogen-ion concentration) of the blood and other body tissues."
-    },
-    {
-        "MedDRA v12.0 Code": 10002646,
-        "SOC": "Metabolism and nutrition disorders",
-        "name": "Anorexia",
-        "Grade 1": "Loss of appetite without alteration in eating habits",
-        "Grade 2": "Oral intake altered without significant weight loss or malnutrition; oral nutritional supplements indicated",
-        "Grade 3": "Associated with significant weight loss or malnutrition (e.g., inadequate oral caloric and/or fluid intake); tube feeding or TPN indicated",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by a loss of appetite."
     },
     {
         "MedDRA v12.0 Code": 10012174,
@@ -5274,17 +5362,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by a necrotic process occurring in the soft tissues of the abdominal wall."
     },
     {
-        "MedDRA v12.0 Code": 10003239,
-        "SOC": "Musculoskeletal and connective tissue disorders",
-        "name": "Arthralgia",
-        "Grade 1": "Mild pain",
-        "Grade 2": "Moderate pain; limiting instrumental ADL",
-        "Grade 3": "Severe pain; limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by a sensation of marked discomfort in a joint."
-    },
-    {
         "MedDRA v12.0 Code": 10003246,
         "SOC": "Musculoskeletal and connective tissue disorders",
         "name": "Arthritis",
@@ -5382,17 +5459,6 @@ const adverseEventOptions = [
         "Grade 4": null,
         "Grade 5": null,
         "description": "A disorder characterized by marked discomfort sensation on the lateral side of the body in the region below the ribs and above the hip."
-    },
-    {
-        "MedDRA v12.0 Code": 10062572,
-        "SOC": "Musculoskeletal and connective tissue disorders",
-        "name": "Generalized muscle weakness",
-        "Grade 1": "Symptomatic; weakness perceived by patient but not evident on physical exam",
-        "Grade 2": "Symptomatic; weakness evident on physical exam; weakness limiting instrumental ADL",
-        "Grade 3": "Weakness limiting self care ADL; disabling",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by a reduction in the strength of muscles in multiple anatomic sites."
     },
     {
         "MedDRA v12.0 Code": 10018761,
@@ -5602,17 +5668,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by a necrotic process occurring in the bone of the mandible."
-    },
-    {
-        "MedDRA v12.0 Code": 10031282,
-        "SOC": "Musculoskeletal and connective tissue disorders",
-        "name": "Osteoporosis",
-        "Grade 1": "Radiologic evidence of osteoporosis or Bone Mineral Density (BMD) t-score -1 to -2.5 (osteopenia); no loss of height or intervention indicated",
-        "Grade 2": "BMD t-score <-2.5; loss of height <2 cm; anti-osteoporotic therapy indicated; limiting instrumental ADL",
-        "Grade 3": "Loss of height >=2 cm; hospitalization indicated; limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by reduced bone mass, with a decrease in cortical thickness and in the number and size of the trabeculae of cancellous bone (but normal chemical composition), resulting in increased fracture incidence."
     },
     {
         "MedDRA v12.0 Code": 10033425,
@@ -6042,17 +6097,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by involvement of the glossopharyngeal nerve (ninth cranial nerve)."
-    },
-    {
-        "MedDRA v12.0 Code": 10019211,
-        "SOC": "Nervous system disorders",
-        "name": "Headache",
-        "Grade 1": "Mild pain",
-        "Grade 2": "Moderate pain; limiting instrumental ADL",
-        "Grade 3": "Severe pain; limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by a sensation of marked discomfort in various parts of the head, not confined to the area of distribution of any nerve."
     },
     {
         "MedDRA v12.0 Code": 10020508,
@@ -7650,28 +7694,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by milky pleural effusion (abnormal collection of fluid) resulting from accumulation of lymph fluid in the pleural cavity."
     },
     {
-        "MedDRA v12.0 Code": 10011224,
-        "SOC": "Respiratory, thoracic and mediastinal disorders",
-        "name": "Cough",
-        "Grade 1": "Mild symptoms; nonprescription intervention indicated",
-        "Grade 2": "Moderate symptoms, medical intervention indicated; limiting instrumental ADL",
-        "Grade 3": "Severe symptoms; limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by sudden, often repetitive, spasmodic contraction of the thoracic cavity, resulting in violent release of air from the lungs and usually accompanied by a distinctive sound."
-    },
-    {
-        "MedDRA v12.0 Code": 10013963,
-        "SOC": "Respiratory, thoracic and mediastinal disorders",
-        "name": "Dyspnea",
-        "Grade 1": "Shortness of breath with moderate exertion",
-        "Grade 2": "Shortness of breath with minimal exertion; limiting instrumental ADL",
-        "Grade 3": "Shortness of breath at rest; limiting self care ADL",
-        "Grade 4": "Life-threatening consequences; urgent intervention indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by an uncomfortable sensation of difficulty breathing."
-    },
-    {
         "MedDRA v12.0 Code": 10015090,
         "SOC": "Respiratory, thoracic and mediastinal disorders",
         "name": "Epistaxis",
@@ -8189,17 +8211,6 @@ const adverseEventOptions = [
         "description": "A disorder characterized by an abnormal body smell resulting from the growth of bacteria on the body."
     },
     {
-        "MedDRA v12.0 Code": 10006556,
-        "SOC": "Skin and subcutaneous tissue disorders",
-        "name": "Bullous dermatitis",
-        "Grade 1": "Asymptomatic; blisters covering <10% BSA",
-        "Grade 2": "Blisters covering 10 - 30% BSA; painful blisters; limiting instrumental ADL",
-        "Grade 3": "Blisters covering >30% BSA; limiting self care ADL",
-        "Grade 4": "Blisters covering >30% BSA; associated with fluid or electrolyte abnormalities; ICU care or burn unit indicated",
-        "Grade 5": "Death",
-        "description": "A disorder characterized by inflammation of the skin characterized by the presence of bullae which are filled with fluid."
-    },
-    {
         "MedDRA v12.0 Code": 10013786,
         "SOC": "Skin and subcutaneous tissue disorders",
         "name": "Dry skin",
@@ -8605,17 +8616,6 @@ const adverseEventOptions = [
         "Grade 4": "Life-threatening consequences; urgent intervention indicated",
         "Grade 5": "Death",
         "description": "A disorder characterized by a localized collection of blood, usually clotted, in an organ, space, or tissue, due to a break in the wall of a blood vessel."
-    },
-    {
-        "MedDRA v12.0 Code": 10020407,
-        "SOC": "Vascular disorders",
-        "name": "Hot flashes",
-        "Grade 1": "Mild symptoms; intervention not indicated",
-        "Grade 2": "Moderate symptoms; limiting instrumental ADL",
-        "Grade 3": "Severe symptoms; limiting self care ADL",
-        "Grade 4": null,
-        "Grade 5": null,
-        "description": "A disorder characterized by an uncomfortable and temporary sensation of intense body warmth, flushing, sometimes accompanied by sweating upon cooling."
     },
     {
         "MedDRA v12.0 Code": 10020772,
