@@ -265,10 +265,14 @@ class ToxicityForm extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
-        if (Lang.isUndefined(this.props.topAdverseEvents) || this.props.topAdverseEvents) {
-            topAdverseEventSection =(
+        let topAdverseEvents = this.props.topAdverseEvents;
+        if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0){
+            let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
+                return toxicityLookup.findAdverseEvent(adverseEvent); 
+            });
+            topAdverseEventSection = (
             <div className="btn-group-adverse-event">
-                {toxicityLookup.getAdverseEventOptions().slice(0,20).map((adverseEvent, i) => {
+                {topAdverseEventObjects.map((adverseEvent, i) => {
                     if (adverseEvent.description === null) {
                         return "";
                     }
@@ -287,7 +291,7 @@ class ToxicityForm extends Component {
                     )
                 })}
             </div>
-            );
+            )
         }
 
         let gradesToDisplay = this.state.gradeOptions
@@ -342,7 +346,6 @@ class ToxicityForm extends Component {
                             }
                         })}
                     </div>
-
                     <h4 className="header-spacing">Attribution</h4>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("attribution")}
