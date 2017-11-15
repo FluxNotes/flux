@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 import './ContextItem.css';
 
 class ContextItem extends React.Component {
@@ -23,15 +24,26 @@ class ContextItem extends React.Component {
     render = () => {
         return (
             <li
-              className="context-menu-item"
-              data-active={this.props.index === this.props.selectedIndex}
-              onClick={this.onClick}
-              onMouseEnter={this.onMouseEnter}
+                className="context-menu-item"
+                data-active={this.props.index === this.props.selectedIndex}
+                onClick={this.onClick}
+                onMouseEnter={this.onMouseEnter}
             >
                 {this.props.context.context}
             </li>
         );
     }
+}
+
+ContextItem.propstype = { 
+    index: PropTypes.number.isRequired,
+    context: PropTypes.object,
+    selectedIndex: PropTypes.number.isRequired,
+    setSelectedIndex: PropTypes.func.isRequired,
+    onSelected: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    closePortal: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
 }
 
 export default ContextItem
