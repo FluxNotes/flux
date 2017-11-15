@@ -6085,9 +6085,6 @@ a.text-dark:focus, a.text-dark:hover {
       margin: 80px auto; } }
   .landing-clinical-trials-section {
     max-width: 400px;
-    transform: perspective(1px) translateZ(0);
-    transition-duration: 0.3s;
-    transition-property: transform;
     padding: 20px; }
   .landing-clinical-trials a {
     width: 100%;
@@ -6099,7 +6096,10 @@ a.text-dark:focus, a.text-dark:hover {
     font-size: calc(16px + 0.4vw);
     border: 2px solid #8EB7D5;
     border-radius: 5px;
-    color: #2E5C7C; }
+    color: #2E5C7C;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.3s;
+    transition-property: transform; }
     .landing-clinical-trials a:hover {
       background-color: inherit;
       color: #2E5C7C;

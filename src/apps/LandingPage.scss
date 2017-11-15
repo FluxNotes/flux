@@ -313,9 +313,6 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
 
     &-section {
         max-width: 400px;
-        transform: perspective(1px) translateZ(0);
-        transition-duration: 0.3s;
-        transition-property: transform;
         padding: 20px;
     }
 
@@ -330,6 +327,9 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         border: 2px solid $landing-light-blue;
         border-radius: 5px;
         color: $landing-blue;
+        transform: perspective(1px) translateZ(0);
+        transition-duration: 0.3s;
+        transition-property: transform;
 
         &:hover {
             background-color: inherit;
