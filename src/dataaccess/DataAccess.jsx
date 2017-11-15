@@ -3,7 +3,7 @@ import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 
 export default class DataAccess {
-    static DEMO_PATIENT_ID = "-1";
+    static DEMO_PATIENT_ID = "788dcbc3-ed18-470c-89ef-35ff91854c7d";
     
     constructor(dataSourceName) {
         if (dataSourceName === 'HardCodedReadOnlyDataSource') {

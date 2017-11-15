@@ -38,6 +38,7 @@
 			"organization": { "value": "MITRE"},
 			"identifierType": "MRN",
 			"value": "026-DH-678944",
+            "fictionalPerson": true,
 			"originalCreationDate": "13 JAN 2012",
 			"lastUpdateDate": "13 JAN 2012"
 		},
