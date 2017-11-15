@@ -265,7 +265,7 @@ class ToxicityForm extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
-        let topAdverseEvents = this.props.topAdverseEvents;
+ 
         if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0){
             let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent); 
