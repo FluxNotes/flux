@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
@@ -58,18 +59,22 @@ class FullApp extends Component {
         this.setState({ [state]: value });
     }
 
+    // Updates the context manager in it's state 
     onContextUpdate = () => {
         this.setState({ contextManager: this.contextManager });
     }
 
+    // Update the errors based on the argument provided 
     updateErrors = (errors) => {
         this.setState({ errors });
     }
 
+    // Determines the item to be inserted
     itemInserted = () => {
         this.setState({ SummaryItemToInsert: '' });
     }
 
+    // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed. 
     newCurrentShortcut = (shortcutC, shortcutType, obj) => {
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate, obj);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
@@ -81,33 +86,38 @@ class FullApp extends Component {
         } else {
             newShortcut.initialize(this.contextManager, shortcutType);
         }
-        this.setFullAppState('errors', errors);
+        this.updateErrors(errors);
         return newShortcut;
     }
 
+    // Update shortcuts and update patients accordignly 
     handleShortcutUpdate = (s) =>{
         let p = this.state.patient;
         s.updatePatient(p, this.contextManager);
     }
 
+    // Update the current structured field we're within.
     handleStructuredFieldEntered = (field) => {
         this.setState({
             withinStructuredField: field
         })
     }
 
+    // Update the current structured field to be null
     handleStructuredFieldExited = (field) => {
         this.setState({
             withinStructuredField: null
         })
     }
 
+    // Update the selected text 
     handleSelectionChange = (selectedText) => {
         this.setState({
             selectedText: selectedText
         })
     }
 
+    // Update the summaryitemtoinsert based on the item given
     handleSummaryItemSelected = (item) =>{
         if (item) {
             if (item.shortcut) {
@@ -120,6 +130,7 @@ class FullApp extends Component {
         }
     }
 
+    // Handle creating a new note
     handleNewNote() {
         console.log("new note");
     }
@@ -161,6 +172,12 @@ class FullApp extends Component {
             </MuiThemeProvider>
         );
     }
+}
+
+FullApp.proptypes = { 
+    dataSource: PropTypes.string.isRequired,
+    shortcuts: PropTypes.array.isRequired, 
+    display: PropTypes.string.isRequired
 }
 
 export default FullApp;
