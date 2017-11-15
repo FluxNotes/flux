@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="58px" viewBox="0 0 60 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="22.467" cy="22.85025" r="22.174125"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-5" transform="translate(-807.000000, -495.000000)">
+            <g id="Group-7" transform="translate(806.503906, 497.103906)">
+                <rect id="Rectangle-10" fill="#00547E" opacity="0.9" transform="translate(11.203227, 45.539507) rotate(45.000000) translate(-11.203227, -45.539507) " x="8.37479981" y="32.5241791" width="5.65685425" height="26.0306567" rx="2.82842712"></rect>
+                <g id="Group-4" transform="translate(13.139609, 0.003125)">
+                    <g id="Group-3-Copy" transform="translate(0.001250, 0.066500)">
+                        <g id="Group-2-Copy" transform="translate(0.382500, 0.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="Mask"></g>
+                            <g id="Group-2" mask="url(#mask-2)">
+                                <g transform="translate(-12.288000, -4.608000)">
+                                    <rect id="Rectangle-11-Copy-6" stroke="none" fill="#99BBCB" fill-rule="evenodd" opacity="0.536175272" x="10.85145" y="5.376" width="48.4128563" height="46.08" rx="2.5344"></rect>
+                                    <path d="M0.708985813,21.3561341 L59.1560528,21.356134" id="Line-Copy-25" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M0.708985813,33.2601341 L59.1560528,33.260134" id="Line-Copy-27" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M0.708985813,9.8361341 L59.1560528,9.83613403" id="Line-Copy-28" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M4.51310772,44.8007177 L60.564904,45.1608747" id="Line-Copy-54" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M21.9213984,8.064 L21.9213984,44.4951155" id="Line-Copy-59" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M34.6500609,1.152 L34.6500609,52.608" id="Line-Copy-60" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                    <path d="M46.8538642,5.7579806 L46.8538642,48.768" id="Line-Copy-61" stroke="#FFFFFF" stroke-width="2.5344" fill="none" stroke-linecap="square"></path>
+                                </g>
+                            </g>
+                        </g>
+                        <circle id="Oval-3-Copy-2" stroke="#00547E" stroke-width="4" opacity="0.9" cx="22.948875" cy="22.85025" r="22.174125"></circle>
+                        <rect id="Rectangle-9" fill="#FFFFFF" x="22.653" y="16.896" width="12.288" height="11.52"></rect>
+                        <path d="M23.6143111,21.1010836 C23.6143111,24.1836789 27.8479957,27.2168288 28.8204721,27.7288124 C29.6799138,27.250455 34.0494671,24.0695087 34.0494671,21.1010836 C34.0494671,19.594037 32.816429,18.3609989 31.3093824,18.3609989 C30.2133485,18.3609989 29.2058213,19.000352 28.7719745,19.9365476 C28.3381278,19.000352 27.4504297,18.3609989 26.3543958,18.3609989 C24.8245152,18.3609989 23.6143111,19.594037 23.6143111,21.1010836 Z" id="Shape-Copy-28" fill="#00547E"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
