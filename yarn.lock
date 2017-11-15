@@ -6107,9 +6107,9 @@ shortid@^2.2.4, shortid@^2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.8.tgz#033b117d6a2e975804f6f0969dbe7d3d0b355131"
 
-shr_rest_client@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/shr_rest_client/-/shr_rest_client-0.0.4.tgz#8ff740a3575905e85c45bb3d2733a7c8ce50e748"
+shr_rest_client@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/shr_rest_client/-/shr_rest_client-0.0.5.tgz#a3adcae82574bb4886a08ae099e66eefc46411ee"
   dependencies:
     superagent "3.5.2"
 
