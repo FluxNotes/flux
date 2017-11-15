@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import NavBar from '../nav/NavBar';
 import Divider from 'material-ui/Divider';
 import './LandingPage.css';
@@ -70,6 +71,10 @@ class LandingPage extends Component {
             </div>
         )
     }
+}
+
+LandingPage.proptypes = { 
+    display: PropTypes.string.isRequired
 }
 
 export default LandingPage;
