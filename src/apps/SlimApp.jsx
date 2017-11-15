@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import NavBar from '../nav/NavBar';
 import FormList from '../forms/FormList';
@@ -68,6 +69,12 @@ class SlimApp extends Component {
                 </div>
         );
     }
+}
+
+SlimApp.proptypes = { 
+    shortcutConfigurations: PropTypes.object.isRequired,
+    shortcuts: PropTypes.array.isRequired, 
+    display: PropTypes.string.isRequired
 }
 
 export default SlimApp;

@@ -61,7 +61,6 @@ class AppManager {
                 isExact: false,
                 dataSource: 'RestApiDataSource',
                 shortcuts: []
-
             }
         ];
     }
