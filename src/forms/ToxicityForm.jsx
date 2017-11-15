@@ -90,6 +90,9 @@ class ToxicityForm extends Component {
             this.props.updateValue("adverseEvent", null);
         } else {
             this.props.updateValue("adverseEvent", titlecase(newAdverseEvent));
+            this.setState({
+                searchText: titlecase(newAdverseEvent),
+            });
         }
 
         // Make sure grade is possible with given new tox
