@@ -143,7 +143,11 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
-                    <NavBar title={this.props.display} supportLogin={true} menuItems={this.menuItems} />
+                    <NavBar 
+                        title={this.props.display} 
+                        supportLogin={true} 
+                        menuItems={this.menuItems} 
+                    />
                     <DashboardViewManager
                         // App default settings
                         possibleClinicalEvents={this.possibleClinicalEvents}

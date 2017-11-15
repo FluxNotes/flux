@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/Menu/MenuItem';
@@ -73,6 +74,12 @@ class NavBar extends Component {
             </div>
         );
     }
+}
+
+NavBar.proptypes = { 
+    title: PropTypes.string.isRequired,
+    supportLogin: PropTypes.bool.isRequired,
+    menuItems: PropTypes.array
 }
 
 export default withStyles(styles)(NavBar);
