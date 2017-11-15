@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import PatientSummaryPanel from '../summary/PatientSummaryPanel';
 import PreEncounterView from './PreEncounterView';
@@ -32,7 +33,8 @@ class DashboardViewManager extends Component {
                             patient={this.props.appState.patient}
                             possibleClinicalEvents={this.props.possibleClinicalEvents}
                             clinicalEvent={this.props.appState.clinicalEvent}
-                            setFullAppState={this.props.setFullAppState} />
+                            setFullAppState={this.props.setFullAppState} 
+                        />
                     </Col>
                 </Row>
                 {this.renderCurrentView(this.props.appState.clinicalEvent)}
@@ -40,5 +42,24 @@ class DashboardViewManager extends Component {
         );
     }
 }
+
+DashboardViewManager.proptypes = { 
+    possibleClinicalEvents: PropTypes.array.isRequired,
+    dataAccess: PropTypes.object.isRequired,
+    summaryMetadata: PropTypes.object.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    appState: PropTypes.object.isRequired,
+    setFullAppState: PropTypes.func.isRequired,
+    updateErrors: PropTypes.func.isRequired,
+    onContextUpdate: PropTypes.func.isRequired,
+    itemInserted: PropTypes.func.isRequired,
+    newCurrentShortcut: PropTypes.func.isRequired,
+    handleShortcutUpdate: PropTypes.func.isRequired,
+    handleStructuredFieldEntered: PropTypes.func.isRequired,
+    handleStructuredFieldExited: PropTypes.func.isRequired,
+    handleSelectionChange: PropTypes.func.isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+};
 
 export default DashboardViewManager;

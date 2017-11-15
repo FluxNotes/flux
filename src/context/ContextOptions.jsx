@@ -17,14 +17,32 @@ export default class ContextOptions extends Component {
             searchString: "",
             tooltipVisibility: 'visible'
         }
-	}
+    }
+
+    _handleClick(e, i) {
+        e.preventDefault();
+        this.setState({searchString: "", tooltipVisibility: 'hidden'});
+        this.props.handleClick(i);
+    }
+    
+    mouseLeave = () => {
+        this.setState({tooltipVisibility: 'hidden'})
+    }
+    
+    mouseEnter = () => {
+        this.setState({tooltipVisibility: 'visible'})
+    }
+    
+    _handleSearch(value) {
+        this.setState({searchString: value});
+    }
 
     render() {
-		let context = this.props.context;
-		if (Lang.isUndefined(context)) {
-			// patient
-			context = this.props.contextManager.getPatientContext();
-		}
+        let context = this.props.context;
+        if (Lang.isUndefined(context)) {
+            // patient
+            context = this.props.contextManager.getPatientContext();
+        }
         
         //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
@@ -145,23 +163,5 @@ export default class ContextOptions extends Component {
                 })}
             </div>
         );
-	}
-
-	_handleClick(e, i) {
-		e.preventDefault();
-        this.setState({searchString: "", tooltipVisibility: 'hidden'});
-		this.props.handleClick(i);
-	}
-    
-    mouseLeave = () => {
-        this.setState({tooltipVisibility: 'hidden'})
-    }
-    
-    mouseEnter = () => {
-        this.setState({tooltipVisibility: 'visible'})
-    }
-    
-    _handleSearch(value) {
-        this.setState({searchString: value});
     }
 }
