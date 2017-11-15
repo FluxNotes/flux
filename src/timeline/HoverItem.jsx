@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-
 import './HoverItem.css';
 
 class HoverItem extends Component {
@@ -14,5 +14,10 @@ class HoverItem extends Component {
     );
   }
 }
+
+HoverItem.propTypes = { 
+    title: PropTypes.string,
+    text: PropTypes.string
+} 
 
 export default HoverItem;

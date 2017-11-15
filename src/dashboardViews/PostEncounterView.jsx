@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import ContextTray from '../context/ContextTray';
-import SummaryPanel from '../panels/SummaryPanel'
+import SummaryPanel from '../panels/SummaryPanel';
 import './PostEncounterView.css';
 
 class PostEncounterView extends Component { 

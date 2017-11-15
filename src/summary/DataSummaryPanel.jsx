@@ -178,6 +178,7 @@ class DataSummaryPanel extends Component {
 }
 
 DataSummaryPanel.propTypes = {
+    isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,
     condition: PropTypes.object,
     summaryMetadata: PropTypes.object,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import TimelinePanel from '../timeline/TimelinePanel';
-
 import './SummaryPanel.css';
 
 class SummaryPanel extends Component { 
@@ -30,6 +30,18 @@ class SummaryPanel extends Component {
             </div>
         );
     }
+}
+
+SummaryPanel.proptypes = { 
+    isWide: PropTypes.bool.isRequired,
+    possibleClinicalEvents: PropTypes.array.isRequired,
+    appState: PropTypes.shape({
+        patient: PropTypes.object.isRequired,
+        condition: PropTypes.object,
+        summaryMetadata: PropTypes.object.isRequired
+    }).isRequired,
+    itemInserted: PropTypes.func.isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired
 }
 
 export default SummaryPanel;

@@ -65,8 +65,7 @@ function titlecase(label) {
 
 ClinicalEventSelection.propTypes = {
     possibleClinicalEvents: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // Value should be type string, but our default non-value is 'null'; should we change this to be '' ?
-    // clinicalEvent: PropTypes.string.isRequired,
+    clinicalEvent: PropTypes.string.isRequired,
     setFullAppState: PropTypes.func.isRequired
 };
 
