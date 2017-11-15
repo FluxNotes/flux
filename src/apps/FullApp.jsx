@@ -46,7 +46,7 @@ class FullApp extends Component {
             patient: patient,
             condition: null,
             clinicalEvent: "post-encounter",
-            errors: null,
+            errors: [],
             SummaryItemToInsert: '',
             selectedText: null,
             summaryMetadata: this.summaryMetadata.getMetadata(),

@@ -41,6 +41,50 @@ const structuredFieldTypes = [
     }
 ]
 
+//  Helper Functions
+//
+// Given upper-most dom element of the editor, the current node and state, return the cursor position  
+function getPos(domElement, node, state) {
+    const offsetx = 0;
+    const offsety = 0;
+    var pos = { left: 0, top: 0 };
+    
+    const children = domElement.childNodes;
+
+    for(const child of children) { 
+        if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
+            const rect = child.getBoundingClientRect();
+            pos.left = rect.left + rect.width + offsetx;
+            pos.top = rect.top + offsety;
+        }
+    }
+    return pos;
+}
+// Given a state, return the position of the cursor
+function position(state) {
+    const parentNode = state.state.document.getParent(state.state.selection.startKey);
+    const el = Slate.findDOMNode(parentNode);
+    return getPos(el, parentNode, state);
+}
+// Given  text and starting index, recursively traverse text to find index location of text
+function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
+    if (index === initialIndex) {
+        return {    
+            start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
+            end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)    
+        }
+    }
+    if (text[index] === initialChar || text[index] === undefined) {
+        return index
+    }
+    if (index < initialIndex) {
+        return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
+    }
+    if (index > initialIndex) {
+        return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
+    }
+}
+
 class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
@@ -539,44 +583,17 @@ class FluxNotesEditor extends React.Component {
         );
     }
 }
-function getPos(domElement, node, state) {
-    const offsetx = 0;
-    const offsety = 0;
-    var pos = { left: 0, top: 0 };
-    
-    const children = domElement.childNodes;
 
-    for(const child of children) { 
-        if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
-            const rect = child.getBoundingClientRect();
-            pos.left = rect.left + rect.width + offsetx;
-            pos.top = rect.top + offsety;
-        }
-    }
-    return pos;
-}
-
-
-function position(state) {
-    const parentNode = state.state.document.getParent(state.state.selection.startKey);
-    const el = Slate.findDOMNode(parentNode);
-    return getPos(el, parentNode, state);
-}
-
-function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
-    if (index === initialIndex) {
-        return {    start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
-                    end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)    }
-    }
-    if (text[index] === initialChar || text[index] === undefined) {
-        return index
-    }
-    if (index < initialIndex) {
-        return getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar)
-    }
-    if (index > initialIndex) {
-        return getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
-    }
+FluxNotesEditor.proptypes = { 
+    onSelectionChange: PropTypes.func.isRequired,
+    newCurrentShortcut: PropTypes.func.isRequired,
+    itemInserted: PropTypes.object,
+    itemToBeInserted: PropTypes.object,
+    patient: PropTypes.object.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    updateErrors: PropTypes.func.isRequired,
+    errors: PropTypes.array.isRequired,
 }
 
 export default FluxNotesEditor;
