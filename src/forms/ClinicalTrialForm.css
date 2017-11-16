@@ -1,14 +1,12 @@
-.button_disabled_is_selected:disabled {
-    background-color: #297DA2 !important;
-    color: #fff !important;
-    border: 2px solid;
-    border-radius: 10px; 
-}
-
-.button_disabled_is_selected:enabled {
+.trial_button {
     border: 2px solid;
     border-radius: 10px; 
     border-color: white;
+}
+
+.trial_button.button_selected {
+    background-color: #297DA2 !important;
+    color: #fff !important;
 }
 
 .tooltip-clinical-trial {

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-
 import NavBar from '../nav/NavBar';
 import DashboardViewManager from '../dashboardViews/DashboardViewManager'
-
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
@@ -25,7 +24,6 @@ const theme = createMuiTheme({
 class FullApp extends Component {
     constructor(props) {
         super(props);
-
         this.possibleClinicalEvents = [
             "pre-encounter", 
             "encounter", 
@@ -48,7 +46,7 @@ class FullApp extends Component {
             patient: patient,
             condition: null,
             clinicalEvent: "post-encounter",
-            errors: null,
+            errors: [],
             SummaryItemToInsert: '',
             selectedText: null,
             summaryMetadata: this.summaryMetadata.getMetadata(),
@@ -61,18 +59,22 @@ class FullApp extends Component {
         this.setState({ [state]: value });
     }
 
+    // Updates the context manager in it's state 
     onContextUpdate = () => {
         this.setState({ contextManager: this.contextManager });
     }
 
+    // Update the errors based on the argument provided 
     updateErrors = (errors) => {
         this.setState({ errors });
     }
 
+    // Determines the item to be inserted
     itemInserted = () => {
         this.setState({ SummaryItemToInsert: '' });
     }
 
+    // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed. 
     newCurrentShortcut = (shortcutC, shortcutType, obj) => {
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate, obj);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
@@ -84,33 +86,38 @@ class FullApp extends Component {
         } else {
             newShortcut.initialize(this.contextManager, shortcutType);
         }
-        this.setFullAppState('errors', errors);
+        this.updateErrors(errors);
         return newShortcut;
     }
 
+    // Update shortcuts and update patients accordignly 
     handleShortcutUpdate = (s) =>{
         let p = this.state.patient;
         s.updatePatient(p, this.contextManager);
     }
 
+    // Update the current structured field we're within.
     handleStructuredFieldEntered = (field) => {
         this.setState({
             withinStructuredField: field
         })
     }
 
+    // Update the current structured field to be null
     handleStructuredFieldExited = (field) => {
         this.setState({
             withinStructuredField: null
         })
     }
 
+    // Update the selected text 
     handleSelectionChange = (selectedText) => {
         this.setState({
             selectedText: selectedText
         })
     }
 
+    // Update the summaryitemtoinsert based on the item given
     handleSummaryItemSelected = (item) =>{
         if (item) {
             if (item.shortcut) {
@@ -123,6 +130,7 @@ class FullApp extends Component {
         }
     }
 
+    // Handle creating a new note
     handleNewNote() {
         console.log("new note");
     }
@@ -135,7 +143,11 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
-                    <NavBar title={this.props.display} supportLogin={true} menuItems={this.menuItems} />
+                    <NavBar 
+                        title={this.props.display} 
+                        supportLogin={true} 
+                        menuItems={this.menuItems} 
+                    />
                     <DashboardViewManager
                         // App default settings
                         possibleClinicalEvents={this.possibleClinicalEvents}
@@ -164,6 +176,12 @@ class FullApp extends Component {
             </MuiThemeProvider>
         );
     }
+}
+
+FullApp.proptypes = { 
+    dataSource: PropTypes.string.isRequired,
+    shortcuts: PropTypes.array.isRequired, 
+    display: PropTypes.string.isRequired
 }
 
 export default FullApp;

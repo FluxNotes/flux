@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Lang from 'lodash';
@@ -203,6 +204,12 @@ class ProgressionForm extends Component {
             </div>
         );
     }
+}
+
+ProgressionForm.proptypes = { 
+    updateValue: PropTypes.func.isRequired,
+    object: PropTypes.object.isRequired,
+    referenceDateEnabled: PropTypes.bool.isRequired
 }
 
 export default ProgressionForm;

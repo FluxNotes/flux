@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Lang from 'lodash'
 import Button from 'material-ui/Button';
 import Tooltip from 'rc-tooltip';
@@ -7,7 +8,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
 
-export default class ContextOptions extends Component {
+class ContextOptions extends Component {
     constructor(props) {
         super(props);
         this._handleClick = this._handleClick.bind(this);
@@ -17,14 +18,32 @@ export default class ContextOptions extends Component {
             searchString: "",
             tooltipVisibility: 'visible'
         }
-	}
+    }
+
+    _handleClick(e, i) {
+        e.preventDefault();
+        this.setState({searchString: "", tooltipVisibility: 'hidden'});
+        this.props.handleClick(i);
+    }
+    
+    mouseLeave = () => {
+        this.setState({tooltipVisibility: 'hidden'})
+    }
+    
+    mouseEnter = () => {
+        this.setState({tooltipVisibility: 'visible'})
+    }
+    
+    _handleSearch(value) {
+        this.setState({searchString: value});
+    }
 
     render() {
-		let context = this.props.context;
-		if (Lang.isUndefined(context)) {
-			// patient
-			context = this.props.contextManager.getPatientContext();
-		}
+        let context = this.props.context;
+        if (Lang.isUndefined(context)) {
+            // patient
+            context = this.props.contextManager.getPatientContext();
+        }
         
         //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
@@ -145,23 +164,14 @@ export default class ContextOptions extends Component {
                 })}
             </div>
         );
-	}
-
-	_handleClick(e, i) {
-		e.preventDefault();
-        this.setState({searchString: "", tooltipVisibility: 'hidden'});
-		this.props.handleClick(i);
-	}
-    
-    mouseLeave = () => {
-        this.setState({tooltipVisibility: 'hidden'})
-    }
-    
-    mouseEnter = () => {
-        this.setState({tooltipVisibility: 'visible'})
-    }
-    
-    _handleSearch(value) {
-        this.setState({searchString: value});
     }
 }
+
+ContextOptions.proptypes = { 
+    shortcutManager: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    context: PropTypes.object,
+}
+
+export default ContextOptions;

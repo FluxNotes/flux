@@ -4,7 +4,7 @@
   border: 1px solid #aaa;
   padding: 10px;
   min-width: 150px;
-  z-index: 50;
+  z-index: 90;
 }
 
 .hover-item p {

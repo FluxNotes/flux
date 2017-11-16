@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import Portal from 'react-portal'
 import Calendar from 'rc-calendar';
 import ContextItem from './ContextItem'
@@ -155,7 +156,6 @@ class ContextPortal extends React.Component {
             <ul>
                 {contexts.map((context, index) => {
                     return <ContextItem
-                        key={context.key}
                         index={index}
                         context={context}
                         selectedIndex={this.state.selectedIndex}
@@ -214,6 +214,20 @@ class ContextPortal extends React.Component {
             </Portal>
         )
     }
+}
+
+ContextPortal.proptypes = { 
+    left: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+    state: PropTypes.object,
+    callback: PropTypes.object,
+    onSelected: PropTypes.func.isRequired,
+    contexts: PropTypes.object,
+    capture: PropTypes.object.isRequired,
+    trigger: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    isOpened: PropTypes.bool.isRequired,
+    contextManager: PropTypes.object.isRequired
 }
 
 export default ContextPortal

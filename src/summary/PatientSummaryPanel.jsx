@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-
 import SummaryHeader from './SummaryHeader';
 import ConditionSelection from './ConditionSelection';
 import ClinicalEventSelection from './ClinicalEventSelection';
@@ -56,6 +55,8 @@ export default class PatientSummaryPanel extends Component {
 }
 
 PatientSummaryPanel.propTypes = {
-    patient: PropTypes.object,
+    patient: PropTypes.object.isRequired,
+    clinicalEvent: PropTypes.string.isRequired,
+    possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired
 };

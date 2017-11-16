@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import DatePicker from '../forms/DatePicker';
 import './DeceasedForm.css';
@@ -41,6 +42,11 @@ class DeceasedForm extends Component {
             </div>
         );
     }
+}
+
+DeceasedForm.proptypes = { 
+    updateValue: PropTypes.func.isRequired,
+    object: PropTypes.object.isRequired
 }
 
 export default DeceasedForm;

@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import staging from '../lib/staging';
 import stagingLookup from '../lib/tnmstage_lookup';
 import './StagingForm.css';
+
+function titlecase(label) {
+  return label.toLowerCase().split(' ').map(function(word) {
+    return word.replace(word[0], word[0].toUpperCase());
+  }).join(' ');
+}
 
 class StagingForm extends Component {
   constructor(props) {
@@ -37,13 +44,6 @@ class StagingForm extends Component {
     let newValue = this.state.metastasisValues[i].name;
     this.props.updateValue("M", newValue);
   }
-
-  /* all the Buttons had this:                           classes={{
-                            label: {
-                                textTransform: "none",
-                            }
-                          }}
-    */
   
   render() {
     return (
@@ -142,10 +142,10 @@ class StagingForm extends Component {
   }
 }
 
-export default StagingForm;
 
-function titlecase(label) {
-  return label.toLowerCase().split(' ').map(function(word) {
-    return word.replace(word[0], word[0].toUpperCase());
-  }).join(' ');
+StagingForm.proptypes = { 
+    updateValue: PropTypes.func.isRequired,
+    object: PropTypes.object.isRequired
 }
+
+export default StagingForm;

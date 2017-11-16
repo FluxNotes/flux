@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import Radio, {RadioGroup} from 'material-ui/Radio';
@@ -20,14 +21,18 @@ class ClinicalTrialForm extends Component {
         };
     }
 
-    currentlySelected = (item, i) => {
-        return (item === i ? true : false);
+    isSelectedTrial = (trial) => {
+        // What it is checking might need to change if the toxicity.attribution structure changes in Patient
+        return this.props.object.title === trial.name;
     }
+    
 
-    handleTrialSelection = (e, i) => {
-        e.preventDefault();
-        const newTrial = this.state.trials[i].name; //.id; testcafe test fails to match due to case difference
-        this.props.updateValue("title", newTrial);
+    handleTrialSelection = (trial, isSelected) => {
+        if (isSelected) {
+            this.props.updateValue("title", null);
+        } else {
+            this.props.updateValue("title", trial.name);
+        }
     }
 
     handleEnrollmentDateChange = (selectedDate) => {
@@ -66,6 +71,8 @@ class ClinicalTrialForm extends Component {
     }
 
     renderTrialButtonGroup = (trial, i) => {
+        const isSelected = this.isSelectedTrial(trial);
+        const buttonClass = isSelected ? 'button_selected' : '';
         const marginSize = "10px";
         const trialName = trial.name;
         const trialDescription = trial.description;
@@ -77,8 +84,8 @@ class ClinicalTrialForm extends Component {
                 <Button raised
                     key={i}
                     label={trialName}
-                    onClick={(e) => this.handleTrialSelection(e, i)}
-                    className="button_disabled_is_selected"
+                    onClick={(e) => this.handleTrialSelection(trial, isSelected)}
+                    className={"trial_button " + buttonClass}
                     style={{
                         marginBottom: marginSize,
                         marginLeft: marginSize,
@@ -88,8 +95,8 @@ class ClinicalTrialForm extends Component {
                         backgroundColor: "white",
                         textTransform: "none"
                     }}
-                    disabled={this.currentlySelected(this.props.object.title, this.state.trials[i].name)} //.id
-                    >{trialName}
+                >   
+                    {trialName}
                 </Button>
             </div>
         )
@@ -167,6 +174,11 @@ class ClinicalTrialForm extends Component {
             </div>
         )
     }
+}
+
+ClinicalTrialForm.proptypes = { 
+    updateValue: PropTypes.func.isRequired,
+    object: PropTypes.object.isRequired
 }
 
 export default ClinicalTrialForm;
