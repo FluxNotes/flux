@@ -69,7 +69,7 @@ PostEncounterView.proptypes = {
     handleStructuredFieldEntered: PropTypes.func.isRequired,
     handleStructuredFieldExited: PropTypes.func.isRequired,
     handleSelectionChange: PropTypes.func.isRequired,
-    handleSummaryItemSelected: PropTypes.func.isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired
 };
 
 export default PostEncounterView;

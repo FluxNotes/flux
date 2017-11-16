@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import './FormList.css';
 
@@ -65,6 +66,12 @@ class FormList extends Component {
             </div>
         )
     }
+}
+
+FormList.proptypes = { 
+    shortcuts: PropTypes.array.isRequired, 
+    currentShortcut: PropTypes.object,
+    changeShortcut: PropTypes.func.isRequired
 }
 
 export default FormList;
