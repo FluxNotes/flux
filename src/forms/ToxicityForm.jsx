@@ -236,16 +236,16 @@ class ToxicityForm extends Component {
         )
     }
 
-    /* 
-     * Render the attribution button for the given attribution object, 
+    /*
+     * Render the attribution button for the given attribution object,
      */
-    renderAttributionButton = (attribution, i) => { 
+    renderAttributionButton = (attribution, i) => {
         const isSelected = this.currentlySelectedAttribution(attribution);
         const buttonClass = isSelected ? 'button_selected' : ''
         const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-        const marginSize = "10px";  
+        const marginSize = "10px";
         return (
-            <div key={attribution.name} className="tooltip">
+            <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
                 <Button raised
                     key={i}
@@ -275,10 +275,10 @@ class ToxicityForm extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
- 
+
         if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0){
             let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
-                return toxicityLookup.findAdverseEvent(adverseEvent); 
+                return toxicityLookup.findAdverseEvent(adverseEvent);
             });
             topAdverseEventSection = (
             <div className="btn-group-adverse-event">
@@ -288,7 +288,7 @@ class ToxicityForm extends Component {
                     }
                     const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                     return (
-                        <div key={adverseEvent.name} className="tooltip">
+                        <div key={adverseEvent.name} className="tooltip-toxicity-form">
                             <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
                             <Button raised
                                 key={i}

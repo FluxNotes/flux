@@ -79,7 +79,7 @@ class ProgressionForm extends Component {
         this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
     };
 
-    /* 
+    /*
      * Render the Disease Status 'status' button for the given status
      */
     renderStatusButtonGroup = (status, i) => {
@@ -89,7 +89,7 @@ class ProgressionForm extends Component {
         const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
 
         return (
-            <div key={statusName} className="tooltip">
+            <div key={statusName} className="tooltip-progression-form">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
                 <Button raised
                         key={i}
@@ -113,7 +113,7 @@ class ProgressionForm extends Component {
         );
     }
 
-    /* 
+    /*
      * Render the Disease Status 'reason' button for the given reason
      */
     renderReasonButtonGroup = (reason, i) => {
@@ -124,7 +124,7 @@ class ProgressionForm extends Component {
         const tooltipClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
         const buttonClass = (this.state.reasonButtonsActiveState[i] ? "button_multi_select_selected" : "button_multi_select_not_selected");
         return (
-            <div key={reasonName} className="tooltip">
+            <div key={reasonName} className="tooltip-progression-form">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <Button raised
                         key={i}

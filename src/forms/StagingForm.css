@@ -4,7 +4,7 @@
 
 .btn:disabled {
     background-color: #297DA2 !important;
-    color: #fff !important;    
+    color: #fff !important;
 }
 
 .btn span {
@@ -28,12 +28,12 @@
   margin-bottom: 20px;
 }
 
-.tooltip {
+.tooltip-staging-form {
     position: relative;
     display: inline-block;
 }
 
-.tooltip .tooltiptext {
+.tooltip-staging-form .tooltiptext {
     visibility: hidden;
     width: 150px;
     background-color: #555;
@@ -50,12 +50,12 @@
     font-size: .8rem;
 }
 
-.tooltip .large {
+.tooltip-staging-form .large {
     width: 220px;
     margin-left: -95px;
 }
 
-.tooltip .tooltiptext::after {
+.tooltip-staging-form .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -66,7 +66,7 @@
     border-color: #555 transparent transparent transparent;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip-staging-form:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
     transition-delay: 0.5s;

@@ -142,6 +142,7 @@
         box-shadow: 0 0 0 4px #CAD9E2, 0 0 1px transparent; } }
   .landing-products a {
     color: inherit;
+    display: block;
     pointer-events: none;
     cursor: default; }
     .landing-products a:hover {

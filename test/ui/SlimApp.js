@@ -6,15 +6,15 @@ const pageRoute = "/patina"
 
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
-fixture('Lite Mode - Landing') 
+fixture('Lite Mode - Landing')
     .page(startPage);
-test('Clicking progression button puts us in progression mode', async t => { 
+test('Clicking progression button puts us in progression mode', async t => {
     await t
         .click("#Disease\\ Status")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Disease Status", `Current header doesn't reflect expected progression page header`);
 })
-test('Clicking toxicity button puts us in toxicity mode', async t => { 
+test('Clicking toxicity button puts us in toxicity mode', async t => {
     await t
         .click("#Toxicity")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
@@ -41,9 +41,9 @@ test('Clicking about button puts us back on landing page', async t => {
 })
 
 
-fixture('Lite Mode - Progression') 
+fixture('Lite Mode - Progression')
     .page(startPage)
-    .beforeEach( async t => { 
+    .beforeEach( async t => {
         await t.click("#Disease\\ Status");
     });
 test('Changing progression status via button updates copy-content', async t => {
@@ -68,9 +68,9 @@ test('Changing progression rationale via button updates copy-content', async t =
 });
 
 
-fixture('Lite Mode - Toxicity') 
+fixture('Lite Mode - Toxicity')
     .page(startPage)
-    .beforeEach( async t => { 
+    .beforeEach( async t => {
         await t.click("#Toxicity");
     });
 test('Typing an adverseEvent updates copy-content', async t => {
@@ -79,7 +79,7 @@ test('Typing an adverseEvent updates copy-content', async t => {
         .typeText(adverseEventInput, "Anemia")
         .pressKey('enter')
         .expect(Selector("#copy-content").innerText)
-        .contains(await adverseEventInput.value);   
+        .contains(await adverseEventInput.value);
 });
 test('Selecting adverseEvent, then selecting a valid grade updates copy-content', async t => {
     const adverseEventInput = Selector('.react-autosuggest__input').nth(0);
@@ -141,9 +141,9 @@ test('Selecting the enrollment date choice and a date updates copy-content', asy
     await t
         .click(firstTrial)
         .click(enrollmentDateChoice);
-    
+
     const enrollmentDatePicker = await Selector("#enrollment-date");
-    await t 
+    await t
         .typeText(enrollmentDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
@@ -159,7 +159,7 @@ test('Selecting the end date choice and a date updates copy-content', async t =>
         .click(endDateChoice);
 
     const endDatePicker = await Selector("#end-date");
-    await t 
+    await t
         .typeText(endDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
@@ -179,19 +179,4 @@ test('Selecting a date of death updates copy-content', async t => {
     await t
         .expect(copyButton.innerText)
         .contains(await datePicker.value);
-});
-
-
-// Landing Page Tests
-
-const landingPage = `${pageDomain}:${pagePort}`;
-fixture('Landing Page')
-    .page(landingPage);
-test('Links on landing page work', async t => {
-    const patinaLink = Selector('#patina-link');
-    await t
-        .click(patinaLink);
-    const pathname = await t.eval(() => window.location).pathname ;
-    await t
-        .expect(pathname === '/patina');
 });

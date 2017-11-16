@@ -141,7 +141,7 @@ export default class LandingPage extends Component {
                 <div className="landing-products">
                     <div className="landing-products-lite">
                         <Paper className="landing-products-interaction">
-                            <a href="/patina" id="link-to-patina">
+                            <a href="/patina" id="link-to-lite">
                                 <div className="landing-products-image">
                                     <img src="./landing/img_fluxnotes_lite.jpg" alt="Flux Notes Lite" />
                                 </div>
@@ -240,7 +240,7 @@ export default class LandingPage extends Component {
 
                 <div className="landing-clinical-trials">
                     <div className="landing-clinical-trials-section patina">
-                        <Button raised href="/patina" className="landing-clinical-trials-button">
+                        <Button raised href="/patina" className="landing-clinical-trials-button" id="link-to-patina">
                             Flux Notes for PATINA
                         </Button>
 
