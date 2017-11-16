@@ -156,6 +156,7 @@ class ContextPortal extends React.Component {
             <ul>
                 {contexts.map((context, index) => {
                     return <ContextItem
+                        key={context.key}
                         index={index}
                         context={context}
                         selectedIndex={this.state.selectedIndex}
