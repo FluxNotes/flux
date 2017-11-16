@@ -29,7 +29,6 @@ class PostEncounterView extends Component {
                             shortcutManager={this.props.shortcutManager}
                             updateErrors={this.props.updateErrors}
                             errors={this.props.appState.errors}
-                            ref2={(comp) => { this.contextTray = comp; }}
                             handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                         />
                     </Col>

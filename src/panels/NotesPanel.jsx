@@ -29,7 +29,6 @@ class NotesPanel extends Component {
                 <Col sm={5}>
                     <div className="fitted-panel panel-content dashboard-panel">
                         <ContextTray
-                            ref={this.props.ref2}
                             patient={this.props.patient}
                             contextManager={this.props.contextManager}
                             shortcutManager={this.props.shortcutManager}
