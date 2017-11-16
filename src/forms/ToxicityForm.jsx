@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
@@ -8,6 +9,12 @@ import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreat
 import Lang from 'lodash'
 import Array from 'lodash'
 import './ToxicityForm.css';
+
+function titlecase(label) {
+    return label.toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
+}
 
 class ToxicityForm extends Component {
     constructor(props) {
@@ -366,13 +373,12 @@ class ToxicityForm extends Component {
     }
 }
 
-
+ToxicityForm.proptypes = { 
+    updateValue: PropTypes.func.isRequired,
+    object: PropTypes.object.isRequired,
+    gradesToDisplay: PropTypes.array,
+    gradesPrompt: PropTypes.string,
+    topAdverseEvents: PropTypes.array
+}
 
 export default ToxicityForm;
-
-
-function titlecase(label) {
-    return label.toLowerCase().split(' ').map(function (word) {
-        return word.replace(word[0], word[0].toUpperCase());
-    }).join(' ');
-}

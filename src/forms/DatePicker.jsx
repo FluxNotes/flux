@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -47,6 +48,13 @@ class DatePicker extends Component {
             />
         )
     }
+}
+
+DatePicker.proptypes = { 
+    dateToSet: PropTypes.string,
+    handleDateChange: PropTypes.func.isRequired,
+    id: PropTypes.string,
+    className: PropTypes.string
 }
 
 export default DatePicker;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from 'material-ui/Button';
@@ -93,4 +94,8 @@ class ShortcutViewer extends Component {
     }
 }
 
+ShortcutViewer.proptypes = { 
+    currentShortcut: PropTypes.object,
+    onShortcutUpdate: PropTypes.func.isRequired
+}
 export default ShortcutViewer;
