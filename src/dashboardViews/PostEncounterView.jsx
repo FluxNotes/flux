@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
-import FluxNotesEditor from '../notes/FluxNotesEditor';
-import ContextTray from '../context/ContextTray';
 import SummaryPanel from '../panels/SummaryPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './PostEncounterView.css';
@@ -20,7 +18,7 @@ class PostEncounterView extends Component {
                             />
                         </div>
                     </Col>
-                    <Col sm={8} className="fitted-panel panel-content dashboard-panel">
+                    <Col sm={8}>
                         <NotesPanel
                             handleSelectionChange={this.props.handleSelectionChange}
                             newCurrentShortcut={this.props.newCurrentShortcut}
@@ -31,8 +29,7 @@ class PostEncounterView extends Component {
                             shortcutManager={this.props.shortcutManager}
                             updateErrors={this.props.updateErrors}
                             errors={this.props.appState.errors}
-
-                            ref={(comp) => { this.contextTray = comp; }}
+                            ref2={(comp) => { this.contextTray = comp; }}
                             handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                         />
                     </Col>
