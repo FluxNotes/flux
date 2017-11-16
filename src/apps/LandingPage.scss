@@ -1,4 +1,7 @@
-@import "../../node_modules/bootstrap/scss/bootstrap"; // needed for bootstrap media mixins
+// needed for bootstrap media query mixins
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
 
 $landing-blue: #2E5C7C;
 $landing-light-blue: #8EB7D5;
@@ -14,6 +17,7 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
 }
 
 /* ------------------------- HEADER ---------------------------------------- */
+
 .landing-header {
     display: flex;
     justify-content: center;
@@ -132,7 +136,9 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
             align-items: center;
             @include media-breakpoint-up(xs) { margin-right: 20px; }
 
-            img {
+            img,
+            svg {
+                width: auto;
                 height: calc(50px + 1vw);
                 @include media-breakpoint-up(md) { margin-bottom: 20px; }
             }
@@ -386,7 +392,7 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         .name { font-size: calc(22px + 0.2vw); }
 
         .title {
-            font-size: calc(15px + 0.2vw);
+            font-size: calc(14px + 0.2vw);
             color: lighten($landing-font-color, 20%);
             font-style: italic;
             margin: -5px 0 10px;

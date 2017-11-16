@@ -41,7 +41,6 @@
     "react-scripts": "0.9.5",
     "react-tap-event-plugin": "2.0.1",
     "react-test-renderer": "15.6.2",
-    "reactstrap": "^5.0.0-alpha.3",
     "run-script-os": "1.0.2",
     "shr_rest_client": "^0.0.5",
     "slate": "0.20.2",
