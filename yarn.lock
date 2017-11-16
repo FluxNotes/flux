@@ -5418,9 +5418,9 @@ react-autowhatever@^10.1.0:
     react-themeable "^1.1.0"
     section-iterator "^2.0.0"
 
-react-calendar-timeline@0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/react-calendar-timeline/-/react-calendar-timeline-0.14.0.tgz#7ff1133221ac3157fc3f31c297f6748574ad5f2f"
+react-calendar-timeline@^0.15.2:
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/react-calendar-timeline/-/react-calendar-timeline-0.15.2.tgz#2edfbf0d23447cb3cb8886d6864c62ab1cd27480"
   dependencies:
     element-resize-detector "^1.1.12"
     interact.js "^1.2.6"
