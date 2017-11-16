@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import PatientSummaryPanel from '../summary/PatientSummaryPanel';
 import PreEncounterView from './PreEncounterView';
 // import EncounterView from './EncounterView';
@@ -37,7 +38,7 @@ class DashboardViewManager extends Component {
     }
 }
 
-DashboardViewManager.proptypes = { 
+DashboardViewManager.proptypes = {
     possibleClinicalEvents: PropTypes.array.isRequired,
     dataAccess: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,

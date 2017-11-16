@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import './TemplateForm.css';
@@ -34,11 +35,11 @@ class TemplateForm extends Component {
     }
 }
 
-TemplateForm.proptypes = { 
-    patient: PropTypes.object.isRequired, 
-    heading: PropTypes.string.isRequired, 
-    templates: PropTypes.array.isRequired, 
-    handleClick: PropTypes.func.isRequired, 
+TemplateForm.proptypes = {
+    patient: PropTypes.object.isRequired,
+    heading: PropTypes.string.isRequired,
+    templates: PropTypes.array.isRequired,
+    handleClick: PropTypes.func.isRequired,
 }
 
 export default TemplateForm;
