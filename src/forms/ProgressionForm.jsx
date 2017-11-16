@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';

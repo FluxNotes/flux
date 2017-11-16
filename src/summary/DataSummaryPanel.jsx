@@ -3,7 +3,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
 import Tabs, {Tab} from 'material-ui/Tabs';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 

@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -47,7 +47,7 @@ class NavBar extends Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static" className="navbar">
+                <AppBar position="static" className="navbar-custom">
                     <Toolbar>
                         {showMenu ?
                             <IconButton style={{margin: '0px 8px 0px -16px' }} aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>

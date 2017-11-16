@@ -2,8 +2,8 @@
 #shortcut-viewer {
     background: white;
 
-    /* 64 fo navbar; 60px for top/bottom padding */
-    height: calc(100vh - 64px - 60px);
+    /* 64px for navbar */
+    height: calc(100vh - 64px);
     text-align: left;
     z-index: 2;
     padding: 30px 60px;
@@ -48,7 +48,7 @@
     bottom: 0;
     right: 0;
     min-height: 20px;
-    margin: -5px 20px -5px 20px; 
+    margin: -5px 20px -5px 20px;
 }
 
 #copy-keyword {
@@ -69,7 +69,7 @@
 }
 
 @media (max-width:992px) {
-    #shortcut-viewer { 
+    #shortcut-viewer {
         padding: 30px 40px;
     }
 }

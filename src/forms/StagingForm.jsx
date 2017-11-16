@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import staging from '../lib/staging';
 import stagingLookup from '../lib/tnmstage_lookup';
 import './StagingForm.css';

@@ -20,13 +20,13 @@ class SlimApp extends Component {
         };
     }
 
-    /* 
-     * Change the current shortcut to be the new type of shortcut  
+    /*
+     * Change the current shortcut to be the new type of shortcut
      */
     changeShortcut = (shortcutType) => {
         const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(null, "#" + shortcutType.toLowerCase(), this.handleShortcutUpdate);
         if (newShortcut) {
-            newShortcut.setConfiguration((this.props.shortcutConfigurations) ? 
+            newShortcut.setConfiguration((this.props.shortcutConfigurations) ?
                     this.props.shortcutConfigurations[shortcutType] : {});
         }
         this.setState({
@@ -34,7 +34,7 @@ class SlimApp extends Component {
         });
     }
 
-    /* 
+    /*
      * When updating the shortcut, make sure to setState with the new value
      */
     handleShortcutUpdate = (s) => {

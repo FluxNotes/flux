@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
 import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import Lang from 'lodash'

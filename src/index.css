@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: "Open Sans", Roboto, Arial, sans-serif;
+  font-family: "Open Sans", Arial, sans-serif;
   color: #444;
 }
 
@@ -21,4 +21,9 @@ body {
     border-radius: 10px;
     background-color: #F3F3F3;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* overwrites bootstrap */
+.row {
+  margin: 0;
 }

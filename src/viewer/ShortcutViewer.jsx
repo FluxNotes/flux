@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import LandingPageForm from '../forms/LandingPageForm';
 /* eslint-disable no-unused-vars */
 import * as forms from '../forms'
@@ -29,8 +29,8 @@ class ShortcutViewer extends Component {
         return (
             <CopyToClipboard text={string}>
                 <div id="copy-component">
-                    <Button 
-                        raised 
+                    <Button
+                        raised
                         className="btn_copy"
                         ref="copyButton"
                         style={{
@@ -45,14 +45,12 @@ class ShortcutViewer extends Component {
                         onClick={() => {
                             ReactDOM.findDOMNode(this.refs.copyButton).blur();
                         }}
-                    > 
+                    >
                         <div id="copy-keyword">
                             Copy
                         </div>
                         <div id="copy-content">
-                            <p> 
-                                {string}
-                            </p>
+                            {string}
                         </div>
                     </Button>
                     <span className="helper-text-multi-line">When finished selecting values, click on the copy button above and then paste into a note within your EHR</span>

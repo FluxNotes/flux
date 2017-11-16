@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Paper from 'material-ui/Paper';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import './LandingPage.css';
 
 export default class LandingPage extends Component {
@@ -214,12 +214,12 @@ export default class LandingPage extends Component {
                                 </p>
 
                                 <p>
-                                    Allows the review of patient record summaries that are condition, domain, task,
+                                    Allows the review of patient record summaries that are condition-, domain-, task-,
                                     and role-specific.
                                 </p>
 
                                 <p>
-                                    The approch of Flux Notes Full will be to deploy it at hospitals and integrate
+                                    The approach of Flux Notes Full will be to deploy it at hospitals and integrate
                                     bi-directionally with existing EHRs.
                                 </p>
                             </div>

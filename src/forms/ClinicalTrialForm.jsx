@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import Radio, {RadioGroup} from 'material-ui/Radio';
 import {FormControl, FormControlLabel} from 'material-ui/Form';
 import DatePicker from '../forms/DatePicker';
@@ -60,11 +60,11 @@ class ClinicalTrialForm extends Component {
         // and reset the chosen date to the value displayed in the picker.
         if (choice === 'enrollmentDate') {
             this.props.updateValue('endDateDate', null);
-            this.props.updateValue('enrollmentDateDate', 
+            this.props.updateValue('enrollmentDateDate',
                 (this.state.selectedEnrollmentDate) ? this.state.selectedEnrollmentDate : null); //.format('D MMM YYYY')
         } else if (choice === 'endDate') {
             this.props.updateValue('enrollmentDateDate', null);
-            this.props.updateValue('endDateDate', 
+            this.props.updateValue('endDateDate',
                 (this.state.selectedEndDate) ? this.state.selectedEndDate : null); //.format('D MMM YYYY')
         }
         this.setState({selectedDateChoice: choice});

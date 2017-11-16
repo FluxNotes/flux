@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 
 import './ClinicalEventSelection.css';
@@ -29,10 +29,10 @@ class ClinicalEventSelection extends Component {
         return klass;
     }
 
-    renderClinicalEventList() { 
+    renderClinicalEventList() {
         return (
             <Row start="xs" className="clinical-event-buttons">
-                {this.props.possibleClinicalEvents.map((setting, index) => { 
+                {this.props.possibleClinicalEvents.map((setting, index) => {
                     return (
                         <Col xs className={this.buttonClass(setting)} key={`clinical-event-${setting}`} id={`${setting}-button`}>
                             <Button raised onClick={() => {this.selectClinicalEvent(setting)}}>
@@ -41,7 +41,7 @@ class ClinicalEventSelection extends Component {
                         </Col>
                     )
                 })}
-            </Row>                
+            </Row>
         )
     }
 

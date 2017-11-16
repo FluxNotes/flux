@@ -16,7 +16,7 @@
 }
 
 .SlimApp-content h1 {
-    margin: 0px;
+    margin: 10px 0;
     font-size: 1.25rem;
 }
 
@@ -32,19 +32,33 @@
     font-weight: lighter;
 }
 
+.SlimApp-content h4 {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 .SlimApp-content ::-webkit-scrollbar-track {
     background-color: #FFFFFF;
 }
 
-.SlimApp-content .no-padding { 
+.SlimApp-content .no-padding {
     padding: 0!important;
 }
-
 
 .SlimApp-content .header-spacing {
     margin-top: 60px;
 }
-@media (max-width: 992px) { 
+
+.SlimApp-content.container-fluid {
+    padding: 0;
+}
+
+.SlimApp-content button:focus {
+    outline: none;
+}
+
+@media (max-width: 992px) {
     .SlimApp-content .header-spacing {
         margin-top: 45px;
     }
