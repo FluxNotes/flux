@@ -4,6 +4,7 @@ import { Row, Col } from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import ContextTray from '../context/ContextTray';
 import SummaryPanel from '../panels/SummaryPanel';
+import NotesPanel from '../panels/NotesPanel';
 import './PostEncounterView.css';
 
 class PostEncounterView extends Component { 
@@ -19,33 +20,21 @@ class PostEncounterView extends Component {
                             />
                         </div>
                     </Col>
+                    <Col sm={8} className="fitted-panel panel-content dashboard-panel">
+                        <NotesPanel
+                            handleSelectionChange={this.props.handleSelectionChange}
+                            newCurrentShortcut={this.props.newCurrentShortcut}
+                            itemInserted={this.props.itemInserted}
+                            summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
+                            patient={this.props.appState.patient}
+                            contextManager={this.props.contextManager}
+                            shortcutManager={this.props.shortcutManager}
+                            updateErrors={this.props.updateErrors}
+                            errors={this.props.appState.errors}
 
-                    <Col sm={5} >
-                        <div className="fitted-panel panel-content dashboard-panel">
-                            <FluxNotesEditor
-                                onSelectionChange={this.props.handleSelectionChange}
-                                newCurrentShortcut={this.props.newCurrentShortcut}
-                                itemInserted={this.props.itemInserted}
-                                itemToBeInserted={this.props.appState.SummaryItemToInsert}
-                                patient={this.props.appState.patient}
-                                contextManager={this.props.contextManager}
-                                shortcutManager={this.props.shortcutManager}
-                                updateErrors={this.props.updateErrors}
-                                errors={this.props.appState.errors}
-                            />
-                        </div>
-                    </Col>
-
-                    <Col sm={3}>
-                        <div className="fitted-panel panel-content dashboard-panel">
-                            <ContextTray
-                                ref={(comp) => { this.contextTray = comp; }}
-                                patient={this.props.appState.patient}
-                                contextManager={this.props.contextManager}
-                                shortcutManager={this.props.shortcutManager}
-                                onShortcutClicked={this.props.handleSummaryItemSelected}
-                            />
-                        </div>
+                            ref={(comp) => { this.contextTray = comp; }}
+                            handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                        />
                     </Col>
                 </Row>
             </div>
@@ -53,7 +42,7 @@ class PostEncounterView extends Component {
     }
 }
 
-PostEncounterView.proptypes = { 
+PostEncounterView.proptypes = {
     possibleClinicalEvents: PropTypes.array.isRequired,
     dataAccess: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
