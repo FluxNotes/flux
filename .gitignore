@@ -16,4 +16,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # sass outputs
-*.css
+# *.css // Add once project has completely converted to SASS
