@@ -282,9 +282,9 @@ export default class LandingPage extends Component {
 
                 <div className="landing-initiatives">
                     <div className="landing-initiatives-item shr">
-                        <div className="landing-initiatives-logo">
+                        <a href="http://standardhealthrecord.org/" alt="SHR Site" className="landing-initiatives-logo">
                             <img src="./logos/SHR.png" alt="SHR Logo" className="shr-logo" />
-                        </div>
+                        </a>
 
                         <div className="landing-initiatives-description">
                             <p>
@@ -302,10 +302,10 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-initiatives-item icare">
-                        <div className="landing-initiatives-logo">
+                        <a href="http://icaredata.org/" alt="ICARE Site" className="landing-initiatives-logo">
                             <img src="./logos/ICARE.png" alt="ICARE Logo" className="icare-logo"/>
                             <span>ICAREdata Study</span>
-                        </div>
+                        </a>
 
                         <div className="landing-initiatives-description">
                             <p>

@@ -117,9 +117,9 @@ class ProgressionForm extends Component {
      * Render the Disease Status 'reason' button for the given reason
      */
     renderReasonButtonGroup = (reason, i) => {
-
-        let reasonName = reason.name;
-        let reasonDescription = reason.description;
+        const marginSize = "10px";
+        const reasonName = reason.name;
+        const reasonDescription = reason.description;
 
         const tooltipClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
         const buttonClass = (this.state.reasonButtonsActiveState[i] ? "button_multi_select_selected" : "button_multi_select_not_selected");
@@ -131,7 +131,8 @@ class ProgressionForm extends Component {
                         label={reasonName}
                         className={buttonClass}
                         style={{
-                            margin: 0.5,
+                            marginBottom: marginSize,
+                            marginLeft: marginSize,
                             height: "75px",
                             width: "180px",
                             backgroundColor: "white",
@@ -206,7 +207,7 @@ class ProgressionForm extends Component {
     }
 }
 
-ProgressionForm.proptypes = { 
+ProgressionForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     referenceDateEnabled: PropTypes.bool.isRequired

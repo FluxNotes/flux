@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import PatientSummaryPanel from '../summary/PatientSummaryPanel';
 import PreEncounterView from './PreEncounterView';
 // import EncounterView from './EncounterView';
@@ -25,14 +26,20 @@ class DashboardViewManager extends Component {
 
     render() {
         return (
-            <div className="FullApp-content" fluid>
-                <PatientSummaryPanel
-                    patient={this.props.appState.patient}
-                    possibleClinicalEvents={this.props.possibleClinicalEvents}
-                    clinicalEvent={this.props.appState.clinicalEvent}
-                    setFullAppState={this.props.setFullAppState} />
+            <div className="FullApp-content">
+                <Grid className="FullApp-content" fluid>
+                    <Row center="xs">
+                        <Col sm={12}>
+                            <PatientSummaryPanel
+                                patient={this.props.appState.patient}
+                                possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                clinicalEvent={this.props.appState.clinicalEvent}
+                                setFullAppState={this.props.setFullAppState} />
+                        </Col>
+                    </Row>
 
-                {this.renderCurrentView(this.props.appState.clinicalEvent)}
+                    {this.renderCurrentView(this.props.appState.clinicalEvent)}
+                </Grid>
             </div>
         );
     }

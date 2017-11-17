@@ -2,8 +2,8 @@
 #shortcut-viewer {
     background: white;
 
-    /* 64px for navbar */
-    height: calc(100vh - 64px);
+    /* 64px for navbar; 60px for top/bottom padding */
+    height: calc(100vh - 64px - 60px);
     text-align: left;
     z-index: 2;
     padding: 30px 60px;

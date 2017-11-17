@@ -2,12 +2,12 @@
     background-color: #297DA2 !important;
     color: #fff !important;
     border: 2px solid;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .button_disabled_is_selected:enabled {
     border: 2px solid;
-    border-radius: 10px;
+    border-radius: 5px;
     border-color: white;
 }
 
@@ -30,7 +30,7 @@
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 5px;
     padding: 10px 10px;
     position: absolute;
     z-index: 1;

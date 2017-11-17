@@ -10,6 +10,7 @@
 .SlimApp-content .row{
     margin: 0!important;
 }
+
 .SlimApp-content .divider {
     margin: 40px 0px !important;
     clear: both;
@@ -18,12 +19,14 @@
 .SlimApp-content h1 {
     margin: 10px 0;
     font-size: 1.25rem;
+    font-family: "Open Sans", Arial, sans-serif;
 }
 
 .SlimApp-content h2 {
     margin: 0px;
     font-size: 0.9rem;
     font-weight: lighter;
+    font-family: "Open Sans", Arial, sans-serif;
 }
 
 .SlimApp-content h3 {
@@ -50,12 +53,8 @@
     margin-top: 60px;
 }
 
-.SlimApp-content.container-fluid {
-    padding: 0;
-}
-
-.SlimApp-content button:focus {
-    outline: none;
+.SlimApp-content a {
+    color: #297DA2;
 }
 
 @media (max-width: 992px) {

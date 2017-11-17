@@ -254,7 +254,7 @@ class ToxicityForm extends Component {
                     style={{
                         marginBottom: marginSize,
                         marginLeft: marginSize,
-                        borderRadius: "10px",
+                        borderRadius: "5px",
                         height: "75px",
                         width: "180px",
                         backgroundColor: "white",
@@ -373,7 +373,7 @@ class ToxicityForm extends Component {
     }
 }
 
-ToxicityForm.proptypes = { 
+ToxicityForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     gradesToDisplay: PropTypes.array,

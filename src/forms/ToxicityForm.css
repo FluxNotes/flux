@@ -93,7 +93,7 @@
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 5px;
     padding: 10px 10px;
     position: absolute;
     z-index: 1;
@@ -186,7 +186,7 @@
     width: 100%;
     background-color: #FAFAFA;
     font-size: 16px;
-    border-radius: 4px;
+    border-radius: 5px;
     z-index: 2;
 }
 
@@ -232,7 +232,7 @@
     padding: 20px 5px;
     background-color: white;
     text-transform: none;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .btn-group-adverse-event button:hover,

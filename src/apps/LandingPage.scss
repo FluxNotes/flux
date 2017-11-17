@@ -1,8 +1,21 @@
-// needed for bootstrap media query mixins
-@import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
+// Breakpoints
+$breakpoint-tablet: 576px;
+$breakpoint-desktop: 768px;
 
+// Media queries
+@mixin respond-to($media) {
+    @if $media == mobile {
+        @media only screen and (max-width: $breakpoint-tablet) { @content; }
+    }
+    @else if $media == tablet {
+        @media only screen and (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) { @content; }
+    }
+    @else if $media == desktop {
+        @media only screen and (min-width: $breakpoint-desktop + 1) { @content; }
+    }
+}
+
+// Colors
 $landing-blue: #2E5C7C;
 $landing-light-blue: #8EB7D5;
 $landing-lightest-blue: #CAD9E2;
@@ -80,9 +93,7 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     max-width: 1100px;
     font-size: calc(16px + 0.35vw);
     padding: 0 20px;
-
-    @include media-breakpoint-up(xs) { margin: 60px auto; }
-    @include media-breakpoint-up(md) { margin: 80px auto; }
+    margin: calc(60px + 1.2vw) auto;
 
     strong {
         font-weight: 600;
@@ -111,36 +122,46 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
-    @include media-breakpoint-up(xs) { margin: 60px auto 0; }
-    @include media-breakpoint-up(md) {  margin: 100px auto 40px; }
+    margin: calc(60px + 1vw) auto calc(10px + 1vw);
+    padding: 0 10px;
 
     &-card {
         display: flex;
         margin-bottom: 60px;
 
-        @include media-breakpoint-up(xs) {
+        @include respond-to(mobile) {
             flex-direction: row;
             width: 100%;
             padding: 0 20px;
         }
 
-        @include media-breakpoint-up(md) {
+        @include respond-to(tablet) {
             flex-direction: column;
-            width: 350px;
+            width: calc(160px + 15vw);
+            padding: 0 10px;
+        }
+
+        @include respond-to(desktop) {
+            flex-direction: column;
+            width: calc(250px + 5vw);
+            max-width: 340px;
+            padding: 0 10px;
         }
 
         &-icon {
             display: flex;
             justify-content: center;
             align-items: center;
-            @include media-breakpoint-up(xs) { margin-right: 20px; }
+
+            @include respond-to(mobile) { margin-right: 20px; }
 
             img,
             svg {
                 width: auto;
                 height: calc(50px + 1vw);
-                @include media-breakpoint-up(md) { margin-bottom: 20px; }
+
+                @include respond-to(tablet) { margin-bottom: 20px; }
+                @include respond-to(desktop) { margin-bottom: 20px; }
             }
         }
 
@@ -168,13 +189,19 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     display: flex;
     justify-content: space-around;
 
-    @include media-breakpoint-up(xs) {
+    @include respond-to(mobile) {
         flex-direction: column;
         align-items: center;
         margin: 80px auto;
     }
 
-    @include media-breakpoint-up(md) {
+    @include respond-to(tablet) {
+        flex-direction: column;
+        align-items: center;
+        margin: 80px auto;
+    }
+
+    @include respond-to(desktop) {
         flex-direction: row;
         align-items: flex-start;
         margin: 100px auto;
@@ -185,8 +212,8 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     &-lite {
         max-width: 550px;
 
-        @include media-breakpoint-up(xs) { margin-bottom: 60px; }
-        @include media-breakpoint-up(md) { margin-bottom: 0; }
+        @include respond-to(mobile) { margin-bottom: 60px; }
+        @include respond-to(desktop) { margin-bottom: 0; }
     }
 
     &-full { max-width: 545px; }
@@ -198,7 +225,7 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         transition-duration: 0.3s;
         transition-property: transform;
 
-        @include media-breakpoint-up(md) {
+        @include respond-to(desktop) {
             &:hover {
                 transform: scale(1.05);
                 box-shadow: 0 0 0 4px $landing-lightest-blue, 0 0 1px transparent;
@@ -209,26 +236,33 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     a {
         color: inherit;
         display: block;
+        text-decoration: none;
 
         &:hover {
             text-decoration: none;
             color: inherit;
         }
 
-        @include media-breakpoint-up(xs) {
+        @include respond-to(mobile) {
             pointer-events: none;
             cursor: default;
         }
 
-        @include media-breakpoint-up(md) {
+        @include respond-to(tablet) {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        @include respond-to(desktop) {
             pointer-events: auto;
             cursor: pointer;
         }
     }
 
     &-image {
-        @include media-breakpoint-up(xs) { pointer-events: none; }
-        @include media-breakpoint-up(md) { pointer-events: auto; }
+        @include respond-to(mobile) { pointer-events: none; }
+        @include respond-to(tablet) { pointer-events: none; }
+        @include respond-to(desktop) { pointer-events: auto; }
 
         img { width: 100%; }
     }
@@ -242,15 +276,16 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         font-weight: 600;
         border-top: 1px solid $landing-light-gray;
 
-        @include media-breakpoint-up(xs) { display: none; }
-        @include media-breakpoint-up(md) { display: flex; }
+        @include respond-to(mobile) { display: none; }
+        @include respond-to(tablet) { display: none; }
+        @include respond-to(desktop) { display: flex; }
     }
 
     &-title-mobile {
         margin: 20px 0;
         font-weight: 600;
 
-        @include media-breakpoint-up(md) { display: none; }
+        @include respond-to(desktop) { display: none; }
 
         span {
             color: lighten($landing-font-color, 40%);
@@ -302,24 +337,31 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
 
 .landing-clinical-trials {
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     max-width: 1100px;
     flex-direction: column; // remove if more than one trial
     align-items: center; // remove if more than one trial
+    margin: calc(40px + 1vw) auto;
 
-    @include media-breakpoint-up(xs) {
-        // flex-direction: column; // add if more than one trial
-        // align-items: center; // add if more than one trial
-        margin: 40px auto;
-    }
+    // add media block if more than one trial
+    // @include respond-to(mobile) {
+    //     flex-direction: column;
+    //     align-items: center;
+    // }
 
-    @include media-breakpoint-up(lg) {
-        // flex-direction: row; // add if more than one trial
-        // align-items: flex-start; // add if more than one trial
-        margin: 80px auto;
-    }
+    // @include respond-to(tablet) {
+    //     flex-direction: column;
+    //     align-items: center;
+    // }
+
+    // @include respond-to(desktop) {
+    //     flex-direction: row;
+    //     align-items: flex-start;
+    // }
 
     &-section {
-        max-width: 400px;
+        width: 320px;
         padding: 20px;
     }
 
@@ -357,16 +399,11 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     display: flex;
     max-width: 1100px;
     padding: 0 20px;
+    margin: calc(40px + 1vw) auto;
 
-    @include media-breakpoint-up(xs) {
-        flex-direction: column;
-        margin: 40px auto;
-    }
-
-    @include media-breakpoint-up(lg) {
-        flex-direction: row;
-        margin: 80px auto;
-    }
+    @include respond-to(mobile) { flex-direction: column; }
+    @include respond-to(tablet) { flex-direction: column; }
+    @include respond-to(desktop) { flex-direction: row; }
 
     &-info {
         &-title {
@@ -387,19 +424,20 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     }
 
     &-contact {
-        @include media-breakpoint-up(xs) { margin-top: 40px; }
-        @include media-breakpoint-up(lg) { padding-left: 60px; }
+        margin-top: 50px;
 
-        .name { font-size: calc(22px + 0.2vw); }
+        @include respond-to(desktop) { padding-left: 60px; }
+
+        .name { font-size: calc(18px + 0.4vw); }
 
         .title {
-            font-size: calc(14px + 0.2vw);
+            font-size: calc(12px + 0.3vw);
             color: lighten($landing-font-color, 20%);
             font-style: italic;
-            margin: -5px 0 10px;
+            margin: -3px 0 10px;
         }
 
-        .email { font-size: calc(18px + 0.2vw); }
+        .email { font-size: calc(14px + 0.4vw); }
     }
 }
 
@@ -425,29 +463,16 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     justify-content: space-between;
     max-width: 1100px;
     padding: 0 10px;
+    margin: calc(40px + 1vw) auto;
 
-    @include media-breakpoint-up(xs) {
-        flex-direction: column;
-        margin: 40px auto;
-    }
-
-    @include media-breakpoint-up(lg) {
-        flex-direction: row;
-        margin: 80px auto;
-    }
+    @include respond-to(mobile) { flex-direction: column; }
+    @include respond-to(tablet) { flex-direction: column; }
+    @include respond-to(desktop) { flex-direction: row; }
 
     &-item {
         max-width: 1000px;
-
-        @include media-breakpoint-up(xs) {
-            margin-bottom: 30px;
-            padding: 0;
-        }
-
-        @include media-breakpoint-up(lg) {
-            margin-bottom: 0;
-            padding: 0 20px;
-        }
+        margin-bottom: calc(30px - 1vw);
+        padding: 0 20px;
     }
 
     &-logo {
@@ -456,6 +481,7 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         align-items: center;
         height: calc(60px + 1vw);
         margin-bottom: 20px;
+        text-decoration: none;
 
         .shr-logo { height: calc(60px + 1vw); }
 
@@ -477,6 +503,10 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
             text-decoration: underline;
             color: $landing-font-color;
             font-weight: 600;
+
+            &:hover {
+                color: $landing-blue;
+            }
         }
     }
 }
@@ -506,11 +536,12 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
     flex-wrap: wrap;
 
     img {
-        height: calc(110px + 3vw);
+        height: calc(80px + 1vw);
         padding: calc(20px + 0.5vw);
     }
 
-    .mitre { height: calc(75px + 3vw); }
-
-    .danafarber { height: calc(80px + 2vw); }
+    .mitre,
+    .danafarber {
+        height: calc(40px + 1vw);
+    }
 }

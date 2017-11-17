@@ -8,12 +8,8 @@
     width: 100%;
 }
 
-h2 {
+h2, h3 {
     color: #999;
-}
-
-h3 {
-    color: #999 !important;
 }
 
 .patient-info {

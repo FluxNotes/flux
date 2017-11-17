@@ -48,10 +48,7 @@
   max-width: 1100px;
   font-size: calc(16px + 0.35vw);
   padding: 0 20px;
-  margin: 60px auto; }
-  @media (min-width: 768px) {
-    .landing-mission {
-      margin: 80px auto; } }
+  margin: calc(60px + 1.2vw) auto; }
   .landing-mission strong {
     font-weight: 600; }
 
@@ -70,30 +67,43 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 60px auto 0; }
-  @media (min-width: 768px) {
-    .landing-capabilities {
-      margin: 100px auto 40px; } }
+  margin: calc(60px + 1vw) auto calc(10px + 1vw);
+  padding: 0 10px; }
   .landing-capabilities-card {
     display: flex;
-    margin-bottom: 60px;
-    flex-direction: row;
-    width: 100%;
-    padding: 0 20px; }
-    @media (min-width: 768px) {
+    margin-bottom: 60px; }
+    @media only screen and (max-width: 576px) {
+      .landing-capabilities-card {
+        flex-direction: row;
+        width: 100%;
+        padding: 0 20px; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
       .landing-capabilities-card {
         flex-direction: column;
-        width: 350px; } }
+        width: calc(160px + 15vw);
+        padding: 0 10px; } }
+    @media only screen and (min-width: 769px) {
+      .landing-capabilities-card {
+        flex-direction: column;
+        width: calc(250px + 5vw);
+        max-width: 340px;
+        padding: 0 10px; } }
     .landing-capabilities-card-icon {
       display: flex;
       justify-content: center;
-      align-items: center;
-      margin-right: 20px; }
+      align-items: center; }
+      @media only screen and (max-width: 576px) {
+        .landing-capabilities-card-icon {
+          margin-right: 20px; } }
       .landing-capabilities-card-icon img,
       .landing-capabilities-card-icon svg {
         width: auto;
         height: calc(50px + 1vw); }
-        @media (min-width: 768px) {
+        @media only screen and (min-width: 577px) and (max-width: 768px) {
+          .landing-capabilities-card-icon img,
+          .landing-capabilities-card-icon svg {
+            margin-bottom: 20px; } }
+        @media only screen and (min-width: 769px) {
           .landing-capabilities-card-icon img,
           .landing-capabilities-card-icon svg {
             margin-bottom: 20px; } }
@@ -111,11 +121,18 @@
 .landing-products {
   max-width: 1100px;
   display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  align-items: center;
-  margin: 80px auto; }
-  @media (min-width: 768px) {
+  justify-content: space-around; }
+  @media only screen and (max-width: 576px) {
+    .landing-products {
+      flex-direction: column;
+      align-items: center;
+      margin: 80px auto; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-products {
+      flex-direction: column;
+      align-items: center;
+      margin: 80px auto; } }
+  @media only screen and (min-width: 769px) {
     .landing-products {
       flex-direction: row;
       align-items: flex-start;
@@ -123,9 +140,11 @@
   .landing-products-lite, .landing-products-full {
     padding: 0 40px; }
   .landing-products-lite {
-    max-width: 550px;
-    margin-bottom: 60px; }
-    @media (min-width: 768px) {
+    max-width: 550px; }
+    @media only screen and (max-width: 576px) {
+      .landing-products-lite {
+        margin-bottom: 60px; } }
+    @media only screen and (min-width: 769px) {
       .landing-products-lite {
         margin-bottom: 0; } }
   .landing-products-full {
@@ -136,29 +155,40 @@
     transform: perspective(1px) translateZ(0);
     transition-duration: 0.3s;
     transition-property: transform; }
-    @media (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
       .landing-products-interaction:hover {
         transform: scale(1.05);
         box-shadow: 0 0 0 4px #CAD9E2, 0 0 1px transparent; } }
   .landing-products a {
     color: inherit;
     display: block;
-    pointer-events: none;
-    cursor: default; }
+    text-decoration: none; }
     .landing-products a:hover {
       text-decoration: none;
       color: inherit; }
-    @media (min-width: 768px) {
+    @media only screen and (max-width: 576px) {
+      .landing-products a {
+        pointer-events: none;
+        cursor: default; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+      .landing-products a {
+        pointer-events: none;
+        cursor: default; } }
+    @media only screen and (min-width: 769px) {
       .landing-products a {
         pointer-events: auto;
         cursor: pointer; } }
-  .landing-products-image {
-    pointer-events: none; }
-    @media (min-width: 768px) {
-      .landing-products-image {
-        pointer-events: auto; } }
-    .landing-products-image img {
-      width: 100%; }
+  @media only screen and (max-width: 576px) {
+    .landing-products-image {
+      pointer-events: none; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-products-image {
+      pointer-events: none; } }
+  @media only screen and (min-width: 769px) {
+    .landing-products-image {
+      pointer-events: auto; } }
+  .landing-products-image img {
+    width: 100%; }
   .landing-products-link {
     display: flex;
     justify-content: space-between;
@@ -166,15 +196,20 @@
     padding: 20px 40px;
     font-size: calc(18px + 0.2vw);
     font-weight: 600;
-    border-top: 1px solid #EEE;
-    display: none; }
-    @media (min-width: 768px) {
+    border-top: 1px solid #EEE; }
+    @media only screen and (max-width: 576px) {
+      .landing-products-link {
+        display: none; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+      .landing-products-link {
+        display: none; } }
+    @media only screen and (min-width: 769px) {
       .landing-products-link {
         display: flex; } }
   .landing-products-title-mobile {
     margin: 20px 0;
     font-weight: 600; }
-    @media (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
       .landing-products-title-mobile {
         display: none; } }
     .landing-products-title-mobile span {
@@ -213,15 +248,14 @@
 /* ------------------------- CLINICAL TRIALS ------------------------------- */
 .landing-clinical-trials {
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
   max-width: 1100px;
   flex-direction: column;
   align-items: center;
-  margin: 40px auto; }
-  @media (min-width: 992px) {
-    .landing-clinical-trials {
-      margin: 80px auto; } }
+  margin: calc(40px + 1vw) auto; }
   .landing-clinical-trials-section {
-    max-width: 400px;
+    width: 320px;
     padding: 20px; }
   .landing-clinical-trials a {
     width: 100%;
@@ -250,12 +284,16 @@
   display: flex;
   max-width: 1100px;
   padding: 0 20px;
-  flex-direction: column;
-  margin: 40px auto; }
-  @media (min-width: 992px) {
+  margin: calc(40px + 1vw) auto; }
+  @media only screen and (max-width: 576px) {
     .landing-get-involved {
-      flex-direction: row;
-      margin: 80px auto; } }
+      flex-direction: column; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-get-involved {
+      flex-direction: column; } }
+  @media only screen and (min-width: 769px) {
+    .landing-get-involved {
+      flex-direction: row; } }
   .landing-get-involved-info-title {
     margin-bottom: 15px;
     font-size: calc(24px + 0.4vw);
@@ -267,19 +305,19 @@
       color: #555;
       font-weight: 600; }
   .landing-get-involved-contact {
-    margin-top: 40px; }
-    @media (min-width: 992px) {
+    margin-top: 50px; }
+    @media only screen and (min-width: 769px) {
       .landing-get-involved-contact {
         padding-left: 60px; } }
     .landing-get-involved-contact .name {
-      font-size: calc(22px + 0.2vw); }
+      font-size: calc(18px + 0.4vw); }
     .landing-get-involved-contact .title {
-      font-size: calc(14px + 0.2vw);
+      font-size: calc(12px + 0.3vw);
       color: #888888;
       font-style: italic;
-      margin: -5px 0 10px; }
+      margin: -3px 0 10px; }
     .landing-get-involved-contact .email {
-      font-size: calc(18px + 0.2vw); }
+      font-size: calc(14px + 0.4vw); }
 
 /* ------------------------- INITIATIVES BANNER ---------------------------- */
 .landing-initiatives-banner {
@@ -300,26 +338,27 @@
   justify-content: space-between;
   max-width: 1100px;
   padding: 0 10px;
-  flex-direction: column;
-  margin: 40px auto; }
-  @media (min-width: 992px) {
+  margin: calc(40px + 1vw) auto; }
+  @media only screen and (max-width: 576px) {
     .landing-initiatives {
-      flex-direction: row;
-      margin: 80px auto; } }
+      flex-direction: column; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-initiatives {
+      flex-direction: column; } }
+  @media only screen and (min-width: 769px) {
+    .landing-initiatives {
+      flex-direction: row; } }
   .landing-initiatives-item {
     max-width: 1000px;
-    margin-bottom: 30px;
-    padding: 0; }
-    @media (min-width: 992px) {
-      .landing-initiatives-item {
-        margin-bottom: 0;
-        padding: 0 20px; } }
+    margin-bottom: calc(30px - 1vw);
+    padding: 0 20px; }
   .landing-initiatives-logo {
     display: flex;
     justify-content: center;
     align-items: center;
     height: calc(60px + 1vw);
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    text-decoration: none; }
     .landing-initiatives-logo .shr-logo {
       height: calc(60px + 1vw); }
     .landing-initiatives-logo .icare-logo {
@@ -334,6 +373,8 @@
       text-decoration: underline;
       color: #555;
       font-weight: 600; }
+      .landing-initiatives-description a:hover {
+        color: #2E5C7C; }
 
 /* ------------------------- PARTNERS BANNER ------------------------------- */
 .landing-partners-banner {
@@ -356,9 +397,8 @@
   padding: 40px 10px;
   flex-wrap: wrap; }
   .landing-partners img {
-    height: calc(110px + 3vw);
+    height: calc(80px + 1vw);
     padding: calc(20px + 0.5vw); }
-  .landing-partners .mitre {
-    height: calc(75px + 3vw); }
+  .landing-partners .mitre,
   .landing-partners .danafarber {
-    height: calc(80px + 2vw); }
+    height: calc(40px + 1vw); }
