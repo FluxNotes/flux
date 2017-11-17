@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
 import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
 import Lang from 'lodash'
@@ -236,16 +236,16 @@ class ToxicityForm extends Component {
         )
     }
 
-    /* 
-     * Render the attribution button for the given attribution object, 
+    /*
+     * Render the attribution button for the given attribution object,
      */
-    renderAttributionButton = (attribution, i) => { 
+    renderAttributionButton = (attribution, i) => {
         const isSelected = this.currentlySelectedAttribution(attribution);
         const buttonClass = isSelected ? 'button_selected' : ''
         const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-        const marginSize = "10px";  
+        const marginSize = "10px";
         return (
-            <div key={attribution.name} className="tooltip">
+            <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
                 <Button raised
                     key={i}
@@ -254,7 +254,7 @@ class ToxicityForm extends Component {
                     style={{
                         marginBottom: marginSize,
                         marginLeft: marginSize,
-                        borderRadius: "10px",
+                        borderRadius: "5px",
                         height: "75px",
                         width: "180px",
                         backgroundColor: "white",
@@ -275,10 +275,10 @@ class ToxicityForm extends Component {
             value: this.state.searchText,
             onChange: this.handleUpdateAdverseEventInput
         };
- 
+
         if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0){
             let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
-                return toxicityLookup.findAdverseEvent(adverseEvent); 
+                return toxicityLookup.findAdverseEvent(adverseEvent);
             });
             topAdverseEventSection = (
             <div className="btn-group-adverse-event">
@@ -288,7 +288,7 @@ class ToxicityForm extends Component {
                     }
                     const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                     return (
-                        <div key={adverseEvent.name} className="tooltip">
+                        <div key={adverseEvent.name} className="tooltip-toxicity-form">
                             <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
                             <Button raised
                                 key={i}
@@ -373,7 +373,7 @@ class ToxicityForm extends Component {
     }
 }
 
-ToxicityForm.proptypes = { 
+ToxicityForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     gradesToDisplay: PropTypes.array,

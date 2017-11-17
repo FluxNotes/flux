@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="53px" viewBox="0 0 48 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 11</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-5" transform="translate(-147.000000, -496.000000)">
+            <g id="Group-11" transform="translate(148.000000, 496.000000)">
+                <rect id="Rectangle-11-Copy" fill="#D2E1E8" x="4.59375" y="20.2377296" width="38.2045898" height="27.7490234" rx="2"></rect>
+                <path d="M7.85837527,3.72986666 C7.85837527,7.92157213 13.6153291,12.0460418 14.9377001,12.7422358 C16.1063668,12.0917666 22.0480745,7.76632378 22.0480745,3.72986666 C22.0480745,1.68058844 20.3713923,0.00390625 18.3221141,0.00390625 C16.8317299,0.00390625 15.461697,0.873297013 14.8717532,2.14633349 C14.2818095,0.873297013 13.0747198,0.00390625 11.5843357,0.00390625 C9.50400779,0.00390625 7.85837527,1.68058844 7.85837527,3.72986666 Z" id="Shape-Copy-21" fill="#00547E" opacity="0.9"></path>
+                <path d="M0.50390625,40.5136085 L27.5039062,18.5136085" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M4.29052734,46.6386085 L38.8447266,19.0228858" id="Line-Copy-44" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M10.3764648,51.1688819 L44.9306641,23.5531593" id="Line-Copy-45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M9.20361329,16.8798194 L27.5649945,36.4505665" id="Line-Copy-46" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M19.284668,16.7225928 L33.8447268,32.022886" id="Line-Copy-48" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M25.2890625,40.3158546 L34.8447268,51.022886" id="Line-Copy-49" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                <polygon id="Path-25" fill="#00547E" opacity="0.3" points="17.9851074 27.6161475 21.5231934 31.4528175 4.99584961 44.6862159 5.29199219 38.004087"></polygon>
+                <polygon id="Path-27" fill="#00547E" opacity="0.3" points="26.2241211 39.8258643 42.4865723 26.8771339 42.1296387 46.6547218 32.4001465 46.7372413"></polygon>
+                <rect id="Rectangle-11" stroke="#00547E" stroke-width="1.5" opacity="0.9" x="4.54492188" y="20.9877296" width="38.1357422" height="26.2490234" rx="2"></rect>
+                <path d="M14.8447266,15.514585 L14.8447266,33.0381233" id="Line" stroke="#00547E" stroke-width="2" opacity="0.9" stroke-linecap="round" stroke-dasharray="3,5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

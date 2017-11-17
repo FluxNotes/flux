@@ -43,9 +43,10 @@
 }
 
 .FullApp-content h3 {
-    margin: 0px;
+    margin: 2px 0;
     font-size: 0.7rem;
     font-weight: 400;
+
 }
 
 .FullApp-content ::-webkit-scrollbar-track {

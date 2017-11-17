@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash'
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import Tooltip from 'rc-tooltip';
 import TextField from 'material-ui/TextField';
 import {Row, Col} from 'react-flexbox-grid';
@@ -13,7 +13,7 @@ class ContextOptions extends Component {
         super(props);
         this._handleClick = this._handleClick.bind(this);
         this._handleSearch = this._handleSearch.bind(this);
-        
+
         this.state = {
             searchString: "",
             tooltipVisibility: 'visible'
@@ -47,7 +47,7 @@ class ContextOptions extends Component {
         
         //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
-        
+
         // count how many triggers we have
         let count = 0;
         validShortcuts.forEach((shortcut, i) => {
@@ -55,7 +55,7 @@ class ContextOptions extends Component {
                 count++;
             });
         });
-        
+
         // enable filter?
         const showFilter = (count > 10);
 
@@ -93,7 +93,7 @@ class ContextOptions extends Component {
             }
 
         });
-            
+
         // do we add search bar
         let filterBar = "";
         if (showFilter) {
@@ -111,7 +111,7 @@ class ContextOptions extends Component {
             </div>
             );
         }
-        
+
         let numCols, maxCols = 0;
         let numChars, maxChars = 0;
         groupList.forEach((groupObj, i) => {
@@ -122,8 +122,8 @@ class ContextOptions extends Component {
             });
             if (numCols > maxCols) maxCols = numCols;
         });
-        let colWidth = Math.ceil(maxChars / 2.5);        
-        // now iterate and create a Row for each group and a Col for each 
+        let colWidth = Math.ceil(maxChars / 2.5);
+        // now iterate and create a Row for each group and a Col for each
         return (
             <div className='context-options-list'>
                 {filterBar}
@@ -131,24 +131,24 @@ class ContextOptions extends Component {
                     return  (
                     <div key={`group-${i}`}>
                     {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
-                    <Row key={i} start="sm">                    
+                    <Row key={i} start="sm">
                             {groupObj.triggers.map((trigger, i) => {
                                 const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
                                 const text = <span>{trigger.description}</span>
                                 return (
-                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}> 
-                                        <Tooltip 
+                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>
+                                        <Tooltip
                                             key={trigger.name}
                                             overlayStyle={{'visibility': this.state.tooltipVisibility}}
-                                            placement="top" 
-                                            overlayClassName={tooltipClass} 
+                                            placement="top"
+                                            overlayClassName={tooltipClass}
                                             overlay={text}
                                             destroyTooltipOnHide={true}
                                             mouseEnterDelay={0.5}
                                             onMouseEnter={this.mouseEnter}
                                             onMouseLeave={this.mouseLeave}
                                         >
-                                            <Button dense raised 
+                                            <Button dense raised
                                                 className='btn_template_ctx'
                                                 key={trigger.name}
                                                 onClick={(e) => this._handleClick(e, trigger.name)}
@@ -156,7 +156,7 @@ class ContextOptions extends Component {
                                                 {trigger.name}
                                             </Button>
                                         </Tooltip>
-                                    </Col>                                    
+                                    </Col>
                                 );
                             })}
                      </Row>

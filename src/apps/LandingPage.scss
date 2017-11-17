@@ -1,0 +1,547 @@
+// Breakpoints
+$breakpoint-tablet: 576px;
+$breakpoint-desktop: 768px;
+
+// Media queries
+@mixin respond-to($media) {
+    @if $media == mobile {
+        @media only screen and (max-width: $breakpoint-tablet) { @content; }
+    }
+    @else if $media == tablet {
+        @media only screen and (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) { @content; }
+    }
+    @else if $media == desktop {
+        @media only screen and (min-width: $breakpoint-desktop + 1) { @content; }
+    }
+}
+
+// Colors
+$landing-blue: #2E5C7C;
+$landing-light-blue: #8EB7D5;
+$landing-lightest-blue: #CAD9E2;
+$landing-light-gray: #EEE;
+$landing-font-color: #555;
+$landing-white: #FFF;
+$landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
+
+.LandingPage {
+    letter-spacing: 0.5px;
+    color: $landing-font-color;
+}
+
+/* ------------------------- HEADER ---------------------------------------- */
+
+.landing-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("~/landing/grid_background.png");
+    background-size: 1000px;
+    height: calc(150px + 6vw);
+
+    &-logo {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+
+        &-image {
+            height: calc(40px + 1.5vw);
+        }
+    }
+
+    &-title {
+        margin-left: 20px;
+        color: $landing-blue;
+        font-size: calc(36px + 1.5vw);
+        font-weight: 600;
+        white-space: nowrap;
+    }
+}
+
+/* ------------------------- TAGLINE --------------------------------------- */
+
+.landing-tagline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $landing-blue;
+    box-shadow: $landing-panel-shadow;
+    color: $landing-white;
+    padding: 60px 10px;
+
+    &-title,
+    &-text {
+        text-align: center;
+    }
+
+    &-title {
+        max-width: 930px;
+        padding-bottom: 20px;
+        font-size: calc(24px + 0.5vw);
+    }
+
+    &-text {
+        max-width: 860px;
+        font-weight: 300;
+        font-size: calc(16px + 0.5vw);
+    }
+}
+
+/* ------------------------- MISSION --------------------------------------- */
+
+.landing-mission {
+    max-width: 1100px;
+    font-size: calc(16px + 0.35vw);
+    padding: 0 20px;
+    margin: calc(60px + 1.2vw) auto;
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+/* ------------------------- DIVIDERS -------------------------------------- */
+
+.divider {
+    margin: 20px auto;
+    border-bottom: 2px solid $landing-lightest-blue;
+
+    &.divider-short {
+        width: calc(100px + 15vw);
+    }
+
+    &.divider-long {
+        width: 90%;
+    }
+}
+
+/* ------------------------- CAPABILITIES ---------------------------------- */
+
+.landing-capabilities {
+    max-width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: calc(60px + 1vw) auto calc(10px + 1vw);
+    padding: 0 10px;
+
+    &-card {
+        display: flex;
+        margin-bottom: 60px;
+
+        @include respond-to(mobile) {
+            flex-direction: row;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        @include respond-to(tablet) {
+            flex-direction: column;
+            width: calc(160px + 15vw);
+            padding: 0 10px;
+        }
+
+        @include respond-to(desktop) {
+            flex-direction: column;
+            width: calc(250px + 5vw);
+            max-width: 340px;
+            padding: 0 10px;
+        }
+
+        &-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            @include respond-to(mobile) { margin-right: 20px; }
+
+            img,
+            svg {
+                width: auto;
+                height: calc(50px + 1vw);
+
+                @include respond-to(tablet) { margin-bottom: 20px; }
+                @include respond-to(desktop) { margin-bottom: 20px; }
+            }
+        }
+
+        &-description {
+            display: flex;
+            flex-direction: column;
+
+            &-title {
+                font-size: calc(14px + 0.2vw);
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            &-text {
+                font-size: calc(12px + 0.2vw);
+            }
+        }
+    }
+}
+
+/* ------------------------- PRODUCTS -------------------------------------- */
+
+.landing-products {
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-around;
+
+    @include respond-to(mobile) {
+        flex-direction: column;
+        align-items: center;
+        margin: 80px auto;
+    }
+
+    @include respond-to(tablet) {
+        flex-direction: column;
+        align-items: center;
+        margin: 80px auto;
+    }
+
+    @include respond-to(desktop) {
+        flex-direction: row;
+        align-items: flex-start;
+        margin: 100px auto;
+    }
+
+    &-lite, &-full { padding: 0 40px; }
+
+    &-lite {
+        max-width: 550px;
+
+        @include respond-to(mobile) { margin-bottom: 60px; }
+        @include respond-to(desktop) { margin-bottom: 0; }
+    }
+
+    &-full { max-width: 545px; }
+
+    &-interaction {
+        margin-bottom: 40px;
+        border-radius: 0 !important;
+        transform: perspective(1px) translateZ(0);
+        transition-duration: 0.3s;
+        transition-property: transform;
+
+        @include respond-to(desktop) {
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 4px $landing-lightest-blue, 0 0 1px transparent;
+            }
+        }
+    }
+
+    a {
+        color: inherit;
+        display: block;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @include respond-to(mobile) {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        @include respond-to(tablet) {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        @include respond-to(desktop) {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+    }
+
+    &-image {
+        @include respond-to(mobile) { pointer-events: none; }
+        @include respond-to(tablet) { pointer-events: none; }
+        @include respond-to(desktop) { pointer-events: auto; }
+
+        img { width: 100%; }
+    }
+
+    &-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        font-size: calc(18px + 0.2vw);
+        font-weight: 600;
+        border-top: 1px solid $landing-light-gray;
+
+        @include respond-to(mobile) { display: none; }
+        @include respond-to(tablet) { display: none; }
+        @include respond-to(desktop) { display: flex; }
+    }
+
+    &-title-mobile {
+        margin: 20px 0;
+        font-weight: 600;
+
+        @include respond-to(desktop) { display: none; }
+
+        span {
+            color: lighten($landing-font-color, 40%);
+            font-weight: 300;
+            margin-left: 20px;
+            font-size: 0.8em;
+        }
+    }
+
+    &-summary {
+        font-size: calc(14px + 0.2vw);
+
+        &-divider {
+            width: 80px;
+            margin: 40px 0;
+            border-bottom: 1px solid $landing-lightest-blue;
+        }
+    }
+
+    &-text { font-size: calc(12px + 0.2vw); }
+}
+
+/* ------------------------- CLINICAL TRIAL BANNER ------------------------- */
+
+.landing-clinical-trial-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $landing-blue;
+    box-shadow: $landing-panel-shadow;
+    color: $landing-white;
+    padding: 40px 20px;
+    margin-bottom: 60px;
+    text-align: center;
+
+    &-title {
+        font-size: calc(24px + 0.4vw);
+        margin-bottom: 10px;
+    }
+
+    &-text {
+        font-size: calc(16px + 0.4vw);
+        font-weight: 300;
+        max-width: 600px;
+    }
+}
+
+/* ------------------------- CLINICAL TRIALS ------------------------------- */
+
+.landing-clinical-trials {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    flex-direction: column; // remove if more than one trial
+    align-items: center; // remove if more than one trial
+    margin: calc(40px + 1vw) auto;
+
+    // add media block if more than one trial
+    // @include respond-to(mobile) {
+    //     flex-direction: column;
+    //     align-items: center;
+    // }
+
+    // @include respond-to(tablet) {
+    //     flex-direction: column;
+    //     align-items: center;
+    // }
+
+    // @include respond-to(desktop) {
+    //     flex-direction: row;
+    //     align-items: flex-start;
+    // }
+
+    &-section {
+        width: 320px;
+        padding: 20px;
+    }
+
+    a {
+        width: 100%;
+        margin-bottom: 20px;
+        background-color: $landing-white;
+        height: calc(55px + 1vw);
+        text-transform: none;
+        font-family: "Open Sans", sans-serif;
+        font-size: calc(16px + 0.4vw);
+        border: 2px solid $landing-light-blue;
+        border-radius: 5px;
+        color: $landing-blue;
+        transform: perspective(1px) translateZ(0);
+        transition-duration: 0.3s;
+        transition-property: transform;
+
+        &:hover {
+            background-color: inherit;
+            color: $landing-blue;
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px $landing-lightest-blue, 0 0 1px transparent;
+        }
+    }
+
+    &-description {
+        font-size: calc(14px + 0.2vw);
+    }
+}
+
+/* ------------------------- GET INVOLVED ---------------------------------- */
+
+.landing-get-involved {
+    display: flex;
+    max-width: 1100px;
+    padding: 0 20px;
+    margin: calc(40px + 1vw) auto;
+
+    @include respond-to(mobile) { flex-direction: column; }
+    @include respond-to(tablet) { flex-direction: column; }
+    @include respond-to(desktop) { flex-direction: row; }
+
+    &-info {
+        &-title {
+            margin-bottom: 15px;
+            font-size: calc(24px + 0.4vw);
+            font-weight: 600;
+        }
+
+        &-description {
+            font-size: calc(14px + 0.2vw);
+
+            a {
+                text-decoration: underline;
+                color: $landing-font-color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &-contact {
+        margin-top: 50px;
+
+        @include respond-to(desktop) { padding-left: 60px; }
+
+        .name { font-size: calc(18px + 0.4vw); }
+
+        .title {
+            font-size: calc(12px + 0.3vw);
+            color: lighten($landing-font-color, 20%);
+            font-style: italic;
+            margin: -3px 0 10px;
+        }
+
+        .email { font-size: calc(14px + 0.4vw); }
+    }
+}
+
+/* ------------------------- INITIATIVES BANNER ---------------------------- */
+
+.landing-initiatives-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("~/landing/grid_background.png");
+    background-size: 900px;
+    height: 120px;
+    border-top: 1px solid $landing-lightest-blue;
+    border-bottom: 1px solid $landing-lightest-blue;
+    font-size: calc(24px + 0.5vw);
+    font-weight: 600;
+}
+
+/* ------------------------- INITIATIVES ----------------------------------- */
+
+.landing-initiatives {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1100px;
+    padding: 0 10px;
+    margin: calc(40px + 1vw) auto;
+
+    @include respond-to(mobile) { flex-direction: column; }
+    @include respond-to(tablet) { flex-direction: column; }
+    @include respond-to(desktop) { flex-direction: row; }
+
+    &-item {
+        max-width: 1000px;
+        margin-bottom: calc(30px - 1vw);
+        padding: 0 20px;
+    }
+
+    &-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(60px + 1vw);
+        margin-bottom: 20px;
+        text-decoration: none;
+
+        .shr-logo { height: calc(60px + 1vw); }
+
+        .icare-logo {
+            height: calc(25px + 1vw);
+            padding-right: 10px;
+        }
+
+        span {
+            font-size: calc(26px + 0.4vw);
+            color: $landing-blue;
+        }
+    }
+
+    &-description {
+        font-size: calc(13px + 0.2vw);
+
+        a {
+            text-decoration: underline;
+            color: $landing-font-color;
+            font-weight: 600;
+
+            &:hover {
+                color: $landing-blue;
+            }
+        }
+    }
+}
+
+/* ------------------------- PARTNERS BANNER ------------------------------- */
+
+.landing-partners-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $landing-blue;
+    box-shadow: $landing-panel-shadow;
+    color: $landing-white;
+    padding: 40px 20px;
+    font-size: calc(24px + 0.4vw);
+}
+
+/* ------------------------- PARTNERS -------------------------------------- */
+
+.landing-partners {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("~/landing/grid_background.png");
+    background-size: 900px;
+    padding: 40px 10px;
+    flex-wrap: wrap;
+
+    img {
+        height: calc(80px + 1vw);
+        padding: calc(20px + 0.5vw);
+    }
+
+    .mitre,
+    .danafarber {
+        height: calc(40px + 1vw);
+    }
+}

@@ -1,5 +1,5 @@
 .condition-selection .condition-select {
-    width: 92%;
+    width: 90%;
     height: 30px;
     font-size: 0.8em;
     background-color: #fafafa;
@@ -27,8 +27,4 @@ li.condition-item {
 li.condition-item:hover {
     background-color: #1384b5;
     color: #fff;
-}
-
-.condition-select {
-    margin: 5px 0;
 }

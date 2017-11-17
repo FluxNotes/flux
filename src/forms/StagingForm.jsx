@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import staging from '../lib/staging';
 import stagingLookup from '../lib/tnmstage_lookup';
 import './StagingForm.css';
@@ -54,14 +54,14 @@ class StagingForm extends Component {
             </p>
             <Divider className="divider" />
 
-            <h4>Tumor Size</h4> 
+            <h4>Tumor Size</h4>
             <p id="data-element-description">
               {stagingLookup.getDescription("tumorSize")}
             </p>
             {this.state.tumorValues.map((t, i) => {
                 const buttonClass = (t.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
-                  <div key={t.name} className="tooltip">
+                  <div key={t.name} className="tooltip-staging-form">
                      <span id={t.name} className={buttonClass}>{t.description}</span>
                       <Button raised
                           className="btn tumor-size"
@@ -87,7 +87,7 @@ class StagingForm extends Component {
             {this.state.nodeValues.map((n, i) => {
                 const buttonClass = (n.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
-                  <div key={n.name} className="tooltip">
+                  <div key={n.name} className="tooltip-staging-form">
                      <span id={n.name} className={buttonClass}>{n.description}</span>
                       <Button raised
                           className="btn node"
@@ -113,7 +113,7 @@ class StagingForm extends Component {
             {this.state.metastasisValues.map((m, i) => {
                 const buttonClass = (m.description.length > 100) ? "tooltiptext large" : "tooltiptext";
                 return (
-                  <div key={m.name} className="tooltip">
+                  <div key={m.name} className="tooltip-staging-form">
                    <span id={m.name} className={buttonClass}>{m.description}</span>
                     <Button raised
                         className="btn metastasis"

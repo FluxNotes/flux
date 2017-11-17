@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -47,14 +47,14 @@ class NavBar extends Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static" className="navbar">
+                <AppBar position="static" className="navbar-custom">
                     <Toolbar>
                         {showMenu ?
                             <IconButton style={{margin: '0px 8px 0px -16px' }} aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
                                 <MenuIcon/>
                             </IconButton> : null}
                         <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />&nbsp;&nbsp;
-                        <Typography type="title" style={{color:"#17263f"}} className={classes.flex}>
+                        <Typography type="title" style={{color:"#17263f", fontFamily: '"Open Sans", Arial, sans-serif'}} className={classes.flex}>
                             {this.props.title}
                         </Typography>
                         {login}
@@ -76,7 +76,7 @@ class NavBar extends Component {
     }
 }
 
-NavBar.proptypes = { 
+NavBar.proptypes = {
     title: PropTypes.string.isRequired,
     supportLogin: PropTypes.bool.isRequired,
     menuItems: PropTypes.array

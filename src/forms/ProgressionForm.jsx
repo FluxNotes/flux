@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
@@ -79,7 +79,7 @@ class ProgressionForm extends Component {
         this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
     };
 
-    /* 
+    /*
      * Render the Disease Status 'status' button for the given status
      */
     renderStatusButtonGroup = (status, i) => {
@@ -89,7 +89,7 @@ class ProgressionForm extends Component {
         const tooltipClass = (statusDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
 
         return (
-            <div key={statusName} className="tooltip">
+            <div key={statusName} className="tooltip-progression-form">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
                 <Button raised
                         key={i}
@@ -113,25 +113,26 @@ class ProgressionForm extends Component {
         );
     }
 
-    /* 
+    /*
      * Render the Disease Status 'reason' button for the given reason
      */
     renderReasonButtonGroup = (reason, i) => {
-
-        let reasonName = reason.name;
-        let reasonDescription = reason.description;
+        const marginSize = "10px";
+        const reasonName = reason.name;
+        const reasonDescription = reason.description;
 
         const tooltipClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
         const buttonClass = (this.state.reasonButtonsActiveState[i] ? "button_multi_select_selected" : "button_multi_select_not_selected");
         return (
-            <div key={reasonName} className="tooltip">
+            <div key={reasonName} className="tooltip-progression-form">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
                 <Button raised
                         key={i}
                         label={reasonName}
                         className={buttonClass}
                         style={{
-                            margin: 0.5,
+                            marginBottom: marginSize,
+                            marginLeft: marginSize,
                             height: "75px",
                             width: "180px",
                             backgroundColor: "white",
@@ -206,7 +207,7 @@ class ProgressionForm extends Component {
     }
 }
 
-ProgressionForm.proptypes = { 
+ProgressionForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     referenceDateEnabled: PropTypes.bool.isRequired

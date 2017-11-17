@@ -1,26 +1,404 @@
-.landing-page-title {
-    color: steelblue;
-}
+.LandingPage {
+  letter-spacing: 0.5px;
+  color: #555; }
 
-.landing-page-content {
-    margin-left: 40px;
-    margin-right: 40px;
-}
+/* ------------------------- HEADER ---------------------------------------- */
+.landing-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("~/landing/grid_background.png");
+  background-size: 1000px;
+  height: calc(150px + 6vw); }
+  .landing-header-logo {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; }
+    .landing-header-logo-image {
+      height: calc(40px + 1.5vw); }
+  .landing-header-title {
+    margin-left: 20px;
+    color: #2E5C7C;
+    font-size: calc(36px + 1.5vw);
+    font-weight: 600;
+    white-space: nowrap; }
 
-.landing-logo {
-    padding-right: 5px;
-    float: left;
-}
-
-.partner-logo {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.mitre-logo {
-    float: right;
-}
-
-.section {
+/* ------------------------- TAGLINE --------------------------------------- */
+.landing-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2E5C7C;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
+  color: #FFF;
+  padding: 60px 10px; }
+  .landing-tagline-title, .landing-tagline-text {
+    text-align: center; }
+  .landing-tagline-title {
+    max-width: 930px;
     padding-bottom: 20px;
-}
+    font-size: calc(24px + 0.5vw); }
+  .landing-tagline-text {
+    max-width: 860px;
+    font-weight: 300;
+    font-size: calc(16px + 0.5vw); }
+
+/* ------------------------- MISSION --------------------------------------- */
+.landing-mission {
+  max-width: 1100px;
+  font-size: calc(16px + 0.35vw);
+  padding: 0 20px;
+  margin: calc(60px + 1.2vw) auto; }
+  .landing-mission strong {
+    font-weight: 600; }
+
+/* ------------------------- DIVIDERS -------------------------------------- */
+.divider {
+  margin: 20px auto;
+  border-bottom: 2px solid #CAD9E2; }
+  .divider.divider-short {
+    width: calc(100px + 15vw); }
+  .divider.divider-long {
+    width: 90%; }
+
+/* ------------------------- CAPABILITIES ---------------------------------- */
+.landing-capabilities {
+  max-width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: calc(60px + 1vw) auto calc(10px + 1vw);
+  padding: 0 10px; }
+  .landing-capabilities-card {
+    display: flex;
+    margin-bottom: 60px; }
+    @media only screen and (max-width: 576px) {
+      .landing-capabilities-card {
+        flex-direction: row;
+        width: 100%;
+        padding: 0 20px; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+      .landing-capabilities-card {
+        flex-direction: column;
+        width: calc(160px + 15vw);
+        padding: 0 10px; } }
+    @media only screen and (min-width: 769px) {
+      .landing-capabilities-card {
+        flex-direction: column;
+        width: calc(250px + 5vw);
+        max-width: 340px;
+        padding: 0 10px; } }
+    .landing-capabilities-card-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      @media only screen and (max-width: 576px) {
+        .landing-capabilities-card-icon {
+          margin-right: 20px; } }
+      .landing-capabilities-card-icon img,
+      .landing-capabilities-card-icon svg {
+        width: auto;
+        height: calc(50px + 1vw); }
+        @media only screen and (min-width: 577px) and (max-width: 768px) {
+          .landing-capabilities-card-icon img,
+          .landing-capabilities-card-icon svg {
+            margin-bottom: 20px; } }
+        @media only screen and (min-width: 769px) {
+          .landing-capabilities-card-icon img,
+          .landing-capabilities-card-icon svg {
+            margin-bottom: 20px; } }
+    .landing-capabilities-card-description {
+      display: flex;
+      flex-direction: column; }
+      .landing-capabilities-card-description-title {
+        font-size: calc(14px + 0.2vw);
+        font-weight: 600;
+        margin-bottom: 10px; }
+      .landing-capabilities-card-description-text {
+        font-size: calc(12px + 0.2vw); }
+
+/* ------------------------- PRODUCTS -------------------------------------- */
+.landing-products {
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-around; }
+  @media only screen and (max-width: 576px) {
+    .landing-products {
+      flex-direction: column;
+      align-items: center;
+      margin: 80px auto; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-products {
+      flex-direction: column;
+      align-items: center;
+      margin: 80px auto; } }
+  @media only screen and (min-width: 769px) {
+    .landing-products {
+      flex-direction: row;
+      align-items: flex-start;
+      margin: 100px auto; } }
+  .landing-products-lite, .landing-products-full {
+    padding: 0 40px; }
+  .landing-products-lite {
+    max-width: 550px; }
+    @media only screen and (max-width: 576px) {
+      .landing-products-lite {
+        margin-bottom: 60px; } }
+    @media only screen and (min-width: 769px) {
+      .landing-products-lite {
+        margin-bottom: 0; } }
+  .landing-products-full {
+    max-width: 545px; }
+  .landing-products-interaction {
+    margin-bottom: 40px;
+    border-radius: 0 !important;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.3s;
+    transition-property: transform; }
+    @media only screen and (min-width: 769px) {
+      .landing-products-interaction:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 4px #CAD9E2, 0 0 1px transparent; } }
+  .landing-products a {
+    color: inherit;
+    display: block;
+    text-decoration: none; }
+    .landing-products a:hover {
+      text-decoration: none;
+      color: inherit; }
+    @media only screen and (max-width: 576px) {
+      .landing-products a {
+        pointer-events: none;
+        cursor: default; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+      .landing-products a {
+        pointer-events: none;
+        cursor: default; } }
+    @media only screen and (min-width: 769px) {
+      .landing-products a {
+        pointer-events: auto;
+        cursor: pointer; } }
+  @media only screen and (max-width: 576px) {
+    .landing-products-image {
+      pointer-events: none; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-products-image {
+      pointer-events: none; } }
+  @media only screen and (min-width: 769px) {
+    .landing-products-image {
+      pointer-events: auto; } }
+  .landing-products-image img {
+    width: 100%; }
+  .landing-products-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    font-size: calc(18px + 0.2vw);
+    font-weight: 600;
+    border-top: 1px solid #EEE; }
+    @media only screen and (max-width: 576px) {
+      .landing-products-link {
+        display: none; } }
+    @media only screen and (min-width: 577px) and (max-width: 768px) {
+      .landing-products-link {
+        display: none; } }
+    @media only screen and (min-width: 769px) {
+      .landing-products-link {
+        display: flex; } }
+  .landing-products-title-mobile {
+    margin: 20px 0;
+    font-weight: 600; }
+    @media only screen and (min-width: 769px) {
+      .landing-products-title-mobile {
+        display: none; } }
+    .landing-products-title-mobile span {
+      color: #bbbbbb;
+      font-weight: 300;
+      margin-left: 20px;
+      font-size: 0.8em; }
+  .landing-products-summary {
+    font-size: calc(14px + 0.2vw); }
+    .landing-products-summary-divider {
+      width: 80px;
+      margin: 40px 0;
+      border-bottom: 1px solid #CAD9E2; }
+  .landing-products-text {
+    font-size: calc(12px + 0.2vw); }
+
+/* ------------------------- CLINICAL TRIAL BANNER ------------------------- */
+.landing-clinical-trial-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2E5C7C;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
+  color: #FFF;
+  padding: 40px 20px;
+  margin-bottom: 60px;
+  text-align: center; }
+  .landing-clinical-trial-banner-title {
+    font-size: calc(24px + 0.4vw);
+    margin-bottom: 10px; }
+  .landing-clinical-trial-banner-text {
+    font-size: calc(16px + 0.4vw);
+    font-weight: 300;
+    max-width: 600px; }
+
+/* ------------------------- CLINICAL TRIALS ------------------------------- */
+.landing-clinical-trials {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  flex-direction: column;
+  align-items: center;
+  margin: calc(40px + 1vw) auto; }
+  .landing-clinical-trials-section {
+    width: 320px;
+    padding: 20px; }
+  .landing-clinical-trials a {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #FFF;
+    height: calc(55px + 1vw);
+    text-transform: none;
+    font-family: "Open Sans", sans-serif;
+    font-size: calc(16px + 0.4vw);
+    border: 2px solid #8EB7D5;
+    border-radius: 5px;
+    color: #2E5C7C;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.3s;
+    transition-property: transform; }
+    .landing-clinical-trials a:hover {
+      background-color: inherit;
+      color: #2E5C7C;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 4px #CAD9E2, 0 0 1px transparent; }
+  .landing-clinical-trials-description {
+    font-size: calc(14px + 0.2vw); }
+
+/* ------------------------- GET INVOLVED ---------------------------------- */
+.landing-get-involved {
+  display: flex;
+  max-width: 1100px;
+  padding: 0 20px;
+  margin: calc(40px + 1vw) auto; }
+  @media only screen and (max-width: 576px) {
+    .landing-get-involved {
+      flex-direction: column; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-get-involved {
+      flex-direction: column; } }
+  @media only screen and (min-width: 769px) {
+    .landing-get-involved {
+      flex-direction: row; } }
+  .landing-get-involved-info-title {
+    margin-bottom: 15px;
+    font-size: calc(24px + 0.4vw);
+    font-weight: 600; }
+  .landing-get-involved-info-description {
+    font-size: calc(14px + 0.2vw); }
+    .landing-get-involved-info-description a {
+      text-decoration: underline;
+      color: #555;
+      font-weight: 600; }
+  .landing-get-involved-contact {
+    margin-top: 50px; }
+    @media only screen and (min-width: 769px) {
+      .landing-get-involved-contact {
+        padding-left: 60px; } }
+    .landing-get-involved-contact .name {
+      font-size: calc(18px + 0.4vw); }
+    .landing-get-involved-contact .title {
+      font-size: calc(12px + 0.3vw);
+      color: #888888;
+      font-style: italic;
+      margin: -3px 0 10px; }
+    .landing-get-involved-contact .email {
+      font-size: calc(14px + 0.4vw); }
+
+/* ------------------------- INITIATIVES BANNER ---------------------------- */
+.landing-initiatives-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("~/landing/grid_background.png");
+  background-size: 900px;
+  height: 120px;
+  border-top: 1px solid #CAD9E2;
+  border-bottom: 1px solid #CAD9E2;
+  font-size: calc(24px + 0.5vw);
+  font-weight: 600; }
+
+/* ------------------------- INITIATIVES ----------------------------------- */
+.landing-initiatives {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1100px;
+  padding: 0 10px;
+  margin: calc(40px + 1vw) auto; }
+  @media only screen and (max-width: 576px) {
+    .landing-initiatives {
+      flex-direction: column; } }
+  @media only screen and (min-width: 577px) and (max-width: 768px) {
+    .landing-initiatives {
+      flex-direction: column; } }
+  @media only screen and (min-width: 769px) {
+    .landing-initiatives {
+      flex-direction: row; } }
+  .landing-initiatives-item {
+    max-width: 1000px;
+    margin-bottom: calc(30px - 1vw);
+    padding: 0 20px; }
+  .landing-initiatives-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(60px + 1vw);
+    margin-bottom: 20px;
+    text-decoration: none; }
+    .landing-initiatives-logo .shr-logo {
+      height: calc(60px + 1vw); }
+    .landing-initiatives-logo .icare-logo {
+      height: calc(25px + 1vw);
+      padding-right: 10px; }
+    .landing-initiatives-logo span {
+      font-size: calc(26px + 0.4vw);
+      color: #2E5C7C; }
+  .landing-initiatives-description {
+    font-size: calc(13px + 0.2vw); }
+    .landing-initiatives-description a {
+      text-decoration: underline;
+      color: #555;
+      font-weight: 600; }
+      .landing-initiatives-description a:hover {
+        color: #2E5C7C; }
+
+/* ------------------------- PARTNERS BANNER ------------------------------- */
+.landing-partners-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2E5C7C;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
+  color: #FFF;
+  padding: 40px 20px;
+  font-size: calc(24px + 0.4vw); }
+
+/* ------------------------- PARTNERS -------------------------------------- */
+.landing-partners {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("~/landing/grid_background.png");
+  background-size: 900px;
+  padding: 40px 10px;
+  flex-wrap: wrap; }
+  .landing-partners img {
+    height: calc(80px + 1vw);
+    padding: calc(20px + 0.5vw); }
+  .landing-partners .mitre,
+  .landing-partners .danafarber {
+    height: calc(40px + 1vw); }
