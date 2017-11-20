@@ -14,14 +14,19 @@ export default class CreatorIntermediary extends Shortcut {
     
 	initialize(contextManager) {
 		super.initialize(contextManager);
-        
+
         const knownParent = this.metadata["knownParentContexts"];
-        this.parentContext = contextManager.getActiveContextOfType(knownParent);
+
+        if (contextManager.getActiveContextOfType(knownParent)){
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else if (contextManager.getCurrentContext()) {
+            this.parentContext = contextManager.getCurrentContext();
+        }
+
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false);
             this.parentContext.addChild(this);
         }
-
 	}
     
     isContext() {

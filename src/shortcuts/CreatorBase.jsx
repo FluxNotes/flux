@@ -18,8 +18,8 @@ export default class CreatorBase extends Shortcut {
             this.object = object;
             this.isObjectNew = false;
         }
-		this.setValueObject(this.object);
-        
+        this.setValueObject(this.object);
+
         // get attribute descriptions
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
@@ -32,30 +32,39 @@ export default class CreatorBase extends Shortcut {
             } else {
                 if (attrib["attribute"].includes("[]")) {
                     attrib["type"] = "list";
-                } else {    
+                } else {
                     attrib["type"] = "string";
                 }
                 attrib["attributePath"] = attrib["attribute"].split(".");
-                
+
             }
             this.valueObjectAttributes[attrib.name] = attrib;
         });
         this.onUpdate = onUpdate;
-		this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-    
-	initialize(contextManager) {
-		super.initialize(contextManager);
-        this.parentContext = contextManager.getCurrentContext();
+
+    initialize(contextManager) {
+        super.initialize(contextManager);
+        // this.parentContext = contextManager.getCurrentContext();
+
+        const knownParent = this.metadata["knownParentContexts"];
+
+        if (contextManager.getActiveContextOfType(knownParent)) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else if (contextManager.getCurrentContext()) {
+            this.parentContext = contextManager.getCurrentContext();
+        }
+
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
-	}
-    
+    }
+
     isContext() {
         return this.metadata.isContext;
     }
-    
+
     shouldBeInContext() {
         //console.log("shouldBeInContext " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
@@ -98,23 +107,23 @@ export default class CreatorBase extends Shortcut {
         //console.log(result);
         return result;
     }
-    
+
     getShortcutType() {
         return this.metadata["id"];
     }
 
     getFormSpec() {
-        return  {
-                    tagName: this.metadata["form"],
-                    props:  {   
-                                updateValue: this.setAttributeValue,
-                                object: this.object,
-                                ...this.configuration
-                            },
-                    children: []
-                };
+        return {
+            tagName: this.metadata["form"],
+            props: {
+                updateValue: this.setAttributeValue,
+                object: this.object,
+                ...this.configuration
+            },
+            children: []
+        };
     }
-    
+
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if (result && this.parentContext) {
@@ -123,9 +132,9 @@ export default class CreatorBase extends Shortcut {
         return result;
     }
 
-    getAsString() { 
+    getAsString() {
         const structuredPhrase = this.metadata["structuredPhrase"];
-   
+
         let last = 0, valueName, value;
         let start = structuredPhrase.indexOf("${"), end;
         let result = "";
@@ -147,11 +156,11 @@ export default class CreatorBase extends Shortcut {
                 end2 = conditional.indexOf("}", start2 + 2);
                 valueName = conditional.substring(start2 + 2, end2);
                 before = conditional.substring(0, start2);
-                after = conditional.substring(end2+1);
+                after = conditional.substring(end2 + 1);
                 value = this.getAttributeValue(valueName);
                 if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
-                //if (!Lang.isNull(value) && value !== '') {
+                    //if (!Lang.isNull(value) && value !== '') {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                     result += before;
@@ -187,16 +196,18 @@ export default class CreatorBase extends Shortcut {
         }
         return result;
     }
-    
+
     _followPath(object, attributePath, startIndex) {
         //console.log("_followPath");
         //console.log(object);
         let i, attributeName, list, index, start, end;
         const len = attributePath.length;
         let result = object;
-        
-        let perItemFollowPath = (item) => { return this._followPath(item, attributePath, i+1); };
-        
+
+        let perItemFollowPath = (item) => {
+            return this._followPath(item, attributePath, i + 1);
+        };
+
         for (i = startIndex; i < len; i++) {
             if (attributePath[i].endsWith("[]")) {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
@@ -220,8 +231,8 @@ export default class CreatorBase extends Shortcut {
         }
         return result;
     }
-    
-	getAttributeValue(name) {
+
+    getAttributeValue(name) {
         //console.log("getAttribute for " + this.metadata["id"] + " called " + name);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isNull(voa["attributePath"])) {
@@ -232,7 +243,7 @@ export default class CreatorBase extends Shortcut {
         }
     }
 
-	setAttributeValue(name, value, publishChanges = true) {
+    setAttributeValue(name, value, publishChanges = true) {
         //console.log("setAttributeValue " + name + " to " + value);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
@@ -264,20 +275,20 @@ export default class CreatorBase extends Shortcut {
             }
         }
         if (this.isContext()) this.updateContextStatus();
-		if (this.onUpdate) this.onUpdate(this);
-		if (publishChanges) {
-			this.notifyValueChangeHandlers(name);
-		}
-	}
-    
+        if (this.onUpdate) this.onUpdate(this);
+        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }
+    }
+
     getLabel() {
         return this.metadata["name"];
     }
-    
+
     getText() {
         return "#" + this.metadata["name"];
     }
-    
+
     getId() {
         return this.metadata["id"];
     }
@@ -323,14 +334,14 @@ export default class CreatorBase extends Shortcut {
             }
         }
     }
-    
+
     updatePatient(patient, contextManager) {
-/*        let attributeSpec;
-        const allSettableDataFields = Object.keys(this.valueObjectAttributes).filter((attribute) => {
-            attributeSpec = this.valueObjectAttributes[attribute];
-            return (!Lang.isUndefined(attributeSpec["childShortcut"]));
-        });*/
-        
+        /*        let attributeSpec;
+         const allSettableDataFields = Object.keys(this.valueObjectAttributes).filter((attribute) => {
+         attributeSpec = this.valueObjectAttributes[attribute];
+         return (!Lang.isUndefined(attributeSpec["childShortcut"]));
+         });*/
+
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             if (updatePatientSpecList) {
@@ -343,7 +354,7 @@ export default class CreatorBase extends Shortcut {
             this.isObjectNew = false;
         }
     }
-    
+
     getPrefixCharacter() {
         return "#";
     }
