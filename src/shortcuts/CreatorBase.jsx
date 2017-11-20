@@ -156,7 +156,7 @@ export default class CreatorBase extends Shortcut {
                     haveAValue = true;
                     result += before;
                     if (Lang.isArray(value)) {
-                        result += value.join(", ");
+                        result += value.join(", #");
                     } else {
                         result += value;
                     }
@@ -171,7 +171,7 @@ export default class CreatorBase extends Shortcut {
                     haveAValue = true;
                 }
                 if (Lang.isArray(value)) {
-                    result += value.join(", ");
+                    result += value.join(", #");
                 } else {
                     result += value;
                 }
