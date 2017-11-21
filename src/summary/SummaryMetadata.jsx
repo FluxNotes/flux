@@ -105,7 +105,7 @@ class SummaryMetadata {
                                         } else {
                                             return p.evidence.map(function (ev) {
                                                 return ev;
-                                            }).join();
+                                            }).join(', ');
                                         }
                                     }
                                 }

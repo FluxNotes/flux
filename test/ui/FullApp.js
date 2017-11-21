@@ -133,6 +133,34 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
         .contains(deceasedChild);
 });
 
+test("Switching contexts without closing a context chooses the correct parent context and successfully enters information in editor", async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const structuredField = editor.find("span[class='structured-field']");
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const textToType = ["#toxicity ", "#nausea ", "#staging ", "#T0 "];
+    
+    await t
+        .click(conditionButton);
+    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(correctCondition)
+        .typeText(editor, ' ');
+    for (let i = 0; i < textToType.length; i++) {
+        await t 
+            .typeText(editor, textToType[i]);
+    };
+    
+    // We will skip checking for the inserted condition. Add a placeholder so indexes line up.
+    textToType.splice(0, 0, 'condition placeholder');
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 1; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(textToType[i]);
+    }
+});
+
 fixture('Patient Mode - Context Panel')
     .page(startPage);
 
