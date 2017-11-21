@@ -50,9 +50,9 @@ export default class CreatorBase extends Shortcut {
 
         const knownParent = this.metadata["knownParentContexts"];
 
-        if (contextManager.getActiveContextOfType(knownParent)) {
+        if (knownParent) {
             this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else if (contextManager.getCurrentContext()) {
+        } else   {
             this.parentContext = contextManager.getCurrentContext();
         }
 
