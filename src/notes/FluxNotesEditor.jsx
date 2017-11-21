@@ -325,6 +325,9 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
+        console.log(data);
+        console.log(data.newText);
+
         var nextState = this.state.state.transform().select({
           anchorKey: data.anchorKey,
           anchorOffset: data.anchorOffset,
@@ -387,6 +390,8 @@ class FluxNotesEditor extends React.Component {
         let state;
         const currentState = this.state.state;
         
+        // console.log(itemToBeInserted);
+
         let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = itemToBeInserted;
         let start, before, end, after;
@@ -408,10 +413,14 @@ class FluxNotesEditor extends React.Component {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
                     remainder = remainder.substring(end + 2);
-                } else {
+                } else if (remainder.startsWith(" [[")) {
+                    remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
+                    end = remainder.indexOf("]]");
+                    after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
+                    remainder = remainder.substring(end + 2);
+                } else { 
                     after = "";
                 }
-                //console.log(remainder);
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform);
             });
         }
