@@ -6,27 +6,33 @@ export default class CreatorIntermediary extends Shortcut {
         super();
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
-        
+
         // get attribute descriptions
         this.onUpdate = onUpdate;
-		this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.setAttributeValue = this.setAttributeValue.bind(this);
     }
-    
-	initialize(contextManager) {
-		super.initialize(contextManager);
-        
+
+    initialize(contextManager) {
+        super.initialize(contextManager);
+
         const knownParent = this.metadata["knownParentContexts"];
-        this.parentContext = contextManager.getActiveContextOfType(knownParent);
+
+        if (knownParent) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else {
+            this.parentContext = contextManager.getCurrentContext();
+        }
+
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false);
             this.parentContext.addChild(this);
         }
+    }
 
-	}
-    
     isContext() {
         return this.metadata.isContext;
     }
+
     shouldBeInContext() {
         //console.log(this.getShortcutType() + " " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
@@ -58,7 +64,7 @@ export default class CreatorIntermediary extends Shortcut {
         });
         return result;
     }
-    
+
     getShortcutType() {
         return this.metadata["id"];
     }
@@ -70,11 +76,11 @@ export default class CreatorIntermediary extends Shortcut {
         return result;
     }
 
-	getAttributeValue(name) {
+    getAttributeValue(name) {
         //console.log("getAttribute of " + this.metadata["id"] + " called " + name);
         //"valueObjectAttributes": [  {"name":"date", "toParentAttribute":"asOfDateDate"} ],
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function( item ) {
+        let result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {
@@ -84,9 +90,9 @@ export default class CreatorIntermediary extends Shortcut {
         }
     }
 
-	setAttributeValue(name, value, publishChanges = true) {
+    setAttributeValue(name, value, publishChanges = true) {
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function( item ) {
+        let result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {
@@ -100,11 +106,11 @@ export default class CreatorIntermediary extends Shortcut {
     getLabel() {
         return this.metadata["name"];
     }
-    
+
     getText() {
         return "#" + this.metadata["name"];
     }
-    
+
     getId() {
         return this.metadata["id"];
     }

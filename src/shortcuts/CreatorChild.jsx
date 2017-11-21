@@ -8,13 +8,13 @@ export default class CreatorChild extends Shortcut {
         super();
         this.metadata = metadata;
     }
-    
-	getPrefixCharacter() {
-		return "#";
-	}
+
+    getPrefixCharacter() {
+        return "#";
+    }
 
     initialize(contextManager, trigger) {
-		super.initialize(contextManager);
+        super.initialize(contextManager);
         let text = this.determineText(contextManager);
         if (!Lang.isUndefined(text)) {
 //            console.log(text);
@@ -25,16 +25,24 @@ export default class CreatorChild extends Shortcut {
             }
         }
         //let entryType = this.metadata["contextValueObjectEntryType"];
-        this.parentContext = contextManager.getCurrentContext();
+
+        const knownParent = this.metadata["knownParentContexts"];
+
+        if (knownParent) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else {
+            this.parentContext = contextManager.getCurrentContext();
+        }
+
         //console.log("set parent context to " + this.parentContext);
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
         var found = false;
 //        console.log(trigger);
-/*        const triggerNoPrefix = trigger.substring(1);
-        console.log("trigger no prefix = " + triggerNoPrefix);*/
-        for(var i = 0; i < this.metadata.stringTriggers.length; i++) {
+        /*        const triggerNoPrefix = trigger.substring(1);
+         console.log("trigger no prefix = " + triggerNoPrefix);*/
+        for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
 //            console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
             if (this.metadata.stringTriggers[i].name === trigger) {
                 found = true;
@@ -46,16 +54,18 @@ export default class CreatorChild extends Shortcut {
             this.clearValueSelectionOptions();
         }
     }
-    
+
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
-        if(result && !Lang.isUndefined(this.parentContext)) {
+        if (result && !Lang.isUndefined(this.parentContext)) {
             if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
                 //console.log("onBeforeDeleted of a list item");
                 const parentAttributeName = this.metadata.parentAttribute;
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
-                let newList = currentList.filter((item) => { return item !== oneToDelete });
+                let newList = currentList.filter((item) => {
+                    return item !== oneToDelete
+                });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
             } else {
                 this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
@@ -64,7 +74,7 @@ export default class CreatorChild extends Shortcut {
         }
         return result;
     }
-    
+
     // This returns a placeholder object to trigger opening the Context Portal.
     // return 'date-id' opens calendar.
     determineText(contextManager) {
@@ -74,11 +84,11 @@ export default class CreatorChild extends Shortcut {
             return this.metadata.picker;
         } else {
             return this.getValueSet(this.metadata.picker).map((item) => {
-                return {"key": item.id, "context":item.name, "object": item};
+                return {"key": item.id, "context": item.name, "object": item};
             });
         }
     }
-    
+
     getValueSet(spec) {
         let args = spec["args"];
         let category = spec["category"];
@@ -96,7 +106,7 @@ export default class CreatorChild extends Shortcut {
         if (text.startsWith('#')) {
             text = text.substring(1);
         }
-		this.text = text;
+        this.text = text;
         //console.log("CreatorChild.setText: " + this.metadata.picker);
         let value = text;
         if (this.metadata.picker === 'date-id') {
@@ -107,32 +117,32 @@ export default class CreatorChild extends Shortcut {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false);
         }
     }
-    
+
     getText() {
         return `#${this.text}`;
     }
-    
+
     getShortcutType() {
         return this.metadata["id"];
         //throw new Error("getShortcutType on CreatorChild called.");
         //return "#" + this.metadata.stringTriggers[0].name;
     }
-    
+
     validateInCurrentContext(contextManager) {
         let errors = [];
         return errors;
     }
-    
+
     static getStringTriggers() {
         throw new Error("getStringTriggers on CreatorChild called.");
         // if it's a function, we need to call it
         //return this.metadata.stringTriggers;
     }
-    
+
     static getTriggerRegExp() {
         return new RegExp(this.metadata.regexpTrigger);
     }
-    
+
     static getDescription() {
         return this.metadata.description;
     }
