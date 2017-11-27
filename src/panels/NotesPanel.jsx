@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Row, Col} from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
-import NoteAssistant from '../components/notesPanel/NoteAssistant';
+import NoteAssistant from '../notes/NoteAssistant';
 
 import './NotesPanel.css';
 
