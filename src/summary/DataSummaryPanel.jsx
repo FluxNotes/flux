@@ -34,12 +34,32 @@ class DataSummaryPanel extends Component {
         return conditionMetadata;
     }
 
+    // renderSection checks the type of data that is being passed and chooses the correct component to render the data
+    // Current implementation only renders the DataSummaryTable
+    // TODO: Render other types of data
+    renderSection(section) {
+        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
+
+        if (section.type === 'NameValuePairs') {
+            return (
+                <DataSummaryTable
+                    patient={patient}
+                    condition={condition}
+                    conditionSection={section}
+                    onItemClicked={onItemClicked}
+                    allowItemClick={allowItemClick}
+                    isWide={isWide}
+                />
+            );
+        }
+    }
+
     renderedTabSections() {
 
         // This variable indicates if the panel is to display data in a single column or not
         let isSingleColumn = !this.props.isWide;
 
-        const {patient, condition, onItemClicked, allowItemClick} = this.props;
+        
         const conditionMetadata = this.getConditionMetadata();
         if (conditionMetadata == null) {
             return null;
@@ -67,14 +87,7 @@ class DataSummaryPanel extends Component {
             return conditionMetadata.sections.map((section, i) =>
                 <div key={i} data-test-summary-section={section.name}>
                     <h2>{section.name}</h2>
-
-                    <DataSummaryTable
-                        patient={patient}
-                        condition={condition}
-                        conditionSection={section}
-                        onItemClicked={onItemClicked}
-                        allowItemClick={allowItemClick}
-                    />
+                    {this.renderSection(section)}
                 </div>
             );
         }

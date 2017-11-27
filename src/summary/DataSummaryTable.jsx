@@ -17,8 +17,8 @@ class DataSummaryTable extends Component {
         }
 
         let collections = [];
-        for (let i = 0; i < conditionSection.collections.length; i++) {
-            collections.push(conditionSection.collections[i]);
+        for (let i = 0; i < conditionSection.data.length; i++) {
+            collections.push(conditionSection.data[i]);
         }
         return collections;
     }
@@ -133,7 +133,9 @@ DataSummaryTable.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
-    onItemClicked: PropTypes.func
+    isWide: PropTypes.bool,
+    onItemClicked: PropTypes.func,
+    allowItemClick: PropTypes.bool
 };
 
 export default DataSummaryTable;
