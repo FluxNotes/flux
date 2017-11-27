@@ -52,7 +52,7 @@ class DataSummaryTable extends Component {
     }
 
     renderedSubSections(subSections) {
-        let isSingleColumn = !this.props.isWide;
+        const isSingleColumn = !this.props.isWide;
 
         if (isSingleColumn) {
             return subSections.map((subSection, index) => {
@@ -62,7 +62,7 @@ class DataSummaryTable extends Component {
 
         // Grab the sections from subSections and create 2 arrays, one for the first half of the sections and another
         // for the second half of sections
-        let numberOfFirstHalfSections = Math.ceil(subSections.length / 2);
+        const numberOfFirstHalfSections = Math.ceil(subSections.length / 2);
         let firstHalfSections = [];
         let secondHalfSections = [];
 
