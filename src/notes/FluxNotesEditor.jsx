@@ -420,17 +420,19 @@ class FluxNotesEditor extends React.Component {
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
+                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
                     remainder = remainder.substring(end + 2);
                 // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
                 } else if (remainder.startsWith(" [[")) {
                     remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
                     end = remainder.indexOf("]]");
+                    // FIXME: 2 is a magic number based on ' [[' length, ditto for 2 below for ]]
                     after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
                     remainder = remainder.substring(end + 2);
                 } else { 
                     after = "";
                 }
-                
+
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform);
             });
         }
