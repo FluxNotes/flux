@@ -325,8 +325,6 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
-        console.log(data);
-        console.log(data.newText);
 
         var nextState = this.state.state.transform().select({
           anchorKey: data.anchorKey,
@@ -390,7 +388,7 @@ class FluxNotesEditor extends React.Component {
         let state;
         const currentState = this.state.state;
         
-        console.log(textToBeInserted);
+        // console.log(textToBeInserted);
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = textToBeInserted;
