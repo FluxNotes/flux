@@ -33,10 +33,10 @@ class DataSummaryPanel extends Component {
         return conditionMetadata;
     }
 
-    // renderSection checks the type of data that is being passed and chooses the correct component to render the data
+    // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
     // Current implementation only renders the DataSummaryTable
     // TODO: Render other types of data
-    renderSection(section) {
+    renderedSection(section) {
         const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
         if (section.type === 'NameValuePairs') {
@@ -61,8 +61,8 @@ class DataSummaryPanel extends Component {
 
         return conditionMetadata.sections.map((section, i) =>
             <div key={i} data-test-summary-section={section.name}>
-                <h2>{section.name}</h2>
-                {this.renderSection(section)}
+                <h2 className="section-header">{section.name}</h2>
+                {this.renderedSection(section)}
             </div>
         );
     }

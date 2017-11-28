@@ -37,5 +37,9 @@ tr.existing-note-entry td:last-child {
     border-bottom: 1px solid #ccc;
 }
 
+#condition-summary-section h2.section-header{
+    font-weight: bold;
+}
+
 
 

@@ -10,29 +10,29 @@ import './DataSummaryTable.css';
  */
 class DataSummaryTable extends Component {
 
-    getSubSections() {
+    getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
 
-        let subSections = [];
-        conditionSection.data.forEach((subSection) => {
-            subSections.push(subSection);
+        let subsections = [];
+        conditionSection.data.forEach((subsection) => {
+            subsections.push(subsection);
         });
 
-        return subSections;
+        return subsections;
     }
 
-    getList(subSection) {
+    getList(subsection) {
         const {patient, condition, conditionSection} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
 
-        const items = subSection.items;
-        const itemsFunction = subSection.itemsFunction;
+        const items = subsection.items;
+        const itemsFunction = subsection.itemsFunction;
 
         let list = null;
 
@@ -51,43 +51,43 @@ class DataSummaryTable extends Component {
         return list;
     }
 
-    renderedSubSections(subSections) {
+    renderedSubsections(subsections) {
         const isSingleColumn = !this.props.isWide;
 
         if (isSingleColumn) {
-            return subSections.map((subSection, index) => {
-                return this.renderedSubSection(subSection, index);
+            return subsections.map((subsection, index) => {
+                return this.renderedSubsection(subsection, index);
             });
         }
 
-        // Grab the sections from subSections and create 2 arrays, one for the first half of the sections and another
+        // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
         // for the second half of sections
-        const numberOfFirstHalfSections = Math.ceil(subSections.length / 2);
+        const numberOfFirstHalfSections = Math.ceil(subsections.length / 2);
         let firstHalfSections = [];
         let secondHalfSections = [];
 
         // Create array containing the first half of the subsections
-        for (let i = 0; i < numberOfFirstHalfSections; i++) {
-            firstHalfSections.push(subSections[i]);
-        }
+        subsections.slice(0, numberOfFirstHalfSections).forEach((subsection) => {
+            firstHalfSections.push(subsection);
+        });
 
         // Create array containing the second half of the subsections
-        for (let j = numberOfFirstHalfSections; j < subSections.length; j++) {
-            secondHalfSections.push(subSections[j]);
-        }
+        subsections.slice(numberOfFirstHalfSections).forEach((subsection) => {
+            secondHalfSections.push(subsection);
+        });
 
         let ind = 0;
-        const renderedFirstHalf = firstHalfSections.map((subSection) => {
-            return this.renderedSubSection(subSection, ind++);
+        const renderedFirstHalf = firstHalfSections.map((subsection) => {
+            return this.renderedSubsection(subsection, ind++);
         });
-        const renderedSecondHalf = secondHalfSections.map((subSection) => {
-            return this.renderedSubSection(subSection, ind++);
+        const renderedSecondHalf = secondHalfSections.map((subsection) => {
+            return this.renderedSubsection(subsection, ind++);
         });
 
         // Display the data in 2 columns. The first column displays the first half
         // of the sections in one table and the second column displays the second half of the sections in a second table
         return (
-            <Row center="xs">
+            <Row start="xs">
                 <Col sm={6}>
                     {renderedFirstHalf}
                 </Col>
@@ -98,8 +98,8 @@ class DataSummaryTable extends Component {
         );
     }
 
-    renderedSubSection(subSection, index) {
-        const list = this.getList(subSection);
+    renderedSubsection(subsection, index) {
+        const list = this.getList(subsection);
 
         if (list.length <= 0) {
             return <h2 key={index}>None</h2>;
@@ -108,12 +108,12 @@ class DataSummaryTable extends Component {
         return (
             <table key={index}>
                 <tbody>
-                <tr>
-                    <td className="collection-header">
-                        {subSection.name}
-                    </td>
-                </tr>
-                {this.renderedListItems(list)}
+                    <tr>
+                        <td className="subsection-header">
+                            {subsection.name}
+                        </td>
+                    </tr>
+                    {this.renderedListItems(list)}
                 </tbody>
             </table>
         );
@@ -164,11 +164,11 @@ class DataSummaryTable extends Component {
 
     // Gets called for each section in SummaryMetaData.jsx
     render() {
-        const subSections = this.getSubSections();
+        const subsections = this.getSubsections();
 
         return (
             <div>
-                {this.renderedSubSections(subSections)}
+                {this.renderedSubsections(subsections)}
             </div>
         );
     }
