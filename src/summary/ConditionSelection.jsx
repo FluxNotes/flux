@@ -38,7 +38,6 @@ class ConditionSelection extends Component {
         );
     }
 
-
     render() {
         return (
             <div className="condition-selection">

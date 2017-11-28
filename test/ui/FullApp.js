@@ -70,6 +70,30 @@ test('Selecting a condition changes the active condition', async t => {
 fixture('Patient Mode - Editor')
     .page(startPage);
 
+test('Clicking Note Assistance modes changes Note Assistance mode', async t => {
+
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const contextTrayButton = Selector('.context-tray-btn');
+
+    // clinical notes button is selected
+    await t
+        .click(clinicalNotesButton)
+
+    await t
+        .expect(await contextTrayButton.innerText)
+        .eql("Resume in-progress note");
+
+    // context tray button is selected
+    await t
+        .click(contextTrayButton)
+
+    await t
+        .expect(await clinicalNotesButton.innerText)
+        .eql("Clinical Notes")
+});
+
+
+
 test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
