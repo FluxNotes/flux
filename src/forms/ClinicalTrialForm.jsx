@@ -73,6 +73,7 @@ class ClinicalTrialForm extends Component {
     renderTrialButtonGroup = (trial, i) => {
         const isSelected = this.isSelectedTrial(trial);
         const buttonClass = isSelected ? 'button_selected' : '';
+        const borderColor = isSelected ? '#297DA2' : 'white';
         const marginSize = "10px";
         const trialName = trial.name;
         const trialDescription = trial.description;
@@ -93,6 +94,9 @@ class ClinicalTrialForm extends Component {
                         width: "180px",
                         padding: "20px 0 20px 0",
                         backgroundColor: "white",
+                        border: "2px solid",
+                        borderRadius: "5px",
+                        borderColor: borderColor,
                         textTransform: "none"
                     }}
                 >   

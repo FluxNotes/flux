@@ -117,7 +117,6 @@ class ProgressionForm extends Component {
      * Render the Disease Status 'reason' button for the given reason
      */
     renderReasonButtonGroup = (reason, i) => {
-        const marginSize = "10px";
         const reasonName = reason.name;
         const reasonDescription = reason.description;
 
@@ -131,8 +130,7 @@ class ProgressionForm extends Component {
                         label={reasonName}
                         className={buttonClass}
                         style={{
-                            marginBottom: marginSize,
-                            marginLeft: marginSize,
+                            margin: 0.5,
                             height: "75px",
                             width: "180px",
                             backgroundColor: "white",
