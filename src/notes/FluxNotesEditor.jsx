@@ -116,7 +116,7 @@ class FluxNotesEditor extends React.Component {
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
             updateErrors: this.updateErrors,
-            insertText: this.handleSummaryUpdate
+            insertText: this.insertTextWithStructuredPhrases
         };
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
@@ -325,6 +325,7 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
+
         var nextState = this.state.state.transform().select({
           anchorKey: data.anchorKey,
           anchorOffset: data.anchorOffset,
@@ -332,7 +333,7 @@ class FluxNotesEditor extends React.Component {
           focusOffset: data.focusOffset
         }).delete()
 
-        this.handleSummaryUpdate(data.newText, nextState)
+        this.insertTextWithStructuredPhrases(data.newText, nextState)
     }
     
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
@@ -360,7 +361,7 @@ class FluxNotesEditor extends React.Component {
     // This gets called when the before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
-            this.handleSummaryUpdate(nextProps.itemToBeInserted);
+            this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
     }
@@ -383,20 +384,23 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new
      */
-    handleSummaryUpdate = (itemToBeInserted, currentTransform=undefined) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform=undefined) => {
         let state;
         const currentState = this.state.state;
         
+        // console.log(textToBeInserted);
+
         let transform = (currentTransform) ? currentTransform : currentState.transform();
-        let remainder = itemToBeInserted;
-        let start, before, end, after;
+        let remainder = textToBeInserted;
+        let start, end;
+        let before = '', after = '';
         
-        //console.log(itemToBeInserted);
-        const triggers = this.noteParser.getListOfTriggersFromText(itemToBeInserted)[0];
+        //console.log(textToBeInserted);
+        const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
         //console.log(triggers);
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
-                //console.log(trigger);
+
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
@@ -404,14 +408,29 @@ class FluxNotesEditor extends React.Component {
                     transform = this.insertPlainText(transform, before);
                 }
                 remainder = remainder.substring(start + trigger.trigger.length);
+
+                // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
+                if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) { 
+                    transform = this.insertPlainText(transform, ' ');   
+                }
+                
+                // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
+                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
                     remainder = remainder.substring(end + 2);
-                } else {
+                // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
+                } else if (remainder.startsWith(" [[")) {
+                    remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
+                    end = remainder.indexOf("]]");
+                    // FIXME: 2 is a magic number based on ' [[' length, ditto for 2 below for ]]
+                    after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
+                    remainder = remainder.substring(end + 2);
+                } else { 
                     after = "";
                 }
-                //console.log(remainder);
+
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform);
             });
         }
