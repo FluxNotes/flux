@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ContextTray from '../context/ContextTray';
+import Button from '../elements/Button';
 
 import './NoteAssistant.css';
 
@@ -15,9 +16,8 @@ class NoteAssistant extends Component {
     }
 
     toggleView() {
-        console.log("clicked button");
 
-        if (this.state.noteAssistantMode === "context-tray" ) {
+        if (this.state.noteAssistantMode === "context-tray") {
             this.setState(
                 {
                     noteAssistantMode: "clinical-notes"
@@ -30,7 +30,6 @@ class NoteAssistant extends Component {
                 }
             )
         }
-
     }
 
     renderNoteAssistantContent(noteAssistantMode) {
@@ -39,7 +38,7 @@ class NoteAssistant extends Component {
             case "context-tray":
                 return (
                     <div>
-                        <span className="button-hover" onClick={() => {
+                        <span className="button-hover clinical-notes-btn" onClick={() => {
                             this.toggleView()
                         }}><i className="fa fa-arrow-left"></i>Clinical Notes</span>
                         <ContextTray
@@ -53,10 +52,15 @@ class NoteAssistant extends Component {
             case "clinical-notes":
                 return (
                     <div>
-                        <span className="button-hover" onClick={() => {
-                            this.toggleView()
-                        }}><i className="fa fa-arrow-left"></i>Context Tray</span>
-                        <p>not a context tray</p>
+                        <span className="button-hover context-tray-btn" onClick={() => {
+                        this.toggleView()
+                    }}><i className="fa fa-arrow-left"></i>Resume in-progress note</span>
+
+                        <table>
+                            <tbody>
+                            {this.renderedNotes()}
+                            </tbody>
+                        </table>
                     </div>
                 );
 
@@ -64,6 +68,26 @@ class NoteAssistant extends Component {
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
                 return "";
         }
+    }
+
+    renderedNotes() {
+        return this.props.patient.getNotes().map((item, i) =>
+
+            <tr className="existing-note-entry" key={i}>
+                <td className="existing-note-date" width="15%">{item.date}</td>
+                <td className="existing-note-metadata" width="55%">
+                    <span id="existing-note-subject">{item.subject}</span> <br/>
+                    <span>{item.hospital}</span> <br/>
+                    <span>{item.clinician}</span>
+                </td>
+                <td className="existing-note-button" width="30%">
+                    <Button raised
+                            className="existing-note-btn"
+                            key={i}
+                    >View Note</Button>
+                </td>
+            </tr>
+        );
     }
 
     render() {

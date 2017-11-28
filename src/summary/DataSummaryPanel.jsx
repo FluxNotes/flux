@@ -1,20 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
-import Tabs, {Tab} from 'material-ui/Tabs';
-import Button from '../elements/Button';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {tabValue: 0};
-    }
-
-    selectTab = (event, value) => {
-        this.setState({tabValue: value});
-    }
 
     getConditionMetadata() {
         const {condition} = this.props;
