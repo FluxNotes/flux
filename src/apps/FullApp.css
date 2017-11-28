@@ -5,7 +5,6 @@
 
 /* Restricts app to max fixed width for very wide screens. */
 .FullApp-content {
-    max-width: 1750px;
     /*background-color: #F3F3F3;*/
 }
 
@@ -20,7 +19,6 @@
 }
 
 .FullApp-content .dashboard-panel {
-    margin-top: 16px;
     text-align: left;
 }
 
