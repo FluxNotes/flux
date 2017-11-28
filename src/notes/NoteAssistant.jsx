@@ -16,20 +16,11 @@ class NoteAssistant extends Component {
     }
 
     toggleView() {
-
-        if (this.state.noteAssistantMode === "context-tray") {
-            this.setState(
-                {
-                    noteAssistantMode: "clinical-notes"
-                }
-            );
-        } else if (this.state.noteAssistantMode === "clinical-notes") {
-            this.setState(
-                {
-                    noteAssistantMode: "context-tray"
-                }
-            )
-        }
+        this.setState(
+            {
+                noteAssistantMode: "clinical-notes"
+            }
+        );
     }
 
     renderNoteAssistantContent(noteAssistantMode) {
@@ -52,10 +43,9 @@ class NoteAssistant extends Component {
             case "clinical-notes":
                 return (
                     <div>
-                        <span className="button-hover context-tray-btn" onClick={() => {
-                        this.toggleView()
-                    }}><i className="fa fa-arrow-left"></i>Resume in-progress note</span>
-
+                        <Button raised
+                                className="resume-note-btn"
+                        >Resume in-progress note</Button>
                         <table>
                             <tbody>
                             {this.renderedNotes()}
