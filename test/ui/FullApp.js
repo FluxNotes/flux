@@ -70,7 +70,7 @@ test('Selecting a condition changes the active condition', async t => {
 fixture('Patient Mode - Editor')
     .page(startPage);
 
-test.only('Clicking Note Assistance modes changes Note Assistance mode', async t => {
+test('Clicking Note Assistance modes changes Note Assistance mode', async t => {
 
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const contextTrayButton = Selector('.context-tray-btn');
