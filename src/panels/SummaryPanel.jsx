@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import TimelinePanel from '../timeline/TimelinePanel';
 import Minimap from 'react-minimap';
+import 'react-minimap/dist/react-minimap.css'
 import './SummaryPanel.css';
 
 class SummaryPanel extends Component { 
     render () { 
         return (
             <div>
-                <Minimap selector=".panel-heading">
+                <Minimap selector=".dashboard-panel">
                     <h1 className="panel-heading">
                         Condition Summary
                     </h1>
