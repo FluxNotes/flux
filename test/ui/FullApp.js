@@ -70,26 +70,20 @@ test('Selecting a condition changes the active condition', async t => {
 fixture('Patient Mode - Editor')
     .page(startPage);
 
-test('Clicking Note Assistance modes changes Note Assistance mode', async t => {
+test.only('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
 
     const clinicalNotesButton = Selector('.clinical-notes-btn');
-    const contextTrayButton = Selector('.context-tray-btn');
+    const resumeNotesButton = Selector('.resume-note-btn');
 
     // clinical notes button is selected
     await t
         .click(clinicalNotesButton)
 
-    await t
-        .expect(await contextTrayButton.innerText)
-        .eql("Resume in-progress note");
-
-    // context tray button is selected
-    await t
-        .click(contextTrayButton)
+    const buttonText = await resumeNotesButton.textContent;
 
     await t
-        .expect(await clinicalNotesButton.innerText)
-        .eql("Clinical Notes")
+        .expect(buttonText.toString().toLowerCase())
+        .eql("resume in-progress note");
 });
 
 
