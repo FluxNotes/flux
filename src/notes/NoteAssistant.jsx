@@ -82,11 +82,19 @@ class NoteAssistant extends Component {
 
     render() {
 
-        return (
-            <div>
-                {this.renderNoteAssistantContent(this.state.noteAssistantMode)}
-            </div>
-        );
+        if (this.props.isNoteViewerEditable) {
+            return (
+                <div>
+                    {this.renderNoteAssistantContent(this.state.noteAssistantMode)}
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    {this.renderNoteAssistantContent("clinical-notes")}
+                </div>
+            );
+        }
     }
 }
 

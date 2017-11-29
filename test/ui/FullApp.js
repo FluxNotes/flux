@@ -70,7 +70,7 @@ test('Selecting a condition changes the active condition', async t => {
 fixture('Patient Mode - Editor')
     .page(startPage);
 
-test.only('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
+test('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
 
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const resumeNotesButton = Selector('.resume-note-btn');
