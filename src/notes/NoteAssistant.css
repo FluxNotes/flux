@@ -1,0 +1,9 @@
+span.button-hover {
+    cursor: pointer;
+}
+
+.resume-note-btn {
+    width: 100%;
+    height: 60px;
+    background-color: white !important;
+}

@@ -20,6 +20,8 @@ class PostEncounterView extends Component {
                     </Col>
                     <Col sm={8}>
                         <NotesPanel
+                            isNoteViewerVisible={true}
+                            isNoteViewerEditable={true}
                             handleSelectionChange={this.props.handleSelectionChange}
                             newCurrentShortcut={this.props.newCurrentShortcut}
                             itemInserted={this.props.itemInserted}
