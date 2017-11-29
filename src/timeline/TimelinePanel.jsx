@@ -3,40 +3,11 @@ import PropTypes from 'prop-types';
 import Legend from './TimelineLegend';
 import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
+import Item from './Item';
 import moment from 'moment';
 import Lang from 'lodash'
 import './TimelinePanel.css';
 import 'font-awesome/css/font-awesome.min.css';
-
-// Item provides custom rendering of the the content of a timeline item.
-// Items may have any combination of:
-// icon - a font-awesome icon to display before the title
-// title - a title to display
-// details - additional information to display next to the title
-class Item extends Component {
-    render() {
-        let icon = null;
-        let details = null;
-    
-        if (this.props.item.icon) {
-            icon = (<span><i className={'point fa fa-' + this.props.item.icon}></i></span>);
-        }
-    
-        if (this.props.item.details) {
-            details = (<span>&nbsp;&nbsp;|&nbsp;&nbsp; {this.props.item.details}</span>);
-        }
-    
-        const itemId = `timeline-item-${this.props.item.id}`;
-    
-        return (
-            <div id={itemId} className="item">
-                {icon}
-                <strong>{this.props.item.title}</strong>
-                {details}
-            </div>
-        );
-    }
-};
 
 // Timeline provides
 class TimelinePanel extends Component {
