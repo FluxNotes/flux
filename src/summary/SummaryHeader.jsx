@@ -2,9 +2,58 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Avatar from 'material-ui/Avatar';
+import Button from '../elements/Button';
 import './SummaryHeader.css';
 
 class SummaryHeader extends Component {
+    constructor() {
+        super();
+        this.state = { view: 'middle' };
+    }
+
+    middleView = () => {
+        return (
+            <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-2-Copy" transform="translate(1.000000, 1.003906)" stroke="#3F3F3F">
+                        <rect id="Rectangle-9-Copy-9" strokeWidth="1.62" fill="#FFFFFF" x="0.803265598" y="0.176861297" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M11.2617188,0.6328125 L11.2617188,14.1333912" id="Path-7"></path>
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    leftView = () => {
+        return (
+            <svg width="23px" height="17px" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-18" transform="translate(1.000000, 1.000000)" stroke="#3F3F3F">
+                        <rect id="Rectangle-9-Copy-13" strokeWidth="1.62" fill="#FFFFFF" x="0.0532655978" y="0.176861297" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M5.01123047,0.6328125 L5.01123047,14.1333912" id="Path-7-Copy-3" fill="#D8D8D8"></path>
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    rightView = () => {
+        return (
+            <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-19" transform="translate(1.000000, 1.000000)" stroke="#3F3F3F">
+                        <rect id="Rectangle-9-Copy-13" strokeWidth="1.62" fill="#FFFFFF" transform="translate(10.891852, 7.548288) rotate(-180.000000) translate(-10.891852, -7.548288) " x="0.563044761" y="0.2578125" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M16.2626953,0.882233809 L16.2626953,14.3828125" id="Path-7-Copy-3" fill="#D8D8D8" transform="translate(16.262695, 7.632523) rotate(-180.000000) translate(-16.262695, -7.632523) "></path>
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    handleViewChange = (view) => {
+        this.setState({ view });
+    }
+
     render() {
         const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
 
@@ -63,19 +112,25 @@ class SummaryHeader extends Component {
                                         <span>
                                             <Row middle="xs">
                                                 <Col sm={4}>
-                                                    <button>
-                                                        hi
-                                                    </button>
+                                                    <Button
+                                                        className="small-btn"
+                                                        onClick={() => this.handleViewChange('middle')}>
+                                                        {this.middleView()}
+                                                    </Button>
                                                 </Col>
                                                 <Col sm={4}>
-                                                    <button>
-                                                        hi
-                                                    </button>
+                                                    <Button
+                                                        className="small-btn"
+                                                        onClick={() => this.handleViewChange('left')}>
+                                                        {this.leftView()}
+                                                    </Button>
                                                 </Col>
                                                 <Col sm={4}>
-                                                    <button>
-                                                        hi
-                                                    </button>
+                                                    <Button
+                                                        className="small-btn"
+                                                        onClick={() => this.handleViewChange('right')}>
+                                                        {this.rightView()}
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </span>
