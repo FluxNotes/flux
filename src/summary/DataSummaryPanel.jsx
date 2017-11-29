@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
 import Tabs, {Tab} from 'material-ui/Tabs';
@@ -34,101 +33,61 @@ class DataSummaryPanel extends Component {
         return conditionMetadata;
     }
 
-    renderedTabSections() {
+    // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
+    // Current implementation only renders the DataSummaryTable
+    // TODO: Render other types of data
+    renderedSection(section) {
+        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
-        // This variable indicates if the panel is to display data in a single column or not
-        let isSingleColumn = !this.props.isWide;
-
-        const {patient, condition, onItemClicked, allowItemClick} = this.props;
-        const conditionMetadata = this.getConditionMetadata();
-        if (conditionMetadata == null) {
-            return null;
-        }
-
-        // Grab the sections from conditionMetaData and create 2 arrays, one for the first half of the sections and another
-        // for the second half of sections
-
-        let numberOfFirstHalfSections = Math.ceil(conditionMetadata.sections.length / 2);
-        let firstHalfSections = [];
-        let secondHalfSections = [];
-
-        // Create array containing the first half of the conditionMetaData sections
-        for (let i = 0; i < numberOfFirstHalfSections; i++) {
-            firstHalfSections.push(conditionMetadata.sections[i]);
-        }
-
-        // Create array containing the second half of the conditionMetaData sections
-        for (let j = numberOfFirstHalfSections; j < conditionMetadata.sections.length; j++) {
-            secondHalfSections.push(conditionMetadata.sections[j])
-        }
-
-        // If flag for isSingleColumn true, display the data all in one column
-        if (isSingleColumn) {
-            return conditionMetadata.sections.map((section, i) =>
-                <div key={i} data-test-summary-section={section.name}>
-                    <h2>{section.name}</h2>
-
-                    <DataSummaryTable
-                        patient={patient}
-                        condition={condition}
-                        conditionSection={section}
-                        onItemClicked={onItemClicked}
-                        allowItemClick={allowItemClick}
-                    />
-                </div>
-            );
-        }
-
-        // Else the isSingleColumn flag is false. Display the data in 2 columns. The first column displays the first half
-        // of the sections in one table and the second column displays the second half of the sections in a second table
-        else {
+        if (section.type === 'NameValuePairs') {
             return (
-                <Row center="xs">
-                    <Col sm={6}>
-                        {this.getTable(firstHalfSections, patient, condition, onItemClicked, allowItemClick)}
-                    </Col>
-                    <Col sm={6}>
-                        {this.getTable(secondHalfSections, patient, condition, onItemClicked, allowItemClick)}
-                        </Col>
-                </Row>
-            );
-        }
-    }
-
-    // getTable method takes in an array of sections and creates a data summary table with that data
-    getTable(arrayOfSections, patient, condition, onItemClicked, allowItemClick) {
-        return arrayOfSections.map((section, i) =>
-
-            <div key={`left-${i}`} data-test-summary-section={section.name}>
-                <h2>{section.name}</h2>
                 <DataSummaryTable
                     patient={patient}
                     condition={condition}
                     conditionSection={section}
                     onItemClicked={onItemClicked}
                     allowItemClick={allowItemClick}
+                    isWide={isWide}
                 />
-            </div>
-        );
+            );
+        }
+    }
+
+    renderedTabSections() {
+        const conditionMetadata = this.getConditionMetadata();
+        if (conditionMetadata == null) {
+            return null;
+        }
+
+        return conditionMetadata.sections.map((section, i) => {
+            return (
+                <div key={i} data-test-summary-section={section.name}>
+                    <h2 className="section-header">{section.name}</h2>
+                    {this.renderedSection(section)}
+                </div>
+            );
+        });
     }
 
     renderedNotes() {
-        return this.props.patient.getNotes().map((item, i) =>
-            <tr className="existing-note-entry" key={i}>
-                <td className="existing-note-date" width="15%">{item.date}</td>
-                <td className="existing-note-metadata" width="55%">
-                    <span id="existing-note-subject">{item.subject}</span> <br/>
-                    <span>{item.hospital}</span> <br/>
-                    <span>{item.clinician}</span>
-                </td>
-                <td className="existing-note-button" width="30%">
-                    <Button raised
-                            className="existing-note-btn"
-                            key={i}
-                    >View Note</Button>
-                </td>
-            </tr>
-        );
+        return this.props.patient.getNotes().map((item, i) => {
+            return (
+                <tr className="existing-note-entry" key={i}>
+                    <td className="existing-note-date" width="15%">{item.date}</td>
+                    <td className="existing-note-metadata" width="55%">
+                        <span id="existing-note-subject">{item.subject}</span> <br/>
+                        <span>{item.hospital}</span> <br/>
+                        <span>{item.clinician}</span>
+                    </td>
+                    <td className="existing-note-button" width="30%">
+                        <Button raised
+                                className="existing-note-btn"
+                                key={i}
+                        >View Note</Button>
+                    </td>
+                </tr>
+            );
+        });
     }
 
     renderedTabs() {

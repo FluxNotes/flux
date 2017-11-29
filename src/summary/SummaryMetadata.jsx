@@ -5,11 +5,12 @@ import FluxTumorSize from '../model/oncology/FluxTumorSize';
 
 class SummaryMetadata {
     hardCodedMetadata = {
-        "http://snomed.info/sct/408643008" : {
+        "http://snomed.info/sct/408643008": {
             sections: [
                 {
                     name: "Summary",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [ 
                         // {
                         //     name: "Identification",
                         //     items: [
@@ -192,7 +193,8 @@ class SummaryMetadata {
                 // },
                 {
                     name: "Key Dates",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             items:  [
@@ -203,7 +205,7 @@ class SummaryMetadata {
                                     }
                                 },
                                 {
-                                    name: "Recurence",
+                                    name: "Recurrence",
                                     value: (patient, currentConditionEntry) => {
                                         return null;
                                     }
@@ -214,7 +216,8 @@ class SummaryMetadata {
                 },
                 {
                     name: "Procedures",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             itemsFunction: this.getItemListForProcedures
@@ -223,7 +226,8 @@ class SummaryMetadata {
                 },
                 {
                     name: "Pathology Results (Initial Diagnosis)",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             items:  [
@@ -291,7 +295,8 @@ class SummaryMetadata {
                 },
                 {
                     name: "Genetics",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             items:  [
@@ -313,7 +318,8 @@ class SummaryMetadata {
             sections: [
                 {
                     name: "Current Diagnosis",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             items:  [
@@ -330,7 +336,8 @@ class SummaryMetadata {
                 },
                 {
                     name: "Key Dates",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             items:  [
@@ -346,7 +353,8 @@ class SummaryMetadata {
                 },
                 {
                     name: "Procedures",
-                    collections: [
+                    type: "NameValuePairs",
+                    data: [
                         {
                             name: "",
                             itemsFunction: this.getItemListForProcedures

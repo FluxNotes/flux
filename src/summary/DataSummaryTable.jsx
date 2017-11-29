@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './DataSummaryTable.css';
@@ -9,28 +10,29 @@ import './DataSummaryTable.css';
  */
 class DataSummaryTable extends Component {
 
-    getCollections() {
+    getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
 
-        let collections = [];
-        for (let i = 0; i < conditionSection.collections.length; i++) {
-            collections.push(conditionSection.collections[i]);
-        }
-        return collections;
+        let subsections = [];
+        conditionSection.data.forEach((subsection) => {
+            subsections.push(subsection);
+        });
+
+        return subsections;
     }
 
-    getList(collection) {
+    getList(subsection) {
         const {patient, condition, conditionSection} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
 
-        const items = collection.items;
-        const itemsFunction = collection.itemsFunction;
+        const items = subsection.items;
+        const itemsFunction = subsection.itemsFunction;
 
         let list = null;
 
@@ -49,26 +51,69 @@ class DataSummaryTable extends Component {
         return list;
     }
 
-    renderedCollections(collections) {
-        return collections.map((collection, index) => {
-            return this.renderedCollection(collection, index);
+    renderedSubsections(subsections) {
+        const isSingleColumn = !this.props.isWide;
+
+        if (isSingleColumn) {
+            return subsections.map((subsection, index) => {
+                return this.renderedSubsection(subsection, index);
+            });
+        }
+
+        // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
+        // for the second half of sections
+        const numberOfFirstHalfSections = Math.ceil(subsections.length / 2);
+        let firstHalfSections = [];
+        let secondHalfSections = [];
+
+        // Create array containing the first half of the subsections
+        subsections.slice(0, numberOfFirstHalfSections).forEach((subsection) => {
+            firstHalfSections.push(subsection);
         });
+
+        // Create array containing the second half of the subsections
+        subsections.slice(numberOfFirstHalfSections).forEach((subsection) => {
+            secondHalfSections.push(subsection);
+        });
+
+        let ind = 0;
+        const renderedFirstHalf = firstHalfSections.map((subsection) => {
+            return this.renderedSubsection(subsection, ind++);
+        });
+        const renderedSecondHalf = secondHalfSections.map((subsection) => {
+            return this.renderedSubsection(subsection, ind++);
+        });
+
+        // Display the data in 2 columns. The first column displays the first half
+        // of the sections in one table and the second column displays the second half of the sections in a second table
+        return (
+            <Row start="xs">
+                <Col sm={6}>
+                    {renderedFirstHalf}
+                </Col>
+                <Col sm={6}>
+                    {renderedSecondHalf}
+                </Col>
+            </Row>
+        );
     }
 
-    renderedCollection(collection, index) {
-        const list = this.getList(collection);
+    renderedSubsection(subsection, index) {
+        const list = this.getList(subsection);
+
         if (list.length <= 0) {
             return <h2 key={index}>None</h2>;
         }
+
         return (
             <table key={index}>
                 <tbody>
-                <tr>
-                    <td className="collection-header">
-                        {collection.name}
-                    </td>
-                </tr>
-                {this.renderedListItems(list)}
+                    <tr>
+                        <td className="subsection-header">
+                            {subsection.name}
+                        </td>
+                    </tr>
+                    {this.renderedListItems(list)}
                 </tbody>
             </table>
         );
@@ -119,11 +164,11 @@ class DataSummaryTable extends Component {
 
     // Gets called for each section in SummaryMetaData.jsx
     render() {
-        const collections = this.getCollections();
+        const subsections = this.getSubsections();
 
         return (
             <div>
-                {this.renderedCollections(collections)}
+                {this.renderedSubsections(subsections)}
             </div>
         );
     }
@@ -133,7 +178,9 @@ DataSummaryTable.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
-    onItemClicked: PropTypes.func
+    isWide: PropTypes.bool,
+    onItemClicked: PropTypes.func,
+    allowItemClick: PropTypes.bool
 };
 
 export default DataSummaryTable;
