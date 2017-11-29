@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from '../elements/Button';
 import DataSummaryTable from './DataSummaryTable';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
