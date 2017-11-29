@@ -60,27 +60,6 @@ class DataSummaryPanel extends Component {
         });
     }
 
-    renderedNotes() {
-        return this.props.patient.getNotes().map((item, i) => {
-            return (
-                <tr className="existing-note-entry" key={i}>
-                    <td className="existing-note-date" width="15%">{item.date}</td>
-                    <td className="existing-note-metadata" width="55%">
-                        <span id="existing-note-subject">{item.subject}</span> <br/>
-                        <span>{item.hospital}</span> <br/>
-                        <span>{item.clinician}</span>
-                    </td>
-                    <td className="existing-note-button" width="30%">
-                        <Button raised
-                                className="existing-note-btn"
-                                key={i}
-                        >View Note</Button>
-                    </td>
-                </tr>
-            );
-        });
-    }
-
     renderedTableList() {
         return (
             <div className="table-list" id="summary-list">
