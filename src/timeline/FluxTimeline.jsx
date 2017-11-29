@@ -6,11 +6,10 @@ import Timeline from 'react-calendar-timeline';
 import Item from './Item';
 import moment from 'moment';
 import Lang from 'lodash'
-import './TimelinePanel.css';
+import './FluxTimeline.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-// Timeline provides
-class TimelinePanel extends Component {
+class FluxTimeline extends Component {
     constructor(props) {
         super(props);
 
@@ -356,11 +355,9 @@ class TimelinePanel extends Component {
     }
 }
 
-TimelinePanel.propTypes = { 
-    className: PropTypes.string,
+FluxTimeline.propTypes = { 
     isWide: PropTypes.bool.isRequired,
-    patient: PropTypes.object.isRequired,
-    condition: PropTypes.object
+    className: PropTypes.string
 };
 
-export default TimelinePanel;
+export default FluxTimeline;

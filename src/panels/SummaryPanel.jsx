@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
-import TimelinePanel from '../timeline/TimelinePanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
 import './SummaryPanel.css';
@@ -27,13 +26,6 @@ class SummaryPanel extends Component {
                             summaryMetadata={this.props.appState.summaryMetadata}
                             onItemClicked={this.props.handleSummaryItemSelected}
                             allowItemClick={true}
-                        />
-                    </div>
-                    <div className="summary-section"> 
-                        <TimelinePanel
-                            isWide={this.props.isWide}
-                            patient={this.props.appState.patient} 
-                            condition={this.props.appState.condition}
                         />
                     </div>
                 </div> 
