@@ -4,7 +4,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import NavBar from '../nav/NavBar';
 import DashboardViewManager from '../dashboardViews/DashboardViewManager'
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
@@ -143,13 +142,10 @@ class FullApp extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
-                    <NavBar 
-                        title={this.props.display} 
-                        supportLogin={true} 
-                        menuItems={this.menuItems} 
-                    />
                     <DashboardViewManager
                         // App default settings
+                        title={this.props.display}
+                        supportLogin={true}
                         possibleClinicalEvents={this.possibleClinicalEvents}
                         dataAccess={this.dataAccess}
                         summaryMetadata={this.summaryMetadata}

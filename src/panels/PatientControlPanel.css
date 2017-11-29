@@ -1,0 +1,37 @@
+.patient-control-panel {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.patient-control-panel,
+.patient-control-panel .FullApp-content {
+    background-color: white;
+}
+
+.patient-control-panel .title {
+    color: steelblue;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.vertical-divider {
+    border-left: 1px solid #ddd;
+    height: 40px
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-field {
+    padding-left: 30px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 5px;
+}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import PatientSummaryPanel from '../summary/PatientSummaryPanel';
+import PatientControlPanel from '../panels/PatientControlPanel';
 import PreEncounterView from './PreEncounterView';
 // import EncounterView from './EncounterView';
 import PostEncounterView from './PostEncounterView';
@@ -30,7 +30,9 @@ class DashboardViewManager extends Component {
                 <Grid className="FullApp-content" fluid>
                     <Row center="xs">
                         <Col sm={12}>
-                            <PatientSummaryPanel
+                            <PatientControlPanel
+                                appTitle={this.props.title}
+                                supportLogin={this.props.supportLogin}
                                 patient={this.props.appState.patient}
                                 possibleClinicalEvents={this.props.possibleClinicalEvents}
                                 clinicalEvent={this.props.appState.clinicalEvent}

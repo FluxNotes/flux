@@ -34,25 +34,54 @@ class SummaryHeader extends Component {
                             </div>
                         </Col>
 
-                        <Col sm={2}>
-                            <div className="date-of-birth item">
-                                <h3>DOB</h3>
-                                <span className="no-wrap">{dateOfBirth} ({age})</span>
-                            </div>
-                        </Col>
+                        <Col sm={6}>
+                            <Row middle="xs">
+                                <Col sm={3}>
+                                    <div className="date-of-birth item">
+                                        <h3>DOB</h3>
+                                        <span className="no-wrap">{dateOfBirth} ({age})</span>
+                                    </div>
+                                </Col>
 
-                        <Col sm={2}>
-                            <div className="administrative-sex item">
-                                <h3>Admin. Sex</h3>
-                                <span>{administrativeSex}</span>
-                            </div>
-                        </Col>
+                                <Col sm={3}>
+                                    <div className="administrative-sex item">
+                                        <h3>Admin. Sex</h3>
+                                        <span>{administrativeSex}</span>
+                                    </div>
+                                </Col>
 
-                        <Col sm={2}>
-                            <div className="location item">
-                                <h3>Location</h3>
-                                <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span>
-                            </div>
+                                <Col sm={3}>
+                                    <div className="location item">
+                                        <h3>Location</h3>
+                                        <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span>
+                                    </div>
+                                </Col>
+                                
+                                <Col sm={3}>
+                                    <div className="view item">
+                                        <h3>View</h3>
+                                        <span>
+                                            <Row middle="xs">
+                                                <Col sm={4}>
+                                                    <button>
+                                                        hi
+                                                    </button>
+                                                </Col>
+                                                <Col sm={4}>
+                                                    <button>
+                                                        hi
+                                                    </button>
+                                                </Col>
+                                                <Col sm={4}>
+                                                    <button>
+                                                        hi
+                                                    </button>
+                                                </Col>
+                                            </Row>
+                                        </span>
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Grid>
