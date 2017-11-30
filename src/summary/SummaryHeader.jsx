@@ -117,6 +117,7 @@ class SummaryHeader extends Component {
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
+                                                        id="middle-view-button"
                                                         onClick={() => this.handleViewChange('middle')}>
                                                         {this.middleView()}
                                                     </Button>
@@ -124,6 +125,7 @@ class SummaryHeader extends Component {
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
+                                                        id="left-view-button"
                                                         onClick={() => this.handleViewChange('left')}>
                                                         {this.leftView()}
                                                     </Button>
@@ -131,6 +133,7 @@ class SummaryHeader extends Component {
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
+                                                        id="right-view-button"
                                                         onClick={() => this.handleViewChange('right')}>
                                                         {this.rightView()}
                                                     </Button>

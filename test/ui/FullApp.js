@@ -11,7 +11,8 @@ const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 fixture('Patient Mode - Patient Summary Panel')
     .page(startPage);
 
-test('Clicking event buttons selects corresponding event', async t => {
+// NOTE: This will need to be changed once the event buttons are moved to Targeted Data Control
+test.skip('Clicking event buttons selects corresponding event', async t => {
     const preEncounterButton = Selector(".clinical-event-buttons #pre-encounter-button");
     const encounterButton = Selector(".clinical-event-buttons #encounter-button");
     const postEncounterButton = Selector(".clinical-event-buttons #post-encounter-button");
@@ -42,8 +43,9 @@ test('Clicking event buttons selects corresponding event', async t => {
         .expect(postEncounterButton.hasClass("active"))
         .ok();
 });
-    
-test('Selecting a condition changes the active condition', async t => {
+
+// NOTE: This will need to be changed once the condition selection is moved to Targeted Data Control
+test.skip('Selecting a condition changes the active condition', async t => {
     const conditionSelector = Selector('.condition-select');
 
     // first condition is selected by default
@@ -330,7 +332,8 @@ test('Hovering over calendar medication items should add medication name to hove
     }
 });
 
-test('Selecting a condition changes the timeline summary', async t => {
+// NOTE: This will be changed when condition select is moved to Targeted Data Panel
+test.skip('Selecting a condition changes the timeline summary', async t => {
     const conditionSelector = Selector('.condition-select');
 
     // first condition is selected by default

@@ -8,6 +8,11 @@ import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
+    // NOTE: This is a placeholder to set the condition now that the ConditionSelection is removed.
+    // When it is moved to the Targeted Data Control, this is should be removed.
+    componentWillMount() {
+        this.props.setFullAppState('condition', this.props.patient.getConditions()[0]);
+    }
 
     render() {
         const { patient } = this.props;
