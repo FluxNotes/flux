@@ -91,12 +91,7 @@ class NarrativeComponent extends Component {
             } else {
                 subsectionName = valueSpec.substring(0, index);
                 valueName = valueSpec.substring(index + 1);
-                if (subsections[subsectionName].list) {
-                    list = subsections[subsectionName].list;
-                } else {
-                    list = this.getList(subsections[subsectionName]);
-                    subsections[subsectionName].list = list;
-                }
+                list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
                 if (item.value) {
                     value = item.value;
