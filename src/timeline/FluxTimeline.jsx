@@ -5,7 +5,6 @@ import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import Item from './Item';
 import moment from 'moment';
-import Lang from 'lodash'
 import './FluxTimeline.css';
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -14,7 +13,12 @@ class FluxTimeline extends Component {
         super(props);
 
         // Create groups and items to display on the timeline
-        let items = this._createItemsForPatient(props.patient, props.condition);
+        let items = props.section.data.map((item, i) => {
+            console.log(item);
+            return item.eventsFunction(props.patient, props.condition, i);
+        });
+
+        console.log(items);
 
         // Create groups for the items
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
@@ -88,29 +92,29 @@ class FluxTimeline extends Component {
         this.setState({'hoverItem': defaultHoverItemState});
     };
 
-    componentWillReceiveProps = (nextProps) => {
-        if (this.props !== nextProps) {
-            // Create groups and items to display on the timeline
-            let items = this._createItemsForPatient(nextProps.patient, nextProps.condition);
+    // componentWillReceiveProps = (nextProps) => {
+    //     if (this.props !== nextProps) {
+    //         // Create groups and items to display on the timeline
+    //         let items = this._createItemsForPatient(nextProps.patient, nextProps.condition);
   
-            // Create groups for the items
-            const groups = this.createGroupsForItems(this.getMaxGroup(items));
+    //         // Create groups for the items
+    //         const groups = this.createGroupsForItems(this.getMaxGroup(items));
   
-            // Assign every item an ID and onClick handler
-            for (let i = 0; i < items.length; i++) {
-                const id = i + 1;
-                items[i]['id'] = id;
-                items[i]['itemProps'] = {
-                    onMouseEnter: (e) => this._enterItemHover(e, id),
-                    onMouseLeave: (e) => this._leaveItemHover(e)
-                };
-            }
-            this.setState({
-                items: items,
-                groups: groups
-            });
-        } 
-    };
+    //         // Assign every item an ID and onClick handler
+    //         for (let i = 0; i < items.length; i++) {
+    //             const id = i + 1;
+    //             items[i]['id'] = id;
+    //             items[i]['itemProps'] = {
+    //                 onMouseEnter: (e) => this._enterItemHover(e, id),
+    //                 onMouseLeave: (e) => this._leaveItemHover(e)
+    //             };
+    //         }
+    //         this.setState({
+    //             items: items,
+    //             groups: groups
+    //         });
+    //     } 
+    // };
 
     // Create a set of groups that match those used by the items.
     createGroupsForItems = (numGroups) => {

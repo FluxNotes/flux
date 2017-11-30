@@ -287,19 +287,19 @@ class SummaryMetadata {
                         {
                             name: "Medications",
                             eventsFunction: this.getMedicationItems
-                        },
-                        {
-                            name: "Procedures",
-                            eventsFunction: this.getProcedureItems
-                        },
-                        {
-                            name: "Key Events",
-                            eventsFunction: this.getEventItems
-                        },
-                        {
-                            name: "Progressions",
-                            eventsFunction: this.getProgressionItems
                         }
+                        // {
+                        //     name: "Procedures",
+                        //     eventsFunction: this.getProcedureItems
+                        // },
+                        // {
+                        //     name: "Key Events",
+                        //     eventsFunction: this.getEventItems
+                        // },
+                        // {
+                        //     name: "Progressions",
+                        //     eventsFunction: this.getProgressionItems
+                        // }
                     ]
                 }
             ]
@@ -490,40 +490,6 @@ class SummaryMetadata {
         
         return items;
     };
-    
-    getProgressionItems = (patient, condition, groupStartIndex) => {
-        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
-        let items = [];
-        
-        progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
-
-            let classes = 'progression-item';
-            // Do not include progression on timeline if asOfDate is null
-            if (prog.asOfDate == null) return;
-            let startDate = new moment(prog.asOfDate, "D MMM YYYY");
-            let hoverText = `${startDate.format('MM/DD/YYYY')}`;
-            let endDate = startDate.clone().add(1, 'day');
-            classes += ' point-in-time';
-            
-            let focalCondition = patient.getFocalConditionForProgression(prog);
-            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
-            
-            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
-
-            items.push({
-                group: assignedGroup,
-                icon: 'heartbeat',
-                className: classes,
-                hoverTitle: hoverTitle,
-                hoverText: hoverText,
-                start_time: startDate,
-                end_time: endDate
-            });
-        });
-
-        return items;
-    };
 
     // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
     // existing timeline items. If firstAvailableGroup is provided, the group assigned
@@ -565,6 +531,7 @@ class SummaryMetadata {
 
         return subset;
     };
+    
 }
 
 export default SummaryMetadata;

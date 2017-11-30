@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
+import FluxTimeline from '../timeline/FluxTimeline';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
@@ -52,6 +53,15 @@ class DataSummaryPanel extends Component {
                     conditionSection={section}
                     onItemClicked={onItemClicked}
                     allowItemClick={allowItemClick}
+                    isWide={isWide}
+                />
+            );
+        } else if (section.type === 'Events') {
+            return (
+                <FluxTimeline
+                    patient={patient}
+                    condition={condition}
+                    section={section}
                     isWide={isWide}
                 />
             );
