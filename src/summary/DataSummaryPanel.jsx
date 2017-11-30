@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
 import NarrativeComponent from './NarrativeComponent';
-//import Tabs, {Tab} from 'material-ui/Tabs';
-//import Button from '../elements/Button';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
@@ -28,7 +26,10 @@ class DataSummaryPanel extends Component {
 
     // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
     // Current implementation only renders the DataSummaryTable
-    // TODO: Render other types of data
+    // TODO: Render other types of data. also change how it decides which visualization component to use when
+    //       multiple (e.g., NameValuePairs)
+    // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
+    //       and not just a label
     renderedSection(section) {
         const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 

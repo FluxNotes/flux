@@ -8,10 +8,12 @@ import './NarrativeComponent.css';
  */
 class NarrativeComponent extends Component {
 
+    // get the narrative template from the metadata
     getNarrativeTemplate() {
         return this.props.conditionSection.narrative;
     }
 
+    // create a map of subsection name to its metadata 
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
@@ -27,6 +29,8 @@ class NarrativeComponent extends Component {
         return subsections;
     }
 
+    // for the given subsection object, return the list of data items it specifies
+    // includes resolve value functions (value) per item (items) and item list functions (itemsFunction)
     getList(subsection) {
         const {patient, condition, conditionSection} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
@@ -53,11 +57,11 @@ class NarrativeComponent extends Component {
         return list;
     }
             
-    populateTemplate(template, subsections) {
-        /* returns a list of snippets of the narrative. Each snippet object has the following attributes:
-            text: the text to display
-            type: plain, missing, or structured-data
-        */
+    /* returns a list of snippets of the narrative. Each snippet object has the following attributes:
+        text: the text to display
+        type: plain, missing, or structured-data
+    */
+    buildNarrativeSnippetList(template, subsections) {
         let result = [];
         const len = template.length;
         let index, start = 0;
@@ -114,19 +118,30 @@ class NarrativeComponent extends Component {
         return result;
     }
 
-    // Gets called for each section in SummaryMetaData.jsx
+    // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         let template = this.getNarrativeTemplate();
         let subsections = this.getSubsections();
 
-        const narrative = this.populateTemplate(template, subsections);
+        // build list of snippets that are part of narrative to support typing each snippet so each
+        // can be given correct formatting and interactions
+        const narrative = this.buildNarrativeSnippetList(template, subsections);
         
+        // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'plain') content.push(<span key={index}>{snippet.text}</span>);
-            if (snippet.type === 'missing') content.push(<span key={index} style={{borderBottom: '1px solid red'}}>{snippet.text}</span>);
-            if (snippet.type === 'structured-data') content.push(<span key={index} style={{borderBottom: '1px solid blue'}}>{snippet.text}</span>);
+            if (snippet.type === 'plain') {
+                content.push(<span key={index}>{snippet.text}</span>);
+            }
+            if (snippet.type === 'missing') {
+                content.push(<span key={index} className='missing-data'>{snippet.text}</span>);
+            }
+            if (snippet.type === 'structured-data') {
+                content.push(<span key={index} className='structured-data'>{snippet.text}</span>);
+            }
         }); 
+        
+        // return HTML to render
         return (
             <div>
                 <p>{content}</p>
