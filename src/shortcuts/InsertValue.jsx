@@ -1,12 +1,27 @@
-import InserterShortcut from './InserterShortcut';
+import Shortcut from './Shortcut';
 import Lang from 'lodash';
 
-export default class InsertValue extends InserterShortcut {
+export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata) {
         super();
         this.metadata = metadata;
+		this.text = null;
     }
     
+	initialize(contextManager) {
+		super.initialize(contextManager);
+		let text = this.determineText(contextManager);
+		if (Lang.isArray(text)) {
+			this.flagForTextSelection(text);
+		} else {
+			this.setText(text);
+		}
+	}
+
+	getPrefixCharacter() {
+		return "@";
+	}
+
     _getValueUsingPath(item, attributePath) {
         let result = item, i;
         for (i = 0; i < attributePath.length; i++) {
@@ -74,10 +89,20 @@ export default class InsertValue extends InserterShortcut {
         return null;
     }
     
+    /*
+     * Determines the text to display for this particular inserter shortcut. Some shortcuts
+     * will return a string value, but others can returns a list of possible options for the
+     * user to select from. Each item in that list must be a javascript object like this:
+     *   {  key: <identifier for item>, 
+            context: <label or title to display to user>, 
+            object: <full SHR data object represented>
+         }
+     */
 	determineText(contextManager) {
         const callSpec = this.metadata["getData"];
         return this._resolveCallSpec(callSpec, contextManager);
 	}
+    
     getShortcutType() { 
         return this.metadata["id"];
     }
@@ -85,10 +110,20 @@ export default class InsertValue extends InserterShortcut {
     isContext() {
         return this.metadata.isContext;
     }
+
 	getLabel() {
 		return this.getText();
 	}
+
     getId() {
         return this.metadata["id"];
     }
+
+	getText() {
+		return this.text;
+	}
+		
+	setText(text) {
+		this.text = text;
+	}
 }
