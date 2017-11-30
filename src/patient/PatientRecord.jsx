@@ -218,7 +218,7 @@ class PatientRecord {
 			return item instanceof type;
 		});
 	}
-	
+	/*
 	getMostRecentStagingForCondition(condition, sinceDate = null) {
 		let stagingList = this.getObservationsForCondition(condition, FluxTNMStage);
 		if (stagingList.length === 0) return null;
@@ -232,7 +232,7 @@ class PatientRecord {
 		} else {
 			return s;
 		}
-    }
+    }*/
 	
 	getReceptorStatus(condition, receptorType) {
 		let listObs = this.getObservationsForCondition(condition, ReceptorStatusObservation);

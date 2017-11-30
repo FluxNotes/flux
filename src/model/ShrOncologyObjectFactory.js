@@ -1,21 +1,21 @@
-import BreastCancer from './shr/oncology/BreastCancer';
 import BreastCancerReceptorStatus from './shr/oncology/BreastCancerReceptorStatus';
 import EstrogenReceptorStatus from './shr/oncology/EstrogenReceptorStatus';
+import FluxBreastCancer from './oncology/FluxBreastCancer';
 import FluxHistologicGrade from './oncology/FluxHistologicGrade';
+import FluxProgression from './oncology/FluxProgression';
 import FluxTNMStage from './oncology/FluxTNMStage';
+import FluxToxicReactionToTreatment from './oncology/FluxToxicReactionToTreatment';
+import FluxTumorSize from './oncology/FluxTumorSize';
 import T_Stage from './shr/oncology/T_Stage';
 import N_Stage from './shr/oncology/N_Stage';
 import M_Stage from './shr/oncology/M_Stage';
-import FluxProgression from './oncology/FluxProgression';
 import ProgesteroneReceptorStatus from './shr/oncology/ProgesteroneReceptorStatus';
-import FluxToxicReactionToTreatment from './oncology/FluxToxicReactionToTreatment';
-import FluxTumorSize from './oncology/FluxTumorSize';
 import Lang from 'lodash';
 
 export default class ShrOncologyObjectFactory {
     static createInstance(elementName, entry) {
         const _elementsToClassNames = { 
-                                "BreastCancer": BreastCancer,
+                                "BreastCancer": FluxBreastCancer,
                                 "BreastCancerReceptorStatus": BreastCancerReceptorStatus,
                                 "EstrogenReceptorStatus": EstrogenReceptorStatus,
                                 "HistologicGrade": FluxHistologicGrade,

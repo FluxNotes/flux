@@ -10,74 +10,26 @@ class SummaryMetadata {
                 {
                     name: "Summary",
                     type: "NameValuePairs",
-                    data: [ 
-                        // {
-                        //     name: "Identification",
-                        //     items: [
-                        //         {
-                        //             name: "Family Name",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 let name = patient.getName(patient);
-                        //                 let string = name.split(" ");
-                        //                 let familyName = string[1];
-                        //                 return familyName;
-                        //             },
-                        //             shortcut: "@name"
-                        //         },
-                        //         {
-                        //             name: "Given Name",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 let name = patient.getName(patient);
-                        //                 let string = name.split(" ");
-                        //                 let givenName = string[0];
-                        //                 return givenName;
-                        //             },
-                        //             shortcut: "@name"
-                        //         }
-                        //     ]
-                        // },
-                        // {
-                        //     name: "Address",
-                        //     items: [
-                        //         {
-                        //             name: "Street",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 return patient.getCurrentHomeAddress(patient).addressLine[0].value;
-                        //             }
-                        //         },
-                        //         {
-                        //             name: "City, state",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 return (`${patient.getCurrentHomeAddress(patient).city.value}, ${patient.getCurrentHomeAddress(patient).state.value}`);
-                        //             }
-                        //         },
-                        //         {
-                        //             name: "Postal Code",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 if (patient.getCurrentHomeAddress(patient)._postalCode) {
-                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value
-                        //                 } else {
-                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value;
-                        //                 }
-                        //
-                        //             }
-                        //         },
-                        //     ]
-                        // },
+                    narrative: 
+                    "Patient is presenting with ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}.",
+                    data: [
                         {
                             name: "Current Diagnosis",
                             items: [
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return currentConditionEntry.specificType.value.coding[0].displayText.value;
+                                        //return currentConditionEntry.specificType.value.coding[0].displayText.value;
+                                        return currentConditionEntry.type;
+                                        
                                     },
                                     shortcut: "@condition"
                                 },
                                 {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
-                                        let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
+                                        //let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
+                                        let s = currentConditionEntry.getMostRecentStaging();
                                         if (s && s.stage && s.stage.length > 0) {
                                             return s.stage;
                                         } else {
@@ -89,7 +41,7 @@ class SummaryMetadata {
                                 {
                                     name: "Progression",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
@@ -100,7 +52,7 @@ class SummaryMetadata {
                                 {
                                     name: "Rationale",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {

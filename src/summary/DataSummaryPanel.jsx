@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
+import NarrativeComponent from './NarrativeComponent';
+//import Tabs, {Tab} from 'material-ui/Tabs';
+import Button from '../elements/Button';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
@@ -29,9 +32,20 @@ class DataSummaryPanel extends Component {
     renderedSection(section) {
         const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
-        if (section.type === 'NameValuePairs') {
+        if (section.type === 'NameValuePairs' && !section.narrative) {
             return (
                 <DataSummaryTable
+                    patient={patient}
+                    condition={condition}
+                    conditionSection={section}
+                    onItemClicked={onItemClicked}
+                    allowItemClick={allowItemClick}
+                    isWide={isWide}
+                />
+            );
+        } else if (section.type === 'NameValuePairs' && section.narrative) {
+            return (
+                <NarrativeComponent
                     patient={patient}
                     condition={condition}
                     conditionSection={section}
