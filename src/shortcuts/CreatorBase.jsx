@@ -24,6 +24,7 @@ export default class CreatorBase extends Shortcut {
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
         this.values = {};
+        this.isSet = {};
         metadataVOA.forEach((attrib) => {
             if (Lang.isUndefined(attrib["attribute"])) {
                 this.values[attrib.name] = false;
