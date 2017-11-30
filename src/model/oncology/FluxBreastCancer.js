@@ -1,6 +1,7 @@
 import BreastCancer from '../shr/oncology/BreastCancer';
-//import FluxProgression from './FluxProgression';
+import FluxTest from '../lab/FluxTest';
 import FluxTNMStage from './FluxTNMStage';
+import ReceptorStatusObservation from '../shr/oncology/ReceptorStatusObservation';
 import SpecificType from '../shr/core/SpecificType';
 import Lang from 'lodash'
 import moment from 'moment';
@@ -26,6 +27,10 @@ class FluxBreastCancer extends BreastCancer {
 			return item instanceof type;
 		});
     }
+    
+   	getTests() {
+		return this.getObservationsOfType(FluxTest);
+	}
 
    	_observationTimeSorter(a, b) {
 		const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
@@ -34,6 +39,24 @@ class FluxBreastCancer extends BreastCancer {
 		if (a_startTime > b_startTime) { return 1; }
 		return 0;
 	}
+
+	_getReceptorStatus(receptorType) {
+		let listObs = this.getObservationsOfType(ReceptorStatusObservation);
+		let list = listObs.filter((item) => {
+			return item.receptorType.value.coding[0].value === receptorType;
+		});
+		if (list.length === 0) return null; else return list[0];
+	}
+    
+    getERReceptorStatus() {
+        return this._getReceptorStatus("23307004");
+    }
+    getPRReceptorStatus() {
+        return this._getReceptorStatus("C0034833");
+    }
+    getHER2ReceptorStatus() {
+        return this._getReceptorStatus("C0069515");
+    }
 
     getMostRecentStaging(sinceDate = null) {
 		let stagingList = this.getObservationsOfType(FluxTNMStage);

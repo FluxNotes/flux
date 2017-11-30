@@ -20,7 +20,6 @@ class SummaryMetadata {
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        //return currentConditionEntry.specificType.value.coding[0].displayText.value;
                                         return currentConditionEntry.type;
                                         
                                     },
@@ -29,7 +28,6 @@ class SummaryMetadata {
                                 {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
-                                        //let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
                                         let s = currentConditionEntry.getMostRecentStaging();
                                         if (s && s.stage && s.stage.length > 0) {
                                             return s.stage;
@@ -154,7 +152,6 @@ class SummaryMetadata {
                                 {
                                     name: "Diagnosis",
                                     value: (patient, currentConditionEntry) => {
-                                        //return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
                                         return currentConditionEntry.diagnosisDate;
                                     }
                                 },
@@ -198,7 +195,7 @@ class SummaryMetadata {
                                 {
                                     name: "Size",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxTumorSize);
+                                        let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
                                         return list[0].quantity.value + " " + list[0].quantity.unit;
                                     }
                                 },
@@ -209,14 +206,14 @@ class SummaryMetadata {
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxHistologicGrade);
+                                        let list = currentConditionEntry.getObservationsOfType(FluxHistologicGrade);
                                         return list[0].grade;
                                     }
                                 },
                                 {
                                     name: "Receptor Status ER",
                                     value: (patient, currentConditionEntry) => {
-                                        let er = patient.getReceptorStatus(currentConditionEntry, "23307004");
+                                        let er = currentConditionEntry.getERReceptorStatus();
                                         if (Lang.isNull(er)) {
                                             return null;
                                         } else {
@@ -227,7 +224,7 @@ class SummaryMetadata {
                                 {
                                     name: "Receptor Status PR",
                                     value: (patient, currentConditionEntry) => {
-                                        let pr = patient.getReceptorStatus(currentConditionEntry, "C0034833");
+                                        let pr = currentConditionEntry.getPRReceptorStatus();
                                         if (Lang.isNull(pr)) {
                                             return null;
                                         } else {
@@ -238,7 +235,7 @@ class SummaryMetadata {
                                 {
                                     name: "Receptor Status HER2",
                                     value: (patient, currentConditionEntry) => {
-                                        let her2 = patient.getReceptorStatus(currentConditionEntry, "C0069515");
+                                        let her2 = currentConditionEntry.getHER2ReceptorStatus();
                                         if (Lang.isNull(her2)) {
                                             return null;
                                         } else {
@@ -347,7 +344,8 @@ class SummaryMetadata {
     }
 
     getItemListForLabResults(patient, currentConditionEntry) {
-        const labResults = patient.getTestsForCondition(currentConditionEntry);
+        //const labResults = patient.getTestsForCondition(currentConditionEntry);
+        const labResults = currentConditionEntry.getTests();
 
         return labResults.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit}`;

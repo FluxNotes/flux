@@ -6,11 +6,8 @@ import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescr
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
-import FluxTest from '../model/lab/FluxTest';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
-import ReceptorStatusObservation from '../model/shr/oncology/ReceptorStatusObservation';
-//import FluxTNMStage from '../model/oncology/FluxTNMStage';
 import Lang from 'lodash'
 import moment from 'moment';
 import Guid from 'guid';
@@ -22,9 +19,6 @@ class PatientRecord {
             this.personOfRecord = this.getPersonOfRecord();
             this.shrId = this.personOfRecord.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;
-            /*this.patientFocalSubject = {    "entryType": this.personOfRecord.entryType[0],
-                                            "shrId": this.shrId,
-                                            "entryId": this.personOfRecord.entryId };*/
         } else { // create a new patient
             this.entries = [];
             this.personOfRecord = null;
@@ -81,7 +75,6 @@ class PatientRecord {
 	getDateOfBirth() {
 		let personOfRecord = this.getPersonOfRecord();
 		if (Lang.isNull(personOfRecord)) return null;
-		//return new moment(personOfRecord.dateOfBirth.value, "D MMM YYYY");
         return personOfRecord.dateOfBirth.value;
 	}
 	
@@ -105,7 +98,6 @@ class PatientRecord {
 	}
 	
 	getPersonOfRecord() {
-		//return this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/PersonOfRecord");
         return this.getMostRecentEntryOfType(PersonOfRecord);
 	}
 	
@@ -117,7 +109,6 @@ class PatientRecord {
 	}
 	
 	getMostRecentPhoto() {
-		//let photoEntry = this.getMostRecentEntryOfType("http://standardhealthrecord.org/demographics/Photograph");
         let photoEntry = this.getMostRecentEntryOfType(Photograph);
 		if (Lang.isNull(photoEntry)) return null;
 		return photoEntry.filePath;
@@ -132,7 +123,6 @@ class PatientRecord {
 	}
 	
 	getConditions() {
-		//let result = this.getEntriesIncludingType("http://standardhealthrecord.org/condition/Condition");
         let result = this.getEntriesIncludingType(Condition);
 		return result;
 	}
@@ -185,10 +175,6 @@ class PatientRecord {
         });
         return medications;
     }
-
-	getTestsForCondition(condition) {
-		return this.getObservationsForCondition(condition, FluxTest);
-	}
 	
 	getProcedures() {
 		return this.getEntriesOfType(FluxProcedure);
@@ -211,37 +197,7 @@ class PatientRecord {
         procedures.sort(this._proceduresTimeSorter);
         return procedures;
 	}
-
-	getObservationsForCondition(condition, type) {
-        if (!condition.observation) return [];
-		return condition.observation.filter((item) => { 
-			return item instanceof type;
-		});
-	}
-	/*
-	getMostRecentStagingForCondition(condition, sinceDate = null) {
-		let stagingList = this.getObservationsForCondition(condition, FluxTNMStage);
-		if (stagingList.length === 0) return null;
-        const sortedStagingList = stagingList.sort(this._observationTimeSorter);
-        const length = sortedStagingList.length;
-        let s = (sortedStagingList[length - 1]);
-		if (Lang.isNull(sinceDate)) return s;
-		const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
-		if (startTime < sinceDate) {
-			return null;
-		} else {
-			return s;
-		}
-    }*/
-	
-	getReceptorStatus(condition, receptorType) {
-		let listObs = this.getObservationsForCondition(condition, ReceptorStatusObservation);
-		let list = listObs.filter((item) => {
-			return item.receptorType.value.coding[0].value === receptorType;
-		});
-		if (list.length === 0) return null; else return list[0];
-	}
-	
+		
 	getProgressions() {
 		return this.getEntriesOfType(FluxProgression);
 	}
@@ -326,7 +282,6 @@ class PatientRecord {
 
 	// generic methods
 	getEntriesIncludingType(type) {
-		//return this.entries.filter((item) => { return item.itemInfo.entryType.some((t) => { return t === type; }) });
         return this.entries.filter((item) => { return item instanceof type });
 	}
 	
