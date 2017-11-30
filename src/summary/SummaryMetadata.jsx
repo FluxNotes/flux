@@ -279,6 +279,28 @@ class SummaryMetadata {
                             ]
                         }
                     ]
+                },
+                {
+                    name: "Timeline",
+                    type: "Events",
+                    data: [
+                        {
+                            name: "Medications",
+                            eventsFunction: this.getMedicationItems
+                        },
+                        {
+                            name: "Procedures",
+                            eventsFunction: this.getProcedureItems
+                        },
+                        {
+                            name: "Key Events",
+                            eventsFunction: this.getEventItems
+                        },
+                        {
+                            name: "Progressions",
+                            eventsFunction: this.getProgressionItems
+                        }
+                    ]
                 }
             ]
         },
@@ -366,6 +388,183 @@ class SummaryMetadata {
             };
         });
     }
+
+    getMedicationItems = (patient, condition, groupStartIndex) => {
+        const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
+        let items = [];
+
+        meds.forEach((med) => {
+            const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+            const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            const assignedGroup = this.assignItemToGroup(items, startTime, groupStartIndex);
+            const name = med.medication;
+            const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+            items.push({
+                group: assignedGroup,
+                title: name,
+                details: dosage,
+                hoverTitle: name,
+                hoverText: dosage,
+                className: 'medication-item',
+                start_time: startTime,
+                end_time: endTime
+            });
+        });
+
+        return items;
+    };
+
+    getProcedureItems = (patient, condition, groupStartIndex) => {
+        const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
+        let items = [];
+  
+        procedures.forEach((proc) => {
+            let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
+            let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
+            const assignedGroup = this.assignItemToGroup(items, startTime, groupStartIndex);
+  
+            let classes = 'event-item';
+            //let endDate = proc.endDate;
+            let hoverText = '';
+  
+            if (!Lang.isNull(endTime)) {
+                hoverText = `${startTime.format('MM/DD/YYYY')} ― ${endTime.format('MM/DD/YYYY')}`;
+            } else {
+                hoverText = `${startTime.format('MM/DD/YYYY')}`;
+                endTime = startTime.clone().add(1, 'day');
+                classes += ' point-in-time';
+            }
+  
+            if (proc.specificType.value.coding[0].displayText) {
+                hoverText += ` : ${proc.specificType.value.coding[0].displayText.value}`;
+            }
+  
+            items.push({
+                group: assignedGroup,
+                icon: 'hospital-o',
+                className: classes,
+                hoverTitle: proc.specificType.value.coding[0].displayText.value,
+                hoverText: hoverText,
+                start_time: startTime,
+                end_time: endTime
+            });
+        });
+
+        return items;
+    };
+
+    getEventItems = (patient, condition, groupStartIndex) => {
+        const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
+        let items = [];
+
+        events.forEach((evt) => {
+            const assignedGroup = this.assignItemToGroup(items, evt.start_time, groupStartIndex);
+
+            let classes = 'progression-item';
+            let startDate = new moment(evt.start_time, "D MMM YYYY");
+            let endDate = null;
+            let hoverText = '';
+            let hoverTitle = '';
+
+            if (evt.end_time) {
+                endDate = new moment(evt.end_time, "D MMM YYYY");
+                hoverText = `${startDate.format('MM/DD/YYYY')} ― ${endDate.format('MM/DD/YYYY')}`;
+            } else {
+                hoverText = `${startDate.format('MM/DD/YYYY')}`;
+                endDate = startDate.clone().add(1, 'day');
+                classes += ' point-in-time';
+            }
+        
+            hoverTitle = evt.name;
+                
+            items.push({
+                group: assignedGroup,
+                icon: 'heartbeat',
+                className: classes,
+                hoverTitle: hoverTitle,
+                hoverText: hoverText,
+                start_time: startDate,
+                end_time: endDate
+            });
+        });
+        
+        return items;
+    };
+    
+    getProgressionItems = (patient, condition, groupStartIndex) => {
+        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
+        let items = [];
+        
+        progressions.forEach((prog) => {
+            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
+
+            let classes = 'progression-item';
+            // Do not include progression on timeline if asOfDate is null
+            if (prog.asOfDate == null) return;
+            let startDate = new moment(prog.asOfDate, "D MMM YYYY");
+            let hoverText = `${startDate.format('MM/DD/YYYY')}`;
+            let endDate = startDate.clone().add(1, 'day');
+            classes += ' point-in-time';
+            
+            let focalCondition = patient.getFocalConditionForProgression(prog);
+            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
+            
+            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
+
+            items.push({
+                group: assignedGroup,
+                icon: 'heartbeat',
+                className: classes,
+                hoverTitle: hoverTitle,
+                hoverText: hoverText,
+                start_time: startDate,
+                end_time: endDate
+            });
+        });
+
+        return items;
+    };
+
+    // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
+    // existing timeline items. If firstAvailableGroup is provided, the group assigned
+    // will not be less than the firstAvailableGroup.
+    assignItemToGroup = (existingItems, startTime, firstAvailableGroup) => {
+        let availableGroup = firstAvailableGroup || 1;
+        let assignedGroup = null;
+
+        while (!assignedGroup) {
+            const existingItemsInGroup = this.filterItemsByGroup(existingItems, availableGroup);
+            let conflict = false;
+    
+            for (let i = 0; i < existingItemsInGroup.length; i++) {
+                const existingItem = existingItemsInGroup[i];
+                // At the current group level, the new item conflicts with an existing item
+                if (startTime < existingItem.end_time && startTime >= existingItem.start_time) {
+                    conflict = true;
+                    break;
+                }
+            }
+            if (conflict) {
+                availableGroup += 1;
+                conflict = false;
+            } else {
+                assignedGroup = availableGroup;
+            }
+        }
+        return assignedGroup;
+    };
+
+    filterItemsByGroup = (items, group) => {
+        let subset = [];
+
+        items.forEach((item) => {
+            if (item.group === group) {
+                subset.push(item);
+            }
+        });
+
+        return subset;
+    };
 }
 
 export default SummaryMetadata;
