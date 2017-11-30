@@ -12,7 +12,7 @@ class SummaryMetadata {
                     type: "NameValuePairs",
                     narrative: 
 /*eslint no-template-curly-in-string: "off"*/
-                    "Patient is presenting with ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
+                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
                     data: [
                         {
                             name: "Current Diagnosis",
@@ -181,6 +181,9 @@ class SummaryMetadata {
                 {
                     name: "Pathology Results (Initial Diagnosis)",
                     type: "NameValuePairs",
+                    narrative: 
+/*eslint no-template-curly-in-string: "off"*/
+                    "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}. Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}. ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}",
                     data: [
                         {
                             name: "",
@@ -250,6 +253,9 @@ class SummaryMetadata {
                 {
                     name: "Genetics",
                     type: "NameValuePairs",
+                    narrative: 
+/*eslint no-template-curly-in-string: "off"*/
+                    "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}. Genetic Testing is ${.Genetic Testing}.",
                     data: [
                         {
                             name: "",

@@ -54,11 +54,15 @@ class NarrativeComponent extends Component {
     }
             
     populateTemplate(template, subsections) {
-        let result = "";        
+        /* returns a list of snippets of the narrative. Each snippet object has the following attributes:
+            text: the text to display
+            type: plain, missing, or structured-data
+        */
+        let result = [];
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
-        let list, item, value, valueSpec, subsectionName, valueName;
+        let list, item, value, type, valueSpec, subsectionName, valueName;
         let _filterItemsByName = (item) => {
             return item.name === valueName;
         };
@@ -66,17 +70,20 @@ class NarrativeComponent extends Component {
             return item.name + ": " + item.value;
         };
         while (pos !== -1) {
-            result += template.substring(start, pos);
+            result.push( { text: template.substring(start, pos), type: 'plain'} );
             endpos = template.indexOf("}", pos);
             valueSpec = template.substring(pos + 2, endpos);
             index = valueSpec.indexOf(".");
             if (index === -1) {
                 subsectionName = valueSpec;
-                //console.log(subsectionName);
-                //console.log(subsections[subsectionName]);
                 list = this.getList(subsections[subsectionName]);
-                //console.log(list);
-                value = list.map(_addLabResultToNarrative).join(", ");
+                if (Lang.isNull(list)) {
+                    value = "missing";
+                    type = "missing";
+                } else {
+                    value = list.map(_addLabResultToNarrative).join(", ");
+                    type = "structured-data";
+                }
             } else {
                 subsectionName = valueSpec.substring(0, index);
                 valueName = valueSpec.substring(index + 1);
@@ -89,11 +96,13 @@ class NarrativeComponent extends Component {
                 item = list.find(_filterItemsByName);
                 if (item.value) {
                     value = item.value;
+                    type = "structured-data";
                 } else {
                     value = "missing";
+                    type = "missing";
                 }
             }
-            result += value;
+            result.push( { text: value, type: type } );
             start = endpos + 1;
             if (endpos < len) {
                 pos = template.indexOf("${", endpos+1);
@@ -101,7 +110,7 @@ class NarrativeComponent extends Component {
                 pos = -1;
             }
         }
-        if (start < len) result += template.substring(start);
+        if (start < len) result.push( { text: template.substring(start), type: 'plain' } );
         return result;
     }
 
@@ -112,9 +121,15 @@ class NarrativeComponent extends Component {
 
         const narrative = this.populateTemplate(template, subsections);
         
+        let content = [];
+        narrative.forEach((snippet, index) => {
+            if (snippet.type === 'plain') content.push(<span key={index}>{snippet.text}</span>);
+            if (snippet.type === 'missing') content.push(<span key={index} style={{borderBottom: '1px solid red'}}>{snippet.text}</span>);
+            if (snippet.type === 'structured-data') content.push(<span key={index} style={{borderBottom: '1px solid blue'}}>{snippet.text}</span>);
+        }); 
         return (
             <div>
-                <p>{narrative}</p>
+                <p>{content}</p>
             </div>
         );
     }
