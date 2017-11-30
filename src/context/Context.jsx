@@ -93,7 +93,7 @@ export default class Context {
         return this.key;
     }
     setKey(key) {
-        //console.log("setKey: " + this.constructor.name);
+        //console.log("setKey: " + this.constructor.name + " to " + key);
         this.key = key;
 		if (this.isContext()) {
             this.contextManager.addShortcutToContext(this);

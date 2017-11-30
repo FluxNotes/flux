@@ -36,11 +36,14 @@ export default class CreatorIntermediary extends Shortcut {
     shouldBeInContext() {
         //console.log(this.getShortcutType() + " " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
-        let value, result = false;
+        //let value, result = false;
+        let isSet, result = false;
         voaList.forEach((voa) => {
             //console.log(voa);
-            value = this.getAttributeValue(voa.name);
-            if (Lang.isNull(value)) {
+            //value = this.getAttributeValue(voa.name);
+            isSet = this.getAttributeIsSet(voa.name);
+            //console.log(voa.name + ": " + isSet);
+/*            if (Lang.isNull(value)) {
                 result = true;
                 return;
             }
@@ -60,8 +63,13 @@ export default class CreatorIntermediary extends Shortcut {
                     result = true;
                     return;
                 }
+            }*/
+            if (!isSet) {
+                result = true;
+                return;
             }
         });
+        //console.log(this.getShortcutType() + " (CreatorIntermediary) is in context: " + result);
         return result;
     }
 
@@ -74,6 +82,18 @@ export default class CreatorIntermediary extends Shortcut {
         this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
         this.parentContext.removeChild(this);
         return result;
+    }
+    
+    getAttributeIsSet(name) {
+        const voaList = this.metadata["valueObjectAttributes"];
+        let result = voaList.filter(function (item) {
+            return item.name === name;
+        });
+        if (result && result[0]) {
+            return this.parentContext.getAttributeIsSet(result[0].toParentAttribute);
+        } else {
+            throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
+        }
     }
 
     getAttributeValue(name) {
@@ -97,7 +117,7 @@ export default class CreatorIntermediary extends Shortcut {
         });
         if (result && result[0]) {
             this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges);
-            this.updateContextStatus();
+            if (this.isContext()) this.updateContextStatus();
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
