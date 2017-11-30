@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DataSummaryTable from './DataSummaryTable';
 import NarrativeComponent from './NarrativeComponent';
 //import Tabs, {Tab} from 'material-ui/Tabs';
-import Button from '../elements/Button';
+//import Button from '../elements/Button';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 

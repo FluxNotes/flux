@@ -11,7 +11,8 @@ class SummaryMetadata {
                     name: "Summary",
                     type: "NameValuePairs",
                     narrative: 
-                    "Patient is presenting with ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}.",
+/*eslint no-template-curly-in-string: "off"*/
+                    "Patient is presenting with ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
                     data: [
                         {
                             name: "Current Diagnosis",
@@ -45,7 +46,7 @@ class SummaryMetadata {
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
-                                            return p.status;
+                                            return p.status + " (" + p.asOfDate + ")";
                                         }
                                     }
                                 },
@@ -153,7 +154,8 @@ class SummaryMetadata {
                                 {
                                     name: "Diagnosis",
                                     value: (patient, currentConditionEntry) => {
-                                        return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
+                                        //return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
+                                        return currentConditionEntry.diagnosisDate;
                                     }
                                 },
                                 {

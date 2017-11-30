@@ -7,6 +7,9 @@ import moment from 'moment';
 import lookup from '../../lib/cancer_lookup.jsx';
 
 class FluxBreastCancer extends BreastCancer {
+    get diagnosisDate() {
+        return this.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
+    }
     get type() {
         if (!this.specificType) return null;
         return this.specificType.value.coding[0].displayText.value;
