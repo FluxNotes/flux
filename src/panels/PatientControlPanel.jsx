@@ -44,14 +44,18 @@ class PatientControlPanel extends Component {
                             
                             <Col sm={3}>
                                 <Row middle="xs">
-                                    <Col sm={5}>
+                                    <Col sm={1}>
+
+                                    </Col>
+
+                                    <Col sm={4}>
                                         {login}
                                     </Col>
-                                    
+
                                     <Col sm={1}>
                                         <div className="vertical-divider"></div>
                                     </Col>
-                                    
+
                                     <Col sm={6}>
                                         <div className="search-wrapper">
                                             <span className="fa fa-search search-icon"></span>
@@ -73,6 +77,8 @@ class PatientControlPanel extends Component {
 }
 
 PatientControlPanel.propTypes = {
+    appTitle: PropTypes.string.isRequired,
+    supportLogin: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,

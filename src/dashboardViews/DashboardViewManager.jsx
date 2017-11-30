@@ -48,6 +48,8 @@ class DashboardViewManager extends Component {
 }
 
 DashboardViewManager.proptypes = {
+    appTitle: PropTypes.string.isRequired,
+    supportLogin: PropTypes.bool.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     dataAccess: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
