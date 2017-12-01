@@ -129,15 +129,6 @@ class FullApp extends Component {
         }
     }
 
-    // Handle creating a new note
-    handleNewNote() {
-        console.log("new note");
-    }
-
-    menuItems = [
-//        {label: "New Note", action: this.handleNewNote.bind(this)}
-    ];
-
     render() {
         return (
             <MuiThemeProvider theme={theme}>
