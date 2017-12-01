@@ -4,6 +4,8 @@
 
 #pre-encounter-view-content .fitted-panel { 
     overflow-y: scroll;
+    max-height: calc(100vh - 200px);
+    min-height: 500px !important;
 }
 
 #pre-encounter-view-content .full-panel { 

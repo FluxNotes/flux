@@ -26,7 +26,7 @@ class NotesPanel extends Component {
         } else {
             return (
                 <Row center="xs">
-                    <Col sm={8}>
+                    <Col sm={12}>
                         {this.renderNoteAssistant()}
                     </Col>
                 </Row>
