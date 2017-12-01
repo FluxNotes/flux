@@ -44,7 +44,7 @@ class SummaryMetadata {
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
-                                            return p.status + " (" + p.asOfDate + ")";
+                                            return p.status;
                                         }
                                     }
                                 },
