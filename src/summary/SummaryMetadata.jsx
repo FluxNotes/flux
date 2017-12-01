@@ -40,8 +40,8 @@ class SummaryMetadata {
                                 {
                                     name: "Progression",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
-                                        if (Lang.isNull(p)) {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
                                             return p.status;
@@ -49,10 +49,21 @@ class SummaryMetadata {
                                     }
                                 },
                                 {
+                                    name: "As Of Date",
+                                    value: (patient, currentConditionEntry) => {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
+                                            return null;
+                                        } else {
+                                            return p.asOfDate;
+                                        }
+                                    }
+                                },
+                                {
                                     name: "Rationale",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
-                                        if (Lang.isNull(p)) {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
                                             return p.evidence.map(function (ev) {
