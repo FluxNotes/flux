@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import DataSummaryTable from './DataSummaryTable';
-import NarrativeComponent from './NarrativeComponent';
+import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
+import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
@@ -25,7 +25,7 @@ class DataSummaryPanel extends Component {
     }
 
     // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
-    // Current implementation only renders the DataSummaryTable
+    // Current implementation only renders the TabularNameValuePairsVisualizer
     // TODO: Render other types of data. also change how it decides which visualization component to use when
     //       multiple (e.g., NameValuePairs)
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
@@ -35,7 +35,7 @@ class DataSummaryPanel extends Component {
 
         if (section.type === 'NameValuePairs' && !section.narrative) {
             return (
-                <DataSummaryTable
+                <TabularNameValuePairsVisualizer
                     patient={patient}
                     condition={condition}
                     conditionSection={section}
@@ -46,7 +46,7 @@ class DataSummaryPanel extends Component {
             );
         } else if (section.type === 'NameValuePairs' && section.narrative) {
             return (
-                <NarrativeComponent
+                <NarrativeNameValuePairsVisualizer
                     patient={patient}
                     condition={condition}
                     conditionSection={section}

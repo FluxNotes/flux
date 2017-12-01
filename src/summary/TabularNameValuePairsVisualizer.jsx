@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
-import './DataSummaryTable.css';
+import './TabularNameValuePairsVisualizer.css';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
  diagnosis-related, genetics-related, etc.
  */
-class DataSummaryTable extends Component {
+class TabularNameValuePairsVisualizer extends Component {
 
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
@@ -174,7 +174,7 @@ class DataSummaryTable extends Component {
     }
 }
 
-DataSummaryTable.propTypes = {
+TabularNameValuePairsVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
@@ -183,4 +183,4 @@ DataSummaryTable.propTypes = {
     allowItemClick: PropTypes.bool
 };
 
-export default DataSummaryTable;
+export default TabularNameValuePairsVisualizer;
