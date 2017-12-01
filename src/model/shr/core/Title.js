@@ -4,7 +4,9 @@ class Title {
   constructor(json) {
       if (json) {
           if (json.value) this.string = json.value;
-          if (json.value) this._string = json.value;
+          //if (json.value) this._string = json.value;
+      } else {
+          this.string = null;
       }
   }
 
