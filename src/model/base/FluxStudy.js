@@ -7,9 +7,11 @@ class FluxStudy extends Study {
         super(json);
         if (json) {
             if (json.enrollmentDate) this._enrollmentDate = json.enrollmentDate;
+            else this.enrollmentDate = null;
             if (json.endDate) this._endDate = json.endDate;
+            else this.endDate = null;
         } else {
-            this._title = new Title();
+            this.title = null;
         }
     }
 
@@ -18,7 +20,11 @@ class FluxStudy extends Study {
      *  This will return the displayText value from the Title object
      */
     get title() {
-        return this._title.value;
+        if (this._title) {
+            return this._title.value;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -27,9 +33,8 @@ class FluxStudy extends Study {
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
-        let t = new Title();
-        t.value = title;
-        this._title = t;
+        this._title = new Title();
+        this._title.value = title;
     }
 
     /**

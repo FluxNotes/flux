@@ -1,6 +1,7 @@
 import Action from '../base/Action';
 import AssessmentFocus from '../assessment/AssessmentFocus';
 import Category from '../base/Category';
+import ClinicallyRelevantTime from '../observation/ClinicallyRelevantTime';
 import Entry from '../base/Entry';
 import Status from '../base/Status';
 
@@ -10,6 +11,8 @@ class Assessment extends Action {
         super(json);
         if (json) {
             this._entryInfo = new Entry(json);
+            if (json.clinicallyRelevantTime) this._clinicallyRelevantTime = new ClinicallyRelevantTime(json.clinicallyRelevantTime);
+            else this._clinicallyRelevantTime = null;
             if (json.category) this._category = json.category.map((c) => new Category(c));
             if (json.status) this._status = new Status(json.status);
             if (json.assessmentFocus) this._assessmentFocus = json.assessmentFocus.map((a) => new AssessmentFocus(a));
