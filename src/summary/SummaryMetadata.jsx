@@ -356,8 +356,20 @@ class SummaryMetadata {
                         type: "Events",
                         data: [
                             {
+                                name: "Medications",
+                                eventsFunction: this.getMedicationItems
+                            },
+                            {
+                                name: "Procedures",
+                                eventsFunction: this.getProcedureItems
+                            },
+                            {
                                 name: "Key Events",
                                 eventsFunction: this.getEventItems
+                            },
+                            {
+                                name: "Progressions",
+                                eventsFunction: this.getProgressionItems
                             }
                         ]
                     }
@@ -397,6 +409,7 @@ class SummaryMetadata {
     }
 
     getMedicationItems = (patient, condition, groupStartIndex) => {
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         let items = [];
 
@@ -422,7 +435,7 @@ class SummaryMetadata {
     }
 
     getProcedureItems = (patient, condition, groupStartIndex) => {
-        if(Lang.isNull(condition)) return [];
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
         let items = [];
   
@@ -462,7 +475,7 @@ class SummaryMetadata {
     }
 
     getEventItems = (patient, condition, groupStartIndex) => {
-        if(Lang.isNull(condition)) return [];
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const events = patient.getKeyEventsForConditionChronologicalOrder(condition);
         let items = [];
 
@@ -501,6 +514,7 @@ class SummaryMetadata {
     }
     
     getProgressionItems = (patient, condition, groupStartIndex) => {
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
         let items = [];
         

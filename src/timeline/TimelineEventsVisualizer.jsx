@@ -5,33 +5,12 @@ import HoverItem from './HoverItem';
 import Timeline from 'react-calendar-timeline';
 import Item from './Item';
 import moment from 'moment';
-import './FluxTimeline.css';
+import './TimelineEventsVisualizer.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-class FluxTimeline extends Component {
+class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
-
-        //Create groups and items to display on the timeline
-        let items = [];
-        props.section.data.forEach((item, i) => {
-            items = items.concat(item.eventsFunction(props.patient, props.condition, i));
-        });
-
-        // Create groups for the items
-        const groups = this.createGroupsForItems(this.getMaxGroup(items));
-
-        // Assign every item an ID and onClick handler
-        for (let i = 0; i < items.length; i++) {
-            const id = i + 1;
-            const hoverTitle = items[i].hoverTitle;
-            const hoverText = items[i].hoverText;
-            items[i]['id'] = id;
-            items[i]['itemProps'] = {
-                onMouseEnter: (e) => this.enterItemHover(e, id, hoverTitle, hoverText),
-                onMouseLeave: (e) => this.leaveItemHover(e)
-            };
-        }
 
         // Define the bounds of the timeline
         let defaultTimeStart = moment().clone().add(-1, 'years');  // default - 1 years ago
@@ -41,8 +20,6 @@ class FluxTimeline extends Component {
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
 
         this.state = {
-            items: items,
-            groups: groups,
             defaultTimeStart: defaultTimeStart,
             defaultTimeEnd: defaultTimeEnd,
             timeSteps: {
@@ -61,6 +38,30 @@ class FluxTimeline extends Component {
             }
         };
     };
+
+    createItems = () => {
+        const {patient, condition, section} = this.props;
+
+        // Create groups and items to display on the timeline
+        let items = [];
+        section.data.forEach((item, i) => {
+            items = items.concat(item.eventsFunction(patient, condition, i));
+        });
+
+        // Assign every item an ID and onClick handler
+        items.forEach((item, i) => {
+            const id = i + 1;
+            const hoverTitle = item.hoverTitle;
+            const hoverText = item.hoverText;
+            item.id = id;
+            item.itemProps = {
+                onMouseEnter: (e) => this.enterItemHover(e, id, hoverTitle, hoverText),
+                onMouseLeave: (e) => this.leaveItemHover(e)
+            }; 
+        });
+
+        return items;
+    }
   
     enterItemHover = (e, id, hoverTitle, hoverText) => {
         // Get position of this item on the screen
@@ -80,7 +81,7 @@ class FluxTimeline extends Component {
             style: style
         };
         this.setState({'hoverItem': hoverItemState});
-    };
+    }
 
     leaveItemHover = (e) => {
         e.preventDefault();
@@ -90,7 +91,7 @@ class FluxTimeline extends Component {
             }
         };
         this.setState({'hoverItem': defaultHoverItemState});
-    };
+    }
 
     // Create a set of groups that match those used by the items.
     createGroupsForItems = (numGroups) => {
@@ -102,7 +103,7 @@ class FluxTimeline extends Component {
         }
 
         return groups;
-    };
+    }
 
     getMaxGroup = (items) => {
         let max = 1;
@@ -114,9 +115,12 @@ class FluxTimeline extends Component {
         });
 
         return max;
-    };
+    }
 
     render() {
+        const items = this.createItems();
+        const groups = this.createGroupsForItems(this.getMaxGroup(items));
+
         return (
             <div 
                 id="timeline" 
@@ -128,8 +132,8 @@ class FluxTimeline extends Component {
                     style={this.state.hoverItem.style}
                 />
                 <Timeline
-                    groups={this.state.groups}
-                    items={this.state.items}
+                    groups={groups}
+                    items={items}
                     defaultTimeStart={this.state.defaultTimeStart}
                     defaultTimeEnd={this.state.defaultTimeEnd}
                     rightSidebarWidth={0}
@@ -152,11 +156,11 @@ class FluxTimeline extends Component {
     }
 }
 
-FluxTimeline.propTypes = { 
+TimelineEventsVisualizer.propTypes = { 
     isWide: PropTypes.bool.isRequired,
     className: PropTypes.string,
     patient: PropTypes.object.isRequired,
     condition: PropTypes.object
 };
 
-export default FluxTimeline;
+export default TimelineEventsVisualizer;
