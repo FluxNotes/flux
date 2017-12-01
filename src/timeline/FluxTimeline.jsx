@@ -12,13 +12,11 @@ class FluxTimeline extends Component {
     constructor(props) {
         super(props);
 
-        // Create groups and items to display on the timeline
-        let items = props.section.data.map((item, i) => {
-            console.log(item);
-            return item.eventsFunction(props.patient, props.condition, i);
+        //Create groups and items to display on the timeline
+        let items = [];
+        props.section.data.forEach((item, i) => {
+            items = items.concat(item.eventsFunction(props.patient, props.condition, i));
         });
-
-        console.log(items);
 
         // Create groups for the items
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
@@ -26,9 +24,11 @@ class FluxTimeline extends Component {
         // Assign every item an ID and onClick handler
         for (let i = 0; i < items.length; i++) {
             const id = i + 1;
+            const hoverTitle = items[i].hoverTitle;
+            const hoverText = items[i].hoverText;
             items[i]['id'] = id;
             items[i]['itemProps'] = {
-                onMouseEnter: (e) => this.enterItemHover(e, id),
+                onMouseEnter: (e) => this.enterItemHover(e, id, hoverTitle, hoverText),
                 onMouseLeave: (e) => this.leaveItemHover(e)
             };
         }
@@ -62,7 +62,7 @@ class FluxTimeline extends Component {
         };
     };
   
-    enterItemHover = (e, id) => {
+    enterItemHover = (e, id, hoverTitle, hoverText) => {
         // Get position of this item on the screen
         e.preventDefault();
         const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
@@ -73,10 +73,10 @@ class FluxTimeline extends Component {
             display: null
         }
   
-        const item = this.state.items[id-1];
+        // const item = items[id-1];
         const hoverItemState = {
-            title: item.hoverTitle,
-            text: item.hoverText,
+            title: hoverTitle,
+            text: hoverText,
             style: style
         };
         this.setState({'hoverItem': hoverItemState});
@@ -91,30 +91,6 @@ class FluxTimeline extends Component {
         };
         this.setState({'hoverItem': defaultHoverItemState});
     };
-
-    // componentWillReceiveProps = (nextProps) => {
-    //     if (this.props !== nextProps) {
-    //         // Create groups and items to display on the timeline
-    //         let items = this._createItemsForPatient(nextProps.patient, nextProps.condition);
-  
-    //         // Create groups for the items
-    //         const groups = this.createGroupsForItems(this.getMaxGroup(items));
-  
-    //         // Assign every item an ID and onClick handler
-    //         for (let i = 0; i < items.length; i++) {
-    //             const id = i + 1;
-    //             items[i]['id'] = id;
-    //             items[i]['itemProps'] = {
-    //                 onMouseEnter: (e) => this._enterItemHover(e, id),
-    //                 onMouseLeave: (e) => this._leaveItemHover(e)
-    //             };
-    //         }
-    //         this.setState({
-    //             items: items,
-    //             groups: groups
-    //         });
-    //     } 
-    // };
 
     // Create a set of groups that match those used by the items.
     createGroupsForItems = (numGroups) => {
