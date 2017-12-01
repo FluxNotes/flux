@@ -6,7 +6,7 @@ import FluxDeceased from '../../../src/model/actor/FluxDeceased';
 import FluxStudy from '../../../src/model/base/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-import util from 'util';
+//import util from 'util';
 
 const noteParser = new NoteParser();
 
