@@ -351,7 +351,10 @@ class TimelinePanel extends Component {
 
     render() {
         return (
-            <div id="timeline" className="dashboard-panel">
+            <div 
+                id="timeline" 
+                className={this.props.className}
+            >
                 <HoverItem
                     title={this.state.hoverItem.title}
                     text={this.state.hoverItem.text}
@@ -383,6 +386,7 @@ class TimelinePanel extends Component {
 }
 
 TimelinePanel.propTypes = { 
+    className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
     condition: PropTypes.object
