@@ -292,6 +292,8 @@ describe('parse', function() {
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
+//        console.log(record);
+//        console.log(expectedOutputDiseaseStatus);
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);
@@ -316,8 +318,8 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
         const record = noteParser.parse(sampleTextClinicalTrial);
-        //console.log(util.inspect(expectedOutputClinicalTrial[0][0]));
-        //console.log(util.inspect(record[0][0]));
+        console.log(util.inspect(expectedOutputClinicalTrial[0][0]));
+        console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrial);

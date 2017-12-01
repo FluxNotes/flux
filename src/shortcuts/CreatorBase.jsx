@@ -272,9 +272,10 @@ export default class CreatorBase extends Shortcut {
         //console.log(this.object);
         //console.log(setMethod);
         if (value == null && voa.default) {
+            console.log("   defaulting to " + voa.default);
             value = voa.default;
             if (value === "$today") {
-                value = new moment();
+                value = new moment().format('D MMM YYYY');
             }
         }
         //console.log("setAttributeValue " + name + " to " + value);
