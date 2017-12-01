@@ -10,74 +10,25 @@ class SummaryMetadata {
                 {
                     name: "Summary",
                     type: "NameValuePairs",
-                    data: [ 
-                        // {
-                        //     name: "Identification",
-                        //     items: [
-                        //         {
-                        //             name: "Family Name",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 let name = patient.getName(patient);
-                        //                 let string = name.split(" ");
-                        //                 let familyName = string[1];
-                        //                 return familyName;
-                        //             },
-                        //             shortcut: "@name"
-                        //         },
-                        //         {
-                        //             name: "Given Name",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 let name = patient.getName(patient);
-                        //                 let string = name.split(" ");
-                        //                 let givenName = string[0];
-                        //                 return givenName;
-                        //             },
-                        //             shortcut: "@name"
-                        //         }
-                        //     ]
-                        // },
-                        // {
-                        //     name: "Address",
-                        //     items: [
-                        //         {
-                        //             name: "Street",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 return patient.getCurrentHomeAddress(patient).addressLine[0].value;
-                        //             }
-                        //         },
-                        //         {
-                        //             name: "City, state",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 return (`${patient.getCurrentHomeAddress(patient).city.value}, ${patient.getCurrentHomeAddress(patient).state.value}`);
-                        //             }
-                        //         },
-                        //         {
-                        //             name: "Postal Code",
-                        //             value: (patient, currentConditionEntry) => {
-                        //                 if (patient.getCurrentHomeAddress(patient)._postalCode) {
-                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value
-                        //                 } else {
-                        //                     return patient.getCurrentHomeAddress(patient).postalCode.value;
-                        //                 }
-                        //
-                        //             }
-                        //         },
-                        //     ]
-                        // },
+                    narrative: 
+/*eslint no-template-curly-in-string: "off"*/
+                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
+                    data: [
                         {
                             name: "Current Diagnosis",
                             items: [
                                 {
                                     name: "Name",
                                     value: (patient, currentConditionEntry) => {
-                                        return currentConditionEntry.specificType.value.coding[0].displayText.value;
+                                        return currentConditionEntry.type;
+                                        
                                     },
                                     shortcut: "@condition"
                                 },
                                 {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
-                                        let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
+                                        let s = currentConditionEntry.getMostRecentStaging();
                                         if (s && s.stage && s.stage.length > 0) {
                                             return s.stage;
                                         } else {
@@ -89,7 +40,7 @@ class SummaryMetadata {
                                 {
                                     name: "Progression",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
@@ -100,7 +51,7 @@ class SummaryMetadata {
                                 {
                                     name: "Rationale",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
                                         if (Lang.isNull(p)) {
                                             return null;
                                         } else {
@@ -201,7 +152,7 @@ class SummaryMetadata {
                                 {
                                     name: "Diagnosis",
                                     value: (patient, currentConditionEntry) => {
-                                        return currentConditionEntry.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
+                                        return currentConditionEntry.diagnosisDate;
                                     }
                                 },
                                 {
@@ -227,6 +178,9 @@ class SummaryMetadata {
                 {
                     name: "Pathology Results (Initial Diagnosis)",
                     type: "NameValuePairs",
+                    narrative: 
+/*eslint no-template-curly-in-string: "off"*/
+                    "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}. Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}. ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}",
                     data: [
                         {
                             name: "",
@@ -241,7 +195,7 @@ class SummaryMetadata {
                                 {
                                     name: "Size",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxTumorSize);
+                                        let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
                                         return list[0].quantity.value + " " + list[0].quantity.unit;
                                     }
                                 },
@@ -252,14 +206,14 @@ class SummaryMetadata {
                                 {
                                     name: "Histological Grade",
                                     value: (patient, currentConditionEntry) => {
-                                        let list = patient.getObservationsForCondition(currentConditionEntry, FluxHistologicGrade);
+                                        let list = currentConditionEntry.getObservationsOfType(FluxHistologicGrade);
                                         return list[0].grade;
                                     }
                                 },
                                 {
                                     name: "Receptor Status ER",
                                     value: (patient, currentConditionEntry) => {
-                                        let er = patient.getReceptorStatus(currentConditionEntry, "23307004");
+                                        let er = currentConditionEntry.getERReceptorStatus();
                                         if (Lang.isNull(er)) {
                                             return null;
                                         } else {
@@ -270,7 +224,7 @@ class SummaryMetadata {
                                 {
                                     name: "Receptor Status PR",
                                     value: (patient, currentConditionEntry) => {
-                                        let pr = patient.getReceptorStatus(currentConditionEntry, "C0034833");
+                                        let pr = currentConditionEntry.getPRReceptorStatus();
                                         if (Lang.isNull(pr)) {
                                             return null;
                                         } else {
@@ -281,7 +235,7 @@ class SummaryMetadata {
                                 {
                                     name: "Receptor Status HER2",
                                     value: (patient, currentConditionEntry) => {
-                                        let her2 = patient.getReceptorStatus(currentConditionEntry, "C0069515");
+                                        let her2 = currentConditionEntry.getHER2ReceptorStatus();
                                         if (Lang.isNull(her2)) {
                                             return null;
                                         } else {
@@ -296,6 +250,9 @@ class SummaryMetadata {
                 {
                     name: "Genetics",
                     type: "NameValuePairs",
+                    narrative: 
+/*eslint no-template-curly-in-string: "off"*/
+                    "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}. Genetic Testing is ${.Genetic Testing}.",
                     data: [
                         {
                             name: "",
@@ -387,7 +344,8 @@ class SummaryMetadata {
     }
 
     getItemListForLabResults(patient, currentConditionEntry) {
-        const labResults = patient.getTestsForCondition(currentConditionEntry);
+        //const labResults = patient.getTestsForCondition(currentConditionEntry);
+        const labResults = currentConditionEntry.getTests();
 
         return labResults.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit}`;

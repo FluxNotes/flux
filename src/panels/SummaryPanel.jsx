@@ -8,9 +8,6 @@ class SummaryPanel extends Component {
     render () { 
         return (
             <div>
-                <h1 className="panel-heading">
-                    Condition Summary
-                </h1>
                 <DataSummaryPanel
                     isWide={this.props.isWide}
                     patient={this.props.appState.patient}
