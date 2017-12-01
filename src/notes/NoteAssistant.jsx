@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Divider from 'material-ui/Divider';
+import Paper from 'material-ui/Paper';
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
 
@@ -23,6 +25,10 @@ class NoteAssistant extends Component {
         );
     }
 
+    test() {
+        console.log("clicked on paper");
+    }
+
     renderNoteAssistantContent(noteAssistantMode) {
 
         switch (noteAssistantMode) {
@@ -42,15 +48,11 @@ class NoteAssistant extends Component {
                 );
             case "clinical-notes":
                 return (
-                    <div>
+                    <div className="clinical-notes-panel">
                         <Button raised
                                 className="resume-note-btn"
                         >Resume in-progress note</Button>
-                        <table>
-                            <tbody>
-                            {this.renderedNotes()}
-                            </tbody>
-                        </table>
+                        {this.renderedNotes()}
                     </div>
                 );
 
@@ -62,21 +64,30 @@ class NoteAssistant extends Component {
 
     renderedNotes() {
         return this.props.patient.getNotes().map((item, i) =>
-
-            <tr className="existing-note-entry" key={i}>
-                <td className="existing-note-date" width="15%">{item.date}</td>
-                <td className="existing-note-metadata" width="55%">
-                    <span id="existing-note-subject">{item.subject}</span> <br/>
-                    <span>{item.hospital}</span> <br/>
-                    <span>{item.clinician}</span>
-                </td>
-                <td className="existing-note-button" width="30%">
-                    <Button raised
-                            className="existing-note-btn"
-                            key={i}
-                    >View Note</Button>
-                </td>
-            </tr>
+            <Paper key={i} className="note" onClick={() => {
+                this.test()
+            }}>
+                <table >
+                    <tbody>
+                    <tr>
+                        <td className="existing-note-date" width="15%">{item.date}</td>
+                    </tr>
+                    <tr>
+                        <td className="existing-note-date" id="existing-note-subject">{item.subject}</td>
+                        </tr>
+                    <Divider />
+                    <tr>
+                        <td className="existing-note-metadata" width="55%">
+                            <span>{item.hospital}</span> <br/>
+                            {/*<span>{item.clinician}</span>*/}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                {/*<svg width="100" height="100">*/}
+                    {/*<circle cx="50" cy="50" r="40" stroke="green"  fill="yellow" />*/}
+                {/*</svg>*/}
+            </Paper>
         );
     }
 
