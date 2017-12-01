@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Lang from 'lodash'
 import moment from 'moment';
 import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
@@ -355,7 +356,6 @@ class SummaryMetadata {
     }
 
     getItemListForLabResults(patient, currentConditionEntry) {
-        //const labResults = patient.getTestsForCondition(currentConditionEntry);
         const labResults = currentConditionEntry.getTests();
 
         return labResults.map((l, i) => {
