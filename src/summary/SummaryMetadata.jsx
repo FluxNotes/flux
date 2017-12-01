@@ -12,7 +12,7 @@ class SummaryMetadata {
                     type: "NameValuePairs",
                     narrative: 
 /*eslint no-template-curly-in-string: "off"*/
-                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
+                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
                     data: [
                         {
                             name: "Current Diagnosis",
