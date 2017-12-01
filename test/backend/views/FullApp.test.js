@@ -4,6 +4,8 @@ import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
 import FullApp from '../../../src/apps/FullApp';
+import SummaryHeader from '../../../src/summary/SummaryHeader';
+import Button from '../../../src/elements/Button';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -30,5 +32,21 @@ describe('setFullAppState', function() {
         wrapper.instance().setFullAppState('testKey', 'testValue');
         expect(wrapper.state('testKey'))
             .to.eq('testValue');
+    });
+});
+
+describe('SummaryHeader', function() {
+    it.only('View buttons update state', function() {
+        const wrapper = shallow(<SummaryHeader />);
+        
+        // Initial state
+        expect(wrapper.state('view'))
+            .to.eq('none');
+
+        // Clicking a View button changes the state
+        const leftView = wrapper.find(Button).find('#left-view-button');
+        leftView.simulate('click');
+        expect(wrapper.state('view'))
+          .to.eq('left');
     });
 });

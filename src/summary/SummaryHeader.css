@@ -30,3 +30,7 @@ h2, h3 {
 .no-wrap {
     white-space: nowrap;
 }
+
+.small-btn {
+    min-width: 0 !important;
+}
