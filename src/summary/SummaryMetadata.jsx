@@ -408,7 +408,7 @@ class SummaryMetadata {
         });
     }
 
-    getMedicationItems = (patient, condition, groupStartIndex) => {
+    getMedicationItems = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         let items = [];
@@ -416,7 +416,7 @@ class SummaryMetadata {
         meds.forEach((med) => {
             const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
             const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
-            const assignedGroup = this.assignItemToGroup(items, startTime, groupStartIndex);
+            const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
             const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
             items.push({

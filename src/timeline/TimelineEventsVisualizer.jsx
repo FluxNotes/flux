@@ -45,7 +45,7 @@ class TimelineEventsVisualizer extends Component {
         // Create groups and items to display on the timeline
         let items = [];
         section.data.forEach((item, i) => {
-            items = items.concat(item.eventsFunction(patient, condition, i));
+            items = items.concat(item.eventsFunction(patient, condition, this.getMaxGroup(items) + 1));
         });
 
         // Assign every item an ID and onClick handler
