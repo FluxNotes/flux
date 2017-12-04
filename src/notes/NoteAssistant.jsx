@@ -49,10 +49,19 @@ class NoteAssistant extends Component {
             case "clinical-notes":
                 return (
                     <div className="clinical-notes-panel">
+                        <Paper className="note-new" onClick={() => {
+                            this.test()
+                        }}>
+                            {this.renderNoteSVG()}
+                            <span><i className="fa fa-plus" aria-hidden="true"></i>New note</span>
+                        </Paper>
+
                         <Button raised
                                 className="resume-note-btn"
                         >Resume in-progress note</Button>
+
                         {this.renderedNotes()}
+
                     </div>
                 );
 
@@ -67,14 +76,17 @@ class NoteAssistant extends Component {
             <Paper key={i} className="note" onClick={() => {
                 this.test()
             }}>
-                <table >
+
+                {this.renderNoteSVG()}
+
+                <table className="notes-table">
                     <tbody>
                     <tr>
                         <td className="existing-note-date" width="15%">{item.date}</td>
                     </tr>
                     <tr>
                         <td className="existing-note-date" id="existing-note-subject">{item.subject}</td>
-                        </tr>
+                    </tr>
                     <Divider />
                     <tr>
                         <td className="existing-note-metadata" width="55%">
@@ -84,10 +96,23 @@ class NoteAssistant extends Component {
                     </tr>
                     </tbody>
                 </table>
-                {/*<svg width="100" height="100">*/}
-                    {/*<circle cx="50" cy="50" r="40" stroke="green"  fill="yellow" />*/}
-                {/*</svg>*/}
             </Paper>
+        );
+    }
+
+    renderNoteSVG() {
+        return (
+            <svg width="160" height="17">
+                <defs>
+                    <filter id="f1" x="0" y="0" width="200%" height="200%">
+                        <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20"/>
+                        <feBlend in="SourceGraphic" in2="offOut" mode="normal"/>
+                    </filter>
+                </defs>
+                <rect x="144" y="0" rx="2" ry="2" width="17" height="17"
+                      fill="white" stroke="#999" strokeWidth="1" opacity="0.5" filter="url(#f1)"/>
+                <line x1="145" y1="0" x2="200" y2="52" stroke="#999" strokeWidth="1" filter="url(#f1)"/>
+            </svg>
         );
     }
 

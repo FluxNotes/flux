@@ -5,25 +5,49 @@ span.button-hover {
 
 .clinical-notes-panel {
     margin: auto;
-    width: 150px;
+    width: 160px;
     height: 100px;
+}
+
+.note-new {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .resume-note-btn {
     background-color: white !important;
     height: 120px;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .resume-note-btn:hover {
     background: #e6e6e6 !important;
 }
 
+.svg {
+    z-index: 999;
+}
+
+.note-new:hover {
+    cursor:pointer;
+    background: #e6e6e6;
+}
+
+.note {
+    padding-top: 0px !important;
+}
+
+
 .note:hover {
     cursor:pointer;
     background: #e6e6e6;
 }
 
+.notes-table {
+    margin-top: 0px !important;
+}
 /*Playing around with button click animation*/
 /*.note:active {*/
     /*vertical-align: top;*/
