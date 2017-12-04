@@ -12,6 +12,9 @@ class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
 
+        const items = this.createItems();
+        const groups = this.createGroupsForItems(this.getMaxGroup(items));
+
         // Define the bounds of the timeline
         let defaultTimeStart = moment().clone().add(-1, 'years');  // default - 1 years ago
         if (this.props.isWide) { 
@@ -20,8 +23,10 @@ class TimelineEventsVisualizer extends Component {
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
 
         this.state = {
-            defaultTimeStart: defaultTimeStart,
-            defaultTimeEnd: defaultTimeEnd,
+            items,
+            groups,
+            defaultTimeStart,
+            defaultTimeEnd,
             timeSteps: {
                 day: 1,
                 month: 1,
@@ -39,6 +44,18 @@ class TimelineEventsVisualizer extends Component {
         };
     };
 
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props !== nextProps) {
+            const items = this.createItems();
+            const groups = this.createGroupsForItems(this.getMaxGroup(items));
+
+            this.setState({
+                items,
+                groups
+            });
+        }
+    }
+
     createItems = () => {
         const {patient, condition, section} = this.props;
 
@@ -51,11 +68,9 @@ class TimelineEventsVisualizer extends Component {
         // Assign every item an ID and onClick handler
         items.forEach((item, i) => {
             const id = i + 1;
-            const hoverTitle = item.hoverTitle;
-            const hoverText = item.hoverText;
             item.id = id;
             item.itemProps = {
-                onMouseEnter: (e) => this.enterItemHover(e, id, hoverTitle, hoverText),
+                onMouseEnter: (e) => this.enterItemHover(e, id),
                 onMouseLeave: (e) => this.leaveItemHover(e)
             }; 
         });
@@ -63,7 +78,7 @@ class TimelineEventsVisualizer extends Component {
         return items;
     }
   
-    enterItemHover = (e, id, hoverTitle, hoverText) => {
+    enterItemHover = (e, id) => {
         // Get position of this item on the screen
         e.preventDefault();
         const targetItem = document.querySelector(`[id="timeline-item-${id}"]`);
@@ -74,10 +89,10 @@ class TimelineEventsVisualizer extends Component {
             display: null
         }
   
-        // const item = items[id-1];
+        const item = this.state.items[id-1];
         const hoverItemState = {
-            title: hoverTitle,
-            text: hoverText,
+            title: item.hoverTitle,
+            text: item.hoverText,
             style: style
         };
         this.setState({'hoverItem': hoverItemState});
@@ -118,9 +133,6 @@ class TimelineEventsVisualizer extends Component {
     }
 
     render() {
-        const items = this.createItems();
-        const groups = this.createGroupsForItems(this.getMaxGroup(items));
-
         return (
             <div 
                 id="timeline" 
@@ -132,8 +144,8 @@ class TimelineEventsVisualizer extends Component {
                     style={this.state.hoverItem.style}
                 />
                 <Timeline
-                    groups={groups}
-                    items={items}
+                    groups={this.state.groups}
+                    items={this.state.items}
                     defaultTimeStart={this.state.defaultTimeStart}
                     defaultTimeEnd={this.state.defaultTimeEnd}
                     rightSidebarWidth={0}
