@@ -93,9 +93,6 @@ export class Minimap extends React.Component {
         width = Math.round( scrollWidth / (scrollHeight / height) )
       }
     }
-    console.log(this.props.isFullHeight)
-    console.log(sourceRect.height)
-    console.log(this.props.height)
     const nodes = this.ref.querySelectorAll(this.props.selector)
     this.setState({
       ...this.state,
@@ -108,7 +105,6 @@ export class Minimap extends React.Component {
         const hM = height * ratioY;
         const xM = (left + scrollLeft - sourceRect.left) * ratioX;
         const yM = (top + scrollTop - sourceRect.top) * ratioY;
-        console.log(node.previousElementSibling.innerHTML);
         return (
           <ChildComponent
             key={key}

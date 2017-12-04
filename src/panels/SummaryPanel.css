@@ -5,6 +5,24 @@
 .padded-panel { 
 }
 
+.fitted-panel.minimap-container {
+    margin-left: 90px;
+    width: auto; 
+}
+
+.fitted-panel .minimap {
+    background-color: #ffffff; 
+    border: none; 
+    float: none;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    position: absolute; 
+    left: 0;
+    padding-left: 0;
+    /*width: 80px;*/
+    height: calc(100vh - 200px);
+} 
+
 .minimap-children {
     display: flex;
     align-items: center;
@@ -17,18 +35,3 @@
     text-align: center;
     font-size: 12px;
 }
-
-.fitted-panel.minimap-container {
-    margin-left: 90px;
-    width: default; 
-}
-
-.fitted-panel .minimap {
-    background-color: #ffffff; 
-    border: none; 
-    float: none;
-    left: 0;
-    padding-left: 0;
-    height: calc(100vh - 200px);
-} 
-
