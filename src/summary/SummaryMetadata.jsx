@@ -378,11 +378,11 @@ class SummaryMetadata {
         };
     }
 
-    getMetadata() {
+    getMetadata = () => {
         return this.hardCodedMetadata;
     }
 
-    getItemListForProcedures(patient, currentConditionEntry) {
+    getItemListForProcedures = (patient, currentConditionEntry) => {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
             if (typeof p.occurrenceTime !== 'string') {
@@ -395,7 +395,7 @@ class SummaryMetadata {
         });
     }
 
-    getItemListForLabResults(patient, currentConditionEntry) {
+    getItemListForLabResults = (patient, currentConditionEntry) => {
         const labResults = currentConditionEntry.getTests();
 
         return labResults.map((l, i) => {
