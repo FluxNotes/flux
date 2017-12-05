@@ -7,14 +7,6 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import './ClinicalEventSelection.css';
 
 class ClinicalEventSelection extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            clinicalEvent: "Post-encounter",
-        };
-    }
-
     componentWillMount() {
         if (Lang.isNull(this.props.clinicalEvent) || Lang.isUndefined(this.props.clinicalEvent)) {
             this.selectClinicalEvent(this.props.possibleClinicalEvents[0]);
@@ -29,10 +21,10 @@ class ClinicalEventSelection extends Component {
     renderClinicalEventList() {
         return this.props.possibleClinicalEvents.map((setting, index) =>
             <MenuItem
-                className="condition-item"
+                className="clinical-event-item"
                 key={`clinical-event-${setting}`}
                 value={titlecase(setting)}
-                data-test-condition-selector-item={titlecase(setting)}>
+                data-test-clinical-event-selector-item={titlecase(setting)}>
                 {titlecase(setting)}
             </MenuItem>
         );
@@ -40,12 +32,12 @@ class ClinicalEventSelection extends Component {
 
     render() {
         return (
-            <div className="condition-selection">
+            <div className="clinical-event-selection">
                 <Select
-                    className="condition-select"
-                    value={this.state.clinicalEvent}
+                    className="clinical-event-select"
+                    value={titlecase(this.props.clinicalEvent)}
                     onChange={(event) => this.selectClinicalEvent(event.target.value)}
-                    data-test-condition-selector
+                    data-test-clinical-event-selector
                 >
                     {this.renderClinicalEventList()}
                 </Select>

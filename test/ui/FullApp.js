@@ -11,41 +11,44 @@ const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 fixture('Patient Mode - Patient Summary Panel')
     .page(startPage);
 
-// NOTE: This will need to be changed once the event buttons are moved to Targeted Data Control
-test.skip('Clicking event buttons selects corresponding event', async t => {
-    const preEncounterButton = Selector(".clinical-event-buttons #pre-encounter-button");
-    const encounterButton = Selector(".clinical-event-buttons #encounter-button");
-    const postEncounterButton = Selector(".clinical-event-buttons #post-encounter-button");
+test('Clicking event buttons selects corresponding event', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
 
-    // post-encounter button is pre-selected
+    // Post-encounter is pre-selected
     await t
-        .expect(postEncounterButton.hasClass("active"))
-        .ok();
+        .expect(await clinicalEventSelector.textContent)
+        .eql('Post-encounter');
 
-    // encounter button should be selected after clicking on it
-    await t.click(encounterButton);
-
+    // Clicking Encounter choice selects it
     await t
-        .expect(encounterButton.hasClass("active"))
-        .ok();
-
-    // pre-encounter button should be selected after clicking on it
-    await t.click(preEncounterButton);
-
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Encounter"]'));
     await t
-        .expect(preEncounterButton.hasClass("active"))
-        .ok();
+        .expect(await clinicalEventSelector.textContent)
+        .eql("Encounter");
 
-    // post-encounter button should be selected after clicking on it
-    await t.click(postEncounterButton);
-
+    // Clickig Pre-encounter choice selects it and the editor is not rendered
     await t
-        .expect(postEncounterButton.hasClass("active"))
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+    await t
+        .expect(await clinicalEventSelector.textContent)
+        .eql("Pre-encounter")
+        .expect(Selector('#clinical-notes').exists)
+        .notOk();
+    
+    // Clicking Post-encounter choice selects it and the editor is rendered
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+    await t
+        .expect(await clinicalEventSelector.textContent)
+        .eql("Post-encounter")
+        .expect(Selector('#clinical-notes').exists)
         .ok();
 });
 
-// NOTE: This will need to be changed once the condition selection is moved to Targeted Data Control
-test.skip('Selecting a condition changes the active condition', async t => {
+test('Selecting a condition changes the active condition', async t => {
     const conditionSelector = Selector('.condition-select');
 
     // first condition is selected by default
@@ -332,8 +335,7 @@ test('Hovering over calendar medication items should add medication name to hove
     }
 });
 
-// NOTE: This will be changed when condition select is moved to Targeted Data Panel
-test.skip('Selecting a condition changes the timeline summary', async t => {
+test('Selecting a condition changes the timeline summary', async t => {
     const conditionSelector = Selector('.condition-select');
 
     // first condition is selected by default
