@@ -14,7 +14,6 @@ class SummaryPanel extends Component {
             <Minimap 
                 selector={`[${minimapAttribute}]`}
                 className="fitted-panel"
-                childComponentClassName="padded-panel"
                 titleAttribute={minimapAttribute}
                 width={80}
                 isFullHeight={true}

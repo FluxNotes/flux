@@ -12,7 +12,6 @@ export class Minimap extends React.Component {
     keepAspectRatio: PropTypes.bool,
     isFullHeight: PropTypes.bool,
     childComponent: PropTypes.any,
-    childComponentClassName: PropTypes.string,
     titleAttribute: PropTypes.string,
     onMountCenterOnX: PropTypes.bool,
     onMountCenterOnY: PropTypes.bool,
@@ -274,7 +273,7 @@ export class Minimap extends React.Component {
 
         <div 
           ref={(container) => { this.ref = container; }}
-          className={this.props.childComponentClassName}>
+        >
           {this.props.children}
         </div>
       </div>
