@@ -59,8 +59,11 @@ export class Minimap extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.keepAspectRatio !== this.props.keepAspectRatio)
+    if (nextProps.keepAspectRatio !== this.props.keepAspectRatio) {
       setTimeout(this.synchronize);
+    } else if (nextProps.children !== this.props.children) {
+      setTimeout(this.synchronize);    
+    } 
   }
 
   componentDidUpdate() {
