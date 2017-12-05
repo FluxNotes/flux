@@ -16,10 +16,14 @@ span.button-hover {
 .note-new {
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-left: 5px;
     margin-bottom: 10px;
     text-align: center;
 }
 
+.note-new-text {
+    font-size: 0.9rem;
+}
 
 .resume-note-btn {
     background-color: white !important;
@@ -33,7 +37,6 @@ span.button-hover {
 .resume-note-btn:hover {
     background: #e6e6e6 !important;
 }
-
 
 .previous-notes-label {
     font-weight: bold;
@@ -65,18 +68,12 @@ span.button-hover {
 }
 .note {
     padding-top: 0px !important;
-
 }
 
 .note:hover {
     cursor:pointer;
     background: #e6e6e6;
 }
-
-.notes-table {
-    margin-top: 0px !important;
-}
-
 
 .existing-note-date {
     font-size: 0.7rem;
@@ -109,10 +106,4 @@ span.button-hover {
 .more-notes-btn:hover {
     background: #e6e6e6 !important;
 }
-
-/*Playing around with button click animation*/
-/*.note:active {*/
-    /*vertical-align: top;*/
-    /*padding: 8px 13px 6px;*/
-/*}*/
 
