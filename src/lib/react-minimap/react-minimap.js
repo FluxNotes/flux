@@ -6,6 +6,7 @@ import './react-minimap.css'
 
 export class Minimap extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     selector: PropTypes.string.isRequired,
     width: PropTypes.number, /** in pixel */
     height: PropTypes.number, /** in pixel */
