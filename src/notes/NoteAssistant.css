@@ -2,7 +2,6 @@ span.button-hover {
     cursor: pointer;
 }
 
-
 .clinical-notes-panel {
     margin: auto;
     width: 160px;
@@ -10,9 +9,15 @@ span.button-hover {
 }
 
 .note-new {
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.note-new:hover {
+    cursor:pointer;
+    background: #e6e6e6;
 }
 
 .resume-note-btn {
@@ -26,19 +31,38 @@ span.button-hover {
     background: #e6e6e6 !important;
 }
 
-.svg {
-    z-index: 999;
+
+.previous-notes-label {
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-left: 10px;
 }
 
-.note-new:hover {
-    cursor:pointer;
-    background: #e6e6e6;
+.sort-label {
+    margin-left: 10px;
+    font-size: 0.8em;
 }
 
+.sort-selection {
+
+    margin-bottom: 20px;
+}
+
+.sort-select {
+    width: 50%;
+    margin-left: 10px;
+}
+.sort-selection .sort-select {
+    font-size: 0.8em;
+}
+
+.sort-item:hover {
+    background-color: #1384b5;
+    color: #fff;
+}
 .note {
     padding-top: 0px !important;
 }
-
 
 .note:hover {
     cursor:pointer;
@@ -48,6 +72,39 @@ span.button-hover {
 .notes-table {
     margin-top: 0px !important;
 }
+
+
+td.existing-note-date {
+    color: #333333 !important;
+    font-weight: bold;
+}
+
+td.existing-note-subject {
+    font-size: 0.8rem;
+    color: #999 !important;
+}
+
+td.existing-note-metadata {
+    color: #999 !important;
+}
+
+.view-more-notes-label {
+    margin-left: 10px;
+    font-size: 0.8em;
+}
+
+.more-notes-btn {
+    background-color: white !important;
+    height: 80px;
+    width: 100%;
+    margin-bottom: 20px;
+    text-transform: none !important;
+}
+
+.more-notes-btn:hover {
+    background: #e6e6e6 !important;
+}
+
 /*Playing around with button click animation*/
 /*.note:active {*/
     /*vertical-align: top;*/
