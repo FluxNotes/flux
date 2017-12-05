@@ -14,8 +14,8 @@
     background-color: #ffffff; 
     border: none; 
     float: none;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     position: absolute; 
     left: 0;
     padding-left: 0;
