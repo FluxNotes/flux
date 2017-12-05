@@ -6,7 +6,7 @@ import FluxDeceased from '../../../src/model/actor/FluxDeceased';
 import FluxStudy from '../../../src/model/base/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-import util from 'util';
+//import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -114,7 +114,7 @@ const expectedOutputDiseaseStatus = [[
             } 
         },
         originalCreationDate: today,
-        asOfDate: null,
+        asOfDate: today,
         lastUpdateDate: today 
     })
 ], []];
@@ -268,8 +268,6 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextStaging);
         // This test is different from the others because Observation sets the _value property which we cannot set in TNMStage using getters and setters.
         // Instead this test will compare all the properties in each object expect _value property.
-//        console.log(util.inspect(expectedOutputStaging[0][0]));
-//        console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array');
         expect(record[0][1])
@@ -318,6 +316,8 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
         const record = noteParser.parse(sampleTextClinicalTrial);
+        //console.log(util.inspect(expectedOutputClinicalTrial[0][0]));
+        //console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrial);

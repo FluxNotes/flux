@@ -12,7 +12,7 @@ class SummaryMetadata {
                     type: "NameValuePairs",
                     narrative: 
 /*eslint no-template-curly-in-string: "off"*/
-                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. Most recently, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
+                    "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
                     data: [
                         {
                             name: "Current Diagnosis",
@@ -40,8 +40,8 @@ class SummaryMetadata {
                                 {
                                     name: "Progression",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
-                                        if (Lang.isNull(p)) {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
                                             return p.status;
@@ -49,10 +49,21 @@ class SummaryMetadata {
                                     }
                                 },
                                 {
+                                    name: "As Of Date",
+                                    value: (patient, currentConditionEntry) => {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
+                                            return null;
+                                        } else {
+                                            return p.asOfDate;
+                                        }
+                                    }
+                                },
+                                {
                                     name: "Rationale",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(12, 'months'));
-                                        if (Lang.isNull(p)) {
+                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
                                             return p.evidence.map(function (ev) {
@@ -344,7 +355,6 @@ class SummaryMetadata {
     }
 
     getItemListForLabResults(patient, currentConditionEntry) {
-        //const labResults = patient.getTestsForCondition(currentConditionEntry);
         const labResults = currentConditionEntry.getTests();
 
         return labResults.map((l, i) => {

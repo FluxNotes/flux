@@ -1,5 +1,13 @@
-/** Generated from SHR definition for shr.condition.Abatement */
-class Abatement {
+import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+
+/** Generated from SHR definition for shr.observation.ClinicallyRelevantTime */
+class ClinicallyRelevantTime {
+    constructor(json) {
+        if (json) {
+            this.generalizedTemporalContext = new GeneralizedTemporalContext(json);
+            this._generalizedTemporalContext = this.generalizedTemporalContext;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.generalizedTemporalContext)

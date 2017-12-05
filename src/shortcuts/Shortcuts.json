@@ -100,7 +100,7 @@
                                 {"name":"referenceDate", "childShortcut": "ProgressionReferenceDateCreator"},
                                 {"name":"referenceDateDate", "attribute":"clinicallyRelevantTime", "isSettable":"true", "setMethod": "clinicallyRelevantTime" },
                                 {"name":"asOfDate", "childShortcut": "ProgressionAsOfDateCreator"},
-                                {"name":"asOfDateDate", "attribute":"asOfDate", "isSettable":"true", "setMethod": "asOfDate"} ],
+                                {"name":"asOfDateDate", "attribute":"asOfDate", "isSettable":"true", "setMethod": "asOfDate", "default": "$today"} ],
     "updatePatient": [  {"object":"$valueObject", "method": "setAssessmentFocusReference", "args": [ "$parentValueObject"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject" ]}],
     "isContext": true,

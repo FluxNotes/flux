@@ -71,6 +71,8 @@ class ContextManager {
     }
 	
 	addShortcutToContext(shortcut) {
+        if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
+        //console.log("adding shortcut to context: " + shortcut.getShortcutType());
         const numContexts = this.contexts.length;
         let index = -1;
         for (var i = 0; i < numContexts; i++) {

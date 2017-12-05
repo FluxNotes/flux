@@ -1,4 +1,3 @@
-//import Patient from '../patient/Patient';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
@@ -66,7 +65,7 @@ export default class NoteParser {
         //console.log(trigger);
         const shortcut = this.shortcutManager.createShortcut(trigger.definition, trigger.trigger); //, onUpdate, object
         shortcut.initialize(this.contextManager, trigger.trigger);
-        shortcut.setKey(null);
+        shortcut.setKey("1");
         return shortcut;
     }
         

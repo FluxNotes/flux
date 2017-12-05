@@ -182,7 +182,7 @@ class ShortcutManager {
         //      OR as a shortcut having this context shortcut as a parent via knownParentContexts
         let contextValueObjectEntryType;
         let result = this.childShortcuts[currentContextId], parentAttribute;
-        let value, parentVOAs, voa, isSettable;
+        let value, parentVOAs, voa, isSettable, isSet;
         if (Lang.isUndefined(result)) return [];
         result = result.filter((shortcutId) => {
             // to determine if a shortcut should be valid right now, we need to get its value
@@ -199,15 +199,17 @@ class ShortcutManager {
                 voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
                 //console.log(voa);
                 value = context.getAttributeValue(parentAttribute);
+                isSet = context.getAttributeIsSet(parentAttribute);
                 //console.log(value);
                 //console.log(voa.isSettable);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
                 //console.log(isSettable);
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                    if (value === null) return true;
+//                    if (value === null) return true;
                     if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
-                    if (Lang.isBoolean(value)) return !value;
-                    return (value.length === 0);
+//                    if (Lang.isBoolean(value)) return !value;
+//                    return (value.length === 0);
+                    return (!isSet);
                 } else {
                     if (value === null) return false;
                     if (Lang.isBoolean(value)) return !value;

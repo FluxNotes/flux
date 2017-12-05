@@ -1,3 +1,5 @@
+import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+
 /** Generated from SHR definition for shr.observation.ClinicallyRelevantTime */
 class ClinicallyRelevantTime {
     constructor(json) {

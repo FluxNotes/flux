@@ -10,8 +10,6 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            //let createMethod = "createNew" + this.metadata["valueObject"];
-            //this.object = PatientRecord[createMethod]();
             this.object = ShrObjectFactory.createInstance(this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
@@ -24,7 +22,9 @@ export default class CreatorBase extends Shortcut {
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
         this.values = {};
+        this.isSet = {};
         metadataVOA.forEach((attrib) => {
+            this.isSet[attrib.name] = false;
             if (Lang.isUndefined(attrib["attribute"])) {
                 this.values[attrib.name] = false;
                 attrib["attributePath"] = null;
@@ -46,7 +46,6 @@ export default class CreatorBase extends Shortcut {
 
     initialize(contextManager) {
         super.initialize(contextManager);
-        // this.parentContext = contextManager.getCurrentContext();
 
         const knownParent = this.metadata["knownParentContexts"];
 
@@ -59,12 +58,21 @@ export default class CreatorBase extends Shortcut {
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
+        
+        // defaulting
+        const metadataVOA = this.metadata["valueObjectAttributes"];
+        metadataVOA.forEach((attrib) => {
+            if (attrib.isSettable && attrib.type !== "list") {
+                this.setAttributeValue(attrib.name, null);
+            }
+        });
     }
 
     isContext() {
         return this.metadata.isContext;
     }
 
+    // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
     shouldBeInContext() {
         //console.log("shouldBeInContext " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
@@ -76,7 +84,7 @@ export default class CreatorBase extends Shortcut {
             isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
             //console.log("isSettable = " + isSettable);
             if (isSettable) {
-                if (Lang.isNull(value)) {
+ /*               if (Lang.isNull(value)) {
                     result = true;
                     return;
                 }
@@ -85,17 +93,23 @@ export default class CreatorBase extends Shortcut {
                         result = true;
                         return;
                     }
-                } else if (Lang.isArray(value)) {
-                    //console.log(voa.numberOfItems);
+                } else */
+                if (Lang.isArray(value)) {
                     if (value.length < voa.numberOfItems) {
+                        //console.log(voa.name + " is not completely set.");
                         result = true;
                         return true;
                     }
-                } else if (Lang.isBoolean(value)) {
+                } /*else if (Lang.isBoolean(value)) {
                     if (!value) {
                         result = true;
                         return;
                     }
+                }*/
+                else if (!(this.isSet[voa.name])) {
+                    //console.log(voa.name + " is not set.");
+                    result = true;
+                    return;
                 }
             } else {
                 if (value.length > 0) {
@@ -104,7 +118,7 @@ export default class CreatorBase extends Shortcut {
                 }
             }
         });
-        //console.log(result);
+        //console.log(this.getShortcutType() + " in context: " + result);
         return result;
     }
 
@@ -231,6 +245,10 @@ export default class CreatorBase extends Shortcut {
         }
         return result;
     }
+    
+    getAttributeIsSet(name) {
+        return this.isSet[name];
+    }
 
     getAttributeValue(name) {
         //console.log("getAttribute for " + this.metadata["id"] + " called " + name);
@@ -248,10 +266,19 @@ export default class CreatorBase extends Shortcut {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
         //console.log(voa);
+        this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
         //console.log(this.object);
         //console.log(setMethod);
+        if (value == null && voa.default) {
+            //console.log("   defaulting to " + voa.default);
+            value = voa.default;
+            if (value === "$today") {
+                value = new moment().format('D MMM YYYY');
+            }
+        }
+        //console.log("setAttributeValue " + name + " to " + value);
         if (Lang.isUndefined(patientSetMethod)) {
             if (Lang.isUndefined(setMethod)) {
                 this.values[name] = value;
@@ -336,12 +363,6 @@ export default class CreatorBase extends Shortcut {
     }
 
     updatePatient(patient, contextManager) {
-        /*        let attributeSpec;
-         const allSettableDataFields = Object.keys(this.valueObjectAttributes).filter((attribute) => {
-         attributeSpec = this.valueObjectAttributes[attribute];
-         return (!Lang.isUndefined(attributeSpec["childShortcut"]));
-         });*/
-
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             if (updatePatientSpecList) {
