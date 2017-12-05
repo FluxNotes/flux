@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
-import './SummaryPanel.css';
+import TargetedDataControl from '../summary/TargetedDataControl'
+import './TargetedDataPanel.css';
 
-class SummaryPanel extends Component { 
+class TargetedDataPanel extends Component { 
     render () { 
         // The class associated with 
         const minimapAttribute = "data-test-summary-section";
@@ -18,6 +19,9 @@ class SummaryPanel extends Component {
                 isFullHeight={true}
             >   
                 <div id="summary-subpanel">
+                    <TargetedDataControl
+                        {...this.props}
+                    />
                     <div className="summary-section">
                         <DataSummaryPanel
                             isWide={this.props.isWide}
@@ -34,7 +38,7 @@ class SummaryPanel extends Component {
     }
 }
 
-SummaryPanel.proptypes = { 
+TargetedDataPanel.proptypes = { 
     isWide: PropTypes.bool.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     appState: PropTypes.shape({
@@ -46,4 +50,4 @@ SummaryPanel.proptypes = {
     handleSummaryItemSelected: PropTypes.func.isRequired
 }
 
-export default SummaryPanel;
+export default TargetedDataPanel;

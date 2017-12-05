@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
-import SummaryPanel from '../panels/SummaryPanel'
 import NotesPanel from '../panels/NotesPanel';
+import TargetedDataPanel from '../panels/TargetedDataPanel'
 import './PreEncounterView.css';
 
 class PreEncounterView extends Component {
@@ -11,8 +11,8 @@ class PreEncounterView extends Component {
         return (
             <div id="pre-encounter-view-content">
                 <Row center="xs">
-                    <Col sm={8} className="full-panel">
-                        <SummaryPanel
+                    <Col sm={12} className="full-panel">
+                        <TargetedDataPanel
                             isWide={true} 
                             {...this.props}
                         />
