@@ -7,7 +7,6 @@ import './TargetedDataControl.css';
 class TargetedDataControl extends Component {
 
     render() {
-         // TODO reformat Workflow-was-Event to drop-down like Condition is
         return (
             <div id="condition-summary-section" className="dashboard-panel panel-content">
                 <h3>Workflow</h3>
