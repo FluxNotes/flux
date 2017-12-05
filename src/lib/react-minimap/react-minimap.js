@@ -97,11 +97,12 @@ export class Minimap extends React.Component {
         width = Math.round( scrollWidth / (scrollHeight / height) )
       }
     }
+
     const nodes = this.ref.querySelectorAll(this.props.selector)
     this.setState({
       ...this.state,
+      height,
       width,
-      height, 
       children: _.map(nodes, (node, key) => {
         const {width, height, left, top} = node.getBoundingClientRect()
 
@@ -272,9 +273,7 @@ export class Minimap extends React.Component {
           {this.state.children}
         </div>
 
-        <div 
-          ref={(container) => { this.ref = container; }}
-        >
+        <div ref={(container) => { this.ref = container; }}>
           {this.props.children}
         </div>
       </div>
