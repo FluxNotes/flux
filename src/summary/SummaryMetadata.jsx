@@ -187,7 +187,7 @@ class SummaryMetadata {
                     ]
                 },
                 {
-                    name: "Pathology Results (Initial Diagnosis)",
+                    name: "Pathology Results",
                     type: "NameValuePairs",
                     narrative: 
 /*eslint no-template-curly-in-string: "off"*/

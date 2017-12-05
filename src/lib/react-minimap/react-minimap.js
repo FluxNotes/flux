@@ -13,6 +13,7 @@ export class Minimap extends React.Component {
     isFullHeight: PropTypes.bool,
     childComponent: PropTypes.any,
     childComponentClassName: PropTypes.string,
+    titleAttribute: PropTypes.string,
     onMountCenterOnX: PropTypes.bool,
     onMountCenterOnY: PropTypes.bool,
   };
@@ -108,6 +109,7 @@ export class Minimap extends React.Component {
         const hM = height * ratioY;
         const xM = (left + scrollLeft - sourceRect.left) * ratioX;
         const yM = (top + scrollTop - sourceRect.top) * ratioY;
+        const title = node.getAttribute(this.props.titleAttribute);;
         return (
           <ChildComponent
             key={key}
@@ -116,7 +118,7 @@ export class Minimap extends React.Component {
             left={Math.round( xM )}
             top={Math.round( yM )}
             node={node}
-            title={node.previousElementSibling.innerHTML}
+            title={title}
           />
         )
       })
