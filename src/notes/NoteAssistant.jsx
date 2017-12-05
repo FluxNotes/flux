@@ -50,7 +50,7 @@ class NoteAssistant extends Component {
     }
 
     test() {
-        console.log("clicked on new note");
+        console.log("clicked on new note button");
     }
 
     // Render the content for the Note Assistant panel
