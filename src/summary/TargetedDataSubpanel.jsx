@@ -4,9 +4,10 @@ import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import 'font-awesome/css/font-awesome.min.css';
-import './DataSummaryPanel.css';
+import './TargetedDataSubpanel.css';
 
-class DataSummaryPanel extends Component {
+class TargetedDataSubpanel extends Component {
+
     getConditionMetadata() {
         const {condition} = this.props;
 
@@ -102,7 +103,7 @@ class DataSummaryPanel extends Component {
     }
 }
 
-DataSummaryPanel.propTypes = {
+TargetedDataSubpanel.propTypes = {
     className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,
@@ -112,4 +113,4 @@ DataSummaryPanel.propTypes = {
     onItemClicked: PropTypes.func
 };
 
-export default DataSummaryPanel;
+export default TargetedDataSubpanel;

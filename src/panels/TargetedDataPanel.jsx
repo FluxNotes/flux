@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import DataSummaryPanel from '../summary/DataSummaryPanel';
+import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
+import TimelinePanel from '../timeline/TimelinePanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
 import TargetedDataControl from '../summary/TargetedDataControl'
@@ -23,7 +24,7 @@ class TargetedDataPanel extends Component {
                         {...this.props}
                     />
                     <div className="summary-section">
-                        <DataSummaryPanel
+                        <TargetedDataSubpanel
                             isWide={this.props.isWide}
                             patient={this.props.appState.patient}
                             condition={this.props.appState.condition}
