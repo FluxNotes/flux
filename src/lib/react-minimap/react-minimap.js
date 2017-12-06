@@ -19,6 +19,7 @@ export class Minimap extends React.Component {
   };
 
   static defaultProps = {
+    className: "",
     width: 200,
     height: 200,
     keepAspectRatio: false,
@@ -110,7 +111,7 @@ export class Minimap extends React.Component {
         const hM = height * ratioY;
         const xM = (left + scrollLeft - sourceRect.left) * ratioX;
         const yM = (top + scrollTop - sourceRect.top) * ratioY;
-        const title = node.getAttribute(this.props.titleAttribute);;
+        const title = node.getAttribute(this.props.titleAttribute);
         return (
           <ChildComponent
             key={key}
