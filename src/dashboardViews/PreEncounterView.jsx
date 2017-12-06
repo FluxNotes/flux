@@ -11,7 +11,7 @@ class PreEncounterView extends Component {
         return (
             <div id="pre-encounter-view-content">
                 <Row center="xs">
-                    <Col sm={12} className="full-panel">
+                    <Col sm={8} className="full-panel">
                         <TargetedDataPanel
                             isWide={true} 
                             {...this.props}
