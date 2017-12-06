@@ -50,3 +50,18 @@ describe('SummaryHeader', function() {
           .to.eq('left');
     });
 });
+describe('TargetedDataControl', function() {
+    it.only('noteDisplayMode buttons update state', function() {
+        const wrapper = shallow(<TargetedDataControl />);
+        
+        // Initial state
+        expect(wrapper.state('noteDisplayMode'))
+            .to.eq('tabular');
+
+        // Clicking the non-default note display button changes the state
+        const leftView = wrapper.find(Button).find('#arrative-button');
+        leftView.simulate('click');
+        expect(wrapper.state('noteDisplayMode'))
+          .to.eq('narrative');
+    });
+});
