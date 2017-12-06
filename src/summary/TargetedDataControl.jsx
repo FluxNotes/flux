@@ -18,7 +18,6 @@ class TargetedDataControl extends Component {
 
     handleViewChange = (noteDisplayMode) => {
         this.setState({ noteDisplayMode });
-        console.log("setState " + noteDisplayMode);
     }
 
     tabularView = () => {
