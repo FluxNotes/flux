@@ -208,6 +208,7 @@ export class Minimap extends React.Component {
     const lX = scroll[ 0 ] * scaleX;
     const lY = scroll[ 1 ] * scaleY;
 
+    // Ternary operation includes sanity check 
     this.w = (Math.round( lW ) > this.state.width) ? this.state.width : Math.round( lW );
     this.h = (Math.round( lH ) > this.state.height) ? this.state.height : Math.round( lH );
     this.l = Math.round( lX );
