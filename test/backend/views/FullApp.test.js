@@ -5,6 +5,7 @@ import { expect } from 'chai'
 
 import FullApp from '../../../src/apps/FullApp';
 import SummaryHeader from '../../../src/summary/SummaryHeader';
+import TargetedDataControl from '../../../src/summary/TargetedDataControl';
 import Button from '../../../src/elements/Button';
 
 Enzyme.configure({ adapter: new Adapter() });
