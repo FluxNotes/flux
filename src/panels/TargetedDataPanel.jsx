@@ -21,7 +21,10 @@ class TargetedDataPanel extends Component {
             >   
                 <div id="summary-subpanel">
                     <TargetedDataControl
-                        {...this.props}
+                        possibleClinicalEvents={this.props.possibleClinicalEvents}
+                        clinicalEvent={this.props.appState.clinicalEvent}
+                        setFullAppState={this.props.setFullAppState}
+                        patient={this.props.appState.patient}
                     />
                     <div className="summary-section">
                         <TargetedDataSubpanel

@@ -59,14 +59,14 @@ class TargetedDataControl extends Component {
                             <h3>Workflow</h3>
                             <ClinicalEventSelection
                                 possibleClinicalEvents={this.props.possibleClinicalEvents}
-                                clinicalEvent={this.props.appState.clinicalEvent}
+                                clinicalEvent={this.props.clinicalEvent}
                                 setFullAppState={this.props.setFullAppState}
                             />
                         </Col>
 
                         <Col sm={4}>
                             <ConditionSelection
-                                conditions={this.props.appState.patient.getConditions()}
+                                conditions={this.props.patient.getConditions()}
                                 setFullAppState={this.props.setFullAppState}
                             />
                         </Col>
