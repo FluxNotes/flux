@@ -84,7 +84,10 @@ class DataSummaryPanel extends Component {
 
     render() {
         return (
-            <div id="condition-summary-section" className="dashboard-panel panel-content">
+            <div 
+                id="condition-summary-section" 
+                className={this.props.className}
+            >
                 {this.renderedTableList()}
             </div>
         );
@@ -92,6 +95,7 @@ class DataSummaryPanel extends Component {
 }
 
 DataSummaryPanel.propTypes = {
+    className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,
     condition: PropTypes.object,

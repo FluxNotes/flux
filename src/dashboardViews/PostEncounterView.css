@@ -1,15 +1,17 @@
+#post-encounter-view-content { 
+    margin-top: 16px;
+}
+
 #post-encounter-view-content .fitted-panel { 
     overflow-y: scroll;
-    margin-top: 16px;
     text-align: left;
     max-height: calc(100vh - 136px);
-    min-height: 500px !important;
+    min-height: 400px !important;
 }
 
 #post-encounter-view-content .right-border-box { 
     border-right: 2px dashed #ddd;
 }
-
 
 #post-encounter-view-content .full-panel { 
     height: auto;

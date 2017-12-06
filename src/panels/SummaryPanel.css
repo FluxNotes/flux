@@ -1,3 +1,34 @@
 .panel-heading { 
     text-align: left;
 }
+
+.fitted-panel.minimap-container {
+    margin-left: 90px;
+    width: auto; 
+}
+
+.fitted-panel .minimap {
+    background-color: #ffffff; 
+    border: none; 
+    float: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: absolute; 
+    left: 0;
+    padding-left: 0;
+    /*width: 80px;*/
+    height: calc(100vh - 200px);
+} 
+
+.minimap-children {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.minimap-children .minimap-title {
+    text-align: center;
+    font-size: 12px;
+}

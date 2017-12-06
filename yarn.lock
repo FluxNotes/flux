@@ -5847,6 +5847,12 @@ react-jss@^7.2.0:
     prop-types "^15.5.8"
     theming "^1.1.0"
 
+react-minimap@0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-minimap/-/react-minimap-0.7.2.tgz#e9fcedc2585f34a329a8f92d64ef34a7e9caeeb0"
+  dependencies:
+    lodash "^4.17.4"
+
 react-popper@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.3.tgz#fa2809a80fbe7ec516e9bac01d81bc47a8b5cd3b"

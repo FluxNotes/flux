@@ -2,29 +2,42 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DataSummaryPanel from '../summary/DataSummaryPanel';
 import TimelinePanel from '../timeline/TimelinePanel';
+import Minimap from '../lib/react-minimap/react-minimap.js';
+import '../lib/react-minimap/react-minimap.css'
 import './SummaryPanel.css';
 
 class SummaryPanel extends Component { 
     render () { 
+        // The class associated with 
+        const minimapAttribute = "data-test-summary-section";
         return (
-            <div>
-                <DataSummaryPanel
-                    isWide={this.props.isWide}
-                    patient={this.props.appState.patient}
-                    condition={this.props.appState.condition}
-                    summaryMetadata={this.props.appState.summaryMetadata}
-                    onItemClicked={this.props.handleSummaryItemSelected}
-                    allowItemClick={true}
-                />
-                <h1 className="panel-heading">
-                    Timeline 
-                </h1>
-                <TimelinePanel
-                    isWide={this.props.isWide}
-                    patient={this.props.appState.patient} 
-                    condition={this.props.appState.condition}
-                />
-            </div>
+            <Minimap 
+                selector={`[${minimapAttribute}]`}
+                className="fitted-panel"
+                titleAttribute={minimapAttribute}
+                width={80}
+                isFullHeight={true}
+            >   
+                <div id="summary-subpanel">
+                    <div className="summary-section">
+                        <DataSummaryPanel
+                            isWide={this.props.isWide}
+                            patient={this.props.appState.patient}
+                            condition={this.props.appState.condition}
+                            summaryMetadata={this.props.appState.summaryMetadata}
+                            onItemClicked={this.props.handleSummaryItemSelected}
+                            allowItemClick={true}
+                        />
+                    </div>
+                    <div className="summary-section"> 
+                        <TimelinePanel
+                            isWide={this.props.isWide}
+                            patient={this.props.appState.patient} 
+                            condition={this.props.appState.condition}
+                        />
+                    </div>
+                </div> 
+            </Minimap>
         );
     }
 }

@@ -8,34 +8,30 @@ import './PostEncounterView.css';
 class PostEncounterView extends Component { 
     render () { 
         return (
-            <div id="post-encounter-view-content">
-                <Row center="xs">
-                    <Col sm={4} className="right-border-box">
-                        <div className="fitted-panel panel-content dashboard-panel">
-                            <SummaryPanel
-                                isWide={false}
-                                {...this.props}
-                            />
-                        </div>
-                    </Col>
-                    <Col sm={8}>
-                        <NotesPanel
-                            isNoteViewerVisible={true}
-                            isNoteViewerEditable={true}
-                            handleSelectionChange={this.props.handleSelectionChange}
-                            newCurrentShortcut={this.props.newCurrentShortcut}
-                            itemInserted={this.props.itemInserted}
-                            summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
-                            patient={this.props.appState.patient}
-                            contextManager={this.props.contextManager}
-                            shortcutManager={this.props.shortcutManager}
-                            updateErrors={this.props.updateErrors}
-                            errors={this.props.appState.errors}
-                            handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                        />
-                    </Col>
-                </Row>
-            </div>
+            <Row center="xs" id="post-encounter-view-content">
+                <Col sm={4} className="right-border-box">
+                    <SummaryPanel
+                        isWide={false}
+                        {...this.props}
+                    />
+                </Col>
+                <Col sm={8}>
+                    <NotesPanel
+                        isNoteViewerVisible={true}
+                        isNoteViewerEditable={true}
+                        handleSelectionChange={this.props.handleSelectionChange}
+                        newCurrentShortcut={this.props.newCurrentShortcut}
+                        itemInserted={this.props.itemInserted}
+                        summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
+                        patient={this.props.appState.patient}
+                        contextManager={this.props.contextManager}
+                        shortcutManager={this.props.shortcutManager}
+                        updateErrors={this.props.updateErrors}
+                        errors={this.props.appState.errors}
+                        handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                    />
+                </Col>
+            </Row>
         );
     }
 }
