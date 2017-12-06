@@ -16,9 +16,11 @@ span.button-hover {
 .note-new {
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left: 5px;
     margin-bottom: 10px;
     text-align: center;
+    height: auto !important;
+    width: 8vw !important;
+    min-width: 180px !important;
 }
 
 .note-new-text {
@@ -27,11 +29,11 @@ span.button-hover {
 
 .resume-note-btn {
     background-color: white !important;
-    height: 80px;
-    width: 95%;
     padding: 10px !important;
-    margin-left: 5px;
     margin-bottom: 20px;
+    height: auto !important;
+    width: 8vw !important;
+    min-width: 180px !important;
 }
 
 .resume-note-btn:hover {
@@ -68,6 +70,9 @@ span.button-hover {
 }
 .note {
     padding-top: 0px !important;
+    height: auto !important;
+    width: 8vw !important;
+    min-width: 180px !important;
 }
 
 .note:hover {
@@ -94,13 +99,11 @@ span.button-hover {
 
 .more-notes-btn {
     background-color: white !important;
-    font-size: 0.7rem !important;
-    height: 60px;
-    width: 95%;
     padding: 10px !important;
-    margin-left: 5px;
     margin-top: 10px;
-    text-transform: none !important;
+    height: auto !important;
+    width: 8vw !important;
+    min-width: 180px !important;
 }
 
 .more-notes-btn:hover {

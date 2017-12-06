@@ -109,7 +109,7 @@ class NoteAssistant extends Component {
     // Render the new note button
     renderNewNoteSVG() {
         return (
-            <svg className="note-new" onClick={() => {this.test()}}width="150px" height="33px" viewBox="0 0 150 33" version="1.1"
+            <svg className="note-new" onClick={() => {this.test()}} viewBox="0 0 150 33" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
@@ -170,7 +170,7 @@ class NoteAssistant extends Component {
     renderClinicalNoteSVG(item, i) {
 
         return (
-            <svg key={i} className="note" width="160px" height="102px" viewBox="0 0 149 102" version="1.1"
+            <svg key={i} className="note" viewBox="0 0 149 102" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
