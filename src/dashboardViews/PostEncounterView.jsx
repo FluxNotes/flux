@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
-import SummaryPanel from '../panels/SummaryPanel';
+import TargetedDataPanel from '../panels/TargetedDataPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './PostEncounterView.css';
 
@@ -10,7 +10,7 @@ class PostEncounterView extends Component {
         return (
             <Row center="xs" id="post-encounter-view-content">
                 <Col sm={4} className="right-border-box">
-                    <SummaryPanel
+                    <TargetedDataPanel
                         isWide={false}
                         {...this.props}
                     />

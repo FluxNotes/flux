@@ -1,39 +1,30 @@
+.clinical-event-selection .clinical-event-select {
+    width: 90%;
+    height: 30px;
+    font-size: 0.8em;
+    background-color: #fafafa;
+    border-radius: 2px;
+    padding: 5px 2px 2px 20px;
+    border: none;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
 
-.event-buttons {
+.clinical-event-select .MuiSelect-select-111:focus {
+    background: inherit;
+}
+
+
+li.clinical-event-item {
+    font-family: "Open Sans", Roboto, Arial, sans-serif;
+    color: #444;
+    height: 10px;
     margin: 5px 0;
-}
-
-.button {
-    padding: 0;
-}
-
-.button button {
-    width: 100%;
-    background-color: white;
-}
-
-.button.active button {
-    background-color: #1384B5;
-    color: white;
-    box-shadow: none;
-}
-
-.button span {
     font-size: 0.9em;
-    text-transform: none;
-    white-space: nowrap;
 }
 
-.preEncounter button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.encounter button {
-    border-radius: 0;
-}
-
-.treatment button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+li.clinical-event-item:hover {
+    background-color: #1384b5;
+    color: #fff;
 }

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'react-flexbox-grid';
-import Button from '../elements/Button';
 import Lang from 'lodash';
+import Select from 'material-ui/Select';
+import MenuItem from 'material-ui/Menu/MenuItem';
 
 import './ClinicalEventSelection.css';
 
 class ClinicalEventSelection extends Component {
-
     componentWillMount() {
         if (Lang.isNull(this.props.clinicalEvent) || Lang.isUndefined(this.props.clinicalEvent)) {
             this.selectClinicalEvent(this.props.possibleClinicalEvents[0]);
@@ -15,45 +14,36 @@ class ClinicalEventSelection extends Component {
     }
 
     selectClinicalEvent(clinicalEvent) {
-        this.props.setFullAppState('clinicalEvent', clinicalEvent);
-    }
-
-    buttonClass(buttonType) {
-        let clinicalEvent = this.props.clinicalEvent;
-        let klass = `button ${buttonType}`;
-
-        if (clinicalEvent === buttonType) {
-            klass += " active";
-        }
-
-        return klass;
+        this.props.setFullAppState('clinicalEvent', clinicalEvent.toLowerCase());
+        this.setState({ clinicalEvent });
     }
 
     renderClinicalEventList() {
-        return (
-            <Row start="xs" className="clinical-event-buttons">
-                {this.props.possibleClinicalEvents.map((setting, index) => {
-                    return (
-                        <Col xs className={this.buttonClass(setting)} key={`clinical-event-${setting}`} id={`${setting}-button`}>
-                            <Button raised onClick={() => {this.selectClinicalEvent(setting)}}>
-                                {titlecase(setting)}
-                            </Button>
-                        </Col>
-                    )
-                })}
-            </Row>
-        )
-    }
-
-    render() {
-        return  (
-            <div id="clinical-event-selection">
-                <h3>Event</h3>
-                {this.renderClinicalEventList()}
-            </div>
+        return this.props.possibleClinicalEvents.map((setting, index) =>
+            <MenuItem
+                className="clinical-event-item"
+                key={`clinical-event-${setting}`}
+                value={titlecase(setting)}
+                data-test-clinical-event-selector-item={titlecase(setting)}>
+                {titlecase(setting)}
+            </MenuItem>
         );
     }
 
+    render() {
+        return (
+            <div className="clinical-event-selection">
+                <Select
+                    className="clinical-event-select"
+                    value={titlecase(this.props.clinicalEvent)}
+                    onChange={(event) => this.selectClinicalEvent(event.target.value)}
+                    data-test-clinical-event-selector
+                >
+                    {this.renderClinicalEventList()}
+                </Select>
+            </div>
+        );
+    }
 }
 
 function titlecase(label) {
