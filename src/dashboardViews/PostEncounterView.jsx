@@ -10,12 +10,10 @@ class PostEncounterView extends Component {
         return (
             <Row center="xs" id="post-encounter-view-content">
                 <Col sm={4} className="right-border-box">
-                    <div className="fitted-panel panel-content dashboard-panel">
-                        <TargetedDataPanel
-                            isWide={false}
-                            {...this.props}
-                        />
-                    </div>
+                    <TargetedDataPanel
+                        isWide={false}
+                        {...this.props}
+                    />
                 </Col>
                 <Col sm={8}>
                     <NotesPanel

@@ -12,32 +12,34 @@ class TargetedDataPanel extends Component {
         // The class associated with 
         const minimapAttribute = "data-test-summary-section";
         return (
-            <Minimap 
-                selector={`[${minimapAttribute}]`}
-                className="fitted-panel"
-                titleAttribute={minimapAttribute}
-                width={80}
-                isFullHeight={true}
-            >   
-                <div id="summary-subpanel">
-                    <TargetedDataControl
-                        possibleClinicalEvents={this.props.possibleClinicalEvents}
-                        clinicalEvent={this.props.appState.clinicalEvent}
-                        setFullAppState={this.props.setFullAppState}
-                        patient={this.props.appState.patient}
-                    />
-                    <div className="summary-section">
-                        <TargetedDataSubpanel
-                            isWide={this.props.isWide}
-                            patient={this.props.appState.patient}
-                            condition={this.props.appState.condition}
-                            summaryMetadata={this.props.appState.summaryMetadata}
-                            onItemClicked={this.props.handleSummaryItemSelected}
-                            allowItemClick={true}
-                        />
-                    </div>
-                </div> 
-            </Minimap>
+            <div>
+                <TargetedDataControl
+                    possibleClinicalEvents={this.props.possibleClinicalEvents}
+                    clinicalEvent={this.props.appState.clinicalEvent}
+                    setFullAppState={this.props.setFullAppState}
+                    patient={this.props.appState.patient}
+                />
+                <Minimap 
+                    selector={`[${minimapAttribute}]`}
+                    className="fitted-panel"
+                    titleAttribute={minimapAttribute}
+                    width={80}
+                    isFullHeight={true}
+                >   
+                    <div id="summary-subpanel">
+                        <div className="summary-section">
+                            <TargetedDataSubpanel
+                                isWide={this.props.isWide}
+                                patient={this.props.appState.patient}
+                                condition={this.props.appState.condition}
+                                summaryMetadata={this.props.appState.summaryMetadata}
+                                onItemClicked={this.props.handleSummaryItemSelected}
+                                allowItemClick={true}
+                            />
+                        </div>
+                    </div> 
+                </Minimap>
+            </div>
         );
     }
 }

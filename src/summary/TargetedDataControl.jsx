@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import ConditionSelection from './ConditionSelection'
 import ClinicalEventSelection from './ClinicalEventSelection'
@@ -77,7 +78,7 @@ class TargetedDataControl extends Component {
                             <h3>Data</h3>
                             <span>
                                 <Row middle="xs">
-                                    <Col sm={4}>
+                                    <Col sm={6}>
                                         <Button
                                             className="small-btn"
                                             id="narrative-button"
@@ -85,7 +86,7 @@ class TargetedDataControl extends Component {
                                             {this.narrativeView()}
                                         </Button>
                                     </Col>
-                                    <Col sm={4}>
+                                    <Col sm={6}>
                                         <Button
                                             className="small-btn"
                                             id="tabular-button"
@@ -103,7 +104,11 @@ class TargetedDataControl extends Component {
     }
 }
 
-TargetedDataControl.propTypes = {
+TargetedDataControl.proptypes = {
+    possibleClinicalEvents: PropTypes.array.isRequired,
+    clinicalEvent: PropTypes.string.isRequired,
+    setFullAppState: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired
 };
 
 export default TargetedDataControl;
