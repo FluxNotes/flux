@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
+import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import 'font-awesome/css/font-awesome.min.css';
 import './DataSummaryPanel.css';
 
 class DataSummaryPanel extends Component {
-
     getConditionMetadata() {
         const {condition} = this.props;
 
@@ -25,12 +25,11 @@ class DataSummaryPanel extends Component {
     }
 
     // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
-    // Current implementation only renders the TabularNameValuePairsVisualizer
     // TODO: Render other types of data. also change how it decides which visualization component to use when
     //       multiple (e.g., NameValuePairs)
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
-    renderedSection(section) {
+    renderSection(section) {
         const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
         if (section.type === 'NameValuePairs' && !section.narrative) {
@@ -55,10 +54,19 @@ class DataSummaryPanel extends Component {
                     isWide={isWide}
                 />
             );
+        } else if (section.type === 'Events') {
+            return (
+                <TimelineEventsVisualizer
+                    patient={patient}
+                    condition={condition}
+                    section={section}
+                    isWide={isWide}
+                />
+            );
         }
     }
 
-    renderedTableSection() {
+    renderSections() {
         const conditionMetadata = this.getConditionMetadata();
         if (conditionMetadata == null) {
             return null;
@@ -68,16 +76,16 @@ class DataSummaryPanel extends Component {
             return (
                 <div key={i} data-test-summary-section={section.name}>
                     <h2 className="section-header">{section.name}</h2>
-                    {this.renderedSection(section)}
+                    {this.renderSection(section)}
                 </div>
             );
         });
     }
 
-    renderedTableList() {
+    renderSummaryList() {
         return (
-            <div className="table-list" id="summary-list">
-                {this.renderedTableSection()}
+            <div id="summary-list">
+                {this.renderSections()}
             </div>
         );
     }
@@ -88,7 +96,7 @@ class DataSummaryPanel extends Component {
                 id="condition-summary-section" 
                 className={this.props.className}
             >
-                {this.renderedTableList()}
+                {this.renderSummaryList()}
             </div>
         );
     }
