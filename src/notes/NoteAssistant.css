@@ -2,8 +2,111 @@ span.button-hover {
     cursor: pointer;
 }
 
-.resume-note-btn {
-    width: 100%;
-    height: 60px;
-    background-color: white !important;
+.clinical-notes-panel {
+    margin: auto;
+    width: 160px;
+    /*height: 100px;*/
 }
+
+.note-new:hover {
+    cursor:pointer;
+    background: #e6e6e6;
+}
+
+.note-new {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    height: auto !important;
+    width: 9vw !important;
+    min-width: 180px !important;
+}
+
+.note-new-text {
+    font-size: 0.9rem;
+}
+
+.resume-note-btn {
+    background-color: white !important;
+    padding: 10px !important;
+    margin-bottom: 20px;
+    height: auto !important;
+    width: 9vw !important;
+    min-width: 180px !important;
+}
+
+.resume-note-btn:hover {
+    background: #e6e6e6 !important;
+}
+
+.previous-notes-label {
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.sort-label {
+    margin-left: 10px;
+    font-size: 0.8em;
+}
+
+.sort-selection {
+
+    margin-bottom: 20px;
+}
+
+.sort-select {
+    width: 50%;
+    margin-left: 10px;
+}
+.sort-selection .sort-select {
+    font-size: 0.8em;
+}
+
+.sort-item:hover {
+    background-color: #1384b5;
+    color: #fff;
+}
+.note {
+    padding-top: 0px !important;
+    height: auto !important;
+    width: 9vw !important;
+    min-width: 180px !important;
+}
+
+.note:hover {
+    cursor:pointer;
+    background: #e6e6e6;
+}
+
+.existing-note-date {
+    font-size: 0.7rem;
+    color: #333333 !important;
+    font-weight: bold;
+}
+
+.existing-note-subject {
+    font-size: 0.7rem;
+    color: #999 !important;
+}
+
+.existing-note-metadata {
+    font-size: 0.7rem;
+    color: #999 !important;
+    margin-bottom: 5px;
+}
+
+.more-notes-btn {
+    background-color: white !important;
+    padding: 10px !important;
+    margin-top: 10px;
+    height: auto !important;
+    width: 9vw !important;
+    min-width: 180px !important;
+}
+
+.more-notes-btn:hover {
+    background: #e6e6e6 !important;
+}
+
