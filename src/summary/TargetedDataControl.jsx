@@ -51,6 +51,8 @@ class TargetedDataControl extends Component {
         );
     }
     render() {
+        const  patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
+
         return (
             <div id="condition-summary-section" className="dashboard-panel panel-content">
                 <Grid fluid>
@@ -66,7 +68,7 @@ class TargetedDataControl extends Component {
 
                         <Col sm={4}>
                             <ConditionSelection
-                                conditions={this.props.patient.getConditions()}
+                                conditions={patientConditions}
                                 setFullAppState={this.props.setFullAppState}
                             />
                         </Col>

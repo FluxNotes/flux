@@ -53,16 +53,16 @@ describe('SummaryHeader', function() {
 });
 describe('TargetedDataControl', function() {
     it.only('noteDisplayMode buttons update state', function() {
-        const wrapper = shallow(<TargetedDataControl />, {appState: {}, patient: {}, possibleClinicalEvents: {}, clinicalEvent: {}, setFullAppState: {}});
+        const wrapper = shallow(<TargetedDataControl />);
         
         // Initial state
         expect(wrapper.state('noteDisplayMode'))
-            .to.eq('tabular');
+            .to.eq('narrative');
 
         // Clicking the non-default note display button changes the state
-        const leftView = wrapper.find(Button).find('#narrative-button');
+        const leftView = wrapper.find(Button).find('#tabular-button');
         leftView.simulate('click');
         expect(wrapper.state('noteDisplayMode'))
-          .to.eq('narrative');
+          .to.eq('tabular');
     });
 });
