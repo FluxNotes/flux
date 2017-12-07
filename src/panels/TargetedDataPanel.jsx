@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
-import TimelinePanel from '../timeline/TimelinePanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
 import TargetedDataControl from '../summary/TargetedDataControl'
