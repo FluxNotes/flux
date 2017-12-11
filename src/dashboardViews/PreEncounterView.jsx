@@ -11,13 +11,13 @@ class PreEncounterView extends Component {
         return (
             <div id="pre-encounter-view-content">
                 <Row center="xs">
-                    <Col sm={8} className="full-panel">
+                    <Col sm={9} className="full-panel">
                         <TargetedDataPanel
                             isWide={true} 
                             {...this.props}
                         />
                     </Col>
-                    <Col sm={4}>
+                    <Col sm={3}>
                         <NotesPanel
                             isNoteViewerVisible={false}
                             isNoteViewerEditable={false}
