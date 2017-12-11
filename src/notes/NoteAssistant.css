@@ -52,7 +52,6 @@ span.button-hover {
 }
 
 .sort-selection {
-
     margin-bottom: 20px;
 }
 
@@ -60,14 +59,16 @@ span.button-hover {
     width: 50%;
     margin-left: 10px;
 }
+
 .sort-selection .sort-select {
     font-size: 0.8em;
 }
 
-.sort-item:hover {
+li.sort-item:hover {
     background-color: #1384b5;
     color: #fff;
 }
+
 .note {
     padding-top: 0px !important;
     height: auto !important;
