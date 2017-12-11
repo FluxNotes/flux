@@ -55,10 +55,10 @@ class TargetedDataControl extends Component {
         const  patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
 
         return (
-            <div id="condition-summary-section" className="dashboard-panel panel-content">
+            <div id="condition-summary-section">
                 <Grid fluid>
                     <Row middle="xs">
-                        <Col sm={6}>
+                        <Col sm={5}>
                             <h3>Workflow</h3>
                             <ClinicalEventSelection
                                 possibleClinicalEvents={this.props.possibleClinicalEvents}
@@ -67,7 +67,7 @@ class TargetedDataControl extends Component {
                             />
                         </Col>
 
-                        <Col sm={4}>
+                        <Col sm={5}>
                             <ConditionSelection
                                 conditions={patientConditions}
                                 setFullAppState={this.props.setFullAppState}
@@ -77,24 +77,18 @@ class TargetedDataControl extends Component {
                         <Col sm={2}>
                             <h3>Data</h3>
                             <span>
-                                <Row middle="xs">
-                                    <Col sm={6}>
-                                        <Button
-                                            className="small-btn"
-                                            id="narrative-button"
-                                            onClick={() => this.handleViewChange('narrative')}>
-                                            {this.narrativeView()}
-                                        </Button>
-                                    </Col>
-                                    <Col sm={6}>
-                                        <Button
-                                            className="small-btn"
-                                            id="tabular-button"
-                                            onClick={() => this.handleViewChange('tabular')}>
-                                            {this.tabularView()}
-                                        </Button>
-                                    </Col>
-                                </Row>
+                                <Button
+                                    className="small-btn"
+                                    id="narrative-button"
+                                    onClick={() => this.handleViewChange('narrative')}>
+                                    {this.narrativeView()}
+                                </Button>
+                                <Button
+                                    className="small-btn"
+                                    id="tabular-button"
+                                    onClick={() => this.handleViewChange('tabular')}>
+                                    {this.tabularView()}
+                                </Button>
                             </span>
                         </Col>
                     </Row>
