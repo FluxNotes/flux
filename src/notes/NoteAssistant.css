@@ -14,9 +14,8 @@ span.button-hover {
 }
 
 .note-new {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     text-align: center;
     height: auto !important;
     width: 9vw !important;
