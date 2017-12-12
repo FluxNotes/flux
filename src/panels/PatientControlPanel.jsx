@@ -22,14 +22,11 @@ class PatientControlPanel extends Component {
                         <Row middle="xs">
                             <Col sm={2}>
                                 <Row middle="xs">
-                                    <Col sm={3}>
-                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px"
-                                             alt="Flux Notes logo"/>&nbsp;&nbsp;
-                                    </Col>
-                                    <Col sm={9}>
-                                        <div className="title">
-                                            {this.props.appTitle}
-                                        </div>
+                                    <Col sm={12}>
+                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
+                                        <span className="title">
+                                            &nbsp; {this.props.appTitle}
+                                        </span>
                                     </Col>
                                 </Row>
                                 <Row>

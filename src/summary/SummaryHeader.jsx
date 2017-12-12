@@ -66,7 +66,7 @@ class SummaryHeader extends Component {
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
-                        <Col sm={2}>
+                        <Col sm={6}>
                             <div className="avatar">
                                 <Avatar
                                     src={photo}
@@ -79,10 +79,8 @@ class SummaryHeader extends Component {
                                     }}
                                 />
                             </div>
-                        </Col>
-
-                        <Col sm={3}>
-                            <div className="item">
+                            &nbsp;
+                            <div className="name-and-mrn item">
                                 <h1>{patientName}</h1>
                                 <h3>MRN: {mrn}</h3>
                                 <h3>DOB: <span className="no-wrap">{dateOfBirth} ({age}) years old</span></h3>

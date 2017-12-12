@@ -12,6 +12,14 @@ h2, h3 {
     color: #999;
 }
 
+.avatar {
+    display:inline-block;
+}
+
+.name-and-mrn {
+    display:inline-block;
+}
+
 .patient-info {
     float: left;
     margin-left: 10px;
