@@ -2,6 +2,10 @@ span.button-hover {
     cursor: pointer;
 }
 
+.clinical-notes-btn .fa { 
+    padding: 0 10px;
+}
+
 .clinical-notes-panel {
     margin: auto;
     width: 160px;

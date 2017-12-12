@@ -65,9 +65,10 @@ class NoteAssistant extends Component {
                 // Render the context tray
                 return (
                     <div>
-                        <span className="button-hover clinical-notes-btn" onClick={() => {
-                            this.toggleView()
-                        }}><i className="fa fa-arrow-left"></i>Clinical Notes</span>
+                        <span className="button-hover clinical-notes-btn" onClick={() => { this.toggleView()}}>
+                            <i className="fa fa-arrow-left"></i>
+                            Clinical Notes
+                        </span>
                         <ContextTray
                             patient={this.props.patient}
                             contextManager={this.props.contextManager}
