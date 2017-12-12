@@ -151,9 +151,12 @@ class NoteAssistant extends Component {
                     value={this.state.sortIndex}
                     onChange={(event) => this.selectSort(event.target.value)}
                 >
-                    <MenuItem className="sort-item" value={0}>Date</MenuItem>
-                    <MenuItem className="sort-item" value={1}>Subject</MenuItem>
-                    <MenuItem className="sort-item" value={2}>Hospital</MenuItem>
+                    <MenuItem className="sort-item" value={0}>Most recent</MenuItem>
+                    <MenuItem className="sort-item" value={1}>Least recent</MenuItem>
+                    <MenuItem className="sort-item" value={2}>Author type</MenuItem>
+                    <MenuItem className="sort-item" value={3}>Specialty</MenuItem>
+                    <MenuItem className="sort-item" value={4}>Encounter</MenuItem>
+                    <MenuItem className="sort-item" value={5}>Note</MenuItem>
                 </Select>
             </div>
         );
