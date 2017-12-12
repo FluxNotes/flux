@@ -14,6 +14,14 @@ class SummaryMetadata {
                         narrative: 
     /*eslint no-template-curly-in-string: "off"*/
                         "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
+                        missingNarrative: {
+                            missingData: [
+                                "Current Diagnosis.As Of Date",
+                                "Current Diagnosis.Progression",
+                                "Current Diagnosis.Rationale"
+                            ],
+                            template: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}.  No recent progression status.  Recent lab results include ${Recent Lab Results}."
+                        },
                         data: [
                             {
                                 name: "Current Diagnosis",

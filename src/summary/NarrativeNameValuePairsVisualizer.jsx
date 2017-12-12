@@ -9,8 +9,35 @@ import './NarrativeNameValuePairsVisualizer.css';
 class NarrativeNameValuePairsVisualizer extends Component {
 
     // get the narrative template from the metadata
-    getNarrativeTemplate() {
-        return this.props.conditionSection.narrative;
+    getNarrativeTemplate(subsections) {
+        const {conditionSection} = this.props;
+
+        if (Lang.isNull(conditionSection.missingNarrative) || Lang.isUndefined(conditionSection.missingNarrative)) {
+            return conditionSection.narrative;
+        }
+
+        let allNull = true;
+        conditionSection.missingNarrative.missingData.forEach((data) => {
+            const index = data.indexOf(".");
+            let subsectionName, valueName;
+
+            if (index === -1) {
+                subsectionName = "";
+                valueName = data;
+            } else {
+                subsectionName = data.substring(0, index);
+                valueName = data.substring(index + 1);
+            }
+
+            const list = this.getList(subsections[subsectionName]);
+            const item = list.find((it) => {
+                return it.name === valueName;
+            });
+
+            if (!Lang.isNull(item.value)) allNull = false;
+        });
+
+        return allNull ? conditionSection.missingNarrative.template : conditionSection.narrative;
     }
 
     // create a map of subsection name to its metadata 
@@ -115,8 +142,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
-        let template = this.getNarrativeTemplate();
         let subsections = this.getSubsections();
+        let template = this.getNarrativeTemplate(subsections);
 
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
