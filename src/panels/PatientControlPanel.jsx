@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Button from '../elements/Button';
@@ -11,8 +11,8 @@ import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
     render() {
-        const { patient } = this.props;
-        const login = (this.props.supportLogin) ? ( <Button style={{color:"#17263f"}}>Dr. X123 Y987</Button> ) : "";
+        const {patient} = this.props;
+        const login = (this.props.supportLogin) ? ( <Button style={{color: "#17263f"}}>Dr. X123 Y987</Button> ) : "";
         const firstName = patient.getName().split(' ')[0];
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
         return (
@@ -23,7 +23,8 @@ class PatientControlPanel extends Component {
                             <Col sm={2}>
                                 <Row middle="xs">
                                     <Col sm={3}>
-                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />&nbsp;&nbsp;
+                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px"
+                                             alt="Flux Notes logo"/>&nbsp;&nbsp;
                                     </Col>
                                     <Col sm={9}>
                                         <div className="title">
@@ -31,63 +32,44 @@ class PatientControlPanel extends Component {
                                         </div>
                                     </Col>
                                 </Row>
+                                <Row>
+                                    <Col sm={3}>
+                                        </Col>
+                                    <Col sm={9}>
+                                        {login}
+                                    </Col>
+
+                                </Row>
                             </Col>
-                            
+
                             <Col sm={7}>
                                 <SummaryHeader
+                                    patientConditions={patientConditions}
+                                    setFullAppState={this.props.setFullAppState}
+                                    possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                    clinicalEvent={this.props.clinicalEvent}
                                     photo={patient.getMostRecentPhoto()}
                                     patientName={patient.getName()}
                                     mrn={patient.getMRN()}
                                     dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
                                     age={patient.getAge()}
                                     administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
-                                    address={patient.getCurrentHomeAddress()} />
+                                    address={patient.getCurrentHomeAddress()}/>
                             </Col>
-                            <Col sm={2}>
-                                <div id="condition-summary-section" className="dashboard-panel panel-content">
-                                    <Grid fluid>
-                                        <Row middle="xs">
-                                            <Col sm={6}>
-                                                <h3>Workflow</h3>
-                                                <ClinicalEventSelection
-                                                    possibleClinicalEvents={this.props.possibleClinicalEvents}
-                                                    clinicalEvent={this.props.clinicalEvent}
-                                                    setFullAppState={this.props.setFullAppState}
-                                                />
-                                            </Col>
 
-                                            <Col sm={4}>
-                                                <ConditionSelection
-                                                    conditions={patientConditions}
-                                                    setFullAppState={this.props.setFullAppState}
-                                                />
-                                            </Col>
-
-
-                                        </Row>
-                                    </Grid>
-                                </div>
-                                </Col>
-                            <Col sm={1}>
+                            <Col sm={3}>
                                 <Row middle="xs">
-                                    <Col sm={1}>
-
-                                    </Col>
-
-                                    <Col sm={4}>
-                                        {login}
-                                    </Col>
 
                                     <Col sm={1}>
                                         <div className="vertical-divider"></div>
                                     </Col>
 
-                                    <Col sm={6}>
+                                    <Col sm={11}>
                                         <div className="search-wrapper">
                                             <span className="fa fa-search search-icon"></span>
                                             <Input
                                                 id="search"
-                                                placeholder={`${firstName} search...`}
+                                                placeholder={`Search ${firstName}'s Record...`}
                                                 className="search-field"
                                             />
                                         </div>
