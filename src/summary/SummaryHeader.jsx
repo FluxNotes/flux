@@ -60,7 +60,7 @@ class SummaryHeader extends Component {
     }
 
     render() {
-        const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
+        const { photo, patientName, mrn, dateOfBirth, age, administrativeSex } = this.props;
 
         return (
             <div id="summary-header">

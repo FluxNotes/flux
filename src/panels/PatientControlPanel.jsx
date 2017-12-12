@@ -5,8 +5,6 @@ import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Button from '../elements/Button';
 import SummaryHeader from '../summary/SummaryHeader';
-import ConditionSelection from '../summary/ConditionSelection'
-import ClinicalEventSelection from '../summary/ClinicalEventSelection'
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
