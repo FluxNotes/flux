@@ -34,7 +34,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 return it.name === valueName;
             });
 
-            if (!Lang.isNull(item.value)) allNull = false;
+            if (!Lang.isUndefined(item) && !Lang.isNull(item.value)) allNull = false;
         });
 
         return allNull ? conditionSection.missingNarrative.template : conditionSection.narrative;
