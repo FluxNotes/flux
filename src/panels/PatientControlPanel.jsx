@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Button from '../elements/Button';
 import SummaryHeader from '../summary/SummaryHeader';
+import ConditionSelection from '../summary/ConditionSelection'
+import ClinicalEventSelection from '../summary/ClinicalEventSelection'
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
@@ -12,6 +14,7 @@ class PatientControlPanel extends Component {
         const { patient } = this.props;
         const login = (this.props.supportLogin) ? ( <Button style={{color:"#17263f"}}>Dr. X123 Y987</Button> ) : "";
         const firstName = patient.getName().split(' ')[0];
+        const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
         return (
             <div className="patient-control-panel">
                 <Paper className="panel-content">
@@ -40,8 +43,32 @@ class PatientControlPanel extends Component {
                                     administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
                                     address={patient.getCurrentHomeAddress()} />
                             </Col>
-                            
-                            <Col sm={3}>
+                            <Col sm={2}>
+                                <div id="condition-summary-section" className="dashboard-panel panel-content">
+                                    <Grid fluid>
+                                        <Row middle="xs">
+                                            <Col sm={6}>
+                                                <h3>Workflow</h3>
+                                                <ClinicalEventSelection
+                                                    possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                                    clinicalEvent={this.props.clinicalEvent}
+                                                    setFullAppState={this.props.setFullAppState}
+                                                />
+                                            </Col>
+
+                                            <Col sm={4}>
+                                                <ConditionSelection
+                                                    conditions={patientConditions}
+                                                    setFullAppState={this.props.setFullAppState}
+                                                />
+                                            </Col>
+
+
+                                        </Row>
+                                    </Grid>
+                                </div>
+                                </Col>
+                            <Col sm={1}>
                                 <Row middle="xs">
                                     <Col sm={1}>
 
