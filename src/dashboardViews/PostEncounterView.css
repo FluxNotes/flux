@@ -5,7 +5,7 @@
 #post-encounter-view-content .fitted-panel { 
     overflow-y: scroll;
     text-align: left;
-    max-height: calc(100vh - 136px);
+    max-height: calc(100vh - 200px);
     min-height: 400px !important;
 }
 

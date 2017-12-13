@@ -1,8 +1,17 @@
-.small-btn {
+#condition-summary-section .small-btn {
     min-width: 0 !important;
+    display: inline-block !important;
 }
-h2, h3 {
+
+#narrative-button.small-btn { 
+    margin: 10px 3px 10px 0px;
+}
+
+#tabular-button.small-btn { 
+    margin: 10px 0px 10px 3px;
+}
+
+
+#condition-summary-section h2, h3 {
     color: #999;
 }
-
-

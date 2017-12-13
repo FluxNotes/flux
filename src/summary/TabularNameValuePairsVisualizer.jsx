@@ -167,7 +167,7 @@ class TabularNameValuePairsVisualizer extends Component {
         const subsections = this.getSubsections();
 
         return (
-            <div>
+            <div className="tabular-subsections">
                 {this.renderedSubsections(subsections)}
             </div>
         );

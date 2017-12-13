@@ -1,9 +1,11 @@
+.tabular-subsections { 
+    margin-bottom: 20px;
+}
+
 table {
     border-collapse: collapse;
     width: 98%;
     margin-top: 10px;
-    margin-bottom: 20px;
-
 }
 
 table, tr, td {

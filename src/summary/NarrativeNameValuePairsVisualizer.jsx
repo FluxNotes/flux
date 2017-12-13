@@ -138,7 +138,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         
         // return HTML to render
         return (
-            <div>
+            <div className="narrative-subsections">
                 <p>{content}</p>
             </div>
         );

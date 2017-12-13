@@ -1,3 +1,7 @@
+.narrative-subsections { 
+    margin-bottom: 20px;
+}
+
 span.missing-data {
     border-bottom: 1px solid red;
 }
