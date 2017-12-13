@@ -5,7 +5,7 @@ import { expect } from 'chai'
 
 import FullApp from '../../../src/apps/FullApp';
 import SummaryHeader from '../../../src/summary/SummaryHeader';
-import TargetedDataControl from '../../../src/summary/TargetedDataControl';
+// import TargetedDataControl from '../../../src/summary/TargetedDataControl';
 import Button from '../../../src/elements/Button';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -37,7 +37,7 @@ describe('setFullAppState', function() {
 });
 
 describe('SummaryHeader', function() {
-    it.only('View buttons update state', function() {
+    it('View buttons update state', function() {
         const wrapper = shallow(<SummaryHeader />);
         
         // Initial state
@@ -51,18 +51,18 @@ describe('SummaryHeader', function() {
           .to.eq('left');
     });
 });
-describe('TargetedDataControl', function() {
-    it.only('noteDisplayMode buttons update state', function() {
-        const wrapper = shallow(<TargetedDataControl />);
-        
-        // Initial state
-        expect(wrapper.state('noteDisplayMode'))
-            .to.eq('narrative');
-
-        // Clicking the non-default note display button changes the state
-        const leftView = wrapper.find(Button).find('#tabular-button');
-        leftView.simulate('click');
-        expect(wrapper.state('noteDisplayMode'))
-          .to.eq('tabular');
-    });
-});
+// describe('TargetedDataControl', function() {
+//     it('noteDisplayMode buttons update state', function() {
+//         const wrapper = shallow(<TargetedDataControl />);
+//
+//         // Initial state
+//         expect(wrapper.state('noteDisplayMode'))
+//             .to.eq('narrative');
+//
+//         // Clicking the non-default note display button changes the state
+//         const leftView = wrapper.find(Button).find('#tabular-button');
+//         leftView.simulate('click');
+//         expect(wrapper.state('noteDisplayMode'))
+//           .to.eq('tabular');
+//     });
+// });

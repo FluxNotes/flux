@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
 import '../lib/react-minimap/react-minimap.css'
-import TargetedDataControl from '../summary/TargetedDataControl'
 import './TargetedDataPanel.css';
 
 class TargetedDataPanel extends Component { 
@@ -12,12 +11,7 @@ class TargetedDataPanel extends Component {
         const minimapAttribute = "data-test-summary-section";
         return (
             <div>
-                <TargetedDataControl
-                    possibleClinicalEvents={this.props.possibleClinicalEvents}
-                    clinicalEvent={this.props.appState.clinicalEvent}
-                    setFullAppState={this.props.setFullAppState}
-                    patient={this.props.appState.patient}
-                />
+
                 <Minimap 
                     selector={`[${minimapAttribute}]`}
                     className="fitted-panel"

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Avatar from 'material-ui/Avatar';
 import Button from '../elements/Button';
+import ConditionSelection from '../summary/ConditionSelection'
+import ClinicalEventSelection from '../summary/ClinicalEventSelection'
 import './SummaryHeader.css';
 
 class SummaryHeader extends Component {
@@ -58,13 +60,13 @@ class SummaryHeader extends Component {
     }
 
     render() {
-        const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
+        const { photo, patientName, dateOfBirth, age, administrativeSex, address } = this.props;
 
         return (
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
-                        <Col sm={2}>
+                        <Col sm={5}>
                             <div className="avatar">
                                 <Avatar
                                     src={photo}
@@ -77,39 +79,41 @@ class SummaryHeader extends Component {
                                     }}
                                 />
                             </div>
-                        </Col>
-
-                        <Col sm={3}>
-                            <div className="name-and-mrn item">
+                            &nbsp;
+                            <div className="patient-info item">
                                 <h1>{patientName}</h1>
-                                <h3>MRN: {mrn}</h3>
+                                <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirth} ({age})</span></h3>
+                                <h3 className="patient-item">Admin. Sex:  <span>{administrativeSex}</span></h3>
+                                <h3 className="patient-item">Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>
                             </div>
                         </Col>
 
-                        <Col sm={6}>
+                        <Col sm={7}>
                             <Row middle="xs">
-                                <Col sm={3}>
-                                    <div className="date-of-birth item">
-                                        <h3>DOB</h3>
-                                        <span className="no-wrap">{dateOfBirth} ({age})</span>
-                                    </div>
-                                </Col>
-
-                                <Col sm={3}>
-                                    <div className="administrative-sex item">
-                                        <h3>Admin. Sex</h3>
-                                        <span>{administrativeSex}</span>
-                                    </div>
-                                </Col>
-
-                                <Col sm={3}>
-                                    <div className="location item">
-                                        <h3>Location</h3>
-                                        <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span>
+                                <Col sm={10}>
+                                    <div id="condition-summary-section" className="dashboard-panel panel-content">
+                                        <Grid fluid>
+                                            <Row middle="xs">
+                                                <Col sm={6}>
+                                                    <h3>Workflow</h3>
+                                                    <ClinicalEventSelection
+                                                        possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                                        clinicalEvent={this.props.clinicalEvent}
+                                                        setFullAppState={this.props.setFullAppState}
+                                                    />
+                                                </Col>
+                                                <Col sm={6}>
+                                                    <ConditionSelection
+                                                        conditions={this.props.patientConditions}
+                                                        setFullAppState={this.props.setFullAppState}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </Grid>
                                     </div>
                                 </Col>
                                 
-                                <Col sm={3}>
+                                <Col sm={2}>
                                     <div className="view item">
                                         <h3>View</h3>
                                         <span>

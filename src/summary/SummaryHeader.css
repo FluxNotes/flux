@@ -12,11 +12,17 @@ h2, h3 {
     color: #999;
 }
 
+.patient-item {
+    margin-left: 1px !important;
+}
+
+
+.avatar {
+    display:inline-block;
+}
+
 .patient-info {
-    float: left;
-    margin-left: 10px;
-    min-width: 70%;
-    max-width: 70%;
+    display:inline-block;
 }
 
 .item {
@@ -33,4 +39,5 @@ h2, h3 {
 
 .small-btn {
     min-width: 0 !important;
+    margin-left: 1px;
 }

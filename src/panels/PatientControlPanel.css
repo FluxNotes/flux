@@ -16,6 +16,10 @@
     color: steelblue;
     font-size: 24px;
     font-weight: 600;
+    vertical-align: 0.5em;
+}
+.patient-control-panel .login {
+    margin-left: 0.4rem;
 }
 
 .vertical-divider {
