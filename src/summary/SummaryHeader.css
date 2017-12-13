@@ -39,4 +39,5 @@ h2, h3 {
 
 .small-btn {
     min-width: 0 !important;
+    margin-left: 1px;
 }
