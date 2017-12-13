@@ -25,8 +25,8 @@ class PatientControlPanel extends Component {
                                         <span className="title">
                                             &nbsp; {this.props.appTitle}
                                         </span>
-                                        <span className="login">{login}</span>
                                     </Col>
+                                    <span className="login">{login}</span>
                                 </Row>
                             </Col>
 

@@ -66,7 +66,7 @@ class SummaryHeader extends Component {
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
-                        <Col sm={4}>
+                        <Col sm={5}>
                             <div className="avatar">
                                 <Avatar
                                     src={photo}
@@ -80,15 +80,15 @@ class SummaryHeader extends Component {
                                 />
                             </div>
                             &nbsp;
-                            <div className="name-and-mrn item">
+                            <div className="patient-info item">
                                 <h1>{patientName}</h1>
-                                <h3>DOB: <span className="no-wrap">{dateOfBirth} ({age})</span></h3>
-                                <h3>Admin. Sex:  <span>{administrativeSex}</span></h3>
-                                <h3>Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>
+                                <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirth} ({age})</span></h3>
+                                <h3 className="patient-item">Admin. Sex:  <span>{administrativeSex}</span></h3>
+                                <h3 className="patient-item">Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>
                             </div>
                         </Col>
 
-                        <Col sm={8}>
+                        <Col sm={7}>
                             <Row middle="xs">
                                 <Col sm={10}>
                                     <div id="condition-summary-section" className="dashboard-panel panel-content">
