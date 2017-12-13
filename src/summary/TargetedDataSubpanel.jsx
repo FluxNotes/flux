@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from '../elements/Button';
 import TargetedDataSection from './TargetedDataSection';
-import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
-import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
-import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import 'font-awesome/css/font-awesome.min.css';
 import './TargetedDataSubpanel.css';
 
@@ -46,7 +42,6 @@ class TargetedDataSubpanel extends Component {
                         onItemClicked={onItemClicked}
                         allowItemClick={allowItemClick}
                         isWide={isWide}
-                        defaultView={section.defaultView}
                     />
                     { i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null }
                 </div>

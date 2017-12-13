@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../elements/Button';
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
@@ -62,14 +63,13 @@ class TargetedDataSection extends Component {
     }
 
     graphicView = () => {
-        // TODO: This needs to use the new graphic icon
         const strokeColor = this.state.dataViewMode === "graphic" ? "#3F3F3F" : "#CCCCCC";
         return (
-            <svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square" opacity="0.8">
-                    <g id="Group-3-Copy" transform="translate(0.567421, 0.048197)" stroke={strokeColor} strokeWidth="2">
-                        <path d="M1.03162221,1 L7.83111001,1" id="Line-4"></path>
-                        <path d="M1.03162221,7 L15.1251513,7" id="Line-4-Copy"></path>
+            <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
+                        <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
+                        <polyline id="Path-3" strokeLinejoin="round" points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
                     </g>
                 </g>
             </svg>
@@ -188,4 +188,12 @@ class TargetedDataSection extends Component {
 
 export default TargetedDataSection;
 
-// TODO PropTypes
+TargetedDataSection.propTypes = {
+    type: PropTypes.string,
+    section: PropTypes.object,
+    patient: PropTypes.object,
+    condition: PropTypes.object,
+    onItemClicked: PropTypes.func,
+    allowItemClick: PropTypes.bool,
+    isWide: PropTypes.bool.isRequired,
+}
