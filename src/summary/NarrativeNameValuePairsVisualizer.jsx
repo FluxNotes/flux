@@ -18,8 +18,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return sentenceObject.defaultTemplate;
         }
 
-        let allNull = true;
-        sentenceObject.useDataMissingTemplateCriteria.forEach((data) => {
+        // Check if every object in useDataMissingTemplateCriteria is null, empty, or undefined
+        const allNull = sentenceObject.useDataMissingTemplateCriteria.every((data) => {
             const index = data.indexOf(".");
             let subsectionName, list;
 
@@ -27,20 +27,20 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 subsectionName = data;
                 list = this.getList(subsections[subsectionName]);
 
-                if (!Lang.isNull(list) && !Lang.isEmpty(list)) allNull = false;
-            } else {
-                const valueName = data.substring(index + 1);
-                subsectionName = data.substring(0, index);
-                list = this.getList(subsections[subsectionName]);
-                const item = list.find((it) => {
-                    return it.name === valueName;
-                });
+                return (Lang.isNull(list) || Lang.isEmpty(list));
+            } 
+            
+            const valueName = data.substring(index + 1);
+            subsectionName = data.substring(0, index);
+            list = this.getList(subsections[subsectionName]);
+            const item = list.find((it) => {
+                return it.name === valueName;
+            });
 
-                if (!Lang.isUndefined(item) && !Lang.isNull(item.value)) allNull = false;
-            }
+            return (Lang.isUndefined(item) || Lang.isNull(item.value));
         });
 
-        return allNull ? sentenceObject.dataMissingTemplate : sentenceObject.defaultTemplate;
+        return allNull ? sentenceObject.dataMissingTemplate: sentenceObject.defaultTemplate;
     }
 
     // create a map of subsection name to its metadata 
