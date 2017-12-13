@@ -47,7 +47,43 @@ class AppManager {
                         ]
                     }
                 }
-            }, {
+            },
+            {
+                path: '/merkelcell',
+                shortcuts: ['Disease Status', 'Toxicity', 'Deceased'],
+                display: 'Flux Notes Lite (for Merkel Cell endpoints)',
+                app: SlimApp,
+                isExact: true,
+                shortcutConfigurations: {
+                    'Disease Status': { 
+                        referenceDateEnabled: false 
+                    },
+                    'Toxicity': {   
+                        gradesToDisplay: [2,3,4,5],
+                        gradesPrompt: '  only calculates its endpoint based on adverse events of grades 2 through 5; therefore, only those are shown below. ',
+                        topAdverseEvents: [
+                            'Hyperthyroidism',
+                            'Headache',
+                            'Blurred Vision',
+                            'Agitation',
+                            'Libido decreased',
+                            'Personality change',
+                            'Diarrhea',
+                            'Colitis',
+                            'Abdominal Pain',
+                            'Pruritus',
+                            'Rash maculo-papular',
+                            'Bullous dermatitis',
+                            'Mucositis oral',
+                            'Bruising',
+                            'Generalized muscle weakness',
+                            'Peripheral sensory neuropathy',
+                            'Dyspnea'
+                        ]
+                    }
+                }
+            },            
+            {
                 path: '/patient',
                 display: 'Flux Notes',
                 app: FullApp,
