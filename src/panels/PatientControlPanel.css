@@ -18,6 +18,9 @@
     font-weight: 600;
     vertical-align: 0.5em;
 }
+.patient-control-panel .login {
+    margin-left:42px;
+}
 
 .vertical-divider {
     border-left: 1px solid #ddd;

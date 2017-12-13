@@ -25,15 +25,8 @@ class PatientControlPanel extends Component {
                                         <span className="title">
                                             &nbsp; {this.props.appTitle}
                                         </span>
+                                        <span className="login">{login}</span>
                                     </Col>
-                                </Row>
-                                <Row>
-                                    <Col sm={3}>
-                                        </Col>
-                                    <Col sm={9}>
-                                        {login}
-                                    </Col>
-
                                 </Row>
                             </Col>
 
@@ -54,12 +47,12 @@ class PatientControlPanel extends Component {
 
                             <Col sm={3}>
                                 <Row middle="xs">
-
+                                    <Col sm={2}>
+                                    </Col>
                                     <Col sm={1}>
                                         <div className="vertical-divider"></div>
                                     </Col>
-
-                                    <Col sm={11}>
+                                    <Col sm={9}>
                                         <div className="search-wrapper">
                                             <span className="fa fa-search search-icon"></span>
                                             <Input

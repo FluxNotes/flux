@@ -60,13 +60,13 @@ class SummaryHeader extends Component {
     }
 
     render() {
-        const { photo, patientName, mrn, dateOfBirth, age, administrativeSex } = this.props;
+        const { photo, patientName, dateOfBirth, age, administrativeSex, address } = this.props;
 
         return (
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
-                        <Col sm={6}>
+                        <Col sm={4}>
                             <div className="avatar">
                                 <Avatar
                                     src={photo}
@@ -82,52 +82,29 @@ class SummaryHeader extends Component {
                             &nbsp;
                             <div className="name-and-mrn item">
                                 <h1>{patientName}</h1>
-                                <h3>MRN: {mrn}</h3>
-                                <h3>DOB: <span className="no-wrap">{dateOfBirth} ({age}) years old</span></h3>
+                                <h3>DOB: <span className="no-wrap">{dateOfBirth} ({age})</span></h3>
                                 <h3>Admin. Sex:  <span>{administrativeSex}</span></h3>
-                                {/*<h3>Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>*/}
+                                <h3>Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>
                             </div>
-
                         </Col>
 
-                        <Col sm={6}>
+                        <Col sm={8}>
                             <Row middle="xs">
-                                {/*<Col sm={1}>*/}
-                                    {/*<div className="date-of-birth item">*/}
-                                        {/*<h3>DOB</h3>*/}
-                                        {/*<span className="no-wrap">{dateOfBirth} ({age})</span>*/}
-                                    {/*</div>*/}
-                                {/*</Col>*/}
-
-                                {/*<Col sm={1}>*/}
-                                    {/*<div className="administrative-sex item">*/}
-                                        {/*<h3>Admin. Sex</h3>*/}
-                                        {/*<span>{administrativeSex}</span>*/}
-                                    {/*</div>*/}
-                                {/*</Col>*/}
-
-                                {/*<Col sm={1}>*/}
-                                    {/*<div className="location item">*/}
-                                        {/*<h3>Location</h3>*/}
-                                        {/*<span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span>*/}
-                                    {/*</div>*/}
-                                {/*</Col>*/}
-
-                                <Col sm={7}>
+                                <Col sm={10}>
                                     <div id="condition-summary-section" className="dashboard-panel panel-content">
                                         <Grid fluid>
                                             <Row middle="xs">
-                                                <Col sm={6}>
-                                                    <ConditionSelection
-                                                        conditions={this.props.patientConditions}
-                                                        setFullAppState={this.props.setFullAppState}
-                                                    />
-                                                </Col>
                                                 <Col sm={6}>
                                                     <h3>Workflow</h3>
                                                     <ClinicalEventSelection
                                                         possibleClinicalEvents={this.props.possibleClinicalEvents}
                                                         clinicalEvent={this.props.clinicalEvent}
+                                                        setFullAppState={this.props.setFullAppState}
+                                                    />
+                                                </Col>
+                                                <Col sm={6}>
+                                                    <ConditionSelection
+                                                        conditions={this.props.patientConditions}
                                                         setFullAppState={this.props.setFullAppState}
                                                     />
                                                 </Col>
