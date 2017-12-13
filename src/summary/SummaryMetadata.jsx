@@ -11,17 +11,28 @@ class SummaryMetadata {
                     {
                         name: "Summary",
                         type: "NameValuePairs",
-                        narrative: 
     /*eslint no-template-curly-in-string: "off"*/
-                        "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}. As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}. Recent lab results include ${Recent Lab Results}.",
-                        missingNarrative: {
-                            missingData: [
-                                "Current Diagnosis.As Of Date",
-                                "Current Diagnosis.Progression",
-                                "Current Diagnosis.Rationale"
-                            ],
-                            template: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}.  No recent progression status.  Recent lab results include ${Recent Lab Results}."
-                        },
+                        narrative: [
+                            {
+                                defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}"
+                            },
+                            {
+                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}",
+                                dataMissingTemplate: "No recent progression status",
+                                useDataMissingTemplateCriteria: [
+                                    "Current Diagnosis.As Of Date",
+                                    "Current Diagnosis.Progression",
+                                    "Current Diagnosis.Rationale"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Recent lab results include ${Recent Lab Results}" ,
+                                dataMissingTemplate: "No recent lab results",
+                                useDataMissingTemplateCriteria: [
+                                    "Recent Lab Results"
+                                ]                            
+                            }
+                        ],
                         data: [
                             {
                                 name: "Current Diagnosis",
@@ -197,9 +208,18 @@ class SummaryMetadata {
                     {
                         name: "Pathology Results",
                         type: "NameValuePairs",
-                        narrative: 
     /*eslint no-template-curly-in-string: "off"*/
-                        "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}. Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}. ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}",
+                        narrative: [
+                            {
+                                defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}"
+                            },
+                            {
+                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}"       
+                            },
+                            {
+                                defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}"
+                            }
+                        ],
                         data: [
                             {
                                 name: "",
@@ -269,9 +289,15 @@ class SummaryMetadata {
                     {
                         name: "Genetics",
                         type: "NameValuePairs",
-                        narrative: 
     /*eslint no-template-curly-in-string: "off"*/
-                        "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}. Genetic Testing is ${.Genetic Testing}.",
+                        narrative: [
+                            {
+                                defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}"
+                            },
+                            {
+                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}"       
+                            }
+                        ],
                         data: [
                             {
                                 name: "",
