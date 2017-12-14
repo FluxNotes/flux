@@ -175,6 +175,7 @@ class SummaryMetadata {
                     {
                         name: "Key Dates",
                         type: "NameValuePairs",
+                        defaultVisualizer: "tabular",
                         data: [
                             {
                                 name: "",
@@ -198,6 +199,7 @@ class SummaryMetadata {
                     {
                         name: "Procedures",
                         type: "NameValuePairs",
+                        defaultVisualizer: "tabular",
                         data: [
                             {
                                 name: "",
@@ -317,6 +319,7 @@ class SummaryMetadata {
                     {
                         name: "Timeline",
                         type: "Events",
+                        defaultVisualizer: "graphic",
                         data: [
                             {
                                 name: "Medications",
@@ -343,6 +346,7 @@ class SummaryMetadata {
                     {
                         name: "Current Diagnosis",
                         type: "NameValuePairs",
+                        defaultVisualizer: "tabular",
                         data: [
                             {
                                 name: "",
@@ -361,6 +365,7 @@ class SummaryMetadata {
                     {
                         name: "Key Dates",
                         type: "NameValuePairs",
+                        defaultVisualizer: "tabular",
                         data: [
                             {
                                 name: "",
@@ -378,6 +383,7 @@ class SummaryMetadata {
                     {
                         name: "Procedures",
                         type: "NameValuePairs",
+                        defaultVisualizer: "tabular",
                         data: [
                             {
                                 name: "",
@@ -388,6 +394,7 @@ class SummaryMetadata {
                     {
                         name: "Timeline",
                         type: "Events",
+                        defaultVisualizer: "graphic",
                         data: [
                             {
                                 name: "Medications",

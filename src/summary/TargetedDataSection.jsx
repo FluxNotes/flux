@@ -4,35 +4,46 @@ import Button from '../elements/Button';
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
+import './TargetedDataSection.css';
 
 class TargetedDataSection extends Component {
     constructor(props) {
         super(props);
 
-        // TODO: Better way to get default based on type
-        this.state = { dataViewMode: 'tabular' };
+        const defaultOrTabular = props.defaultVisualizer ? props.defaultVisualizer : 'tabular';
+
+        // this.state.defaultVisualizer comes from the summary metadata, this.state.chosenVisualizer changes when icons are clicked
+        this.state = {
+            defaultVisualizer: defaultOrTabular,
+            chosenVisualizer: null
+        };
     }
     
-    // componentDidMount(){
-    //     console.log("UPDATE")
-    //     console.log(this.props.section)
-    //     if (this.state.dataViewMode === null) {
-    //         if (this.props.type === 'NameValuePairs') {
-    //             this.setState({ dataViewMode: 'tabular' });
-    //         } else if (this.props.type === 'Events') {
-    //             this.setState({ dataViewMode: 'graphic' });
-    //         } else {
-    //             this.setState({ dataViewMode: null });
-    //         }
-    //     }
-    // }
+    componentDidUpdate() {
+        // If no default is set in summary metadata, the default will be tabular
+        const defaultOrTabular = this.props.defaultVisualizer ? this.props.defaultVisualizer : 'tabular';
+        if (this.state.defaultVisualizer !== defaultOrTabular) {
+            this.setState({defaultVisualizer: defaultOrTabular });
+        }
+    }
 
-    handleViewChange = (dataViewMode) => {
-        this.setState({ dataViewMode });
+    handleViewChange = (chosenVisualizer) => {
+        this.setState({ chosenVisualizer });
+    }
+
+    checkVisualization = () => {
+        let visualization;
+        if (this.state.chosenVisualizer === null) {
+            visualization = this.state.defaultVisualizer;
+        } else {
+            visualization = this.state.chosenVisualizer;
+        }
+        return visualization;
     }
 
     tabularView = () => {
-        const strokeColor = this.state.dataViewMode === "tabular" ? "#3F3F3F" : "#CCCCCC";
+        const visualization = this.checkVisualization();
+        const strokeColor = visualization === "tabular" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.8">
@@ -48,7 +59,8 @@ class TargetedDataSection extends Component {
     }
 
     narrativeView = () => {
-        const strokeColor = this.state.dataViewMode === "narrative" ? "#3F3F3F" : "#CCCCCC";
+        const visualization = this.checkVisualization();
+        const strokeColor = visualization === "narrative" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square" opacity="0.8">
@@ -63,7 +75,8 @@ class TargetedDataSection extends Component {
     }
 
     graphicView = () => {
-        const strokeColor = this.state.dataViewMode === "graphic" ? "#3F3F3F" : "#CCCCCC";
+        const visualization = this.checkVisualization();
+        const strokeColor = visualization === "graphic" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -113,7 +126,6 @@ class TargetedDataSection extends Component {
             }
         } else if (section.type === "Events") {
             options.push('graphic');
-            // options.push('tabular'); // TODO: In order to not add buttons that don't work, tabular Events is not supported or rendered
         }
         return options;
     }
@@ -122,9 +134,9 @@ class TargetedDataSection extends Component {
         // TODO: Does one data view option provide value?
         // if (options.length > 1) {
             return (
-                <div style={{float: "right"}}>
+                <span className="right-icons">
                     {this.getVisualizationsIcons(options)}
-                </div>
+                </span>
             );
         // }
         // return null;
@@ -135,47 +147,61 @@ class TargetedDataSection extends Component {
     //       multiple (e.g., NameValuePairs)
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
-    renderSection(section) {
-        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
+    renderSection = (section) => {
+        const {patient, condition, onItemClicked, allowItemClick, isWide, type} = this.props;
+        const visualization = this.checkVisualization();
 
-        if (section.type === 'NameValuePairs' && this.state.dataViewMode === 'tabular') {
-            return (
-                <TabularNameValuePairsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    conditionSection={section}
-                    onItemClicked={onItemClicked}
-                    allowItemClick={allowItemClick}
-                    isWide={isWide}
-                />
-            );
-        } else if (section.type === 'NameValuePairs' && this.state.dataViewMode === 'narrative') {
-            return (
-                <NarrativeNameValuePairsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    conditionSection={section}
-                    onItemClicked={onItemClicked}
-                    allowItemClick={allowItemClick}
-                    isWide={isWide}
-                />
-            );
-        } else if (section.type === 'Events' /*&& this.state.dataViewMode === 'graphic'*/) {
-            return (
-                <TimelineEventsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    section={section}
-                    isWide={isWide}
-                />
-            );
+        switch (type) {
+            case 'NameValuePairs': {
+                if (visualization === 'tabular') {
+                    return (
+                        <TabularNameValuePairsVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else if (visualization === 'narrative') {
+                    return (
+                        <NarrativeNameValuePairsVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+            }
+            case 'Events': {
+                if (visualization === 'graphic') {
+                    return (
+                        <TimelineEventsVisualizer
+                            patient={patient}
+                            condition={condition}
+                            section={section}
+                            isWide={isWide}
+                        />
+                    );
+                } else {
+                    return null;
+                }
+            }
+            default:
+                return null;
         }
     }
 
     render() {
         const visualizationOptions = this.getOptions(this.props.section);
         return (
-            <div>
+            <div id="targeted-data-section">
                 <h2 className="section-header">
                     {this.props.section.name}
                     {this.renderVisualizationOptions(visualizationOptions)}
