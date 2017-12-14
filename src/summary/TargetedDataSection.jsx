@@ -132,20 +132,14 @@ class TargetedDataSection extends Component {
     }
 
     renderVisualizationOptions = (options) => {
-        // TODO: Does one data view option provide value?
-        // if (options.length > 1) {
-            return (
-                <span className="right-icons">
-                    {this.getVisualizationsIcons(options)}
-                </span>
-            );
-        // }
-        // return null;
+        return (
+            <span className="right-icons">
+                {this.getVisualizationsIcons(options)}
+            </span>
+        );
     }
 
-    // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
-    // TODO: Render other types of data. also change how it decides which visualization component to use when
-    //       multiple (e.g., NameValuePairs)
+    // renderSection checks the type of data that is being passed and chooses the correct component to render the data
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {

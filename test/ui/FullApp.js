@@ -325,20 +325,18 @@ test('Clicking the data visualization buttons changes the visualizer used', asyn
             const iconType = await icons.nth(j).id;
             await t
                 .click(icons.nth(j));
-            // TODO: Try to get the class name off of the non-header part of the targeted-data-section
-            // console.log(await sectionData.nth(i).classNames)
             if (iconType === 'tabular') {
                 // Check that class name of section = tabular-subsections
                await t
                     .expect(sections.nth(i).find('.tabular-subsections').exists)
                     .ok();
             } else if (iconType === 'narrative'){
-                // check classname = 'narrative-subsections'
+                // Check class name = 'narrative-subsections'
                 await t
                     .expect(sections.nth(i).find('.narrative-subsections').exists)
                     .ok();
             } else if (iconType === 'graphic') {
-                //check id = 'timeline'
+                // Check id = 'timeline'
                 await t
                     .expect(sections.nth(i).find('#timeline').exists)
                     .ok();
