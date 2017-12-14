@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import DashboardViewManager from '../dashboardViews/DashboardViewManager'
+import DashboardViewManager from '../dashboardViews/DashboardViewManager2'
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
+import PatientControlPanel from '../panels/PatientControlPanel';
 import Lang from 'lodash';
 import './FullApp.css';
 
@@ -38,18 +40,21 @@ class FullApp extends Component {
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
+        this.dashboardViewManager = new DashboardViewManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
 
         this.state = {
-            patient: patient,
-            condition: null,
             clinicalEvent: "post-encounter",
+            condition: null,
+            contextManager: this.contextManager,
             errors: [],
-            SummaryItemToInsert: '',
+            layout: "",
+            patient: patient,
             selectedText: null,
+            superRole: 'Clinician',
+            SummaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
-            contextManager: this.contextManager
         };
     }
 
@@ -130,35 +135,54 @@ class FullApp extends Component {
     }
 
     render() {
+        // Get the Current Dashboard based on superRole of user
+        const CurrentDashboard = this.dashboardViewManager.getDashboardForSuperRole(this.state.superRole);
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
-                    <DashboardViewManager
-                        // App default settings
-                        title={this.props.display}
-                        supportLogin={true}
-                        possibleClinicalEvents={this.possibleClinicalEvents}
-                        dataAccess={this.dataAccess}
-                        summaryMetadata={this.summaryMetadata}
-                        shortcutManager={this.shortcutManager}
-                        contextManager={this.contextManager}
+                    <div className="FullApp-content">
+                        <Grid className="FullApp-content" fluid>
+                            <Row center="xs">
+                                <Col sm={12}>
+                                    <PatientControlPanel
+                                        appTitle={this.props.display}
+                                        supportLogin={true}
+                                        patient={this.state.patient}
+                                        possibleClinicalEvents={this.possibleClinicalEvents}
+                                        clinicalEvent={this.state.clinicalEvent}
+                                        setFullAppState={this.setFullAppState} 
+                                        layout={this.state.layout}
+                                    />
+                                </Col>
+                            </Row>
 
-                        // State
-                        appState={this.state}
+                            <CurrentDashboard 
+                                // App default settings
+                                title={this.props.display}
+                                supportLogin={true}
+                                possibleClinicalEvents={this.possibleClinicalEvents}
+                                dataAccess={this.dataAccess}
+                                summaryMetadata={this.summaryMetadata}
+                                shortcutManager={this.shortcutManager}
+                                contextManager={this.contextManager}
 
-                        // Functions
-                        setFullAppState={this.setFullAppState}
-                        updateErrors={this.updateErrors}
-                        onContextUpdate={this.onContextUpdate}
-                        itemInserted={this.itemInserted}
-                        newCurrentShortcut={this.newCurrentShortcut}
-                        handleShortcutUpdate={this.handleShortcutUpdate}
-                        handleStructuredFieldEntered={this.handleStructuredFieldEntered}
-                        handleStructuredFieldExited={this.handleStructuredFieldExited}
-                        handleSelectionChange={this.handleSelectionChange}
-                        handleSummaryItemSelected={this.handleSummaryItemSelected}
-                    />
-                    
+                                // State
+                                appState={this.state}
+
+                                // Functions
+                                setFullAppState={this.setFullAppState}
+                                updateErrors={this.updateErrors}
+                                onContextUpdate={this.onContextUpdate}
+                                itemInserted={this.itemInserted}
+                                newCurrentShortcut={this.newCurrentShortcut}
+                                handleShortcutUpdate={this.handleShortcutUpdate}
+                                handleStructuredFieldEntered={this.handleStructuredFieldEntered}
+                                handleStructuredFieldExited={this.handleStructuredFieldExited}
+                                handleSelectionChange={this.handleSelectionChange}
+                                handleSummaryItemSelected={this.handleSummaryItemSelected}
+                            />
+                        </Grid>
+                    </div>
                 </div>
             </MuiThemeProvider>
         );

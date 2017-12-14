@@ -42,7 +42,10 @@ class PatientControlPanel extends Component {
                                     dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
                                     age={patient.getAge()}
                                     administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
-                                    address={patient.getCurrentHomeAddress()}/>
+                                    address={patient.getCurrentHomeAddress()}
+                                    setFullAppState={this.props.setFullAppState}
+                                    layout={this.props.layout}
+                                />
                             </Col>
 
                             <Col sm={3}>
@@ -78,7 +81,8 @@ PatientControlPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
-    setFullAppState: PropTypes.func.isRequired
+    setFullAppState: PropTypes.func.isRequired,
+    layout: PropTypes.string
 };
 
 export default PatientControlPanel;

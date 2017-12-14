@@ -9,6 +9,17 @@ class TargetedDataPanel extends Component {
     render () { 
         // The class associated with 
         const minimapAttribute = "data-test-summary-section";
+        const visibility = (this.props.isTargetedDataSubpanelVisibile ? "visible" : "hidden")
+        console.log("in TargetedDataControl")
+        console.log(visibility)
+        console.log(this.props.isTargetedDataSubpanelVisibile)
+
+        var styles = {
+            visibility: visibility
+        };
+
+        console.log(styles)
+
         return (
             <div>
 
@@ -19,7 +30,7 @@ class TargetedDataPanel extends Component {
                     width={80}
                     isFullHeight={true}
                 >   
-                    <div id="summary-subpanel">
+                    <div id="summary-subpanel" style={styles}>
                         <div className="summary-section">
                             <TargetedDataSubpanel
                                 isWide={this.props.isWide}
