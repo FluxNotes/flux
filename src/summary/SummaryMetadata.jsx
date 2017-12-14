@@ -18,7 +18,7 @@ class SummaryMetadata {
                             },
                             {
                                 defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}",
-                                dataMissingTemplate: "No recent progression status",
+                                dataMissingTemplate: "No recent disease status",
                                 useDataMissingTemplateCriteria: [
                                     "Current Diagnosis.As Of Date",
                                     "Current Diagnosis.Progression",
