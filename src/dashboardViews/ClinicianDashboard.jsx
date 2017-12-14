@@ -24,7 +24,7 @@ class ClinicianDashboard extends Component {
         if (!currentLayout && currentClinicalEvent) {  
             this.changeLayoutBasedOnClinicalEvent(currentClinicalEvent);
         } else if (currentLayout && currentClinicalEvent) { 
-            this.initializeDefaultPanelSizes(currentLayout);
+            this.initializePanelSizesBasedOnLayout(currentLayout);
         }
     }
 
@@ -36,7 +36,7 @@ class ClinicianDashboard extends Component {
         }
         if (nextProps.appState.layout !== this.props.appState.layout) {
             console.log('changing layout should result in new default sizes');
-            this.initializeDefaultPanelSizes(nextProps.appState.layout)
+            this.initializePanelSizesBasedOnLayout(nextProps.appState.layout)
         }
     }
 
@@ -58,25 +58,25 @@ class ClinicianDashboard extends Component {
     }
 
     // Based on a currentLayout, set a default panel size
-    initializeDefaultPanelSizes = (currentLayout) => { 
+    initializePanelSizesBasedOnLayout = (currentLayout) => { 
         let newTargetedDataPanelSize = "";
         let newNotesPanelSize = "";
         switch(currentLayout) { 
             case "left-collapsed":
-                    newTargetedDataPanelSize = "22%";
+                    newTargetedDataPanelSize = "25%";
                     newNotesPanelSize = "75%";
                     break;
             case "right-collapsed":
-                    newTargetedDataPanelSize = "72%";
+                    newTargetedDataPanelSize = "75%";
                     newNotesPanelSize = "25%";
                     break;
             case "split":
-                    newTargetedDataPanelSize = "31.33%";
+                    newTargetedDataPanelSize = "33.33%";
                     newNotesPanelSize = "66.66%";
                     break;
             default: 
                 console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
-                newTargetedDataPanelSize = "31.33%";
+                newTargetedDataPanelSize = "33.33%";
                 newNotesPanelSize = "66.66%";
         }   
 
@@ -86,9 +86,8 @@ class ClinicianDashboard extends Component {
         });
     }
 
-
-
-    isNoteViewerVisible = (currentClinicalEvent) => { 
+    // Based on currentClinicalEvent, determines if a 
+    noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => { 
         switch(currentClinicalEvent) { 
             case "pre-encounter":
                 return false;
@@ -97,12 +96,12 @@ class ClinicianDashboard extends Component {
             case "post-encounter":
                 return true;
             default: 
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined isNoteViewerVisible value.`);
+                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
                 return true;
         } 
     }
 
-    isNoteViewerEditable = (currentClinicalEvent) => { 
+    noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => { 
         switch(currentClinicalEvent) { 
             case "pre-encounter":
                 return false;
@@ -111,7 +110,7 @@ class ClinicianDashboard extends Component {
             case "post-encounter":
                 return true;
             default: 
-                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined isNoteViewerEditable value.`);
+                console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
                 return true;
         } 
     }
@@ -149,8 +148,8 @@ class ClinicianDashboard extends Component {
         console.log(targetedDataPanelStyles)
         console.log(notesPanelStyles)
 
-        const isNoteViewerVisible            = this.isNoteViewerVisible(currentClinicalEvent);
-        const isNoteViewerEditable           = this.isNoteViewerEditable(currentClinicalEvent);
+        const isNoteViewerVisible            = this.noteViewerBasedOnClinicalEvent(currentClinicalEvent);
+        const isNoteViewerEditable           = this.noteEditableBasedOnClinicalEvent(currentClinicalEvent);
         const isTargetedDataSubpanelVisibile = this.isTargetedDataSubpanelVisibile(currentLayout);
         // const panelDimensions                = this.getPanelDimensions(currentLayout);
 
