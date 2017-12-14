@@ -1,21 +1,30 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'react-flexbox-grid';
+// import { Row, Col } from 'react-flexbox-grid';
 import TargetedDataPanel from '../panels/TargetedDataPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
 
 class ClinicianDashboard extends Component { 
-    // constructor() { 
-    //     super();
-    //     // this.possible
-    // }
+    constructor() { 
+        super();
+
+        this.state = { 
+            targetedDataPanelSize: "default",
+            notesPanelSize: "default"
+        };
+    }
 
     // Performs any initialization that needs to happen when the component mounts, specifcally: 
     // - Set layout to the task's default if there's a task and no layout to start.
     componentWillMount = () => { 
-        if (!this.props.appState.layout && this.props.appState.clinicalEvent) {  
-            this.changeLayoutBasedOnClinicalEvent(this.props.appState.clinicalEvent);
+        const currentClinicalEvent = this.props.appState.clinicalEvent;
+        const currentLayout = this.props.appState.layout; 
+
+        if (!currentLayout && currentClinicalEvent) {  
+            this.changeLayoutBasedOnClinicalEvent(currentClinicalEvent);
+        } else if (currentLayout && currentClinicalEvent) { 
+            this.initializeDefaultPanelSizes(currentLayout);
         }
     }
 
@@ -24,6 +33,10 @@ class ClinicianDashboard extends Component {
     componentWillReceiveProps = (nextProps) => { 
         if (nextProps.appState.clinicalEvent !== this.props.appState.clinicalEvent) { 
             this.changeLayoutBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
+        }
+        if (nextProps.appState.layout !== this.props.appState.layout) {
+            console.log('changing layout should result in new default sizes');
+            this.initializeDefaultPanelSizes(nextProps.appState.layout)
         }
     }
 
@@ -43,6 +56,37 @@ class ClinicianDashboard extends Component {
                 this.props.setFullAppState('layout', '');
         } 
     }
+
+    // Based on a currentLayout, set a default panel size
+    initializeDefaultPanelSizes = (currentLayout) => { 
+        let newTargetedDataPanelSize = "";
+        let newNotesPanelSize = "";
+        switch(currentLayout) { 
+            case "left-collapsed":
+                    newTargetedDataPanelSize = "22%";
+                    newNotesPanelSize = "75%";
+                    break;
+            case "right-collapsed":
+                    newTargetedDataPanelSize = "72%";
+                    newNotesPanelSize = "25%";
+                    break;
+            case "split":
+                    newTargetedDataPanelSize = "31.33%";
+                    newNotesPanelSize = "66.66%";
+                    break;
+            default: 
+                console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
+                newTargetedDataPanelSize = "31.33%";
+                newNotesPanelSize = "66.66%";
+        }   
+
+        this.setState({
+            "targetedDataPanelSize" : newTargetedDataPanelSize,
+            "notesPanelSize" : newNotesPanelSize,
+        });
+    }
+
+
 
     isNoteViewerVisible = (currentClinicalEvent) => { 
         switch(currentClinicalEvent) { 
@@ -72,31 +116,31 @@ class ClinicianDashboard extends Component {
         } 
     }
 
-    getPanelDimensions = (currentLayout) => { 
-        switch(currentLayout) { 
-            case "left-collapsed":
-                return {
-                    "targetedDataPanelSize" : 3,
-                    "notesPanelSize" : 9
-                };
-            case "right-collapsed":
-                return {
-                    "targetedDataPanelSize" : 9,
-                    "notesPanelSize" : 3
-                };
-            case "split":
-                return {
-                    "targetedDataPanelSize" : 4,
-                    "notesPanelSize" : 8
-                };
-            default: 
-                console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
-                return {
-                    "targetedDataPanelSize" : 4,
-                    "notesPanelSize" : 8
-                };
-        }
-    }
+    // getPanelDimensions = (currentLayout) => { 
+    //     switch(currentLayout) { 
+    //         case "left-collapsed":
+    //             return {
+    //                 "targetedDataPanelSize" : 3,
+    //                 "notesPanelSize" : 9
+    //             };
+    //         case "right-collapsed":
+    //             return {
+    //                 "targetedDataPanelSize" : 9,
+    //                 "notesPanelSize" : 3
+    //             };
+    //         case "split":
+    //             return {
+    //                 "targetedDataPanelSize" : 4,
+    //                 "notesPanelSize" : 8
+    //             };
+    //         default: 
+    //             console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
+    //             return {
+    //                 "targetedDataPanelSize" : 4,
+    //                 "notesPanelSize" : 8
+    //             };
+    //     }
+    // }
 
     isTargetedDataSubpanelVisibile = (currentLayout) => { 
         switch(currentLayout) { 
@@ -115,22 +159,33 @@ class ClinicianDashboard extends Component {
 
     render () { 
         const currentClinicalEvent = this.props.appState.clinicalEvent;
+        const currentLayout = this.props.appState.layout; 
 
-        const isNoteViewerVisible = this.isNoteViewerVisible(this.props.appState.clinicalEvent);
-        const isNoteViewerEditable = this.isNoteViewerEditable(this.props.appState.clinicalEvent);
-        const isTargetedDataSubpanelVisibile = this.isTargetedDataSubpanelVisibile(this.props.appState.layout)
-        const panelDimensions = this.getPanelDimensions(this.props.appState.layout);
+        const targetedDataPanelStyles = { 
+            width: this.state.targetedDataPanelSize
+        };
+        const notesPanelStyles = { 
+            width: this.state.notesPanelSize
+        };
+
+        console.log(targetedDataPanelStyles)
+        console.log(notesPanelStyles)
+
+        const isNoteViewerVisible            = this.isNoteViewerVisible(currentClinicalEvent);
+        const isNoteViewerEditable           = this.isNoteViewerEditable(currentClinicalEvent);
+        const isTargetedDataSubpanelVisibile = this.isTargetedDataSubpanelVisibile(currentLayout);
+        // const panelDimensions                = this.getPanelDimensions(currentLayout);
 
         return (
-            <Row center="xs" id="post-encounter-view-content">
-                <Col sm={panelDimensions.targetedDataPanelSize} className="right-border-box">
+            <div id="post-encounter-view-content" style={{display: "flex"}}>
+                <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         isWide={false}
                         isTargetedDataSubpanelVisibile={isTargetedDataSubpanelVisibile}
                         {...this.props}
                     />
-                </Col>
-                <Col sm={panelDimensions.notesPanelSize}>
+                </div>
+                <div style={notesPanelStyles}>
                     <NotesPanel
                         isNoteViewerVisible={isNoteViewerVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
@@ -145,8 +200,8 @@ class ClinicianDashboard extends Component {
                         errors={this.props.appState.errors}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     />
-                </Col>
-            </Row>
+                </div>
+            </div>
         );
     }
 }

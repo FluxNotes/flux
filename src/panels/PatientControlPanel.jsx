@@ -32,19 +32,18 @@ class PatientControlPanel extends Component {
 
                             <Col sm={7}>
                                 <SummaryHeader
-                                    patientConditions={patientConditions}
-                                    setFullAppState={this.props.setFullAppState}
-                                    possibleClinicalEvents={this.props.possibleClinicalEvents}
-                                    clinicalEvent={this.props.clinicalEvent}
-                                    photo={patient.getMostRecentPhoto()}
-                                    patientName={patient.getName()}
-                                    mrn={patient.getMRN()}
-                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
-                                    age={patient.getAge()}
-                                    administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
                                     address={patient.getCurrentHomeAddress()}
-                                    setFullAppState={this.props.setFullAppState}
+                                    administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
+                                    age={patient.getAge()}
+                                    clinicalEvent={this.props.clinicalEvent}
+                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
                                     layout={this.props.layout}
+                                    mrn={patient.getMRN()}
+                                    patientConditions={patientConditions}
+                                    patientName={patient.getName()}
+                                    photo={patient.getMostRecentPhoto()}
+                                    possibleClinicalEvents={this.props.possibleClinicalEvents}
+                                    setFullAppState={this.props.setFullAppState}
                                 />
                             </Col>
 
