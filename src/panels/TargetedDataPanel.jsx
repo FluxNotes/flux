@@ -10,10 +10,7 @@ class TargetedDataPanel extends Component {
         // The class associated with 
         const minimapAttribute = "data-test-summary-section";
         const visibility = (this.props.isTargetedDataSubpanelVisibile ? "visible" : "hidden")
-        console.log("in TargetedDataControl")
-        console.log(visibility)
-        console.log(this.props.isTargetedDataSubpanelVisibile)
-
+        
         var styles = {
             visibility: visibility
         };
@@ -22,7 +19,6 @@ class TargetedDataPanel extends Component {
 
         return (
             <div>
-
                 <Minimap 
                     selector={`[${minimapAttribute}]`}
                     className="fitted-panel"
