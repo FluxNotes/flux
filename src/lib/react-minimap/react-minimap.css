@@ -4,6 +4,8 @@
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 1;
 	cursor: move;
+	-webkit-transition: width .5s, height .5s; /* Safari */
+	transition: 		width .5s, height .5s;
 }
 
 .minimap {
