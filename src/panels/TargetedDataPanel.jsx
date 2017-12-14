@@ -6,17 +6,21 @@ import '../lib/react-minimap/react-minimap.css'
 import './TargetedDataPanel.css';
 
 class TargetedDataPanel extends Component { 
+    componentWillReceiveProps(nextProps) { 
+        if (nextProps.targetedDataPanelSize !== this.props.targetedDataPanelSize) { 
+            this.forceUpdate()
+        }
+    }
+
     render () { 
         // The class associated with 
         const minimapAttribute = "data-test-summary-section";
         const visibility = (this.props.isTargetedDataSubpanelVisibile ? "visible" : "hidden")
-        
+
         var styles = {
             visibility: visibility
         };
-
-        console.log(styles)
-
+        
         return (
             <div>
                 <Minimap 

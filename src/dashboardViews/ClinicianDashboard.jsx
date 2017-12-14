@@ -116,32 +116,6 @@ class ClinicianDashboard extends Component {
         } 
     }
 
-    // getPanelDimensions = (currentLayout) => { 
-    //     switch(currentLayout) { 
-    //         case "left-collapsed":
-    //             return {
-    //                 "targetedDataPanelSize" : 3,
-    //                 "notesPanelSize" : 9
-    //             };
-    //         case "right-collapsed":
-    //             return {
-    //                 "targetedDataPanelSize" : 9,
-    //                 "notesPanelSize" : 3
-    //             };
-    //         case "split":
-    //             return {
-    //                 "targetedDataPanelSize" : 4,
-    //                 "notesPanelSize" : 8
-    //             };
-    //         default: 
-    //             console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
-    //             return {
-    //                 "targetedDataPanelSize" : 4,
-    //                 "notesPanelSize" : 8
-    //             };
-    //     }
-    // }
-
     isTargetedDataSubpanelVisibile = (currentLayout) => { 
         switch(currentLayout) { 
             case "left-collapsed":
@@ -162,10 +136,14 @@ class ClinicianDashboard extends Component {
         const currentLayout = this.props.appState.layout; 
 
         const targetedDataPanelStyles = { 
-            width: this.state.targetedDataPanelSize
+            "width": this.state.targetedDataPanelSize,
+            "WebkitTransition": "width .5s", /* Safari */
+            "transition": "width .5s",
         };
         const notesPanelStyles = { 
-            width: this.state.notesPanelSize
+            "width": this.state.notesPanelSize,
+            "WebkitTransition": "width .5s", /* Safari */
+            "transition": "width .5s",
         };
 
         console.log(targetedDataPanelStyles)
@@ -182,6 +160,7 @@ class ClinicianDashboard extends Component {
                     <TargetedDataPanel
                         isWide={false}
                         isTargetedDataSubpanelVisibile={isTargetedDataSubpanelVisibile}
+                        targetedDataPanelSize={this.state.targetedDataPanelSize}
                         {...this.props}
                     />
                 </div>
