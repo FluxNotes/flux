@@ -556,8 +556,8 @@ class SummaryMetadata {
             const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
 
             let classes = 'progression-item';
-            // Do not include progression on timeline if asOfDate is null
-            if (prog.asOfDate == null) return;
+            // Do not include progression on timeline if status not set
+            if (!prog.status) return;
             let startDate = new moment(prog.asOfDate, "D MMM YYYY");
             let hoverText = `${startDate.format('MM/DD/YYYY')}`;
             let endDate = startDate.clone().add(1, 'day');
