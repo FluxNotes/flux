@@ -104,6 +104,7 @@ class TargetedDataSection extends Component {
                 <Button
                     key={i}
                     className="small-btn"
+                    id={type}
                     onClick={() => this.handleViewChange(type)}>
                     {icon}
                 </Button>

@@ -314,6 +314,30 @@ test('Clicking to insert a captured data element results in that text pasted int
     }
 });
 
+test.only('Clicking the data visualization buttons changes the visualizer used', async t => {
+    const sections = Selector('#targeted-data-section')
+    const sectionData = Selector('div#targeted-data-section');
+    const numSections = await sections.count;
+    for (let i = 0; i < numSections; i++) {
+        let icons = sections.nth(i).find('.right-icons button');
+        let numIcons = await icons.count;
+        for (let j = 0; j < numIcons; j++) {
+            const iconType = await icons.nth(j).id;
+            await t
+                .click(icons.nth(j));
+            // TODO: Try to get the class name off of the non-header part of the targeted-data-section
+            // console.log(await sectionData.nth(i).classNames)
+            if (iconType === 'tabular') {
+                // Check that class name of section = tabular-subsections
+            } else if (iconType === 'narrative'){
+                // check classname = 'narrative-subsections'
+            } else if (iconType === 'graphic') {
+                //check classname = 'timeline'
+            }
+        }
+    }
+});
+
 fixture('Patient Mode - Timeline')
     .page(startPage);
 
