@@ -314,7 +314,7 @@ test('Clicking to insert a captured data element results in that text pasted int
     }
 });
 
-test.only('Clicking the data visualization buttons changes the visualizer used', async t => {
+test('Clicking the data visualization buttons changes the visualizer used', async t => {
     const sections = Selector('#targeted-data-section')
     const sectionData = Selector('div#targeted-data-section');
     const numSections = await sections.count;
@@ -329,10 +329,19 @@ test.only('Clicking the data visualization buttons changes the visualizer used',
             // console.log(await sectionData.nth(i).classNames)
             if (iconType === 'tabular') {
                 // Check that class name of section = tabular-subsections
+               await t
+                    .expect(sections.nth(i).find('.tabular-subsections').exists)
+                    .ok();
             } else if (iconType === 'narrative'){
                 // check classname = 'narrative-subsections'
+                await t
+                    .expect(sections.nth(i).find('.narrative-subsections').exists)
+                    .ok();
             } else if (iconType === 'graphic') {
-                //check classname = 'timeline'
+                //check id = 'timeline'
+                await t
+                    .expect(sections.nth(i).find('#timeline').exists)
+                    .ok();
             }
         }
     }
