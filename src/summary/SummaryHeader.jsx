@@ -13,8 +13,8 @@ class SummaryHeader extends Component {
         this.state = { view: "none" };
     }
 
-    middleView = () => {
-        const strokeColor = this.state.view === "middle" ? "#3F3F3F" : "#CCCCCC";
+    splitViewButton = () => {
+        const strokeColor = this.props.layout === "split" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -27,8 +27,8 @@ class SummaryHeader extends Component {
         );
     }
 
-    leftView = () => {
-        const strokeColor = this.state.view === "left" ? "#3F3F3F" : "#CCCCCC";
+    leftCollapsedViewButton = () => {
+        const strokeColor = this.props.layout === "left-collapsed" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="23px" height="17px" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -41,8 +41,8 @@ class SummaryHeader extends Component {
         );
     }
 
-    rightView = () => {
-        const strokeColor = this.state.view === "right" ? "#3F3F3F" : "#CCCCCC";
+    rightCollapsedViewButton = () => {
+        const strokeColor = this.props.layout === "right-collapsed" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -56,7 +56,7 @@ class SummaryHeader extends Component {
     }
 
     handleViewChange = (view) => {
-        this.setState({ view });
+        this.props.setFullAppState('layout', view);
     }
 
     render() {
@@ -121,25 +121,28 @@ class SummaryHeader extends Component {
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="middle-view-button"
-                                                        onClick={() => this.handleViewChange('middle')}>
-                                                        {this.middleView()}
+                                                        id="split-view-button"
+                                                        onClick={() => this.handleViewChange('split')}
+                                                    >
+                                                        {this.splitViewButton()}
                                                     </Button>
                                                 </Col>
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="left-view-button"
-                                                        onClick={() => this.handleViewChange('left')}>
-                                                        {this.leftView()}
+                                                        id="left-collapsed-view-button"
+                                                        onClick={() => this.handleViewChange('left-collapsed')}
+                                                    >
+                                                        {this.leftCollapsedViewButton()}
                                                     </Button>
                                                 </Col>
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="right-view-button"
-                                                        onClick={() => this.handleViewChange('right')}>
-                                                        {this.rightView()}
+                                                        id="right-collapsed-view-button"
+                                                        onClick={() => this.handleViewChange('right-collapsed')}
+                                                    >
+                                                        {this.rightCollapsedViewButton()}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -169,7 +172,9 @@ SummaryHeader.propTypes = {
         state: PropTypes.shape({
             value: PropTypes.state
         })
-    })
+    }),
+    setFullAppState: PropTypes.func.isRequired,
+    layout: PropTypes.string,
 };
 
 export default SummaryHeader;

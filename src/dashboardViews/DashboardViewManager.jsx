@@ -8,7 +8,7 @@ import PostEncounterView from './PostEncounterView';
 const EncounterView = PostEncounterView;
 
 
-class DashboardViewManager extends Component {
+class ClinicianDashboard extends Component {
     // Based on the current clinical event, return a React Component to render
     renderCurrentView = (currentClinicalEvent) => {
         switch(currentClinicalEvent){

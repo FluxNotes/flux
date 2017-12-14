@@ -9,13 +9,12 @@ import './ClinicalEventSelection.css';
 class ClinicalEventSelection extends Component {
     componentWillMount() {
         if (Lang.isNull(this.props.clinicalEvent) || Lang.isUndefined(this.props.clinicalEvent)) {
-            this.selectClinicalEvent(this.props.possibleClinicalEvents[0]);
+            this.selectClinicalEvent(this.props.possibleClinicalEvents[0].name);
         }
     }
 
     selectClinicalEvent(clinicalEvent) {
         this.props.setFullAppState('clinicalEvent', clinicalEvent.toLowerCase());
-        this.setState({ clinicalEvent });
     }
 
     renderClinicalEventList() {
