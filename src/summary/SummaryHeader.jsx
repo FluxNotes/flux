@@ -8,55 +8,56 @@ import ClinicalEventSelection from '../summary/ClinicalEventSelection'
 import './SummaryHeader.css';
 
 class SummaryHeader extends Component {
-    constructor() {
-        super();
-        this.state = { view: "none" };
-    }
 
-    middleView = () => {
-        const strokeColor = this.state.view === "middle" ? "#3F3F3F" : "#CCCCCC";
+    // Returns JSX for the splitViewButton button, highlighed if it's the current layout
+    splitViewButton = () => {
+        const strokeColor = this.props.layout === "split" ? "#3F3F3F" : "#CCCCCC";
         return (
-            <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="23px" height="18px" viewBox="0 0 23 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Group-2-Copy" transform="translate(1.000000, 1.003906)" stroke={strokeColor}>
-                        <rect id="Rectangle-9-Copy-9" strokeWidth="1.62" fill="#FFFFFF" x="0.803265598" y="0.176861297" width="20.6576154" height="14.5809512"></rect>
-                        <path d="M11.2617188,0.6328125 L11.2617188,14.1333912" id="Path-7"></path>
+                    <g id="Group-60" transform="translate(0.000000, 1.000000)" stroke={strokeColor}>
+                        <rect id="Rectangle-9-Copy-9" strokeWidth="1.62" x="0.992756992" y="0.676861297" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M11.4512101,1.38330078 L11.4512101,15.1328298" id="Path-7" strokeDasharray="3,2"></path>
+                        <rect id="Rectangle-9-Copy-13" strokeWidth="1.62" x="0.990803867" y="0.676861297" width="20.6576154" height="14.5809512"></rect>
                     </g>
                 </g>
             </svg>
         );
     }
 
-    leftView = () => {
-        const strokeColor = this.state.view === "left" ? "#3F3F3F" : "#CCCCCC";
+    // Returns JSX for the leftCollapsedViewButton button, highlighed if it's the current layout
+    leftCollapsedViewButton = () => {
+        const strokeColor = this.props.layout === "left-collapsed" ? "#3F3F3F" : "#CCCCCC";
         return (
-            <svg width="23px" height="17px" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="23px" height="18px" viewBox="0 0 23 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Group-18" transform="translate(1.000000, 1.000000)" stroke={strokeColor}>
-                        <rect id="Rectangle-9-Copy-13" strokeWidth="1.62" fill="#FFFFFF" x="0.0532655978" y="0.176861297" width="20.6576154" height="14.5809512"></rect>
-                        <path d="M5.01123047,0.6328125 L5.01123047,14.1333912" id="Path-7-Copy-3" fill="#D8D8D8"></path>
+                    <g id="Group-61" transform="translate(1.000000, 1.000000)" stroke={strokeColor}>
+                        <rect id="Rectangle-9-Copy-11" strokeWidth="1.62" x="0.240803867" y="0.676861297" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M5.19876874,1.3828125 L5.19876874,14.8833912" id="Path-7-Copy" fill="#D8D8D8" strokeDasharray="3,2"></path>
                     </g>
                 </g>
             </svg>
         );
     }
 
-    rightView = () => {
-        const strokeColor = this.state.view === "right" ? "#3F3F3F" : "#CCCCCC";
+    // Returns JSX for the rightCollapsedViewButton button, highlighed if it's the current layout
+    rightCollapsedViewButton = () => {
+        const strokeColor = this.props.layout === "right-collapsed" ? "#3F3F3F" : "#CCCCCC";
         return (
-            <svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg width="24px" height="18px" viewBox="0 0 24 18" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Group-19" transform="translate(1.000000, 1.000000)" stroke={strokeColor}>
-                        <rect id="Rectangle-9-Copy-13" strokeWidth="1.62" fill="#FFFFFF" transform="translate(10.891852, 7.548288) rotate(-180.000000) translate(-10.891852, -7.548288) " x="0.563044761" y="0.2578125" width="20.6576154" height="14.5809512"></rect>
-                        <path d="M16.2626953,0.882233809 L16.2626953,14.3828125" id="Path-7-Copy-3" fill="#D8D8D8" transform="translate(16.262695, 7.632523) rotate(-180.000000) translate(-16.262695, -7.632523) "></path>
+                    <g id="Group-59" transform="translate(1.000000, 1.000000)" stroke={strokeColor}>
+                        <rect id="Rectangle-9-Copy-12" strokeWidth="1.62" transform="translate(11.079391, 8.048288) rotate(-180.000000) translate(-11.079391, -8.048288) " x="0.750583031" y="0.7578125" width="20.6576154" height="14.5809512"></rect>
+                        <path d="M16.4502336,1.13369865 L16.4502336,14.6342773" id="Path-7-Copy-2" fill="#D8D8D8" strokeDasharray="3,2" transform="translate(16.450234, 7.883988) rotate(-180.000000) translate(-16.450234, -7.883988) "></path>
                     </g>
                 </g>
             </svg>
         );
     }
 
-    handleViewChange = (view) => {
-        this.setState({ view });
+    // Given a newLayout, change FullApp's layout accordingly
+    handleLayoutChange = (newLayout) => {
+        this.props.setFullAppState('layout', newLayout);
     }
 
     render() {
@@ -64,7 +65,7 @@ class SummaryHeader extends Component {
 
         return (
             <div id="summary-header">
-                <Grid className="FullApp-content" fluid>
+                <Grid fluid>
                     <Row middle="xs">
                         <Col sm={5}>
                             <div className="avatar">
@@ -121,25 +122,28 @@ class SummaryHeader extends Component {
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="middle-view-button"
-                                                        onClick={() => this.handleViewChange('middle')}>
-                                                        {this.middleView()}
+                                                        id="left-collapsed-layout-button"
+                                                        onClick={() => this.handleLayoutChange('left-collapsed')}
+                                                    >
+                                                        {this.leftCollapsedViewButton()}
                                                     </Button>
                                                 </Col>
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="left-view-button"
-                                                        onClick={() => this.handleViewChange('left')}>
-                                                        {this.leftView()}
+                                                        id="split-layout-button"
+                                                        onClick={() => this.handleLayoutChange('split')}
+                                                    >
+                                                        {this.splitViewButton()}
                                                     </Button>
                                                 </Col>
                                                 <Col sm={4}>
                                                     <Button
                                                         className="small-btn"
-                                                        id="right-view-button"
-                                                        onClick={() => this.handleViewChange('right')}>
-                                                        {this.rightView()}
+                                                        id="right-collapsed-layout-button"
+                                                        onClick={() => this.handleLayoutChange('right-collapsed')}
+                                                    >
+                                                        {this.rightCollapsedViewButton()}
                                                     </Button>
                                                 </Col>
                                             </Row>
@@ -169,7 +173,9 @@ SummaryHeader.propTypes = {
         state: PropTypes.shape({
             value: PropTypes.state
         })
-    })
+    }),
+    setFullAppState: PropTypes.func.isRequired,
+    layout: PropTypes.string,
 };
 
 export default SummaryHeader;
