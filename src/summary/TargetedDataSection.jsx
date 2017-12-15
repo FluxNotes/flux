@@ -134,11 +134,15 @@ class TargetedDataSection extends Component {
     }
 
     renderVisualizationOptions = (options) => {
-        return (
-            <span className="right-icons">
-                {this.getVisualizationsIcons(options)}
-            </span>
-        );
+        if (options.length > 1) {
+            return (
+                <span className="right-icons">
+                    {this.getVisualizationsIcons(options)}
+                </span>
+            );
+        } else {
+            return null;
+        }
     }
 
     // renderSection checks the type of data that is being passed and chooses the correct component to render the data
