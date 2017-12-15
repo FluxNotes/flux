@@ -116,7 +116,7 @@ class SummaryHeader extends Component {
                                 
                                 <Col sm={2}>
                                     <div className="view item">
-                                        <h3>View</h3>
+{/*                                        <h3>View</h3>
                                         <span>
                                             <Row middle="xs">
                                                 <Col sm={4}>
@@ -147,7 +147,7 @@ class SummaryHeader extends Component {
                                                     </Button>
                                                 </Col>
                                             </Row>
-                                        </span>
+                                        </span>*/}
                                     </div>
                                 </Col>
                             </Row>
