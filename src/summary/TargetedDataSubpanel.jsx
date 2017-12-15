@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
-import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
-import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
+import Divider from 'material-ui/Divider';
+import TargetedDataSection from './TargetedDataSection';
 import 'font-awesome/css/font-awesome.min.css';
 import './TargetedDataSubpanel.css';
 
@@ -25,59 +24,27 @@ class TargetedDataSubpanel extends Component {
         return conditionMetadata;
     }
 
-    // renderedSection checks the type of data that is being passed and chooses the correct component to render the data
-    // TODO: Render other types of data. also change how it decides which visualization component to use when
-    //       multiple (e.g., NameValuePairs)
-    // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
-    //       and not just a label
-    renderSection(section) {
-        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
-
-        if (section.type === 'NameValuePairs' && !section.narrative) {
-            return (
-                <TabularNameValuePairsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    conditionSection={section}
-                    onItemClicked={onItemClicked}
-                    allowItemClick={allowItemClick}
-                    isWide={isWide}
-                />
-            );
-        } else if (section.type === 'NameValuePairs' && section.narrative) {
-            return (
-                <NarrativeNameValuePairsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    conditionSection={section}
-                    onItemClicked={onItemClicked}
-                    allowItemClick={allowItemClick}
-                    isWide={isWide}
-                />
-            );
-        } else if (section.type === 'Events') {
-            return (
-                <TimelineEventsVisualizer
-                    patient={patient}
-                    condition={condition}
-                    section={section}
-                    isWide={isWide}
-                />
-            );
-        }
-    }
-
     renderSections() {
         const conditionMetadata = this.getConditionMetadata();
         if (conditionMetadata == null) {
             return null;
         }
+        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
         return conditionMetadata.sections.map((section, i) => {
             return (
                 <div key={i} data-test-summary-section={section.name}>
-                    <h2 className="section-header">{section.name}</h2>
-                    {this.renderSection(section)}
+                    <TargetedDataSection
+                        type={section.type}
+                        defaultVisualizer={section.defaultVisualizer}
+                        section={section}
+                        patient={patient}
+                        condition={condition}
+                        onItemClicked={onItemClicked}
+                        allowItemClick={allowItemClick}
+                        isWide={isWide}
+                    />
+                    { i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null }
                 </div>
             );
         });

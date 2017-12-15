@@ -314,6 +314,37 @@ test('Clicking to insert a captured data element results in that text pasted int
     }
 });
 
+test('Clicking the data visualization buttons changes the visualizer used', async t => {
+    const sections = Selector('#targeted-data-section')
+    const sectionData = Selector('div#targeted-data-section');
+    const numSections = await sections.count;
+    for (let i = 0; i < numSections; i++) {
+        let icons = sections.nth(i).find('.right-icons button');
+        let numIcons = await icons.count;
+        for (let j = 0; j < numIcons; j++) {
+            const iconType = await icons.nth(j).id;
+            await t
+                .click(icons.nth(j));
+            if (iconType === 'tabular') {
+                // Check that class name of section = tabular-subsections
+               await t
+                    .expect(sections.nth(i).find('.tabular-subsections').exists)
+                    .ok();
+            } else if (iconType === 'narrative'){
+                // Check class name = 'narrative-subsections'
+                await t
+                    .expect(sections.nth(i).find('.narrative-subsections').exists)
+                    .ok();
+            } else if (iconType === 'graphic') {
+                // Check id = 'timeline'
+                await t
+                    .expect(sections.nth(i).find('#timeline').exists)
+                    .ok();
+            }
+        }
+    }
+});
+
 fixture('Patient Mode - Timeline')
     .page(startPage);
 

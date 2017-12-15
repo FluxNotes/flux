@@ -1,0 +1,13 @@
+#targeted-data-section h2.section-header{
+    font-weight: bold;
+    color: #333;
+}
+
+.small-btn {
+    min-width: 0 !important;
+    min-height: 0 !important;
+}
+
+.right-icons {
+    float: right;
+}

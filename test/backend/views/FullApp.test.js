@@ -5,8 +5,10 @@ import { expect } from 'chai'
 
 import FullApp from '../../../src/apps/FullApp';
 import SummaryHeader from '../../../src/summary/SummaryHeader';
-// import TargetedDataControl from '../../../src/summary/TargetedDataControl';
+import TargetedDataSection from '../../../src/summary/TargetedDataSection';
 import Button from '../../../src/elements/Button';
+import SummaryMetadata from '../../../src/summary/SummaryMetadata';
+import TabularNameValuePairsVisualizer from '../../../src/summary/NarrativeNameValuePairsVisualizer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -51,18 +53,34 @@ describe('SummaryHeader', function() {
           .to.eq('left');
     });
 });
-// describe('TargetedDataControl', function() {
-//     it('noteDisplayMode buttons update state', function() {
-//         const wrapper = shallow(<TargetedDataControl />);
-//
-//         // Initial state
-//         expect(wrapper.state('noteDisplayMode'))
-//             .to.eq('narrative');
-//
-//         // Clicking the non-default note display button changes the state
-//         const leftView = wrapper.find(Button).find('#tabular-button');
-//         leftView.simulate('click');
-//         expect(wrapper.state('noteDisplayMode'))
-//           .to.eq('tabular');
-//     });
-// });
+
+describe('TargetedDataControl', function() {
+    it('noteDisplayMode buttons update state', function() {
+        const summaryMetadata = new SummaryMetadata();
+        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections[0];
+        let options = [];
+        if (section.type === "NameValuePairs") {
+            options.push('tabular');
+            if (section.narrative) {
+                options.push('narrative');
+            }
+        } else if (section.type === "Events") {
+            options.push('graphic');
+        }
+        const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
+        
+        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} />);
+
+        // Initial state
+        expect(wrapper.state('defaultVisualizer'))
+            .to.eq(defaultOrTabular);
+        expect(wrapper.state('chosenVisualizer'))
+            .to.be.null;
+
+        // Clicking the non-default note display button changes the state
+        const narrativeIcon = wrapper.find('.right-icons').find(Button).find('#narrative');
+        narrativeIcon.simulate('click');
+        expect(wrapper.state('chosenVisualizer'))
+            .to.eq('narrative');
+    });
+});

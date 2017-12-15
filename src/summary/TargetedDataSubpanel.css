@@ -42,5 +42,9 @@ tr.existing-note-entry td:last-child {
     color: #333;
 }
 
+.icons {
+    float: right;
+    padding: 10px;
+}
 
 

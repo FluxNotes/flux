@@ -93,6 +93,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     */
     buildNarrativeSnippetList(template, subsections) {
         let result = [];
+        if (template === undefined) {
+            return result;
+        }
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
@@ -157,6 +160,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let subsections = this.getSubsections();
 
         let narrativeTemplate = "";
+        if (conditionSection.narrative === undefined) {
+            return [];
+        }
         conditionSection.narrative.forEach((sentenceObject) => {
             const template = this.getTemplate(subsections, sentenceObject);
             narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
