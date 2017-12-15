@@ -3,7 +3,7 @@ import ClinicianDashboard from './ClinicianDashboard';
 const PatientDashboard = ClinicianDashboard;
 
 // Handles the dashboard to be displayed
-class DashboardViewManager {
+class DashboardManager {
     constructor(possibleSuperRoles) {
         if (!possibleSuperRoles) { 
             this.possibleSuperRoles = [
@@ -45,4 +45,4 @@ class DashboardViewManager {
     }
 }
 
-export default DashboardViewManager;
+export default DashboardManager;

@@ -1,9 +1,9 @@
-import DashboardViewManager from '../../../src/dashboard/DashboardViewManager';
+import DashboardManager from '../../../src/dashboard/DashboardManager';
 import {expect} from 'chai'
 
 // Create one das
-const emptyDashboardViewManager = new DashboardViewManager([]);
-const dashboardViewManager = new DashboardViewManager();
+const emptyDashboardManager = new DashboardManager([]);
+const dashboardManager = new DashboardManager();
 
 describe("getPossibleSuperRoles", function () { 
     it('should return an empty list if there are no defined superRoles', function () {
@@ -22,5 +22,5 @@ describe("getPossibleSuperRoles", function () {
 });
 
 // describe("getDashboardForSuperRole", function () { 
-    
+
 // });

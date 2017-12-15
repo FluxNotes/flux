@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import DashboardViewManager from '../dashboard/DashboardViewManager'
+import DashboardManager from '../dashboard/DashboardManager'
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
@@ -40,7 +40,7 @@ class FullApp extends Component {
         //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
-        this.dashboardViewManager = new DashboardViewManager();
+        this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
 
@@ -136,7 +136,7 @@ class FullApp extends Component {
 
     render() {
         // Get the Current Dashboard based on superRole of user
-        const CurrentDashboard = this.dashboardViewManager.getDashboardForSuperRole(this.state.superRole);
+        const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
