@@ -17,11 +17,11 @@ class SummaryMetadata {
                                 defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}"
                             },
                             {
-                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Progression} based on ${Current Diagnosis.Rationale}",
+                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}",
                                 dataMissingTemplate: "No recent ${disease status}",
                                 useDataMissingTemplateCriteria: [
                                     "Current Diagnosis.As Of Date",
-                                    "Current Diagnosis.Progression",
+                                    "Current Diagnosis.Disease Status",
                                     "Current Diagnosis.Rationale"
                                 ]
                             },
@@ -57,7 +57,7 @@ class SummaryMetadata {
                                         shortcut: "@stage"
                                     },
                                     {
-                                        name: "Progression",
+                                        name: "Disease Status",
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                             if (Lang.isNull(p) || !p.status) {
