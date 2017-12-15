@@ -35,7 +35,6 @@ class ClinicianDashboard extends Component {
             this.changeLayoutBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
         }
         if (nextProps.appState.layout !== this.props.appState.layout) {
-            console.log('changing layout should result in new default sizes');
             this.initializePanelSizesBasedOnLayout(nextProps.appState.layout)
         }
     }
@@ -86,7 +85,7 @@ class ClinicianDashboard extends Component {
         });
     }
 
-    // Based on currentClinicalEvent, determines if a 
+    // Based on currentClinicalEvent, determines if a note should be viewed 
     noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => { 
         switch(currentClinicalEvent) { 
             case "pre-encounter":
@@ -101,6 +100,7 @@ class ClinicianDashboard extends Component {
         } 
     }
 
+    // Based on currentClinicalEvent, determines if a note should be editable
     noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => { 
         switch(currentClinicalEvent) { 
             case "pre-encounter":
@@ -115,7 +115,8 @@ class ClinicianDashboard extends Component {
         } 
     }
 
-    isTargetedDataSubpanelVisibile = (currentLayout) => { 
+    // Based on currentLayout, determines if the targetedDataSubpanel should be visible.
+    isTargetedDataSubpanelVisible = (currentLayout) => { 
         switch(currentLayout) { 
             case "left-collapsed":
                 return false;
@@ -145,38 +146,35 @@ class ClinicianDashboard extends Component {
             "transition": "width .5s",
         };
 
-        console.log(targetedDataPanelStyles)
-        console.log(notesPanelStyles)
-
         const isNoteViewerVisible            = this.noteViewerBasedOnClinicalEvent(currentClinicalEvent);
         const isNoteViewerEditable           = this.noteEditableBasedOnClinicalEvent(currentClinicalEvent);
-        const isTargetedDataSubpanelVisibile = this.isTargetedDataSubpanelVisibile(currentLayout);
-        // const panelDimensions                = this.getPanelDimensions(currentLayout);
+        const isTargetedDataSubpanelVisible  = this.isTargetedDataSubpanelVisible(currentLayout);
+        const istargetedDataPanelWide        = (parseFloat(this.state.targetedDataPanelSize) > 60); 
 
         return (
-            <div id="post-encounter-view-content" style={{display: "flex"}}>
+            <div id="clinician-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
-                        isWide={false}
-                        isTargetedDataSubpanelVisibile={isTargetedDataSubpanelVisibile}
+                        isWide={istargetedDataPanelWide}
+                        isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         {...this.props}
                     />
                 </div>
                 <div style={notesPanelStyles}>
                     <NotesPanel
+                        contextManager={this.props.contextManager}
+                        errors={this.props.appState.errors}
                         isNoteViewerVisible={isNoteViewerVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
-                        handleSelectionChange={this.props.handleSelectionChange}
-                        newCurrentShortcut={this.props.newCurrentShortcut}
                         itemInserted={this.props.itemInserted}
-                        summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
-                        patient={this.props.appState.patient}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        updateErrors={this.props.updateErrors}
-                        errors={this.props.appState.errors}
+                        handleSelectionChange={this.props.handleSelectionChange}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                        newCurrentShortcut={this.props.newCurrentShortcut}
+                        patient={this.props.appState.patient}
+                        shortcutManager={this.props.shortcutManager}
+                        summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
+                        updateErrors={this.props.updateErrors}
                     />
                 </div>
             </div>
@@ -185,22 +183,22 @@ class ClinicianDashboard extends Component {
 }
 
 ClinicianDashboard.proptypes = {
-    possibleClinicalEvents: PropTypes.array.isRequired,
-    dataAccess: PropTypes.object.isRequired,
-    summaryMetadata: PropTypes.object.isRequired,
-    shortcutManager: PropTypes.object.isRequired,
-    contextManager: PropTypes.object.isRequired,
     appState: PropTypes.object.isRequired,
-    setFullAppState: PropTypes.func.isRequired,
-    updateErrors: PropTypes.func.isRequired,
-    onContextUpdate: PropTypes.func.isRequired,
-    itemInserted: PropTypes.func.isRequired,
-    newCurrentShortcut: PropTypes.func.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    dataAccess: PropTypes.object.isRequired,
     handleShortcutUpdate: PropTypes.func.isRequired,
     handleStructuredFieldEntered: PropTypes.func.isRequired,
     handleStructuredFieldExited: PropTypes.func.isRequired,
     handleSelectionChange: PropTypes.func.isRequired,
-    handleSummaryItemSelected: PropTypes.func.isRequired
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+    itemInserted: PropTypes.func.isRequired,
+    updateErrors: PropTypes.func.isRequired,
+    onContextUpdate: PropTypes.func.isRequired,
+    newCurrentShortcut: PropTypes.func.isRequired,
+    possibleClinicalEvents: PropTypes.array.isRequired,
+    setFullAppState: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    summaryMetadata: PropTypes.object.isRequired,
 };
 
 export default ClinicianDashboard;

@@ -13,13 +13,12 @@ class TargetedDataPanel extends Component {
     }
 
     render () { 
-        // The class associated with 
+        // The css data attribute associated with the minimap
         const minimapAttribute = "data-test-summary-section";
-        const visibility = (this.props.isTargetedDataSubpanelVisibile ? "visible" : "hidden")
-
-        var styles = {
-            visibility: visibility
-        };
+        // const visibility = (this.props.isTargetedDataSubpanelVisible ? "visible" : "hidden")
+        // const styles = {
+        //     visibility: visibility
+        // };
         
         return (
             <div>
@@ -30,7 +29,7 @@ class TargetedDataPanel extends Component {
                     width={80}
                     isFullHeight={true}
                 >   
-                    <div id="summary-subpanel" style={styles}>
+                    <div id="summary-subpanel">
                         <div className="summary-section">
                             <TargetedDataSubpanel
                                 isWide={this.props.isWide}
@@ -49,15 +48,16 @@ class TargetedDataPanel extends Component {
 }
 
 TargetedDataPanel.proptypes = { 
-    isWide: PropTypes.bool.isRequired,
-    possibleClinicalEvents: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,
         condition: PropTypes.object,
         summaryMetadata: PropTypes.object.isRequired
     }).isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+    isWide: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    handleSummaryItemSelected: PropTypes.func.isRequired
+    isTargetedDataSubpanelVisible: PropTypes.bool,
+    possibleClinicalEvents: PropTypes.array.isRequired,
 }
 
 export default TargetedDataPanel;

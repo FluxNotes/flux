@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import DashboardViewManager from '../dashboardViews/DashboardViewManager'
+import DashboardViewManager from '../dashboard/DashboardViewManager'
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';

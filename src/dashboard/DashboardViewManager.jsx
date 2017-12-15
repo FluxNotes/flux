@@ -4,16 +4,20 @@ const PatientDashboard = ClinicianDashboard;
 
 // Handles the dashboard to be displayed
 class DashboardViewManager {
-    constructor() { 
-        this.possibleSuperRoles = [
-            { 
-                name: 'Clinician',
-                dashboard: ClinicianDashboard
-            }, { 
-                name: 'Patient',
-                dashboard: PatientDashboard
-            }
-        ];
+    constructor(possibleSuperRoles) {
+        if (!possibleSuperRoles) { 
+            this.possibleSuperRoles = [
+                { 
+                    name: 'Clinician',
+                    dashboard: ClinicianDashboard
+                }, { 
+                    name: 'Patient',
+                    dashboard: PatientDashboard
+                }
+            ];
+        } else { 
+            this.possibleSuperRoles = possibleSuperRoles;
+        }
     }
 
     //Provide all possible superRoles, high level categories of people who could use the application 
@@ -23,6 +27,7 @@ class DashboardViewManager {
             if (currentSuperRoleName) { 
                 accumulator.push(currentSuperRoleName);
             }
+            return accumulator
         }, []);
     }
 
