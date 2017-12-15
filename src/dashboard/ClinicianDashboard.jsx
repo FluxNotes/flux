@@ -125,7 +125,7 @@ class ClinicianDashboard extends Component {
             case "split":
                 return true;
             default: 
-                console.warn(`The layout provided, ${currentLayout}, does not have a defined isTargetedDataSubpanelVisibile value.`);
+                // console.warn(`The layout provided, ${currentLayout}, does not have a defined isTargetedDataSubpanelVisibile value.`);
                 return true;
         }
     }
