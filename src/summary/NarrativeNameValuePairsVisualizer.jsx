@@ -8,9 +8,39 @@ import './NarrativeNameValuePairsVisualizer.css';
  */
 class NarrativeNameValuePairsVisualizer extends Component {
 
-    // get the narrative template from the metadata
-    getNarrativeTemplate() {
-        return this.props.conditionSection.narrative;
+    /**
+        Function returns the correct template to use for the sentence
+        if all the objects in useDataMissingTemplateCriteria are null, function will return dataMissingTemplate
+        otherwise, defaultTemplate is returned
+    */
+    getTemplate(subsections, sentenceObject) {
+        if (Lang.isNull(sentenceObject.dataMissingTemplate) || Lang.isUndefined(sentenceObject.dataMissingTemplate)) {
+            return sentenceObject.defaultTemplate;
+        }
+
+        // Check if every object in useDataMissingTemplateCriteria is null, empty, or undefined
+        const allNull = sentenceObject.useDataMissingTemplateCriteria.every((data) => {
+            const index = data.indexOf(".");
+            let subsectionName, list;
+
+            if (index === -1) {
+                subsectionName = data;
+                list = this.getList(subsections[subsectionName]);
+
+                return (Lang.isNull(list) || Lang.isEmpty(list));
+            } 
+            
+            const valueName = data.substring(index + 1);
+            subsectionName = data.substring(0, index);
+            list = this.getList(subsections[subsectionName]);
+            const item = list.find((it) => {
+                return it.name === valueName;
+            });
+
+            return (Lang.isUndefined(item) || Lang.isNull(item.value));
+        });
+
+        return allNull ? sentenceObject.dataMissingTemplate : sentenceObject.defaultTemplate;
     }
 
     // create a map of subsection name to its metadata 
@@ -80,13 +110,18 @@ class NarrativeNameValuePairsVisualizer extends Component {
             index = valueSpec.indexOf(".");
             if (index === -1) {
                 subsectionName = valueSpec;
-                list = this.getList(subsections[subsectionName]);
-                if (Lang.isNull(list)) {
-                    value = "missing";
+                if(Lang.isUndefined(subsections[subsectionName])) {
+                    value = valueSpec;
                     type = "missing";
                 } else {
-                    value = list.map(_addLabResultToNarrative).join(", ");
-                    type = "structured-data";
+                    list = this.getList(subsections[subsectionName]);
+                    if (Lang.isEmpty(list) || Lang.isNull(list)) {
+                        value = "missing";
+                        type = "missing";
+                    } else {
+                        value = list.map(_addLabResultToNarrative).join(", ");
+                        type = "structured-data";
+                    }
                 }
             } else {
                 subsectionName = valueSpec.substring(0, index);
@@ -113,14 +148,28 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return result;
     }
 
-    // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
-    render() {
-        let template = this.getNarrativeTemplate();
+    /**
+        Parses through each sentence object in the narrative and chooses the correct template to use for each sentence
+        Function concats the sentences together and returns a list of snippets
+    */
+    buildNarrative() {
+        const {conditionSection} = this.props;
         let subsections = this.getSubsections();
 
+        let narrativeTemplate = "";
+        conditionSection.narrative.forEach((sentenceObject) => {
+            const template = this.getTemplate(subsections, sentenceObject);
+            narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
+        });
+
+        return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
+    }
+
+    // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
+    render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
-        const narrative = this.buildNarrativeSnippetList(template, subsections);
+        const narrative = this.buildNarrative();
         
         // now go through each snippet and build up HTML to render
         let content = [];
