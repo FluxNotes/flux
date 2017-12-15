@@ -74,9 +74,9 @@ class ClinicianDashboard extends Component {
                     newNotesPanelSize = "60%";
                     break;
             default: 
-                console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
-                newTargetedDataPanelSize = "33.33%";
-                newNotesPanelSize = "66.66%";
+                // console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
+                newTargetedDataPanelSize = "40%";
+                newNotesPanelSize = "60%";
         }   
 
         this.setState({
