@@ -58,7 +58,16 @@ describe('TargetedDataControl', function() {
     it('noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
         const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections[0];
-        const defaultOrTabular = section.defaultVisualizer ? section.defaultVisualizer : 'tabular';
+        let options = [];
+        if (section.type === "NameValuePairs") {
+            options.push('tabular');
+            if (section.narrative) {
+                options.push('narrative');
+            }
+        } else if (section.type === "Events") {
+            options.push('graphic');
+        }
+        const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
         
         const wrapper = shallow(<TargetedDataSection section={section} type={section.type} />);
 

@@ -10,9 +10,10 @@ class TargetedDataSection extends Component {
     constructor(props) {
         super(props);
 
-        const defaultOrTabular = props.defaultVisualizer ? props.defaultVisualizer : 'tabular';
+        const optionsForSection = this.getOptions(props.section);
+        const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
 
-        // this.state.defaultVisualizer comes from the summary metadata, this.state.chosenVisualizer changes when icons are clicked
+        // this.state.defaultVisualizer is the first possible visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
             defaultVisualizer: defaultOrTabular,
             chosenVisualizer: null
@@ -20,8 +21,8 @@ class TargetedDataSection extends Component {
     }
     
     componentDidUpdate() {
-        // If no default is set in summary metadata, the default will be tabular
-        const defaultOrTabular = this.props.defaultVisualizer ? this.props.defaultVisualizer : 'tabular';
+        const optionsForSection = this.getOptions(this.props.section);
+        const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
         if (this.state.defaultVisualizer !== defaultOrTabular) {
             this.setState({defaultVisualizer: defaultOrTabular });
         }
