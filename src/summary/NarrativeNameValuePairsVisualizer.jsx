@@ -40,7 +40,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return (Lang.isUndefined(item) || Lang.isNull(item.value));
         });
 
-        return allNull ? sentenceObject.dataMissingTemplate: sentenceObject.defaultTemplate;
+        return allNull ? '${' + sentenceObject.dataMissingTemplate + '}': sentenceObject.defaultTemplate;
     }
 
     // create a map of subsection name to its metadata 
@@ -110,13 +110,18 @@ class NarrativeNameValuePairsVisualizer extends Component {
             index = valueSpec.indexOf(".");
             if (index === -1) {
                 subsectionName = valueSpec;
-                list = this.getList(subsections[subsectionName]);
-                if (Lang.isEmpty(list) || Lang.isNull(list)) {
-                    value = "missing";
+                if(Lang.isUndefined(subsections[subsectionName])) {
+                    value = valueSpec;
                     type = "missing";
                 } else {
-                    value = list.map(_addLabResultToNarrative).join(", ");
-                    type = "structured-data";
+                    list = this.getList(subsections[subsectionName]);
+                    if (Lang.isEmpty(list) || Lang.isNull(list)) {
+                        value = "missing";
+                        type = "missing";
+                    } else {
+                        value = list.map(_addLabResultToNarrative).join(", ");
+                        type = "structured-data";
+                    }
                 }
             } else {
                 subsectionName = valueSpec.substring(0, index);
