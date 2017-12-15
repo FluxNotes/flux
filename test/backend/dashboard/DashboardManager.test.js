@@ -20,7 +20,3 @@ describe("getPossibleSuperRoles", function () {
             to.have.same.members(expectedRoles);
     })
 });
-
-// describe("getDashboardForSuperRole", function () { 
-
-// });
