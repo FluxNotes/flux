@@ -70,8 +70,8 @@ class ClinicianDashboard extends Component {
                     newNotesPanelSize = "25%";
                     break;
             case "split":
-                    newTargetedDataPanelSize = "33.33%";
-                    newNotesPanelSize = "66.66%";
+                    newTargetedDataPanelSize = "40%";
+                    newNotesPanelSize = "60%";
                     break;
             default: 
                 console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
