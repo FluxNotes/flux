@@ -6,12 +6,22 @@ import '../lib/react-minimap/react-minimap.css'
 import './TargetedDataPanel.css';
 
 class TargetedDataPanel extends Component { 
+    componentWillReceiveProps(nextProps) { 
+        if (nextProps.targetedDataPanelSize !== this.props.targetedDataPanelSize) { 
+            this.forceUpdate()
+        }
+    }
+
     render () { 
-        // The class associated with 
+        // The css data attribute associated with the minimap
         const minimapAttribute = "data-test-summary-section";
+        // const visibility = (this.props.isTargetedDataSubpanelVisible ? "visible" : "hidden")
+        // const styles = {
+        //     visibility: visibility
+        // };
+        
         return (
             <div>
-
                 <Minimap 
                     selector={`[${minimapAttribute}]`}
                     className="fitted-panel"
@@ -38,15 +48,16 @@ class TargetedDataPanel extends Component {
 }
 
 TargetedDataPanel.proptypes = { 
-    isWide: PropTypes.bool.isRequired,
-    possibleClinicalEvents: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,
         condition: PropTypes.object,
         summaryMetadata: PropTypes.object.isRequired
     }).isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+    isWide: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    handleSummaryItemSelected: PropTypes.func.isRequired
+    isTargetedDataSubpanelVisible: PropTypes.bool,
+    possibleClinicalEvents: PropTypes.array.isRequired,
 }
 
 export default TargetedDataPanel;
