@@ -160,6 +160,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let subsections = this.getSubsections();
 
         let narrativeTemplate = "";
+        if (conditionSection.narrative === undefined) {
+            return [];
+        }
         conditionSection.narrative.forEach((sentenceObject) => {
             const template = this.getTemplate(subsections, sentenceObject);
             narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
