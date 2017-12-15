@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Avatar from 'material-ui/Avatar';
-import Button from '../elements/Button';
+// import Button from '../elements/Button';
 import ConditionSelection from '../summary/ConditionSelection'
 import ClinicalEventSelection from '../summary/ClinicalEventSelection'
 import './SummaryHeader.css';
