@@ -1,8 +1,8 @@
 import BreastCancerReceptorStatus from './shr/oncology/BreastCancerReceptorStatus';
-import EstrogenReceptorStatus from './shr/oncology/EstrogenReceptorStatus';
 import FluxBreastCancer from './oncology/FluxBreastCancer';
 import FluxHistologicGrade from './oncology/FluxHistologicGrade';
 import FluxProgression from './oncology/FluxProgression';
+import FluxEstrogenReceptorStatus from './oncology/FluxEstrogenReceptorStatus';
 import FluxTNMStage from './oncology/FluxTNMStage';
 import FluxToxicReactionToTreatment from './oncology/FluxToxicReactionToTreatment';
 import FluxTumorSize from './oncology/FluxTumorSize';
@@ -17,7 +17,7 @@ export default class ShrOncologyObjectFactory {
         const _elementsToClassNames = { 
                                 "BreastCancer": FluxBreastCancer,
                                 "BreastCancerReceptorStatus": BreastCancerReceptorStatus,
-                                "EstrogenReceptorStatus": EstrogenReceptorStatus,
+                                "EstrogenReceptorStatus": FluxEstrogenReceptorStatus,
                                 "HistologicGrade": FluxHistologicGrade,
                                 "TNMStage": FluxTNMStage,
                                 "T_Stage": T_Stage,
