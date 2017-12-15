@@ -65,7 +65,7 @@ class SummaryHeader extends Component {
 
         return (
             <div id="summary-header">
-                <Grid fluid>
+                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
                         <Col sm={5}>
                             <div className="avatar">

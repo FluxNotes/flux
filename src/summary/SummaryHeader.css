@@ -2,6 +2,9 @@
     display: flex;
     align-items: center;
     min-height: 80px;
+}
+
+#summary-header .FullApp-content {
     width: 100%;
 }
 
