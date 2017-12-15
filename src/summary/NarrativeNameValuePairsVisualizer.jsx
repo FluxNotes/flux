@@ -93,6 +93,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     */
     buildNarrativeSnippetList(template, subsections) {
         let result = [];
+        if (template === undefined) {
+            return result;
+        }
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;

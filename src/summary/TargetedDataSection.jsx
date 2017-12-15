@@ -23,8 +23,9 @@ class TargetedDataSection extends Component {
     componentDidUpdate() {
         const optionsForSection = this.getOptions(this.props.section);
         const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
-        if (this.state.defaultVisualizer !== defaultOrTabular) {
-            this.setState({defaultVisualizer: defaultOrTabular });
+        if (this.state.defaultVisualizer !== defaultOrTabular ||
+            (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
+            this.setState({defaultVisualizer: defaultOrTabular, chosenVisualizer: null });
         }
     }
 
