@@ -7,7 +7,7 @@ const dashboardManager = new DashboardManager();
 
 describe("getPossibleSuperRoles", function () { 
     it('should return an empty list if there are no defined superRoles', function () {
-        const allRoles = emptyDashboardViewManager.getPossibleSuperRoles();
+        const allRoles = emptyDashboardManager.getPossibleSuperRoles();
         expect(allRoles)
             .to.be.an("array")
             .and.to.be.empty;
@@ -15,7 +15,7 @@ describe("getPossibleSuperRoles", function () {
 
     it('should return a list containing Clinician and Patient as default superRoles', function () { 
         const expectedRoles = ['Clinician', 'Patient'];
-        const actualRoles = dashboardViewManager.getPossibleSuperRoles();
+        const actualRoles = dashboardManager.getPossibleSuperRoles();
         expect(actualRoles).
             to.have.same.members(expectedRoles);
     })
