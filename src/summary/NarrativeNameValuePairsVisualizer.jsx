@@ -40,7 +40,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return (Lang.isUndefined(item) || Lang.isNull(item.value));
         });
 
-        return allNull ? '${' + sentenceObject.dataMissingTemplate + '}': sentenceObject.defaultTemplate;
+        return allNull ? sentenceObject.dataMissingTemplate : sentenceObject.defaultTemplate;
     }
 
     // create a map of subsection name to its metadata 
