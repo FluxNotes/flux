@@ -7,7 +7,7 @@ span.button-hover {
 }
 
 .clinical-notes-panel {
-    position: fixed;
+    float: right;
     right: 10px;
     width: 195px;
 }
