@@ -6,6 +6,7 @@ table {
     border-collapse: collapse;
     width: 98%;
     margin-top: 10px;
+    /*table-layout: fixed;*/
 }
 
 table, tr, td {
@@ -30,6 +31,7 @@ tr:last-child td:last-child {
 td {
     border-top: 1px solid #ccc;
     padding: 8px 10px;
+    /*word-wrap: break-word;*/
 }
 
 td:first-child {
@@ -49,6 +51,9 @@ tr.captured td.disabled:last-child {
 tr.captured td:last-child {
     color: #888;
 }
+/*tr.captured { makes other tables lose alignment across rows
+    display:block;
+}*/
 
 td.missing {
     color: #fff;
@@ -58,12 +63,13 @@ td.missing {
 td.captured {
     color: #333;
     background-color: #d9ebf9;
+    
 }
 
 span.button-hover {
     cursor: pointer;
 }
-span.data {
+/*span.data {
     display:inline-block;
-}
+}*/
 
