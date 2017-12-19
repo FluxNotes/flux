@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Lang from 'lodash';
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
 import Select from 'material-ui/Select';
@@ -16,7 +17,9 @@ class NoteAssistant extends Component {
             sortIndex: null,
             maxNotesToDisplay: 3,
             notesNotDisplayed: null,
-            notesToDisplay: []
+            notesToDisplay: [],
+            inProgressNotes: [],
+            selectedNote: null
         };
     }
 
@@ -27,14 +30,21 @@ class NoteAssistant extends Component {
 
         // Generate notesToDisplay array which will be used to render the notes in clinical notes view
         let allNotes = this.props.patient.getNotes();
-        for (let i = 0; i < this.state.maxNotesToDisplay; i++) {
-            this.state.notesToDisplay.push(allNotes[i]);
+        let signedNotes = Lang.filter(allNotes, o => o.signed);
+        let unsignedNotes = Lang.filter(allNotes, o => !o.signed);
+        const maxNotes = Math.min(this.state.maxNotesToDisplay, signedNotes.length);
+        for (let i = 0; i < maxNotes; i++) {
+            this.state.notesToDisplay.push(signedNotes[i]);
         }
 
         // Set the number of notes that are not being displayed
-        let missingNotes = allNotes.length - this.state.maxNotesToDisplay;
+        let missingNotes = signedNotes.length - this.state.maxNotesToDisplay;
 
-        this.setState({notesNotDisplayed: missingNotes});
+        this.setState({
+            notesNotDisplayed: missingNotes,
+            inProgressNotes: unsignedNotes,
+            selectedNote: unsignedNotes[0]
+        });
     }
 
     // Switch view (i.e clinical notes view or context tray)
@@ -52,10 +62,15 @@ class NoteAssistant extends Component {
         this.props.addNewNote("");
     }
 
+    openNote(note) {
+        this.setState({ selectedNote: note });
+    }
+
     // Render the content for the Note Assistant panel
     renderNoteAssistantContent(noteAssistantMode) {
 
-        const numberOfPreviousNotes = this.props.patient.getNotes().length;
+        const allNotes = this.props.patient.getNotes();
+        const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
 
         switch (noteAssistantMode) {
             case "context-tray":
@@ -84,11 +99,9 @@ class NoteAssistant extends Component {
 
                         {this.renderNewNoteSVG()}
 
-                        <Button raised
-                                className="resume-note-btn"
-                        >Resume in-progress note</Button>
+                        {this.renderInProgressNotes()}
 
-                        <span className="previous-notes-label">{numberOfPreviousNotes} previous notes</span>
+                        <span className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</span>
 
                         {this.renderSortSelection()}
 
@@ -139,6 +152,48 @@ class NoteAssistant extends Component {
         );
     }
 
+    renderInProgressNotes() {
+        return this.state.inProgressNotes.map((note, i) => this.renderInProgressNoteSVG(note, i));
+    }
+
+    renderInProgressNoteSVG(note, i) {
+        const selected = this.state.selectedNote === note;
+        const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
+        const strokeWidth = selected ? "1" : "0.5";
+        return (
+            <svg key={i} className="note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
+                 xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <path
+                        d="M136.405173,0.069612193 L3.37475586,0.069612193 L3.37475586,0.069612193 C1.71790161,0.069612193 0.374755859,1.41275794 0.374755859,3.06961219 L0.374755859,3.06961219 L0.374755859,98.5117187 C0.374755859,100.168573 1.71790161,101.511719 3.37475586,101.511719 L3.37475586,101.511719 L145.882537,101.511719 C147.539392,101.511719 148.882537,100.168573 148.882537,98.5117187 L148.882537,98.5117187 L148.882537,12.5469764 L136.405173,0.069612193 Z"
+                        id="path-1"></path>
+                </defs>
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-23">
+                        <g id="Combined-Shape">
+                            <use fill="#FFFFFF" fillRule="evenodd"></use>
+                            <path stroke={strokeColor} strokeWidth={strokeWidth}
+                                  d="M136.30162,0.319612193 L3.37475586,0.319612193 C1.8559728,0.319612193 0.624755859,1.55082913 0.624755859,3.06961219 L0.624755859,125.5117187 C0.624755859,127.030502 1.8559728,128.261719 3.37475586,128.261719 L145.882537,128.261719 C147.401321,128.261719 148.632537,127.030502 148.632537,125.5117187 L148.632537,12.6505298 L136.30162,0.319612193 Z"></path>
+                        </g>
+                        <polyline id="Path-14" stroke={strokeColor} strokeWidth={strokeWidth} fill="#FFFFFF"
+                                  points="135.968149 0.370008208 135.968149 13.0028388 148.642348 13.0028388"></polyline>
+                    </g>
+                </g>
+                <text x="20" y="20" className="in-progress-text">In progress note</text>
+
+                <line x1="10" y1="30" x2="140" y2="30" stroke="#999" strokeWidth="1"/>
+
+                <text className="existing-note-date" x="20" y="50">{note.date}</text>
+                <text x="20" y="70" className="existing-note-subject">{note.subject}</text>
+
+                <line x1="10" y1="80" x2="140" y2="80" stroke="#999" strokeWidth="1"/>
+
+                {this.renderMetaDataText(note, 30)}
+
+            </svg>
+        );
+    }
+
     // Render the sort drop down
     renderSortSelection() {
         return (
@@ -170,9 +225,12 @@ class NoteAssistant extends Component {
 
     // For each clinical note, render the note image with the text
     renderClinicalNoteSVG(item, i) {
+        const selected = this.state.selectedNote === item;
+        const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
+        const strokeWidth = selected ? "1" : "0.5";
 
         return (
-            <svg key={i} className="note" viewBox="0 0 149 102" version="1.1"
+            <svg key={i} className="note" onClick={() => {this.openNote(item)}} viewBox="0 0 149 102" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
@@ -183,10 +241,10 @@ class NoteAssistant extends Component {
                     <g id="Group-23">
                         <g id="Combined-Shape">
                             <use fill="#FFFFFF" fillRule="evenodd"></use>
-                            <path stroke="#B3B3B3" strokeWidth="0.5"
+                            <path stroke={strokeColor} strokeWidth={strokeWidth}
                                   d="M136.30162,0.319612193 L3.37475586,0.319612193 C1.8559728,0.319612193 0.624755859,1.55082913 0.624755859,3.06961219 L0.624755859,98.5117187 C0.624755859,100.030502 1.8559728,101.261719 3.37475586,101.261719 L145.882537,101.261719 C147.401321,101.261719 148.632537,100.030502 148.632537,98.5117187 L148.632537,12.6505298 L136.30162,0.319612193 Z"></path>
                         </g>
-                        <polyline id="Path-14" stroke="#B3B3B3" strokeWidth="0.5" fill="#FFFFFF"
+                        <polyline id="Path-14" stroke={strokeColor} strokeWidth={strokeWidth} fill="#FFFFFF"
                                   points="135.968149 0.370008208 135.968149 13.0028388 148.642348 13.0028388"></polyline>
                     </g>
                 </g>
@@ -202,7 +260,7 @@ class NoteAssistant extends Component {
     }
 
     // Render the meta data section of the note (currently this data is just the hospital name)
-    renderMetaDataText(item) {
+    renderMetaDataText(item, yOffset = 0) {
 
         // Split hospital name into 2 lines for svg (svg doesn't handle text wrap. Do this manually using tspan tag)
         // Only split the name if it is more than three words long
@@ -239,9 +297,9 @@ class NoteAssistant extends Component {
             }
 
             return (
-                <text x="20" y="70" className="existing-note-metadata">
-                    <tspan x="20" y="70">{hospitalFirstString}</tspan>
-                    <tspan x="20" y="85">{hospitalSecondString}</tspan>
+                <text x="20" y={70+yOffset} className="existing-note-metadata">
+                    <tspan x="20" y={70+yOffset}>{hospitalFirstString}</tspan>
+                    <tspan x="20" y={85+yOffset}>{hospitalSecondString}</tspan>
                 </text>
             );
 
@@ -249,8 +307,8 @@ class NoteAssistant extends Component {
             hospitalFirstString = item.hospital;
 
             return (
-                <text x="20" y="70" className="existing-note-metadata">
-                    <tspan x="20" y="70">{hospitalFirstString}</tspan>
+                <text x="20" y={70+yOffset} className="existing-note-metadata">
+                    <tspan x="20" y={70+yOffset}>{hospitalFirstString}</tspan>
                 </text>
             );
         }

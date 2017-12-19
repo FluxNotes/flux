@@ -90,6 +90,12 @@ li.sort-item:hover {
     font-weight: bold;
 }
 
+.in-progress-text {
+    font-size: 0.8rem;
+    color: #333333 !important;
+    font-weight: bold;
+}
+
 .existing-note-subject {
     font-size: 0.7rem;
     color: #999 !important;
