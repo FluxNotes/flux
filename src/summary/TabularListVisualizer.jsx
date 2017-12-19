@@ -127,18 +127,18 @@ class TabularListVisualizer extends Component {
             </table>
         );
     }
-
+ // not the same hieght within a row, why?
     renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass) {
         if (this.props.allowItemClick) {
             // Allows for 5% for each + button, and the remainder divided among the columns. There are item.length columns.
-            let columnPercentage = (100 - 10*item.length) / item.length;
+            let columnPercentage = (100 - 5*item.length) / item.length;
             let renderedColumns = item.map((element, arrayIndex) => {
                 if(Lang.isEqual(arrayIndex, 0)){
                     // white background on the first column
                     return (   
                         <span className="data">   
                             <td width={columnPercentage + "%"}>{element}</td>
-                            <td width="10%" onClick={onClick}>
+                            <td width="5%" onClick={onClick}>
                                 <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                             </td>
                         </span>
