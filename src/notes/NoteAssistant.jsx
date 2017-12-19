@@ -37,10 +37,9 @@ class NoteAssistant extends Component {
         this.setState({notesNotDisplayed: missingNotes});
     }
 
-    // Switch view. Currently only switching from context tray to clinical notes is available
-    // Cannot currently switch from clinical notes view back to current note view
-    toggleView() {
-        this.setState({noteAssistantMode: "clinical-notes"});
+    // Switch view (i.e clinical notes view or context tray)
+    toggleView(mode) {
+        this.setState({noteAssistantMode: mode});
     }
 
     // Update the selected index for the sort drop down
@@ -48,10 +47,9 @@ class NoteAssistant extends Component {
         this.setState({sortIndex: sortIndex});
     }
 
-    // Test method when user clicks on the new note button
-    // TODO: Implement creation of a new note. Rename method
-    test() {
-        console.log("clicked on new note");
+    handleOnNewNoteButtonClick() {
+        this.toggleView("context-tray");
+        this.props.addNewNote("");
     }
 
     // Render the content for the Note Assistant panel
@@ -65,7 +63,7 @@ class NoteAssistant extends Component {
                 // Render the context tray
                 return (
                     <div>
-                        <span className="button-hover clinical-notes-btn" onClick={() => { this.toggleView()}}>
+                        <span className="button-hover clinical-notes-btn" onClick={() => { this.toggleView("clinical-notes")}}>
                             <i className="fa fa-arrow-left"></i>
                             Clinical Notes
                         </span>
@@ -110,7 +108,7 @@ class NoteAssistant extends Component {
     // Render the new note button
     renderNewNoteSVG() {
         return (
-            <svg className="note-new" onClick={() => this.props.addNewNote("")} viewBox="0 0 150 33" version="1.1"
+            <svg className="note-new" onClick={() => this.handleOnNewNoteButtonClick()} viewBox="0 0 150 33" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
