@@ -127,59 +127,78 @@ class TabularListVisualizer extends Component {
             </table>
         );
     }
- // not the same hieght within a row, why?
-    renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass) {
-        if (this.props.allowItemClick) {
-            // Allows for 5% for each + button, and the remainder divided among the columns. There are item.length columns.
+
+    renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass) {
+        
+            // Allows for 5% for each plus button, and the remainder divided among the columns. There are item.length columns.
             let columnPercentage = (100 - 5*item.length) / item.length;
-            let renderedColumns = item.map((element, arrayIndex) => {
+            var renderedColumns = [];
+            item.forEach((element, arrayIndex) => {
+                var plusButtonForColumnItem = null;
                 if(Lang.isEqual(arrayIndex, 0)){
                     // white background on the first column
-                    return (   
-                        <span className="data">   
-                            <td width={columnPercentage + "%"}>{element}</td>
-                            <td width="5%" onClick={onClick}>
+                    const columnItem = (
+                        <td width={columnPercentage + "%"} key={index + "-item-" + arrayIndex}>{element}</td>
+                    );
+                    if (this.props.allowItemClick) {
+                        plusButtonForColumnItem = (
+                            <td width="5%" onClick={onClick} key={index + "-plus-" + arrayIndex}>
                                 <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                             </td>
-                        </span>
-                   );
+                        );
+                    } else{
+                        plusButtonForColumnItem = (
+                            <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                        );
+                    }
+                    renderedColumns.push(columnItem);
+                    renderedColumns.push(plusButtonForColumnItem);
                 } else {
                     // red or blue background on the other columns
-                    return (
-                        <span className="data">
-                            <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]}>{element}</td>
-                            <td width="5%" onClick={onClick}>
-                                <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                            </td>
-                        </span>
+                    const columnItem = (
+                        <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
                     );
+                    if (this.props.allowItemClick) {
+                        plusButtonForColumnItem = (
+                                <td width="5%" onClick={onClick} key={index + "-plus-" + arrayIndex}>
+                                    <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
+                                </td>
+                        );
+                    } else {
+                        plusButtonForColumnItem = (
+                            <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                        );
+                    }
+                    renderedColumns.push(columnItem);
+                    renderedColumns.push(plusButtonForColumnItem);
                 }
             });
+            
             return (
                 <tr key={index} className={rowClass}>
                     {renderedColumns}  
                 </tr>
             );
-        }
+        
 
-        // TODO also edit this return the same way, is the else of line 1
+        /* TODO also edit this return the same way, is the else of line 1
         return (
             <tr key={index} className={rowClass}>
                 <td width="40%">{item.name}</td>
-                <td width="55%" className={itemClass}>{itemText}</td>
+                <td width="55%" className={itemClass}>itemText</td>
                 <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
             </tr>
-        );
+        );*/
     }
     
     renderedListItems(list) {
-        let onClick, hoverClass, rowClass, itemClass, itemText = "";
+        let onClick, hoverClass, rowClass, itemClass = "";
         // item is now an Array. so this should not be called by firstHalf and secondHalf, one call per row.
         return list.map((item, index) => {
-            console.log("in map in renderedListItems:: ");
+           /* console.log("in map in renderedListItems:: ");
             console.log(item[0]);
             console.log(item[1]);
-            console.log(index);
+            console.log(index);*/
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
                 itemClass = "missing";
