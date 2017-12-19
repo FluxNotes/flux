@@ -110,7 +110,7 @@ class NoteAssistant extends Component {
     // Render the new note button
     renderNewNoteSVG() {
         return (
-            <svg className="note-new" onClick={() => {this.test()}} viewBox="0 0 150 33" version="1.1"
+            <svg className="note-new" onClick={() => this.props.addNewNote("")} viewBox="0 0 150 33" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path

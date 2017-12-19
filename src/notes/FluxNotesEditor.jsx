@@ -101,16 +101,11 @@ class FluxNotesEditor extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
+
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         
         // Set the initial state when the app is first constructed.
-        this.state = {
-            state: initialState,
-            isPortalOpen: false,
-            portalOptions: null,
-            left: 0,
-            top: 0
-        }
+        this.resetEditorState();
 
         // setup structured field plugin
         const structuredFieldPluginOptions = {
@@ -183,6 +178,17 @@ class FluxNotesEditor extends React.Component {
                 }));
             }
         });
+    }
+
+    // Reset the editor to the initial state when the app is first constructed.
+    resetEditorState() {
+        this.state = {
+            state: initialState,
+            isPortalOpen: false,
+            portalOptions: null,
+            left: 0,
+            top: 0
+        }
     }
         
     suggestionFunction(initialChar, text) {
@@ -358,11 +364,21 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
-    // This gets called when the before the component receives new properties
+    // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
             this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
             this.props.itemInserted();
+        }
+
+        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+
+            // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
+            // re initialize editor state and reset updatedEditorNote state in parent to be null
+            if (nextProps.updatedEditorNote === "") {
+                this.resetEditorState();
+                this.props.handleUpdateEditorWithNote(null);
+            }
         }
     }
     
@@ -614,6 +630,7 @@ FluxNotesEditor.proptypes = {
     contextManager: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
     errors: PropTypes.array.isRequired,
+    resetEditorState: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;
