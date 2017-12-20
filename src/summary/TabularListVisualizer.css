@@ -45,10 +45,10 @@ td:last-child {
     color: #fefefe;
 }
 
-tr.captured td.disabled:last-child {
+tr.captured td.disabled /*:last-child*/ {
     color: #DDD;
 }
-tr.captured td:last-child {
+tr.captured td /*:last-child */ {
     color: #888;
 }
 /*tr.captured { makes other tables lose alignment across rows

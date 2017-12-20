@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '../elements/Button';
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
-import NarrativeListVisualizer from './NarrativeListVisualizer';
 import TabularListVisualizer from './TabularListVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import './TargetedDataSection.css';
@@ -151,13 +150,11 @@ class TargetedDataSection extends Component {
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {
-       // console.log("renderSection got: ");
-        //console.log(section);
         const {patient, condition, onItemClicked, allowItemClick, isWide, type} = this.props;
         const visualization = this.checkVisualization();
 
         switch (type) {
-            case "ListType": { // needs NarrativeListVisualizer and TabularListVisualizer to be created
+            case "ListType": {
                 if (visualization === 'tabular') {
                     return (
                         <TabularListVisualizer
@@ -169,17 +166,6 @@ class TargetedDataSection extends Component {
                             isWide={isWide}
                         />
                     );
-                } else if (visualization === 'narrative') {
-                    return (
-                        <NarrativeListVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    ); 
                 } else {
                     return null;
                 }
