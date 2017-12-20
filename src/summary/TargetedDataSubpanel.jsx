@@ -25,13 +25,16 @@ class TargetedDataSubpanel extends Component {
     }
 
     renderSections() {
+        const clinicalEvent = this.props.clinicalEvent;
         const conditionMetadata = this.getConditionMetadata();
         if (conditionMetadata == null) {
             return null;
         }
         const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
 
-        return conditionMetadata.sections.map((section, i) => {
+        return conditionMetadata.sections.filter((section, i) => {
+            return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
+        }).map((section, i) => {
             return (
                 <div key={i} data-test-summary-section={section.name}>
                     <TargetedDataSection
@@ -40,6 +43,7 @@ class TargetedDataSubpanel extends Component {
                         section={section}
                         patient={patient}
                         condition={condition}
+                        clinicalEvent={this.props.clinicalEvent}
                         onItemClicked={onItemClicked}
                         allowItemClick={allowItemClick}
                         isWide={isWide}

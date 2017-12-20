@@ -149,13 +149,13 @@ class ClinicianDashboard extends Component {
         const isNoteViewerVisible            = this.noteViewerBasedOnClinicalEvent(currentClinicalEvent);
         const isNoteViewerEditable           = this.noteEditableBasedOnClinicalEvent(currentClinicalEvent);
         const isTargetedDataSubpanelVisible  = this.isTargetedDataSubpanelVisible(currentLayout);
-        const istargetedDataPanelWide        = (parseFloat(this.state.targetedDataPanelSize) > 60); 
+        const isTargetedDataPanelWide        = (parseFloat(this.state.targetedDataPanelSize) > 60); 
 
         return (
             <div id="clinician-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
-                        isWide={istargetedDataPanelWide}
+                        isWide={isTargetedDataPanelWide}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         {...this.props}

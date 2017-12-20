@@ -206,6 +206,17 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Medications",
+                        clinicalEvents: [ "pre-encounter" ],
+                        type: "NameValuePairs",
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getItemListForMedications
+                            }
+                        ]
+                    },
+                    {
                         name: "Pathology Results",
                         type: "NameValuePairs",
     /*eslint no-template-curly-in-string: "off"*/
@@ -426,6 +437,20 @@ class SummaryMetadata {
             }
 
 
+        });
+    }
+    
+    getItemListForMedications = (patient, condition) => {
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
+
+        return meds.map((med, i) => {
+            const value = `${med.amountPerDose.value} ${med.amountPerDose.units} ${med.timingOfDoses.value} ${med.timingOfDoses.units}`;
+
+            return {
+                name: med.medication,
+                value: value
+            };
         });
     }
 
