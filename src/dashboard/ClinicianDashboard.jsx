@@ -5,8 +5,8 @@ import TargetedDataPanel from '../panels/TargetedDataPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
 
-class ClinicianDashboard extends Component { 
-    constructor() { 
+class ClinicianDashboard extends Component {
+    constructor() {
         super();
 
         this.state = {
@@ -32,10 +32,12 @@ class ClinicianDashboard extends Component {
 
     // Performs any updates based on changes to the state, specifically:
     // - Updates the layout when the task changes.
-    componentWillReceiveProps = (nextProps) => { 
-        if (nextProps.appState.clinicalEvent !== this.props.appState.clinicalEvent) { 
+    componentWillReceiveProps = (nextProps) => {
+
+        // If the clinical event has changed, update the layout and if the note editor should be viewable and editable
+        // based on the clinical event
+        if (nextProps.appState.clinicalEvent !== this.props.appState.clinicalEvent) {
             this.changeLayoutBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
-            //TODO: add iniitalization of editable and visiblie
             this.noteViewerBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
             this.noteEditableBasedOnClinicalEvent(nextProps.appState.clinicalEvent);
         }
@@ -48,7 +50,7 @@ class ClinicianDashboard extends Component {
     changeLayoutBasedOnClinicalEvent = (clinicalEvent) => {
         switch (clinicalEvent) {
             case "pre-encounter":
-                this.props.setFullAppState('layout', "right-collapsed"); // originally "right-collapsed"
+                this.props.setFullAppState('layout', "right-collapsed");
                 break;
             case "encounter":
                 this.props.setFullAppState('layout', "left-collapsed");
@@ -58,7 +60,7 @@ class ClinicianDashboard extends Component {
                 break;
             default:
                 this.props.setFullAppState('layout', '');
-        } 
+        }
     }
 
     // Based on a currentLayout, set a default panel size
@@ -104,7 +106,7 @@ class ClinicianDashboard extends Component {
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
-                //TODO: define the default case
+                this.props.setFullAppState('isNoteViewerVisible', false);
                 return;
         }
     }
@@ -113,17 +115,17 @@ class ClinicianDashboard extends Component {
     noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
             case "pre-encounter":
-                this.props.setFullAppState('isNoteViewerEditable', "false");
+                this.props.setFullAppState('isNoteViewerEditable', false);
                 break;
             case "encounter":
-                this.props.setFullAppState('isNoteViewerEditable', "true");
+                this.props.setFullAppState('isNoteViewerEditable', true);
                 break;
             case "post-encounter":
-                this.props.setFullAppState('isNoteViewerEditable', "true");
+                this.props.setFullAppState('isNoteViewerEditable', true);
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
-                //TODO: define the default case
+                this.props.setFullAppState('isNoteViewerEditable', false);
                 return;
         }
     }
@@ -143,9 +145,7 @@ class ClinicianDashboard extends Component {
         }
     }
 
-
     render() {
-        // const currentClinicalEvent = this.props.appState.clinicalEvent;
         const currentLayout = this.props.appState.layout;
         const isNoteViewerVisible = this.props.appState.isNoteViewerVisible;
         const isNoteViewerEditable = this.props.appState.isNoteViewerEditable;
@@ -160,12 +160,6 @@ class ClinicianDashboard extends Component {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
-
-
-        //TODO: Take these 2 and make them have same architecture as layout
-        // const isNoteViewerVisible            = this.noteViewerBasedOnClinicalEvent(currentClinicalEvent);
-        // const isNoteViewerEditable           = this.noteEditableBasedOnClinicalEvent(currentClinicalEvent);
-
 
         const isTargetedDataSubpanelVisible = this.isTargetedDataSubpanelVisible(currentLayout);
         const istargetedDataPanelWide = (parseFloat(this.state.targetedDataPanelSize) > 60);
@@ -195,9 +189,7 @@ class ClinicianDashboard extends Component {
                         summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
                         updateErrors={this.props.updateErrors}
                         updateLayoutOnNewNoteClicked={this.updateLayoutOnNewNoteClicked}
-                        handleNewNote={this.handleNewNote}
                         currentViewMode={this.props.appState.clinicalEvent}
-
                         setFullAppState={this.props.setFullAppState}
                     />
                 </div>
@@ -224,7 +216,6 @@ ClinicianDashboard.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
-    handleNewNote: PropTypes.func.isRequired,
     currentViewMode: PropTypes.object.isRequired,
 };
 

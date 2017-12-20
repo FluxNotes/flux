@@ -330,6 +330,7 @@ class NoteAssistant extends Component {
 
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         if (this.props.isNoteViewerEditable) {
+
             return (
                 <div>
                     {this.renderNoteAssistantContent(this.state.noteAssistantMode)}
@@ -338,6 +339,7 @@ class NoteAssistant extends Component {
 
             // If the note viewer is read only the we want to be able to view the clinical notes
         } else {
+
             return (
                 <div>
                     {this.renderNoteAssistantContent("clinical-notes")}

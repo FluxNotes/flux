@@ -23,15 +23,15 @@ const schema = {
     nodes: {
         paragraph: props => <p {...props.attributes}>{props.children}</p>,
         heading: props => <h1 {...props.attributes}>{props.children}</h1>,
-        'bulleted-list-item':     props => <li {...props.attributes}>{props.children}</li>,
-        'numbered-list-item':     props => <li {...props.attributes}>{props.children}</li>,        
+        'bulleted-list-item': props => <li {...props.attributes}>{props.children}</li>,
+        'numbered-list-item': props => <li {...props.attributes}>{props.children}</li>,
         'bulleted-list': props => <ul {...props.attributes}>{props.children}</ul>,
         'numbered-list': props => <ol {...props.attributes}>{props.children}</ol>,
     },
     marks: {
         bold: (props) => <strong>{props.children}</strong>,
         italic: (props) => <em>{props.children}</em>,
-        underlined: (props) => <u>{props.children}</u>,      
+        underlined: (props) => <u>{props.children}</u>,
     }
 };
 
@@ -48,12 +48,12 @@ const structuredFieldTypes = [
 function getPos(domElement, node, state) {
     const offsetx = 0;
     const offsety = 0;
-    var pos = { left: 0, top: 0 };
-    
+    var pos = {left: 0, top: 0};
+
     const children = domElement.childNodes;
 
-    for(const child of children) { 
-        if (child.getBoundingClientRect && child.getAttribute("data-key")) { 
+    for (const child of children) {
+        if (child.getBoundingClientRect && child.getAttribute("data-key")) {
             const rect = child.getBoundingClientRect();
             pos.left = rect.left + rect.width + offsetx;
             pos.top = rect.top + offsety;
@@ -70,9 +70,9 @@ function position(state) {
 // Given  text and starting index, recursively traverse text to find index location of text
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
     if (index === initialIndex) {
-        return {    
-            start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar), 
-            end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)    
+        return {
+            start: getIndexRangeForCurrentWord(text, index - 1, initialIndex, initialChar),
+            end: getIndexRangeForCurrentWord(text, index + 1, initialIndex, initialChar)
         }
     }
     if (text[index] === initialChar || text[index] === undefined) {
@@ -92,18 +92,18 @@ class FluxNotesEditor extends React.Component {
 
         this.contextManager = this.props.contextManager;
         this.updateErrors = this.props.updateErrors;
-        
+
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
-        
+
         this.didFocusChange = false;
-        
+
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
-        
+
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
 
@@ -134,17 +134,17 @@ class FluxNotesEditor extends React.Component {
             suggestions: this.suggestionFunction.bind(this, '@'),
             onEnter: this.choseSuggestedShortcut.bind(this)
         });
-        
+
         this.plugins = [
             this.suggestionsPluginCreators,
             this.suggestionsPluginInserters,
             this.structuredFieldPlugin
         ];
-        
+
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
-        this.autoReplaceBeforeRegExp = undefined;        
+        this.autoReplaceBeforeRegExp = undefined;
         let autoReplaceAfters = [];
         let allShortcutDefinitions = this.props.shortcutManager.getAllShortcutDefinitions();
         allShortcutDefinitions.forEach((def) => {
@@ -153,14 +153,14 @@ class FluxNotesEditor extends React.Component {
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
-        
+
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         this.plugins.push(AutoReplace({
             "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
             "transform": this.autoReplaceTransform.bind(this, null)
         }));
-        
+
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;
         allShortcutDefinitions.forEach((def) => {
@@ -190,7 +190,7 @@ class FluxNotesEditor extends React.Component {
             top: 0
         }
     }
-        
+
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
         let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
@@ -212,11 +212,11 @@ class FluxNotesEditor extends React.Component {
         });
         return suggestionsShortcuts.slice(0, 10);
     }
-    
+
     choseSuggestedShortcut(suggestion) {
-        const { state } = this.state; 
+        const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
-        
+
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
@@ -225,7 +225,7 @@ class FluxNotesEditor extends React.Component {
             return transformAfterInsert.apply();
         }
     }
-    
+
     insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined) {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
@@ -251,16 +251,16 @@ class FluxNotesEditor extends React.Component {
             return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
         }
     }
-    
+
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
-    
+
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
         let pos = position(this.state);
-        
+
         this.setState({
             isPortalOpen: true,
             portalOptions: portalOptions,
@@ -275,7 +275,7 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (context is not null) or if portal is closed without
     // selection (context is null)
     onPortalSelection = (state, context) => {
-        this.setState({ isPortalOpen: false });
+        this.setState({isPortalOpen: false});
         if (Lang.isNull(context)) return state;
         let shortcut = this.selectingForShortcut;
         this.selectingForShortcut = null;
@@ -296,34 +296,32 @@ class FluxNotesEditor extends React.Component {
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
     suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
-        const { state } = this.state;
+        const {state} = this.state;
         if (Lang.isNull(transform)) {
             transform = state.transform();
         }
-        const { anchorText, anchorOffset } = state
+        const {anchorText, anchorOffset} = state
         const text = anchorText.text
 
-        let index = { start: anchorOffset - 1, end: anchorOffset }
+        let index = {start: anchorOffset - 1, end: anchorOffset}
 
         if (text[anchorOffset - 1] !== prefixCharacter) {
             index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
         }
-            
+
         const newText = `${text.substring(0, index.start)}`
         return transform
             .deleteBackward(anchorOffset)
-            .insertText(newText)    
+            .insertText(newText)
     }
-    
+
     insertStructuredFieldTransform(transform, shortcut) {
         //console.log(shortcut);
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
         //console.log(result[0]);
-        return result[0];   
+        return result[0];
     }
-
-
 
     onChange = (state) => {
         this.setState({
@@ -335,15 +333,15 @@ class FluxNotesEditor extends React.Component {
         // Create an updated state with the text replaced.
 
         var nextState = this.state.state.transform().select({
-          anchorKey: data.anchorKey,
-          anchorOffset: data.anchorOffset,
-          focusKey: data.focusKey,
-          focusOffset: data.focusOffset
+            anchorKey: data.anchorKey,
+            anchorOffset: data.anchorOffset,
+            focusKey: data.focusKey,
+            focusOffset: data.focusOffset
         }).delete()
 
         this.insertTextWithStructuredPhrases(data.newText, nextState)
     }
-    
+
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
         if (Lang.isUndefined(state)) {
             state = this.state.state;
@@ -357,7 +355,7 @@ class FluxNotesEditor extends React.Component {
             return state.document.areDescendantsSorted(key1, key2);
         }
     }
-        
+
     onSelectionChange = (selection, state) => {
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
@@ -368,44 +366,44 @@ class FluxNotesEditor extends React.Component {
 
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
+
+        // Check if the item to be inserted is updated
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
             this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
 
+        // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
             // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
             if (nextProps.updatedEditorNote === "") {
-
-                console.log("updatedEditor Note is updated. Clearing editor state");
                 this.resetEditorState();
+
+                // Calls parent function which resets updatedEditorNote to be null
                 this.props.handleUpdateEditorWithNote(null);
+
+                // This clears error messages from the editor
                 this.structuredFieldPlugin.clearStructuredFieldMap();
+
+                // This clears the contexts so that the tray starts back at the patient context
                 this.contextManager.clearContexts();
             }
         }
 
-        // When current view mode changes do this
+        // Check if the current view mode changes
         if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
-
-            console.log("inside changing current mode");
-            // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
-            // re initialize editor state and reset updatedEditorNote state in parent to be null
-            if (nextProps.updatedEditorNote === "") {
-                console.log("currentViewMode is updated. Clearing editor state");
-                this.resetEditorState();
-                this.props.handleUpdateEditorWithNote(null);
-                this.structuredFieldPlugin.clearStructuredFieldMap();
-                this.contextManager.clearContexts();
-            }
+            this.resetEditorState();
+            this.props.handleUpdateEditorWithNote(null);
+            this.structuredFieldPlugin.clearStructuredFieldMap();
+            this.contextManager.clearContexts();
         }
     }
-    
+
     insertNewLine = (transform) => {
         return transform
-          .splitBlock();
+            .splitBlock();
     }
 
     insertPlainText = (transform, text) => {
@@ -421,17 +419,17 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform=undefined) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined) => {
         let state;
         const currentState = this.state.state;
-        
+
         // console.log(textToBeInserted);
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
-        
+
         //console.log(textToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
         //console.log(triggers);
@@ -447,24 +445,24 @@ class FluxNotesEditor extends React.Component {
                 remainder = remainder.substring(start + trigger.trigger.length);
 
                 // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
-                if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) { 
-                    transform = this.insertPlainText(transform, ' ');   
+                if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
+                    transform = this.insertPlainText(transform, ' ');
                 }
-                
+
                 // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
                     after = remainder.substring(2, end);
                     // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
                     remainder = remainder.substring(end + 2);
-                // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
+                    // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
                 } else if (remainder.startsWith(" [[")) {
                     remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
                     end = remainder.indexOf("]]");
                     // FIXME: 2 is a magic number based on ' [[' length, ditto for 2 below for ]]
                     after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
                     remainder = remainder.substring(end + 2);
-                } else { 
+                } else {
                     after = "";
                 }
 
@@ -494,59 +492,59 @@ class FluxNotesEditor extends React.Component {
      */
     handleBlockCheck = (type) => {
         const {state} = this.state;
-           return state.blocks.some((node) => {
-               return node.type === type;
+        return state.blocks.some((node) => {
+            return node.type === type;
 
-           }); 
-    }    
-    
-      /**
-       * Handle any changes to the current mark type.
-       */
-    handleMarkUpdate = (type) =>  {
-        let { state } = this.state
-        state = state
-         .transform()
-         .toggleMark(type)
-         .apply()
-       this.setState({ state });
+        });
     }
 
-      /**
-       * Handle any changes to the current block type.
-       */
-    handleBlockUpdate = (type) =>  {
-        let { state } = this.state;
+    /**
+     * Handle any changes to the current mark type.
+     */
+    handleMarkUpdate = (type) => {
+        let {state} = this.state
+        state = state
+            .transform()
+            .toggleMark(type)
+            .apply()
+        this.setState({state});
+    }
+
+    /**
+     * Handle any changes to the current block type.
+     */
+    handleBlockUpdate = (type) => {
+        let {state} = this.state;
         const transform = state.transform();
         const DEFAULT_NODE = "";
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
-          const isList = this.handleBlockCheck(type + '-item')
+            const isList = this.handleBlockCheck(type + '-item')
 
 
-          if (isList) {
-            transform
-              .setBlock(DEFAULT_NODE)
-              .unwrapBlock('bulleted-list')
-              .unwrapBlock('numbered-list')
-          } else if (isList) {
-            transform
-              .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
-              .wrapBlock(type)
-          } else {
-            transform
-              .setBlock(type + '-item')
-              .wrapBlock(type)
-          }
+            if (isList) {
+                transform
+                    .setBlock(DEFAULT_NODE)
+                    .unwrapBlock('bulleted-list')
+                    .unwrapBlock('numbered-list')
+            } else if (isList) {
+                transform
+                    .unwrapBlock(type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list')
+                    .wrapBlock(type)
+            } else {
+                transform
+                    .setBlock(type + '-item')
+                    .wrapBlock(type)
+            }
         } else {
-          // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
+            // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
         }
 
         state = transform.apply()
-        this.setState({ state });
-    
-    }        
+        this.setState({state});
+
+    }
 
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
@@ -585,7 +583,7 @@ class FluxNotesEditor extends React.Component {
             errorDisplay = (
                 <div>
                     <Divider className="divider"/>
-                    <h1 style={{color:'red'}}>{this.props.errors.join()}</h1>
+                    <h1 style={{color: 'red'}}>{this.props.errors.join()}</h1>
                     <Divider className="divider"/>
                 </div>
             );
@@ -596,7 +594,9 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => { editor.focus(); }}>
+            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => {
+                editor.focus();
+            }}>
                 {noteDescriptionContent}
                 <div className="MyEditor-root">
                     <EditorToolbar
@@ -611,17 +611,19 @@ class FluxNotesEditor extends React.Component {
                         placeholder={'Enter your clinical note here or choose a template to start from...'}
                         plugins={this.plugins}
                         state={this.state.state}
-                        ref={function(c) { editor = c; }}
+                        ref={function (c) {
+                            editor = c;
+                        }}
                         onChange={this.onChange}
                         onInput={this.onInput}
                         onSelectionChange={this.onSelectionChange}
                         schema={schema}
                     />
                     {errorDisplay}
-                    <CreatorsPortal 
-                        state={this.state.state} />
+                    <CreatorsPortal
+                        state={this.state.state}/>
                     <InsertersPortal
-                        state={this.state.state} />
+                        state={this.state.state}/>
                     <ContextPortal
                         left={this.state.left}
                         top={this.state.top}
@@ -641,7 +643,7 @@ class FluxNotesEditor extends React.Component {
     }
 }
 
-FluxNotesEditor.proptypes = { 
+FluxNotesEditor.proptypes = {
     onSelectionChange: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     itemInserted: PropTypes.object,
