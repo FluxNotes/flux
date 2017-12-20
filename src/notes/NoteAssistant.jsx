@@ -159,7 +159,7 @@ class NoteAssistant extends Component {
     renderInProgressNoteSVG(note, i) {
         const selected = this.state.selectedNote === note;
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
-        const strokeWidth = selected ? "1" : "0.5";
+        const strokeWidth = selected ? "2" : "0.5";
         return (
             <svg key={i} className="note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
@@ -227,7 +227,7 @@ class NoteAssistant extends Component {
     renderClinicalNoteSVG(item, i) {
         const selected = this.state.selectedNote === item;
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
-        const strokeWidth = selected ? "1" : "0.5";
+        const strokeWidth = selected ? "2" : "0.5";
 
         return (
             <svg key={i} className="note" onClick={() => {this.openNote(item)}} viewBox="0 0 149 102" version="1.1"
