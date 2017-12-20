@@ -95,7 +95,7 @@ class AppManager {
                 display: 'Flux Notes',
                 app: FullApp,
                 isExact: false,
-                dataSource: 'RestApiDataSource',
+                dataSource: 'FHIRApiDataSource',
                 shortcuts: []
             }
         ];
