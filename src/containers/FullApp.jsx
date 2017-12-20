@@ -122,9 +122,12 @@ class FullApp extends Component {
     }
 
     // Update the summaryitemtoinsert based on the item given
-    handleSummaryItemSelected = (item) =>{
+    handleSummaryItemSelected = (item, arrayIndex = -1) =>{
         if (item) {
-            if (item.shortcut) {
+            // calls to this method from the buttons on a ListType pass in 'item' as an array.
+            if(Lang.isArray(item) && arrayIndex >= 0){
+                this.setState({SummaryItemToInsert: item[arrayIndex]});
+            } else if (item.shortcut) {
                 this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
             } else if (item.value) {
                 this.setState({SummaryItemToInsert: item.value});
