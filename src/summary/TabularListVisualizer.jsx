@@ -142,10 +142,10 @@ class TabularListVisualizer extends Component {
                     );
                     if (this.props.allowItemClick) {
                         plusButtonForColumnItem = (
-                            <td width="5%" onClick={onClick} key={index + "-plus-" + arrayIndex}>
+                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex}>
                                 <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                             </td>
-                        );
+                        ); 
                     } else{
                         plusButtonForColumnItem = (
                             <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
@@ -160,7 +160,7 @@ class TabularListVisualizer extends Component {
                     );
                     if (this.props.allowItemClick) {
                         plusButtonForColumnItem = (
-                                <td width="5%" onClick={onClick} key={index + "-plus-" + arrayIndex}>
+                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className={itemClass}>
                                     <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                                 </td>
                         );
@@ -179,26 +179,11 @@ class TabularListVisualizer extends Component {
                     {renderedColumns}  
                 </tr>
             );
-        
-
-        /* TODO also edit this return the same way, is the else of line 1
-        return (
-            <tr key={index} className={rowClass}>
-                <td width="40%">{item.name}</td>
-                <td width="55%" className={itemClass}>itemText</td>
-                <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
-            </tr>
-        );*/
     }
     
     renderedListItems(list) {
         let onClick, hoverClass, rowClass, itemClass = "";
-        // item is now an Array. so this should not be called by firstHalf and secondHalf, one call per row.
         return list.map((item, index) => {
-           /* console.log("in map in renderedListItems:: ");
-            console.log(item[0]);
-            console.log(item[1]);
-            console.log(index);*/
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
                 itemClass = "missing";
@@ -208,15 +193,12 @@ class TabularListVisualizer extends Component {
             } else {
                 rowClass = "captured";
                 itemClass = "captured";
-               // itemText = item.value; //value part of key-value
-                onClick = (e) => this.props.onItemClicked(item);
                 hoverClass = "button-hover";
             }
             return this.renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 
-    // Gets called for each section in SummaryMetaData.jsx
     render() {
         const subsections = this.getSubsections();
 
