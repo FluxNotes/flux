@@ -12,7 +12,7 @@ import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import Lang from 'lodash';
-import './FullApp.css';
+import '../styles/FullApp.css';
 
 const theme = createMuiTheme({
     palette: {
@@ -26,8 +26,8 @@ class FullApp extends Component {
     constructor(props) {
         super(props);
         this.possibleClinicalEvents = [
-            "pre-encounter", 
-            "encounter", 
+            "pre-encounter",
+            "encounter",
             "post-encounter"
         ];
 
@@ -63,12 +63,12 @@ class FullApp extends Component {
         this.setState({ [state]: value });
     }
 
-    // Updates the context manager in it's state 
+    // Updates the context manager in it's state
     onContextUpdate = () => {
         this.setState({ contextManager: this.contextManager });
     }
 
-    // Update the errors based on the argument provided 
+    // Update the errors based on the argument provided
     updateErrors = (errors) => {
         this.setState({ errors });
     }
@@ -78,7 +78,7 @@ class FullApp extends Component {
         this.setState({ SummaryItemToInsert: '' });
     }
 
-    // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed. 
+    // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed.
     newCurrentShortcut = (shortcutC, shortcutType, obj) => {
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate, obj);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
@@ -94,7 +94,7 @@ class FullApp extends Component {
         return newShortcut;
     }
 
-    // Update shortcuts and update patients accordignly 
+    // Update shortcuts and update patients accordignly
     handleShortcutUpdate = (s) =>{
         let p = this.state.patient;
         s.updatePatient(p, this.contextManager);
@@ -114,7 +114,7 @@ class FullApp extends Component {
         })
     }
 
-    // Update the selected text 
+    // Update the selected text
     handleSelectionChange = (selectedText) => {
         this.setState({
             selectedText: selectedText
@@ -150,13 +150,13 @@ class FullApp extends Component {
                                         patient={this.state.patient}
                                         possibleClinicalEvents={this.possibleClinicalEvents}
                                         clinicalEvent={this.state.clinicalEvent}
-                                        setFullAppState={this.setFullAppState} 
+                                        setFullAppState={this.setFullAppState}
                                         layout={this.state.layout}
                                     />
                                 </Col>
                             </Row>
 
-                            <CurrentDashboard 
+                            <CurrentDashboard
                                 // App default settings
                                 title={this.props.display}
                                 supportLogin={true}
@@ -189,9 +189,9 @@ class FullApp extends Component {
     }
 }
 
-FullApp.proptypes = { 
+FullApp.proptypes = {
     dataSource: PropTypes.string.isRequired,
-    shortcuts: PropTypes.array.isRequired, 
+    shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
 }
 

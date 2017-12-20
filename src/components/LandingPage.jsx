@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Paper from 'material-ui/Paper';
 import Button from '../elements/Button';
-import './LandingPage.css';
+import '../styles/LandingPage.css';
 
 export default class LandingPage extends Component {
     render() {
