@@ -323,6 +323,8 @@ class FluxNotesEditor extends React.Component {
         return result[0];   
     }
 
+
+
     onChange = (state) => {
         this.setState({
             state: state
@@ -376,8 +378,27 @@ class FluxNotesEditor extends React.Component {
             // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
             if (nextProps.updatedEditorNote === "") {
+
+                console.log("updatedEditor Note is updated. Clearing editor state");
                 this.resetEditorState();
                 this.props.handleUpdateEditorWithNote(null);
+                this.structuredFieldPlugin.clearStructuredFieldMap();
+                this.contextManager.clearContexts();
+            }
+        }
+
+        // When current view mode changes do this
+        if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
+
+            console.log("inside changing current mode");
+            // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
+            // re initialize editor state and reset updatedEditorNote state in parent to be null
+            if (nextProps.updatedEditorNote === "") {
+                console.log("currentViewMode is updated. Clearing editor state");
+                this.resetEditorState();
+                this.props.handleUpdateEditorWithNote(null);
+                this.structuredFieldPlugin.clearStructuredFieldMap();
+                this.contextManager.clearContexts();
             }
         }
     }

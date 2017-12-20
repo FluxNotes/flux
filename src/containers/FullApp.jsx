@@ -50,6 +50,8 @@ class FullApp extends Component {
             contextManager: this.contextManager,
             errors: [],
             layout: "",
+            isNoteViewerVisible: false,
+            isNoteViewerEditable: false,
             patient: patient,
             selectedText: null,
             superRole: 'Clinician',

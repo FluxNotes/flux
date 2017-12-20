@@ -20,16 +20,24 @@ class NotesPanel extends Component {
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
+
+        // console.log("handling update in notes panel");
+
         this.setState({updatedEditorNote: note});
 
-        if (note === "") {
-            this.props.updateErrors([]);
+        // TODO: add setfullappstate to prop types. Add prop types to this file
+        if (this.props.currentViewMode === 'pre-encounter') {
+            this.props.setFullAppState("layout", "split");
+            this.props.setFullAppState("isNoteViewerVisible", true);
+            this.props.setFullAppState("isNoteViewerEditable", true);
         }
+
+
     }
 
     renderNotesPanelContent() {
 
-        // If isNoteViewerVisible is tru, render the flux notes editor and the note assistant
+        // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
             return (
                 <Row center="xs">
@@ -71,6 +79,8 @@ class NotesPanel extends Component {
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+
+                    currentViewMode={this.props.currentViewMode}
                 />
             </div>
         );
