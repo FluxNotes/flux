@@ -21,7 +21,7 @@ class AppManager {
                         referenceDateEnabled: false 
                     },
                     'Toxicity': {   
-                        gradesToDisplay: [2,3,4,5],
+                        gradesToDisplay: [3,4,5],
                         gradesPrompt: ' PATINA only calculates its endpoint based on adverse events of grades 2 through 5; therefore, only those are shown below. ',
                         topAdverseEvents: [
                             'Febrile neutropenia', 
