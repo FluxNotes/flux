@@ -162,7 +162,7 @@ class ClinicianDashboard extends Component {
         };
 
         const isTargetedDataSubpanelVisible = this.isTargetedDataSubpanelVisible(currentLayout);
-        const istargetedDataPanelWide = (parseFloat(this.state.targetedDataPanelSize) > 60);
+        const isTargetedDataPanelWide = (parseFloat(this.state.targetedDataPanelSize) > 60);
 
         return (
             <div id="clinician-dashboard-content" style={{display: "flex"}}>
