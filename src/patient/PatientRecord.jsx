@@ -13,7 +13,8 @@ import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
-import Lang from 'lodash'
+import mapper from '../lib/FHIRMapper';
+import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 
@@ -42,6 +43,21 @@ class PatientRecord {
 	}
 	
 	fromFHIR(fhirJson) {
+		// loop through each FHIR entry
+		// map to correct SHR entryTypes
+		// call ShrObjectFactory to create instances of SHR Object Model
+		// call fromFHIR method on entry from Object
+		fhirJson.entry.forEach((entry) => {
+			const entryTypes =  mapper.mapToEntryTypes(entry);
+			entryTypes.forEach((entryType) => {
+				if (!Lang.isNull(entryType)) {
+					const shrObj = ShrObjectFactory.createInstance(entryType);
+					shrObj.fromFHIR(entry);
+					this.entries.push(shrObj);
+				}
+			});
+		});
+		console.log(this.entries);
 		this.personOfRecord = this.getPersonOfRecord();
 		this.shrId = this.personOfRecord.entryInfo.shrId;
 		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;

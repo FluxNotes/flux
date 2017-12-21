@@ -49,6 +49,10 @@ class PersonOfRecord extends Person {
         }
   }
 
+  fromFHIR(entry) {
+      
+  }
+
   /**
    * Getter for entry information (shr.base.Entry)
    */
@@ -314,7 +318,6 @@ class PersonOfRecord extends Person {
   set familialRelationship(familialRelationshipVal) {
     this._familialRelationship = familialRelationshipVal;
   }
-
 }
 
 export default PersonOfRecord;
