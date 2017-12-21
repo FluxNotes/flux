@@ -72,6 +72,24 @@ test('Selecting a condition changes the active condition', async t => {
         .eql("Fracture");
 });
 
+test('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    const editor = Selector("div[data-slate-editor='true']");
+    const newNoteButton = Selector('.note-new');
+
+    // Select pre-encounter mode
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+
+    // Click on new note button to open the editor
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.exists).ok();
+});
+
 fixture('Patient Mode - Editor')
     .page(startPage);
 
@@ -89,6 +107,60 @@ test('Clicking clinical notes in Note Assistance switches view to clinical notes
     await t
         .expect(buttonText.toString().toLowerCase())
         .eql("new note");
+});
+
+test('In post-encounter mode, clicking the "New Note" button clears the editor content', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "@name ")
+
+    // Switch to clinical notes view
+    await t
+        .click(clinicalNotesButton)
+
+    // Click on new note button
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.textContent)
+        .eql("Enter your clinical note here or choose a template to start from...");
+});
+
+test('In pre-encounter mode, clicking the "New Note" button clears the editor content', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+
+    // Select pre-encounter mode
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+
+    // Click on new note button to open the editor
+    await t
+        .click(newNoteButton)
+
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "@name ")
+
+    // Switch to clinical notes view
+    await t
+        .click(clinicalNotesButton)
+
+    // Click on new note button to clear the editor
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.textContent)
+        .eql("Enter your clinical note here or choose a template to start from...");
 });
 
 
