@@ -31,7 +31,6 @@ tr:last-child td:last-child {
 td {
     border-top: 1px solid #ccc;
     padding: 8px 10px;
-    /*word-wrap: break-word;*/
 }
 
 td:first-child {
@@ -48,7 +47,7 @@ td:last-child {
 tr.captured td.disabled  {
     color: #DDD;
 }
-tr.captured td {
+tr.captured td.enabled {
     color: #888;
 }
 
@@ -60,6 +59,7 @@ td.missing {
 td.captured {
     color: #333;
     background-color: #d9ebf9;
+    
     
 }
 

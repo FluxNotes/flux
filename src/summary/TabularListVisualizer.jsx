@@ -65,39 +65,11 @@ class TabularListVisualizer extends Component {
             });
         }
 
-        // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
-        // for the second half of sections
-       /* const numberOfFirstHalfSections = Math.ceil(subsections.length / 2);
-        let firstHalfSections = [];
-        let secondHalfSections = [];
-
-        // Create array containing the first half of the subsections
-        subsections.slice(0, numberOfFirstHalfSections).forEach((subsection) => {
-            firstHalfSections.push(subsection);
-        });
-
-        // Create array containing the second half of the subsections
-        subsections.slice(numberOfFirstHalfSections).forEach((subsection) => {
-            secondHalfSections.push(subsection);
-        });
-
-        let ind = 0;
-        const renderedFirstHalf = firstHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
-        });
-        const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
-        });*/
-        
-        // just use subsections
         let ind = 0;
         const renderedAllSections = subsections.map((subsection) => {
             return this.renderedSubsection(subsection, ind++);
         });
 
-        // Display the data in 2 columns. The first column displays the first half
-        // of the sections in one table and the second column displays the second half of the sections in a second table
-        // may need better Cols inserted for each column.
         return (
             <Row start="xs">
                 <Col sm={6}>
@@ -142,7 +114,7 @@ class TabularListVisualizer extends Component {
                     );
                     if (this.props.allowItemClick) {
                         plusButtonForColumnItem = (
-                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex}>
+                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
                                 <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                             </td>
                         ); 
@@ -160,7 +132,7 @@ class TabularListVisualizer extends Component {
                     );
                     if (this.props.allowItemClick) {
                         plusButtonForColumnItem = (
-                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className={itemClass}>
+                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
                                     <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
                                 </td>
                         );

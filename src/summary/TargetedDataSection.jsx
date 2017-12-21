@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../elements/Button';
+import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
-import TabularListVisualizer from './TabularListVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import './TargetedDataSection.css';
 

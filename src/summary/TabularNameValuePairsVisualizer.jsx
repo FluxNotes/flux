@@ -120,7 +120,7 @@ class TabularNameValuePairsVisualizer extends Component {
     }
 
     renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass) {
-        if (this.props.allowItemClick) {
+        if (this.props.allowItemClick && !Lang.isEqual(itemClass, "missing")) {
             return (
                 <tr key={index} className={rowClass}>
                     <td width="40%">{item.name}</td>
@@ -146,12 +146,16 @@ class TabularNameValuePairsVisualizer extends Component {
 
         return list.map((item, index) => {
             if (!Lang.isEmpty(item.value)) {
+                console.log("setting captured, item.value is " + item.value);
                 rowClass = "captured";
                 itemClass = "captured";
                 itemText = item.value;
                 onClick = (e) => this.props.onItemClicked(item);
                 hoverClass = "button-hover";
             } else {
+                // rowClass "captured" makes buttons greyed-out
+                // set rowClass to "missing" to make buttons completely invisible
+                rowClass = "captured"; 
                 itemClass = "missing";
                 itemText = `Missing ${item.name}`;
                 onClick = null;
