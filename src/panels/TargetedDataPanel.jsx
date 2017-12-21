@@ -35,6 +35,7 @@ class TargetedDataPanel extends Component {
                                 isWide={this.props.isWide}
                                 patient={this.props.appState.patient}
                                 condition={this.props.appState.condition}
+                                clinicalEvent={this.props.appState.clinicalEvent}
                                 summaryMetadata={this.props.appState.summaryMetadata}
                                 onItemClicked={this.props.handleSummaryItemSelected}
                                 allowItemClick={true}

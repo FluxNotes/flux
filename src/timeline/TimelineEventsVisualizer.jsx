@@ -16,10 +16,12 @@ class TimelineEventsVisualizer extends Component {
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
-        let defaultTimeStart = moment().clone().add(-1, 'years');  // default - 1 years ago
+        let defaultTimeStart;
         if (this.props.isWide) { 
-          defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
-        } 
+            defaultTimeStart = moment().clone().add(-3, 'years');  // wideview - 3 years ago
+        } else {
+            defaultTimeStart = moment().clone().add(-1, 'years');
+        }
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
 
         this.state = {
