@@ -78,17 +78,17 @@ fixture('Patient Mode - Editor')
 test('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
 
     const clinicalNotesButton = Selector('.clinical-notes-btn');
-    const resumeNotesButton = Selector('.resume-note-btn');
+    const newNoteButton = Selector('.note-new');
 
     // clinical notes button is selected
     await t
         .click(clinicalNotesButton)
 
-    const buttonText = await resumeNotesButton.textContent;
+    const buttonText = await newNoteButton.textContent;
 
     await t
         .expect(buttonText.toString().toLowerCase())
-        .eql("resume in-progress note");
+        .eql("new note");
 });
 
 
@@ -295,6 +295,35 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
 
+});
+
+
+fixture('Patient Mode - Clinical Notes list')
+    .page(startPage);
+
+test('Clicking New Note button adds a new in progress note to the list', async t => {
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('#in-progress-note');
+    
+    await t
+        .click(clinicalNotesButton);
+    
+    const inProgressNotesLength = await inProgressNotes.count;
+    
+    // There are no unsigned notes on the patient's record initially
+    await t
+        .expect(inProgressNotesLength).eql(0);
+    
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton)
+    
+    const inProgressNotesUpdatedLength = await inProgressNotes.count;
+    
+    // Adding a new note adds an unsigned, inprogress note
+    await t
+        .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength+1);
 });
 
 

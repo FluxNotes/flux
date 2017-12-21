@@ -41,6 +41,7 @@ class NoteAssistant extends Component {
         let signedNotes = Lang.filter(allNotes, o => o.signed);
         let unsignedNotes = Lang.filter(allNotes, o => !o.signed);
         const maxNotes = Math.min(this.state.maxNotesToDisplay, signedNotes.length);
+        this.notesToDisplay = [];
         for (let i = 0; i < maxNotes; i++) {
             this.notesToDisplay.push(signedNotes[i]);
         }
@@ -175,7 +176,7 @@ class NoteAssistant extends Component {
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
         const strokeWidth = selected ? "2" : "0.5";
         return (
-            <svg key={i} className="note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
+            <svg key={i} className="note" id="in-progress-note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
