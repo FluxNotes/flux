@@ -91,7 +91,7 @@ class ContextPortal extends React.Component {
      */
     onKeyDown(keyCode) {
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
-            const positionChange = (keyCode === DOWN_ARROW_KEY) ? -1 : +1; 
+            const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1; 
             this.changeMenuPosition(positionChange)
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
