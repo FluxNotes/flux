@@ -16,35 +16,39 @@ class NoteAssistant extends Component {
             noteAssistantMode: "context-tray",
             sortIndex: null,
             maxNotesToDisplay: 3,
-            notesNotDisplayed: null,
-            notesToDisplay: [],
-            inProgressNotes: [],
             selectedNote: null
         };
     }
 
-    componentWillMount() {
+     notesNotDisplayed = null;
+     notesToDisplay = [];
+     inProgressNotes = [];
 
+    componentWillUpdate(nextProps, nextState) {
+        this.getNotesFromPatient(nextProps);
+    }
+
+    componentWillMount() {
         // Set default value for sort selection
         this.selectSort(0);
+        this.getNotesFromPatient(this.props);
+        this.selectedNote = this.inProgressNotes[0];
+    }
 
+    getNotesFromPatient(props) {
         // Generate notesToDisplay array which will be used to render the notes in clinical notes view
-        let allNotes = this.props.patient.getNotes();
+        let allNotes = props.patient.getNotes();
         let signedNotes = Lang.filter(allNotes, o => o.signed);
         let unsignedNotes = Lang.filter(allNotes, o => !o.signed);
         const maxNotes = Math.min(this.state.maxNotesToDisplay, signedNotes.length);
         for (let i = 0; i < maxNotes; i++) {
-            this.state.notesToDisplay.push(signedNotes[i]);
+            this.notesToDisplay.push(signedNotes[i]);
         }
 
         // Set the number of notes that are not being displayed
         let missingNotes = signedNotes.length - this.state.maxNotesToDisplay;
-
-        this.setState({
-            notesNotDisplayed: missingNotes,
-            inProgressNotes: unsignedNotes,
-            selectedNote: unsignedNotes[0]
-        });
+            this.notesNotDisplayed = missingNotes;
+            this.inProgressNotes = unsignedNotes;
     }
 
     // Switch view (i.e clinical notes view or context tray)
@@ -60,6 +64,16 @@ class NoteAssistant extends Component {
     handleOnNewNoteButtonClick() {
         this.toggleView("context-tray");
         this.props.addNewNote("");
+
+        // Create info to be set for new note
+        let date = "5 NOV 2016";
+        let subject = "New Note";
+        let hospital = "Dana Farber Cancer Institute";
+        let clinician = "Dr. X123";
+        let signed = false;
+
+        // Add new unsigned note to patient record
+        this.props.patient.addClinicalNote(date, subject, hospital, clinician, signed);
     }
 
     openNote(note) {
@@ -153,7 +167,7 @@ class NoteAssistant extends Component {
     }
 
     renderInProgressNotes() {
-        return this.state.inProgressNotes.map((note, i) => this.renderInProgressNoteSVG(note, i));
+        return this.inProgressNotes.map((note, i) => this.renderInProgressNoteSVG(note, i));
     }
 
     renderInProgressNoteSVG(note, i) {
@@ -218,7 +232,7 @@ class NoteAssistant extends Component {
     // Render the list of clinical notes
     renderNotes() {
 
-        return this.state.notesToDisplay.map((item, i) =>
+        return this.notesToDisplay.map((item, i) =>
             this.renderClinicalNoteSVG(item, i)
         );
     }
@@ -316,11 +330,11 @@ class NoteAssistant extends Component {
 
     // Render the button to display more notes that are not currently displayed
     renderMoreNotesButton() {
-        if (this.state.notesNotDisplayed > 0) {
+        if (this.notesNotDisplayed > 0) {
             return (
                 <Button raised
                         className="more-notes-btn"
-                >View {this.state.notesNotDisplayed} more clinical note(s)</Button>
+                >View {this.notesNotDisplayed} more clinical note(s)</Button>
             );
         }
     }
