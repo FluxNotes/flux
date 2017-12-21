@@ -37,13 +37,14 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-            return ShrObjectFactory.createInstance(entry.entryType[0], entry);
-
+			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
         });
 	}
 	
-	_loadFHIR(fhirJson) {
-
+	fromFHIR(fhirJson) {
+		this.personOfRecord = this.getPersonOfRecord();
+		this.shrId = this.personOfRecord.entryInfo.shrId;
+		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;
 	}
 
     addEntryToPatient(entry) {
