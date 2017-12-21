@@ -40,7 +40,11 @@ class PatientRecord {
             return ShrObjectFactory.createInstance(entry.entryType[0], entry);
 
         });
-    }
+	}
+	
+	_loadFHIR(fhirJson) {
+
+	}
 
     addEntryToPatient(entry) {
         entry.entryInfo.shrId = this.shrId;
