@@ -3,7 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
-import FullApp from '../../../src/apps/FullApp';
+import FullApp from '../../../src/containers/FullApp';
 import SummaryHeader from '../../../src/summary/SummaryHeader';
 import TargetedDataSection from '../../../src/summary/TargetedDataSection';
 import Button from '../../../src/elements/Button';
@@ -41,7 +41,7 @@ describe('setFullAppState', function() {
 // describe('SummaryHeader', function() {
 //     it('View buttons update state', function() {
 //         const wrapper = shallow(<SummaryHeader />);
-        
+
 //         // // Initial state
 //         // expect(wrapper.state('layout'))
 //         //     .to.eq('none');
@@ -68,7 +68,7 @@ describe('TargetedDataControl', function() {
             options.push('graphic');
         }
         const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
-        
+
         const wrapper = shallow(<TargetedDataSection section={section} type={section.type} />);
 
         // Initial state

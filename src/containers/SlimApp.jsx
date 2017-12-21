@@ -6,7 +6,7 @@ import FormList from '../forms/FormList';
 import ShortcutViewer from '../viewer/ShortcutViewer';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import Lang from 'lodash'
-import './SlimApp.css';
+import '../styles/SlimApp.css';
 
 class SlimApp extends Component {
     constructor(props) {
@@ -71,9 +71,9 @@ class SlimApp extends Component {
     }
 }
 
-SlimApp.proptypes = { 
+SlimApp.proptypes = {
     shortcutConfigurations: PropTypes.object.isRequired,
-    shortcuts: PropTypes.array.isRequired, 
+    shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
 }
 
