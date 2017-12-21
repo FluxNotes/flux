@@ -6,7 +6,7 @@ import hardCodedFHIRPatient from './HardCodedFHIRPatient.json';
 class FHIRApiDataSource extends IDataSource {
     getPatient(id) {
         // REST Call to get FHIR patient from SyntheticMASS
-        // const url = 'https://syntheticmass.mitre.org/fhir/Patient/58b3663e3425def0f0f6a229';
+        // const url = 'https://syntheticmass.mitre.org/fhir/Patient?_id=58b3663f3425def0f0f6bffd&_count=20&_format=json&_revinclude=*';
         // const res = request('GET', url);
         console.log(hardCodedFHIRPatient);
         return new PatientRecord(null);
