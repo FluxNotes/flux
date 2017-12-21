@@ -9,8 +9,6 @@ import './TabularListVisualizer.css';
  diagnosis-related, genetics-related, etc.
  */
 class TabularListVisualizer extends Component {
-//  this all will have to change to accomodate lists.
-    // this has one subsection, the Procedures ListType from SummaryMetadata with the itemsFunction
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
@@ -38,9 +36,6 @@ class TabularListVisualizer extends Component {
         let list = null;
 
         if (Lang.isUndefined(items)) {
-           // console.log("in TabularListViz.getList() old method:: "); it's all there
-           // console.log(patient);
-           // console.log(condition);
             list = itemsFunction(patient, condition);
         } else {
             list = items.map((item, i) => {
@@ -51,8 +46,6 @@ class TabularListVisualizer extends Component {
                 }
             });
         }
-       // console.log('...and List is correct, 5 procedures');
-      //  console.log(list);
         return list;
     }
 
@@ -101,36 +94,22 @@ class TabularListVisualizer extends Component {
     }
 
     renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass) {
-        
             // Allows for 5% for each plus button, and the remainder divided among the columns. There are item.length columns.
             let columnPercentage = (100 - 5*item.length) / item.length;
             var renderedColumns = [];
             item.forEach((element, arrayIndex) => {
                 var plusButtonForColumnItem = null;
-                if(Lang.isEqual(arrayIndex, 0)){
-                    // white background on the first column
-                    const columnItem = (
-                        <td width={columnPercentage + "%"} key={index + "-item-" + arrayIndex}>{element}</td>
+                    var columnItem = null;
+                    if(Lang.isNull(element)){
+                        columnItem = (
+                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
                     );
-                    if (this.props.allowItemClick) {
-                        plusButtonForColumnItem = (
-                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
-                                <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                            </td>
-                        ); 
-                    } else{
-                        plusButtonForColumnItem = (
-                            <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                    } else {
+                        columnItem = (
+                            <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
                         );
                     }
-                    renderedColumns.push(columnItem);
-                    renderedColumns.push(plusButtonForColumnItem);
-                } else {
-                    // red or blue background on the other columns
-                    const columnItem = (
-                        <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
-                    );
-                    if (this.props.allowItemClick) {
+                    if (this.props.allowItemClick && !Lang.isNull(element)) {
                         plusButtonForColumnItem = (
                                 <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
                                     <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
@@ -138,12 +117,11 @@ class TabularListVisualizer extends Component {
                         );
                     } else {
                         plusButtonForColumnItem = (
-                            <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                            <td className="disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
                         );
                     }
                     renderedColumns.push(columnItem);
                     renderedColumns.push(plusButtonForColumnItem);
-                }
             });
             
             return (

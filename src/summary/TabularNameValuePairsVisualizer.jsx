@@ -146,7 +146,6 @@ class TabularNameValuePairsVisualizer extends Component {
 
         return list.map((item, index) => {
             if (!Lang.isEmpty(item.value)) {
-                console.log("setting captured, item.value is " + item.value);
                 rowClass = "captured";
                 itemClass = "captured";
                 itemText = item.value;
