@@ -197,7 +197,7 @@ class SummaryMetadata {
                     },
                     {
                         name: "Procedures",
-                        type: "NameValuePairs",
+                        type: "ListType",
                         data: [
                             {
                                 name: "",
@@ -388,7 +388,7 @@ class SummaryMetadata {
                     },
                     {
                         name: "Procedures",
-                        type: "NameValuePairs",
+                        type: "ListType",
                         data: [
                             {
                                 name: "",
@@ -430,10 +430,12 @@ class SummaryMetadata {
     getItemListForProcedures = (patient, currentConditionEntry) => {
         const procedures = patient.getProceduresForConditionChronologicalOrder(currentConditionEntry);
         return procedures.map((p, i) => {
+            // Ensure that each array for a given data type (e.g. Procedures in this case) contains the same number of elements (e.g. here it is 2 elements).
+            // Or add to the end of the array, that looks okay too.
             if (typeof p.occurrenceTime !== 'string') {
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd};
+                return [ p.specificType.value.coding[0].displayText.value,  p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd];
             } else {
-                return {name: p.specificType.value.coding[0].displayText.value, value: p.occurrenceTime };
+                return [ p.specificType.value.coding[0].displayText.value, p.occurrenceTime]; 
             }
 
 

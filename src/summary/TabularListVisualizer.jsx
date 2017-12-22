@@ -2,14 +2,13 @@ import React, {Component} from 'react';
 import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
-import './TabularNameValuePairsVisualizer.css';
+import './TabularListVisualizer.css';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
  diagnosis-related, genetics-related, etc.
  */
-class TabularNameValuePairsVisualizer extends Component {
-
+class TabularListVisualizer extends Component {
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
@@ -21,7 +20,7 @@ class TabularNameValuePairsVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-
+        
         return subsections;
     }
 
@@ -47,7 +46,6 @@ class TabularNameValuePairsVisualizer extends Component {
                 }
             });
         }
-
         return list;
     }
 
@@ -60,39 +58,15 @@ class TabularNameValuePairsVisualizer extends Component {
             });
         }
 
-        // Grab the sections from subsections and create 2 arrays, one for the first half of the sections and another
-        // for the second half of sections
-        const numberOfFirstHalfSections = Math.ceil(subsections.length / 2);
-        let firstHalfSections = [];
-        let secondHalfSections = [];
-
-        // Create array containing the first half of the subsections
-        subsections.slice(0, numberOfFirstHalfSections).forEach((subsection) => {
-            firstHalfSections.push(subsection);
-        });
-
-        // Create array containing the second half of the subsections
-        subsections.slice(numberOfFirstHalfSections).forEach((subsection) => {
-            secondHalfSections.push(subsection);
-        });
-
         let ind = 0;
-        const renderedFirstHalf = firstHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
-        });
-        const renderedSecondHalf = secondHalfSections.map((subsection) => {
+        const renderedAllSections = subsections.map((subsection) => {
             return this.renderedSubsection(subsection, ind++);
         });
 
-        // Display the data in 2 columns. The first column displays the first half
-        // of the sections in one table and the second column displays the second half of the sections in a second table
         return (
             <Row start="xs">
                 <Col sm={6}>
-                    {renderedFirstHalf}
-                </Col>
-                <Col sm={6}>
-                    {renderedSecondHalf}
+                    {renderedAllSections}
                 </Col>
             </Row>
         );
@@ -119,53 +93,62 @@ class TabularNameValuePairsVisualizer extends Component {
         );
     }
 
-    renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass) {
-        if (this.props.allowItemClick && !Lang.isEqual(itemClass, "missing")) {
+    renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass) {
+            // Allows for 5% for each plus button, and the remainder divided among the columns. There are item.length columns.
+            let columnPercentage = (100 - 5*item.length) / item.length;
+            var renderedColumns = [];
+            item.forEach((element, arrayIndex) => {
+                var plusButtonForColumnItem = null;
+                    var columnItem = null;
+                    if(Lang.isNull(element)){
+                        columnItem = (
+                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
+                    );
+                    } else {
+                        columnItem = (
+                            <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
+                        );
+                    }
+                    if (this.props.allowItemClick && !Lang.isNull(element)) {
+                        plusButtonForColumnItem = (
+                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
+                                    <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
+                                </td>
+                        );
+                    } else {
+                        plusButtonForColumnItem = (
+                            <td className="disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                        );
+                    }
+                    renderedColumns.push(columnItem);
+                    renderedColumns.push(plusButtonForColumnItem);
+            });
+            
             return (
                 <tr key={index} className={rowClass}>
-                    <td width="40%">{item.name}</td>
-                    <td width="55%" className={itemClass} data-test-summary-item={item.name}>{itemText}</td>
-                    <td width="5%" onClick={onClick}>
-                        <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                    </td>
+                    {renderedColumns}  
                 </tr>
             );
-        }
-
-        return (
-            <tr key={index} className={rowClass}>
-                <td width="40%">{item.name}</td>
-                <td width="55%" className={itemClass}>{itemText}</td>
-                <td className="disabled" width="5%"><span><i className="fa fa-plus-square fa-lg"></i></span></td>
-            </tr>
-        );
     }
     
     renderedListItems(list) {
-        let onClick, hoverClass, rowClass, itemClass, itemText = "";
-
+        let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
-            if (!Lang.isEmpty(item.value)) {
-                rowClass = "captured";
-                itemClass = "captured";
-                itemText = item.value;
-                onClick = (e) => this.props.onItemClicked(item);
-                hoverClass = "button-hover";
-            } else {
-                // rowClass "captured" makes buttons greyed-out
-                // set rowClass to "missing" to make buttons completely invisible
-                rowClass = "captured"; 
+            // Handles case where this method is passed a NameValuePair or other type accidentally, or null
+            if(!Lang.isArray(item) || Lang.isEmpty(item)){
                 itemClass = "missing";
-                itemText = `Missing ${item.name}`;
+                item = [ "Missing data" ];
                 onClick = null;
                 hoverClass = null;
+            } else {
+                rowClass = "captured";
+                itemClass = "captured";
+                hoverClass = "button-hover";
             }
-
-            return this.renderedListItem(item, index, rowClass, itemClass, itemText, onClick, hoverClass);
+            return this.renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 
-    // Gets called for each section in SummaryMetaData.jsx
     render() {
         const subsections = this.getSubsections();
 
@@ -177,7 +160,7 @@ class TabularNameValuePairsVisualizer extends Component {
     }
 }
 
-TabularNameValuePairsVisualizer.propTypes = {
+TabularListVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
@@ -186,4 +169,4 @@ TabularNameValuePairsVisualizer.propTypes = {
     allowItemClick: PropTypes.bool
 };
 
-export default TabularNameValuePairsVisualizer;
+export default TabularListVisualizer;
