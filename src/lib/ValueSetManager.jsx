@@ -32,6 +32,7 @@ export default class ValueSetManager {
             if (valueSetName === "clinicalTrials") {
                 return clinicalTrialList.getAllTrials();
             }
+                    
         }
         console.error("Invalid value set request: category: " + category + " valueSet = " + valueSetName);
     }

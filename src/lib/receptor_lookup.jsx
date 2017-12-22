@@ -15,6 +15,7 @@ const receptorOptions = [
     }
 ];
 
+
 /*
  * Searches for value in receptorOptions list
  * Will return CodeableConcept object with empty strings if not found

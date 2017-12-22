@@ -256,6 +256,34 @@ test("Switching contexts without closing a context chooses the correct parent co
     }
 });
 
+test("Switching contexts without closing a context chooses the correct parent context and successfully enters information in editor for receptor vaues", async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const structuredField = editor.find("span[class='structured-field']");
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const textToType = ["#ER ", "#Positive "];
+    
+    await t
+        .click(conditionButton);
+    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(correctCondition)
+        .typeText(editor, ' ');
+    for (let i = 0; i < textToType.length; i++) {
+        await t 
+            .typeText(editor, textToType[i]);
+    };
+    
+    // We will skip checking for the inserted condition. Add a placeholder so indexes line up.
+    textToType.splice(0, 0, 'condition placeholder');
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 1; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(textToType[i]);
+    }
+});
+
 fixture('Patient Mode - Context Panel')
     .page(startPage);
 
@@ -412,6 +440,37 @@ test('Clicking to insert a captured data element results in that text pasted int
             .click(summaryButtons.nth(i))
             .expect(await editor.innerText)
             .contains(await summaryButtons.nth(i).innerText);
+    }
+});
+
+test('Clicking the data visualization buttons changes the visualizer used', async t => {
+    const sections = Selector('#targeted-data-section')
+    const sectionData = Selector('div#targeted-data-section');
+    const numSections = await sections.count;
+    for (let i = 0; i < numSections; i++) {
+        let icons = sections.nth(i).find('.right-icons button');
+        let numIcons = await icons.count;
+        for (let j = 0; j < numIcons; j++) {
+            const iconType = await icons.nth(j).id;
+            await t
+                .click(icons.nth(j));
+            if (iconType === 'tabular') {
+                // Check that class name of section = tabular-subsections
+               await t
+                    .expect(sections.nth(i).find('.tabular-subsections').exists)
+                    .ok();
+            } else if (iconType === 'narrative'){
+                // Check class name = 'narrative-subsections'
+                await t
+                    .expect(sections.nth(i).find('.narrative-subsections').exists)
+                    .ok();
+            } else if (iconType === 'graphic') {
+                // Check id = 'timeline'
+                await t
+                    .expect(sections.nth(i).find('#timeline').exists)
+                    .ok();
+            }
+        }
     }
 });
 

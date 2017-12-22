@@ -3,8 +3,9 @@ import CodeableConcept from '../core/CodeableConcept';
 /** Generated from SHR definition for shr.oncology.ReceptorType */
 class ReceptorType {
     constructor(json) {
-        this.codeableConcept = new CodeableConcept(json.value);
-        this._codeableConcept = this.codeableConcept;
+        if(json){
+            this.codeableConcept = new CodeableConcept(json.value);
+        }
     }
 
   /**

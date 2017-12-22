@@ -27,6 +27,12 @@ class FluxBreastCancer extends BreastCancer {
             return item instanceof type;
         });
     }
+    addObservation(observation) {
+        console.log(observation);
+        let currentObservations = this.observation;
+        currentObservations.push(observation);
+        this.observation = currentObservations;
+    }
     
        getTests() {
         return this.getObservationsOfType(FluxTest);
@@ -43,7 +49,7 @@ class FluxBreastCancer extends BreastCancer {
     _getReceptorStatus(receptorType) {
         let listObs = this.getObservationsOfType(ReceptorStatusObservation);
         let list = listObs.filter((item) => {
-            return item.receptorType.value.coding[0].value === receptorType;
+            return item.receptorType && item.receptorType.value.coding[0].value === receptorType;
         });
         if (list.length === 0) return null; else return list[0];
     }

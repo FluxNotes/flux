@@ -1,22 +1,22 @@
-import ProgresteroneReceptorStatus from '../shr/oncology/ProgresteroneReceptorStatus';
+import ProgesteroneReceptorStatus from '../shr/oncology/ProgesteroneReceptorStatus';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
-class FluxProgresteroneReceptorStatus extends ProgresteroneReceptorStatus {
+class FluxProgesteroneReceptorStatus extends ProgesteroneReceptorStatus {
     
   /**
    * Getter for shr.oncology.ReceptorType
    */
-  get receptorType() {
-    return this._receptorType.value.coding[0].displayText.value;
+  get status() {
+    return this.value.coding[0].displayText.value;
   }
 
   /**
    * Setter for shr.oncology.ReceptorType
    */
-  set receptorType(receptorTypeVal) {
-    this._receptorType.value = lookup.getReceptorCodeableConcept(receptorTypeVal);
+  set status(statusVal) {
+    this.value = lookup.getReceptorCodeableConcept(statusVal);
   }
 }
 
-export default FluxProgresteroneReceptorStatus;
+export default FluxProgesteroneReceptorStatus;

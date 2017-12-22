@@ -1,14 +1,14 @@
-import EstrogenReceptorStatus from '../shr/oncology/EstrogenReceptorStatus';
+import HumanEpiduralGrowthFactorReceptor2Status from '../shr/oncology/HumanEpiduralGrowthFactorReceptor2Status';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
-class FluxEstrogenReceptorStatus extends EstrogenReceptorStatus {
+class FluxHumanEpiduralGrowthFactorReceptor2Status extends HumanEpiduralGrowthFactorReceptor2Status {
     
   /**
    * Getter for shr.oncology.ReceptorType
    */
   get status() {
-    return this.value.coding[0].displayText.value; //er.value.coding[0].displayText.value.value
+    return this.value.coding[0].displayText.value;
   }
 
   /**
@@ -19,4 +19,4 @@ class FluxEstrogenReceptorStatus extends EstrogenReceptorStatus {
   }
 }
 
-export default FluxEstrogenReceptorStatus;
+export default FluxHumanEpiduralGrowthFactorReceptor2Status;
