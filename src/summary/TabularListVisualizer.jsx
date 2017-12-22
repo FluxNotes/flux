@@ -102,7 +102,7 @@ class TabularListVisualizer extends Component {
                     var columnItem = null;
                     if(Lang.isNull(element)){
                         columnItem = (
-                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
+                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
                     );
                     } else {
                         columnItem = (
