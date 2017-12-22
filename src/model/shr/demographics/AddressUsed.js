@@ -15,6 +15,21 @@ class AddressUsed {
         }
     }
 
+    fromFHIR(address) {
+        this._address = new Address();
+        this._address.fromFHIR(address);
+        this._addressUse = [new AddressUse(
+            {
+                "value": {
+                    "coding": [
+                        {
+                            "value": "primary_residence"
+                        }
+                    ]
+                }
+            }
+        )];
+    }
   /**
    * Convenience getter for value (accesses this.address)
    */
