@@ -16,9 +16,7 @@ export default class CreatorChild extends Shortcut {
     initialize(contextManager, trigger) {
         super.initialize(contextManager);
         let text = this.determineText(contextManager);
-        console.log(text);
         if (!Lang.isUndefined(text)) {
-            console.log(text);
             if (Lang.isArray(text) || text === 'date-id') {
                 this.flagForTextSelection(text);
             } else {
@@ -44,9 +42,9 @@ export default class CreatorChild extends Shortcut {
         //console.log(trigger);
         /*        const triggerNoPrefix = trigger.substring(1);
          console.log("trigger no prefix = " + triggerNoPrefix);*/
-         console.log(this.metadata.stringTriggers);
+         //console.log(this.metadata.stringTriggers);
         for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
-            console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
+            //console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
             if (this.metadata.stringTriggers[i].name === trigger) {
                 found = true;
                 if (this.metadata.stringTriggers[i].picker) {
@@ -121,7 +119,7 @@ export default class CreatorChild extends Shortcut {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
-            console.log("set " + this.metadata.parentAttribute + " to " + value);
+            //console.log("set " + this.metadata.parentAttribute + " to " + value);
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false);
         }
     }

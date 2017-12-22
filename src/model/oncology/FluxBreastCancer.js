@@ -28,7 +28,6 @@ class FluxBreastCancer extends BreastCancer {
         });
     }
     addObservation(observation) {
-        console.log(observation);
         let currentObservations = this.observation;
         currentObservations.push(observation);
         this.observation = currentObservations;
