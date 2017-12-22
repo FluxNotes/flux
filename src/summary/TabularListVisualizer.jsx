@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './TabularListVisualizer.css';
@@ -50,26 +49,9 @@ class TabularListVisualizer extends Component {
     }
 
     renderedSubsections(subsections) {
-        const isSingleColumn = !this.props.isWide;
-
-        if (isSingleColumn) {
-            return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index);
-            });
-        }
-
-        let ind = 0;
-        const renderedAllSections = subsections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+        return subsections.map((subsection, index) => {
+            return this.renderedSubsection(subsection, index);
         });
-
-        return (
-            <Row start="xs">
-                <Col sm={6}>
-                    {renderedAllSections}
-                </Col>
-            </Row>
-        );
     }
 
     renderedSubsection(subsection, index) {
@@ -99,29 +81,31 @@ class TabularListVisualizer extends Component {
             var renderedColumns = [];
             item.forEach((element, arrayIndex) => {
                 var plusButtonForColumnItem = null;
-                    var columnItem = null;
-                    if(Lang.isNull(element)){
-                        columnItem = (
-                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
+                var columnItem = null;
+                if(Lang.isNull(element)){
+                    columnItem = (
+                        <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
+                );
+                } else {
+                    columnItem = (
+                        <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
                     );
-                    } else {
-                        columnItem = (
-                            <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
-                        );
-                    }
-                    if (this.props.allowItemClick && !Lang.isNull(element)) {
-                        plusButtonForColumnItem = (
-                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
-                                    <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                                </td>
-                        );
-                    } else {
-                        plusButtonForColumnItem = (
-                            <td className="disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
-                        );
-                    }
-                    renderedColumns.push(columnItem);
-                    renderedColumns.push(plusButtonForColumnItem);
+                }
+                if (this.props.isWide) {
+                    plusButtonForColumnItem = null;
+                } else if (this.props.allowItemClick && !Lang.isNull(element)) {
+                    plusButtonForColumnItem = (
+                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
+                                <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
+                            </td>
+                    );
+                } else {
+                    plusButtonForColumnItem = (
+                        <td className="disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                    );
+                }
+                renderedColumns.push(columnItem);
+                renderedColumns.push(plusButtonForColumnItem);
             });
             
             return (
