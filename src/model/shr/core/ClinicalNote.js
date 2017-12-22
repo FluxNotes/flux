@@ -8,6 +8,7 @@ class ClinicalNote {
         if (json.hospital) this._hospital = json.hospital;
         if (json.clinician) this._clinician = json.clinician;
         if (json.content) this._content = json.content;
+        if (json.signed) this._signed = json.signed;
     }
     /**
      * Getter for entry information (shr.base.Entry)
@@ -61,6 +62,14 @@ class ClinicalNote {
 
     set content(val) {
         this._content = val;
+    }
+    
+    get signed() {
+        return this._signed;
+    }
+    
+    set signed(val) {
+        this._signed = val;
     }
 }
 

@@ -53,7 +53,8 @@
 			"clinician": "Dr. Smith",
 			"content": "@NAME:'Debra Hernandez672' is a @AGE:'51 year old' @GENDER:'female' presenting with @DIAGNOSIS[Lobular carcinoma of the breast]:'Lobular carcinoma of the breast'.\nDisease #disease status[Stable based on physical exam at 02.AUG.2015].",
 			"originalCreationDate": "02 AUG 2015",
-			"lastUpdateDate": "02 AUG 2015"
+			"lastUpdateDate": "02 AUG 2015",
+            "signed": true
 		},
 		{
 			"shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -65,7 +66,8 @@
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Zheng",
 			"originalCreationDate": "12 JUL 2012",
-			"lastUpdateDate": "12 JUL 2012"
+			"lastUpdateDate": "12 JUL 2012",
+            "signed": true
 		},
 		{
 			"shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -77,7 +79,8 @@
 			"hospital": "Brigham and Women's Hospital",
 			"clinician": "Dr. Smith",
 			"originalCreationDate": "20 JUN 2012",
-			"lastUpdateDate": "20 JUN 2012"
+			"lastUpdateDate": "20 JUN 2012",
+            "signed": true
 		},
 		{
 			"shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -89,7 +92,8 @@
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Strauss",
 			"originalCreationDate": "16 MAY 2012",
-			"lastUpdateDate": "16 MAY 2012"
+			"lastUpdateDate": "16 MAY 2012",
+            "signed": true
 		},
 		{
 			"shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",

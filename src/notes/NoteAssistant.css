@@ -19,7 +19,7 @@ span.button-hover {
 
 .note-new {
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
     height: auto !important;
     width: 9vw !important;
@@ -86,6 +86,12 @@ li.sort-item:hover {
 
 .existing-note-date {
     font-size: 0.7rem;
+    color: #333333 !important;
+    font-weight: bold;
+}
+
+.in-progress-text {
+    font-size: 0.8rem;
     color: #333333 !important;
     font-weight: bold;
 }

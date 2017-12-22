@@ -7,9 +7,36 @@ import './NotesPanel.css';
 
 class NotesPanel extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            updatedEditorNote: null
+        };
+
+        this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
+    }
+
+    // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
+    handleUpdateEditorWithNote(note) {
+
+        // Update the state so that updatedEditorNote has the note to update the editor with
+        this.setState({updatedEditorNote: note});
+
+        // Check if the app is in pre-encounter and if the note editor should be visible
+        if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
+
+            // Change the layout so that the note editor is added to the view
+            this.props.setFullAppState("layout", "split");
+            this.props.setFullAppState("isNoteViewerVisible", true);
+            this.props.setFullAppState("isNoteViewerEditable", true);
+            this.setState({updatedEditorNote: null});
+        }
+    }
+
     renderNotesPanelContent() {
 
-        // If isNoteViewerVisible is tru, render the flux notes editor and the note assistant
+        // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
             return (
                 <Row center="xs">
@@ -47,6 +74,12 @@ class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     updateErrors={this.props.updateErrors}
                     errors={this.props.errors}
+
+                    // Pass in note that the editor is to be updated with
+                    updatedEditorNote={this.state.updatedEditorNote}
+                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+
+                    currentViewMode={this.props.currentViewMode}
                 />
             </div>
         );
@@ -61,6 +94,7 @@ class NotesPanel extends Component {
                     contextManager={this.props.contextManager}
                     shortcutManager={this.props.shortcutManager}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                    addNewNote={this.handleUpdateEditorWithNote}
                 />
             </div>
         );

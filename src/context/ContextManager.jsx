@@ -132,6 +132,12 @@ class ContextManager {
             return this.patientContext;
         }
     }
+
+    clearContexts() {
+        this.contexts = [];
+        this.activeContexts = [];
+        this.onContextUpdate();
+    }
 }
 
 export default ContextManager;

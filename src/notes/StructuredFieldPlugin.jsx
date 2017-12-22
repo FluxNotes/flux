@@ -18,6 +18,11 @@ function StructuredFieldPlugin(opts) {
     let contextManager = opts.contextManager;
 	let updateErrors = opts.updateErrors;
     let insertText = opts.insertText;
+
+    function clearStructuredFieldMap() {
+        structuredFieldMap = new Map();
+        return structuredFieldMap;
+    }
         
     function onChange(state, editor) {
         var deletedKeys = [];
@@ -294,6 +299,7 @@ function StructuredFieldPlugin(opts) {
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */	    
 	return {
+	    clearStructuredFieldMap,
         onChange,
         onCut,
         onCopy,

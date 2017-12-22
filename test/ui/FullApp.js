@@ -72,23 +72,95 @@ test('Selecting a condition changes the active condition', async t => {
         .eql("Fracture");
 });
 
+test('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    const editor = Selector("div[data-slate-editor='true']");
+    const newNoteButton = Selector('.note-new');
+
+    // Select pre-encounter mode
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+
+    // Click on new note button to open the editor
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.exists).ok();
+});
+
 fixture('Patient Mode - Editor')
     .page(startPage);
 
 test('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
 
     const clinicalNotesButton = Selector('.clinical-notes-btn');
-    const resumeNotesButton = Selector('.resume-note-btn');
+    const newNoteButton = Selector('.note-new');
 
     // clinical notes button is selected
     await t
         .click(clinicalNotesButton)
 
-    const buttonText = await resumeNotesButton.textContent;
+    const buttonText = await newNoteButton.textContent;
 
     await t
         .expect(buttonText.toString().toLowerCase())
-        .eql("resume in-progress note");
+        .eql("new note");
+});
+
+test('In post-encounter mode, clicking the "New Note" button clears the editor content', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "@name ")
+
+    // Switch to clinical notes view
+    await t
+        .click(clinicalNotesButton)
+
+    // Click on new note button
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.textContent)
+        .eql("Enter your clinical note here or choose a template to start from...");
+});
+
+test('In pre-encounter mode, clicking the "New Note" button clears the editor content', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+
+    // Select pre-encounter mode
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+
+    // Click on new note button to open the editor
+    await t
+        .click(newNoteButton)
+
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "@name ")
+
+    // Switch to clinical notes view
+    await t
+        .click(clinicalNotesButton)
+
+    // Click on new note button to clear the editor
+    await t
+        .click(newNoteButton)
+
+    await t
+        .expect(editor.textContent)
+        .eql("Enter your clinical note here or choose a template to start from...");
 });
 
 
@@ -295,6 +367,35 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
 
+});
+
+
+fixture('Patient Mode - Clinical Notes list')
+    .page(startPage);
+
+test('Clicking New Note button adds a new in progress note to the list', async t => {
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('#in-progress-note');
+    
+    await t
+        .click(clinicalNotesButton);
+    
+    const inProgressNotesLength = await inProgressNotes.count;
+    
+    // There are no unsigned notes on the patient's record initially
+    await t
+        .expect(inProgressNotesLength).eql(0);
+    
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton)
+    
+    const inProgressNotesUpdatedLength = await inProgressNotes.count;
+    
+    // Adding a new note adds an unsigned, inprogress note
+    await t
+        .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength+1);
 });
 
 
