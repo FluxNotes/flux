@@ -95,6 +95,13 @@ class AppManager {
                 display: 'Flux Notes',
                 app: FullApp,
                 isExact: false,
+                dataSource: 'RestApiDataSource',
+                shortcuts: []
+            }, {
+                path: '/p3',
+                display: 'Flux Notes',
+                app: FullApp,
+                isExact: false,
                 dataSource: 'FHIRApiDataSource',
                 shortcuts: []
             }
