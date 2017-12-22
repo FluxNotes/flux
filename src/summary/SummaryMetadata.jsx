@@ -208,7 +208,7 @@ class SummaryMetadata {
                     {
                         name: "Medications",
                         clinicalEvents: [ "pre-encounter" ],
-                        type: "NameValuePairs",
+                        type: "ListType",
                         data: [
                             {
                                 name: "",
@@ -450,12 +450,13 @@ class SummaryMetadata {
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
 
         return meds.map((med, i) => {
-            const value = `${med.amountPerDose.value} ${med.amountPerDose.units} ${med.timingOfDoses.value} ${med.timingOfDoses.units}`;
-
-            return {
-                name: med.medication,
-                value: value
-            };
+            return [
+                med.medication,
+                `${med.amountPerDose.value} ${med.amountPerDose.units}`,
+                `${med.timingOfDoses.value} ${med.timingOfDoses.units}`,
+                med.requestedPerformanceTime.timePeriodStart,
+                med.requestedPerformanceTime.timePeriodEnd
+            ];
         });
     }
 
