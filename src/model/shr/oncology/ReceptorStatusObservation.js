@@ -7,10 +7,16 @@ import ReceptorType from './ReceptorType';
 class ReceptorStatusObservation extends Observation {
     constructor(json) {
         super(json);
+        if (json){
         this._entryInfo = new Entry(json);
         this.codeableConcept = new CodeableConcept(json.value);
-        this._codeableConcept = this.codeableConcept;
-        if (json.receptorType) this._receptorType = new ReceptorType(json.receptorType);
+        if (json.receptorType) this._receptorType = new ReceptorType(json.receptorType);}
+        else {
+            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/ReceptorStatusObservation",
+                                                    "http://standardhealthrecord.org/observation/Observation",
+                                                    "http://standardhealthrecord.org/base/Action");
+            this.codeableConcept = new CodeableConcept();
+        }
     }
 
   /**

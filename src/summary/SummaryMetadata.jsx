@@ -267,7 +267,8 @@ class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return er.value.coding[0].displayText.value.value;
+                                                //return er.value.coding[0].displayText.value.value;
+                                                return er.status;
                                             }
                                         }
                                     },
@@ -278,7 +279,8 @@ class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return pr.value.coding[0].displayText.value.value;
+                                                //return pr.value.coding[0].displayText.value.value;
+                                                return pr.status;
                                             }
                                         }
                                     },
@@ -289,7 +291,8 @@ class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return her2.value.coding[0].displayText.value.value;
+                                                //return her2.value.coding[0].displayText.value.value;
+                                                return her2.status;
                                             }
                                         }
                                     }

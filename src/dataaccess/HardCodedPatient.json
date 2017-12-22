@@ -141,30 +141,6 @@
 					"specificType": {"value": {"coding": [{"value": "C0475440", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Tumor Size"}]}},
 					"status": "final",
 					"_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
-				},
-				{
-					"entryType":	[	"http://standardhealthrecord.org/oncology/EstrogenReceptorStatus",
-                                        "http://standardhealthrecord.org/oncology/ReceptorStatusObservation",
-                                        "http://standardhealthrecord.org/observation/Observation",
-                                        "http://standardhealthrecord.org/base/Action" ],
-                    "value": {"coding": [{"value": "C1446409", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": {"value":"Positive"}}]},
-                    "receptorType": {"value": {"coding": [{"value": "23307004", "codeSystem": {"value":"http://snomed.info/sct"}, "displayText": {"value":"Estrogen Receptor Family"}}]}},
-                    "specificType": {"value": {"coding": [{"value": "16112-5", "codeSystem": {"value":"http://loinc.org"}, "displayText": {"value":"Estrogen receptor:Imp:Pt:Tiss:Nom"}}]}},
-					"status": "final",
-					"_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements",
-                    "_issue": "how do I reference an observation from a panel like BreastCancerReceptorStatus if observations aren't entries and our reference uses entryId"
-				},
-				{
-					"entryType":	[	"http://standardhealthrecord.org/oncology/ProgesteroneReceptorStatus",
-                                        "http://standardhealthrecord.org/oncology/ReceptorStatusObservation",
-                                        "http://standardhealthrecord.org/observation/Observation",
-                                        "http://standardhealthrecord.org/base/Action" ],
-                    "value": {"coding": [{"value": "C1446409", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": {"value":"Positive"}}]},
-                    "receptorType": {"value": {"coding": [{"value": "C0034833", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Progesterone Receptor"}]}},
-                    "specificType": {"value":{"coding": [{"value": "16113-3", "codeSystem": {"value":"http://loinc.org"}, "displayText": "Progesterone receptor:Imp:Pt:Tiss:Nom"}]}},
-					"status": "final",
-					"_issue": "stricly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements",
-                    "_issue": "how do I reference an observation from a panel like BreastCancerReceptorStatus if observations aren't entries and our reference uses entryId"
 				}
 			],
 			"_issue": "where capture recurrence date of 2013-10-12?",
