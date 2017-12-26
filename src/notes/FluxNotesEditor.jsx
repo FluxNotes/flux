@@ -369,6 +369,9 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the item to be inserted is updated
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
+
+            console.log("text to be inserted: ");
+            console.log(nextProps.itemToBeInserted);
             this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
@@ -389,6 +392,22 @@ class FluxNotesEditor extends React.Component {
 
                 // This clears the contexts so that the tray starts back at the patient context
                 this.contextManager.clearContexts();
+            } else {
+
+                this.resetEditorState();
+
+                // Calls parent function which resets updatedEditorNote to be null
+                this.props.handleUpdateEditorWithNote(null);
+
+                // This clears error messages from the editor
+                this.structuredFieldPlugin.clearStructuredFieldMap();
+
+                // This clears the contexts so that the tray starts back at the patient context
+                this.contextManager.clearContexts();
+                console.log("new note to load into editor:");
+                console.log(nextProps.updatedEditorNote.content);
+
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content.toString());
             }
         }
 

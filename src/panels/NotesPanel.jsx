@@ -94,7 +94,7 @@ class NotesPanel extends Component {
                     contextManager={this.props.contextManager}
                     shortcutManager={this.props.shortcutManager}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                    addNewNote={this.handleUpdateEditorWithNote}
+                    loadNote={this.handleUpdateEditorWithNote}
                 />
             </div>
         );

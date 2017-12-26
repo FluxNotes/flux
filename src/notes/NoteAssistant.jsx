@@ -64,7 +64,7 @@ class NoteAssistant extends Component {
 
     handleOnNewNoteButtonClick() {
         this.toggleView("context-tray");
-        this.props.addNewNote("");
+        this.props.loadNote("");
 
         // Create info to be set for new note
         let date = "5 NOV 2016";
@@ -79,6 +79,7 @@ class NoteAssistant extends Component {
 
     openNote(note) {
         this.setState({ selectedNote: note });
+        this.props.loadNote(note);
     }
 
     // Render the content for the Note Assistant panel
