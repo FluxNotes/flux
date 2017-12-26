@@ -71,15 +71,26 @@ class NoteAssistant extends Component {
         let subject = "New Note";
         let hospital = "Dana Farber Cancer Institute";
         let clinician = "Dr. X123";
+        let content = "@name is a @age year old @gender born on @dateofbirth";
         let signed = false;
 
         // Add new unsigned note to patient record
-        this.props.patient.addClinicalNote(date, subject, hospital, clinician, signed);
+        this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+
+        // Deselect note in the clinical notes view
+        this.setState({ selectedNote: null });
     }
 
-    openNote(note) {
+    openNote(isInProgressNote, note) {
         this.setState({ selectedNote: note });
+        console.log("In Progress Note: " + isInProgressNote);
+
         this.props.loadNote(note);
+
+        // If the note selected is an In-Progress note, switch to the context tray
+        if (isInProgressNote) {
+            this.toggleView("context-tray");
+        }
     }
 
     // Render the content for the Note Assistant panel
@@ -177,7 +188,7 @@ class NoteAssistant extends Component {
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
         const strokeWidth = selected ? "2" : "0.5";
         return (
-            <svg key={i} className="note" id="in-progress-note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
+            <svg key={i} className="note" id="in-progress-note" onClick={() => {this.openNote(true, note)}} viewBox="0 0 149 129" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
@@ -246,7 +257,7 @@ class NoteAssistant extends Component {
         const strokeWidth = selected ? "2" : "0.5";
 
         return (
-            <svg key={i} className="note" onClick={() => {this.openNote(item)}} viewBox="0 0 149 102" version="1.1"
+            <svg key={i} className="note" onClick={() => {this.openNote(false, item)}} viewBox="0 0 149 102" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path

@@ -101,7 +101,6 @@ class FluxNotesEditor extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
-
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
 
         // Set the initial state when the app is first constructed.
@@ -140,6 +139,8 @@ class FluxNotesEditor extends React.Component {
             this.suggestionsPluginInserters,
             this.structuredFieldPlugin
         ];
+
+        this.isReadOnly = false;
 
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
@@ -188,8 +189,25 @@ class FluxNotesEditor extends React.Component {
             portalOptions: null,
             left: 0,
             top: 0
-        }
+        };
+
+        this.isReadOnly = false;
     }
+
+    // Reset editor state and clear context
+    resetEditorAndContext() {
+        this.resetEditorState();
+
+        // Calls parent function which resets updatedEditorNote to be null
+        this.props.handleUpdateEditorWithNote(null);
+
+        // This clears error messages from the editor
+        this.structuredFieldPlugin.clearStructuredFieldMap();
+
+        // This clears the contexts so that the tray starts back at the patient context
+        this.contextManager.clearContexts();
+    }
+
 
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
@@ -369,9 +387,6 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the item to be inserted is updated
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
-
-            console.log("text to be inserted: ");
-            console.log(nextProps.itemToBeInserted);
             this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
             this.props.itemInserted();
         }
@@ -379,35 +394,27 @@ class FluxNotesEditor extends React.Component {
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
-            // If the updated editor note is an empty string, then we are adding a new blank note. Call method to
+            // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
             if (nextProps.updatedEditorNote === "") {
-                this.resetEditorState();
+               this.resetEditorAndContext();
+            }
 
-                // Calls parent function which resets updatedEditorNote to be null
-                this.props.handleUpdateEditorWithNote(null);
+            // If the updated editor note is an actual note (existing note), then clear the editor and insert the
+            // content of the selected note into the editor and set the editor to read only
+            else {
 
-                // This clears error messages from the editor
-                this.structuredFieldPlugin.clearStructuredFieldMap();
+                this.resetEditorAndContext();
 
-                // This clears the contexts so that the tray starts back at the patient context
-                this.contextManager.clearContexts();
-            } else {
-
-                this.resetEditorState();
-
-                // Calls parent function which resets updatedEditorNote to be null
-                this.props.handleUpdateEditorWithNote(null);
-
-                // This clears error messages from the editor
-                this.structuredFieldPlugin.clearStructuredFieldMap();
-
-                // This clears the contexts so that the tray starts back at the patient context
-                this.contextManager.clearContexts();
-                console.log("new note to load into editor:");
-                console.log(nextProps.updatedEditorNote.content);
-
+                console.log("inserting text");
                 this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content.toString());
+
+                // If the note is in progress, set readonly to false. If teh note is an existing note, set readonly to true
+                if (nextProps.updatedEditorNote.signed) {
+                    this.isReadOnly = true;
+                } else {
+                    this.isReadOnly = false;
+                }
             }
         }
 
@@ -629,6 +636,7 @@ class FluxNotesEditor extends React.Component {
                     <Slate.Editor
                         placeholder={'Enter your clinical note here or choose a template to start from...'}
                         plugins={this.plugins}
+                        readOnly={this.isReadOnly}
                         state={this.state.state}
                         ref={function (c) {
                             editor = c;

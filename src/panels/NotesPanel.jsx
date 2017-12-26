@@ -20,18 +20,23 @@ class NotesPanel extends Component {
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
 
-        // Update the state so that updatedEditorNote has the note to update the editor with
-        this.setState({updatedEditorNote: note});
-
         // Check if the app is in pre-encounter and if the note editor should be visible
         if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
+
+            console.log("note viewer not visible so set up layout");
 
             // Change the layout so that the note editor is added to the view
             this.props.setFullAppState("layout", "split");
             this.props.setFullAppState("isNoteViewerVisible", true);
             this.props.setFullAppState("isNoteViewerEditable", true);
-            this.setState({updatedEditorNote: null});
+            // this.setState({updatedEditorNote: null});
+
+            //TODO: after setting up the layout need to insert the text into the editor. for some reason the note doesn't get updated after the layout is set
         }
+
+        // Update the state so that updatedEditorNote has the note to update the editor with
+        this.setState({updatedEditorNote: note});
+
     }
 
     renderNotesPanelContent() {
