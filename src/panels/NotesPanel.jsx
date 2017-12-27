@@ -11,32 +11,50 @@ class NotesPanel extends Component {
         super(props);
 
         this.state = {
-            updatedEditorNote: null
+            updatedEditorNote: null,
+            noteAssistantMode: "context-tray",
+            selectedNote: null
         };
 
         this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
+        this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
+        this.updateSelectedNote = this.updateSelectedNote.bind(this);
+    }
+
+    updateNoteAssistantMode(mode) {
+        this.setState({noteAssistantMode: mode});
+    }
+
+    updateSelectedNote(note) {
+        this.setState({selectedNote: note});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
 
-        // Check if the app is in pre-encounter and if the note editor should be visible
+        // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
+        // Set the note to be inserted into the editor and the selected note
         if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
 
-            console.log("note viewer not visible so set up layout");
-
-            // Change the layout so that the note editor is added to the view
-            this.props.setFullAppState("layout", "split");
-            this.props.setFullAppState("isNoteViewerVisible", true);
-            this.props.setFullAppState("isNoteViewerEditable", true);
-            // this.setState({updatedEditorNote: null});
-
-            //TODO: after setting up the layout need to insert the text into the editor. for some reason the note doesn't get updated after the layout is set
+            // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
+            // before editor related states can be set
+            this.props.setFullAppStateWithCallback({
+                layout: 'split',
+                isNoteViewerVisible: true,
+                isNoteViewerEditable: true
+            }, () => {
+                if (this.props.isNoteViewerVisible) {
+                    this.setState({updatedEditorNote: note});
+                    this.setState({selectedNote: note});
+                }
+            });
         }
 
-        // Update the state so that updatedEditorNote has the note to update the editor with
-        this.setState({updatedEditorNote: note});
-
+        // This gets called in other modes besides pre-encounter mode. Check that the editor exists and then update the
+        // state so that updatedEditorNote has the note to update the editor with
+        if (this.props.isNoteViewerVisible) {
+            this.setState({updatedEditorNote: note});
+        }
     }
 
     renderNotesPanelContent() {
@@ -66,7 +84,7 @@ class NotesPanel extends Component {
         }
     }
 
-    renderFluxNotesEditor(){
+    renderFluxNotesEditor() {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <FluxNotesEditor
@@ -85,6 +103,7 @@ class NotesPanel extends Component {
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
 
                     currentViewMode={this.props.currentViewMode}
+                    updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
         );
@@ -100,6 +119,10 @@ class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                     loadNote={this.handleUpdateEditorWithNote}
+                    noteAssistantMode={this.state.noteAssistantMode}
+                    updateNoteAssistantMode={this.updateNoteAssistantMode}
+                    selectedNote={this.state.selectedNote}
+                    updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
         );

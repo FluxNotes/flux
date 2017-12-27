@@ -397,7 +397,7 @@ class FluxNotesEditor extends React.Component {
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
             if (nextProps.updatedEditorNote === "") {
-               this.resetEditorAndContext();
+                this.resetEditorAndContext();
             }
 
             // If the updated editor note is an actual note (existing note), then clear the editor and insert the
@@ -405,11 +405,9 @@ class FluxNotesEditor extends React.Component {
             else {
 
                 this.resetEditorAndContext();
-
-                console.log("inserting text");
                 this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content.toString());
 
-                // If the note is in progress, set readonly to false. If teh note is an existing note, set readonly to true
+                // If the note is in progress, set readOnly to false. If the note is an existing note, set readOnly to true
                 if (nextProps.updatedEditorNote.signed) {
                     this.isReadOnly = true;
                 } else {
@@ -420,10 +418,11 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the current view mode changes
         if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
-            this.resetEditorState();
+            this.resetEditorAndContext();
             this.props.handleUpdateEditorWithNote(null);
             this.structuredFieldPlugin.clearStructuredFieldMap();
             this.contextManager.clearContexts();
+            this.props.updateSelectedNote(null);
         }
     }
 
@@ -681,6 +680,7 @@ FluxNotesEditor.proptypes = {
     updateErrors: PropTypes.func.isRequired,
     errors: PropTypes.array.isRequired,
     resetEditorState: PropTypes.func.isRequired,
+    resetEditorAndContext: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;

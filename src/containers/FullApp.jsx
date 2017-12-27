@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import {Grid, Row, Col} from 'react-flexbox-grid';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
@@ -16,8 +16,8 @@ import '../styles/FullApp.css';
 
 const theme = createMuiTheme({
     palette: {
-        primary: { ...lightBlue, A700: '#1384b5' },
-        secondary: { ...green, A400: '#00e677' },
+        primary: {...lightBlue, A700: '#1384b5'},
+        secondary: {...green, A400: '#00e677'},
         error: red
     }
 });
@@ -37,7 +37,6 @@ class FullApp extends Component {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-        //let patient = new Patient();
         let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
         this.summaryMetadata = new SummaryMetadata();
         this.dashboardManager = new DashboardManager();
@@ -62,22 +61,27 @@ class FullApp extends Component {
 
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
-        this.setState({ [state]: value });
+        this.setState({[state]: value});
+    }
+
+    // Same function as 'setFullAppState' except this function uses a callback
+    setFullAppStateWithCallback = (state, callback) => {
+        this.setState(state, callback);
     }
 
     // Updates the context manager in it's state
     onContextUpdate = () => {
-        this.setState({ contextManager: this.contextManager });
+        this.setState({contextManager: this.contextManager});
     }
 
     // Update the errors based on the argument provided
     updateErrors = (errors) => {
-        this.setState({ errors });
+        this.setState({errors});
     }
 
     // Determines the item to be inserted
     itemInserted = () => {
-        this.setState({ SummaryItemToInsert: '' });
+        this.setState({SummaryItemToInsert: ''});
     }
 
     // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed.
@@ -96,8 +100,8 @@ class FullApp extends Component {
         return newShortcut;
     }
 
-    // Update shortcuts and update patients accordignly
-    handleShortcutUpdate = (s) =>{
+    // Update shortcuts and update patients accordingly
+    handleShortcutUpdate = (s) => {
         let p = this.state.patient;
         s.updatePatient(p, this.contextManager);
     }
@@ -124,10 +128,10 @@ class FullApp extends Component {
     }
 
     // Update the summaryitemtoinsert based on the item given
-    handleSummaryItemSelected = (item, arrayIndex = -1) =>{
+    handleSummaryItemSelected = (item, arrayIndex = -1) => {
         if (item) {
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
-            if(Lang.isArray(item) && arrayIndex >= 0){
+            if (Lang.isArray(item) && arrayIndex >= 0) {
                 this.setState({SummaryItemToInsert: item[arrayIndex]});
             } else if (item.shortcut) {
                 this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
@@ -176,6 +180,7 @@ class FullApp extends Component {
 
                                 // Functions
                                 setFullAppState={this.setFullAppState}
+                                setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                                 updateErrors={this.updateErrors}
                                 onContextUpdate={this.onContextUpdate}
                                 itemInserted={this.itemInserted}
