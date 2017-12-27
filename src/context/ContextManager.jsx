@@ -9,19 +9,19 @@ class ContextManager {
 		this.activeContexts = []; // patient context is always active
 		this.onContextUpdate = onContextUpdate;
 	}
-    
+
     setIsBlock1BeforeBlock2(isBlock1BeforeBlock2) {
         this.isBlock1BeforeBlock2 = isBlock1BeforeBlock2;
     }
-    
+
     getIsBlock1BeforeBlock2() {
         return this.isBlock1BeforeBlock2;
     }
-    
+
 	getActiveContexts() {
 		return this.activeContexts;
 	}
-	
+
 	getCurrentlyValidShortcuts(shortcutManager) {
 		//let result = this.patientContext.getValidChildShortcuts(true);
         let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
@@ -40,27 +40,27 @@ class ContextManager {
 	isContextOfTypeActive(contextType) {
 		return !Lang.isUndefined(this.getActiveContextOfType(contextType));
 	}
-	
+
 	isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
 		let shortcut = this.getActiveContextOfType(contextType);
 		if (Lang.isUndefined(shortcut)) return false;
 		let object = shortcut.getValueObject();
 		return (object.entryInfo.entryType[0] === valueType);
 	}
-	    
+
 	// returns undefined if not found
 	getActiveContextOfType(contextType) {
-        //console.log(this.activeContexts);
 		let context = this.activeContexts.find((item) => {
 			return (item.getShortcutType() === contextType);
 		});
+
 		return context;
 	}
 
 	contextUpdated() {
 		this.onContextUpdate();
 	}
-    	
+
     adjustActiveContexts(shouldContextBeActive) {
         this.activeContexts = [];
         this.contexts.forEach((context) => {
@@ -69,7 +69,7 @@ class ContextManager {
             }
         });
     }
-	
+
 	addShortcutToContext(shortcut) {
         if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
         //console.log("adding shortcut to context: " + shortcut.getShortcutType());
@@ -95,7 +95,7 @@ class ContextManager {
 			if (this.onContextUpdate) { this.onContextUpdate(); }
 		}
 	}
-    
+
     removeShortcutFromContext(shortcut) {
         var index = -1;
         this.contexts.forEach((item, i) => {
@@ -103,10 +103,10 @@ class ContextManager {
         });
         if (index === -1) throw new Error("Unable to remove shortcut because not found in contexts.");
         this.contexts.splice(index, 1);
-        
+
         this.removeShortcutFromActiveContexts(shortcut);
     }
-    
+
     removeShortcutFromActiveContexts(shortcut) {
         var index = -1;
         this.activeContexts.forEach((item, i) => {
@@ -119,11 +119,11 @@ class ContextManager {
 	getPatient() {
 		return this.patient;
 	}
-	
+
 	getPatientContext() {
 		return this.patientContext;
 	}
-    
+
     getCurrentContext() {
         const mostRecentContext = this.activeContexts[0];
         if (!Lang.isUndefined(mostRecentContext) || !Lang.isNull(mostRecentContext)) {

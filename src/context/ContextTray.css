@@ -14,3 +14,18 @@
 .tabs-container div .tab{
     color: black !important;
 }
+
+.context-tray {
+  margin-bottom: 40px;
+}
+
+.context-tray section {
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.context-tray .section-item {
+  padding: 5px 20px;
+  font-size: 0.9em;
+  cursor: pointer;
+}

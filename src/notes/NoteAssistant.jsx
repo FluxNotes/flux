@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import Lang from 'lodash';
-import ContextTray from '../context/ContextTray';
-import Button from '../elements/Button';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 
+import ContextTray from '../context/ContextTray';
+import Button from '../elements/Button';
+import iconArrowLeft from '../../public/icons/icon_arrow_left.svg';
 import './NoteAssistant.css';
 
-class NoteAssistant extends Component {
-
+export default class NoteAssistant extends Component {
     constructor(props) {
         super(props);
 
@@ -51,13 +51,12 @@ class NoteAssistant extends Component {
 
     // Switch view (i.e clinical notes view or context tray)
     toggleView(mode) {
-        // this.setState({noteAssistantMode: mode});
         this.props.updateNoteAssistantMode(mode);
     }
 
     // Update the selected index for the sort drop down
     selectSort(sortIndex) {
-        this.setState({sortIndex: sortIndex});
+        this.setState({ sortIndex: sortIndex });
     }
 
     // Gets called when clicking on the "new note" button
@@ -107,11 +106,11 @@ class NoteAssistant extends Component {
                 return (
                     <div>
                         <span className="button-hover clinical-notes-btn" onClick={() => {
-                            this.toggleView("clinical-notes")
-                        }}>
-                            <i className="fa fa-arrow-left"></i>
-                            Clinical Notes
+			    this.toggleView("clinical-notes") }}>
+                            Clinical notes
+                            <img className="icon-arrow-left" alt="left arrow" src={iconArrowLeft} />
                         </span>
+
                         <ContextTray
                             patient={this.props.patient}
                             contextManager={this.props.contextManager}
@@ -126,19 +125,14 @@ class NoteAssistant extends Component {
             case "clinical-notes":
                 return (
                     <div className="clinical-notes-panel">
-
                         {this.renderNewNoteSVG()}
-
                         {this.renderInProgressNotes()}
 
                         <span className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</span>
 
                         {this.renderSortSelection()}
-
                         {this.renderNotes()}
-
                         {this.renderMoreNotesButton()}
-
                     </div>
                 );
 
@@ -151,24 +145,24 @@ class NoteAssistant extends Component {
     // Render the new note button
     renderNewNoteSVG() {
         return (
-            <svg className="note-new" onClick={() => this.handleOnNewNoteButtonClick()} viewBox="0 0 150 33"
-                 version="1.1"
+            <svg className="note-new" onClick={() => this.handleOnNewNoteButtonClick()} viewBox="0 0 150 33" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
                         d="M136.737204,0.069612193 L3.70678711,0.069612193 L3.70678711,0.069612193 C2.04993286,0.069612193 0.706787109,1.41275794 0.706787109,3.06961219 L0.706787109,3.06961219 L0.706787109,30 C0.706787109,31.6568542 2.04993286,33 3.70678711,33 L3.70678711,33 L146.214569,33 C147.871423,33 149.214569,31.6568542 149.214569,30 L149.214569,30 L149.214569,12.5469764 L136.737204,0.069612193 Z"
-                        id="path-1"></path>
+                        id="path-1">
+                    </path>
                 </defs>
-                <svg x="25" y="12" width="11px" height="11px" viewBox="0 0 11 11" version="1.1"
-                     xmlns="http://www.w3.org/2000/svg">
+
+                <svg x="25" y="12" width="11px" height="11px" viewBox="0 0 11 11" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
-                        <g id="Group-Copy-3" transform="translate(0.660429, 0.452719)" stroke="#16253E"
-                           strokeWidth="1.5552">
+                        <g id="Group-Copy-3" transform="translate(0.660429, 0.452719)" stroke="#16253E" strokeWidth="1.5552">
                             <path d="M0.465836188,4.96173944 L8.70583619,4.96173944" id="Line"></path>
                             <path d="M4.59517238,1.04666266 L4.59517238,9.28624923" id="Line-Copy"></path>
                         </g>
                     </g>
                 </svg>
+
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g id="Group-24">
                         <g id="Combined-Shape">
@@ -176,10 +170,12 @@ class NoteAssistant extends Component {
                             <path stroke="#B3B3B3" strokeWidth="0.5"
                                   d="M136.633651,0.319612193 L3.70678711,0.319612193 C2.18800405,0.319612193 0.956787109,1.55082913 0.956787109,3.06961219 L0.956787109,30 C0.956787109,31.5187831 2.18800405,32.75 3.70678711,32.75 L146.214569,32.75 C147.733352,32.75 148.964569,31.5187831 148.964569,30 L148.964569,12.6505298 L136.633651,0.319612193 Z"></path>
                         </g>
+
                         <polyline id="Path-14" stroke="#B3B3B3" strokeWidth="0.5" fill="#FFFFFF"
                                   points="136.300181 0.370008208 136.300181 13.0028388 148.974379 13.0028388"></polyline>
                     </g>
                 </g>
+
                 <text className="note-new-text" x="40" y="22">New note</text>
             </svg>
         );
@@ -272,8 +268,10 @@ class NoteAssistant extends Component {
                 <defs>
                     <path
                         d="M136.405173,0.069612193 L3.37475586,0.069612193 L3.37475586,0.069612193 C1.71790161,0.069612193 0.374755859,1.41275794 0.374755859,3.06961219 L0.374755859,3.06961219 L0.374755859,98.5117187 C0.374755859,100.168573 1.71790161,101.511719 3.37475586,101.511719 L3.37475586,101.511719 L145.882537,101.511719 C147.539392,101.511719 148.882537,100.168573 148.882537,98.5117187 L148.882537,98.5117187 L148.882537,12.5469764 L136.405173,0.069612193 Z"
-                        id="path-1"></path>
+                        id="path-1">
+                    </path>
                 </defs>
+
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g id="Group-23">
                         <g id="Combined-Shape">
@@ -285,13 +283,13 @@ class NoteAssistant extends Component {
                                   points="135.968149 0.370008208 135.968149 13.0028388 148.642348 13.0028388"></polyline>
                     </g>
                 </g>
+
                 <text className="existing-note-date" x="20" y="20">{item.date}</text>
                 <text x="20" y="40" className="existing-note-subject">{item.subject}</text>
 
                 <line x1="10" y1="50" x2="140" y2="50" stroke="#999" strokeWidth="1"/>
 
                 {this.renderMetaDataText(item)}
-
             </svg>
         );
     }
@@ -364,10 +362,8 @@ class NoteAssistant extends Component {
 
     // Main render method
     render() {
-
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         if (this.props.isNoteViewerEditable) {
-
             return (
                 <div>
                     {this.renderNoteAssistantContent(this.props.noteAssistantMode)}
@@ -376,7 +372,6 @@ class NoteAssistant extends Component {
 
             // If the note viewer is read only the we want to be able to view the clinical notes
         } else {
-
             return (
                 <div>
                     {this.renderNoteAssistantContent("clinical-notes")}
@@ -386,4 +381,11 @@ class NoteAssistant extends Component {
     }
 }
 
-export default NoteAssistant;
+NoteAssistant.propTypes = {
+    patient: PropTypes.object,
+    contextManager: PropTypes.object,
+    shortcutManager: PropTypes.object,
+    isNoteViewerEditable: PropTypes.bool,
+    handleSummaryItemSelected: PropTypes.func
+};
+

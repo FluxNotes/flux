@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Lang from 'lodash'
-import Button from '../elements/Button';
+import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
 import TextField from 'material-ui/TextField';
-import {Row, Col} from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
+
+import Button from '../elements/Button';
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
 
-class ContextOptions extends Component {
+export default class ContextOptions extends Component {
     constructor(props) {
         super(props);
         this._handleClick = this._handleClick.bind(this);
@@ -22,20 +23,20 @@ class ContextOptions extends Component {
 
     _handleClick(e, i) {
         e.preventDefault();
-        this.setState({searchString: "", tooltipVisibility: 'hidden'});
+        this.setState({ searchString: "", tooltipVisibility: 'hidden' });
         this.props.handleClick(i);
     }
-    
+
     mouseLeave = () => {
-        this.setState({tooltipVisibility: 'hidden'})
+        this.setState({ tooltipVisibility: 'hidden' })
     }
-    
+
     mouseEnter = () => {
-        this.setState({tooltipVisibility: 'visible'})
+        this.setState({ tooltipVisibility: 'visible' })
     }
-    
+
     _handleSearch(value) {
-        this.setState({searchString: value});
+        this.setState({ searchString: value });
     }
 
     render() {
@@ -44,7 +45,7 @@ class ContextOptions extends Component {
             // patient
             context = this.props.contextManager.getPatientContext();
         }
-        
+
         //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
@@ -75,14 +76,14 @@ class ContextOptions extends Component {
 
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
-        let currentGroup = {group: "", triggers:[]};
+        let currentGroup = { group: "", triggers:[] };
         let countToShow = 0;
         let totalShown = 0;
           triggers.forEach((trigger, i) => {
             if (trigger.group !== currentGroup.group) {
                 countToShow = 0;
                 totalShown++;
-                currentGroup = {"group": trigger.group, "groupName": trigger.groupName, "triggers": [ trigger ]};
+                currentGroup = { "group": trigger.group, "groupName": trigger.groupName, "triggers": [ trigger ] };
                 groupList.push(currentGroup);
             }
             else {
@@ -122,7 +123,9 @@ class ContextOptions extends Component {
             });
             if (numCols > maxCols) maxCols = numCols;
         });
+
         let colWidth = Math.ceil(maxChars / 2.5);
+
         // now iterate and create a Row for each group and a Col for each
         return (
             <div className='context-options-list'>
@@ -131,10 +134,11 @@ class ContextOptions extends Component {
                     return  (
                     <div key={`group-${i}`}>
                     {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
-                    <Row key={i} start="sm">
+                        <Row key={i} start="sm">
                             {groupObj.triggers.map((trigger, i) => {
                                 const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
                                 const text = <span>{trigger.description}</span>
+
                                 return (
                                     <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>
                                         <Tooltip
@@ -159,19 +163,17 @@ class ContextOptions extends Component {
                                     </Col>
                                 );
                             })}
-                     </Row>
-                     </div>);
+                        </Row>
+                    </div>);
                 })}
             </div>
         );
     }
 }
 
-ContextOptions.proptypes = { 
+ContextOptions.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
     context: PropTypes.object,
 }
-
-export default ContextOptions;

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { Row, Col } from 'react-flexbox-grid';
+
 import TargetedDataPanel from '../panels/TargetedDataPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
@@ -81,7 +81,6 @@ class ClinicianDashboard extends Component {
                 newNotesPanelSize = "60%";
                 break;
             default:
-                // console.warn(`The layout provided, ${currentLayout}, does not have defined panelDimensions.`);
                 newTargetedDataPanelSize = "40%";
                 newNotesPanelSize = "60%";
         }
@@ -174,6 +173,7 @@ class ClinicianDashboard extends Component {
                         {...this.props}
                     />
                 </div>
+
                 <div style={notesPanelStyles}>
                     <NotesPanel
                         contextManager={this.props.contextManager}

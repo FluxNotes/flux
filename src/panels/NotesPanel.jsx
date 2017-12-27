@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Row, Col } from 'react-flexbox-grid';
+
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import NoteAssistant from '../notes/NoteAssistant';
-
 import './NotesPanel.css';
 
-class NotesPanel extends Component {
-
+export default class NotesPanel extends Component {
     constructor(props) {
         super(props);
 
@@ -58,7 +58,6 @@ class NotesPanel extends Component {
     }
 
     renderNotesPanelContent() {
-
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
             return (
@@ -137,4 +136,16 @@ class NotesPanel extends Component {
     }
 }
 
-export default NotesPanel;
+NotesPanel.propTypes = {
+    patient: PropTypes.object,
+    contextManager: PropTypes.object,
+    shortcutManager: PropTypes.object,
+    summaryItemToBeInserted: PropTypes.string,
+    errors: PropTypes.array,
+    isNoteViewerEditable: PropTypes.bool,
+    newCurrentShortcut: PropTypes.func,
+    itemInserted: PropTypes.func,
+    updateErrors: PropTypes.func,
+    handleSummaryItemSelected: PropTypes.func,
+    handleSelectionChange: PropTypes.func
+};

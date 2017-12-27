@@ -2,8 +2,8 @@ span.button-hover {
     cursor: pointer;
 }
 
-.clinical-notes-btn .fa { 
-    padding: 0 10px;
+.clinical-notes-btn {
+    padding: 0 20px;
 }
 
 .clinical-notes-panel {
@@ -120,3 +120,7 @@ li.sort-item:hover {
     background: #e6e6e6 !important;
 }
 
+.icon-arrow-left {
+    width: 20px;
+    margin-left: 10px;
+}
