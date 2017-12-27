@@ -8,7 +8,7 @@ const pagePort = "3000";
 const pageRoute = "/patient"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
-fixture('Patient Mode - Patient Summary Panel')
+fixture('Patient Mode - Patient Control Panel')
     .page(startPage);
 
 test('Clicking event buttons selects corresponding event', async t => {
@@ -27,7 +27,7 @@ test('Clicking event buttons selects corresponding event', async t => {
         .expect(await clinicalEventSelector.textContent)
         .eql("Encounter");
 
-    // Clickig Pre-encounter choice selects it and the editor is not rendered
+    // Clicking Pre-encounter choice selects it and the editor is not rendered
     await t
         .click(clinicalEventSelector)
         .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
@@ -186,7 +186,7 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
 });
 
 test('Typing "#clinical" and selecting "clinical trial" from the portal in the editor results \
-in a structured data insersion and the conext panel updates', async t => {
+in a structured data insertion and the conext panel updates', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
         .typeText(editor, "#clinical");
@@ -256,7 +256,7 @@ test("Switching contexts without closing a context chooses the correct parent co
     }
 });
 
-test("Typing #ER into the editor followed by #Positive results in structured data insertsion and context panel updates", async t => {
+test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector(".context-options-list").find('button');
     const structuredField = editor.find("span[class='structured-field']");
@@ -284,7 +284,7 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
     }
 });
 
-test("Typing #ER into the editor followed by #Positive results in structured data insertsion and context panel updates", async t => {
+test("Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector(".context-options-list").find('button');
     const structuredField = editor.find("span[class='structured-field']");
@@ -477,13 +477,13 @@ test('Clicking New Note button adds a new in progress note to the list', async t
     
     const inProgressNotesUpdatedLength = await inProgressNotes.count;
     
-    // Adding a new note adds an unsigned, inprogress note
+    // Adding a new note adds an unsigned, in-progress note
     await t
         .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength+1);
 });
 
 
-fixture('Patient Mode - Data Summary Panel')
+fixture('Patient Mode - Targeted Data Panel')
     .page(startPage);
 
 test('Clicking to insert a captured data element results in that text pasted into the editor', async t => {
@@ -497,6 +497,40 @@ test('Clicking to insert a captured data element results in that text pasted int
             .expect(await editor.innerText)
             .contains(await summaryButtons.nth(i).innerText);
     }
+});
+
+test('Medications section appears in targeted data panel in pre-encounter mode only', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+
+    // Clicking Post-encounter choice selects it and the editor is rendered
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+    await t
+        .expect(await clinicalEventSelector.textContent)
+        .eql("Post-encounter");
+
+    const sections = Selector('#targeted-data-section')
+    const sectionData = Selector('div#targeted-data-section');
+    const numSectionsPostEncounter = await sections.count;
+
+    // Clicking Pre-encounter choice selects it and the editor is not rendered
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+    await t
+        .expect(await clinicalEventSelector.textContent)
+        .eql("Pre-encounter");
+    
+    const sectionsPreEncounter = Selector('#targeted-data-section')
+    const sectionDataPreEncounter = Selector('div#targeted-data-section');
+    const numSectionsPreEncounter = await sectionsPreEncounter.count;
+    
+    console.log(numSectionsPreEncounter + " is more by 1 than " + numSectionsPostEncounter);
+    console.log(sectionDataPreEncounter);
+    
+    await t
+        .expect(numSectionsPreEncounter === (numSectionsPostEncounter + 1));
 });
 
 test('Clicking the data visualization buttons changes the visualizer used', async t => {
