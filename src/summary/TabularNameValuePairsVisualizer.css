@@ -2,65 +2,65 @@
     margin-bottom: 20px;
 }
 
-table {
+.tabular-subsections table {
     border-collapse: collapse;
     width: 98%;
     margin-top: 10px;
 }
 
-table, tr, td {
+.tabular-subsections table, tr, td {
     font-size: 0.8rem;
 
 }
 
-.subsection-header {
+.tabular-subsections .subsection-header {
     color: #333 !important;
 }
 
 /* Include the bottom border on the last row of the table */
-tr:last-child td {
+.tabular-subsections tr:last-child td {
     border-bottom: 1px solid #ccc;
 }
 
-tr:last-child td:last-child {
+.tabular-subsections tr:last-child td:last-child {
     border-bottom: 0;
 }
 
 /* Most table elements only have a top border */
-td {
+.tabular-subsections td {
     border-top: 1px solid #ccc;
     padding: 8px 10px;
 }
 
-td:first-child {
+.tabular-subsections td:first-child {
     color: #999;
 }
 
 /* Omit the borders from the icon column in the table */
-td:last-child {
+.tabular-subsections td:last-child {
     border-top: 0;
     border-bottom: 0;
     color: #fefefe;
 }
 
-tr.captured td.disabled:last-child {
+.tabular-subsections tr.captured td.disabled:last-child {
     color: #DDD;
 }
-tr.captured td:last-child {
+.tabular-subsections tr.captured td:last-child {
     color: #888;
 }
 
-td.missing {
+.tabular-subsections td.missing {
     color: #fff;
     background-color: #fa9f8f;
 }
 
-td.captured {
+.tabular-subsections td.captured {
     color: #333;
     background-color: #d9ebf9;
 }
 
-span.button-hover {
+.tabular-subsections span.button-hover {
     cursor: pointer;
 }
 

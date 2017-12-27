@@ -1,68 +1,67 @@
-.tabular-subsections { 
+.tabular-list { 
     margin-bottom: 20px;
 }
 
-table {
+.tabular-list table {
     border-collapse: collapse;
     width: 98%;
     margin-top: 10px;
     /*table-layout: fixed;*/
 }
 
-table, tr, td {
+.tabular-list table, tr, td {
     font-size: 0.8rem;
 
 }
 
-.subsection-header {
+.tabular-list .list-subsection-header {
     color: #333 !important;
+    border-top: 0;
 }
 
 /* Include the bottom border on the last row of the table */
-tr:last-child td {
+.tabular-list tr:last-child td {
     border-bottom: 1px solid #ccc;
 }
 
-tr:last-child td:last-child {
-    border-bottom: 0;
-}
-
 /* Most table elements only have a top border */
-td {
+.tabular-list td {
     border-top: 1px solid #ccc;
     padding: 8px 10px;
 }
 
-td:first-child {
-    color: #999;
-}
-
 /* Omit the borders from the icon column in the table */
-td:last-child {
+.tabular-list td.list-enabled {
+    border-top: 0;
+    border-bottom: 0;
+    color: #fefefe;
+}
+.tabular-list td.list-disabled {
     border-top: 0;
     border-bottom: 0;
     color: #fefefe;
 }
 
-tr.captured td.disabled  {
+
+.tabular-list tr.list-captured td.list-disabled  {
     color: #DDD;
+    border-bottom: 0;
 }
-tr.captured td.enabled {
+.tabular-list tr.list-captured td.list-enabled {
     color: #888;
+    border-bottom: 0;
 }
 
-td.missing {
+.tabular-list td.list-missing {
     color: #fff;
     background-color: #fa9f8f;
 }
 
-td.captured {
+.tabular-list td.list-captured {
     color: #333;
     background-color: #d9ebf9;
-    
-    
 }
 
-span.button-hover {
+.tabular-list span.list-button-hover {
     cursor: pointer;
 }
