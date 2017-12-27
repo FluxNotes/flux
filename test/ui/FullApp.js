@@ -510,10 +510,20 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         .expect(await clinicalEventSelector.textContent)
         .eql("Post-encounter");
 
-    const sections = Selector('#targeted-data-section')
-    const sectionData = Selector('div#targeted-data-section');
-    const numSectionsPostEncounter = await sections.count;
+    const sectionsPostEncounter = Selector('#targeted-data-section')
+    //const sectionData = Selector('div#targeted-data-section');
+    const numSectionsPostEncounter = await sectionsPostEncounter.count;
 
+    let result = false;
+    for (let i = 0; i < numSectionsPostEncounter; i++) {
+        let header = sectionsPostEncounter.nth(i).find("h2[class='section-header']");
+        let headerText = await header.innerText;
+        if (headerText === "Medications") result = true;
+    }
+    
+    await t
+        .expect(result === false);
+    
     // Clicking Pre-encounter choice selects it and the editor is not rendered
     await t
         .click(clinicalEventSelector)
@@ -523,14 +533,21 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         .eql("Pre-encounter");
     
     const sectionsPreEncounter = Selector('#targeted-data-section')
-    const sectionDataPreEncounter = Selector('div#targeted-data-section');
+    //const sectionDataPreEncounter = Selector('div#targeted-data-section');
+    //const sectionHeadersPreEncounter = Selector('div#targeted-data-section');
     const numSectionsPreEncounter = await sectionsPreEncounter.count;
     
-    console.log(numSectionsPreEncounter + " is more by 1 than " + numSectionsPostEncounter);
-    console.log(sectionDataPreEncounter);
+    //console.log(numSectionsPreEncounter + " is more by 1 than " + numSectionsPostEncounter);
+    //console.log("each section:");
+    result = false;
+    for (let i = 0; i < numSectionsPreEncounter; i++) {
+        let header = sectionsPreEncounter.nth(i).find("h2[class='section-header']");
+        let headerText = await header.innerText;
+        if (headerText === "Medications") result = true;
+    }
     
     await t
-        .expect(numSectionsPreEncounter === (numSectionsPostEncounter + 1));
+        .expect(result === true);
 });
 
 test('Clicking the data visualization buttons changes the visualizer used', async t => {
