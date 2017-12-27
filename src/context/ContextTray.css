@@ -16,11 +16,11 @@
 }
 
 .context-tray {
-  margin-bottom: 40px;
+  margin: 20px 0;
 }
 
 .context-tray section {
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #ddd;
 }
 
@@ -28,4 +28,9 @@
   padding: 5px 20px;
   font-size: 0.9em;
   cursor: pointer;
+}
+
+.context-tray .section-item:hover,
+.context-tray .section-item.selected {
+  font-weight: bold;
 }

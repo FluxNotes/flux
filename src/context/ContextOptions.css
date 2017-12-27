@@ -1,10 +1,14 @@
-.btn_template_ctx {
-    width: 98%;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-bottom: 20px;
-    min-width: 10px !important;
-    background-color: white !important;
+.context-option {
+    margin: 10px 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #999;
+}
+
+.context-option:hover,
+.context-option.selected {
+    color: #555;
+    font-weight: bold;
 }
 
 .context-options-list {
@@ -17,6 +21,29 @@
     background-color: #ffffff;
     text-align: left;
     margin-bottom: 15px;
+}
+
+.shortcut-search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.shortcut-search-title {
+    margin: 0 20px 15px;
+    font-size: 0.9em;
+}
+
+.shortcut-search-title .count {
+    font-style: italic;
+}
+
+.shortcut-search-text {
+    left: 20px;
+    font-size: 0.9em;
+}
+
+.hidden {
+    display: none;
 }
 
 /*
@@ -32,4 +59,11 @@
 
 .context-panel-tooltip .large .rc-tooltip-inner{
     width: 220px;
+}
+
+#data-element-description {
+    margin: 0 20px;
+    padding-top: 10px;
+    font-size: 0.9em;
+    font-style: italic;
 }

@@ -6,7 +6,6 @@ import TemplateForm from '../forms/TemplateForm';
 import ContextOptions from './ContextOptions';
 import './ContextTray.css';
 
-
 export default class ContextTray extends Component {
     constructor(props) {
         super(props);

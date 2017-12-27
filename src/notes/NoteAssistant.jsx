@@ -105,6 +105,7 @@ export default class NoteAssistant extends Component {
                 // Render the context tray
                 return (
                     <div>
+			{this.renderNewNoteSVG()}
                         <span className="button-hover clinical-notes-btn" onClick={() => {
 			    this.toggleView("clinical-notes") }}>
                             Clinical notes

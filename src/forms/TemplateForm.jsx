@@ -1,37 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Divider from 'material-ui/Divider';
 
-import Button from '../elements/Button';
 import './TemplateForm.css';
 
 export default class TemplateForm extends Component {
-    constructor(props) {
-        super(props);
-        this._handleClick = this._handleClick.bind(this);
-    }
-
-    _handleClick(e, i) {
+    handleClick = (e, index) => {
         e.preventDefault();
-        this.props.handleClick(i);
+        this.props.handleClick(index);
     }
 
     render() {
         return (
            <div>
                 <h1>{this.props.heading}</h1>
-                <Divider className="divider"/>
 
-                {this.props.templates.map((t, i) => {
+                {this.props.templates.map((template, index) => {
                     return (
-                        <Button raised className="btn_template"
-                            label={t}
-                            key={i}
-                            onClick={(e) => this._handleClick(e, i)}
+                        <div
+                            className="template"
+                            label={template}
+                            key={index}
+                            onClick={(e) => this.handleClick(e, index)}
                         >
-                            {t}
-                        </Button>
-                    ); //this._insertTemplate(e, i)
+                            {template}
+                        </div>
+                    );
                 })}
             </div>
         );

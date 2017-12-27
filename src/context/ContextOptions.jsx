@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
 import TextField from 'material-ui/TextField';
-import { Row, Col } from 'react-flexbox-grid';
 
-import Button from '../elements/Button';
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
 
@@ -79,7 +77,7 @@ export default class ContextOptions extends Component {
         let currentGroup = { group: "", triggers:[] };
         let countToShow = 0;
         let totalShown = 0;
-          triggers.forEach((trigger, i) => {
+        triggers.forEach((trigger, i) => {
             if (trigger.group !== currentGroup.group) {
                 countToShow = 0;
                 totalShown++;
@@ -87,83 +85,75 @@ export default class ContextOptions extends Component {
                 groupList.push(currentGroup);
             }
             else {
-                if(countToShow === 5) return;
+                if (countToShow === 5) return;
+
                 countToShow++;
                 totalShown++;
                 currentGroup.triggers.push(trigger);
             }
-
         });
 
         // do we add search bar
         let filterBar = "";
         if (showFilter) {
             filterBar = (
-            <div id="shortcut-search">
-                <div style={{position: 'relative', display: 'inline-block'}}>
-                    <div style={{display: 'flex', justifyContent:'center',alignItems: 'center'}}><h1>Filter:&nbsp;&nbsp;</h1><span>(Showing {totalShown} of {count})</span></div>
-                    <TextField
-                        style={{textIndent: 25, left: "15%", textAlign: "left", minWidth: "80%", width: "100%"}}
-                        label="Search for a shortcut"
-                        value={this.state.searchString}
-                        onChange={(event) => this._handleSearch(event.target.value)}
-                    />
+                <div id="shortcut-search">
+                    <div className="shortcut-search-container">
+                        <div className="shortcut-search-title">
+                            <div>Filter:</div>
+                            <div className="count">(showing {totalShown} of {count})</div>
+                        </div>
+
+                        <TextField
+                            className="shortcut-search-text"
+                            label="Search for a shortcut"
+                            value={this.state.searchString}
+                            onChange={(event) => this._handleSearch(event.target.value)}
+                        />
+                    </div>
                 </div>
-            </div>
             );
         }
 
-        let numCols, maxCols = 0;
-        let numChars, maxChars = 0;
-        groupList.forEach((groupObj, i) => {
-            numCols = groupObj.triggers.length;
-            groupObj.triggers.forEach((trigger) => {
-                numChars = trigger.name.length;
-                if (numChars > maxChars) maxChars = numChars;
-            });
-            if (numCols > maxCols) maxCols = numCols;
-        });
+        const activeContextTriggers = this.props.contextManager.getActiveContexts().map(({ initiatingTrigger }) => initiatingTrigger);
 
-        let colWidth = Math.ceil(maxChars / 2.5);
-
-        // now iterate and create a Row for each group and a Col for each
         return (
             <div className='context-options-list'>
                 {filterBar}
+
                 {groupList.map((groupObj, i) => {
                     return  (
                     <div key={`group-${i}`}>
-                    {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
-                        <Row key={i} start="sm">
+                        {groupObj.groupName != null ? <div id="data-element-description">{groupObj.groupName}</div> : <div className="hidden"></div>}
+
+                        <div key={i}>
                             {groupObj.triggers.map((trigger, i) => {
                                 const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
                                 const text = <span>{trigger.description}</span>
 
                                 return (
-                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>
-                                        <Tooltip
+                                    <Tooltip
+                                        key={trigger.name}
+                                        overlayStyle={{'visibility': this.state.tooltipVisibility}}
+                                        placement="left"
+                                        overlayClassName={tooltipClass}
+                                        overlay={text}
+                                        destroyTooltipOnHide={true}
+                                        mouseEnterDelay={0.5}
+                                        onMouseEnter={this.mouseEnter}
+                                        onMouseLeave={this.mouseLeave}
+                                    >
+                                        <div
+                                            className={`context-option${activeContextTriggers.indexOf(trigger.name) > -1 ? ' selected' : ''}`}
                                             key={trigger.name}
-                                            overlayStyle={{'visibility': this.state.tooltipVisibility}}
-                                            placement="top"
-                                            overlayClassName={tooltipClass}
-                                            overlay={text}
-                                            destroyTooltipOnHide={true}
-                                            mouseEnterDelay={0.5}
-                                            onMouseEnter={this.mouseEnter}
-                                            onMouseLeave={this.mouseLeave}
+                                            onClick={(e) => this._handleClick(e, trigger.name)}
                                         >
-                                            <Button dense raised
-                                                className='btn_template_ctx'
-                                                key={trigger.name}
-                                                onClick={(e) => this._handleClick(e, trigger.name)}
-                                            >
-                                                {trigger.name}
-                                            </Button>
-                                        </Tooltip>
-                                    </Col>
+                                            {trigger.name}
+                                        </div>
+                                    </Tooltip>
                                 );
                             })}
-                        </Row>
+                        </div>
                     </div>);
                 })}
             </div>
