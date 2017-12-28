@@ -1,5 +1,12 @@
+import CodeableConcept from '../core/CodeableConcept';
+
 /** Generated from SHR definition for shr.allergy.AllergenIrritant */
 class AllergenIrritant {
+    constructor(json) {
+        if (json) {
+            if (json.value) this.value = new CodeableConcept(json.value);
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.codeableConcept)

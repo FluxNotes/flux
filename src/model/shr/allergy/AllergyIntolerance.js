@@ -1,5 +1,16 @@
+import AllergenIrritant from './AllergenIrritant';
+import Entry from '../base/Entry';
+
 /** Generated from SHR definition for shr.allergy.AllergyIntolerance */
 class AllergyIntolerance {
+    constructor(json) {
+        if (json) {
+            this._entryInfo = new Entry(json);
+            if (json.allergenIrritant) this._allergenIrritant = new AllergenIrritant(json.allergenIrritant);
+        } else {
+            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/AllergyIntolerance");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)
