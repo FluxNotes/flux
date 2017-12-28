@@ -64,12 +64,12 @@ class TabularListVisualizer extends Component {
         let headings = null;
         if (subsection.headings) {
             let renderedColumnHeadings = [];
-            subsection.headings.forEach((heading, index) => {
+            subsection.headings.forEach((heading, headingIndex) => {
                 if (this.props.isWide) {
-                    renderedColumnHeadings.push(<th className="list-column-heading">{heading}</th>);
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
                 } else {
-                    renderedColumnHeadings.push(<th className="list-column-heading">{heading}</th>);
-                    renderedColumnHeadings.push(<th/>);
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex + "-spacer"}/>);
                 }
             });
             headings = <tr>{renderedColumnHeadings}</tr>;
