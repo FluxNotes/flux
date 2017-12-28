@@ -1,4 +1,5 @@
 import ShrObjectFactory from '../model/ShrObjectFactory';
+import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
@@ -130,6 +131,25 @@ class PatientRecord {
 
     getConditions() {
         let result = this.getEntriesIncludingType(Condition);
+        return result;
+    }
+    
+    getAllergies() {
+        let result = this.getEntriesIncludingType(AllergyIntolerance);
+        return result;
+    }
+    
+    getAllergiesAsText() {
+        const allergies = this.getAllergies();
+        let result = "";
+        let first = true;
+        allergies.forEach((allergy, index) => {
+            if (!first) {
+                result += "\r\n";
+            }
+            result += allergy.allergenIrritant.value.coding[0].displayText.value;
+            first = false;
+        });
         return result;
     }
 
