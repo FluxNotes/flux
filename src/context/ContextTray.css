@@ -1,20 +1,3 @@
-.tabs-container > div > div > div {
-    background: white !important;
-}
-
-.tabs-container div button:not(.tab) {
-    background: white !important;
-    color: black !important;
-}
-.tabs-container div div svg {
-    background: white !important;
-    color: black !important;
-}
-
-.tabs-container div .tab{
-    color: black !important;
-}
-
 .context-tray {
   margin: 20px 0;
 }

@@ -76,23 +76,20 @@ export default class ContextTray extends Component {
                     </section>
                 }
                 {value > 0 &&
-                    <section>
-                        <ContextOptions
-                            contextManager={this.props.contextManager}
-                            shortcutManager={this.props.shortcutManager}
-                            handleClick={this.handleShortcutClick}
-                        />
-                    </section>
+                    <ContextOptions
+                        contextManager={this.props.contextManager}
+                        shortcutManager={this.props.shortcutManager}
+                        handleClick={this.handleShortcutClick}
+                    />
                 }
                 {value > 0 && activeContexts.map((context, i) =>
-                    <section key={i}>
-                        <ContextOptions
-                            contextManager={this.props.contextManager}
-                            shortcutManager={this.props.shortcutManager}
-                            handleClick={this.handleShortcutClick}
-                            context={context}
-                        />
-                    </section>
+                    <ContextOptions
+                        key={i}
+                        contextManager={this.props.contextManager}
+                        shortcutManager={this.props.shortcutManager}
+                        handleClick={this.handleShortcutClick}
+                        context={context}
+                    />
                 )}
             </div>
         );

@@ -93,6 +93,10 @@ export default class ContextOptions extends Component {
             }
         });
 
+        if (totalShown === 0) {
+            return null;
+        }
+
         // do we add search bar
         let filterBar = "";
         if (showFilter) {
@@ -118,45 +122,47 @@ export default class ContextOptions extends Component {
         const activeContextTriggers = this.props.contextManager.getActiveContexts().map(({ initiatingTrigger }) => initiatingTrigger);
 
         return (
-            <div className='context-options-list'>
-                {filterBar}
+            <section>
+                <div className='context-options-list'>
+                    {filterBar}
 
-                {groupList.map((groupObj, i) => {
-                    return  (
-                    <div key={`group-${i}`}>
-                        {groupObj.groupName != null ? <div id="data-element-description">{groupObj.groupName}</div> : <div className="hidden"></div>}
+                    {groupList.map((groupObj, i) => {
+                        return (
+                        <div key={`group-${i}`}>
+                            {groupObj.groupName != null ? <div id="data-element-description">{groupObj.groupName}</div> : <div className="hidden"></div>}
 
-                        <div key={i}>
-                            {groupObj.triggers.map((trigger, i) => {
-                                const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
-                                const text = <span>{trigger.description}</span>
+                            <div key={i}>
+                                {groupObj.triggers.map((trigger, i) => {
+                                    const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
+                                    const text = <span>{trigger.description}</span>
 
-                                return (
-                                    <Tooltip
-                                        key={trigger.name}
-                                        overlayStyle={{'visibility': this.state.tooltipVisibility}}
-                                        placement="left"
-                                        overlayClassName={tooltipClass}
-                                        overlay={text}
-                                        destroyTooltipOnHide={true}
-                                        mouseEnterDelay={0.5}
-                                        onMouseEnter={this.mouseEnter}
-                                        onMouseLeave={this.mouseLeave}
-                                    >
-                                        <div
-                                            className={`context-option${activeContextTriggers.indexOf(trigger.name) > -1 ? ' selected' : ''}`}
+                                    return (
+                                        <Tooltip
                                             key={trigger.name}
-                                            onClick={(e) => this._handleClick(e, trigger.name)}
+                                            overlayStyle={{'visibility': this.state.tooltipVisibility}}
+                                            placement="left"
+                                            overlayClassName={tooltipClass}
+                                            overlay={text}
+                                            destroyTooltipOnHide={true}
+                                            mouseEnterDelay={0.5}
+                                            onMouseEnter={this.mouseEnter}
+                                            onMouseLeave={this.mouseLeave}
                                         >
-                                            {trigger.name}
-                                        </div>
-                                    </Tooltip>
-                                );
-                            })}
-                        </div>
-                    </div>);
-                })}
-            </div>
+                                            <div
+                                                className={`context-option${activeContextTriggers.indexOf(trigger.name) > -1 ? ' selected' : ''}`}
+                                                key={trigger.name}
+                                                onClick={(e) => this._handleClick(e, trigger.name)}
+                                            >
+                                                {trigger.name}
+                                            </div>
+                                        </Tooltip>
+                                    );
+                                })}
+                            </div>
+                        </div>);
+                    })}
+                </div>
+            </section>
         );
     }
 }
