@@ -481,7 +481,7 @@
 			"entryId": "29",
 			"entryType": 	[ "http://standardhealthrecord.org/allergy/AllergyIntolerance" ],
 			"focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-			"allergenIrritant": {"value": {"coding": [{"value": "412533000", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Wheat Bran"}]}},
+			"allergenIrritant": {"value": {"coding": [{"value": "70813002", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Milk - dietary"}]}},
 			"originalCreationDate": "13 JUN 2015",
 			"lastUpdateDate": "13 JUN 2015"
         }
