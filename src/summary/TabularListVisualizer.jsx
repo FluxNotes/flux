@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './TabularListVisualizer.css';
+
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
@@ -50,26 +50,9 @@ class TabularListVisualizer extends Component {
     }
 
     renderedSubsections(subsections) {
-        const isSingleColumn = !this.props.isWide;
-
-        if (isSingleColumn) {
-            return subsections.map((subsection, index) => {
-                return this.renderedSubsection(subsection, index);
-            });
-        }
-
-        let ind = 0;
-        const renderedAllSections = subsections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++);
+        return subsections.map((subsection, index) => {
+            return this.renderedSubsection(subsection, index);
         });
-
-        return (
-            <Row start="xs">
-                <Col sm={6}>
-                    {renderedAllSections}
-                </Col>
-            </Row>
-        );
     }
 
     renderedSubsection(subsection, index) {
@@ -78,15 +61,30 @@ class TabularListVisualizer extends Component {
         if (list.length <= 0) {
             return <h2 key={index}>None</h2>;
         }
+        let headings = null;
+        if (subsection.headings) {
+            let renderedColumnHeadings = [];
+            subsection.headings.forEach((heading, headingIndex) => {
+                if (this.props.isWide) {
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
+                } else {
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
+                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex + "-spacer"}/>);
+                }
+            });
+            headings = <tr>{renderedColumnHeadings}</tr>;
+        }
+        
+        let subsectionname = null;
+        if (subsection.name && subsection.name.length > 0) {
+            subsectionname = <tr><td className="list-subsection-header">{subsection.name}</td></tr>;
+        }
 
         return (
             <table key={index}>
                 <tbody>
-                    <tr>
-                        <td className="subsection-header">
-                            {subsection.name}
-                        </td>
-                    </tr>
+                {headings}
+                    {subsectionname}
                     {this.renderedListItems(list)}
                 </tbody>
             </table>
@@ -99,29 +97,31 @@ class TabularListVisualizer extends Component {
             var renderedColumns = [];
             item.forEach((element, arrayIndex) => {
                 var plusButtonForColumnItem = null;
-                    var columnItem = null;
-                    if(Lang.isNull(element)){
-                        columnItem = (
-                            <td width={columnPercentage + "%"} className={"missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
+                var columnItem = null;
+                if(Lang.isNull(element)){
+                    columnItem = (
+                        <td width={columnPercentage + "%"} className={"list-missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
+                );
+                } else {
+                    columnItem = (
+                        <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
                     );
-                    } else {
-                        columnItem = (
-                            <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
-                        );
-                    }
-                    if (this.props.allowItemClick && !Lang.isNull(element)) {
+                }
+                if (this.props.isWide) {
+                    plusButtonForColumnItem = null;
+                } else if (this.props.allowItemClick && !Lang.isNull(element)) {
+                    plusButtonForColumnItem = (
+                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="list-enabled">
+                                <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
+                            </td>
+                    );
+                } else {
                         plusButtonForColumnItem = (
-                                <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="enabled">
-                                    <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                                </td>
-                        );
-                    } else {
-                        plusButtonForColumnItem = (
-                            <td className="disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
-                        );
-                    }
-                    renderedColumns.push(columnItem);
-                    renderedColumns.push(plusButtonForColumnItem);
+                        <td className="list-disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                    );
+                }
+                renderedColumns.push(columnItem);
+                renderedColumns.push(plusButtonForColumnItem);
             });
             
             return (
@@ -136,14 +136,14 @@ class TabularListVisualizer extends Component {
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
-                itemClass = "missing";
+                itemClass = "list-missing";
                 item = [ "Missing data" ];
                 onClick = null;
                 hoverClass = null;
             } else {
-                rowClass = "captured";
-                itemClass = "captured";
-                hoverClass = "button-hover";
+                rowClass = "list-captured";
+                itemClass = "list-captured";
+                hoverClass = "list-button-hover";
             }
             return this.renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass);
         });
@@ -153,7 +153,7 @@ class TabularListVisualizer extends Component {
         const subsections = this.getSubsections();
 
         return (
-            <div className="tabular-subsections">
+            <div className="tabular-list">
                 {this.renderedSubsections(subsections)}
             </div>
         );
