@@ -387,8 +387,10 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the item to be inserted is updated
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
-            this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
-            this.props.itemInserted();
+            if (!this.isReadOnly) {
+                this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
+                this.props.itemInserted();
+            }
         }
 
         // Check if the updatedEditorNote property has been updated
@@ -458,6 +460,7 @@ class FluxNotesEditor extends React.Component {
         //console.log(textToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
         //console.log(triggers);
+
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
