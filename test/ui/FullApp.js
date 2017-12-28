@@ -511,9 +511,9 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         .eql("Post-encounter");
 
     const sectionsPostEncounter = Selector('#targeted-data-section')
-    //const sectionData = Selector('div#targeted-data-section');
     const numSectionsPostEncounter = await sectionsPostEncounter.count;
 
+    // Now check to make sure the Medications sections does *not* exist
     let result = false;
     for (let i = 0; i < numSectionsPostEncounter; i++) {
         let header = sectionsPostEncounter.nth(i).find("h2[class='section-header']");
@@ -533,12 +533,9 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         .eql("Pre-encounter");
     
     const sectionsPreEncounter = Selector('#targeted-data-section')
-    //const sectionDataPreEncounter = Selector('div#targeted-data-section');
-    //const sectionHeadersPreEncounter = Selector('div#targeted-data-section');
     const numSectionsPreEncounter = await sectionsPreEncounter.count;
     
-    //console.log(numSectionsPreEncounter + " is more by 1 than " + numSectionsPostEncounter);
-    //console.log("each section:");
+    // Now check to make sure the Medications sections *does* exist
     result = false;
     for (let i = 0; i < numSectionsPreEncounter; i++) {
         let header = sectionsPreEncounter.nth(i).find("h2[class='section-header']");
