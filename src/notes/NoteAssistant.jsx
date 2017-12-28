@@ -265,7 +265,7 @@ class NoteAssistant extends Component {
         const strokeWidth = selected ? "2" : "0.5";
 
         return (
-            <svg key={i} className="note" onClick={() => {
+            <svg key={i} className="note" id="existing-note" onClick={() => {
                 this.openNote(false, item)
             }} viewBox="0 0 149 102" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
