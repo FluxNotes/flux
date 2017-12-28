@@ -635,6 +635,8 @@ class FluxNotesEditor extends React.Component {
                         onMarkUpdate={this.handleMarkUpdate}
                         onBlockUpdate={this.handleBlockUpdate}
                         patient={this.props.patient}
+
+                        isReadOnly={this.isReadOnly}
                     />
                     <Slate.Editor
                         placeholder={'Enter your clinical note here or choose a template to start from...'}

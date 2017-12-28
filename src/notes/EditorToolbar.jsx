@@ -32,27 +32,44 @@ class EditorToolbar extends React.Component {
      * When a mark button is clicked, toggle the current mark.
      */
     onClickMark = (e, type) => {
-        e.preventDefault()
-        this.handleMarkUpdate(type);
+
+        // Only handle click if not in read only mode
+        if (!this.props.isReadOnly) {
+            e.preventDefault()
+            this.handleMarkUpdate(type);
+        }
     }
 
     /**
      * When a block button is clicked, toggle the block type.
      */
     onClickBlock = (e, type) => {
-        e.preventDefault()
-        this.handleBlockUpdate(type);
+
+        // Only handle click if not in read only mode
+        if(!this.props.isReadOnly) {
+            e.preventDefault()
+            this.handleBlockUpdate(type);
+        }
     }
 
     /**
      * Render a mark-toggling toolbar button.
      */
     renderMarkButton = (type, icon) => {
+        let cursorStyle = "pointer";
+
+        // If editor is in read only, change the cursor to indicate button is not clickable
+        if (this.props.isReadOnly) {
+            cursorStyle = "default";
+        } else {
+            cursorStyle = "pointer";
+        }
+
         const isActive = this.handleMarkCheck(type)
         const onMouseDown = e => this.onClickMark(e, type)
 
         return (
-            <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
         <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
       </span>
         )
@@ -61,11 +78,19 @@ class EditorToolbar extends React.Component {
      * Render a block-toggling toolbar button.
      */
     renderBlockButton = (type, icon) => {
+        let cursorStyle = "pointer";
+
+        // If editor is in read only, change the cursor to indicate button is not clickable
+        if (this.props.isReadOnly) {
+            cursorStyle = "default";
+        } else {
+            cursorStyle = "pointer";
+        }
         const isActive = this.handleBlockCheck(type + '-item')
         const onMouseDown = e => this.onClickBlock(e, type)
 
         return (
-            <span className="button" onMouseDown={onMouseDown} data-active={isActive}>
+            <span className="button" style={{cursor:cursorStyle}} onMouseDown={onMouseDown} data-active={isActive}>
         <i className={"fa fa-fw " + icon} aria-label={"Make text " + type}></i>
       </span>
         )
