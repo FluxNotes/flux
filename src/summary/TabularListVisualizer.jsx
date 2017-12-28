@@ -61,15 +61,30 @@ class TabularListVisualizer extends Component {
         if (list.length <= 0) {
             return <h2 key={index}>None</h2>;
         }
+        let headings = null;
+        if (subsection.headings) {
+            let renderedColumnHeadings = [];
+            subsection.headings.forEach((heading, index) => {
+                if (this.props.isWide) {
+                    renderedColumnHeadings.push(<th className="list-column-heading">{heading}</th>);
+                } else {
+                    renderedColumnHeadings.push(<th className="list-column-heading">{heading}</th>);
+                    renderedColumnHeadings.push(<th/>);
+                }
+            });
+            headings = <tr>{renderedColumnHeadings}</tr>;
+        }
+        
+        let subsectionname = null;
+        if (subsection.name && subsection.name.length > 0) {
+            subsectionname = <tr><td className="list-subsection-header">{subsection.name}</td></tr>;
+        }
 
         return (
             <table key={index}>
                 <tbody>
-                    <tr>
-                        <td className="list-subsection-header">
-                            {subsection.name}
-                        </td>
-                    </tr>
+                {headings}
+                    {subsectionname}
                     {this.renderedListItems(list)}
                 </tbody>
             </table>

@@ -65,3 +65,11 @@
 .tabular-list span.list-button-hover {
     cursor: pointer;
 }
+
+.tabular-list .list-column-heading {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    color: #000;
+    background-color: #ffffff;
+    padding: 8px 10px;
+}

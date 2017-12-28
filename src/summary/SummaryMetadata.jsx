@@ -201,6 +201,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
+                                headings: [ "Procedure", "When" ],
                                 itemsFunction: this.getItemListForProcedures
                             }
                         ]
@@ -212,6 +213,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
+                                headings: [ "Medication", "Dosage", "Timing", "Start", "End" ],
                                 itemsFunction: this.getItemListForMedications
                             }
                         ]
