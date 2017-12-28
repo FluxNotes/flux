@@ -1,7 +1,17 @@
 import AllergyIntolerance from './AllergyIntolerance';
+import Entry from '../base/Entry';
 
 /** Generated from SHR definition for shr.allergy.NoKnownFoodAllergy */
 class NoKnownFoodAllergy extends AllergyIntolerance {
+    constructor(json) {
+        super(json);
+        if (json) {
+            this._entryInfo = new Entry(json);
+        } else {
+            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/NoKnownFoodAllergy",
+                                                "http://standardhealthrecord.org/allergy/AllergyIntolerance");
+        }
+    }
 
   /**
    * Getter for entry information (shr.base.Entry)
