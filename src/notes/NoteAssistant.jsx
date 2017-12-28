@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import Lang from 'lodash';
 
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
@@ -100,12 +101,12 @@ export default class NoteAssistant extends Component {
         const numberOfPreviousSignedNotes = Lang.filter(allNotes, o => o.signed).length;
 
         switch (noteAssistantMode) {
+            // Render the context tray
             case "context-tray":
-
-                // Render the context tray
                 return (
                     <div>
 			{this.renderNewNoteSVG()}
+
                         <span className="button-hover clinical-notes-btn" onClick={() => {
 			    this.toggleView("clinical-notes") }}>
                             Clinical notes
