@@ -4,6 +4,10 @@ import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
 import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
+import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
+import NoKnownDrugAllergy from '../model/shr/allergy/NoKnownDrugAllergy';
+import NoKnownEnvironmentalAllergy from '../model/shr/allergy/NoKnownEnvironmentalAllergy';
+import NoKnownFoodAllergy from '../model/shr/allergy/NoKnownFoodAllergy';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
@@ -130,13 +134,11 @@ class PatientRecord {
     }
 
     getConditions() {
-        let result = this.getEntriesIncludingType(Condition);
-        return result;
+        return this.getEntriesIncludingType(Condition);
     }
     
     getAllergies() {
-        let result = this.getEntriesIncludingType(AllergyIntolerance);
-        return result;
+        return this.getEntriesIncludingType(AllergyIntolerance);
     }
     
     getAllergiesAsText() {
@@ -147,7 +149,17 @@ class PatientRecord {
             if (!first) {
                 result += "\r\n";
             }
-            result += allergy.allergenIrritant.value.coding[0].displayText.value;
+            if (allergy instanceof NoKnownDrugAllergy) {
+                result += "NKDA";
+            } else if (allergy instanceof NoKnownAllergy) {
+                result += "No known allergies";
+            } else if (allergy instanceof NoKnownEnvironmentalAllergy) {
+                result += "No known environmental allergies";
+            } else if (allergy instanceof NoKnownFoodAllergy) {
+                result += "No known food allergies";
+            } else {
+                result += allergy.allergenIrritant.value.coding[0].displayText.value;
+            }
             first = false;
         });
         return result;
