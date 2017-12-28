@@ -1,7 +1,7 @@
 import IDataSource from './IDataSource';
 import PatientRecord from '../patient/PatientRecord';
 import hardCodedFHIRPatient from './HardCodedFHIRPatient.json';
-import request from 'sync-request';
+// import request from 'sync-request';
 
 class FHIRApiDataSource extends IDataSource {
     getPatient(id) {
