@@ -66,7 +66,7 @@ class ContextTray extends Component {
 
         let activeContexts = this._getActiveContexts();
         panelContent = (
-            <div>
+            <div className="context-tray">
                 <Tabs
                     scrollable
                     scrollButtons="auto"

@@ -163,8 +163,6 @@ test('In pre-encounter mode, clicking the "New Note" button clears the editor co
         .eql("Enter your clinical note here or choose a template to start from...");
 });
 
-
-
 test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
@@ -481,6 +479,132 @@ test('Clicking New Note button adds a new in progress note to the list', async t
     await t
         .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength+1);
 });
+
+test('Clicking on an existing note in post encounter mode loads the note in the editor', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const note = Selector('#existing-note');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on one of the existing notes
+    await t
+        .click(note)
+
+    // Test that there is some text in the editor and that the editor is not in its initial cleared state
+    await t
+        .expect(editor.textContent)
+        .notEql("Enter your clinical note here or choose a template to start from...");
+})
+
+test('Clicking on an existing note in post encounter mode puts the NotesPanel in a read only mode with the clinical notes view displayed', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesPanel = Selector('.clinical-notes-panel');
+    const note = Selector('#existing-note');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on one of the existing notes
+    await t
+        .click(note)
+
+    // Try to type random text in the editor
+    await t
+        .typeText(editor, "random_text")
+
+    // Because editor is read only, expect that text cannot be entered
+    await t
+        .expect(editor.textContent).notContains('random_text', 'Editor content does not contain the text "random_text"');
+
+    // Expect to see the clinical notes view (not the context tray)
+    await t
+        .expect(clinicalNotesPanel.exists)
+        .ok()
+})
+
+test('Clicking on an in-progress note in post encounter mode loads the note in the editor', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('#in-progress-note');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on the new note button to create an in-progress note and toggle back to clinical notes view
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton);
+
+    // Click on the in-progress note
+    await t
+        .click(inProgressNotes)
+
+    // Test that there is some text in the editor and that the editor is not in its initial cleared state
+    await t
+        .expect(editor.textContent)
+        .notEql("Enter your clinical note here or choose a template to start from...");
+})
+
+test('Clicking on an in-progress note in post encounter mode puts the NotesPanel in edit mode with the context tray displayed', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('#in-progress-note');
+    const contextTray = Selector('.context-tray');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on the new note button to create an in-progress note and toggle back to clinical notes view
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton);
+
+    // Click on the in-progress note
+    await t
+        .click(inProgressNotes)
+
+    // Try to type random text in the editor (added a space because chrome created a strange character if no space)
+    await t
+        .typeText(editor, " random_text")
+
+    // Because editor is in edit mode, expect that text can be entered
+    await t
+        .expect(editor.textContent).contains('random_text', 'Editor content contains the text "random_text"');
+
+    // Expect to see the context tray (not the clinical notes view)
+    await t
+        .expect(contextTray.exists)
+        .ok()
+})
+
+test('Clicking on an existing note in pre encounter mode loads the note in the editor', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    const editor = Selector("div[data-slate-editor='true']");
+    const note = Selector('#existing-note');
+
+    // Select pre-encounter mode
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+
+    // Click on one of the existing notes
+    await t
+        .click(note)
+
+    // Test that there is some text in the editor and that the editor is not in its initial cleared state
+    await t
+        .expect(editor.textContent)
+        .notEql("Enter your clinical note here or choose a template to start from...");
+})
 
 
 fixture('Patient Mode - Targeted Data Panel')

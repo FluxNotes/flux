@@ -13,16 +13,14 @@ class NoteAssistant extends Component {
         super(props);
 
         this.state = {
-            noteAssistantMode: "context-tray",
             sortIndex: null,
-            maxNotesToDisplay: 3,
-            selectedNote: null
+            maxNotesToDisplay: 3
         };
     }
 
-     notesNotDisplayed = null;
-     notesToDisplay = [];
-     inProgressNotes = [];
+    notesNotDisplayed = null;
+    notesToDisplay = [];
+    inProgressNotes = [];
 
     componentWillUpdate(nextProps, nextState) {
         this.getNotesFromPatient(nextProps);
@@ -32,7 +30,6 @@ class NoteAssistant extends Component {
         // Set default value for sort selection
         this.selectSort(0);
         this.getNotesFromPatient(this.props);
-        this.selectedNote = this.inProgressNotes[0];
     }
 
     getNotesFromPatient(props) {
@@ -48,13 +45,14 @@ class NoteAssistant extends Component {
 
         // Set the number of notes that are not being displayed
         let missingNotes = signedNotes.length - this.state.maxNotesToDisplay;
-            this.notesNotDisplayed = missingNotes;
-            this.inProgressNotes = unsignedNotes;
+        this.notesNotDisplayed = missingNotes;
+        this.inProgressNotes = unsignedNotes;
     }
 
     // Switch view (i.e clinical notes view or context tray)
     toggleView(mode) {
-        this.setState({noteAssistantMode: mode});
+        // this.setState({noteAssistantMode: mode});
+        this.props.updateNoteAssistantMode(mode);
     }
 
     // Update the selected index for the sort drop down
@@ -62,23 +60,38 @@ class NoteAssistant extends Component {
         this.setState({sortIndex: sortIndex});
     }
 
+    // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick() {
         this.toggleView("context-tray");
-        this.props.addNewNote("");
+        this.props.loadNote("");
 
         // Create info to be set for new note
         let date = "5 NOV 2016";
         let subject = "New Note";
         let hospital = "Dana Farber Cancer Institute";
         let clinician = "Dr. X123";
+        let content = "@name is a @age year old @gender born on @dateofbirth";
         let signed = false;
 
         // Add new unsigned note to patient record
-        this.props.patient.addClinicalNote(date, subject, hospital, clinician, signed);
+        this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+
+        // Deselect note in the clinical notes view
+        this.props.updateSelectedNote(null);
     }
 
-    openNote(note) {
-        this.setState({ selectedNote: note });
+    // Gets called when clicking on one of the notes in the clinical notes view
+    openNote(isInProgressNote, note) {
+
+        this.props.updateSelectedNote(note);
+        this.props.loadNote(note);
+
+        // If the note selected is an In-Progress note, switch to the context tray e;se use the clinical-notes view
+        if (isInProgressNote) {
+            this.toggleView("context-tray");
+        } else {
+            this.toggleView("clinical-notes");
+        }
     }
 
     // Render the content for the Note Assistant panel
@@ -93,7 +106,9 @@ class NoteAssistant extends Component {
                 // Render the context tray
                 return (
                     <div>
-                        <span className="button-hover clinical-notes-btn" onClick={() => { this.toggleView("clinical-notes")}}>
+                        <span className="button-hover clinical-notes-btn" onClick={() => {
+                            this.toggleView("clinical-notes")
+                        }}>
                             <i className="fa fa-arrow-left"></i>
                             Clinical Notes
                         </span>
@@ -136,16 +151,19 @@ class NoteAssistant extends Component {
     // Render the new note button
     renderNewNoteSVG() {
         return (
-            <svg className="note-new" onClick={() => this.handleOnNewNoteButtonClick()} viewBox="0 0 150 33" version="1.1"
+            <svg className="note-new" onClick={() => this.handleOnNewNoteButtonClick()} viewBox="0 0 150 33"
+                 version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
                         d="M136.737204,0.069612193 L3.70678711,0.069612193 L3.70678711,0.069612193 C2.04993286,0.069612193 0.706787109,1.41275794 0.706787109,3.06961219 L0.706787109,3.06961219 L0.706787109,30 C0.706787109,31.6568542 2.04993286,33 3.70678711,33 L3.70678711,33 L146.214569,33 C147.871423,33 149.214569,31.6568542 149.214569,30 L149.214569,30 L149.214569,12.5469764 L136.737204,0.069612193 Z"
                         id="path-1"></path>
                 </defs>
-                <svg x="25" y="12" width="11px" height="11px" viewBox="0 0 11 11" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <svg x="25" y="12" width="11px" height="11px" viewBox="0 0 11 11" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg">
                     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="square">
-                        <g id="Group-Copy-3" transform="translate(0.660429, 0.452719)" stroke="#16253E" strokeWidth="1.5552">
+                        <g id="Group-Copy-3" transform="translate(0.660429, 0.452719)" stroke="#16253E"
+                           strokeWidth="1.5552">
                             <path d="M0.465836188,4.96173944 L8.70583619,4.96173944" id="Line"></path>
                             <path d="M4.59517238,1.04666266 L4.59517238,9.28624923" id="Line-Copy"></path>
                         </g>
@@ -154,7 +172,7 @@ class NoteAssistant extends Component {
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g id="Group-24">
                         <g id="Combined-Shape">
-                            <use fill="#FFFFFF" fillRule="evenodd" ></use>
+                            <use fill="#FFFFFF" fillRule="evenodd"></use>
                             <path stroke="#B3B3B3" strokeWidth="0.5"
                                   d="M136.633651,0.319612193 L3.70678711,0.319612193 C2.18800405,0.319612193 0.956787109,1.55082913 0.956787109,3.06961219 L0.956787109,30 C0.956787109,31.5187831 2.18800405,32.75 3.70678711,32.75 L146.214569,32.75 C147.733352,32.75 148.964569,31.5187831 148.964569,30 L148.964569,12.6505298 L136.633651,0.319612193 Z"></path>
                         </g>
@@ -172,11 +190,13 @@ class NoteAssistant extends Component {
     }
 
     renderInProgressNoteSVG(note, i) {
-        const selected = this.state.selectedNote === note;
+        const selected = this.props.selectedNote === note;
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
         const strokeWidth = selected ? "2" : "0.5";
         return (
-            <svg key={i} className="note" id="in-progress-note" onClick={() => {this.openNote(note)}} viewBox="0 0 149 129" version="1.1"
+            <svg key={i} className="note" id="in-progress-note" onClick={() => {
+                this.openNote(true, note)
+            }} viewBox="0 0 149 129" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
@@ -240,12 +260,14 @@ class NoteAssistant extends Component {
 
     // For each clinical note, render the note image with the text
     renderClinicalNoteSVG(item, i) {
-        const selected = this.state.selectedNote === item;
+        const selected = this.props.selectedNote === item;
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
         const strokeWidth = selected ? "2" : "0.5";
 
         return (
-            <svg key={i} className="note" onClick={() => {this.openNote(item)}} viewBox="0 0 149 102" version="1.1"
+            <svg key={i} className="note" id="existing-note" onClick={() => {
+                this.openNote(false, item)
+            }} viewBox="0 0 149 102" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <path
@@ -312,9 +334,9 @@ class NoteAssistant extends Component {
             }
 
             return (
-                <text x="20" y={70+yOffset} className="existing-note-metadata">
-                    <tspan x="20" y={70+yOffset}>{hospitalFirstString}</tspan>
-                    <tspan x="20" y={85+yOffset}>{hospitalSecondString}</tspan>
+                <text x="20" y={70 + yOffset} className="existing-note-metadata">
+                    <tspan x="20" y={70 + yOffset}>{hospitalFirstString}</tspan>
+                    <tspan x="20" y={85 + yOffset}>{hospitalSecondString}</tspan>
                 </text>
             );
 
@@ -322,8 +344,8 @@ class NoteAssistant extends Component {
             hospitalFirstString = item.hospital;
 
             return (
-                <text x="20" y={70+yOffset} className="existing-note-metadata">
-                    <tspan x="20" y={70+yOffset}>{hospitalFirstString}</tspan>
+                <text x="20" y={70 + yOffset} className="existing-note-metadata">
+                    <tspan x="20" y={70 + yOffset}>{hospitalFirstString}</tspan>
                 </text>
             );
         }
@@ -348,7 +370,7 @@ class NoteAssistant extends Component {
 
             return (
                 <div>
-                    {this.renderNoteAssistantContent(this.state.noteAssistantMode)}
+                    {this.renderNoteAssistantContent(this.props.noteAssistantMode)}
                 </div>
             );
 

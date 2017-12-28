@@ -139,7 +139,7 @@ class PatientRecord {
     }
 
     // Add initial unsigned note to patient record
-    addClinicalNote(date, subject, hospital, clinician, signed) {
+    addClinicalNote(date, subject, hospital, clinician, content, signed) {
 
         // Generate the clinical note json from passed in values
         let clinicalNote = new ClinicalNote(
@@ -148,6 +148,7 @@ class PatientRecord {
                 "subject": subject,
                 "hospital": hospital,
                 "clinician": clinician,
+                "content": content,
                 "signed": signed
             }
         );

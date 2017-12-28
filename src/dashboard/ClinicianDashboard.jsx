@@ -191,6 +191,7 @@ class ClinicianDashboard extends Component {
                         updateLayoutOnNewNoteClicked={this.updateLayoutOnNewNoteClicked}
                         currentViewMode={this.props.appState.clinicalEvent}
                         setFullAppState={this.props.setFullAppState}
+                        setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     />
                 </div>
             </div>
@@ -213,6 +214,7 @@ ClinicianDashboard.proptypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
+    setFullAppStateWithCallback: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,

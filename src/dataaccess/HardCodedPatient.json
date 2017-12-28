@@ -51,7 +51,7 @@
 			"subject": "Clinical follow-up",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Smith",
-			"content": "@NAME:'Debra Hernandez672' is a @AGE:'51 year old' @GENDER:'female' presenting with @DIAGNOSIS[Lobular carcinoma of the breast]:'Lobular carcinoma of the breast'.\nDisease #disease status[Stable based on physical exam at 02.AUG.2015].",
+            "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Physical exam #as of #08/02/2015.",
 			"originalCreationDate": "02 AUG 2015",
 			"lastUpdateDate": "02 AUG 2015",
             "signed": true
@@ -65,7 +65,8 @@
 			"subject": "Consult",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Zheng",
-			"originalCreationDate": "12 JUL 2012",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has #staging values #T1 #N1 and #M0, corresponding to @stage.",
+            "originalCreationDate": "12 JUL 2012",
 			"lastUpdateDate": "12 JUL 2012",
             "signed": true
 		},
@@ -78,7 +79,8 @@
 			"subject": "Clinical post-op",
 			"hospital": "Brigham and Women's Hospital",
 			"clinician": "Dr. Smith",
-			"originalCreationDate": "20 JUN 2012",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity of #Toxicity #Grade 4 #Anemia related to #Treatment",
+            "originalCreationDate": "20 JUN 2012",
 			"lastUpdateDate": "20 JUN 2012",
             "signed": true
 		},
@@ -91,7 +93,8 @@
 			"subject": "Clinical follow-up",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Strauss",
-			"originalCreationDate": "16 MAY 2012",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the #clinical trial #PATINA #enrolled on #12/24/2017.",
+            "originalCreationDate": "16 MAY 2012",
 			"lastUpdateDate": "16 MAY 2012",
             "signed": true
 		},
