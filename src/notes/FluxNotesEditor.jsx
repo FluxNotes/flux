@@ -408,10 +408,7 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
 
-                let stringToInsert = nextProps.updatedEditorNote.date + "\n" + nextProps.updatedEditorNote.subject
-                    + "\n" + nextProps.updatedEditorNote.hospital + "\n\n" + nextProps.updatedEditorNote.content;
-
-                this.insertTextWithStructuredPhrases(stringToInsert);
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content);
 
                 // If the note is in progress, set readOnly to false. If the note is an existing note, set readOnly to true
                 if (nextProps.updatedEditorNote.signed) {
