@@ -2,7 +2,8 @@ import Lang from 'lodash';
 
 // map FHIR resourceType to SHR entryType
 const mapOptions = {
-    "Patient": "http://standardhealthrecord.org/demographics/PersonOfRecord"
+    "Patient": "http://standardhealthrecord.org/demographics/PersonOfRecord",
+    "Condition": "http://standardhealthrecord.org/condition/Condition"
 }
 
 
