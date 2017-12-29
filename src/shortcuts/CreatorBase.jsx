@@ -44,8 +44,8 @@ export default class CreatorBase extends Shortcut {
         this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 
-    initialize(contextManager) {
-        super.initialize(contextManager);
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
+        super.initialize(contextManager, trigger, updatePatient);
 
         const knownParent = this.metadata["knownParentContexts"];
 
@@ -63,7 +63,7 @@ export default class CreatorBase extends Shortcut {
         const metadataVOA = this.metadata["valueObjectAttributes"];
         metadataVOA.forEach((attrib) => {
             if (attrib.isSettable && attrib.type !== "list") {
-                this.setAttributeValue(attrib.name, null);
+                this.setAttributeValue(attrib.name, null, true, updatePatient);
             }
         });
     }
@@ -261,7 +261,7 @@ export default class CreatorBase extends Shortcut {
         }
     }
 
-    setAttributeValue(name, value, publishChanges = true) {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         //console.log("setAttributeValue " + name + " to " + value);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
@@ -302,7 +302,7 @@ export default class CreatorBase extends Shortcut {
             }
         }
         if (this.isContext()) this.updateContextStatus();
-        if (this.onUpdate) this.onUpdate(this);
+        if (this.onUpdate && updatePatient) this.onUpdate(this);
         if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }

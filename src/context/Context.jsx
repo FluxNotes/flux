@@ -4,7 +4,7 @@ export default class Context {
 	constructor() {
 		this.children = [];
 	}
-	initialize(contextManager) {
+	initialize(contextManager, trigger = undefined, updatePatient = true) {
         this.contextManager = contextManager;
         this.isInContext = false;
 	}
@@ -51,7 +51,7 @@ export default class Context {
 	getAttributeValue(name) {
 		throw new Error("[getAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
 	}
-	setAttributeValue(name, value, publishChanges) {
+	setAttributeValue(name, value, publishChanges, updatePatient = true) {
 		throw new Error("[setAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
 	}
     shouldBeInContext() {

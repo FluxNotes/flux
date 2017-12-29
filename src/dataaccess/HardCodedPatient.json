@@ -51,7 +51,7 @@
 			"subject": "Clinical follow-up",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Smith",
-            "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Physical exam #as of #08/02/2015.",
+            "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
 			"originalCreationDate": "02 AUG 2015",
 			"lastUpdateDate": "02 AUG 2015",
             "signed": true
@@ -65,7 +65,7 @@
 			"subject": "Consult",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Zheng",
-            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has #staging values #T1 #N1 and #M0, corresponding to @stage.",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has staging values T1 N1 and M0, corresponding to stage IIA.",
             "originalCreationDate": "12 JUL 2012",
 			"lastUpdateDate": "12 JUL 2012",
             "signed": true
@@ -79,7 +79,7 @@
 			"subject": "Clinical post-op",
 			"hospital": "Brigham and Women's Hospital",
 			"clinician": "Dr. Smith",
-            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity of #Toxicity #Grade 4 #Anemia related to #Treatment",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
             "originalCreationDate": "20 JUN 2012",
 			"lastUpdateDate": "20 JUN 2012",
             "signed": true
@@ -93,7 +93,7 @@
 			"subject": "Clinical follow-up",
 			"hospital": "Dana Farber Cancer Institute",
 			"clinician": "Dr. Strauss",
-            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the #clinical trial #PATINA #enrolled on #12/24/2017.",
+            "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the clinical trial PATINA on 12/24/2017.",
             "originalCreationDate": "16 MAY 2012",
 			"lastUpdateDate": "16 MAY 2012",
             "signed": true
@@ -408,13 +408,13 @@
 			"value": { "coding": [{ "value": "C0205360", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Stable, neither improving nor worsening"}]},
 			"assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
 			"clinicallyRelevantTime": {"value": "13 JAN 2012"},
-			"asOfDate": "14 JUN 2015",
+			"asOfDate": "2 AUG 2015",
 			"evidence": [ 	{ "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]},
 							{ "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
 			"assessmentType": { "coding": [{ "value": "#disease status"}]},
 			"status": "completed",
-			"originalCreationDate": "14 JUN 2015",
-			"lastUpdateDate": "14 JUN 2015"
+			"originalCreationDate": "2 AUG 2015",
+			"lastUpdateDate": "2 AUG 2015"
 		},
 		{
 			"shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",

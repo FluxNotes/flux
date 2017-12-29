@@ -12,8 +12,8 @@ class Shortcut extends Context {
         this.valueChangeHandlers = {};
     }
     
-    initialize(contextManager) {
-        super.initialize(contextManager);
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
+        super.initialize(contextManager, trigger, updatePatient);
     }
 
     setConfiguration(config) {
