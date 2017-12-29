@@ -223,6 +223,14 @@ class PatientRecord {
     getMedications() {
         return this.getEntriesOfType(FluxMedicationPrescription);
     }
+    
+    getActiveMedications() {
+        const allmeds = this.getMedications();
+        const today = new moment();
+        return allmeds.filter((med) => {
+            return med.isActiveAsOf(today);
+        });
+    }
 
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();

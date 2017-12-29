@@ -252,8 +252,8 @@
 						"timingOfDoses": {"value": 1, "units": "per day"},
 						"doseAsNeededIndicato": false},
 			"status": "active",
-			"requestedPerformanceTime": {	"timePeriodStart": "05 JUN 2017",
-										"timePeriodEnd": "01 JAN 2018"},
+			"requestedPerformanceTime": {	"timePeriodStart": "05 OCT 2017",
+										"timePeriodEnd": "01 MAY 2018"},
 			"reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
 			"originalCreationDate": "05 JUN 2017",
 			"lastUpdateDate": "05 JUN 2017"

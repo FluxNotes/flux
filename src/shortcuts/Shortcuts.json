@@ -363,10 +363,17 @@
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
-    "id": "MedicationsInserter",
+    "id": "AllMedicationsInserter",
     "getData": {"object": "patient", "method": "getMedications", "listItems": ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"]},
     "isContext": false,
-    "stringTriggers": [{"name":"@medications", "description": "Insert a summary of patient medications"}],
+    "stringTriggers": [{"name":"@all medications", "description": "Insert a summary of patient medications"}],
+    "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "ActiveMedicationsInserter",
+    "getData": {"object": "patient", "method": "getActiveMedications", "listItems": ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"]},
+    "isContext": false,
+    "stringTriggers": [{"name":"@active medications", "description": "Insert a summary of the active (currently being taken) patient medications"}],
     "knownParentContexts": "Patient"
   }
 ]

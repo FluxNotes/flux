@@ -36,12 +36,6 @@ export default class InsertValue extends Shortcut {
         const string = callSpec["string"];
         if (Lang.isUndefined(callObject)) {
             if (!Lang.isUndefined(string)) {
-/*
-"params":{"age": {"object": "patient", "method": "getAge"},
-                          "gender": {"object": "patient", "method": "getGender"},
-                          "name": {"object": "patient", "method": "getName"}
-                         }
-*/
                 const params = callSpec["params"];
                 result = "";
                 let start = 0, callId;
@@ -66,7 +60,7 @@ export default class InsertValue extends Shortcut {
                 console.error("not supported yet " + callSpec);
             }
         } else if (callObject === "patient") {
-            //"getData": [ {"object": "patient", "method": "getAge"}],
+            //"getData": [ {"object": "patient", "method": "getAge"}]
             result = contextManager.getPatient()[callSpec["method"]]();
             if (Lang.isArray(result)) {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {

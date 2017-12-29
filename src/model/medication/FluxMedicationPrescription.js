@@ -1,4 +1,5 @@
 import MedicationPrescription from '../shr/medication/MedicationPrescription';
+import moment from 'moment';
 
 // FluxMedicationPrescription class to hide codeableconcepts
 class FluxMedicationPrescription extends MedicationPrescription {
@@ -12,6 +13,16 @@ class FluxMedicationPrescription extends MedicationPrescription {
             timePeriodStart: this._requestedPerformanceTime.value.timePeriodStart.value,
             timePeriodEnd: this._requestedPerformanceTime.value.timePeriodEnd.value
         };
+    }
+    
+    isActiveAsOf(date) {
+        const requestedPerformanceTime = this.requestedPerformanceTime;
+        if (!requestedPerformanceTime) return null;
+        const start = new moment(requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const end = new moment(requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+        if (start && start > date) return false;
+        if (end && end < date) return false;
+        return true;
     }
 
     /*
