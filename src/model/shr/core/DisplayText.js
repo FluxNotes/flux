@@ -10,6 +10,10 @@ class DisplayText {
         }
     }
 
+    fromFHIR(display) {
+        this._string = display;
+    }
+
   /**
    * Convenience getter for value (accesses this.string)
    */

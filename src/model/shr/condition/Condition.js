@@ -27,6 +27,12 @@ export function initCondition() {
             }
         }
 
+        fromFHIR(entry) {
+            const resource = entry.resource;
+            this._specificType = new SpecificType();
+            this._specificType.fromFHIR(resource.code);
+        }
+
       get entryInfo() {
         return this._entryInfo;
       }

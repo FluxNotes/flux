@@ -7,6 +7,11 @@ class SpecificType {
             this.codeableConcept = new CodeableConcept(json.value);
         }
     }
+
+    fromFHIR(code) {
+        this.codeableConcept = new CodeableConcept();
+        this.codeableConcept.fromFHIR(code.coding);
+    }
     
   /**
    * Convenience getter for value (accesses this.codeableConcept)
