@@ -361,5 +361,12 @@
     "isContext": false,
     "stringTriggers": [{"name":"@allergies", "description": "Insert a summary of patient allergies"}],
     "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "MedicationsInserter",
+    "getData": {"object": "patient", "method": "getMedications", "listItems": ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"]},
+    "isContext": false,
+    "stringTriggers": [{"name":"@medications", "description": "Insert a summary of patient medications"}],
+    "knownParentContexts": "Patient"
   }
 ]
