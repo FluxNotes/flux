@@ -51,7 +51,7 @@ class TargetedDataSubpanel extends Component {
                     />
                     { (i === 0) ? 
                         <BandedLineGraphVisualizer
-                                data={[
+                            data={[
                                 {
                                     startTime: new Date(1513789180617),
                                     BMIValue: 25
@@ -97,7 +97,7 @@ class TargetedDataSubpanel extends Component {
                                     BMIValue: 26
                                 },
                             ]}
-                            xVar="startTimeNumber"
+                            xVar="startTime"
                             yVar="BMIValue"
                             ranges={[{}, {}]}
                         /> : 

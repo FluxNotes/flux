@@ -14,56 +14,63 @@ import './BandedLineGraphVisualizer.css';
  */
 class BandedLineGraphVisualizer extends Component {
     constructor(props) { 
-        super();
-
-        this.processedData = this.processForGraphing(props.data)
+        super(props);
 
         this.resize = Function.throttle(this.updateDimensions, 100);
-        this.initState = true;
+        this.updateState = true;
+        // This var will be used 
+        this.xVarNumber = `${props.xVar}Number`;
         this.state = {
             chartWidth: 400,
             chartHeight: 400,
         }
+        // process dates into numbers for graphing
+        this.processedData = this.processForGraphing(props.data);
     }
 
+    // Makesure to update data and resize the component when its contents update.
     componentDidUpdate = () => {
-        if (this.initState) {
-            this.initState = false
+        if (this.updateState) {
+            this.updateState = false;
         } else {
-            this.initState = true
-            this.resize()
+            this.updateState = true;
+            this.processedData = this.processForGraphing(this.props.data);
+            this.resize();
         }
     }
 
+    // Adds appropriate event listeners for tracking resizing
     componentDidMount = () => { 
-        window.addEventListener("resize", this.resize)
-        this.chartParentDiv.addEventListener("resize", this.resize)
+        window.addEventListener("resize", this.resize);
+        this.chartParentDiv.addEventListener("resize", this.resize);
         setTimeout(this.resize, 100);
     }
 
+    // Removes event listeners that track resizing
     componentWillUnmounnt = () => {  
         window.removeEventListener("resize", this.resize)
     }
 
+    // Turns dates into numeric representations for graphing
     processForGraphing = (data) => { 
         const dataCopy = Lang.clone(data);
-
-        Collection.map(dataCopy, function (d) { 
-            d.startTimeNumber  = Number(d.startTime)
+        
+        Collection.map(dataCopy, (d) => { 
+            d[this.xVarNumber]  = Number(d[this.props.xVar])
         });
-
         return dataCopy;
     }
 
-    dateFormat = (timeInMillisecongs) => {
-        const newTime = moment(timeInMillisecongs).format('HH:mm');
-        return newTime;
+    // Function for formatting dates -- uses moment for quick formatting options
+    dateFormat = (timeInMilliseconds) => {
+        return moment(timeInMilliseconds).format('HH:mm');
     }
 
+    // Gets the min/max values of the numeric representation of data 
     getMinMax = (data) => { 
         // Iterate once to avoid 2x iteration by calling min and max
-        return Collection.reduce(data, function (rangeValues, dataObj) { 
-            const t = dataObj.startTimeNumber;
+        return Collection.reduce(data, (rangeValues, dataObj) => { 
+            const t = dataObj[this.xVarNumber];
         
             if (t < rangeValues[0]) { 
                 rangeValues[0] = t;
@@ -71,17 +78,18 @@ class BandedLineGraphVisualizer extends Component {
                 rangeValues[1] = t;
             }
             return rangeValues;
-        }, [data[0].startTimeNumber, data[0].startTimeNumber]);
+        }, [data[0][this.xVarNumber], data[0][this.xVarNumber]]);
 
     }
 
+    // Use min/max info to build ticks for the 
     getTicks = (data) => { 
         if (!data || !data.length ) {return [];}
 
         const domain = this.getMinMax(data);
         const scale = scaleLinear().domain(domain).range([0, 1]);;
         const ticks = scale.ticks(5);
-        return ticks.map(entry => +entry).reverse();
+        return ticks.map(entry => +entry).sort();
     } 
 
     labelFormatFunction = (time)  => { 
@@ -113,7 +121,7 @@ class BandedLineGraphVisualizer extends Component {
                     margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 >
                     <XAxis 
-                        dataKey={this.props.xVar} 
+                        dataKey={this.xVarNumber} 
                         type="number"
                         domain={[]}
                         ticks={this.getTicks(this.processedData)} 
