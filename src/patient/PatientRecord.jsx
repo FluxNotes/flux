@@ -51,7 +51,7 @@ class PatientRecord {
 			const entryTypes =  mapper.mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
-					const shrObj = ShrObjectFactory.createInstance(entryType);
+                    const shrObj = ShrObjectFactory.createInstance(entryType);
 					shrObj.fromFHIR(entry);
 					this.entries.push(shrObj);
 				}
@@ -233,7 +233,7 @@ class PatientRecord {
             if (c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({
                     name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value,
-                    start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value
+                    start_time: c.whenClinicallyRecognized.time
                 });
             }
         });

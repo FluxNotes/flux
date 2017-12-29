@@ -30,7 +30,9 @@ export function initCondition() {
         fromFHIR(entry) {
             const resource = entry.resource;
             this._specificType = new SpecificType();
-            this._specificType.fromFHIR(resource.code);
+            if (resource.code) this._specificType.fromFHIR(resource.code);
+            this._whenClinicallyRecognized = new WhenClinicallyRecognized();
+            this._whenClinicallyRecognized.fromFHIR(resource.onsetDateTime);
         }
 
       get entryInfo() {

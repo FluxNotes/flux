@@ -1,11 +1,23 @@
 import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+import Lang from 'lodash';
 
 /** Generated from SHR definition for shr.condition.WhenClinicallyRecognized */
 class WhenClinicallyRecognized {
     constructor(json) {
-        this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
-        this._generalizedTemporalContext = this.generalizedTemporalContext;
+        if (json) {
+            this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
+            this._generalizedTemporalContext = this.generalizedTemporalContext;
+        }
     }
+
+    fromFHIR(dateTime) {
+        this._generalizedTemporalContext = new GeneralizedTemporalContext(dateTime);
+    }
+
+    get time() {
+        if (Lang.isUndefined(this._generalizedTemporalContext.value.value.timePeriodStart)) return this._generalizedTemporalContext.value.value;
+        return this._generalizedTemporalContext.value.value.timePeriodStart.value;
+      }
 
   /**
    * Convenience getter for value (accesses this.generalizedTemporalContext)
