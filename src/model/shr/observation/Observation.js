@@ -11,7 +11,9 @@ class Observation extends Action {
         super(json);
         if (json) {
             this._entryInfo = new Entry(json);
-            if (Lang.isObject(json.value)) {
+            if (json.clinicallyRelevantTime) this._clinicallyRelevantTime = json.clinicallyRelevantTime;
+
+          if (Lang.isObject(json.value)) {
                 if (json.value.coding) {
                     this._value = new CodeableConcept(json.value);
                 } else {

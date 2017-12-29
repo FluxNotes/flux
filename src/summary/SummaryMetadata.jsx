@@ -465,11 +465,22 @@ class SummaryMetadata {
     getItemListForLabResults = (patient, currentConditionEntry) => {
         const labResults = currentConditionEntry.getTests();
 
+        // TODO: Look at medications above for getting them in chronological order
+        // TODO: set max threshold date to return only the most recent lab results
+
+        console.log("lab results");
+        console.log(labResults);
+
         return labResults.map((l, i) => {
-            const value = `${l.quantity.number} ${l.quantity.unit}`;
+            const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
+
+            // let stringToInsert = nextProps.updatedEditorNote.date + "\n" + nextProps.updatedEditorNote.subject
+            // const name = `${l.specificType.value.coding[0].displayText.value} (date)`;
+            const name = `${l.specificType.value.coding[0].displayText.value}`;
+
 
             return {
-                name: l.specificType.value.coding[0].displayText.value,
+                name: name,
                 value: value
             };
         });
