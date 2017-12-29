@@ -21,7 +21,7 @@ class BandedLineGraphVisualizer extends Component {
         // This var will be used 
         this.xVarNumber = `${props.xVar}Number`;
         this.state = {
-            chartWidth: 400,
+            chartWidth: 600,
             chartHeight: 400,
         }
         // process dates into numbers for graphing
@@ -35,20 +35,20 @@ class BandedLineGraphVisualizer extends Component {
         } else {
             this.updateState = true;
             this.processedData = this.processForGraphing(this.props.data);
-            this.resize();
+            // this.resize();
         }
     }
 
     // Adds appropriate event listeners for tracking resizing
     componentDidMount = () => { 
-        window.addEventListener("resize", this.resize);
-        this.chartParentDiv.addEventListener("resize", this.resize);
-        setTimeout(this.resize, 100);
+        // window.addEventListener("resize", this.resize);
+        // this.chartParentDiv.addEventListener("resize", this.resize);
+        // setTimeout(this.resize, 100);
     }
 
     // Removes event listeners that track resizing
     componentWillUnmounnt = () => {  
-        window.removeEventListener("resize", this.resize)
+        // window.removeEventListener("resize", this.resize)
     }
 
     // Turns dates into numeric representations for graphing
@@ -92,10 +92,12 @@ class BandedLineGraphVisualizer extends Component {
         return ticks.map(entry => +entry).sort();
     } 
 
+    // Formats a numeric time value for pretty-printing
     labelFormatFunction = (time)  => { 
         return "Time: " + moment(time).format("MMM D HH:mm");
     }   
 
+    // Updates the dimensions of the chart
     updateDimensions = () => { 
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
         console.log(chartParentDivWidth)
