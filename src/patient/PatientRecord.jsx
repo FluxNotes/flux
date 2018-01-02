@@ -46,13 +46,16 @@ class PatientRecord {
 		// loop through each FHIR entry
 		// map to correct SHR entryTypes
 		// call ShrObjectFactory to create instances of SHR Object Model
-		// call fromFHIR method on entry from Object
+        // call fromFHIR method on entry from Object
+        let nextEntryId = 0;
 		fhirJson.entry.forEach((entry) => {
 			const entryTypes =  mapper.mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
                     const shrObj = ShrObjectFactory.createInstance(entryType);
-					shrObj.fromFHIR(entry);
+                    shrObj.fromFHIR(entry);
+                    shrObj.entryInfo.entryId = nextEntryId;
+                    nextEntryId += 1;
 					this.entries.push(shrObj);
 				}
 			});
