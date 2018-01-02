@@ -4,7 +4,7 @@ import Divider from 'material-ui/Divider';
 import TargetedDataSection from './TargetedDataSection';
 import 'font-awesome/css/font-awesome.min.css';
 import './TargetedDataSubpanel.css';
-import BandedLineGraphVisualizer from './BandedLineGraphVisualizer';
+import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 
 class TargetedDataSubpanel extends Component {
 
@@ -49,59 +49,7 @@ class TargetedDataSubpanel extends Component {
                         allowItemClick={allowItemClick}
                         isWide={isWide}
                     />
-                    { (i === 0) ? 
-                        <BandedLineGraphVisualizer
-                            data={[
-                                {
-                                    startTime: new Date(1513789180617),
-                                    BMIValue: 25
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 1000000),
-                                    BMIValue: 27
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 2000000),
-                                    BMIValue: 22
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 3000000),
-                                    BMIValue: 23
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 4000000),
-                                    BMIValue: 21
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 5000000),
-                                    BMIValue: 29
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 6000000),
-                                    BMIValue: 31
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 7000000),
-                                    BMIValue: 22
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 8000000),
-                                    BMIValue: 33
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 9000000),
-                                    BMIValue: 21
-                                },
-                                {
-                                    startTime: new Date(1513789180617 + 10000000),
-                                    BMIValue: 26
-                                },
-                            ]}
-                            xVar="startTime"
-                            yVar="BMIValue"
-                            ranges={[{}, {}]}
-                        /> : 
-                        null}
+                    
                     { i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null }
                 </div>
             );
@@ -139,3 +87,57 @@ TargetedDataSubpanel.propTypes = {
 };
 
 export default TargetedDataSubpanel;
+
+/*{ (i === 0) ? 
+    <BandedLineChartVisualizer
+        data={[
+            {
+                startTime: new Date(1513789180617),
+                BMIValue: 25
+            },
+            {
+                startTime: new Date(1513789180617 + 1000000),
+                BMIValue: 27
+            },
+            {
+                startTime: new Date(1513789180617 + 2000000),
+                BMIValue: 22
+            },
+            {
+                startTime: new Date(1513789180617 + 3000000),
+                BMIValue: 23
+            },
+            {
+                startTime: new Date(1513789180617 + 4000000),
+                BMIValue: 21
+            },
+            {
+                startTime: new Date(1513789180617 + 5000000),
+                BMIValue: 29
+            },
+            {
+                startTime: new Date(1513789180617 + 6000000),
+                BMIValue: 31
+            },
+            {
+                startTime: new Date(1513789180617 + 7000000),
+                BMIValue: 22
+            },
+            {
+                startTime: new Date(1513789180617 + 8000000),
+                BMIValue: 33
+            },
+            {
+                startTime: new Date(1513789180617 + 9000000),
+                BMIValue: 21
+            },
+            {
+                startTime: new Date(1513789180617 + 10000000),
+                BMIValue: 26
+            },
+        ]}
+        xVar="startTime"
+        yVar="BMIValue"
+        ranges={[{}, {}]}
+    /> : 
+    null}*/

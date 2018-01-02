@@ -5,27 +5,24 @@ import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
 import Function from 'lodash';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-import './BandedLineGraphVisualizer.css';
+import './BandedLineChartVisualizer.css';
 
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
  */
-class BandedLineGraphVisualizer extends Component {
+class BandedLineChartVisualizer extends Component {
     constructor(props) { 
         super(props);
 
         this.resize = Function.throttle(this.updateDimensions, 100);
         this.updateState = true;
         // This var will be used 
-        this.xVarNumber = `${props.xVar}Number`;
         this.state = {
             chartWidth: 600,
             chartHeight: 400,
         }
-        // process dates into numbers for graphing
-        this.processedData = this.processForGraphing(props.data);
     }
 
     // Makesure to update data and resize the component when its contents update.
@@ -34,7 +31,6 @@ class BandedLineGraphVisualizer extends Component {
             this.updateState = false;
         } else {
             this.updateState = true;
-            this.processedData = this.processForGraphing(this.props.data);
             // this.resize();
         }
     }
@@ -43,7 +39,7 @@ class BandedLineGraphVisualizer extends Component {
     componentDidMount = () => { 
         // window.addEventListener("resize", this.resize);
         // this.chartParentDiv.addEventListener("resize", this.resize);
-        // setTimeout(this.resize, 100);
+        setTimeout(this.resize, 100);
     }
 
     // Removes event listeners that track resizing
@@ -52,11 +48,12 @@ class BandedLineGraphVisualizer extends Component {
     }
 
     // Turns dates into numeric representations for graphing
-    processForGraphing = (data) => { 
+    processForGraphing = (data, xVar, yVar) => { 
         const dataCopy = Lang.clone(data);
-        
+        const xVarNumber = `${xVar}Number`;
+
         Collection.map(dataCopy, (d) => { 
-            d[this.xVarNumber]  = Number(d[this.props.xVar])
+            d[xVarNumber]  = Number(d[xVar])
         });
         return dataCopy;
     }
@@ -67,10 +64,12 @@ class BandedLineGraphVisualizer extends Component {
     }
 
     // Gets the min/max values of the numeric representation of data 
-    getMinMax = (data) => { 
+    getMinMax = (data, xVar, yVar) => { 
+        const xVarNumber = `${xVar}Number`;
+
         // Iterate once to avoid 2x iteration by calling min and max
         return Collection.reduce(data, (rangeValues, dataObj) => { 
-            const t = dataObj[this.xVarNumber];
+            const t = dataObj[xVarNumber];
         
             if (t < rangeValues[0]) { 
                 rangeValues[0] = t;
@@ -78,15 +77,15 @@ class BandedLineGraphVisualizer extends Component {
                 rangeValues[1] = t;
             }
             return rangeValues;
-        }, [data[0][this.xVarNumber], data[0][this.xVarNumber]]);
+        }, [data[0][xVarNumber], data[0][xVarNumber]]);
 
     }
 
     // Use min/max info to build ticks for the 
-    getTicks = (data) => { 
+    getTicks = (data, xVar, yVar) => { 
         if (!data || !data.length ) {return [];}
 
-        const domain = this.getMinMax(data);
+        const domain = this.getMinMax(data, xVar, yVar);
         const scale = scaleLinear().domain(domain).range([0, 1]);;
         const ticks = scale.ticks(5);
         return ticks.map(entry => +entry).sort();
@@ -100,8 +99,8 @@ class BandedLineGraphVisualizer extends Component {
     // Updates the dimensions of the chart
     updateDimensions = () => { 
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
-        console.log(chartParentDivWidth)
-        console.log(this.chartParentDiv)
+        // console.log(chartParentDivWidth)
+        // console.log(this.chartParentDiv)
 
         this.setState({ 
             chartWidth: chartParentDivWidth,
@@ -109,45 +108,76 @@ class BandedLineGraphVisualizer extends Component {
         })
     }
 
-    // Gets called for each section in SummaryMetaData.jsx
-    render() {
+    renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
+        const xVarNumber = `${xVar}Number`;
+        const data = subSection.itemsFunction(patient, condition)
+        console.log(data)
+        // process dates into numbers for graphing
+        const processedData = this.processForGraphing(data, xVar, yVar);
+        console.log(processedData)
         return (
             <div 
-                className="tabular-subsections"
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
+                key={subSection}
             >
                 <LineChart
                     width={this.state.chartWidth}
                     height={this.state.chartHeight}
-                    data={this.processedData}
+                    data={processedData}
                     margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 >
                     <XAxis 
-                        dataKey={this.xVarNumber} 
+                        dataKey={xVarNumber} 
                         type="number"
                         domain={[]}
-                        ticks={this.getTicks(this.processedData)} 
+                        ticks={this.getTicks(processedData)} 
                         tickFormatter={this.dateFormat}
                     />
-                    <YAxis dataKey={this.props.yVar}/>
+                    <YAxis dataKey={yVar}/>
                     <Tooltip 
                         labelFormatter={this.labelFormatFunction}
                     />
-                    <CartesianGrid stroke="#f5f5f5" />
-                    <Line type="monotone" dataKey={this.props.yVar} stroke="#ff7300" yAxisId={0} />
+                    <Line type="monotone" dataKey={yVar} stroke="#ff7300" yAxisId={0} />
                 </LineChart>
            </div>
         );
     }
+
+    // Gets called for each section in SummaryMetaData.jsx
+    render() {
+        const {patient, condition, conditionSection} = this.props;
+
+        console.log('===BandedLineChartVisualizer===')
+        console.log(condition);   
+        console.log(conditionSection)
+        return (
+            <div className="line-chart-subsection">
+                {
+                    conditionSection.data.map((subSection, i) => { 
+                        const valueName = subSection.name;
+                        const yVar = valueName;
+                        // FIXME: Starttime shouldn't be a magic string
+                        const xVar = "startTime";
+
+                        console.log(valueName)
+                        console.log(subSection)
+
+                        return this.renderSubSectionChart(subSection, patient, condition, xVar, yVar);
+                    })
+                }
+            </div>
+        );
+
+    }
 }
 
-BandedLineGraphVisualizer.propTypes = {
-    // patient: PropTypes.object,
-    // condition: PropTypes.object,
-    // conditionSection: PropTypes.object,
-    // isWide: PropTypes.bool,
+BandedLineChartVisualizer.propTypes = {
+    patient: PropTypes.object,
+    condition: PropTypes.object,
+    conditionSection: PropTypes.object,
+    isWide: PropTypes.bool,
     // onItemClicked: PropTypes.func,
     // allowItemClick: PropTypes.bool
 };
 
-export default BandedLineGraphVisualizer;
+export default BandedLineChartVisualizer;

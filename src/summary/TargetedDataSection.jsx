@@ -4,6 +4,7 @@ import Button from '../elements/Button';
 import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
+import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import './TargetedDataSection.css';
 
@@ -130,6 +131,9 @@ class TargetedDataSection extends Component {
             }
         } else if (section.type === "Events") {
             options.push('graphic');
+        } else if (section.type === "ValueOverTime") { 
+            options.push('chart');
+            options.push('tabular');
         }
         return options;
     }
@@ -197,6 +201,33 @@ class TargetedDataSection extends Component {
                     return null;
                 }
             }
+            case 'ValueOverTime': { 
+                if (visualization === 'chart') { 
+                    return (
+                        <BandedLineChartVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else if (visualization === 'tabular') { 
+                    return (
+                        <TabularListVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else { 
+                    return null;
+                }
+            }
             case 'Events': {
                 if (visualization === 'graphic') {
                     return (
@@ -218,6 +249,7 @@ class TargetedDataSection extends Component {
 
     render() {
         const visualizationOptions = this.getOptions(this.props.section);
+
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
