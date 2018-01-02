@@ -51,16 +51,18 @@ class BandedLineChartVisualizer extends Component {
     processForGraphing = (data, xVar, yVar) => { 
         const dataCopy = Lang.clone(data);
         const xVarNumber = `${xVar}Number`;
+        console.log("processForGraphing");
+        console.log(moment(data[0][xVar]));
 
         Collection.map(dataCopy, (d) => { 
-            d[xVarNumber]  = Number(d[xVar])
+            d[xVarNumber]  = Number(new Date(d[xVar]))
         });
         return dataCopy;
     }
 
     // Function for formatting dates -- uses moment for quick formatting options
     dateFormat = (timeInMilliseconds) => {
-        return moment(timeInMilliseconds).format('HH:mm');
+        return moment(timeInMilliseconds).format('MMM DD YYYY');
     }
 
     // Gets the min/max values of the numeric representation of data 
@@ -111,7 +113,7 @@ class BandedLineChartVisualizer extends Component {
     renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
         const xVarNumber = `${xVar}Number`;
         const data = subSection.itemsFunction(patient, condition)
-        // console.log(data)
+        console.log(data)
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, yVar);
         console.log(processedData)

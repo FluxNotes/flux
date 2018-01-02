@@ -498,14 +498,24 @@ class SummaryMetadata {
 
         console.log(labResults);
         const WBCLabs = labResults.filter((lab, i) => { 
-            return lab.code === WBCCode;
-        }).map((WBCLab, i) => { 
-            console.log(WBCLab.clinicallyRelevantTime)
-            // return { 
-            //     startTime: lab.clinicallyRelevantTime
-            // }
+            console.log()
+            return lab.codeableConceptCode === WBCCode;
+        }).map((lab, i) => { 
+            
+            console.log(lab.clinicallyRelevantTime);
+            console.log(lab.clinicallyRelevantTime);
+            console.log(lab.codeableConceptDisplayText);
+            console.log(lab.codeableConceptCode);
+            const processedLab = {};
+            processedLab["startTime"] = lab.clinicallyRelevantTime;
+            processedLab[lab.codeableConceptDisplayText] = lab.quantity.number;
+            processedLab["yUnit"] = lab.quantity.unit;
+            console.log(processedLab);
+
+            return processedLab
         });
-        // return WBCLabs
+        console.log(WBCLabs)
+        return WBCLabs
         const data = [
             {
                 "startTime": new Date(1513789180617),

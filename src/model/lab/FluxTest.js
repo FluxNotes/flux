@@ -20,10 +20,22 @@ class FluxTest extends Test {
         }
     }
 
-    get code() { 
+    get codeableConceptDisplayText() { 
         if (this._specificType instanceof SpecificType) { 
             if (this._specificType._codeableConcept._coding.length > 0) { 
-                return this._specificType._codeableConcept._coding[0]._code;
+                return this._specificType._codeableConcept._coding[0].displayText.string;
+            } else { 
+                return null;
+            }
+        } else { 
+            return null;
+        }        
+    }
+
+    get codeableConceptCode() { 
+        if (this._specificType instanceof SpecificType) { 
+            if (this._specificType._codeableConcept._coding.length > 0) { 
+                return this._specificType._codeableConcept._coding[0].code;
             } else { 
                 return null;
             }
@@ -36,7 +48,7 @@ class FluxTest extends Test {
         // console.log("=== FluxTest: Getting ClinicallyRelevantTime")
         // console.log(this._clinicallyRelevantTime)
         // console.log(this._clinicallyRelevantTime.value.value.value._value)
-        if (this._clinicallyRelevantTime instanceof ClinicallyRelevantTime) { 
+        if (this._clinicallyRelevantTime) { 
             return this._clinicallyRelevantTime;
         } else { 
             return null;
