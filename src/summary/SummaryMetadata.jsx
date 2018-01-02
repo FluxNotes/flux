@@ -498,7 +498,7 @@ class SummaryMetadata {
         return 0;
     }
 
-    // Grab the most recent lab results based on a maxium age of the lab result
+    // Grab the most recent lab results based on a maximum age of the lab result
     getMostRecentLabResults = (results) => {
         let mostRecentLabResultsArray = [];
 
@@ -507,7 +507,7 @@ class SummaryMetadata {
         const maxAgeInYears = 5;
 
         for (var i = 0; i < results.length; i++) {
-            var years = moment().diff(results[i].clinicallyRelevantTime, 'years');
+            var years = moment().diff(new moment(results[i].clinicallyRelevantTime, "D MMM YYYY"), 'years');
             if(years < maxAgeInYears) {
                 mostRecentLabResultsArray.push(results[i]);
             }
