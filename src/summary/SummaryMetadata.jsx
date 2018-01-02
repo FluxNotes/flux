@@ -463,27 +463,56 @@ class SummaryMetadata {
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {
-        const labResults = currentConditionEntry.getTests();
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
-        // TODO: Look at medications above for getting them in chronological order
-        // TODO: set max threshold date to return only the most recent lab results
+            const labResultsInOrder = this.getLabResultsChronologicalOrder(currentConditionEntry);
+            return labResultsInOrder.map((l, i) => {
+                const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
+                const name = `${l.specificType.value.coding[0].displayText.value}`;
 
-        console.log("lab results");
-        console.log(labResults);
-
-        return labResults.map((l, i) => {
-            const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
-
-            // let stringToInsert = nextProps.updatedEditorNote.date + "\n" + nextProps.updatedEditorNote.subject
-            // const name = `${l.specificType.value.coding[0].displayText.value} (date)`;
-            const name = `${l.specificType.value.coding[0].displayText.value}`;
-
-
-            return {
-                name: name,
-                value: value
-            };
+                return {
+                    name: name,
+                    value: value
+                };
         });
+    }
+
+    getLabResultsChronologicalOrder = (currentConditionEntry) => {
+        let results = currentConditionEntry.getTests();
+        results.sort(this._labResultsTimeSorter);
+        let mostRecentLabResults = this.getMostRecentLabResults(results);
+
+        return mostRecentLabResults;
+    }
+
+    // Sorts the lab results in chronological order
+    _labResultsTimeSorter(a, b) {
+        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+
+    // Grab the most recent lab results based on a maxium age of the lab result
+    getMostRecentLabResults = (results) => {
+        let mostRecentLabResultsArray = [];
+
+        // maxAgeInYears specifies the maximum age of the lab result. Lab results greater than the maxAgeInYears will not
+        // be displayed in the app
+        const maxAgeInYears = 5;
+
+        for (var i = 0; i < results.length; i++) {
+            var years = moment().diff(results[i].clinicallyRelevantTime, 'years');
+            if(years < maxAgeInYears) {
+                mostRecentLabResultsArray.push(results[i]);
+            }
+        }
+        return mostRecentLabResultsArray;
     }
 
     getMedicationItems = (patient, condition) => {

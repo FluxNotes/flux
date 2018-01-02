@@ -124,7 +124,27 @@
 					"entryType":	[	"http://standardhealthrecord.org/lab/Test",
 						"http://standardhealthrecord.org/observation/Observation",
 						"http://standardhealthrecord.org/base/Action" ],
-                    "clinicallyRelevantTime": "12 JAN 2018",
+                    "clinicallyRelevantTime": "12 MAY 2018",
+					"value": {"value": 2.12, "units": {"value": "109/L"}},
+					"specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
+					"status": "final",
+					"_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+				},
+                {
+                    "entryType":	[	"http://standardhealthrecord.org/lab/Test",
+                        "http://standardhealthrecord.org/observation/Observation",
+                        "http://standardhealthrecord.org/base/Action" ],
+                    "clinicallyRelevantTime": "10 JAN 2018",
+                    "value": {"value": 2.12, "units": {"value": "109/L"}},
+                    "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
+                    "status": "final",
+                    "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                },
+				{
+					"entryType":	[	"http://standardhealthrecord.org/lab/Test",
+						"http://standardhealthrecord.org/observation/Observation",
+						"http://standardhealthrecord.org/base/Action" ],
+					"clinicallyRelevantTime": "16 AUG 2009",
 					"value": {"value": 2.12, "units": {"value": "109/L"}},
 					"specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
 					"status": "final",
