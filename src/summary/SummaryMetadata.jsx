@@ -211,8 +211,8 @@ class SummaryMetadata {
                         type: "ValueOverTime",
                         data: [
                             {
-                                name: "BMIValue",
-                                itemsFunction: this.getItemListForWhiteBloodCellCount
+                                name: "White blood cell",
+                                itemsFunction: this.getLabsForWhiteBloodCell
                             }
                         ]
                     },
@@ -491,7 +491,21 @@ class SummaryMetadata {
         });
     }
 
-    getItemListForWhiteBloodCellCount = (patient, currentConditionEntry) => { 
+    getLabsForWhiteBloodCell = (patient, currentConditionEntry) => { 
+        // FIXME: This shouldn't just be a code, but a code in the context of a codesystem/valueset. This could cause issues when scaling to complex patient pulling from complex codesystems.
+        const WBCCode = "C0023508"
+        const labResults = currentConditionEntry.getTests();
+
+        console.log(labResults);
+        const WBCLabs = labResults.filter((lab, i) => { 
+            return lab.code === WBCCode;
+        }).map((WBCLab, i) => { 
+            console.log(WBCLab.clinicallyRelevantTime)
+            // return { 
+            //     startTime: lab.clinicallyRelevantTime
+            // }
+        });
+        // return WBCLabs
         const data = [
             {
                 "startTime": new Date(1513789180617),

@@ -111,7 +111,7 @@ class BandedLineChartVisualizer extends Component {
     renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
         const xVarNumber = `${xVar}Number`;
         const data = subSection.itemsFunction(patient, condition)
-        console.log(data)
+        // console.log(data)
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, yVar);
         console.log(processedData)
@@ -147,9 +147,6 @@ class BandedLineChartVisualizer extends Component {
     render() {
         const {patient, condition, conditionSection} = this.props;
 
-        console.log('===BandedLineChartVisualizer===')
-        console.log(condition);   
-        console.log(conditionSection)
         return (
             <div className="line-chart-subsection">
                 {
@@ -158,9 +155,6 @@ class BandedLineChartVisualizer extends Component {
                         const yVar = valueName;
                         // FIXME: Starttime shouldn't be a magic string
                         const xVar = "startTime";
-
-                        console.log(valueName)
-                        console.log(subSection)
 
                         return this.renderSubSectionChart(subSection, patient, condition, xVar, yVar);
                     })

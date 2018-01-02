@@ -4,6 +4,7 @@ import CodeableConcept from '../core/CodeableConcept';
 import Quantity from '../core/Quantity';
 import Entry from '../base/Entry';
 import Status from '../base/Status';
+import ClinicallyRelevantTime from '../observation/ClinicallyRelevantTime';
 
 /** Generated from SHR definition for shr.observation.Observation */
 class Observation extends Action {
@@ -11,9 +12,8 @@ class Observation extends Action {
         super(json);
         if (json) {
             this._entryInfo = new Entry(json);
-            if (json.clinicallyRelevantTime) this._clinicallyRelevantTime = json.clinicallyRelevantTime;
-
-            if (Lang.isObject(json.value)) {
+           if (json.clinicallyRelevantTime) this._clinicallyRelevantTime = json.clinicallyRelevantTime;
+           if (Lang.isObject(json.value)) {
                 if (json.value.coding) {
                     this._value = new CodeableConcept(json.value);
                 } else {
