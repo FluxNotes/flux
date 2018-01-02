@@ -354,5 +354,26 @@
     "contextValueObjectEntryType": "http://standardhealthrecord.org/oncology/BreastCancer",
     "knownParentContexts": "ConditionInserter",
     "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."
+  },
+  { "type": "InsertValue",
+    "id": "AllergiesInserter",
+    "getData": {"object": "patient", "method": "getAllergiesAsText"},
+    "isContext": false,
+    "stringTriggers": [{"name":"@allergies", "description": "Insert a summary of patient allergies"}],
+    "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "AllMedicationsInserter",
+    "getData": {"object": "patient", "method": "getMedications", "listItems": ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"]},
+    "isContext": false,
+    "stringTriggers": [{"name":"@all medications", "description": "Insert a summary of patient medications"}],
+    "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "ActiveMedicationsInserter",
+    "getData": {"object": "patient", "method": "getActiveMedications", "listItems": ["medication", "amountPerDose.value", "amountPerDose.units", "timingOfDoses.value", "timingOfDoses.units"]},
+    "isContext": false,
+    "stringTriggers": [{"name":"@active medications", "description": "Insert a summary of the active (currently being taken) patient medications"}],
+    "knownParentContexts": "Patient"
   }
 ]

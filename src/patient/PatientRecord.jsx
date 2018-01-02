@@ -1,8 +1,13 @@
 import ShrObjectFactory from '../model/ShrObjectFactory';
+import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
 import Condition from '../model/shr/condition/Condition';
 import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
+import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
+import NoKnownDrugAllergy from '../model/shr/allergy/NoKnownDrugAllergy';
+import NoKnownEnvironmentalAllergy from '../model/shr/allergy/NoKnownEnvironmentalAllergy';
+import NoKnownFoodAllergy from '../model/shr/allergy/NoKnownFoodAllergy';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
 import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
@@ -129,7 +134,34 @@ class PatientRecord {
     }
 
     getConditions() {
-        let result = this.getEntriesIncludingType(Condition);
+        return this.getEntriesIncludingType(Condition);
+    }
+    
+    getAllergies() {
+        return this.getEntriesIncludingType(AllergyIntolerance);
+    }
+    
+    getAllergiesAsText() {
+        const allergies = this.getAllergies();
+        let result = "";
+        let first = true;
+        allergies.forEach((allergy, index) => {
+            if (!first) {
+                result += "\r\n";
+            }
+            if (allergy instanceof NoKnownDrugAllergy) {
+                result += "NKDA";
+            } else if (allergy instanceof NoKnownAllergy) {
+                result += "No known allergies";
+            } else if (allergy instanceof NoKnownEnvironmentalAllergy) {
+                result += "No known environmental allergies";
+            } else if (allergy instanceof NoKnownFoodAllergy) {
+                result += "No known food allergies";
+            } else {
+                result += allergy.allergenIrritant.value.coding[0].displayText.value;
+            }
+            first = false;
+        });
         return result;
     }
 
@@ -190,6 +222,14 @@ class PatientRecord {
 
     getMedications() {
         return this.getEntriesOfType(FluxMedicationPrescription);
+    }
+    
+    getActiveMedications() {
+        const allmeds = this.getMedications();
+        const today = new moment();
+        return allmeds.filter((med) => {
+            return med.isActiveAsOf(today);
+        });
     }
 
     getMedicationsChronologicalOrder() {

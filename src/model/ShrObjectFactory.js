@@ -1,4 +1,5 @@
 import ShrActorObjectFactory from './ShrActorObjectFactory';
+import ShrAllergyObjectFactory from './ShrAllergyObjectFactory';
 import ShrBaseObjectFactory from './ShrBaseObjectFactory';
 import ShrConditionObjectFactory from './ShrConditionObjectFactory';
 import ShrCoreObjectFactory from './ShrCoreObjectFactory';
@@ -22,6 +23,7 @@ const _entryTypeToClassSpec = (entryType) => {
 
 const namespaceFactories = {
     "actor": ShrActorObjectFactory,
+    "allergy": ShrAllergyObjectFactory,
     "base": ShrBaseObjectFactory,
     "condition": ShrConditionObjectFactory,
     "core": ShrCoreObjectFactory,

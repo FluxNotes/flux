@@ -36,12 +36,6 @@ export default class InsertValue extends Shortcut {
         const string = callSpec["string"];
         if (Lang.isUndefined(callObject)) {
             if (!Lang.isUndefined(string)) {
-/*
-"params":{"age": {"object": "patient", "method": "getAge"},
-                          "gender": {"object": "patient", "method": "getGender"},
-                          "name": {"object": "patient", "method": "getName"}
-                         }
-*/
                 const params = callSpec["params"];
                 result = "";
                 let start = 0, callId;
@@ -66,16 +60,36 @@ export default class InsertValue extends Shortcut {
                 console.error("not supported yet " + callSpec);
             }
         } else if (callObject === "patient") {
-            //"getData": [ {"object": "patient", "method": "getAge"}],
+            //"getData": [ {"object": "patient", "method": "getAge"}]
             result = contextManager.getPatient()[callSpec["method"]]();
             if (Lang.isArray(result)) {
-                const itemKey = callSpec["itemKey"].split(".");
-                const itemContext = callSpec["itemContext"].split(".");
-                return result.map((item) => {
-                    return {key: this._getValueUsingPath(item, itemKey), 
-                            context: this._getValueUsingPath(item, itemContext), 
-                            object: item};
-                });
+                if (!Lang.isUndefined(callSpec["itemKey"])) {
+                    const itemKey = callSpec["itemKey"].split(".");
+                    const itemContext = callSpec["itemContext"].split(".");
+                    return result.map((item) => {
+                        return {key: this._getValueUsingPath(item, itemKey), 
+                                context: this._getValueUsingPath(item, itemContext), 
+                                object: item};
+                    });
+                } else {
+                    let listItems = callSpec["listItems"];
+                    listItems = listItems.map((listItem) => {
+                        return listItem.split(".");
+                    });
+                    const numMedications = result.length - 1;
+                    const numListItems = listItems.length - 1;
+                    let strResult = "";
+                    result.forEach((item, itemIndex) => {
+                        listItems.forEach((itemKey, attrIndex) => {
+                            strResult += this._getValueUsingPath(item, itemKey);
+                            if (attrIndex < numListItems) strResult += " ";
+                        });
+                        if (itemIndex < numMedications) {
+                            strResult += "\r\n";
+                        }
+                    });
+                    result = strResult;
+                }
             }
             return result;
         } else if (callObject === "parent") {
