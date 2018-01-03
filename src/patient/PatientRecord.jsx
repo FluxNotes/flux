@@ -61,9 +61,8 @@ class PatientRecord {
 			});
 		});
 
-		this.personOfRecord = this.getPersonOfRecord();
-		this.shrId = this.personOfRecord.entryInfo.shrId;
-		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryId; })) + 1;
+        this.personOfRecord = this.getPersonOfRecord();
+		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
 	}
 
     addEntryToPatient(entry) {
