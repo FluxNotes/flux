@@ -25,7 +25,7 @@ class PatientRecord {
             this.personOfRecord = this.getPersonOfRecord();
             this.shrId = this.personOfRecord.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                    return o.entryId;
+                    return o.entryInfo.entryId;
                 })) + 1;
         } else { // create a new patient
             this.entries = [];
