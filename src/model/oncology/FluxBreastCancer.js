@@ -67,7 +67,7 @@ class FluxBreastCancer extends BreastCancer {
     }
 
     // Grab the most recent lab results within a set threshold date
-    getMostRecentLabResults = (results, sinceDate) => {
+    getMostRecentLabResults(results, sinceDate) {
 
         let mostRecentLabResultsLookupTable = {};
 
