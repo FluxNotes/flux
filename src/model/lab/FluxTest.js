@@ -45,9 +45,6 @@ class FluxTest extends Test {
     }
 
     get clinicallyRelevantTime() { 
-        // console.log("=== FluxTest: Getting ClinicallyRelevantTime")
-        // console.log(this._clinicallyRelevantTime)
-        // console.log(this._clinicallyRelevantTime.value.value.value._value)
         if (this._clinicallyRelevantTime) { 
             return this._clinicallyRelevantTime;
         } else { 

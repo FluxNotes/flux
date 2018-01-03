@@ -51,8 +51,6 @@ class BandedLineChartVisualizer extends Component {
     processForGraphing = (data, xVar, yVar) => { 
         const dataCopy = Lang.clone(data);
         const xVarNumber = `${xVar}Number`;
-        console.log("processForGraphing");
-        console.log(moment(data[0][xVar]));
 
         Collection.map(dataCopy, (d) => { 
             d[xVarNumber]  = Number(new Date(d[xVar]))
@@ -101,22 +99,18 @@ class BandedLineChartVisualizer extends Component {
     // Updates the dimensions of the chart
     updateDimensions = () => { 
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
-        // console.log(chartParentDivWidth)
-        // console.log(this.chartParentDiv)
 
         this.setState({ 
             chartWidth: chartParentDivWidth,
-            // chartHeight: chartParentDivRect.height,
         })
     }
 
     renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
         const xVarNumber = `${xVar}Number`;
         const data = subSection.itemsFunction(patient, condition)
-        console.log(data)
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, yVar);
-        console.log(processedData)
+        
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}

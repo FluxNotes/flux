@@ -496,16 +496,9 @@ class SummaryMetadata {
         const WBCCode = "C0023508"
         const labResults = currentConditionEntry.getTests();
 
-        console.log(labResults);
         const WBCLabs = labResults.filter((lab, i) => { 
-            console.log()
             return lab.codeableConceptCode === WBCCode;
         }).map((lab, i) => { 
-            
-            console.log(lab.clinicallyRelevantTime);
-            console.log(lab.clinicallyRelevantTime);
-            console.log(lab.codeableConceptDisplayText);
-            console.log(lab.codeableConceptCode);
             const processedLab = {};
             processedLab["startTime"] = lab.clinicallyRelevantTime;
             processedLab[lab.codeableConceptDisplayText] = lab.quantity.number;
