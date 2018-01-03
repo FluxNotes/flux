@@ -48,9 +48,8 @@ class BandedLineChartVisualizer extends Component {
     }
 
     // Turns dates into numeric representations for graphing
-    processForGraphing = (data, xVar, yVar) => { 
+    processForGraphing = (data, xVar, xVarNumber) => { 
         const dataCopy = Lang.clone(data);
-        const xVarNumber = `${xVar}Number`;
 
         Collection.map(dataCopy, (d) => { 
             d[xVarNumber]  = Number(new Date(d[xVar]))
@@ -65,10 +64,8 @@ class BandedLineChartVisualizer extends Component {
 
     // Gets the min/max values of the numeric representation of xVar
     // Assumes processed data array 
-    getMinMax = (processedData, xVar) => { 
-        const xVarNumber = `${xVar}Number`;
-
-        // Iterate once to avoid 2x iteration by calling min and max
+    getMinMax = (processedData, xVarNumber) => { 
+        // Iterate once to avoid 2x iteration by calling min and max separately
         return Collection.reduce(processedData, (rangeValues, dataObj) => {
             const t = dataObj[xVarNumber];
             
@@ -84,18 +81,18 @@ class BandedLineChartVisualizer extends Component {
 
     // Use min/max info to build ticks for the 
     // Assumes processed data
-    getTicks = (processedData, xVar) => { 
+    getTicks = (processedData, xVarNumber) => { 
         if (!processedData || !processedData.length ) {return [];}
 
-        const domain = this.getMinMax(processedData, xVar);
+        const domain = this.getMinMax(processedData, xVarNumber);
         const scale = scaleLinear().domain(domain).range([0, 1]);;
         const ticks = scale.ticks(4);
         return ticks.map(entry => +entry).sort();
     } 
 
     // Formats a xVar (numeric time) value for tooltips
-    xVarFormatFunction = (time)  => { 
-        return "Date: " + moment(time).format("MMM D");
+    xVarFormatFunction = (xVarNumber)  => { 
+        return "Date: " + moment(xVarNumber).format("MMM D");
     }   
 
     // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
@@ -114,11 +111,14 @@ class BandedLineChartVisualizer extends Component {
         })
     }
 
-    renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
+    renderSubSectionChart = (subSection, patient, condition) => { 
+        // FIXME: Should startTime be a magic string
+        const xVar = "startTime";
         const xVarNumber = `${xVar}Number`;
-        const data = subSection.itemsFunction(patient, condition);  
+        const yVar = subSection.name;
+        const data = subSection.itemsFunction(patient, condition, xVar, yVar);  
         // process dates into numbers for graphing
-        const processedData = this.processForGraphing(data, xVar, yVar);
+        const processedData = this.processForGraphing(data, xVar, xVarNumber);
         const yUnit = processedData[0].yUnit;
         return (
             <div 
@@ -135,7 +135,7 @@ class BandedLineChartVisualizer extends Component {
                         dataKey={xVarNumber} 
                         type="number"
                         domain={[]}
-                        ticks={this.getTicks(processedData, xVar)} 
+                        ticks={this.getTicks(processedData, xVarNumber)} 
                         tickFormatter={this.dateFormat}
                     />
                     <YAxis 
@@ -159,12 +159,7 @@ class BandedLineChartVisualizer extends Component {
             <div className="line-chart-subsection">
                 {
                     conditionSection.data.map((subSection, i) => { 
-                        const valueName = subSection.name;
-                        const yVar = valueName;
-                        // FIXME: Starttime shouldn't be a magic string
-                        const xVar = "startTime";
-
-                        return this.renderSubSectionChart(subSection, patient, condition, xVar, yVar);
+                        return this.renderSubSectionChart(subSection, patient, condition);
                     })
                 }
             </div>
