@@ -583,7 +583,7 @@ class SummaryMetadata {
             const assignedGroup = this.assignItemToGroup(items, evt.start_time, groupStartIndex);
 
             let classes = 'progression-item';
-            let startDate = new moment(evt.start_time);
+            let startDate = new moment(evt.start_time, "D MMM YYYY");
             let endDate = null;
             let hoverText = '';
             let hoverTitle = '';

@@ -1,5 +1,6 @@
 import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
 import Lang from 'lodash';
+import moment from 'moment';
 
 /** Generated from SHR definition for shr.condition.WhenClinicallyRecognized */
 class WhenClinicallyRecognized {
@@ -11,7 +12,7 @@ class WhenClinicallyRecognized {
     }
 
     fromFHIR(dateTime) {
-        this._generalizedTemporalContext = new GeneralizedTemporalContext(dateTime);
+        this._generalizedTemporalContext = new GeneralizedTemporalContext(new moment(dateTime).format('D MMM YYYY'));
     }
 
     get time() {
