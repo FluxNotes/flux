@@ -99,12 +99,19 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
-        let list, item, value, type, valueSpec, subsectionName, valueName;
+        let list, item, value, type, valueSpec, subsectionName, valueName, first;
         let _filterItemsByName = (item) => {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
             return item.name + ": " + item.value;
+        };
+        let _addListItemToResult = (listItem) => {
+            if (!first) result.push( { text: ', ', type: 'plain' });
+            value = _addLabResultToNarrative(listItem);
+            type = "structured-data";
+            result.push( { text: value, type: type } );
+            if (first) first = false;
         };
         while (pos !== -1) {
             result.push( { text: template.substring(start, pos), type: 'plain'} );
@@ -114,16 +121,15 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (index === -1) {
                 subsectionName = valueSpec;
                 if(Lang.isUndefined(subsections[subsectionName])) {
-                    value = valueSpec;
-                    type = "missing";
+                    result.push( { text: valueSpec, type: 'missing' } );
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
                         type = "missing";
                     } else {
-                        value = list.map(_addLabResultToNarrative).join(", ");
-                        type = "structured-data";
+                        first = true;
+                        list.forEach(_addListItemToResult);
                     }
                 }
             } else {
