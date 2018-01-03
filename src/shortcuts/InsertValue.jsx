@@ -8,8 +8,8 @@ export default class InsertValue extends Shortcut {
 		this.text = null;
     }
     
-	initialize(contextManager) {
-		super.initialize(contextManager);
+	initialize(contextManager, trigger = undefined, updatePatient = true) {
+		super.initialize(contextManager, trigger, updatePatient);
 		let text = this.determineText(contextManager);
 		if (Lang.isArray(text)) {
 			this.flagForTextSelection(text);

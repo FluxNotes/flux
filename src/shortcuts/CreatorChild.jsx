@@ -13,8 +13,8 @@ export default class CreatorChild extends Shortcut {
         return "#";
     }
 
-    initialize(contextManager, trigger) {
-        super.initialize(contextManager);
+    initialize(contextManager, trigger, updatePatient = true) {
+        super.initialize(contextManager, trigger, updatePatient);
         let text = this.determineText(contextManager);
         if (!Lang.isUndefined(text)) {
             if (Lang.isArray(text) || text === 'date-id') {
@@ -55,7 +55,7 @@ export default class CreatorChild extends Shortcut {
         }
         if (!found || !picker) {
             //console.log("not found: " + trigger);
-            this.setText(trigger);
+            this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
     }
@@ -108,7 +108,7 @@ export default class CreatorChild extends Shortcut {
         }
     }
 
-    setText(text) {
+    setText(text, updatePatient = true) {
         if (text.startsWith('#')) {
             text = text.substring(1);
         }
@@ -120,7 +120,7 @@ export default class CreatorChild extends Shortcut {
         }
         if (!Lang.isUndefined(this.parentContext)) {
             //console.log("set " + this.metadata.parentAttribute + " to " + value);
-            this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false);
+            this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient);
         }
     }
 

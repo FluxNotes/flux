@@ -244,11 +244,11 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined) {
+    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger);
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
 //            console.log(text);
             if (text.length > 0) {
@@ -336,7 +336,7 @@ class FluxNotesEditor extends React.Component {
     insertStructuredFieldTransform(transform, shortcut) {
         //console.log(shortcut);
         if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut); //2nd param needs to be Shortcut Object, how to create?
+        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         //console.log(result[0]);
         return result[0];
     }
@@ -408,7 +408,7 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
 
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content);
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
 
                 // If the note is in progress, set readOnly to false. If the note is an existing note, set readOnly to true
                 if (nextProps.updatedEditorNote.signed) {
@@ -447,7 +447,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
         let state;
         const currentState = this.state.state;
 
@@ -495,7 +495,7 @@ class FluxNotesEditor extends React.Component {
                     after = "";
                 }
 
-                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform);
+                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
             });
         }
 

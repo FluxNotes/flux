@@ -12,8 +12,8 @@ export default class CreatorIntermediary extends Shortcut {
         this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 
-    initialize(contextManager) {
-        super.initialize(contextManager);
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
+        super.initialize(contextManager, trigger, updatePatient);
 
         const knownParent = this.metadata["knownParentContexts"];
 
@@ -24,7 +24,7 @@ export default class CreatorIntermediary extends Shortcut {
         }
 
         if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false);
+            this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
             this.parentContext.addChild(this);
         }
     }
@@ -110,13 +110,13 @@ export default class CreatorIntermediary extends Shortcut {
         }
     }
 
-    setAttributeValue(name, value, publishChanges = true) {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voaList = this.metadata["valueObjectAttributes"];
         let result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {
-            this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges);
+            this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges, updatePatient);
             if (this.isContext()) this.updateContextStatus();
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);

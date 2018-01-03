@@ -85,8 +85,8 @@ class FullApp extends Component {
     }
 
     // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed.
-    newCurrentShortcut = (shortcutC, shortcutType, obj) => {
-        let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate, obj);
+    newCurrentShortcut = (shortcutC, shortcutType, updatePatient = true) => {
+        let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
         if (errors.length > 0) {
             errors.forEach((error) => {
@@ -94,7 +94,7 @@ class FullApp extends Component {
             });
             newShortcut = null;
         } else {
-            newShortcut.initialize(this.contextManager, shortcutType);
+            newShortcut.initialize(this.contextManager, shortcutType, updatePatient);
         }
         this.updateErrors(errors);
         return newShortcut;
