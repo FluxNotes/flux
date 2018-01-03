@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { LineChart, Line,CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -60,41 +60,50 @@ class BandedLineChartVisualizer extends Component {
 
     // Function for formatting dates -- uses moment for quick formatting options
     dateFormat = (timeInMilliseconds) => {
-        return moment(timeInMilliseconds).format('MMM DD YYYY');
+        return moment(timeInMilliseconds).format('MM-DD-YY');
     }
 
-    // Gets the min/max values of the numeric representation of data 
-    getMinMax = (data, xVar, yVar) => { 
+    // Gets the min/max values of the numeric representation of xVar
+    // Assumes processed data array 
+    getMinMax = (processedData, xVar) => { 
         const xVarNumber = `${xVar}Number`;
 
         // Iterate once to avoid 2x iteration by calling min and max
-        return Collection.reduce(data, (rangeValues, dataObj) => { 
+        return Collection.reduce(processedData, (rangeValues, dataObj) => {
             const t = dataObj[xVarNumber];
-        
+            
             if (t < rangeValues[0]) { 
                 rangeValues[0] = t;
             } else if (t > rangeValues[1]) { 
                 rangeValues[1] = t;
             }
             return rangeValues;
-        }, [data[0][xVarNumber], data[0][xVarNumber]]);
+        }, [processedData[0][xVarNumber], processedData[0][xVarNumber]]);
 
     }
 
     // Use min/max info to build ticks for the 
-    getTicks = (data, xVar, yVar) => { 
-        if (!data || !data.length ) {return [];}
+    // Assumes processed data
+    getTicks = (processedData, xVar) => { 
+        if (!processedData || !processedData.length ) {return [];}
 
-        const domain = this.getMinMax(data, xVar, yVar);
+        const domain = this.getMinMax(processedData, xVar);
         const scale = scaleLinear().domain(domain).range([0, 1]);;
-        const ticks = scale.ticks(5);
+        const ticks = scale.ticks(4);
         return ticks.map(entry => +entry).sort();
     } 
 
-    // Formats a numeric time value for pretty-printing
-    labelFormatFunction = (time)  => { 
-        return "Time: " + moment(time).format("MMM D HH:mm");
+    // Formats a xVar (numeric time) value for tooltips
+    xVarFormatFunction = (time)  => { 
+        return "Date: " + moment(time).format("MMM D");
     }   
+
+    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
+    createYVarFormatFunctionWithUnit = (unit) => { 
+        return (value) => { 
+            return `${value} ${unit}`;
+        }
+    }
 
     // Updates the dimensions of the chart
     updateDimensions = () => { 
@@ -107,10 +116,10 @@ class BandedLineChartVisualizer extends Component {
 
     renderSubSectionChart = (subSection, patient, condition, xVar, yVar) => { 
         const xVarNumber = `${xVar}Number`;
-        const data = subSection.itemsFunction(patient, condition)
+        const data = subSection.itemsFunction(patient, condition);  
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, yVar);
-        
+        const yUnit = processedData[0].yUnit;
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
@@ -126,14 +135,17 @@ class BandedLineChartVisualizer extends Component {
                         dataKey={xVarNumber} 
                         type="number"
                         domain={[]}
-                        ticks={this.getTicks(processedData)} 
+                        ticks={this.getTicks(processedData, xVar)} 
                         tickFormatter={this.dateFormat}
                     />
-                    <YAxis dataKey={yVar}/>
-                    <Tooltip 
-                        labelFormatter={this.labelFormatFunction}
+                    <YAxis 
+                        dataKey={yVar}
                     />
-                    <Line type="monotone" dataKey={yVar} stroke="#ff7300" yAxisId={0} />
+                    <Tooltip 
+                        labelFormatter={this.xVarFormatFunction}
+                        formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
+                    />
+                    <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} />
                 </LineChart>
            </div>
         );

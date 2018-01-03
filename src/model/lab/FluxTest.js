@@ -1,6 +1,5 @@
 import Test from '../shr/lab/Test';
 import SpecificType from '../shr/core/SpecificType';
-import ClinicallyRelevantTime from '../shr/observation/ClinicallyRelevantTime';
 import Quantity from '../shr/core/Quantity';
 
 class FluxTest extends Test {

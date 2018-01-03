@@ -4,7 +4,6 @@ import CodeableConcept from '../core/CodeableConcept';
 import Quantity from '../core/Quantity';
 import Entry from '../base/Entry';
 import Status from '../base/Status';
-import ClinicallyRelevantTime from '../observation/ClinicallyRelevantTime';
 
 /** Generated from SHR definition for shr.observation.Observation */
 class Observation extends Action {
