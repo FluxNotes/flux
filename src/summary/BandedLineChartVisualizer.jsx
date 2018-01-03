@@ -112,14 +112,14 @@ class BandedLineChartVisualizer extends Component {
     }
 
     renderSubSectionChart = (subSection, patient, condition) => { 
-        // FIXME: Should startTime be a magic string
-        const xVar = "startTime";
+        // FIXME: Should start_time be a magic string
+        const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = subSection.name;
-        const data = subSection.itemsFunction(patient, condition, xVar, yVar);  
+        const data = subSection.itemsFunction(patient, condition);  
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
-        const yUnit = processedData[0].yUnit;
+        const yUnit = processedData[0].unit;
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}

@@ -491,21 +491,22 @@ class SummaryMetadata {
         });
     }
 
-    getLabsForWhiteBloodCell = (patient, currentConditionEntry, xVar, yVar) => { 
+    getLabsForWhiteBloodCell = (patient, currentConditionEntry) => { 
+        // FIXME: This shouldn't just be display text, but text in the context of a codesystem/valueset. This could cause issues when scaling to complex patient pulling from complex codesystems.
+        const WBCDisplayText = "White blood cell"
         const labResults = currentConditionEntry.getTests();
 
-        const processedWBCLabs = labResults.filter((lab, i) => { 
-            //  FIXME: Could produce issues when items have = display text but are != codeable concepts (e.g. WBC as captured in two different codeSystems)
-            return lab.codeableConceptDisplayText === yVar;
+        const WBCLabs = labResults.filter((lab, i) => { 
+            return lab.codeableConceptDisplayText === WBCDisplayText;
         }).map((lab, i) => { 
             const processedLab = {};
-            processedLab[xVar] = lab.clinicallyRelevantTime;
-            processedLab[yVar] = lab.quantity.number;
-            processedLab["yUnit"] = lab.quantity.unit;
+            processedLab["start_time"] = lab.clinicallyRelevantTime;
+            processedLab[lab.codeableConceptDisplayText] = lab.quantity.number;
+            processedLab["unit"] = lab.quantity.unit;
 
-            return processedLab;
+            return processedLab
         });
-        return processedWBCLabs;
+        return WBCLabs
     }
 
     getMedicationItems = (patient, condition) => {
