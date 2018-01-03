@@ -134,7 +134,7 @@
                     "entryType":	[	"http://standardhealthrecord.org/lab/Test",
                         "http://standardhealthrecord.org/observation/Observation",
                         "http://standardhealthrecord.org/base/Action" ],
-                    "clinicallyRelevantTime": "10 JAN 2018",
+                    "clinicallyRelevantTime": "10 FEB 2018",
                     "value": {"value": 2.14, "units": {"value": "109/L"}},
                     "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
                     "status": "final",

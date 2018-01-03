@@ -11,7 +11,7 @@ class SummaryMetadata {
                     {
                         name: "Summary",
                         type: "NameValuePairs",
-    /*eslint no-template-curly-in-string: "off"*/
+                        /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
                                 defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}"
@@ -26,11 +26,11 @@ class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "Recent lab results include ${Recent Lab Results}" ,
+                                defaultTemplate: "Recent lab results include ${Recent Lab Results}",
                                 dataMissingTemplate: "No recent ${lab results}",
                                 useDataMissingTemplateCriteria: [
                                     "Recent Lab Results"
-                                ]                            
+                                ]
                             }
                         ],
                         data: [
@@ -178,7 +178,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                items:  [
+                                items: [
                                     {
                                         name: "Diagnosis",
                                         value: (patient, currentConditionEntry) => {
@@ -201,19 +201,19 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                headings: [ "Procedure", "When" ],
+                                headings: ["Procedure", "When"],
                                 itemsFunction: this.getItemListForProcedures
                             }
                         ]
                     },
                     {
                         name: "Medications",
-                        clinicalEvents: [ "pre-encounter" ],
+                        clinicalEvents: ["pre-encounter"],
                         type: "ListType",
                         data: [
                             {
                                 name: "",
-                                headings: [ "Medication", "Dosage", "Timing", "Start", "End" ],
+                                headings: ["Medication", "Dosage", "Timing", "Start", "End"],
                                 itemsFunction: this.getItemListForMedications
                             }
                         ]
@@ -221,13 +221,13 @@ class SummaryMetadata {
                     {
                         name: "Pathology Results",
                         type: "NameValuePairs",
-    /*eslint no-template-curly-in-string: "off"*/
+                        /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
                                 defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}"
                             },
                             {
-                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}"       
+                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}"
                             },
                             {
                                 defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}"
@@ -236,14 +236,15 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                items:  [
+                                items: [
                                     {
                                         name: "Color",
                                         value: null
                                     },
                                     {
                                         name: "Weight",
-                                        value: null },
+                                        value: null
+                                    },
                                     {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
@@ -305,19 +306,19 @@ class SummaryMetadata {
                     {
                         name: "Genetics",
                         type: "NameValuePairs",
-    /*eslint no-template-curly-in-string: "off"*/
+                        /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
                                 defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}"
                             },
                             {
-                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}"       
+                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}"
                             }
                         ],
                         data: [
                             {
                                 name: "",
-                                items:  [
+                                items: [
                                     {
                                         name: "Oncotype DX Recurrence Score",
                                         value: null
@@ -362,7 +363,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                items:  [
+                                items: [
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
@@ -380,7 +381,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                items:  [
+                                items: [
                                     {
                                         name: "Diagnosis",
                                         value: (patient, currentConditionEntry) => {
@@ -438,15 +439,15 @@ class SummaryMetadata {
             // Ensure that each array for a given data type (e.g. Procedures in this case) contains the same number of elements (e.g. here it is 2 elements).
             // Or add to the end of the array, that looks okay too.
             if (typeof p.occurrenceTime !== 'string') {
-                return [ p.specificType.value.coding[0].displayText.value,  p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd];
+                return [p.specificType.value.coding[0].displayText.value, p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd];
             } else {
-                return [ p.specificType.value.coding[0].displayText.value, p.occurrenceTime]; 
+                return [p.specificType.value.coding[0].displayText.value, p.occurrenceTime];
             }
 
 
         });
     }
-    
+
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
@@ -465,54 +466,19 @@ class SummaryMetadata {
     getItemListForLabResults = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
-            const labResultsInOrder = this.getLabResultsChronologicalOrder(currentConditionEntry);
-            return labResultsInOrder.map((l, i) => {
-                const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
-                const name = `${l.specificType.value.coding[0].displayText.value}`;
+        // Set sinceDate to null to get all results
+        const sinceDate = "16 AUG 2010";
+        const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(sinceDate);
 
-                return {
-                    name: name,
-                    value: value
-                };
+        return labResultsInOrder.map((l, i) => {
+            const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
+            const name = `${l.specificType.value.coding[0].displayText.value}`;
+
+            return {
+                name: name,
+                value: value
+            };
         });
-    }
-
-    getLabResultsChronologicalOrder = (currentConditionEntry) => {
-        let results = currentConditionEntry.getTests();
-        results.sort(this._labResultsTimeSorter);
-        let mostRecentLabResults = this.getMostRecentLabResults(results);
-
-        return mostRecentLabResults;
-    }
-
-    // Sorts the lab results in chronological order
-    _labResultsTimeSorter(a, b) {
-        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
-        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
-        if (a_startTime < b_startTime) {
-            return -1;
-        }
-        if (a_startTime > b_startTime) {
-            return 1;
-        }
-        return 0;
-    }
-
-    // Grab the most recent lab results based on a maximum age of the lab result
-    getMostRecentLabResults = (results) => {
-        let mostRecentLabResultsArray = [];
-
-        // maxAgeInYears specifies the maximum age of the lab result. Lab results greater than the maxAgeInYears will not
-        // be displayed in the app
-        const maxAgeInYears = 5;
-
-        for (var i = 0; i < results.length; i++) {
-            var years = moment().diff(new moment(results[i].clinicallyRelevantTime, "D MMM YYYY"), 'years');
-            if(years < maxAgeInYears) {
-                mostRecentLabResultsArray.push(results[i]);
-            }
-        }
-        return mostRecentLabResultsArray;
     }
 
     getMedicationItems = (patient, condition) => {
@@ -545,16 +511,16 @@ class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const procedures = patient.getProceduresForConditionChronologicalOrder(condition);
         let items = [];
-  
+
         procedures.forEach((proc) => {
             let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
             const assignedGroup = this.assignItemToGroup(items, startTime, groupStartIndex);
-  
+
             let classes = 'event-item';
             //let endDate = proc.endDate;
             let hoverText = '';
-  
+
             if (!Lang.isNull(endTime)) {
                 hoverText = `${startTime.format('MM/DD/YYYY')} ― ${endTime.format('MM/DD/YYYY')}`;
             } else {
@@ -562,11 +528,11 @@ class SummaryMetadata {
                 endTime = startTime.clone().add(1, 'day');
                 classes += ' point-in-time';
             }
-  
+
             if (proc.specificType.value.coding[0].displayText) {
                 hoverText += ` : ${proc.specificType.value.coding[0].displayText.value}`;
             }
-  
+
             items.push({
                 group: assignedGroup,
                 icon: 'hospital-o',
@@ -603,9 +569,9 @@ class SummaryMetadata {
                 endDate = startDate.clone().add(1, 'day');
                 classes += ' point-in-time';
             }
-        
+
             hoverTitle = evt.name;
-                
+
             items.push({
                 group: assignedGroup,
                 icon: 'heartbeat',
@@ -616,15 +582,15 @@ class SummaryMetadata {
                 end_time: endDate
             });
         });
-        
+
         return items;
     }
-    
+
     getProgressionItems = (patient, condition, groupStartIndex) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
         let items = [];
-        
+
         progressions.forEach((prog) => {
             const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
 
@@ -635,10 +601,10 @@ class SummaryMetadata {
             let hoverText = `${startDate.format('MM/DD/YYYY')}`;
             let endDate = startDate.clone().add(1, 'day');
             classes += ' point-in-time';
-            
+
             let focalCondition = patient.getFocalConditionForProgression(prog);
             let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
-            
+
             let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
 
             items.push({
@@ -665,7 +631,7 @@ class SummaryMetadata {
         while (!assignedGroup) {
             const existingItemsInGroup = this.filterItemsByGroup(existingItems, availableGroup);
             let conflict = false;
-    
+
             for (let i = 0; i < existingItemsInGroup.length; i++) {
                 const existingItem = existingItemsInGroup[i];
                 // At the current group level, the new item conflicts with an existing item
