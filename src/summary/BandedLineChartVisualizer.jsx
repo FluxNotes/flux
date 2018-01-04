@@ -112,7 +112,7 @@ class BandedLineChartVisualizer extends Component {
     }
 
     renderSubSectionChart = (subSection, patient, condition) => { 
-        // FIXME: Should start_time be a magic string
+        // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = subSection.name;
