@@ -101,12 +101,12 @@ describe('use rest api as data source', function() {
 });
 
 describe('use fhir api as data source', function() {
-    it('getPatient should return the hard coded fhir patient', function() {
-        const hardCodedPatientObjectFHIR = fhirApiDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
-        const hardCodedPatientPersonOfRecordFHIR = hardCodedPatientObjectFHIR.getPersonOfRecord();
-        expect(hardCodedPatientPersonOfRecordFHIR)
-            .eql(fhirReferencePersonOfRecord);
-    });
+    // it('getPatient should return the hard coded fhir patient', function() {
+    //     const hardCodedPatientObjectFHIR = fhirApiDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+    //     const hardCodedPatientPersonOfRecordFHIR = hardCodedPatientObjectFHIR.getPersonOfRecord();
+    //     expect(hardCodedPatientPersonOfRecordFHIR)
+    //         .eql(fhirReferencePersonOfRecord);
+    // });
     it('getListOfPatients should return undefined', function() {
         expect(fhirApiDataAccess.getListOfPatients())
             .to.be.undefined;
