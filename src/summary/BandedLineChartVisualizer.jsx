@@ -152,10 +152,17 @@ class BandedLineChartVisualizer extends Component {
                     />
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} />
 
-                    <ReferenceArea y1={1.1} y2={1.65} alwaysShow />
+                    {this.renderBands()}
+
                 </LineChart>
            </div>
         );
+    }
+
+    renderBands() {
+        return (
+            <ReferenceArea y1={1.1} y2={1.65} stroke="red" strokeOpacity={0.3} fill="blue" alwaysShow />
+        )
     }
 
     // Gets called for each section in SummaryMetaData.jsx
