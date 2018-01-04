@@ -5,19 +5,50 @@ span.button-hover {
 .clinical-notes-btn {
     padding: 0 20px;
     display: inline-block;
+    white-space: nowrap;
     transform: perspective(1px) translateZ(0);
     transition-duration: 0.3s;
     transition-property: transform;
 }
 
-.clinical-notes-btn:hover {
-    transform: scale(1.1);
+.previous-notes-label {
+    font-weight: bold;
+    font-size: 0.8em;
+    margin: 10px;
 }
 
-.clinical-notes-panel {
-    float: right;
-    right: 10px;
-    width: 195px;
+/* Sort */
+
+.sort-label {
+    margin-left: 10px;
+    font-size: 0.8em;
+}
+
+.sort-selection {
+    margin-bottom: 20px;
+}
+
+.sort-select {
+    width: 90%;
+    max-width: 200px;
+    margin-left: 10px;
+}
+
+.sort-selection .sort-select {
+    font-size: 0.8em;
+}
+
+li.sort-item:hover {
+    background-color: #1384b5;
+    color: #fff;
+}
+
+/* Buttons */
+
+.note-new {
+    margin: 10px 0 20px;
+    text-align: center;
+    display: block;
 }
 
 .note-new:hover {
@@ -25,18 +56,17 @@ span.button-hover {
     background: #e6e6e6;
 }
 
-.note-new {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    height: 40px;
-    width: 9vw !important;
-    min-width: 180px !important;
-    display: block;
+.note-new-text {
+    color: #555;
+    font-size: 1.1rem;
 }
 
-.note-new-text {
-    font-size: 0.9rem;
+.note-new-text .fa {
+    padding-right: 10px;
+}
+
+.clinical-notes-btn:hover {
+    transform: scale(1.1);
 }
 
 .resume-note-btn {
@@ -52,84 +82,73 @@ span.button-hover {
     background: #e6e6e6 !important;
 }
 
-.previous-notes-label {
-    font-weight: bold;
-    font-size: 0.8em;
-    margin-left: 10px;
-}
-
-.sort-label {
-    margin-left: 10px;
-    font-size: 0.8em;
-}
-
-.sort-selection {
-    margin-bottom: 20px;
-}
-
-.sort-select {
-    width: 50%;
-    margin-left: 10px;
-}
-
-.sort-selection .sort-select {
-    font-size: 0.8em;
-}
-
-li.sort-item:hover {
-    background-color: #1384b5;
-    color: #fff;
-}
-
-.note {
-    padding-top: 0px !important;
-    height: auto !important;
-    width: 9vw !important;
-    min-width: 180px !important;
-}
-
-.note:hover {
-    cursor:pointer;
-    background: #e6e6e6;
-}
-
-.existing-note-date {
-    font-size: 0.7rem;
-    color: #333333 !important;
-    font-weight: bold;
-}
-
-.in-progress-text {
-    font-size: 0.8rem;
-    color: #333333 !important;
-    font-weight: bold;
-}
-
-.existing-note-subject {
-    font-size: 0.7rem;
-    color: #999 !important;
-}
-
-.existing-note-metadata {
-    font-size: 0.7rem;
-    color: #999 !important;
-    margin-bottom: 5px;
-}
-
 .more-notes-btn {
     background-color: white !important;
     padding: 10px !important;
-    margin-top: 10px;
-    height: auto !important;
-    width: 9vw !important;
-    min-width: 180px !important;
+    margin-top: 20px;
 }
 
 .more-notes-btn:hover {
     background: #e6e6e6 !important;
 }
 
+/* Icons */
+
 .icon-arrow-left {
     width: 20px;
     margin-left: 10px;
+}
+
+/* Notes */
+
+.note {
+    position: relative;
+    max-width: 200px;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    color: #000;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 5px 5px;
+}
+
+.note:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+}
+
+.note::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    border-width: 0 16px 16px 0;
+    border-style: solid;
+    border-color: #ccc #fff;
+}
+
+.existing-note-date {
+    font-size: 0.8rem;
+    padding-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+.existing-note-subject {
+    font-size: 0.8rem;
+    color: #555;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.in-progress-text {
+    font-size: 0.8rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.existing-note-metadata {
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 5px;
 }

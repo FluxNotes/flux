@@ -17,6 +17,7 @@
     font-size: 24px;
     font-weight: 600;
     vertical-align: 0.5em;
+    padding-left: 5px;
 }
 .patient-control-panel .login {
     margin-left: 0.4rem;

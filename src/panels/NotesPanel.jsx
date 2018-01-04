@@ -62,10 +62,11 @@ export default class NotesPanel extends Component {
         if (this.props.isNoteViewerVisible) {
             return (
                 <Row center="xs">
-                    <Col sm={9}>
+                    <Col sm={7} md={8} lg={9}>
                         {this.renderFluxNotesEditor()}
                     </Col>
-                    <Col sm={3}>
+
+                    <Col sm={5} md={4} lg={3}>
                         {this.renderNoteAssistant()}
                     </Col>
                 </Row>

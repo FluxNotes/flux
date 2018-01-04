@@ -109,7 +109,7 @@ export default class ContextOptions extends Component {
 
                         <TextField
                             className="shortcut-search-text"
-                            label="Search for a shortcut"
+                            label="Search shortcuts"
                             value={this.state.searchString}
                             onChange={(event) => this._handleSearch(event.target.value)}
                         />

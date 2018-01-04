@@ -7,16 +7,15 @@ import FontIcon from 'material-ui/FontIcon';
 import './FormSearch.css';
 
 class FormSearch extends Component {
-
     constructor(props) {
         super(props);
-        // this._newShortcut = this._newShortcut.bind(this);
+
         this.underlineStyle = {
             borderColor: "#17263f",
         }
     }
 
-    handleSearch(searchValue) { 
+    handleSearch(searchValue) {
         console.log()
     }
 
@@ -24,12 +23,12 @@ class FormSearch extends Component {
         return (
             <div id="form-search">
                 <div style={{position: 'relative', display: 'inline-block'}}>
-                    <FontIcon 
+                    <FontIcon
                         className="fa fa-search"
                         style={{position: 'absolute', left: "15%", top: 15, fontSize: "16px", color: "#17263f"}}/>
                     <TextField
                         style={{textIndent: 25, left: "15%", textAlign: "left", minWidth: "80%", width: "100%"}}
-                        hintText="Search for a shortcut"
+                        hintText="Search shortcuts"
                         onChange={(event, value) => this.handleSearch(value)}
                         underlineFocusStyle={this.underlineStyle}
 

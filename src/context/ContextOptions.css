@@ -29,7 +29,7 @@
 }
 
 .shortcut-search-title {
-    margin: 0 20px 15px;
+    margin: 0 20px 5px;
     font-size: 0.9em;
 }
 
@@ -39,7 +39,7 @@
 
 .shortcut-search-text {
     left: 20px;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .hidden {

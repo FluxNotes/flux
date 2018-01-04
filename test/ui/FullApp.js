@@ -483,7 +483,7 @@ test('Clicking New Note button adds a new in progress note to the list', async t
 test('Clicking on an existing note in post encounter mode loads the note in the editor', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
-    const note = Selector('#existing-note');
+    const note = Selector('.existing-note');
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
@@ -503,7 +503,7 @@ test('Clicking on an existing note in post encounter mode puts the NotesPanel in
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const clinicalNotesPanel = Selector('.clinical-notes-panel');
-    const note = Selector('#existing-note');
+    const note = Selector('.existing-note');
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
@@ -589,7 +589,7 @@ test('Clicking on an in-progress note in post encounter mode puts the NotesPanel
 test('Clicking on an existing note in pre encounter mode loads the note in the editor', async t => {
     const clinicalEventSelector = Selector('.clinical-event-select');
     const editor = Selector("div[data-slate-editor='true']");
-    const note = Selector('#existing-note');
+    const note = Selector('.existing-note');
 
     // Select pre-encounter mode
     await t
