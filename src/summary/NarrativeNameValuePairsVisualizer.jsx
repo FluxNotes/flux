@@ -2,6 +2,8 @@ import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
+import ReactHover from 'react-hover'
+import Toolbar from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
@@ -221,6 +223,25 @@ class NarrativeNameValuePairsVisualizer extends Component {
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
+        
+/*        const showToolbar = (type) => {
+            //console.log("showToolbar " + type);
+            
+        };
+        
+        const hideToolbar = (type) => {
+            console.log("hideToolbar " + type);
+        };
+*/
+        const onMouseDown = () => {
+            console.log("onmousedown");
+        };
+        
+        const optionsCursorTrueWithMargin = {
+            followCursor: false,
+            shiftX: 0,
+            shiftY: 0
+        }
         
         // now go through each snippet and build up HTML to render
         let content = [];
