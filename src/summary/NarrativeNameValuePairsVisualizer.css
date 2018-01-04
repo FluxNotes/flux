@@ -13,25 +13,19 @@ span.structured-data {
     border-bottom: 1px solid blue;
 }
 
-.toolbar-menu > * + * {
-    margin-left: 15px;
+.toolbar-menu {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 5px;
+    background-color: #DDD;
 }
 
-.toolbar-menu > * {
+span.structured-data:hover .toolbar-menu {
     display: inline-block;
 }
 
-.toolbar-menu {
-    padding: 1px 0 17px 5px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-.toolbar-menu .button {
-    color: #ccc;
-    cursor: pointer;
-}
-
-.toolbar-menu .button[data-active="true"] {
-  color: black;
+span.missing-data:hover .toolbar-menu {
+    display: inline-block;
 }

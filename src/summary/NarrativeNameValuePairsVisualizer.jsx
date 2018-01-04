@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import ReactHover from 'react-hover'
-import Toolbar from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
@@ -112,7 +110,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (!first) result.push( { text: ', ', type: 'plain' });
             value = _addLabResultToNarrative(listItem);
             type = "structured-data";
-            result.push( { text: value, type: type } );
+            result.push( { text: value, type: type, item: listItem } );
             if (first) first = false;
         };
         while (pos !== -1) {
@@ -147,6 +145,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     value = "missing";
                     type = "missing-data";
                 }
+                result.push( { text: value, type: type, item: item } );
             }
             result.push( { text: value, type: type } );
             start = endpos + 1;
@@ -195,31 +194,23 @@ class NarrativeNameValuePairsVisualizer extends Component {
             console.log("hideToolbar " + type);
         };
 */
-        const onMouseDown = () => {
-            console.log("onmousedown");
-        };
-        
-        const optionsCursorTrueWithMargin = {
-            followCursor: false,
-            shiftX: 0,
-            shiftY: 0
-        }
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type !== 'plain') {
+            if (snippet.type === 'structured-data') {
                 // onMouseOver={() => showToolbar(snippet.type)} onMouseLeave={() => hideToolbar(snippet.type)}
                 content.push(
-                    <span key={index}>
-                        <span className={snippet.type}>{snippet.text}</span>
-                        <span className="menu toolbar-menu" style={{visibility:'hidden'}}>
-                            <span className="button" onMouseDown={onMouseDown} data-active={true}>
-                                <i className={"fa fa-fw fa-plus-square"} aria-label={"Make text insert"}></i>
+                    <span key={index} className={snippet.type}>{snippet.text}
+                        <span className="menu toolbar-menu">
+                            <span className="button" onMouseDown={() => this.props.onItemClicked(snippet.item)} data-active={true}>
+                                <i className={"fa fa-fw fa-plus-square"} aria-label={"Insert into clinical note"}></i>
                             </span>
                         </span>
                     </span>
                 );
+            } else if (snippet.type === 'missing-data') {
+                content.push(<span key={index} className={snippet.type}>{snippet.text}</span>);
             } else {
                 content.push(<span key={index}>{snippet.text}</span>);
             }
