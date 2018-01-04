@@ -120,7 +120,6 @@ class FluxBreastCancer extends BreastCancer {
         return mostRecentLabResultsArray;
     }
 
-
     _observationTimeSorter(a, b) {
         const a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
         const b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");

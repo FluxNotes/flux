@@ -4,6 +4,7 @@ import Button from '../elements/Button';
 import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
+import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import './TargetedDataSection.css';
 
@@ -80,12 +81,28 @@ class TargetedDataSection extends Component {
     graphicView = () => {
         const visualization = this.checkVisualization();
         const strokeColor = visualization === "graphic" ? "#3F3F3F" : "#CCCCCC";
+        // FIXME: Graphic view shouldn't be used for the timeline.
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.8">
                         <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
                         <polyline id="Path-3" strokeLinejoin="round" points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    lineChartView = () => { 
+        const visualization = this.checkVisualization();
+        const strokeColor = visualization === "chart" ? "#3F3F3F" : "#CCCCCC";
+        return (
+            <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} stroke-width="1.62">
+                        <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
+                        <polyline id="Path-3" stroke-linejoin="round" points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
                     </g>
                 </g>
             </svg>
@@ -100,6 +117,8 @@ class TargetedDataSection extends Component {
             icon = this.narrativeView();
         } else if (type === 'graphic') {
             icon = this.graphicView();
+        } else if (type === 'chart') {
+            icon = this.lineChartView();
         }
         
         if (icon !== null) {
@@ -130,6 +149,8 @@ class TargetedDataSection extends Component {
             }
         } else if (section.type === "Events") {
             options.push('graphic');
+        } else if (section.type === "ValueOverTime") { 
+            options.push('chart');
         }
         return options;
     }
@@ -197,6 +218,22 @@ class TargetedDataSection extends Component {
                     return null;
                 }
             }
+            case 'ValueOverTime': { 
+                if (visualization === 'chart') { 
+                    return (
+                        <BandedLineChartVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else { 
+                    return null;
+                }
+            }
             case 'Events': {
                 if (visualization === 'graphic') {
                     return (
@@ -218,6 +255,7 @@ class TargetedDataSection extends Component {
 
     render() {
         const visualizationOptions = this.getOptions(this.props.section);
+
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">

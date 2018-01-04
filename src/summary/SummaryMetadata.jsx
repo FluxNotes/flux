@@ -207,6 +207,17 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Labs",
+                        type: "ValueOverTime",
+                        data: [
+                            {
+                                name: "White blood cell count",
+                                code: "C0023508",
+                                itemsFunction: this.getTestsForSubSection
+                            }
+                        ]
+                    },
+                    {
                         name: "Medications",
                         clinicalEvents: ["pre-encounter"],
                         type: "ListType",
@@ -479,6 +490,22 @@ class SummaryMetadata {
                 value: value
             };
         });
+    }
+
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
+        const labResults = currentConditionEntry.getTests();
+
+        const labs = labResults.filter((lab, i) => { 
+            return lab.codeableConceptCode === subsection.code;
+        }).map((lab, i) => { 
+            const processedLab = {};
+            processedLab["start_time"] = lab.clinicallyRelevantTime;
+            processedLab[subsection.name] = lab.quantity.number;
+            processedLab["unit"] = lab.quantity.unit;
+
+            return processedLab
+        });
+        return labs
     }
 
     getMedicationItems = (patient, condition) => {

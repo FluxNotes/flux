@@ -48,6 +48,7 @@ class TargetedDataSubpanel extends Component {
                         allowItemClick={allowItemClick}
                         isWide={isWide}
                     />
+                    
                     { i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null }
                 </div>
             );
