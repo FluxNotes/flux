@@ -164,7 +164,6 @@ class BandedLineChartVisualizer extends Component {
                 }
             </div>
         );
-
     }
 }
 
@@ -173,8 +172,8 @@ BandedLineChartVisualizer.propTypes = {
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
-    // onItemClicked: PropTypes.func,
-    // allowItemClick: PropTypes.bool
+    onItemClicked: PropTypes.func,
+    allowItemClick: PropTypes.bool
 };
 
 export default BandedLineChartVisualizer;
