@@ -105,10 +105,10 @@ export default class NoteAssistant extends Component {
             case "context-tray":
                 return (
                     <div>
-			{this.renderNewNoteSVG()}
-
-                        <span className="button-hover clinical-notes-btn" onClick={() => {
-			    this.toggleView("clinical-notes") }}>
+                        <span
+                            className="button-hover clinical-notes-btn"
+                            onClick={() => { this.toggleView("clinical-notes") }}
+                        >
                             Clinical notes
                             <img className="icon-arrow-left" alt="left arrow" src={iconArrowLeft} />
                         </span>
@@ -192,7 +192,7 @@ export default class NoteAssistant extends Component {
         const strokeColor = selected ? "#9ecfef" : "#B3B3B3";
         const strokeWidth = selected ? "2" : "0.5";
         return (
-            <svg key={i} className="note" id="in-progress-note" onClick={() => {
+            <svg key={i} className="note in-progress-note" onClick={() => {
                 this.openNote(true, note)
             }} viewBox="0 0 149 129" version="1.1"
                  xmlns="http://www.w3.org/2000/svg">

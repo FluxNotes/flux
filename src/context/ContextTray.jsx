@@ -62,9 +62,21 @@ export default class ContextTray extends Component {
         return (
             <div className="context-tray">
                 <section>
-                    <div className={`section-item${value === 0 ? ' selected' : ''}`} onClick={this.handleTemplateSectionClick}>Templates</div>
-                    <div className={`section-item${value > 0 ? ' selected' : ''}`} onClick={this.handlePatientSectionClick}>Patient</div>
+                    <div
+                        className={`section-item${value === 0 ? ' selected' : ''}`}
+                        onClick={this.handleTemplateSectionClick}
+                    >
+                        Templates
+                    </div>
+
+                    <div
+                        className={`section-item${value > 0 ? ' selected' : ''}`}
+                        onClick={this.handlePatientSectionClick}
+                    >
+                        Patient
+                    </div>
                 </section>
+
                 {value === 0 &&
                     <section>
                         <TemplateForm
@@ -75,6 +87,7 @@ export default class ContextTray extends Component {
                         />
                     </section>
                 }
+
                 {value > 0 &&
                     <ContextOptions
                         contextManager={this.props.contextManager}
@@ -82,6 +95,7 @@ export default class ContextTray extends Component {
                         handleClick={this.handleShortcutClick}
                     />
                 }
+
                 {value > 0 && activeContexts.map((context, i) =>
                     <ContextOptions
                         key={i}

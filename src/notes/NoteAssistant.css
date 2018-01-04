@@ -4,6 +4,14 @@ span.button-hover {
 
 .clinical-notes-btn {
     padding: 0 20px;
+    display: inline-block;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.clinical-notes-btn:hover {
+    transform: scale(1.1);
 }
 
 .clinical-notes-panel {
@@ -21,9 +29,10 @@ span.button-hover {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
-    height: auto !important;
+    height: 40px;
     width: 9vw !important;
     min-width: 180px !important;
+    display: block;
 }
 
 .note-new-text {

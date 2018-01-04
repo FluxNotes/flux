@@ -44,7 +44,6 @@ export default class ContextOptions extends Component {
             context = this.props.contextManager.getPatientContext();
         }
 
-        //console.log(context);
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // count how many triggers we have
@@ -119,7 +118,12 @@ export default class ContextOptions extends Component {
             );
         }
 
-        const activeContextTriggers = this.props.contextManager.getActiveContexts().map(({ initiatingTrigger }) => initiatingTrigger);
+        // generates list of active triggers (triggers that have at least 1 shortcut)
+        // used to bold the active triggers in the sidebar
+        const activeContextTriggers = this.props.contextManager.getActiveContexts()
+            .map((context) => ({ context, shortcuts: this.props.shortcutManager.getValidChildShortcutsInContext(context) }))
+            .filter(({ shortcuts }) => shortcuts.length > 0)
+            .map(({ context }) => context.initiatingTrigger);
 
         return (
             <section>

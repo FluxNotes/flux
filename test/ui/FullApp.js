@@ -36,7 +36,7 @@ test('Clicking event buttons selects corresponding event', async t => {
         .eql("Pre-encounter")
         .expect(Selector('#clinical-notes').exists)
         .notOk();
-    
+
     // Clicking Post-encounter choice selects it and the editor is rendered
     await t
         .click(clinicalEventSelector)
@@ -215,7 +215,7 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
     await t
         .expect(structuredField.innerText)
         .contains('#deceased');
-    const contextPanelElement = Selector(".context-options-list").find('button');
+    const contextPanelElement = Selector('.context-tray section:last-child .context-option');
 
     const deceasedChild = '#DATE';
     const contextPanelElementInnerText = await contextPanelElement.innerText;
@@ -228,11 +228,11 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
 
 test("Switching contexts without closing a context chooses the correct parent context and successfully enters information in editor", async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const structuredField = editor.find("span[class='structured-field']");
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const textToType = ["#toxicity ", "#nausea ", "#staging ", "#T0 "];
-    
+
     await t
         .click(conditionButton);
     let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
@@ -240,10 +240,10 @@ test("Switching contexts without closing a context chooses the correct parent co
         .click(correctCondition)
         .typeText(editor, ' ');
     for (let i = 0; i < textToType.length; i++) {
-        await t 
+        await t
             .typeText(editor, textToType[i]);
     };
-    
+
 
     textToType.splice(0, 0, 'condition placeholder');
     const structuredFieldCount = await structuredField.count;
@@ -256,11 +256,11 @@ test("Switching contexts without closing a context chooses the correct parent co
 
 test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const structuredField = editor.find("span[class='structured-field']");
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const textToType = ["#PR ", "#Positive "];
-    
+
     await t
         .click(conditionButton);
     let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
@@ -268,10 +268,10 @@ test("Typing #PR into the editor followed by #Positive results in structured dat
         .click(correctCondition)
         .typeText(editor, ' ');
     for (let i = 0; i < textToType.length; i++) {
-        await t 
+        await t
             .typeText(editor, textToType[i]);
     };
-    
+
 
     textToType.splice(0, 0, 'condition placeholder');
     const structuredFieldCount = await structuredField.count;
@@ -284,11 +284,11 @@ test("Typing #PR into the editor followed by #Positive results in structured dat
 
 test("Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const structuredField = editor.find("span[class='structured-field']");
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const textToType = ["#HER2 ", "#Positive "];
-    
+
     await t
         .click(conditionButton);
     let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
@@ -296,10 +296,10 @@ test("Typing #HER2 into the editor followed by #Positive results in structured d
         .click(correctCondition)
         .typeText(editor, ' ');
     for (let i = 0; i < textToType.length; i++) {
-        await t 
+        await t
             .typeText(editor, textToType[i]);
     };
-    
+
 
     textToType.splice(0, 0, 'condition placeholder');
     const structuredFieldCount = await structuredField.count;
@@ -312,11 +312,11 @@ test("Typing #HER2 into the editor followed by #Positive results in structured d
 
 test("Typing #ER into the editor followed by #Positive results in structured data insertsion and context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const structuredField = editor.find("span[class='structured-field']");
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const textToType = ["#ER ", "#Positive "];
-    
+
     await t
         .click(conditionButton);
     let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
@@ -324,10 +324,10 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
         .click(correctCondition)
         .typeText(editor, ' ');
     for (let i = 0; i < textToType.length; i++) {
-        await t 
+        await t
             .typeText(editor, textToType[i]);
     };
-    
+
     // We will skip checking for the inserted condition. Add a placeholder so indexes line up.
     textToType.splice(0, 0, 'condition placeholder');
     const structuredFieldCount = await structuredField.count;
@@ -346,7 +346,7 @@ test('Clicking "#clinical trial", "#enrollment date", "#date" and choosing a dat
     const expectedText = ["#clinical trial", "#enrolled on", `#${today}`];
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const clinicalTrialButton = await contextPanelElements.withText(/#clinical trial/ig);
 
     await t
@@ -372,7 +372,7 @@ test('Clicking "#deceased", "#date" and choosing a date inserts "#deceased #{dat
     const expectedText = ["#deceased", `#${today}`];
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
 
     const deceasedButton = await contextPanelElements.withText(/#deceased/ig);
 
@@ -398,7 +398,7 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     const expectedNumItems = await progressionItemsBefore.count + 1;
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
-    const contextPanelElements = Selector(".context-options-list").find('button');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
 
     await t
@@ -458,26 +458,26 @@ fixture('Patient Mode - Clinical Notes list')
 test('Clicking New Note button adds a new in progress note to the list', async t => {
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const newNoteButton = Selector('.note-new');
-    const inProgressNotes = Selector('#in-progress-note');
-    
+    const inProgressNotes = Selector('.in-progress-note');
+
     await t
         .click(clinicalNotesButton);
-    
+
     const inProgressNotesLength = await inProgressNotes.count;
-    
+
     // There are no unsigned notes on the patient's record initially
     await t
         .expect(inProgressNotesLength).eql(0);
-    
+
     await t
         .click(newNoteButton)
-        .click(clinicalNotesButton)
-    
+        .click(clinicalNotesButton);
+
     const inProgressNotesUpdatedLength = await inProgressNotes.count;
-    
+
     // Adding a new note adds an unsigned, in-progress note
     await t
-        .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength+1);
+        .expect(inProgressNotesUpdatedLength).eql(1);
 });
 
 test('Clicking on an existing note in post encounter mode loads the note in the editor', async t => {
@@ -531,7 +531,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const newNoteButton = Selector('.note-new');
-    const inProgressNotes = Selector('#in-progress-note');
+    const inProgressNotes = Selector('.in-progress-note');
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
@@ -556,7 +556,7 @@ test('Clicking on an in-progress note in post encounter mode puts the NotesPanel
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const newNoteButton = Selector('.note-new');
-    const inProgressNotes = Selector('#in-progress-note');
+    const inProgressNotes = Selector('.in-progress-note');
     const contextTray = Selector('.context-tray');
 
     // Click on the clinical notes button to switch to clinical notes view
@@ -644,10 +644,10 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         let headerText = await header.innerText;
         if (headerText === "Medications") result = true;
     }
-    
+
     await t
         .expect(result === false);
-    
+
     // Clicking Pre-encounter choice selects it and the editor is not rendered
     await t
         .click(clinicalEventSelector)
@@ -655,10 +655,10 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
     await t
         .expect(await clinicalEventSelector.textContent)
         .eql("Pre-encounter");
-    
+
     const sectionsPreEncounter = Selector('#targeted-data-section')
     const numSectionsPreEncounter = await sectionsPreEncounter.count;
-    
+
     // Now check to make sure the Medications sections *does* exist
     result = false;
     for (let i = 0; i < numSectionsPreEncounter; i++) {
@@ -666,7 +666,7 @@ test('Medications section appears in targeted data panel in pre-encounter mode o
         let headerText = await header.innerText;
         if (headerText === "Medications") result = true;
     }
-    
+
     await t
         .expect(result === true);
 });
@@ -773,7 +773,7 @@ test('Selecting a condition changes the timeline summary', async t => {
 
     let progressionItems = Selector("#timeline .rct-canvas .rct-items .rct-item.progression-item");
     let numItems = await progressionItems.count;
-    
+
     // There should be one progression item on the timeline now
     await t
         .expect(1).eql(numItems, 'There should be 1 progression item on the timeline.');
