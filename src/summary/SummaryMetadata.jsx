@@ -211,8 +211,9 @@ class SummaryMetadata {
                         type: "ValueOverTime",
                         data: [
                             {
-                                name: "White blood cell",
-                                itemsFunction: this.getLabsForWhiteBloodCell
+                                name: "White blood cell count",
+                                code: "C0023508",
+                                itemsFunction: this.getTestsForSubSection
                             }
                         ]
                     },
@@ -491,22 +492,20 @@ class SummaryMetadata {
         });
     }
 
-    getLabsForWhiteBloodCell = (patient, currentConditionEntry) => { 
-        // FIXME: This shouldn't just be display text, but text in the context of a codesystem/valueset. This could cause issues when scaling to complex patient pulling from complex codesystems.
-        const WBCDisplayText = "White blood cell"
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         const labResults = currentConditionEntry.getTests();
 
-        const WBCLabs = labResults.filter((lab, i) => { 
-            return lab.codeableConceptDisplayText === WBCDisplayText;
+        const labs = labResults.filter((lab, i) => { 
+            return lab.codeableConceptCode === subsection.code;
         }).map((lab, i) => { 
             const processedLab = {};
             processedLab["start_time"] = lab.clinicallyRelevantTime;
-            processedLab[lab.codeableConceptDisplayText] = lab.quantity.number;
+            processedLab[subsection.name] = lab.quantity.number;
             processedLab["unit"] = lab.quantity.unit;
 
             return processedLab
         });
-        return WBCLabs
+        return labs
     }
 
     getMedicationItems = (patient, condition) => {

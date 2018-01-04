@@ -59,7 +59,7 @@ class BandedLineChartVisualizer extends Component {
 
     // Function for formatting dates -- uses moment for quick formatting options
     dateFormat = (timeInMilliseconds) => {
-        return moment(timeInMilliseconds).format('MM-DD-YY');
+        return moment(timeInMilliseconds).format('DD MMM YY');
     }
 
     // Gets the min/max values of the numeric representation of xVar
@@ -87,12 +87,12 @@ class BandedLineChartVisualizer extends Component {
         const domain = this.getMinMax(processedData, xVarNumber);
         const scale = scaleLinear().domain(domain).range([0, 1]);;
         const ticks = scale.ticks(4);
-        return ticks.map(entry => +entry).sort();
+        return ticks.sort();
     } 
 
     // Formats a xVar (numeric time) value for tooltips
     xVarFormatFunction = (xVarNumber)  => { 
-        return "Date: " + moment(xVarNumber).format("MMM D");
+        return "Date: " + this.dateFormat(xVarNumber);
     }   
 
     // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
@@ -111,20 +111,25 @@ class BandedLineChartVisualizer extends Component {
         })
     }
 
-    renderSubSectionChart = (subSection, patient, condition) => { 
+    renderSubsectionChart = (subsection, patient, condition) => { 
         // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
-        const yVar = subSection.name;
-        const data = subSection.itemsFunction(patient, condition);  
+        const yVar = subsection.name;
+        const data = subsection.itemsFunction(patient, condition, subsection);  
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         const yUnit = processedData[0].unit;
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
-                key={subSection}
+                key={subsection}
             >
+                <div className="sub-section-heading">
+                    <h2 className="sub-section-name">
+                        {`${yVar} (${yUnit})`}
+                    </h2>
+                </div>
                 <LineChart
                     width={this.state.chartWidth}
                     height={this.state.chartHeight}
@@ -158,8 +163,8 @@ class BandedLineChartVisualizer extends Component {
         return (
             <div className="line-chart-subsection">
                 {
-                    conditionSection.data.map((subSection, i) => { 
-                        return this.renderSubSectionChart(subSection, patient, condition);
+                    conditionSection.data.map((subsection, i) => { 
+                        return this.renderSubsectionChart(subsection, patient, condition);
                     })
                 }
             </div>
