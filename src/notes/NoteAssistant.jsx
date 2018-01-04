@@ -162,7 +162,7 @@ export default class NoteAssistant extends Component {
         const selected = this.props.selectedNote === note;
 
         return (
-            <div className="note in-progress-note" key={i} onClick={() => { this.openNote(true, note) }}>
+            <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => { this.openNote(true, note) }}>
                 <div className="in-progress-text">In progress note</div>
 
                 <div className="existing-note-date">{note.date}</div>
@@ -207,7 +207,7 @@ export default class NoteAssistant extends Component {
         const selected = this.props.selectedNote === item;
 
         return (
-            <div className="note existing-note" key={i} onClick={() => { this.openNote(false, item) }}>
+            <div className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => { this.openNote(false, item) }}>
                 <div className="existing-note-date">{item.date}</div>
                 <div className="existing-note-subject">{item.subject}</div>
 

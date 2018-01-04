@@ -120,8 +120,8 @@ li.sort-item:hover {
 .note::before {
     content: "";
     position: absolute;
-    top: -1px;
-    right: -1px;
+    top: -2px;
+    right: -2px;
     border-width: 0 16px 16px 0;
     border-style: solid;
     border-color: #ccc #fff;
@@ -151,4 +151,9 @@ li.sort-item:hover {
     font-size: 0.8rem;
     color: #555;
     margin-bottom: 5px;
+}
+
+.selected {
+    border-width: 2px;
+    border-color: #9ecfef;
 }
