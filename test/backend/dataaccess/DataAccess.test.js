@@ -1,5 +1,6 @@
 import DataAccess from '../../../src/dataaccess/DataAccess';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
+import hardCodedFHIRPatient from '../../../src/dataaccess/HardCodedFHIRPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import Moment from 'moment';
@@ -27,6 +28,13 @@ const newPatientEntries = newPatient.entries;
 // Data Access with REST API
 const restApiDataAccess = new DataAccess("RestApiDataSource");
 const newPatientRest = restApiDataAccess.newPatient();
+
+// Data Access with FHIR
+const fhirApiDataAccess = new DataAccess("FHIRApiDataSource");
+const newPatientFHIR = fhirApiDataAccess.newPatient();
+const referenceHardCodedFHIRPatient = new PatientRecord();
+referenceHardCodedFHIRPatient.fromFHIR(hardCodedFHIRPatient);
+const fhirReferencePersonOfRecord = referenceHardCodedFHIRPatient.getPersonOfRecord();
 
 
 describe('create hard coded read only data source', function() {
@@ -88,6 +96,27 @@ describe('use rest api as data source', function() {
     });
     it('savePatient should return undefined', function() {
         expect(restApiDataAccess.savePatient(newPatientRest))
+            .to.be.undefined;
+    })
+});
+
+describe('use fhir api as data source', function() {
+    it('getPatient should return the hard coded fhir patient', function() {
+        const hardCodedPatientObjectFHIR = fhirApiDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+        const hardCodedPatientPersonOfRecordFHIR = hardCodedPatientObjectFHIR.getPersonOfRecord();
+        expect(hardCodedPatientPersonOfRecordFHIR)
+            .eql(fhirReferencePersonOfRecord);
+    });
+    it('getListOfPatients should return undefined', function() {
+        expect(fhirApiDataAccess.getListOfPatients())
+            .to.be.undefined;
+    });
+    it('new patient should return undefined', function() {
+        expect(newPatientFHIR)
+            .to.be.undefined;
+    });
+    it('savePatient should return undefined', function() {
+        expect(fhirApiDataAccess.savePatient(newPatientFHIR))
             .to.be.undefined;
     })
 });
