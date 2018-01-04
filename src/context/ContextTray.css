@@ -1,16 +1,19 @@
-.tabs-container > div > div > div {
-    background: white !important;
+.context-tray {
+  margin: 20px 0;
 }
 
-.tabs-container div button:not(.tab) {
-    background: white !important;
-    color: black !important;
-}
-.tabs-container div div svg {
-    background: white !important;
-    color: black !important;
+.context-tray section {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.tabs-container div .tab{
-    color: black !important;
+.context-tray .section-item {
+  padding: 5px 20px;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.context-tray .section-item:hover,
+.context-tray .section-item.selected {
+  font-weight: bold;
 }

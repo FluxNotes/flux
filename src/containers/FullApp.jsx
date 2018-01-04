@@ -5,13 +5,14 @@ import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
+import Lang from 'lodash';
+
 import DashboardManager from '../dashboard/DashboardManager'
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
-import Lang from 'lodash';
 import '../styles/FullApp.css';
 
 const theme = createMuiTheme({

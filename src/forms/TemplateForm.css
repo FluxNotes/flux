@@ -1,7 +1,11 @@
-.btn_template {
-  float: left;
-  clear: left;
-  margin-bottom: 20px;
-  width: 150px;
-  background-color: white !important;
+.template {
+  padding: 5px 20px;
+  font-size: 0.9em;
+  color: #999;
+  cursor: pointer;
+}
+
+.template:hover {
+  color: #555;
+  font-weight: bold;
 }

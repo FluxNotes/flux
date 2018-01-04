@@ -1,14 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Lang from 'lodash'
-import Button from '../elements/Button';
+import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
 import TextField from 'material-ui/TextField';
-import {Row, Col} from 'react-flexbox-grid';
+
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
 
-class ContextOptions extends Component {
+export default class ContextOptions extends Component {
     constructor(props) {
         super(props);
         this._handleClick = this._handleClick.bind(this);
@@ -22,20 +21,20 @@ class ContextOptions extends Component {
 
     _handleClick(e, i) {
         e.preventDefault();
-        this.setState({searchString: "", tooltipVisibility: 'hidden'});
+        this.setState({ searchString: "", tooltipVisibility: 'hidden' });
         this.props.handleClick(i);
     }
-    
+
     mouseLeave = () => {
-        this.setState({tooltipVisibility: 'hidden'})
+        this.setState({ tooltipVisibility: 'hidden' })
     }
-    
+
     mouseEnter = () => {
-        this.setState({tooltipVisibility: 'visible'})
+        this.setState({ tooltipVisibility: 'visible' })
     }
-    
+
     _handleSearch(value) {
-        this.setState({searchString: value});
+        this.setState({ searchString: value });
     }
 
     render() {
@@ -44,8 +43,7 @@ class ContextOptions extends Component {
             // patient
             context = this.props.contextManager.getPatientContext();
         }
-        
-        //console.log(context);
+
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // count how many triggers we have
@@ -75,72 +73,78 @@ class ContextOptions extends Component {
 
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
-        let currentGroup = {group: "", triggers:[]};
+        let currentGroup = { group: "", triggers:[] };
         let countToShow = 0;
         let totalShown = 0;
-          triggers.forEach((trigger, i) => {
+        triggers.forEach((trigger, i) => {
             if (trigger.group !== currentGroup.group) {
                 countToShow = 0;
                 totalShown++;
-                currentGroup = {"group": trigger.group, "groupName": trigger.groupName, "triggers": [ trigger ]};
+                currentGroup = { "group": trigger.group, "groupName": trigger.groupName, "triggers": [ trigger ] };
                 groupList.push(currentGroup);
             }
             else {
-                if(countToShow === 5) return;
+                if (countToShow === 5) return;
+
                 countToShow++;
                 totalShown++;
                 currentGroup.triggers.push(trigger);
             }
-
         });
+
+        if (totalShown === 0) {
+            return null;
+        }
 
         // do we add search bar
         let filterBar = "";
         if (showFilter) {
             filterBar = (
-            <div id="shortcut-search">
-                <div style={{position: 'relative', display: 'inline-block'}}>
-                    <div style={{display: 'flex', justifyContent:'center',alignItems: 'center'}}><h1>Filter:&nbsp;&nbsp;</h1><span>(Showing {totalShown} of {count})</span></div>
-                    <TextField
-                        style={{textIndent: 25, left: "15%", textAlign: "left", minWidth: "80%", width: "100%"}}
-                        label="Search for a shortcut"
-                        value={this.state.searchString}
-                        onChange={(event) => this._handleSearch(event.target.value)}
-                    />
+                <div id="shortcut-search">
+                    <div className="shortcut-search-container">
+                        <div className="shortcut-search-title">
+                            <div>Filter:</div>
+                            <div className="count">(showing {totalShown} of {count})</div>
+                        </div>
+
+                        <TextField
+                            className="shortcut-search-text"
+                            label="Search shortcuts"
+                            value={this.state.searchString}
+                            onChange={(event) => this._handleSearch(event.target.value)}
+                        />
+                    </div>
                 </div>
-            </div>
             );
         }
 
-        let numCols, maxCols = 0;
-        let numChars, maxChars = 0;
-        groupList.forEach((groupObj, i) => {
-            numCols = groupObj.triggers.length;
-            groupObj.triggers.forEach((trigger) => {
-                numChars = trigger.name.length;
-                if (numChars > maxChars) maxChars = numChars;
-            });
-            if (numCols > maxCols) maxCols = numCols;
-        });
-        let colWidth = Math.ceil(maxChars / 2.5);
-        // now iterate and create a Row for each group and a Col for each
+        // generates list of active triggers (triggers that have at least 1 shortcut)
+        // used to bold the active triggers in the sidebar
+        const activeContextTriggers = this.props.contextManager.getActiveContexts()
+            .map((context) => ({ context, shortcuts: this.props.shortcutManager.getValidChildShortcutsInContext(context) }))
+            .filter(({ shortcuts }) => shortcuts.length > 0)
+            .map(({ context }) => context.initiatingTrigger);
+
         return (
-            <div className='context-options-list'>
-                {filterBar}
-                {groupList.map((groupObj, i) => {
-                    return  (
-                    <div key={`group-${i}`}>
-                    {groupObj.groupName !== "" ?<p id="data-element-description">{groupObj.groupName}</p>: ""}
-                    <Row key={i} start="sm">
-                            {groupObj.triggers.map((trigger, i) => {
-                                const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
-                                const text = <span>{trigger.description}</span>
-                                return (
-                                    <Col sm={colWidth > 0 ? colWidth : null} key={i*100+1}>
+            <section>
+                <div className='context-options-list'>
+                    {filterBar}
+
+                    {groupList.map((groupObj, i) => {
+                        return (
+                        <div key={`group-${i}`}>
+                            {groupObj.groupName != null ? <div id="data-element-description">{groupObj.groupName}</div> : <div className="hidden"></div>}
+
+                            <div key={i}>
+                                {groupObj.triggers.map((trigger, i) => {
+                                    const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
+                                    const text = <span>{trigger.description}</span>
+
+                                    return (
                                         <Tooltip
                                             key={trigger.name}
                                             overlayStyle={{'visibility': this.state.tooltipVisibility}}
-                                            placement="top"
+                                            placement="left"
                                             overlayClassName={tooltipClass}
                                             overlay={text}
                                             destroyTooltipOnHide={true}
@@ -148,30 +152,28 @@ class ContextOptions extends Component {
                                             onMouseEnter={this.mouseEnter}
                                             onMouseLeave={this.mouseLeave}
                                         >
-                                            <Button dense raised
-                                                className='btn_template_ctx'
+                                            <div
+                                                className={`context-option${activeContextTriggers.indexOf(trigger.name) > -1 ? ' selected' : ''}`}
                                                 key={trigger.name}
                                                 onClick={(e) => this._handleClick(e, trigger.name)}
                                             >
                                                 {trigger.name}
-                                            </Button>
+                                            </div>
                                         </Tooltip>
-                                    </Col>
-                                );
-                            })}
-                     </Row>
-                     </div>);
-                })}
-            </div>
+                                    );
+                                })}
+                            </div>
+                        </div>);
+                    })}
+                </div>
+            </section>
         );
     }
 }
 
-ContextOptions.proptypes = { 
+ContextOptions.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
     context: PropTypes.object,
 }
-
-export default ContextOptions;
