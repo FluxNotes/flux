@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea } from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
@@ -151,6 +151,8 @@ class BandedLineChartVisualizer extends Component {
                         formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                     />
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} />
+
+                    <ReferenceArea y1={1.1} y2={1.65} alwaysShow />
                 </LineChart>
            </div>
         );
