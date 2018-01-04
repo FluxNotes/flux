@@ -198,7 +198,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'structured-data') {
+            if (snippet.type === 'structured-data' && !this.props.isWide) {
                 // onMouseOver={() => showToolbar(snippet.type)} onMouseLeave={() => hideToolbar(snippet.type)}
                 content.push(
                     <span key={index} className={snippet.type}>{snippet.text}
@@ -209,7 +209,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         </span>
                     </span>
                 );
-            } else if (snippet.type === 'missing-data') {
+            } else if (snippet.type !== 'plain') {
                 content.push(<span key={index} className={snippet.type}>{snippet.text}</span>);
             } else {
                 content.push(<span key={index}>{snippet.text}</span>);
