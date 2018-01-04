@@ -1,12 +1,12 @@
-import Injury from './shr/condition/Injury';
-import Condition from './shr/condition/Condition'
+import FluxInjury from './condition/FluxInjury';
+import FluxCondition from './condition/FluxCondition'
 import Lang from 'lodash';
 
 export default class ShrConditionObjectFactory {
     static createInstance(elementName, entry) {
         const _elementsToClassNames = { 
-                                "Injury": Injury,
-                                "Condition": Condition
+                                "Injury": FluxInjury,
+                                "Condition": FluxCondition
                               };
 
         let constructorName = _elementsToClassNames[elementName];

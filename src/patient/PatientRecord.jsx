@@ -221,7 +221,7 @@ class PatientRecord {
         conditions.forEach((c, i) => {
             result.push({
                 name: "diagnosis date - " + c.specificType.coding[0].displayText,
-                start_time: c.whenClinicallyRecognized
+                start_time: c.diagnosisDate
             });
         });
         result.sort(this._eventTimeSorter);
@@ -235,7 +235,7 @@ class PatientRecord {
             if (c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({
                     name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value,
-                    start_time: c.whenClinicallyRecognized.time
+                    start_time: c.diagnosisDate
                 });
             }
         });
