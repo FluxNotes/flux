@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import ReactHover from 'react-hover'
+import Toolbar from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
@@ -121,12 +123,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (index === -1) {
                 subsectionName = valueSpec;
                 if(Lang.isUndefined(subsections[subsectionName])) {
-                    result.push( { text: valueSpec, type: 'missing' } );
+                    result.push( { text: valueSpec, type: 'missing-data' } );
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
-                        type = "missing";
+                        type = "missing-data";
+                        result.push( { text: value, type: type } );
                     } else {
                         first = true;
                         list.forEach(_addListItemToResult);
@@ -142,7 +145,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     type = "structured-data";
                 } else {
                     value = "missing";
-                    type = "missing";
+                    type = "missing-data";
                 }
             }
             result.push( { text: value, type: type } );
@@ -183,17 +186,42 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
         
+/*        const showToolbar = (type) => {
+            //console.log("showToolbar " + type);
+            
+        };
+        
+        const hideToolbar = (type) => {
+            console.log("hideToolbar " + type);
+        };
+*/
+        const onMouseDown = () => {
+            console.log("onmousedown");
+        };
+        
+        const optionsCursorTrueWithMargin = {
+            followCursor: false,
+            shiftX: 0,
+            shiftY: 0
+        }
+        
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'plain') {
+            if (snippet.type !== 'plain') {
+                // onMouseOver={() => showToolbar(snippet.type)} onMouseLeave={() => hideToolbar(snippet.type)}
+                content.push(
+                    <span key={index}>
+                        <span className={snippet.type}>{snippet.text}</span>
+                        <span className="menu toolbar-menu" style={{visibility:'hidden'}}>
+                            <span className="button" onMouseDown={onMouseDown} data-active={true}>
+                                <i className={"fa fa-fw fa-plus-square"} aria-label={"Make text insert"}></i>
+                            </span>
+                        </span>
+                    </span>
+                );
+            } else {
                 content.push(<span key={index}>{snippet.text}</span>);
-            }
-            if (snippet.type === 'missing') {
-                content.push(<span key={index} className='missing-data'>{snippet.text}</span>);
-            }
-            if (snippet.type === 'structured-data') {
-                content.push(<span key={index} className='structured-data'>{snippet.text}</span>);
             }
         }); 
         
