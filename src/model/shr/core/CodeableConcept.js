@@ -12,6 +12,14 @@ class CodeableConcept {
         }
     }
 
+    fromFHIR(coding) {
+        this._coding = coding.map((c) => {
+          let code = new Coding();
+          code.fromFHIR(c);
+          return code;
+        });
+    }
+
   /**
    * Getter for shr.core.Coding[]
    */

@@ -21,6 +21,14 @@ class Coding {
             this._displayText = new DisplayText();
         }
     }
+
+    fromFHIR(coding) {
+        this.code = coding.code;
+        this._codeSystem = new CodeSystem();
+        this._codeSystem.fromFHIR(coding.system);
+        this._displayText = new DisplayText();
+        this._displayText.fromFHIR(coding.display);
+    }
   /**
    * Convenience getter for value (accesses this.code)
    */

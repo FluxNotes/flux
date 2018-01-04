@@ -49,6 +49,42 @@ class PersonOfRecord extends Person {
         }
   }
 
+  fromFHIR(entry) {
+      const resource = entry.resource;
+
+      if (resource.name) this._humanName = `${resource.name[0].given[0]} ${resource.name[0].family}`;
+      if (resource.birthDate) this._dateOfBirth = new DateOfBirth(resource.birthDate);
+      const placeOfBirth = resource.extension.find(e => e.url === 'http://standardhealthrecord.org/fhir/extensions/placeOfBirth');
+      this._placeOfBirth = new PlaceOfBirth(placeOfBirth.valueAddress);
+      if (resource.multipleBirthBoolean) this._multipleBirth = new MultipleBirth(resource.multipleBirthBoolean);
+      // Does FHIR differentiate birth sex and administrative gender?
+      if (resource.gender) {
+          //this._birthSex = new BirthSex(resource.gender);
+          this._administrativeGender = new AdministrativeGender(resource.gender);
+      }
+      const race = resource.extension.find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/us-core-race');
+      this._race = new Race(race);
+      const ethnicity = resource.extension.find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/us-core-ethnicity');
+      this._ethnicity = new Ethnicity(ethnicity);
+      if (resource.maritalStatus) this._maritalStatus = new MaritalStatus(resource.maritalStatus);
+      const mothersMaidenName = resource.extension.find(e => e.url === 'http://hl7.org/fhir/StructureDefinition/patient-mothersMaidenName');
+      this._mothersMaidenName = new MothersMaidenName(mothersMaidenName);
+      const fathersName = resource.extension.find(e => e.url === 'http://standardhealthrecord.org/fhir/extensions/fathersName');
+      this._fathersName = new FathersName(fathersName);
+      const ssn = resource.identifier.find(i => i.system === 'http://hl7.org/fhir/sid/us-ssn');
+      this._socialSecurityNumber = new SocialSecurityNumber(ssn);
+      const dln = resource.identifier.find(i => i.system === 'urn:oid:2.16.840.1.113883.4.3.25');
+      this._driversLicenseNumber = new DriversLicenseNumber(dln);
+      const ppn = resource.identifier.find(i => i.system === 'http://standardhealthrecord.org/fhir/extensions/passportNumber');
+      this._passportNumber = new PassportNumber(ppn);
+      if (resource.address) this._addressUsed = resource.address.map(a => {
+          let addressUsed = new AddressUsed();
+          addressUsed.fromFHIR(a);
+          return addressUsed;
+      });
+      if (resource.telecom) this._telecom = resource.telecom.map(t => new Telecom(t));
+  }
+
   /**
    * Getter for entry information (shr.base.Entry)
    */
@@ -314,7 +350,6 @@ class PersonOfRecord extends Person {
   set familialRelationship(familialRelationshipVal) {
     this._familialRelationship = familialRelationshipVal;
   }
-
 }
 
 export default PersonOfRecord;

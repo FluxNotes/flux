@@ -1,10 +1,17 @@
 import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+import moment from 'moment';
 
 /** Generated from SHR definition for shr.condition.WhenClinicallyRecognized */
 class WhenClinicallyRecognized {
     constructor(json) {
-        this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
-        this._generalizedTemporalContext = this.generalizedTemporalContext;
+        if (json) {
+            this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
+            this._generalizedTemporalContext = this.generalizedTemporalContext;
+        }
+    }
+
+    fromFHIR(dateTime) {
+        this._generalizedTemporalContext = new GeneralizedTemporalContext(new moment(dateTime).format('D MMM YYYY'));
     }
 
   /**

@@ -27,6 +27,14 @@ export function initCondition() {
             }
         }
 
+        fromFHIR(entry) {
+            const resource = entry.resource;
+            this._specificType = new SpecificType();
+            if (resource.code) this._specificType.fromFHIR(resource.code);
+            this._whenClinicallyRecognized = new WhenClinicallyRecognized();
+            this._whenClinicallyRecognized.fromFHIR(resource.onsetDateTime);
+        }
+
       get entryInfo() {
         return this._entryInfo;
       }

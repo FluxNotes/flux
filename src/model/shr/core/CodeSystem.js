@@ -7,6 +7,10 @@ class CodeSystem {
         }
     }
 
+    fromFHIR(system) {
+        this._uri = system;
+    }
+
   /**
    * Convenience getter for value (accesses this.uri)
    */

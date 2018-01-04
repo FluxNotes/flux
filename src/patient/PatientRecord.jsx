@@ -13,7 +13,8 @@ import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
-import Lang from 'lodash'
+import mapper from '../lib/FHIRMapper';
+import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 
@@ -24,7 +25,7 @@ class PatientRecord {
             this.personOfRecord = this.getPersonOfRecord();
             this.shrId = this.personOfRecord.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                    return o.entryId;
+                    return o.entryInfo.entryId;
                 })) + 1;
         } else { // create a new patient
             this.entries = [];
@@ -37,10 +38,32 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-            return ShrObjectFactory.createInstance(entry.entryType[0], entry);
-
+			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
         });
-    }
+	}
+	
+	fromFHIR(fhirJson) {
+		// loop through each FHIR entry
+		// map to correct SHR entryTypes
+		// call ShrObjectFactory to create instances of SHR Object Model
+        // call fromFHIR method on entry from Object
+        let nextEntryId = 0;
+		fhirJson.entry.forEach((entry) => {
+			const entryTypes =  mapper.mapToEntryTypes(entry);
+			entryTypes.forEach((entryType) => {
+				if (!Lang.isNull(entryType)) {
+                    const shrObj = ShrObjectFactory.createInstance(entryType);
+                    shrObj.fromFHIR(entry);
+                    shrObj.entryInfo.entryId = nextEntryId;
+                    nextEntryId += 1;
+					this.entries.push(shrObj);
+				}
+			});
+		});
+
+        this.personOfRecord = this.getPersonOfRecord();
+		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
+	}
 
     addEntryToPatient(entry) {
         entry.entryInfo.shrId = this.shrId;
@@ -136,6 +159,18 @@ class PatientRecord {
     getConditions() {
         return this.getEntriesIncludingType(Condition);
     }
+
+    getConditionsChronologicalOrder() {
+        let conditions = this.getConditions();
+        conditions.sort(this._conditionsTimeSorter);
+        return conditions;
+    }
+
+    getConditionsAlphabeticalOrder() {
+        let conditions = this.getConditions();
+        conditions.sort(this._conditionsAlphaSorter);
+        return conditions;
+    }
     
     getAllergies() {
         return this.getEntriesIncludingType(AllergyIntolerance);
@@ -198,7 +233,7 @@ class PatientRecord {
         conditions.forEach((c, i) => {
             result.push({
                 name: "diagnosis date - " + c.specificType.coding[0].displayText,
-                start_time: c.whenClinicallyRecognized
+                start_time: c.diagnosisDate
             });
         });
         result.sort(this._eventTimeSorter);
@@ -212,7 +247,7 @@ class PatientRecord {
             if (c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({
                     name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value,
-                    start_time: c.whenClinicallyRecognized.value.value.value.timePeriodStart.value
+                    start_time: c.diagnosisDate
                 });
             }
         });
@@ -375,6 +410,28 @@ class PatientRecord {
             return -1;
         }
         if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+
+    _conditionsTimeSorter(a, b) {
+        const a_startTime = new moment(a.diagnosisDate, "D MMM YYYY");
+        const b_startTime = new moment(b.diagnosisDate, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+
+    _conditionsAlphaSorter(a, b) {
+        if (a.type < b.type) {
+            return -1;
+        }
+        if (a.type > b.type) {
             return 1;
         }
         return 0;

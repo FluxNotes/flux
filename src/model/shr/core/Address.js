@@ -18,6 +18,13 @@ class Address {
         }
     }
 
+    fromFHIR(address) {
+        this._addressline = address.line.map(l => new AddressLine(l));
+        if (address.city) this._city = new City(address.city);
+        if (address.state) this._state = new State(address.state);
+        if (address.postalCode) this._postalCode = new PostalCode(address.postalCode);
+    }
+
   /**
    * Getter for shr.core.AddressLine[]
    */
