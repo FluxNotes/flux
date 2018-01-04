@@ -159,6 +159,18 @@ class PatientRecord {
     getConditions() {
         return this.getEntriesIncludingType(Condition);
     }
+
+    getConditionsChronologicalOrder() {
+        let conditions = this.getConditions();
+        conditions.sort(this._conditionsTimeSorter);
+        return conditions;
+    }
+
+    getConditionsAlphabeticalOrder() {
+        let conditions = this.getConditions();
+        conditions.sort(this._conditionsAlphaSorter);
+        return conditions;
+    }
     
     getAllergies() {
         return this.getEntriesIncludingType(AllergyIntolerance);
@@ -398,6 +410,28 @@ class PatientRecord {
             return -1;
         }
         if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+
+    _conditionsTimeSorter(a, b) {
+        const a_startTime = new moment(a.diagnosisDate, "D MMM YYYY");
+        const b_startTime = new moment(b.diagnosisDate, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+
+    _conditionsAlphaSorter(a, b) {
+        if (a.type < b.type) {
+            return -1;
+        }
+        if (a.type > b.type) {
             return 1;
         }
         return 0;
