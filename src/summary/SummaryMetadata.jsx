@@ -207,6 +207,15 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Disease Status",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "DiseaseStatusValues",
+                        data: {
+                            name: "",
+                            itemsFunction: this.getDiseaseStatuses
+                        }
+                    },
+                    {
                         name: "Labs",
                         type: "ValueOverTime",
                         data: [
@@ -501,7 +510,8 @@ class SummaryMetadata {
         });
     }
 
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
 
         const labs = labResults.filter((lab, i) => {
@@ -515,6 +525,19 @@ class SummaryMetadata {
             return processedLab
         });
         return labs
+    }
+
+    getDiseaseStatuses = (patient, condition) => { 
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
+
+        return progressions.map((prog, i) => {
+            const processedProgression = {};
+            processedProgression["start_time"] = prog.asOfDate;
+            // processedProgression[subsection.name] = "";
+
+            console.log(prog);
+        });
     }
 
     getMedicationItems = (patient, condition) => {
@@ -573,7 +596,7 @@ class SummaryMetadata {
                 group: assignedGroup,
                 icon: 'hospital-o',
                 className: classes,
-                hoverTitle: proc.specificType.value.coding[0].displayText.value,
+                hoverTitle: proc.codeableConceptDisplayText,
                 hoverText: hoverText,
                 start_time: startTime,
                 end_time: endTime

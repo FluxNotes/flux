@@ -1,5 +1,6 @@
 import AssessmentFocus from '../shr/assessment/AssessmentFocus';
 import CodeableConcept from '../shr/core/CodeableConcept';
+import SpecificType from '../shr/core/SpecificType';
 import Evidence from '../shr/observation/Evidence';
 import Progression from '../shr/oncology/Progression';
 import Reference from '../Reference';
@@ -53,6 +54,18 @@ class FluxProgression extends Progression {
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;
         });
+    }
+
+    get codeableConceptDisplayText() { 
+        if (this._specificType instanceof SpecificType) { 
+            if (this._specificType.codeableConcept.coding.length > 0) { 
+                return this._specificType.codeableConcept.coding[0].displayText.string;
+            } else { 
+                return null;
+            }
+        } else { 
+            return null;
+        }        
     }
 
     // Flux added
