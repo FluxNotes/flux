@@ -56,18 +56,6 @@ class FluxProgression extends Progression {
         });
     }
 
-    get codeableConceptDisplayText() { 
-        if (this._specificType instanceof SpecificType) { 
-            if (this._specificType.codeableConcept.coding.length > 0) { 
-                return this._specificType.codeableConcept.coding[0].displayText.string;
-            } else { 
-                return null;
-            }
-        } else { 
-            return null;
-        }        
-    }
-
     // Flux added
     get asOfDate() {
         return this._asOfDate;
