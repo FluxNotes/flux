@@ -353,6 +353,17 @@ class PatientRecord {
         }
     }
 
+    getHpi() {
+        const name = this.getName();
+        const age = this.getAge();
+        const gender = this.getGender();
+        const condition = this.getLastBreastCancerCondition();
+        let result = "";
+        result += `${name} is a ${age} year old ${gender}.`;
+        result += ` Patient has ${condition.type}.`;
+        return result;
+    }
+    
     _medsTimeSorter(a, b) {
         const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
