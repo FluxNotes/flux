@@ -48,10 +48,10 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     // Turns dates into numeric representations for graphing
-    processForGraphing = (data, xVar, xVarNumber, yVar, progressionToValueMap) => { 
+    processForGraphing = (data, xVar, xVarNumber, yVar, codeToValueMap) => { 
         const dataCopy = Lang.clone(data).map((d, i) => { 
             const code = d[yVar];
-            const numberBasedOnCode = progressionToValueMap[code];
+            const numberBasedOnCode = codeToValueMap[code];
 
             // 1. Translate time strings into millisecond representations, storing in a new key:value pair            
             d[xVarNumber]  = Number(new Date(d[xVar]))
@@ -68,8 +68,8 @@ class ProgressionLineChartVisualizer extends Component {
     }
 
     // Function for formatting numeric progression values to strings
-    progressionFormatter = (progStatus, progressionToValueMap) => { 
-        return progressionToValueMap[progStatus]
+    progressionFormatter = (progStatus, codeToValueMap) => { 
+        return codeToValueMap[progStatus]
     }
 
     // Gets the min/max values of the numeric representation of xVar
@@ -126,11 +126,11 @@ class ProgressionLineChartVisualizer extends Component {
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = "Disease status";
-        const progressionToValueMap = conditionSection.progressionToValueMap;
+        const codeToValueMap = conditionSection.codeToValueMap;
         const valueToProgressionMap = conditionSection.valueToProgressionMap;
         const data = conditionSection.itemsFunction(patient, condition, conditionSection);  
         // process dates into numbers for graphing
-        const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, progressionToValueMap);
+        const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);
         // Get all possible values for progression, that are numbers, and sort them
         const yTicks = Object.keys(valueToProgressionMap)
                             .filter((val) => {return typeof(val) === "number"})

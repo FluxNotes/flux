@@ -208,10 +208,10 @@ class SummaryMetadata {
                     },
                     {
                         name: "Disease Status",
-                        // clinicalEvents: ["pre-encounter"],
+                        clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
                         itemsFunction: this.getProgressions,
-                        progressionToValueMap: {
+                        codeToValueMap: {
                             // 'Complete Response'
                             "C0677874": 2,
                             // 'Complete Resection'
