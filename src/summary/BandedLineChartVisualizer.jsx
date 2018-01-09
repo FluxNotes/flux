@@ -125,22 +125,12 @@ class BandedLineChartVisualizer extends Component {
         const yUnit = processedData[0].unit;
 
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
-        if (subsection.bands) {
-            let bands = [];
-            
+        if (subsection.bands) {            
             // Grab the values from the summary metadata and set the bands low and high values
-            subsection.bands.forEach((band) => {
-                bands.push({
-                    y1: band.low,
-                    y2: band.high,
-                    color: band.color
-                });
+            let renderedBands = subsection.bands.map((band, i) => {
+                return this.renderBand(band.low, band.high, band.color, i);
             });
-
-            let renderedBands = bands.map((band, i) => {
-                return this.renderBand(band.y1, band.y2, band.color, i);
-            });            
-
+                
             // If the subsection contains the "bands" attribute, draw the line graph with bands
             return (
                 <div
@@ -179,12 +169,10 @@ class BandedLineChartVisualizer extends Component {
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
 
                     {renderedBands}
-
                 </LineChart>
                 </div>
             );
         } else {
-
             // If no bands specified, draw the line graph without bands
             return (
                 <div
