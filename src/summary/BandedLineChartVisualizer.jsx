@@ -126,43 +126,20 @@ class BandedLineChartVisualizer extends Component {
 
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
         if (subsection.bands) {
+            let bands = [];
+            
+            // Grab the values from the summary metadata and set the bands low and high values
+            subsection.bands.forEach((band) => {
+                bands.push({
+                    y1: band.low,
+                    y2: band.high,
+                    color: band.color
+                })
+            })
 
-            // Grab number ranges for the bands
-            let y1B1 = 0;
-            let y2B1 = 0;
-            let colorB1 = "";
-            let y1B2 = 0;
-            let y2B2 = 0;
-            let colorB2 = "";
-            let y1B3 = 0;
-            let y2B3 = 0;
-            let colorB3 = "";
-
-            // Grab the values from the summary metadata and set the bands low snd high values
-            for (var i = 0; i < subsection.bands.length; i++) {
-                switch (subsection.bands[i].assessment) {
-                    case 'bad':
-                        y1B1 = subsection.bands[i].low;
-                        y2B1 = subsection.bands[i].high;
-                        colorB1 = "red";
-                        break;
-
-                    case 'average':
-                        y1B2 = subsection.bands[i].low;
-                        y2B2 = subsection.bands[i].high;
-                        colorB2 = "yellow";
-                        break;
-
-                    case 'good':
-                        y1B3 = subsection.bands[i].low;
-                        y2B3 = subsection.bands[i].high;
-                        colorB3 = "green";
-                        break;
-
-                    default:
-                        console.log("Type of band not recognized (Check summary meta data)");
-                }
-            }
+            let renderedBands = bands.map((band, i) => {
+                return this.renderBand(band.y1, band.y2, band.color, i);
+            });            
 
             // If the subsection contains the "bands" attribute, draw the line graph with bands
             return (
@@ -201,9 +178,7 @@ class BandedLineChartVisualizer extends Component {
                     />
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
 
-                    {this.renderBand(y1B1, y2B1, colorB1)}
-                    {this.renderBand(y1B2, y2B2, colorB2)}
-                    {this.renderBand(y1B3, y2B3, colorB3)}
+                    {renderedBands}
 
                 </LineChart>
                 </div>
@@ -255,9 +230,9 @@ class BandedLineChartVisualizer extends Component {
     }
 
     // Given the range and the color, render the band
-    renderBand(y1, y2, color) {
+    renderBand(y1, y2, color, key) {
         return (
-            <ReferenceArea y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
+            <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
         )
     }
 
