@@ -219,7 +219,7 @@ class SummaryMetadata {
                                 // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
 
                                 bands: [
-                                    {low: 0, high: 3, assessment: 'good', color: 'red'},
+                                    {low: 0, high: 3, assessment: 'good', color: 'green'},
                                     {low: 3, high: 5, assessment: 'average', color: 'yellow'},
                                     {low: 5, high: 10, assessment: 'bad', color: 'red'}
                                 ]
