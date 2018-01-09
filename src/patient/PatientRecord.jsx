@@ -358,9 +358,18 @@ class PatientRecord {
         const age = this.getAge();
         const gender = this.getGender();
         const condition = this.getLastBreastCancerCondition();
+        const labResults = condition.getLabResultsChronologicalOrder("16 AUG 2010");
+
         let result = "";
         result += `${name} is a ${age} year old ${gender}.`;
         result += ` Patient has ${condition.type}.`;
+        if (labResults.length > 0) {
+            result += ' Recent lab results include ';
+            result += labResults.map((lab) => {
+                return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
+            }).join(', ');
+            result += '.';
+        }
         return result;
     }
     
