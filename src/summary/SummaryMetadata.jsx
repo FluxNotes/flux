@@ -213,7 +213,16 @@ class SummaryMetadata {
                             {
                                 name: "White blood cell count",
                                 code: "C0023508",
-                                itemsFunction: this.getTestsForSubSection
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
+                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
+
+                                bands: [
+                                    {low: 0, high: 3, assessment: 'bad'},
+                                    {low: 3, high: 5, assessment: 'average'},
+                                    {low: 5, high: 10, assessment: 'good'}
+                                ]
                             }
                         ]
                     },
@@ -492,12 +501,12 @@ class SummaryMetadata {
         });
     }
 
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
         const labResults = currentConditionEntry.getTests();
 
-        const labs = labResults.filter((lab, i) => { 
+        const labs = labResults.filter((lab, i) => {
             return lab.codeableConceptCode === subsection.code;
-        }).map((lab, i) => { 
+        }).map((lab, i) => {
             const processedLab = {};
             processedLab["start_time"] = lab.clinicallyRelevantTime;
             processedLab[subsection.name] = lab.quantity.number;
