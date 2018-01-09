@@ -208,16 +208,36 @@ class SummaryMetadata {
                     },
                     {
                         name: "Disease Status",
-                        clinicalEvents: ["pre-encounter"],
+                        // clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
-                        itemsFunction: this.getProgressions
+                        itemsFunction: this.getProgressions,
                         progressionToValueMap: {
-                            'Complete Response': 2,
-                            'Complete Resection': 2,
-                            'Responding': 1,
-                            'Stable': 0,
-                            'Progressing': -1,
-                            'Inevaluable': null,
+                            // 'Complete Response'
+                            "C0677874": 2,
+                            // 'Complete Resection'
+                            "C0015250": 2,
+                            // 'Responding'
+                            "C1272745": 1,
+                            // 'Stable'
+                            "C0205360": 0,
+                            // 'Progressing'
+                            "C1546960": -1,
+                            // 'Inevaluable'
+                            "C3858734": null,
+                        },  
+                        valueToProgressionMap: {
+                            // 'Complete Response'
+                            "3" : 'Complete Response',
+                            // 'Complete Resection'
+                            "2" : 'Complete Resection',
+                            // 'Responding'
+                            "1" : 'Responding',
+                            // 'Stable'
+                            "0" : 'Stable',
+                            // 'Progressing'
+                            "-1" : 'Progressing',
+                            // 'Inevaluable'
+                            "null" : 'Inevaluable',
                         }
                     },
                     {
@@ -537,17 +557,17 @@ class SummaryMetadata {
         const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
 
         return progressions.map((prog, i) => {
-            console.log(prog);
 
             const status = prog.status;
+            const code = prog.code
             const focalCondition = patient.getFocalConditionForProgression(prog);
             const focalConditionName = focalCondition.type;
             const tooltipText = focalConditionName + " is " + status + " based on " + prog.evidence.join();
 
             return {
-                "start_time" : prog.asOfDate;
-                "Disease status" : prog.status;
-                "tooltipText" : tooltipText
+                "start_time" : prog.asOfDate,
+                "Disease status" : code,
+                "tooltipText" : tooltipText,
             };
         });
     }
@@ -564,6 +584,7 @@ class SummaryMetadata {
             let classes = 'progression-item';
             // Do not include progression on timeline if status not set
             if (!prog.status) return;
+
             let startDate = new moment(prog.asOfDate, "D MMM YYYY");
             let hoverText = `${startDate.format('MM/DD/YYYY')}`;
             let endDate = startDate.clone().add(1, 'day');

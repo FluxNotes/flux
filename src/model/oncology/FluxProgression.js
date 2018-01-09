@@ -1,6 +1,5 @@
 import AssessmentFocus from '../shr/assessment/AssessmentFocus';
 import CodeableConcept from '../shr/core/CodeableConcept';
-import SpecificType from '../shr/core/SpecificType';
 import Evidence from '../shr/observation/Evidence';
 import Progression from '../shr/oncology/Progression';
 import Reference from '../Reference';
@@ -54,6 +53,14 @@ class FluxProgression extends Progression {
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;
         });
+    }
+
+    /**
+     *  Getter for code
+     *  This will return the code string from CodeableConcept
+     */
+    get code() {
+        return this._codeableConcept.coding[0].code;
     }
 
     // Flux added

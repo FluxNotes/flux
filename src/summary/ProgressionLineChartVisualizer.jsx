@@ -49,17 +49,15 @@ class ProgressionLineChartVisualizer extends Component {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data, xVar, xVarNumber, yVar, progressionToValueMap) => { 
-        // 1. Translate time strings into millisecond representations, storing in a new key:value pair
-        const dataCopy = Lang.clone(data);
-        Collection.map(dataCopy, (d) => { 
-            d[xVarNumber]  = Number(new Date(d[xVar]))
-        });
+        const dataCopy = Lang.clone(data).map((d, i) => { 
+            const code = d[yVar];
+            const numberBasedOnCode = progressionToValueMap[code];
 
-        // 2. Translate progression status values into numeric representations, inplace
-        dataCopy.map((d, i) => { 
-            const status = d[yVar];
-            const numberBasedOnStatus = progressionToValueMap[status];
-            d[yVar] = numberBasedOnStatus;
+            // 1. Translate time strings into millisecond representations, storing in a new key:value pair            
+            d[xVarNumber]  = Number(new Date(d[xVar]))
+            // 2. Translate progression status values into numeric representations, inplace
+            d[yVar] = numberBasedOnCode;
+            return d;
         })
         return dataCopy;
     }
@@ -67,6 +65,11 @@ class ProgressionLineChartVisualizer extends Component {
     // Function for formatting dates -- uses moment for quick formatting options
     dateFormat = (timeInMilliseconds) => {
         return moment(timeInMilliseconds).format('DD MMM YY');
+    }
+
+    // Function for formatting numeric progression values to strings
+    progressionFormatter = (progStatus, progressionToValueMap) => { 
+        return progressionToValueMap[progStatus]
     }
 
     // Gets the min/max values of the numeric representation of xVar
@@ -102,10 +105,10 @@ class ProgressionLineChartVisualizer extends Component {
         return "Date: " + this.dateFormat(xVarNumber);
     }   
 
-    // Based on a unit, return a function that formats a yVar (quantatative) value for tooltips 
-    createYVarFormatFunctionWithUnit = (unit) => { 
+    // Based on a valueToProgressionMap, return a function that formats a yVar (quantatative) value for tooltips 
+    createYVarFormatFunctionBasedOnLookup = (valueToProgressionMap) => {  
         return (value) => { 
-            return `${value} ${unit}`;
+            return `${valueToProgressionMap[value]}`;
         }
     }
 
@@ -123,20 +126,20 @@ class ProgressionLineChartVisualizer extends Component {
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = "Disease status";
-        const data = subsection.itemsFunction(patient, condition, subsection);  
+        const progressionToValueMap = conditionSection.progressionToValueMap;
+        const valueToProgressionMap = conditionSection.valueToProgressionMap;
+        const data = conditionSection.itemsFunction(patient, condition, conditionSection);  
         // process dates into numbers for graphing
-        const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, conditionSection.progressionToValueMap);
-        const yUnit = processedData[0].unit;
+        const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, progressionToValueMap);
+        // Get all possible values for progression, that are numbers, and sort them
+        const yTicks = Object.keys(valueToProgressionMap)
+                            .filter((val) => {return typeof(val) === "number"})
+                            .sort();
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
-                key={subsection}
+                key={conditionSection}
             >
-                <div className="sub-section-heading">
-                    <h2 className="sub-section-name">
-                        {`${yVar} (${yUnit})`}
-                    </h2>
-                </div>
                 <LineChart
                     width={this.state.chartWidth}
                     height={this.state.chartHeight}
@@ -152,13 +155,19 @@ class ProgressionLineChartVisualizer extends Component {
                     />
                     <YAxis 
                         dataKey={yVar}
-                        formatter={this.progressionFormat}
+                        ticks={yTicks}
+                        tickFormatter={(val) => { return valueToProgressionMap[val.toString()]}}
                     />
                     <Tooltip 
                         labelFormatter={this.xVarFormatFunction}
-                        formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
+                        formatter={this.createYVarFormatFunctionBasedOnLookup(valueToProgressionMap)}
                     />
-                    <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0} />
+                    <Line 
+                        type="monotone" 
+                        dataKey={yVar} 
+                        stroke="#295677" 
+                        yAxisId={0}
+                    />
                 </LineChart>
            </div>
         );
@@ -169,7 +178,7 @@ class ProgressionLineChartVisualizer extends Component {
         const {patient, condition, conditionSection} = this.props;
 
         return (
-            <div className="line-chart-subsection">
+            <div className="progression-line-chart-subsection">
                 {
                     this.renderProgressionChart(patient, condition, conditionSection)
                 }

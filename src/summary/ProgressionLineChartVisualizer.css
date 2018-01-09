@@ -1,0 +1,16 @@
+.progression-line-chart-subsection { 
+    padding: 10px 0;
+}
+
+.progression-line-chart-subsection .sub-section-heading h2.sub-section-name { 
+    margin: 10px 0;
+    font-weight: bold;  
+}
+
+.progression-line-chart-subsection .recharts-tooltip-wrapper { 
+    font-size: 13px;
+}
+
+.progression-line-chart-subsection .recharts-text { 
+    font-size: 11px;
+}
