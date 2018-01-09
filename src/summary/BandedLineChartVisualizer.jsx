@@ -134,8 +134,8 @@ class BandedLineChartVisualizer extends Component {
                     y1: band.low,
                     y2: band.high,
                     color: band.color
-                })
-            })
+                });
+            });
 
             let renderedBands = bands.map((band, i) => {
                 return this.renderBand(band.y1, band.y2, band.color, i);
@@ -233,7 +233,7 @@ class BandedLineChartVisualizer extends Component {
     renderBand(y1, y2, color, key) {
         return (
             <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
-        )
+        );
     }
 
     // Gets called for each section in SummaryMetaData.jsx
