@@ -177,34 +177,36 @@ class FluxBreastCancer extends BreastCancer {
         return this.bodySite.laterality.value.coding[0].displayText.value;        
     }
 
+    /**
+     *  function to build HPI Narrative
+     *  Starts with initial summary of patient information
+     *  Then details chronological history of patient's procedures, medications, and most recent progression
+     */
     buildHpiNarrative(patient) {
-        // const name = this.getName();
-        // const age = this.getAge();
-        // const gender = this.getGender();
-        // const condition = this.getLastBreastCancerCondition();
-        // const labResults = condition.getLabResultsChronologicalOrder("16 AUG 2010");
+        // Initial patient introduction section
+        const name = patient.getName();
+        const age = patient.getAge();
+        const gender = patient.getGender();
+        const labResults = this.getLabResultsChronologicalOrder("16 AUG 2010");
 
-        // let result = "";
-        // result += `${name} is a ${age} year old ${gender}.`;
-        // result += ` Patient has ${condition.type}.`;
-        // if (labResults.length > 0) {
-        //     result += ' Recent lab results include ';
-        //     result += labResults.map((lab) => {
-        //         return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
-        //     }).join(', ');
-        //     result += '.';
-        // }
+        let result = "\r\nHISTORY OF PRESENT ILLNESS\r\n";
+        result += `\r\n${name} is a ${age} year old ${gender}.`;
+        result += ` Patient has ${this.type}.`;
+        if (labResults.length > 0) {
+            result += ' Recent lab results include ';
+            result += labResults.map((lab) => {
+                return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
+            }).join(', ');
+            result += '.';
+        }
         
-        // return result;
         let events = [];
-
         events = events.concat(patient.getProceduresForCondition(this));
         events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
         events.push(patient.getMostRecentProgressionForCondition(this));
         events.sort(this._eventsTimeSorter);
-        // console.log(events);
 
-        return "HI";
+        return result;
     }
 
     // sorter for array with instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression
