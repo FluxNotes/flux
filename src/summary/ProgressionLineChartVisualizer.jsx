@@ -126,8 +126,34 @@ class ProgressionLineChartVisualizer extends Component {
         const xVar = "start_time";
         const xVarNumber = `${xVar}Number`;
         const yVar = "Disease status";
-        const codeToValueMap = conditionSection.codeToValueMap;
-        const valueToProgressionMap = conditionSection.valueToProgressionMap;
+        const codeToValueMap =  {
+            // 'Complete Response'
+            "C0677874": 2,
+            // 'Complete Resection'
+            "C0015250": 2,
+            // 'Responding'
+            "C1272745": 1,
+            // 'Stable'
+            "C0205360": 0,
+            // 'Progressing'
+            "C1546960": -1,
+            // 'Inevaluable'
+            "C3858734": null,
+        };
+         const valueToProgressionMap = {
+            // 'Complete Response'
+            "3" : 'Complete Response',
+            // 'Complete Resection'
+            "2" : 'Complete Resection',
+            // 'Responding'
+            "1" : 'Responding',
+            // 'Stable'
+            "0" : 'Stable',
+            // 'Progressing'
+            "-1" : 'Progressing',
+            // 'Inevaluable'
+            "null" : 'Inevaluable',
+        };
         const data = conditionSection.itemsFunction(patient, condition, conditionSection);  
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);

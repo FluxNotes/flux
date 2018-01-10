@@ -211,34 +211,6 @@ class SummaryMetadata {
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
                         itemsFunction: this.getProgressions,
-                        codeToValueMap: {
-                            // 'Complete Response'
-                            "C0677874": 2,
-                            // 'Complete Resection'
-                            "C0015250": 2,
-                            // 'Responding'
-                            "C1272745": 1,
-                            // 'Stable'
-                            "C0205360": 0,
-                            // 'Progressing'
-                            "C1546960": -1,
-                            // 'Inevaluable'
-                            "C3858734": null,
-                        },  
-                        valueToProgressionMap: {
-                            // 'Complete Response'
-                            "3" : 'Complete Response',
-                            // 'Complete Resection'
-                            "2" : 'Complete Resection',
-                            // 'Responding'
-                            "1" : 'Responding',
-                            // 'Stable'
-                            "0" : 'Stable',
-                            // 'Progressing'
-                            "-1" : 'Progressing',
-                            // 'Inevaluable'
-                            "null" : 'Inevaluable',
-                        }
                     },
                     {
                         name: "Labs",
