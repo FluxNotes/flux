@@ -207,6 +207,12 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Disease Status",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "DiseaseStatusValues",
+                        itemsFunction: this.getProgressions,
+                    },
+                    {
                         name: "Labs",
                         type: "ValueOverTime",
                         data: [
@@ -501,7 +507,8 @@ class SummaryMetadata {
         });
     }
 
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
 
         const labs = labResults.filter((lab, i) => {
@@ -515,6 +522,63 @@ class SummaryMetadata {
             return processedLab
         });
         return labs
+    }
+
+    getProgressions = (patient, condition, subsection) => { 
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
+
+        return progressions.map((prog, i) => {
+
+            const status = prog.status;
+            const code = prog.statusAsCode
+            const focalCondition = patient.getFocalConditionForProgression(prog);
+            const focalConditionName = focalCondition.type;
+            const tooltipText = focalConditionName + " is " + status + " based on " + prog.evidence.join();
+
+            return {
+                "start_time" : prog.asOfDate,
+                "Disease status" : code,
+                "tooltipText" : tooltipText,
+            };
+        });
+    }
+
+    // Gets progression items for timeline view
+    getProgressionItems = (patient, condition, groupStartIndex) => {
+        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
+        let items = [];
+
+        progressions.forEach((prog) => {
+            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
+
+            let classes = 'progression-item';
+            // Do not include progression on timeline if status not set
+            if (!prog.status) return;
+
+            let startDate = new moment(prog.asOfDate, "D MMM YYYY");
+            let hoverText = `${startDate.format('MM/DD/YYYY')}`;
+            let endDate = startDate.clone().add(1, 'day');
+            classes += ' point-in-time';
+
+            let focalCondition = patient.getFocalConditionForProgression(prog);
+            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
+
+            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
+
+            items.push({
+                group: assignedGroup,
+                icon: 'heartbeat',
+                className: classes,
+                hoverTitle: hoverTitle,
+                hoverText: hoverText,
+                start_time: startDate,
+                end_time: endDate
+            });
+        });
+
+        return items;
     }
 
     getMedicationItems = (patient, condition) => {
@@ -573,7 +637,7 @@ class SummaryMetadata {
                 group: assignedGroup,
                 icon: 'hospital-o',
                 className: classes,
-                hoverTitle: proc.specificType.value.coding[0].displayText.value,
+                hoverTitle: proc.codeableConceptDisplayText,
                 hoverText: hoverText,
                 start_time: startTime,
                 end_time: endTime
@@ -607,41 +671,6 @@ class SummaryMetadata {
             }
 
             hoverTitle = evt.name;
-
-            items.push({
-                group: assignedGroup,
-                icon: 'heartbeat',
-                className: classes,
-                hoverTitle: hoverTitle,
-                hoverText: hoverText,
-                start_time: startDate,
-                end_time: endDate
-            });
-        });
-
-        return items;
-    }
-
-    getProgressionItems = (patient, condition, groupStartIndex) => {
-        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const progressions = patient.getProgressionsForConditionChronologicalOrder(condition);
-        let items = [];
-
-        progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
-
-            let classes = 'progression-item';
-            // Do not include progression on timeline if status not set
-            if (!prog.status) return;
-            let startDate = new moment(prog.asOfDate, "D MMM YYYY");
-            let hoverText = `${startDate.format('MM/DD/YYYY')}`;
-            let endDate = startDate.clone().add(1, 'day');
-            classes += ' point-in-time';
-
-            let focalCondition = patient.getFocalConditionForProgression(prog);
-            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
-
-            let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
 
             items.push({
                 group: assignedGroup,

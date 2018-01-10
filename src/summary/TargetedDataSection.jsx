@@ -5,6 +5,7 @@ import TabularListVisualizer from './TabularListVisualizer'; //ordering of these
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
+import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import './TargetedDataSection.css';
 
@@ -151,6 +152,8 @@ class TargetedDataSection extends Component {
             options.push('graphic');
         } else if (section.type === "ValueOverTime") { 
             options.push('chart');
+        } else if (section.type === "DiseaseStatusValues") {
+            options.push('chart');
         }
         return options;
     }
@@ -233,6 +236,22 @@ class TargetedDataSection extends Component {
                 } else { 
                     return null;
                 }
+            }
+            case 'DiseaseStatusValues' : { 
+                if (visualization === 'chart') { 
+                    return (
+                        <ProgressionLineChartVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
+                } else { 
+                    return null;
+                }   
             }
             case 'Events': {
                 if (visualization === 'graphic') {
