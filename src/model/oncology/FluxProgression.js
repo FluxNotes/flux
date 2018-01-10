@@ -56,10 +56,10 @@ class FluxProgression extends Progression {
     }
 
     /**
-     *  Getter for code
-     *  This will return the code string from CodeableConcept
+     *  Getter for status' code
+     *  This will return the code string from CodeableConcept, corresponding to the status' code
      */
-    get code() {
+    get statusAsCode () {
         return this._codeableConcept.coding[0].code;
     }
 

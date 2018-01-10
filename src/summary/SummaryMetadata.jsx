@@ -559,7 +559,7 @@ class SummaryMetadata {
         return progressions.map((prog, i) => {
 
             const status = prog.status;
-            const code = prog.code
+            const code = prog.statusAsCode
             const focalCondition = patient.getFocalConditionForProgression(prog);
             const focalConditionName = focalCondition.type;
             const tooltipText = focalConditionName + " is " + status + " based on " + prog.evidence.join();
