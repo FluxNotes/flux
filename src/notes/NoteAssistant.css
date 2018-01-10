@@ -11,6 +11,10 @@ span.button-hover {
     transition-property: transform;
 }
 
+.clinical-notes-panel { 
+    float: right;
+}
+
 .previous-notes-label {
     font-weight: bold;
     font-size: 0.8em;
