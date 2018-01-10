@@ -378,9 +378,9 @@
   },
   { "type": "InsertValue",
     "id": "HistoryOfPresentIllnessInserter",
-    "getData": {"object": "patient", "method": "getHpi"},
+    "getData": {"object": "$parentValueObject", "method": "getHpi"},
     "isContext": false,
     "stringTriggers": [{"name": "@HPI", "description": "Insert patient's history of present illness"}],
-    "knownParentContexts": "Patient"
+    "knownParentContexts": "ConditionInserter"
   }
 ]

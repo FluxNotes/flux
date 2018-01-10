@@ -97,6 +97,8 @@ export default class InsertValue extends Shortcut {
             const attribute = callSpec["attribute"];
             //console.log(this.contextManager.getActiveContexts());
             return this.contextManager.getActiveContexts()[0].getAttributeValue(attribute);
+        } else if (callObject === "$parentValueObject") {
+            return this.contextManager.getActiveContexts()[0].getValueObject()[callSpec["method"]]();
         } else {
             console.error("not support yet " + callSpec.object + " / " + callSpec.method);
         }
