@@ -35,7 +35,7 @@ class BandedLineChartVisualizer extends Component {
 
     // Adds appropriate event listeners for tracking resizing
     componentDidMount = () => {
-        setTimeout(this.resize, 100);
+        setTimeout(this.resize, 450);
     }
 
     // Turns dates into numeric representations for graphing
