@@ -174,7 +174,7 @@ class FluxBreastCancer extends BreastCancer {
         return this.bodySite.laterality.value.coding[0].displayText.value;        
     }
 
-    getHpi() {
+    buildHpiNarrative(patient) {
         // const name = this.getName();
         // const age = this.getAge();
         // const gender = this.getGender();
@@ -193,7 +193,7 @@ class FluxBreastCancer extends BreastCancer {
         // }
         
         // return result;
-        console.log("HPI");
+        console.log(patient);
         return "HI";
     }
 }
