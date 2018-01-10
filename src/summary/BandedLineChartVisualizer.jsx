@@ -124,29 +124,63 @@ class BandedLineChartVisualizer extends Component {
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         const yUnit = processedData[0].unit;
 
+        let renderedBands = null;
+
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
-        if (subsection.bands) {            
+        if (subsection.bands) {
+            let bands = [];
+            
             // Grab the values from the summary metadata and set the bands low and high values
-            let renderedBands = subsection.bands.map((band, i) => {
-                return this.renderBand(band.low, band.high, band.color, i);
+            subsection.bands.forEach((band) => {
+                let color = null;
+
+                switch (band.assessment) {
+                    case 'bad':
+                        color = "red";
+                        break;
+
+                    case 'average':
+                        color = "yellow";
+                        break;
+
+                    case 'good':
+                        color = "green";
+                        break;
+
+                    default:
+                        console.log("Type of band is not recognized. Please check summary metadata");
+                }
+
+                bands.push({
+                    y1: band.low,
+                    y2: band.high,
+                    color: color
+                });
             });
-                
-            // If the subsection contains the "bands" attribute, draw the line graph with bands
-            return (
-                <div
-                    ref={(chartParentDiv) => {
-                        this.chartParentDiv = chartParentDiv;
-                    }}
-                    key={subsection}
-                >
-                    <div className="sub-section-heading">
-                        <h2 className="sub-section-name">
-                            {`${yVar} (${yUnit})`}
-                        </h2>
 
-                    </div>
+            renderedBands = bands.map((band, i) => {
+                return this.renderBand(band.y1, band.y2, band.color, i);
+            });            
 
-                    <LineChart
+        } else {
+            renderedBands = null;
+        }
+
+        return (
+            <div
+                ref={(chartParentDiv) => {
+                    this.chartParentDiv = chartParentDiv;
+                }}
+                key={subsection}
+            >
+                <div className="sub-section-heading">
+                    <h2 className="sub-section-name">
+                        {`${yVar} (${yUnit})`}
+                    </h2>
+
+                </div>
+
+                <LineChart
                     width={this.state.chartWidth}
                     height={this.state.chartHeight}
                     data={processedData}
@@ -167,54 +201,11 @@ class BandedLineChartVisualizer extends Component {
                         formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                     />
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
-
                     {renderedBands}
                 </LineChart>
-                </div>
-            );
-        } else {
-            // If no bands specified, draw the line graph without bands
-            return (
-                <div
-                    ref={(chartParentDiv) => {
-                        this.chartParentDiv = chartParentDiv;
-                    }}
-                    key={subsection}
-                >
-                    <div className="sub-section-heading">
-                        <h2 className="sub-section-name">
-                            {`${yVar} (${yUnit})`}
-                        </h2>
 
-                    </div>
-
-                    <LineChart
-                        width={this.state.chartWidth}
-                        height={this.state.chartHeight}
-                        data={processedData}
-                        margin={{top: 5, right: 20, left: 10, bottom: 5}}
-                    >
-                        <XAxis
-                            dataKey={xVarNumber}
-                            type="number"
-                            domain={[]}
-                            ticks={this.getTicks(processedData, xVarNumber)}
-                            tickFormatter={this.dateFormat}
-                        />
-                        <YAxis
-                            dataKey={yVar}
-                        />
-                        <Tooltip
-                            labelFormatter={this.xVarFormatFunction}
-                            formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
-                        />
-                        <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
-
-                    </LineChart>
-
-                </div>
-            );
-        }
+            </div>
+        );
     }
 
     // Given the range and the color, render the band
