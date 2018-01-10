@@ -1,6 +1,9 @@
 import BreastCancer from '../shr/oncology/BreastCancer';
 import FluxTest from '../lab/FluxTest';
 import FluxTNMStage from './FluxTNMStage';
+import FluxProcedure from '../procedure/FluxProcedure';
+import FluxMedicationPrescription from '../medication/FluxMedicationPrescription';
+import FluxProgression from './FluxProgression';
 import ReceptorStatusObservation from '../shr/oncology/ReceptorStatusObservation';
 import SpecificType from '../shr/core/SpecificType';
 import Lang from 'lodash'
@@ -193,8 +196,60 @@ class FluxBreastCancer extends BreastCancer {
         // }
         
         // return result;
-        console.log(patient);
+        let events = [];
+
+        events = events.concat(patient.getProceduresForCondition(this));
+        events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
+        events.push(patient.getMostRecentProgressionForCondition(this));
+        events.sort(this._eventsTimeSorter);
+        // console.log(events);
+
         return "HI";
+    }
+
+    // sorter for array with instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression
+    _eventsTimeSorter(a, b) {
+        let a_startTime, b_startTime;
+
+        switch (a.constructor) {
+            case FluxProcedure:
+                a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
+                if (!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
+                break;
+            case FluxMedicationPrescription:
+                a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+                break;
+            case FluxProgression:
+                a_startTime = new moment(a.asOfDate, "D MMM YYYY");
+                break;
+            default:
+                console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
+                return 0;
+        }
+
+        switch (b.constructor) {
+            case FluxProcedure:
+                b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
+                if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
+                break;
+            case FluxMedicationPrescription:
+                b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+                break;
+            case FluxProgression:
+                b_startTime = new moment(b.asOfDate, "D MMM YYYY");
+                break;
+            default:
+                console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
+                return 0;
+        }
+
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
     }
 }
 

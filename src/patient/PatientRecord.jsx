@@ -353,63 +353,6 @@ class PatientRecord {
         }
     }
 
-    // Function returns all procedures, medications, and most recent progression for condition
-    getEventsForConditionChronologicalOrder(condition) {
-        let events = [];
-
-        events = events.concat(this.getProceduresForCondition(condition));
-        events = events.concat(this.getMedicationsForConditionChronologicalOrder(condition));
-        events.push(this.getMostRecentProgressionForCondition(condition));
-        events.sort(this._eventsTimeSorter);
-
-        return events;
-    }
-
-    // sorter for array with instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression
-    _eventsTimeSorter(a, b) {
-        let a_startTime, b_startTime;
-
-        switch (a.constructor) {
-            case FluxProcedure:
-                a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
-                if (!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
-                break;
-            case FluxMedicationPrescription:
-                a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-                break;
-            case FluxProgression:
-                a_startTime = new moment(a.asOfDate, "D MMM YYYY");
-                break;
-            default:
-                console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
-                return 0;
-        }
-
-        switch (b.constructor) {
-            case FluxProcedure:
-                b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
-                if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
-                break;
-            case FluxMedicationPrescription:
-                b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-                break;
-            case FluxProgression:
-                b_startTime = new moment(b.asOfDate, "D MMM YYYY");
-                break;
-            default:
-                console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
-                return 0;
-        }
-
-        if (a_startTime < b_startTime) {
-            return -1;
-        }
-        if (a_startTime > b_startTime) {
-            return 1;
-        }
-        return 0;
-    }
-    
     _medsTimeSorter(a, b) {
         const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
