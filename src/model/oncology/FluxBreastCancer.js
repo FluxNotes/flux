@@ -191,7 +191,7 @@ class FluxBreastCancer extends BreastCancer {
 
         let result = "\r\nHISTORY OF PRESENT ILLNESS\r\n";
         result += `\r\n${name} is a ${age} year old ${gender}.`;
-        result += ` Patient has ${this.type}.`;
+        result += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
         if (labResults.length > 0) {
             result += ' Recent lab results include ';
             result += labResults.map((lab) => {
@@ -200,12 +200,72 @@ class FluxBreastCancer extends BreastCancer {
             result += '.';
         }
         
+        // Build narrative from sorted events
         let events = [];
         events = events.concat(patient.getProceduresForCondition(this));
         events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
         events.push(patient.getMostRecentProgressionForCondition(this));
         events.sort(this._eventsTimeSorter);
 
+        const procedureTemplates = {
+            range: 'Patient underwent {0} from {1} to {2}.',
+            single: 'Patient underwent {0} on {1}.'
+        };
+        const medicationTemplates = {
+            range: 'Patient took {0} from {1} to {2}.',
+            single: 'Patient started {0} on {1}.'
+        };
+        const today = new moment();
+        events.forEach((event) => {
+            switch (event.constructor) {
+                case FluxProcedure: {
+                    if (event.occurrenceTime.timePeriodStart) {
+                        let procedureText = '\r\n' + procedureTemplates['range'];
+                        procedureText = procedureText.replace('{0}', event.name);
+                        procedureText = procedureText.replace('{1}', event.occurrenceTime.timePeriodStart);
+                        procedureText = procedureText.replace('{2}', event.occurrenceTime.timePeriodEnd);
+                        result += procedureText;
+                    } else {
+                        let procedureText = '\r\n' + procedureTemplates['single'];
+                        procedureText = procedureText.replace('{0}', event.name);
+                        procedureText = procedureText.replace('{1}', event.occurrenceTime);
+                        result += procedureText;
+                    }
+                    break;
+                }
+                case FluxMedicationPrescription: {
+                    const active = event.isActiveAsOf(today);
+                    if (!active) {
+                        let medicationText = '\r\n' + medicationTemplates['range'];
+                        medicationText = medicationText.replace('{0}', event.medication);
+                        medicationText = medicationText.replace('{1}', event.requestedPerformanceTime.timePeriodStart);
+                        medicationText = medicationText.replace('{2}', event.requestedPerformanceTime.timePeriodEnd);
+                        result += medicationText;
+                    } else {
+                        let medicationText = '\r\n' + medicationTemplates['single'];
+                        medicationText = medicationText.replace('{0}', event.medication);
+                        medicationText = medicationText.replace('{1}', event.requestedPerformanceTime.timePeriodStart);
+                        result += medicationText;
+                    }
+                    break;
+                }
+                case FluxProgression: {
+                    if (event.asOfDate && event.status) {
+                        result += `\r\nAs of ${event.asOfDate}, disease is ${event.status}`;
+                        if (event.evidence && event.evidence.length > 0) {
+                            result += ` based on ${event.evidence.join(', ')}.`;
+                        } else {
+                            result += '.';
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    console.error("There should only be instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression");
+                }
+            }
+        });
+        
         return result;
     }
 
@@ -214,19 +274,23 @@ class FluxBreastCancer extends BreastCancer {
         let a_startTime, b_startTime;
 
         switch (a.constructor) {
-            case FluxProcedure:
+            case FluxProcedure: {
                 a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
                 if (!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
-            case FluxMedicationPrescription:
+            }
+            case FluxMedicationPrescription: {
                 a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
-            case FluxProgression:
+            }
+            case FluxProgression: {
                 a_startTime = new moment(a.asOfDate, "D MMM YYYY");
                 break;
-            default:
+            }
+            default: {
                 console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
                 return 0;
+            }
         }
 
         switch (b.constructor) {
