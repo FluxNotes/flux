@@ -167,7 +167,14 @@ class FluxBreastCancer extends BreastCancer {
         } else {
             return s;
         }
+    }    
+  
+    get laterality() {
+        if (!this.bodySite && !this.bodySite.laterality) return null;
+        return this.bodySite.laterality.value.coding[0].displayText.value;        
     }
+
+
 }
 
 export default FluxBreastCancer;

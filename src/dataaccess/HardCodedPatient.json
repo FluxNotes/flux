@@ -107,6 +107,7 @@
         "specificType": {"value": {"coding": [{"value": "408643008", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Invasive ductal carcinoma of breast"}]}},
         "category": [ {"coding": [{"value": "#disease"}]} ],
         "clinicalStatus": "recurrence",
+        "bodySite": {"laterality": {"value": {"coding": [{"value": "C25228", "codeSystem": {"value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, "displayText": "Right"}]}}},
         "includeOnProblemList": true,
         "whenClinicallyRecognized": {"generalizedTemporalContext": { "timePeriodStart": "13 JAN 2012" } },
         "observation": [

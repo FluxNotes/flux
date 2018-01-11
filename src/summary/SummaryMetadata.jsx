@@ -45,6 +45,12 @@ class SummaryMetadata {
                                         shortcut: "@condition"
                                     },
                                     {
+                                        name: "Laterality",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.laterality;
+                                        },
+                                    },                                    
+                                    {
                                         name: "Stage",
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
