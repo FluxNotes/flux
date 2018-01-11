@@ -201,6 +201,8 @@ class FluxBreastCancer extends BreastCancer {
         }
         
         // Build narrative from sorted events
+        // Get procedures, medications, and most recent progression from patient
+        // Sort by start time and add snippets about each event to result text
         let events = [];
         events = events.concat(patient.getProceduresForCondition(this));
         events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
