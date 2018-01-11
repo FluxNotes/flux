@@ -4,7 +4,6 @@ import moment from 'moment';
 import {scaleLinear} from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
-import Function from 'lodash';
 import PropTypes from 'prop-types';
 
 import './BandedLineChartVisualizer.css';
@@ -16,7 +15,6 @@ class BandedLineChartVisualizer extends Component {
     constructor(props) {
         super(props);
 
-        this.resize = Function.throttle(this.updateDimensions, 100);
         this.updateState = true;
         // This var will be used 
         this.state = {
@@ -31,20 +29,13 @@ class BandedLineChartVisualizer extends Component {
             this.updateState = false;
         } else {
             this.updateState = true;
-            // this.resize();
+            setTimeout(this.resize, 450);
         }
     }
 
     // Adds appropriate event listeners for tracking resizing
     componentDidMount = () => {
-        // window.addEventListener("resize", this.resize);
-        // this.chartParentDiv.addEventListener("resize", this.resize);
-        setTimeout(this.resize, 100);
-    }
-
-    // Removes event listeners that track resizing
-    componentWillUnmounnt = () => {
-        // window.removeEventListener("resize", this.resize)
+        setTimeout(this.resize, 450);
     }
 
     // Turns dates into numeric representations for graphing
@@ -106,7 +97,7 @@ class BandedLineChartVisualizer extends Component {
     }
 
     // Updates the dimensions of the chart
-    updateDimensions = () => {
+    resize = () => {
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
 
         this.setState({
