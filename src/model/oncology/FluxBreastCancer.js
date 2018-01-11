@@ -39,6 +39,8 @@ class FluxBreastCancer extends BreastCancer {
         return this.getObservationsOfType(FluxTest);
     }
 
+
+    // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
     getLabResultsChronologicalOrder(sinceDate) {
 
         let results = this.getTests();

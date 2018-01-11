@@ -492,9 +492,11 @@ class SummaryMetadata {
     getItemListForLabResults = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
-        // Set sinceDate to null to get all results
-        const sinceDate = "16 AUG 2010";
-        const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(sinceDate);
+        // Set the max number of months prior to today that a lab result can be
+        const numberOfMonths = 6;
+
+        // labResultsInOrder contains all lab results within a specified number of months from today
+        const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
 
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
