@@ -44,10 +44,8 @@ class FluxBreastCancer extends BreastCancer {
         return this.getObservationsOfType(FluxTest);
     }
 
-
     // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
     getLabResultsChronologicalOrder(sinceDate) {
-
         let results = this.getTests();
         results.sort(this._labResultsTimeSorter);
 
@@ -75,7 +73,6 @@ class FluxBreastCancer extends BreastCancer {
 
     // Grab the most recent lab results within a set threshold date
     getMostRecentLabResults(results, sinceDate) {
-
         let mostRecentLabResultsLookupTable = {};
 
         // Convert the sinceDate to a moment.js date
@@ -235,7 +232,10 @@ class FluxBreastCancer extends BreastCancer {
         events = events.concat(patient.getProceduresForCondition(this));
         events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
         events = events.concat(this.getLabResultsChronologicalOrder(moment().subtract(6, 'months')));
-        events.push(patient.getMostRecentProgressionForCondition(this));
+        const recentProgression = patient.getMostRecentProgressionForCondition(this);
+        if (recentProgression) {
+            events.push(recentProgression);
+        }
         events.sort(this._eventsTimeSorter);
 
         const procedureTemplates = {
