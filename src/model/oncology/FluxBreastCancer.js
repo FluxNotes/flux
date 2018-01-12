@@ -195,15 +195,6 @@ class FluxBreastCancer extends BreastCancer {
         result += `\r\n${name} is a ${age} year old ${gender}.`;
         result += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
 
-        // Lab Results
-        if (labResults.length > 0) {
-            result += ' Recent lab results include ';
-            result += labResults.map((lab) => {
-                return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
-            }).join(', ');
-            result += '.';
-        }
-
         // Laterality
         if (this.laterality) {
             result += ` Breast cancer diagnosed in ${this.laterality} breast.`;
@@ -231,6 +222,15 @@ class FluxBreastCancer extends BreastCancer {
         }
         if (her2Status) {
             result += ` HER2 was ${her2Status.status}.`;
+        }
+
+        // Lab Results
+        if (labResults.length > 0) {
+            result += ' Recent lab results include ';
+            result += labResults.map((lab) => {
+                return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
+            }).join(', ');
+            result += '.';
         }
         
         // Build narrative from sorted events
