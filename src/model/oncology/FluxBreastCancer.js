@@ -293,7 +293,7 @@ class FluxBreastCancer extends BreastCancer {
                 }
                 case FluxTest: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.clinicallyRelevantTime}`;
+                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.clinicallyRelevantTime}.`;
                     }
                     break;
                 }
