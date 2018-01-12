@@ -191,23 +191,22 @@ class FluxBreastCancer extends BreastCancer {
         const gender = patient.getGender();
         const labResults = this.getLabResultsChronologicalOrder(moment().subtract(6, 'months'));
 
-        let result = "\r\nHISTORY OF PRESENT ILLNESS\r\n";
-        result += `\r\n${name} is a ${age} year old ${gender}.`;
-        result += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        let hpiText = `\r\n\r\n${name} is a ${age} year old ${gender}.`;
+        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
 
         // Laterality
         if (this.laterality) {
-            result += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
         }
 
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorSize);
         const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
         if (tumorSize.length > 0) {
-            result += ` Primary tumor size is ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
+            hpiText += ` Primary tumor size is ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
         }
         if (histologicGrade.length > 0) {
-            result += ` Histological grade is ${histologicGrade[0].grade}.`;
+            hpiText += ` Histological grade is ${histologicGrade[0].grade}.`;
         }
 
         // ER, PR, HER2
@@ -215,22 +214,22 @@ class FluxBreastCancer extends BreastCancer {
         const prStatus = this.getPRReceptorStatus();
         const her2Status = this.getHER2ReceptorStatus();
         if (erStatus) {
-            result += ` Estrogen receptor was ${erStatus.status}.`;
+            hpiText += ` Estrogen receptor was ${erStatus.status}.`;
         }
         if (prStatus) {
-            result += ` Progesteron receptor was ${prStatus.status}.`;
+            hpiText += ` Progesteron receptor was ${prStatus.status}.`;
         }
         if (her2Status) {
-            result += ` HER2 was ${her2Status.status}.`;
+            hpiText += ` HER2 was ${her2Status.status}.`;
         }
 
         // Lab Results
         if (labResults.length > 0) {
-            result += ' Recent lab results include ';
-            result += labResults.map((lab) => {
+            hpiText += ' Recent lab results include ';
+            hpiText += labResults.map((lab) => {
                 return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
             }).join(', ');
-            result += '.';
+            hpiText += '.';
         }
         
         // Build narrative from sorted events
@@ -259,12 +258,12 @@ class FluxBreastCancer extends BreastCancer {
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime.timePeriodStart);
                         procedureText = procedureText.replace('{2}', event.occurrenceTime.timePeriodEnd);
-                        result += procedureText;
+                        hpiText += procedureText;
                     } else {
                         let procedureText = '\r\n' + procedureTemplates['single'];
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime);
-                        result += procedureText;
+                        hpiText += procedureText;
                     }
                     break;
                 }
@@ -275,22 +274,22 @@ class FluxBreastCancer extends BreastCancer {
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.requestedPerformanceTime.timePeriodStart);
                         medicationText = medicationText.replace('{2}', event.requestedPerformanceTime.timePeriodEnd);
-                        result += medicationText;
+                        hpiText += medicationText;
                     } else {
                         let medicationText = '\r\n' + medicationTemplates['single'];
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.requestedPerformanceTime.timePeriodStart);
-                        result += medicationText;
+                        hpiText += medicationText;
                     }
                     break;
                 }
                 case FluxProgression: {
                     if (event.asOfDate && event.status) {
-                        result += `\r\nAs of ${event.asOfDate}, disease is ${event.status}`;
+                        hpiText += `\r\nAs of ${event.asOfDate}, disease is ${event.status}`;
                         if (event.evidence && event.evidence.length > 0) {
-                            result += ` based on ${event.evidence.join(', ')}.`;
+                            hpiText += ` based on ${event.evidence.join(', ')}.`;
                         } else {
-                            result += '.';
+                            hpiText += '.';
                         }
                     }
                     break;
@@ -301,7 +300,7 @@ class FluxBreastCancer extends BreastCancer {
             }
         });
         
-        return result;
+        return hpiText;
     }
 
     // sorter for array with instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression
