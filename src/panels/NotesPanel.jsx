@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 
 import FluxNotesEditor from '../notes/FluxNotesEditor';
+import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
 import './NotesPanel.css';
 
@@ -21,6 +22,12 @@ export default class NotesPanel extends Component {
         this.updateSelectedNote = this.updateSelectedNote.bind(this);
     }
 
+    //added
+    getCurrentNote(){
+        
+        return this.updatedEditorNote;
+    }
+
     updateNoteAssistantMode(mode) {
         this.setState({noteAssistantMode: mode});
     }
@@ -31,7 +38,9 @@ export default class NotesPanel extends Component {
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
-
+        if(!Lang.isNull(note)){
+            this.props.setFullAppState("documentText", note.content);
+        }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         // Set the note to be inserted into the editor and the selected note
         if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
@@ -97,6 +106,8 @@ export default class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     updateErrors={this.props.updateErrors}
                     errors={this.props.errors}
+                    // Pass this down one more layer
+                    setFullAppState={this.props.setFullAppState}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
@@ -123,6 +134,8 @@ export default class NotesPanel extends Component {
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     selectedNote={this.state.selectedNote}
                     updateSelectedNote={this.updateSelectedNote}
+                    documentText={this.props.documentText}
+                    saveEditorContents={this.props.saveEditorContents}
                 />
             </div>
         );
@@ -142,6 +155,7 @@ NotesPanel.propTypes = {
     contextManager: PropTypes.object,
     shortcutManager: PropTypes.object,
     summaryItemToBeInserted: PropTypes.string,
+    //needed? was there documentText: PropTypes.string,
     errors: PropTypes.array,
     isNoteViewerEditable: PropTypes.bool,
     newCurrentShortcut: PropTypes.func,

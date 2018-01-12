@@ -8,6 +8,7 @@ import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
 import iconArrowLeft from '../../public/icons/icon_arrow_left.svg';
+import moment from 'moment';
 import './NoteAssistant.css';
 
 export default class NoteAssistant extends Component {
@@ -16,7 +17,9 @@ export default class NoteAssistant extends Component {
 
         this.state = {
             sortIndex: null,
-            maxNotesToDisplay: 3
+            maxNotesToDisplay: 3,
+            initialNote: true,
+            currentlyEditingEntryId: -1
         };
     }
 
@@ -61,28 +64,84 @@ export default class NoteAssistant extends Component {
         this.setState({ sortIndex: sortIndex });
     }
 
-    // Gets called when clicking on the "new note" button
-    handleOnNewNoteButtonClick() {
-        this.toggleView("context-tray");
-        this.props.loadNote("");
+// TODO: somehow use the knowledge that saveEditorContents is now true to trigger an additional save before this Component goes away. For Workflow dropdown change. everything else works.
 
+    // Gets called when clicking on the "new note" button
+    handleOnNewNoteButtonClick  = () => {
+        if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            this.saveEditorContentsToNewNote();        
+        } else {
+            this.updateExistingNote();
+        }
+        
+        this.createBlankNewNote();
+    }
+
+    updateExistingNote = () => {
+        var entryId = this.state.currentlyEditingEntryId;
+        console.log(this.props.patient.getNotes());
+        var found = this.props.patient.getNotes().find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, entryId);
+        });
+        if(!Lang.isNull(found) && !Lang.isUndefined(found)){
+            found.content = this.props.documentText;
+            console.log("Set Entry " + found.entryInfo.entryId + " to " + found.content + ". Calling Patient.update with " + found.entryInfo.entryId);
+            this.props.patient.updateExistingEntry(found);
+           this.props.updateSelectedNote(found);
+        } else {
+            console.log("Error: couldn't find a matching item to update: " + found + " " + this.state.currentlyEditingEntryId);
+        }
+    }
+
+    saveEditorContentsToNewNote = () => {
         // Create info to be set for new note
-        let date = "5 NOV 2016";
+        let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber Cancer Institute";
         let clinician = "Dr. X123";
-        let content = "@name is a @age year old @gender born on @dateofbirth";
+        let signed = false;
+        
+        // Add new unsigned note to patient record
+        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
+        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        //console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId + " aka " + currentlyEditingEntryId);
+    }
+
+    // creates blank new note and puts it on the screen
+    createBlankNewNote = () => {
+        let emptyNote = "";
+        this.toggleView("context-tray");
+        this.props.loadNote(emptyNote);
+
+        // Create info to be set for new note
+        let date = new moment().format("D MMM YYYY");
+        let subject = "New Note";
+        let hospital = "Dana Farber Cancer Institute";
+        let clinician = "Dr. X123";
+        let content = emptyNote;
         let signed = false;
 
         // Add new unsigned note to patient record
-        this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        //console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId +" aka " + currentlyEditingEntryId);
 
         // Deselect note in the clinical notes view
         this.props.updateSelectedNote(null);
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
-    openNote(isInProgressNote, note) {
+    // also saves editor content to a new/existing note
+    openNote = (isInProgressNote, note) => {
+        if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            this.saveEditorContentsToNewNote();    
+        } else {
+            // need to only update notes that are inProgress, how? new note we have, but old one? uneditable so probably okay to overwrite with same content
+            //console.log("Updating existing note from openNote, id was " + this.state.currentlyEditingEntryId + " and macthing? content was " + this.props.documentText);
+            this.updateExistingNote();
+        }
+        this.setState({currentlyEditingEntryId: note.entryInfo.entryId}); // does note have entryId? no..
+        // the lines below are duplicative
         this.props.updateSelectedNote(note);
         this.props.loadNote(note);
 
@@ -160,6 +219,9 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         const selected = this.props.selectedNote === note;
+      /*  console.log("in renderInProgressNoteSVG");
+        console.log(note);
+        console.log(selected);*/
 
         return (
             <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => { this.openNote(true, note) }}>
@@ -197,7 +259,7 @@ export default class NoteAssistant extends Component {
 
     // Render the list of clinical notes
     renderNotes() {
-        return this.notesToDisplay.map((item, i) =>
+        return this.notesToDisplay.map((item, i) => // item is a signed note
             this.renderClinicalNote(item, i)
         );
     }

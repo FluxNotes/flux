@@ -54,6 +54,8 @@ class FullApp extends Component {
             isNoteViewerEditable: false,
             patient: patient,
             selectedText: null,
+            documentText: null,
+            saveEditorContents: false,
             superRole: 'Clinician',
             SummaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),

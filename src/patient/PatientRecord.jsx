@@ -63,7 +63,18 @@ class PatientRecord {
 
         this.personOfRecord = this.getPersonOfRecord();
 		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
-	}
+    }
+    
+    // Finds an existing entry with the same entryId and replaces it with updatedEntry
+    updateExistingEntry(updatedEntry){
+        var found = this.entries.find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
+        });
+        if(!Lang.isUndefined(found)){
+            var index = this.entries.indexOf(found);
+            this.entries[index] = updatedEntry;
+        }
+    }
 
     addEntryToPatient(entry) {
         entry.entryInfo.shrId = this.shrId;
@@ -72,12 +83,15 @@ class PatientRecord {
         let today = new moment().format("D MMM YYYY");
         entry.entryInfo.originalCreationDate = today;
         entry.entryInfo.lastUpdateDate = today;
+        //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
+        // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
+        return entry.entryInfo.entryId;
     }
 
     addEntryToPatientWithPatientFocalSubject(entry) {
         entry.focalSubject = this.patientFocalSubject;
-        this.addEntryToPatient(entry);
+        return this.addEntryToPatient(entry);
     }
 
     setDeceased(deceased) {
@@ -220,7 +234,7 @@ class PatientRecord {
             }
         );
 
-        this.addEntryToPatientWithPatientFocalSubject(clinicalNote);
+        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote);
     }
 
     getNotes() {
