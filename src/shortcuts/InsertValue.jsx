@@ -95,11 +95,10 @@ export default class InsertValue extends Shortcut {
         } else if (callObject === "parent") {
         //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
-            //console.log(this.contextManager.getActiveContexts());
-            return this.contextManager.getActiveContexts()[0].getAttributeValue(attribute);
+            return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getAttributeValue(attribute);
         } else if (callObject === "$parentValueObject") {
             const patient = this.contextManager.getPatient();
-            return this.contextManager.getActiveContexts()[0].getValueObject()[callSpec["method"]](patient);
+            return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getValueObject()[callSpec["method"]](patient);
         } else {
             console.error("not support yet " + callSpec.object + " / " + callSpec.method);
         }
