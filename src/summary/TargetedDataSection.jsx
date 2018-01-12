@@ -7,6 +7,7 @@ import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualiz
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
+import RangeChart from './RangeChart';
 
 
 import './TargetedDataSection.css';
@@ -287,31 +288,19 @@ class TargetedDataSection extends Component {
         }
     }
 
-    renderRangeChart() {
-
-        return (
-
-            <svg width="250" height="150">
-                  <text x="20" y="20" fontFamily="sans-serif" fontSize="20px" fill="black">Aromasin 25 mg qd</text>
-                  <line x1="10" y1="45" x2="205" y2="45" stroke="black" strokeWidth="0.5"  />
-                  <line x1="10" y1="35" x2="10" y2="55" stroke="black" strokeWidth="0.5"  />
-                  <text x="0" y="70" fontFamily="sans-serif" fontSize="14px" fill="black">5 mg</text>
-
-                  <line x1="205" y1="35" x2="205" y2="55" stroke="black" strokeWidth="0.5"  />
-                  <text x="195" y="70" fontFamily="sans-serif" fontSize="14px" fill="black">20 mg</text>
-
-                <line x1="65" y1="35" x2="65" y2="55" stroke="black" strokeWidth="0.5"  />
-                <text x="65" y="70" fontFamily="sans-serif" fontSize="14px" fill="black">10 mg</text>
-
-                <circle cx="220" cy="45" r="8" stroke="red" strokeWidth="3" fill="red" />
-
-
-            </svg>
-        );
-    }
-
     render() {
         const visualizationOptions = this.getOptions(this.props.section);
+
+        // Values for range chart
+        const lowerValue = 1;
+        const upperValue = 7;
+        const typicalValue = 2;
+        const value = 2.5;
+        const unit = "mg";
+        const name = "Letrozole";
+
+        // console.log("section");
+        // console.log(this.props.section);
 
         return (
             <div id="targeted-data-section">
@@ -321,7 +310,14 @@ class TargetedDataSection extends Component {
                 </h2>
                 {this.renderSection(this.props.section)}
 
-                {this.renderRangeChart()}
+                <RangeChart
+                    lowerValue={lowerValue}
+                    upperValue={upperValue}
+                    typicalValue={typicalValue}
+                    value={value}
+                    unit={unit}
+                    name={name}
+                />
             </div>
 
 
