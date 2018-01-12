@@ -1,3 +1,6 @@
+import Menu, { MenuItem } from 'material-ui/Menu';
+import Popover from 'material-ui/Popover';
+import Typography from 'material-ui/Typography';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
@@ -179,34 +182,88 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
+    state = {
+        anchorEl: [],
+        anchorOriginVertical: 'bottom',
+        anchorOriginHorizontal: 'center',
+        transformOriginVertical: 'top',
+        transformOriginHorizontal: 'center',
+        positionTop: 200, // Just so the popover can be spotted more easily
+        positionLeft: 400, // Same as above
+        anchorReference: 'anchorEl',
+    };
+
+        handlePopoverOpen = (event, index) => {
+            console.log("open");
+            let anchorEl = this.state.anchorEl;
+            anchorEl[index] = event.target;
+            this.setState({ anchorEl: anchorEl });
+        };
+
+        handlePopoverClose = (event, index) => {
+            console.log("close");
+            let anchorEl = this.state.anchorEl;
+            anchorEl[index] = null;
+            this.setState({ anchorEl: anchorEl });
+        };
+
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
+        const {
+          anchorEl,
+          anchorOriginVertical,
+          anchorOriginHorizontal,
+          transformOriginVertical,
+          transformOriginHorizontal,
+          positionTop,
+          positionLeft,
+          anchorReference,
+        } = this.state;
         
-/*        const showToolbar = (type) => {
-            //console.log("showToolbar " + type);
-            
+        const insertItem = (item, index) => {
+            console.log("chose " + item);
+            this.props.onItemClicked(item);
+            let anchorEl = this.state.anchorEl;
+            anchorEl[index] = null;
+            this.setState({ anchorEl: anchorEl });
         };
-        
-        const hideToolbar = (type) => {
-            console.log("hideToolbar " + type);
-        };
-*/
+
+/*
+                           anchorOrigin={{ vertical: anchorOriginVertical, horizontal: anchorOriginHorizontal }}
+                            transformOrigin={{ vertical: transformOriginVertical, horizontal: transformOriginHorizontal }}
+                            anchorReference={anchorReference}
+                            anchorPosition={{top: positionTop, eft: positionLeft }}
+                            onClose={this.handlePopoverOpen}
+
+                            
+                            
+                            onMouseLeave={this.handlePopoverClose}
+                            */
+                            
+                            
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
             if (snippet.type === 'structured-data' && !this.props.isWide) {
-                // onMouseOver={() => showToolbar(snippet.type)} onMouseLeave={() => hideToolbar(snippet.type)}
+                console.log(anchorEl[index]);
                 content.push(
-                    <span key={index} className={snippet.type}>{snippet.text}
-                        <span className="menu toolbar-menu">
-                            <span className="button" onMouseDown={() => this.props.onItemClicked(snippet.item)} data-active={true}>
-                                <i className={"fa fa-fw fa-plus-square"} aria-label={"Insert into clinical note"}></i>
-                            </span>
+                    <span key={index}>
+                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)}>
+                            {snippet.text}
                         </span>
+                        <Menu
+                            open={!!anchorEl[index]}
+                            anchorEl={anchorEl[index]}>
+                                    <MenuItem   onClick={() => insertItem(snippet.item, index)}
+                                                onMouseLeave={(event) => this.handlePopoverClose(event, index)}>
+                                        Insert {snippet.text}
+                                    </MenuItem>
+                                
+                        </Menu>
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
