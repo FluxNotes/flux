@@ -21,7 +21,6 @@ export function initCondition() {
                 if (json.category) this._category = json.category.map((c) => new Category(c));
                 if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
                 this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
-                //if (json.bodySite) this._bodySite = new BodySite(json.bodySite);
                 if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
             } else {
                 this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/condition/Condition");
