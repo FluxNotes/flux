@@ -195,17 +195,19 @@ class NarrativeNameValuePairsVisualizer extends Component {
     };
 
         handlePopoverOpen = (event, index) => {
+            
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = event.target;
             this.setState({ anchorEl: anchorEl });
         };
 
         handlePopoverClose = (event, index) => {
+
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
-        
+
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
@@ -222,15 +224,27 @@ class NarrativeNameValuePairsVisualizer extends Component {
             this.setState({ anchorEl: anchorEl });
         };
         
-/*        const showToolbar = (type) => {
-            //console.log("showToolbar " + type);
-            
+        const insertItem = (item, index) => {
+            console.log("chose " + item);
+            this.props.onItemClicked(item);
+            let anchorEl = this.state.anchorEl;
+            anchorEl[index] = null;
+            this.setState({ anchorEl: anchorEl });
         };
-        
-        const hideToolbar = (type) => {
-            console.log("hideToolbar " + type);
-        };
-*/
+
+/*
+                           anchorOrigin={{ vertical: anchorOriginVertical, horizontal: anchorOriginHorizontal }}
+                            transformOrigin={{ vertical: transformOriginVertical, horizontal: transformOriginHorizontal }}
+                            anchorReference={anchorReference}
+                            anchorPosition={{top: positionTop, eft: positionLeft }}
+                            onClose={this.handlePopoverOpen}
+
+                            
+                            
+                            onMouseLeave={this.handlePopoverClose}
+                            */
+                            
+                            
         
         // now go through each snippet and build up HTML to render
         let content = [];
