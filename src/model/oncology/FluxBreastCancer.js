@@ -4,6 +4,8 @@ import FluxTNMStage from './FluxTNMStage';
 import FluxProcedure from '../procedure/FluxProcedure';
 import FluxMedicationPrescription from '../medication/FluxMedicationPrescription';
 import FluxProgression from './FluxProgression';
+import FluxTumorSize from './FluxTumorSize';
+import FluxHistologicGrade from './FluxHistologicGrade';
 import ReceptorStatusObservation from '../shr/oncology/ReceptorStatusObservation';
 import SpecificType from '../shr/core/SpecificType';
 import Lang from 'lodash'
@@ -187,17 +189,48 @@ class FluxBreastCancer extends BreastCancer {
         const name = patient.getName();
         const age = patient.getAge();
         const gender = patient.getGender();
-        const labResults = this.getLabResultsChronologicalOrder("16 AUG 2010");
+        const labResults = this.getLabResultsChronologicalOrder(moment().subtract(6, 'months'));
 
         let result = "\r\nHISTORY OF PRESENT ILLNESS\r\n";
         result += `\r\n${name} is a ${age} year old ${gender}.`;
         result += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+
+        // Lab Results
         if (labResults.length > 0) {
             result += ' Recent lab results include ';
             result += labResults.map((lab) => {
                 return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
             }).join(', ');
             result += '.';
+        }
+
+        // Laterality
+        if (this.laterality) {
+            result += ` Breast cancer diagnosed in ${this.laterality} breast.`;
+        }
+
+        // Tumor Size and HistologicGrade
+        const tumorSize = this.getObservationsOfType(FluxTumorSize);
+        const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
+        if (tumorSize.length > 0) {
+            result += ` Primary tumor size is ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
+        }
+        if (histologicGrade.length > 0) {
+            result += ` Histological grade is ${histologicGrade[0].grade}.`;
+        }
+
+        // ER, PR, HER2
+        const erStatus = this.getERReceptorStatus();
+        const prStatus = this.getPRReceptorStatus();
+        const her2Status = this.getHER2ReceptorStatus();
+        if (erStatus) {
+            result += ` Estrogen receptor was ${erStatus.status}.`;
+        }
+        if (prStatus) {
+            result += ` Progesteron receptor was ${prStatus.status}.`;
+        }
+        if (her2Status) {
+            result += ` HER2 was ${her2Status.status}.`;
         }
         
         // Build narrative from sorted events
