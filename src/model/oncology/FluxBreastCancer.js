@@ -190,7 +190,7 @@ class FluxBreastCancer extends BreastCancer {
         const age = patient.getAge();
         const gender = patient.getGender();
 
-        let hpiText = `\r\n\r\n${name} is a ${age} year old ${gender}.`;
+        let hpiText = `${name} is a ${age} year old ${gender}.`;
         hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
 
         // Laterality
@@ -200,7 +200,7 @@ class FluxBreastCancer extends BreastCancer {
 
         // Staging
         const staging = this.getMostRecentStaging();
-        if (staging) {
+        if (staging && staging.stage) {
             hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
         }
 
