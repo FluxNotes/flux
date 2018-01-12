@@ -231,20 +231,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
-
-/*
-                           anchorOrigin={{ vertical: anchorOriginVertical, horizontal: anchorOriginHorizontal }}
-                            transformOrigin={{ vertical: transformOriginVertical, horizontal: transformOriginHorizontal }}
-                            anchorReference={anchorReference}
-                            anchorPosition={{top: positionTop, eft: positionLeft }}
-                            onClose={this.handlePopoverOpen}
-
-                            
-                            
-                            onMouseLeave={this.handlePopoverClose}
-                            */
-                            
-                            
         
         // now go through each snippet and build up HTML to render
         let content = [];
