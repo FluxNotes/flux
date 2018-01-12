@@ -227,23 +227,14 @@ class FluxBreastCancer extends BreastCancer {
         if (her2Status) {
             hpiText += ` HER2 was ${her2Status.status}.`;
         }
-
-        // Lab Results
-        const labResults = this.getLabResultsChronologicalOrder(moment().subtract(6, 'months'));
-        if (labResults.length > 0) {
-            hpiText += ' Recent lab results include ';
-            hpiText += labResults.map((lab) => {
-                return `${lab.name}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
-            }).join(', ');
-            hpiText += '.';
-        }
         
         // Build narrative from sorted events
-        // Get procedures, medications, and most recent progression from patient
+        // Get procedures, medications, recent lab results, and most recent progression from patient
         // Sort by start time and add snippets about each event to result text
         let events = [];
         events = events.concat(patient.getProceduresForCondition(this));
         events = events.concat(patient.getMedicationsForConditionChronologicalOrder(this));
+        events = events.concat(this.getLabResultsChronologicalOrder(moment().subtract(6, 'months')));
         events.push(patient.getMostRecentProgressionForCondition(this));
         events.sort(this._eventsTimeSorter);
 
@@ -300,6 +291,12 @@ class FluxBreastCancer extends BreastCancer {
                     }
                     break;
                 }
+                case FluxTest: {
+                    if (event.quantity && event.quantity.number && event.quantity.unit) {
+                        hpiText += `\r\nPatient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.clinicallyRelevantTime}`;
+                    }
+                    break;
+                }
                 default: {
                     console.error("There should only be instances of FluxProcedure, FluxMedicationPrescription, and FluxProgression");
                 }
@@ -327,6 +324,10 @@ class FluxBreastCancer extends BreastCancer {
                 a_startTime = new moment(a.asOfDate, "D MMM YYYY");
                 break;
             }
+            case FluxTest: {
+                a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+                break;
+            }
             default: {
                 console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
                 return 0;
@@ -334,19 +335,27 @@ class FluxBreastCancer extends BreastCancer {
         }
 
         switch (b.constructor) {
-            case FluxProcedure:
+            case FluxProcedure: {
                 b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
                 if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
-            case FluxMedicationPrescription:
+            }
+            case FluxMedicationPrescription: {
                 b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
-            case FluxProgression:
+            }
+            case FluxProgression: {
                 b_startTime = new moment(b.asOfDate, "D MMM YYYY");
                 break;
-            default:
+            }
+            case FluxTest: {
+                b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
+                break;
+            }
+            default: {
                 console.error("This object is not an instance of FluxProcedure, FluxMedicationPrescription, or FluxProgression.");
                 return 0;
+            }
         }
 
         if (a_startTime < b_startTime) {
