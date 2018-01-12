@@ -19,7 +19,7 @@ class FluxTest extends Test {
         }
     }
 
-    get codeableConceptDisplayText() { 
+    get name() { 
         if (this._specificType instanceof SpecificType) { 
             if (this._specificType._codeableConcept._coding.length > 0) { 
                 return this._specificType._codeableConcept._coding[0].displayText.string;

@@ -200,7 +200,6 @@ class FluxBreastCancer extends BreastCancer {
 
         // Staging
         const staging = this.getMostRecentStaging();
-        console.log(staging);
         if (staging) {
             hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
         }
@@ -234,7 +233,7 @@ class FluxBreastCancer extends BreastCancer {
         if (labResults.length > 0) {
             hpiText += ' Recent lab results include ';
             hpiText += labResults.map((lab) => {
-                return `${lab.codeableConceptDisplayText}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
+                return `${lab.name}: ${lab.quantity.number} ${lab.quantity.unit} (${lab.clinicallyRelevantTime})`;
             }).join(', ');
             hpiText += '.';
         }
