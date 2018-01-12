@@ -48,7 +48,7 @@ class SummaryMetadata {
                                         name: "Laterality",
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.laterality;
-                                        },
+                                        }
                                     },                                    
                                     {
                                         name: "Stage",
