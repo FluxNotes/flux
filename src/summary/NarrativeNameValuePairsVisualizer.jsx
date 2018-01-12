@@ -1,6 +1,4 @@
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Popover from 'material-ui/Popover';
-import Typography from 'material-ui/Typography';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
@@ -214,13 +212,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const narrative = this.buildNarrative();
         const {
           anchorEl,
-          anchorOriginVertical,
-          anchorOriginHorizontal,
-          transformOriginVertical,
-          transformOriginHorizontal,
-          positionTop,
-          positionLeft,
-          anchorReference,
         } = this.state;
         
         const insertItem = (item, index) => {
@@ -230,31 +221,14 @@ class NarrativeNameValuePairsVisualizer extends Component {
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
-
-/*
-                           anchorOrigin={{ vertical: anchorOriginVertical, horizontal: anchorOriginHorizontal }}
-                            transformOrigin={{ vertical: transformOriginVertical, horizontal: transformOriginHorizontal }}
-                            anchorReference={anchorReference}
-                            anchorPosition={{top: positionTop, eft: positionLeft }}
-                            onClose={this.handlePopoverOpen}
-
-                            
-                            
-                            onMouseLeave={this.handlePopoverClose}
-                            */
-                            
-                            
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
             if (snippet.type === 'structured-data' && !this.props.isWide) {
-                console.log(anchorEl[index]);
                 content.push(
                     <span key={index}>
-                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)}>
-                            {snippet.text}
-                        </span>
+                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)}>{snippet.text}</span>
                         <Menu
                             open={!!anchorEl[index]}
                             anchorEl={anchorEl[index]}>
