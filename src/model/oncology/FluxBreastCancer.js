@@ -189,7 +189,6 @@ class FluxBreastCancer extends BreastCancer {
         const name = patient.getName();
         const age = patient.getAge();
         const gender = patient.getGender();
-        const labResults = this.getLabResultsChronologicalOrder(moment().subtract(6, 'months'));
 
         let hpiText = `\r\n\r\n${name} is a ${age} year old ${gender}.`;
         hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
@@ -199,14 +198,21 @@ class FluxBreastCancer extends BreastCancer {
             hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
         }
 
+        // Staging
+        const staging = this.getMostRecentStaging();
+        console.log(staging);
+        if (staging) {
+            hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
+        }
+
         // Tumor Size and HistologicGrade
         const tumorSize = this.getObservationsOfType(FluxTumorSize);
         const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
         if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size is ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
+            hpiText += ` Primary tumor size was ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
         }
         if (histologicGrade.length > 0) {
-            hpiText += ` Histological grade is ${histologicGrade[0].grade}.`;
+            hpiText += ` Histological grade was ${histologicGrade[0].grade}.`;
         }
 
         // ER, PR, HER2
@@ -224,6 +230,7 @@ class FluxBreastCancer extends BreastCancer {
         }
 
         // Lab Results
+        const labResults = this.getLabResultsChronologicalOrder(moment().subtract(6, 'months'));
         if (labResults.length > 0) {
             hpiText += ' Recent lab results include ';
             hpiText += labResults.map((lab) => {
