@@ -14,7 +14,7 @@ class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${Current Diagnosis.Name} stage ${Current Diagnosis.Stage}"
+                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage}"
                             },
                             {
                                 defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}",
@@ -44,6 +44,12 @@ class SummaryMetadata {
                                         },
                                         shortcut: "@condition"
                                     },
+                                    {
+                                        name: "Laterality",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.laterality;
+                                        }
+                                    },                                    
                                     {
                                         name: "Stage",
                                         value: (patient, currentConditionEntry) => {

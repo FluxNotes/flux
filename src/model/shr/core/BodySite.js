@@ -1,5 +1,12 @@
+import Laterality from './Laterality';
 /** Generated from SHR definition for shr.core.BodySite */
 class BodySite {
+        constructor(json) {
+        if (json) {
+            this._laterality = new Laterality(json.laterality);
+            
+        } 
+    }
 
   /**
    * Convenience getter for value (accesses this.codeableConcept)

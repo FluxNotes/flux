@@ -1,6 +1,12 @@
+import CodeableConcept from './CodeableConcept';
 /** Generated from SHR definition for shr.core.Laterality */
 class Laterality {
+    constructor(json) {
+        if (json) {
+            this.codeableConcept = new CodeableConcept(json.value);
 
+        } 
+    }
   /**
    * Convenience getter for value (accesses this.codeableConcept)
    */
