@@ -1,4 +1,6 @@
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
@@ -148,7 +150,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 }
                 result.push( { text: value, type: type, item: item } );
             }
-            result.push( { text: value, type: type } );
+            //result.push( { text: value, type: type } );
             start = endpos + 1;
             if (endpos < len) {
                 pos = template.indexOf("${", endpos+1);
@@ -192,19 +194,17 @@ class NarrativeNameValuePairsVisualizer extends Component {
     };
 
         handlePopoverOpen = (event, index) => {
-            console.log("open");
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = event.target;
             this.setState({ anchorEl: anchorEl });
         };
 
         handlePopoverClose = (event, index) => {
-            console.log("close");
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
-
+        
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
@@ -215,7 +215,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         } = this.state;
         
         const insertItem = (item, index) => {
-            console.log("chose " + item);
             this.props.onItemClicked(item);
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = null;
@@ -228,15 +227,18 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (snippet.type === 'structured-data' && !this.props.isWide) {
                 content.push(
                     <span key={index}>
-                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)}>{snippet.text}</span>
+                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)} onMouseOver={(event) => this.handlePopoverOpen(event, index)}>{snippet.text}</span>
                         <Menu
                             open={!!anchorEl[index]}
                             anchorEl={anchorEl[index]}>
-                                    <MenuItem   onClick={() => insertItem(snippet.item, index)}
-                                                onMouseLeave={(event) => this.handlePopoverClose(event, index)}>
-                                        Insert {snippet.text}
-                                    </MenuItem>
-                                
+                            <MenuItem   
+                                        onClick={() => insertItem(snippet.item, index)}
+                                        onMouseLeave={(event) => this.handlePopoverClose(event, index)}>
+                                <ListItemIcon>
+                                    <FontAwesome name="plus" />
+                                </ListItemIcon>
+                                <ListItemText className='menu-item' inset primary={`Insert ${snippet.text}`} />
+                            </MenuItem>
                         </Menu>
                     </span>
                 );

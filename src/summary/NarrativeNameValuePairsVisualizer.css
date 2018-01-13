@@ -13,19 +13,6 @@ span.structured-data {
     border-bottom: 1px solid blue;
 }
 
-.toolbar-menu {
-    display: none;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    height: 5px;
-    background-color: #DDD;
-}
-
-span.structured-data:hover .toolbar-menu {
-    display: inline-block;
-}
-
-span.missing-data:hover .toolbar-menu {
-    display: inline-block;
+.menu-item {
+    font-size: 0.2em;
 }
