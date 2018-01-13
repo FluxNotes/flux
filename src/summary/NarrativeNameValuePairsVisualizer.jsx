@@ -207,7 +207,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             anchorEl[index] = null;
             this.setState({ anchorEl: anchorEl });
         };
-
+        
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
@@ -218,14 +218,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         } = this.state;
         
         const insertItem = (item, index) => {
-            this.props.onItemClicked(item);
-            let anchorEl = this.state.anchorEl;
-            anchorEl[index] = null;
-            this.setState({ anchorEl: anchorEl });
-        };
-        
-        const insertItem = (item, index) => {
-            console.log("chose " + item);
             this.props.onItemClicked(item);
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = null;
