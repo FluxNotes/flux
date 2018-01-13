@@ -96,7 +96,7 @@ class FluxCondition extends Condition {
             return results;
         });
 
-        // Generate array from lookup table to pass back to summary meta data 
+        // Generate array from lookup table
         let mostRecentLabResultsArray = [];
 
         for (var key in mostRecentLabResultsLookupTable) {
