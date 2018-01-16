@@ -506,7 +506,7 @@ class SummaryMetadata {
 
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
-            const name = `${l.specificType.value.coding[0].displayText.value}`;
+            const name = `${l.name}`;
 
             return {
                 name: name,
@@ -645,7 +645,7 @@ class SummaryMetadata {
                 group: assignedGroup,
                 icon: 'hospital-o',
                 className: classes,
-                hoverTitle: proc.codeableConceptDisplayText,
+                hoverTitle: proc.name,
                 hoverText: hoverText,
                 start_time: startTime,
                 end_time: endTime

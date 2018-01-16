@@ -236,7 +236,7 @@ class PatientRecord {
                 start_time: c.diagnosisDate
             });
         });
-        result.sort(this._eventTimeSorter);
+        result.sort(this._keyEventsTimeSorter);
         return result;
     }
 
@@ -251,7 +251,7 @@ class PatientRecord {
                 });
             }
         });
-        result.sort(this._eventTimeSorter);
+        result.sort(this._keyEventsTimeSorter);
         return result;
     }
 
@@ -403,7 +403,7 @@ class PatientRecord {
         return 0;
     }
 
-    _eventTimeSorter(a, b) {
+    _keyEventsTimeSorter(a, b) {
         const a_startTime = new moment(a.start_time, "D MMM YYYY");
         const b_startTime = new moment(b.start_time, "D MMM YYYY");
         if (a_startTime < b_startTime) {

@@ -54,6 +54,14 @@ class FluxMedicationPrescription extends MedicationPrescription {
             units: this._dosage.timingOfDoses.units
         };
     }
+
+    /*
+     *  Getter for status
+     *  Returns status string
+     */
+    get status() {
+        return this._status.value;
+    }
 }
 
 export default FluxMedicationPrescription;

@@ -19,6 +19,22 @@ class FluxProcedure extends Procedure {
             return this._occurrenceTime.value;
         }
     }
+
+    /*
+     *  Getter for status
+     *  Returns status string
+     */
+    get status() {
+        return this._status.value;
+    }
+
+    /*
+     *  Getter for procedure name
+     *  Returns procedure name string
+     */
+    get name() {
+        return this._specificType.value.coding[0].displayText.value;
+    }
 }
 
 export default FluxProcedure;
