@@ -246,7 +246,8 @@ class SummaryMetadata {
                             {
                                 name: "",
                                 headings: ["Medication", "Dosage", "Timing", "Start", "End"],
-                                itemsFunction: this.getItemListForMedications
+                                itemsFunction: this.getItemListForMedications,
+
                             }
                         ]
                     },
