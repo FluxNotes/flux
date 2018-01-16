@@ -31,7 +31,8 @@ export default class ContextTray extends Component {
                 lastActiveContextCount: activeContexts.length
             }, () => {
                 // scrolls to newest ContextOption section
-                findDOMNode(this.refs[`context-option-${this.state.value - 2}`]).scrollIntoView();
+                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
+                if (newContextSection) newContextSection.scrollIntoView();
             });
         }
     }
