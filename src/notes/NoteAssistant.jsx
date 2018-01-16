@@ -21,6 +21,7 @@ export default class NoteAssistant extends Component {
             initialNote: true,
             currentlyEditingEntryId: -1
         };
+        //this.props.setFullAppStateWithCallback("updateOnKeypress", this.saveNoteUponKeypress);
     }
 
     notesNotDisplayed = null;
@@ -35,6 +36,10 @@ export default class NoteAssistant extends Component {
         // Set default value for sort selection
         this.selectSort(0);
         this.getNotesFromPatient(this.props);
+    }
+    
+    componentDidMount() {
+        this.props.saveNote(this.saveNoteOnKeypress);
     }
 
     getNotesFromPatient(props) {
@@ -87,7 +92,7 @@ export default class NoteAssistant extends Component {
             found.content = this.props.documentText;
             console.log("Set Entry " + found.entryInfo.entryId + " to " + found.content + ". Calling Patient.update with " + found.entryInfo.entryId);
             this.props.patient.updateExistingEntry(found);
-           this.props.updateSelectedNote(found);
+            this.props.updateSelectedNote(found);
         } else {
             console.log("Error: couldn't find a matching item to update: " + found + " " + this.state.currentlyEditingEntryId);
         }
@@ -104,7 +109,7 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        //console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId + " aka " + currentlyEditingEntryId);
+        console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId + " aka " + currentlyEditingEntryId);
     }
 
     // creates blank new note and puts it on the screen
@@ -124,10 +129,35 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        //console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId +" aka " + currentlyEditingEntryId);
+        console.log("ADDING blank NOTE TO SHR, id="+ this.state.currentlyEditingEntryId +" aka " + currentlyEditingEntryId);
 
         // Deselect note in the clinical notes view
         this.props.updateSelectedNote(null);
+    }
+
+    // invoked when the editor goes away
+    // either creates a new note or updates an existing one
+    // depending on whether the editor contents represent an existing note
+    saveNoteUponWorkflowChange = () => {
+        if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            this.saveEditorContentsToNewNote();    
+        } else {
+            this.updateExistingNote();
+        }
+    }
+
+    // alternate approach to Workflow changes: don't make it a special case,
+    // save the note after every keypress.
+    saveNoteOnKeypress = () => {
+        console.log("key pressed NA " + this.props.documentText);
+        // Don't start saving until there is content in the editor
+        if(!Lang.isNull(this.props.documentText) && this.props.documentText.length > 0){
+            if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+                this.saveEditorContentsToNewNote();    
+            } else {
+                this.updateExistingNote();
+            }
+        }
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view

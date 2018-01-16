@@ -343,6 +343,8 @@ class FluxNotesEditor extends React.Component {
 
     onChange = (state) => {
         this.props.setFullAppState("documentText", state.document.text);
+        //console.log(this.props);
+        this.props.saveNoteUponKeypress();
         this.setState({
             state: state
         });

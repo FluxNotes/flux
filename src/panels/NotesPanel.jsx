@@ -20,13 +20,14 @@ export default class NotesPanel extends Component {
         this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
         this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
         this.updateSelectedNote = this.updateSelectedNote.bind(this);
+        this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
     }
 
-    //added
+    /*added
     getCurrentNote(){
         
         return this.updatedEditorNote;
-    }
+    }*/
 
     updateNoteAssistantMode(mode) {
         this.setState({noteAssistantMode: mode});
@@ -64,6 +65,13 @@ export default class NotesPanel extends Component {
         if (this.props.isNoteViewerVisible) {
             this.setState({updatedEditorNote: note});
         }
+    }
+
+    // alternate approach to Workflow changes: don't make it a special case,
+    // save the note after every keypress.
+    // This function invokes the note saving logic in NoteAssistant
+    saveNoteUponKeypress(){
+        this.saveNoteChild();
     }
 
     renderNotesPanelContent() {
@@ -108,6 +116,8 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     // Pass this down one more layer
                     setFullAppState={this.props.setFullAppState}
+                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
@@ -136,6 +146,11 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     documentText={this.props.documentText}
                     saveEditorContents={this.props.saveEditorContents}
+                    // Pass this down one more layer
+                    setFullAppState={this.props.setFullAppState}
+                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    saveNote={click => this.saveNoteChild = click}
                 />
             </div>
         );
