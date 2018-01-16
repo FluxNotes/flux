@@ -22,6 +22,8 @@ class MedicationPrescription extends Request {
         if (json.numberOfRepeatsAllowed) this._numberOfRepeatsAllowed = new NumberOfRepeatsAllowed(json.numberOfRepeatsAllowed);
         if (json.quantityPerDispense) this._quantityPerDispense = new QuantityPerDispense(json.quantityPerDispense);
         if (json.supplyDuration) this._supplyDuration = new SupplyDuration(json.supplyDuration);
+        if (json.prescribedBy) this._prescribedBy = json.prescribedBy;
+        if (json.whenPrescribed) this._whenPrescribed = json.whenPrescribed;
     }
 
   /**
@@ -148,6 +150,22 @@ class MedicationPrescription extends Request {
    */
   set supplyDuration(supplyDurationVal) {
     this._supplyDuration = supplyDurationVal;
+  }
+  
+  get prescribedBy() {
+      return this._prescribedBy;
+  }
+  
+  set prescribedBy(prescribedBy) {
+      this._prescribedBy = prescribedBy;
+  }
+  
+  get whenPrescribed() {
+      return this._whenPrescribed;
+  }
+  
+  set whenPrescribed(whenPrescribed) {
+      this._whenPrescribed = whenPrescribed;
   }
 
 }

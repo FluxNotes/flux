@@ -1,5 +1,10 @@
 /** Generated from SHR definition for shr.medication.NumberOfRepeatsAllowed */
 class NumberOfRepeatsAllowed {
+    constructor(json) {
+        if (json) {
+            if (json) this.value = json;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.positiveInt)
