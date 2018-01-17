@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import RangeChart from './RangeChart';
 import './MedicationRangeChartVisualizer.css';
 
 /*
@@ -36,21 +37,25 @@ class MedicationRangeChartVisualizer extends Component {
     }
     
     renderMedication = (med, i) => {
+        const lowerValue = 1;
+        const upperValue = 7;
+        const typicalValue = 2;
+        const value = 2.5;
+        const unit = "mg";
+        const name = "Letrozole";
         return (
             <div key={i}>
                 <Grid className="FullApp-content" fluid>
                     <Row center="xs">
-                        <Col sm={12}>
-                            <div>
-                                {med[0]} {med[1]}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row center="xs">
                         <Col sm={4}>
-                            <div>
-                                Insert Scale Here
-                            </div>
+                            <RangeChart 
+                                lowerValue={lowerValue}
+                                upperValue={upperValue}
+                                typicalValue={typicalValue}
+                                value={value}
+                                unit={med[9]}
+                                name={name}
+                            />
                         </Col>
                         <Col sm={2}>
                             <div>

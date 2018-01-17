@@ -496,7 +496,8 @@ class SummaryMetadata {
                 med.prescribedBy, // TODO Should this use Author?
                 med.entryInfo.originalCreationDate, // TODO: Should this be the entry or the added whenPrescribed date?
                 // med.whenPrescribed,
-                med.numberOfRepeatsAllowed
+                med.numberOfRepeatsAllowed,
+                med.amountPerDose.units
             ];
         });
     }
