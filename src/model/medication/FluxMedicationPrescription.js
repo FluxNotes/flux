@@ -62,6 +62,22 @@ class FluxMedicationPrescription extends MedicationPrescription {
     get status() {
         return this._status.value;
     }
+    
+    /*
+     * Getter for routeIntoBody
+     * Returns routeIntoBody string
+     */
+    get routeIntoBody() {
+        return this._dosage._routeIntoBody.value.coding[0].displayText.value.value;
+    }
+    
+    /*
+     * Getter for numberOfRepeatsAllowed
+     * Returns the number or if no repeats are allowed returns 0
+     */
+    get numberOfRepeatsAllowed() {
+        return this._numberOfRepeatsAllowed ? this._numberOfRepeatsAllowed.value : 0;
+    }
 }
 
 export default FluxMedicationPrescription;

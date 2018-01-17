@@ -491,7 +491,12 @@ class SummaryMetadata {
                 `${med.amountPerDose.value} ${med.amountPerDose.units}`,
                 `${med.timingOfDoses.value} ${med.timingOfDoses.units}`,
                 med.requestedPerformanceTime.timePeriodStart,
-                med.requestedPerformanceTime.timePeriodEnd
+                med.requestedPerformanceTime.timePeriodEnd,
+                med.routeIntoBody,
+                med.prescribedBy, // TODO Should this use Author?
+                med.entryInfo.originalCreationDate, // TODO: Should this be the entry or the added whenPrescribed date?
+                // med.whenPrescribed,
+                med.numberOfRepeatsAllowed
             ];
         });
     }

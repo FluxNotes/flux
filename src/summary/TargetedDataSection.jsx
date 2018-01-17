@@ -7,8 +7,7 @@ import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualiz
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
-
-
+import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
 import './TargetedDataSection.css';
 
 class TargetedDataSection extends Component {
@@ -111,13 +110,10 @@ class TargetedDataSection extends Component {
         const strokeColor = visualization === "chart" ? "#3F3F3F" : "#CCCCCC";
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Group-39" stroke={strokeColor} stroke-width="1.62">
-                        <path
-                            d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z"
-                            id="Rectangle-3"></path>
-                        <polyline id="Path-3" stroke-linejoin="round"
-                                  points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
+                        <path d="M0.936953125,0.9428125 L0.936953125,15.8228125 L15.8169531,15.8228125 L15.8169531,0.9428125 L0.936953125,0.9428125 Z" id="Rectangle-3"></path>
+                        <polyline id="Path-3" strokeLinejoin="round" points="0.71875 11.0977783 5.125 6.69152832 9.5 11.2852783 12.34375 7.97277832 15.625 11.3477783"></polyline>
                     </g>
                 </g>
             </svg>
@@ -168,6 +164,11 @@ class TargetedDataSection extends Component {
             options.push('chart');
         } else if (section.type === "DiseaseStatusValues") {
             options.push('chart');
+        } else if (section.type === "ListType") {
+            options.push('tabular');
+            if (section.name === 'Medications') {
+                options.push('chart'); // TODO: Is there a better way to decide which list types use the scale visualization. Example: Procedure's shouldn't have the medication visualizer
+            }
         }
         return options;
     }
@@ -204,7 +205,17 @@ class TargetedDataSection extends Component {
                             isWide={isWide}
                         />
                     );
-
+                } else if (visualization === 'chart') {
+                    return (
+                        <MedicationRangeChartVisualizer
+                            patient={patient}
+                            condition={condition}
+                            conditionSection={section}
+                            onItemClicked={onItemClicked}
+                            allowItemClick={allowItemClick}
+                            isWide={isWide}
+                        />
+                    );
                 } else {
                     return null;
                 }
