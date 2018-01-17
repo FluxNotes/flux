@@ -80,12 +80,15 @@ class TabularListVisualizer extends Component {
             subsectionname = <tr><td className="list-subsection-header">{subsection.name}</td></tr>;
         }
 
+        // temp variable for now to limit number of columns to be displayed to just the number of headings
+        const numberOfHeadings = subsection.headings.length;
+
         return (
             <table key={index}>
                 <tbody>
                 {headings}
                     {subsectionname}
-                    {this.renderedListItems(list)}
+                    {this.renderedListItems(list, numberOfHeadings)}
                 </tbody>
             </table>
         );
@@ -131,7 +134,7 @@ class TabularListVisualizer extends Component {
             );
     }
     
-    renderedListItems(list) {
+    renderedListItems(list, numberofHeadings) {
         let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
@@ -145,7 +148,7 @@ class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
-            return this.renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass);
+            return this.renderedListItem(item.slice(0,numberofHeadings), index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 

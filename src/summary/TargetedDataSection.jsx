@@ -205,7 +205,7 @@ class TargetedDataSection extends Component {
                             isWide={isWide}
                         />
                     );
-                } else if (visualization === 'chart') {
+                } else if (visualization === 'chart' && section.name === 'Medications') {
                     return (
                         <MedicationRangeChartVisualizer
                             patient={patient}

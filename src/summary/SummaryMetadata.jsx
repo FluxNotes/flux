@@ -486,6 +486,7 @@ class SummaryMetadata {
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
 
         return meds.map((med, i) => {
+
             return [
                 med.medication,
                 `${med.amountPerDose.value} ${med.amountPerDose.units}`,
@@ -493,11 +494,11 @@ class SummaryMetadata {
                 med.requestedPerformanceTime.timePeriodStart,
                 med.requestedPerformanceTime.timePeriodEnd,
                 med.routeIntoBody,
-                med.prescribedBy, // TODO Should this use Author?
-                med.entryInfo.originalCreationDate, // TODO: Should this be the entry or the added whenPrescribed date?
-                // med.whenPrescribed,
+                med.prescribedBy,
+                med.whenPrescribed,
                 med.numberOfRepeatsAllowed,
                 med.amountPerDose.units
+                // Add code
             ];
         });
     }
