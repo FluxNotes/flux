@@ -34,6 +34,15 @@ class FluxMedicationPrescription extends MedicationPrescription {
     }
 
     /*
+     *  Getter for code
+     *  Returns displayText string for medication
+     */
+    get code() {
+        return this._medication.value.value.coding[0].code;
+    }
+
+
+    /*
      *  Getter for amountPerDose
      *  Returns object with value and units
      */

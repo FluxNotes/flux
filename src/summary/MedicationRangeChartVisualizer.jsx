@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import RangeChart from './RangeChart';
+import MedicationInformationService from '../lib/MedicationInformationService';
 import './MedicationRangeChartVisualizer.css';
 
 /*
@@ -37,12 +38,19 @@ class MedicationRangeChartVisualizer extends Component {
     }
     
     renderMedication = (med, i) => {
-        const lowerValue = 1;
-        const upperValue = 7;
-        const typicalValue = 2;
-        const value = 2.5;
-        const unit = "mg";
-        const name = "Letrozole";
+
+        // Grab range values based on medication
+        let rangeValues = MedicationInformationService.getRangeValues(med[10]);
+
+        // Set the values needed to render the range chart
+        const lowerValue = rangeValues.lowerValue;
+        const upperValue = rangeValues.upperValue;
+        const typicalValue = rangeValues.typicalValue;
+        // Only want want the number part of the value, not the unit
+        const value = med[1].slice(0,1);
+        const unit = med[9];
+        const name = med[0];
+
         return (
             <div key={i}>
                 <Grid className="FullApp-content" fluid>
@@ -53,7 +61,7 @@ class MedicationRangeChartVisualizer extends Component {
                                 upperValue={upperValue}
                                 typicalValue={typicalValue}
                                 value={value}
-                                unit={med[9]}
+                                unit={unit}
                                 name={name}
                             />
                         </Col>

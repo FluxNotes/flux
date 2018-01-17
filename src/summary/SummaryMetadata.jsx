@@ -497,8 +497,8 @@ class SummaryMetadata {
                 med.prescribedBy,
                 med.whenPrescribed,
                 med.numberOfRepeatsAllowed,
-                med.amountPerDose.units
-                // Add code
+                med.amountPerDose.units,
+                med.code
             ];
         });
     }

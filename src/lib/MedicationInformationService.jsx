@@ -1,46 +1,47 @@
 exports.getRangeValues = (medication) => {
     if (typeof(medication) !== 'string') {return null;}
-    switch(medication.toLowerCase()) {
-        case "adriamycin":
+
+    switch(medication) {
+        case "42512":
             return {
-                lowerValue: 10,
-                upperValue: 80,
-                typicalValue: 70
+                lowerValue: 1,
+                upperValue: 10,
+                typicalValue: 8
             };
 
-        case "cyclophosphamide":
+        case "3002":
             return {
                 lowerValue: 5,
                 upperValue: 30,
                 typicalValue: 11
             };
 
-        case "tamoxifen":
+        case "10324":
             return {
-                lowerValue: 5,
-                upperValue: 30,
-                typicalValue: 10
+                lowerValue: 1,
+                upperValue: 5,
+                typicalValue: 2
             };
 
-        case "letrozole":
+        case "72965":
             return {
                 lowerValue: 1,
                 upperValue: 7,
                 typicalValue: 2
             };
 
-        case "coumadin":
+        case "202421":
             return {
                 lowerValue: 1,
                 upperValue: 6,
                 typicalValue: 3
             };
 
-        case "aromasin":
+        case "262105":
             return {
-                lowerValue: 10,
-                upperValue: 40,
-                typicalValue: 30
+                lowerValue: 1,
+                upperValue: 1.5,
+                typicalValue: 1.3
             };
 
         default:
