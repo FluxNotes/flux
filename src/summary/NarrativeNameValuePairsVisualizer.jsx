@@ -192,21 +192,34 @@ class NarrativeNameValuePairsVisualizer extends Component {
         positionTop: 200, // Just so the popover can be spotted more easily
         positionLeft: 400, // Same as above
         anchorReference: 'anchorEl',
-    };
+    }
 
-        handlePopoverOpen = (event, index) => {
-            
+    timer = null
+
+    // Sets a timer to set the anchor element at this index to be the target div
+    handlePopoverOpen = (event, index) => {
+        // console.log("handlePopoverOpen")
+        const target = event.target;
+        this.timer = setTimeout(() => {
             let anchorEl = this.state.anchorEl;
-            anchorEl[index] = event.target;
+            anchorEl[index] = target;
             this.setState({ anchorEl: anchorEl });
-        };
+        }, 300);
+    }
 
-        handlePopoverClose = (event, index) => {
+    // Cancels timeout if there is one
+    cancelPopoverOpen = (event, index) => { 
+        // console.log("cancelPopoverOpen")
+        clearTimeout(this.timer);
+    }
 
-            let anchorEl = this.state.anchorEl;
-            anchorEl[index] = null;
-            this.setState({ anchorEl: anchorEl });
-        };
+    // Changes the anchor element at this index to null
+    handlePopoverClose = (event, index) => {
+        // console.log("handlePopoverClose")
+        let anchorEl = this.state.anchorEl;
+        anchorEl[index] = null;
+        this.setState({ anchorEl: anchorEl });
+    }
         
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
@@ -230,7 +243,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (snippet.type === 'structured-data' && !this.props.isWide) {
                 content.push(
                     <span key={index}>
-                        <span className={snippet.type} onMouseEnter={(event) => this.handlePopoverOpen(event, index)} onMouseOver={(event) => this.handlePopoverOpen(event, index)}>{snippet.text}</span>
+                        <span className={snippet.type} onMouseOver={(event) => this.handlePopoverOpen(event, index)} onMouseOut={(event) => this.cancelPopoverOpen(event, index)}>{snippet.text}</span>
                         <Menu
                             open={!!anchorEl[index]}
                             anchorEl={anchorEl[index]}>
