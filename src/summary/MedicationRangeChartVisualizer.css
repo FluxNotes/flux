@@ -1,3 +1,7 @@
-.right {
-    float: right;
+.medication-info-heading {
+    font-size: 0.7em;
+    color: #999;
+}
+.medication-info {
+    font-size: 0.8em;
 }

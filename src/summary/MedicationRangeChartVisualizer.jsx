@@ -66,34 +66,34 @@ class MedicationRangeChartVisualizer extends Component {
                             />
                         </Col>
                         <Col sm={2}>
-                            <div>
+                            <div className='medication-info-heading'>
                                 Route
                             </div>
-                            <div>
+                            <div className='medication-info'>
                                 {med[5]}
                             </div>
                         </Col>
                         <Col sm={2}>
-                            <div>
+                            <div className='medication-info-heading'>
                                 Prescribed
                             </div>
-                            <div>
+                            <div className='medication-info'>
                                 {med[7]}
                             </div>
                         </Col>
                         <Col sm={2}>
-                            <div>
+                            <div className='medication-info-heading'>
                                 Prescribed By
                             </div>
-                            <div>
+                            <div className='medication-info'>
                                 {med[6]}
                             </div>
                         </Col>
                         <Col sm={2}>
-                            <div>
+                            <div className='medication-info-heading'>
                                 Number of Refills
                             </div>
-                            <div>
+                            <div className='medication-info'>
                                 {med[8]}
                             </div>
                         </Col>
