@@ -20,23 +20,23 @@ class MedicationRangeChartVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-        
+
         return subsections;
     }
-    
+
     renderedSubsections(subsections) {
         return subsections.map((subsection, index) => {
             return this.renderedSubsection(subsection, index);
         });
     }
-    
+
     renderedSubsection(subsection, index) {
-        const { patient, condition } = this.props;
+        const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
     }
-    
+
     renderMedication = (med, i) => {
 
         // Grab range values based on medication
@@ -47,7 +47,7 @@ class MedicationRangeChartVisualizer extends Component {
         const upperValue = rangeValues.upperValue;
         const typicalValue = rangeValues.typicalValue;
         // Only want want the number part of the value, not the unit
-        const value = med[1].slice(0,1);
+        const value = med[1].slice(0, 1);
         const unit = med[9];
         const name = med[0];
 
@@ -56,14 +56,17 @@ class MedicationRangeChartVisualizer extends Component {
                 <Grid className="FullApp-content" fluid>
                     <Row center="xs">
                         <Col sm={4}>
-                            <RangeChart 
-                                lowerValue={lowerValue}
-                                upperValue={upperValue}
-                                typicalValue={typicalValue}
-                                value={value}
-                                unit={unit}
-                                name={name}
-                            />
+                            <div className="range-chart-container">
+
+                                <RangeChart
+                                    lowerValue={lowerValue}
+                                    upperValue={upperValue}
+                                    typicalValue={typicalValue}
+                                    value={value}
+                                    unit={unit}
+                                    name={name}
+                                />
+                            </div>
                         </Col>
                         <Col sm={2}>
                             <div className='medication-info-heading'>
@@ -102,10 +105,10 @@ class MedicationRangeChartVisualizer extends Component {
             </div>
         );
     }
-    
+
     render() {
         const subsections = this.getSubsections();
-        
+
         return (
             <div>
                 {this.renderedSubsections(subsections)}
