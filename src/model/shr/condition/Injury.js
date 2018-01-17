@@ -1,57 +1,71 @@
-import Condition, {initCondition} from './Condition';
-import Entry from '../base/Entry';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-initCondition();
+import Condition from './Condition';
 
-/** Generated from SHR definition for shr.condition.Injury */
+/**
+ * Generated class for shr.condition.Injury.
+ * @extends Condition
+ */
 class Injury extends Condition {
-  constructor(json) {
-        super(json);
-        this._entryInfo = new Entry(json);
-  }
-  
+
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.Setting
+   * Get the Setting.
+   * @returns {Setting} The shr.core.Setting
    */
   get setting() {
     return this._setting;
   }
 
   /**
-   * Setter for shr.core.Setting
+   * Set the Setting.
+   * @param {Setting} setting - The shr.core.Setting
    */
-  set setting(settingVal) {
-    this._setting = settingVal;
+  set setting(setting) {
+    this._setting = setting;
   }
 
   /**
-   * Getter for shr.core.Location
+   * Get the Location.
+   * @returns {Location} The shr.core.Location
    */
   get location() {
     return this._location;
   }
 
   /**
-   * Setter for shr.core.Location
+   * Set the Location.
+   * @param {Location} location - The shr.core.Location
    */
-  set location(locationVal) {
-    this._location = locationVal;
+  set location(location) {
+    this._location = location;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Injury class.
+   * The JSON must be valid against the Injury JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Injury} An instance of Injury populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Injury();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
-export {Injury as default};
+export default Injury;

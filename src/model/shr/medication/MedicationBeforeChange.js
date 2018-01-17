@@ -1,34 +1,36 @@
-/** Generated from SHR definition for shr.medication.MedicationBeforeChange */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.medication.MedicationBeforeChange.
+ */
 class MedicationBeforeChange {
 
   /**
-   * Convenience getter for value (accesses this.medicationUse)
+   * Get the choice value; one of: shr.medication.MedicationRequested reference, shr.medication.MedicationUsed reference.
+   * @returns {Reference} The choice value; one of: shr.medication.MedicationRequested reference, shr.medication.MedicationUsed reference
    */
   get value() {
-    return this.medicationUse;
+    return this._value;
   }
 
   /**
-   * Convenience setter for value (sets this.medicationUse)
+   * Set the choice value; one of: shr.medication.MedicationRequested reference, shr.medication.MedicationUsed reference.
+   * @param {Reference} value - The choice value; one of: shr.medication.MedicationRequested reference, shr.medication.MedicationUsed reference
    */
-  set value(val) {
-    this.medicationUse = val;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for shr.medication.MedicationUse
+   * Deserializes JSON data to an instance of the MedicationBeforeChange class.
+   * The JSON must be valid against the MedicationBeforeChange JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {MedicationBeforeChange} An instance of MedicationBeforeChange populated with the JSON data
    */
-  get medicationUse() {
-    return this._medicationUse;
+  static fromJSON(json={}) {
+    const inst = new MedicationBeforeChange();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.medication.MedicationUse
-   */
-  set medicationUse(medicationUseVal) {
-    this._medicationUse = medicationUseVal;
-  }
-
 }
-
 export default MedicationBeforeChange;

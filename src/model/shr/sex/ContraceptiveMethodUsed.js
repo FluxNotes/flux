@@ -1,50 +1,103 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.sex.ContraceptiveMethodUsed */
-class ContraceptiveMethodUsed extends Observation {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.sex.ContraceptiveMethodUsed.
+ * @extends QuestionAnswer
+ */
+class ContraceptiveMethodUsed extends QuestionAnswer {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.Reason
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get reason() {
-    return this._reason;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.Reason
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set reason(reasonVal) {
-    this._reason = reasonVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   */
+  get observationComponent() {
+    return this._observationComponent;
+  }
+
+  /**
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   */
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the ContraceptiveMethodUsed class.
+   * The JSON must be valid against the ContraceptiveMethodUsed JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ContraceptiveMethodUsed} An instance of ContraceptiveMethodUsed populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new ContraceptiveMethodUsed();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default ContraceptiveMethodUsed;

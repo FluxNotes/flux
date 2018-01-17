@@ -1,78 +1,71 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import VitalSign from './VitalSign';
 
-/** Generated from SHR definition for shr.vital.BodyMassIndex */
+/**
+ * Generated class for shr.vital.BodyMassIndex.
+ * @extends VitalSign
+ */
 class BodyMassIndex extends VitalSign {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for Reference<shr.vital.BodyWeight>
+   * Deserializes JSON data to an instance of the BodyMassIndex class.
+   * The JSON must be valid against the BodyMassIndex JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {BodyMassIndex} An instance of BodyMassIndex populated with the JSON data
    */
-  get bodyWeight() {
-    return this._bodyWeight;
+  static fromJSON(json={}) {
+    const inst = new BodyMassIndex();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for Reference<shr.vital.BodyWeight>
-   */
-  set bodyWeight(bodyWeightVal) {
-    this._bodyWeight = bodyWeightVal;
-  }
-
-  /**
-   * Getter for Reference<shr.vital.BodyHeight>
-   */
-  get bodyHeight() {
-    return this._bodyHeight;
-  }
-
-  /**
-   * Setter for Reference<shr.vital.BodyHeight>
-   */
-  set bodyHeight(bodyHeightVal) {
-    this._bodyHeight = bodyHeightVal;
-  }
-
 }
-
 export default BodyMassIndex;

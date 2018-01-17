@@ -1,104 +1,100 @@
-import CodeSystem from '../core/CodeSystem';
-import CodeSystemVersion from '../core/CodeSystemVersion';
-import DisplayText from '../core/DisplayText';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.Coding */
+/**
+ * Generated class for shr.core.Coding.
+ */
 class Coding {
-    constructor(json) {
-        if (json) {
-            this.code = json.value ? json.value : '';
-            this._code = this.code;
-            if (json.codeSystem) 
-                this._codeSystem = new CodeSystem(json.codeSystem);
-            else {
-                let codeSystem = new CodeSystem();
-                codeSystem.uri = '';
-                this._codeSystem = codeSystem;
-            }
-            if (json.codeSystemVersion) this._codeSystemVersion = new CodeSystemVersion(json.codeSystemVersion);
-            this._displayText = new DisplayText(json.displayText);
-        } else {
-            this._displayText = new DisplayText();
-        }
-    }
 
-    fromFHIR(coding) {
-        this.code = coding.code;
-        this._codeSystem = new CodeSystem();
-        this._codeSystem.fromFHIR(coding.system);
-        this._displayText = new DisplayText();
-        this._displayText.fromFHIR(coding.display);
-    }
   /**
-   * Convenience getter for value (accesses this.code)
+   * Get the value (aliases code).
+   * @returns {code} The code
    */
   get value() {
-    return this.code;
+    return this._code;
   }
 
   /**
-   * Convenience setter for value (sets this.code)
+   * Set the value (aliases code).
+   * @param {code} value - The code
    */
-  set value(val) {
-    this.code = val;
+  set value(value) {
+    this._code = value;
   }
 
   /**
-   * Getter for code
+   * Get the code.
+   * @returns {code} The code
    */
   get code() {
     return this._code;
   }
 
   /**
-   * Setter for code
+   * Set the code.
+   * @param {code} code - The code
    */
-  set code(codeVal) {
-    this._code = codeVal;
+  set code(code) {
+    this._code = code;
   }
 
   /**
-   * Getter for shr.core.CodeSystem
+   * Get the CodeSystem.
+   * @returns {CodeSystem} The shr.core.CodeSystem
    */
   get codeSystem() {
     return this._codeSystem;
   }
 
   /**
-   * Setter for shr.core.CodeSystem
+   * Set the CodeSystem.
+   * @param {CodeSystem} codeSystem - The shr.core.CodeSystem
    */
-  set codeSystem(codeSystemVal) {
-    this._codeSystem = codeSystemVal;
+  set codeSystem(codeSystem) {
+    this._codeSystem = codeSystem;
   }
 
   /**
-   * Getter for shr.core.CodeSystemVersion
+   * Get the CodeSystemVersion.
+   * @returns {CodeSystemVersion} The shr.core.CodeSystemVersion
    */
   get codeSystemVersion() {
     return this._codeSystemVersion;
   }
 
   /**
-   * Setter for shr.core.CodeSystemVersion
+   * Set the CodeSystemVersion.
+   * @param {CodeSystemVersion} codeSystemVersion - The shr.core.CodeSystemVersion
    */
-  set codeSystemVersion(codeSystemVersionVal) {
-    this._codeSystemVersion = codeSystemVersionVal;
+  set codeSystemVersion(codeSystemVersion) {
+    this._codeSystemVersion = codeSystemVersion;
   }
 
   /**
-   * Getter for shr.core.DisplayText
+   * Get the DisplayText.
+   * @returns {DisplayText} The shr.core.DisplayText
    */
   get displayText() {
     return this._displayText;
   }
 
   /**
-   * Setter for shr.core.DisplayText
+   * Set the DisplayText.
+   * @param {DisplayText} displayText - The shr.core.DisplayText
    */
-  set displayText(displayTextVal) {
-    this._displayText = displayTextVal;
+  set displayText(displayText) {
+    this._displayText = displayText;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Coding class.
+   * The JSON must be valid against the Coding JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Coding} An instance of Coding populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Coding();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Coding;

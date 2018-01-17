@@ -1,36 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.behavior.ExerciseHoursPerWeek */
-class ExerciseHoursPerWeek extends Observation {
+import BehavioralFinding from './BehavioralFinding';
+
+/**
+ * Generated class for shr.behavior.ExerciseHoursPerWeek.
+ * @extends BehavioralFinding
+ */
+class ExerciseHoursPerWeek extends BehavioralFinding {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Get the value (aliases quantity).
+   * @returns {IntegerQuantity} The shr.core.IntegerQuantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {IntegerQuantity} value - The shr.core.IntegerQuantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the IntegerQuantity.
+   * @returns {IntegerQuantity} The shr.core.IntegerQuantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the IntegerQuantity.
+   * @param {IntegerQuantity} quantity - The shr.core.IntegerQuantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
-}
+  /**
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
+   */
+  get category() {
+    return this._category;
+  }
 
+  /**
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
+   */
+  set category(category) {
+    this._category = category;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the ExerciseHoursPerWeek class.
+   * The JSON must be valid against the ExerciseHoursPerWeek JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ExerciseHoursPerWeek} An instance of ExerciseHoursPerWeek populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new ExerciseHoursPerWeek();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default ExerciseHoursPerWeek;

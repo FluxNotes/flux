@@ -1,44 +1,39 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.skin.WoundExudate */
-class WoundExudate extends ObservationComponent {
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.skin.WoundExudate.
+ * @extends Observation
+ */
+class WoundExudate extends Observation {
 
   /**
-   * Convenience getter for value (accesses this.boolean)
+   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @returns {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
   get value() {
-    return this.boolean;
+    return this._value;
   }
 
   /**
-   * Convenience setter for value (sets this.boolean)
+   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @param {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  set value(val) {
-    this.boolean = val;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for boolean
+   * Deserializes JSON data to an instance of the WoundExudate class.
+   * The JSON must be valid against the WoundExudate JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {WoundExudate} An instance of WoundExudate populated with the JSON data
    */
-  get boolean() {
-    return this._boolean;
+  static fromJSON(json={}) {
+    const inst = new WoundExudate();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for boolean
-   */
-  set boolean(booleanVal) {
-    this._boolean = booleanVal;
-  }
-
-  // Ommitting getter/setter for field: TBD<WoundExudateOdor>
-
-  // Ommitting getter/setter for field: TBD<WoundExudateColor>
-
-  // Ommitting getter/setter for field: TBD<DrainageAmount>
-
-  // Ommitting getter/setter for field: TBD<WoundExudateAppearance>
-
 }
-
 export default WoundExudate;

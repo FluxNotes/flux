@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.base.NarrativeQualifier */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.base.NarrativeQualifier.
+ */
 class NarrativeQualifier {
 
   /**
-   * Convenience getter for value (accesses this.code)
+   * Get the value (aliases code).
+   * @returns {code} The code
    */
   get value() {
-    return this.code;
+    return this._code;
   }
 
   /**
-   * Convenience setter for value (sets this.code)
+   * Set the value (aliases code).
+   * @param {code} value - The code
    */
-  set value(val) {
-    this.code = val;
+  set value(value) {
+    this._code = value;
   }
 
   /**
-   * Getter for code
+   * Get the code.
+   * @returns {code} The code
    */
   get code() {
     return this._code;
   }
 
   /**
-   * Setter for code
+   * Set the code.
+   * @param {code} code - The code
    */
-  set code(codeVal) {
-    this._code = codeVal;
+  set code(code) {
+    this._code = code;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the NarrativeQualifier class.
+   * The JSON must be valid against the NarrativeQualifier JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {NarrativeQualifier} An instance of NarrativeQualifier populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new NarrativeQualifier();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default NarrativeQualifier;

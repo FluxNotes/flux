@@ -1,36 +1,71 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import Condition from './Condition';
 
-/** Generated from SHR definition for shr.condition.MentalHealthCondition */
+/**
+ * Generated class for shr.condition.MentalHealthCondition.
+ * @extends Condition
+ */
 class MentalHealthCondition extends Condition {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
+  /**
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the MentalHealthCondition class.
+   * The JSON must be valid against the MentalHealthCondition JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {MentalHealthCondition} An instance of MentalHealthCondition populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new MentalHealthCondition();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default MentalHealthCondition;

@@ -1,62 +1,71 @@
-/** Generated from SHR definition for shr.device.Device */
-class Device {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import Entity from '../entity/Entity';
+
+/**
+ * Generated class for shr.device.Device.
+ * @extends Entity
+ */
+class Device extends Entity {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the Type.
+   * @returns {Type} The shr.entity.Type
    */
-  get value() {
-    return this.codeableConcept;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the Type.
+   * @param {Type} type - The shr.entity.Type
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
-   */
-  get codeableConcept() {
-    return this._codeableConcept;
-  }
-
-  /**
-   * Setter for shr.core.CodeableConcept
-   */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
-  }
-
-  /**
-   * Getter for shr.device.DeviceUdi[]
+   * Get the DeviceUdi array.
+   * @returns {Array<DeviceUdi>} The shr.device.DeviceUdi array
    */
   get deviceUdi() {
     return this._deviceUdi;
   }
 
   /**
-   * Setter for shr.device.DeviceUdi[]
+   * Set the DeviceUdi array.
+   * @param {Array<DeviceUdi>} deviceUdi - The shr.device.DeviceUdi array
    */
-  set deviceUdi(deviceUdiVal) {
-    this._deviceUdi = deviceUdiVal;
+  set deviceUdi(deviceUdi) {
+    this._deviceUdi = deviceUdi;
   }
 
   /**
-   * Getter for shr.device.VendorModelNumber
+   * Get the VendorModelNumber.
+   * @returns {VendorModelNumber} The shr.device.VendorModelNumber
    */
   get vendorModelNumber() {
     return this._vendorModelNumber;
   }
 
   /**
-   * Setter for shr.device.VendorModelNumber
+   * Set the VendorModelNumber.
+   * @param {VendorModelNumber} vendorModelNumber - The shr.device.VendorModelNumber
    */
-  set vendorModelNumber(vendorModelNumberVal) {
-    this._vendorModelNumber = vendorModelNumberVal;
+  set vendorModelNumber(vendorModelNumber) {
+    this._vendorModelNumber = vendorModelNumber;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Device class.
+   * The JSON must be valid against the Device JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Device} An instance of Device populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Device();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Device;

@@ -1,80 +1,57 @@
-import Immunization from './Immunization';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.immunization.ImmunizationNotGiven */
-class ImmunizationNotGiven extends Immunization {
+import ImmunizationAction from './ImmunizationAction';
+
+/**
+ * Generated class for shr.immunization.ImmunizationNotGiven.
+ * @extends ImmunizationAction
+ */
+class ImmunizationNotGiven extends ImmunizationAction {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.base.NonOccurrenceModifier
+   * Get the NotPerformedContext.
+   * @returns {NotPerformedContext} The shr.action.NotPerformedContext
    */
-  get nonOccurrenceModifier() {
-    return this._nonOccurrenceModifier;
+  get actionContext() {
+    return this._actionContext;
   }
 
   /**
-   * Setter for shr.base.NonOccurrenceModifier
+   * Set the NotPerformedContext.
+   * @param {NotPerformedContext} actionContext - The shr.action.NotPerformedContext
    */
-  set nonOccurrenceModifier(nonOccurrenceModifierVal) {
-    this._nonOccurrenceModifier = nonOccurrenceModifierVal;
+  set actionContext(actionContext) {
+    this._actionContext = actionContext;
   }
+
+  // Ommitting getter/setter for TBD: DoseSequenceNumber
 
   /**
-   * Getter for shr.core.BodySite
+   * Deserializes JSON data to an instance of the ImmunizationNotGiven class.
+   * The JSON must be valid against the ImmunizationNotGiven JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ImmunizationNotGiven} An instance of ImmunizationNotGiven populated with the JSON data
    */
-  get bodySite() {
-    return this._bodySite;
+  static fromJSON(json={}) {
+    const inst = new ImmunizationNotGiven();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.BodySite
-   */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
-  }
-
-  /**
-   * Getter for shr.medication.RouteIntoBody
-   */
-  get routeIntoBody() {
-    return this._routeIntoBody;
-  }
-
-  /**
-   * Setter for shr.medication.RouteIntoBody
-   */
-  set routeIntoBody(routeIntoBodyVal) {
-    this._routeIntoBody = routeIntoBodyVal;
-  }
-
-  /**
-   * Getter for shr.medication.AmountOfMedication
-   */
-  get amountOfMedication() {
-    return this._amountOfMedication;
-  }
-
-  /**
-   * Setter for shr.medication.AmountOfMedication
-   */
-  set amountOfMedication(amountOfMedicationVal) {
-    this._amountOfMedication = amountOfMedicationVal;
-  }
-
-  // Ommitting getter/setter for field: TBD<DoseSequenceNumber>
-
 }
-
 export default ImmunizationNotGiven;

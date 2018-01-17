@@ -1,92 +1,55 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import SubstanceUse from './SubstanceUse';
 
-/** Generated from SHR definition for shr.behavior.IntravenousDrugUse */
+/**
+ * Generated class for shr.behavior.IntravenousDrugUse.
+ * @extends SubstanceUse
+ */
 class IntravenousDrugUse extends SubstanceUse {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get value() {
-    return this.codeableConcept;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Deserializes JSON data to an instance of the IntravenousDrugUse class.
+   * The JSON must be valid against the IntravenousDrugUse JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {IntravenousDrugUse} An instance of IntravenousDrugUse populated with the JSON data
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  static fromJSON(json={}) {
+    const inst = new IntravenousDrugUse();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.CodeableConcept
-   */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
-  }
-
-  /**
-   * Getter for shr.core.SpecificType
-   */
-  get specificType() {
-    return this._specificType;
-  }
-
-  /**
-   * Setter for shr.core.SpecificType
-   */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
-
-  /**
-   * Getter for shr.medication.RouteIntoBody
-   */
-  get routeIntoBody() {
-    return this._routeIntoBody;
-  }
-
-  /**
-   * Setter for shr.medication.RouteIntoBody
-   */
-  set routeIntoBody(routeIntoBodyVal) {
-    this._routeIntoBody = routeIntoBodyVal;
-  }
-
-  /**
-   * Getter for shr.environment.ExposureMethod
-   */
-  get exposureMethod() {
-    return this._exposureMethod;
-  }
-
-  /**
-   * Setter for shr.environment.ExposureMethod
-   */
-  set exposureMethod(exposureMethodVal) {
-    this._exposureMethod = exposureMethodVal;
-  }
-
 }
-
 export default IntravenousDrugUse;

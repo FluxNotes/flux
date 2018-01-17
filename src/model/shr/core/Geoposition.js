@@ -1,48 +1,68 @@
-/** Generated from SHR definition for shr.core.Geoposition */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Geoposition.
+ */
 class Geoposition {
 
   /**
-   * Getter for shr.core.Latitude
+   * Get the Latitude.
+   * @returns {Latitude} The shr.core.Latitude
    */
   get latitude() {
     return this._latitude;
   }
 
   /**
-   * Setter for shr.core.Latitude
+   * Set the Latitude.
+   * @param {Latitude} latitude - The shr.core.Latitude
    */
-  set latitude(latitudeVal) {
-    this._latitude = latitudeVal;
+  set latitude(latitude) {
+    this._latitude = latitude;
   }
 
   /**
-   * Getter for shr.core.Longitude
+   * Get the Longitude.
+   * @returns {Longitude} The shr.core.Longitude
    */
   get longitude() {
     return this._longitude;
   }
 
   /**
-   * Setter for shr.core.Longitude
+   * Set the Longitude.
+   * @param {Longitude} longitude - The shr.core.Longitude
    */
-  set longitude(longitudeVal) {
-    this._longitude = longitudeVal;
+  set longitude(longitude) {
+    this._longitude = longitude;
   }
 
   /**
-   * Getter for shr.core.Altitude
+   * Get the Altitude.
+   * @returns {Altitude} The shr.core.Altitude
    */
   get altitude() {
     return this._altitude;
   }
 
   /**
-   * Setter for shr.core.Altitude
+   * Set the Altitude.
+   * @param {Altitude} altitude - The shr.core.Altitude
    */
-  set altitude(altitudeVal) {
-    this._altitude = altitudeVal;
+  set altitude(altitude) {
+    this._altitude = altitude;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Geoposition class.
+   * The JSON must be valid against the Geoposition JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Geoposition} An instance of Geoposition populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Geoposition();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Geoposition;

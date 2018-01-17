@@ -1,36 +1,39 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import Address from './Address';
 
-/** Generated from SHR definition for shr.core.UnitedStatesAddress */
+/**
+ * Generated class for shr.core.UnitedStatesAddress.
+ * @extends Address
+ */
 class UnitedStatesAddress extends Address {
 
   /**
-   * Getter for shr.core.State
+   * Get the UnitedStatesState.
+   * @returns {UnitedStatesState} The shr.core.UnitedStatesState
    */
   get state() {
     return this._state;
   }
 
   /**
-   * Setter for shr.core.State
+   * Set the UnitedStatesState.
+   * @param {UnitedStatesState} state - The shr.core.UnitedStatesState
    */
-  set state(stateVal) {
-    this._state = stateVal;
+  set state(state) {
+    this._state = state;
   }
 
   /**
-   * Getter for shr.core.Country
+   * Deserializes JSON data to an instance of the UnitedStatesAddress class.
+   * The JSON must be valid against the UnitedStatesAddress JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {UnitedStatesAddress} An instance of UnitedStatesAddress populated with the JSON data
    */
-  get country() {
-    return this._country;
+  static fromJSON(json={}) {
+    const inst = new UnitedStatesAddress();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Country
-   */
-  set country(countryVal) {
-    this._country = countryVal;
-  }
-
 }
-
 export default UnitedStatesAddress;

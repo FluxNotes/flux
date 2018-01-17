@@ -1,213 +1,199 @@
-import moment from 'moment';
-import Reference from '../../Reference';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.base.Entry */
-class Entry {
-    constructor(json) {
-        if (json.shrId) this._shrId = json.shrId;
-        if (json.entryId) this._entryId = json.entryId;
-        if (json.version) this._version = json.version;
-        this._entryType = json.entryType;
-        if (json.focalSubject) this._focalSubject = new Reference(json.focalSubject.shrId, json.focalSubject.entryId, json.focalSubject.entryType);
-        this._originalCreationDate = json.originalCreationDate;
-        this._lastUpdateDate = json.lastUpdateDate;
-    }
-    
-    static createEntry(...entryTypes) {
-        const today = new moment().format("D MMM YYYY");
-        return new Entry(   {
-                                "entryType": entryTypes,
-                                "originalCreationDate": today,
-                                "lastUpdateDate": today
-                            });
-    }
+import Any from './Any';
+
+/**
+ * Generated class for shr.base.Entry.
+ * @extends Any
+ */
+class Entry extends Any {
 
   /**
-   * Getter for shr.base.ShrId
+   * Get the ShrId.
+   * @returns {ShrId} The shr.base.ShrId
    */
   get shrId() {
     return this._shrId;
   }
 
   /**
-   * Setter for shr.base.ShrId
+   * Set the ShrId.
+   * @param {ShrId} shrId - The shr.base.ShrId
    */
-  set shrId(shrIdVal) {
-    this._shrId = shrIdVal;
+  set shrId(shrId) {
+    this._shrId = shrId;
   }
 
   /**
-   * Getter for shr.base.EntryId
+   * Get the EntryId.
+   * @returns {EntryId} The shr.base.EntryId
    */
   get entryId() {
     return this._entryId;
   }
 
   /**
-   * Setter for shr.base.EntryId
+   * Set the EntryId.
+   * @param {EntryId} entryId - The shr.base.EntryId
    */
-  set entryId(entryIdVal) {
-    this._entryId = entryIdVal;
+  set entryId(entryId) {
+    this._entryId = entryId;
   }
 
   /**
-   * Getter for shr.core.Version
+   * Get the PersonOfRecord.
+   * @returns {PersonOfRecord} The shr.base.PersonOfRecord
+   */
+  get personOfRecord() {
+    return this._personOfRecord;
+  }
+
+  /**
+   * Set the PersonOfRecord.
+   * @param {PersonOfRecord} personOfRecord - The shr.base.PersonOfRecord
+   */
+  set personOfRecord(personOfRecord) {
+    this._personOfRecord = personOfRecord;
+  }
+
+  /**
+   * Get the Version.
+   * @returns {Version} The shr.core.Version
    */
   get version() {
     return this._version;
   }
 
   /**
-   * Setter for shr.core.Version
+   * Set the Version.
+   * @param {Version} version - The shr.core.Version
    */
-  set version(versionVal) {
-    this._version = versionVal;
+  set version(version) {
+    this._version = version;
   }
 
   /**
-   * Getter for shr.base.EntryType[]
+   * Get the EntryType.
+   * @returns {EntryType} The shr.base.EntryType
    */
   get entryType() {
     return this._entryType;
   }
 
   /**
-   * Setter for shr.base.EntryType[]
+   * Set the EntryType.
+   * @param {EntryType} entryType - The shr.base.EntryType
    */
-  set entryType(entryTypeVal) {
-    this._entryType = entryTypeVal;
+  set entryType(entryType) {
+    this._entryType = entryType;
   }
 
   /**
-   * Getter for shr.base.FocalSubject
+   * Get the CreationTime.
+   * @returns {CreationTime} The shr.core.CreationTime
    */
-  get focalSubject() {
-    return this._focalSubject;
+  get creationTime() {
+    return this._creationTime;
   }
 
   /**
-   * Setter for shr.base.FocalSubject
+   * Set the CreationTime.
+   * @param {CreationTime} creationTime - The shr.core.CreationTime
    */
-  set focalSubject(focalSubjectVal) {
-    this._focalSubject = focalSubjectVal;
+  set creationTime(creationTime) {
+    this._creationTime = creationTime;
   }
 
   /**
-   * Getter for shr.base.SubjectIsThirdPartyFlag
+   * Get the LastUpdated.
+   * @returns {LastUpdated} The shr.base.LastUpdated
    */
-  get subjectIsThirdPartyFlag() {
-    return this._subjectIsThirdPartyFlag;
+  get lastUpdated() {
+    return this._lastUpdated;
   }
 
   /**
-   * Setter for shr.base.SubjectIsThirdPartyFlag
+   * Set the LastUpdated.
+   * @param {LastUpdated} lastUpdated - The shr.base.LastUpdated
    */
-  set subjectIsThirdPartyFlag(subjectIsThirdPartyFlagVal) {
-    this._subjectIsThirdPartyFlag = subjectIsThirdPartyFlagVal;
+  set lastUpdated(lastUpdated) {
+    this._lastUpdated = lastUpdated;
   }
 
   /**
-   * Getter for shr.base.Narrative
+   * Get the Narrative.
+   * @returns {Narrative} The shr.base.Narrative
    */
   get narrative() {
     return this._narrative;
   }
 
   /**
-   * Setter for shr.base.Narrative
+   * Set the Narrative.
+   * @param {Narrative} narrative - The shr.base.Narrative
    */
-  set narrative(narrativeVal) {
-    this._narrative = narrativeVal;
+  set narrative(narrative) {
+    this._narrative = narrative;
   }
 
   /**
-   * Getter for shr.base.Informant
-   */
-  get informant() {
-    return this._informant;
-  }
-
-  /**
-   * Setter for shr.base.Informant
-   */
-  set informant(informantVal) {
-    this._informant = informantVal;
-  }
-
-  /**
-   * Getter for shr.base.Author
-   */
-  get author() {
-    return this._author;
-  }
-
-  /**
-   * Setter for shr.base.Author
-   */
-  set author(authorVal) {
-    this._author = authorVal;
-  }
-
-  /**
-   * Getter for shr.base.AssociatedEncounter
-   */
-  get associatedEncounter() {
-    return this._associatedEncounter;
-  }
-
-  /**
-   * Setter for shr.base.AssociatedEncounter
-   */
-  set associatedEncounter(associatedEncounterVal) {
-    this._associatedEncounter = associatedEncounterVal;
-  }
-
-  /**
-   * Getter for shr.base.OriginalCreationDate
-   */
-  get originalCreationDate() {
-    return this._originalCreationDate;
-  }
-
-  /**
-   * Setter for shr.base.OriginalCreationDate
-   */
-  set originalCreationDate(originalCreationDateVal) {
-    this._originalCreationDate = originalCreationDateVal;
-  }
-
-  /**
-   * Getter for shr.base.LastUpdateDate
-   */
-  get lastUpdateDate() {
-    return this._lastUpdateDate;
-  }
-
-  /**
-   * Setter for shr.base.LastUpdateDate
-   */
-  set lastUpdateDate(lastUpdateDateVal) {
-    this._lastUpdateDate = lastUpdateDateVal;
-  }
-
-  /**
-   * Getter for shr.base.Language
+   * Get the Language.
+   * @returns {Language} The shr.base.Language
    */
   get language() {
     return this._language;
   }
 
   /**
-   * Setter for shr.base.Language
+   * Set the Language.
+   * @param {Language} language - The shr.base.Language
    */
-  set language(languageVal) {
-    this._language = languageVal;
+  set language(language) {
+    this._language = language;
   }
 
-  // Ommitting getter/setter for field: TBD<SecurityLabel>[]
+  /**
+   * Get the SecurityLabel array.
+   * @returns {Array<SecurityLabel>} The shr.base.SecurityLabel array
+   */
+  get securityLabel() {
+    return this._securityLabel;
+  }
 
-  // Ommitting getter/setter for field: TBD<Tag>[]
+  /**
+   * Set the SecurityLabel array.
+   * @param {Array<SecurityLabel>} securityLabel - The shr.base.SecurityLabel array
+   */
+  set securityLabel(securityLabel) {
+    this._securityLabel = securityLabel;
+  }
 
+  /**
+   * Get the Tag array.
+   * @returns {Array<Tag>} The shr.base.Tag array
+   */
+  get tag() {
+    return this._tag;
+  }
+
+  /**
+   * Set the Tag array.
+   * @param {Array<Tag>} tag - The shr.base.Tag array
+   */
+  set tag(tag) {
+    this._tag = tag;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the Entry class.
+   * The JSON must be valid against the Entry JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Entry} An instance of Entry populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Entry();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Entry;

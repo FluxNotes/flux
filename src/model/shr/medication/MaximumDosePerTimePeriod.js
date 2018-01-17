@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.medication.MaximumDosePerTimePeriod */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.medication.MaximumDosePerTimePeriod.
+ */
 class MaximumDosePerTimePeriod {
 
   /**
-   * Getter for shr.medication.AmountOfMedication
+   * Get the value (aliases ratio).
+   * @returns {Ratio} The shr.core.Ratio
    */
-  get amountOfMedication() {
-    return this._amountOfMedication;
+  get value() {
+    return this._ratio;
   }
 
   /**
-   * Setter for shr.medication.AmountOfMedication
+   * Set the value (aliases ratio).
+   * @param {Ratio} value - The shr.core.Ratio
    */
-  set amountOfMedication(amountOfMedicationVal) {
-    this._amountOfMedication = amountOfMedicationVal;
+  set value(value) {
+    this._ratio = value;
   }
 
   /**
-   * Getter for shr.core.Duration
+   * Get the Ratio.
+   * @returns {Ratio} The shr.core.Ratio
    */
-  get duration() {
-    return this._duration;
+  get ratio() {
+    return this._ratio;
   }
 
   /**
-   * Setter for shr.core.Duration
+   * Set the Ratio.
+   * @param {Ratio} ratio - The shr.core.Ratio
    */
-  set duration(durationVal) {
-    this._duration = durationVal;
+  set ratio(ratio) {
+    this._ratio = ratio;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the MaximumDosePerTimePeriod class.
+   * The JSON must be valid against the MaximumDosePerTimePeriod JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {MaximumDosePerTimePeriod} An instance of MaximumDosePerTimePeriod populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new MaximumDosePerTimePeriod();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default MaximumDosePerTimePeriod;

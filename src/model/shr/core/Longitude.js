@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.core.Longitude */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Longitude.
+ */
 class Longitude {
 
   /**
-   * Convenience getter for value (accesses this.decimal)
+   * Get the value (aliases decimal).
+   * @returns {decimal} The decimal
    */
   get value() {
-    return this.decimal;
+    return this._decimal;
   }
 
   /**
-   * Convenience setter for value (sets this.decimal)
+   * Set the value (aliases decimal).
+   * @param {decimal} value - The decimal
    */
-  set value(val) {
-    this.decimal = val;
+  set value(value) {
+    this._decimal = value;
   }
 
   /**
-   * Getter for decimal
+   * Get the decimal.
+   * @returns {decimal} The decimal
    */
   get decimal() {
     return this._decimal;
   }
 
   /**
-   * Setter for decimal
+   * Set the decimal.
+   * @param {decimal} decimal - The decimal
    */
-  set decimal(decimalVal) {
-    this._decimal = decimalVal;
+  set decimal(decimal) {
+    this._decimal = decimal;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Longitude class.
+   * The JSON must be valid against the Longitude JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Longitude} An instance of Longitude populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Longitude();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Longitude;

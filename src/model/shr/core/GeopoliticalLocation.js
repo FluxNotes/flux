@@ -1,36 +1,20 @@
-import Address from './Address';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.GeopoliticalLocation */
-class GeopoliticalLocation extends Address {
-
-  /**
-   * Getter for shr.core.AddressLine
-   */
-  get addressLine() {
-    return this._addressLine;
-  }
+/**
+ * Generated class for shr.core.GeopoliticalLocation.
+ */
+class GeopoliticalLocation {
 
   /**
-   * Setter for shr.core.AddressLine
+   * Deserializes JSON data to an instance of the GeopoliticalLocation class.
+   * The JSON must be valid against the GeopoliticalLocation JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {GeopoliticalLocation} An instance of GeopoliticalLocation populated with the JSON data
    */
-  set addressLine(addressLineVal) {
-    this._addressLine = addressLineVal;
+  static fromJSON(json={}) {
+    const inst = new GeopoliticalLocation();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Getter for shr.core.PostalCode
-   */
-  get postalCode() {
-    return this._postalCode;
-  }
-
-  /**
-   * Setter for shr.core.PostalCode
-   */
-  set postalCode(postalCodeVal) {
-    this._postalCode = postalCodeVal;
-  }
-
 }
-
 export default GeopoliticalLocation;

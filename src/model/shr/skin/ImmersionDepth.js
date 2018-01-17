@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.skin.ImmersionDepth */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.skin.ImmersionDepth.
+ */
 class ImmersionDepth {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the ImmersionDepth class.
+   * The JSON must be valid against the ImmersionDepth JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ImmersionDepth} An instance of ImmersionDepth populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new ImmersionDepth();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default ImmersionDepth;

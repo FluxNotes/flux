@@ -1,6 +1,6 @@
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
-import ShrObjectFactory from '../model/ShrObjectFactory';
+import ObjectFactory from '../model/ObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -10,7 +10,7 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            this.object = ShrObjectFactory.createInstance(this.metadata["valueObject"]);
+            this.object = ObjectFactory.createInstance({}, this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
             this.object = object;

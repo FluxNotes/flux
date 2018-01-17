@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.medication.AdministrationBodySite */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.medication.AdministrationBodySite.
+ */
 class AdministrationBodySite {
 
   /**
-   * Convenience getter for value (accesses this.bodySite)
+   * Get the value (aliases bodySite).
+   * @returns {BodySite} The shr.entity.BodySite
    */
   get value() {
-    return this.bodySite;
+    return this._bodySite;
   }
 
   /**
-   * Convenience setter for value (sets this.bodySite)
+   * Set the value (aliases bodySite).
+   * @param {BodySite} value - The shr.entity.BodySite
    */
-  set value(val) {
-    this.bodySite = val;
+  set value(value) {
+    this._bodySite = value;
   }
 
   /**
-   * Getter for shr.core.BodySite
+   * Get the BodySite.
+   * @returns {BodySite} The shr.entity.BodySite
    */
   get bodySite() {
     return this._bodySite;
   }
 
   /**
-   * Setter for shr.core.BodySite
+   * Set the BodySite.
+   * @param {BodySite} bodySite - The shr.entity.BodySite
    */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
+  set bodySite(bodySite) {
+    this._bodySite = bodySite;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the AdministrationBodySite class.
+   * The JSON must be valid against the AdministrationBodySite JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AdministrationBodySite} An instance of AdministrationBodySite populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AdministrationBodySite();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default AdministrationBodySite;

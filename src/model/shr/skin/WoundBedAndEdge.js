@@ -1,30 +1,39 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.skin.WoundBedAndEdge */
-class WoundBedAndEdge extends ObservationComponent {
+import Observation from '../finding/Observation';
 
-  // Ommitting getter/setter for field: TBD<WoundBaseAppearance>
-
-  // Ommitting getter/setter for field: TBD<WoundBaseColor>
+/**
+ * Generated class for shr.skin.WoundBedAndEdge.
+ * @extends Observation
+ */
+class WoundBedAndEdge extends Observation {
 
   /**
-   * Getter for shr.skin.WoundEdgeAppearance
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get woundEdgeAppearance() {
-    return this._woundEdgeAppearance;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Setter for shr.skin.WoundEdgeAppearance
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set woundEdgeAppearance(woundEdgeAppearanceVal) {
-    this._woundEdgeAppearance = woundEdgeAppearanceVal;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
-  // Ommitting getter/setter for field: TBD<WoundEdgeColor>
-
-  // Ommitting getter/setter for field: TBD<WoundClosureType>
-
+  /**
+   * Deserializes JSON data to an instance of the WoundBedAndEdge class.
+   * The JSON must be valid against the WoundBedAndEdge JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {WoundBedAndEdge} An instance of WoundBedAndEdge populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new WoundBedAndEdge();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default WoundBedAndEdge;

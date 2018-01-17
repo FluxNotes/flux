@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.base.EntryType */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.base.EntryType.
+ */
 class EntryType {
 
   /**
-   * Convenience getter for value (accesses this.uri)
+   * Get the value (aliases uri).
+   * @returns {uri} The uri
    */
   get value() {
-    return this.uri;
+    return this._uri;
   }
 
   /**
-   * Convenience setter for value (sets this.uri)
+   * Set the value (aliases uri).
+   * @param {uri} value - The uri
    */
-  set value(val) {
-    this.uri = val;
+  set value(value) {
+    this._uri = value;
   }
 
   /**
-   * Getter for uri
+   * Get the uri.
+   * @returns {uri} The uri
    */
   get uri() {
     return this._uri;
   }
 
   /**
-   * Setter for uri
+   * Set the uri.
+   * @param {uri} uri - The uri
    */
-  set uri(uriVal) {
-    this._uri = uriVal;
+  set uri(uri) {
+    this._uri = uri;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the EntryType class.
+   * The JSON must be valid against the EntryType JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {EntryType} An instance of EntryType populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new EntryType();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default EntryType;

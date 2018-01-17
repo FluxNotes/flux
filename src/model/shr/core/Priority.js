@@ -1,34 +1,36 @@
-/** Generated from SHR definition for shr.core.Priority */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Priority.
+ */
 class Priority {
 
   /**
-   * Convenience getter for value (accesses this.positiveInt)
+   * Get the choice value; one of: positiveInt, shr.core.CodeableConcept.
+   * @returns {(positiveInt|CodeableConcept)} The choice value; one of: positiveInt, shr.core.CodeableConcept
    */
   get value() {
-    return this.positiveInt;
+    return this._value;
   }
 
   /**
-   * Convenience setter for value (sets this.positiveInt)
+   * Set the choice value; one of: positiveInt, shr.core.CodeableConcept.
+   * @param {(positiveInt|CodeableConcept)} value - The choice value; one of: positiveInt, shr.core.CodeableConcept
    */
-  set value(val) {
-    this.positiveInt = val;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for positiveInt
+   * Deserializes JSON data to an instance of the Priority class.
+   * The JSON must be valid against the Priority JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Priority} An instance of Priority populated with the JSON data
    */
-  get positiveInt() {
-    return this._positiveInt;
+  static fromJSON(json={}) {
+    const inst = new Priority();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for positiveInt
-   */
-  set positiveInt(positiveIntVal) {
-    this._positiveInt = positiveIntVal;
-  }
-
 }
-
 export default Priority;

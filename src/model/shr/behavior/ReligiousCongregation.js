@@ -1,36 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.behavior.ReligiousCongregation */
-class ReligiousCongregation extends Observation {
+import BehavioralFinding from './BehavioralFinding';
+
+/**
+ * Generated class for shr.behavior.ReligiousCongregation.
+ * @extends BehavioralFinding
+ */
+class ReligiousCongregation extends BehavioralFinding {
 
   /**
-   * Convenience getter for value (accesses this.string)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Get the value (aliases string).
+   * @returns {string} The string
    */
   get value() {
-    return this.string;
+    return this._string;
   }
 
   /**
-   * Convenience setter for value (sets this.string)
+   * Set the value (aliases string).
+   * @param {string} value - The string
    */
-  set value(val) {
-    this.string = val;
+  set value(value) {
+    this._string = value;
   }
 
   /**
-   * Getter for string
+   * Get the string.
+   * @returns {string} The string
    */
   get string() {
     return this._string;
   }
 
   /**
-   * Setter for string
+   * Set the string.
+   * @param {string} string - The string
    */
-  set string(stringVal) {
-    this._string = stringVal;
+  set string(string) {
+    this._string = string;
   }
 
-}
+  /**
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
+   */
+  get category() {
+    return this._category;
+  }
 
+  /**
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
+   */
+  set category(category) {
+    this._category = category;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the ReligiousCongregation class.
+   * The JSON must be valid against the ReligiousCongregation JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ReligiousCongregation} An instance of ReligiousCongregation populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new ReligiousCongregation();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default ReligiousCongregation;

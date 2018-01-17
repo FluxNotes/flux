@@ -1,78 +1,87 @@
-import Panel from '../observation/Panel';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.sex.SexualBehavior */
-class SexualBehavior extends Panel {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.sex.SexualBehavior.
+ * @extends QuestionAnswer
+ */
+class SexualBehavior extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @returns {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._value;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @param {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for Reference<shr.sex.SexualActivity>[]
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get sexualActivity() {
-    return this._sexualActivity;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for Reference<shr.sex.SexualActivity>[]
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set sexualActivity(sexualActivityVal) {
-    this._sexualActivity = sexualActivityVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
   /**
-   * Getter for Reference<shr.sex.NumberOfSexualPartnersPastYear>
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get numberOfSexualPartnersPastYear() {
-    return this._numberOfSexualPartnersPastYear;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Setter for Reference<shr.sex.NumberOfSexualPartnersPastYear>
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
    */
-  set numberOfSexualPartnersPastYear(numberOfSexualPartnersPastYearVal) {
-    this._numberOfSexualPartnersPastYear = numberOfSexualPartnersPastYearVal;
+  set members(members) {
+    this._members = members;
   }
 
   /**
-   * Getter for Reference<shr.sex.IntercourseDifficulty>[]
+   * Deserializes JSON data to an instance of the SexualBehavior class.
+   * The JSON must be valid against the SexualBehavior JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SexualBehavior} An instance of SexualBehavior populated with the JSON data
    */
-  get intercourseDifficulty() {
-    return this._intercourseDifficulty;
+  static fromJSON(json={}) {
+    const inst = new SexualBehavior();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for Reference<shr.sex.IntercourseDifficulty>[]
-   */
-  set intercourseDifficulty(intercourseDifficultyVal) {
-    this._intercourseDifficulty = intercourseDifficultyVal;
-  }
-
 }
-
 export default SexualBehavior;

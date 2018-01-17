@@ -5,7 +5,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import Button from '../elements/Button';
 import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
-import ToxicReactionToTreatment from '../model/shr/oncology/ToxicReactionToTreatment';
+import ToxicReaction from '../model/shr/adverse/ToxicReaction';
 import Lang from 'lodash'
 import Array from 'lodash'
 import './ToxicityForm.css';
@@ -268,7 +268,7 @@ class ToxicityForm extends Component {
     }
 
     render() {
-        let potentialToxicity = Lang.isNull(this.props.object) ? new ToxicReactionToTreatment() : this.props.object;
+        let potentialToxicity = Lang.isNull(this.props.object) ? new ToxicReaction() : this.props.object;
         let topAdverseEventSection = null;
         const inputProps = {
             placeholder: 'Enter symptom',

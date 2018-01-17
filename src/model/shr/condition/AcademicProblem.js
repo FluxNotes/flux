@@ -1,50 +1,87 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import Condition from './Condition';
 
-/** Generated from SHR definition for shr.condition.AcademicProblem */
+/**
+ * Generated class for shr.condition.AcademicProblem.
+ * @extends Condition
+ */
 class AcademicProblem extends Condition {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.BodySite
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Get the BodySite.
+   * @returns {BodySite} The shr.entity.BodySite
    */
   get bodySite() {
     return this._bodySite;
   }
 
   /**
-   * Setter for shr.core.BodySite
+   * Set the BodySite.
+   * @param {BodySite} bodySite - The shr.entity.BodySite
    */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
+  set bodySite(bodySite) {
+    this._bodySite = bodySite;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the AcademicProblem class.
+   * The JSON must be valid against the AcademicProblem JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AcademicProblem} An instance of AcademicProblem populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AcademicProblem();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default AcademicProblem;

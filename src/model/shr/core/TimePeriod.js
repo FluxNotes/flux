@@ -1,41 +1,52 @@
-import TimePeriodEnd from './TimePeriodEnd';
-import TimePeriodStart from './TimePeriodStart';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.TimePeriod */
+/**
+ * Generated class for shr.core.TimePeriod.
+ */
 class TimePeriod {
-    constructor(json) {
-        this._timePeriodStart = new TimePeriodStart(json.timePeriodStart);
-        this._timePeriodEnd = new TimePeriodEnd(json.timePeriodEnd);
-    }
 
   /**
-   * Getter for shr.core.TimePeriodStart
+   * Get the TimePeriodStart.
+   * @returns {TimePeriodStart} The shr.core.TimePeriodStart
    */
   get timePeriodStart() {
     return this._timePeriodStart;
   }
 
   /**
-   * Setter for shr.core.TimePeriodStart
+   * Set the TimePeriodStart.
+   * @param {TimePeriodStart} timePeriodStart - The shr.core.TimePeriodStart
    */
-  set timePeriodStart(timePeriodStartVal) {
-    this._timePeriodStart = timePeriodStartVal;
+  set timePeriodStart(timePeriodStart) {
+    this._timePeriodStart = timePeriodStart;
   }
 
   /**
-   * Getter for shr.core.TimePeriodEnd
+   * Get the TimePeriodEnd.
+   * @returns {TimePeriodEnd} The shr.core.TimePeriodEnd
    */
   get timePeriodEnd() {
     return this._timePeriodEnd;
   }
 
   /**
-   * Setter for shr.core.TimePeriodEnd
+   * Set the TimePeriodEnd.
+   * @param {TimePeriodEnd} timePeriodEnd - The shr.core.TimePeriodEnd
    */
-  set timePeriodEnd(timePeriodEndVal) {
-    this._timePeriodEnd = timePeriodEndVal;
+  set timePeriodEnd(timePeriodEnd) {
+    this._timePeriodEnd = timePeriodEnd;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the TimePeriod class.
+   * The JSON must be valid against the TimePeriod JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {TimePeriod} An instance of TimePeriod populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new TimePeriod();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default TimePeriod;

@@ -1,106 +1,103 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import SubstanceUse from './SubstanceUse';
 
-/** Generated from SHR definition for shr.behavior.AlcoholUse */
+/**
+ * Generated class for shr.behavior.AlcoholUse.
+ * @extends SubstanceUse
+ */
 class AlcoholUse extends SubstanceUse {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the FindingMethod.
+   * @returns {FindingMethod} The shr.finding.FindingMethod
    */
-  get specificType() {
-    return this._specificType;
+  get findingMethod() {
+    return this._findingMethod;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the FindingMethod.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
   }
 
   /**
-   * Getter for shr.core.Substance
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get substance() {
-    return this._substance;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Setter for shr.core.Substance
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
    */
-  set substance(substanceVal) {
-    this._substance = substanceVal;
+  set members(members) {
+    this._members = members;
   }
 
   /**
-   * Getter for shr.behavior.AssessmentTool
+   * Deserializes JSON data to an instance of the AlcoholUse class.
+   * The JSON must be valid against the AlcoholUse JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AlcoholUse} An instance of AlcoholUse populated with the JSON data
    */
-  get assessmentTool() {
-    return this._assessmentTool;
+  static fromJSON(json={}) {
+    const inst = new AlcoholUse();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.behavior.AssessmentTool
-   */
-  set assessmentTool(assessmentToolVal) {
-    this._assessmentTool = assessmentToolVal;
-  }
-
-  /**
-   * Getter for shr.behavior.AlcoholBingeFrequency
-   */
-  get alcoholBingeFrequency() {
-    return this._alcoholBingeFrequency;
-  }
-
-  /**
-   * Setter for shr.behavior.AlcoholBingeFrequency
-   */
-  set alcoholBingeFrequency(alcoholBingeFrequencyVal) {
-    this._alcoholBingeFrequency = alcoholBingeFrequencyVal;
-  }
-
 }
-
 export default AlcoholUse;

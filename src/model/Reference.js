@@ -1,55 +1,58 @@
-class Reference {
+/**
+ * A reference to another SHR Entry.
+ */
+export default class Reference {
   constructor(shrId, entryId, entryType) {
     this._shrId = shrId;
     this._entryId = entryId;
     this._entryType = entryType;
   }
-  
-  static createReferenceFromEntry(entry) {
-      return new Reference(entry.shrId, entry.entryId, entry.entryType);
-  }
 
-  /**
-   * Getter for shr.base.ShrId
+   /**
+   * Get the ShrId.
+   * @returns {ShrId} The shr.base.ShrId
    */
   get shrId() {
     return this._shrId;
   }
 
   /**
-   * Setter for shr.base.ShrId
+   * Set the ShrId.
+   * @param {ShrId} shrId - The shr.base.ShrId
    */
-  set shrId(shrIdVal) {
-    this._shrId = shrIdVal;
+  set shrId(shrId) {
+    this._shrId = shrId;
   }
 
-  /**
-   * Getter for shr.base.EntryId
+   /**
+   * Get the EntryId.
+   * @returns {EntryId} The shr.base.EntryId
    */
   get entryId() {
     return this._entryId;
   }
 
   /**
-   * Setter for shr.base.EntryId
+   * Set the EntryId.
+   * @param {EntryId} entryId - The shr.base.EntryId
    */
-  set entryId(entryIdVal) {
-    this._entryId = entryIdVal;
+  set entryId(entryId) {
+    this._entryId = entryId;
   }
 
-  /**
-   * Getter for shr.base.EntryType
+   /**
+   * Get the EntryType.
+   * @returns {EntryType} The shr.base.EntryType
    */
   get entryType() {
     return this._entryType;
   }
 
   /**
-   * Setter for shr.base.EntryType
+   * Set the EntryType.
+   * @param {EntryType} entryType - The shr.base.EntryType
    */
-  set entryType(entryTypeVal) {
-    this._entryType = entryTypeVal;
+  set entryType(entryType) {
+    this._entryType = entryType;
   }
 }
-
-export default Reference;

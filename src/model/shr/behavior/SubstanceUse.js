@@ -1,78 +1,103 @@
-import ExposureToSubstance from '../environment/ExposureToSubstance';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.behavior.SubstanceUse */
-class SubstanceUse extends ExposureToSubstance {
+import BehavioralFinding from './BehavioralFinding';
+
+/**
+ * Generated class for shr.behavior.SubstanceUse.
+ * @extends BehavioralFinding
+ */
+class SubstanceUse extends BehavioralFinding {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.Substance
-   */
-  get substance() {
-    return this._substance;
-  }
-
-  /**
-   * Setter for shr.core.Substance
-   */
-  set substance(substanceVal) {
-    this._substance = substanceVal;
-  }
-
-  /**
-   * Getter for shr.base.Category
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
   get category() {
     return this._category;
   }
 
   /**
-   * Setter for shr.base.Category
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set category(categoryVal) {
-    this._category = categoryVal;
+  set category(category) {
+    this._category = category;
   }
 
-}
+  /**
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   */
+  get observationComponent() {
+    return this._observationComponent;
+  }
 
+  /**
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   */
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the SubstanceUse class.
+   * The JSON must be valid against the SubstanceUse JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SubstanceUse} An instance of SubstanceUse populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new SubstanceUse();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default SubstanceUse;

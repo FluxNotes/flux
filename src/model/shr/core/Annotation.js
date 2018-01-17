@@ -1,62 +1,84 @@
-/** Generated from SHR definition for shr.core.Annotation */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Annotation.
+ */
 class Annotation {
 
   /**
-   * Convenience getter for value (accesses this.string)
+   * Get the value (aliases string).
+   * @returns {string} The string
    */
   get value() {
-    return this.string;
+    return this._string;
   }
 
   /**
-   * Convenience setter for value (sets this.string)
+   * Set the value (aliases string).
+   * @param {string} value - The string
    */
-  set value(val) {
-    this.string = val;
+  set value(value) {
+    this._string = value;
   }
 
   /**
-   * Getter for string
+   * Get the string.
+   * @returns {string} The string
    */
   get string() {
     return this._string;
   }
 
   /**
-   * Setter for string
+   * Set the string.
+   * @param {string} string - The string
    */
-  set string(stringVal) {
-    this._string = stringVal;
+  set string(string) {
+    this._string = string;
   }
 
   /**
-   * Getter for shr.base.Author
+   * Get the Author.
+   * @returns {Author} The shr.base.Author
    */
   get author() {
     return this._author;
   }
 
   /**
-   * Setter for shr.base.Author
+   * Set the Author.
+   * @param {Author} author - The shr.base.Author
    */
-  set author(authorVal) {
-    this._author = authorVal;
+  set author(author) {
+    this._author = author;
   }
 
   /**
-   * Getter for shr.core.OccurrenceTime
+   * Get the OccurrenceTime.
+   * @returns {OccurrenceTime} The shr.core.OccurrenceTime
    */
   get occurrenceTime() {
     return this._occurrenceTime;
   }
 
   /**
-   * Setter for shr.core.OccurrenceTime
+   * Set the OccurrenceTime.
+   * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    */
-  set occurrenceTime(occurrenceTimeVal) {
-    this._occurrenceTime = occurrenceTimeVal;
+  set occurrenceTime(occurrenceTime) {
+    this._occurrenceTime = occurrenceTime;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Annotation class.
+   * The JSON must be valid against the Annotation JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Annotation} An instance of Annotation populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Annotation();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Annotation;

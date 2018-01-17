@@ -1,92 +1,39 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.skin.WoundSize */
-class WoundSize extends ObservationComponent {
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.skin.WoundSize.
+ * @extends Observation
+ */
+class WoundSize extends Observation {
 
   /**
-   * Getter for shr.core.Area
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get area() {
-    return this._area;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Setter for shr.core.Area
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set area(areaVal) {
-    this._area = areaVal;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
   /**
-   * Getter for shr.core.Circumference
+   * Deserializes JSON data to an instance of the WoundSize class.
+   * The JSON must be valid against the WoundSize JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {WoundSize} An instance of WoundSize populated with the JSON data
    */
-  get circumference() {
-    return this._circumference;
+  static fromJSON(json={}) {
+    const inst = new WoundSize();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Circumference
-   */
-  set circumference(circumferenceVal) {
-    this._circumference = circumferenceVal;
-  }
-
-  /**
-   * Getter for shr.core.Volume
-   */
-  get volume() {
-    return this._volume;
-  }
-
-  /**
-   * Setter for shr.core.Volume
-   */
-  set volume(volumeVal) {
-    this._volume = volumeVal;
-  }
-
-  /**
-   * Getter for shr.core.Width
-   */
-  get width() {
-    return this._width;
-  }
-
-  /**
-   * Setter for shr.core.Width
-   */
-  set width(widthVal) {
-    this._width = widthVal;
-  }
-
-  /**
-   * Getter for shr.core.Depth
-   */
-  get depth() {
-    return this._depth;
-  }
-
-  /**
-   * Setter for shr.core.Depth
-   */
-  set depth(depthVal) {
-    this._depth = depthVal;
-  }
-
-  /**
-   * Getter for shr.core.Length
-   */
-  get length() {
-    return this._length;
-  }
-
-  /**
-   * Setter for shr.core.Length
-   */
-  set length(lengthVal) {
-    this._length = lengthVal;
-  }
-
 }
-
 export default WoundSize;

@@ -1,52 +1,103 @@
-import Test from '../lab/Test';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.vital.VitalSign */
-class VitalSign extends Test {
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.vital.VitalSign.
+ * @extends Observation
+ */
+class VitalSign extends Observation {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for shr.base.Category
+   * Get the Subject.
+   * @returns {Subject} The shr.base.Subject
+   */
+  get subject() {
+    return this._subject;
+  }
+
+  /**
+   * Set the Subject.
+   * @param {Subject} subject - The shr.base.Subject
+   */
+  set subject(subject) {
+    this._subject = subject;
+  }
+
+  /**
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
   get category() {
     return this._category;
   }
 
   /**
-   * Setter for shr.base.Category
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set category(categoryVal) {
-    this._category = categoryVal;
+  set category(category) {
+    this._category = category;
   }
 
-  // Ommitting getter/setter for field: TBD<Specimen>
-
+  /**
+   * Deserializes JSON data to an instance of the VitalSign class.
+   * The JSON must be valid against the VitalSign JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {VitalSign} An instance of VitalSign populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new VitalSign();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default VitalSign;

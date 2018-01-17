@@ -1,106 +1,167 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import VitalSign from './VitalSign';
 
-/** Generated from SHR definition for shr.vital.BloodPressure */
+/**
+ * Generated class for shr.vital.BloodPressure.
+ * @extends VitalSign
+ */
 class BloodPressure extends VitalSign {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.BodySite
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
+   */
+  get value() {
+    return this._quantity;
+  }
+
+  /**
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
+   */
+  set value(value) {
+    this._quantity = value;
+  }
+
+  /**
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
+   */
+  get quantity() {
+    return this._quantity;
+  }
+
+  /**
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   */
+  set quantity(quantity) {
+    this._quantity = quantity;
+  }
+
+  /**
+   * Get the FindingMethod.
+   * @returns {FindingMethod} The shr.finding.FindingMethod
+   */
+  get findingMethod() {
+    return this._findingMethod;
+  }
+
+  /**
+   * Set the FindingMethod.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
+   */
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
+  }
+
+  /**
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Get the BodySite.
+   * @returns {BodySite} The shr.entity.BodySite
    */
   get bodySite() {
     return this._bodySite;
   }
 
   /**
-   * Setter for shr.core.BodySite
+   * Set the BodySite.
+   * @param {BodySite} bodySite - The shr.entity.BodySite
    */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
+  set bodySite(bodySite) {
+    this._bodySite = bodySite;
   }
 
   /**
-   * Getter for shr.lab.TestMethod
-   */
-  get testMethod() {
-    return this._testMethod;
-  }
-
-  /**
-   * Setter for shr.lab.TestMethod
-   */
-  set testMethod(testMethodVal) {
-    this._testMethod = testMethodVal;
-  }
-
-  /**
-   * Getter for shr.observation.ObservationQualifier
+   * Get the ObservationQualifier array.
+   * @returns {Array<ObservationQualifier>} The shr.finding.ObservationQualifier array
    */
   get observationQualifier() {
     return this._observationQualifier;
   }
 
   /**
-   * Setter for shr.observation.ObservationQualifier
+   * Set the ObservationQualifier array.
+   * @param {Array<ObservationQualifier>} observationQualifier - The shr.finding.ObservationQualifier array
    */
-  set observationQualifier(observationQualifierVal) {
-    this._observationQualifier = observationQualifierVal;
+  set observationQualifier(observationQualifier) {
+    this._observationQualifier = observationQualifier;
   }
 
   /**
-   * Getter for shr.vital.SystolicPressure
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get systolicPressure() {
-    return this._systolicPressure;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Setter for shr.vital.SystolicPressure
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set systolicPressure(systolicPressureVal) {
-    this._systolicPressure = systolicPressureVal;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
   /**
-   * Getter for shr.vital.DiastolicPressure
-   */
-  get diastolicPressure() {
-    return this._diastolicPressure;
-  }
-
-  /**
-   * Setter for shr.vital.DiastolicPressure
-   */
-  set diastolicPressure(diastolicPressureVal) {
-    this._diastolicPressure = diastolicPressureVal;
-  }
-
-  /**
-   * Getter for shr.vital.HeadTiltAngle
+   * Get the HeadTiltAngle.
+   * @returns {HeadTiltAngle} The shr.vital.HeadTiltAngle
    */
   get headTiltAngle() {
     return this._headTiltAngle;
   }
 
   /**
-   * Setter for shr.vital.HeadTiltAngle
+   * Set the HeadTiltAngle.
+   * @param {HeadTiltAngle} headTiltAngle - The shr.vital.HeadTiltAngle
    */
-  set headTiltAngle(headTiltAngleVal) {
-    this._headTiltAngle = headTiltAngleVal;
+  set headTiltAngle(headTiltAngle) {
+    this._headTiltAngle = headTiltAngle;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the BloodPressure class.
+   * The JSON must be valid against the BloodPressure JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {BloodPressure} An instance of BloodPressure populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new BloodPressure();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default BloodPressure;

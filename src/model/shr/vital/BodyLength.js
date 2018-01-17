@@ -1,50 +1,55 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import BodyHeight from './BodyHeight';
 
-/** Generated from SHR definition for shr.vital.BodyLength */
+/**
+ * Generated class for shr.vital.BodyLength.
+ * @extends BodyHeight
+ */
 class BodyLength extends BodyHeight {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get value() {
-    return this.quantity;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set value(val) {
-    this.quantity = val;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Deserializes JSON data to an instance of the BodyLength class.
+   * The JSON must be valid against the BodyLength JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {BodyLength} An instance of BodyLength populated with the JSON data
    */
-  get quantity() {
-    return this._quantity;
+  static fromJSON(json={}) {
+    const inst = new BodyLength();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Quantity
-   */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
-  }
-
 }
-
 export default BodyLength;

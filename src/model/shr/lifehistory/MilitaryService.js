@@ -1,50 +1,87 @@
-import Panel from '../observation/Panel';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.lifehistory.MilitaryService */
-class MilitaryService extends Panel {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.lifehistory.MilitaryService.
+ * @extends QuestionAnswer
+ */
+class MilitaryService extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @returns {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._value;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @param {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for shr.observation.PanelMembers
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get panelMembers() {
-    return this._panelMembers;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.observation.PanelMembers
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set panelMembers(panelMembersVal) {
-    this._panelMembers = panelMembersVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
+   */
+  get members() {
+    return this._members;
+  }
+
+  /**
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
+   */
+  set members(members) {
+    this._members = members;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the MilitaryService class.
+   * The JSON must be valid against the MilitaryService JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {MilitaryService} An instance of MilitaryService populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new MilitaryService();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default MilitaryService;

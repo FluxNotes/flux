@@ -1,80 +1,103 @@
-import Procedure from '../procedure/Procedure';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.medication.MedicationChange */
-class MedicationChange extends Procedure {
+import Action from '../action/Action';
+
+/**
+ * Generated class for shr.medication.MedicationChange.
+ * @extends Action
+ */
+class MedicationChange extends Action {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.EffectiveDate
+   * Get the Type.
+   * @returns {Type} The shr.entity.Type
    */
-  get effectiveDate() {
-    return this._effectiveDate;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Setter for shr.core.EffectiveDate
+   * Set the Type.
+   * @param {Type} type - The shr.entity.Type
    */
-  set effectiveDate(effectiveDateVal) {
-    this._effectiveDate = effectiveDateVal;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Getter for shr.medication.MedicationChangeType
+   * Get the PerformedContext.
+   * @returns {PerformedContext} The shr.action.PerformedContext
    */
-  get medicationChangeType() {
-    return this._medicationChangeType;
+  get actionContext() {
+    return this._actionContext;
   }
 
   /**
-   * Setter for shr.medication.MedicationChangeType
+   * Set the PerformedContext.
+   * @param {PerformedContext} actionContext - The shr.action.PerformedContext
    */
-  set medicationChangeType(medicationChangeTypeVal) {
-    this._medicationChangeType = medicationChangeTypeVal;
+  set actionContext(actionContext) {
+    this._actionContext = actionContext;
   }
 
   /**
-   * Getter for shr.medication.MedicationBeforeChange[]
+   * Get the MedicationBeforeChange array.
+   * @returns {Array<MedicationBeforeChange>} The shr.medication.MedicationBeforeChange array
    */
   get medicationBeforeChange() {
     return this._medicationBeforeChange;
   }
 
   /**
-   * Setter for shr.medication.MedicationBeforeChange[]
+   * Set the MedicationBeforeChange array.
+   * @param {Array<MedicationBeforeChange>} medicationBeforeChange - The shr.medication.MedicationBeforeChange array
    */
-  set medicationBeforeChange(medicationBeforeChangeVal) {
-    this._medicationBeforeChange = medicationBeforeChangeVal;
+  set medicationBeforeChange(medicationBeforeChange) {
+    this._medicationBeforeChange = medicationBeforeChange;
   }
 
   /**
-   * Getter for shr.medication.MedicationAfterChange[]
+   * Get the MedicationAfterChange array.
+   * @returns {Array<MedicationAfterChange>} The shr.medication.MedicationAfterChange array
    */
   get medicationAfterChange() {
     return this._medicationAfterChange;
   }
 
   /**
-   * Setter for shr.medication.MedicationAfterChange[]
+   * Set the MedicationAfterChange array.
+   * @param {Array<MedicationAfterChange>} medicationAfterChange - The shr.medication.MedicationAfterChange array
    */
-  set medicationAfterChange(medicationAfterChangeVal) {
-    this._medicationAfterChange = medicationAfterChangeVal;
+  set medicationAfterChange(medicationAfterChange) {
+    this._medicationAfterChange = medicationAfterChange;
   }
 
-  // Ommitting getter/setter for field: TBD<ReasonForMedicationChange>
-
+  /**
+   * Deserializes JSON data to an instance of the MedicationChange class.
+   * The JSON must be valid against the MedicationChange JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {MedicationChange} An instance of MedicationChange populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new MedicationChange();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default MedicationChange;

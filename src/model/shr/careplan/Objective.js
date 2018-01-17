@@ -1,134 +1,87 @@
-import Action from '../base/Action';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.careplan.Objective */
-class Objective extends Action {
+import Goal from './Goal';
 
-  /**
-   * Getter for shr.core.SpecificType
-   */
-  get specificType() {
-    return this._specificType;
-  }
+/**
+ * Generated class for shr.careplan.Objective.
+ * @extends Goal
+ */
+class Objective extends Goal {
 
   /**
-   * Setter for shr.core.SpecificType
-   */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
-
-  /**
-   * Getter for shr.base.Status
-   */
-  get status() {
-    return this._status;
-  }
-
-  /**
-   * Setter for shr.base.Status
-   */
-  set status(statusVal) {
-    this._status = statusVal;
-  }
-
-  /**
-   * Getter for shr.base.Category[]
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
   get category() {
     return this._category;
   }
 
   /**
-   * Setter for shr.base.Category[]
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set category(categoryVal) {
-    this._category = categoryVal;
+  set category(category) {
+    this._category = category;
   }
 
   /**
-   * Getter for shr.careplan.AssociatedGoal
-   */
-  get associatedGoal() {
-    return this._associatedGoal;
-  }
-
-  /**
-   * Setter for shr.careplan.AssociatedGoal
-   */
-  set associatedGoal(associatedGoalVal) {
-    this._associatedGoal = associatedGoalVal;
-  }
-
-  /**
-   * Getter for shr.base.RequestedPerformanceTime
-   */
-  get requestedPerformanceTime() {
-    return this._requestedPerformanceTime;
-  }
-
-  /**
-   * Setter for shr.base.RequestedPerformanceTime
-   */
-  set requestedPerformanceTime(requestedPerformanceTimeVal) {
-    this._requestedPerformanceTime = requestedPerformanceTimeVal;
-  }
-
-  /**
-   * Getter for shr.careplan.ResultTargeted
+   * Get the ResultTargeted.
+   * @returns {ResultTargeted} The shr.careplan.ResultTargeted
    */
   get resultTargeted() {
     return this._resultTargeted;
   }
 
   /**
-   * Setter for shr.careplan.ResultTargeted
+   * Set the ResultTargeted.
+   * @param {ResultTargeted} resultTargeted - The shr.careplan.ResultTargeted
    */
-  set resultTargeted(resultTargetedVal) {
-    this._resultTargeted = resultTargetedVal;
+  set resultTargeted(resultTargeted) {
+    this._resultTargeted = resultTargeted;
   }
 
   /**
-   * Getter for shr.careplan.ResultAchieved[]
+   * Get the ResultAchieved array.
+   * @returns {Array<ResultAchieved>} The shr.careplan.ResultAchieved array
    */
   get resultAchieved() {
     return this._resultAchieved;
   }
 
   /**
-   * Setter for shr.careplan.ResultAchieved[]
+   * Set the ResultAchieved array.
+   * @param {Array<ResultAchieved>} resultAchieved - The shr.careplan.ResultAchieved array
    */
-  set resultAchieved(resultAchievedVal) {
-    this._resultAchieved = resultAchievedVal;
+  set resultAchieved(resultAchieved) {
+    this._resultAchieved = resultAchieved;
   }
 
   /**
-   * Getter for shr.core.Annotation[]
+   * Get the RelatedFinding array.
+   * @returns {Array<RelatedFinding>} The shr.finding.RelatedFinding array
    */
-  get annotation() {
-    return this._annotation;
+  get relatedFinding() {
+    return this._relatedFinding;
   }
 
   /**
-   * Setter for shr.core.Annotation[]
+   * Set the RelatedFinding array.
+   * @param {Array<RelatedFinding>} relatedFinding - The shr.finding.RelatedFinding array
    */
-  set annotation(annotationVal) {
-    this._annotation = annotationVal;
+  set relatedFinding(relatedFinding) {
+    this._relatedFinding = relatedFinding;
   }
 
   /**
-   * Getter for shr.observation.Evidence[]
+   * Deserializes JSON data to an instance of the Objective class.
+   * The JSON must be valid against the Objective JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Objective} An instance of Objective populated with the JSON data
    */
-  get evidence() {
-    return this._evidence;
+  static fromJSON(json={}) {
+    const inst = new Objective();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.observation.Evidence[]
-   */
-  set evidence(evidenceVal) {
-    this._evidence = evidenceVal;
-  }
-
 }
-
 export default Objective;

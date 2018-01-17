@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.core.Ratio */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Ratio.
+ */
 class Ratio {
 
   /**
-   * Getter for shr.core.Numerator
+   * Get the Numerator.
+   * @returns {Numerator} The shr.core.Numerator
    */
   get numerator() {
     return this._numerator;
   }
 
   /**
-   * Setter for shr.core.Numerator
+   * Set the Numerator.
+   * @param {Numerator} numerator - The shr.core.Numerator
    */
-  set numerator(numeratorVal) {
-    this._numerator = numeratorVal;
+  set numerator(numerator) {
+    this._numerator = numerator;
   }
 
   /**
-   * Getter for shr.core.Denominator
+   * Get the Denominator.
+   * @returns {Denominator} The shr.core.Denominator
    */
   get denominator() {
     return this._denominator;
   }
 
   /**
-   * Setter for shr.core.Denominator
+   * Set the Denominator.
+   * @param {Denominator} denominator - The shr.core.Denominator
    */
-  set denominator(denominatorVal) {
-    this._denominator = denominatorVal;
+  set denominator(denominator) {
+    this._denominator = denominator;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Ratio class.
+   * The JSON must be valid against the Ratio JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Ratio} An instance of Ratio populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Ratio();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Ratio;

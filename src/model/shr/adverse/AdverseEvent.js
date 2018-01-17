@@ -1,142 +1,217 @@
-import AdverseEventGrade from './AdverseEventGrade';
-import AdverseEventOutcome from './AdverseEventOutcome';
-import AssociatedStudy from '../observation/AssociatedStudy';
-import CauseCategory from './CauseCategory';
-import CodeableConcept from '../core/CodeableConcept';
-import Entry from '../base/Entry';
-import SeriousAdverseEvent from './SeriousAdverseEvent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.adverse.AdverseEvent */
-class AdverseEvent {
-    constructor(json) {
-        if (json) {
-            this._entryInfo = new Entry(json);
-            this._codeableConcept = new CodeableConcept(json.value);
-            this.codeableConcept = this._codeableConcept;
-            if (json.adverseEventGrade) this._adverseEventGrade = new AdverseEventGrade(json.adverseEventGrade);
-            if (json.seriousAdverseEvent) this._seriousAdverseEvent = new SeriousAdverseEvent(json.seriousAdverseEvent);
-            if (json.adverseEventOutcome) this._adverseEventOutcome = new AdverseEventOutcome(json.adverseEventOutcome);
-            if (json.associatedStudy) this._associatedStudy = new AssociatedStudy(json.associatedStudy);
-            if (json.causeCategory) this._causeCategory = new CauseCategory(json.causeCategory);
-        } else {
-            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/adverse/AdverseEvent");
-        }
-    }
+import SpecializedFinding from '../finding/SpecializedFinding';
+
+/**
+ * Generated class for shr.adverse.AdverseEvent.
+ * @extends SpecializedFinding
+ */
+class AdverseEvent extends SpecializedFinding {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.adverse.AdverseEventGrade
+   * Get the Details.
+   * @returns {Details} The shr.core.Details
+   */
+  get details() {
+    return this._details;
+  }
+
+  /**
+   * Set the Details.
+   * @param {Details} details - The shr.core.Details
+   */
+  set details(details) {
+    this._details = details;
+  }
+
+  /**
+   * Get the OccurrenceTime.
+   * @returns {OccurrenceTime} The shr.core.OccurrenceTime
+   */
+  get occurrenceTime() {
+    return this._occurrenceTime;
+  }
+
+  /**
+   * Set the OccurrenceTime.
+   * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
+   */
+  set occurrenceTime(occurrenceTime) {
+    this._occurrenceTime = occurrenceTime;
+  }
+
+  /**
+   * Get the AdverseEventGrade.
+   * @returns {AdverseEventGrade} The shr.adverse.AdverseEventGrade
    */
   get adverseEventGrade() {
     return this._adverseEventGrade;
   }
 
   /**
-   * Setter for shr.adverse.AdverseEventGrade
+   * Set the AdverseEventGrade.
+   * @param {AdverseEventGrade} adverseEventGrade - The shr.adverse.AdverseEventGrade
    */
-  set adverseEventGrade(adverseEventGradeVal) {
-    this._adverseEventGrade = adverseEventGradeVal;
+  set adverseEventGrade(adverseEventGrade) {
+    this._adverseEventGrade = adverseEventGrade;
   }
 
   /**
-   * Getter for shr.adverse.SeriousAdverseEvent
+   * Get the SeriousAdverseEvent.
+   * @returns {SeriousAdverseEvent} The shr.adverse.SeriousAdverseEvent
    */
   get seriousAdverseEvent() {
     return this._seriousAdverseEvent;
   }
 
   /**
-   * Setter for shr.adverse.SeriousAdverseEvent
+   * Set the SeriousAdverseEvent.
+   * @param {SeriousAdverseEvent} seriousAdverseEvent - The shr.adverse.SeriousAdverseEvent
    */
-  set seriousAdverseEvent(seriousAdverseEventVal) {
-    this._seriousAdverseEvent = seriousAdverseEventVal;
+  set seriousAdverseEvent(seriousAdverseEvent) {
+    this._seriousAdverseEvent = seriousAdverseEvent;
   }
 
-  // Ommitting getter/setter for field: TBD<PatternOfEvent>
+  // Ommitting getter/setter for TBD: PatternOfEvent
 
   /**
-   * Getter for shr.adverse.AdverseEventOutcome
+   * Get the Outcome.
+   * @returns {Outcome} The shr.action.Outcome
    */
-  get adverseEventOutcome() {
-    return this._adverseEventOutcome;
-  }
-
-  /**
-   * Setter for shr.adverse.AdverseEventOutcome
-   */
-  set adverseEventOutcome(adverseEventOutcomeVal) {
-    this._adverseEventOutcome = adverseEventOutcomeVal;
+  get outcome() {
+    return this._outcome;
   }
 
   /**
-   * Getter for shr.observation.AssociatedStudy
+   * Set the Outcome.
+   * @param {Outcome} outcome - The shr.action.Outcome
+   */
+  set outcome(outcome) {
+    this._outcome = outcome;
+  }
+
+  /**
+   * Get the shr.procedure.AssociatedStudy reference.
+   * @returns {Reference} The shr.procedure.AssociatedStudy reference
    */
   get associatedStudy() {
     return this._associatedStudy;
   }
 
   /**
-   * Setter for shr.observation.AssociatedStudy
+   * Set the shr.procedure.AssociatedStudy reference.
+   * @param {Reference} associatedStudy - The shr.procedure.AssociatedStudy reference
    */
-  set associatedStudy(associatedStudyVal) {
-    this._associatedStudy = associatedStudyVal;
+  set associatedStudy(associatedStudy) {
+    this._associatedStudy = associatedStudy;
   }
 
   /**
-   * Getter for shr.adverse.CauseCategory
+   * Get the CauseCategory.
+   * @returns {CauseCategory} The shr.adverse.CauseCategory
    */
   get causeCategory() {
     return this._causeCategory;
   }
 
   /**
-   * Setter for shr.adverse.CauseCategory
+   * Set the CauseCategory.
+   * @param {CauseCategory} causeCategory - The shr.adverse.CauseCategory
    */
-  set causeCategory(causeCategoryVal) {
-    this._causeCategory = causeCategoryVal;
+  set causeCategory(causeCategory) {
+    this._causeCategory = causeCategory;
   }
 
-}
+  /**
+   * Get the AdverseEventAttribution array.
+   * @returns {Array<AdverseEventAttribution>} The shr.adverse.AdverseEventAttribution array
+   */
+  get adverseEventAttribution() {
+    return this._adverseEventAttribution;
+  }
 
+  /**
+   * Set the AdverseEventAttribution array.
+   * @param {Array<AdverseEventAttribution>} adverseEventAttribution - The shr.adverse.AdverseEventAttribution array
+   */
+  set adverseEventAttribution(adverseEventAttribution) {
+    this._adverseEventAttribution = adverseEventAttribution;
+  }
+
+  /**
+   * Get the ActionTaken array.
+   * @returns {Array<ActionTaken>} The shr.adverse.ActionTaken array
+   */
+  get actionTaken() {
+    return this._actionTaken;
+  }
+
+  /**
+   * Set the ActionTaken array.
+   * @param {Array<ActionTaken>} actionTaken - The shr.adverse.ActionTaken array
+   */
+  set actionTaken(actionTaken) {
+    this._actionTaken = actionTaken;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the AdverseEvent class.
+   * The JSON must be valid against the AdverseEvent JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AdverseEvent} An instance of AdverseEvent populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AdverseEvent();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default AdverseEvent;

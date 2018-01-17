@@ -1,172 +1,71 @@
-import AllergyIntolerance from './AllergyIntolerance';
-import Entry from '../base/Entry';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.allergy.NoKnownAllergy */
-class NoKnownAllergy extends AllergyIntolerance {
-    constructor(json) {
-        super(json);
-        if (json) {
-            this._entryInfo = new Entry(json);
-        } else {
-            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/NoKnownAllergy",
-                                                "http://standardhealthrecord.org/allergy/AllergyIntolerance");
-        }
-    }
+import Assertion from '../finding/Assertion';
+
+/**
+ * Generated class for shr.allergy.NoKnownAllergy.
+ * @extends Assertion
+ */
+class NoKnownAllergy extends Assertion {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.allergy.AllergenIrritant
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get allergenIrritant() {
-    return this._allergenIrritant;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.allergy.AllergenIrritant
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set allergenIrritant(allergenIrritantVal) {
-    this._allergenIrritant = allergenIrritantVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.allergy.SubstanceCategory
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get substanceCategory() {
-    return this._substanceCategory;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.allergy.SubstanceCategory
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set substanceCategory(substanceCategoryVal) {
-    this._substanceCategory = substanceCategoryVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.base.AssertionNegationModifier
+   * Deserializes JSON data to an instance of the NoKnownAllergy class.
+   * The JSON must be valid against the NoKnownAllergy JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {NoKnownAllergy} An instance of NoKnownAllergy populated with the JSON data
    */
-  get assertionNegationModifier() {
-    return this._assertionNegationModifier;
+  static fromJSON(json={}) {
+    const inst = new NoKnownAllergy();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.base.AssertionNegationModifier
-   */
-  set assertionNegationModifier(assertionNegationModifierVal) {
-    this._assertionNegationModifier = assertionNegationModifierVal;
-  }
-
-  /**
-   * Getter for shr.allergy.AllergyVerificationStatus
-   */
-  get allergyVerificationStatus() {
-    return this._allergyVerificationStatus;
-  }
-
-  /**
-   * Setter for shr.allergy.AllergyVerificationStatus
-   */
-  set allergyVerificationStatus(allergyVerificationStatusVal) {
-    this._allergyVerificationStatus = allergyVerificationStatusVal;
-  }
-
-  /**
-   * Getter for shr.allergy.AdverseReactionType
-   */
-  get adverseReactionType() {
-    return this._adverseReactionType;
-  }
-
-  /**
-   * Setter for shr.allergy.AdverseReactionType
-   */
-  set adverseReactionType(adverseReactionTypeVal) {
-    this._adverseReactionType = adverseReactionTypeVal;
-  }
-
-  /**
-   * Getter for shr.condition.Criticality
-   */
-  get criticality() {
-    return this._criticality;
-  }
-
-  /**
-   * Setter for shr.condition.Criticality
-   */
-  set criticality(criticalityVal) {
-    this._criticality = criticalityVal;
-  }
-
-  /**
-   * Getter for shr.observation.Manifestation
-   */
-  get manifestation() {
-    return this._manifestation;
-  }
-
-  /**
-   * Setter for shr.observation.Manifestation
-   */
-  set manifestation(manifestationVal) {
-    this._manifestation = manifestationVal;
-  }
-
-  /**
-   * Getter for shr.condition.Onset
-   */
-  get onset() {
-    return this._onset;
-  }
-
-  /**
-   * Setter for shr.condition.Onset
-   */
-  set onset(onsetVal) {
-    this._onset = onsetVal;
-  }
-
-  /**
-   * Getter for shr.allergy.MostRecentOccurrence
-   */
-  get mostRecentOccurrence() {
-    return this._mostRecentOccurrence;
-  }
-
-  /**
-   * Setter for shr.allergy.MostRecentOccurrence
-   */
-  set mostRecentOccurrence(mostRecentOccurrenceVal) {
-    this._mostRecentOccurrence = mostRecentOccurrenceVal;
-  }
-
-  /**
-   * Getter for shr.adverse.AdverseReaction
-   */
-  get adverseReaction() {
-    return this._adverseReaction;
-  }
-
-  /**
-   * Setter for shr.adverse.AdverseReaction
-   */
-  set adverseReaction(adverseReactionVal) {
-    this._adverseReaction = adverseReactionVal;
-  }
-
 }
-
 export default NoKnownAllergy;

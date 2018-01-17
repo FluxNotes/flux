@@ -1,36 +1,55 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.TumorMarginDescription */
+import ObservationComponent from '../finding/ObservationComponent';
+
+/**
+ * Generated class for shr.oncology.TumorMarginDescription.
+ * @extends ObservationComponent
+ */
 class TumorMarginDescription extends ObservationComponent {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the TumorMarginDescription class.
+   * The JSON must be valid against the TumorMarginDescription JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {TumorMarginDescription} An instance of TumorMarginDescription populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new TumorMarginDescription();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default TumorMarginDescription;

@@ -1,53 +1,52 @@
-import Coding from '../core/Coding';
-import DisplayText from '../core/DisplayText';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.CodeableConcept */
+/**
+ * Generated class for shr.core.CodeableConcept.
+ */
 class CodeableConcept {
-    constructor(json) {
-        if (json) {
-            if (json.coding) this._coding = json.coding.map((c) => new Coding(c));
-            this._displayText = new DisplayText(json.coding[0].displayText);
-        } else {
-            this._coding = [ new Coding() ];
-        }
-    }
-
-    fromFHIR(coding) {
-        this._coding = coding.map((c) => {
-          let code = new Coding();
-          code.fromFHIR(c);
-          return code;
-        });
-    }
 
   /**
-   * Getter for shr.core.Coding[]
+   * Get the Coding array.
+   * @returns {Array<Coding>} The shr.core.Coding array
    */
   get coding() {
     return this._coding;
   }
 
   /**
-   * Setter for shr.core.Coding[]
+   * Set the Coding array.
+   * @param {Array<Coding>} coding - The shr.core.Coding array
    */
-  set coding(codingVal) {
-    this._coding = codingVal;
+  set coding(coding) {
+    this._coding = coding;
   }
 
   /**
-   * Getter for shr.core.DisplayText
+   * Get the DisplayText.
+   * @returns {DisplayText} The shr.core.DisplayText
    */
   get displayText() {
     return this._displayText;
   }
 
   /**
-   * Setter for shr.core.DisplayText
+   * Set the DisplayText.
+   * @param {DisplayText} displayText - The shr.core.DisplayText
    */
-  set displayText(displayTextVal) {
-    this._displayText = displayTextVal;
+  set displayText(displayText) {
+    this._displayText = displayText;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the CodeableConcept class.
+   * The JSON must be valid against the CodeableConcept JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {CodeableConcept} An instance of CodeableConcept populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new CodeableConcept();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default CodeableConcept;

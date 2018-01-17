@@ -1,4 +1,4 @@
-import ShrObjectFactory from '../model/ShrObjectFactory';
+import ObjectFactory from '../model/ObjectFactory';
 import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import ClinicalNote from '../model/shr/core/ClinicalNote';
@@ -9,7 +9,7 @@ import NoKnownDrugAllergy from '../model/shr/allergy/NoKnownDrugAllergy';
 import NoKnownEnvironmentalAllergy from '../model/shr/allergy/NoKnownEnvironmentalAllergy';
 import NoKnownFoodAllergy from '../model/shr/allergy/NoKnownFoodAllergy';
 import PatientIdentifier from '../model/shr/base/PatientIdentifier';
-import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
+import PersonOfRecord from '../model/shr/base/PersonOfRecord';
 import Photograph from '../model/shr/demographics/Photograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
@@ -38,7 +38,7 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
+			return ObjectFactory.createInstance(entry);
         });
 	}
 	
@@ -52,7 +52,7 @@ class PatientRecord {
 			const entryTypes =  mapper.mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
-                    const shrObj = ShrObjectFactory.createInstance(entryType);
+                    const shrObj = ObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
                     shrObj.entryInfo.entryId = nextEntryId;
                     nextEntryId += 1;

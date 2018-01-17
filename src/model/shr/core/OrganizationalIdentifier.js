@@ -1,64 +1,55 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import Identifier from './Identifier';
 
-/** Generated from SHR definition for shr.core.OrganizationalIdentifier */
+/**
+ * Generated class for shr.core.OrganizationalIdentifier.
+ * @extends Identifier
+ */
 class OrganizationalIdentifier extends Identifier {
 
   /**
-   * Convenience getter for value (accesses this.string)
-   */
-  get value() {
-    return this.string;
-  }
-
-  /**
-   * Convenience setter for value (sets this.string)
-   */
-  set value(val) {
-    this.string = val;
-  }
-
-  /**
-   * Getter for string
-   */
-  get string() {
-    return this._string;
-  }
-
-  /**
-   * Setter for string
-   */
-  set string(stringVal) {
-    this._string = stringVal;
-  }
-
-  /**
-   * Getter for shr.core.TimePeriod
+   * Get the TimePeriod.
+   * @returns {TimePeriod} The shr.core.TimePeriod
    */
   get timePeriod() {
     return this._timePeriod;
   }
 
   /**
-   * Setter for shr.core.TimePeriod
+   * Set the TimePeriod.
+   * @param {TimePeriod} timePeriod - The shr.core.TimePeriod
    */
-  set timePeriod(timePeriodVal) {
-    this._timePeriod = timePeriodVal;
+  set timePeriod(timePeriod) {
+    this._timePeriod = timePeriod;
   }
 
   /**
-   * Getter for shr.actor.Organization
+   * Get the Organization.
+   * @returns {Organization} The shr.entity.Organization
    */
   get organization() {
     return this._organization;
   }
 
   /**
-   * Setter for shr.actor.Organization
+   * Set the Organization.
+   * @param {Organization} organization - The shr.entity.Organization
    */
-  set organization(organizationVal) {
-    this._organization = organizationVal;
+  set organization(organization) {
+    this._organization = organization;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the OrganizationalIdentifier class.
+   * The JSON must be valid against the OrganizationalIdentifier JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {OrganizationalIdentifier} An instance of OrganizationalIdentifier populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new OrganizationalIdentifier();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default OrganizationalIdentifier;

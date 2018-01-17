@@ -1,36 +1,55 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.TumorSecondaryDimensionSize */
+import ObservationComponent from '../finding/ObservationComponent';
+
+/**
+ * Generated class for shr.oncology.TumorSecondaryDimensionSize.
+ * @extends ObservationComponent
+ */
 class TumorSecondaryDimensionSize extends ObservationComponent {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the TumorSecondaryDimensionSize class.
+   * The JSON must be valid against the TumorSecondaryDimensionSize JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {TumorSecondaryDimensionSize} An instance of TumorSecondaryDimensionSize populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new TumorSecondaryDimensionSize();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default TumorSecondaryDimensionSize;
