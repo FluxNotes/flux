@@ -11,8 +11,10 @@ class RangeChart extends Component {
 
         // Calculate typical value tick mark placement
         const lineLengthPixels = 240;
+        // x position in pixels for where the line begins
+        const lineStartXPixels = 50;
         let numberOfPixelsPerUnit = lineLengthPixels /(this.props.upperValue - this.props.lowerValue);
-        let typicalValueXPixels = ((this.props.typicalValue - this.props.lowerValue) * numberOfPixelsPerUnit)+ 30; // x=30 is where the line begins
+        let typicalValueXPixels = ((this.props.typicalValue - this.props.lowerValue) * numberOfPixelsPerUnit)+ lineStartXPixels; // x=30 is where the line begins
 
         // Check if value is out of range
         let valueColor = 'black';
@@ -31,12 +33,12 @@ class RangeChart extends Component {
 
             // If the value is below the lower bound, set the x position to the left of the line
             if (this.props.value < this.props.lowerValue) {
-                valueXPixels = 30 - distanceFromLineInPixels; // x=30 is where the line begins
+                valueXPixels = lineStartXPixels - distanceFromLineInPixels;
             }
 
             // Else the value is above the upper bound so set the x position to the right of the line
             else {
-                valueXPixels = lineLengthPixels + distanceFromLineInPixels + 30; // x=30 is where the line begins
+                valueXPixels = lineLengthPixels + distanceFromLineInPixels + lineStartXPixels;
             }
 
         }
@@ -48,25 +50,25 @@ class RangeChart extends Component {
             dotColor = 'black'
 
             // Calculate the x position of the dot
-            valueXPixels =  ((this.props.value - this.props.lowerValue) * numberOfPixelsPerUnit)+ 30; // x=30 is where the line begi
+            valueXPixels =  ((this.props.value - this.props.lowerValue) * numberOfPixelsPerUnit)+ 50;
         }
 
         return (
-            <svg width="300" height="100">
+            <svg width="340" height="100">
 
                 {/*Header*/}
                 <text x="40" y="20" fontFamily="sans-serif" fontSize="20px" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>
 
                 {/*Main line*/}
-                <line x1="30" y1="50" x2="270" y2="50" stroke="#bfbfbf" strokeWidth="0.5"  />
+                <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#bfbfbf" strokeWidth="0.5"  />
 
                 {/*Lower value tick*/}
-                <line x1="30" y1="40" x2="30" y2="60" stroke="#bfbfbf" strokeWidth="0.5"  />
-                <text x="10" y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
+                <line x1={lineStartXPixels} y1="40" x2={lineStartXPixels} y2="60" stroke="#bfbfbf" strokeWidth="0.5"  />
+                <text x={lineStartXPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.lowerValue} {this.props.unit}</text>
 
                 {/*Upper value tick*/}
-                <line x1="270" y1="40" x2="270" y2="60" stroke="#bfbfbf" strokeWidth="0.5"  />
-                <text x="250" y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
+                <line x1={lineStartXPixels + lineLengthPixels} y1="40" x2={lineStartXPixels + lineLengthPixels} y2="60" stroke="#bfbfbf" strokeWidth="0.5"  />
+                <text x={lineStartXPixels + lineLengthPixels - 20} y="75" fontFamily="sans-serif" fontSize="12px" fill="#333">{this.props.upperValue} {this.props.unit}</text>
 
                 {/*Typical value tick*/}
                 <line x1={typicalValueXPixels} y1="40" x2={typicalValueXPixels} y2="60" stroke="#bfbfbf" strokeWidth="0.5"  />
