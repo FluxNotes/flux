@@ -7,7 +7,6 @@ import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualiz
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
 import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
-import RangeChart from './RangeChart';
 
 
 import './TargetedDataSection.css';
@@ -291,17 +290,6 @@ class TargetedDataSection extends Component {
     render() {
         const visualizationOptions = this.getOptions(this.props.section);
 
-        // Values for range chart
-        const lowerValue = 1;
-        const upperValue = 7;
-        const typicalValue = 2;
-        const value = 2.5;
-        const unit = "mg";
-        const name = "Letrozole";
-
-        // console.log("section");
-        // console.log(this.props.section);
-
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
@@ -309,18 +297,7 @@ class TargetedDataSection extends Component {
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
                 {this.renderSection(this.props.section)}
-
-                <RangeChart
-                    lowerValue={lowerValue}
-                    upperValue={upperValue}
-                    typicalValue={typicalValue}
-                    value={value}
-                    unit={unit}
-                    name={name}
-                />
             </div>
-
-
         );
     }
 }
