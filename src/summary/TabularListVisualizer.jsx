@@ -80,7 +80,7 @@ class TabularListVisualizer extends Component {
             subsectionname = <tr><td className="list-subsection-header">{subsection.name}</td></tr>;
         }
 
-        // temp variable for now to limit number of columns to be displayed to just the number of headings
+        // TODO: temp variable for now to limit number of columns to be displayed to just the number of headings. Eventually remove this
         const numberOfHeadings = subsection.headings.length;
 
         return (

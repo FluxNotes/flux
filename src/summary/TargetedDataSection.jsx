@@ -167,7 +167,7 @@ class TargetedDataSection extends Component {
         } else if (section.type === "ListType") {
             options.push('tabular');
             if (section.name === 'Medications') {
-                options.push('chart'); // TODO: Is there a better way to decide which list types use the scale visualization. Example: Procedure's shouldn't have the medication visualizer
+                options.push('chart'); // TODO: This will get handled better when we have functionality to reuse visualizations
             }
         }
         return options;

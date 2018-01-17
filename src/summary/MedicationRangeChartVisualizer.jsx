@@ -110,7 +110,7 @@ class MedicationRangeChartVisualizer extends Component {
         const subsections = this.getSubsections();
 
         return (
-            <div>
+            <div className="medication-visualizer-wrapper">
                 {this.renderedSubsections(subsections)}
             </div>
         );
