@@ -55,7 +55,7 @@ class MedicationRangeChartVisualizer extends Component {
             <div key={i}>
                 <Grid className="FullApp-content" fluid>
                     <Row center="xs">
-                        <Col sm={4}>
+                        <Col sm={5}>
                             <div className="range-chart-container">
 
                                 <RangeChart
@@ -68,37 +68,41 @@ class MedicationRangeChartVisualizer extends Component {
                                 />
                             </div>
                         </Col>
-                        <Col sm={2}>
-                            <div className='medication-info-heading'>
-                                Route
-                            </div>
-                            <div className='medication-info'>
-                                {med[5]}
-                            </div>
-                        </Col>
-                        <Col sm={2}>
-                            <div className='medication-info-heading'>
-                                Prescribed
-                            </div>
-                            <div className='medication-info'>
-                                {med[7]}
-                            </div>
-                        </Col>
-                        <Col sm={2}>
-                            <div className='medication-info-heading'>
-                                Prescribed By
-                            </div>
-                            <div className='medication-info'>
-                                {med[6]}
-                            </div>
-                        </Col>
-                        <Col sm={2}>
-                            <div className='medication-info-heading'>
-                                Number of Refills
-                            </div>
-                            <div className='medication-info'>
-                                {med[8]}
-                            </div>
+                        <Col sm={7}>
+                            <Row center='xs'>
+                                <Col sm={3}>
+                                    <div className='medication-info-heading'>
+                                        Route
+                                    </div>
+                                    <div className='medication-info'>
+                                        {med[5]}
+                                    </div>
+                                </Col>
+                                <Col sm={3}>
+                                    <div className='medication-info-heading'>
+                                        Prescribed
+                                    </div>
+                                    <div className='medication-info'>
+                                        {med[7]}
+                                    </div>
+                                </Col>
+                                <Col sm={3}>
+                                    <div className='medication-info-heading'>
+                                        Prescribed By
+                                    </div>
+                                    <div className='medication-info'>
+                                        {med[6]}
+                                    </div>
+                                </Col>
+                                <Col sm={3}>
+                                    <div className='medication-info-heading'>
+                                        Number of Refills
+                                    </div>
+                                    <div className='medication-info'>
+                                        {med[8]}
+                                    </div>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Grid>
