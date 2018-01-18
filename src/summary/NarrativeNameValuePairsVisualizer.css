@@ -2,6 +2,26 @@
     margin-bottom: 20px;
 }
 
+.narrative-inserter-tooltip { 
+
+}
+
+.narrative-inserter-tooltip ul { 
+    padding: 0;
+}
+
+.narrative-inserter-tooltip .fa { 
+    height: initial;
+}
+
+li.narrative-inserter-box:hover { 
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+div.narrative-inserter-menu-item { 
+    padding: 0;
+}
+
 span.plain {
 }
 

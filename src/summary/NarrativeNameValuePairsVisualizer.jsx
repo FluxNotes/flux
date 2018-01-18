@@ -200,11 +200,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
     handlePopoverOpen = (event, index) => {
         // console.log("handlePopoverOpen")
         const target = event.target;
+        // Number of milliseconds to wait
+        const waitTime = 400;
         this.timer = setTimeout(() => {
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = target;
             this.setState({ anchorEl: anchorEl });
-        }, 300);
+        }, waitTime);
     }
 
     // Cancels timeout if there is one
@@ -246,14 +248,18 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         <span className={snippet.type} onMouseOver={(event) => this.handlePopoverOpen(event, index)} onMouseOut={(event) => this.cancelPopoverOpen(event, index)}>{snippet.text}</span>
                         <Menu
                             open={!!anchorEl[index]}
-                            anchorEl={anchorEl[index]}>
+                            anchorEl={anchorEl[index]}
+                            className="narrative-inserter-tooltip"
+                        >
                             <MenuItem   
-                                        onClick={() => insertItem(snippet.item, index)}
-                                        onMouseLeave={(event) => this.handlePopoverClose(event, index)}>
+                                onClick={() => insertItem(snippet.item, index)}
+                                onMouseLeave={(event) => this.handlePopoverClose(event, index)}
+                                className="narrative-inserter-box"
+                            >
                                 <ListItemIcon>
-                                    <FontAwesome name="plus" />
+                                    <FontAwesome name="plus"/>
                                 </ListItemIcon>
-                                <ListItemText className='menu-item' inset primary={`Insert ${snippet.text}`} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert ${snippet.text}`} />
                             </MenuItem>
                         </Menu>
                     </span>
