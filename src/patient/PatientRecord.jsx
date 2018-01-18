@@ -10,7 +10,7 @@ import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnviron
 import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import PersonOfRecord from '../model/shr/base/PersonOfRecord';
-import FluxPhotograph from '../model/demographics/FluxPhotograph';
+import FluxPhotograph from '../model/base/FluxPhotograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
 import mapper from '../lib/FHIRMapper';
