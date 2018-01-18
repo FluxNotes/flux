@@ -6,9 +6,9 @@ export default class FluxResearchObjectFactory {
     static createInstance(json, type) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.research') {
-            throw new Error(`Unsupported type in FluxResearchObjectFactory: ${type}`);
+            throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
         }
-        // returns Flux wrapper class if found, otherwise use FluxResearchObjectFactory
+        // returns Flux wrapper class if found, otherwise use ShrResearchObjectFactory
         switch (elementName) {
             case 'Study': return new FluxStudy(json);
             default: return ShrResearchObjectFactory.createInstance(json, type);
