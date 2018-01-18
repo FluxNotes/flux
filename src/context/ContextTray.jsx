@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 
@@ -28,6 +29,10 @@ export default class ContextTray extends Component {
             this.setState({
                 value: activeContexts.length + 1,
                 lastActiveContextCount: activeContexts.length
+            }, () => {
+                // scrolls to newest ContextOption section
+                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
+                if (newContextSection) newContextSection.scrollIntoView();
             });
         }
     }
@@ -99,6 +104,7 @@ export default class ContextTray extends Component {
                 {value > 0 && activeContexts.map((context, i) =>
                     <ContextOptions
                         key={i}
+                        ref={`context-option-${i}`}
                         contextManager={this.props.contextManager}
                         shortcutManager={this.props.shortcutManager}
                         handleClick={this.handleShortcutClick}
