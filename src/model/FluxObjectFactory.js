@@ -1,5 +1,7 @@
 import { getNamespaceAndName } from './json-helper';
 import ObjectFactory from './ObjectFactory';
+import FluxBaseObjectFactory from './base/FluxBaseObjectFactory';
+import FluxResearchObjectFactory from './research/FluxResearchObjectFactory';
 
 /*
  *  FluxObjectFactory class returns instances of Flux model classes
@@ -9,9 +11,9 @@ export default class FluxObjectFactory {
     static createInstance(json, type) {
         const { namespace } = getNamespaceAndName(json, type);
         switch (namespace) {
-            default: {
-                return ObjectFactory.createInstance(json, type);
-            }
+            case 'shr.base': return FluxBaseObjectFactory(json, type);
+            case 'shr.research': return FluxResearchObjectFactory(json, type);
+            default: return ObjectFactory.createInstance(json, type);
         }
     }
 }

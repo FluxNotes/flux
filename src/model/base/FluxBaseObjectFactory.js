@@ -1,7 +1,6 @@
 import { getNamespaceAndName } from '../json-helper';
 import FluxPatientIdentifier from './FluxPatientIdentifier';
 import FluxPhotograph from './FluxPhotograph';
-import FluxStudy from './FluxStudy';
 import ShrBaseObjectFactory from '../shr/base/ShrBaseObjectFactory';
 
 export default class FluxBaseObjectFactory {
@@ -14,7 +13,6 @@ export default class FluxBaseObjectFactory {
         switch (elementName) {
             case 'PatientIdentifier': return new FluxPatientIdentifier(json);
             case 'Photograph': return new FluxPhotograph(json);
-            case 'Study': return new FluxStudy(json);
             default: return ShrBaseObjectFactory.createInstance(json, type);
         }
     }
