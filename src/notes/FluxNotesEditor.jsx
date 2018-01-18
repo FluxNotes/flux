@@ -187,8 +187,6 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             isPortalOpen: false,
             portalOptions: null,
-            previousEditorPlainText: "",
-           // documentText: "",
             left: 0,
             top: 0
         };
@@ -329,9 +327,6 @@ class FluxNotesEditor extends React.Component {
         }
 
         const newText = `${text.substring(0, index.start)}`
-
-        // TODO look at choseSuggestedShortcut and here
-        // maybe we want to call setFullAppState() and delete backwards then add the full phrase
         return transform
             .deleteBackward(anchorOffset)
             .insertText(newText)
@@ -339,7 +334,7 @@ class FluxNotesEditor extends React.Component {
 
     insertStructuredFieldTransform(transform, shortcut) {
         if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);//Greg says this is the one point always hit when inserting a block
+        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         //console.log(result[0]);
         return result[0];
     }
@@ -367,7 +362,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     onInput = (event, data) => {
-        //console.log("onInput : " + data.newText); not here
         // Create an updated state with the text replaced.
 
         var nextState = this.state.state.transform().select({
@@ -455,7 +449,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertPlainText = (transform, text) => {
-        // only runs when loading note, not typing.
         let returnIndex = text.indexOf("\r");
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));

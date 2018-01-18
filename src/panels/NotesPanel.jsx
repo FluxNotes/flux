@@ -106,7 +106,6 @@ export default class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     updateErrors={this.props.updateErrors}
                     errors={this.props.errors}
-                    // Pass this down one more layer
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
@@ -137,7 +136,6 @@ export default class NotesPanel extends Component {
                     selectedNote={this.state.selectedNote}
                     updateSelectedNote={this.updateSelectedNote}
                     documentText={this.props.documentText}
-                    saveEditorContents={this.props.saveEditorContents}
                     saveNote={click => this.saveNoteChild = click}
                 />
             </div>
