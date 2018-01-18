@@ -57,7 +57,7 @@ class RangeChart extends Component {
             <svg width="100%" height="100%" viewBox="0 0 340 100">
 
                 {/*Header*/}
-                <text x="40" y="20" fontFamily="sans-serif" fontSize="20px" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>
+                <text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{this.props.name} <tspan fill={valueColor}>{this.props.value}</tspan> <tspan fontSize="12px"> {this.props.unit}</tspan></text>
 
                 {/*Main line*/}
                 <line x1={lineStartXPixels} y1="50" x2={lineStartXPixels + lineLengthPixels} y2="50" stroke="#000" strokeWidth="0.5"  />
