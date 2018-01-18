@@ -1,16 +1,16 @@
 import ObjectFactory from '../model/ObjectFactory';
 import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
-import ClinicalNote from '../model/shr/core/ClinicalNote';
+import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import Condition from '../model/shr/condition/Condition';
 import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
 import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
-import NoKnownDrugAllergy from '../model/shr/allergy/NoKnownDrugAllergy';
-import NoKnownEnvironmentalAllergy from '../model/shr/allergy/NoKnownEnvironmentalAllergy';
-import NoKnownFoodAllergy from '../model/shr/allergy/NoKnownFoodAllergy';
-import PatientIdentifier from '../model/shr/base/PatientIdentifier';
+import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
+import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnvironmentalAllergy';
+import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
+import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import PersonOfRecord from '../model/shr/base/PersonOfRecord';
-import Photograph from '../model/shr/demographics/Photograph';
+import FluxPhotograph from '../model/demographics/FluxPhotograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
 import FluxProgression from '../model/oncology/FluxProgression';
 import mapper from '../lib/FHIRMapper';
@@ -147,7 +147,7 @@ class PatientRecord {
 
     getMRN() {
         let list = this.entries.filter((item) => {
-            return item instanceof PatientIdentifier && item.identifierType === "MRN"
+            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN"
         });
         let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
         if (Lang.isNull(identifierEntry)) return null;
@@ -155,7 +155,7 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        let photoEntry = this.getMostRecentEntryOfType(Photograph);
+        let photoEntry = this.getMostRecentEntryOfType(FluxPhotograph);
         if (Lang.isNull(photoEntry)) return null;
         return photoEntry.filePath;
     }
@@ -198,13 +198,13 @@ class PatientRecord {
             if (!first) {
                 result += "\r\n";
             }
-            if (allergy instanceof NoKnownDrugAllergy) {
+            if (allergy instanceof FluxNoKnownDrugAllergy) {
                 result += "NKDA";
             } else if (allergy instanceof NoKnownAllergy) {
                 result += "No known allergies";
-            } else if (allergy instanceof NoKnownEnvironmentalAllergy) {
+            } else if (allergy instanceof FluxNoKnownEnvironmentalAllergy) {
                 result += "No known environmental allergies";
-            } else if (allergy instanceof NoKnownFoodAllergy) {
+            } else if (allergy instanceof FluxNoKnownFoodAllergy) {
                 result += "No known food allergies";
             } else {
                 result += allergy.allergenIrritant.value.coding[0].displayText.value;
@@ -223,7 +223,7 @@ class PatientRecord {
     addClinicalNote(date, subject, hospital, clinician, content, signed) {
 
         // Generate the clinical note json from passed in values
-        let clinicalNote = new ClinicalNote(
+        let clinicalNote = new FluxClinicalNote(
             {
                 "date": date,
                 "subject": subject,
@@ -238,7 +238,7 @@ class PatientRecord {
     }
 
     getNotes() {
-        return this.getEntriesOfType(ClinicalNote);
+        return this.getEntriesOfType(FluxClinicalNote);
     }
 
     getKeyEventsChronologicalOrder() {

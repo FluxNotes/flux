@@ -1,8 +1,8 @@
-import AllergyIntolerance from './AllergyIntolerance';
-import Entry from '../base/Entry';
+import AllergyIntolerance from '../shr/allergy/AllergyIntolerance';
+import Entry from '../shr/base/Entry';
 
 /** Generated from SHR definition for shr.allergy.NoKnownEnvironmentalAllergy */
-class NoKnownEnvironmentalAllergy extends AllergyIntolerance {
+class FluxNoKnownEnvironmentalAllergy extends AllergyIntolerance {
     constructor(json) {
         super(json);
         if (json) {
@@ -169,4 +169,4 @@ class NoKnownEnvironmentalAllergy extends AllergyIntolerance {
 
 }
 
-export default NoKnownEnvironmentalAllergy;
+export default FluxNoKnownEnvironmentalAllergy;

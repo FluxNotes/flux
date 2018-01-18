@@ -1,6 +1,6 @@
-import Entry from '../base/Entry';
+import Entry from '../shr/base/Entry';
 
-class ClinicalNote {
+class FluxClinicalNote {
     constructor(json) {
         this._entryInfo = new Entry(json);
         if (json.date) this._date = json.date;
@@ -73,4 +73,4 @@ class ClinicalNote {
     }
 }
 
-export default ClinicalNote;
+export default FluxClinicalNote;

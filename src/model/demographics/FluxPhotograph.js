@@ -1,6 +1,6 @@
-import Entry from '../base/Entry';
+import Entry from '../shr/base/Entry';
 
-class Photograph {
+class FluxPhotograph {
     constructor(json) {
         this._entryInfo = new Entry(json);
         if (json.when) this._when = json.when;
@@ -37,4 +37,4 @@ class Photograph {
     }
 }
 
-export default Photograph;
+export default FluxPhotograph;

@@ -1,14 +1,14 @@
-import AllergyIntolerance from './AllergyIntolerance';
-import Entry from '../base/Entry';
+import AllergyIntolerance from '../shr/allergy/AllergyIntolerance';
+import Entry from '../shr/base/Entry';
 
-/** Generated from SHR definition for shr.allergy.NoKnownFoodAllergy */
-class NoKnownFoodAllergy extends AllergyIntolerance {
+/** Generated from SHR definition for shr.allergy.NoKnownDrugAllergy */
+class FluxNoKnownDrugAllergy extends AllergyIntolerance {
     constructor(json) {
         super(json);
         if (json) {
             this._entryInfo = new Entry(json);
         } else {
-            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/NoKnownFoodAllergy",
+            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/NoKnownDrugAllergy",
                                                 "http://standardhealthrecord.org/allergy/AllergyIntolerance");
         }
     }
@@ -169,4 +169,4 @@ class NoKnownFoodAllergy extends AllergyIntolerance {
 
 }
 
-export default NoKnownFoodAllergy;
+export default FluxNoKnownDrugAllergy;

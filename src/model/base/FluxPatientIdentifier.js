@@ -1,6 +1,6 @@
-import Entry from '../base/Entry';
+import Entry from '../shr/base/Entry';
 
-class PatientIdentifier {
+class FluxPatientIdentifier {
     constructor(json) {
         this._entryInfo = new Entry(json);
         if (json.organization) this._organization = json.organization;
@@ -46,4 +46,4 @@ class PatientIdentifier {
     }
 }
 
-export default PatientIdentifier;
+export default FluxPatientIdentifier;
