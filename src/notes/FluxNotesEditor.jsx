@@ -236,29 +236,9 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
-        console.log("chose: (probably @cond only)");//yep...no, actually, what chganged? but this works
-        console.log(suggestion.value.name);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            let portalTransform = this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
-            
-        /*console.log("multi dropdown");
-        console.log(this.selectingForShortcut.initiatingTrigger);
-        // has to be after click on the condition, where is that handler
-        console.log(this.selectingForShortcut.text);//may not be set until after click on the condition
-        */
-            return portalTransform;
+            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
-            // these two methods remove the old and add the blue block for string 'shortcut'
-            console.log("in choseSuggestedShortcut: " + suggestion.value.name); // == shortcut.text == #staging
-            console.log(shortcut);
-            let newText = suggestion.value.name.substring(1); // staging or whatever hashtag/at-tag
-            /*this.props.setFullAppStateWithCallback(function(prevState, props){
-            if(Lang.isNull(prevState.documentText)){
-                return {documentText: newText};
-            } else {
-                return {documentText: prevState.documentText + newText};
-            }
-        });*/
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
@@ -358,8 +338,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
-        console.log("insertStructuredFieldTransform(): ");
-        console.log(shortcut.text);
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);//Greg says this is the one point always hit when inserting a block
         //console.log(result[0]);
@@ -367,28 +345,24 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        // Losing structured phrases, may need to pull state.blocks / convert them back to hashtags to be stored.
-        let newText = state.document.text.substring(this.state.previousEditorPlainText.length);
-        //console.log("newText: " + newText); //yesss
-        //keep changing below
-     //was   this.props.setFullAppState("documentText", state.document.text);
+        // 'copy' the text every time into the note
+        // Need to artificially set selection to the whole document
+        // state.selection only has a getter for these values so create a new object
+        let allTextSelected = {
+            startKey: "0",
+            startOffset: 0,
+            endKey: state.anchorKey,
+            endOffset: state.anchorOffset
+        }; 
+        let fullText = this.structuredFieldPlugin.convertToText(state, allTextSelected);
         this.props.setFullAppStateWithCallback(function(prevState, props){
-            if(Lang.isNull(prevState.documentText)){
-                return {documentText: newText};
-            } else {
-                return {documentText: prevState.documentText + newText};
-            }
+            return {documentText: fullText};
         });
-       // console.log(state.documentText);
-        // not here console.log(state.document.newText);
+
+        // save
         this.props.saveNoteUponKeypress();
         this.setState({
             state: state
-        });
-        // For diffing in the next call of onChange
-        // Crucially, this does not include structured phrases
-        this.setState({
-            previousEditorPlainText: state.document.text
         });
     }
 
@@ -495,32 +469,15 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
-     //   console.log("insertTextWithStructuredPhrases: " + textToBeInserted); // this needs to be added to the text to be saved.
-        // this.setState(function(prevState, props){
-        //     console.log("StrucPhras: " + prevState.documentText + textToBeInserted)
-        //     return {documentText: prevState.documentText + textToBeInserted};
-        // });
-        // why do i even have a local documentText, just use the FullApp one
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            if(Lang.isNull(prevState.documentText)){
-                return {documentText: textToBeInserted};
-            } else {
-                return {documentText: prevState.documentText + textToBeInserted};
-            }
-        });
         let state;
         const currentState = this.state.state;
-
-        // console.log(textToBeInserted);
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
 
-        //console.log(textToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-        //console.log(triggers);
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
@@ -559,7 +516,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
 
-        if (remainder.length > 0) {
+        if (!Lang.isUndefined(remainder) && remainder.length > 0) {
             //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }

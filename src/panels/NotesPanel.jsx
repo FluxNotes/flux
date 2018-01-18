@@ -23,12 +23,6 @@ export default class NotesPanel extends Component {
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
     }
 
-    /*added
-    getCurrentNote(){
-        
-        return this.updatedEditorNote;
-    }*/
-
     updateNoteAssistantMode(mode) {
         this.setState({noteAssistantMode: mode});
     }
@@ -67,9 +61,7 @@ export default class NotesPanel extends Component {
         }
     }
 
-    // alternate approach to Workflow changes: don't make it a special case,
-    // save the note after every keypress.
-    // This function invokes the note saving logic in NoteAssistant
+    // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
     saveNoteUponKeypress(){
         this.saveNoteChild();
     }

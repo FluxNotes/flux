@@ -18,7 +18,6 @@ export default class NoteAssistant extends Component {
         this.state = {
             sortIndex: null,
             maxNotesToDisplay: 3,
-            initialNote: true,
             currentlyEditingEntryId: -1
         };
     }
@@ -38,6 +37,7 @@ export default class NoteAssistant extends Component {
     }
     
     componentDidMount() {
+        // set callback so the editor can signal a change and this class can save the note
         this.props.saveNote(this.saveNoteOnKeypress);
     }
 
@@ -71,6 +71,7 @@ export default class NoteAssistant extends Component {
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick  = () => {
         if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            // Special case immediately after load
             this.saveEditorContentsToNewNote();        
         } else {
             this.updateExistingNote();
@@ -81,7 +82,8 @@ export default class NoteAssistant extends Component {
 
     updateExistingNote = () => {
         var entryId = this.state.currentlyEditingEntryId;
-        console.log(this.props.patient.getNotes());
+        // List the notes to verify that they are being updated each invocation of this function:
+        // console.log(this.props.patient.getNotes());
         var found = this.props.patient.getNotes().find(function(element){
             return Lang.isEqual(element.entryInfo.entryId, entryId);
         });
@@ -127,12 +129,10 @@ export default class NoteAssistant extends Component {
         this.props.updateSelectedNote(null);
     }
 
-    // alternate approach to Workflow changes: don't make it a special case,
-    // save the note after every keypress.
+    // save the note after every keypress. Invoked by FluxNotesEditor.
     saveNoteOnKeypress = () => {
-        //console.log("key pressed NA " + this.props.documentText);
         // Don't start saving until there is content in the editor
-        if(!Lang.isNull(this.props.documentText) && this.props.documentText.length > 0){
+        if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)  && this.props.documentText.length > 0){
             if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
                 this.saveEditorContentsToNewNote();    
             } else {
@@ -142,7 +142,6 @@ export default class NoteAssistant extends Component {
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
-    // also saves editor content to a new/existing note
     openNote = (isInProgressNote, note) => {
         if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
             this.saveEditorContentsToNewNote();    
@@ -160,7 +159,6 @@ export default class NoteAssistant extends Component {
         } else {
             this.toggleView("clinical-notes");
         }
-        console.log(this.props.patient.getNotes());
     }
 
     // Render the content for the Note Assistant panel
