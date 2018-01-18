@@ -1,11 +1,11 @@
-import FluxStudy from '../../../../src/model/base/FluxStudy';
+import FluxStudy from '../../../../src/model/research/FluxStudy';
 import {expect} from 'chai';
 import util from 'util';
 
 let study = new FluxStudy();
 study.title = 'PATINA';
 study.identifier = '123';
-
+console.log(util.inspect(study))
 describe('getTitle()', function() { 
     it('should return "PATINA"', function() { 
         expect(study.title)
