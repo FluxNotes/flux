@@ -186,7 +186,6 @@ class ClinicianDashboard extends Component {
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         patient={this.props.appState.patient}
                         documentText={this.props.appState.documentText}
-                        saveEditorContents={this.props.appState.saveEditorContents}
                         shortcutManager={this.props.shortcutManager}
                         summaryItemToBeInserted={this.props.appState.SummaryItemToInsert}
                         updateErrors={this.props.updateErrors}

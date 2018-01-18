@@ -55,7 +55,6 @@ class FullApp extends Component {
             patient: patient,
             selectedText: null,
             documentText: null,
-            saveEditorContents: false,
             superRole: 'Clinician',
             SummaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),

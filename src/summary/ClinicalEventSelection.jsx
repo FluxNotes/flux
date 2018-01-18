@@ -15,7 +15,7 @@ class ClinicalEventSelection extends Component {
 
     selectClinicalEvent(clinicalEvent) {
         // need to save off contents of note here
-        this.props.setFullAppState('saveEditorContents', true);
+       // this.props.setFullAppState('saveEditorContents', true);
        // console.log("selectClinicalEvent");
        // console.log(this.props);
 
