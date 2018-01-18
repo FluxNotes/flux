@@ -187,6 +187,8 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             isPortalOpen: false,
             portalOptions: null,
+            previousEditorPlainText: "",
+           // documentText: "",
             left: 0,
             top: 0
         };
@@ -234,10 +236,29 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
-
+        console.log("chose: (probably @cond only)");//yep...no, actually, what chganged? but this works
+        console.log(suggestion.value.name);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+            let portalTransform = this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+            
+        /*console.log("multi dropdown");
+        console.log(this.selectingForShortcut.initiatingTrigger);
+        // has to be after click on the condition, where is that handler
+        console.log(this.selectingForShortcut.text);//may not be set until after click on the condition
+        */
+            return portalTransform;
         } else {
+            // these two methods remove the old and add the blue block for string 'shortcut'
+            console.log("in choseSuggestedShortcut: " + suggestion.value.name); // == shortcut.text == #staging
+            console.log(shortcut);
+            let newText = suggestion.value.name.substring(1); // staging or whatever hashtag/at-tag
+            /*this.props.setFullAppStateWithCallback(function(prevState, props){
+            if(Lang.isNull(prevState.documentText)){
+                return {documentText: newText};
+            } else {
+                return {documentText: prevState.documentText + newText};
+            }
+        });*/
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
@@ -328,29 +349,51 @@ class FluxNotesEditor extends React.Component {
         }
 
         const newText = `${text.substring(0, index.start)}`
+
+        // TODO look at choseSuggestedShortcut and here
+        // maybe we want to call setFullAppState() and delete backwards then add the full phrase
         return transform
             .deleteBackward(anchorOffset)
             .insertText(newText)
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
-        //console.log(shortcut);
+        console.log("insertStructuredFieldTransform(): ");
+        console.log(shortcut.text);
         if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
+        let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);//Greg says this is the one point always hit when inserting a block
         //console.log(result[0]);
         return result[0];
     }
 
     onChange = (state) => {
-        this.props.setFullAppState("documentText", state.document.text);
-        //console.log(this.props);
+        // Losing structured phrases, may need to pull state.blocks / convert them back to hashtags to be stored.
+        let newText = state.document.text.substring(this.state.previousEditorPlainText.length);
+        //console.log("newText: " + newText); //yesss
+        //keep changing below
+     //was   this.props.setFullAppState("documentText", state.document.text);
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            if(Lang.isNull(prevState.documentText)){
+                return {documentText: newText};
+            } else {
+                return {documentText: prevState.documentText + newText};
+            }
+        });
+       // console.log(state.documentText);
+        // not here console.log(state.document.newText);
         this.props.saveNoteUponKeypress();
         this.setState({
             state: state
         });
+        // For diffing in the next call of onChange
+        // Crucially, this does not include structured phrases
+        this.setState({
+            previousEditorPlainText: state.document.text
+        });
     }
 
     onInput = (event, data) => {
+        //console.log("onInput : " + data.newText); not here
         // Create an updated state with the text replaced.
 
         var nextState = this.state.state.transform().select({
@@ -438,6 +481,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertPlainText = (transform, text) => {
+        // only runs when loading note, not typing.
         let returnIndex = text.indexOf("\r");
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
@@ -451,6 +495,19 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
+     //   console.log("insertTextWithStructuredPhrases: " + textToBeInserted); // this needs to be added to the text to be saved.
+        // this.setState(function(prevState, props){
+        //     console.log("StrucPhras: " + prevState.documentText + textToBeInserted)
+        //     return {documentText: prevState.documentText + textToBeInserted};
+        // });
+        // why do i even have a local documentText, just use the FullApp one
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            if(Lang.isNull(prevState.documentText)){
+                return {documentText: textToBeInserted};
+            } else {
+                return {documentText: prevState.documentText + textToBeInserted};
+            }
+        });
         let state;
         const currentState = this.state.state;
 

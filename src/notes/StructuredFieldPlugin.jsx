@@ -153,7 +153,7 @@ function StructuredFieldPlugin(opts) {
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
                 if (shortcut instanceof InsertValue || (shortcut instanceof CreatorChild && Lang.isArray(shortcut.determineText(contextManager)))) {
-                    let text = shortcut.getText();
+                    let text = shortcut.getText(); // error upon copy, is this in master?
                     if (text.startsWith(shortcut.getPrefixCharacter())) {
                         text = text.substring(1);
                     }
@@ -166,7 +166,7 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-    function convertToText(state, selection) {
+    function convertToText(state, selection) { //Greg says call this
         //console.log(selection);
         const startBlock = state.document.getDescendant(selection.startKey);
         const startOffset = selection.startOffset;
@@ -221,6 +221,8 @@ function StructuredFieldPlugin(opts) {
         if (native.isCollapsed && !isVoid) return;
 
         //console.log(state.document);
+        console.log("onCopy, state is");
+        console.log(state);
         let fluxString = convertToText(state, selection);
         //console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));

@@ -146,10 +146,6 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     documentText={this.props.documentText}
                     saveEditorContents={this.props.saveEditorContents}
-                    // Pass this down one more layer
-                    setFullAppState={this.props.setFullAppState}
-                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
                     saveNote={click => this.saveNoteChild = click}
                 />
             </div>
@@ -170,7 +166,8 @@ NotesPanel.propTypes = {
     contextManager: PropTypes.object,
     shortcutManager: PropTypes.object,
     summaryItemToBeInserted: PropTypes.string,
-    //needed? was there documentText: PropTypes.string,
+    documentText: PropTypes.string,
+    saveNote: PropTypes.func,
     errors: PropTypes.array,
     isNoteViewerEditable: PropTypes.bool,
     newCurrentShortcut: PropTypes.func,

@@ -21,7 +21,6 @@ export default class NoteAssistant extends Component {
             initialNote: true,
             currentlyEditingEntryId: -1
         };
-        //this.props.setFullAppStateWithCallback("updateOnKeypress", this.saveNoteUponKeypress);
     }
 
     notesNotDisplayed = null;
@@ -69,8 +68,6 @@ export default class NoteAssistant extends Component {
         this.setState({ sortIndex: sortIndex });
     }
 
-// TODO: somehow use the knowledge that saveEditorContents is now true to trigger an additional save before this Component goes away. For Workflow dropdown change. everything else works.
-
     // Gets called when clicking on the "new note" button
     handleOnNewNoteButtonClick  = () => {
         if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
@@ -90,11 +87,8 @@ export default class NoteAssistant extends Component {
         });
         if(!Lang.isNull(found) && !Lang.isUndefined(found)){
             found.content = this.props.documentText;
-            console.log("Set Entry " + found.entryInfo.entryId + " to " + found.content + ". Calling Patient.update with " + found.entryInfo.entryId);
             this.props.patient.updateExistingEntry(found);
             this.props.updateSelectedNote(found);
-        } else {
-            console.log("Error: couldn't find a matching item to update: " + found + " " + this.state.currentlyEditingEntryId);
         }
     }
 
@@ -109,7 +103,6 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        console.log("ADDING NOTE TO SHR, id="+ this.state.currentlyEditingEntryId + " aka " + currentlyEditingEntryId);
     }
 
     // creates blank new note and puts it on the screen
@@ -129,27 +122,15 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        console.log("ADDING blank NOTE TO SHR, id="+ this.state.currentlyEditingEntryId +" aka " + currentlyEditingEntryId);
-
+        
         // Deselect note in the clinical notes view
         this.props.updateSelectedNote(null);
-    }
-
-    // invoked when the editor goes away
-    // either creates a new note or updates an existing one
-    // depending on whether the editor contents represent an existing note
-    saveNoteUponWorkflowChange = () => {
-        if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
-            this.saveEditorContentsToNewNote();    
-        } else {
-            this.updateExistingNote();
-        }
     }
 
     // alternate approach to Workflow changes: don't make it a special case,
     // save the note after every keypress.
     saveNoteOnKeypress = () => {
-        console.log("key pressed NA " + this.props.documentText);
+        //console.log("key pressed NA " + this.props.documentText);
         // Don't start saving until there is content in the editor
         if(!Lang.isNull(this.props.documentText) && this.props.documentText.length > 0){
             if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
@@ -166,11 +147,9 @@ export default class NoteAssistant extends Component {
         if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
             this.saveEditorContentsToNewNote();    
         } else {
-            // need to only update notes that are inProgress, how? new note we have, but old one? uneditable so probably okay to overwrite with same content
-            //console.log("Updating existing note from openNote, id was " + this.state.currentlyEditingEntryId + " and macthing? content was " + this.props.documentText);
             this.updateExistingNote();
         }
-        this.setState({currentlyEditingEntryId: note.entryInfo.entryId}); // does note have entryId? no..
+        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
         // the lines below are duplicative
         this.props.updateSelectedNote(note);
         this.props.loadNote(note);
@@ -181,6 +160,7 @@ export default class NoteAssistant extends Component {
         } else {
             this.toggleView("clinical-notes");
         }
+        console.log(this.props.patient.getNotes());
     }
 
     // Render the content for the Note Assistant panel
@@ -400,5 +380,6 @@ NoteAssistant.propTypes = {
     contextManager: PropTypes.object,
     shortcutManager: PropTypes.object,
     isNoteViewerEditable: PropTypes.bool,
+    saveNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func
 };
