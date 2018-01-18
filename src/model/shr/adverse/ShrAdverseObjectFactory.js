@@ -32,7 +32,7 @@ export default class ShrAdverseObjectFactory {
     case 'AdverseEventAttribution': return AdverseEventAttribution.fromJSON(json);
     case 'ActionTaken': return ActionTaken.fromJSON(json);
     case 'ToxicReaction': return ToxicReaction.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrAdverseObjectFactory: ${type}`);
   }
 }

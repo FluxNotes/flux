@@ -34,7 +34,7 @@ export default class ShrAllergyObjectFactory {
     case 'Manifestation': return Manifestation.fromJSON(json);
     case 'NoAllergyToSubstance': return NoAllergyToSubstance.fromJSON(json);
     case 'NoKnownAllergy': return NoKnownAllergy.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrAllergyObjectFactory: ${type}`);
   }
 }

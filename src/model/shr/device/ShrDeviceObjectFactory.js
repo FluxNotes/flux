@@ -30,7 +30,7 @@ export default class ShrDeviceObjectFactory {
     case 'Implanted': return Implanted.fromJSON(json);
     case 'DeviceUsed': return DeviceUsed.fromJSON(json);
     case 'DeviceNotUsed': return DeviceNotUsed.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrDeviceObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrDeviceObjectFactory: ${type}`);
   }
 }

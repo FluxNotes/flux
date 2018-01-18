@@ -78,7 +78,7 @@ export default class ShrEnvironmentObjectFactory {
     case 'EmotionalSafety': return EmotionalSafety.fromJSON(json);
     case 'DomesticViolence': return DomesticViolence.fromJSON(json);
     case 'HomeEnvironmentRisk': return HomeEnvironmentRisk.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrEnvironmentObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrEnvironmentObjectFactory: ${type}`);
   }
 }

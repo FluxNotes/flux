@@ -76,7 +76,7 @@ export default class ShrBehaviorObjectFactory {
     case 'PhysicalActivityLimitation': return PhysicalActivityLimitation.fromJSON(json);
     case 'ViolentRiskToOthers': return ViolentRiskToOthers.fromJSON(json);
     case 'ViolentRiskToSelf': return ViolentRiskToSelf.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrBehaviorObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrBehaviorObjectFactory: ${type}`);
   }
 }

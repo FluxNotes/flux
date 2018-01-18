@@ -66,7 +66,7 @@ export default class ShrMedicationObjectFactory {
     case 'MedicationChange': return MedicationChange.fromJSON(json);
     case 'MedicationBeforeChange': return MedicationBeforeChange.fromJSON(json);
     case 'MedicationAfterChange': return MedicationAfterChange.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
   }
 }

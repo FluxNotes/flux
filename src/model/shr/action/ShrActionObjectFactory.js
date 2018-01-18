@@ -60,7 +60,7 @@ export default class ShrActionObjectFactory {
     case 'PatientInstructions': return PatientInstructions.fromJSON(json);
     case 'CommunicationMethod': return CommunicationMethod.fromJSON(json);
     case 'RequestedAgainstContext': return RequestedAgainstContext.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrActionObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrActionObjectFactory: ${type}`);
   }
 }

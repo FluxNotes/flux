@@ -44,7 +44,7 @@ export default class ShrVitalObjectFactory {
     case 'SystolicPressure': return SystolicPressure.fromJSON(json);
     case 'DiastolicPressure': return DiastolicPressure.fromJSON(json);
     case 'HeadTiltAngle': return HeadTiltAngle.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrVitalObjectFactory: ${type}`);
   }
 }

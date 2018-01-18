@@ -61,7 +61,7 @@ export default class ObjectFactory {
     case 'shr.sex': return ShrSexObjectFactory.createInstance(json, type);
     case 'shr.skin': return ShrSkinObjectFactory.createInstance(json, type);
     case 'shr.vital': return ShrVitalObjectFactory.createInstance(json, type);
+    default: throw new Error(`Unsupported namespace: ${namespace}`);
     }
-    throw new Error(`Unsupported namespace: ${namespace}`);
   }
 }

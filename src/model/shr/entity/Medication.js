@@ -162,10 +162,10 @@ class Medication extends Entity {
 
   /**
    * Set the Package.
-   * @param {Package} package - The shr.entity.Package
+   * @param {Package} packageVar - The shr.entity.Package
    */
-  set package(pkg) {
-    this._package = pkg;
+  set package(packageVar) {
+    this._package = packageVar;
   }
 
   /**

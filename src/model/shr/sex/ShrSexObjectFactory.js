@@ -56,7 +56,7 @@ export default class ShrSexObjectFactory {
     case 'CurrentPregnancyStatus': return CurrentPregnancyStatus.fromJSON(json);
     case 'NumberOfPreviousPregnancies': return NumberOfPreviousPregnancies.fromJSON(json);
     case 'NumberOfLivingChildren': return NumberOfLivingChildren.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrSexObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrSexObjectFactory: ${type}`);
   }
 }

@@ -42,7 +42,7 @@ export default class ShrLifehistoryObjectFactory {
     case 'MilitaryServiceEra': return MilitaryServiceEra.fromJSON(json);
     case 'ServiceConnectedDisability': return ServiceConnectedDisability.fromJSON(json);
     case 'Travel': return Travel.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrLifehistoryObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrLifehistoryObjectFactory: ${type}`);
   }
 }

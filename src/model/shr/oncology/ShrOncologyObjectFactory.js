@@ -122,7 +122,7 @@ export default class ShrOncologyObjectFactory {
     case 'BreastCancerGeneticAnalysisPanel': return BreastCancerGeneticAnalysisPanel.fromJSON(json);
     case 'BRCA1Variant': return BRCA1Variant.fromJSON(json);
     case 'BRCA2Variant': return BRCA2Variant.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrOncologyObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrOncologyObjectFactory: ${type}`);
   }
 }

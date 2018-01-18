@@ -92,7 +92,7 @@ export default class ShrProcedureObjectFactory {
     case 'HIVSupplementalTestPerformed': return HIVSupplementalTestPerformed.fromJSON(json);
     case 'HIVScreeningTestRequested': return HIVScreeningTestRequested.fromJSON(json);
     case 'HIVSupplementalTestRequested': return HIVSupplementalTestRequested.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrProcedureObjectFactory: ${type}`);
   }
 }

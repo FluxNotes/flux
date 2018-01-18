@@ -48,7 +48,7 @@ export default class ShrSkinObjectFactory {
     case 'WoundBedAndEdge': return WoundBedAndEdge.fromJSON(json);
     case 'WoundEdgeAppearance': return WoundEdgeAppearance.fromJSON(json);
     case 'WoundExudate': return WoundExudate.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrSkinObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrSkinObjectFactory: ${type}`);
   }
 }

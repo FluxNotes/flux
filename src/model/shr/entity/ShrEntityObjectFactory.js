@@ -204,7 +204,7 @@ export default class ShrEntityObjectFactory {
     case 'SubstanceOrCode': return SubstanceOrCode.fromJSON(json);
     case 'MedicationOrCode': return MedicationOrCode.fromJSON(json);
     case 'BodySiteOrCode': return BodySiteOrCode.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrEntityObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrEntityObjectFactory: ${type}`);
   }
 }

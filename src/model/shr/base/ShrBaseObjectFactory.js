@@ -52,7 +52,7 @@ export default class ShrBaseObjectFactory {
     case 'Informant': return Informant.fromJSON(json);
     case 'Author': return Author.fromJSON(json);
     case 'Subject': return Subject.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrBaseObjectFactory: ${type}`);
   }
 }

@@ -44,7 +44,7 @@ export default class ShrConditionObjectFactory {
     case 'AcademicProblem': return AcademicProblem.fromJSON(json);
     case 'Injury': return Injury.fromJSON(json);
     case 'MentalHealthCondition': return MentalHealthCondition.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrConditionObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrConditionObjectFactory: ${type}`);
   }
 }

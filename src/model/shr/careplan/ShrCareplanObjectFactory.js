@@ -32,7 +32,7 @@ export default class ShrCareplanObjectFactory {
     case 'ResultTargeted': return ResultTargeted.fromJSON(json);
     case 'ResultAchieved': return ResultAchieved.fromJSON(json);
     case 'CarePlan': return CarePlan.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrCareplanObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrCareplanObjectFactory: ${type}`);
   }
 }

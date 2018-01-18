@@ -3,8 +3,8 @@ import Reference from './Reference';
 import Entry from './shr/base/Entry';
 
 // Regular expressions for parsing URIs and FQNs
-const URI_REGEX = /^http:\/\/standardhealthrecord\.org\/spec\/(.*)\/([^\/]+)$/;
-const FQN_REGEX = /^((([a-z][0-9a-zA-Z\-]*)\.)+)?([A-Z][0-9a-zA-Z\-]+)$/;
+const URI_REGEX = /^http:\/\/standardhealthrecord\.org\/spec\/(.*)\/([^/]+)$/;
+const FQN_REGEX = /^((([a-z][0-9a-zA-Z-]*)\.)+)?([A-Z][0-9a-zA-Z-]+)$/;
 
 /**
  * Parses the JSON and/or type to return an object with the namespace and elementName.

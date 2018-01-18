@@ -36,7 +36,7 @@ export default class ShrEncounterObjectFactory {
     case 'EncounterRequested': return EncounterRequested.fromJSON(json);
     case 'EncounterPerformed': return EncounterPerformed.fromJSON(json);
     case 'EncounterNotPerformed': return EncounterNotPerformed.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrEncounterObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrEncounterObjectFactory: ${type}`);
   }
 }

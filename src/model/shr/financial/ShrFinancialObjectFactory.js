@@ -20,7 +20,7 @@ export default class ShrFinancialObjectFactory {
     switch (elementName) {
     case 'Coverage': return Coverage.fromJSON(json);
     case 'InsuranceMemberId': return InsuranceMemberId.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrFinancialObjectFactory: ${type}`);
   }
 }

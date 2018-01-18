@@ -68,7 +68,7 @@ export default class ShrFindingObjectFactory {
     case 'BodyStructurePresent': return BodyStructurePresent.fromJSON(json);
     case 'Morphology': return Morphology.fromJSON(json);
     case 'BodyStructureAbsent': return BodyStructureAbsent.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrFindingObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrFindingObjectFactory: ${type}`);
   }
 }

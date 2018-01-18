@@ -282,7 +282,7 @@ export default class ShrCoreObjectFactory {
     case 'Reason': return Reason.fromJSON(json);
     case 'Title': return Title.fromJSON(json);
     case 'Definitional': return Definitional.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrCoreObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrCoreObjectFactory: ${type}`);
   }
 }

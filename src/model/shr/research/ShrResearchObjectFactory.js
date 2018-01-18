@@ -32,7 +32,7 @@ export default class ShrResearchObjectFactory {
     case 'TerminationReason': return TerminationReason.fromJSON(json);
     case 'StudyArm': return StudyArm.fromJSON(json);
     case 'ResearchSubject': return ResearchSubject.fromJSON(json);
+    default: throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
-    throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
   }
 }
