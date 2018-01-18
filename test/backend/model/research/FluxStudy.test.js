@@ -5,7 +5,7 @@ import util from 'util';
 let study = new FluxStudy();
 study.title = 'PATINA';
 study.identifier = '123';
-console.log(util.inspect(study))
+
 describe('getTitle()', function() { 
     it('should return "PATINA"', function() { 
         expect(study.title)
