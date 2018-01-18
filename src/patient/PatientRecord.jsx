@@ -1,4 +1,4 @@
-import ObjectFactory from '../model/ObjectFactory';
+import FluxObjectFactory from '../model/FluxObjectFactory';
 import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -38,7 +38,7 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-			return ObjectFactory.createInstance(entry);
+			return FluxObjectFactory.createInstance(entry);
         });
 	}
 	
@@ -52,7 +52,7 @@ class PatientRecord {
 			const entryTypes =  mapper.mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
-                    const shrObj = ObjectFactory.createInstance({}, entryType);
+                    const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
                     shrObj.entryInfo.entryId = nextEntryId;
                     nextEntryId += 1;
