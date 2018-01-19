@@ -185,12 +185,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     state = {
         anchorEl: [],
-        anchorOriginVertical: 'bottom',
-        anchorOriginHorizontal: 'center',
-        transformOriginVertical: 'top',
-        transformOriginHorizontal: 'center',
-        positionTop: 200, // Just so the popover can be spotted more easily
-        positionLeft: 400, // Same as above
         anchorReference: 'anchorEl',
     }
 
@@ -222,6 +216,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
         anchorEl[index] = null;
         this.setState({ anchorEl: anchorEl });
     }
+
+    addPopoversForElement = () => { 
+
+    }
         
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
@@ -242,7 +240,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'structured-data' && !this.props.isWide) {
+            if (snippet.type === 'structured-data' && this.props.allowItemClick) {
                 content.push(
                     <span key={index}>
                         <span className={snippet.type} onMouseOver={(event) => this.handlePopoverOpen(event, index)} onMouseOut={(event) => this.cancelPopoverOpen(event, index)}>{snippet.text}</span>
@@ -259,7 +257,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 <ListItemIcon>
                                     <FontAwesome name="plus"/>
                                 </ListItemIcon>
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert ${snippet.text}`} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.text}"`} />
                             </MenuItem>
                         </Menu>
                     </span>
