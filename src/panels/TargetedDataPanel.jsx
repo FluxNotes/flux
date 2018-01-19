@@ -38,7 +38,7 @@ class TargetedDataPanel extends Component {
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 summaryMetadata={this.props.appState.summaryMetadata}
                                 onItemClicked={this.props.handleSummaryItemSelected}
-                                allowItemClick={true}
+                                allowItemClick={this.props.isNoteViewerEditable}
                             />
                         </div>
                     </div> 
@@ -59,6 +59,7 @@ TargetedDataPanel.proptypes = {
     itemInserted: PropTypes.func.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     possibleClinicalEvents: PropTypes.array.isRequired,
+    isNoteViewerEditable: PropTypes.bool.isRequired,
 }
 
 export default TargetedDataPanel;

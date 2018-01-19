@@ -169,6 +169,7 @@ class ClinicianDashboard extends Component {
                     <TargetedDataPanel
                         isWide={isTargetedDataPanelWide}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
+                        isNoteViewerEditable={isNoteViewerEditable}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                         {...this.props}
                     />
