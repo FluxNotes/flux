@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
+import Moment from 'moment'
 import Lang from 'lodash';
 import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -140,8 +141,6 @@ class FluxNotesEditor extends React.Component {
             this.structuredFieldPlugin
         ];
 
-        this.isReadOnly = false;
-
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
@@ -191,7 +190,7 @@ class FluxNotesEditor extends React.Component {
             top: 0
         };
 
-        this.isReadOnly = false;
+        // this.props.setFullAppState('isNoteViewerEditable', true);
     }
 
     // Reset editor state and clear context
@@ -413,7 +412,7 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the item to be inserted is updated
         if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
-            if (!this.isReadOnly) {
+            if (this.props.isNoteViewerEditable) {
                 this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
                 this.props.itemInserted();
             }
@@ -436,11 +435,11 @@ class FluxNotesEditor extends React.Component {
 
                 this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
 
-                // If the note is in progress, set readOnly to false. If the note is an existing note, set readOnly to true
+                // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
-                    this.isReadOnly = true;
+                    this.props.setFullAppState('isNoteViewerEditable', false);
                 } else {
-                    this.isReadOnly = false;
+                    this.props.setFullAppState('isNoteViewerEditable', true);
                 }
             }
         }
@@ -613,7 +612,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
-                            <p className="note-description-detail-value">20 June 2017</p>
+                            <p className="note-description-detail-value">{Moment(new Date()).format('DD MMM YYYY')}</p>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Source</p>
@@ -658,12 +657,12 @@ class FluxNotesEditor extends React.Component {
                         onBlockUpdate={this.handleBlockUpdate}
                         patient={this.props.patient}
 
-                        isReadOnly={this.isReadOnly}
+                        isReadOnly={!this.props.isNoteViewerEditable}
                     />
                     <Slate.Editor
                         placeholder={'Enter your clinical note here or choose a template to start from...'}
                         plugins={this.plugins}
-                        readOnly={this.isReadOnly}
+                        readOnly={!this.props.isNoteViewerEditable}
                         state={this.state.state}
                         ref={function (c) {
                             editor = c;
@@ -709,6 +708,8 @@ FluxNotesEditor.proptypes = {
     errors: PropTypes.array.isRequired,
     resetEditorState: PropTypes.func.isRequired,
     resetEditorAndContext: PropTypes.func.isRequired,
+    isNoteViewerEditable: PropTypes.bool.isRequired,
+    setFullAppState: PropTypes.func.isRequired, 
 }
 
 export default FluxNotesEditor;

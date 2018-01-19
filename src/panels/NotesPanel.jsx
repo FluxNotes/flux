@@ -110,6 +110,8 @@ export default class NotesPanel extends Component {
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     documentText={this.props.documentText}
+                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    setFullAppState={this.props.setFullAppState}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
@@ -165,5 +167,6 @@ NotesPanel.propTypes = {
     itemInserted: PropTypes.func,
     updateErrors: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    handleSelectionChange: PropTypes.func
+    handleSelectionChange: PropTypes.func,
+    setFullAppState: PropTypes.func,
 };
