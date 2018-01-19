@@ -556,6 +556,41 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
         .notEql("Enter your clinical note here or choose a template to start from...");
 })
 
+// Verifies automatic saving
+test('Contents of in-progress note saved when switching to a completed note and back', async t => {
+     const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('.in-progress-note');
+        const note = Selector('.existing-note');
+    
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "This is a note.");
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // click on a completed note to view it
+    await t
+        .click(note)
+
+    // Click on the in-progress note
+    await t
+        .click(inProgressNotes)
+
+    // Test that there is some text in the editor and that the editor is not in its initial cleared state
+    await t
+        .expect(editor.textContent)
+        .notEql("Enter your clinical note here or choose a template to start from...");
+    // Test that there is some text in the editor and that the editor is not in its initial cleared state
+    await t
+        .expect(editor.textContent)
+        .notEql("");
+});
+
+
 test('Clicking on an in-progress note in post encounter mode puts the NotesPanel in edit mode with the context tray displayed', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
