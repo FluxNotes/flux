@@ -128,11 +128,6 @@ export default class NoteAssistant extends Component {
 
     // save the note after every keypress. Invoked by FluxNotesEditor.
     saveNoteOnKeypress = () => {
-        console.log("saving");
-        console.log("is text null? " + Lang.isNull(this.props.documentText)); //still null after @patient then switch notes. Behind by 1
-        if(!Lang.isNull(this.props.documentText)){
-            console.log(this.props.documentText.length);
-        }
         // Don't start saving until there is content in the editor
         if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
             if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
