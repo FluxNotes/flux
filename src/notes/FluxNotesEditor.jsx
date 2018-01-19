@@ -340,25 +340,19 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        console.log(state.toJSON()); //import State from Slate - has fromJSON() too
-        console.log(state.endKey);
-        console.log(state.endOffset);
-        if(!Lang.isNull(this.props.documentText)){
-            console.log(this.props.documentText.length+1);
-        } else{
-            console.log("this.props.documentText null");
-        }
         let indexOfLastNode = state.toJSON().document.nodes["0"].nodes.length - 1;
         let endOfNoteKey = state.toJSON().document.nodes["0"].nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
-        if(!Lang.isNull(this.props.documentText)){
+        // If the editor has no structured phrases, use the number of characters in the first 'node'
+        if(Lang.isEqual(indexOfLastNode, 0)){
             console.log("setting endOffset to " + state.toJSON().document.nodes["0"].nodes["0"].characters.length); //empty string until structured phrase, why?
             //endOfNoteOffset = this.props.documentText.length;
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
+        } else{
+            if(!Lang.isNull(this.props.documentText)){
+                endOfNoteOffset = this.props.documentText.length
+            }
         }
-        console.log("indexOfLastNode: " + indexOfLastNode);
-        console.log("endKey now: " + endOfNoteKey);
-        console.log("endOffset now: " + endOfNoteOffset);
 
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
@@ -366,9 +360,7 @@ class FluxNotesEditor extends React.Component {
         let entireNote = {
             startKey: "0",
             startOffset: 0,
-           // endKey: state.endKey, // could be toJSON.document.nodes[0].nodes[lastIndex].key == "5" == the key when cursor at end
             endKey: endOfNoteKey,
-           // endOffset: state.endOffset // could be this.props.documentText.length (for just text is toJSON.document.nodes[0].nodes.length)
            endOffset: endOfNoteOffset
         }; 
         let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
