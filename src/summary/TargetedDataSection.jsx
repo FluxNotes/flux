@@ -165,10 +165,10 @@ class TargetedDataSection extends Component {
         } else if (section.type === "DiseaseStatusValues") {
             options.push('chart');
         } else if (section.type === "ListType") {
-            options.push('tabular');
             if (section.name === 'Medications') {
                 options.push('chart'); // TODO: This will get handled better when we have functionality to reuse visualizations
             }
+            options.push('tabular');
         }
         return options;
     }
