@@ -3,6 +3,8 @@ import ObjectFactory from './ObjectFactory';
 import FluxBaseObjectFactory from './base/FluxBaseObjectFactory';
 import FluxResearchObjectFactory from './research/FluxResearchObjectFactory';
 import FluxAdverseObjectFactory from './adverse/FluxAdverseObjectFactory';
+import FluxCoreObjectFactory from './core/FluxCoreObjectFactory';
+import FluxEntityObjectFactory from './entity/FluxEntityObjectFactory';
 
 /*
  *  FluxObjectFactory class returns instances of Flux model classes
@@ -14,6 +16,8 @@ export default class FluxObjectFactory {
         switch (namespace) {
             case 'shr.adverse': return FluxAdverseObjectFactory.createInstance(json, type);
             case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type);
+            case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type);
+            case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
             default: return ObjectFactory.createInstance(json, type);
         }

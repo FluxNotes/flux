@@ -1,32 +1,36 @@
-// import Deceased from '../shr/actor/Deceased';
-// import DateOfDeath from '../shr/actor/DateOfDeath';
-// import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
-// import Lang from 'lodash';
+import Deceased from '../shr/entity/Deceased';
+import DateOfDeath from '../shr/entity/DateOfDeath';
+import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
+import Lang from 'lodash';
 
-// class FluxDeceased extends Deceased {
-//     /**
-//      *  Getter for dateOfDeath
-//      *  This will return the date value
-//      */
-//     get dateOfDeath() {
-//         if (Lang.isUndefined(this._dateOfDeath)) this._dateOfDeath = new DateOfDeath();
-//         if (Lang.isUndefined(this._dateOfDeath.generalizedDateTime)) this._dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
-//         return this._dateOfDeath.generalizedDateTime.value;
-//     }
+class FluxDeceased {
+    constructor(json) {
+        this._deceased = Deceased.fromJSON(json);
+    }
 
-//     /**
-//      *  Setter for dateOfDeath
-//      *  The setter method is expecting a date string
-//      *  The method will create DateOfDeath and GeneralizedDateTime objects.
-//      */
-//     set dateOfDeath(date) {
-//         let dateOfDeath = new DateOfDeath();
-//         let generalizedDateTime = new GeneralizedDateTime();
-//         generalizedDateTime.value = date;
-//         dateOfDeath.generalizedDateTime = generalizedDateTime;
-//         this._dateOfDeath = dateOfDeath;
-//         this.value = (!Lang.isNull(date));
-//     }
-// }
+    /**
+     *  Getter for dateOfDeath
+     *  This will return the date value
+     */
+    get dateOfDeath() {
+        if (Lang.isUndefined(this._deceased.dateOfDeath)) this._dateOfDeath = new DateOfDeath();
+        if (Lang.isUndefined(this._deceased.dateOfDeath.generalizedDateTime)) this._dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
+        return this._deceased.dateOfDeath.generalizedDateTime.value;
+    }
 
-// export default FluxDeceased;
+    /**
+     *  Setter for dateOfDeath
+     *  The setter method is expecting a date string
+     *  The method will create DateOfDeath and GeneralizedDateTime objects.
+     */
+    set dateOfDeath(date) {
+        let dateOfDeath = new DateOfDeath();
+        let generalizedDateTime = new GeneralizedDateTime();
+        generalizedDateTime.value = date;
+        dateOfDeath.generalizedDateTime = generalizedDateTime;
+        this._deceased.dateOfDeath = dateOfDeath;
+        this._deceased.value = (!Lang.isNull(date));
+    }
+}
+
+export default FluxDeceased;
