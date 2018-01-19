@@ -345,11 +345,9 @@ class FluxNotesEditor extends React.Component {
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
         if(Lang.isEqual(indexOfLastNode, 0)){
-            console.log("setting endOffset to " + state.toJSON().document.nodes["0"].nodes["0"].characters.length); //empty string until structured phrase, why?
-            //endOfNoteOffset = this.props.documentText.length;
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
         } else{
-            if(!Lang.isNull(this.props.documentText)){
+            if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
                 endOfNoteOffset = this.props.documentText.length
             }
         }

@@ -532,6 +532,10 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     const clinicalNotesButton = Selector('.clinical-notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
+    
+    // Enter some text in the editor
+    await t
+        .typeText(editor, "This is a note.");
 
     // Click on the clinical notes button to switch to clinical notes view
     await t
