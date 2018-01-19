@@ -340,16 +340,20 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
+        console.log(state.toJSON()); //import State from Slate - has fromJSON() too
+        // isAtEndOf https://github.com/ianstormtaylor/slate/blob/master/docs/reference/slate/range.md knows where the end is
+        // we need to have a constant endKey/Offset for the full document. endKey doesn't seem to do that, bases on cursor
+
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
         // state.selection only has a getter for these values so create a new object
-        let allTextSelected = {
+        let entireNote = {
             startKey: "0",
             startOffset: 0,
-            endKey: state.anchorKey,
-            endOffset: state.anchorOffset
+            endKey: state.endKey,
+            endOffset: state.endOffset //at least use toJSON(). inner methods like document.nodes.data.nodes[] (??) to find how many structured phrases and how many chars.
         }; 
-        let fullText = this.structuredFieldPlugin.convertToText(state, allTextSelected);
+        let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
         this.props.setFullAppStateWithCallback(function(prevState, props){
             return {documentText: fullText};
         });
