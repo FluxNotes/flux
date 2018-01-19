@@ -246,7 +246,8 @@ class SummaryMetadata {
                             {
                                 name: "",
                                 headings: ["Medication", "Dosage", "Timing", "Start", "End"],
-                                itemsFunction: this.getItemListForMedications
+                                itemsFunction: this.getItemListForMedications,
+
                             }
                         ]
                     },
@@ -485,12 +486,19 @@ class SummaryMetadata {
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
 
         return meds.map((med, i) => {
+
             return [
                 med.medication,
                 `${med.amountPerDose.value} ${med.amountPerDose.units}`,
                 `${med.timingOfDoses.value} ${med.timingOfDoses.units}`,
                 med.requestedPerformanceTime.timePeriodStart,
-                med.requestedPerformanceTime.timePeriodEnd
+                med.requestedPerformanceTime.timePeriodEnd,
+                med.routeIntoBody,
+                med.prescribedBy,
+                med.whenPrescribed,
+                med.numberOfRepeatsAllowed,
+                med.amountPerDose.units,
+                med.code
             ];
         });
     }

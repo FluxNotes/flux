@@ -8,8 +8,7 @@ import SpecificType from '../core/SpecificType';
 /** Generated from SHR definition for shr.medication.Medication */
 class Medication {
     constructor(json) {
-        this._specificType = new SpecificType(json.value);
-        if (json.specificType) this.specificType = this._specificType;
+        if (json.value) this.value = new SpecificType(json.value);
         if (json.doseForm) this._doseForm = new DoseForm(json.doseForm);
         if (json.ingredient) this._ingredient = json.ingredient.map((i) => new Ingredient(i));
         if (json.brand) this._brand = new Brand(json.brand);
