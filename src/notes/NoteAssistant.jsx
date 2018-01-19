@@ -8,6 +8,7 @@ import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
 import iconArrowLeft from '../../public/icons/icon_arrow_left.svg';
+import moment from 'moment';
 import './NoteAssistant.css';
 
 export default class NoteAssistant extends Component {
@@ -16,7 +17,8 @@ export default class NoteAssistant extends Component {
 
         this.state = {
             sortIndex: null,
-            maxNotesToDisplay: 3
+            maxNotesToDisplay: 3,
+            currentlyEditingEntryId: -1
         };
     }
 
@@ -32,6 +34,11 @@ export default class NoteAssistant extends Component {
         // Set default value for sort selection
         this.selectSort(0);
         this.getNotesFromPatient(this.props);
+    }
+    
+    componentDidMount() {
+        // set callback so the editor can signal a change and this class can save the note
+        this.props.saveNote(this.saveNoteOnKeypress);
     }
 
     getNotesFromPatient(props) {
@@ -62,27 +69,87 @@ export default class NoteAssistant extends Component {
     }
 
     // Gets called when clicking on the "new note" button
-    handleOnNewNoteButtonClick() {
-        this.toggleView("context-tray");
-        this.props.loadNote("");
+    handleOnNewNoteButtonClick  = () => {
+        this.updateExistingNote();
+        this.createBlankNewNote();
+    }
 
+    updateExistingNote = () => {
+        var entryId = this.state.currentlyEditingEntryId;
+        // Only update if there is a note in progress
+        if(!Lang.isEqual(entryId, -1)){
+            // List the notes to verify that they are being updated each invocation of this function:
+            // console.log(this.props.patient.getNotes());
+            var found = this.props.patient.getNotes().find(function(element){
+                return Lang.isEqual(element.entryInfo.entryId, entryId);
+            });
+            if(!Lang.isNull(found) && !Lang.isUndefined(found)){
+                found.content = this.props.documentText;
+                this.props.patient.updateExistingEntry(found);
+                this.props.updateSelectedNote(found);
+            }
+        }
+    }
+
+    saveEditorContentsToNewNote = () => {
         // Create info to be set for new note
-        let date = "5 NOV 2016";
+        let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber Cancer Institute";
         let clinician = "Dr. X123";
-        let content = "@name is a @age year old @gender born on @dateofbirth";
+        let signed = false;
+        
+        // Add new unsigned note to patient record
+        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
+        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+    }
+
+    // creates blank new note and puts it on the screen
+    createBlankNewNote = () => {
+        let emptyNote = "";
+        this.toggleView("context-tray");
+        this.props.loadNote(emptyNote);
+
+        // Create info to be set for new note
+        let date = new moment().format("D MMM YYYY");
+        let subject = "New Note";
+        let hospital = "Dana Farber Cancer Institute";
+        let clinician = "Dr. X123";
+        let content = emptyNote;
         let signed = false;
 
         // Add new unsigned note to patient record
-        this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-
+        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
+        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        
         // Deselect note in the clinical notes view
         this.props.updateSelectedNote(null);
     }
 
+    // save the note after every keypress. Invoked by FluxNotesEditor.
+    saveNoteOnKeypress = () => {
+        // Don't start saving until there is content in the editor
+        if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
+            if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+                this.saveEditorContentsToNewNote();    
+            } else {
+                this.updateExistingNote();
+            }
+        }
+    }
+
     // Gets called when clicking on one of the notes in the clinical notes view
-    openNote(isInProgressNote, note) {
+    openNote = (isInProgressNote, note) => {
+        // Don't start saving until there is content in the editor
+        if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)  && this.props.documentText.length > 0){
+            if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+                this.saveEditorContentsToNewNote();    
+            } else {
+                this.updateExistingNote();
+            }
+        }
+        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
+        // the lines below are duplicative
         this.props.updateSelectedNote(note);
         this.props.loadNote(note);
 
@@ -160,6 +227,9 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         const selected = this.props.selectedNote === note;
+      /*  console.log("in renderInProgressNoteSVG");
+        console.log(note);
+        console.log(selected);*/
 
         return (
             <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => { this.openNote(true, note) }}>
@@ -197,7 +267,7 @@ export default class NoteAssistant extends Component {
 
     // Render the list of clinical notes
     renderNotes() {
-        return this.notesToDisplay.map((item, i) =>
+        return this.notesToDisplay.map((item, i) => // item is a signed note
             this.renderClinicalNote(item, i)
         );
     }
@@ -308,5 +378,6 @@ NoteAssistant.propTypes = {
     contextManager: PropTypes.object,
     shortcutManager: PropTypes.object,
     isNoteViewerEditable: PropTypes.bool,
+    saveNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func
 };

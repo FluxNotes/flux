@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 
 import FluxNotesEditor from '../notes/FluxNotesEditor';
+import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
 import './NotesPanel.css';
 
@@ -19,6 +20,7 @@ export default class NotesPanel extends Component {
         this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
         this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
         this.updateSelectedNote = this.updateSelectedNote.bind(this);
+        this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
     }
 
     updateNoteAssistantMode(mode) {
@@ -31,7 +33,9 @@ export default class NotesPanel extends Component {
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
-
+        if(!Lang.isNull(note)){
+            this.props.setFullAppState("documentText", note.content);
+        }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         // Set the note to be inserted into the editor and the selected note
         if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
@@ -55,6 +59,11 @@ export default class NotesPanel extends Component {
         if (this.props.isNoteViewerVisible) {
             this.setState({updatedEditorNote: note});
         }
+    }
+
+    // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
+    saveNoteUponKeypress(){
+        this.saveNoteChild();
     }
 
     renderNotesPanelContent() {
@@ -97,6 +106,10 @@ export default class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     updateErrors={this.props.updateErrors}
                     errors={this.props.errors}
+                    setFullAppState={this.props.setFullAppState}
+                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    documentText={this.props.documentText}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
@@ -123,6 +136,8 @@ export default class NotesPanel extends Component {
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     selectedNote={this.state.selectedNote}
                     updateSelectedNote={this.updateSelectedNote}
+                    documentText={this.props.documentText}
+                    saveNote={click => this.saveNoteChild = click}
                 />
             </div>
         );
@@ -142,6 +157,8 @@ NotesPanel.propTypes = {
     contextManager: PropTypes.object,
     shortcutManager: PropTypes.object,
     summaryItemToBeInserted: PropTypes.string,
+    documentText: PropTypes.string,
+    saveNote: PropTypes.func,
     errors: PropTypes.array,
     isNoteViewerEditable: PropTypes.bool,
     newCurrentShortcut: PropTypes.func,

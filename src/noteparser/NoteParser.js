@@ -113,6 +113,10 @@ export default class NoteParser {
     }
     
     getNextTriggerIndex(note, triggerPrefixes, pos) {
+        // Handle a saved, empty note
+        if(Lang.isUndefined(note)){
+            return -1;
+        }
         let indexes = triggerPrefixes.map((triggerPrefix) => {
             return note.indexOf(triggerPrefix, pos);
         });

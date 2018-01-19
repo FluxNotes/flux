@@ -154,7 +154,7 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = blk.data.get("shortcut");
                 if (shortcut instanceof InsertValue || (shortcut instanceof CreatorChild && Lang.isArray(shortcut.determineText(contextManager)))) {
                     let text = shortcut.getText();
-                    if (text.startsWith(shortcut.getPrefixCharacter())) {
+                    if (typeof(text) === "string" && text.startsWith(shortcut.getPrefixCharacter())) {
                         text = text.substring(1);
                     }
                     result += `${shortcut.initiatingTrigger}[[${text}]]`;
@@ -167,7 +167,6 @@ function StructuredFieldPlugin(opts) {
     }
 
     function convertToText(state, selection) {
-        //console.log(selection);
         const startBlock = state.document.getDescendant(selection.startKey);
         const startOffset = selection.startOffset;
         const endOffset = selection.endOffset;
@@ -207,7 +206,6 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onCopy(event, data, state, editor) {
-        //console.log("onCopy");
         let { selection } = state;
    
         const window = getWindow(event.target);
@@ -220,7 +218,6 @@ function StructuredFieldPlugin(opts) {
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !isVoid) return;
 
-        //console.log(state.document);
         let fluxString = convertToText(state, selection);
         //console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
@@ -305,6 +302,7 @@ function StructuredFieldPlugin(opts) {
         onCopy,
         onPaste,
         schema,
+        convertToText,
 		
         utils: {
             //isSelectionInStructuredField

@@ -234,7 +234,6 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
-
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
@@ -334,7 +333,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
-        //console.log(shortcut);
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         //console.log(result[0]);
@@ -342,6 +340,34 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
+        let indexOfLastNode = state.toJSON().document.nodes["0"].nodes.length - 1;
+        let endOfNoteKey = state.toJSON().document.nodes["0"].nodes[indexOfLastNode].key;
+        let endOfNoteOffset = 0;
+        // If the editor has no structured phrases, use the number of characters in the first 'node'
+        if(Lang.isEqual(indexOfLastNode, 0)){
+            endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
+        } else{
+            if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
+                endOfNoteOffset = this.props.documentText.length
+            }
+        }
+
+        // 'copy' the text every time into the note
+        // Need to artificially set selection to the whole document
+        // state.selection only has a getter for these values so create a new object
+        let entireNote = {
+            startKey: "0",
+            startOffset: 0,
+            endKey: endOfNoteKey,
+           endOffset: endOfNoteOffset
+        }; 
+        let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {documentText: fullText};
+        });
+
+        // save
+        this.props.saveNoteUponKeypress();
         this.setState({
             state: state
         });
@@ -451,16 +477,12 @@ class FluxNotesEditor extends React.Component {
         let state;
         const currentState = this.state.state;
 
-        // console.log(textToBeInserted);
-
         let transform = (currentTransform) ? currentTransform : currentState.transform();
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
 
-        //console.log(textToBeInserted);
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-        //console.log(triggers);
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
@@ -499,7 +521,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
 
-        if (remainder.length > 0) {
+        if (!Lang.isUndefined(remainder) && remainder.length > 0) {
             //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
