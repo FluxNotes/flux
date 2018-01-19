@@ -109,6 +109,7 @@ export default class NotesPanel extends Component {
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    documentText={this.props.documentText}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}

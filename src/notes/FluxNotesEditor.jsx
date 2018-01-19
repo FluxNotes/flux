@@ -341,8 +341,24 @@ class FluxNotesEditor extends React.Component {
 
     onChange = (state) => {
         console.log(state.toJSON()); //import State from Slate - has fromJSON() too
-        // isAtEndOf https://github.com/ianstormtaylor/slate/blob/master/docs/reference/slate/range.md knows where the end is
-        // we need to have a constant endKey/Offset for the full document. endKey doesn't seem to do that, bases on cursor
+        console.log(state.endKey);
+        console.log(state.endOffset);
+        if(!Lang.isNull(this.props.documentText)){
+            console.log(this.props.documentText.length+1);
+        } else{
+            console.log("this.props.documentText null");
+        }
+        let indexOfLastNode = state.toJSON().document.nodes["0"].nodes.length - 1;
+        let endOfNoteKey = state.toJSON().document.nodes["0"].nodes[indexOfLastNode].key;
+        let endOfNoteOffset = 0;
+        if(!Lang.isNull(this.props.documentText)){
+            console.log("setting endOffset to " + state.toJSON().document.nodes["0"].nodes["0"].characters.length); //empty string until structured phrase, why?
+            //endOfNoteOffset = this.props.documentText.length;
+            endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
+        }
+        console.log("indexOfLastNode: " + indexOfLastNode);
+        console.log("endKey now: " + endOfNoteKey);
+        console.log("endOffset now: " + endOfNoteOffset);
 
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
@@ -350,8 +366,10 @@ class FluxNotesEditor extends React.Component {
         let entireNote = {
             startKey: "0",
             startOffset: 0,
-            endKey: state.endKey,
-            endOffset: state.endOffset //at least use toJSON(). inner methods like document.nodes.data.nodes[] (??) to find how many structured phrases and how many chars.
+           // endKey: state.endKey, // could be toJSON.document.nodes[0].nodes[lastIndex].key == "5" == the key when cursor at end
+            endKey: endOfNoteKey,
+           // endOffset: state.endOffset // could be this.props.documentText.length (for just text is toJSON.document.nodes[0].nodes.length)
+           endOffset: endOfNoteOffset
         }; 
         let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
         this.props.setFullAppStateWithCallback(function(prevState, props){
