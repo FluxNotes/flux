@@ -12,6 +12,16 @@
 
 .narrative-inserter-tooltip .fa { 
     height: initial;
+    font-size: 10px;
+    margin-right: 0px;
+}
+
+li.narrative-inserter-box { 
+    padding: 5px 10px;
+}
+
+li.narrative-inserter-box h3 { 
+    font-size: 12px;
 }
 
 li.narrative-inserter-box:hover { 
