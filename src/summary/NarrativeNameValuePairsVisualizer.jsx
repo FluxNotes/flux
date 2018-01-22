@@ -191,14 +191,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // Number of milliseconds to wait
     waitTimeOpen = 400
-    waitTimeClose = 900
+    waitTimeClose = 2000
     openTimer = null
     closeTimer = null
 
     // Sets a timer to set the anchor element at this index to be the target div
     timedPopoverOpen = (event, index) => {
         // Only make a popover if 
-        console.log(this.openTimer)
         if (!this.openTimer) { 
             // Get popover coordinates
             const target = event.target;
@@ -215,12 +214,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     positionTop: y,
                     positionLeft: x,
                 });
+                this.openTimer = null;
             }, this.waitTimeOpen);
         }
     }
 
     // Cancels timeout if there is one, sets a timer for closing
-    disablePopoverOpen = (event, index) => { 
+    disablePopoverOpen = (index) => { 
         // console.log("cancelPopoverOpen")
         this.cancelPopoverOpen();
         this.closeTimer = setTimeout(() => { 
@@ -230,6 +230,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // Clear timeout for opening menus
     cancelPopoverOpen = () => { 
+        console.log('cancelPopoverOpen')
         if(this.openTimer) { 
             clearTimeout(this.openTimer);
             this.openTimer = null;
@@ -237,7 +238,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // Set timer to close 
-    timedPopoverClose = (event, index) => { 
+    timedPopoverClose = (index) => { 
         if (!this.closeTimer) { 
             this.closeTimer = setTimeout(() => { 
                 this.closePopover(index)
@@ -246,13 +247,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // Disable the closing of the popover
-    disablePopoverClose = (event, index) => {   
+    disablePopoverClose = () => {   
         // Right now, we only need to clear the closing timer
         this.cancelPopoverClose();
     }
 
     // Clear timeout for closing menus
-    cancelPopoverClose = (event, index) => { 
+    cancelPopoverClose = () => { 
         if(this.closeTimer) { 
             clearTimeout(this.closeTimer);
             this.closeTimer = null;
@@ -264,6 +265,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let anchorEl = this.state.anchorEl;
         anchorEl[index] = null;
         this.setState({ anchorEl: anchorEl });
+        this.closeTimer = null;
     }
 
     
@@ -290,7 +292,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         <span 
                             className={snippet.type} 
                             onMouseOver={(event) =>  {console.log("onMouseOver");  this.timedPopoverOpen(event, index)}} 
-                            onMouseLeave={(event) => {console.log("onMouseLeave"); this.disablePopoverOpen(event, index)}}
+                            onMouseLeave={(event) => {console.log("onMouseLeave"); this.disablePopoverOpen(index)}}
                         >
                             {snippet.text}
                         </span>
@@ -299,12 +301,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             anchorEl={anchorEl[index]}
                             anchorReference="anchorPosition"
                             anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
+                            onClose={(event) => this.closePopover(index)}
                             className="narrative-inserter-tooltip"
                         >
                             <MenuItem   
                                 onClick={() => insertItem(snippet.item, index)}
                                 onMouseOver={(event) => this.disablePopoverClose()}
-                                onMouseLeave={(event) => this.timedPopoverClose(event, index)}
+                                onMouseLeave={(event) => this.timedPopoverClose(index)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>
