@@ -10,14 +10,14 @@
     padding: 0;
 }
 
-.narrative-inserter-tooltip .fa { 
+li.narrative-inserter-box { 
+    padding: 5px 10px;
+}
+
+li.narrative-inserter-box .fa { 
     height: initial;
     font-size: 10px;
     margin-right: 0px;
-}
-
-li.narrative-inserter-box { 
-    padding: 5px 10px;
 }
 
 li.narrative-inserter-box h3 { 
@@ -25,7 +25,15 @@ li.narrative-inserter-box h3 {
 }
 
 li.narrative-inserter-box:hover { 
-    background-color: rgba(0, 0, 0, 0.09);
+    background-color: #1384b5;
+    color: #fff;
+}
+li.narrative-inserter-box:hover h3 { 
+    color: #fff;
+}
+
+li.narrative-inserter-box:hover .fa { 
+    color: #fff;
 }
 
 div.narrative-inserter-menu-item { 
