@@ -10,3 +10,8 @@
 .recharts-text { 
     font-size: 14px;
 }
+
+.current-value-label {
+    font-size: 20px;
+    margin-top: 50px;
+}

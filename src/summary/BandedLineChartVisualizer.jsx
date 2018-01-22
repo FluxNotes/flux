@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
@@ -117,12 +118,15 @@ class BandedLineChartVisualizer extends Component {
         if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
 
+        // Grab most current y (should be the last value in array because it's sorted chronologically)
+        const mostRecentY = data[data.length-1];
+
         let renderedBands = null;
 
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
         if (subsection.bands) {
             let bands = [];
-            
+
             // Grab the values from the summary metadata and set the bands low and high values
             subsection.bands.forEach((band) => {
                 let color = null;
@@ -153,7 +157,7 @@ class BandedLineChartVisualizer extends Component {
 
             renderedBands = bands.map((band, i) => {
                 return this.renderBand(band.y1, band.y2, band.color, i);
-            });            
+            });
 
         } else {
             renderedBands = null;
@@ -161,41 +165,50 @@ class BandedLineChartVisualizer extends Component {
 
         return (
             <div
-                ref={(chartParentDiv) => {
-                    this.chartParentDiv = chartParentDiv;
-                }}
+
                 key={subsection}
             >
                 <div className="sub-section-heading">
                     <h2 className="sub-section-name">
                         {`${yVar} (${yUnit})`}
                     </h2>
-
                 </div>
-
-                <LineChart
-                    width={this.state.chartWidth}
-                    height={this.state.chartHeight}
-                    data={processedData}
-                    margin={{top: 5, right: 20, left: 10, bottom: 5}}
-                >
-                    <XAxis
-                        dataKey={xVarNumber}
-                        type="number"
-                        domain={[]}
-                        ticks={this.getTicks(processedData, xVarNumber)}
-                        tickFormatter={this.dateFormat}
-                    />
-                    <YAxis
-                        dataKey={yVar}
-                    />
-                    <Tooltip
-                        labelFormatter={this.xVarFormatFunction}
-                        formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
-                    />
-                    <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
-                    {renderedBands}
-                </LineChart>
+                <Row center="xs">
+                    <Col sm={2}>
+                        <div className="current-value-label">
+                            {mostRecentY["White blood cell count"]} <span style={{fontSize: '10px'}}>{mostRecentY["unit"]}</span>
+                        </div>
+                    </Col>
+                    <Col sm={10} >
+                        <div ref={(chartParentDiv) => {
+                            this.chartParentDiv = chartParentDiv;
+                        }}>
+                        <LineChart
+                            width={this.state.chartWidth}
+                            height={this.state.chartHeight}
+                            data={processedData}
+                            margin={{top: 5, right: 20, left: 10, bottom: 5}}
+                        >
+                            <XAxis
+                                dataKey={xVarNumber}
+                                type="number"
+                                domain={[]}
+                                ticks={this.getTicks(processedData, xVarNumber)}
+                                tickFormatter={this.dateFormat}
+                            />
+                            <YAxis
+                                dataKey={yVar}
+                            />
+                            <Tooltip
+                                labelFormatter={this.xVarFormatFunction}
+                                formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
+                            />
+                            <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
+                            {renderedBands}
+                        </LineChart>
+                            </div>
+                    </Col>
+                </Row>
 
             </div>
         );

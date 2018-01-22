@@ -159,6 +159,7 @@ class SummaryMetadata {
                     },
                     {
                         name: "Labs",
+                        clinicalEvents: ["pre-encounter"],
                         type: "ValueOverTime",
                         data: [
                             {
@@ -170,9 +171,21 @@ class SummaryMetadata {
                                 // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
 
                                 bands: [
-                                    {low: 0, high: 3, assessment: 'bad'},
-                                    {low: 3, high: 5, assessment: 'average'},
-                                    {low: 5, high: 10, assessment: 'good'}
+                                    {
+                                        low: 0,
+                                        high: 3,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 3,
+                                        high: 5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 5,
+                                        high: 10,
+                                        assessment: 'good'
+                                    }
                                 ]
                             }
                         ]
@@ -514,6 +527,7 @@ class SummaryMetadata {
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
+        labResults.sort(currentConditionEntry._labResultsTimeSorter);
 
         const labs = labResults.filter((lab, i) => {
             return lab.codeableConceptCode === subsection.code;
@@ -525,6 +539,7 @@ class SummaryMetadata {
 
             return processedLab
         });
+
         return labs
     }
 
