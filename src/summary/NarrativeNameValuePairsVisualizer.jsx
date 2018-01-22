@@ -1,6 +1,5 @@
 import { ListItemIcon, ListItemText } from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import Popover from 'material-ui/Popover';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
@@ -186,57 +185,88 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     state = {
         anchorEl: [],
-        anchorOriginVertical: 'bottom',
-        anchorOriginHorizontal: 'center',
-        transformOriginVertical: 'top',
-        transformOriginHorizontal: 'center',
         positionTop: 200, // Just so the popover can be spotted more easily
         positionLeft: 400, // Same as above
-        anchorReference: 'anchorEl',
     }
 
-
-    timer = null
+    // Number of milliseconds to wait
+    waitTimeOpen = 400
+    waitTimeClose = 900
+    openTimer = null
+    closeTimer = null
 
     // Sets a timer to set the anchor element at this index to be the target div
-    handlePopoverOpen = (event, index) => {
-        // console.log("handlePopoverOpen")
-        const target = event.target;
-        let x = event.clientX;     // Get the horizontal coordinate of mouse
-        x += 10;                   // push popover a little to the right
-        const y = event.clientY;   // Get the vertical coordinate of mouse
-        
-        // Number of milliseconds to wait
-        const waitTime = 400;
-        this.timer = setTimeout(() => {
-            let anchorEl = this.state.anchorEl;
-            anchorEl[index] = target;
-            this.setState({ 
-                anchorEl: anchorEl,
-                positionTop: y,
-                positionLeft: x,
-            });
-        }, waitTime);
+    timedPopoverOpen = (event, index) => {
+        // Only make a popover if 
+        console.log(this.openTimer)
+        if (!this.openTimer) { 
+            // Get popover coordinates
+            const target = event.target;
+            let x = event.clientX;     // Get the horizontal coordinate of mouse
+            x += 10;                   // push popover a little to the right
+            const y = event.clientY;   // Get the vertical coordinate of mouse
+            
+            // Set timer for opening
+            this.openTimer = setTimeout(() => {
+                let anchorEl = this.state.anchorEl;
+                anchorEl[index] = target;
+                this.setState({ 
+                    anchorEl: anchorEl,
+                    positionTop: y,
+                    positionLeft: x,
+                });
+            }, this.waitTimeOpen);
+        }
     }
 
-    // Cancels timeout if there is one
-    cancelPopoverOpen = (event, index) => { 
+    // Cancels timeout if there is one, sets a timer for closing
+    disablePopoverOpen = (event, index) => { 
         // console.log("cancelPopoverOpen")
-        clearTimeout(this.timer);
+        this.cancelPopoverOpen();
+        this.closeTimer = setTimeout(() => { 
+            this.closePopover(index)
+        }, this.waitTimeClose);
     }
 
-    // Changes the anchor element at this index to null
-    handlePopoverClose = (event, index) => {
-        // console.log("handlePopoverClose")
+    // Clear timeout for opening menus
+    cancelPopoverOpen = () => { 
+        if(this.openTimer) { 
+            clearTimeout(this.openTimer);
+            this.openTimer = null;
+        }
+    }
+
+    // Set timer to close 
+    timedPopoverClose = (event, index) => { 
+        if (!this.closeTimer) { 
+            this.closeTimer = setTimeout(() => { 
+                this.closePopover(index)
+            }, this.waitTimeClose);        
+        }
+    }
+
+    // Disable the closing of the popover
+    disablePopoverClose = (event, index) => {   
+        // Right now, we only need to clear the closing timer
+        this.cancelPopoverClose();
+    }
+
+    // Clear timeout for closing menus
+    cancelPopoverClose = (event, index) => { 
+        if(this.closeTimer) { 
+            clearTimeout(this.closeTimer);
+            this.closeTimer = null;
+        }
+    }
+
+    // Make the anchor element for this index null
+    closePopover = (index) => { 
         let anchorEl = this.state.anchorEl;
         anchorEl[index] = null;
         this.setState({ anchorEl: anchorEl });
     }
 
-    addPopoversForElement = () => { 
-
-    }
-        
+    
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
@@ -248,9 +278,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         
         const insertItem = (item, index) => {
             this.props.onItemClicked(item);
-            let anchorEl = this.state.anchorEl;
-            anchorEl[index] = null;
-            this.setState({ anchorEl: anchorEl });
+            this.closePopover(index);
         };
         
         // now go through each snippet and build up HTML to render
@@ -259,8 +287,14 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (snippet.type === 'structured-data' && this.props.allowItemClick) {
                 content.push(
                     <span key={index}>
-                        <span className={snippet.type} onMouseOver={(event) => this.handlePopoverOpen(event, index)} onMouseOut={(event) => this.cancelPopoverOpen(event, index)}>{snippet.text}</span>
-                        <Popover
+                        <span 
+                            className={snippet.type} 
+                            onMouseOver={(event) =>  {console.log("onMouseOver");  this.timedPopoverOpen(event, index)}} 
+                            onMouseLeave={(event) => {console.log("onMouseLeave"); this.disablePopoverOpen(event, index)}}
+                        >
+                            {snippet.text}
+                        </span>
+                        <Menu
                             open={!!anchorEl[index]}
                             anchorEl={anchorEl[index]}
                             anchorReference="anchorPosition"
@@ -269,7 +303,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             <MenuItem   
                                 onClick={() => insertItem(snippet.item, index)}
-                                onMouseLeave={(event) => this.handlePopoverClose(event, index)}
+                                onMouseOver={(event) => this.disablePopoverClose()}
+                                onMouseLeave={(event) => this.timedPopoverClose(event, index)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>
@@ -277,7 +312,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 </ListItemIcon>
                                 <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.text}"`} />
                             </MenuItem>
-                        </Popover>
+                        </Menu>
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
