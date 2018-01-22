@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import lightBlue from 'material-ui/colors/purple';
+import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Lang from 'lodash';
