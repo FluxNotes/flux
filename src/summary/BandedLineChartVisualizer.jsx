@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea} from 'recharts';
 import moment from 'moment';
 import {scaleLinear} from "d3-scale";
@@ -116,6 +117,9 @@ class BandedLineChartVisualizer extends Component {
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
+
+        // Grab most current y (should be the last value in array because it's sorted chronologically)
+        const mostRecentY = data[data.length-1];
 
         let renderedBands = null;
 
