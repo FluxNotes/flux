@@ -1,5 +1,6 @@
 import { ListItemIcon, ListItemText } from 'material-ui/List';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import { MenuItem } from 'material-ui/Menu';
+import Popover from 'material-ui/Popover';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
@@ -185,8 +186,15 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     state = {
         anchorEl: [],
+        anchorOriginVertical: 'bottom',
+        anchorOriginHorizontal: 'center',
+        transformOriginVertical: 'top',
+        transformOriginHorizontal: 'center',
+        positionTop: 200, // Just so the popover can be spotted more easily
+        positionLeft: 400, // Same as above
         anchorReference: 'anchorEl',
     }
+
 
     timer = null
 
@@ -194,12 +202,20 @@ class NarrativeNameValuePairsVisualizer extends Component {
     handlePopoverOpen = (event, index) => {
         // console.log("handlePopoverOpen")
         const target = event.target;
+        let x = event.clientX;     // Get the horizontal coordinate of mouse
+        x += 10;                   // push popover a little to the right
+        const y = event.clientY;   // Get the vertical coordinate of mouse
+        
         // Number of milliseconds to wait
         const waitTime = 400;
         this.timer = setTimeout(() => {
             let anchorEl = this.state.anchorEl;
             anchorEl[index] = target;
-            this.setState({ anchorEl: anchorEl });
+            this.setState({ 
+                anchorEl: anchorEl,
+                positionTop: y,
+                positionLeft: x,
+            });
         }, waitTime);
     }
 
@@ -244,9 +260,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 content.push(
                     <span key={index}>
                         <span className={snippet.type} onMouseOver={(event) => this.handlePopoverOpen(event, index)} onMouseOut={(event) => this.cancelPopoverOpen(event, index)}>{snippet.text}</span>
-                        <Menu
+                        <Popover
                             open={!!anchorEl[index]}
                             anchorEl={anchorEl[index]}
+                            anchorReference="anchorPosition"
+                            anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
                             className="narrative-inserter-tooltip"
                         >
                             <MenuItem   
@@ -259,7 +277,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 </ListItemIcon>
                                 <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.text}"`} />
                             </MenuItem>
-                        </Menu>
+                        </Popover>
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
