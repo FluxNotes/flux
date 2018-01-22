@@ -191,14 +191,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // Number of milliseconds to wait
     waitTimeOpen = 400
-    waitTimeClose = 2000
+    waitTimeClose = 400
     openTimer = null
     closeTimer = null
 
     // Sets a timer to set the anchor element at this index to be the target div
     timedPopoverOpen = (event, index) => {
         // Only make a popover if 
-        if (!this.openTimer) { 
             // Get popover coordinates
             const target = event.target;
             let x = event.clientX;     // Get the horizontal coordinate of mouse
@@ -216,48 +215,26 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 });
                 this.openTimer = null;
             }, this.waitTimeOpen);
-        }
-    }
-
-    // Cancels timeout if there is one, sets a timer for closing
-    disablePopoverOpen = (index) => { 
-        // console.log("cancelPopoverOpen")
-        this.cancelPopoverOpen();
-        this.closeTimer = setTimeout(() => { 
-            this.closePopover(index)
-        }, this.waitTimeClose);
     }
 
     // Clear timeout for opening menus
     cancelPopoverOpen = () => { 
-        console.log('cancelPopoverOpen')
-        if(this.openTimer) { 
-            clearTimeout(this.openTimer);
-            this.openTimer = null;
-        }
+        clearTimeout(this.openTimer);
+        this.openTimer = null;
     }
 
     // Set timer to close 
-    timedPopoverClose = (index) => { 
-        if (!this.closeTimer) { 
-            this.closeTimer = setTimeout(() => { 
-                this.closePopover(index)
-            }, this.waitTimeClose);        
-        }
-    }
-
-    // Disable the closing of the popover
-    disablePopoverClose = () => {   
-        // Right now, we only need to clear the closing timer
-        this.cancelPopoverClose();
+    timedPopoverClose = (event, index) => { 
+        this.closeTimer = setTimeout(() => { 
+            this.closePopover(index)
+            this.closeTimer = null;
+        }, this.waitTimeClose);        
     }
 
     // Clear timeout for closing menus
     cancelPopoverClose = () => { 
-        if(this.closeTimer) { 
-            clearTimeout(this.closeTimer);
-            this.closeTimer = null;
-        }
+        clearTimeout(this.closeTimer);
+        this.closeTimer = null;
     }
 
     // Make the anchor element for this index null
@@ -265,7 +242,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let anchorEl = this.state.anchorEl;
         anchorEl[index] = null;
         this.setState({ anchorEl: anchorEl });
-        this.closeTimer = null;
     }
 
     
@@ -291,8 +267,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     <span key={index}>
                         <span 
                             className={snippet.type} 
-                            onMouseOver={(event) =>  {console.log("onMouseOver");  this.timedPopoverOpen(event, index)}} 
-                            onMouseLeave={(event) => {console.log("onMouseLeave"); this.disablePopoverOpen(index)}}
+                            onMouseOver={(event) =>  this.timedPopoverOpen(event, index)}
+                            onMouseLeave={(event) => this.cancelPopoverOpen()}
                         >
                             {snippet.text}
                         </span>
@@ -306,8 +282,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             <MenuItem   
                                 onClick={() => insertItem(snippet.item, index)}
-                                onMouseOver={(event) => this.disablePopoverClose()}
-                                onMouseLeave={(event) => this.timedPopoverClose(index)}
+                                onMouseOver={(event) => this.cancelPopoverClose()}
+                                onMouseLeave={(event) => this.timedPopoverClose(event, index)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>
