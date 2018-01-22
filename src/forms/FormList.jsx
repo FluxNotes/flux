@@ -9,14 +9,14 @@ class FormList extends Component {
         super(props);
         this._newShortcut = this._newShortcut.bind(this);
         this.state = {
-            disabledElement: "About Flux Notes Lite"
+            disabledElement: "About Flux Notes™ Lite"
         }
     }
 
     _newShortcut(e, index, shortcutName) {
         e.preventDefault();
 
-        if (shortcutName !== "About Flux Notes Lite") {
+        if (shortcutName !== "About Flux Notes™ Lite") {
             this.props.changeShortcut(this.props.shortcuts[index]);
         }
         else {
@@ -37,7 +37,7 @@ class FormList extends Component {
                         let classValue = "list-element";
                         let primaryText = shortcutName;
 
-                        if (shortcutName === "About Flux Notes Lite") {
+                        if (shortcutName === "About Flux Notes™ Lite") {
                             classValue += " overview";
                         }
                         if (this.state.disabledElement === shortcutName) {
@@ -68,8 +68,8 @@ class FormList extends Component {
     }
 }
 
-FormList.proptypes = { 
-    shortcuts: PropTypes.array.isRequired, 
+FormList.proptypes = {
+    shortcuts: PropTypes.array.isRequired,
     currentShortcut: PropTypes.object,
     changeShortcut: PropTypes.func.isRequired
 }

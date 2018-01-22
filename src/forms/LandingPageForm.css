@@ -1,10 +1,20 @@
 .landing-page-title {
     color: steelblue;
 }
-ol, ol li { 
-    margin-left: 0; 
-    padding-left: 0; 
+
+ol, ol li {
+    margin-left: 0;
+    padding-left: 0;
 }
-ol { 
-    margin-left: 1.3em; 
+
+ol {
+    margin-left: 1.3em;
+}
+
+.landing-page-about {
+  margin-bottom: 40px;
+}
+
+.landing-page-using li {
+  margin: 10px 0;
 }

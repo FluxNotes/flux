@@ -35,9 +35,9 @@ test('Clicking deceased button puts us in deceased mode', async t => {
 test('Clicking about button puts us back on landing page', async t => {
     await t
         .click("#Toxicity")
-        .click("#About\\ Flux\\ Notes\\ Lite")
+        .click("#About\\ Flux\\ Notes™\\ Lite")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
-        .eql("About Flux Notes Lite", `Current header doesn't reflect expected landing page header`);
+        .eql("About Flux Notes™ Lite", `Current header doesn't reflect expected landing page header`);
 })
 
 

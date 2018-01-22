@@ -56,6 +56,12 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
         font-weight: 600;
         white-space: nowrap;
     }
+
+    &-trademark {
+        font-size: calc(15px + 1vw);
+        color: $landing-blue;
+        margin-top: -15px;
+    }
 }
 
 /* ------------------------- TAGLINE --------------------------------------- */
