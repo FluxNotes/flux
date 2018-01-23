@@ -425,12 +425,6 @@ class FluxNotesEditor extends React.Component {
         this.currentNote = nextProps.selectedNote;
 
 
-        console.log("next props");
-        console.log(nextProps);
-
-
-
-
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
@@ -614,8 +608,22 @@ class FluxNotesEditor extends React.Component {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 
-        console.log("update selected note: ");
-        console.log(this.currentNote);
+        // Preset note header information
+        let noteTitle = "Pathology Assessment";
+        let date = "20 June 2017";
+        let signedString = "not signed";
+
+        // If a note is selected, update the note header with information from the selected note
+        if (this.currentNote) {
+            noteTitle = this.currentNote.subject;
+            date = this.currentNote.date;
+
+            if(this.currentNote.signed) {
+                signedString = this.currentNote.clinician;
+            } else {
+                signedString = "not signed";
+            }
+        }
 
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
@@ -625,7 +633,7 @@ class FluxNotesEditor extends React.Component {
                 <div id="note-description">
                     <Row>
                         <Col xs={5}>
-                            <h1 id="note-title">Pathology Assessment</h1>
+                            <h1 id="note-title">{noteTitle}</h1>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
@@ -637,7 +645,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={3}>
                             <p className="note-description-detail-name">Signed By</p>
-                            <p className="note-description-detail-value">not signed</p>
+                            <p className="note-description-detail-value">{signedString}</p>
                         </Col>
                     </Row>
 
@@ -726,7 +734,7 @@ FluxNotesEditor.proptypes = {
     resetEditorState: PropTypes.func.isRequired,
     resetEditorAndContext: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
-    setFullAppState: PropTypes.func.isRequired, 
+    setFullAppState: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;

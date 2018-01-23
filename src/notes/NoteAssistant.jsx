@@ -107,7 +107,7 @@ export default class NoteAssistant extends Component {
             return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
         });
 
-        this.props.updateSelectedNote(found); //TODO; pass in the note
+        this.props.updateSelectedNote(found);
     }
 
     // creates blank new note and puts it on the screen
@@ -132,7 +132,7 @@ export default class NoteAssistant extends Component {
             return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
         });
 
-        // Deselect note in the clinical notes view
+        // Select note in the clinical notes view
         this.props.updateSelectedNote(found); //used to be null
     }
 
