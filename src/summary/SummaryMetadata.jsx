@@ -169,7 +169,6 @@ class SummaryMetadata {
 
                                 // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
                                 // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-
                                 bands: [
                                     {
                                         low: 0,
@@ -184,6 +183,31 @@ class SummaryMetadata {
                                     {
                                         low: 5,
                                         high: 10,
+                                        assessment: 'good'
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Hemoglobin",
+                                code: "C0019046",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
+                                // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 12,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 16,
+                                        high: 20,
+                                        assessment: 'bad'
+                            },
+                                    {
+                                        low: 12,
+                                        high: 16,
                                         assessment: 'good'
                                     }
                                 ]

@@ -149,7 +149,47 @@
                 "shr.finding.ClinicallyRelevantTime": { "Value": "01 JAN 2018" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
-                    "Value": 6.30, 
+                    "Value": 15, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                },
+            }
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 10.30, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                },
+            }
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "10 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 14.50, 
                     "shr.core.Units": {
                         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
                         "Value": {
