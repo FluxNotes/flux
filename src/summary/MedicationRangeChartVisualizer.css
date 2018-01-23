@@ -1,11 +1,16 @@
 .medication-visualizer-wrapper {
     padding-top: 10px;
 }
+
+.medication-chart-item {
+    padding: 12px;
+}
+
 .medication-info-heading {
     font-size: 0.7em;
     color: #999;
-    margin-top: 20%;
 }
+
 .medication-info {
     font-size: 0.8em;
 }
