@@ -29,6 +29,8 @@ export default class NotesPanel extends Component {
 
     updateSelectedNote(note) {
         this.setState({selectedNote: note});
+        console.log("updateSelectedNote--------");
+
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -114,6 +116,7 @@ export default class NotesPanel extends Component {
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
+                    selectedNote={this.state.selectedNote}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
 
                     currentViewMode={this.props.currentViewMode}

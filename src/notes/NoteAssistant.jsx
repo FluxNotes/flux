@@ -102,6 +102,12 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+
+        var found = this.props.patient.getNotes().find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
+        this.props.updateSelectedNote(found); //TODO; pass in the note
     }
 
     // creates blank new note and puts it on the screen
@@ -121,9 +127,13 @@ export default class NoteAssistant extends Component {
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
         this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        
+
+        var found = this.props.patient.getNotes().find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
         // Deselect note in the clinical notes view
-        this.props.updateSelectedNote(null);
+        this.props.updateSelectedNote(found); //used to be null
     }
 
     // save the note after every keypress. Invoked by FluxNotesEditor.

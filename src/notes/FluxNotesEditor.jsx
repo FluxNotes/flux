@@ -104,6 +104,8 @@ class FluxNotesEditor extends React.Component {
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
 
+        this.currentNote = null;
+
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
 
@@ -407,6 +409,8 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
 
@@ -418,8 +422,18 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        this.currentNote = nextProps.selectedNote;
+
+
+        console.log("next props");
+        console.log(nextProps);
+
+
+
+
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -599,6 +613,9 @@ class FluxNotesEditor extends React.Component {
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+
+        console.log("update selected note: ");
+        console.log(this.currentNote);
 
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
