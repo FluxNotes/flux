@@ -198,23 +198,24 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // Sets a timer to set the anchor element at this index to be the target div
     timedPopoverOpen = (event, index) => {
         // Only make a popover if 
-            // Get popover coordinates
-            const target = event.target;
-            let x = event.clientX;     // Get the horizontal coordinate of mouse
-            x += 10;                   // push popover a little to the right
-            const y = event.clientY;   // Get the vertical coordinate of mouse
-            
-            // Set timer for opening
-            this.openTimer = setTimeout(() => {
-                let anchorEl = this.state.anchorEl;
-                anchorEl[index] = target;
-                this.setState({ 
-                    anchorEl: anchorEl,
-                    positionTop: y,
-                    positionLeft: x,
-                });
-                this.openTimer = null;
-            }, this.waitTimeOpen);
+        // Get popover coordinates
+        const target = event.target;
+        let x = event.clientX;  // Get the horizontal coordinate of mouse
+        x += 10;                // push popover a little to the right
+        let y = event.clientY;  // Get the vertical coordinate of mouse
+        y += 10;                // push a little to the bottom of cursor
+        
+        // Set timer for opening
+        this.openTimer = setTimeout(() => {
+            let anchorEl = this.state.anchorEl;
+            anchorEl[index] = target;
+            this.setState({ 
+                anchorEl: anchorEl,
+                positionTop: y,
+                positionLeft: x,
+            });
+            this.openTimer = null;
+        }, this.waitTimeOpen);
     }
 
     // Clear timeout for opening menus
