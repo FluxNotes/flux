@@ -23,7 +23,7 @@ const theme = createMuiTheme({
     }
 });
 
-class FullApp extends Component {
+export default class FullApp extends Component {
     constructor(props) {
         super(props);
         this.possibleClinicalEvents = [
@@ -206,5 +206,3 @@ FullApp.proptypes = {
     shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
 }
-
-export default FullApp;

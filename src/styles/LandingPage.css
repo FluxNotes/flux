@@ -22,6 +22,10 @@
     font-size: calc(36px + 1.5vw);
     font-weight: 600;
     white-space: nowrap; }
+  .landing-header-trademark {
+    font-size: calc(15px + 1vw);
+    color: #2E5C7C;
+    margin-top: -15px; }
 
 /* ------------------------- TAGLINE --------------------------------------- */
 .landing-tagline {

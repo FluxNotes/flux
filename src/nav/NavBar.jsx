@@ -49,14 +49,21 @@ class NavBar extends Component {
             <div className={classes.root}>
                 <AppBar position="static" className="navbar-custom">
                     <Toolbar>
-                        {showMenu ?
+                        {showMenu &&
                             <IconButton style={{margin: '0px 8px 0px -16px' }} aria-label="Menu" onClick={this.toggleDrawer.bind(this)}>
                                 <MenuIcon/>
-                            </IconButton> : null}
+                            </IconButton>
+                        }
+
                         <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />&nbsp;&nbsp;
-                        <Typography type="title" style={{color:"#17263f", fontFamily: '"Open Sans", Arial, sans-serif'}} className={classes.flex}>
+
+                        <Typography
+                            type="title"
+                            style={{color:"#17263f", fontFamily: '"Open Sans", Arial, sans-serif'}}
+                            className={classes.flex}>
                             {this.props.title}
                         </Typography>
+
                         {login}
                     </Toolbar>
                 </AppBar>

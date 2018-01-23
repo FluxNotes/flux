@@ -12,6 +12,7 @@ export default class LandingPage extends Component {
                     <div className="landing-header-logo">
                         <img src="./fluxnotes_logo_color.png" alt="Flux Notes" className="landing-header-logo-image" />
                         <span className="landing-header-title">Flux Notes</span>
+                        <span className="landing-header-trademark">™</span>
                     </div>
                 </div>
 
@@ -21,7 +22,7 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-tagline-text">
-                        Flux Notes is an open source, standard health record based application that will expand the
+                        Flux Notes™ is an open source, standard health record based application that will expand the
                         availability of structured high quality, longitudinal and computable health records data to
                         support clinical oncology research.
                     </div>
@@ -147,7 +148,7 @@ export default class LandingPage extends Component {
                                 </div>
 
                                 <div className="landing-products-link">
-                                    <span>Flux Notes Lite</span>
+                                    <span>Flux Notes™ Lite</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
                             </a>
@@ -155,12 +156,12 @@ export default class LandingPage extends Component {
 
                         <div className="landing-products-description">
                             <div className="landing-products-title-mobile">
-                                Flux Notes Lite
+                                Flux Notes™ Lite
                                 <span>Viewable on desktop</span>
                             </div>
 
                             <div className="landing-products-summary">
-                                Flux Notes Lite helps clinicians capture data to drive clinical endpoints, such as
+                                Flux Notes™ Lite helps clinicians capture data to drive clinical endpoints, such as
                                 disease status and toxicity. This information is stored in a structured data format
                                 that can be easily analyzed and shared across multiple clinical care sites.
 
@@ -189,7 +190,7 @@ export default class LandingPage extends Component {
                                 </div>
 
                                 <div className="landing-products-link">
-                                    <span>Flux Notes Full</span>
+                                    <span>Flux Notes™ Full</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
                             </a>
@@ -197,12 +198,12 @@ export default class LandingPage extends Component {
 
                         <div className="landing-products-description">
                             <div className="landing-products-title-mobile">
-                                Flux Notes Full
+                                Flux Notes™ Full
                                 <span>Viewable on desktop</span>
                             </div>
 
                             <div className="landing-products-summary">
-                                Flux Notes Full allows information capture via extensible structured phrases driven by
+                                Flux Notes™ Full allows information capture via extensible structured phrases driven by
                                 the Standard Health Record (SHR).
 
                                 <div className="landing-products-summary-divider"></div>
@@ -219,7 +220,7 @@ export default class LandingPage extends Component {
                                 </p>
 
                                 <p>
-                                    The approach of Flux Notes Full will be to deploy it at hospitals and integrate
+                                    The approach of Flux Notes™ Full will be to deploy it at hospitals and integrate
                                     bi-directionally with existing EHRs.
                                 </p>
                             </div>
@@ -241,7 +242,7 @@ export default class LandingPage extends Component {
                 <div className="landing-clinical-trials">
                     <div className="landing-clinical-trials-section patina">
                         <Button raised href="/patina" className="landing-clinical-trials-button" id="link-to-patina">
-                            Flux Notes for PATINA
+                            Flux Notes™ for PATINA
                         </Button>
 
                         <div className="landing-clinical-trials-description">
@@ -259,8 +260,8 @@ export default class LandingPage extends Component {
 
                         <div className="landing-get-involved-info-description">
                             Support the collection of high quality real-world data (RWD) to enable clinical oncology
-                            research. Contact us to learn more about the project, or about piloting Flux Notes in a
-                            clinical setting. Help grow Flux Notes by committing to
+                            research. Contact us to learn more about the project, or about piloting Flux Notes™ in a
+                            clinical setting. Help grow Flux Notes™ by committing to
                             the <a href="https://github.com/standardhealth/flux" alt="Flux Notes Repository">repository</a> today.
                         </div>
                     </div>
@@ -309,7 +310,7 @@ export default class LandingPage extends Component {
 
                         <div className="landing-initiatives-description">
                             <p>
-                                Flux Notes supports the ICAREdata study capture of treatment data during the authoring
+                                Flux Notes™ supports the ICAREdata study capture of treatment data during the authoring
                                 of clinical notes. The goal of the ICAREdata study is to support the collection of high
                                 quality real-world data (RWD) in a way that enables clinical oncology research.
                             </p>

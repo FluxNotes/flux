@@ -2,25 +2,25 @@ import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
 import LandingPage from '../components/LandingPage';
 
-class AppManager {
+export default class AppManager {
     constructor() {
         this.apps = [{
                 path: '/',
-                display: 'Flux Notes',
+                display: 'Flux Notes™',
                 app: LandingPage,
                 isExact: true
             },
             {
                 path: '/patina',
                 shortcuts: ['Disease Status', 'Toxicity', 'Clinical Trial', 'Deceased'],
-                display: 'Flux Notes Lite (for PATINA endpoints)',
+                display: 'Flux Notes™ Lite (for PATINA endpoints)',
                 app: SlimApp,
                 isExact: true,
                 shortcutConfigurations: {
                     'Disease Status': {
                         referenceDateEnabled: false
                     },
-                    'Toxicity': {   
+                    'Toxicity': {
                         gradesToDisplay: [3,4,5],
                         gradesPrompt: ' PATINA only calculates its endpoint based on adverse events of grades 2 through 5; therefore, only those are shown below. ',
                         topAdverseEvents: [
@@ -51,7 +51,7 @@ class AppManager {
             {
                 path: '/merkelcell',
                 shortcuts: ['Disease Status', 'Toxicity', 'Deceased'],
-                display: 'Flux Notes Lite (for Merkel Cell endpoints)',
+                display: 'Flux Notes™ Lite (for Merkel Cell endpoints)',
                 app: SlimApp,
                 isExact: true,
                 shortcutConfigurations: {
@@ -85,21 +85,21 @@ class AppManager {
             },
             {
                 path: '/patient',
-                display: 'Flux Notes',
+                display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
                 dataSource: 'HardCodedReadOnlyDataSource',
                 shortcuts: []
             },  {
                 path: '/p2',
-                display: 'Flux Notes',
+                display: 'Flux Notes™',
                 app: FullApp,
                 isExact: false,
                 dataSource: 'RestApiDataSource',
                 shortcuts: []
             }, {
                 path: '/p3',
-                display: 'Flux Notes',
+                display: 'Flux Notes™',
                 app: FullApp,
                 isExact: false,
                 dataSource: 'FHIRApiDataSource',
@@ -112,5 +112,3 @@ class AppManager {
         return this.apps;
     }
 }
-
-export default AppManager;
