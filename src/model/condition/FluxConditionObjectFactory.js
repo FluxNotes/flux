@@ -2,6 +2,7 @@ import { getNamespaceAndName } from '../json-helper';
 import FluxCondition from './FluxCondition';
 import FluxInjury from './FluxInjury';
 import ShrConditionObjectFactory from '../shr/condition/ShrConditionObjectFactory';
+import FluxDiseaseProgression from './FluxDiseaseProgression';
 
 export default class FluxConditionObjectFactory {
     static createInstance(json, type) {
@@ -12,6 +13,7 @@ export default class FluxConditionObjectFactory {
         // returns Flux wrapper class if found, otherwise use ShrConditionObjectFactory
         switch (elementName) {
             case 'Condition': return new FluxCondition(json);
+            case 'DiseaseProgression': return new FluxDiseaseProgression(json);
             case 'Injury': return new FluxInjury(json);
             default: return ShrConditionObjectFactory.createInstance(json, type);
         }
