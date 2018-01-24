@@ -9,6 +9,40 @@ import './MedicationRangeChartVisualizer.css';
  A MedicationRangeChart with additional information displayed to the right.
  */
 class MedicationRangeChartVisualizer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.updateState = true;
+
+        this.state = { medicationVisWide: true };
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.checkMedicationWidth);
+        setTimeout(this.checkMedicationWidth, 450);
+    }
+
+    componentDidUpdate = () => {
+        if (this.updateState) {
+            this.updateState = false;
+        } else {
+            this.updateState = true;
+            setTimeout(this.checkMedicationWidth, 450);
+        }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.checkMedicationWidth);
+    }
+
+    checkMedicationWidth = () => {
+        if (this.parent.offsetWidth > 600) {
+            this.setState({ medicationVisWide: true });
+        } else {
+            this.setState({ medicationVisWide: false });
+        }
+    }
+
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
@@ -51,11 +85,14 @@ class MedicationRangeChartVisualizer extends Component {
         const unit = med[9];
         const name = med[0];
 
+        const numColsChart = this.state.medicationVisWide ? 5 : 12;
+        const numColsInfo = this.state.medicationVisWide ? 7 : 12;
+
         return (
-            <div key={i}>
+            <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
                 <Grid className="FullApp-content" fluid>
-                    <Row center="xs">
-                        <Col sm={5}>
+                    <Row middle="xs">
+                        <Col sm={numColsChart}>
                             <div className="range-chart-container">
 
                                 <RangeChart
@@ -68,7 +105,7 @@ class MedicationRangeChartVisualizer extends Component {
                                 />
                             </div>
                         </Col>
-                        <Col sm={7}>
+                        <Col sm={numColsInfo}>
                             <Row center='xs'>
                                 <Col sm={3}>
                                     <div className='medication-info-heading'>
