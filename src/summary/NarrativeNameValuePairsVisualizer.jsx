@@ -10,6 +10,15 @@ import './NarrativeNameValuePairsVisualizer.css';
  A narrative view of one or more data summary items.
  */
 class NarrativeNameValuePairsVisualizer extends Component {
+    // Initialize values for insertion popups
+    constructor(props) { 
+        super(props);
+        this.state = {
+            snippetDisplayingMenu: null,
+            positionTop: 0, // Just so the popover can be spotted more easily
+            positionLeft: 0, // Same as above
+        }
+    }
 
     /**
         Function returns the correct template to use for the sentence
@@ -182,12 +191,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
-    state = {
-        anchorElementLookup: {},
-        positionTop: 200, // Just so the popover can be spotted more easily
-        positionLeft: 400, // Same as above
-    }
-
     // Number of milliseconds to wait
     waitTimeOpen = 400
     waitTimeClose = 400
@@ -206,10 +209,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         
         // Set timer for opening
         this.openTimer = setTimeout(() => {
-            let anchorElementLookup = this.state.anchorElementLookup;
-            anchorElementLookup[snippetId] = target;
             this.setState({ 
-                anchorElementLookup: anchorElementLookup,
+                snippetDisplayingMenu: snippetId,
                 positionTop: y,
                 positionLeft: x,
             });
@@ -226,7 +227,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // Set timer to close 
     timedPopoverClose = (event, snippetId) => { 
         this.closeTimer = setTimeout(() => { 
-            this.closePopover(snippetId)
+            this.closePopover()
             this.closeTimer = null;
         }, this.waitTimeClose);        
     }
@@ -238,10 +239,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // Make the anchor element for this snippetId null
-    closePopover = (snippetId) => { 
-        let anchorElementLookup = this.state.anchorElementLookup;
-        anchorElementLookup[snippetId] = null;
-        this.setState({ anchorElementLookup: anchorElementLookup });
+    closePopover = () => { 
+        this.setState({ snippetDisplayingMenu: null });
     }
 
     
@@ -251,7 +250,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
         const {
-          anchorElementLookup,
+          snippetDisplayingMenu,
           positionLeft,
           positionTop,
         } = this.state;
@@ -276,8 +275,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             {snippet.text}
                         </span>
                         <Menu
-                            open={!!anchorElementLookup[snippetId]}
-                            anchorEl={anchorElementLookup[snippetId]}
+                            open={snippetDisplayingMenu === snippetId}
                             anchorReference="anchorPosition"
                             anchorPosition={{ top: positionTop, left: positionLeft }}
                             onClose={(event) => this.closePopover(snippetId)}
