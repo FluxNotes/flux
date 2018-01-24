@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
-import lightBlue from 'material-ui/colors/purple';
+import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Lang from 'lodash';
@@ -151,50 +151,48 @@ export default class FullApp extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">
-                    <div className="FullApp-content">
-                        <Grid className="FullApp-content" fluid>
-                            <Row center="xs">
-                                <Col sm={12}>
-                                    <PatientControlPanel
-                                        appTitle={this.props.display}
-                                        supportLogin={true}
-                                        patient={this.state.patient}
-                                        possibleClinicalEvents={this.possibleClinicalEvents}
-                                        clinicalEvent={this.state.clinicalEvent}
-                                        setFullAppState={this.setFullAppState}
-                                        layout={this.state.layout}
-                                    />
-                                </Col>
-                            </Row>
+                    <Grid className="FullApp-content" fluid>
+                        <Row center="xs">
+                            <Col sm={12}>
+                                <PatientControlPanel
+                                    appTitle={this.props.display}
+                                    supportLogin={true}
+                                    patient={this.state.patient}
+                                    possibleClinicalEvents={this.possibleClinicalEvents}
+                                    clinicalEvent={this.state.clinicalEvent}
+                                    setFullAppState={this.setFullAppState}
+                                    layout={this.state.layout}
+                                />
+                            </Col>
+                        </Row>
 
-                            <CurrentDashboard
-                                // App default settings
-                                title={this.props.display}
-                                supportLogin={true}
-                                possibleClinicalEvents={this.possibleClinicalEvents}
-                                dataAccess={this.dataAccess}
-                                summaryMetadata={this.summaryMetadata}
-                                shortcutManager={this.shortcutManager}
-                                contextManager={this.contextManager}
+                        <CurrentDashboard
+                            // App default settings
+                            title={this.props.display}
+                            supportLogin={true}
+                            possibleClinicalEvents={this.possibleClinicalEvents}
+                            dataAccess={this.dataAccess}
+                            summaryMetadata={this.summaryMetadata}
+                            shortcutManager={this.shortcutManager}
+                            contextManager={this.contextManager}
 
-                                // State
-                                appState={this.state}
+                            // State
+                            appState={this.state}
 
-                                // Functions
-                                setFullAppState={this.setFullAppState}
-                                setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                                updateErrors={this.updateErrors}
-                                onContextUpdate={this.onContextUpdate}
-                                itemInserted={this.itemInserted}
-                                newCurrentShortcut={this.newCurrentShortcut}
-                                handleShortcutUpdate={this.handleShortcutUpdate}
-                                handleStructuredFieldEntered={this.handleStructuredFieldEntered}
-                                handleStructuredFieldExited={this.handleStructuredFieldExited}
-                                handleSelectionChange={this.handleSelectionChange}
-                                handleSummaryItemSelected={this.handleSummaryItemSelected}
-                            />
-                        </Grid>
-                    </div>
+                            // Functions
+                            setFullAppState={this.setFullAppState}
+                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                            updateErrors={this.updateErrors}
+                            onContextUpdate={this.onContextUpdate}
+                            itemInserted={this.itemInserted}
+                            newCurrentShortcut={this.newCurrentShortcut}
+                            handleShortcutUpdate={this.handleShortcutUpdate}
+                            handleStructuredFieldEntered={this.handleStructuredFieldEntered}
+                            handleStructuredFieldExited={this.handleStructuredFieldExited}
+                            handleSelectionChange={this.handleSelectionChange}
+                            handleSummaryItemSelected={this.handleSummaryItemSelected}
+                        />
+                    </Grid>
                 </div>
             </MuiThemeProvider>
         );

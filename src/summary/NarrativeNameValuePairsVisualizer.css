@@ -2,10 +2,55 @@
     margin-bottom: 20px;
 }
 
+.narrative-inserter-tooltip { 
+
+}
+
+.narrative-inserter-tooltip ul { 
+    padding: 0;
+}
+
+li.narrative-inserter-box { 
+    padding: 5px 10px;
+}
+
+li.narrative-inserter-box .fa { 
+    height: 10px;
+    font-size: 10px;
+    margin-right: 0px;
+}
+
+li.narrative-inserter-box h3 { 
+    font-size: 13px;
+}
+
+li.narrative-inserter-box:hover { 
+    background-color: #1384b5;
+    color: #fff;
+}
+li.narrative-inserter-box:hover h3 { 
+    color: #fff;
+}
+
+li.narrative-inserter-box:hover .fa { 
+    color: #fff;
+}
+
+div.narrative-inserter-menu-item { 
+    padding: 0;
+}
+
+span.plain {
+}
+
 span.missing-data {
     border-bottom: 1px solid red;
 }
 
 span.structured-data {
     border-bottom: 1px solid blue;
+}
+
+.menu-item {
+    font-size: 0.2em;
 }

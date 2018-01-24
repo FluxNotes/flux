@@ -1,3 +1,6 @@
+import { ListItemIcon, ListItemText } from 'material-ui/List';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
@@ -7,6 +10,15 @@ import './NarrativeNameValuePairsVisualizer.css';
  A narrative view of one or more data summary items.
  */
 class NarrativeNameValuePairsVisualizer extends Component {
+    // Initialize values for insertion popups
+    constructor(props) { 
+        super(props);
+        this.state = {
+            snippetDisplayingMenu: null,
+            positionTop: 0, // Just so the popover can be spotted more easily
+            positionLeft: 0, // Same as above
+        }
+    }
 
     /**
         Function returns the correct template to use for the sentence
@@ -99,12 +111,19 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const len = template.length;
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
-        let list, item, value, type, valueSpec, subsectionName, valueName;
+        let list, item, value, type, valueSpec, subsectionName, valueName, first;
         let _filterItemsByName = (item) => {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
             return item.name + ": " + item.value;
+        };
+        let _addListItemToResult = (listItem) => {
+            if (!first) result.push( { text: ', ', type: 'plain' });
+            value = _addLabResultToNarrative(listItem);
+            type = "structured-data";
+            result.push( { text: value, type: type, item: listItem } );
+            if (first) first = false;
         };
         while (pos !== -1) {
             result.push( { text: template.substring(start, pos), type: 'plain'} );
@@ -114,16 +133,16 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (index === -1) {
                 subsectionName = valueSpec;
                 if(Lang.isUndefined(subsections[subsectionName])) {
-                    value = valueSpec;
-                    type = "missing";
+                    result.push( { text: valueSpec, type: 'missing-data' } );
                 } else {
                     list = this.getList(subsections[subsectionName]);
                     if (Lang.isEmpty(list) || Lang.isNull(list)) {
                         value = "missing";
-                        type = "missing";
+                        type = "missing-data";
+                        result.push( { text: value, type: type } );
                     } else {
-                        value = list.map(_addLabResultToNarrative).join(", ");
-                        type = "structured-data";
+                        first = true;
+                        list.forEach(_addListItemToResult);
                     }
                 }
             } else {
@@ -136,10 +155,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     type = "structured-data";
                 } else {
                     value = "missing";
-                    type = "missing";
+                    type = "missing-data";
                 }
+                result.push( { text: value, type: type, item: item } );
             }
-            result.push( { text: value, type: type } );
+            //result.push( { text: value, type: type } );
             start = endpos + 1;
             if (endpos < len) {
                 pos = template.indexOf("${", endpos+1);
@@ -171,23 +191,112 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
+    // Number of milliseconds to wait
+    waitTimeOpen = 400
+    waitTimeClose = 400
+    openTimer = null
+    closeTimer = null
+
+    // Sets a timer to set the anchor element at this index to be the target div
+    timedPopoverOpen = (event, snippetId) => {
+        // Get popover coordinates
+        let x = event.clientX;  // Get the horizontal coordinate of mouse
+        x += 10;                // push popover a little to the right
+        let y = event.clientY;  // Get the vertical coordinate of mouse
+        y += 10;                // push a little to the bottom of cursor
+        
+        // Set timer for opening
+        this.openTimer = setTimeout(() => {
+            this.setState({ 
+                snippetDisplayingMenu: snippetId,
+                positionTop: y,
+                positionLeft: x,
+            });
+            this.openTimer = null;
+        }, this.waitTimeOpen);
+    }
+
+    // Clear timeout for opening menus
+    cancelPopoverOpen = () => { 
+        clearTimeout(this.openTimer);
+        this.openTimer = null;
+    }
+
+    // Set timer to close 
+    timedPopoverClose = (event, snippetId) => { 
+        this.closeTimer = setTimeout(() => { 
+            this.closePopover()
+            this.closeTimer = null;
+        }, this.waitTimeClose);        
+    }
+
+    // Clear timeout for closing menus
+    cancelPopoverClose = () => { 
+        clearTimeout(this.closeTimer);
+        this.closeTimer = null;
+    }
+
+    // Make the anchor element for this snippetId null
+    closePopover = () => { 
+        this.setState({ snippetDisplayingMenu: null });
+    }
+
+    
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
+        const {
+          snippetDisplayingMenu,
+          positionLeft,
+          positionTop,
+        } = this.state;
+        
+        const insertItem = (item, snippetId) => {
+            this.props.onItemClicked(item);
+            this.closePopover(snippetId);
+        };
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'plain') {
+            if (snippet.type === 'structured-data' && this.props.allowItemClick) {
+                const snippetId = `${snippet.item.name}-${index}`
+                content.push(
+                    <span key={snippetId}>
+                        <span 
+                            className={snippet.type} 
+                            onMouseOver={(event) =>  this.timedPopoverOpen(event, snippetId)}
+                            onMouseLeave={(event) => this.cancelPopoverOpen()}
+                        >
+                            {snippet.text}
+                        </span>
+                        <Menu
+                            open={snippetDisplayingMenu === snippetId}
+                            anchorReference="anchorPosition"
+                            anchorPosition={{ top: positionTop, left: positionLeft }}
+                            onClose={(event) => this.closePopover(snippetId)}
+                            className="narrative-inserter-tooltip"
+                        >
+                            <MenuItem   
+                                onClick={() => insertItem(snippet.item, snippetId)}
+                                onMouseOver={(event) => this.cancelPopoverClose()}
+                                onMouseLeave={(event) => this.timedPopoverClose(event, snippetId)}
+                                className="narrative-inserter-box"
+                            >
+                                <ListItemIcon>
+                                    <FontAwesome name="plus"/>
+                                </ListItemIcon>
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.item.value}"`} />
+                            </MenuItem>
+                        </Menu>
+                    </span>
+                );
+            } else if (snippet.type !== 'plain') {
+                content.push(<span key={index} className={snippet.type}>{snippet.text}</span>);
+            } else {
                 content.push(<span key={index}>{snippet.text}</span>);
-            }
-            if (snippet.type === 'missing') {
-                content.push(<span key={index} className='missing-data'>{snippet.text}</span>);
-            }
-            if (snippet.type === 'structured-data') {
-                content.push(<span key={index} className='structured-data'>{snippet.text}</span>);
             }
         }); 
         
