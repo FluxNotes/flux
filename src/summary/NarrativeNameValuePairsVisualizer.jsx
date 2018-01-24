@@ -199,9 +199,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // Sets a timer to set the anchor element at this index to be the target div
     timedPopoverOpen = (event, snippetId) => {
-        // Only make a popover if 
         // Get popover coordinates
-        const target = event.target;
         let x = event.clientX;  // Get the horizontal coordinate of mouse
         x += 10;                // push popover a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
