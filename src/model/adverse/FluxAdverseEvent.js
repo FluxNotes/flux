@@ -1,7 +1,6 @@
 import AdverseEvent from '../shr/adverse/AdverseEvent';
 import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
-import CodeableConcept from '../shr/core/CodeableConcept';
 import lookup from '../../lib/toxicreactiontotreatment_lookup.jsx';
 
 
@@ -9,13 +8,13 @@ class FluxAdverseEvent {
     constructor(json) {
         this._adverseEvent = AdverseEvent.fromJSON(json);
 
-        if(!json) {
-            this._codeableConcept = new CodeableConcept();
-            this._adverseEventGrade = new AdverseEventGrade();
-            this._adverseEventGrade.value = new CodeableConcept();
-            this._causeCategory = new CauseCategory();
-            this._causeCategory.value = new CodeableConcept();
-        }
+        // if(!json) {
+        //     this._codeableConcept = new CodeableConcept();
+        //     this._adverseEventGrade = new AdverseEventGrade();
+        //     this._adverseEventGrade.value = new CodeableConcept();
+        //     this._causeCategory = new CauseCategory();
+        //     this._causeCategory.value = new CodeableConcept();
+        // }
     }
 
     /*
