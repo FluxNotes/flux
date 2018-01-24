@@ -104,8 +104,6 @@ class FluxNotesEditor extends React.Component {
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
 
-        this.currentNote = null;
-
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
 
@@ -208,7 +206,6 @@ class FluxNotesEditor extends React.Component {
         // This clears the contexts so that the tray starts back at the patient context
         this.contextManager.clearContexts();
     }
-
 
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
@@ -349,7 +346,7 @@ class FluxNotesEditor extends React.Component {
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
         } else{
             if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
-                endOfNoteOffset = this.props.documentText.length
+                endOfNoteOffset = this.props.documentText.length;
             }
         }
 
@@ -409,8 +406,6 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
-
-
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
 
@@ -421,9 +416,6 @@ class FluxNotesEditor extends React.Component {
                 this.props.itemInserted();
             }
         }
-
-        this.currentNote = nextProps.selectedNote;
-
 
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
@@ -614,12 +606,12 @@ class FluxNotesEditor extends React.Component {
         let signedString = "not signed";
 
         // If a note is selected, update the note header with information from the selected note
-        if (this.currentNote) {
-            noteTitle = this.currentNote.subject;
-            date = this.currentNote.date;
+        if (this.props.selectedNote) {
+            noteTitle = this.props.selectedNote.subject;
+            date = this.props.selectedNote.date;
 
-            if(this.currentNote.signed) {
-                signedString = this.currentNote.clinician;
+            if(this.props.selectedNote.signed) {
+                signedString = this.props.selectedNote.clinician;
             } else {
                 signedString = "not signed";
             }
