@@ -12,7 +12,7 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import PersonOfRecord from '../model/shr/base/PersonOfRecord';
 import FluxPhotograph from '../model/base/FluxPhotograph';
 import FluxProcedure from '../model/procedure/FluxProcedure';
-import FluxProgression from '../model/oncology/FluxProgression';
+import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -322,7 +322,7 @@ class PatientRecord {
     }
 
     getProgressions() {
-        return this.getEntriesOfType(FluxProgression);
+        return this.getEntriesOfType(FluxDiseaseProgression);
     }
 
     getProgressionsChronologicalOrder() {
@@ -333,7 +333,7 @@ class PatientRecord {
 
     getProgressionsForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProgression && item.assessmentFocus.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxDiseaseProgression && item.assessmentFocus.entryId === condition.entryInfo.entryId;
         });
     }
 

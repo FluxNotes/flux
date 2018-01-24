@@ -3,7 +3,6 @@ import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
 import lookup from '../../lib/toxicreactiontotreatment_lookup.jsx';
 
-
 class FluxAdverseEvent {
     constructor(json) {
         this._adverseEvent = AdverseEvent.fromJSON(json);

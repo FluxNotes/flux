@@ -1,4 +1,5 @@
 import DiseaseProgression from '../shr/condition/DiseaseProgression';
+import Evidence from '../shr/finding/Evidence';
 import lookup from '../../lib/progression_lookup.jsx';
 
 // FluxDiseaseProgression class to hide codeableconcepts
