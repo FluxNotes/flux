@@ -183,7 +183,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     state = {
-        anchorEl: [],
+        anchorElementLookup: {},
         positionTop: 200, // Just so the popover can be spotted more easily
         positionLeft: 400, // Same as above
     }
@@ -195,7 +195,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
     closeTimer = null
 
     // Sets a timer to set the anchor element at this index to be the target div
-    timedPopoverOpen = (event, index) => {
+    timedPopoverOpen = (event, snippetId) => {
         // Only make a popover if 
         // Get popover coordinates
         const target = event.target;
@@ -206,10 +206,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
         
         // Set timer for opening
         this.openTimer = setTimeout(() => {
-            let anchorEl = this.state.anchorEl;
-            anchorEl[index] = target;
+            let anchorElementLookup = this.state.anchorElementLookup;
+            anchorElementLookup[snippetId] = target;
             this.setState({ 
-                anchorEl: anchorEl,
+                anchorElementLookup: anchorElementLookup,
                 positionTop: y,
                 positionLeft: x,
             });
@@ -224,9 +224,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // Set timer to close 
-    timedPopoverClose = (event, index) => { 
+    timedPopoverClose = (event, snippetId) => { 
         this.closeTimer = setTimeout(() => { 
-            this.closePopover(index)
+            this.closePopover(snippetId)
             this.closeTimer = null;
         }, this.waitTimeClose);        
     }
@@ -237,11 +237,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
         this.closeTimer = null;
     }
 
-    // Make the anchor element for this index null
-    closePopover = (index) => { 
-        let anchorEl = this.state.anchorEl;
-        anchorEl[index] = null;
-        this.setState({ anchorEl: anchorEl });
+    // Make the anchor element for this snippetId null
+    closePopover = (snippetId) => { 
+        let anchorElementLookup = this.state.anchorElementLookup;
+        anchorElementLookup[snippetId] = null;
+        this.setState({ anchorElementLookup: anchorElementLookup });
     }
 
     
@@ -251,39 +251,42 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
         const {
-          anchorEl,
+          anchorElementLookup,
+          positionLeft,
+          positionTop,
         } = this.state;
         
-        const insertItem = (item, index) => {
+        const insertItem = (item, snippetId) => {
             this.props.onItemClicked(item);
-            this.closePopover(index);
+            this.closePopover(snippetId);
         };
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
             if (snippet.type === 'structured-data' && this.props.allowItemClick) {
+                const snippetId = `${snippet.item.name}-${index}`
                 content.push(
-                    <span key={index}>
+                    <span key={snippetId}>
                         <span 
                             className={snippet.type} 
-                            onMouseOver={(event) =>  this.timedPopoverOpen(event, index)}
+                            onMouseOver={(event) =>  this.timedPopoverOpen(event, snippetId)}
                             onMouseLeave={(event) => this.cancelPopoverOpen()}
                         >
                             {snippet.text}
                         </span>
                         <Menu
-                            open={!!anchorEl[index]}
-                            anchorEl={anchorEl[index]}
+                            open={!!anchorElementLookup[snippetId]}
+                            anchorEl={anchorElementLookup[snippetId]}
                             anchorReference="anchorPosition"
-                            anchorPosition={{ top: this.state.positionTop, left: this.state.positionLeft }}
-                            onClose={(event) => this.closePopover(index)}
+                            anchorPosition={{ top: positionTop, left: positionLeft }}
+                            onClose={(event) => this.closePopover(snippetId)}
                             className="narrative-inserter-tooltip"
                         >
                             <MenuItem   
-                                onClick={() => insertItem(snippet.item, index)}
+                                onClick={() => insertItem(snippet.item, snippetId)}
                                 onMouseOver={(event) => this.cancelPopoverClose()}
-                                onMouseLeave={(event) => this.timedPopoverClose(event, index)}
+                                onMouseLeave={(event) => this.timedPopoverClose(event, snippetId)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>
