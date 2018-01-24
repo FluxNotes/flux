@@ -288,7 +288,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 <ListItemIcon>
                                     <FontAwesome name="plus"/>
                                 </ListItemIcon>
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.text}"`} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.item.value}"`} />
                             </MenuItem>
                         </Menu>
                     </span>
