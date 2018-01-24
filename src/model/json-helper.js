@@ -17,6 +17,7 @@ function getNamespaceAndName(json={}, type) {
   if (json['shr.base.EntryType']) {
     type = json['shr.base.EntryType'].Value;
   }
+  //console.log(json['shr.base.EntryType']);
   // Ensure we have a type before proceeding
   if (!type) {
     throw new Error(`Couldn't find type for JSON: ${JSON.stringify(json)}`);
@@ -29,8 +30,8 @@ function getNamespaceAndName(json={}, type) {
     return { namespace, elementName };
   }
   // If matching on URI didn't succeed, try to match on FQN
-  const fqnMatch = type.match(FQN_REGEX);
-  if (fqnMatch) {
+  const fqnMatch = type.match(FQN_REGEX); //console.log(fqnMatch)
+  if (fqnMatch) { console.log(fqnMatch)
     const namespace = fqnMatch[1].slice(0, -1);
     const elementName = fqnMatch[4];
     return { namespace, elementName };
@@ -48,9 +49,11 @@ function getNamespaceAndName(json={}, type) {
  * @param {object} json - a JSON object containing the date to set in the class
  */
 function setPropertiesFromJSON(inst, json) {
+    //console.log(json)
   // Loop through each key in the JSON, attempting to set it as a property on the class
   for (const key of Object.keys(json)) {
     // The key is an FQN (e.g., shr.foo.Bar), but the property is a lowercased version of the element name (e.g., bar)
+    //console.log(key)
     const property = lowerCaseFirst(key.match(FQN_REGEX)[4]);
     // First try to find and set it directly on the instance
     const setter = findSetterForProperty(inst, property);
@@ -126,7 +129,7 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
-  if (typeof value === 'object') {
+  if (typeof value === 'object') { console.log(value)
     if (value.ShrId && value.EntryId && value.EntryType) {
       // It's a reference, so just return the reference
       return new Reference(value.ShrId, value.EntryId, value.EntryType);
