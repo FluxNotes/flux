@@ -134,7 +134,12 @@ export default class FullApp extends Component {
         if (item) {
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
-                this.setState({summaryItemToInsert: item[arrayIndex]});
+                // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
+                if(Lang.isObject(item[arrayIndex])){
+                    this.setState({SummaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]`});
+                } else {
+                    this.setState({SummaryItemToInsert: item[arrayIndex]});
+                }
             } else if (item.shortcut) {
                 this.setState({summaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
             } else if (item.value) {

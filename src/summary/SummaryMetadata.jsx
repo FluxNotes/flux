@@ -139,6 +139,18 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Conditions",
+                        type: "ListType",
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Condition", "Diagnosed"],
+                                itemsFunction: this.getItemListForConditions,
+                                shortcut: "@condition"
+                            }
+                        ]
+                    },
+                    {
                         name: "Disease Status",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
@@ -398,6 +410,16 @@ class SummaryMetadata {
                             }
                         ]
                     },
+                     {
+                        name: "Conditions",
+                        type: "ListType",
+                        data: [
+                            {
+                                name: "",
+                                itemsFunction: this.getItemListForConditions
+                            }
+                        ]
+                    },
                     {
                         name: "Timeline",
                         type: "Events",
@@ -427,6 +449,14 @@ class SummaryMetadata {
 
     getMetadata = () => {
         return this.hardCodedMetadata;
+    }
+
+    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
+        const conditions = patient.getConditions();
+        return conditions.map((c, i) => {
+            return [{name: c.specificType.codeableConcept.displayText.string, shortcut: subsection.shortcut},
+            c.whenClinicallyRecognized.generalizedTemporalContext.value.value.timePeriodStart.value]; // correct object?
+        });
     }
 
     getItemListForProcedures = (patient, currentConditionEntry) => {
