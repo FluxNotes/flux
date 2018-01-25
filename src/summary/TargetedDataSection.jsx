@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import Button from '../elements/Button';
 import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
 import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
@@ -10,7 +11,7 @@ import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
 import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
 import './TargetedDataSection.css';
 
-class TargetedDataSection extends Component {
+export default class TargetedDataSection extends Component {
     constructor(props) {
         super(props);
 
@@ -189,7 +190,7 @@ class TargetedDataSection extends Component {
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {
-        const {patient, condition, onItemClicked, allowItemClick, isWide, type} = this.props;
+        const { patient, condition, onItemClicked, allowItemClick, isWide, type } = this.props;
         const visualization = this.checkVisualization();
 
         switch (type) {
@@ -299,21 +300,25 @@ class TargetedDataSection extends Component {
     }
 
     render() {
-        const visualizationOptions = this.getOptions(this.props.section);
+        const { section, condition, clinicalEvent } = this.props;
+        const visualizationOptions = this.getOptions(section);
+        const selectedCondition = condition && condition.specificType.codeableConcept.displayText.string;
+        const encounterView = clinicalEvent === "encounter";
 
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
-                    {this.props.section.name}
+                    {section.name}
+                    {!encounterView && <span className="section-header__condition">{selectedCondition}</span>}
                     {this.renderVisualizationOptions(visualizationOptions)}
+                    {encounterView && <span className="section-header__condition encounter">{selectedCondition}</span>}
                 </h2>
-                {this.renderSection(this.props.section)}
+
+                {this.renderSection(section)}
             </div>
         );
     }
 }
-
-export default TargetedDataSection;
 
 TargetedDataSection.propTypes = {
     type: PropTypes.string,
@@ -323,4 +328,5 @@ TargetedDataSection.propTypes = {
     onItemClicked: PropTypes.func,
     allowItemClick: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
+    clinicalEvent: PropTypes.string.isRequired
 }

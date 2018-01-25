@@ -3,6 +3,17 @@
     color: #333;
 }
 
+.section-header__condition {
+  margin-left: 20px;
+  color: #ccc;
+  font-weight: normal;
+}
+
+.section-header__condition.encounter {
+  display: block;
+  margin: 0;
+}
+
 .small-btn {
     min-width: 0 !important;
     min-height: 0 !important;
