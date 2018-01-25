@@ -177,9 +177,9 @@ export default class TargetedDataSection extends Component {
     renderVisualizationOptions = (options) => {
         if (options.length > 1) {
             return (
-                <span className="right-icons">
+                <div className="right-icons">
                     {this.getVisualizationsIcons(options)}
-                </span>
+                </div>
             );
         } else {
             return null;
@@ -308,11 +308,12 @@ export default class TargetedDataSection extends Component {
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
-                    {section.name}
+                    <span className="section-header__name">{section.name}</span>
                     {!encounterView && <span className="section-header__condition">{selectedCondition}</span>}
                     {this.renderVisualizationOptions(visualizationOptions)}
-                    {encounterView && <span className="section-header__condition encounter">{selectedCondition}</span>}
                 </h2>
+
+                {encounterView && <div className="section-header__condition encounter">{selectedCondition}</div>}
 
                 {this.renderSection(section)}
             </div>

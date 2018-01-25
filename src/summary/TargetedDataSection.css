@@ -1,17 +1,30 @@
-#targeted-data-section h2.section-header{
+#targeted-data-section h2.section-header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
     font-weight: bold;
     color: #333;
 }
 
+.section-header__name {
+    margin-right: 20px;
+}
+
 .section-header__condition {
-  margin-left: 20px;
-  color: #ccc;
-  font-weight: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #ccc;
+    font-weight: normal;
+    flex: 1;
+    padding-right: 10px;
 }
 
 .section-header__condition.encounter {
-  display: block;
-  margin: 0;
+    text-overflow: inherit;
+    overflow: inherit;
+    white-space: normal;
 }
 
 .small-btn {
@@ -20,7 +33,6 @@
 }
 
 .right-icons {
-    float: right;
-    padding-right: 10px;
+    margin-right: 10px;
     display: flex;
 }
