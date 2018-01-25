@@ -2,13 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../elements/Button';
-import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
-import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
-import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
-import BandedLineChartVisualizer from './BandedLineChartVisualizer';
-import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
-import TimelineEventsVisualizer from '../timeline/TimelineEventsVisualizer';
-import MedicationRangeChartVisualizer from './MedicationRangeChartVisualizer';
 import './TargetedDataSection.css';
 
 export default class TargetedDataSection extends Component {
