@@ -10,7 +10,9 @@
             "shr.base.AdministrativeGender": "female",
             "shr.core.Address": { "shr.core.AddressLine": [{"Value": "123 Main Street"}], 
             "shr.core.City":{"Value": "Boston"}, "shr.core.State":{"Value": "MA"}, 
-            "shr.core.Country":{"Value": "US"}}, "shr.entity.Purpose":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value": "primary_residence" }}}},            
+            "shr.core.Country":{"Value": "US"}}, "shr.entity.Purpose":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value": "primary_residence" }}},
+            "shr.entity.LanguageUsed": [{ "Value": "en-US", "shr.core.DisplayText": "English (United States)"}],
+            "shr.core.ContactPoint": [{ "shr.core.TelecomNumberOrAddress":{"Value": "999-555-5555"}, "shr.entity.Type":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},"shr.entity.Purpose":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"home"}}}},{"shr.core.TelecomNumberOrAddress":{"Value":"999-555-4444"},"shr.entity.Type":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},"shr.entity.Purpose":{ "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"mobile"}}}}]},           
         "shr.entity.PlaceOfBirth": { "Value": "US" },
         "shr.entity.BirthSex": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "F", "shr.core.DisplayText":{"Value": "Female"}}]}},
         "shr.entity.Race": { "Value": {"shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"}, "shr.core.Coding":[{"Value": "white"}]}},
@@ -18,10 +20,8 @@
         "shr.entity.MaritalStatus": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{ "Value": "M", "shr.core.CodeSystem": {"Value":"http://hl7.org/fhir/v3/MaritalStatus"}, "shr.core.DisplayText": "Married"}]}},
         "shr.entity.MothersMaidenName": { "Value": "Himinez221" },
         "shr.entity.FathersName": { "Value": "Jose Hernandez672" },
-        "telecom": [{ "value": "999-555-5555", "telecomType": "phone", "telecomQualifier": "home"}, { "value": "999-555-4444", "telecomType": "phone", "telecomQualifier": "mobile"}],
-        "languageUsed": [{ "value": {"coding": [{ "value": "en-US", "displayText": "English (United States)"}]}}],
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "13 JAN 2012"
+        "shr.core.CreationTime": {"Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": {"Value": "13 JAN 2012"} 
     },
     {
         "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
