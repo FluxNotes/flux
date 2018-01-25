@@ -150,9 +150,9 @@ class TabularListVisualizer extends Component {
                             data-test-summary-item={item[0]} 
                             key={index + "-item-" + arrayIndex}
                         >   
-                            <p>
+                            <span>
                                 Missing Data
-                            </p>
+                            </span>
                         </td>
                     );
                 } else if (this.props.allowItemClick) {
@@ -194,9 +194,9 @@ class TabularListVisualizer extends Component {
                             data-test-summary-item={item[0]} 
                             key={index + "-item-" + arrayIndex}
                         >
-                            <p>
+                            <span>
                                 {element}
-                            </p>
+                            </span>
                         </td>
                     );
                 }
