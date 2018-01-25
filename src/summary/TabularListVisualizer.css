@@ -19,9 +19,12 @@
     border-top: 0;
 }
 
-/* Include the bottom border on the last row of the table */
-.tabular-list tr:last-child td {
-    border-bottom: 1px solid #ccc;
+.tabular-list tr:nth-child(even) { 
+    background-color: #f1f1f1;
+}
+
+.tabular-list tr:nth-child(odd) { 
+    background-color: #fff;
 }
 
 /* Most table elements only have a top border */
@@ -30,42 +33,27 @@
     padding: 8px 10px;
 }
 
-/* Omit the borders from the icon column in the table */
-.tabular-list td.list-enabled {
-    border-top: 0;
-    border-bottom: 0;
-    color: #fefefe;
-}
-.tabular-list td.list-disabled {
-    border-top: 0;
-    border-bottom: 0;
-    color: #fefefe;
+/* Include the bottom border on the last row of the table */
+.tabular-list tr:last-child td {
+    border-bottom: 1px solid #ccc;
 }
 
-
-.tabular-list tr.list-captured td.list-disabled  {
-    color: #DDD;
-    border-bottom: 0;
-}
-.tabular-list tr.list-captured td.list-enabled {
-    color: #888;
-    border-bottom: 0;
+/* Missing element styling*/
+.tabular-list td.list-missing span {
+    text-decoration: underline;
+    text-decoration-color: red;
+    /*background-color: #fa9f8f;*/
 }
 
-.tabular-list td.list-missing {
-    color: #fff;
-    background-color: #fa9f8f;
-}
-
-.tabular-list td.list-captured {
-    color: #333;
-    background-color: #d9ebf9;
-}
-
-.tabular-list span.list-button-hover {
+/*Captured element styling */
+.tabular-list td.list-captured span {
+    text-decoration: underline;
+    text-decoration-color: blue;
     cursor: pointer;
+    /*background-color: #d9ebf9;*/
 }
 
+/* Heading of column*/
 .tabular-list .list-column-heading {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
