@@ -1,5 +1,5 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
-import moment from 'moment';
+// import moment from 'moment';
 
 class FluxMedicationRequested {
     constructor(json) {

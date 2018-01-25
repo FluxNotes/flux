@@ -3,7 +3,7 @@ import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import BreastCancer from '../model/shr/oncology/BreastCancer';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import Condition from '../model/shr/condition/Condition';
-import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
+import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
 import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
 import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnvironmentalAllergy';
@@ -270,7 +270,7 @@ class PatientRecord {
     }
 
     getMedications() {
-        return this.getEntriesOfType(FluxMedicationPrescription);
+        return this.getEntriesOfType(FluxMedicationRequested);
     }
     
     getActiveMedications() {
@@ -290,7 +290,7 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationPrescription && med.reason.some((r) => {
+            return med instanceof FluxMedicationRequested && med.reason.some((r) => {
                     return r.value.entryId === condition.entryInfo.entryId;
                 });
         });
