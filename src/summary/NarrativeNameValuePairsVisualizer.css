@@ -49,6 +49,7 @@ span.missing-data {
 }
 
 span.structured-data {
+    cursor: pointer;
     text-decoration: underline;
     text-decoration-color: blue;
 }
