@@ -602,13 +602,15 @@ class FluxNotesEditor extends React.Component {
 
         // Preset note header information
         let noteTitle = "Pathology Assessment";
-        let date = "20 June 2017";
+        let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
+        let source = "Dana Farber";
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
             noteTitle = this.props.selectedNote.subject;
             date = this.props.selectedNote.date;
+            source = this.props.selectedNote.hospital;
 
             if(this.props.selectedNote.signed) {
                 signedString = this.props.selectedNote.clinician;
@@ -629,11 +631,11 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
-                            <p className="note-description-detail-value">{Moment(new Date()).format('DD MMM YYYY')}</p>
+                            <p className="note-description-detail-value">{date}</p>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Source</p>
-                            <p className="note-description-detail-value">Pathology Report</p>
+                            <p className="note-description-detail-value">{source}</p>
                         </Col>
                         <Col xs={3}>
                             <p className="note-description-detail-name">Signed By</p>

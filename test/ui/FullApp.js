@@ -499,6 +499,26 @@ test('Clicking on an existing note in post encounter mode loads the note in the 
         .notEql("Enter your clinical note here or choose a template to start from...");
 })
 
+test('Clicking on a note in the clinical notes view updates the information in the note header', async t =>  {
+    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const note = Selector('.existing-note');
+    const noteHeaderName = Selector('#note-title').textContent;
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on one of the existing notes
+    await t
+        .click(note);
+
+    // Test that the note header name has been updated (that it doesn't equal the default text on app start)
+    await t
+        .expect(noteHeaderName)
+        .notEql("Pathology Assessment");
+})
+
+
 test('Clicking on an existing note in post encounter mode puts the NotesPanel in a read only mode with the clinical notes view displayed', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('.clinical-notes-btn');
@@ -555,6 +575,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
         .expect(editor.textContent)
         .notEql("Enter your clinical note here or choose a template to start from...");
 })
+
 
 // Verifies automatic saving
 test('Contents of in-progress note saved when switching to a completed note and back', async t => {
