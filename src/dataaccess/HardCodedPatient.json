@@ -118,109 +118,192 @@
         "signed": true
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "8",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/BreastCancer",
-                        "http://standardhealthrecord.org/condition/Condition" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": {"value": {"coding": [{"value": "408643008", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Invasive ductal carcinoma of breast"}]}},
-        "category": [ {"coding": [{"value": "#disease"}]} ],
-        "clinicalStatus": "recurrence",
-        "bodySite": {"laterality": {"value": {"coding": [{"value": "C25228", "codeSystem": {"value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, "displayText": "Right"}]}}},
-        "includeOnProblemList": true,
-        "whenClinicallyRecognized": {"generalizedTemporalContext": { "timePeriodStart": "13 JAN 2012" } },
-        "observation": [
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "8",
+        "shr.base.EntryType":   {"Value" : "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "408643008", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "Invasive ductal carcinoma of breast"}]},
+        "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#disease"}]},
+        "shr.condition.ClinicalStatus": {"Value": "recurrence"},
+        "shr.entity.BodySiteOrCode": {"Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C25228", "shr.core.CodeSystem": {"Value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, "shr.core.DisplayText": "Right"}]}},
+        "shr.condition.WhenClinicallyRecognized": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
+            "Value": { 
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "13 JAN 2012"
+            }
+        },
+        "shr.finding.Evidence": [
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "01 JAN 2018",
-                "value": {"value": 6.30, "units": {"value": "%"}},
-                "specificType": {"value": {"coding": [{"value": "C0019046", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Hemoglobin"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "01 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.30, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Hemoglobin"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "25 NOV 2017",
-                "value": {"value": 6.74, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "25 NOV 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.74, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "5 DEC 2017",
-                "value": {"value": 3.37, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "5 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 3.37, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "12 DEC 2017",
-                "value": {"value": 1.86, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "12 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 1.86, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "19 DEC 2017",
-                "value": {"value": 4.72, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 4.72, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "27 DEC 2017",
-                "value": {"value": 6.75, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "27 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.75, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "02 JAN 2018",
-                "value": {"value": 8.12, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "02 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 8.12, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/oncology/HistologicGrade",
-                                "http://standardhealthrecord.org/observation/Observation",
-                                "http://standardhealthrecord.org/base/Action" ],
-                "value": {"coding": [{"value": "369792005", "codeSystem": {"value":"http://snomed.info/sct"}, "displayText": "High grade or poorly differentiated"}]},
-                "status": "final",
-                "_issue": "stricly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
+                "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "High grade or poorly differentiated"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/oncology/TumorSize",
-                                "http://standardhealthrecord.org/observation/Observation",
-                                "http://standardhealthrecord.org/base/Action" ],
-                "value": {"value": 30.0, "units": {"value": "mm"}},
-                "specificType": {"value": {"coding": [{"value": "C0475440", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Tumor Size"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 30.0, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mm"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0475440", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Tumor Size"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             }
         ],
-        "_issue": "where capture recurrence date of 2013-10-12?",
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "01 FEB 2012"
+        "shr.core.CreationTime": {"Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": {"Value": "01 FEB 2012"}
     },
     {
         "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
