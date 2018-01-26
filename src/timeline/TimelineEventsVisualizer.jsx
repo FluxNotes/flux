@@ -13,7 +13,7 @@ class TimelineEventsVisualizer extends Component {
     constructor(props) {
         super(props);
 
-        const items = this.createItems(this.props.patient, this.props.condition, this.props.section);
+        const items = this.createItems(this.props.patient, this.props.condition, this.props.conditionSection);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
 
         // Define the bounds of the timeline
@@ -49,7 +49,7 @@ class TimelineEventsVisualizer extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if (this.props !== nextProps) {
-            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.section);
+            const items = this.createItems(nextProps.patient, nextProps.condition, nextProps.conditionSection);
             const groups = this.createGroupsForItems(this.getMaxGroup(items));
             let defaultTimeStart;
             if (nextProps.isWide) { 

@@ -203,7 +203,7 @@ class SummaryMetadata {
                     },
                     {
                         name: "Procedures",
-                        type: "ListType",
+                        type: "Columns",
                         data: [
                             {
                                 name: "",
@@ -241,13 +241,11 @@ class SummaryMetadata {
                     {
                         name: "Medications",
                         clinicalEvents: ["pre-encounter"],
-                        type: "ListType",
+                        type: "Medications",
                         data: [
                             {
                                 name: "",
-                                headings: ["Medication", "Dosage", "Timing", "Start", "End"],
                                 itemsFunction: this.getItemListForMedications,
-
                             }
                         ]
                     },
@@ -427,10 +425,11 @@ class SummaryMetadata {
                     },
                     {
                         name: "Procedures",
-                        type: "ListType",
+                        type: "Columns",
                         data: [
                             {
                                 name: "",
+                                headings: ["Procedure", "When"],
                                 itemsFunction: this.getItemListForProcedures
                             }
                         ]
@@ -495,8 +494,8 @@ class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
 
-        return meds.map((med, i) => {
-
+        return meds;
+/*        return meds.map((med, i) => {
             return [
                 med.medication,
                 `${med.amountPerDose.value} ${med.amountPerDose.units}`,
@@ -510,7 +509,7 @@ class SummaryMetadata {
                 med.amountPerDose.units,
                 med.code
             ];
-        });
+        });*/
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {

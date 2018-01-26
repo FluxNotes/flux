@@ -44,6 +44,7 @@ class TargetedDataSubpanel extends Component {
                 <div key={i} data-test-summary-section={section.name}>
                     <TargetedDataSection
                         type={section.type}
+                        visualizerManager={this._visualizerManager}
                         defaultVisualizer={section.defaultVisualizer}
                         section={section}
                         patient={patient}

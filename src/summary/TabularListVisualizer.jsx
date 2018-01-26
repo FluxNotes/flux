@@ -63,15 +63,28 @@ class TabularListVisualizer extends Component {
 
     // Get a formatted list of objects corresponding to every item to be displayed
     getList(subsection) {
-        const {patient, condition, conditionSection} = this.props;
+        const {patient, condition, conditionSection } = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
-
+        
+        const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
 
         const list = itemsFunction(patient, condition, subsection);
 
+        if (Lang.isUndefined(items)) {
+            list = itemsFunction(patient, condition, subsection);
+        } else {
+ /*           list = items.map((item, i) => {
+                if (Lang.isNull(item.value)) {
+                    return {name: item.name, value: null};
+                } else {
+                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
+                }
+            });*/
+            list = items;
+        }
         return list;
     }
 
@@ -84,13 +97,22 @@ class TabularListVisualizer extends Component {
 
     // Render each subsection as a table of values 
     renderedSubsection(subsection, index) {
-        const list = this.getList(subsection);
+        const {patient, condition, sectionTransform} = this.props;
+
+        let transformedSubsection;
+        if (!Lang.isUndefined(sectionTransform) && !Lang.isNull(sectionTransform)) {
+            transformedSubsection = sectionTransform(patient, condition, subsection);
+        } else {
+            transformedSubsection = subsection;
+        }
+
+        const list = this.getList(transformedSubsection);
 
         if (list.length <= 0) {
             return <h2 key={index}>None</h2>;
         }
         let headings = null;
-        if (subsection.headings) {
+        if (transformedSubsection.headings) {
             let renderedColumnHeadings = [];
             subsection.headings.forEach((heading, headingIndex) => {
                 renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
@@ -99,12 +121,12 @@ class TabularListVisualizer extends Component {
         }
         
         let subsectionname = null;
-        if (subsection.name && subsection.name.length > 0) {
-            subsectionname = <tr><td className="list-subsection-header">{subsection.name}</td></tr>;
+        if (transformedSubsection.name && transformedSubsection.name.length > 0) {
+            subsectionname = <tr><td className="list-subsection-header">{transformedSubsection.name}</td></tr>;
         }
 
         // TODO: temp variable for now to limit number of columns to be displayed to just the number of headings. Eventually remove this
-        const numberOfHeadings = subsection.headings.length;
+        const numberOfHeadings = transformedSubsection.headings.length;
 
         return (
             <table key={index}>
@@ -247,6 +269,7 @@ TabularListVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
+    sectionTransform: PropTypes.func,
     isWide: PropTypes.bool,
     onItemClicked: PropTypes.func,
     allowItemClick: PropTypes.bool
