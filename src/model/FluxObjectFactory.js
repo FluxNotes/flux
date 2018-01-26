@@ -29,7 +29,6 @@ export default class FluxObjectFactory {
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type);
             case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
-            case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
             default: return ObjectFactory.createInstance(json, type);
         }
     }

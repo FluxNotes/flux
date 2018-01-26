@@ -2,7 +2,7 @@ import EstrogenReceptorStatus from '../shr/oncology/EstrogenReceptorStatus';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 // FluxEstrogenReceptorStatus class to hide codeableconcepts
-class FluxEstrogenReceptorStatus extends EstrogenReceptorStatus {
+class FluxEstrogenReceptorStatus {
     constructor(json) {
         this._estrogenReceptorStatus = EstrogenReceptorStatus.fromJSON(json);
     }

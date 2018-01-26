@@ -1,4 +1,3 @@
-import Procedure from '../shr/procedure/ProcedurePerformed';
 import TimePeriod from '../shr/core/TimePeriod';
 import ProcedurePerformed from '../shr/procedure/ProcedurePerformed';
 

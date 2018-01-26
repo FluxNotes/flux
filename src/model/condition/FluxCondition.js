@@ -1,10 +1,6 @@
 import Condition from '../shr/condition/Condition';
-import FluxTest from '../lab/FluxTest';
-import FluxProcedure from '../procedure/FluxProcedure';
-import FluxMedicationPrescription from '../medication/FluxMedicationPrescription';
-import FluxProgression from '../oncology/FluxProgression';
 import Lang from 'lodash';
-import moment from 'moment';
+// import moment from 'moment';
 
 class FluxCondition {
     constructor(json) {

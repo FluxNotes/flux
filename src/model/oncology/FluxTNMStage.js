@@ -1,14 +1,12 @@
-import CodeableConcept from '../shr/core/CodeableConcept';
-import M_Stage from '../shr/oncology/M_Stage';
-import N_Stage from '../shr/oncology/N_Stage';
-import OccurrenceTime from '../shr/core/OccurrenceTime';
-import SpecificType from '../shr/core/SpecificType';
-import Status from '../shr/base/Status';
+// import CodeableConcept from '../shr/core/CodeableConcept';
+// import M_Stage from '../shr/oncology/M_Stage';
+// import N_Stage from '../shr/oncology/N_Stage';
+// import OccurrenceTime from '../shr/core/OccurrenceTime';
 import TNMStage from '../shr/oncology/TNMStage';
-import T_Stage from '../shr/oncology/T_Stage';
-import Lang from 'lodash';
+// import T_Stage from '../shr/oncology/T_Stage';
+// import Lang from 'lodash';
 import lookup from '../../lib/tnmstage_lookup.jsx';
-import staging from '../../lib/staging.jsx';
+// import staging from '../../lib/staging.jsx';
 
 // FluxTNMStage class to hide codeableconcepts
 class FluxTNMStage {
