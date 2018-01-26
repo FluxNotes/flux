@@ -9,6 +9,34 @@ class SummaryMetadata {
             "http://snomed.info/sct/408643008": {
                 sections: [
                     {
+                        name: "Reason for Upcoming Visit",
+                        type: "StringType", 
+                        narrative: [
+                            {
+                                defaultTemplate: "${Reason.Reason}",
+                                dataMissingTemplate: "No recent ${Reason.Reason}",
+                                useDataMissingTemplateCriteria: [
+                                    "Reason.Reason"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Reason",
+                                items: [ 
+                                    // still needed because StringType reuses NarrativeNameValuePairVisualizer, we could create its own visualizer
+                                    {
+                                        name: "Reason",
+                                        value: (patient, currentConditionEntry) => {
+
+                                            return patient.getNextEncounter().reason;
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         name: "Summary",
                         type: "NameValuePairs",
                         /*eslint no-template-curly-in-string: "off"*/

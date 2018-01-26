@@ -8,6 +8,7 @@ import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
+import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -163,6 +164,33 @@ class PatientRecord {
         let patient = this.getPatient();
         if (Lang.isNull(patient) || !patient.address) return null;
         return patient.address;
+    }
+
+    // return the soonest upcoming encounter. Includes encounters happening today.
+    getNextEncounter(){
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        let resultEncounter = null;        
+        encounters.forEach((encounter, index) => {
+            let currentEncounterTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY");
+            // if there is an encounter with a valid date, set it as the value to return
+            if(Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)){
+                resultEncounter = encounter;
+            }
+            
+            let resultEncounterTime = new moment(resultEncounter.expectedPerformanceTime, "D MMM YYYY");
+            // if there is a better answer (closer to today's date), update the value to return
+            if(!Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)
+                && currentEncounterTime.isBefore(resultEncounterTime, "day")){
+                resultEncounter = encounter;
+            }
+        });
+        return resultEncounter;
+    }
+
+    dateIsTodayOrFuture(momentDate){
+        // use the "day" parameter to set granularity. We don't record hours minutes seconds.
+        let today = new moment();
+        return (today.isBefore(momentDate, "day") || today.isSame(momentDate, "day"));
     }
 
     getConditions() {
