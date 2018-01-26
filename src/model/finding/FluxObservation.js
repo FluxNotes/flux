@@ -5,6 +5,7 @@ class FluxObservation {
     constructor(json) {
         this._observation = Observation.fromJSON(json);
     }
+    
     /**
      *  Getter for quantity
      *  If _value is an instance of Quantity, will return object with properties number and unit
@@ -13,7 +14,7 @@ class FluxObservation {
     get quantity() {
         if (this._observation.value instanceof Quantity) {
             return {
-                number: this._observation.value.value,
+                number: this._observation.value.decimal,
                 unit: this._observation.value.units.value.value
             };
         } else {
@@ -22,23 +23,23 @@ class FluxObservation {
     }
 
     get name() { 
-        if (this._observation.observationCode.value.coding.length > 0) { 
-            return this._observation.observationCode.value.coding[0].displayText.value;
+        if (this._observation.observationCode.coding.length > 0) { 
+            return this._observation.observationCode.coding[0].displayText;
         } else { 
             return null;
         }        
     }
 
     get codeableConceptCode() { 
-        if (this._observation.observationCode.value.coding.length > 0) { 
-            return this._observation.observationCode.value.coding[0].code;
+        if (this._observation.observationCode.coding.length > 0) { 
+            return this._observation.observationCode.coding[0].code;
         } else { 
             return null;
         } 
     }
 
     get clinicallyRelevantTime() { 
-        if (this._clinicallyRelevantTime) { 
+        if (this._observation.clinicallyRelevantTime) { 
             return this._observation.clinicallyRelevantTime.value;
         } else { 
             return null;

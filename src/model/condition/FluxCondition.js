@@ -1,6 +1,7 @@
 import Condition from '../shr/condition/Condition';
 import Lang from 'lodash';
-// import moment from 'moment';
+import Observation from '../shr/finding/Observation';
+import moment from 'moment';
 
 class FluxCondition {
     constructor(json) {
@@ -8,105 +9,106 @@ class FluxCondition {
     }
 
     get diagnosisDate() {
-        if (Lang.isUndefined(this._condition.whenClinicallyRecognized.value.value.value.timePeriodStart)) return this._condition.whenClinicallyRecognized.value.value.value;
-        return this._condition.whenClinicallyRecognized.value.value.value.timePeriodStart.value;
+        if (this._condition.whenClinicallyRecognized) {
+            return this._condition.whenClinicallyRecognized.value.value;
+        }
+        return null;
     }
 
     get type() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].displayText.value;
+        return this._condition.value.coding[0].displayText;
     }
 
-    // getObservationsOfType(type) {
-    //     if (!this.observation) return [];
-    //     return this.observation.filter((item) => {
-    //         return item instanceof type;
-    //     });
-    // }
+    getObservationsOfType(type) {
+        if (!this._condition.evidence) return [];
+        return this._condition.evidence.filter((item) => {
+            return item.constructor === type;
+        });
+    }
 
-    // getTests() {
-    //     return this.getObservationsOfType(FluxTest);
-    // }
+    getTests() {
+        return this.getObservationsOfType(Observation);
+    }
 
-    // // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
-    // getLabResultsChronologicalOrder(sinceDate) {
-    //     let results = this.getTests();
-    //     results.sort(this._labResultsTimeSorter);
+    // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
+    getLabResultsChronologicalOrder(sinceDate) {
+        let results = this.getTests();
+        results.sort(this._labResultsTimeSorter);
 
-    //     let mostRecentLabResults = results;
+        let mostRecentLabResults = results;
+        if (sinceDate && !Lang.isNull(sinceDate)) {
+            mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
+        }
 
-    //     if (sinceDate && !Lang.isNull(sinceDate)) {
-    //         mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
-    //     }
+        return mostRecentLabResults;
+    }
 
-    //     return mostRecentLabResults;
-    // }
+    // Sorts the lab results in chronological order
+    _labResultsTimeSorter(a, b) {
+        const a_startTime = new moment(a.clinicallyRelevantTime.value, "D MMM YYYY");
+        const b_startTime = new moment(b.clinicallyRelevantTime.value, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
 
-    // // Sorts the lab results in chronological order
-    // _labResultsTimeSorter(a, b) {
-    //     const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
-    //     const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
-    //     if (a_startTime < b_startTime) {
-    //         return -1;
-    //     }
-    //     if (a_startTime > b_startTime) {
-    //         return 1;
-    //     }
-    //     return 0;
-    // }
+    // Grab the most recent lab results within a set threshold date
+    getMostRecentLabResults(results, sinceDate) {
+        let mostRecentLabResultsLookupTable = {};
 
-    // // Grab the most recent lab results within a set threshold date
-    // getMostRecentLabResults(results, sinceDate) {
-    //     let mostRecentLabResultsLookupTable = {};
+        // Convert the sinceDate to a moment.js date
+        let sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
 
-    //     // Convert the sinceDate to a moment.js date
-    //     let sinceDateMoment = new moment(sinceDate, "D MMM YYYY");
+        // Create mostRecentLabResultsLookupTable with unique lab results that fall after threshold date
+        results.map((lab, i) => {
+            const startTime = new moment(lab.clinicallyRelevantTime.value, "D MMM YYYY");
 
-    //     // Create mostRecentLabResultsLookupTable with unique lab results that fall after threshold date
-    //     results.map((lab, i) => {
-    //         const startTime = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
+            // Check that the current lab result date is more later than the threshold date
+            if (startTime > sinceDateMoment) {
+                let id = lab.observationCode.coding[0].code;
 
-    //         // Check that the current lab result date is more later than the threshold date
-    //         if (startTime > sinceDateMoment) {
-    //             let id = lab.specificType.value.coding[0].code;
+                // Check that the lab result type (i.e hemoglobin, white blood cell, etc) doesn't already exist in the lookup table
+                if (!mostRecentLabResultsLookupTable[id]) {
 
-    //             // Check that the lab result type (i.e hemoglobin, white blood cell, etc) doesn't already exist in the lookup table
-    //             if (!mostRecentLabResultsLookupTable[id]) {
+                    // If the lab result type doesn't already exist, add it to the table
+                    mostRecentLabResultsLookupTable[id] = {
+                        labResult: lab,
+                        clinicallyRelevantTime: lab.clinicallyRelevantTime.value
+                    }
+                } else {
+                    // Check if current lab result is the most recent compared to what is in the lookup table
+                    let time1 = new moment(mostRecentLabResultsLookupTable[id].clinicallyRelevantTime.value, "D MMM YYYY");
+                    let time2 = new moment(lab.clinicallyRelevantTime.value, "D MMM YYYY");
 
-    //                 // If the lab result type doesn't already exist, add it to the table
-    //                 mostRecentLabResultsLookupTable[id] = {
-    //                     labResult: lab,
-    //                     clinicallyRelevantTime: lab.clinicallyRelevantTime
-    //                 }
-    //             } else {
-    //                 // Check if current lab result is the most recent compared to what is in the lookup table
-    //                 let time1 = new moment(mostRecentLabResultsLookupTable[id].clinicallyRelevantTime, "D MMM YYYY");
-    //                 let time2 = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
+                    // If the current lab result is more recent than what is stored in the lookup table, update the data
+                    // Lookup will only contain the most recent lab result for that type
+                    if (time2 > time1) {
+                        mostRecentLabResultsLookupTable[id] = {
+                            labResult: lab,
+                            clinicallyRelevantTime: lab.clinicallyRelevantTime.value
+                        }
+                    }
+                }
+            }
+            return results;
+        });
 
-    //                 // If the current lab result is more recent than what is stored in the lookup table, update the data
-    //                 // Lookup will only contain the most recent lab result for that type
-    //                 if (time2 > time1) {
-    //                     mostRecentLabResultsLookupTable[id] = {
-    //                         labResult: lab,
-    //                         clinicallyRelevantTime: lab.clinicallyRelevantTime
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         return results;
-    //     });
+        // Generate array from lookup table
+        let mostRecentLabResultsArray = [];
 
-    //     // Generate array from lookup table
-    //     let mostRecentLabResultsArray = [];
+        for (var key in mostRecentLabResultsLookupTable) {
+            if (mostRecentLabResultsLookupTable.hasOwnProperty(key)) {
+                mostRecentLabResultsArray.push(mostRecentLabResultsLookupTable[key].labResult);
+            }
+        }
 
-    //     for (var key in mostRecentLabResultsLookupTable) {
-    //         if (mostRecentLabResultsLookupTable.hasOwnProperty(key)) {
-    //             mostRecentLabResultsArray.push(mostRecentLabResultsLookupTable[key].labResult);
-    //         }
-    //     }
-
-    //     return mostRecentLabResultsArray;
-    // }
+        return mostRecentLabResultsArray;
+    }
 
     /**
      *  function to build HPI Narrative
