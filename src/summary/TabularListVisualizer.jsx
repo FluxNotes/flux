@@ -136,8 +136,8 @@ class TabularListVisualizer extends Component {
               positionTop,
             } = this.state;
 
-            const insertItem = (elementList, elementId, arrayIndex) => {
-                this.props.onItemClicked(elementList, arrayIndex)
+            const insertItem = (element) => {
+                this.props.onItemClicked(element)
                 this.closeInsertionMenu();
             };
             
@@ -156,6 +156,11 @@ class TabularListVisualizer extends Component {
                         </td>
                     );
                 } else if (this.props.allowItemClick) {
+                    // Get value off of element given two cases: 
+                    // 1. Element type is shortcut, value is returned by element.value()
+                    // 2. Element type is string, the value is just the string
+                    const elementText = (element.shortcut) ? element.value : element;
+                    // Make unique id for each value
                     const elementId = `${index}-item-${arrayIndex}`
                     columnItem = (
                         <td 
@@ -166,7 +171,7 @@ class TabularListVisualizer extends Component {
                                 data-test-summary-item={item[0]} 
                                 onClick={(event) => this.openInsertionMenu(event, elementId)}
                             >
-                                {element}
+                                {elementText}
                             </span>
                             <Menu
                                 open={elementToDisplayMenu === elementId}
@@ -176,13 +181,13 @@ class TabularListVisualizer extends Component {
                                 className="narrative-inserter-tooltip"
                             >
                                 <MenuItem   
-                                    onClick={() => insertItem(element, elementId, arrayIndex)}
+                                    onClick={() => insertItem(element, elementId)}
                                     className="narrative-inserter-box"
                                 >
                                     <ListItemIcon>
                                         <FontAwesome name="plus"/>
                                     </ListItemIcon>
-                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${element}"`} />
+                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
                                 </MenuItem>
                             </Menu>
                         </td>
