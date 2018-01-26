@@ -127,7 +127,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Prescribed By
                                     </div>
                                     <div className='medication-info'>
-                                        {med.whenPrescribed /*med[6]*/}
+                                        {med.prescribedBy /*med[6]*/}
                                     </div>
                                 </Col>
                                 <Col sm={3}>

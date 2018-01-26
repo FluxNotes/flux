@@ -76,13 +76,6 @@ class TabularListVisualizer extends Component {
         if (Lang.isUndefined(items)) {
             list = itemsFunction(patient, condition, subsection);
         } else {
- /*           list = items.map((item, i) => {
-                if (Lang.isNull(item.value)) {
-                    return {name: item.name, value: null};
-                } else {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
-                }
-            });*/
             list = items;
         }
         return list;

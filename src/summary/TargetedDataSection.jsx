@@ -66,28 +66,6 @@ export default class TargetedDataSection extends Component {
         return visualizationButtons;
     }
 
-/*    getOptions = (section) => {
-        let options = [];
-        if (section.type === "NameValuePairs") {
-            options.push('tabular');
-            if (section.narrative) {
-                options.push('narrative');
-            }
-        } else if (section.type === "Events") {
-            options.push('graphic');
-        } else if (section.type === "ValueOverTime") {
-            options.push('chart');
-        } else if (section.type === "DiseaseStatusValues") {
-            options.push('chart');
-        } else if (section.type === "ListType") {
-            if (section.name === 'Medications') {
-                options.push('chart'); // TODO: This will get handled better when we have functionality to reuse visualizations
-            }
-            options.push('tabular');
-        }
-        return options;
-    }*/
-    
     getOptions = (section) => {
         return this.props.visualizerManager.getSupportedVisualizerTypesForDataType(section.type);
     }
@@ -128,110 +106,6 @@ export default class TargetedDataSection extends Component {
                 isWide={isWide}
             />
         );
-/*        switch (type) {
-            case "ListType": {
-                if (visualization === 'tabular') {
-                    return (
-                        <TabularListVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else if (visualization === 'chart' && section.name === 'Medications') {
-                    return (
-                        <MedicationRangeChartVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            }
-            case 'NameValuePairs': {
-                if (visualization === 'tabular') {
-                    return (
-                        <TabularNameValuePairsVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else if (visualization === 'narrative') {
-                    return (
-                        <NarrativeNameValuePairsVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            }
-            case 'ValueOverTime': {
-                if (visualization === 'chart') {
-                    return (
-                        <BandedLineChartVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            }
-            case 'DiseaseStatusValues' : {
-                if (visualization === 'chart') {
-                    return (
-                        <ProgressionLineChartVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            }
-            case 'Events': {
-                if (visualization === 'graphic') {
-                    return (
-                        <TimelineEventsVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            isWide={isWide}
-                        />
-                    );
-                } else {
-                    return null;
-                }
-            }
-            default:
-                return null;
-        }*/
     }
 
     render() {

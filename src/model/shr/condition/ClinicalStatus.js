@@ -1,5 +1,10 @@
 /** Generated from SHR definition for shr.condition.ClinicalStatus */
 class ClinicalStatus {
+    constructor(json) {
+        if (json) {
+            this.value = json;
+        }
+    }
 
   /**
    * Convenience getter for value (accesses this.code)

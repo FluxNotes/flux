@@ -14,7 +14,7 @@ class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage}"
+                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}"
                             },
                             {
                                 defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}",
@@ -102,88 +102,9 @@ class SummaryMetadata {
                             {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
-                            }
-                        ]
-                    },
-                    // {
-                    //     name: "Current Diagnosis",
-                    //     collections: [
-                    //         {
-                    //             name: "",
-                    //             items:  [
-                    //                 {
-                    //                     name: "Name",
-                    //                     value: (patient, currentConditionEntry) => {
-                    //                         return currentConditionEntry.specificType.value.coding[0].displayText.value;
-                    //                     },
-                    //                     shortcut: "@condition"
-                    //                 }, {
-                    //                     name: "Stage",
-                    //                     value: (patient, currentConditionEntry) => {
-                    //                         let s = patient.getMostRecentStagingForCondition(currentConditionEntry);
-                    //                         if (s && s.value.coding[0].displayText.value && s.value.coding[0].displayText.value.length > 0) {
-                    //                             return s.value.coding[0].displayText.value + " (" + s.t_Stage.value.coding[0].displayText.value + s.n_Stage.value.coding[0].displayText.value + s.m_Stage.value.coding[0].displayText.value + ")";
-                    //                         } else {
-                    //                             return null;
-                    //                         }
-                    //                     },
-                    //                     shortcut: "@stage"
-                    //                 }
-                    //             ]
-                    //         }
-                    //     ]
-                    // },
-                    // {
-                    //     name: "Disease Status",
-                    //     collections: [
-                    //         {
-                    //             name: "",
-                    //             items:  [
-                    //                 {
-                    //                     name: "Most Recent Status",
-                    //                     value: (patient, currentConditionEntry) => {
-                    //                         let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                    //                         if (Lang.isNull(p)) {
-                    //                             return null;
-                    //                         } else {
-                    //                             return p.value.coding[0].displayText.value;
-                    //                         }
-                    //                     }
-                    //                 },
-                    //                 {
-                    //                     name: "Date of Most Recent Status",
-                    //                     value: (patient, currentConditionEntry) => {
-                    //                         let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                    //                         if (Lang.isNull(p)) {
-                    //                             return null;
-                    //                         } else {
-                    //                             return p.asOfDate;
-                    //                         }
-                    //                     }
-                    //                 },
-                    //                 {
-                    //                     name: "Basis for Disease Status",
-                    //                     value: (patient, currentConditionEntry) => {
-                    //                         let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                    //                         if (Lang.isNull(p)) {
-                    //                             return null;
-                    //                         } else {
-                    //                             return p.evidence.map(function(ev){
-                    //                                 return ev.value.coding[0].displayText.value;
-                    //                             }).join();
-                    //                         }
-                    //                     }
-                    //                 }
-                    //             ]
-                    //         }
-                    //     ]
-                    // },
-                    {
-                        name: "Key Dates",
-                        type: "NameValuePairs",
-                        data: [
+                            },
                             {
-                                name: "",
+                                name: "Key Dates",
                                 items: [
                                     {
                                         name: "Diagnosis",
@@ -194,11 +115,16 @@ class SummaryMetadata {
                                     {
                                         name: "Recurrence",
                                         value: (patient, currentConditionEntry) => {
-                                            return null;
+                                            if (currentConditionEntry.clinicalStatus.value === "recurrence") {
+                                                return null;
+                                            } else {
+                                                return "N/A";
+                                            } // TODO: actually get date once we know where it is in SHR
                                         }
                                     }
                                 ]
                             }
+                            
                         ]
                     },
                     {
