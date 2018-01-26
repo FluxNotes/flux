@@ -474,7 +474,6 @@ class SummaryMetadata {
             if (typeof p.occurrenceTime !== 'string') {
                 return [
                     {
-                        name: "Procedure",
                         value: p.specificType.value.coding[0].displayText.value,
                         shortcut: "@procedure",
                     },
@@ -483,7 +482,6 @@ class SummaryMetadata {
             } else {
                 return [
                     {
-                        name: "Procedure",
                         value: p.specificType.value.coding[0].displayText.value,
                         shortcut: "@procedure",
                     },

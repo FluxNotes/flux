@@ -65,22 +65,10 @@ class TabularListVisualizer extends Component {
             return [];
         }
 
-        const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
 
-        let list = null;
+        const list = itemsFunction(patient, condition, subsection);
 
-        if (Lang.isUndefined(items)) {
-            list = itemsFunction(patient, condition, subsection);
-        } else {
-            list = items.map((item, i) => {
-                if (Lang.isNull(item.value)) {
-                    return {name: item.name, value: null};
-                } else {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
-                }
-            });
-        }
         return list;
     }
 
@@ -193,6 +181,8 @@ class TabularListVisualizer extends Component {
                         </td>
                     );
                 } else { 
+                    const elementText = (element.shortcut) ? element.value : element;
+
                     columnItem = (
                         <td 
                             className={itemClass} 
@@ -200,7 +190,7 @@ class TabularListVisualizer extends Component {
                             key={index + "-item-" + arrayIndex}
                         >
                             <span>
-                                {element}
+                                {elementText}
                             </span>
                         </td>
                     );
@@ -219,7 +209,7 @@ class TabularListVisualizer extends Component {
     }
     
     // Render all list items 
-    renderedListItems(list, numberofHeadings) {
+    renderedListItems(list, numberOfHeadings) {
         let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
@@ -233,7 +223,7 @@ class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
-            return this.renderedListItem(item.slice(0,numberofHeadings), index, rowClass, itemClass, onClick, hoverClass);
+            return this.renderedListItem(item.slice(0,numberOfHeadings), index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 
