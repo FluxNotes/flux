@@ -1,6 +1,7 @@
 .FullApp {
     min-height: 100vh;
     background-color: #FFFFFF;
+    overflow: hidden;
 }
 
 /* Restricts app to max fixed width for very wide screens. */
