@@ -49,7 +49,7 @@ function getNamespaceAndName(json={}, type) {
  * @param {object} json - a JSON object containing the date to set in the class
  */
 function setPropertiesFromJSON(inst, json) {
-    //console.log(json)
+    console.log(json)
   // Loop through each key in the JSON, attempting to set it as a property on the class
   for (const key of Object.keys(json)) {
     // The key is an FQN (e.g., shr.foo.Bar), but the property is a lowercased version of the element name (e.g., bar)
