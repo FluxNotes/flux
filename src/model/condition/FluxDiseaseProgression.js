@@ -10,6 +10,10 @@ class FluxDiseaseProgression {
         this._diseaseProgression = DiseaseProgression.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._diseaseProgression.entryInfo;
+    }
+
     /**
      *  Getter for status
      *  This will return the displayText string from CodeableConcept Value

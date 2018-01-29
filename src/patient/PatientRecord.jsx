@@ -9,7 +9,6 @@ import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
 import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnvironmentalAllergy';
 import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
-import PersonOfRecord from '../model/shr/base/PersonOfRecord';
 import FluxPhotograph from '../model/base/FluxPhotograph';
 import FluxProcedurePerformed from '../model/procedure/FluxProcedurePerformed';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
@@ -17,16 +16,19 @@ import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
+import FluxPatient from '../model/entity/FluxPatient';
 
 class PatientRecord {
     constructor(shrJson = null) {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
-            this.personOfRecord = this.getPersonOfRecord();
-            this.shrId = this.personOfRecord.entryInfo.shrId;
+            console.log(this.entries);
+            this.patient = this.getPatient();
+            this.shrId = this.patient.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                    return o.entryInfo.entryId;
-                })) + 1;
+                return o.entryInfo.entryId;
+            })) + 1;
+            console.log(this);
         } else { // create a new patient
             this.entries = [];
             this.personOfRecord = null;
@@ -111,22 +113,22 @@ class PatientRecord {
     }
 
     getName() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord._humanName;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.name;
     }
 
     getDateOfBirth() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord.dateOfBirth.value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.dateOfBirth;
     }
 
     getAge() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
         var today = new Date();
-        var birthDate = new Date(personOfRecord._dateOfBirth._value);
+        var birthDate = new Date(patient.dateOfBirth);
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -136,13 +138,13 @@ class PatientRecord {
     }
 
     getGender() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord.administrativeGender.value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.gender;
     }
 
-    getPersonOfRecord() {
-        return this.getMostRecentEntryOfType(PersonOfRecord);
+    getPatient() {
+        return this.getMostRecentEntryOfType(FluxPatient);
     }
 
     getMRN() {
@@ -161,13 +163,9 @@ class PatientRecord {
     }
 
     getCurrentHomeAddress() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord) || !personOfRecord.addressUsed) return null;
-        let addressUsed = personOfRecord.addressUsed.filter((item) => {
-            return item.addressUse.some((au) => au.value.coding[0].value === "primary_residence")
-        });
-        if (addressUsed.length === 0) return null;
-        return addressUsed[0].value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient) || !patient.address) return null;
+        return patient.address;
     }
 
     getConditions() {
@@ -480,10 +478,10 @@ class PatientRecord {
         if (list.length === 1) return list[0];
 
         let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o._entryInfo._lastUpdateDate);
+            return new Date(o.entryInfo.lastUpdated.instant);
         }));
         let result = list.filter((item) => {
-            return new Date(item._entryInfo._lastUpdateDate).getTime() === new Date(maxDate).getTime()
+            return new Date(item.entryInfo.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;

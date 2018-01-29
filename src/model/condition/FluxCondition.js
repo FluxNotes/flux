@@ -8,6 +8,10 @@ class FluxCondition {
         this._condition = Condition.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._condition.entryInfo;
+    }
+
     get diagnosisDate() {
         if (this._condition.whenClinicallyRecognized) {
             return this._condition.whenClinicallyRecognized.value.value;

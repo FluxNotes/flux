@@ -33,10 +33,10 @@ class PatientControlPanel extends Component {
                             <Col sm={7}>
                                 <SummaryHeader
                                     address={patient.getCurrentHomeAddress()}
-                                    administrativeSex={patient.getPersonOfRecord().administrativeGender.value}
+                                    administrativeSex={patient.getGender()}
                                     age={patient.getAge()}
                                     clinicalEvent={this.props.clinicalEvent}
-                                    dateOfBirth={patient.getPersonOfRecord().dateOfBirth.value}
+                                    dateOfBirth={patient.getDateOfBirth()}
                                     layout={this.props.layout}
                                     mrn={patient.getMRN()}
                                     patientConditions={patientConditions}
