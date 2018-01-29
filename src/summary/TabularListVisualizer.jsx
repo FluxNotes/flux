@@ -26,9 +26,9 @@ class TabularListVisualizer extends Component {
     openInsertionMenu = (event, elementId) => { 
         // Get menu coordinates
         let x = event.clientX;  // Get the horizontal coordinate of mouse
-        x += 20;                // push menu a little to the right
+        x += 4;                // push menu a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
-        y += 10;                // push a little to the bottom of cursor
+        y += 7;                // push a little to the bottom of cursor
 
         this.setState({ 
             elementToDisplayMenu: elementId,

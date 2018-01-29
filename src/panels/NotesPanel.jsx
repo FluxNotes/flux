@@ -100,7 +100,7 @@ export default class NotesPanel extends Component {
                     onSelectionChange={this.props.handleSelectionChange}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     itemInserted={this.props.itemInserted}
-                    itemToBeInserted={this.props.summaryItemToBeInserted}
+                    summaryItemToInsert={this.props.summaryItemToInsert}
                     patient={this.props.patient}
                     contextManager={this.props.contextManager}
                     shortcutManager={this.props.shortcutManager}
@@ -168,4 +168,5 @@ NotesPanel.propTypes = {
     handleSummaryItemSelected: PropTypes.func,
     handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
+    summaryItemToInsert: PropTypes.bool,
 };

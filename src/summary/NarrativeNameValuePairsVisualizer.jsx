@@ -195,9 +195,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
     openInsertionMenu = (event, snippetId) => { 
         // Get menu coordinates
         let x = event.clientX;  // Get the horizontal coordinate of mouse
-        x += 20;                // push menu a little to the right
+        x += 4;                // push menu a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
-        y += 10;                // push a little to the bottom of cursor
+        y += 7;                // push a little to the bottom of cursor
 
         this.setState({ 
             snippetDisplayingMenu: snippetId,
@@ -223,8 +223,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         } = this.state;
         
         const insertItem = (item, snippetId) => {
-            this.props.onItemClicked(item);
             this.closeInsertionMenu(snippetId);
+            this.props.onItemClicked(item);
         };
         
         // now go through each snippet and build up HTML to render
