@@ -29,13 +29,11 @@
 
 /* Most table elements only have a top border */
 .tabular-list td {
-    border-top: 1px solid #ccc;
     padding: 8px 10px;
 }
 
 /* Include the bottom border on the last row of the table */
 .tabular-list tr:last-child td {
-    border-bottom: 1px solid #ccc;
 }
 
 /* Missing element styling*/
@@ -55,8 +53,6 @@
 
 /* Heading of column*/
 .tabular-list .list-column-heading {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     color: #000;
     background-color: #ffffff;
     padding: 8px 10px;
