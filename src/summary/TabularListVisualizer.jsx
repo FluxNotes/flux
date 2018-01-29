@@ -38,10 +38,13 @@ class TabularListVisualizer extends Component {
     }
 
     // Closes the insertion menu
-    closeInsertionMenu = () => { 
-        this.setState({ elementToDisplayMenu: null });
+    closeInsertionMenu = (callback) => { 
+        if (callback) { 
+            this.setState({ elementToDisplayMenu: null }, callback);
+        } else { 
+            this.setState({ elementToDisplayMenu: null });
+        }
     }
-
     // Get a list of subsections to display given the current condition section
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
@@ -125,8 +128,10 @@ class TabularListVisualizer extends Component {
             } = this.state;
 
             const insertItem = (element) => {
-                this.props.onItemClicked(element)
-                this.closeInsertionMenu();
+                const callback = () => { 
+                    this.props.onItemClicked(element);
+                };
+                this.closeInsertionMenu(callback);
             };
             
             item.forEach((element, arrayIndex) => {
@@ -169,7 +174,7 @@ class TabularListVisualizer extends Component {
                                 className="narrative-inserter-tooltip"
                             >
                                 <MenuItem   
-                                    onClick={() => insertItem(element, elementId)}
+                                    onClick={() => insertItem(element)}
                                     className="narrative-inserter-box"
                                 >
                                     <ListItemIcon>

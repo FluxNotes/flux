@@ -207,8 +207,12 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // Closes the insertion menu
-    closeInsertionMenu = () => { 
-        this.setState({ snippetDisplayingMenu: null });
+    closeInsertionMenu = (callback) => { 
+        if (callback) { 
+            this.setState({ snippetDisplayingMenu: null }, callback);
+        } else { 
+            this.setState({ snippetDisplayingMenu: null });
+        }
     }
 
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
@@ -222,9 +226,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
           positionTop,
         } = this.state;
         
-        const insertItem = (item, snippetId) => {
-            this.closeInsertionMenu(snippetId);
-            this.props.onItemClicked(item);
+        const insertItem = (item) => {
+            const callback = () => { 
+                this.props.onItemClicked(item);
+            };
+            this.closeInsertionMenu(callback);
         };
         
         // now go through each snippet and build up HTML to render
@@ -244,11 +250,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             open={snippetDisplayingMenu === snippetId}
                             anchorReference="anchorPosition"
                             anchorPosition={{ top: positionTop, left: positionLeft }}
-                            onClose={(event) => this.closeInsertionMenu(snippetId)}
+                            onClose={(event) => this.closeInsertionMenu()}
                             className="narrative-inserter-tooltip"
                         >
                             <MenuItem   
-                                onClick={() => insertItem(snippet.item, snippetId)}
+                                onClick={() => insertItem(snippet.item)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>

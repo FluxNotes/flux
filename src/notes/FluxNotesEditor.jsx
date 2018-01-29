@@ -700,7 +700,7 @@ FluxNotesEditor.proptypes = {
     onSelectionChange: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     itemInserted: PropTypes.object,
-    summaryItemToInsert: PropTypes.object,
+    summaryItemToInsert: PropTypes.string,
     patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,

@@ -168,5 +168,5 @@ NotesPanel.propTypes = {
     handleSummaryItemSelected: PropTypes.func,
     handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
-    summaryItemToInsert: PropTypes.bool,
+    summaryItemToInsert: PropTypes.string,
 };
