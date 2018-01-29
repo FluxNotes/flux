@@ -601,10 +601,10 @@ class FluxNotesEditor extends React.Component {
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 
         // Preset note header information
-        let noteTitle = "Pathology Assessment";
+        let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
-        let source = "Dana Farber";
+        let source = "Dana Farber Cancer Institute";
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
@@ -626,14 +626,14 @@ class FluxNotesEditor extends React.Component {
             noteDescriptionContent = (
                 <div id="note-description">
                     <Row>
-                        <Col xs={5}>
+                        <Col xs={4}>
                             <h1 id="note-title">{noteTitle}</h1>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
                             <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={3}>
                             <p className="note-description-detail-name">Source</p>
                             <p className="note-description-detail-value">{source}</p>
                         </Col>
