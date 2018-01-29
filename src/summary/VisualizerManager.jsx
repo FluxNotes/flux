@@ -1,6 +1,5 @@
 import React from 'react';
 import TabularListVisualizer from './TabularListVisualizer'; //ordering of these lines matters
-import TabularNameValuePairsVisualizer from './TabularNameValuePairsVisualizer';
 import NarrativeNameValuePairsVisualizer from './NarrativeNameValuePairsVisualizer';
 import BandedLineChartVisualizer from './BandedLineChartVisualizer';
 import ProgressionLineChartVisualizer from './ProgressionLineChartVisualizer';
@@ -14,6 +13,7 @@ class VisualizerManager {
         
         const itemList = subsection.itemsFunction(patient, condition, subsection);        
         
+        newsection.name = "";
         newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
             return [    med.medication, 
@@ -26,12 +26,44 @@ class VisualizerManager {
     };
     
     transformNameValuePairToColumns = (patient, condition, subsection) => {
-        
+        let newsection = {};
+        //console.log(subsection);
+
+
+        const items = subsection.items;
+        const itemsFunction = subsection.itemsFunction;
+
+        let list = null;
+
+        if (Lang.isUndefined(items)) {
+            list = itemsFunction(patient, condition, subsection);
+        } else {
+            list = items.map((item, i) => {
+                if (Lang.isNull(item.value)) {
+                    return {name: item.name, value: null};
+                } else if (item.shortcut) {
+                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
+                } else {
+                    return {name: item.name, value: item.value(patient, condition) };
+                }
+            });
+        }
+
+        //console.log(list);
+        newsection.name = subsection.name;
+        newsection.items = list.map((item) => {
+            if (Lang.isNull(item.value)) {
+                return [    { value: item.name, isInsertable: false }, null ];
+            } else {
+                return [    { value: item.name, isInsertable: false }, { value: item.value, shortcut: item.shortcut } ];
+            }
+        });
+        return newsection;
     };
 
     visualizers = [
                     { "dataType": "Columns", "visualizerType": "tabular", "visualizer": TabularListVisualizer },
-                    { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularNameValuePairsVisualizer },
+                    { "dataType": "NameValuePairs", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformNameValuePairToColumns },
                     { "dataType": "NameValuePairs", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "Events", "visualizerType": "timeline", "visualizer": TimelineEventsVisualizer },
                     { "dataType": "Medications", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformMedicationsToColumns },
