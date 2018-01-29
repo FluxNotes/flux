@@ -411,9 +411,9 @@ class FluxNotesEditor extends React.Component {
     componentWillReceiveProps = (nextProps) => {
 
         // Check if the item to be inserted is updated
-        if (this.props.itemToBeInserted !== nextProps.itemToBeInserted && nextProps.itemToBeInserted.length > 0) {
+        if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
-                this.insertTextWithStructuredPhrases(nextProps.itemToBeInserted);
+                this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert);
                 this.props.itemInserted();
             }
         }
@@ -700,7 +700,7 @@ FluxNotesEditor.proptypes = {
     onSelectionChange: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     itemInserted: PropTypes.object,
-    itemToBeInserted: PropTypes.object,
+    summaryItemToInsert: PropTypes.string,
     patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,

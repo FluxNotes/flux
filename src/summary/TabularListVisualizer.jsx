@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import FontAwesome from 'react-fontawesome';
 import './TabularListVisualizer.css';
 
 
@@ -9,6 +12,40 @@ import './TabularListVisualizer.css';
  diagnosis-related, genetics-related, etc.
  */
 class TabularListVisualizer extends Component {
+    // Initialize values for insertion popups
+    constructor(props) { 
+        super(props);
+        this.state = {
+            elementToDisplayMenu: null,
+            positionTop: 0, // Just so the menu can be spotted more easily
+            positionLeft: 0, // Same as above
+        }
+    }
+
+    // Opens the insertion menu for the given element id, based on cursor location
+    openInsertionMenu = (event, elementId) => { 
+        // Get menu coordinates
+        let x = event.clientX;  // Get the horizontal coordinate of mouse
+        x += 4;                // push menu a little to the right
+        let y = event.clientY;  // Get the vertical coordinate of mouse
+        y += 7;                // push a little to the bottom of cursor
+
+        this.setState({ 
+            elementToDisplayMenu: elementId,
+            positionLeft: x,
+            positionTop: y,
+        });
+    }
+
+    // Closes the insertion menu
+    closeInsertionMenu = (callback) => { 
+        if (callback) { 
+            this.setState({ elementToDisplayMenu: null }, callback);
+        } else { 
+            this.setState({ elementToDisplayMenu: null });
+        }
+    }
+    // Get a list of subsections to display given the current condition section
     getSubsections() {
         const {patient, condition, conditionSection} = this.props;
 
@@ -24,37 +61,28 @@ class TabularListVisualizer extends Component {
         return subsections;
     }
 
+    // Get a formatted list of objects corresponding to every item to be displayed
     getList(subsection) {
         const {patient, condition, conditionSection} = this.props;
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
 
-        const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
 
-        let list = null;
+        const list = itemsFunction(patient, condition, subsection);
 
-        if (Lang.isUndefined(items)) {
-            list = itemsFunction(patient, condition, subsection);
-        } else {
-            list = items.map((item, i) => {
-                if (Lang.isNull(item.value)) {
-                    return {name: item.name, value: null};
-                } else {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
-                }
-            });
-        }
         return list;
     }
 
+    // Render subsections one by one
     renderedSubsections(subsections) {
         return subsections.map((subsection, index) => {
             return this.renderedSubsection(subsection, index);
         });
     }
 
+    // Render each subsection as a table of values 
     renderedSubsection(subsection, index) {
         const list = this.getList(subsection);
 
@@ -65,12 +93,7 @@ class TabularListVisualizer extends Component {
         if (subsection.headings) {
             let renderedColumnHeadings = [];
             subsection.headings.forEach((heading, headingIndex) => {
-                if (this.props.isWide) {
-                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
-                } else {
-                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
-                    renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex + "-spacer"}/>);
-                }
+                renderedColumnHeadings.push(<th key={index + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
             });
             headings = <tr>{renderedColumnHeadings}</tr>;
         }
@@ -94,47 +117,104 @@ class TabularListVisualizer extends Component {
         );
     }
 
+    // Render a given list item as a cell in a table
     renderedListItem(item, index, rowClass, itemClass, onClick, hoverClass) {
-            // Allows for 5% for each plus button, and the remainder divided among the columns. There are item.length columns.
-            let columnPercentage = (100 - 5*item.length) / item.length;
-            var renderedColumns = [];
+            // Array of all columns
+            const renderedColumns = [];
+            const {
+              elementToDisplayMenu,
+              positionLeft,
+              positionTop,
+            } = this.state;
+
+            const insertItem = (element) => {
+                const callback = () => { 
+                    this.props.onItemClicked(element);
+                };
+                this.closeInsertionMenu(callback);
+            };
+            
             item.forEach((element, arrayIndex) => {
-                var plusButtonForColumnItem = null;
-                var columnItem = null;
+                let columnItem = null;
                 if(Lang.isNull(element)){
                     columnItem = (
-                        <td width={columnPercentage + "%"} className={"list-missing"} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>Missing Data</td>
-                );
-                } else {
+                        <td 
+                            className={"list-missing"} 
+                            data-test-summary-item={item[0]} 
+                            key={index + "-item-" + arrayIndex}
+                        >   
+                            <span>
+                                Missing Data
+                            </span>
+                        </td>
+                    );
+                } else if (this.props.allowItemClick) {
+                    // Get value off of element given two cases: 
+                    // 1. Element type is shortcut, value is returned by element.value()
+                    // 2. Element type is string, the value is just the string
+                    const elementText = (element.shortcut) ? element.value : element;
+                    // Make unique id for each value
+                    const elementId = `${index}-item-${arrayIndex}`
                     columnItem = (
-                        <td width={columnPercentage + "%"} className={itemClass} data-test-summary-item={item[0]} key={index + "-item-" + arrayIndex}>{element}</td>
+                        <td 
+                            className={itemClass} 
+                            key={elementId}
+                        >   
+                            <span
+                                data-test-summary-item={item[0]} 
+                                onClick={(event) => this.openInsertionMenu(event, elementId)}
+                            >
+                                {elementText}
+                            </span>
+                            <Menu
+                                open={elementToDisplayMenu === elementId}
+                                anchorReference="anchorPosition"
+                                anchorPosition={{ top: positionTop, left: positionLeft }}
+                                onClose={(event) => this.closeInsertionMenu()}
+                                className="narrative-inserter-tooltip"
+                            >
+                                <MenuItem   
+                                    onClick={() => insertItem(element)}
+                                    className="narrative-inserter-box"
+                                >
+                                    <ListItemIcon>
+                                        <FontAwesome name="plus"/>
+                                    </ListItemIcon>
+                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
+                                </MenuItem>
+                            </Menu>
+                        </td>
                     );
-                }
-                if (this.props.isWide) {
-                    plusButtonForColumnItem = null;
-                } else if (this.props.allowItemClick && !Lang.isNull(element)) {
-                    plusButtonForColumnItem = (
-                            <td width="5%" onClick={() => { this.props.onItemClicked(item, arrayIndex)}} key={index + "-plus-" + arrayIndex} className="list-enabled">
-                                <span className={hoverClass}><i className="fa fa-plus-square fa-lg"></i></span>
-                            </td>
-                    );
-                } else {
-                        plusButtonForColumnItem = (
-                        <td className="list-disabled" width="5%" key={index + "-plus-" + arrayIndex}><span><i className="fa fa-plus-square fa-lg"></i></span></td>
+                } else { 
+                    const elementText = (element.shortcut) ? element.value : element;
+
+                    columnItem = (
+                        <td 
+                            className={itemClass} 
+                            data-test-summary-item={item[0]} 
+                            key={index + "-item-" + arrayIndex}
+                        >
+                            <span>
+                                {elementText}
+                            </span>
+                        </td>
                     );
                 }
                 renderedColumns.push(columnItem);
-                renderedColumns.push(plusButtonForColumnItem);
             });
             
             return (
-                <tr key={index} className={rowClass}>
+                <tr 
+                    key={index} 
+                    className={rowClass}
+                >
                     {renderedColumns}  
                 </tr>
             );
     }
     
-    renderedListItems(list, numberofHeadings) {
+    // Render all list items 
+    renderedListItems(list, numberOfHeadings) {
         let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
@@ -148,7 +228,7 @@ class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
-            return this.renderedListItem(item.slice(0,numberofHeadings), index, rowClass, itemClass, onClick, hoverClass);
+            return this.renderedListItem(item.slice(0,numberOfHeadings), index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 

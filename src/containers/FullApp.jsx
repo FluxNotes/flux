@@ -56,7 +56,7 @@ export default class FullApp extends Component {
             selectedText: null,
             documentText: null,
             superRole: 'Clinician',
-            SummaryItemToInsert: '',
+            summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
         };
     }
@@ -83,7 +83,7 @@ export default class FullApp extends Component {
 
     // Determines the item to be inserted
     itemInserted = () => {
-        this.setState({SummaryItemToInsert: ''});
+        this.setState({summaryItemToInsert: ''});
     }
 
     // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed.
@@ -129,18 +129,18 @@ export default class FullApp extends Component {
         })
     }
 
-    // Update the summaryitemtoinsert based on the item given
+    // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
         if (item) {
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
-                this.setState({SummaryItemToInsert: item[arrayIndex]});
+                this.setState({summaryItemToInsert: item[arrayIndex]});
             } else if (item.shortcut) {
-                this.setState({SummaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
+                this.setState({summaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
             } else if (item.value) {
-                this.setState({SummaryItemToInsert: item.value});
+                this.setState({summaryItemToInsert: item.value});
             } else {
-                this.setState({SummaryItemToInsert: item});
+                this.setState({summaryItemToInsert: item});
             }
         }
     }

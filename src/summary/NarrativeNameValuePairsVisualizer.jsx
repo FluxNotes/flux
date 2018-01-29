@@ -191,57 +191,30 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
-    // Number of milliseconds to wait
-    waitTimeOpen = 400
-    waitTimeClose = 400
-    openTimer = null
-    closeTimer = null
-
-    // Sets a timer to set the anchor element at this index to be the target div
-    timedPopoverOpen = (event, snippetId) => {
-        // Get popover coordinates
+    // Opens the insertion menu for the given snippet id, based on cursor location
+    openInsertionMenu = (event, snippetId) => { 
+        // Get menu coordinates
         let x = event.clientX;  // Get the horizontal coordinate of mouse
-        x += 10;                // push popover a little to the right
+        x += 4;                // push menu a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
-        y += 10;                // push a little to the bottom of cursor
-        
-        // Set timer for opening
-        this.openTimer = setTimeout(() => {
-            this.setState({ 
-                snippetDisplayingMenu: snippetId,
-                positionTop: y,
-                positionLeft: x,
-            });
-            this.openTimer = null;
-        }, this.waitTimeOpen);
+        y += 7;                // push a little to the bottom of cursor
+
+        this.setState({ 
+            snippetDisplayingMenu: snippetId,
+            positionLeft: x,
+            positionTop: y,
+        });
     }
 
-    // Clear timeout for opening menus
-    cancelPopoverOpen = () => { 
-        clearTimeout(this.openTimer);
-        this.openTimer = null;
+    // Closes the insertion menu
+    closeInsertionMenu = (callback) => { 
+        if (callback) { 
+            this.setState({ snippetDisplayingMenu: null }, callback);
+        } else { 
+            this.setState({ snippetDisplayingMenu: null });
+        }
     }
 
-    // Set timer to close 
-    timedPopoverClose = (event, snippetId) => { 
-        this.closeTimer = setTimeout(() => { 
-            this.closePopover()
-            this.closeTimer = null;
-        }, this.waitTimeClose);        
-    }
-
-    // Clear timeout for closing menus
-    cancelPopoverClose = () => { 
-        clearTimeout(this.closeTimer);
-        this.closeTimer = null;
-    }
-
-    // Make the anchor element for this snippetId null
-    closePopover = () => { 
-        this.setState({ snippetDisplayingMenu: null });
-    }
-
-    
     // Gets called for each section in SummaryMetaData.jsx that will be rendered by this component
     render() {
         // build list of snippets that are part of narrative to support typing each snippet so each
@@ -253,9 +226,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
           positionTop,
         } = this.state;
         
-        const insertItem = (item, snippetId) => {
-            this.props.onItemClicked(item);
-            this.closePopover(snippetId);
+        const insertItem = (item) => {
+            const callback = () => { 
+                this.props.onItemClicked(item);
+            };
+            this.closeInsertionMenu(callback);
         };
         
         // now go through each snippet and build up HTML to render
@@ -267,8 +242,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                     <span key={snippetId}>
                         <span 
                             className={snippet.type} 
-                            onMouseOver={(event) =>  this.timedPopoverOpen(event, snippetId)}
-                            onMouseLeave={(event) => this.cancelPopoverOpen()}
+                            onClick={(event) => this.openInsertionMenu(event, snippetId)}
                         >
                             {snippet.text}
                         </span>
@@ -276,13 +250,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             open={snippetDisplayingMenu === snippetId}
                             anchorReference="anchorPosition"
                             anchorPosition={{ top: positionTop, left: positionLeft }}
-                            onClose={(event) => this.closePopover(snippetId)}
+                            onClose={(event) => this.closeInsertionMenu()}
                             className="narrative-inserter-tooltip"
                         >
                             <MenuItem   
-                                onClick={() => insertItem(snippet.item, snippetId)}
-                                onMouseOver={(event) => this.cancelPopoverClose()}
-                                onMouseLeave={(event) => this.timedPopoverClose(event, snippetId)}
+                                onClick={() => insertItem(snippet.item)}
                                 className="narrative-inserter-box"
                             >
                                 <ListItemIcon>
