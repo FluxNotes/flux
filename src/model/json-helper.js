@@ -53,7 +53,7 @@ function setPropertiesFromJSON(inst, json) {
   // Loop through each key in the JSON, attempting to set it as a property on the class
   for (const key of Object.keys(json)) {
     // The key is an FQN (e.g., shr.foo.Bar), but the property is a lowercased version of the element name (e.g., bar)
-    //console.log(key)
+    console.log(key)
     const property = lowerCaseFirst(key.match(FQN_REGEX)[4]);
     // First try to find and set it directly on the instance
     const setter = findSetterForProperty(inst, property);
@@ -130,9 +130,9 @@ function createInstance(key, value) {
     return value.map(v => createInstance(key, v));
   }
   if (typeof value === 'object') { console.log(value)
-    if (value.ShrId && value.EntryId && value.EntryType) {
+    if (value['shr.base.ShrId'] && value['shr.base.EntryId'] && value['shr.base.EntryType']) {
       // It's a reference, so just return the reference
-      return new Reference(value.ShrId, value.EntryId, value.EntryType);
+      return new Reference(value['shr.base.ShrId'], value['shr.base.EntryId'], value['shr.base.EntryType']);
     } else if (value.code && value.codeSystem) {
       // It's really the one-off representation of code.  Return just the code.  We toss codeSystem and display
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.

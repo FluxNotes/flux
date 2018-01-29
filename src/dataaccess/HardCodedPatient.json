@@ -486,128 +486,156 @@
         "lastUpdateDate": "04 OCT 2013"
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "20",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1272745", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Improving, responding to treatment"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "13 JUN 2012",
-        "evidence": [   { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "13 JUN 2012",
-        "lastUpdateDate": "13 JUN 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "20",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "13 JUN 2012"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "21",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0677874", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Complete response or remission; no measurable or observable evidence of cancer."}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "01 NOV 2012",
-        "evidence": [   { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]},
-                        { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "01 NOV 2012",
-        "lastUpdateDate": "01 NOV 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "21",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0677874", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Complete response or remission; no measurable or observable evidence of cancer."}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "01 NOV 2012"},
+        "shr.base.LastUpdated": {"Value": "01 NOV 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "22",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1546960", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Worsening, disease progressing"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "17 APR 2014",
-        "evidence": [   { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "17 APR 2014",
-        "lastUpdateDate": "17 APR 2014"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "22",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},        
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "17 APR 2014"},
+        "shr.base.LastUpdated": {"Value": "17 APR 2014"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "23",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1272745", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Improving, responding to treatment"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "03 JUL 2014",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "03 JUL 2014",
-        "lastUpdateDate": "03 JUL 2014"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "23",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},        
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "03 JUL 2014"},
+        "shr.base.LastUpdated": {"Value": "03 JUL 2014"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "24",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0205360", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Stable, neither improving nor worsening"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "2 AUG 2015",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "2 AUG 2015",
-        "lastUpdateDate": "2 AUG 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "24",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},        
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1457887", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "2 AUG 2015"},
+        "shr.base.LastUpdated": {"Value": "2 AUG 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "25",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0205360", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Stable, neither improving nor worsening"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "11 AUG 2016",
-        "evidence": [   { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "11 AUG 2016",
-        "lastUpdateDate": "11 AUG 2016"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "25",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},        
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1457887", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "11 AUG 2016"},
+        "shr.base.LastUpdated": {"Value": "11 AUG 2016"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "26",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1546960", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Worsening, disease progressing"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "15 MAY 2017",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]},
-                        { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "15 MAY 2017",
-        "lastUpdateDate": "15 MAY 2017"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "26",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
+        "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]},
+        "shr.finding.ClinicallyRelevantTime": { "Value": "13 JAN 2012" },
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}   
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+        },
+        "shr.core.CreationTime": {"Value": "15 MAY 2017"},
+        "shr.base.LastUpdated": {"Value": "15 MAY 2017"}
     },
     {
         "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
