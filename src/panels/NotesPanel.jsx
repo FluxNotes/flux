@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'react-flexbox-grid';
-
+import {Row, Col} from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
@@ -12,15 +11,19 @@ export default class NotesPanel extends Component {
         super(props);
 
         this.state = {
+            // updatedEditorNote is the note to be loaded in the editor
             updatedEditorNote: null,
             noteAssistantMode: "context-tray",
-            selectedNote: null
+            // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
+            selectedNote: null,
+            currentlyEditingEntryId: -1
         };
 
         this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
         this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
         this.updateSelectedNote = this.updateSelectedNote.bind(this);
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
+        this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
     }
 
     updateNoteAssistantMode(mode) {
@@ -33,7 +36,7 @@ export default class NotesPanel extends Component {
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
-        if(!Lang.isNull(note)){
+        if (!Lang.isNull(note)) {
             this.props.setFullAppState("documentText", note.content);
         }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
@@ -50,6 +53,11 @@ export default class NotesPanel extends Component {
                 if (this.props.isNoteViewerVisible) {
                     this.setState({updatedEditorNote: note});
                     this.setState({selectedNote: note});
+                    if (!note) {
+                        this.setState({currentlyEditingEntryId: -1});
+                    } else {
+                        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
+                    }
                 }
             });
         }
@@ -61,8 +69,12 @@ export default class NotesPanel extends Component {
         }
     }
 
+    handleUpdateCurrentlyEditingEntryId(id) {
+        this.setState({currentlyEditingEntryId: id});
+    }
+
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
-    saveNoteUponKeypress(){
+    saveNoteUponKeypress() {
         this.saveNoteChild();
     }
 
@@ -114,6 +126,7 @@ export default class NotesPanel extends Component {
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
+                    selectedNote={this.state.selectedNote}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
 
                     currentViewMode={this.props.currentViewMode}
@@ -139,6 +152,8 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     documentText={this.props.documentText}
                     saveNote={click => this.saveNoteChild = click}
+                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
+                    currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                 />
             </div>
         );

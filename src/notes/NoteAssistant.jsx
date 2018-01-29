@@ -4,7 +4,6 @@ import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
-
 import ContextTray from '../context/ContextTray';
 import Button from '../elements/Button';
 import iconArrowLeft from '../../public/icons/icon_arrow_left.svg';
@@ -18,7 +17,6 @@ export default class NoteAssistant extends Component {
         this.state = {
             sortIndex: null,
             maxNotesToDisplay: 3,
-            currentlyEditingEntryId: -1
         };
     }
 
@@ -75,7 +73,7 @@ export default class NoteAssistant extends Component {
     }
 
     updateExistingNote = () => {
-        var entryId = this.state.currentlyEditingEntryId;
+        var entryId = this.props.currentlyEditingEntryId;
         // Only update if there is a note in progress
         if(!Lang.isEqual(entryId, -1)){
             // List the notes to verify that they are being updated each invocation of this function:
@@ -101,7 +99,14 @@ export default class NoteAssistant extends Component {
         
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
-        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
+
+        var found = this.props.patient.getNotes().find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
+        this.props.updateSelectedNote(found);
     }
 
     // creates blank new note and puts it on the screen
@@ -120,17 +125,24 @@ export default class NoteAssistant extends Component {
 
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-        this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
-        
-        // Deselect note in the clinical notes view
-        this.props.updateSelectedNote(null);
+        // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
+        this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
+
+        var found = this.props.patient.getNotes().find(function(element){
+            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
+        });
+
+        // Select note in the clinical notes view
+        this.props.updateSelectedNote(found);
+        this.props.loadNote(found);
+        this.toggleView("context-tray");
     }
 
     // save the note after every keypress. Invoked by FluxNotesEditor.
     saveNoteOnKeypress = () => {
         // Don't start saving until there is content in the editor
         if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
-            if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            if(Lang.isEqual(this.props.currentlyEditingEntryId, -1)){
                 this.saveEditorContentsToNewNote();    
             } else {
                 this.updateExistingNote();
@@ -142,13 +154,13 @@ export default class NoteAssistant extends Component {
     openNote = (isInProgressNote, note) => {
         // Don't start saving until there is content in the editor
         if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)  && this.props.documentText.length > 0){
-            if(Lang.isEqual(this.state.currentlyEditingEntryId, -1)){
+            if(Lang.isEqual(this.props.currentlyEditingEntryId, -1)){
                 this.saveEditorContentsToNewNote();    
             } else {
                 this.updateExistingNote();
             }
         }
-        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
+        this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
         // the lines below are duplicative
         this.props.updateSelectedNote(note);
         this.props.loadNote(note);
@@ -379,5 +391,6 @@ NoteAssistant.propTypes = {
     shortcutManager: PropTypes.object,
     isNoteViewerEditable: PropTypes.bool,
     saveNote: PropTypes.func,
-    handleSummaryItemSelected: PropTypes.func
+    handleSummaryItemSelected: PropTypes.func,
+    updateCurrentlyEditingEntryId: PropTypes.func
 };

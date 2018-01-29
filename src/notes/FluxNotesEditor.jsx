@@ -207,7 +207,6 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.clearContexts();
     }
 
-
     suggestionFunction(initialChar, text) {
         if (Lang.isUndefined(text)) return [];
         let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
@@ -347,7 +346,7 @@ class FluxNotesEditor extends React.Component {
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
         } else{
             if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
-                endOfNoteOffset = this.props.documentText.length
+                endOfNoteOffset = this.props.documentText.length;
             }
         }
 
@@ -420,6 +419,7 @@ class FluxNotesEditor extends React.Component {
 
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -600,6 +600,25 @@ class FluxNotesEditor extends React.Component {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 
+        // Preset note header information
+        let noteTitle = "New Note";
+        let date = Moment(new Date()).format('DD MMM YYYY');
+        let signedString = "not signed";
+        let source = "Dana Farber Cancer Institute";
+
+        // If a note is selected, update the note header with information from the selected note
+        if (this.props.selectedNote) {
+            noteTitle = this.props.selectedNote.subject;
+            date = this.props.selectedNote.date;
+            source = this.props.selectedNote.hospital;
+
+            if(this.props.selectedNote.signed) {
+                signedString = this.props.selectedNote.clinician;
+            } else {
+                signedString = "not signed";
+            }
+        }
+
         let noteDescriptionContent = null;
         if (this.props.patient == null) {
             noteDescriptionContent = "";
@@ -607,20 +626,20 @@ class FluxNotesEditor extends React.Component {
             noteDescriptionContent = (
                 <div id="note-description">
                     <Row>
-                        <Col xs={5}>
-                            <h1 id="note-title">Pathology Assessment</h1>
+                        <Col xs={4}>
+                            <h1 id="note-title">{noteTitle}</h1>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
-                            <p className="note-description-detail-value">{Moment(new Date()).format('DD MMM YYYY')}</p>
+                            <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={3}>
                             <p className="note-description-detail-name">Source</p>
-                            <p className="note-description-detail-value">Pathology Report</p>
+                            <p className="note-description-detail-value">{source}</p>
                         </Col>
                         <Col xs={3}>
                             <p className="note-description-detail-name">Signed By</p>
-                            <p className="note-description-detail-value">not signed</p>
+                            <p className="note-description-detail-value">{signedString}</p>
                         </Col>
                     </Row>
 
@@ -709,7 +728,7 @@ FluxNotesEditor.proptypes = {
     resetEditorState: PropTypes.func.isRequired,
     resetEditorAndContext: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
-    setFullAppState: PropTypes.func.isRequired, 
+    setFullAppState: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;
