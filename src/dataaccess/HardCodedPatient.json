@@ -415,76 +415,116 @@
         "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
         "originalCreationDate": "05 JUN 2017",
         "lastUpdateDate": "05 JUN 2017"
-    },
+    },    
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "15",
-        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/Procedure"},
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "specificType": {"value":{ "coding": [{ "value": "C0024671", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Mammography"}]}},
-        "status": "completed",
-        "occurrenceTime": "13 JAN 2012",
-        "reason": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "13 JAN 2012"
+        "shr.entity.Type" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Mammography"}]},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2012"}        
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "16",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value":{"coding": [{ "value": "C0454059", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Radiation therapy procedure or service"}]}},
-        "status": "completed",
-        "occurrenceTime": { "timePeriodStart": "12 JUL 2012",
-                            "timePeriodEnd": "16 AUG 2012"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "02 JUL 2012",
-        "lastUpdateDate": "02 JUL 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "16",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.entity.Type" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0454059", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Radiation therapy procedure or service"}]},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+               "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
+               "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
+               },
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "02 JUL 2012"},
+        "shr.base.LastUpdated": { "Value": "02 JUL 2012"}            
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "17",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value": {"coding": [{ "value": "C0851238", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Lumpectomy"}]}},
-        "status": "completed",
-        "occurrenceTime": "20 SEP 2012",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "20 SEP 2012",
-        "lastUpdateDate": "20 SEP 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "17",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.entity.Type" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0851238", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Lumpectomy"}]},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "20 SEP 2012"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "18",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value": {"coding": [{ "value": "C0796693", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Sentinel Lymph Node Biopsy"}]}},
-        "status": "completed",
-        "occurrenceTime": "20 SEP 2012",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "20 SEP 2012",
-        "lastUpdateDate": "20 SEP 2012"
-    },
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "18",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.entity.Type" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0796693", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Sentinel Lymph Node Biopsy"}]},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "20 SEP 2012"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
+    },       
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "19",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value":{"coding": [{ "value": "C0024671", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Mammography"}]}},
-        "status": "completed",
-        "occurrenceTime": "04 OCT 2013",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "04 OCT 2013",
-        "lastUpdateDate": "04 OCT 2013"
-    },
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "19",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.entity.Type" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Mammography"}]},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "04 OCT 2013"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "04 OCT 2013"},
+        "shr.base.LastUpdated": { "Value": "04 OCT 2013"}        
+    },        
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "20",
