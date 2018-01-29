@@ -64,6 +64,22 @@ class FluxMedicationRequested {
     get status() {
         return this._medicationRequested.actionContext.status.value.coding[0].displayText.value.value;
     }
+    
+    /*
+     * Getter for prescribed by, using Author as the prescribing doctor
+     * Returns author string
+     */
+    get prescribedBy() {
+        return this._author.value;
+    }
+    
+    /*
+     * Getter for when prescribed, using the creation time of the entry as the time prescribed
+     * Returns date as a string
+     */
+    get whenPrescribed() {
+        return this._entryInfo._creationTime.value;
+    }
 }
 
 export default FluxMedicationRequested;
