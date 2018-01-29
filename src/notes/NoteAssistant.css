@@ -13,6 +13,23 @@ span.button-hover {
 
 .toggle-button {
     background-color: #FFFFFF !important;
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
+}
+
+.toggle-button-selected {
+    background-color: #3399FF !important;
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
+}
+
+.toggle-button-disabled {
+    background-color: #FFFFFF !important;
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
 }
 
 
