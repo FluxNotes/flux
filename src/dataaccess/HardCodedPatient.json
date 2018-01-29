@@ -1000,18 +1000,22 @@
         "shr.base.LastUpdated": {"Value": "15 MAY 2017"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "27",
-        "entryType":    [   "http://standardhealthrecord.org/condition/Injury",
-                        "http://standardhealthrecord.org/condition/Condition" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": {"value": {"coding": [{"value": "C0016658", "codeSystem": {"value": "http://ncimeta.nci.nih.gov"}, "displayText": "Fracture"}]}},
-        "category": [ {"coding": [{"value": "#structural_abnormality"}]} ],
-        "clinicalStatus": "active",
-        "includeOnProblemList": true,
-        "whenClinicallyRecognized": {"generalizedTemporalContext": { "timePeriodStart": "13 JUN 2017" } },
-        "originalCreationDate": "13 JUN 2017",
-        "lastUpdateDate": "13 JUN 2017"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "27",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0016658", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "Fracture"}]},
+        "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#structural_abnormality"}]},
+        "shr.condition.ClinicalStatus": {"Value": "active"},
+        "shr.condition.WhenClinicallyRecognized": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
+            "Value": { 
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "13 JAN 2017"
+            }
+        },
+        "shr.core.CreationTime": {"Value": "13 JAN 2017"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2017"}
     },
     {
         "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
