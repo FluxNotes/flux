@@ -11,6 +11,11 @@ span.button-hover {
     transition-property: transform;
 }
 
+.toggle-button {
+    background-color: #FFFFFF !important;
+}
+
+
 .clinical-notes-panel { 
     float: right;
 }

@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Row, Col} from 'react-flexbox-grid';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -33,7 +35,7 @@ export default class NoteAssistant extends Component {
         this.selectSort(0);
         this.getNotesFromPatient(this.props);
     }
-    
+
     componentDidMount() {
         // set callback so the editor can signal a change and this class can save the note
         this.props.saveNote(this.saveNoteOnKeypress);
@@ -67,7 +69,7 @@ export default class NoteAssistant extends Component {
     }
 
     // Gets called when clicking on the "new note" button
-    handleOnNewNoteButtonClick  = () => {
+    handleOnNewNoteButtonClick = () => {
         this.updateExistingNote();
         this.createBlankNewNote();
     }
@@ -75,13 +77,13 @@ export default class NoteAssistant extends Component {
     updateExistingNote = () => {
         var entryId = this.props.currentlyEditingEntryId;
         // Only update if there is a note in progress
-        if(!Lang.isEqual(entryId, -1)){
+        if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
             // console.log(this.props.patient.getNotes());
             var found = this.props.patient.getNotes().find(function(element){
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
-            if(!Lang.isNull(found) && !Lang.isUndefined(found)){
+            if (!Lang.isNull(found) && !Lang.isUndefined(found)) {
                 found.content = this.props.documentText;
                 this.props.patient.updateExistingEntry(found);
                 this.props.updateSelectedNote(found);
@@ -96,7 +98,7 @@ export default class NoteAssistant extends Component {
         let hospital = "Dana Farber Cancer Institute";
         let clinician = "Dr. X123";
         let signed = false;
-        
+
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
         // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
@@ -226,7 +228,7 @@ export default class NoteAssistant extends Component {
         return (
             <div className="note note-new" onClick={() => this.handleOnNewNoteButtonClick()}>
                 <div className="note-new-text">
-                    <FontAwesome name="plus" />
+                    <FontAwesome name="plus"/>
                     <span>New note</span>
                 </div>
             </div>
@@ -259,7 +261,7 @@ export default class NoteAssistant extends Component {
     renderSortSelection() {
         return (
             <div className="sort-selection">
-                <div className="sort-label">Sort by </div>
+                <div className="sort-label">Sort by</div>
 
                 <Select
                     className="sort-select"
@@ -370,6 +372,38 @@ export default class NoteAssistant extends Component {
         if (this.props.isNoteViewerEditable) {
             return (
                 <div>
+                    <Row center="xs">
+                        <Col sm={6}>
+                            <MaterialButton raised className="toggle-button">
+                                <svg width="19px" height="17px" viewBox="0 0 19 17">
+                                    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                                        <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke="#666666"
+                                           strokeWidth="1.62">
+                                            <path
+                                                d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
+                                                id="Rectangle-12-Copy-4"
+                                                transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
+                                            <polyline id="Path-2"
+                                                      points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </MaterialButton>
+                        </Col>
+                        <Col sm={6}>
+                            <MaterialButton raised className="toggle-button">
+                                <svg width="15px" height="20px" viewBox="0 0 15 16">
+                                    <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
+                                       fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
+                                       letterSpacing="0.172221214">
+                                        <text id="@-copy" fill="#666666">
+                                            <tspan x="-0.844039108" y="16.2245462">@</tspan>
+                                        </text>
+                                    </g>
+                                </svg>
+                            </MaterialButton>
+                        </Col>
+                    </Row>
                     {this.renderNoteAssistantContent(this.props.noteAssistantMode)}
                 </div>
             );
