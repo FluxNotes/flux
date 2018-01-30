@@ -13,8 +13,8 @@ class FluxDeceased {
      *  This will return the date value
      */
     get dateOfDeath() {
-        if (Lang.isUndefined(this._deceased.dateOfDeath)) this._dateOfDeath = new DateOfDeath();
-        if (Lang.isUndefined(this._deceased.dateOfDeath.generalizedDateTime)) this._dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
+        if (Lang.isUndefined(this._deceased.dateOfDeath)) this._deceased.dateOfDeath = new DateOfDeath();
+        if (Lang.isUndefined(this._deceased.dateOfDeath.generalizedDateTime)) this._deceased.dateOfDeath.generalizedDateTime = new GeneralizedDateTime();
         return this._deceased.dateOfDeath.generalizedDateTime.value;
     }
 

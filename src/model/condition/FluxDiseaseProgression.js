@@ -5,6 +5,7 @@ import CreationTime from '../shr/core/CreationTime';
 import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
 import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
+import EntryType from '../shr/base/EntryType';
 
 // FluxDiseaseProgression class to hide codeableconcepts
 class FluxDiseaseProgression {
@@ -12,6 +13,8 @@ class FluxDiseaseProgression {
         this._diseaseProgression = DiseaseProgression.fromJSON(json);
         if (!this._diseaseProgression.entryInfo) {
             let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression';
             this._diseaseProgression.entryInfo = entry;
         }
     }

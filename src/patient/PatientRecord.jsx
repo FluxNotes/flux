@@ -10,6 +10,8 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxPhotograph from '../model/base/FluxPhotograph';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
+import CreationTime from '../model/shr/core/CreationTime';
+import LastUpdated from '../model/shr/base/LastUpdated';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -78,14 +80,18 @@ class PatientRecord {
     }
 
     addEntryToPatient(entry) {
+        console.log(entry);
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
-        // let today = new moment().format("D MMM YYYY");
-        // entry.entryInfo.originalCreationDate = today;
-        // entry.entryInfo.lastUpdateDate = today;
+        let today = new moment().format("D MMM YYYY");
+        entry.entryInfo.creationTime = new CreationTime();
+        entry.entryInfo.creationTime.dateTime = today;
+        entry.entryInfo.lastUpdated = new LastUpdated();
+        entry.entryInfo.lastUpdated.instant = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
+        console.log(this.entries);
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
         return entry.entryInfo.entryId;
     }

@@ -1,10 +1,25 @@
 import Study from '../shr/research/Study';
 import Title from '../shr/core/Title';
 import Identifier from '../shr/core/Identifier';
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
+import EffectiveTimePeriod from '../shr/core/EffectiveTimePeriod';
+import TimePeriodStart from '../shr/core/TimePeriodStart';
+import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 
 class FluxStudy {
     constructor(json) {
         this._study = Study.fromJSON(json);
+        if (!this._study.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/research/Study';
+            this._study.entryInfo = entry;
+        }
+    }
+
+    get entryInfo() {
+        return this._study.entryInfo;
     }
 
     /**
@@ -50,19 +65,31 @@ class FluxStudy {
     }
 
     get enrollmentDate() {
-        return this._enrollmentDate;
+        if (!this._study.effectiveTimePeriod || !this._study.effectiveTimePeriod.timePeriodStart) return null;
+        return this._study.effectiveTimePeriod.timePeriodStart.value;
     }
   
     set enrollmentDate(val) {
-        this._enrollmentDate = val;
+        if (!this._study.effectiveTimePeriod) {
+            this._study.effectiveTimePeriod = new EffectiveTimePeriod();
+        }
+        let timePeriodStart = new TimePeriodStart();
+        timePeriodStart.value = val;
+        this._study.effectiveTimePeriod.timePeriodStart = timePeriodStart;
     }
   
     get endDate() {
-        return this._endDate;
+        if (!this._study.effectiveTimePeriod || !this._study.effectiveTimePeriod.timePeriodEnd) return null;
+        return this._study.effectiveTimePeriod.timePeriodEnd.value;
     }
   
     set endDate(val) {
-        this._endDate = val;
+        if (!this._study.effectiveTimePeriod) {
+            this._study.effectiveTimePeriod = new EffectiveTimePeriod();
+        }
+        let timePeriodEnd = new TimePeriodEnd();
+        timePeriodEnd.value = val;
+        this._study.effectiveTimePeriod.timePeriodEnd = timePeriodEnd;
     }
 }
 
