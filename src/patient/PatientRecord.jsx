@@ -248,7 +248,7 @@ class PatientRecord {
         let result = [];
         conditions.forEach((c, i) => {
             result.push({
-                name: "diagnosis date - " + c.specificType.coding[0].displayText,
+                name: "diagnosis date - " + c.type,
                 start_time: c.diagnosisDate
             });
         });

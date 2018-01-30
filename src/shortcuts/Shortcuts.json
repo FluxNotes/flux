@@ -285,7 +285,7 @@
   },
   { "type": "InsertValue",
     "id": "ProcedureInserter",
-    "getData": {"object": "patient", "method": "getProcedures", "itemKey": "entryInfo.entryId", "itemContext":"specificType.value.coding.0.displayText.value"},
+    "getData": {"object": "patient", "method": "getProcedures", "itemKey": "entryInfo.entryId", "itemContext":"name"},
     "isContext": true,
     "stringTriggers": [{"name":"@procedure", "description": "Select a procedure of the patient to insert and support capturing further information about."}],
     "knownParentContexts": "Patient"
