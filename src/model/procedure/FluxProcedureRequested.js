@@ -16,10 +16,10 @@ class FluxProcedureRequested {
      *  Returns a date if a single value
      */
     get occurrenceTime() {
-        if(this._procedureRequested.actionContext.expectedPerformanceTime instanceof TimePeriod) {
+        if(this._procedureRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._procedureRequested.actionContext.expectedPerformanceTime.timePeriodStart.value,
-                timePeriodEnd: this._procedureRequested.actionContext.expectedPerformanceTime.timePeriodEnd.value
+                timePeriodStart: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
+                timePeriodEnd: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
             };
         } else {
             return this._procedureRequested.actionContext.expectedPerformanceTime.value;
