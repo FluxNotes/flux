@@ -1,6 +1,6 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
-// import moment from 'moment';
+import moment from 'moment';
 
 class FluxMedicationRequested {
     constructor(json) {
@@ -18,15 +18,15 @@ class FluxMedicationRequested {
         };
     }
     
-    // isActiveAsOf(date) {
-    //     const requestedPerformanceTime = this.requestedPerformanceTime;
-    //     if (!requestedPerformanceTime) return null;
-    //     const start = new moment(requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-    //     const end = new moment(requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
-    //     if (start && start > date) return false;
-    //     if (end && end < date) return false;
-    //     return true;
-    // }
+    isActiveAsOf(date) {
+        const expectedPerformanceTime = this.expectedPerformanceTime;
+        if (!expectedPerformanceTime) return null;
+        const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+        if (start && start > date) return false;
+        if (end && end < date) return false;
+        return true;
+    }
 
     get entryInfo() {
         return this._medicationRequested.entryInfo;
