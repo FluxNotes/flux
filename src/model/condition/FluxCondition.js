@@ -19,9 +19,19 @@ class FluxCondition {
         return null;
     }
 
+    get code() {
+        if (!this._condition.value) return null;
+        return this._condition.value.coding[0].value;
+    }
+
+    get codeSystem() {
+        if (!this._condition.value) return null;
+        return this._condition.value.coding[0].codeSystem.value;
+    }
+
     get type() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].displayText;
+        return this._condition.value.coding[0].displayText.value;
     }
 
     getObservationsOfType(type) {

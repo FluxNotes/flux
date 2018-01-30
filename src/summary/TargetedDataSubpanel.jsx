@@ -17,8 +17,8 @@ class TargetedDataSubpanel extends Component {
 
         let codeSystem, code, conditionMetadata = null;
         if (condition != null) {
-            codeSystem = condition.specificType.value.coding[0].codeSystem.value;
-            code = condition.specificType.value.coding[0].value;
+            codeSystem = condition.codeSystem;
+            code = condition.code;
             conditionMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
         }
 

@@ -1,6 +1,5 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
-import BreastCancer from '../model/shr/oncology/BreastCancer';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import Condition from '../model/shr/condition/Condition';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
@@ -17,6 +16,8 @@ import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
 import FluxPatient from '../model/entity/FluxPatient';
+import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
+import FluxCondition from '../model/condition/FluxCondition';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -96,7 +97,7 @@ class PatientRecord {
     }
 
     setDeceased(deceased) {
-        this.personOfRecord.deceased = deceased;
+        this.patient.deceased = deceased;
     }
 
     static isEntryOfType(entry, type) {
@@ -168,7 +169,7 @@ class PatientRecord {
     }
 
     getConditions() {
-        return this.getEntriesIncludingType(Condition);
+        return this.getEntriesIncludingType(FluxCondition);
     }
 
     getConditionsChronologicalOrder() {
@@ -212,7 +213,7 @@ class PatientRecord {
     }
 
     getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(BreastCancer);
+        let result = this.getEntriesOfType(FluxBreastCancer);
         return result[result.length - 1];
     }
 

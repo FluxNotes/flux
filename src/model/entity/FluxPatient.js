@@ -1,4 +1,5 @@
 import Patient from "../shr/entity/Patient";
+import Deceased from "../shr/entity/Deceased";
 
 
 class FluxPatient {
@@ -36,6 +37,16 @@ class FluxPatient {
             return this._patient.party.address;
         }
         return null;
+    }
+
+    get deceased() {
+        return this._patient.deceased;
+    }
+
+    set deceased(val) {
+        let deceased = new Deceased();
+        deceased.value = val;
+        this._patient.deceased = deceased;
     }
 }
 
