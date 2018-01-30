@@ -206,6 +206,7 @@ class SummaryMetadata {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
+                                            if (list.length == 0) return null;
                                             return list[0].quantity.value + " " + list[0].quantity.unit;
                                         }
                                     },
@@ -513,8 +514,8 @@ class SummaryMetadata {
         let items = [];
 
         meds.forEach((med) => {
-            const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+            const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
             const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;

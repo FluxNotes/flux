@@ -1,4 +1,5 @@
 import ObjectFactory from './ObjectFactory';
+import FluxObjectFactory from './FluxObjectFactory';
 import Reference from './Reference';
 import Entry from './shr/base/Entry';
 
@@ -138,7 +139,7 @@ function createInstance(key, value) {
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
       return value.code;
     }
-    return ObjectFactory.createInstance(value, key);
+    return FluxObjectFactory.createInstance(value, key);
   }
   return value;
 }

@@ -289,8 +289,8 @@ class PatientRecord {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reason.some((r) => {
-                    return r.value.entryId === condition.entryInfo.entryId;
-                });
+                return r.entryId === condition.entryInfo.entryId;
+            });
         });
         return medications;
     }
@@ -331,7 +331,7 @@ class PatientRecord {
 
     getProgressionsForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxDiseaseProgression && item.assessmentFocus.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxDiseaseProgression && item.focalSubjectReference.entryId === condition.entryInfo.entryId;
         });
     }
 
@@ -366,8 +366,8 @@ class PatientRecord {
     }
 
     _medsTimeSorter(a, b) {
-        const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-        const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }

@@ -1,23 +1,46 @@
 import BreastCancer from '../shr/oncology/BreastCancer';
 // import FluxTest from '../lab/FluxTest';
-// import FluxTNMStage from './FluxTNMStage';
+import FluxTNMStage from './FluxTNMStage';
 // import FluxProcedure from '../procedure/FluxProcedure';
 // import FluxMedicationPrescription from '../medication/FluxMedicationPrescription';
 // import FluxProgression from './FluxProgression';
 // import FluxTumorSize from './FluxTumorSize';
 // import FluxHistologicGrade from './FluxHistologicGrade';
 // import ReceptorStatusObservation from '../shr/oncology/ReceptorStatusObservation';
-// import SpecificType from '../shr/core/SpecificType';
-// import Lang from 'lodash'
-// import moment from 'moment';
-// import lookup from '../../lib/cancer_lookup.jsx';
 import FluxCondition from '../condition/FluxCondition';
+import moment from 'moment';
+import Lang from 'lodash'
+import lookup from '../../lib/cancer_lookup.jsx';
+import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
+import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
+import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
+
 
 class FluxBreastCancer extends FluxCondition {
     constructor(json) {
         super(json);
         this._condition = BreastCancer.fromJSON(json);
     }
+
+    get laterality() {
+        if (!this._condition.bodySiteOrCode) return null;
+        return this._condition.bodySiteOrCode.value.coding[0].displayText.value;        
+    }
+
+    getMostRecentStaging(sinceDate = null) {
+        let stagingList = this.getObservationsOfType(FluxTNMStage);
+        if (stagingList.length === 0) return null;
+        const sortedStagingList = stagingList.sort(this._observationTimeSorter);
+        const length = sortedStagingList.length;
+        let s = (sortedStagingList[length - 1]);
+        if (Lang.isNull(sinceDate)) return s;
+        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
+        if (startTime < sinceDate) {
+            return null;
+        } else {
+            return s;
+        }
+    } 
 
     // getObservationsOfType(type) {
     //     if (!this.observation) return [];
@@ -26,11 +49,11 @@ class FluxBreastCancer extends FluxCondition {
     //     });
     // }
 
-    // addObservation(observation) {
-    //     let currentObservations = this.observation;
-    //     currentObservations.push(observation);
-    //     this.observation = currentObservations;
-    // }
+    addObservation(observation) {
+        let currentObservations = this.observation;
+        currentObservations.push(observation);
+        this.observation = currentObservations;
+    }
 
     // getTests() {
     //     return this.getObservationsOfType(FluxTest);
@@ -128,45 +151,26 @@ class FluxBreastCancer extends FluxCondition {
     //     return 0;
     // }
 
-    // _getReceptorStatus(receptorType) {
-    //     let listObs = this.getObservationsOfType(ReceptorStatusObservation);
-    //     let list = listObs.filter((item) => {
-    //         return item.receptorType && item.receptorType.value.coding[0].value === receptorType;
-    //     });
-    //     if (list.length === 0) return null; else return list[0];
-    // }
+    _getReceptorStatus(receptorType) {
+        let list = this.getObservationsOfType(receptorType);
+        if (list.length === 0) return null; else return list[0];
+    }
 
-    // getERReceptorStatus() {
-    //     return this._getReceptorStatus("23307004");
-    // }
+    getERReceptorStatus() {
+        return this._getReceptorStatus(FluxEstrogenReceptorStatus);
+    }
 
-    // getPRReceptorStatus() {
-    //     return this._getReceptorStatus("C0034833");
-    // }
+    getPRReceptorStatus() {
+        return this._getReceptorStatus(FluxProgesteroneReceptorStatus);
+    }
 
-    // getHER2ReceptorStatus() {
-    //     return this._getReceptorStatus("C0069515");
-    // }
+    getHER2ReceptorStatus() {
+        return this._getReceptorStatus(FluxHER2ReceptorStatus);
+    }
 
-    // getMostRecentStaging(sinceDate = null) {
-    //     let stagingList = this.getObservationsOfType(FluxTNMStage);
-    //     if (stagingList.length === 0) return null;
-    //     const sortedStagingList = stagingList.sort(this._observationTimeSorter);
-    //     const length = sortedStagingList.length;
-    //     let s = (sortedStagingList[length - 1]);
-    //     if (Lang.isNull(sinceDate)) return s;
-    //     const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
-    //     if (startTime < sinceDate) {
-    //         return null;
-    //     } else {
-    //         return s;
-    //     }
-    // }    
+       
   
-    // get laterality() {
-    //     if (!this.bodySite && !this.bodySite.laterality) return null;
-    //     return this.bodySite.laterality.value.coding[0].displayText.value;        
-    // }
+    
 
     /**
      *  function to build HPI Narrative

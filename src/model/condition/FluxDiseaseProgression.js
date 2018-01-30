@@ -99,7 +99,7 @@ class FluxDiseaseProgression {
         return null;
     }
     
-    set assessmentFocus(val) {
+    set focalSubjectReference(val) {
         this._diseaseProgression.focalSubjectReference = val;
     }
     

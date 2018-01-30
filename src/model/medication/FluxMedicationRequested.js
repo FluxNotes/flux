@@ -10,12 +10,12 @@ class FluxMedicationRequested {
      *  Getter for requestedPerformanceTime
      *  Returns object containing timePeriodStart and timePeriodEnd value
      */
-    // get requestedPerformanceTime() {
-    //     return {
-    //         timePeriodStart: this._medicationRequested.supplyDuration.duration.units.value,
-    //         timePeriodEnd: this._requestedPerformanceTime.value.timePeriodEnd.value
-    //     };
-    // }
+    get expectedPerformanceTime() {
+        return {
+            timePeriodStart: this._medicationRequested.actionContext.expectedPerformanceTime.timePeriodStart.value,
+            timePeriodEnd: this._medicationRequested.actionContext.expectedPerformanceTime.timePeriodEnd.value
+        };
+    }
     
     // isActiveAsOf(date) {
     //     const requestedPerformanceTime = this.requestedPerformanceTime;
@@ -36,7 +36,7 @@ class FluxMedicationRequested {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._medicationRequested.medicationOrCode.value.value.coding[0].displayText.value.value;
+        return this._medicationRequested.medicationOrCode.value.coding[0].displayText.value;
     }
 
     /*
@@ -45,8 +45,8 @@ class FluxMedicationRequested {
      */
     get amountPerDose() {
         return {
-            value: this._medicationRequested.dosage.doseAmount.value.value,
-            units: this._medicationRequested.dosage.doseAmount.value.units.coding.coding[0].value
+            value: this._medicationRequested.dosage.doseAmount.value.decimal,
+            units: this._medicationRequested.dosage.doseAmount.value.units.value.code
         };
     }
 
@@ -83,6 +83,14 @@ class FluxMedicationRequested {
      */
     get whenPrescribed() {
         return this._entryInfo._creationTime.value;
+    }
+
+    /*
+     *  Getter for reason for this medication
+     *  Returns array of reasons
+     */
+    get reason() {
+        return this._medicationRequested.actionContext.reason.value;
     }
 }
 
