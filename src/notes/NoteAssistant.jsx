@@ -19,31 +19,21 @@ export default class NoteAssistant extends Component {
             maxNotesToDisplay: 3,
         };
 
+        // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
+            // Check if the clinical notes view mode is active and if it is, set the notes button to selected, otherwise select the context button
             if (this.props.noteAssistantMode === "clinical-notes") {
-                this.notes_btn_classname = "toggle-button-selected";
-                this.notes_stroke = "#FFFFFF";
-                this.notes_disabled = false;
-                this.context_btn_classname = "toggle-button";
-                this.context_fill = "#666666";
-                this.context_disabled = false;
-            } else {
-                this.notes_btn_classname = "toggle-button";
-                this.notes_stroke = "#666666";
-                this.notes_disabled = false;
-                this.context_btn_classname = "toggle-button-selected"
-                this.context_fill = "#FFFFFF";
-                this.context_disabled = false;
+                this.onNotesToggleButtonClicked();
             }
-        } else {
-            this.notes_btn_classname = "toggle-button-selected";
-            this.notes_stroke = "#FFFFFF";
-            this.notes_disabled = false;
+            else {
+                this.onContextToggleButtonClicked();
+            }
+        }
 
-            // disable context button
-            this.context_btn_classname = "toggle-button-disabled";
-            this.context_disabled = true;
-            this.context_fill = "#e6e6e6";
+        // If the note editor is note editable, set the notes button to selected and disable the context button
+        else {
+            this.onNotesToggleButtonClicked();
+            this.disableContextToggleButton();
         }
     }
 
@@ -53,26 +43,15 @@ export default class NoteAssistant extends Component {
 
     componentWillUpdate(nextProps, nextState) {
         this.getNotesFromPatient(nextProps);
-        
+
         if (nextProps.noteAssistantMode === "context-tray") {
-            this.context_btn_classname = "toggle-button-selected";
-            this.context_fill = "#ffffff";
-            this.notes_btn_classname = "toggle-button";
-            this.notes_stroke = "#666666";
+            this.onContextToggleButtonClicked();
         } else {
-            this.context_btn_classname = "toggle-button";
-            this.context_fill = "#666666";
-            this.notes_btn_classname = "toggle-button-selected";
-            this.notes_stroke = "#ffffff";
+            this.onNotesToggleButtonClicked();
         }
 
-        if(!nextProps.isNoteViewerEditable) {
-            // disable context button
-            this.context_btn_classname = "toggle-button-disabled";
-            this.context_disabled = true;
-            this.context_fill = "#e6e6e6";
-        } else {
-            this.context_disabled = false;
+        if (!nextProps.isNoteViewerEditable) {
+            this.disableContextToggleButton();
         }
     }
 
@@ -107,31 +86,32 @@ export default class NoteAssistant extends Component {
     // Switch view (i.e clinical notes view or context tray)
     toggleView(mode) {
         this.props.updateNoteAssistantMode(mode);
-
-        // if(!this.props.isNoteViewerEditable) {
-        //     // disable context button
-        //     this.context_btn_classname = "toggle-button-disabled";
-        //     this.context_disabled = true;
-        //     this.context_fill = "#e6e6e6";
-        // } else {
-        //     this.context_disabled = false;
-        // }
-        //
-        // if (mode === "context-tray") {
-        //     this.context_btn_classname = "toggle-button-selected";
-        //     this.context_fill = "#ffffff";
-        //     this.notes_btn_classname = "toggle-button";
-        //     this.notes_stroke = "#666666";
-        //
-        //
-        // } else {
-        //         this.context_btn_classname = "toggle-button";
-        //         this.context_fill = "#666666";
-        //         this.notes_btn_classname = "toggle-button-selected";
-        //         this.notes_stroke = "#ffffff";
-        //
-        // }
     }
+
+    onNotesToggleButtonClicked() {
+        this.notes_btn_classname = "toggle-button-selected";
+        this.notes_stroke = "#FFFFFF";
+        this.notes_disabled = false;
+        this.context_btn_classname = "toggle-button";
+        this.context_fill = "#666666";
+        this.context_disabled = false;
+    }
+
+    onContextToggleButtonClicked() {
+        this.notes_btn_classname = "toggle-button";
+        this.notes_stroke = "#666666";
+        this.notes_disabled = false;
+        this.context_btn_classname = "toggle-button-selected"
+        this.context_fill = "#FFFFFF";
+        this.context_disabled = false;
+    }
+
+    disableContextToggleButton() {
+        this.context_btn_classname = "toggle-button";
+        this.context_disabled = true;
+        this.context_fill = "#e6e6e6";
+    }
+
 
     // Update the selected index for the sort drop down
     selectSort(sortIndex) {
@@ -197,7 +177,6 @@ export default class NoteAssistant extends Component {
 
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
-        // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
         this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
 
         var found = this.props.patient.getNotes().find(function (element) {
@@ -226,8 +205,6 @@ export default class NoteAssistant extends Component {
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
 
-        console.log("is editor editable");
-        console.log(this.props.isNoteViewerEditable);
         // Don't start saving until there is content in the editor
         if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
             if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
@@ -245,8 +222,6 @@ export default class NoteAssistant extends Component {
         if (isInProgressNote) {
             this.props.setFullAppState('isNoteViewerEditable', true);
             this.toggleView("context-tray");
-
-
         } else {
             this.props.setFullAppState('isNoteViewerEditable', false);
             this.toggleView("clinical-notes");
@@ -311,9 +286,6 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         const selected = this.props.selectedNote === note;
-        /*  console.log("in renderInProgressNoteSVG");
-         console.log(note);
-         console.log(selected);*/
 
         return (
             <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
@@ -440,6 +412,53 @@ export default class NoteAssistant extends Component {
         }
     }
 
+    renderToggleButtons() {
+        return (
+            <div>
+                <MaterialButton
+                    raised
+                    id="notes-btn"
+                    className={this.notes_btn_classname}
+                    disabled={this.notes_disabled}
+                    onClick={() => {
+                        this.toggleView("clinical-notes")
+                    }}>
+                    <svg width="19px" height="20px" viewBox="0 0 19 17">
+                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                            <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
+                               strokeWidth="1.62">
+                                <path
+                                    d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
+                                    id="Rectangle-12-Copy-4"
+                                    transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
+                                <polyline id="Path-2"
+                                          points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
+                            </g>
+                        </g>
+                    </svg>
+                </MaterialButton>
+                <MaterialButton
+                    raised
+                    id="context-btn"
+                    className={this.context_btn_classname}
+                    disabled={this.context_disabled}
+                    onClick={() => {
+                    this.toggleView("context-tray")
+                }}>
+                    <svg width="15px" height="20px" viewBox="0 0 15 16">
+                        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
+                           fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
+                           letterSpacing="0.172221214">
+                            <text id="@-copy" fill={this.context_fill}>
+                                <tspan x="-0.844039108" y="16.2245462">@</tspan>
+                            </text>
+                        </g>
+                    </svg>
+                </MaterialButton>
+            </div>
+        );
+    }
+
     // Main render method
     render() {
 
@@ -447,37 +466,7 @@ export default class NoteAssistant extends Component {
         if (this.props.isNoteViewerEditable) {
             return (
                 <div>
-                    <MaterialButton raised id="notes-btn" className={this.notes_btn_classname} disabled={this.notes_disabled} onClick={() => {
-                        this.toggleView("clinical-notes")
-                    }}>
-                        <svg width="19px" height="20px" viewBox="0 0 19 17">
-                            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                                <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
-                                   strokeWidth="1.62">
-                                    <path
-                                        d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
-                                        id="Rectangle-12-Copy-4"
-                                        transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
-                                    <polyline id="Path-2"
-                                              points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
-                                </g>
-                            </g>
-                        </svg>
-                    </MaterialButton>
-                    <MaterialButton raised id="context-btn" className={this.context_btn_classname} disabled={this.context_disabled} onClick={() => {
-                        this.toggleView("context-tray")
-                    }}>
-                        <svg width="15px" height="20px" viewBox="0 0 15 16">
-                            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
-                               fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
-                               letterSpacing="0.172221214">
-                                <text id="@-copy" fill={this.context_fill}>
-                                    <tspan x="-0.844039108" y="16.2245462">@</tspan>
-                                </text>
-                            </g>
-                        </svg>
-                    </MaterialButton>
-
+                    {this.renderToggleButtons()}
                     {this.renderNoteAssistantContent(this.props.noteAssistantMode)}
                 </div>
             );
@@ -485,38 +474,8 @@ export default class NoteAssistant extends Component {
             // If the note viewer is read only the we want to be able to view the clinical notes
         } else {
             return (
-
                 <div>
-                    <MaterialButton raised id="notes-btn" className={this.notes_btn_classname} disabled={this.notes_disabled} onClick={() => {
-                        this.toggleView("clinical-notes")
-                    }}>
-                        <svg width="19px" height="20px" viewBox="0 0 19 17">
-                            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                                <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
-                                   strokeWidth="1.62">
-                                    <path
-                                        d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
-                                        id="Rectangle-12-Copy-4"
-                                        transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
-                                    <polyline id="Path-2"
-                                              points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
-                                </g>
-                            </g>
-                        </svg>
-                    </MaterialButton>
-                    <MaterialButton raised id="context-btn" className={this.context_btn_classname} disabled={this.context_disabled} onClick={() => {
-                        this.toggleView("context-tray")
-                    }}>
-                        <svg width="15px" height="20px" viewBox="0 0 15 16">
-                            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
-                               fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
-                               letterSpacing="0.172221214">
-                                <text id="@-copy" fill={this.context_fill}>
-                                    <tspan x="-0.844039108" y="16.2245462">@</tspan>
-                                </text>
-                            </g>
-                        </svg>
-                    </MaterialButton>
+                    {this.renderToggleButtons()}
                     {this.renderNoteAssistantContent("clinical-notes")}
                 </div>
             );
