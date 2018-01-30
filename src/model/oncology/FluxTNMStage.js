@@ -3,6 +3,8 @@ import N_Stage from '../shr/oncology/N_Stage';
 import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
 import TNMStage from '../shr/oncology/TNMStage';
 import T_Stage from '../shr/oncology/T_Stage';
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import Lang from 'lodash';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';
@@ -11,7 +13,19 @@ import staging from '../../lib/staging.jsx';
 class FluxTNMStage {
     constructor(json) {
         this._tnmStage = TNMStage.fromJSON(json);
+        if (!this._tnmStage.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/oncology/TNMStage';
+            this._tnmStage.entryInfo = entry;
+            this._tnmStage.observationComponent = [];
+        }
     }
+
+    get entryInfo() {
+        return this._tnmStage.entryInfo;
+    }
+
     /**
      *  Getter for staging
      *  This will return the displayText string from CodeableConcept value
@@ -34,12 +48,10 @@ class FluxTNMStage {
      *  This will return the displayText string from T_Stage
      */
     get t_Stage() {
-        let tStage;
-        this._tnmStage._observationComponent.forEach(o => {
-            if (o instanceof T_Stage) {
-                tStage = o;
-            }
+        const tStage = this._tnmStage._observationComponent.find(o => {
+            return o instanceof T_Stage;
         });
+        if (!tStage) return null;
         return tStage.value.coding[0].displayText.value;
     }
 
@@ -51,7 +63,14 @@ class FluxTNMStage {
     set t_Stage(tStage) {
         let t = new T_Stage();
         t.value = lookup.getTStageCodeableConcept(tStage);
-        this._tnmStage._observationComponent.push(t);
+        const tIndex = this._tnmStage.observationComponent.findIndex((o) => {
+            return o instanceof T_Stage;
+        });
+        if (tIndex >= 0) {
+            this._tnmStage.observationComponent[tIndex] = t;
+        } else {
+            this._tnmStage.observationComponent.push(t);
+        }
         this._calculateStage();
     }
     
@@ -60,12 +79,10 @@ class FluxTNMStage {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
-        let nStage;
-        this._tnmStage._observationComponent.forEach(o => {
-            if (o instanceof N_Stage) {
-                nStage = o;
-            }
+        const nStage = this._tnmStage._observationComponent.find(o => {
+            return o instanceof N_Stage
         });
+        if (!nStage) return null;
         return nStage.value.coding[0].displayText.value;
     }
 
@@ -77,7 +94,14 @@ class FluxTNMStage {
     set n_Stage(nStage) {
         let n = new N_Stage();
         n.value = lookup.getNStageCodeableConcept(nStage);
-        this._tnmStage._observationComponent.push(n);
+        const nIndex = this._tnmStage.observationComponent.findIndex((o) => {
+            return o instanceof N_Stage;
+        });
+        if (nIndex >= 0) {
+            this._tnmStage.observationComponent[nIndex] = n;
+        } else {
+            this._tnmStage.observationComponent.push(n);
+        }
         this._calculateStage();
     }
 
@@ -86,12 +110,10 @@ class FluxTNMStage {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
-        let mStage;
-        this._tnmStage._observationComponent.forEach(o => {
-            if (o instanceof M_Stage) {
-                mStage = o;
-            }
+        const mStage = this._tnmStage._observationComponent.find(o => {
+            return o instanceof M_Stage;
         });
+        if (!mStage) return null;
         return mStage.value.coding[0].displayText.value;
     }
 
@@ -103,7 +125,14 @@ class FluxTNMStage {
     set m_Stage(mStage) {
         let m = new M_Stage();
         m.value = lookup.getMStageCodeableConcept(mStage);
-        this._tnmStage._observationComponent.push(m);
+        const mIndex = this._tnmStage.observationComponent.findIndex((o) => {
+            return o instanceof M_Stage;
+        });
+        if (mIndex >= 0) {
+            this._tnmStage.observationComponent[mIndex] = m;
+        } else {
+            this._tnmStage.observationComponent.push(m);
+        }
         this._calculateStage();
     }
 
