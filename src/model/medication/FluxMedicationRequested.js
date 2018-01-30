@@ -27,6 +27,10 @@ class FluxMedicationRequested {
     //     return true;
     // }
 
+    get entryInfo() {
+        return this._medicationRequested.entryInfo;
+    }
+
     /*
      *  Getter for medication
      *  Returns displayText string for medication
