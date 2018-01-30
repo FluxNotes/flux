@@ -6,6 +6,7 @@ import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxHistologicGrade from './FluxHistologicGrade';
 import FluxTNMStage from './FluxTNMStage';
+import FluxTumorDimensions from './FluxTumorDimensions';
 
 export default class FluxOncologyObjectFactory {
     static createInstance(json, type) {
@@ -21,6 +22,7 @@ export default class FluxOncologyObjectFactory {
             case 'HER2ReceptorStatus': return new FluxHER2ReceptorStatus(json);
             case 'HistologicGrade': return new FluxHistologicGrade(json);
             case 'TNMStage': return new FluxTNMStage(json);
+            case 'TumorDimensions': return new FluxTumorDimensions(json);
             default: return ShrOncologyObjectFactory.createInstance(json, type);
         }
     }

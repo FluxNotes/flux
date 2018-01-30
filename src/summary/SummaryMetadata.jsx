@@ -1,7 +1,7 @@
+import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
+import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
-import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
-import FluxTumorSize from '../model/oncology/FluxTumorSize';
 
 class SummaryMetadata {
     constructor() {
@@ -205,7 +205,7 @@ class SummaryMetadata {
                                     {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
-                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
+                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
                                             return list[0].quantity.value + " " + list[0].quantity.unit;
                                         }
@@ -518,7 +518,7 @@ class SummaryMetadata {
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
             const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
-            console.log(med);
+
             items.push({
                 group: assignedGroup,
                 title: name,
