@@ -27,14 +27,6 @@ span.button-hover {
     display: inline-block !important;
 }
 
-.toggle-button-disabled {
-    background-color: #FFFFFF !important;
-    min-width: 70px !important;
-    min-height: 20px !important;
-    display: inline-block !important;
-}
-
-
 .clinical-notes-panel { 
     float: right;
 }
