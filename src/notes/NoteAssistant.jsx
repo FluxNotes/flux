@@ -414,7 +414,7 @@ export default class NoteAssistant extends Component {
 
     renderToggleButtons() {
         return (
-            <div>
+            <div className="toggle-buttons-container">
                 <MaterialButton
                     raised
                     id="notes-btn"
@@ -443,8 +443,8 @@ export default class NoteAssistant extends Component {
                     className={this.context_btn_classname}
                     disabled={this.context_disabled}
                     onClick={() => {
-                    this.toggleView("context-tray")
-                }}>
+                        this.toggleView("context-tray")
+                    }}>
                     <svg width="15px" height="20px" viewBox="0 0 15 16">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
                            fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
@@ -455,6 +455,7 @@ export default class NoteAssistant extends Component {
                         </g>
                     </svg>
                 </MaterialButton>
+
             </div>
         );
     }

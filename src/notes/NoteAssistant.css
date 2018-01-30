@@ -2,14 +2,14 @@ span.button-hover {
     cursor: pointer;
 }
 
-.clinical-notes-btn {
-    padding: 0 20px;
-    display: inline-block;
-    white-space: nowrap;
-    transform: perspective(1px) translateZ(0);
-    transition-duration: 0.3s;
-    transition-property: transform;
-}
+/*.clinical-notes-btn {*/
+    /*padding: 0 20px;*/
+    /*display: inline-block;*/
+    /*white-space: nowrap;*/
+    /*transform: perspective(1px) translateZ(0);*/
+    /*transition-duration: 0.3s;*/
+    /*transition-property: transform;*/
+/*}*/
 
 .toggle-button {
     background-color: #FFFFFF !important;
@@ -18,6 +18,19 @@ span.button-hover {
     display: inline-block !important;
 }
 
+.toggle-buttons-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#notes-btn {
+    /*float:right;*/
+}
+
+#context-btn {
+    /*float:right;*/
+}
 .toggle-button-selected {
     background-color: #3399FF !important;
     min-width: 70px !important;
