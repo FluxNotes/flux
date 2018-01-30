@@ -161,7 +161,8 @@ class ShortcutManager {
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
             contextValueObjectEntryType = this.shortcuts[shortcutId]["contextValueObjectEntryType"];
-            if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.includes(contextValueObjectEntryType)) {
+
+            if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.value === contextValueObjectEntryType) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;
                 parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];

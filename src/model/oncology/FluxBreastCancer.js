@@ -10,7 +10,7 @@ import FluxTNMStage from './FluxTNMStage';
 import FluxCondition from '../condition/FluxCondition';
 import moment from 'moment';
 import Lang from 'lodash'
-import lookup from '../../lib/cancer_lookup.jsx';
+// import lookup from '../../lib/cancer_lookup.jsx';
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';

@@ -3,11 +3,17 @@ import Evidence from '../shr/finding/Evidence';
 import lookup from '../../lib/progression_lookup.jsx';
 import CreationTime from '../shr/core/CreationTime';
 import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
+import Entry from '../shr/base/Entry';
+import Reference from '../Reference';
 
 // FluxDiseaseProgression class to hide codeableconcepts
 class FluxDiseaseProgression {
     constructor(json) {
         this._diseaseProgression = DiseaseProgression.fromJSON(json);
+        if (!this._diseaseProgression.entryInfo) {
+            let entry = new Entry();
+            this._diseaseProgression.entryInfo = entry;
+        }
     }
 
     get entryInfo() {
@@ -19,6 +25,7 @@ class FluxDiseaseProgression {
      *  This will return the displayText string from CodeableConcept Value
      */
     get status() {
+        if (!this._diseaseProgression.value) return null;
         return this._diseaseProgression.value.coding[0].displayText.value;
     }
 
@@ -44,6 +51,7 @@ class FluxDiseaseProgression {
      *  This will return an array of displayText strings from Evidence array
      */
     get evidence() {
+        if (!this._diseaseProgression.evidence) return [];
         return this._diseaseProgression.evidence.map((e) => {
             return e.value.coding[0].displayText.value;
         });
@@ -63,6 +71,7 @@ class FluxDiseaseProgression {
     }
 
     get referenceDate() {
+        if (!this._diseaseProgression.clinicallyRelevantTime) return null;
         return this._diseaseProgression.clinicallyRelevantTime.value;
     }
 
@@ -78,7 +87,7 @@ class FluxDiseaseProgression {
 
     // Flux added
     get asOfDate() {
-        if (!this._diseaseProgression.entryInfo.creationTime) return null;
+        if (!this._diseaseProgression.entryInfo || !this._diseaseProgression.entryInfo.creationTime) return null;
         return this._diseaseProgression.entryInfo.creationTime.value;
     }
   
@@ -103,10 +112,10 @@ class FluxDiseaseProgression {
         this._diseaseProgression.focalSubjectReference = val;
     }
     
-    // setAssessmentFocusReference(obj) {
-    //     const ref = Reference.createReferenceFromEntry(obj.entryInfo);
-    //     this.assessmentFocus = ref;
-    // }
+    setFocalSubjectReference(obj) {
+        let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+        this.focalSubjectReference = ref;
+    }
 }
 
 export default FluxDiseaseProgression;

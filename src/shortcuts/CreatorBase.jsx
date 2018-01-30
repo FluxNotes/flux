@@ -1,6 +1,6 @@
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
-import ObjectFactory from '../model/ObjectFactory';
+import FluxObjectFactory from '../model/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -10,7 +10,7 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            this.object = ObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
             this.object = object;

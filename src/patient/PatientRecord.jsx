@@ -81,9 +81,9 @@ class PatientRecord {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
-        let today = new moment().format("D MMM YYYY");
-        entry.entryInfo.originalCreationDate = today;
-        entry.entryInfo.lastUpdateDate = today;
+        // let today = new moment().format("D MMM YYYY");
+        // entry.entryInfo.originalCreationDate = today;
+        // entry.entryInfo.lastUpdateDate = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
@@ -91,7 +91,6 @@ class PatientRecord {
     }
 
     addEntryToPatientWithPatientFocalSubject(entry) {
-        entry.focalSubject = this.patientFocalSubject;
         return this.addEntryToPatient(entry);
     }
 

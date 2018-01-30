@@ -2,7 +2,9 @@ import Entry from '../shr/base/Entry';
 
 class FluxClinicalNote {
     constructor(json) {
-        this._entryInfo = new Entry(json);
+        this._entryInfo = new Entry();
+        this._entryInfo.shrId = json['shr.base.ShrId'];
+        this._entryInfo.entryId = json['shr.base.EntryId'];
         if (json.date) this._date = json.date;
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;
