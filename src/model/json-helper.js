@@ -1,4 +1,3 @@
-import ObjectFactory from './ObjectFactory';
 import FluxObjectFactory from './FluxObjectFactory';
 import Reference from './Reference';
 import Entry from './shr/base/Entry';

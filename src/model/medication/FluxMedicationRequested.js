@@ -1,5 +1,6 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
+import TimePeriod from '../shr/core/TimePeriod';
 import moment from 'moment';
 
 class FluxMedicationRequested {
@@ -12,15 +13,20 @@ class FluxMedicationRequested {
      *  Returns object containing timePeriodStart and timePeriodEnd value
      */
     get expectedPerformanceTime() {
-        return {
-            timePeriodStart: this._medicationRequested.actionContext.expectedPerformanceTime.timePeriodStart.value,
-            timePeriodEnd: this._medicationRequested.actionContext.expectedPerformanceTime.timePeriodEnd.value
-        };
+        // doesn't support Timing option right now
+        if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
+            return {
+                timePeriodStart: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
+                timePeriodEnd: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
+            };
+        } else {
+            return this._medicationRequested.actionContext.expectedPerformanceTime.value;
+        }
     }
     
     isActiveAsOf(date) {
         const expectedPerformanceTime = this.expectedPerformanceTime;
-        if (!expectedPerformanceTime) return null;
+        if (!expectedPerformanceTime || !(expectedPerformanceTime.value instanceof TimePeriod)) return null;
         const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
         if (start && start > date) return false;

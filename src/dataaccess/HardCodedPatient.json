@@ -331,12 +331,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "10 FEB 2012"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "20 AUG 2012"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 FEB 2012"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "20 AUG 2012"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -400,12 +403,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "10 FEB 2012"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "20 AUG 2012"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 FEB 2012"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "20 AUG 2012"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -479,12 +485,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "01 NOV 2013"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "13 AUG 2016"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "01 NOV 2013"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "13 AUG 2016"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -558,12 +567,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "10 JAN 2015"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "10 JAN 2016"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 JAN 2015"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "10 JAN 2016"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -637,12 +649,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "05 SEP 2015"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "01 JUN 2017"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "05 SEP 2015"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "01 JUN 2017"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -716,12 +731,15 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {
-                    "Value": "05 OCT 2017"
-                },
-                "shr.core.TimePeriodEnd": {
-                    "Value": "01 MAY 2018"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "05 OCT 2017"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "01 MAY 2018"
+                    }
                 }
             },
             "shr.core.Reason": {
@@ -771,18 +789,21 @@
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {
-        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-               "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
-               "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
-               },
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+            "Value": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
+                "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
+            }
+        },
         "shr.core.Reason": {
-               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
-                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                       "shr.base.EntryId": "8"
-               }]
-           }},
+           "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+           "Value": [{
+                   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                   "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                   "shr.base.EntryId": "8"
+            }]
+        }},
         "shr.core.CreationTime": { "Value": "02 JUL 2012"},
         "shr.base.LastUpdated": { "Value": "02 JUL 2012"}            
     },
@@ -1054,5 +1075,59 @@
         "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "409137002", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "No known drug allergy"}]},
         "shr.core.CreationTime": {"Value": "13 JAN 2015"},
         "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "31",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "02 MAR 2018"
+            },
+            "shr.action.RequestIntent": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
+                "Value": "plan"
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": "02MARDebra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+            }
+        },
+        "shr.encounter.ReferralDate": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
+            "Value": "01 JAN 2018"
+        }
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "32",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "28 FEB 2018"
+            },
+            "shr.action.RequestIntent": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
+                "Value": "plan"
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": "28FEBDebra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+            }
+        },
+        "shr.encounter.ReferralDate": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
+            "Value": "02 JAN 2018"
+        }
     }
 ]
