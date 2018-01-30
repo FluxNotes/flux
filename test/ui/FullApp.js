@@ -95,7 +95,7 @@ fixture('Patient Mode - Editor')
 
 test('Clicking clinical notes in Note Assistance switches view to clinical notes', async t => {
 
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
 
     // clinical notes button is selected
@@ -111,7 +111,7 @@ test('Clicking clinical notes in Note Assistance switches view to clinical notes
 
 test('In post-encounter mode, clicking the "New Note" button clears the editor content', async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
 
     // Enter some text in the editor
@@ -134,7 +134,7 @@ test('In post-encounter mode, clicking the "New Note" button clears the editor c
 test('In pre-encounter mode, clicking the "New Note" button clears the editor content', async t => {
     const clinicalEventSelector = Selector('.clinical-event-select');
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
 
     // Select pre-encounter mode
@@ -456,7 +456,7 @@ fixture('Patient Mode - Clinical Notes list')
     .page(startPage);
 
 test('Clicking New Note button adds a new in progress note to the list', async t => {
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
 
@@ -482,7 +482,7 @@ test('Clicking New Note button adds a new in progress note to the list', async t
 
 test('Clicking on an existing note in post encounter mode loads the note in the editor', async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const note = Selector('.existing-note');
 
     // Click on the clinical notes button to switch to clinical notes view
@@ -500,7 +500,7 @@ test('Clicking on an existing note in post encounter mode loads the note in the 
 })
 
 test('Clicking on a note in the clinical notes view updates the information in the note header', async t =>  {
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const note = Selector('.existing-note');
     const noteHeaderName = Selector('#note-title').textContent;
 
@@ -521,7 +521,7 @@ test('Clicking on a note in the clinical notes view updates the information in t
 
 test('Clicking on an existing note in post encounter mode puts the NotesPanel in a read only mode with the clinical notes view displayed', async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const clinicalNotesPanel = Selector('.clinical-notes-panel');
     const note = Selector('.existing-note');
 
@@ -549,7 +549,7 @@ test('Clicking on an existing note in post encounter mode puts the NotesPanel in
 
 test('Clicking on an in-progress note in post encounter mode loads the note in the editor', async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
     
@@ -580,7 +580,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
 // Verifies automatic saving
 test('Contents of in-progress note saved when switching to a completed note and back', async t => {
      const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
         const note = Selector('.existing-note');
@@ -614,7 +614,7 @@ test('Contents of in-progress note saved when switching to a completed note and 
 
 test('Clicking on an in-progress note in post encounter mode puts the NotesPanel in edit mode with the context tray displayed', async t => {
     const editor = Selector("div[data-slate-editor='true']");
-    const clinicalNotesButton = Selector('.clinical-notes-btn');
+    const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
     const contextTray = Selector('.context-tray');
