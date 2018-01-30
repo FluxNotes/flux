@@ -73,16 +73,16 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedication = (med, i) => {
         // Grab range values based on medication
-        let rangeValues = MedicationInformationService.getRangeValues(med.code); //med[10]
+        let rangeValues = MedicationInformationService.getRangeValues(med.code);
 
         // Set the values needed to render the range chart
         const lowerValue = rangeValues.lowerValue;
         const upperValue = rangeValues.upperValue;
         const typicalValue = rangeValues.typicalValue;
         // Only want want the number part of the value, not the unit
-        const value = med.amountPerDose.value; //med[1].slice(0, 1);
-        const unit = med.amountPerDose.units; //med[9];
-        const name = med.medication; //med[0];
+        const value = med.amountPerDose.value;
+        const unit = med.amountPerDose.units;
+        const name = med.medication;
 
         const numColsChart = this.state.medicationVisWide ? 5 : 12;
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
@@ -111,7 +111,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Route
                                     </div>
                                     <div className='medication-info'>
-                                        {med.routeIntoBody /*med[5]*/}
+                                        {med.routeIntoBody}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -119,7 +119,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Prescribed
                                     </div>
                                     <div className='medication-info'>
-                                        {med.whenPrescribed /*med[7]*/}
+                                        {med.whenPrescribed}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -127,7 +127,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Prescribed By
                                     </div>
                                     <div className='medication-info'>
-                                        {med.prescribedBy /*med[6]*/}
+                                        {med.prescribedBy}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -135,7 +135,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Number of Refills
                                     </div>
                                     <div className='medication-info'>
-                                        {med.numberOfRepeatsAllowed /*med[8]*/}
+                                        {med.numberOfRepeatsAllowed}
                                     </div>
                                 </Col>
                             </Row>
