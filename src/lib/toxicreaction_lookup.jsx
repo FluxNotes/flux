@@ -8891,6 +8891,10 @@ exports.getAdverseEventCodeableConcept = (possibleAdverseEvent) => {
  * Determines if a possibleGrade is in the list of grades
  */ 
 exports.isValidGrade = (possibleGrade) => {
+    if(Lang.isUndefined(possibleGrade) || Lang.isNull(possibleGrade)) { 
+        // A null grade isn't valid
+        return false;
+    }
     return gradeOptions.some((grade) => { return grade.name.toLowerCase() === possibleGrade.toLowerCase()});
 }
 

@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import Button from '../elements/Button';
-import toxicityLookup from '../lib/toxicreactiontotreatment_lookup';
+import toxicityLookup from '../lib/toxicreaction_lookup';
 import ToxicReaction from '../model/shr/adverse/ToxicReaction';
 import Lang from 'lodash'
 import Array from 'lodash'

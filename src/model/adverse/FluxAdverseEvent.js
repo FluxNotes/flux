@@ -1,19 +1,15 @@
 import AdverseEvent from '../shr/adverse/AdverseEvent';
 import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
-import lookup from '../../lib/toxicreactiontotreatment_lookup.jsx';
+import lookup from '../../lib/toxicreaction_lookup.jsx';
 
 class FluxAdverseEvent {
     constructor(json) {
         this._adverseEvent = AdverseEvent.fromJSON(json);
+    }
 
-        // if(!json) {
-        //     this._codeableConcept = new CodeableConcept();
-        //     this._adverseEventGrade = new AdverseEventGrade();
-        //     this._adverseEventGrade.value = new CodeableConcept();
-        //     this._causeCategory = new CauseCategory();
-        //     this._causeCategory.value = new CodeableConcept();
-        // }
+    get entryInfo() {
+        return this._adverseEvent.entryInfo;
     }
 
     /*
@@ -21,6 +17,7 @@ class FluxAdverseEvent {
      *  This will return the displayText string from CodeableConcept value
      */
     get adverseEvent() {
+        if (!this._adverseEvent.value) return null;
         return this._adverseEvent.value.coding[0].displayText.value;
     }
 
@@ -38,6 +35,7 @@ class FluxAdverseEvent {
      *  This will return the displayText string from adverseEventGrade value
      */
     get adverseEventGrade() {
+        if (!this._adverseEvent.adverseEventGrade) return null;
         return this._adverseEvent.adverseEventGrade.value.coding[0].displayText.value;
     }
 
@@ -57,6 +55,7 @@ class FluxAdverseEvent {
      *  This will return the displayText string from causeCategory value
      */
     get causeCategory() {
+        if (!this._adverseEvent.causeCategory) return null;
         return this._adverseEvent.causeCategory.value.coding[0].displayText.value;
     }
 

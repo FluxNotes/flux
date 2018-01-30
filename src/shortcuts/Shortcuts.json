@@ -161,7 +161,7 @@
     "id": "ToxicityCreator",
     "name": "toxicity",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/oncology/ToxicReaction",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction",
     "valueObjectAttributes": [  {"name":"grade", "attribute":"adverseEventGrade", "isSettable":"true", "setMethod": "adverseEventGrade", "childShortcut": "ToxicityGradeCreator"},
                                 {"name":"adverseEvent", "attribute":"adverseEvent", "isSettable":"true", "setMethod": "adverseEvent", "childShortcut": "ToxicityAdverseEventCreator"},
                                 {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"} ],
