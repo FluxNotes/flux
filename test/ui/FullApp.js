@@ -743,16 +743,16 @@ test('Clicking the data visualization buttons changes the visualizer used', asyn
             await t
                 .click(icons.nth(j));
             if (iconType === 'tabular') {
-                // Check that class name of section = tabular-subsections
+                // Check that class name of section = tabular-list
                await t
-                    .expect(sections.nth(i).find('.tabular-subsections').exists)
+                    .expect(sections.nth(i).find('.tabular-list').exists)
                     .ok();
             } else if (iconType === 'narrative'){
                 // Check class name = 'narrative-subsections'
                 await t
                     .expect(sections.nth(i).find('.narrative-subsections').exists)
                     .ok();
-            } else if (iconType === 'graphic') {
+            } else if (iconType === 'timeline') {
                 // Check id = 'timeline'
                 await t
                     .expect(sections.nth(i).find('#timeline').exists)
@@ -774,16 +774,16 @@ test('Clicking the data visualization buttons changes the visualizer used', asyn
             await t
                 .click(icons.nth(j));
             if (iconType === 'tabular') {
-                // Check that class name of section = tabular-subsections
+                // Check that class name of section = tabular-list
                await t
-                    .expect(sections.nth(i).find('.tabular-subsections').exists)
+                    .expect(sections.nth(i).find('.tabular-list').exists)
                     .ok();
             } else if (iconType === 'narrative'){
                 // Check class name = 'narrative-subsections'
                 await t
                     .expect(sections.nth(i).find('.narrative-subsections').exists)
                     .ok();
-            } else if (iconType === 'graphic') {
+            } else if (iconType === 'timeline') {
                 // Check id = 'timeline'
                 await t
                     .expect(sections.nth(i).find('#timeline').exists)

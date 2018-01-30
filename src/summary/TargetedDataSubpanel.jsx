@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import TargetedDataSection from './TargetedDataSection';
+import VisualizerManager from './VisualizerManager';
 import 'font-awesome/css/font-awesome.min.css';
 import './TargetedDataSubpanel.css';
 
 class TargetedDataSubpanel extends Component {
+    constructor() {
+        super();
+        this._visualizerManager = new VisualizerManager();
+    }
 
     getConditionMetadata() {
         const {condition} = this.props;
@@ -39,6 +44,7 @@ class TargetedDataSubpanel extends Component {
                 <div key={i} data-test-summary-section={section.name}>
                     <TargetedDataSection
                         type={section.type}
+                        visualizerManager={this._visualizerManager}
                         defaultVisualizer={section.defaultVisualizer}
                         section={section}
                         patient={patient}

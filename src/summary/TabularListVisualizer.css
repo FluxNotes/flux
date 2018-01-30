@@ -16,6 +16,8 @@
 
 .tabular-list .list-subsection-header {
     color: #333 !important;
+    font-style: italic;
+    font-weight: bold;
     border-top: 0;
 }
 
@@ -38,17 +40,13 @@
 
 /* Missing element styling*/
 .tabular-list td.list-missing span {
-    text-decoration: underline;
-    text-decoration-color: red;
-    /*background-color: #fa9f8f;*/
+    border-bottom: 1px solid red;
 }
 
 /*Captured element styling */
 .tabular-list td.list-captured span {
-    text-decoration: underline;
-    text-decoration-color: blue;
+    border-bottom: 1px solid blue;
     cursor: pointer;
-    /*background-color: #d9ebf9;*/
 }
 
 /* Heading of column*/
