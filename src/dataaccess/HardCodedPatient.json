@@ -1095,7 +1095,7 @@
             },
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": "02MARDebra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
             }
         },
         "shr.encounter.ReferralDate": {
@@ -1122,7 +1122,7 @@
             },
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": "28FEBDebra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
             }
         },
         "shr.encounter.ReferralDate": {
