@@ -26,7 +26,7 @@ class FluxMedicationRequested {
     
     isActiveAsOf(date) {
         const expectedPerformanceTime = this.expectedPerformanceTime;
-        if (!expectedPerformanceTime || !(expectedPerformanceTime.value instanceof TimePeriod)) return null;
+        if (!expectedPerformanceTime || !(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod)) return null;
         const start = new moment(expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const end = new moment(expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
         if (start && start > date) return false;
