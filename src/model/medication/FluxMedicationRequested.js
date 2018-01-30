@@ -1,4 +1,5 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
+import RecurrencePattern from '../shr/core/RecurrencePattern';
 // import moment from 'moment';
 
 class FluxMedicationRequested {
@@ -55,10 +56,21 @@ class FluxMedicationRequested {
      *  Returns object with value and units
      */
     get timingOfDoses() {
+        let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
+        if (timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
+            let units;
+            if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code === 'd') {
+                units = 'per day';
+            }
+            return {
+                value: timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.decimal,
+                units: units
+            };
+        }
         return {
-            value: this._medicationRequested.dosage.timingOfDoses.timing,
-            units: this._medicationRequested.dosage.timingOfDoses.units
-        };
+            value: timingOfDoses.timing.recurrenceRange.value.positiveInt,
+            units: 'cycles'
+        }
     }
 
     /*
@@ -74,7 +86,7 @@ class FluxMedicationRequested {
      * Returns author string
      */
     get prescribedBy() {
-        return this._author.value;
+        return this._medicationRequested.author.value;
     }
     
     /*
@@ -82,7 +94,7 @@ class FluxMedicationRequested {
      * Returns date as a string
      */
     get whenPrescribed() {
-        return this._entryInfo._creationTime.value;
+        return this._medicationRequested.entryInfo.creationTime.value;
     }
 
     /*
@@ -91,6 +103,10 @@ class FluxMedicationRequested {
      */
     get reason() {
         return this._medicationRequested.actionContext.reason.value;
+    }
+
+    get code() {
+        return this._medicationRequested.medicationOrCode.value.coding[0].code;
     }
 }
 

@@ -8,7 +8,7 @@ import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnviron
 import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxPhotograph from '../model/base/FluxPhotograph';
-import FluxProcedurePerformed from '../model/procedure/FluxProcedurePerformed';
+import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
@@ -295,7 +295,7 @@ class PatientRecord {
     }
 
     getProcedures() {
-        return this.getEntriesOfType(FluxProcedurePerformed);
+        return this.getEntriesOfType(FluxProcedureRequested);
     }
 
     getProceduresChronologicalOrder() {
@@ -306,8 +306,8 @@ class PatientRecord {
 
     getProceduresForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedurePerformed && item.reason.some((r) => {
-                    return r.value.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxProcedureRequested && item.reason.some((r) => {
+                    return r.entryId === condition.entryInfo.entryId;
                 });
         });
     }

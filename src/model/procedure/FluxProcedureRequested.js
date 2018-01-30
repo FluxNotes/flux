@@ -16,10 +16,10 @@ class FluxProcedureRequested {
      *  Returns a date if a single value
      */
     get occurrenceTime() {
-        if(this._procedureRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
+        if(this._procedureRequested.actionContext.expectedPerformanceTime instanceof TimePeriod) {
             return {
-                timePeriodStart: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
-                timePeriodEnd: this._procedureRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
+                timePeriodStart: this._procedureRequested.actionContext.expectedPerformanceTime.timePeriodStart.value,
+                timePeriodEnd: this._procedureRequested.actionContext.expectedPerformanceTime.timePeriodEnd.value
             };
         } else {
             return this._procedureRequested.actionContext.expectedPerformanceTime.value;
@@ -40,6 +40,14 @@ class FluxProcedureRequested {
      */
     get name() {
         return this._procedureRequested.type.value.coding[0].displayText.value;
+    }
+
+    /*
+     *  Getter for reason for this procedure
+     *  Returns array of reasons
+     */
+    get reason() {
+        return this._procedureRequested.actionContext.reason.value;
     }
 }
 

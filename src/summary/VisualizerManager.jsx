@@ -19,8 +19,8 @@ class VisualizerManager {
             return [    med.medication, 
                         `${med.amountPerDose.value} ${med.amountPerDose.units}`,
                         `${med.timingOfDoses.value} ${med.timingOfDoses.units}`,
-                        med.requestedPerformanceTime.timePeriodStart,
-                        med.requestedPerformanceTime.timePeriodEnd ];
+                        med.expectedPerformanceTime.timePeriodStart,
+                        med.expectedPerformanceTime.timePeriodEnd ];
         });
         return newsection;
     };

@@ -206,7 +206,7 @@ class SummaryMetadata {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
-                                            if (list.length == 0) return null;
+                                            if (list.length === 0) return null;
                                             return list[0].quantity.value + " " + list[0].quantity.unit;
                                         }
                                     },
@@ -328,7 +328,7 @@ class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.specificType.value.coding[0].displayText.value;
+                                            return currentConditionEntry.type;
                                         },
                                         shortcut: "@condition"
                                     },
@@ -392,7 +392,7 @@ class SummaryMetadata {
             if (typeof p.occurrenceTime !== 'string') {
                 return [
                     {
-                        value: p.specificType.value.coding[0].displayText.value,
+                        value: p.name,
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd
@@ -400,7 +400,7 @@ class SummaryMetadata {
             } else {
                 return [
                     {
-                        value: p.specificType.value.coding[0].displayText.value,
+                        value: p.name,
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime
@@ -518,6 +518,7 @@ class SummaryMetadata {
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
             const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+            console.log(med);
             items.push({
                 group: assignedGroup,
                 title: name,
@@ -555,8 +556,8 @@ class SummaryMetadata {
                 classes += ' point-in-time';
             }
 
-            if (proc.specificType.value.coding[0].displayText) {
-                hoverText += ` : ${proc.specificType.value.coding[0].displayText.value}`;
+            if (proc.name) {
+                hoverText += ` : ${proc.name}`;
             }
 
             items.push({
