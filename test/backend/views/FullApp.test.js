@@ -8,6 +8,7 @@ import SummaryHeader from '../../../src/summary/SummaryHeader';
 import TargetedDataSection from '../../../src/summary/TargetedDataSection';
 import Button from '../../../src/elements/Button';
 import SummaryMetadata from '../../../src/summary/SummaryMetadata';
+import VisualizerManager from '../../../src/summary/VisualizerManager';
 import TabularNameValuePairsVisualizer from '../../../src/summary/NarrativeNameValuePairsVisualizer';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -65,11 +66,12 @@ describe('TargetedDataControl', function() {
                 options.push('narrative');
             }
         } else if (section.type === "Events") {
-            options.push('graphic');
+            options.push('timeline');
         }
         const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
 
-        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} />);
+        const visualizerManager = new VisualizerManager()
+        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} />);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))

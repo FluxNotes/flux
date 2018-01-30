@@ -317,6 +317,12 @@ class SummaryMetadata {
                     {
                         name: "Current Diagnosis",
                         type: "NameValuePairs",
+                        /*eslint no-template-curly-in-string: "off"*/
+                        narrative: [
+                            {
+                                defaultTemplate: "Patient has ${.Name} diagnosed on ${.Diagnosis Date}"
+                            }
+                        ],
                         data: [
                             {
                                 name: "",
@@ -327,20 +333,9 @@ class SummaryMetadata {
                                             return currentConditionEntry.specificType.value.coding[0].displayText.value;
                                         },
                                         shortcut: "@condition"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        name: "Key Dates",
-                        type: "NameValuePairs",
-                        data: [
-                            {
-                                name: "",
-                                items: [
+                                    },
                                     {
-                                        name: "Diagnosis",
+                                        name: "Diagnosis Date",
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.diagnosisDate;
                                         }

@@ -63,7 +63,7 @@ class TabularListVisualizer extends Component {
         });
         
         let list = this.getList(transformedSubsections[0]);
-        const numColumns = list[0].length;
+        const numColumns = (list.length === 0) ? 1 : list[0].length;
 
         // currently including 2 column sections with a single subsection to use full width. could change to only use left side
         // easily if we get feedback that people don't like this.
@@ -212,16 +212,15 @@ class TabularListVisualizer extends Component {
                 this.closeInsertionMenu(callback);
             };
             
-            let isInsertable;
+            let isInsertable, elementText;
             const numColumns = item.length;
             const colSize = (100 / numColumns) + "%";
             
             item.forEach((element, arrayIndex) => {
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
-                if(Lang.isNull(element)) {
-                    //console.log("missing: ");
-                    //console.log(element);
+                elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
+                if(Lang.isNull(element) || elementText.length === 0) {
                     columnItem = (
                         <td 
                             className={"list-missing"} 
@@ -234,13 +233,10 @@ class TabularListVisualizer extends Component {
                         </td>
                     );
                 } else if (this.props.allowItemClick && isInsertable) {
-                    //console.log(element);
-
                     // Get value off of element given two cases: 
                     // 1. Element type is shortcut, value is returned by element.value()
                     // 2. Element type is string, the value is just the string
-                    const elementText = (element.value) ? element.value : element;
-                    //console.log(elementText);
+
                     // Make unique id for each value
                     const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
                     columnItem = (
@@ -249,7 +245,7 @@ class TabularListVisualizer extends Component {
                             key={elementId}
                         >   
                             <span
-                                data-test-summary-item={item[0]} 
+                                data-test-summary-item={item[0].value} 
                                 onClick={(event) => this.openInsertionMenu(event, elementId)}
                             >
                                 {elementText}
@@ -274,8 +270,6 @@ class TabularListVisualizer extends Component {
                         </td>
                     );
                 } else if (!isInsertable) {
-                    const elementText = (element.value) ? element.value : element;
-
                     columnItem = (
                         <td width={colSize}
                             key={index + "-item-" + arrayIndex}
@@ -286,12 +280,10 @@ class TabularListVisualizer extends Component {
                         </td>
                     );
                 } else {
-                    const elementText = (element.value) ? element.value : element;
-
                     columnItem = (
                         <td width={colSize}
                             className={itemClass} 
-                            data-test-summary-item={item[0]} 
+                            data-test-summary-item={item[0].value} 
                             key={index + "-item-" + arrayIndex}
                         >
                             <span>
