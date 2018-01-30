@@ -10,6 +10,9 @@ span.button-hover {
 
 .toggle-buttons-container {
     display: flex !important;
+    margin-left: auto;
+    max-width: 222px;
+    margin-right: 0;
 }
 
 #notes-btn {
