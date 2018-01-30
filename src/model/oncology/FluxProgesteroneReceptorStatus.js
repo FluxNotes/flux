@@ -10,6 +10,7 @@ class FluxProgesteroneReceptorStatus {
      * Getter for shr.oncology.ReceptorType
      */
     get status() {
+        if (!this._progesteroneReceptorStatus.value) return null;
         return this._progesteroneReceptorStatus.value.coding[0].displayText.value;
     }
 

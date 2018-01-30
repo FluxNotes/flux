@@ -10,6 +10,7 @@ class FluxHER2ReceptorStatus {
      * Getter for shr.oncology.ReceptorType
      */
     get status() {
+        if (!this._her2ReceptorStatus.value) return null;
         return this._her2ReceptorStatus.value.coding[0].displayText.value;
     }
 

@@ -11,6 +11,7 @@ class FluxEstrogenReceptorStatus {
      * Getter for shr.oncology.ReceptorType
      */
     get status() {
+        if (!this._estrogenReceptorStatus.value) return null;
         return this._estrogenReceptorStatus.value.coding[0].displayText.value; 
     }
 

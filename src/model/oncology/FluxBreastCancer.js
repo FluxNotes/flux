@@ -49,12 +49,6 @@ class FluxBreastCancer extends FluxCondition {
     //     });
     // }
 
-    addObservation(observation) {
-        let currentObservations = this.observation;
-        currentObservations.push(observation);
-        this.observation = currentObservations;
-    }
-
     // getTests() {
     //     return this.getObservationsOfType(FluxTest);
     // }

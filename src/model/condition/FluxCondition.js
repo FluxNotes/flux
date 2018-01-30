@@ -34,6 +34,12 @@ class FluxCondition {
         return this._condition.value.coding[0].displayText.value;
     }
 
+    addObservation(observation) {
+        let currentObservations = this._condition.evidence ? this._condition.evidence : [];
+        currentObservations.push(observation);
+        this._condition.evidence  = currentObservations;
+    }
+
     getObservationsOfType(type) {
         if (!this._condition.evidence) return [];
         return this._condition.evidence.filter((item) => {
