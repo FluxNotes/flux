@@ -24,7 +24,7 @@ class FluxObservation {
 
     get name() { 
         if (this._observation.observationCode.coding.length > 0) { 
-            return this._observation.observationCode.coding[0].displayText;
+            return this._observation.observationCode.coding[0].displayText.value;
         } else { 
             return null;
         }        

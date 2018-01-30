@@ -1,6 +1,6 @@
 import Condition from '../shr/condition/Condition';
+import FluxObservation from '../finding/FluxObservation';
 import Lang from 'lodash';
-import Observation from '../shr/finding/Observation';
 import moment from 'moment';
 
 class FluxCondition {
@@ -42,7 +42,7 @@ class FluxCondition {
     }
 
     getTests() {
-        return this.getObservationsOfType(Observation);
+        return this.getObservationsOfType(FluxObservation);
     }
 
     // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
@@ -60,8 +60,8 @@ class FluxCondition {
 
     // Sorts the lab results in chronological order
     _labResultsTimeSorter(a, b) {
-        const a_startTime = new moment(a.clinicallyRelevantTime.value, "D MMM YYYY");
-        const b_startTime = new moment(b.clinicallyRelevantTime.value, "D MMM YYYY");
+        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
@@ -80,11 +80,11 @@ class FluxCondition {
 
         // Create mostRecentLabResultsLookupTable with unique lab results that fall after threshold date
         results.map((lab, i) => {
-            const startTime = new moment(lab.clinicallyRelevantTime.value, "D MMM YYYY");
+            const startTime = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
 
             // Check that the current lab result date is more later than the threshold date
             if (startTime > sinceDateMoment) {
-                let id = lab.observationCode.coding[0].code;
+                let id = lab.codeableConceptCode;
 
                 // Check that the lab result type (i.e hemoglobin, white blood cell, etc) doesn't already exist in the lookup table
                 if (!mostRecentLabResultsLookupTable[id]) {
@@ -92,19 +92,19 @@ class FluxCondition {
                     // If the lab result type doesn't already exist, add it to the table
                     mostRecentLabResultsLookupTable[id] = {
                         labResult: lab,
-                        clinicallyRelevantTime: lab.clinicallyRelevantTime.value
+                        clinicallyRelevantTime: lab.clinicallyRelevantTime
                     }
                 } else {
                     // Check if current lab result is the most recent compared to what is in the lookup table
-                    let time1 = new moment(mostRecentLabResultsLookupTable[id].clinicallyRelevantTime.value, "D MMM YYYY");
-                    let time2 = new moment(lab.clinicallyRelevantTime.value, "D MMM YYYY");
+                    let time1 = new moment(mostRecentLabResultsLookupTable[id].clinicallyRelevantTime, "D MMM YYYY");
+                    let time2 = new moment(lab.clinicallyRelevantTime, "D MMM YYYY");
 
                     // If the current lab result is more recent than what is stored in the lookup table, update the data
                     // Lookup will only contain the most recent lab result for that type
                     if (time2 > time1) {
                         mostRecentLabResultsLookupTable[id] = {
                             labResult: lab,
-                            clinicallyRelevantTime: lab.clinicallyRelevantTime.value
+                            clinicallyRelevantTime: lab.clinicallyRelevantTime
                         }
                     }
                 }

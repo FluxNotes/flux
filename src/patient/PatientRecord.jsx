@@ -1,7 +1,6 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
-import Condition from '../model/shr/condition/Condition';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
 import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
@@ -258,7 +257,7 @@ class PatientRecord {
         conditions.forEach((c) => {
             if (c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({
-                    name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value,
+                    name: "diagnosis date - " + c.type,
                     start_time: c.diagnosisDate
                 });
             }
@@ -338,15 +337,15 @@ class PatientRecord {
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.assessmentFocus.entryId === condition.entryInfo.entryId;
+            return progression.focalSubjectReference.entryId === condition.entryInfo.entryId;
         });
         return progressions;
     }
 
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
-            return (item instanceof Condition)
-                && progression.assessmentFocus.entryId === item.entryInfo.entryId
+            return (item instanceof FluxCondition)
+                && progression.focalSubjectReference.entryId === item.entryInfo.entryId
         });
         return result[0];
     }

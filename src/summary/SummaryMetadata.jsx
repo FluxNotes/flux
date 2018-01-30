@@ -422,7 +422,6 @@ class SummaryMetadata {
 
         // labResultsInOrder contains all lab results within a specified number of months from today
         const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
-
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;
@@ -490,7 +489,7 @@ class SummaryMetadata {
             classes += ' point-in-time';
 
             let focalCondition = patient.getFocalConditionForProgression(prog);
-            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
+            let focalConditionName = focalCondition.type;
 
             let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
 
