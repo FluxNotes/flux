@@ -1,11 +1,8 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
-import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
-import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
-import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
-import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnvironmentalAllergy';
-import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
+import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';;
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
@@ -185,7 +182,10 @@ class PatientRecord {
     }
     
     getAllergies() {
-        return this.getEntriesIncludingType(AllergyIntolerance);
+        let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
+        const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
+        const allAllergies = allergies.concat(noKnownAllergies);
+        return allAllergies;
     }
     
     getAllergiesAsText() {
@@ -196,16 +196,12 @@ class PatientRecord {
             if (!first) {
                 result += "\r\n";
             }
-            if (allergy instanceof FluxNoKnownDrugAllergy) {
-                result += "NKDA";
-            } else if (allergy instanceof NoKnownAllergy) {
-                result += "No known allergies";
-            } else if (allergy instanceof FluxNoKnownEnvironmentalAllergy) {
-                result += "No known environmental allergies";
-            } else if (allergy instanceof FluxNoKnownFoodAllergy) {
-                result += "No known food allergies";
+            if (allergy instanceof FluxNoKnownAllergy) {
+                result += allergy.noKnownAllergy
+            } else if (allergy instanceof FluxAllergyIntolerance) {
+                result += allergy.allergyIntolerance;
             } else {
-                result += allergy.allergenIrritant.value.coding[0].displayText.value;
+                result += allergy.value.coding[0].displayText;
             }
             first = false;
         });
