@@ -1,32 +1,31 @@
 import PatientRecord from '../../../src/patient/PatientRecord';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import FakeDataElement from './FakeDataElement';
-import AdministrativeGender from '../../../src/model/shr/actor/AdministrativeGender'
-import ShrDemographicsObjectFactory from '../../../src/model/ShrDemographicsObjectFactory'
-import PersonOfRecord from '../../../src/model/shr/demographics/PersonOfRecord'
+import Patient from '../../../src/model/shr/entity/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
+import FluxPatient from '../../../src/model/entity/FluxPatient';
 
 // The empty PatientRecord.jsx obj
 const emptyPatientObj = new PatientRecord(null);
 // The empty patient shr object -- an empty array 
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
-const emptyPatientRecord = emptyPatientObj.getPersonOfRecord();
+const emptyPatientRecord = emptyPatientObj.getPatient();
 
 // The hardcoded PatientRecord.jsx obj
 const hardCodedPatientObj = new PatientRecord(hardCodedPatient);
 // The patient shr object -- an array of entries
 const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
-const hardCodedPatientRecord = hardCodedPatientObj.getPersonOfRecord();
+const hardCodedPatientRecord = hardCodedPatientObj.getPatient();
 
-// Helpers
-function getValidTypeFrom(patient) { 
-    const typeUrl = patient[0]._entryInfo._entryType[0];
-    const typeName = typeUrl.substr(typeUrl.lastIndexOf('/')+1);
-    return ShrDemographicsObjectFactory.createInstance(typeName);
-} 
+// // Helpers
+// function getValidTypeFrom(patient) { 
+//     const typeUrl = patient[0]._entryInfo._entryType[0];
+//     const typeName = typeUrl.substr(typeUrl.lastIndexOf('/')+1);
+//     return ShrDemographicsObjectFactory.createInstance(typeName);
+// } 
 
 describe('getMostRecentEntryFromList', function () { 
 
@@ -43,8 +42,8 @@ describe('getMostRecentEntryFromList', function () {
     it('should return the first element from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
         //slice to clone obj
         const sortedList = hardCodedPatientEntries.slice().sort(function (a,b) { 
-            const a_lastUpdateDate = new Moment(a._entryInfo._lastUpdateDate, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b._entryInfo._lastUpdateDate, "D MMM YYYY");
+            const a_lastUpdateDate = new Moment(a.entryInfo.lastUpdated.instant, "D MMM YYYY");
+            const b_lastUpdateDate = new Moment(b.entryInfo.lastUpdated.instant, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
             if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
             return 0;
@@ -55,16 +54,16 @@ describe('getMostRecentEntryFromList', function () {
     });
 });
 
-describe('getPersonOfRecord', function () { 
+describe('getPatient', function () { 
 
     it('should return null when there is no patient', function () { 
-        expect(emptyPatientObj.getPersonOfRecord())
+        expect(emptyPatientObj.getPatient())
             .to.be.null;
     });
 
     it('should return the patient when there is a patient', function () { 
-        const personRecord = hardCodedPatientObj.getMostRecentEntryOfType(PersonOfRecord);
-        expect(hardCodedPatientObj.getPersonOfRecord())
+        const personRecord = hardCodedPatientObj.getMostRecentEntryOfType(FluxPatient);
+        expect(hardCodedPatientObj.getPatient())
             .to.equal(personRecord);
     });
 });
@@ -80,7 +79,7 @@ describe('getName', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
         // Path to name based on SHR record api. 
-        const expectedName = hardCodedPatientRecord._humanName;
+        const expectedName = hardCodedPatientRecord.name;
         expect(hardCodedPatientObj.getName())
             .to.be.a('string')
             .and.to.eql(expectedName);
@@ -98,7 +97,7 @@ describe('getDateOfBirth', function () {
         expect(hardCodedPatientObj)
             .to.not.be.null;
         // Path to date based on SHR record api, use to create moment obj. 
-        const expectedDate = new Moment(hardCodedPatient[0].dateOfBirth, "D MMM YYYY").format("D MMM YYYY").toUpperCase();
+        const expectedDate = new Moment(hardCodedPatient[0].Value['shr.base.DateOfBirth'], "D MMM YYYY").format("D MMM YYYY").toUpperCase();
         expect(hardCodedPatientObj.getDateOfBirth())
             .to.be.a('string')
             .and.to.equal(expectedDate);
@@ -137,7 +136,7 @@ describe('getGender', function () {
     it('should return patients administrative gender when there is a patient record', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
-        const expectedGender = hardCodedPatientRecord.administrativeGender.code;
+        const expectedGender = hardCodedPatientRecord.gender;
         expect(hardCodedPatientObj.getGender())
             .to.be.a('string')
             .and.to.equal(expectedGender);

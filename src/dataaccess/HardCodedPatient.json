@@ -1159,7 +1159,9 @@
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
             "Value": "01 JAN 2018"
-        }
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1186,6 +1188,8 @@
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
             "Value": "02 JAN 2018"
-        }
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
     }
 ]
