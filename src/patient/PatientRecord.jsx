@@ -21,16 +21,17 @@ class PatientRecord {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
             this.patient = this.getPatient();
+            //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
             this.shrId = this.patient.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
                 return o.entryInfo.entryId;
             })) + 1;
         } else { // create a new patient
             this.entries = [];
-            this.personOfRecord = null;
+            this.patient = null;
             this.shrId = Guid.raw();
             this.nextEntryId = 1;
-            this.patientFocalSubject = null;
+            //this.patientReference = null;
         }
     }
 
@@ -59,8 +60,8 @@ class PatientRecord {
 			});
 		});
 
-        this.personOfRecord = this.getPersonOfRecord();
-		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
+        this.patient = this.getPatient();
+        this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
     }
     
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
@@ -92,6 +93,7 @@ class PatientRecord {
     }
 
     addEntryToPatientWithPatientFocalSubject(entry) {
+        //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry);
     }
 
