@@ -24,7 +24,6 @@ class PatientRecord {
     constructor(shrJson = null) {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
-            console.log(this.entries);
             this.patient = this.getPatient();
             this.shrId = this.patient.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
