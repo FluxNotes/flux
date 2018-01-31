@@ -114,6 +114,14 @@ class FluxMedicationRequested {
     get code() {
         return this._medicationRequested.medicationOrCode.value.coding[0].code;
     }
+    
+    get routeIntoBody() {
+        return this._medicationRequested.dosage.routeIntoBody.value.coding[0].displayText.value;
+    }
+    
+    get numberOfRefillsAllowed() {
+        return this._medicationRequested.numberOfRefillsAllowed.value;
+    }
 }
 
 export default FluxMedicationRequested;
