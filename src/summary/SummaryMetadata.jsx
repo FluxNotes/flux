@@ -366,6 +366,39 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Labs",
+                        type: "ValueOverTime",
+                        data: [
+                            {
+                                name: "White blood cell count",
+                                code: "C0023508",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
+                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
+
+                                bands: [
+                                    {low: 0, high: 3, assessment: 'bad'},
+                                    {low: 3, high: 5, assessment: 'average'},
+                                    {low: 5, high: 10, assessment: 'good'}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Medications",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "ListType",
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Medication", "Dosage", "Timing", "Start", "End"],
+                                itemsFunction: this.getItemListForMedications,
+
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         type: "Events",
                         data: [

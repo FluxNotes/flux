@@ -126,7 +126,7 @@ class TabularListVisualizer extends Component {
         const list = this.getList(transformedSubsection);
 
         if (list.length <= 0) {
-            return <h2 key={subsectionindex}>None</h2>;
+            return <h2 style={{paddingTop: '10px'}} key={subsectionindex}>None</h2>;
         }
         let headings = null;
         if (transformedSubsection.headings) {

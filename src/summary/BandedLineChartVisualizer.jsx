@@ -98,6 +98,7 @@ class BandedLineChartVisualizer extends Component {
 
     // Updates the dimensions of the chart
     resize = () => {
+        if (!this.chartParentDiv) return;
         const chartParentDivWidth = this.chartParentDiv.offsetWidth;
 
         this.setState({
@@ -113,6 +114,7 @@ class BandedLineChartVisualizer extends Component {
         const data = subsection.itemsFunction(patient, condition, subsection);
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
+        if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
 
         let renderedBands = null;

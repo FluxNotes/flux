@@ -36,6 +36,7 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     checkMedicationWidth = () => {
+        if (!this.parent) return;
         if (this.parent.offsetWidth > 600) {
             this.setState({ medicationVisWide: true });
         } else {
@@ -67,6 +68,7 @@ class MedicationRangeChartVisualizer extends Component {
     renderedSubsection(subsection, index) {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
+        if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
     }
