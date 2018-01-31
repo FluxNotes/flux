@@ -137,7 +137,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Number of Refills
                                     </div>
                                     <div className='medication-info'>
-                                        {med.numberOfRepeatsAllowed}
+                                        {med.numberOfRefillsAllowed}
                                     </div>
                                 </Col>
                             </Row>

@@ -1066,8 +1066,8 @@
                 "Value": "13 JAN 2018"
             }
         },
-        "shr.core.CreationTime": {"Value": "13 JAN 2017"},
-        "shr.base.LastUpdated": {"Value": "13 JUN 2017"}
+        "shr.core.CreationTime": {"Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2018"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1081,7 +1081,7 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2017"},
+            "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2018"},
             "shr.core.Reason": {
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
@@ -1090,8 +1090,8 @@
                        "shr.base.EntryId": "27"
                }]
            }},
-        "shr.core.CreationTime": { "Value": "13 JAN 2017"},
-        "shr.base.LastUpdated": { "Value": "13 JAN 2017"}        
+        "shr.core.CreationTime": { "Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2018"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
