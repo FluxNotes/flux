@@ -1,50 +1,39 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import GeneticVariant from './GeneticVariant';
 
-/** Generated from SHR definition for shr.oncology.BRCA2Variant */
+/**
+ * Generated class for shr.oncology.BRCA2Variant.
+ * @extends GeneticVariant
+ */
 class BRCA2Variant extends GeneticVariant {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the FocalSubject.
+   * @returns {FocalSubject} The shr.finding.FocalSubject
    */
-  get value() {
-    return this.codeableConcept;
+  get focalSubject() {
+    return this._focalSubject;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the FocalSubject.
+   * @param {FocalSubject} focalSubject - The shr.finding.FocalSubject
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set focalSubject(focalSubject) {
+    this._focalSubject = focalSubject;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Deserializes JSON data to an instance of the BRCA2Variant class.
+   * The JSON must be valid against the BRCA2Variant JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {BRCA2Variant} An instance of BRCA2Variant populated with the JSON data
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  static fromJSON(json={}) {
+    const inst = new BRCA2Variant();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.CodeableConcept
-   */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
-  }
-
-  /**
-   * Getter for shr.oncology.GeneIdentifier
-   */
-  get geneIdentifier() {
-    return this._geneIdentifier;
-  }
-
-  /**
-   * Setter for shr.oncology.GeneIdentifier
-   */
-  set geneIdentifier(geneIdentifierVal) {
-    this._geneIdentifier = geneIdentifierVal;
-  }
-
 }
-
 export default BRCA2Variant;

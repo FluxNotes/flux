@@ -1,185 +1,231 @@
-import AllergenIrritant from './AllergenIrritant';
-import Entry from '../base/Entry';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.allergy.AllergyIntolerance */
-class AllergyIntolerance {
-    constructor(json) {
-        if (json) {
-            this._entryInfo = new Entry(json);
-            if (json.allergenIrritant) this._allergenIrritant = new AllergenIrritant(json.allergenIrritant);
-        } else {
-            this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/allergy/AllergyIntolerance");
-        }
-    }
+import SpecializedFinding from '../finding/SpecializedFinding';
+
+/**
+ * Generated class for shr.allergy.AllergyIntolerance.
+ * @extends SpecializedFinding
+ */
+class AllergyIntolerance extends SpecializedFinding {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.allergy.AllergenIrritant
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get allergenIrritant() {
-    return this._allergenIrritant;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.allergy.AllergenIrritant
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set allergenIrritant(allergenIrritantVal) {
-    this._allergenIrritant = allergenIrritantVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.allergy.SubstanceCategory[]
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Get the Subject.
+   * @returns {Subject} The shr.base.Subject
+   */
+  get subject() {
+    return this._subject;
+  }
+
+  /**
+   * Set the Subject.
+   * @param {Subject} subject - The shr.base.Subject
+   */
+  set subject(subject) {
+    this._subject = subject;
+  }
+
+  /**
+   * Get the ClinicalStatus.
+   * @returns {ClinicalStatus} The shr.condition.ClinicalStatus
+   */
+  get clinicalStatus() {
+    return this._clinicalStatus;
+  }
+
+  /**
+   * Set the ClinicalStatus.
+   * @param {ClinicalStatus} clinicalStatus - The shr.condition.ClinicalStatus
+   */
+  set clinicalStatus(clinicalStatus) {
+    this._clinicalStatus = clinicalStatus;
+  }
+
+  /**
+   * Get the SubstanceCategory array.
+   * @returns {Array<SubstanceCategory>} The shr.allergy.SubstanceCategory array
    */
   get substanceCategory() {
     return this._substanceCategory;
   }
 
   /**
-   * Setter for shr.allergy.SubstanceCategory[]
+   * Set the SubstanceCategory array.
+   * @param {Array<SubstanceCategory>} substanceCategory - The shr.allergy.SubstanceCategory array
    */
-  set substanceCategory(substanceCategoryVal) {
-    this._substanceCategory = substanceCategoryVal;
+  set substanceCategory(substanceCategory) {
+    this._substanceCategory = substanceCategory;
   }
 
   /**
-   * Getter for shr.base.AssertionNegationModifier
+   * Get the VerificationStatus.
+   * @returns {VerificationStatus} The shr.allergy.VerificationStatus
    */
-  get assertionNegationModifier() {
-    return this._assertionNegationModifier;
+  get verificationStatus() {
+    return this._verificationStatus;
   }
 
   /**
-   * Setter for shr.base.AssertionNegationModifier
+   * Set the VerificationStatus.
+   * @param {VerificationStatus} verificationStatus - The shr.allergy.VerificationStatus
    */
-  set assertionNegationModifier(assertionNegationModifierVal) {
-    this._assertionNegationModifier = assertionNegationModifierVal;
+  set verificationStatus(verificationStatus) {
+    this._verificationStatus = verificationStatus;
   }
 
   /**
-   * Getter for shr.allergy.AllergyVerificationStatus
+   * Get the Type.
+   * @returns {Type} The shr.entity.Type
    */
-  get allergyVerificationStatus() {
-    return this._allergyVerificationStatus;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Setter for shr.allergy.AllergyVerificationStatus
+   * Set the Type.
+   * @param {Type} type - The shr.entity.Type
    */
-  set allergyVerificationStatus(allergyVerificationStatusVal) {
-    this._allergyVerificationStatus = allergyVerificationStatusVal;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Getter for shr.allergy.AdverseReactionType
-   */
-  get adverseReactionType() {
-    return this._adverseReactionType;
-  }
-
-  /**
-   * Setter for shr.allergy.AdverseReactionType
-   */
-  set adverseReactionType(adverseReactionTypeVal) {
-    this._adverseReactionType = adverseReactionTypeVal;
-  }
-
-  /**
-   * Getter for shr.condition.Criticality
+   * Get the Criticality.
+   * @returns {Criticality} The shr.condition.Criticality
    */
   get criticality() {
     return this._criticality;
   }
 
   /**
-   * Setter for shr.condition.Criticality
+   * Set the Criticality.
+   * @param {Criticality} criticality - The shr.condition.Criticality
    */
-  set criticality(criticalityVal) {
-    this._criticality = criticalityVal;
+  set criticality(criticality) {
+    this._criticality = criticality;
   }
 
   /**
-   * Getter for shr.observation.Manifestation[]
-   */
-  get manifestation() {
-    return this._manifestation;
-  }
-
-  /**
-   * Setter for shr.observation.Manifestation[]
-   */
-  set manifestation(manifestationVal) {
-    this._manifestation = manifestationVal;
-  }
-
-  /**
-   * Getter for shr.condition.Onset
-   */
-  get onset() {
-    return this._onset;
-  }
-
-  /**
-   * Setter for shr.condition.Onset
-   */
-  set onset(onsetVal) {
-    this._onset = onsetVal;
-  }
-
-  /**
-   * Getter for shr.condition.Abatement
-   */
-  get abatement() {
-    return this._abatement;
-  }
-
-  /**
-   * Setter for shr.condition.Abatement
-   */
-  set abatement(abatementVal) {
-    this._abatement = abatementVal;
-  }
-
-  /**
-   * Getter for shr.allergy.MostRecentOccurrence
-   */
-  get mostRecentOccurrence() {
-    return this._mostRecentOccurrence;
-  }
-
-  /**
-   * Setter for shr.allergy.MostRecentOccurrence
-   */
-  set mostRecentOccurrence(mostRecentOccurrenceVal) {
-    this._mostRecentOccurrence = mostRecentOccurrenceVal;
-  }
-
-  /**
-   * Getter for shr.adverse.AdverseReaction[]
+   * Get the AdverseReaction array.
+   * @returns {Array<AdverseReaction>} The shr.allergy.AdverseReaction array
    */
   get adverseReaction() {
     return this._adverseReaction;
   }
 
   /**
-   * Setter for shr.adverse.AdverseReaction[]
+   * Set the AdverseReaction array.
+   * @param {Array<AdverseReaction>} adverseReaction - The shr.allergy.AdverseReaction array
    */
-  set adverseReaction(adverseReactionVal) {
-    this._adverseReaction = adverseReactionVal;
+  set adverseReaction(adverseReaction) {
+    this._adverseReaction = adverseReaction;
   }
 
-}
+  /**
+   * Get the Onset.
+   * @returns {Onset} The shr.condition.Onset
+   */
+  get onset() {
+    return this._onset;
+  }
 
+  /**
+   * Set the Onset.
+   * @param {Onset} onset - The shr.condition.Onset
+   */
+  set onset(onset) {
+    this._onset = onset;
+  }
+
+  /**
+   * Get the Abatement.
+   * @returns {Abatement} The shr.condition.Abatement
+   */
+  get abatement() {
+    return this._abatement;
+  }
+
+  /**
+   * Set the Abatement.
+   * @param {Abatement} abatement - The shr.condition.Abatement
+   */
+  set abatement(abatement) {
+    this._abatement = abatement;
+  }
+
+  /**
+   * Get the MostRecentOccurrenceTime.
+   * @returns {MostRecentOccurrenceTime} The shr.allergy.MostRecentOccurrenceTime
+   */
+  get mostRecentOccurrenceTime() {
+    return this._mostRecentOccurrenceTime;
+  }
+
+  /**
+   * Set the MostRecentOccurrenceTime.
+   * @param {MostRecentOccurrenceTime} mostRecentOccurrenceTime - The shr.allergy.MostRecentOccurrenceTime
+   */
+  set mostRecentOccurrenceTime(mostRecentOccurrenceTime) {
+    this._mostRecentOccurrenceTime = mostRecentOccurrenceTime;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the AllergyIntolerance class.
+   * The JSON must be valid against the AllergyIntolerance JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AllergyIntolerance} An instance of AllergyIntolerance populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AllergyIntolerance();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default AllergyIntolerance;

@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.core.AgeRange */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.AgeRange.
+ */
 class AgeRange {
 
   /**
-   * Getter for shr.core.UpperAgeBound
+   * Get the UpperBound.
+   * @returns {UpperBound} The shr.core.UpperBound
    */
-  get upperAgeBound() {
-    return this._upperAgeBound;
+  get upperBound() {
+    return this._upperBound;
   }
 
   /**
-   * Setter for shr.core.UpperAgeBound
+   * Set the UpperBound.
+   * @param {UpperBound} upperBound - The shr.core.UpperBound
    */
-  set upperAgeBound(upperAgeBoundVal) {
-    this._upperAgeBound = upperAgeBoundVal;
+  set upperBound(upperBound) {
+    this._upperBound = upperBound;
   }
 
   /**
-   * Getter for shr.core.LowerAgeBound
+   * Get the LowerBound.
+   * @returns {LowerBound} The shr.core.LowerBound
    */
-  get lowerAgeBound() {
-    return this._lowerAgeBound;
+  get lowerBound() {
+    return this._lowerBound;
   }
 
   /**
-   * Setter for shr.core.LowerAgeBound
+   * Set the LowerBound.
+   * @param {LowerBound} lowerBound - The shr.core.LowerBound
    */
-  set lowerAgeBound(lowerAgeBoundVal) {
-    this._lowerAgeBound = lowerAgeBoundVal;
+  set lowerBound(lowerBound) {
+    this._lowerBound = lowerBound;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the AgeRange class.
+   * The JSON must be valid against the AgeRange JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AgeRange} An instance of AgeRange populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AgeRange();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default AgeRange;

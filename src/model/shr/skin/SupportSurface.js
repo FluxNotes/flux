@@ -1,78 +1,103 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import Device from '../device/Device';
 
-/** Generated from SHR definition for shr.skin.SupportSurface */
+/**
+ * Generated class for shr.skin.SupportSurface.
+ * @extends Device
+ */
 class SupportSurface extends Device {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.skin.SupportSurfaceCategory
+   * Get the SupportSurfaceCategory.
+   * @returns {SupportSurfaceCategory} The shr.skin.SupportSurfaceCategory
    */
   get supportSurfaceCategory() {
     return this._supportSurfaceCategory;
   }
 
   /**
-   * Setter for shr.skin.SupportSurfaceCategory
+   * Set the SupportSurfaceCategory.
+   * @param {SupportSurfaceCategory} supportSurfaceCategory - The shr.skin.SupportSurfaceCategory
    */
-  set supportSurfaceCategory(supportSurfaceCategoryVal) {
-    this._supportSurfaceCategory = supportSurfaceCategoryVal;
+  set supportSurfaceCategory(supportSurfaceCategory) {
+    this._supportSurfaceCategory = supportSurfaceCategory;
   }
 
   /**
-   * Getter for shr.skin.SupportSurfaceBodyPosition
+   * Get the SupportSurfaceBodyPosition.
+   * @returns {SupportSurfaceBodyPosition} The shr.skin.SupportSurfaceBodyPosition
    */
   get supportSurfaceBodyPosition() {
     return this._supportSurfaceBodyPosition;
   }
 
   /**
-   * Setter for shr.skin.SupportSurfaceBodyPosition
+   * Set the SupportSurfaceBodyPosition.
+   * @param {SupportSurfaceBodyPosition} supportSurfaceBodyPosition - The shr.skin.SupportSurfaceBodyPosition
    */
-  set supportSurfaceBodyPosition(supportSurfaceBodyPositionVal) {
-    this._supportSurfaceBodyPosition = supportSurfaceBodyPositionVal;
+  set supportSurfaceBodyPosition(supportSurfaceBodyPosition) {
+    this._supportSurfaceBodyPosition = supportSurfaceBodyPosition;
   }
 
   /**
-   * Getter for shr.skin.SupportSurfaceComponent[]
+   * Get the SupportSurfaceComponent array.
+   * @returns {Array<SupportSurfaceComponent>} The shr.skin.SupportSurfaceComponent array
    */
   get supportSurfaceComponent() {
     return this._supportSurfaceComponent;
   }
 
   /**
-   * Setter for shr.skin.SupportSurfaceComponent[]
+   * Set the SupportSurfaceComponent array.
+   * @param {Array<SupportSurfaceComponent>} supportSurfaceComponent - The shr.skin.SupportSurfaceComponent array
    */
-  set supportSurfaceComponent(supportSurfaceComponentVal) {
-    this._supportSurfaceComponent = supportSurfaceComponentVal;
+  set supportSurfaceComponent(supportSurfaceComponent) {
+    this._supportSurfaceComponent = supportSurfaceComponent;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the SupportSurface class.
+   * The JSON must be valid against the SupportSurface JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SupportSurface} An instance of SupportSurface populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new SupportSurface();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default SupportSurface;

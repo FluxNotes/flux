@@ -1,50 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.behavior.Religion */
-class Religion extends Observation {
+import BehavioralFinding from './BehavioralFinding';
+
+/**
+ * Generated class for shr.behavior.Religion.
+ * @extends BehavioralFinding
+ */
+class Religion extends BehavioralFinding {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
-  get specificType() {
-    return this._specificType;
+  get category() {
+    return this._category;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set category(category) {
+    this._category = category;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Religion class.
+   * The JSON must be valid against the Religion JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Religion} An instance of Religion populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Religion();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Religion;

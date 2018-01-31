@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.core.HumanNamePrefix */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.HumanNamePrefix.
+ */
 class HumanNamePrefix {
 
   /**
-   * Convenience getter for value (accesses this.string)
+   * Get the value (aliases string).
+   * @returns {string} The string
    */
   get value() {
-    return this.string;
+    return this._string;
   }
 
   /**
-   * Convenience setter for value (sets this.string)
+   * Set the value (aliases string).
+   * @param {string} value - The string
    */
-  set value(val) {
-    this.string = val;
+  set value(value) {
+    this._string = value;
   }
 
   /**
-   * Getter for string
+   * Get the string.
+   * @returns {string} The string
    */
   get string() {
     return this._string;
   }
 
   /**
-   * Setter for string
+   * Set the string.
+   * @param {string} string - The string
    */
-  set string(stringVal) {
-    this._string = stringVal;
+  set string(string) {
+    this._string = string;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the HumanNamePrefix class.
+   * The JSON must be valid against the HumanNamePrefix JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {HumanNamePrefix} An instance of HumanNamePrefix populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new HumanNamePrefix();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default HumanNamePrefix;

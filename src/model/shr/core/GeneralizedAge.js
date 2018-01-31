@@ -1,41 +1,36 @@
-import Age from './Age';
-import AgeGroup from './AgeGroup';
-import AgeRange from './AgeRange';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.GeneralizedAge */
+/**
+ * Generated class for shr.core.GeneralizedAge.
+ */
 class GeneralizedAge {
-    constructor(json) {
-        if (json) {
-            if (json.value && json.value.upperAgeBound) {
-                this._value = new AgeRange(json.value);
-            } else if (json.value && json.value.coding) {
-                this._value = new AgeGroup(json.value);
-            } else {
-                this._value = new Age(json.value);
-            }
-        }
-    }
 
   /**
-   * Getter for choice value
-   * - shr.core.Age
-   * - shr.core.AgeRange
-   * - shr.core.AgeGroup
+   * Get the choice value; one of: shr.core.Age, shr.core.AgeRange, shr.core.AgeGroup.
+   * @returns {(Age|AgeRange|AgeGroup)} The choice value; one of: shr.core.Age, shr.core.AgeRange, shr.core.AgeGroup
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Setter for choice value
-   * - shr.core.Age
-   * - shr.core.AgeRange
-   * - shr.core.AgeGroup
+   * Set the choice value; one of: shr.core.Age, shr.core.AgeRange, shr.core.AgeGroup.
+   * @param {(Age|AgeRange|AgeGroup)} value - The choice value; one of: shr.core.Age, shr.core.AgeRange, shr.core.AgeGroup
    */
-  set value(val) {
-    this._value = val;
+  set value(value) {
+    this._value = value;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the GeneralizedAge class.
+   * The JSON must be valid against the GeneralizedAge JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {GeneralizedAge} An instance of GeneralizedAge populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new GeneralizedAge();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default GeneralizedAge;

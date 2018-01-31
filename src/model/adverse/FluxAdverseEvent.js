@@ -1,21 +1,15 @@
 import AdverseEvent from '../shr/adverse/AdverseEvent';
 import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
-import CodeableConcept from '../shr/core/CodeableConcept';
-import lookup from '../../lib/toxicreactiontotreatment_lookup.jsx';
+import lookup from '../../lib/toxicreaction_lookup.jsx';
 
-
-class FluxAdverseEvent extends AdverseEvent{
+class FluxAdverseEvent {
     constructor(json) {
-        super(json);
+        this._adverseEvent = AdverseEvent.fromJSON(json);
+    }
 
-        if(!json) {
-            this._codeableConcept = new CodeableConcept();
-            this._adverseEventGrade = new AdverseEventGrade();
-            this._adverseEventGrade.value = new CodeableConcept();
-            this._causeCategory = new CauseCategory();
-            this._causeCategory.value = new CodeableConcept();
-        }
+    get entryInfo() {
+        return this._adverseEvent.entryInfo;
     }
 
     /*
@@ -23,7 +17,8 @@ class FluxAdverseEvent extends AdverseEvent{
      *  This will return the displayText string from CodeableConcept value
      */
     get adverseEvent() {
-        return this._codeableConcept.coding[0].displayText.value;
+        if (!this._adverseEvent.value) return null;
+        return this._adverseEvent.value.coding[0].displayText.value;
     }
 
     /*
@@ -32,7 +27,7 @@ class FluxAdverseEvent extends AdverseEvent{
      *  This function will lookup the corresponding coding/codesystem and set the _codeableConcept property
      */
     set adverseEvent(adverseEvent) {
-        this._codeableConcept = lookup.getAdverseEventCodeableConcept(adverseEvent);
+        this._adverseEvent.value = lookup.getAdverseEventCodeableConcept(adverseEvent);
     }
 
     /*
@@ -40,7 +35,8 @@ class FluxAdverseEvent extends AdverseEvent{
      *  This will return the displayText string from adverseEventGrade value
      */
     get adverseEventGrade() {
-        return this._adverseEventGrade.value.coding[0].displayText.value;
+        if (!this._adverseEvent.adverseEventGrade) return null;
+        return this._adverseEvent.adverseEventGrade.value.coding[0].displayText.value;
     }
 
     /*
@@ -51,7 +47,7 @@ class FluxAdverseEvent extends AdverseEvent{
     set adverseEventGrade(grade) {
         let adverseEventGrade = new AdverseEventGrade();
         adverseEventGrade.value = lookup.getAdverseEventGradeCodeableConcept(grade);
-        this._adverseEventGrade = adverseEventGrade;
+        this._adverseEvent.adverseEventGrade = adverseEventGrade;
     }
 
     /*
@@ -59,7 +55,8 @@ class FluxAdverseEvent extends AdverseEvent{
      *  This will return the displayText string from causeCategory value
      */
     get causeCategory() {
-        return this._causeCategory.value.coding[0].displayText.value;
+        if (!this._adverseEvent.causeCategory) return null;
+        return this._adverseEvent.causeCategory.value.coding[0].displayText.value;
     }
 
     /*
@@ -70,7 +67,7 @@ class FluxAdverseEvent extends AdverseEvent{
     set causeCategory(causeCategory) {
         let c = new CauseCategory();
         c.value = lookup.getAttributionCodeableConcept(causeCategory);
-        this._causeCategory = c; 
+        this._adverseEvent.causeCategory = c; 
     }
 }
 

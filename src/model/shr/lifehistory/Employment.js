@@ -1,78 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.lifehistory.Employment */
-class Employment extends Observation {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.lifehistory.Employment.
+ * @extends QuestionAnswer
+ */
+class Employment extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @returns {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._value;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @param {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for shr.lifehistory.EmploymentStatus
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get employmentStatus() {
-    return this._employmentStatus;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.lifehistory.EmploymentStatus
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set employmentStatus(employmentStatusVal) {
-    this._employmentStatus = employmentStatusVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
   /**
-   * Getter for shr.lifehistory.Employer
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get employer() {
-    return this._employer;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Setter for shr.lifehistory.Employer
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
    */
-  set employer(employerVal) {
-    this._employer = employerVal;
+  set members(members) {
+    this._members = members;
   }
 
   /**
-   * Getter for shr.core.OccurrenceTime
+   * Deserializes JSON data to an instance of the Employment class.
+   * The JSON must be valid against the Employment JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Employment} An instance of Employment populated with the JSON data
    */
-  get occurrenceTime() {
-    return this._occurrenceTime;
+  static fromJSON(json={}) {
+    const inst = new Employment();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.OccurrenceTime
-   */
-  set occurrenceTime(occurrenceTimeVal) {
-    this._occurrenceTime = occurrenceTimeVal;
-  }
-
 }
-
 export default Employment;

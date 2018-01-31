@@ -1,55 +1,52 @@
-import BoundType from './BoundType';
-import Quantity from '../core/Quantity';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.LowerBound */
+/**
+ * Generated class for shr.core.LowerBound.
+ */
 class LowerBound {
-    constructor(json) {
-        this.quantity = new Quantity(json.value);
-        this._quantity = this.quantity;
-        if (json.boundType) this._boundType = new BoundType(json.boundType);
-    }
+
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for shr.core.BoundType
+   * Deserializes JSON data to an instance of the LowerBound class.
+   * The JSON must be valid against the LowerBound JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {LowerBound} An instance of LowerBound populated with the JSON data
    */
-  get boundType() {
-    return this._boundType;
+  static fromJSON(json={}) {
+    const inst = new LowerBound();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.BoundType
-   */
-  set boundType(boundTypeVal) {
-    this._boundType = boundTypeVal;
-  }
-
 }
-
 export default LowerBound;

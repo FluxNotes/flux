@@ -1,34 +1,36 @@
-//import GeneralizedAge from './GeneralizedAge';
-import GeneralizedDateTime from './GeneralizedDateTime';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.GeneralizedTemporalContext */
+/**
+ * Generated class for shr.core.GeneralizedTemporalContext.
+ */
 class GeneralizedTemporalContext {
-    constructor(json) {
-        if (json) {
-            this._value = new GeneralizedDateTime(json);
-        }
-    }
 
   /**
-   * Getter for choice value
-   * - shr.core.GeneralizedDateTime
-   * - shr.core.GeneralizedAge
-   * - shr.core.GestationalTemporalContext
+   * Get the choice value; one of: shr.core.GeneralizedDateTime, shr.core.GeneralizedAge, shr.core.GestationalTemporalContext.
+   * @returns {(GeneralizedDateTime|GeneralizedAge|GestationalTemporalContext)} The choice value; one of: shr.core.GeneralizedDateTime, shr.core.GeneralizedAge, shr.core.GestationalTemporalContext
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Setter for choice value
-   * - shr.core.GeneralizedDateTime
-   * - shr.core.GeneralizedAge
-   * - shr.core.GestationalTemporalContext
+   * Set the choice value; one of: shr.core.GeneralizedDateTime, shr.core.GeneralizedAge, shr.core.GestationalTemporalContext.
+   * @param {(GeneralizedDateTime|GeneralizedAge|GestationalTemporalContext)} value - The choice value; one of: shr.core.GeneralizedDateTime, shr.core.GeneralizedAge, shr.core.GestationalTemporalContext
    */
-  set value(val) {
-    this._value = val;
+  set value(value) {
+    this._value = value;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the GeneralizedTemporalContext class.
+   * The JSON must be valid against the GeneralizedTemporalContext JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {GeneralizedTemporalContext} An instance of GeneralizedTemporalContext populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new GeneralizedTemporalContext();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default GeneralizedTemporalContext;

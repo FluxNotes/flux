@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.skin.SupportSurfaceBodyPosition */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.skin.SupportSurfaceBodyPosition.
+ */
 class SupportSurfaceBodyPosition {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the SupportSurfaceBodyPosition class.
+   * The JSON must be valid against the SupportSurfaceBodyPosition JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SupportSurfaceBodyPosition} An instance of SupportSurfaceBodyPosition populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new SupportSurfaceBodyPosition();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default SupportSurfaceBodyPosition;

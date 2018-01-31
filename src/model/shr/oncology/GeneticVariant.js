@@ -1,64 +1,103 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.GeneticVariant */
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.oncology.GeneticVariant.
+ * @extends Observation
+ */
 class GeneticVariant extends Observation {
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
+
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
+
+  /**
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.oncology.GeneIdentifier
+   * Get the FocalSubject.
+   * @returns {FocalSubject} The shr.finding.FocalSubject
    */
-  get geneIdentifier() {
-    return this._geneIdentifier;
+  get focalSubject() {
+    return this._focalSubject;
   }
 
   /**
-   * Setter for shr.oncology.GeneIdentifier
+   * Set the FocalSubject.
+   * @param {FocalSubject} focalSubject - The shr.finding.FocalSubject
    */
-  set geneIdentifier(geneIdentifierVal) {
-    this._geneIdentifier = geneIdentifierVal;
+  set focalSubject(focalSubject) {
+    this._focalSubject = focalSubject;
   }
 
   /**
-   * Getter for shr.oncology.Refseq
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get refseq() {
-    return this._refseq;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Setter for shr.oncology.Refseq
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set refseq(refseqVal) {
-    this._refseq = refseqVal;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the GeneticVariant class.
+   * The JSON must be valid against the GeneticVariant JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {GeneticVariant} An instance of GeneticVariant populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new GeneticVariant();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default GeneticVariant;

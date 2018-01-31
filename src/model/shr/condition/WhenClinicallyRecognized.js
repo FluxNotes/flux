@@ -1,47 +1,52 @@
-import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
-import moment from 'moment';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.condition.WhenClinicallyRecognized */
+/**
+ * Generated class for shr.condition.WhenClinicallyRecognized.
+ */
 class WhenClinicallyRecognized {
-    constructor(json) {
-        if (json) {
-            this.generalizedTemporalContext = new GeneralizedTemporalContext(json.generalizedTemporalContext);
-            this._generalizedTemporalContext = this.generalizedTemporalContext;
-        }
-    }
-
-    fromFHIR(dateTime) {
-        this._generalizedTemporalContext = new GeneralizedTemporalContext(new moment(dateTime).format('D MMM YYYY'));
-    }
 
   /**
-   * Convenience getter for value (accesses this.generalizedTemporalContext)
+   * Get the value (aliases generalizedTemporalContext).
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get value() {
-    return this.generalizedTemporalContext;
+    return this._generalizedTemporalContext;
   }
 
   /**
-   * Convenience setter for value (sets this.generalizedTemporalContext)
+   * Set the value (aliases generalizedTemporalContext).
+   * @param {GeneralizedTemporalContext} value - The shr.core.GeneralizedTemporalContext
    */
-  set value(val) {
-    this.generalizedTemporalContext = val;
+  set value(value) {
+    this._generalizedTemporalContext = value;
   }
 
   /**
-   * Getter for shr.core.GeneralizedTemporalContext
+   * Get the GeneralizedTemporalContext.
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get generalizedTemporalContext() {
     return this._generalizedTemporalContext;
   }
 
   /**
-   * Setter for shr.core.GeneralizedTemporalContext
+   * Set the GeneralizedTemporalContext.
+   * @param {GeneralizedTemporalContext} generalizedTemporalContext - The shr.core.GeneralizedTemporalContext
    */
-  set generalizedTemporalContext(generalizedTemporalContextVal) {
-    this._generalizedTemporalContext = generalizedTemporalContextVal;
+  set generalizedTemporalContext(generalizedTemporalContext) {
+    this._generalizedTemporalContext = generalizedTemporalContext;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the WhenClinicallyRecognized class.
+   * The JSON must be valid against the WhenClinicallyRecognized JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {WhenClinicallyRecognized} An instance of WhenClinicallyRecognized populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new WhenClinicallyRecognized();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default WhenClinicallyRecognized;

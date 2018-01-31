@@ -1,140 +1,135 @@
-import CodeableConcept from '../core/CodeableConcept';
-import Entry from '../base/Entry';
-import Observation from '../observation/Observation';
-import T_Stage from './T_Stage';
-import N_Stage from './N_Stage';
-import M_Stage from './M_Stage';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.TNMStage */
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.oncology.TNMStage.
+ * @extends Observation
+ */
 class TNMStage extends Observation {
-    constructor(json) {
-        super(json);
-        if (json) {
-            this._entryInfo = new Entry(json);
-            this.codeableConcept = new CodeableConcept(json.value);
-            this._codeableConcept = this.codeableConcept;
-            this._value = this.codeableConcept;
-            if (json.tStage) this._t_Stage = new T_Stage(json.tStage);
-            if (json.nStage) this._n_Stage = new N_Stage(json.nStage);
-            if (json.mStage) this._m_Stage = new M_Stage(json.mStage);
-        } else {
-            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/TNMStage",
-                                                    "http://standardhealthrecord.org/observation/Observation",
-                                                    "http://standardhealthrecord.org/base/Action");
-        }
-    }
+
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.oncology.StagingSystem
+   * Get the FindingMethod.
+   * @returns {FindingMethod} The shr.finding.FindingMethod
    */
-  get stagingSystem() {
-    return this._stagingSystem;
+  get findingMethod() {
+    return this._findingMethod;
   }
 
   /**
-   * Setter for shr.oncology.StagingSystem
+   * Set the FindingMethod.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
    */
-  set stagingSystem(stagingSystemVal) {
-    this._stagingSystem = stagingSystemVal;
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
   }
 
   /**
-   * Getter for shr.oncology.StagingTiming
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   */
+  get observationComponent() {
+    return this._observationComponent;
+  }
+
+  /**
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   */
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
+  }
+
+  /**
+   * Get the StagingTiming.
+   * @returns {StagingTiming} The shr.oncology.StagingTiming
    */
   get stagingTiming() {
     return this._stagingTiming;
   }
 
   /**
-   * Setter for shr.oncology.StagingTiming
+   * Set the StagingTiming.
+   * @param {StagingTiming} stagingTiming - The shr.oncology.StagingTiming
    */
-  set stagingTiming(stagingTimingVal) {
-    this._stagingTiming = stagingTimingVal;
+  set stagingTiming(stagingTiming) {
+    this._stagingTiming = stagingTiming;
   }
 
   /**
-   * Getter for shr.oncology.T-Stage
+   * Deserializes JSON data to an instance of the TNMStage class.
+   * The JSON must be valid against the TNMStage JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {TNMStage} An instance of TNMStage populated with the JSON data
    */
-  get t_Stage() {
-    return this._t_Stage;
+  static fromJSON(json={}) {
+    const inst = new TNMStage();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.oncology.T-Stage
-   */
-  set t_Stage(t_StageVal) {
-    this._t_Stage = t_StageVal;
-  }
-
-  /**
-   * Getter for shr.oncology.N-Stage
-   */
-  get n_Stage() {
-    return this._n_Stage;
-  }
-
-  /**
-   * Setter for shr.oncology.N-Stage
-   */
-  set n_Stage(n_StageVal) {
-    this._n_Stage = n_StageVal;
-  }
-
-  /**
-   * Getter for shr.oncology.M-Stage
-   */
-  get m_Stage() {
-    return this._m_Stage;
-  }
-
-  /**
-   * Setter for shr.oncology.M-Stage
-   */
-  set m_Stage(m_StageVal) {
-    this._m_Stage = m_StageVal;
-  }
-
 }
-
 export default TNMStage;

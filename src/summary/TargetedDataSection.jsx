@@ -111,7 +111,7 @@ export default class TargetedDataSection extends Component {
     render() {
         const { section, condition, clinicalEvent } = this.props;
         const visualizationOptions = this.getOptions(section);
-        const selectedCondition = condition && condition.specificType.codeableConcept.displayText.string;
+        const selectedCondition = condition && condition.type;
         const encounterView = clinicalEvent === "encounter";
 
         return (

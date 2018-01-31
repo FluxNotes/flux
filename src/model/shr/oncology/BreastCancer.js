@@ -1,96 +1,103 @@
-import BodySite from '../core/BodySite';
-import Category from '../base/Category';
-import Condition from '../condition/Condition';
-import Entry from '../base/Entry';
-import SpecificType from '../core/SpecificType';
-import Stage from '../condition/Stage';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.BreastCancer */
+import Condition from '../condition/Condition';
+
+/**
+ * Generated class for shr.oncology.BreastCancer.
+ * @extends Condition
+ */
 class BreastCancer extends Condition {
-    constructor(json) {
-        super(json);
-        if (json) {
-            this._entryInfo = new Entry(json);
-            if (json.specificType) this._specificType = new SpecificType(json.specificType);
-            if (json.category) this._category = new Category(json.category);
-            if (json.stage) this._stage = new Stage(json.stage);
-            if (json.bodySite) this._bodySite = new BodySite(json.bodySite);
-        } else {
-            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/BreastCancer",
-                                                    "http://standardhealthrecord.org/condition/Condition");
-        }
-    }
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.base.Category
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
   get category() {
     return this._category;
   }
 
   /**
-   * Setter for shr.base.Category
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set category(categoryVal) {
-    this._category = categoryVal;
+  set category(category) {
+    this._category = category;
   }
 
   /**
-   * Getter for shr.condition.Stage
+   * Get the Stage.
+   * @returns {Stage} The shr.condition.Stage
    */
   get stage() {
     return this._stage;
   }
 
   /**
-   * Setter for shr.condition.Stage
+   * Set the Stage.
+   * @param {Stage} stage - The shr.condition.Stage
    */
-  set stage(stageVal) {
-    this._stage = stageVal;
+  set stage(stage) {
+    this._stage = stage;
   }
 
   /**
-   * Getter for shr.core.BodySite
+   * Deserializes JSON data to an instance of the BreastCancer class.
+   * The JSON must be valid against the BreastCancer JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {BreastCancer} An instance of BreastCancer populated with the JSON data
    */
-  get bodySite() {
-    return this._bodySite;
+  static fromJSON(json={}) {
+    const inst = new BreastCancer();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.BodySite
-   */
-  set bodySite(bodySiteVal) {
-    this._bodySite = bodySiteVal;
-  }
-
 }
-
 export default BreastCancer;

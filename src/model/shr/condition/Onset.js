@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.condition.Onset */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.condition.Onset.
+ */
 class Onset {
 
   /**
-   * Convenience getter for value (accesses this.generalizedTemporalContext)
+   * Get the value (aliases generalizedTemporalContext).
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get value() {
-    return this.generalizedTemporalContext;
+    return this._generalizedTemporalContext;
   }
 
   /**
-   * Convenience setter for value (sets this.generalizedTemporalContext)
+   * Set the value (aliases generalizedTemporalContext).
+   * @param {GeneralizedTemporalContext} value - The shr.core.GeneralizedTemporalContext
    */
-  set value(val) {
-    this.generalizedTemporalContext = val;
+  set value(value) {
+    this._generalizedTemporalContext = value;
   }
 
   /**
-   * Getter for shr.core.GeneralizedTemporalContext
+   * Get the GeneralizedTemporalContext.
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get generalizedTemporalContext() {
     return this._generalizedTemporalContext;
   }
 
   /**
-   * Setter for shr.core.GeneralizedTemporalContext
+   * Set the GeneralizedTemporalContext.
+   * @param {GeneralizedTemporalContext} generalizedTemporalContext - The shr.core.GeneralizedTemporalContext
    */
-  set generalizedTemporalContext(generalizedTemporalContextVal) {
-    this._generalizedTemporalContext = generalizedTemporalContextVal;
+  set generalizedTemporalContext(generalizedTemporalContext) {
+    this._generalizedTemporalContext = generalizedTemporalContext;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Onset class.
+   * The JSON must be valid against the Onset JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Onset} An instance of Onset populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Onset();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Onset;

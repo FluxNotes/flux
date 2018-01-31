@@ -1,50 +1,87 @@
-import ExposureToSubstance from './ExposureToSubstance';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.environment.AnimalExposure */
-class AnimalExposure extends ExposureToSubstance {
+import ExposureToAgent from './ExposureToAgent';
+
+/**
+ * Generated class for shr.environment.AnimalExposure.
+ * @extends ExposureToAgent
+ */
+class AnimalExposure extends ExposureToAgent {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.environment.ExposureSourceOrVector
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get exposureSourceOrVector() {
-    return this._exposureSourceOrVector;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.environment.ExposureSourceOrVector
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set exposureSourceOrVector(exposureSourceOrVectorVal) {
-    this._exposureSourceOrVector = exposureSourceOrVectorVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get specificType() {
-    return this._specificType;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
+  /**
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the AnimalExposure class.
+   * The JSON must be valid against the AnimalExposure JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {AnimalExposure} An instance of AnimalExposure populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new AnimalExposure();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default AnimalExposure;

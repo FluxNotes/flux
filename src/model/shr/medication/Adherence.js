@@ -1,64 +1,103 @@
-/** Generated from SHR definition for shr.medication.Adherence */
-class Adherence {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import BehavioralFinding from '../behavior/BehavioralFinding';
+
+/**
+ * Generated class for shr.medication.Adherence.
+ * @extends BehavioralFinding
+ */
+class Adherence extends BehavioralFinding {
 
   /**
-   * Getter for Choice<TBD<MedicationTreatment> | TBD<SupplementTreatment>>[].
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
-  get () {
-    return this._;
+  get entryInfo() {
+    return this._entryInfo;
   }
 
   /**
-   * Setter for Choice<TBD<MedicationTreatment> | TBD<SupplementTreatment>>[].
-   * NOTE: Choice fields are deprecated.  This is a stop-gap solution.
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set (choiceVal) {
-    this._ = choiceVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.medication.AdherenceLevel
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get adherenceLevel() {
-    return this._adherenceLevel;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.medication.AdherenceLevel
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set adherenceLevel(adherenceLevelVal) {
-    this._adherenceLevel = adherenceLevelVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.medication.NonAdherenceReason[]
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get nonAdherenceReason() {
-    return this._nonAdherenceReason;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.medication.NonAdherenceReason[]
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set nonAdherenceReason(nonAdherenceReasonVal) {
-    this._nonAdherenceReason = nonAdherenceReasonVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.Details
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get details() {
-    return this._details;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.Details
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set details(detailsVal) {
-    this._details = detailsVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Get the ReasonForBehavior array.
+   * @returns {Array<ReasonForBehavior>} The shr.behavior.ReasonForBehavior array
+   */
+  get reasonForBehavior() {
+    return this._reasonForBehavior;
+  }
+
+  /**
+   * Set the ReasonForBehavior array.
+   * @param {Array<ReasonForBehavior>} reasonForBehavior - The shr.behavior.ReasonForBehavior array
+   */
+  set reasonForBehavior(reasonForBehavior) {
+    this._reasonForBehavior = reasonForBehavior;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the Adherence class.
+   * The JSON must be valid against the Adherence JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Adherence} An instance of Adherence populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Adherence();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Adherence;

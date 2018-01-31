@@ -1,120 +1,87 @@
-import Panel from '../observation/Panel';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.environment.SocialEnvironment */
-class SocialEnvironment extends Panel {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.environment.SocialEnvironment.
+ * @extends QuestionAnswer
+ */
+class SocialEnvironment extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @returns {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._value;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity.
+   * @param {(Quantity|CodeableConcept|string|boolean|Range|Ratio|Attachment|time|dateTime|TimePeriod|IntegerQuantity)} value - The choice value; one of: shr.core.Quantity, shr.core.CodeableConcept, string, boolean, shr.core.Range, shr.core.Ratio, shr.core.Attachment, time, dateTime, shr.core.TimePeriod, shr.core.IntegerQuantity
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for Reference<shr.environment.TransportationAvailability>
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get transportationAvailability() {
-    return this._transportationAvailability;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for Reference<shr.environment.TransportationAvailability>
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set transportationAvailability(transportationAvailabilityVal) {
-    this._transportationAvailability = transportationAvailabilityVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
   /**
-   * Getter for Reference<shr.environment.HousingSecurity>
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get housingSecurity() {
-    return this._housingSecurity;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Setter for Reference<shr.environment.HousingSecurity>
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
    */
-  set housingSecurity(housingSecurityVal) {
-    this._housingSecurity = housingSecurityVal;
+  set members(members) {
+    this._members = members;
   }
 
   /**
-   * Getter for Reference<shr.environment.PhysicalSafety>
+   * Deserializes JSON data to an instance of the SocialEnvironment class.
+   * The JSON must be valid against the SocialEnvironment JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SocialEnvironment} An instance of SocialEnvironment populated with the JSON data
    */
-  get physicalSafety() {
-    return this._physicalSafety;
+  static fromJSON(json={}) {
+    const inst = new SocialEnvironment();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for Reference<shr.environment.PhysicalSafety>
-   */
-  set physicalSafety(physicalSafetyVal) {
-    this._physicalSafety = physicalSafetyVal;
-  }
-
-  /**
-   * Getter for Reference<shr.environment.EmotionalSafety>
-   */
-  get emotionalSafety() {
-    return this._emotionalSafety;
-  }
-
-  /**
-   * Setter for Reference<shr.environment.EmotionalSafety>
-   */
-  set emotionalSafety(emotionalSafetyVal) {
-    this._emotionalSafety = emotionalSafetyVal;
-  }
-
-  /**
-   * Getter for Reference<shr.environment.DomesticViolence>
-   */
-  get domesticViolence() {
-    return this._domesticViolence;
-  }
-
-  /**
-   * Setter for Reference<shr.environment.DomesticViolence>
-   */
-  set domesticViolence(domesticViolenceVal) {
-    this._domesticViolence = domesticViolenceVal;
-  }
-
-  /**
-   * Getter for Reference<shr.environment.HomeEnvironmentRisk>[]
-   */
-  get homeEnvironmentRisk() {
-    return this._homeEnvironmentRisk;
-  }
-
-  /**
-   * Setter for Reference<shr.environment.HomeEnvironmentRisk>[]
-   */
-  set homeEnvironmentRisk(homeEnvironmentRiskVal) {
-    this._homeEnvironmentRisk = homeEnvironmentRiskVal;
-  }
-
 }
-
 export default SocialEnvironment;

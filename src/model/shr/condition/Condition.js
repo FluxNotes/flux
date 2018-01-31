@@ -1,154 +1,247 @@
-import Category from '../base/Category';
-import ClinicalStatus from './ClinicalStatus';
-import Entry from '../base/Entry';
-import ShrObjectFactory from '../../ShrObjectFactory';
-import SpecificType from '../core/SpecificType';
-import WhenClinicallyRecognized from './WhenClinicallyRecognized';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-var Condition;
+import SpecializedFinding from '../finding/SpecializedFinding';
 
-export function initCondition() {
-    if (Condition) {
-        return;
-    }
-    
-    /** Generated from SHR definition for shr.condition.Condition */
-    Condition = class Condition {
-        constructor(json) {
-            if (json) {
-                this._entryInfo = new Entry(json);
-                this._specificType = new SpecificType(json.specificType);
-                if (json.category) this._category = json.category.map((c) => new Category(c));
-                if (json.clinicalStatus) this._clinicalStatus = new ClinicalStatus(json.clinicalStatus);
-                this._whenClinicallyRecognized = new WhenClinicallyRecognized(json.whenClinicallyRecognized);
-                if (json.observation) this._observation = json.observation.map((o) => ShrObjectFactory.createInstance(o.entryType[0], o));
-            } else {
-                this._entryInfo = Entry.createEntry("http://standardhealthrecord.org/condition/Condition");
-            }
-        }
+/**
+ * Generated class for shr.condition.Condition.
+ * @extends SpecializedFinding
+ */
+class Condition extends SpecializedFinding {
 
-        fromFHIR(entry) {
-            const resource = entry.resource;
-            this._specificType = new SpecificType();
-            if (resource.code) this._specificType.fromFHIR(resource.code);
-            this._whenClinicallyRecognized = new WhenClinicallyRecognized();
-            this._whenClinicallyRecognized.fromFHIR(resource.onsetDateTime);
-        }
+  /**
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
+   */
+  get entryInfo() {
+    return this._entryInfo;
+  }
 
-      get entryInfo() {
-        return this._entryInfo;
-      }
+  /**
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   */
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
+  }
 
-      set entryInfo(entryVal) {
-        this._entryInfo = entryVal;
-      }
+  /**
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get value() {
+    return this._codeableConcept;
+  }
 
-      get specificType() {
-        return this._specificType;
-      }
+  /**
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   */
+  set value(value) {
+    this._codeableConcept = value;
+  }
 
-      set specificType(specificTypeVal) {
-        this._specificType = specificTypeVal;
-      }
+  /**
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
 
-      get category() {
-        return this._category;
-      }
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
 
-      set category(categoryVal) {
-        this._category = categoryVal;
-      }
+  /**
+   * Get the Subject.
+   * @returns {Subject} The shr.base.Subject
+   */
+  get subject() {
+    return this._subject;
+  }
 
-      get clinicalStatus() {
-        return this._clinicalStatus;
-      }
+  /**
+   * Set the Subject.
+   * @param {Subject} subject - The shr.base.Subject
+   */
+  set subject(subject) {
+    this._subject = subject;
+  }
 
-      set clinicalStatus(clinicalStatusVal) {
-        this._clinicalStatus = clinicalStatusVal;
-      }
+  /**
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
+   */
+  get category() {
+    return this._category;
+  }
 
-      get includeOnProblemList() {
-        return this._includeOnProblemList;
-      }
+  /**
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
+   */
+  set category(category) {
+    this._category = category;
+  }
 
-      set includeOnProblemList(includeOnProblemListVal) {
-        this._includeOnProblemList = includeOnProblemListVal;
-      }
+  /**
+   * Get the ClinicalStatus.
+   * @returns {ClinicalStatus} The shr.condition.ClinicalStatus
+   */
+  get clinicalStatus() {
+    return this._clinicalStatus;
+  }
 
-      get onset() {
-        return this._onset;
-      }
+  /**
+   * Set the ClinicalStatus.
+   * @param {ClinicalStatus} clinicalStatus - The shr.condition.ClinicalStatus
+   */
+  set clinicalStatus(clinicalStatus) {
+    this._clinicalStatus = clinicalStatus;
+  }
 
-      set onset(onsetVal) {
-        this._onset = onsetVal;
-      }
+  /**
+   * Get the BodySiteOrCode array.
+   * @returns {Array<BodySiteOrCode>} The shr.entity.BodySiteOrCode array
+   */
+  get bodySiteOrCode() {
+    return this._bodySiteOrCode;
+  }
 
-      get whenClinicallyRecognized() {
-        return this._whenClinicallyRecognized;
-      }
+  /**
+   * Set the BodySiteOrCode array.
+   * @param {Array<BodySiteOrCode>} bodySiteOrCode - The shr.entity.BodySiteOrCode array
+   */
+  set bodySiteOrCode(bodySiteOrCode) {
+    this._bodySiteOrCode = bodySiteOrCode;
+  }
 
-      set whenClinicallyRecognized(whenClinicallyRecognizedVal) {
-        this._whenClinicallyRecognized = whenClinicallyRecognizedVal;
-      }
+  /**
+   * Get the Onset.
+   * @returns {Onset} The shr.condition.Onset
+   */
+  get onset() {
+    return this._onset;
+  }
 
-      get preexisting() {
-        return this._preexisting;
-      }
+  /**
+   * Set the Onset.
+   * @param {Onset} onset - The shr.condition.Onset
+   */
+  set onset(onset) {
+    this._onset = onset;
+  }
 
-      set preexisting(preexistingVal) {
-        this._preexisting = preexistingVal;
-      }
+  /**
+   * Get the Abatement.
+   * @returns {Abatement} The shr.condition.Abatement
+   */
+  get abatement() {
+    return this._abatement;
+  }
 
-      get abatement() {
-        return this._abatement;
-      }
+  /**
+   * Set the Abatement.
+   * @param {Abatement} abatement - The shr.condition.Abatement
+   */
+  set abatement(abatement) {
+    this._abatement = abatement;
+  }
 
-      set abatement(abatementVal) {
-        this._abatement = abatementVal;
-      }
+  /**
+   * Get the WhenClinicallyRecognized.
+   * @returns {WhenClinicallyRecognized} The shr.condition.WhenClinicallyRecognized
+   */
+  get whenClinicallyRecognized() {
+    return this._whenClinicallyRecognized;
+  }
 
-      get bodySite() {
-        return this._bodySite;
-      }
+  /**
+   * Set the WhenClinicallyRecognized.
+   * @param {WhenClinicallyRecognized} whenClinicallyRecognized - The shr.condition.WhenClinicallyRecognized
+   */
+  set whenClinicallyRecognized(whenClinicallyRecognized) {
+    this._whenClinicallyRecognized = whenClinicallyRecognized;
+  }
 
-      set bodySite(bodySiteVal) {
-        this._bodySite = bodySiteVal;
-      }
+  /**
+   * Get the Preexisting.
+   * @returns {Preexisting} The shr.condition.Preexisting
+   */
+  get preexisting() {
+    return this._preexisting;
+  }
 
-      get severity() {
-        return this._severity;
-      }
+  /**
+   * Set the Preexisting.
+   * @param {Preexisting} preexisting - The shr.condition.Preexisting
+   */
+  set preexisting(preexisting) {
+    this._preexisting = preexisting;
+  }
 
-      set severity(severityVal) {
-        this._severity = severityVal;
-      }
+  /**
+   * Get the Severity.
+   * @returns {Severity} The shr.condition.Severity
+   */
+  get severity() {
+    return this._severity;
+  }
 
-      get criticality() {
-        return this._criticality;
-      }
+  /**
+   * Set the Severity.
+   * @param {Severity} severity - The shr.condition.Severity
+   */
+  set severity(severity) {
+    this._severity = severity;
+  }
 
-      set criticality(criticalityVal) {
-        this._criticality = criticalityVal;
-      }
+  /**
+   * Get the Criticality.
+   * @returns {Criticality} The shr.condition.Criticality
+   */
+  get criticality() {
+    return this._criticality;
+  }
 
-      get stage() {
-        return this._stage;
-      }
+  /**
+   * Set the Criticality.
+   * @param {Criticality} criticality - The shr.condition.Criticality
+   */
+  set criticality(criticality) {
+    this._criticality = criticality;
+  }
 
-      set stage(stageVal) {
-        this._stage = stageVal;
-      }
+  /**
+   * Get the Stage.
+   * @returns {Stage} The shr.condition.Stage
+   */
+  get stage() {
+    return this._stage;
+  }
 
-      get observation() {
-        return this._observation;
-      }
+  /**
+   * Set the Stage.
+   * @param {Stage} stage - The shr.condition.Stage
+   */
+  set stage(stage) {
+    this._stage = stage;
+  }
 
-      set observation(observationVal) {
-        this._observation = observationVal;
-      }
-    }
+  /**
+   * Deserializes JSON data to an instance of the Condition class.
+   * The JSON must be valid against the Condition JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Condition} An instance of Condition populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Condition();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
-initCondition();
-
-export {Condition as default};
+export default Condition;

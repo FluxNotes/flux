@@ -1,42 +1,52 @@
-import GeneralizedTemporalContext from '../core/GeneralizedTemporalContext';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.observation.ClinicallyRelevantTime */
-class ClinicallyRelevantTime {
-    constructor(json) {
-        if (json) {
-            this.generalizedTemporalContext = new GeneralizedTemporalContext(json);
-            this._generalizedTemporalContext = this.generalizedTemporalContext;
-        }
-    }
+/**
+ * Generated class for shr.condition.Abatement.
+ */
+class Abatement {
 
   /**
-   * Convenience getter for value (accesses this.generalizedTemporalContext)
+   * Get the value (aliases generalizedTemporalContext).
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get value() {
-    return this.generalizedTemporalContext;
+    return this._generalizedTemporalContext;
   }
 
   /**
-   * Convenience setter for value (sets this.generalizedTemporalContext)
+   * Set the value (aliases generalizedTemporalContext).
+   * @param {GeneralizedTemporalContext} value - The shr.core.GeneralizedTemporalContext
    */
-  set value(val) {
-    this.generalizedTemporalContext = val;
+  set value(value) {
+    this._generalizedTemporalContext = value;
   }
 
   /**
-   * Getter for shr.core.GeneralizedTemporalContext
+   * Get the GeneralizedTemporalContext.
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get generalizedTemporalContext() {
     return this._generalizedTemporalContext;
   }
 
   /**
-   * Setter for shr.core.GeneralizedTemporalContext
+   * Set the GeneralizedTemporalContext.
+   * @param {GeneralizedTemporalContext} generalizedTemporalContext - The shr.core.GeneralizedTemporalContext
    */
-  set generalizedTemporalContext(generalizedTemporalContextVal) {
-    this._generalizedTemporalContext = generalizedTemporalContextVal;
+  set generalizedTemporalContext(generalizedTemporalContext) {
+    this._generalizedTemporalContext = generalizedTemporalContext;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Abatement class.
+   * The JSON must be valid against the Abatement JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Abatement} An instance of Abatement populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Abatement();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Abatement;

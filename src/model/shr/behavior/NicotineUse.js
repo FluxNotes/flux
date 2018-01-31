@@ -1,106 +1,71 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import SubstanceUse from './SubstanceUse';
 
-/** Generated from SHR definition for shr.behavior.NicotineUse */
+/**
+ * Generated class for shr.behavior.NicotineUse.
+ * @extends SubstanceUse
+ */
 class NicotineUse extends SubstanceUse {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.Substance
+   * Deserializes JSON data to an instance of the NicotineUse class.
+   * The JSON must be valid against the NicotineUse JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {NicotineUse} An instance of NicotineUse populated with the JSON data
    */
-  get substance() {
-    return this._substance;
+  static fromJSON(json={}) {
+    const inst = new NicotineUse();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Substance
-   */
-  set substance(substanceVal) {
-    this._substance = substanceVal;
-  }
-
-  /**
-   * Getter for shr.core.SpecificType
-   */
-  get specificType() {
-    return this._specificType;
-  }
-
-  /**
-   * Setter for shr.core.SpecificType
-   */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
-
-  /**
-   * Getter for shr.medication.RouteIntoBody
-   */
-  get routeIntoBody() {
-    return this._routeIntoBody;
-  }
-
-  /**
-   * Setter for shr.medication.RouteIntoBody
-   */
-  set routeIntoBody(routeIntoBodyVal) {
-    this._routeIntoBody = routeIntoBodyVal;
-  }
-
-  /**
-   * Getter for shr.environment.ExposureMethod
-   */
-  get exposureMethod() {
-    return this._exposureMethod;
-  }
-
-  /**
-   * Setter for shr.environment.ExposureMethod
-   */
-  set exposureMethod(exposureMethodVal) {
-    this._exposureMethod = exposureMethodVal;
-  }
-
 }
-
 export default NicotineUse;

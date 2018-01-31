@@ -1,120 +1,116 @@
-import Action from '../base/Action';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.careplan.CarePlan */
-class CarePlan extends Action {
+/**
+ * Generated class for shr.careplan.CarePlan.
+ */
+class CarePlan {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.Title
+   * Get the Title.
+   * @returns {Title} The shr.core.Title
    */
   get title() {
     return this._title;
   }
 
   /**
-   * Setter for shr.core.Title
+   * Set the Title.
+   * @param {Title} title - The shr.core.Title
    */
-  set title(titleVal) {
-    this._title = titleVal;
+  set title(title) {
+    this._title = title;
   }
 
   /**
-   * Getter for shr.core.Description
+   * Get the Details.
+   * @returns {Details} The shr.core.Details
    */
-  get description() {
-    return this._description;
+  get details() {
+    return this._details;
   }
 
   /**
-   * Setter for shr.core.Description
+   * Set the Details.
+   * @param {Details} details - The shr.core.Details
    */
-  set description(descriptionVal) {
-    this._description = descriptionVal;
+  set details(details) {
+    this._details = details;
   }
 
   /**
-   * Getter for shr.base.Status
+   * Get the Status.
+   * @returns {Status} The shr.action.Status
    */
   get status() {
     return this._status;
   }
 
   /**
-   * Setter for shr.base.Status
+   * Set the Status.
+   * @param {Status} status - The shr.action.Status
    */
-  set status(statusVal) {
-    this._status = statusVal;
+  set status(status) {
+    this._status = status;
   }
 
   /**
-   * Getter for shr.base.Category[]
+   * Get the Category array.
+   * @returns {Array<Category>} The shr.core.Category array
    */
   get category() {
     return this._category;
   }
 
   /**
-   * Setter for shr.base.Category[]
+   * Set the Category array.
+   * @param {Array<Category>} category - The shr.core.Category array
    */
-  set category(categoryVal) {
-    this._category = categoryVal;
+  set category(category) {
+    this._category = category;
   }
 
   /**
-   * Getter for shr.core.Reason[]
-   */
-  get reason() {
-    return this._reason;
-  }
-
-  /**
-   * Setter for shr.core.Reason[]
-   */
-  set reason(reasonVal) {
-    this._reason = reasonVal;
-  }
-
-  /**
-   * Getter for shr.careplan.Goal[]
+   * Get the Goal array.
+   * @returns {Array<Goal>} The shr.careplan.Goal array
    */
   get goal() {
     return this._goal;
   }
 
   /**
-   * Setter for shr.careplan.Goal[]
+   * Set the Goal array.
+   * @param {Array<Goal>} goal - The shr.careplan.Goal array
    */
-  set goal(goalVal) {
-    this._goal = goalVal;
+  set goal(goal) {
+    this._goal = goal;
   }
 
   /**
-   * Getter for shr.base.Action[]
+   * Deserializes JSON data to an instance of the CarePlan class.
+   * The JSON must be valid against the CarePlan JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {CarePlan} An instance of CarePlan populated with the JSON data
    */
-  get action() {
-    return this._action;
+  static fromJSON(json={}) {
+    const inst = new CarePlan();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.base.Action[]
-   */
-  set action(actionVal) {
-    this._action = actionVal;
-  }
-
 }
-
 export default CarePlan;

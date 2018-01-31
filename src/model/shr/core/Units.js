@@ -1,37 +1,36 @@
-/** Generated from SHR definition for shr.core.Units */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Units.
+ */
 class Units {
-    constructor(json) {
-        this.coding = json;
-    }
 
   /**
-   * Convenience getter for value (accesses this.coding)
+   * Get the choice value; one of: shr.core.Coding, shr.core.Coding.
+   * @returns {Coding} The choice value; one of: shr.core.Coding, shr.core.Coding
    */
   get value() {
-    return this.coding;
+    return this._value;
   }
 
   /**
-   * Convenience setter for value (sets this.coding)
+   * Set the choice value; one of: shr.core.Coding, shr.core.Coding.
+   * @param {Coding} value - The choice value; one of: shr.core.Coding, shr.core.Coding
    */
-  set value(val) {
-    this.coding = val;
+  set value(value) {
+    this._value = value;
   }
 
   /**
-   * Getter for shr.core.Coding
+   * Deserializes JSON data to an instance of the Units class.
+   * The JSON must be valid against the Units JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Units} An instance of Units populated with the JSON data
    */
-  get coding() {
-    return this._coding;
+  static fromJSON(json={}) {
+    const inst = new Units();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Coding
-   */
-  set coding(codingVal) {
-    this._coding = codingVal;
-  }
-
 }
-
 export default Units;

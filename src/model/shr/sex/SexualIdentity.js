@@ -1,50 +1,71 @@
-import Panel from '../observation/Panel';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.sex.SexualIdentity */
-class SexualIdentity extends Panel {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.sex.SexualIdentity.
+ * @extends QuestionAnswer
+ */
+class SexualIdentity extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get specificType() {
-    return this._specificType;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
   /**
-   * Getter for shr.observation.PanelMembers
+   * Get the Members.
+   * @returns {Members} The shr.finding.Members
    */
-  get panelMembers() {
-    return this._panelMembers;
+  get members() {
+    return this._members;
   }
 
   /**
-   * Setter for shr.observation.PanelMembers
+   * Set the Members.
+   * @param {Members} members - The shr.finding.Members
    */
-  set panelMembers(panelMembersVal) {
-    this._panelMembers = panelMembersVal;
+  set members(members) {
+    this._members = members;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the SexualIdentity class.
+   * The JSON must be valid against the SexualIdentity JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SexualIdentity} An instance of SexualIdentity populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new SexualIdentity();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default SexualIdentity;

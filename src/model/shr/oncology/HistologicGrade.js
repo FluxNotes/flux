@@ -1,100 +1,87 @@
-import CodeableConcept from '../core/CodeableConcept';
-import Entry from '../base/Entry';
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.HistologicGrade */
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.oncology.HistologicGrade.
+ * @extends Observation
+ */
 class HistologicGrade extends Observation {
-    constructor(json) {
-        super(json);
-        this._entryInfo = new Entry(json);
-        this.codeableConcept = new CodeableConcept(json.value);
-        this._codeableConcept = this.codeableConcept;
-    }
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.oncology.TubuleFormationScore
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
    */
-  get tubuleFormationScore() {
-    return this._tubuleFormationScore;
+  get observationComponent() {
+    return this._observationComponent;
   }
 
   /**
-   * Setter for shr.oncology.TubuleFormationScore
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
    */
-  set tubuleFormationScore(tubuleFormationScoreVal) {
-    this._tubuleFormationScore = tubuleFormationScoreVal;
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
   }
 
   /**
-   * Getter for shr.oncology.NuclearPleomorphismScore
+   * Deserializes JSON data to an instance of the HistologicGrade class.
+   * The JSON must be valid against the HistologicGrade JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {HistologicGrade} An instance of HistologicGrade populated with the JSON data
    */
-  get nuclearPleomorphismScore() {
-    return this._nuclearPleomorphismScore;
+  static fromJSON(json={}) {
+    const inst = new HistologicGrade();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.oncology.NuclearPleomorphismScore
-   */
-  set nuclearPleomorphismScore(nuclearPleomorphismScoreVal) {
-    this._nuclearPleomorphismScore = nuclearPleomorphismScoreVal;
-  }
-
-  /**
-   * Getter for shr.oncology.MitoticCountScore
-   */
-  get mitoticCountScore() {
-    return this._mitoticCountScore;
-  }
-
-  /**
-   * Setter for shr.oncology.MitoticCountScore
-   */
-  set mitoticCountScore(mitoticCountScoreVal) {
-    this._mitoticCountScore = mitoticCountScoreVal;
-  }
-
 }
-
 export default HistologicGrade;

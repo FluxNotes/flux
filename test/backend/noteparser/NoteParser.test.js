@@ -160,31 +160,31 @@ const expectedOutputDiseaseStatus2 = [[
     })
 ], []];
 const expectedOutputToxicity = [[
-    new FluxToxicReactionToTreatment({ 
-        entryType: [
-            'http://standardhealthrecord.org/oncology/ToxicReactionToTreatment',
-            'http://standardhealthrecord.org/adverse/AdverseReaction'
-        ],
-        adverseEvent: {
-            entryType: [ 
-                'http://standardhealthrecord.org/adverse/AdverseEvent' 
-            ],
-            value: { 
-                coding: [{ 
-                    value: '10028813',
-                    codeSystem: { value:'https://www.meddra.org/'},
-                    displayText: 'Nausea' 
-                }]
-            },
-            adverseEventGrade: {
-                value: { 
-                    coding: [{ 
-                        value: 'C1513374',
-                        codeSystem: { value:'http://ncimeta.nci.nih.gov'},
-                        displayText: 'Grade 2' 
+    new FluxToxicReaction({ 
+        shr.base.EntryType: {"Value": 'http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction' },
+        
+        Value:  {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding": [
+                    {   "Value": "10028813", 
+                        "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, 
+                        "shr.core.DisplayText": {"Value": "Nausea"}
                     }]
-                } 
-            },
+                },
+        shr.adverse.adverseEventGrade: {
+            Value:  {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding": [
+                        {   "Value": "10028813", 
+                            "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, 
+                            "shr.core.DisplayText": {"Value": "Nausea"}
+                        }]
+                    },
+            Value: { 
+                coding: [{ 
+                    value: 'C1513374',
+                    codeSystem: { value:'http://ncimeta.nci.nih.gov'},
+                    displayText: 'Grade 2' 
+                }]
+            } 
             causeCategory: {
                 value: { 
                     coding: [{ 

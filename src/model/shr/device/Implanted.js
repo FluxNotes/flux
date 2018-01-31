@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.device.Implanted */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.device.Implanted.
+ */
 class Implanted {
 
   /**
-   * Convenience getter for value (accesses this.boolean)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.boolean;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.boolean)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.boolean = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for boolean
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get boolean() {
-    return this._boolean;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for boolean
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set boolean(booleanVal) {
-    this._boolean = booleanVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Implanted class.
+   * The JSON must be valid against the Implanted JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Implanted} An instance of Implanted populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Implanted();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Implanted;

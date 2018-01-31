@@ -1,62 +1,87 @@
-/** Generated from SHR definition for shr.immunization.Vaccine */
-class Vaccine {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import Entity from '../entity/Entity';
+
+/**
+ * Generated class for shr.immunization.Vaccine.
+ * @extends Entity
+ */
+class Vaccine extends Entity {
 
   /**
-   * Convenience getter for value (accesses this.specificType)
+   * Get the Type.
+   * @returns {Type} The shr.entity.Type
    */
-  get value() {
-    return this.specificType;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Convenience setter for value (sets this.specificType)
+   * Set the Type.
+   * @param {Type} type - The shr.entity.Type
    */
-  set value(val) {
-    this.specificType = val;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the Manufacturer.
+   * @returns {Manufacturer} The shr.entity.Manufacturer
    */
-  get specificType() {
-    return this._specificType;
+  get manufacturer() {
+    return this._manufacturer;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the Manufacturer.
+   * @param {Manufacturer} manufacturer - The shr.entity.Manufacturer
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set manufacturer(manufacturer) {
+    this._manufacturer = manufacturer;
   }
 
   /**
-   * Getter for shr.immunization.VaccineManufacturer
-   */
-  get vaccineManufacturer() {
-    return this._vaccineManufacturer;
-  }
-
-  /**
-   * Setter for shr.immunization.VaccineManufacturer
-   */
-  set vaccineManufacturer(vaccineManufacturerVal) {
-    this._vaccineManufacturer = vaccineManufacturerVal;
-  }
-
-  /**
-   * Getter for shr.immunization.LotNumber
+   * Get the LotNumber.
+   * @returns {LotNumber} The shr.entity.LotNumber
    */
   get lotNumber() {
     return this._lotNumber;
   }
 
   /**
-   * Setter for shr.immunization.LotNumber
+   * Set the LotNumber.
+   * @param {LotNumber} lotNumber - The shr.entity.LotNumber
    */
-  set lotNumber(lotNumberVal) {
-    this._lotNumber = lotNumberVal;
+  set lotNumber(lotNumber) {
+    this._lotNumber = lotNumber;
   }
 
-}
+  /**
+   * Get the ExpirationDate.
+   * @returns {ExpirationDate} The shr.entity.ExpirationDate
+   */
+  get expirationDate() {
+    return this._expirationDate;
+  }
 
+  /**
+   * Set the ExpirationDate.
+   * @param {ExpirationDate} expirationDate - The shr.entity.ExpirationDate
+   */
+  set expirationDate(expirationDate) {
+    this._expirationDate = expirationDate;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the Vaccine class.
+   * The JSON must be valid against the Vaccine JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Vaccine} An instance of Vaccine populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Vaccine();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default Vaccine;

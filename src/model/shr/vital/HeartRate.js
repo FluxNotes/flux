@@ -1,78 +1,119 @@
+import { setPropertiesFromJSON } from '../../json-helper';
+
 import VitalSign from './VitalSign';
 
-/** Generated from SHR definition for shr.vital.HeartRate */
+/**
+ * Generated class for shr.vital.HeartRate.
+ * @extends VitalSign
+ */
 class HeartRate extends VitalSign {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for shr.observation.ObservationQualifier
+   * Get the FindingMethod.
+   * @returns {FindingMethod} The shr.finding.FindingMethod
+   */
+  get findingMethod() {
+    return this._findingMethod;
+  }
+
+  /**
+   * Set the FindingMethod.
+   * @param {FindingMethod} findingMethod - The shr.finding.FindingMethod
+   */
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
+  }
+
+  /**
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Get the ObservationQualifier array.
+   * @returns {Array<ObservationQualifier>} The shr.finding.ObservationQualifier array
    */
   get observationQualifier() {
     return this._observationQualifier;
   }
 
   /**
-   * Setter for shr.observation.ObservationQualifier
+   * Set the ObservationQualifier array.
+   * @param {Array<ObservationQualifier>} observationQualifier - The shr.finding.ObservationQualifier array
    */
-  set observationQualifier(observationQualifierVal) {
-    this._observationQualifier = observationQualifierVal;
+  set observationQualifier(observationQualifier) {
+    this._observationQualifier = observationQualifier;
   }
 
   /**
-   * Getter for shr.lab.TestMethod
+   * Deserializes JSON data to an instance of the HeartRate class.
+   * The JSON must be valid against the HeartRate JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {HeartRate} An instance of HeartRate populated with the JSON data
    */
-  get testMethod() {
-    return this._testMethod;
+  static fromJSON(json={}) {
+    const inst = new HeartRate();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.lab.TestMethod
-   */
-  set testMethod(testMethodVal) {
-    this._testMethod = testMethodVal;
-  }
-
 }
-
 export default HeartRate;

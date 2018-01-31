@@ -1,34 +1,52 @@
-/** Generated from SHR definition for shr.core.Count */
+import { setPropertiesFromJSON } from '../../json-helper';
+
+/**
+ * Generated class for shr.core.Count.
+ */
 class Count {
 
   /**
-   * Convenience getter for value (accesses this.positiveInt)
+   * Get the value (aliases unsignedInt).
+   * @returns {unsignedInt} The unsignedInt
    */
   get value() {
-    return this.positiveInt;
+    return this._unsignedInt;
   }
 
   /**
-   * Convenience setter for value (sets this.positiveInt)
+   * Set the value (aliases unsignedInt).
+   * @param {unsignedInt} value - The unsignedInt
    */
-  set value(val) {
-    this.positiveInt = val;
+  set value(value) {
+    this._unsignedInt = value;
   }
 
   /**
-   * Getter for positiveInt
+   * Get the unsignedInt.
+   * @returns {unsignedInt} The unsignedInt
    */
-  get positiveInt() {
-    return this._positiveInt;
+  get unsignedInt() {
+    return this._unsignedInt;
   }
 
   /**
-   * Setter for positiveInt
+   * Set the unsignedInt.
+   * @param {unsignedInt} unsignedInt - The unsignedInt
    */
-  set positiveInt(positiveIntVal) {
-    this._positiveInt = positiveIntVal;
+  set unsignedInt(unsignedInt) {
+    this._unsignedInt = unsignedInt;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Count class.
+   * The JSON must be valid against the Count JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Count} An instance of Count populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Count();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Count;

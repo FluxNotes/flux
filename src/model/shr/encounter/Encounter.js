@@ -1,202 +1,181 @@
-/** Generated from SHR definition for shr.encounter.Encounter */
-class Encounter {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import Action from '../action/Action';
+
+/**
+ * Generated class for shr.encounter.Encounter.
+ * @extends Action
+ */
+class Encounter extends Action {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.OccurrenceTime
+   * Get the Subject.
+   * @returns {Subject} The shr.base.Subject
    */
-  get occurrenceTime() {
-    return this._occurrenceTime;
+  get subject() {
+    return this._subject;
   }
 
   /**
-   * Setter for shr.core.OccurrenceTime
+   * Set the Subject.
+   * @param {Subject} subject - The shr.base.Subject
    */
-  set occurrenceTime(occurrenceTimeVal) {
-    this._occurrenceTime = occurrenceTimeVal;
+  set subject(subject) {
+    this._subject = subject;
   }
 
   /**
-   * Getter for shr.encounter.ReferralDate
+   * Get the ReferralDate.
+   * @returns {ReferralDate} The shr.encounter.ReferralDate
    */
   get referralDate() {
     return this._referralDate;
   }
 
   /**
-   * Setter for shr.encounter.ReferralDate
+   * Set the ReferralDate.
+   * @param {ReferralDate} referralDate - The shr.encounter.ReferralDate
    */
-  set referralDate(referralDateVal) {
-    this._referralDate = referralDateVal;
+  set referralDate(referralDate) {
+    this._referralDate = referralDate;
   }
 
   /**
-   * Getter for shr.base.Status
-   */
-  get status() {
-    return this._status;
-  }
-
-  /**
-   * Setter for shr.base.Status
-   */
-  set status(statusVal) {
-    this._status = statusVal;
-  }
-
-  /**
-   * Getter for shr.encounter.ReferralSourceType
+   * Get the ReferralSourceType.
+   * @returns {ReferralSourceType} The shr.encounter.ReferralSourceType
    */
   get referralSourceType() {
     return this._referralSourceType;
   }
 
   /**
-   * Setter for shr.encounter.ReferralSourceType
+   * Set the ReferralSourceType.
+   * @param {ReferralSourceType} referralSourceType - The shr.encounter.ReferralSourceType
    */
-  set referralSourceType(referralSourceTypeVal) {
-    this._referralSourceType = referralSourceTypeVal;
+  set referralSourceType(referralSourceType) {
+    this._referralSourceType = referralSourceType;
   }
 
   /**
-   * Getter for shr.encounter.EncounterClass
+   * Get the TypeAsaCoding.
+   * @returns {TypeAsaCoding} The shr.core.TypeAsaCoding
    */
-  get encounterClass() {
-    return this._encounterClass;
+  get typeAsaCoding() {
+    return this._typeAsaCoding;
   }
 
   /**
-   * Setter for shr.encounter.EncounterClass
+   * Set the TypeAsaCoding.
+   * @param {TypeAsaCoding} typeAsaCoding - The shr.core.TypeAsaCoding
    */
-  set encounterClass(encounterClassVal) {
-    this._encounterClass = encounterClassVal;
+  set typeAsaCoding(typeAsaCoding) {
+    this._typeAsaCoding = typeAsaCoding;
   }
 
   /**
-   * Getter for shr.encounter.ServiceGiven[]
+   * Get the ServiceGiven array.
+   * @returns {Array<ServiceGiven>} The shr.encounter.ServiceGiven array
    */
   get serviceGiven() {
     return this._serviceGiven;
   }
 
   /**
-   * Setter for shr.encounter.ServiceGiven[]
+   * Set the ServiceGiven array.
+   * @param {Array<ServiceGiven>} serviceGiven - The shr.encounter.ServiceGiven array
    */
-  set serviceGiven(serviceGivenVal) {
-    this._serviceGiven = serviceGivenVal;
+  set serviceGiven(serviceGiven) {
+    this._serviceGiven = serviceGiven;
   }
 
   /**
-   * Getter for shr.encounter.EncounterNonOccurrenceModifier
+   * Get the ServiceProvider.
+   * @returns {ServiceProvider} The shr.encounter.ServiceProvider
    */
-  get encounterNonOccurrenceModifier() {
-    return this._encounterNonOccurrenceModifier;
+  get serviceProvider() {
+    return this._serviceProvider;
   }
 
   /**
-   * Setter for shr.encounter.EncounterNonOccurrenceModifier
+   * Set the ServiceProvider.
+   * @param {ServiceProvider} serviceProvider - The shr.encounter.ServiceProvider
    */
-  set encounterNonOccurrenceModifier(encounterNonOccurrenceModifierVal) {
-    this._encounterNonOccurrenceModifier = encounterNonOccurrenceModifierVal;
+  set serviceProvider(serviceProvider) {
+    this._serviceProvider = serviceProvider;
   }
 
   /**
-   * Getter for shr.actor.Participant[]
-   */
-  get participant() {
-    return this._participant;
-  }
-
-  /**
-   * Setter for shr.actor.Participant[]
-   */
-  set participant(participantVal) {
-    this._participant = participantVal;
-  }
-
-  /**
-   * Getter for shr.encounter.ProviderOrganization
-   */
-  get providerOrganization() {
-    return this._providerOrganization;
-  }
-
-  /**
-   * Setter for shr.encounter.ProviderOrganization
-   */
-  set providerOrganization(providerOrganizationVal) {
-    this._providerOrganization = providerOrganizationVal;
-  }
-
-  /**
-   * Getter for shr.encounter.Facility
-   */
-  get facility() {
-    return this._facility;
-  }
-
-  /**
-   * Setter for shr.encounter.Facility
-   */
-  set facility(facilityVal) {
-    this._facility = facilityVal;
-  }
-
-  /**
-   * Getter for shr.encounter.TreatmentCooperation
+   * Get the TreatmentCooperation.
+   * @returns {TreatmentCooperation} The shr.encounter.TreatmentCooperation
    */
   get treatmentCooperation() {
     return this._treatmentCooperation;
   }
 
   /**
-   * Setter for shr.encounter.TreatmentCooperation
+   * Set the TreatmentCooperation.
+   * @param {TreatmentCooperation} treatmentCooperation - The shr.encounter.TreatmentCooperation
    */
-  set treatmentCooperation(treatmentCooperationVal) {
-    this._treatmentCooperation = treatmentCooperationVal;
+  set treatmentCooperation(treatmentCooperation) {
+    this._treatmentCooperation = treatmentCooperation;
   }
 
-  // Ommitting getter/setter for field: TBD<HealthConcern>
-
-  // Ommitting getter/setter for field: TBD<PertinentFindings>[]
-
-  // Ommitting getter/setter for field: TBD<Diagnosis>[]
-
-  // Ommitting getter/setter for field: TBD<FullClinicalNote>
-
-  // Ommitting getter/setter for field: TBD<ClinicalSummary>
-
-  // Ommitting getter/setter for field: TBD<TreatmentServiceRendered>[]
-
-  // Ommitting getter/setter for field: TBD<CompletionStatus>
-
   /**
-   * Getter for shr.encounter.PaymentSource
+   * Get the PaymentSource.
+   * @returns {PaymentSource} The shr.encounter.PaymentSource
    */
   get paymentSource() {
     return this._paymentSource;
   }
 
   /**
-   * Setter for shr.encounter.PaymentSource
+   * Set the PaymentSource.
+   * @param {PaymentSource} paymentSource - The shr.encounter.PaymentSource
    */
-  set paymentSource(paymentSourceVal) {
-    this._paymentSource = paymentSourceVal;
+  set paymentSource(paymentSource) {
+    this._paymentSource = paymentSource;
   }
 
-}
+  // Ommitting getter/setter for TBD: HealthConcern
 
+  // Ommitting getter/setter for TBD: PertinentFindings
+
+  // Ommitting getter/setter for TBD: Diagnosis
+
+  // Ommitting getter/setter for TBD: FullClinicalNote
+
+  // Ommitting getter/setter for TBD: ClinicalSummary
+
+  // Ommitting getter/setter for TBD: TreatmentServiceRendered
+
+  // Ommitting getter/setter for TBD: CompletionStatus
+
+  /**
+   * Deserializes JSON data to an instance of the Encounter class.
+   * The JSON must be valid against the Encounter JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Encounter} An instance of Encounter populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Encounter();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+}
 export default Encounter;

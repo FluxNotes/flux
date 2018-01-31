@@ -1,64 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.environment.Coinhabitant */
-class Coinhabitant extends Observation {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.environment.Coinhabitant.
+ * @extends QuestionAnswer
+ */
+class Coinhabitant extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this.codeableConcept;
+    return this._codeableConcept;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get codeableConcept() {
     return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.CodeableConcept
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get specificType() {
-    return this._specificType;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Coinhabitant class.
+   * The JSON must be valid against the Coinhabitant JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Coinhabitant} An instance of Coinhabitant populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Coinhabitant();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Coinhabitant;

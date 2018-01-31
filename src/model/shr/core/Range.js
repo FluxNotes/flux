@@ -1,40 +1,52 @@
-import LowerBound from './LowerBound';
-import UpperBound from './UpperBound';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.core.Range */
+/**
+ * Generated class for shr.core.Range.
+ */
 class Range {
-    constructor(json) {
-        if (json.lowerBound) this._lowerBound = new LowerBound(json.lowerBound);
-        if (json.upperBound) this._upperBound = new UpperBound(json.upperBound);
-    }
+
   /**
-   * Getter for shr.core.LowerBound
+   * Get the LowerBound.
+   * @returns {LowerBound} The shr.core.LowerBound
    */
   get lowerBound() {
     return this._lowerBound;
   }
 
   /**
-   * Setter for shr.core.LowerBound
+   * Set the LowerBound.
+   * @param {LowerBound} lowerBound - The shr.core.LowerBound
    */
-  set lowerBound(lowerBoundVal) {
-    this._lowerBound = lowerBoundVal;
+  set lowerBound(lowerBound) {
+    this._lowerBound = lowerBound;
   }
 
   /**
-   * Getter for shr.core.UpperBound
+   * Get the UpperBound.
+   * @returns {UpperBound} The shr.core.UpperBound
    */
   get upperBound() {
     return this._upperBound;
   }
 
   /**
-   * Setter for shr.core.UpperBound
+   * Set the UpperBound.
+   * @param {UpperBound} upperBound - The shr.core.UpperBound
    */
-  set upperBound(upperBoundVal) {
-    this._upperBound = upperBoundVal;
+  set upperBound(upperBound) {
+    this._upperBound = upperBound;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Range class.
+   * The JSON must be valid against the Range JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Range} An instance of Range populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Range();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Range;

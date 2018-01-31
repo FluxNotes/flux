@@ -1,6 +1,6 @@
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
-import ShrObjectFactory from '../model/ShrObjectFactory';
+import FluxObjectFactory from '../model/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -10,7 +10,7 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            this.object = ShrObjectFactory.createInstance(this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
             this.object = object;
@@ -352,9 +352,7 @@ export default class CreatorBase extends Shortcut {
                 Lang.set(this.object, listAttribute, list);
             } else if (obj === "$parentValueObject") {
                 let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
-                //console.log(list);
                 args.forEach((a) => list.push(a));
-                //console.log(list);
                 Lang.set(this.parentContext.getValueObject(), listAttribute, list);
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");

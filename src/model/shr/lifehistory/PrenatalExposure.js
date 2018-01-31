@@ -1,64 +1,87 @@
-import ExposureToSubstance from '../environment/ExposureToSubstance';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.lifehistory.PrenatalExposure */
-class PrenatalExposure extends ExposureToSubstance {
+import ExposureToAgent from '../environment/ExposureToAgent';
+
+/**
+ * Generated class for shr.lifehistory.PrenatalExposure.
+ * @extends ExposureToAgent
+ */
+class PrenatalExposure extends ExposureToAgent {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.Substance
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get substance() {
-    return this._substance;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.Substance
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set substance(substanceVal) {
-    this._substance = substanceVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.core.GeneralizedTemporalContext
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
+   */
+  get codeableConcept() {
+    return this._codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   */
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Get the GeneralizedTemporalContext.
+   * @returns {GeneralizedTemporalContext} The shr.core.GeneralizedTemporalContext
    */
   get generalizedTemporalContext() {
     return this._generalizedTemporalContext;
   }
 
   /**
-   * Setter for shr.core.GeneralizedTemporalContext
+   * Set the GeneralizedTemporalContext.
+   * @param {GeneralizedTemporalContext} generalizedTemporalContext - The shr.core.GeneralizedTemporalContext
    */
-  set generalizedTemporalContext(generalizedTemporalContextVal) {
-    this._generalizedTemporalContext = generalizedTemporalContextVal;
+  set generalizedTemporalContext(generalizedTemporalContext) {
+    this._generalizedTemporalContext = generalizedTemporalContext;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Deserializes JSON data to an instance of the PrenatalExposure class.
+   * The JSON must be valid against the PrenatalExposure JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {PrenatalExposure} An instance of PrenatalExposure populated with the JSON data
    */
-  get specificType() {
-    return this._specificType;
+  static fromJSON(json={}) {
+    const inst = new PrenatalExposure();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.SpecificType
-   */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
-  }
-
 }
-
 export default PrenatalExposure;

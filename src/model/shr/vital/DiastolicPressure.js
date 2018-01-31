@@ -1,50 +1,71 @@
-import ObservationComponent from '../observation/ObservationComponent';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.vital.DiastolicPressure */
+import ObservationComponent from '../finding/ObservationComponent';
+
+/**
+ * Generated class for shr.vital.DiastolicPressure.
+ * @extends ObservationComponent
+ */
 class DiastolicPressure extends ObservationComponent {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get specificType() {
-    return this._specificType;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the DiastolicPressure class.
+   * The JSON must be valid against the DiastolicPressure JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {DiastolicPressure} An instance of DiastolicPressure populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new DiastolicPressure();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default DiastolicPressure;

@@ -1,44 +1,43 @@
-import ShrObjectFactory from '../model/ShrObjectFactory';
-import AllergyIntolerance from '../model/shr/allergy/AllergyIntolerance';
-import BreastCancer from '../model/shr/oncology/BreastCancer';
-import ClinicalNote from '../model/shr/core/ClinicalNote';
-import Condition from '../model/shr/condition/Condition';
-import FluxMedicationPrescription from '../model/medication/FluxMedicationPrescription';
-import NoKnownAllergy from '../model/shr/allergy/NoKnownAllergy';
-import NoKnownDrugAllergy from '../model/shr/allergy/NoKnownDrugAllergy';
-import NoKnownEnvironmentalAllergy from '../model/shr/allergy/NoKnownEnvironmentalAllergy';
-import NoKnownFoodAllergy from '../model/shr/allergy/NoKnownFoodAllergy';
-import PatientIdentifier from '../model/shr/base/PatientIdentifier';
-import PersonOfRecord from '../model/shr/demographics/PersonOfRecord';
-import Photograph from '../model/shr/demographics/Photograph';
-import FluxProcedure from '../model/procedure/FluxProcedure';
-import FluxProgression from '../model/oncology/FluxProgression';
+import FluxObjectFactory from '../model/FluxObjectFactory';
+import FluxClinicalNote from '../model/core/FluxClinicalNote';
+import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
+import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';;
+import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
+import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
+import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
+import CreationTime from '../model/shr/core/CreationTime';
+import LastUpdated from '../model/shr/base/LastUpdated';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
+import FluxPatient from '../model/entity/FluxPatient';
+import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
+import FluxCondition from '../model/condition/FluxCondition';
 
 class PatientRecord {
     constructor(shrJson = null) {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
-            this.personOfRecord = this.getPersonOfRecord();
-            this.shrId = this.personOfRecord.entryInfo.shrId;
+            this.patient = this.getPatient();
+            //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
+            this.shrId = this.patient.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                    return o.entryInfo.entryId;
-                })) + 1;
+                return o.entryInfo.entryId;
+            })) + 1;
         } else { // create a new patient
             this.entries = [];
-            this.personOfRecord = null;
+            this.patient = null;
             this.shrId = Guid.raw();
             this.nextEntryId = 1;
-            this.patientFocalSubject = null;
+            //this.patientReference = null;
         }
     }
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-			return ShrObjectFactory.createInstance(entry.entryType[0], entry);
+			return FluxObjectFactory.createInstance(entry);
         });
 	}
 	
@@ -52,7 +51,7 @@ class PatientRecord {
 			const entryTypes =  mapper.mapToEntryTypes(entry);
 			entryTypes.forEach((entryType) => {
 				if (!Lang.isNull(entryType)) {
-                    const shrObj = ShrObjectFactory.createInstance(entryType);
+                    const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
                     shrObj.entryInfo.entryId = nextEntryId;
                     nextEntryId += 1;
@@ -61,8 +60,8 @@ class PatientRecord {
 			});
 		});
 
-        this.personOfRecord = this.getPersonOfRecord();
-		this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
+        this.patient = this.getPatient();
+        this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
     }
     
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
@@ -81,8 +80,10 @@ class PatientRecord {
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
         let today = new moment().format("D MMM YYYY");
-        entry.entryInfo.originalCreationDate = today;
-        entry.entryInfo.lastUpdateDate = today;
+        entry.entryInfo.creationTime = new CreationTime();
+        entry.entryInfo.creationTime.dateTime = today;
+        entry.entryInfo.lastUpdated = new LastUpdated();
+        entry.entryInfo.lastUpdated.instant = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
@@ -90,12 +91,12 @@ class PatientRecord {
     }
 
     addEntryToPatientWithPatientFocalSubject(entry) {
-        entry.focalSubject = this.patientFocalSubject;
+        //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry);
     }
 
     setDeceased(deceased) {
-        this.personOfRecord.deceased = deceased;
+        this.patient.deceased = deceased;
     }
 
     static isEntryOfType(entry, type) {
@@ -111,22 +112,22 @@ class PatientRecord {
     }
 
     getName() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord._humanName;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.name;
     }
 
     getDateOfBirth() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord.dateOfBirth.value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.dateOfBirth;
     }
 
     getAge() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
         var today = new Date();
-        var birthDate = new Date(personOfRecord._dateOfBirth._value);
+        var birthDate = new Date(patient.dateOfBirth);
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -136,18 +137,18 @@ class PatientRecord {
     }
 
     getGender() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord)) return null;
-        return personOfRecord.administrativeGender.value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient)) return null;
+        return patient.gender;
     }
 
-    getPersonOfRecord() {
-        return this.getMostRecentEntryOfType(PersonOfRecord);
+    getPatient() {
+        return this.getMostRecentEntryOfType(FluxPatient);
     }
 
     getMRN() {
         let list = this.entries.filter((item) => {
-            return item instanceof PatientIdentifier && item.identifierType === "MRN"
+            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN"
         });
         let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
         if (Lang.isNull(identifierEntry)) return null;
@@ -155,23 +156,17 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        let photoEntry = this.getMostRecentEntryOfType(Photograph);
-        if (Lang.isNull(photoEntry)) return null;
-        return photoEntry.filePath;
+        return this.patient.headshot;
     }
 
     getCurrentHomeAddress() {
-        let personOfRecord = this.getPersonOfRecord();
-        if (Lang.isNull(personOfRecord) || !personOfRecord.addressUsed) return null;
-        let addressUsed = personOfRecord.addressUsed.filter((item) => {
-            return item.addressUse.some((au) => au.value.coding[0].value === "primary_residence")
-        });
-        if (addressUsed.length === 0) return null;
-        return addressUsed[0].value;
+        let patient = this.getPatient();
+        if (Lang.isNull(patient) || !patient.address) return null;
+        return patient.address;
     }
 
     getConditions() {
-        return this.getEntriesIncludingType(Condition);
+        return this.getEntriesIncludingType(FluxCondition);
     }
 
     getConditionsChronologicalOrder() {
@@ -187,7 +182,10 @@ class PatientRecord {
     }
     
     getAllergies() {
-        return this.getEntriesIncludingType(AllergyIntolerance);
+        let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
+        const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
+        const allAllergies = allergies.concat(noKnownAllergies);
+        return allAllergies;
     }
     
     getAllergiesAsText() {
@@ -198,16 +196,12 @@ class PatientRecord {
             if (!first) {
                 result += "\r\n";
             }
-            if (allergy instanceof NoKnownDrugAllergy) {
-                result += "NKDA";
-            } else if (allergy instanceof NoKnownAllergy) {
-                result += "No known allergies";
-            } else if (allergy instanceof NoKnownEnvironmentalAllergy) {
-                result += "No known environmental allergies";
-            } else if (allergy instanceof NoKnownFoodAllergy) {
-                result += "No known food allergies";
+            if (allergy instanceof FluxNoKnownAllergy) {
+                result += allergy.noKnownAllergy
+            } else if (allergy instanceof FluxAllergyIntolerance) {
+                result += allergy.allergyIntolerance;
             } else {
-                result += allergy.allergenIrritant.value.coding[0].displayText.value;
+                result += allergy.value.coding[0].displayText;
             }
             first = false;
         });
@@ -215,7 +209,7 @@ class PatientRecord {
     }
 
     getLastBreastCancerCondition() {
-        let result = this.getEntriesOfType(BreastCancer);
+        let result = this.getEntriesOfType(FluxBreastCancer);
         return result[result.length - 1];
     }
 
@@ -223,7 +217,7 @@ class PatientRecord {
     addClinicalNote(date, subject, hospital, clinician, content, signed) {
 
         // Generate the clinical note json from passed in values
-        let clinicalNote = new ClinicalNote(
+        let clinicalNote = new FluxClinicalNote(
             {
                 "date": date,
                 "subject": subject,
@@ -238,7 +232,7 @@ class PatientRecord {
     }
 
     getNotes() {
-        return this.getEntriesOfType(ClinicalNote);
+        return this.getEntriesOfType(FluxClinicalNote);
     }
 
     getKeyEventsChronologicalOrder() {
@@ -246,7 +240,7 @@ class PatientRecord {
         let result = [];
         conditions.forEach((c, i) => {
             result.push({
-                name: "diagnosis date - " + c.specificType.coding[0].displayText,
+                name: "diagnosis date - " + c.type,
                 start_time: c.diagnosisDate
             });
         });
@@ -260,7 +254,7 @@ class PatientRecord {
         conditions.forEach((c) => {
             if (c.entryInfo.entryId === condition.entryInfo.entryId) {
                 result.push({
-                    name: "diagnosis date - " + c.specificType.value.coding[0].displayText.value,
+                    name: "diagnosis date - " + c.type,
                     start_time: c.diagnosisDate
                 });
             }
@@ -270,7 +264,7 @@ class PatientRecord {
     }
 
     getMedications() {
-        return this.getEntriesOfType(FluxMedicationPrescription);
+        return this.getEntriesOfType(FluxMedicationRequested);
     }
     
     getActiveMedications() {
@@ -290,15 +284,15 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationPrescription && med.reason.some((r) => {
-                    return r.value.entryId === condition.entryInfo.entryId;
-                });
+            return med instanceof FluxMedicationRequested && med.reason.some((r) => {
+                return r.entryId === condition.entryInfo.entryId;
+            });
         });
         return medications;
     }
 
     getProcedures() {
-        return this.getEntriesOfType(FluxProcedure);
+        return this.getEntriesOfType(FluxProcedureRequested);
     }
 
     getProceduresChronologicalOrder() {
@@ -309,8 +303,8 @@ class PatientRecord {
 
     getProceduresForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedure && item.reason.some((r) => {
-                    return r.value.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxProcedureRequested && item.reason.some((r) => {
+                    return r.entryId === condition.entryInfo.entryId;
                 });
         });
     }
@@ -322,7 +316,7 @@ class PatientRecord {
     }
 
     getProgressions() {
-        return this.getEntriesOfType(FluxProgression);
+        return this.getEntriesOfType(FluxDiseaseProgression);
     }
 
     getProgressionsChronologicalOrder() {
@@ -333,22 +327,22 @@ class PatientRecord {
 
     getProgressionsForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProgression && item.assessmentFocus.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxDiseaseProgression && item.focalSubjectReference.entryId === condition.entryInfo.entryId;
         });
     }
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         progressions = progressions.filter((progression) => {
-            return progression.assessmentFocus.entryId === condition.entryInfo.entryId;
+            return progression.focalSubjectReference.entryId === condition.entryInfo.entryId;
         });
         return progressions;
     }
 
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
-            return (item instanceof Condition)
-                && progression.assessmentFocus.entryId === item.entryInfo.entryId
+            return (item instanceof FluxCondition)
+                && progression.focalSubjectReference.entryId === item.entryInfo.entryId
         });
         return result[0];
     }
@@ -368,8 +362,8 @@ class PatientRecord {
     }
 
     _medsTimeSorter(a, b) {
-        const a_startTime = new moment(a.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-        const b_startTime = new moment(b.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+        const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }
@@ -480,10 +474,10 @@ class PatientRecord {
         if (list.length === 1) return list[0];
 
         let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o._entryInfo._lastUpdateDate);
+            return new Date(o.entryInfo.lastUpdated.instant);
         }));
         let result = list.filter((item) => {
-            return new Date(item._entryInfo._lastUpdateDate).getTime() === new Date(maxDate).getTime()
+            return new Date(item.entryInfo.lastUpdated.instant).getTime() === new Date(maxDate).getTime()
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;

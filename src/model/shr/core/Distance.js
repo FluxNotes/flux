@@ -1,34 +1,39 @@
-/** Generated from SHR definition for shr.core.Distance */
-class Distance {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import Quantity from './Quantity';
+
+/**
+ * Generated class for shr.core.Distance.
+ * @extends Quantity
+ */
+class Distance extends Quantity {
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the Units.
+   * @returns {Units} The shr.core.Units
    */
-  get value() {
-    return this.quantity;
+  get units() {
+    return this._units;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the Units.
+   * @param {Units} units - The shr.core.Units
    */
-  set value(val) {
-    this.quantity = val;
+  set units(units) {
+    this._units = units;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Deserializes JSON data to an instance of the Distance class.
+   * The JSON must be valid against the Distance JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Distance} An instance of Distance populated with the JSON data
    */
-  get quantity() {
-    return this._quantity;
+  static fromJSON(json={}) {
+    const inst = new Distance();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.Quantity
-   */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
-  }
-
 }
-
 export default Distance;

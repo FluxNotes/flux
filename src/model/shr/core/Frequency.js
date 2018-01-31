@@ -1,34 +1,55 @@
-/** Generated from SHR definition for shr.core.Frequency */
-class Frequency {
+import { setPropertiesFromJSON } from '../../json-helper';
+
+import Ratio from './Ratio';
+
+/**
+ * Generated class for shr.core.Frequency.
+ * @extends Ratio
+ */
+class Frequency extends Ratio {
 
   /**
-   * Getter for shr.core.Count
+   * Get the Numerator.
+   * @returns {Numerator} The shr.core.Numerator
    */
-  get count() {
-    return this._count;
+  get numerator() {
+    return this._numerator;
   }
 
   /**
-   * Setter for shr.core.Count
+   * Set the Numerator.
+   * @param {Numerator} numerator - The shr.core.Numerator
    */
-  set count(countVal) {
-    this._count = countVal;
+  set numerator(numerator) {
+    this._numerator = numerator;
   }
 
   /**
-   * Getter for shr.core.Duration
+   * Get the Denominator.
+   * @returns {Denominator} The shr.core.Denominator
    */
-  get duration() {
-    return this._duration;
+  get denominator() {
+    return this._denominator;
   }
 
   /**
-   * Setter for shr.core.Duration
+   * Set the Denominator.
+   * @param {Denominator} denominator - The shr.core.Denominator
    */
-  set duration(durationVal) {
-    this._duration = durationVal;
+  set denominator(denominator) {
+    this._denominator = denominator;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Frequency class.
+   * The JSON must be valid against the Frequency JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Frequency} An instance of Frequency populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Frequency();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Frequency;

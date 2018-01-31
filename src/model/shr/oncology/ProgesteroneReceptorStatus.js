@@ -1,68 +1,119 @@
-import Entry from '../base/Entry';
-import ReceptorStatusObservation from './ReceptorStatusObservation';
-import ReceptorType from './ReceptorType';
-import SpecificType from '../core/SpecificType';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.oncology.ProgesteroneReceptorStatus */
-class ProgesteroneReceptorStatus extends ReceptorStatusObservation {
-    constructor(json) {
-        super(json);
-        if (json) {
-        this._entryInfo = new Entry(json);
-        if (json.specificType) this._specificType = new SpecificType(json.specificType);
-        if (json.receptorType) this._receptorType = new ReceptorType(json.receptorType);
-        } else {
-            this._entryInfo = Entry.createEntry(    "http://standardhealthrecord.org/oncology/ProgesteroneReceptorStatus",
-                                                    "http://standardhealthrecord.org/oncology/ReceptorStatusObservation",
-                                                    "http://standardhealthrecord.org/observation/Observation",
-                                                    "http://standardhealthrecord.org/base/Action");
-            this._specificType = new SpecificType({"value":{"coding": [{"value": "16113-3", "codeSystem": {"value":"http://loinc.org"}, "displayText": "Progesterone receptor:Imp:Pt:Tiss:Nom"}]}});
-            this._receptorType = new ReceptorType({"value": {"coding": [{"value": "C0034833", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Progesterone Receptor"}]}});
-        }
-    }
+import Observation from '../finding/Observation';
+
+/**
+ * Generated class for shr.oncology.ProgesteroneReceptorStatus.
+ * @extends Observation
+ */
+class ProgesteroneReceptorStatus extends Observation {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get specificType() {
-    return this._specificType;
+  get value() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the value (aliases codeableConcept).
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set value(value) {
+    this._codeableConcept = value;
   }
 
   /**
-   * Getter for shr.oncology.ReceptorType
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get receptorType() {
-    return this._receptorType;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Setter for shr.oncology.ReceptorType
+   * Set the CodeableConcept.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set receptorType(receptorTypeVal) {
-    this._receptorType = receptorTypeVal;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
+  /**
+   * Get the SpecificLaboratoryTest.
+   * @returns {SpecificLaboratoryTest} The shr.oncology.SpecificLaboratoryTest
+   */
+  get findingMethod() {
+    return this._findingMethod;
+  }
+
+  /**
+   * Set the SpecificLaboratoryTest.
+   * @param {SpecificLaboratoryTest} findingMethod - The shr.oncology.SpecificLaboratoryTest
+   */
+  set findingMethod(findingMethod) {
+    this._findingMethod = findingMethod;
+  }
+
+  /**
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
+   */
+  get observationCode() {
+    return this._observationCode;
+  }
+
+  /**
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   */
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
+  }
+
+  /**
+   * Get the ObservationComponent array.
+   * @returns {Array<ObservationComponent>} The shr.finding.ObservationComponent array
+   */
+  get observationComponent() {
+    return this._observationComponent;
+  }
+
+  /**
+   * Set the ObservationComponent array.
+   * @param {Array<ObservationComponent>} observationComponent - The shr.finding.ObservationComponent array
+   */
+  set observationComponent(observationComponent) {
+    this._observationComponent = observationComponent;
+  }
+
+  /**
+   * Deserializes JSON data to an instance of the ProgesteroneReceptorStatus class.
+   * The JSON must be valid against the ProgesteroneReceptorStatus JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {ProgesteroneReceptorStatus} An instance of ProgesteroneReceptorStatus populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new ProgesteroneReceptorStatus();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default ProgesteroneReceptorStatus;

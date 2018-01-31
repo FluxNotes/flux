@@ -1,7 +1,7 @@
+import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
+import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
-import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
-import FluxTumorSize from '../model/oncology/FluxTumorSize';
 
 class SummaryMetadata {
     constructor() {
@@ -205,7 +205,8 @@ class SummaryMetadata {
                                     {
                                         name: "Size",
                                         value: (patient, currentConditionEntry) => {
-                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorSize);
+                                            let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
+                                            if (list.length === 0) return null;
                                             return list[0].quantity.value + " " + list[0].quantity.unit;
                                         }
                                     },
@@ -312,7 +313,7 @@ class SummaryMetadata {
             "default": {
                 sections: [
                     {
-                        name: "Current Diagnosis",
+                        name: "Condition",
                         type: "NameValuePairs",
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
@@ -327,7 +328,7 @@ class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.specificType.value.coding[0].displayText.value;
+                                            return currentConditionEntry.type;
                                         },
                                         shortcut: "@condition"
                                     },
@@ -335,6 +336,18 @@ class SummaryMetadata {
                                         name: "Diagnosis Date",
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.diagnosisDate;
+                                        }
+                                    },
+                                    {
+                                        name: "Where",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.bodySite;
+                                        }
+                                    },
+                                    {
+                                        name: "Clinical Status",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.clinicalStatus;
                                         }
                                     }
                                 ]
@@ -349,6 +362,39 @@ class SummaryMetadata {
                                 name: "",
                                 headings: ["Procedure", "When"],
                                 itemsFunction: this.getItemListForProcedures
+                            }
+                        ]
+                    },
+                    {
+                        name: "Labs",
+                        type: "ValueOverTime",
+                        data: [
+                            {
+                                name: "White blood cell count",
+                                code: "C0023508",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
+                                // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
+
+                                bands: [
+                                    {low: 0, high: 3, assessment: 'bad'},
+                                    {low: 3, high: 5, assessment: 'average'},
+                                    {low: 5, high: 10, assessment: 'good'}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Medications",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "ListType",
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Medication", "Dosage", "Timing", "Start", "End"],
+                                itemsFunction: this.getItemListForMedications,
+
                             }
                         ]
                     },
@@ -391,7 +437,7 @@ class SummaryMetadata {
             if (typeof p.occurrenceTime !== 'string') {
                 return [
                     {
-                        value: p.specificType.value.coding[0].displayText.value,
+                        value: p.name,
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime.timePeriodStart + " to " + p.occurrenceTime.timePeriodEnd
@@ -399,7 +445,7 @@ class SummaryMetadata {
             } else {
                 return [
                     {
-                        value: p.specificType.value.coding[0].displayText.value,
+                        value: p.name,
                         shortcut: "@procedure",
                     },
                     p.occurrenceTime
@@ -421,7 +467,6 @@ class SummaryMetadata {
 
         // labResultsInOrder contains all lab results within a specified number of months from today
         const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
-
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.clinicallyRelevantTime})`;
             const name = `${l.name}`;
@@ -489,7 +534,7 @@ class SummaryMetadata {
             classes += ' point-in-time';
 
             let focalCondition = patient.getFocalConditionForProgression(prog);
-            let focalConditionName = focalCondition.specificType.value.coding[0].displayText.value;
+            let focalConditionName = focalCondition.type;
 
             let hoverTitle = focalConditionName + " is " + prog.status + " based on " + prog.evidence.join();
 
@@ -513,11 +558,12 @@ class SummaryMetadata {
         let items = [];
 
         meds.forEach((med) => {
-            const startTime = new moment(med.requestedPerformanceTime.timePeriodStart, "D MMM YYYY");
-            const endTime = new moment(med.requestedPerformanceTime.timePeriodEnd, "D MMM YYYY");
+            const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+            const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
             const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+
             items.push({
                 group: assignedGroup,
                 title: name,
@@ -555,8 +601,8 @@ class SummaryMetadata {
                 classes += ' point-in-time';
             }
 
-            if (proc.specificType.value.coding[0].displayText) {
-                hoverText += ` : ${proc.specificType.value.coding[0].displayText.value}`;
+            if (proc.name) {
+                hoverText += ` : ${proc.name}`;
             }
 
             items.push({

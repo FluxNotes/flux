@@ -1,50 +1,55 @@
-import Procedure from '../procedure/Procedure';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.behavior.SubstanceAbuseTreatment */
-class SubstanceAbuseTreatment extends Procedure {
+import ProcedurePerformed from '../procedure/ProcedurePerformed';
+
+/**
+ * Generated class for shr.behavior.SubstanceAbuseTreatment.
+ * @extends ProcedurePerformed
+ */
+class SubstanceAbuseTreatment extends ProcedurePerformed {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.codeableConcept)
+   * Get the Type.
+   * @returns {Type} The shr.entity.Type
    */
-  get value() {
-    return this.codeableConcept;
+  get type() {
+    return this._type;
   }
 
   /**
-   * Convenience setter for value (sets this.codeableConcept)
+   * Set the Type.
+   * @param {Type} type - The shr.entity.Type
    */
-  set value(val) {
-    this.codeableConcept = val;
+  set type(type) {
+    this._type = type;
   }
 
   /**
-   * Getter for shr.core.CodeableConcept
+   * Deserializes JSON data to an instance of the SubstanceAbuseTreatment class.
+   * The JSON must be valid against the SubstanceAbuseTreatment JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {SubstanceAbuseTreatment} An instance of SubstanceAbuseTreatment populated with the JSON data
    */
-  get codeableConcept() {
-    return this._codeableConcept;
+  static fromJSON(json={}) {
+    const inst = new SubstanceAbuseTreatment();
+    setPropertiesFromJSON(inst, json);
+    return inst;
   }
-
-  /**
-   * Setter for shr.core.CodeableConcept
-   */
-  set codeableConcept(codeableConceptVal) {
-    this._codeableConcept = codeableConceptVal;
-  }
-
 }
-
 export default SubstanceAbuseTreatment;

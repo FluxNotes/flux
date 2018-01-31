@@ -1,153 +1,164 @@
-import AdditionalDoseInstruction from './AdditionalDoseInstruction';
-import AdministrationBodySite from './AdministrationBodySite';
-import AdministrationMethod from './AdministrationMethod';
-import AmountPerDose from './AmountPerDose';
-import DoseAsNeededIndicator from './DoseAsNeededIndicator';
-import DoseInstructionsText from './DoseInstructionsText';
-import MaximumDosePerTimePeriod from './MaximumDosePerTimePeriod';
-import RouteIntoBody from './RouteIntoBody';
-import TimingOfDoses from './TimingOfDoses';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.medication.Dosage */
+/**
+ * Generated class for shr.medication.Dosage.
+ */
 class Dosage {
-    constructor(json) {
-        if (json.amountPerDose) this._amountPerDose = new AmountPerDose(json.amountPerDose);
-        if (json.timingOfDoses) this._timingOfDoses = new TimingOfDoses(json.timingOfDoses);
-        if (json.doseAsNeededIndicator) this._doseAsNeededIndicator = new DoseAsNeededIndicator(json.doseAsNeededIndicator);
-        if (json.doseInstructionsText) this._doseInstructionsText = new DoseInstructionsText(json.doseInstructionsText);
-        if (json.additionalDoseInstruction) this._additionalDoseInstruction = new AdditionalDoseInstruction(json.additionalDoseInstruction);
-        if (json.routeIntoBody) this._routeIntoBody = new RouteIntoBody(json.routeIntoBody);
-        if (json.administrationMethod) this._administrationMethod = new AdministrationMethod(json.administrationMethod);
-        if (json.administrationBodySite) this._administrationBodySite = new AdministrationBodySite(json.administrationBodySite);
-        if (json.maximumDosePerTimePeriod) this._maximumDosePerTimePeriod = new MaximumDosePerTimePeriod(json.maximumDosePerTimePeriod);
-    }
 
   /**
-   * Getter for shr.medication.AmountPerDose
+   * Get the DoseAmount.
+   * @returns {DoseAmount} The shr.medication.DoseAmount
    */
-  get amountPerDose() {
-    return this._amountPerDose;
+  get doseAmount() {
+    return this._doseAmount;
   }
 
   /**
-   * Setter for shr.medication.AmountPerDose
+   * Set the DoseAmount.
+   * @param {DoseAmount} doseAmount - The shr.medication.DoseAmount
    */
-  set amountPerDose(amountPerDoseVal) {
-    this._amountPerDose = amountPerDoseVal;
+  set doseAmount(doseAmount) {
+    this._doseAmount = doseAmount;
   }
 
   /**
-   * Getter for shr.medication.TimingOfDoses
+   * Get the TimingOfDoses.
+   * @returns {TimingOfDoses} The shr.medication.TimingOfDoses
    */
   get timingOfDoses() {
     return this._timingOfDoses;
   }
 
   /**
-   * Setter for shr.medication.TimingOfDoses
+   * Set the TimingOfDoses.
+   * @param {TimingOfDoses} timingOfDoses - The shr.medication.TimingOfDoses
    */
-  set timingOfDoses(timingOfDosesVal) {
-    this._timingOfDoses = timingOfDosesVal;
+  set timingOfDoses(timingOfDoses) {
+    this._timingOfDoses = timingOfDoses;
   }
 
   /**
-   * Getter for shr.medication.DoseAsNeededIndicator
+   * Get the AsNeededIndicator.
+   * @returns {AsNeededIndicator} The shr.medication.AsNeededIndicator
    */
-  get doseAsNeededIndicator() {
-    return this._doseAsNeededIndicator;
+  get asNeededIndicator() {
+    return this._asNeededIndicator;
   }
 
   /**
-   * Setter for shr.medication.DoseAsNeededIndicator
+   * Set the AsNeededIndicator.
+   * @param {AsNeededIndicator} asNeededIndicator - The shr.medication.AsNeededIndicator
    */
-  set doseAsNeededIndicator(doseAsNeededIndicatorVal) {
-    this._doseAsNeededIndicator = doseAsNeededIndicatorVal;
+  set asNeededIndicator(asNeededIndicator) {
+    this._asNeededIndicator = asNeededIndicator;
   }
 
   /**
-   * Getter for shr.medication.DoseInstructionsText
+   * Get the DoseInstructionsText.
+   * @returns {DoseInstructionsText} The shr.medication.DoseInstructionsText
    */
   get doseInstructionsText() {
     return this._doseInstructionsText;
   }
 
   /**
-   * Setter for shr.medication.DoseInstructionsText
+   * Set the DoseInstructionsText.
+   * @param {DoseInstructionsText} doseInstructionsText - The shr.medication.DoseInstructionsText
    */
-  set doseInstructionsText(doseInstructionsTextVal) {
-    this._doseInstructionsText = doseInstructionsTextVal;
+  set doseInstructionsText(doseInstructionsText) {
+    this._doseInstructionsText = doseInstructionsText;
   }
 
   /**
-   * Getter for shr.medication.AdditionalDoseInstruction[]
+   * Get the AdditionalDoseInstruction array.
+   * @returns {Array<AdditionalDoseInstruction>} The shr.medication.AdditionalDoseInstruction array
    */
   get additionalDoseInstruction() {
     return this._additionalDoseInstruction;
   }
 
   /**
-   * Setter for shr.medication.AdditionalDoseInstruction[]
+   * Set the AdditionalDoseInstruction array.
+   * @param {Array<AdditionalDoseInstruction>} additionalDoseInstruction - The shr.medication.AdditionalDoseInstruction array
    */
-  set additionalDoseInstruction(additionalDoseInstructionVal) {
-    this._additionalDoseInstruction = additionalDoseInstructionVal;
+  set additionalDoseInstruction(additionalDoseInstruction) {
+    this._additionalDoseInstruction = additionalDoseInstruction;
   }
 
   /**
-   * Getter for shr.medication.RouteIntoBody
+   * Get the RouteIntoBody.
+   * @returns {RouteIntoBody} The shr.medication.RouteIntoBody
    */
   get routeIntoBody() {
     return this._routeIntoBody;
   }
 
   /**
-   * Setter for shr.medication.RouteIntoBody
+   * Set the RouteIntoBody.
+   * @param {RouteIntoBody} routeIntoBody - The shr.medication.RouteIntoBody
    */
-  set routeIntoBody(routeIntoBodyVal) {
-    this._routeIntoBody = routeIntoBodyVal;
+  set routeIntoBody(routeIntoBody) {
+    this._routeIntoBody = routeIntoBody;
   }
 
   /**
-   * Getter for shr.medication.AdministrationMethod
+   * Get the AdministrationMethod.
+   * @returns {AdministrationMethod} The shr.medication.AdministrationMethod
    */
   get administrationMethod() {
     return this._administrationMethod;
   }
 
   /**
-   * Setter for shr.medication.AdministrationMethod
+   * Set the AdministrationMethod.
+   * @param {AdministrationMethod} administrationMethod - The shr.medication.AdministrationMethod
    */
-  set administrationMethod(administrationMethodVal) {
-    this._administrationMethod = administrationMethodVal;
+  set administrationMethod(administrationMethod) {
+    this._administrationMethod = administrationMethod;
   }
 
   /**
-   * Getter for shr.medication.AdministrationBodySite
+   * Get the AdministrationBodySite.
+   * @returns {AdministrationBodySite} The shr.medication.AdministrationBodySite
    */
   get administrationBodySite() {
     return this._administrationBodySite;
   }
 
   /**
-   * Setter for shr.medication.AdministrationBodySite
+   * Set the AdministrationBodySite.
+   * @param {AdministrationBodySite} administrationBodySite - The shr.medication.AdministrationBodySite
    */
-  set administrationBodySite(administrationBodySiteVal) {
-    this._administrationBodySite = administrationBodySiteVal;
+  set administrationBodySite(administrationBodySite) {
+    this._administrationBodySite = administrationBodySite;
   }
 
   /**
-   * Getter for shr.medication.MaximumDosePerTimePeriod[]
+   * Get the MaximumDosePerTimePeriod.
+   * @returns {MaximumDosePerTimePeriod} The shr.medication.MaximumDosePerTimePeriod
    */
   get maximumDosePerTimePeriod() {
     return this._maximumDosePerTimePeriod;
   }
 
   /**
-   * Setter for shr.medication.MaximumDosePerTimePeriod[]
+   * Set the MaximumDosePerTimePeriod.
+   * @param {MaximumDosePerTimePeriod} maximumDosePerTimePeriod - The shr.medication.MaximumDosePerTimePeriod
    */
-  set maximumDosePerTimePeriod(maximumDosePerTimePeriodVal) {
-    this._maximumDosePerTimePeriod = maximumDosePerTimePeriodVal;
+  set maximumDosePerTimePeriod(maximumDosePerTimePeriod) {
+    this._maximumDosePerTimePeriod = maximumDosePerTimePeriod;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the Dosage class.
+   * The JSON must be valid against the Dosage JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {Dosage} An instance of Dosage populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new Dosage();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default Dosage;

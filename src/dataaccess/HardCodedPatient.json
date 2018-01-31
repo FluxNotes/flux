@@ -1,574 +1,1195 @@
 [
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "1",
-        "entryType":    [   "http://standardhealthrecord.org/demographics/PersonOfRecord",
-                        "http://standardhealthrecord.org/actor/Person" ],
-        "humanName": "Debra Hernandez672",
-        "dateOfBirth": "5 APR 1966",
-        "placeOfBirth": { "country": "US" },
-        "birthSex": {"coding": [{"value": "F", "displayText": "Female"}]},
-        "administrativeGender": "female",
-        "race": { "coding": [{ "value": "white"}]},
-        "ethnicity": { "coding": [{ "value": "2186-5", "displayText": "Non Hispanic or Latino"}]},
-        "maritalStatus": { "coding": [{ "value": "M", "codeSystem": {"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "displayText": "Married"}]},
-        "mothersMaidenName": { "value": "Himinez221" },
-        "fathersName": { "value": "Jose Hernandez672" },
-        "addressUsed": [{ "value": {"addressLine": [ "123 Main Street"], "city": "Boston", "state": "MA", "country": "US"}, "addressUse": [{ "value": {"coding": [{ "value": "primary_residence" }]}}]}],
-        "telecom": [{ "value": "999-555-5555", "telecomType": "phone", "telecomQualifier": "home"}, { "value": "999-555-4444", "telecomType": "phone", "telecomQualifier": "mobile"}],
-        "languageUsed": [{ "value": {"coding": [{ "value": "en-US", "displayText": "English (United States)"}]}}],
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "13 JAN 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "1",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},
+        "Value":{
+            "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"},
+            "shr.base.HumanName": "Debra Hernandez672",
+            "shr.base.DateOfBirth": "5 APR 1966",
+            "shr.base.AdministrativeGender": "female",
+            "shr.core.Address": { 
+                "shr.core.AddressLine": [{ "Value": "123 Main Street"}], 
+                "shr.core.City": { "Value": "Boston"}, 
+                "shr.core.State": { "Value": "MA"}, 
+                "shr.core.Country": { "Value": "US"}, 
+                "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value": "primary_residence" }}}
+            },
+            "shr.entity.LanguageUsed": [{ "Value": { "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/base/Language"}, "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{ "Value": "en-US", "shr.core.DisplayText": {"Value": "English (United States)"}}]}}}],
+            "shr.core.ContactPoint": [
+                { 
+                    "shr.core.TelecomNumberOrAddress":{"Value": "999-555-5555"}, 
+                    "shr.entity.Type": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},
+                    "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"home"}}}
+                },
+                {
+                    "shr.core.TelecomNumberOrAddress":{ "Value":"999-555-4444"},
+                    "shr.entity.Type": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},
+                    "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"mobile"}}}
+                }
+            ],
+            "shr.entity.Headshot": {"shr.core.Attachment": {"shr.core.ResourceLocation": {"Value": "./DebraHernandez672.png"}}}
+        },           
+        "shr.entity.PlaceOfBirth": { "Value": "US" },
+        "shr.entity.BirthSex": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "F", "shr.core.DisplayText":{ "Value": "Female"}}]}},
+        "shr.entity.Race": { "Value": {"shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"}, "shr.core.Coding":[{"Value": "white"}]}},
+        "shr.entity.Ethnicity": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "2186-5", "shr.core.DisplayText": "Non Hispanic or Latino"}]}},
+        "shr.entity.MaritalStatus": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{ "Value": "M", "shr.core.CodeSystem": { "Value":"http://hl7.org/fhir/v3/MaritalStatus"}, "shr.core.DisplayText": {"Value": "Married"}}]}},
+        "shr.entity.MothersMaidenName": { "Value": "Himinez221" },
+        "shr.entity.FathersName": { "Value": "Jose Hernandez672" },
+        "shr.core.CreationTime": { "Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2012"} 
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "2",
-        "entryType":    [ "http://standardhealthrecord.org/demographics/Photograph" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "when": "01 JAN 2014",
-        "filePath": "./DebraHernandez672.png",
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "01 JAN 2014"
-    },
-    {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "3",
-        "entryType":    [ "http://standardhealthrecord.org/base/PatientIdentifier" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "organization": { "value": "MITRE"},
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "3",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/base/PatientIdentifier" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "organization": "MITRE",
         "identifierType": "MRN",
         "value": "026-DH-678944",
         "fictionalPerson": true,
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "13 JAN 2012"
+        "shr.base.CreationTime": {"Value": "13 JAN 2012" },
+        "shr.base.LastUpdated": {"Value": "13 JAN 2012" }
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "4",
-        "entryType":    [ "http://standardhealthrecord.org/core/ClinicalNote" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId":"4",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
         "date": "02 AUG 2015",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber Cancer Institute",
         "clinician": "Dr. Smith",
         "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
-        "originalCreationDate": "02 AUG 2015",
-        "lastUpdateDate": "02 AUG 2015",
+        "shr.base.CreationTime": {"Value": "02 AUG 2015"},
+        "shr.base.LastUpdated": {"Value": "02 AUG 2015"},
         "signed": true
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "5",
-        "entryType":    [ "http://standardhealthrecord.org/core/ClinicalNote" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "5",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
         "date": "12 JUL 2012",
         "subject": "Consult",
         "hospital": "Dana Farber Cancer Institute",
         "clinician": "Dr. Zheng",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has staging values T1 N1 and M0, corresponding to stage IIA.",
-        "originalCreationDate": "12 JUL 2012",
-        "lastUpdateDate": "12 JUL 2012",
+        "shr.base.CreationTime": {"Value": "12 JUL 2012"},
+        "shr.base.LastUpdated": {"Value": "12 JUL 2012"},
         "signed": true
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "6",
-        "entryType":    [ "http://standardhealthrecord.org/core/ClinicalNote" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "6",
+        "shr.base.EntryType": { "Value" :  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
         "date": "20 JUN 2012",
         "subject": "Clinical post-op",
         "hospital": "Brigham and Women's Hospital",
         "clinician": "Dr. Smith",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
-        "originalCreationDate": "20 JUN 2012",
-        "lastUpdateDate": "20 JUN 2012",
+        "shr.base.CreationTime": {"Value": "20 JUN 2012"} ,
+        "shr.base.LastUpdated":{"Value": "20 JUN 2012"},
         "signed": true
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "7",
-        "entryType":    [ "http://standardhealthrecord.org/core/ClinicalNote" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "7",
+        "shr.base.EntryType": {"Value":  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
         "date": "16 MAY 2012",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber Cancer Institute",
         "clinician": "Dr. Strauss",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the clinical trial PATINA on 12/24/2017.",
-        "originalCreationDate": "16 MAY 2012",
-        "lastUpdateDate": "16 MAY 2012",
+        "shr.base.CreationTime": {"Value":"16 MAY 2012"},
+        "shr.base.LastUpdated": {"Value": "16 MAY 2012"},
         "signed": true
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "8",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/BreastCancer",
-                        "http://standardhealthrecord.org/condition/Condition" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": {"value": {"coding": [{"value": "408643008", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Invasive ductal carcinoma of breast"}]}},
-        "category": [ {"coding": [{"value": "#disease"}]} ],
-        "clinicalStatus": "recurrence",
-        "bodySite": {"laterality": {"value": {"coding": [{"value": "C25228", "codeSystem": {"value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, "displayText": "Right"}]}}},
-        "includeOnProblemList": true,
-        "whenClinicallyRecognized": {"generalizedTemporalContext": { "timePeriodStart": "13 JAN 2012" } },
-        "observation": [
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "8",
+        "shr.base.EntryType":   {"Value" : "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "408643008", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Invasive ductal carcinoma of breast"}}]},
+        "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#disease"}]},
+        "shr.condition.ClinicalStatus": {"Value": "recurrence"},
+        "shr.entity.BodySiteOrCode": {"Value" :
+            {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/entity/BodySite"},
+                "Value": {  "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                            "shr.core.Coding": [
+                            {   "Value": "73056007", 
+                                "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                                "shr.core.DisplayText": {"Value": "Right breast structure"}
+                            }]
+                         },
+                "shr.entity.Laterality":{"Value": {     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                                                        "shr.core.Coding": [
+                                                        {   "Value": "C25228", 
+                                                            "shr.core.CodeSystem": {"Value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, 
+                                                            "shr.core.DisplayText": {"Value": "Right"}
+                                                        }]
+                                                  }
+                                        }
+            }
+        },
+        "shr.condition.WhenClinicallyRecognized": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
+            "Value": { 
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "13 JAN 2012"
+            }
+        },
+        "shr.finding.Evidence": [
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "01 JAN 2018",
-                "value": {"value": 6.30, "units": {"value": "%"}},
-                "specificType": {"value": {"coding": [{"value": "C0019046", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Hemoglobin"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "01 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.30, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "25 NOV 2017",
-                "value": {"value": 6.74, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "25 NOV 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.74, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "5 DEC 2017",
-                "value": {"value": 3.37, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "5 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 3.37, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "12 DEC 2017",
-                "value": {"value": 1.86, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "12 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 1.86, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "19 DEC 2017",
-                "value": {"value": 4.72, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 4.72, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "27 DEC 2017",
-                "value": {"value": 6.75, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "27 DEC 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.75, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": "White blood cell"}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/lab/Test",
-                    "http://standardhealthrecord.org/observation/Observation",
-                    "http://standardhealthrecord.org/base/Action" ],
-                "clinicallyRelevantTime": "02 JAN 2018",
-                "value": {"value": 8.12, "units": {"value": "10^9/L"}},
-                "specificType": {"value": {"coding": [{"value": "C0023508", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "White blood cell"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "02 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 8.12, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/oncology/HistologicGrade",
-                                "http://standardhealthrecord.org/observation/Observation",
-                                "http://standardhealthrecord.org/base/Action" ],
-                "value": {"coding": [{"value": "369792005", "codeSystem": {"value":"http://snomed.info/sct"}, "displayText": "High grade or poorly differentiated"}]},
-                "status": "final",
-                "_issue": "stricly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
+                "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "High grade or poorly differentiated"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             },
             {
-                "entryType":    [   "http://standardhealthrecord.org/oncology/TumorSize",
-                                "http://standardhealthrecord.org/observation/Observation",
-                                "http://standardhealthrecord.org/base/Action" ],
-                "value": {"value": 30.0, "units": {"value": "mm"}},
-                "specificType": {"value": {"coding": [{"value": "C0475440", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Tumor Size"}]}},
-                "status": "final",
-                "_issue": "strictly speaking, the observations in this list are elements and not entries so entryType shouldn't exist but how would you know which concrete type this represents otherwise? Problem is bigger for choices where some or all choices are just elements"
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 30.0, 
+                    "Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mm"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0475440", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Tumor Size"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             }
         ],
-        "_issue": "where capture recurrence date of 2013-10-12?",
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "01 FEB 2012"
+        "shr.core.CreationTime": {"Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": {"Value": "01 FEB 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "9",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "42512", "displayText": {"value":"Adriamycin"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 60, "units": {"coding": [{"value": "mg/m2"}]}},
-                    "timingOfDoses": {"value": 6, "units": "cycles"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. ABC123",
-        "whenPrescribed": "01 FEB 2012",
-        "numberOfRepeatsAllowed": 5,
-        "status": "completed",
-        "requestedPerformanceTime": {   "timePeriodStart": "10 FEB 2012",
-                                    "timePeriodEnd": "20 AUG 2012"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "01 DEC 2013",
-        "lastUpdateDate": "01 DEC 2013"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "9",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "42512", "shr.core.DisplayText": {"Value": "Adriamycin"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 6,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrenceRange": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange" },
+                        "Value": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats" },
+                            "Value": 6
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "completed" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 FEB 2012"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "20 AUG 2012"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 5 },
+        "shr.base.Author": { "Value": "Dr. ABC123" },
+        "shr.core.CreationTime": {"Value": "01 DEC 2013"},
+        "shr.base.LastUpdated": {"Value": "01 DEC 2013"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "10",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "3002", "displayText": {"value":"Cyclophosphamide"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 10, "units": {"coding": [{"value": "mg/kg"}]}},
-                    "timingOfDoses": {"value": 6, "units": "cycles"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. ABC123",
-        "whenPrescribed": "01 FEB 2012",
-        "numberOfRepeatsAllowed": 2,
-        "status": "completed",
-        "requestedPerformanceTime": {   "timePeriodStart": "10 FEB 2012",
-                                    "timePeriodEnd": "20 AUG 2012"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "01 FEB 2012",
-        "lastUpdateDate": "01 FEB 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "10",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "3002", "shr.core.DisplayText": {"Value": "Cyclophosphamide"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 10,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mg/kg"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrenceRange": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange" },
+                        "Value": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats" },
+                            "Value": 6
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "completed" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 FEB 2012"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "20 AUG 2012"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 2 },
+        "shr.base.Author": { "Value": "Dr. ABC123" },
+        "shr.core.CreationTime": {"Value": "01 FEB 2012"},
+        "shr.base.LastUpdated": {"Value": "01 FEB 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "11",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "10324", "displayText": {"value": "Tamoxifen"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 20, "units": {"coding": [{"value": "mg"}]}},
-                    "timingOfDoses": {"value": 1, "units": "per day"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. XYZ987",
-        "whenPrescribed": "22 OCT 2013",
-        "numberOfRepeatsAllowed": 0,
-        "status": "completed",
-        "requestedPerformanceTime": {   "timePeriodStart": "01 NOV 2013",
-                                    "timePeriodEnd": "13 AUG 2016"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "01 NOV 2013",
-        "lastUpdateDate": "01 NOV 2013"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "11",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "10324", "shr.core.DisplayText": {"Value": "Tamoxifen"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 20,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mg"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrencePattern": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern" },
+                        "shr.core.RecurrenceInterval": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval" },
+                            "Value": {
+                                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Duration" },
+                                "Value": 1,
+                                "shr.core.Units": {
+                                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                                    "Value": {
+                                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                                        "Value": "d"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "completed" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "01 NOV 2013"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "13 AUG 2016"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 0 },
+        "shr.base.Author": { "Value": "Dr. XYZ987" },
+        "shr.core.CreationTime": {"Value": "01 NOV 2013"},
+        "shr.base.LastUpdated": {"Value": "01 NOV 2013"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "12",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "72965", "displayText": {"value":"Letrozole"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 2.5, "units": {"coding": [{"value": "mg"}]}},
-                    "timingOfDoses": {"value": 1, "units": "per day"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. ABC123",
-        "whenPrescribed": "09 JAN 2015",
-        "numberOfRepeatsAllowed": 2,
-        "status": "completed",
-        "requestedPerformanceTime": {   "timePeriodStart": "10 JAN 2015",
-                                    "timePeriodEnd": "10 JAN 2016"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "09 JAN 2015",
-        "lastUpdateDate": "09 JAN 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "12",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "72965", "shr.core.DisplayText": {"Value": "Letrozole"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 2.5,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mg"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrencePattern": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern" },
+                        "shr.core.RecurrenceInterval": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval" },
+                            "Value": {
+                                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Duration" },
+                                "Value": 1,
+                                "shr.core.Units": {
+                                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                                    "Value": {
+                                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                                        "Value": "d"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "completed" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "10 JAN 2015"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "10 JAN 2016"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 2 },
+        "shr.base.Author": { "Value": "Dr. ABC123" },
+        "shr.core.CreationTime": {"Value": "09 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "09 JAN 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "13",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "202421", "displayText": {"value":"Coumadin"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 2, "units": {"coding": [{"value": "mg"}]}},
-                    "timingOfDoses": {"value": 1, "units": "per day"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. XYZ987",
-        "whenPrescribed": "05 SEPT 2015",
-        "numberOfRepeatsAllowed": 5,
-        "status": "completed",
-        "requestedPerformanceTime": {   "timePeriodStart": "05 SEP 2015",
-                                    "timePeriodEnd": "01 JUN 2017"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "05 SEP 2015",
-        "lastUpdateDate": "05 SEP 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "13",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "202421", "shr.core.DisplayText": {"Value": "Coumadin"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 2,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mg"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrencePattern": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern" },
+                        "shr.core.RecurrenceInterval": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval" },
+                            "Value": {
+                                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Duration" },
+                                "Value": 1,
+                                "shr.core.Units": {
+                                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                                    "Value": {
+                                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                                        "Value": "d"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "completed" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "05 SEP 2015"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "01 JUN 2017"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 5 },
+        "shr.base.Author": { "Value": "Dr. XYZ987" },
+        "shr.core.CreationTime": {"Value": "05 SEP 2015"},
+        "shr.base.LastUpdated": {"Value": "05 SEP 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "14",
-        "entryType":    [   "http://standardhealthrecord.org/medication/MedicationPrescription",
-                        "http://standardhealthrecord.org/base/Request",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "medication": { "value": { "value": {"coding": [{"value": "262105", "displayText": {"value":"Aromasin"}}]}}},
-        "dosage": {     "amountPerDose": {"value": 25, "units": {"coding": [{"value": "mg"}]}},
-                    "timingOfDoses": {"value": 1, "units": "per day"},
-                    "doseAsNeededIndicato": false,
-                    "routeIntoBody": { "value": {"coding": [{"value": "26643006", "displayText": {"value":"Oral route"}}]} }},
-        "prescribedBy": "Dr. XYZ987",
-        "whenPrescribed": "05 JUN 2017",
-        "numberOfRepeatsAllowed": 3,
-        "status": "active",
-        "requestedPerformanceTime": {   "timePeriodStart": "05 OCT 2017",
-                                    "timePeriodEnd": "01 MAY 2018"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "05 JUN 2017",
-        "lastUpdateDate": "05 JUN 2017"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "14",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "262105", "shr.core.DisplayText": {"Value": "Aromasin"}}]}},
+        "shr.medication.Dosage": {
+            "shr.medication.DoseAmount": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
+                    "Value": 25,
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "mg"
+                        }
+                    }
+                }
+            },
+            "shr.medication.TimingOfDoses": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
+                    "shr.core.RecurrencePattern": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrencePattern" },
+                        "shr.core.RecurrenceInterval": { 
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceInterval" },
+                            "Value": {
+                                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Duration" },
+                                "Value": 1,
+                                "shr.core.Units": {
+                                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                                    "Value": {
+                                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                                        "Value": "d"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "shr.medication.AsNeededIndicator": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
+                "Value": false
+            },
+            "shr.medication.RouteIntoBody": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
+            }
+        },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {
+                        "Value": "05 OCT 2017"
+                    },
+                    "shr.core.TimePeriodEnd": {
+                        "Value": "01 MAY 2018"
+                    }
+                }
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": [{
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "shr.base.EntryId": "8"
+                }]
+            }
+        },
+        "shr.medication.NumberOfRefillsAllowed": { "Value": 3 },
+        "shr.base.Author": { "Value": "Dr. ABC123" },
+        "shr.core.CreationTime": {"Value": "05 JUN 2017"},
+        "shr.base.LastUpdated": {"Value": "05 JUN 2017"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "15",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": {"value":{ "coding": [{ "value": "C0024671", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Mammography"}]}},
-        "status": "completed",
-        "occurrenceTime": "13 JAN 2012",
-        "reason": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "originalCreationDate": "13 JAN 2012",
-        "lastUpdateDate": "13 JAN 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "15",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Mammography"}}]}},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "13 JAN 2012"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2012"}        
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "16",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value":{"coding": [{ "value": "C0454059", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Radiation therapy procedure or service"}]}},
-        "status": "completed",
-        "occurrenceTime": { "timePeriodStart": "12 JUL 2012",
-                            "timePeriodEnd": "16 AUG 2012"},
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "02 JUL 2012",
-        "lastUpdateDate": "02 JUL 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "16",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0454059", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Radiation therapy procedure or service"}}]}},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+            "Value": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
+                "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
+            }
+        },
+        "shr.core.Reason": {
+           "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+           "Value": [{
+                   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                   "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                   "shr.base.EntryId": "8"
+            }]
+        }},
+        "shr.core.CreationTime": { "Value": "02 JUL 2012"},
+        "shr.base.LastUpdated": { "Value": "02 JUL 2012"}            
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "17",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value": {"coding": [{ "value": "C0851238", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Lumpectomy"}]}},
-        "status": "completed",
-        "occurrenceTime": "20 SEP 2012",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "20 SEP 2012",
-        "lastUpdateDate": "20 SEP 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "17",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0851238", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Lumpectomy"}}]}},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "20 SEP 2012"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "18",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value": {"coding": [{ "value": "C0796693", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Sentinel Lymph Node Biopsy"}]}},
-        "status": "completed",
-        "occurrenceTime": "20 SEP 2012",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "20 SEP 2012",
-        "lastUpdateDate": "20 SEP 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "18",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0796693", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Sentinel Lymph Node Biopsy"}}]}},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "20 SEP 2012"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
+    },       
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "19",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Mammography"}}]}},
+        "shr.action.ActionContext": { 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+        "shr.action.Status": {"Value": "completed"},
+        "shr.action.ExpectedPerformanceTime": {"Value": "04 OCT 2013"},
+        "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "8"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "04 OCT 2013"},
+        "shr.base.LastUpdated": { "Value": "04 OCT 2013"}        
+    },        
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "20",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "13 JUN 2012"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "19",
-        "entryType":    [   "http://standardhealthrecord.org/procedure/Procedure",
-                        "http://standardhealthrecord.org/base/Intervention",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": { "value":{"coding": [{ "value": "C0024671", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Mammography"}]}},
-        "status": "completed",
-        "occurrenceTime": "04 OCT 2013",
-        "reason": [ {"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"} ],
-        "originalCreationDate": "04 OCT 2013",
-        "lastUpdateDate": "04 OCT 2013"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "21",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0677874", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Complete response or remission; no measurable or observable evidence of cancer."}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "01 NOV 2012"},
+        "shr.base.LastUpdated": {"Value": "01 NOV 2012"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "20",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1272745", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Improving, responding to treatment"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "13 JUN 2012",
-        "evidence": [   { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "13 JUN 2012",
-        "lastUpdateDate": "13 JUN 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "22",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "17 APR 2014"},
+        "shr.base.LastUpdated": {"Value": "17 APR 2014"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "21",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0677874", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Complete response or remission; no measurable or observable evidence of cancer."}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "01 NOV 2012",
-        "evidence": [   { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]},
-                        { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "01 NOV 2012",
-        "lastUpdateDate": "01 NOV 2012"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "23",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "03 JUL 2014"},
+        "shr.base.LastUpdated": {"Value": "03 JUL 2014"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "22",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1546960", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Worsening, disease progressing"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "17 APR 2014",
-        "evidence": [   { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "17 APR 2014",
-        "lastUpdateDate": "17 APR 2014"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "24",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1457887", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "2 AUG 2015"},
+        "shr.base.LastUpdated": {"Value": "2 AUG 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "23",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1272745", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Improving, responding to treatment"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "03 JUL 2014",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "03 JUL 2014",
-        "lastUpdateDate": "03 JUL 2014"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "25",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"physical examination"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1457887", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "11 AUG 2016"},
+        "shr.base.LastUpdated": {"Value": "11 AUG 2016"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "24",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0205360", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Stable, neither improving nor worsening"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "2 AUG 2015",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "2 AUG 2015",
-        "lastUpdateDate": "2 AUG 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "26",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
+        },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
+        "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
+        "shr.finding.ClinicallyRelevantTime": { "Value": "13 JAN 2012" },
+        "shr.finding.Evidence": [
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0030664", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"pathology"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"imaging"}}]}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"symptoms"}}]}}   
+        ],
+        "shr.finding.FindingStatus": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+        },
+        "shr.core.CreationTime": {"Value": "15 MAY 2017"},
+        "shr.base.LastUpdated": {"Value": "15 MAY 2017"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "25",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C0205360", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Stable, neither improving nor worsening"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": {"value": "13 JAN 2012"},
-        "asOfDate": "11 AUG 2016",
-        "evidence": [   { "coding": [{ "value": "C0031809", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "physical examination"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "11 AUG 2016",
-        "lastUpdateDate": "11 AUG 2016"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "27",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0016658", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Fracture"}}]},
+        "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#structural_abnormality"}]},
+        "shr.condition.ClinicalStatus": {"Value": "active"},
+        "shr.entity.BodySiteOrCode": {"Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "724231006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+            "shr.core.DisplayText": {"Value": "Bone structure of left fibula"}}]}},
+        "shr.condition.WhenClinicallyRecognized": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
+            "Value": { 
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "13 JAN 2018"
+            }
+        },
+        "shr.core.CreationTime": {"Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2018"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "26",
-        "entryType":    [   "http://standardhealthrecord.org/oncology/Progression",
-                        "http://standardhealthrecord.org/assessment/Assessment",
-                        "http://standardhealthrecord.org/base/Action"  ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "value": { "coding": [{ "value": "C1546960", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "Worsening, disease progressing"}]},
-        "assessmentFocus": [{"entryType": "http://standardhealthrecord.org/condition/Condition", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "8"}],
-        "clinicallyRelevantTime": "13 JAN 2012",
-        "asOfDate": "15 MAY 2017",
-        "evidence": [   { "coding": [{ "value": "C0030664", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "pathology"}]},
-                        { "coding": [{ "value": "C0011923", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "imaging"}]},
-                        { "coding": [{ "value": "C1457887", "codeSystem": {"value":"http://ncimeta.nci.nih.gov"}, "displayText": "symptoms"}]} ],
-        "assessmentType": { "coding": [{ "value": "#disease status"}]},
-        "status": "completed",
-        "originalCreationDate": "15 MAY 2017",
-        "lastUpdateDate": "15 MAY 2017"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "28",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "433341001", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                "shr.core.DisplayText": {"Value": "Application of long leg splint"}}]}},
+        "shr.action.ActionContext": { 
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2018"},
+            "shr.core.Reason": {
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": [{
+                       "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
+                       "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "shr.base.EntryId": "27"
+               }]
+           }},
+        "shr.core.CreationTime": { "Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2018"}        
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "27",
-        "entryType":    [   "http://standardhealthrecord.org/condition/Injury",
-                        "http://standardhealthrecord.org/condition/Condition" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "specificType": {"value": {"coding": [{"value": "C0016658", "codeSystem": {"value": "http://ncimeta.nci.nih.gov"}, "displayText": "Fracture"}]}},
-        "category": [ {"coding": [{"value": "#structural_abnormality"}]} ],
-        "clinicalStatus": "active",
-        "includeOnProblemList": true,
-        "whenClinicallyRecognized": {"generalizedTemporalContext": { "timePeriodStart": "13 JUN 2017" } },
-        "originalCreationDate": "13 JUN 2017",
-        "lastUpdateDate": "13 JUN 2017"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "29",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "412533000", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "Wheat Bran"}]},
+        "shr.core.CreationTime": {"Value": "13 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "28",
-        "entryType":    [ "http://standardhealthrecord.org/allergy/AllergyIntolerance" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "allergenIrritant": {"value": {"coding": [{"value": "412533000", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Wheat Bran"}]}},
-        "originalCreationDate": "13 JUN 2015",
-        "lastUpdateDate": "13 JUN 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "30",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{"Value": "410942007", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "Milk - dietary"}]},
+        "shr.core.CreationTime": {"Value": "13 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "29",
-        "entryType":    [ "http://standardhealthrecord.org/allergy/AllergyIntolerance" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "allergenIrritant": {"value": {"coding": [{"value": "70813002", "codeSystem": {"value": "http://snomed.info/sct"}, "displayText": "Milk - dietary"}]}},
-        "originalCreationDate": "13 JUN 2015",
-        "lastUpdateDate": "13 JUN 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "31",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/NoKnownAllergy" },        
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "409137002", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "No known drug allergy"}]},
+        "shr.core.CreationTime": {"Value": "13 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
     },
     {
-        "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-        "entryId": "30",
-        "entryType":    [   "http://standardhealthrecord.org/allergy/NoKnownDrugAllergy",
-                            "http://standardhealthrecord.org/allergy/AllergyIntolerance" ],
-        "focalSubject": {"entryType": "http://standardhealthrecord.org/demographics/PersonOfRecord", "shrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "entryId": "1"},
-        "originalCreationDate": "13 JUN 2015",
-        "lastUpdateDate": "13 JUN 2015"
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "32",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "02 MAR 2018"
+            },
+            "shr.action.RequestIntent": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
+                "Value": "plan"
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+            }
+        },
+        "shr.encounter.ReferralDate": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
+            "Value": "01 JAN 2018"
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "33",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "28 FEB 2018"
+            },
+            "shr.action.RequestIntent": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
+                "Value": "plan"
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+            }
+        },
+        "shr.encounter.ReferralDate": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
+            "Value": "02 JAN 2018"
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
     }
 ]

@@ -1,64 +1,87 @@
-import Observation from '../observation/Observation';
+import { setPropertiesFromJSON } from '../../json-helper';
 
-/** Generated from SHR definition for shr.environment.NumberOfDependents */
-class NumberOfDependents extends Observation {
+import QuestionAnswer from '../finding/QuestionAnswer';
+
+/**
+ * Generated class for shr.environment.NumberOfDependents.
+ * @extends QuestionAnswer
+ */
+class NumberOfDependents extends QuestionAnswer {
 
   /**
-   * Getter for entry information (shr.base.Entry)
+   * Get the entry information.
+   * @returns {Entry} The shr.base.Entry
    */
   get entryInfo() {
     return this._entryInfo;
   }
 
   /**
-   * Setter for entry information (shr.base.Entry)
+   * Set the entry information.
+   * @param {Entry} entryInfo - The shr.base.Entry
    */
-  set entryInfo(entryVal) {
-    this._entryInfo = entryVal;
+  set entryInfo(entryInfo) {
+    this._entryInfo = entryInfo;
   }
 
   /**
-   * Convenience getter for value (accesses this.quantity)
+   * Get the value (aliases quantity).
+   * @returns {Quantity} The shr.core.Quantity
    */
   get value() {
-    return this.quantity;
+    return this._quantity;
   }
 
   /**
-   * Convenience setter for value (sets this.quantity)
+   * Set the value (aliases quantity).
+   * @param {Quantity} value - The shr.core.Quantity
    */
-  set value(val) {
-    this.quantity = val;
+  set value(value) {
+    this._quantity = value;
   }
 
   /**
-   * Getter for shr.core.Quantity
+   * Get the Quantity.
+   * @returns {Quantity} The shr.core.Quantity
    */
   get quantity() {
     return this._quantity;
   }
 
   /**
-   * Setter for shr.core.Quantity
+   * Set the Quantity.
+   * @param {Quantity} quantity - The shr.core.Quantity
    */
-  set quantity(quantityVal) {
-    this._quantity = quantityVal;
+  set quantity(quantity) {
+    this._quantity = quantity;
   }
 
   /**
-   * Getter for shr.core.SpecificType
+   * Get the ObservationCode.
+   * @returns {ObservationCode} The shr.finding.ObservationCode
    */
-  get specificType() {
-    return this._specificType;
+  get observationCode() {
+    return this._observationCode;
   }
 
   /**
-   * Setter for shr.core.SpecificType
+   * Set the ObservationCode.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
-  set specificType(specificTypeVal) {
-    this._specificType = specificTypeVal;
+  set observationCode(observationCode) {
+    this._observationCode = observationCode;
   }
 
+  /**
+   * Deserializes JSON data to an instance of the NumberOfDependents class.
+   * The JSON must be valid against the NumberOfDependents JSON schema, although this is not validated by the function.
+   * @param {object} json - the JSON data to deserialize
+   * @returns {NumberOfDependents} An instance of NumberOfDependents populated with the JSON data
+   */
+  static fromJSON(json={}) {
+    const inst = new NumberOfDependents();
+    setPropertiesFromJSON(inst, json);
+    return inst;
+  }
 }
-
 export default NumberOfDependents;
