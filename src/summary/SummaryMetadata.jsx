@@ -313,7 +313,7 @@ class SummaryMetadata {
             "default": {
                 sections: [
                     {
-                        name: "Current Diagnosis",
+                        name: "Condition",
                         type: "NameValuePairs",
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
@@ -336,6 +336,18 @@ class SummaryMetadata {
                                         name: "Diagnosis Date",
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.diagnosisDate;
+                                        }
+                                    },
+                                    {
+                                        name: "Where",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.bodySite;
+                                        }
+                                    },
+                                    {
+                                        name: "Clinical Status",
+                                        value: (patient, currentConditionEntry) => {
+                                            return currentConditionEntry.clinicalStatus;
                                         }
                                     }
                                 ]

@@ -1,3 +1,4 @@
+import BodySite from '../shr/entity/BodySite';
 import Condition from '../shr/condition/Condition';
 import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
@@ -47,9 +48,23 @@ class FluxCondition {
         return this._condition.evidence || [];
     }
 
+    get bodySite() {
+        if (this._condition.bodySiteOrCode.value instanceof BodySite) {
+            return this._condition.bodySiteOrCode.value.value.coding[0].displayText.value;
+        } else { // CodeableConcept
+            return this._condition.bodySiteOrCode.value.coding[0].displayText.value;
+        }
+    }
+    
+    get clinicalStatus() {
+        return this._condition.clinicalStatus.value;
+    }
+    
     get laterality() {
-        if (!this._condition.bodySiteOrCode) return null;
-        return this._condition.bodySiteOrCode.value.coding[0].displayText.value;        
+        if (    !this._condition.bodySiteOrCode || 
+                !this._condition.bodySiteOrCode.value || 
+                !(this._condition.bodySiteOrCode.value instanceof BodySite)) return null;
+        return this._condition.bodySiteOrCode.value.laterality.value.coding[0].displayText.value;        
     }
 
     addObservation(observation) {
