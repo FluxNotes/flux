@@ -42,6 +42,18 @@
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "3",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/base/PatientIdentifier" },
+        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "organization": "MITRE",
+        "identifierType": "MRN",
+        "value": "026-DH-678944",
+        "fictionalPerson": true,
+        "shr.base.CreationTime": {"Value": "13 JAN 2012" },
+        "shr.base.LastUpdated": {"Value": "13 JAN 2012" }
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId":"4",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},

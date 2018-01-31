@@ -2,7 +2,9 @@ import Entry from '../shr/base/Entry';
 
 class FluxPatientIdentifier {
     constructor(json) {
-        this._entryInfo = new Entry(json);
+        this._entryInfo = new Entry();
+        this._entryInfo.shrId = json['shr.base.ShrId'];
+        this._entryInfo.entryId = json['shr.base.EntryId'];
         if (json.organization) this._organization = json.organization;
         if (json.identifierType) this._identifierType = json.identifierType;
         if (json.value) this._value = json.value;
