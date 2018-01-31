@@ -9,6 +9,7 @@ import FluxConditionObjectFactory from './condition/FluxConditionObjectFactory';
 import FluxFindingObjectFactory from './finding/FluxFindingObjectFactory';
 import FluxMedicationObjectFactory from './medication/FluxMedicationObjectFactory';
 import FluxProcedureObjectFactory from './procedure/FluxProcedureObjectFactory';
+import FluxAllergyObjectFactory from './allergy/FluxAllergyObjectFactory';
 import FluxOncologyObjectFactory from './oncology/FluxOncologyObjectFactory';
 
 /*
@@ -29,6 +30,7 @@ export default class FluxObjectFactory {
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type);
             case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
+            case 'shr.allergy': return FluxAllergyObjectFactory.createInstance(json, type);
             default: return ObjectFactory.createInstance(json, type);
         }
     }

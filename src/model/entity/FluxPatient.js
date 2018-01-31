@@ -48,6 +48,10 @@ class FluxPatient {
         deceased.value = val;
         this._patient.deceased = deceased;
     }
+
+    get headshot() {
+        return this._patient.party.headshot.attachment.resourceLocation.uri;
+    }
 }
 
 export default FluxPatient;
