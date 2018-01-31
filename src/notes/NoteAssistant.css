@@ -2,13 +2,39 @@ span.button-hover {
     cursor: pointer;
 }
 
-.clinical-notes-btn {
-    padding: 0 20px;
-    display: inline-block;
-    white-space: nowrap;
-    transform: perspective(1px) translateZ(0);
-    transition-duration: 0.3s;
-    transition-property: transform;
+.toggle-button {
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
+    background-color: #FFFFFF !important;
+}
+
+.toggle-buttons-container {
+    display: flex !important;
+    margin-left: auto;
+    max-width: 222px;
+    margin-right: 0;
+}
+
+#notes-btn {
+    width: 50%
+}
+
+#context-btn {
+    width: 50%;
+}
+.toggle-button-selected {
+    background-color: #3399FF !important;
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
+}
+
+.toggle-button-disabled {
+    background-color: #e6e6e6 !important;
+    min-width: 70px !important;
+    min-height: 20px !important;
+    display: inline-block !important;
 }
 
 .clinical-notes-panel { 
@@ -71,19 +97,6 @@ li.sort-item:hover {
 
 .clinical-notes-btn:hover {
     transform: scale(1.1);
-}
-
-.resume-note-btn {
-    background-color: white !important;
-    padding: 10px !important;
-    margin-bottom: 20px;
-    height: auto !important;
-    width: 9vw !important;
-    min-width: 180px !important;
-}
-
-.resume-note-btn:hover {
-    background: #e6e6e6 !important;
 }
 
 .more-notes-btn {

@@ -141,6 +141,7 @@ export default class NotesPanel extends Component {
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    setFullAppState={this.props.setFullAppState}
                     patient={this.props.patient}
                     contextManager={this.props.contextManager}
                     shortcutManager={this.props.shortcutManager}
