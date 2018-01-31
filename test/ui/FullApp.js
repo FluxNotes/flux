@@ -65,7 +65,7 @@ test('Selecting a condition changes the active condition', async t => {
         .expect(await conditionSelector.textContent)
         .eql("Fracture");
 
-    const conditionName = Selector('[data-test-summary-section="Current Diagnosis"] [data-test-summary-item="Name"]')
+    const conditionName = Selector('[data-test-summary-section="Condition"] [data-test-summary-item="Name"]')
 
     await t
         .expect(await conditionName.textContent)
