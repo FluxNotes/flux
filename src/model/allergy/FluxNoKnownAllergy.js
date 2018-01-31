@@ -3,7 +3,6 @@ import NoKnownAllergy from '../shr/allergy/NoKnownAllergy';
 class FluxNoKnownAllergy {
     constructor(json) {
         this._noKnownAllergy = NoKnownAllergy.fromJSON(json);
-        console.log(this._noKnownAllergy.entryInfo)
     }
     
     get entryInfo() {

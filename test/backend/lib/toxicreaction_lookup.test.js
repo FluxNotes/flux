@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import lookup from '../../../src/lib/toxicreactiontotreatment_lookup.jsx';
+import lookup from '../../../src/lib/toxicreaction_lookup.jsx';
 
 describe('getDescription', function () { 
     it('should return null when the argument is not a string', function () { 
