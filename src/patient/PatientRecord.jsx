@@ -7,7 +7,6 @@ import FluxNoKnownDrugAllergy from '../model/allergy/FluxNoKnownDrugAllergy';
 import FluxNoKnownEnvironmentalAllergy from '../model/allergy/FluxNoKnownEnvironmentalAllergy';
 import FluxNoKnownFoodAllergy from '../model/allergy/FluxNoKnownFoodAllergy';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
-import FluxPhotograph from '../model/base/FluxPhotograph';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import CreationTime from '../model/shr/core/CreationTime';
@@ -160,9 +159,7 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        let photoEntry = this.getMostRecentEntryOfType(FluxPhotograph);
-        if (Lang.isNull(photoEntry)) return null;
-        return photoEntry.filePath;
+        return this.patient.headshot;
     }
 
     getCurrentHomeAddress() {

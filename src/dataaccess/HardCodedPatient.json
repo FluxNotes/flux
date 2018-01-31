@@ -28,7 +28,7 @@
                     "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"mobile"}}}
                 }
             ],
-            "shr.entity.Headshot": {"Value": "./DebraHernandez672.png"}
+            "shr.entity.Headshot": {"shr.core.Attachment": {"shr.core.ResourceLocation": {"Value": "./DebraHernandez672.png"}}}
         },           
         "shr.entity.PlaceOfBirth": { "Value": "US" },
         "shr.entity.BirthSex": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "F", "shr.core.DisplayText":{ "Value": "Female"}}]}},
