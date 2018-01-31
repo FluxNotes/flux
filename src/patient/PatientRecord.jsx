@@ -76,7 +76,6 @@ class PatientRecord {
     }
 
     addEntryToPatient(entry) {
-        console.log(entry);
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
@@ -87,7 +86,6 @@ class PatientRecord {
         entry.entryInfo.lastUpdated.instant = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
-        console.log(this.entries);
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
         return entry.entryInfo.entryId;
     }
