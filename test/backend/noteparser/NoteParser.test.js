@@ -1,12 +1,12 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import FluxProgression from '../../../src/model/oncology/FluxProgression';
+import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
-import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
-import FluxDeceased from '../../../src/model/actor/FluxDeceased';
-import FluxStudy from '../../../src/model/base/FluxStudy';
+import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
+import FluxDeceased from '../../../src/model/entity/FluxDeceased';
+import FluxStudy from '../../../src/model/research/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-//import util from 'util';
+// import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -27,206 +27,103 @@ const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[
-    new FluxTNMStage({ 
-        entryType: [ 
-            'http://standardhealthrecord.org/oncology/TNMStage',
-            'http://standardhealthrecord.org/observation/Observation',
-            'http://standardhealthrecord.org/base/Action' 
-        ],
-        value: { 
-            coding: [{
-                value: '',
-                codeSystem: { value: ''},
-                displayText: 'IIA'
-            }],
-            displayText: 'IIA'
-        },
-        specificType: {
-            value: { 
-                coding: [{ 
-                    value: '21908-9',
-                    codeSystem: { value: 'http://loinc.org'},
-                    displayText: 'Stage' 
-                }] 
-            }
-        },
-//        status: 'unknown',
-//        occurrenceTime: today,
-        originalCreationDate: today,
-        lastUpdateDate: today,
-        tStage: { 
-            coding: [{ 
-                  value: '369900003',
-                  codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
-                  displayText: 'T2' 
-            }] 
-        },
-        nStage: { 
-            coding: [{ 
-                value: '436311000124105',
-                codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
-                displayText: 'N0' 
-            }] 
-        },
-        mStage: { 
-            coding: [{ 
-                value: '433581000124101',
-                codeSystem: { value: 'urn:oid:2.16.840.1.113883.6.96'},
-                displayText: 'M0' 
-            }] 
-        } 
-    })
+    new FluxTNMStage(
+      {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage" },
+            "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "", "shr.core.CodeSystem": {"Value": ""}, "shr.core.DisplayText": {"Value": "IIA"}}]},
+            "shr.finding.ObservationComponent": [
+                {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/T_Stage" },
+                    "Value": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "369900003", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "T2"}}]}
+                },
+                {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/N_Stage" },
+                    "Value": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "436311000124105", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "N0"}}]}
+                },
+                {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/M_Stage" },
+                    "Value": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "433581000124101", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "M0"}}]}
+                }
+            ],
+        }
+    )
 ], []];
 const expectedOutputDiseaseStatus = [[
-    new FluxProgression({
-        entryType: [ 
-            'http://standardhealthrecord.org/oncology/Progression',
-            'http://standardhealthrecord.org/assessment/Assessment',
-            'http://standardhealthrecord.org/base/Action' 
-        ],
-        value: { 
-            coding: [{ 
-                value: 'C0205360',
-                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                displayText: 'Stable' 
-            }]
+    new FluxDiseaseProgression({
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        clinicallyRelevantTime: null,
-        evidence: [ 
-            { 
-                coding: [{ 
-                    value: 'C0011923',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Imaging' 
-                }] 
-            },
-            { 
-                coding: [{ 
-                    value: 'C0031809',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Physical exam' 
-                }] 
-            } 
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
         ],
-        assessmentType: { 
-            coding: { 
-                value: '#disease status' 
-            } 
-        },
-        originalCreationDate: today,
-        asOfDate: today,
-        lastUpdateDate: today 
+        "shr.core.CreationTime": {"Value": today},
+        "shr.base.LastUpdated": {"Value": today}
     })
 ], []];
 const expectedOutputDiseaseStatus2 = [[
-    new FluxProgression({
-        entryType: [ 
-            'http://standardhealthrecord.org/oncology/Progression',
-            'http://standardhealthrecord.org/assessment/Assessment',
-            'http://standardhealthrecord.org/base/Action'  
-        ],
-        value: { 
-            coding: [{ 
-                value: 'C0205360',
-                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                displayText: 'Stable' 
-            }] 
+    new FluxDiseaseProgression({
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        clinicallyRelevantTime: '7 Jun 2017',
-        evidence: [ 
-            { 
-                coding: [{ 
-                    value: 'C0011923',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Imaging' 
-                }] 
-            },
-            { 
-                coding: [{ 
-                    value: 'C0031809',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Physical exam' 
-                }] 
-            } 
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
         ],
-        assessmentType: { 
-            coding: { 
-                value: '#disease status' 
-            } 
-        },
-        originalCreationDate: today,
-        asOfDate: '5 Oct 2017',
-        lastUpdateDate: today 
+        "shr.finding.ClinicallyRelevantTime": {"Value": "7 Jun 2017"},
+        "shr.core.CreationTime": {"Value": "5 Oct 2017"},
+        "shr.base.LastUpdated": {"Value": today}
     })
 ], []];
 const expectedOutputToxicity = [[
-    new FluxToxicReaction({ 
-        shr.base.EntryType: {"Value": 'http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction' },
-        
-        Value:  {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                    "shr.core.Coding": [
-                    {   "Value": "10028813", 
-                        "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, 
-                        "shr.core.DisplayText": {"Value": "Nausea"}
-                    }]
-                },
-        shr.adverse.adverseEventGrade: {
-            Value:  {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                        "shr.core.Coding": [
-                        {   "Value": "10028813", 
-                            "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, 
-                            "shr.core.DisplayText": {"Value": "Nausea"}
-                        }]
-                    },
-            Value: { 
-                coding: [{ 
-                    value: 'C1513374',
-                    codeSystem: { value:'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Grade 2' 
-                }]
-            } 
-            causeCategory: {
-                value: { 
-                    coding: [{ 
-                        value: '#Treatment',
-                        codeSystem: { value:'https://www.meddra.org/'},
-                        displayText: 'Treatment' 
-                    }] 
-                }
+    new FluxToxicReaction(
+        {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"},
+            "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "10028813", "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, "shr.core.DisplayText": {"Value": "Nausea"}}], "shr.core.DisplayText": {"Value":"Nausea"}},
+            "shr.adverse.AdverseEventGrade": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/AdverseEventGrade"},
+                "Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1513374", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Grade 2"}}], "shr.core.DisplayText": {"Value":"Grade 2"}},
             },
-            originalCreationDate: today,
-            lastUpdateDate: today 
-        },
-        originalCreationDate: today,
-        lastUpdateDate: today 
-    })
+            "shr.adverse.CauseCategory": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/CauseCategory"},
+                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#Treatment", "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, "shr.core.DisplayText": {"Value": "Treatment"}}], "shr.core.DisplayText": {"Value":"Treatment"}},
+            }
+        }
+    )
 ], []];
 const expectedOutputDeceased = [[
     new FluxDeceased({
-        entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
-        value: true,
-        dateOfDeath: '1 Oct 2017'
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Deceased"},
+        "Value": true,
+        "shr.entity.DateOfDeath": {
+            "Value": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "1 Oct 2017"
+            }
+        }
     })
 ], []];
 const expectedOutputClinicalTrial = [[
     new FluxStudy({
-        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        title: {value: 'PATINA' },
-        identifier: '',
-        enrollmentDate: '4 Sep 2017',
-        endDate: '6 Oct 2017',
-        originalCreationDate: today,
-        lastUpdateDate: today 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+        "shr.core.Title": {"Value": "PATINA"},
+        "shr.core.EffectiveTimePeriod": {
+            "shr.core.TimePeriodStart": {"Value": "4 Sep 2017"},
+            "shr.core.TimePeriodEnd": {"Value": "6 Oct 2017"}
+        }
     })
 ], []];
 const expectedOutputClinicalTrialMinimal = [[
     new FluxStudy({
-        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        identifier: '',
-        enrollmentDate: null,
-        endDate: null,
-        originalCreationDate: today,
-        lastUpdateDate: today 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
     })
 ], []];
 
@@ -276,18 +173,12 @@ describe('parse', function() {
             .eql(expectedOutputStaging[0][0].stage);
         expect(record[0][0].entryInfo)
             .eql(expectedOutputStaging[0][0].entryInfo);
-        expect(record[0][0].occurrenceTime)
-            .eql(expectedOutputStaging[0][0].occurrenceTime);
-        expect(record[0][0].specificType)
-            .eql(expectedOutputStaging[0][0].specificType);
-        expect(record[0][0].status)
-            .eql(expectedOutputStaging[0][0].status);
-        expect(record[0][0].t_stage)
-            .eql(expectedOutputStaging[0][0].t_stage);
-        expect(record[0][0].n_stage)
-            .eql(expectedOutputStaging[0][0].n_stage);
-        expect(record[0][0].m_stage)
-            .eql(expectedOutputStaging[0][0].m_stage);
+        expect(record[0][0].t_Stage)
+            .eql(expectedOutputStaging[0][0].t_Stage);
+        expect(record[0][0].n_Stage)
+            .eql(expectedOutputStaging[0][0].n_Stage);
+        expect(record[0][0].m_Stage)
+            .eql(expectedOutputStaging[0][0].m_Stage);
     });
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
@@ -316,8 +207,6 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
         const record = noteParser.parse(sampleTextClinicalTrial);
-        //console.log(util.inspect(expectedOutputClinicalTrial[0][0]));
-        //console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrial);
