@@ -6,6 +6,7 @@ import EntryType from '../shr/base/EntryType';
 import EffectiveTimePeriod from '../shr/core/EffectiveTimePeriod';
 import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
+import Lang from 'lodash';
 
 class FluxStudy {
     constructor(json) {
@@ -40,6 +41,7 @@ class FluxStudy {
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
+        if (Lang.isNull(title)) return;
         let titleObj = new Title();
         titleObj.value = title; 
         this._study.title = titleObj;
@@ -70,6 +72,7 @@ class FluxStudy {
     }
   
     set enrollmentDate(val) {
+        if (Lang.isNull(val)) return;
         if (!this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod = new EffectiveTimePeriod();
         }
@@ -84,6 +87,7 @@ class FluxStudy {
     }
   
     set endDate(val) {
+        if (Lang.isNull(val)) return;
         if (!this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod = new EffectiveTimePeriod();
         }

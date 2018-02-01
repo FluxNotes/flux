@@ -2,11 +2,11 @@ import NoteParser from '../../../src/noteparser/NoteParser';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
-import FluxDeceased from '../../../src/model/actor/FluxDeceased';
-import FluxStudy from '../../../src/model/base/FluxStudy';
+import FluxDeceased from '../../../src/model/entity/FluxDeceased';
+import FluxStudy from '../../../src/model/research/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-// import util from 'util';
+import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -101,30 +101,29 @@ const expectedOutputToxicity = [[
 ], []];
 const expectedOutputDeceased = [[
     new FluxDeceased({
-        entryType: [ 'http://standardhealthrecord.org/shr/actor/Deceased' ],
-        value: true,
-        dateOfDeath: '1 Oct 2017'
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Deceased"},
+        "Value": true,
+        "shr.entity.DateOfDeath": {
+            "Value": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "1 Oct 2017"
+            }
+        }
     })
 ], []];
 const expectedOutputClinicalTrial = [[
     new FluxStudy({
-        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        title: {value: 'PATINA' },
-        identifier: '',
-        enrollmentDate: '4 Sep 2017',
-        endDate: '6 Oct 2017',
-        originalCreationDate: today,
-        lastUpdateDate: today 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+        "shr.core.Title": {"Value": "PATINA"},
+        "shr.core.EffectiveTimePeriod": {
+            "shr.core.TimePeriodStart": {"Value": "4 Sep 2017"},
+            "shr.core.TimePeriodEnd": {"Value": "6 Oct 2017"}
+        }
     })
 ], []];
 const expectedOutputClinicalTrialMinimal = [[
     new FluxStudy({
-        entryType: [ 'http://standardhealthrecord.org/base/Study' ],
-        identifier: '',
-        enrollmentDate: null,
-        endDate: null,
-        originalCreationDate: today,
-        lastUpdateDate: today 
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
     })
 ], []];
 
@@ -208,8 +207,6 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
         const record = noteParser.parse(sampleTextClinicalTrial);
-        //console.log(util.inspect(expectedOutputClinicalTrial[0][0]));
-        //console.log(util.inspect(record[0][0]));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrial);
