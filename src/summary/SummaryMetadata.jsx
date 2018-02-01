@@ -141,6 +141,7 @@ class SummaryMetadata {
                     {
                         name: "Active Conditions",
                         type: "Columns",
+                        notFiltered: true,
                         data: [
                             {
                                 name: "",
