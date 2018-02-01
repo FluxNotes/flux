@@ -188,6 +188,36 @@ class SummaryMetadata {
                                 ]
                             },
                             {
+                                name: "Neutrophil count",
+                                code: "C0027950",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.healthline.com/health/neutrophils#anc
+                                // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 1,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 1,
+                                        high: 1.5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 1.5,
+                                        high: 8,
+                                        assessment: 'good'
+                                    }
+                                    // {
+                                    //     low: 8,
+                                    //     high: highest,
+                                    //     assessment: 'bad'
+                                    // },
+                                ]
+                            },
+                            {
                                 name: "Hemoglobin",
                                 code: "C0019046",
                                 itemsFunction: this.getTestsForSubSection,
@@ -204,7 +234,7 @@ class SummaryMetadata {
                                         low: 16,
                                         high: 20,
                                         assessment: 'bad'
-                            },
+                                    },
                                     {
                                         low: 12,
                                         high: 16,
