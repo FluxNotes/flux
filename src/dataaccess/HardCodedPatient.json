@@ -162,8 +162,8 @@
                 "shr.finding.FindingStatus": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
-                },
-            }
+                }
+            },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
                 "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2017" },
@@ -182,8 +182,8 @@
                 "shr.finding.FindingStatus": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
-                },
-            }
+                }
+            },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
                 "shr.finding.ClinicallyRelevantTime": { "Value": "10 JAN 2018" },
