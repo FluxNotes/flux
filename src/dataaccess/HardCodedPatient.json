@@ -324,6 +324,26 @@
                     "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
                 }
             },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "02 JAN 2018" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.2, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
                 "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "High grade or poorly differentiated"}}]},
