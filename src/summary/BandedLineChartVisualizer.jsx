@@ -116,13 +116,15 @@ class BandedLineChartVisualizer extends Component {
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
+        // Min/Max for rendering 
+        const [, yMax] = this.getMinMax(processedData, yVar)
 
         let renderedBands = null;
 
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
         if (subsection.bands) {
             let bands = [];
-            
+
             // Grab the values from the summary metadata and set the bands low and high values
             subsection.bands.forEach((band) => {
                 let color = null;
@@ -152,8 +154,8 @@ class BandedLineChartVisualizer extends Component {
             });
 
             renderedBands = bands.map((band, i) => {
-                return this.renderBand(band.y1, band.y2, band.color, i);
-            });            
+                return this.renderBand(band.y1, band.y2, yMax, band.color, i);
+            });
 
         } else {
             renderedBands = null;
@@ -164,15 +166,13 @@ class BandedLineChartVisualizer extends Component {
                 ref={(chartParentDiv) => {
                     this.chartParentDiv = chartParentDiv;
                 }}
-                key={subsection}
+                key={yVar}
             >
                 <div className="sub-section-heading">
                     <h2 className="sub-section-name">
                         {`${yVar} (${yUnit})`}
                     </h2>
-
                 </div>
-
                 <LineChart
                     width={this.state.chartWidth}
                     height={this.state.chartHeight}
@@ -188,6 +188,7 @@ class BandedLineChartVisualizer extends Component {
                     />
                     <YAxis
                         dataKey={yVar}
+                        domain={[0, 'dataMax']}
                     />
                     <Tooltip
                         labelFormatter={this.xVarFormatFunction}
@@ -196,16 +197,28 @@ class BandedLineChartVisualizer extends Component {
                     <Line type="monotone" dataKey={yVar} stroke="#295677" yAxisId={0}/>
                     {renderedBands}
                 </LineChart>
-
             </div>
         );
     }
 
     // Given the range and the color, render the band
-    renderBand(y1, y2, color, key) {
-        return (
-            <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
-        );
+    renderBand(y1, y2, yMax, color, key) {
+        if (y2 === "max") { 
+            // If reference area has no upper limit, draw it only if patient data would be captured by it
+            if (yMax > y1) { 
+                // Draw refence area large enough to capture max dataelement if it's greater than the y1 (bottom of referenceArea)
+                return (
+                    <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow/>
+                );
+            } else { 
+                // Else  draw nothing -- no relevant values would be captured by that rectangle
+            }
+        } else { 
+            // Otherwise, draw as usual
+            return (
+                <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
+            );
+        }
     }
 
     // Gets called for each section in SummaryMetaData.jsx

@@ -159,6 +159,7 @@ class SummaryMetadata {
                     },
                     {
                         name: "Labs",
+                        clinicalEvents: ["pre-encounter"],
                         type: "ValueOverTime",
                         data: [
                             {
@@ -168,11 +169,84 @@ class SummaryMetadata {
 
                                 // Source: https://www.cancer.org/treatment/understanding-your-diagnosis/tests/understanding-your-lab-test-results.html
                                 // Source: https://www.mayoclinic.org/symptoms/low-white-blood-cell-count/basics/definition/sym-20050615
-
                                 bands: [
-                                    {low: 0, high: 3, assessment: 'bad'},
-                                    {low: 3, high: 5, assessment: 'average'},
-                                    {low: 5, high: 10, assessment: 'good'}
+                                    {
+                                        low: 0,
+                                        high: 3,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 3,
+                                        high: 5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 5,
+                                        high: 10,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 10,
+                                        high: 'max',
+                                        assessment: 'bad'
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Neutrophil count",
+                                code: "C0027950",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.healthline.com/health/neutrophils#anc
+                                // Source: https://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010-06-14_QuickReference_8.5x11.pdf page 42
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 1,
+                                        assessment: 'bad'
+                                    },
+                                    {
+                                        low: 1,
+                                        high: 1.5,
+                                        assessment: 'average'
+                                    },
+                                    {
+                                        low: 1.5,
+                                        high: 8,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 8,
+                                        // Only draws if an element is captured in this range
+                                        high: 'max',
+                                        assessment: 'bad'
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Hemoglobin",
+                                code: "C0019046",
+                                itemsFunction: this.getTestsForSubSection,
+
+                                // Source: https://www.emedicinehealth.com/hemoglobin_levels/page2_em.htm
+                                // Source: https://www.quora.com/What-is-the-percentage-of-haemoglobin-in-blood
+                                bands: [
+                                    {
+                                        low: 0,
+                                        high: 12,
+                                        assessment: 'bad'
+                                    },
+
+                                    {
+                                        low: 12,
+                                        high: 16,
+                                        assessment: 'good'
+                                    },
+                                    {
+                                        low: 16,
+                                        high: 20,
+                                        assessment: 'bad'
+                                    }
                                 ]
                             }
                         ]
@@ -514,6 +588,7 @@ class SummaryMetadata {
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
+        labResults.sort(currentConditionEntry._labResultsTimeSorter);
 
         const labs = labResults.filter((lab, i) => {
             return lab.codeableConceptCode === subsection.code;
@@ -525,6 +600,7 @@ class SummaryMetadata {
 
             return processedLab
         });
+
         return labs
     }
 
