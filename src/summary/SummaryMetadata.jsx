@@ -9,6 +9,34 @@ class SummaryMetadata {
             "http://snomed.info/sct/408643008": {
                 sections: [
                     {
+                        name: "Visit Reason",
+                        type: "NarrativeOnly", 
+                        narrative: [
+                            {
+                                defaultTemplate: "${Reason.Reason}",
+                                dataMissingTemplate: "No recent ${Reason.Reason}",
+                                useDataMissingTemplateCriteria: [
+                                    "Reason.Reason"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Reason",
+                                items: [ 
+                                    {
+                                        name: "Reason",
+                                        value: (patient, currentConditionEntry) => {
+                                            const nextEncounter = patient.getNextEncounter();
+                                            if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
+                                            return patient.getNextEncounter().reason;
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         name: "Summary",
                         type: "NameValuePairs",
                         /*eslint no-template-curly-in-string: "off"*/

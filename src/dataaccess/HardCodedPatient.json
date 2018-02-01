@@ -1305,7 +1305,7 @@
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "02 MAR 2018"
+                "Value": "12 MAR 2018 15:00 -0500"
             },
             "shr.action.RequestIntent": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
@@ -1334,7 +1334,7 @@
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "28 FEB 2018"
+                "Value": "28 FEB 2018 16:00 -0500"
             },
             "shr.action.RequestIntent": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },

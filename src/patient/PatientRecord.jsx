@@ -8,6 +8,7 @@ import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
+import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -163,6 +164,29 @@ class PatientRecord {
         let patient = this.getPatient();
         if (Lang.isNull(patient) || !patient.address) return null;
         return patient.address;
+    }
+
+    // return the soonest upcoming encounter. Includes encounters happening later today.
+    getNextEncounter(){
+        return this.getEncountersChronologicalOrder(new moment())[0];
+    }
+
+    // returns a list of upcoming encounters after the date and time of afterDateTime
+    // this includes encounters scheduled for later in the same day
+    getEncountersChronologicalOrder(afterDateTime = null){
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        encounters.sort(this._encounterTimeSorter);
+
+        // no date provided, return entire list
+        if(Lang.isNull(afterDateTime)){
+            return encounters;
+        }
+
+        // filter out any encounters happening before the specified afterDateTime argument
+        return encounters.filter((encounter) => {
+            const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+            return encounterStartTime.isAfter(afterDateTime, "second");
+        });
     }
 
     getConditions() {
@@ -378,7 +402,18 @@ class PatientRecord {
         }
         return 0;
     }
+    _encounterTimeSorter(a, b) {
+        const a_startTime = new moment(a.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+        const b_startTime = new moment(b.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
 
+        if (a_startTime.isBefore(b_startTime, "second")) {
+            return -1;
+        }
+        if (a_startTime.isAfter(b_startTime, "second")) {
+            return 1;
+        }
+        return 0;
+    }
     _progressionTimeSorter(a, b) {
         const a_startTime = new moment(a.asOfDate, "D MMM YYYY");
         const b_startTime = new moment(b.asOfDate, "D MMM YYYY");

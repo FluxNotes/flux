@@ -5,6 +5,7 @@ import FluxResearchObjectFactory from './research/FluxResearchObjectFactory';
 import FluxAdverseObjectFactory from './adverse/FluxAdverseObjectFactory';
 import FluxCoreObjectFactory from './core/FluxCoreObjectFactory';
 import FluxEntityObjectFactory from './entity/FluxEntityObjectFactory';
+import FluxEncounterObjectFactory from './encounter/FluxEncounterObjectFactory';
 import FluxConditionObjectFactory from './condition/FluxConditionObjectFactory';
 import FluxFindingObjectFactory from './finding/FluxFindingObjectFactory';
 import FluxMedicationObjectFactory from './medication/FluxMedicationObjectFactory';
@@ -24,6 +25,7 @@ export default class FluxObjectFactory {
             case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type);
             case 'shr.condition': return FluxConditionObjectFactory.createInstance(json, type);
             case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type);
+            case 'shr.encounter': return FluxEncounterObjectFactory.createInstance(json, type);
             case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type);
             case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type);
