@@ -184,6 +184,11 @@ class SummaryMetadata {
                                         low: 5,
                                         high: 10,
                                         assessment: 'good'
+                                    },
+                                    {
+                                        low: 10,
+                                        high: 'max',
+                                        assessment: 'bad'
                                     }
                                 ]
                             },
@@ -209,12 +214,13 @@ class SummaryMetadata {
                                         low: 1.5,
                                         high: 8,
                                         assessment: 'good'
+                                    },
+                                    {
+                                        low: 8,
+                                        // Only draws if an element is captured in this range
+                                        high: 'max',
+                                        assessment: 'bad'
                                     }
-                                    // {
-                                    //     low: 8,
-                                    //     high: highest,
-                                    //     assessment: 'bad'
-                                    // },
                                 ]
                             },
                             {
@@ -230,15 +236,16 @@ class SummaryMetadata {
                                         high: 12,
                                         assessment: 'bad'
                                     },
-                                    {
-                                        low: 16,
-                                        high: 20,
-                                        assessment: 'bad'
-                                    },
+
                                     {
                                         low: 12,
                                         high: 16,
                                         assessment: 'good'
+                                    },
+                                    {
+                                        low: 16,
+                                        high: 20,
+                                        assessment: 'bad'
                                     }
                                 ]
                             }

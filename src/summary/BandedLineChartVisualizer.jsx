@@ -116,6 +116,8 @@ class BandedLineChartVisualizer extends Component {
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
         if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
+        // Min/Max for rendering 
+        const [yMin, yMax] = this.getMinMax(processedData, yVar)
 
         let renderedBands = null;
 
@@ -152,7 +154,7 @@ class BandedLineChartVisualizer extends Component {
             });
 
             renderedBands = bands.map((band, i) => {
-                return this.renderBand(band.y1, band.y2, band.color, i);
+                return this.renderBand(band.y1, band.y2, yMax, band.color, i);
             });
 
         } else {
@@ -200,10 +202,23 @@ class BandedLineChartVisualizer extends Component {
     }
 
     // Given the range and the color, render the band
-    renderBand(y1, y2, color, key) {
-        return (
-            <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
-        );
+    renderBand(y1, y2, yMax, color, key) {
+        if (y2 === "max") { 
+            // If reference area has no upper limit, draw it only if patient data would be captured by it
+            if (yMax > y1) { 
+                // Draw refence area large enough to capture max dataelement if it's greater than the y1 (bottom of referenceArea)
+                return (
+                    <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow/>
+                );
+            } else { 
+                // Else  draw nothing -- no relevant values would be captured by that rectangle
+            }
+        } else { 
+            // Otherwise, draw as usual
+            return (
+                <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
+            );
+        }
     }
 
     // Gets called for each section in SummaryMetaData.jsx
