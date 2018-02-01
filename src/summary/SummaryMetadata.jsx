@@ -139,6 +139,19 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Active Conditions",
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Condition", "Diagnosed", "Body Site"],
+                                itemsFunction: this.getItemListForConditions,
+                                shortcut: "@condition"
+                            }
+                        ]
+                    },
+                    {
                         name: "Disease Status",
                         clinicalEvents: ["pre-encounter"],
                         type: "DiseaseStatusValues",
@@ -399,6 +412,19 @@ class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Active Conditions",
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Condition", "Diagnosed"],
+                                itemsFunction: this.getItemListForConditions,
+                                shortcut: "@condition"
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         type: "Events",
                         data: [
@@ -427,6 +453,13 @@ class SummaryMetadata {
 
     getMetadata = () => {
         return this.hardCodedMetadata;
+    }
+
+    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
+        const conditions = patient.getActiveConditions();
+        return conditions.map((c, i) => {
+            return [{value: c.type, shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
+        });
     }
 
     getItemListForProcedures = (patient, currentConditionEntry) => {
