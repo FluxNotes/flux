@@ -182,18 +182,11 @@ class PatientRecord {
             return encounters;
         }
 
-        // only return the array slice after afterDateTime
-        let firstIndexInFuture = -1;
-        for(let [index, encounter] of encounters.entries()){
-            if(afterDateTime.isBefore(encounter.expectedPerformanceTime, "second")){
-                firstIndexInFuture = index;
-                break;
-            }
-        }
-        if(Lang.isEqual(firstIndexInFuture, -1)){
-            return null;
-        }
-        return encounters.slice(firstIndexInFuture);
+        // filter out any encounters happening before the specified afterDateTime argument
+        return encounters.filter((encounter) => {
+            const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+            return encounterStartTime.isAfter(afterDateTime, "second");
+        });
     }
 
     getConditions() {
@@ -410,8 +403,9 @@ class PatientRecord {
         return 0;
     }
     _encounterTimeSorter(a, b) {
-        const a_startTime = new moment(a.expectedPerformanceTime);
-        const b_startTime = new moment(b.expectedPerformanceTime);        
+        const a_startTime = new moment(a.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+        const b_startTime = new moment(b.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+
         if (a_startTime.isBefore(b_startTime, "second")) {
             return -1;
         }

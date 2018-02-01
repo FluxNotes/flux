@@ -9,7 +9,7 @@ class SummaryMetadata {
             "http://snomed.info/sct/408643008": {
                 sections: [
                     {
-                        name: "Reason for Upcoming Visit",
+                        name: "Visit Reason",
                         type: "NarrativeOnly", 
                         narrative: [
                             {
@@ -27,7 +27,8 @@ class SummaryMetadata {
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
-
+                                            const nextEncounter = patient.getNextEncounter();
+                                            if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
                                             return patient.getNextEncounter().reason;
                                         }
                                     }
