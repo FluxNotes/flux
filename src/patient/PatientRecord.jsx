@@ -168,6 +168,12 @@ class PatientRecord {
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);
     }
+    
+    getActiveConditions() {
+        return this.getConditions().filter((c) => {
+            return (c.clinicalStatus === 'active' || c.clinicalStatus === 'recurrence');
+        });
+    }
 
     getConditionsChronologicalOrder() {
         let conditions = this.getConditions();

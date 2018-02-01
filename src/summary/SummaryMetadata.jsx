@@ -139,12 +139,12 @@ class SummaryMetadata {
                         ]
                     },
                     {
-                        name: "Conditions",
-                        type: "ListType",
+                        name: "Active Conditions",
+                        type: "Columns",
                         data: [
                             {
                                 name: "",
-                                headings: ["Condition", "Diagnosed"],
+                                headings: ["Condition", "Diagnosed", "Body Site"],
                                 itemsFunction: this.getItemListForConditions,
                                 shortcut: "@condition"
                             }
@@ -410,13 +410,15 @@ class SummaryMetadata {
                             }
                         ]
                     },
-                     {
-                        name: "Conditions",
-                        type: "ListType",
+                    {
+                        name: "Active Conditions",
+                        type: "Columns",
                         data: [
                             {
                                 name: "",
-                                itemsFunction: this.getItemListForConditions
+                                headings: ["Condition", "Diagnosed"],
+                                itemsFunction: this.getItemListForConditions,
+                                shortcut: "@condition"
                             }
                         ]
                     },
@@ -452,10 +454,9 @@ class SummaryMetadata {
     }
 
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {
-        const conditions = patient.getConditions();
+        const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
-            return [{name: c.specificType.codeableConcept.displayText.string, shortcut: subsection.shortcut},
-            c.whenClinicallyRecognized.generalizedTemporalContext.value.value.timePeriodStart.value]; // correct object?
+            return [{value: c.type, shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];
         });
     }
 
