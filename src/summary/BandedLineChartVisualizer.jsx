@@ -117,7 +117,7 @@ class BandedLineChartVisualizer extends Component {
         if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
         const yUnit = processedData[0].unit;
         // Min/Max for rendering 
-        const [yMin, yMax] = this.getMinMax(processedData, yVar)
+        const [, yMax] = this.getMinMax(processedData, yVar)
 
         let renderedBands = null;
 
