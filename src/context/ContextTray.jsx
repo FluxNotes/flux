@@ -15,7 +15,7 @@ export default class ContextTray extends Component {
             value: 1,
             lastActiveContextCount: 0,
             templates: [
-                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition[[Invasive ductal carcinoma of breast]]\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@all medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
+                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition[[Invasive ductal carcinoma of breast]]\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
                 { name: 'op note', content: 'op note' },
                 { name: 'follow-up', content: 'follow up' },
                 { name: 'consult note', content: '@patient presenting with ' }
