@@ -176,8 +176,10 @@ class PatientRecord {
             if(Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)){
                 resultEncounter = encounter;
             }
-            
-            let resultEncounterTime = new moment(resultEncounter.expectedPerformanceTime, "D MMM YYYY");
+            let resultEncounterTime = null;
+            if(!Lang.isNull(resultEncounter)){
+                resultEncounterTime = new moment(resultEncounter.expectedPerformanceTime, "D MMM YYYY");
+            }
             // if there is a better answer (closer to today's date), update the value to return
             if(!Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)
                 && currentEncounterTime.isBefore(resultEncounterTime, "day")){

@@ -68,8 +68,6 @@ export default class TargetedDataSection extends Component {
 
     getOptions = (section) => {
         return this.props.visualizerManager.getSupportedVisualizerTypesForDataType(section.type);
-        } else if(section.type === "StringType"){
-            options.push('narrative');
     }
 
     renderVisualizationOptions = (options) => {
@@ -97,17 +95,6 @@ export default class TargetedDataSection extends Component {
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
                 
-            case 'StringType': 
-                return (
-                    <NarrativeNameValuePairsVisualizer
-                            patient={patient}
-                            condition={condition}
-                            conditionSection={section}
-                            onItemClicked={onItemClicked}
-                            allowItemClick={allowItemClick}
-                            isWide={isWide}
-                        />
-                );
         return (
             <Visualizer
                 patient={patient}

@@ -10,7 +10,7 @@ class SummaryMetadata {
                 sections: [
                     {
                         name: "Reason for Upcoming Visit",
-                        type: "StringType", 
+                        type: "NarrativeOnly", 
                         narrative: [
                             {
                                 defaultTemplate: "${Reason.Reason}",
@@ -24,7 +24,6 @@ class SummaryMetadata {
                             {
                                 name: "Reason",
                                 items: [ 
-                                    // still needed because StringType reuses NarrativeNameValuePairVisualizer, we could create its own visualizer
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
