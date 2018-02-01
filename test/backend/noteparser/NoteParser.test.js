@@ -1,12 +1,12 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
-import FluxProgression from '../../../src/model/oncology/FluxProgression';
+import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReactionToTreatment from '../../../src/model/oncology/FluxToxicReactionToTreatment';
 import FluxDeceased from '../../../src/model/actor/FluxDeceased';
 import FluxStudy from '../../../src/model/base/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-//import util from 'util';
+// import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -78,85 +78,32 @@ const expectedOutputStaging = [[
     })
 ], []];
 const expectedOutputDiseaseStatus = [[
-    new FluxProgression({
-        entryType: [ 
-            'http://standardhealthrecord.org/oncology/Progression',
-            'http://standardhealthrecord.org/assessment/Assessment',
-            'http://standardhealthrecord.org/base/Action' 
-        ],
-        value: { 
-            coding: [{ 
-                value: 'C0205360',
-                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                displayText: 'Stable' 
-            }]
+    new FluxDiseaseProgression({
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        clinicallyRelevantTime: null,
-        evidence: [ 
-            { 
-                coding: [{ 
-                    value: 'C0011923',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Imaging' 
-                }] 
-            },
-            { 
-                coding: [{ 
-                    value: 'C0031809',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Physical exam' 
-                }] 
-            } 
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
         ],
-        assessmentType: { 
-            coding: { 
-                value: '#disease status' 
-            } 
-        },
-        originalCreationDate: today,
-        asOfDate: today,
-        lastUpdateDate: today 
+        "shr.core.CreationTime": {"Value": today},
+        "shr.base.LastUpdated": {"Value": today}
     })
 ], []];
 const expectedOutputDiseaseStatus2 = [[
-    new FluxProgression({
-        entryType: [ 
-            'http://standardhealthrecord.org/oncology/Progression',
-            'http://standardhealthrecord.org/assessment/Assessment',
-            'http://standardhealthrecord.org/base/Action'  
-        ],
-        value: { 
-            coding: [{ 
-                value: 'C0205360',
-                codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                displayText: 'Stable' 
-            }] 
+    new FluxDiseaseProgression({
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        clinicallyRelevantTime: '7 Jun 2017',
-        evidence: [ 
-            { 
-                coding: [{ 
-                    value: 'C0011923',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Imaging' 
-                }] 
-            },
-            { 
-                coding: [{ 
-                    value: 'C0031809',
-                    codeSystem: { value: 'http://ncimeta.nci.nih.gov'},
-                    displayText: 'Physical exam' 
-                }] 
-            } 
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
+        "shr.finding.Evidence": [   
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
+            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
         ],
-        assessmentType: { 
-            coding: { 
-                value: '#disease status' 
-            } 
-        },
-        originalCreationDate: today,
-        asOfDate: '5 Oct 2017',
-        lastUpdateDate: today 
+        "shr.finding.ClinicallyRelevantTime": {"Value": "7 Jun 2017"},
+        "shr.core.CreationTime": {"Value": "5 Oct 2017"},
+        "shr.base.LastUpdated": {"Value": today}
     })
 ], []];
 const expectedOutputToxicity = [[

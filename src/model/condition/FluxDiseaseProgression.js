@@ -6,6 +6,8 @@ import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
 import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
 import EntryType from '../shr/base/EntryType';
+import moment from 'moment';
+import LastUpdated from '../shr/base/LastUpdated';
 
 // FluxDiseaseProgression class to hide codeableconcepts
 class FluxDiseaseProgression {
@@ -15,6 +17,9 @@ class FluxDiseaseProgression {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression';
+            let today = new moment().format("D MMM YYYY");
+            entry.lastUpdated = new LastUpdated();
+            entry.lastUpdated.instant = today;
             this._diseaseProgression.entryInfo = entry;
         }
     }
@@ -79,6 +84,7 @@ class FluxDiseaseProgression {
     }
 
     set referenceDate(date) {
+        if (!date) return;
         if (!this._diseaseProgression.clinicallyRelevantTime) {
             let clinicallyRelevantTime = new ClinicallyRelevantTime();
             clinicallyRelevantTime.value = date;
