@@ -166,33 +166,34 @@ class PatientRecord {
         return patient.address;
     }
 
-    // return the soonest upcoming encounter. Includes encounters happening today.
+    // return the soonest upcoming encounter. Includes encounters happening later today.
     getNextEncounter(){
-        let encounters = this.getEntriesOfType(FluxEncounterRequested);
-        let resultEncounter = null;        
-        encounters.forEach((encounter, index) => {
-            let currentEncounterTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY");
-            // if there is an encounter with a valid date, set it as the value to return
-            if(Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)){
-                resultEncounter = encounter;
-            }
-            let resultEncounterTime = null;
-            if(!Lang.isNull(resultEncounter)){
-                resultEncounterTime = new moment(resultEncounter.expectedPerformanceTime, "D MMM YYYY");
-            }
-            // if there is a better answer (closer to today's date), update the value to return
-            if(!Lang.isNull(resultEncounter) && this.dateIsTodayOrFuture(currentEncounterTime)
-                && currentEncounterTime.isBefore(resultEncounterTime, "day")){
-                resultEncounter = encounter;
-            }
-        });
-        return resultEncounter;
+        return this.getEncountersChronologicalOrder(new moment())[0];
     }
 
-    dateIsTodayOrFuture(momentDate){
-        // use the "day" parameter to set granularity. We don't record hours minutes seconds.
-        let today = new moment();
-        return (today.isBefore(momentDate, "day") || today.isSame(momentDate, "day"));
+    // returns a list of upcoming encounters after the date and time of afterDateTime
+    // this includes encounters scheduled for later in the same day
+    getEncountersChronologicalOrder(afterDateTime = null){
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        encounters.sort(this._encounterTimeSorter);
+
+        // no date provided, return entire list
+        if(Lang.isNull(afterDateTime)){
+            return encounters;
+        }
+
+        // only return the array slice after afterDateTime
+        let firstIndexInFuture = -1;
+        for(let [index, encounter] of encounters.entries()){
+            if(afterDateTime.isBefore(encounter.expectedPerformanceTime, "second")){
+                firstIndexInFuture = index;
+                break;
+            }
+        }
+        if(Lang.isEqual(firstIndexInFuture, -1)){
+            return null;
+        }
+        return encounters.slice(firstIndexInFuture);
     }
 
     getConditions() {
@@ -408,7 +409,17 @@ class PatientRecord {
         }
         return 0;
     }
-
+    _encounterTimeSorter(a, b) {
+        const a_startTime = new moment(a.expectedPerformanceTime);
+        const b_startTime = new moment(b.expectedPerformanceTime);        
+        if (a_startTime.isBefore(b_startTime, "second")) {
+            return -1;
+        }
+        if (a_startTime.isAfter(b_startTime, "second")) {
+            return 1;
+        }
+        return 0;
+    }
     _progressionTimeSorter(a, b) {
         const a_startTime = new moment(a.asOfDate, "D MMM YYYY");
         const b_startTime = new moment(b.asOfDate, "D MMM YYYY");
