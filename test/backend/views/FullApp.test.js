@@ -58,7 +58,8 @@ describe('setFullAppState', function() {
 describe('TargetedDataControl', function() {
     it('noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
-        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections[0];
+        // Top item is Reason for Visit which has no buttons, so look at second item Summary which is .sections[1]
+        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections[1];
         let options = [];
         if (section.type === "NameValuePairs") {
             options.push('tabular');
