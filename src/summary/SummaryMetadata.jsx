@@ -503,7 +503,7 @@ class SummaryMetadata {
                     {
                         name: "Medications",
                         clinicalEvents: ["pre-encounter"],
-                        type: "ListType",
+                        type: "Columns",
                         data: [
                             {
                                 name: "",
