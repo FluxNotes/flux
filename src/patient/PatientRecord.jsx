@@ -189,6 +189,11 @@ class PatientRecord {
         });
     }
 
+    getNextEncounterReason() {
+        const nextEncounter = this.getNextEncounter();
+        return nextEncounter.reason;
+    }
+
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);
     }

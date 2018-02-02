@@ -382,5 +382,21 @@
     "isContext": false,
     "stringTriggers": [{"name": "@HPI", "description": "Insert patient's history of present illness"}],
     "knownParentContexts": "ConditionInserter"
+  },
+  {
+    "type": "InsertValue",
+    "id": "ReasonForNextVisitInserter",
+    "getData": {
+      "object": "patient",
+      "method": "getNextEncounterReason"
+    },
+    "isContext": false,
+    "stringTriggers": [
+      {
+        "name": "@reason for next visit",
+        "description": "Insert reason for patient's next visit"
+      }
+    ],
+    "knownParentContexts": "Patient"
   }
 ]
