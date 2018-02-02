@@ -191,6 +191,8 @@ class PatientRecord {
 
     getNextEncounterReason() {
         const nextEncounter = this.getNextEncounter();
+        // Tried replacing breast cancer condition text to establish condition context
+        // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
         return nextEncounter.reason;
     }
 
