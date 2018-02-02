@@ -520,7 +520,7 @@ class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                headings: ["Condition", "Diagnosed"],
+                                headings: ["Condition", "Diagnosed", "Body Site"],
                                 itemsFunction: this.getItemListForConditions,
                                 shortcut: "@condition"
                             }
