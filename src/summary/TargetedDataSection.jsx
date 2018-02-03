@@ -10,22 +10,33 @@ export default class TargetedDataSection extends Component {
         super(props);
 
         const optionsForSection = this.getOptions(props.section);
-        const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
+        const defaultVisualizer = this.determineDefaultVisualizer(props.section, optionsForSection);
+        //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
 
-        // this.state.defaultVisualizer is the first possible visualization, this.state.chosenVisualizer changes when icons are clicked
+        // this.state.defaultVisualizer is the default visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
-            defaultVisualizer: defaultOrTabular,
+            defaultVisualizer: defaultVisualizer,
             chosenVisualizer: null
         };
     }
-
+    
     componentDidUpdate() {
         const optionsForSection = this.getOptions(this.props.section);
-        const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
-        if (this.state.defaultVisualizer !== defaultOrTabular ||
+        const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, optionsForSection);
+        //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
+        if (this.state.defaultVisualizer !== defaultVisualizer ||
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
-            this.setState({defaultVisualizer: defaultOrTabular, chosenVisualizer: null});
+            this.setState({defaultVisualizer: defaultVisualizer, chosenVisualizer: null});
         }
+    }
+
+    determineDefaultVisualizer = (section, optionsForSection) => {
+        if (optionsForSection.length === 0) return 'tabular';
+        if (section.defaultVisualizer && optionsForSection.includes(section.defaultVisualizer)) {
+            console.log('explicit default for ' + section.name);
+            return section.defaultVisualizer;
+        }
+        return optionsForSection[0];
     }
 
     handleViewChange = (chosenVisualizer) => {
@@ -123,7 +134,7 @@ export default class TargetedDataSection extends Component {
                     {this.renderVisualizationOptions(visualizationOptions)}
                 </h2>
 
-                {encounterView && <div className="section-header__condition encounter">{selectedCondition}</div>}
+                {encounterView && !notFiltered && <div className="section-header__condition encounter">{selectedCondition}</div>}
 
                 {this.renderSection(section)}
             </div>

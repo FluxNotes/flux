@@ -283,6 +283,7 @@ class SummaryMetadata {
                     {
                         name: "Medications",
                         clinicalEvents: ["pre-encounter"],
+                        defaultVisualizer: "chart",
                         type: "Medications",
                         data: [
                             {
