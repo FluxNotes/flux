@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from '../elements/Button';
+import SingleChoiceButton from './SingleChoiceButton';
 import Radio, {RadioGroup} from 'material-ui/Radio';
 import {FormControl, FormControlLabel} from 'material-ui/Form';
 import DatePicker from '../forms/DatePicker';
@@ -72,8 +72,6 @@ class ClinicalTrialForm extends Component {
 
     renderTrialButtonGroup = (trial, i) => {
         const isSelected = this.isSelectedTrial(trial);
-        const buttonClass = isSelected ? 'button_selected' : '';
-        const borderColor = isSelected ? '#297DA2' : 'white';
         const marginSize = "10px";
         const trialName = trial.name;
         const trialDescription = trial.description;
@@ -82,26 +80,14 @@ class ClinicalTrialForm extends Component {
         return (
             <div key={trialName} className="tooltip-clinical-trial">
                 <span id={trialName} className={tooltipClass}>{trialDescription}</span>
-                <Button raised
-                    key={i}
-                    label={trialName}
-                    onClick={(e) => this.handleTrialSelection(trial, isSelected)}
-                    className={"trial_button " + buttonClass}
-                    style={{
-                        marginBottom: marginSize,
-                        marginLeft: marginSize,
-                        height: "75px",
-                        width: "180px",
-                        padding: "20px 0 20px 0",
-                        backgroundColor: "white",
-                        border: "2px solid",
-                        borderRadius: "5px",
-                        borderColor: borderColor,
-                        textTransform: "none"
-                    }}
-                >   
-                    {trialName}
-                </Button>
+                <SingleChoiceButton
+                        buttonKey={i}
+                        buttonText={trialName}
+                        onClick={(e) => this.handleTrialSelection(trial, isSelected)}
+                        isSelected={isSelected}
+                        className={trialName}
+                        marginSize={marginSize}
+                />
             </div>
         )
     }

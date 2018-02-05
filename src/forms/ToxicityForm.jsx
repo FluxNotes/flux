@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import SingleChoiceButton from './SingleChoiceButton';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import Button from '../elements/Button';
 import toxicityLookup from '../lib/toxicreaction_lookup';
 import ToxicReaction from '../model/shr/adverse/ToxicReaction';
 import Lang from 'lodash'
@@ -62,7 +62,7 @@ class ToxicityForm extends Component {
     }
 
     currentlySelectedAdverseEvent = (adverseEvent) => {
-        return this.props.object.adverseEvent === adverseEvent.name ? 'button_selected' : '';
+        return this.props.object.adverseEvent === adverseEvent.name;
     }
 
     /*
@@ -241,28 +241,18 @@ class ToxicityForm extends Component {
      */
     renderAttributionButton = (attribution, i) => {
         const isSelected = this.currentlySelectedAttribution(attribution);
-        const buttonClass = isSelected ? 'button_selected' : ''
         const tooltipClass = (attribution.description.length > 100) ? "tooltiptext large" : "tooltiptext";
         const marginSize = "10px";
         return (
             <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
-                <Button raised
-                    key={i}
-                    label={attribution.name}
-                    className={buttonClass}
-                    style={{
-                        marginBottom: marginSize,
-                        marginLeft: marginSize,
-                        borderRadius: "5px",
-                        height: "75px",
-                        width: "180px",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
-                    onClick={ () => this.handleAttributionSelection(attribution, isSelected)}
-                >{attribution.name}
-                </Button>
+                <SingleChoiceButton 
+                        buttonKey={i}
+                        buttonText={attribution.name}
+                        onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
+                        isSelected={isSelected}
+                        marginSize={marginSize}
+                />
             </div>
         )
     }
@@ -270,6 +260,7 @@ class ToxicityForm extends Component {
     render() {
         let potentialToxicity = Lang.isNull(this.props.object) ? new ToxicReaction() : this.props.object;
         let topAdverseEventSection = null;
+        const marginSize = "10px";
         const inputProps = {
             placeholder: 'Enter symptom',
             value: this.state.searchText,
@@ -287,16 +278,17 @@ class ToxicityForm extends Component {
                         return "";
                     }
                     const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+                    const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
                     return (
                         <div key={adverseEvent.name} className="tooltip-toxicity-form">
                             <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
-                            <Button raised
-                                key={i}
-                                label={adverseEvent.name}
-                                onClick={() => this.handleAdverseEventSelection(adverseEvent.name)}
-                                className={this.currentlySelectedAdverseEvent(adverseEvent)}
-                            >{adverseEvent.name}
-                            </Button>
+                            <SingleChoiceButton 
+                                    buttonKey={i}
+                                    buttonText={adverseEvent.name}
+                                    onClick={ (e) => this.handleAdverseEventSelection(adverseEvent.name)}
+                                    isSelected={isSelected}
+                                    marginSize={marginSize}
+                            />
                         </div>
                     )
                 })}
