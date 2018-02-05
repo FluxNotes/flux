@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col} from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
 import './NotesPanel.css';
@@ -78,6 +79,10 @@ export default class NotesPanel extends Component {
         this.saveNoteChild();
     }
 
+    handleFinishButtonClick() {
+        console.log("clicked sign button");
+    }
+
     renderNotesPanelContent() {
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
@@ -132,6 +137,18 @@ export default class NotesPanel extends Component {
                     currentViewMode={this.props.currentViewMode}
                     updateSelectedNote={this.updateSelectedNote}
                 />
+                <div id="finish-sign-component">
+                    <Button
+                        raised
+                        className="btn_finish"
+                        onClick={() => {
+                            this.handleFinishButtonClick();
+                        }}
+                    >
+                        Sign note
+                    </Button>
+
+                </div>
             </div>
         );
     }
