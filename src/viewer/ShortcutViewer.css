@@ -1,12 +1,13 @@
 
 #shortcut-viewer {
     background: white;
-
-    /* 64px for navbar; 60px for top/bottom padding */
-    height: calc(100vh - 64px - 60px);
+    /*  64px for navbar; 
+        60px for top/bottom padding 
+    */
+    height: calc(100vh - 64px - 20px);
     text-align: left;
     z-index: 2;
-    padding: 30px 60px;
+    padding: 10px 40px;
     -webkit-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
     -moz-box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
     box-shadow: -3px 0px 5px -2px rgba(125,125,125,0.7);
@@ -20,8 +21,8 @@
 #copy-component {
     position: fixed;
     bottom: 0px;
-    left: 25vw;
-    width: calc(75vw - 14px);
+    left: 16.66vw;
+    width: calc(83.33vw - 14px);
     background-color: #ffffff;
     border-top: 1px solid #d9d9d9 !important;
     text-align: left;
@@ -53,7 +54,7 @@
 
 #copy-keyword {
     margin: 0 0 0 20px;
-    min-width: 75px;
+    min-width: 83.33px;
     display: inline-block;
 }
 
@@ -64,12 +65,15 @@
 
 .helper-text-multi-line {
     color: #b1b1b1;
+    font-size: .9rem;
+    font-style: italic;
     display:inline-block;
     padding: 0 20px 10px 20px;
 }
 
-@media (max-width:992px) {
+/*@media (max-width:992px) {
     #shortcut-viewer {
         padding: 30px 40px;
     }
 }
+*/

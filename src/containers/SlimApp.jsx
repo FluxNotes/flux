@@ -50,7 +50,7 @@ export default class SlimApp extends Component {
                 <Grid className="SlimApp-content" fluid>
                     <div id="forms-panel">
                         <Row center="xs">
-                            <Col className="no-padding" xs={3}>
+                            <Col className="no-padding" xs={2}>
                                 {/*No need for formsearch right now*/}
                                 {/*<FormSearch />*/}
                                 <FormList
@@ -60,7 +60,7 @@ export default class SlimApp extends Component {
                                 />
                             </Col>
 
-                            <Col className="no-padding" xs={9}>
+                            <Col className="no-padding" xs={10}>
                                 <ShortcutViewer
                                     currentShortcut={this.state.currentShortcut}
                                     onShortcutUpdate={this.handleShortcutUpdate}

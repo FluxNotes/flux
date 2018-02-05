@@ -132,8 +132,8 @@ class ClinicalTrialForm extends Component {
                 <h1>Clinical Trial</h1>
                 <p id="data-element-description">
                     {ClinicalTrialsList.getDescription("clinicalTrial")}
-                    <br/>
-                    <br/>
+                </p>
+                <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="clinicalTrialSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
