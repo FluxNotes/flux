@@ -10,8 +10,7 @@ export default class TargetedDataSection extends Component {
         super(props);
 
         const optionsForSection = this.getOptions(props.section);
-        const defaultVisualizer = this.determineDefaultVisualizer(props.section, optionsForSection);
-        //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
+        const defaultVisualizer = this.determineDefaultVisualizer(props.section, props.clinicalEvent, optionsForSection);
 
         // this.state.defaultVisualizer is the default visualization, this.state.chosenVisualizer changes when icons are clicked
         this.state = {
@@ -22,7 +21,7 @@ export default class TargetedDataSection extends Component {
     
     componentDidUpdate() {
         const optionsForSection = this.getOptions(this.props.section);
-        const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, optionsForSection);
+        const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, this.props.clinicalEvent, optionsForSection);
         //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
         if (this.state.defaultVisualizer !== defaultVisualizer ||
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
@@ -30,13 +29,42 @@ export default class TargetedDataSection extends Component {
         }
     }
 
-    determineDefaultVisualizer = (section, optionsForSection) => {
+    determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
         if (optionsForSection.length === 0) return 'tabular';
-        if (section.defaultVisualizer && optionsForSection.includes(section.defaultVisualizer)) {
-            console.log('explicit default for ' + section.name);
-            return section.defaultVisualizer;
+        let result = null;
+        if (section.defaultVisualizer) {
+            if (Lang.isArray(section.defaultVisualizer)) {
+                let defaultResult = null;
+                let specificResult = null;
+                section.defaultVisualizer.forEach((defaultVisualizerItem) => {
+                    if (!Lang.isObject(defaultVisualizerItem)) {
+                        defaultResult = defaultVisualizerItem;
+                    } else {
+                        result = this.determineIfDefaultVisualizerItemAffectsCurrentSituation(defaultVisualizerItem, clinicalEvent, optionsForSection);
+                        if (!Lang.isNull(result)) specificResult = result;
+                    }
+                });
+                if (!Lang.isNull(specificResult)) return specificResult;
+                if (!Lang.isNull(defaultResult)) return defaultResult;
+            } else {
+                result = this.determineIfDefaultVisualizerItemAffectsCurrentSituation(section.defaultVisualizer, clinicalEvent, optionsForSection);
+                if (!Lang.isNull(result)) return result;
+            }
         }
         return optionsForSection[0];
+    }
+    
+    determineIfDefaultVisualizerItemAffectsCurrentSituation = (defaultVisualizer, clinicalEvent, optionsForSection) => {
+        if (Lang.isObject(defaultVisualizer)) {
+            if (clinicalEvent === defaultVisualizer.clinicalEvent) {
+                return defaultVisualizer.defaultVisualizer;
+            }
+        } else {
+            if (optionsForSection.includes(defaultVisualizer)) {
+                return defaultVisualizer;
+            }
+        }
+        return null;
     }
 
     handleViewChange = (chosenVisualizer) => {
