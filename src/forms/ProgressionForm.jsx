@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from '../elements/Button';
+import SingleChoiceButton from './SingleChoiceButton';
+import MultiChoiceButton from './MultiChoiceButton';
 import Lang from 'lodash';
 import moment from 'moment';
 import progressionLookup from '../lib/progression_lookup';
@@ -91,24 +92,13 @@ class ProgressionForm extends Component {
         return (
             <div key={statusName} className="tooltip-progression-form">
                 <span id={statusName} className={tooltipClass}>{statusDescription}</span>
-                <Button raised
-                        key={i}
-                        label={statusName}
+                <SingleChoiceButton 
+                        buttonKey={i}
+                        buttonText={statusName}
                         onClick={(e) => this.handleStatusSelection(e, i)}
-                        className="button_disabled_is_selected"
-                        style={{
-                            marginBottom: marginSize,
-                            marginLeft: marginSize,
-                            height: "75px",
-                            width: "180px",
-                            backgroundColor: "white",
-                            textTransform: "none"
-                        }}
-
-                        disabled={this.props.object.status === this.state.statusOptions[i].name}
-                >
-                    {statusName}
-                </Button>
+                        isSelected={this.props.object.status === this.state.statusOptions[i].name}
+                        marginSize={marginSize}
+                />
             </div>
         );
     }
@@ -121,24 +111,15 @@ class ProgressionForm extends Component {
         const reasonDescription = reason.description;
 
         const tooltipClass = (reasonDescription.length > 100) ? "tooltiptext large" : "tooltiptext";
-        const buttonClass = (this.state.reasonButtonsActiveState[i] ? "button_multi_select_selected" : "button_multi_select_not_selected");
         return (
             <div key={reasonName} className="tooltip-progression-form">
                 <span id={reasonName} className={tooltipClass}>{reasonDescription}</span>
-                <Button raised
-                        key={i}
-                        label={reasonName}
-                        className={buttonClass}
-                        style={{
-                            margin: 0.5,
-                            height: "75px",
-                            width: "180px",
-                            backgroundColor: "white",
-                            textTransform: "none"
-                        }}
-                        onClick={(e, isChecked) => this.handleReasonSelection(reason, i)}
-                >{reasonName}
-                </Button>
+                <MultiChoiceButton
+                        buttonKey={i}
+                        buttonText={reasonName}
+                        onClick={(e) => this.handleReasonSelection(reason, i)}
+                        isSelected={this.state.reasonButtonsActiveState[i]}
+                />
             </div>
         )
     }
@@ -168,8 +149,8 @@ class ProgressionForm extends Component {
                 <h1>Disease Status</h1>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
-                    <br/>
-                    <br/>
+                </p>
+                <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>

@@ -320,8 +320,8 @@ class ToxicityForm extends Component {
                     <h1>Toxicity</h1>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("toxicity")}
-                        <br/>
-                        <br/>
+                    </p>
+                    <p id="data-element-description">
                         Based on your selections below, the copy button at the bottom will copy a <a href="toxicitySheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                     </p>
                     <Divider className="divider"/>
