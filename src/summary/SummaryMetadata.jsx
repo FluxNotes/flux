@@ -196,7 +196,7 @@ class SummaryMetadata {
                         ]
                     },
                     {
-                        name: "Active Conditions",
+                        name: "Conditions",
                         type: "Columns",
                         notFiltered: true,
                         data: [
@@ -545,7 +545,7 @@ class SummaryMetadata {
                         ]
                     },
                     {
-                        name: "Active Conditions",
+                        name: "Conditions",
                         type: "Columns",
                         notFiltered: true,
                         data: [
