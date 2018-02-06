@@ -216,8 +216,14 @@ class SuggestionPortal extends React.Component {
       const rect = position(el)
       menu.style.display = 'block'
       menu.style.opacity = 1
-      menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
-      menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+      // if(window.innerHeight - rect.top < menu.offsetHeight) {
+      if(window.innerHeight - rect.top < 230) {
+         menu.style.bottom = `${window.innerHeight - rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+         menu.style.left = `${rect.left + window.pageXOffset + 10}px` // eslint-disable-line no-mixed-operators
+     } else {
+        menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+        menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+     }
     }
   }
 

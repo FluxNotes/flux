@@ -122,8 +122,13 @@ class ContextPortal extends React.Component {
         menu.style.padding = 10;
         menu.style.display = 'block';
         menu.style.opacity = 1;
-        menu.style.top = `${this.props.top + window.pageYOffset}px`;
-        menu.style.left = `${this.props.left + window.pageXOffset}px`;
+        if(window.innerHeight - this.props.top < 200) {
+            menu.style.bottom = `${window.innerHeight - this.props.top + window.pageYOffset}px`;
+            menu.style.left = `${this.props.left + window.pageXOffset + 10}px`;
+        } else {
+            menu.style.top = `${this.props.top + window.pageYOffset}px`;
+            menu.style.left = `${this.props.left + window.pageXOffset}px`;
+        }
     }
     /*
      * Close the menu portal if rendering
