@@ -310,13 +310,13 @@ class ToxicityForm extends Component {
             return (
                 <div>
                     <h1>Toxicity</h1>
+                    <Divider className="divider"/>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("toxicity")}
                     </p>
                     <p id="data-element-description">
                         Based on your selections below, the copy button at the bottom will copy a <a href="toxicitySheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                     </p>
-                    <Divider className="divider"/>
 
                     <h4 className="header-spacing">Adverse Event</h4>
                     <p id="data-element-description">
@@ -349,16 +349,21 @@ class ToxicityForm extends Component {
                         })}
                     </div>
                     <h4 className="header-spacing">Attribution</h4>
-                    <p id="data-element-description">
-                        {toxicityLookup.getDescription("attribution")}
-                        <span className="helper-text"> Choose one</span>
-                    </p>
-
                     <div className="btn-group-attribution">
                         {toxicityLookup.getAttributionOptions().map((attribution, i) => {
                             return this.renderAttributionButton(attribution, i);
                         })}
                     </div>
+
+                    <h4 className="header-spacing">Definitions</h4>
+                    <Divider className="divider"/>
+
+                    <h4 className="header-spacing">Attribution</h4>
+                    <p id="data-element-description">
+                        {toxicityLookup.getDescription("attribution")}
+                        <span className="helper-text"> Choose one</span>
+                    </p>
+
                 </div>
             );
         }

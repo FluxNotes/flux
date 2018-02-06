@@ -78,7 +78,7 @@ class ProgressionForm extends Component {
      */
     handleReferenceDateChange = (selectedReferenceDate) => {
         this.props.updateValue("referenceDateDate", selectedReferenceDate.format('D MMM YYYY'));
-    };
+    }
 
     /*
      * Render the Disease Status 'status' button for the given status
@@ -126,20 +126,25 @@ class ProgressionForm extends Component {
 
     render() {
         const clinicallyRelevantTime = this.props.object.clinicallyRelevantTime;
-        let referenceDateSection = null;
+        let referenceDateInterface, referenceDateDescription = null;
         if (Lang.isUndefined(this.props.referenceDateEnabled) || this.props.referenceDateEnabled) {
-            referenceDateSection = (
+            referenceDateInterface = (
+                <div>
+                    <h4 className="header-spacing">Reference Date</h4>
+                    <DatePicker id="reference-date"
+                        handleDateChange={this.handleReferenceDateChange}
+                        dateToSet={clinicallyRelevantTime}
+                    />
+                </div>
+                
+            );
+            referenceDateDescription = (
                 <div>
                     <h4 className="header-spacing">Reference Date</h4>
                     <p id="data-element-description">
                         {progressionLookup.getDescription("referenceDate")}
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
-
-                    <DatePicker id="reference-date"
-                        handleDateChange={this.handleReferenceDateChange}
-                        dateToSet={clinicallyRelevantTime}
-                    />
                 </div>
             );
         }
@@ -147,6 +152,32 @@ class ProgressionForm extends Component {
         return (
             <div>
                 <h1>Disease Status</h1>
+                <Divider className="divider"/>
+                {/*Buttons here*/}
+                <h4 className="header-spacing">Status<span className="helper-text"> Choose one</span></h4>
+                <div className="btn-group-status-progression">
+                    {
+                        this.state.statusOptions.map((status, i) => {
+                            return this.renderStatusButtonGroup(status, i)
+                        })
+                    }
+                </div>
+
+                <h4 className="header-spacing">Rationale for status<span className="helper-text"> Choose one or more</span></h4>
+                <div className="btn-group-reason-progression">
+                    {
+                        this.state.reasonOptions.map((reason, i) => {
+                            return this.renderReasonButtonGroup(reason, i)
+                        })
+                    }
+                </div>
+
+                {referenceDateInterface}
+
+                {/*Definitions of dataelements*/}
+                <h4 className="header-spacing">Definitions</h4>
+                <Divider className="divider"/>
+                <h4>Disease Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
                 </p>
@@ -154,33 +185,18 @@ class ProgressionForm extends Component {
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
-                <Divider className="divider"/>
 
                 <h4 className="header-spacing">Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("status")}
-                    <span className="helper-text"> Choose one</span>
                 </p>
-
-                <div className="btn-group-status-progression">
-                    {this.state.statusOptions.map((status, i) => {
-                        return this.renderStatusButtonGroup(status, i)
-                    })}
-                </div>
 
                 <h4 className="header-spacing">Rationale for status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("reason")}
-                    <span className="helper-text"> Choose one or more</span>
                 </p>
 
-                <div className="btn-group-reason-progression">
-                    {this.state.reasonOptions.map((reason, i) => {
-                        return this.renderReasonButtonGroup(reason, i)
-                    })}
-                </div>
-
-                {referenceDateSection}
+                {referenceDateDescription}
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from '../elements/Button';
+import ChoiceButton from '../elements/ChoiceButton';
 
 import "./MultiChoiceButton.css"
 
@@ -11,21 +11,14 @@ class MultiChoiceButton extends Component {
         className += (this.props.isSelected) ? "selected " : "";
 
         return ( 
-            <Button raised
+            <ChoiceButton raised
                     key={this.props.buttonKey}
                     label={this.props.buttonText}
                     onClick={this.props.onClick}
                     className={className}
-                    style={{
-                        margin: 0.5,
-                        height: "60px",
-                        width: "150px",
-                        backgroundColor: "white",
-                        textTransform: "none"
-                    }}
             >
                 {this.props.buttonText}
-            </Button>
+            </ChoiceButton>
         );
     }
 }

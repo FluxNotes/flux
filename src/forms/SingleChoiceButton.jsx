@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from '../elements/Button';
+import ChoiceButton from '../elements/ChoiceButton';
 
 import "./SingleChoiceButton.css"
 
@@ -11,7 +11,7 @@ class SingleChoiceButton extends Component {
         className += (this.props.isSelected) ? "selected " : "";
 
         return ( 
-            <Button raised
+            <ChoiceButton raised
                     key={this.props.buttonKey}
                     label={this.props.buttonText}
                     onClick={this.props.onClick}
@@ -19,14 +19,10 @@ class SingleChoiceButton extends Component {
                     style={{
                         marginBottom: this.props.marginSize,
                         marginLeft: this.props.marginSize,
-                        height: "60px",
-                        width: "150px",
-                        backgroundColor: "white",
-                        textTransform: "none"
                     }}
             >
                 {this.props.buttonText}
-            </Button>
+            </ChoiceButton>
         );
     }
 }
