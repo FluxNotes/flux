@@ -4,6 +4,6 @@
 }
 
 .multi-choice-button {
-    border-radius: 0px;
+    border-radius: 0 !important;
     border-color: white;
 }
