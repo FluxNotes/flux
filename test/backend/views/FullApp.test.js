@@ -15,7 +15,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('UpdateErrors', function () {
     it('should set state.errors to equal the provided argument', function () {
-        const wrapper = shallow(<FullApp />);
+        const wrapper = shallow(<FullApp display='test' />);
         const emptyErrors = [];
         wrapper.instance().updateErrors(emptyErrors);
         expect(wrapper.state('errors'))
@@ -31,7 +31,7 @@ describe('UpdateErrors', function () {
 
 describe('setFullAppState', function() {
     it('sets the state on the component', function() {
-        const wrapper = shallow(<FullApp />);
+        const wrapper = shallow(<FullApp display='test'/>);
 
         wrapper.instance().setFullAppState('testKey', 'testValue');
         expect(wrapper.state('testKey'))
@@ -58,8 +58,10 @@ describe('setFullAppState', function() {
 describe('TargetedDataControl', function() {
     it('noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
-        // Top item is Reason for Visit which has no buttons, so look at second item Summary which is .sections[1]
-        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections[1];
+        // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
+        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
+            return (section.type === "NameValuePairs");
+        });
         let options = [];
         if (section.type === "NameValuePairs") {
             options.push('tabular');
@@ -72,7 +74,7 @@ describe('TargetedDataControl', function() {
         const defaultOrTabular = options.length > 0 ? options[0] : 'tabular';
 
         const visualizerManager = new VisualizerManager()
-        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} />);
+        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='post-encounter'/>);
 
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
