@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
-import Button from '../elements/Button';
+import SingleChoiceButton from './SingleChoiceButton';
 import Radio, {RadioGroup} from 'material-ui/Radio';
 import {FormControl, FormControlLabel} from 'material-ui/Form';
 import DatePicker from '../forms/DatePicker';
@@ -72,8 +72,6 @@ class ClinicalTrialForm extends Component {
 
     renderTrialButtonGroup = (trial, i) => {
         const isSelected = this.isSelectedTrial(trial);
-        const buttonClass = isSelected ? 'button_selected' : '';
-        const borderColor = isSelected ? '#297DA2' : 'white';
         const marginSize = "10px";
         const trialName = trial.name;
         const trialDescription = trial.description;
@@ -82,26 +80,14 @@ class ClinicalTrialForm extends Component {
         return (
             <div key={trialName} className="tooltip-clinical-trial">
                 <span id={trialName} className={tooltipClass}>{trialDescription}</span>
-                <Button raised
-                    key={i}
-                    label={trialName}
-                    onClick={(e) => this.handleTrialSelection(trial, isSelected)}
-                    className={"trial_button " + buttonClass}
-                    style={{
-                        marginBottom: marginSize,
-                        marginLeft: marginSize,
-                        height: "75px",
-                        width: "180px",
-                        padding: "20px 0 20px 0",
-                        backgroundColor: "white",
-                        border: "2px solid",
-                        borderRadius: "5px",
-                        borderColor: borderColor,
-                        textTransform: "none"
-                    }}
-                >   
-                    {trialName}
-                </Button>
+                <SingleChoiceButton
+                        buttonKey={i}
+                        buttonText={trialName}
+                        onClick={(e) => this.handleTrialSelection(trial, isSelected)}
+                        isSelected={isSelected}
+                        className={trialName}
+                        marginSize={marginSize}
+                />
             </div>
         )
     }
@@ -125,56 +111,88 @@ class ClinicalTrialForm extends Component {
     }
 
     render() {
-        const enrollmentDateDescription = `Enrollment Date: ${ClinicalTrialsList.getDescription("enrollmentDate")}`;
-        const endDateDescription = `End Date: ${ClinicalTrialsList.getDescription("endDate")}`;
+        const enrollmentDateLabel = 'Enrollment Date';
+        const enrollmentDateDescription = `${ClinicalTrialsList.getDescription("enrollmentDate")}`;
+        const endDateLabel = 'End Date'
+        const endDateDescription = `${ClinicalTrialsList.getDescription("endDate")}`;
         return (
             <div>
                 <h1>Clinical Trial</h1>
-                <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("clinicalTrial")}
-                    <br/>
-                    <br/>
-                    Based on your selections below, the copy button at the bottom will copy a <a
-                    href="clinicalTrialSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
-                </p>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Clinical Trial</h4>
-                <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("trial")}
-                    <span className="helper-text"> Choose one</span>
-                </p>
-
+                {/*Interface here*/}
+                <h4 className="header-spacing">Trial<span className="helper-text"> Choose one</span></h4>
                 <div className="btn-group-trial-clinical-trial">
-                    {this.state.trials.map((trial, i) => {
-                        return this.renderTrialButtonGroup(trial, i)
-                    })}
+                    {
+                        this.state.trials.map((trial, i) => {
+                            return this.renderTrialButtonGroup(trial, i)
+                        })
+                    }
                 </div>
 
                 <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span></h4>
-
                 <div className="date-choices">
                     <FormControl>
                         <RadioGroup
                             name="relevant dates"
                             value={this.state.selectedDateChoice}
                             onChange={this.handleDateChoice}>
-                            <FormControlLabel value="enrollmentDate" control={<Radio id="enrollment-date-choice"
-                                                                                     className='radio-button-clinical-trial'/>}
-                                              label={enrollmentDateDescription}/>
+                            <FormControlLabel 
+                                value="enrollmentDate" 
+                                control={
+                                    <Radio 
+                                        id="enrollment-date-choice" 
+                                        className='radio-button-clinical-trial'
+                                    />
+                                }
+                                label={enrollmentDateLabel}
+                            />
                         </RadioGroup>
                         {this.renderEnrollmentDatePicker()}
                         <RadioGroup
                             name="relevant dates"
                             value={this.state.selectedDateChoice}
                             onChange={this.handleDateChoice}>
-                            <FormControlLabel value="endDate" control={<Radio id="end-date-choice"
-                                                                              className='radio-button-clinical-trial'/>}
-                                              label={endDateDescription}/>
+                            <FormControlLabel 
+                                value="endDate" 
+                                control={
+                                    <Radio 
+                                        id="end-date-choice"
+                                        className='radio-button-clinical-trial'
+                                    />
+                                }
+                                label={endDateLabel}
+                            />
                         </RadioGroup>
                         {this.renderEndDatePicker()}
                     </FormControl>
                 </div>
+
+                {/*Definitions of dataelements*/}
+                <h4 className="header-spacing">Definitions</h4>
+                <Divider className="divider"/>
+
+                <h4 className="header-spacing">Clinical Trial</h4>
+                <p id="data-element-description">
+                    {ClinicalTrialsList.getDescription("clinicalTrial")}
+                </p>
+                <p id="data-element-description">
+                    Based on your selections below, the copy button at the bottom will copy a <a
+                    href="clinicalTrialSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                </p>
+
+                <h4 className="header-spacing">Trial</h4>
+                <p id="data-element-description">
+                    {ClinicalTrialsList.getDescription("trial")}
+                </p>
+
+                <h4 className="header-spacing">Relevant Date</h4>
+                <p id="data-element-description">
+                    <b>{enrollmentDateLabel}</b>: {enrollmentDateDescription}
+                </p>
+                <p id="data-element-description">
+                    <b>{endDateLabel}</b>: {endDateDescription}
+                </p>
             </div>
         )
     }

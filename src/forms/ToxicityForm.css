@@ -73,12 +73,6 @@
     margin: 0 0px 0 0;
     display: inline-block;
 }
-
-.button_selected {
-    background-color: #297DA2 !important;
-    color: #fff !important;
-}
-
 /*
  * Tooltip Styling
  */
@@ -221,18 +215,7 @@
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
-    margin-top: 40px;
-}
-
-.btn-group-adverse-event button,
-.btn-group-attribution button {
-    margin: 5px;
-    height: 75px;
-    width: 180px;
-    padding: 20px 5px;
-    background-color: white;
-    text-transform: none;
-    border-radius: 5px;
+    margin-top: 10px;
 }
 
 .btn-group-adverse-event button:hover,

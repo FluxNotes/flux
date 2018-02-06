@@ -1,0 +1,9 @@
+.multi-choice-button.selected {
+    background-color: #297DA2 !important;
+    color: #fff !important;
+}
+
+.multi-choice-button {
+    border-radius: 0 !important;
+    border-color: white;
+}
