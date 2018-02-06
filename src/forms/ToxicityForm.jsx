@@ -313,7 +313,7 @@ class ToxicityForm extends Component {
                     <Divider className="divider"/>
 
                     {/*Interface here*/}
-                    <h4 className="header-spacing">Adverse Event<span className="helper-text"> Choose one</span></h4>
+                    <h4 className="header-spacing">Adverse Event<span className="helper-text"> Type or choose one</span></h4>
                     <Autosuggest
                         suggestions={this.state.suggestions}
                         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
