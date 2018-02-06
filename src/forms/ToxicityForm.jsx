@@ -311,6 +311,47 @@ class ToxicityForm extends Component {
                 <div>
                     <h1>Toxicity</h1>
                     <Divider className="divider"/>
+
+                    {/*Interface here*/}
+                    <h4 className="header-spacing">Adverse Event<span className="helper-text"> Choose one</span></h4>
+                    <Autosuggest
+                        suggestions={this.state.suggestions}
+                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+
+                        getSuggestionValue={this.getSuggestionValue}
+                        renderSuggestion={this.renderSuggestion}
+                        inputProps={inputProps}
+                    />
+                    {topAdverseEventSection}
+
+                    <h4 className="header-spacing">Grade<span className="helper-text"> Choose one</span></h4>
+                    <div id="grade-menu">
+                        {
+                            gradesToDisplay.map((grade, i) => {
+                                if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
+                                    return this.renderGradeMenuItem(grade)
+                                } else {
+                                    return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
+                                }
+                            })
+                        }
+                    </div>
+
+                    <h4 className="header-spacing">Attribution<span className="helper-text"> Choose one</span></h4>
+                    <div className="btn-group-attribution">
+                        {
+                            toxicityLookup.getAttributionOptions().map((attribution, i) => {
+                                return this.renderAttributionButton(attribution, i);
+                            })
+                        }
+                    </div>
+
+                    {/*Definitions of dataelements*/}
+                    <h4 className="header-spacing">Definitions</h4>
+                    <Divider className="divider"/>
+
+                    <h4 className="header-spacing">Toxicity</h4>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("toxicity")}
                     </p>
@@ -323,45 +364,17 @@ class ToxicityForm extends Component {
                         {toxicityLookup.getDescription("adverseEvent")}
                     </p>
 
-                    <Autosuggest
-                        suggestions={this.state.suggestions}
-                        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-
-                        getSuggestionValue={this.getSuggestionValue}
-                        renderSuggestion={this.renderSuggestion}
-                        inputProps={inputProps}
-                    />
-                    {topAdverseEventSection}
                     <h4 className="header-spacing">Grade</h4>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("grade")}
-                        {customGradePrompt}
-                        <span className="helper-text"> Choose one</span>
                     </p>
-                    <div id="grade-menu">
-                        {gradesToDisplay.map((grade, i) => {
-                            if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
-                                return this.renderGradeMenuItem(grade)
-                            } else {
-                                return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
-                            }
-                        })}
-                    </div>
-                    <h4 className="header-spacing">Attribution</h4>
-                    <div className="btn-group-attribution">
-                        {toxicityLookup.getAttributionOptions().map((attribution, i) => {
-                            return this.renderAttributionButton(attribution, i);
-                        })}
-                    </div>
-
-                    <h4 className="header-spacing">Definitions</h4>
-                    <Divider className="divider"/>
+                    <p id="data-element-description">
+                        {customGradePrompt}
+                    </p>
 
                     <h4 className="header-spacing">Attribution</h4>
                     <p id="data-element-description">
                         {toxicityLookup.getDescription("attribution")}
-                        <span className="helper-text"> Choose one</span>
                     </p>
 
                 </div>

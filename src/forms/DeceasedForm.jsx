@@ -36,7 +36,8 @@ class DeceasedForm extends Component {
             <div>
                 <h1>Deceased</h1>
                 <Divider className="divider"/>
-                {/*Buttons here*/}
+
+                {/*Interface here*/}
                 {dateOfDeathInterface}
 
                 {/*Definitions of dataelements*/}

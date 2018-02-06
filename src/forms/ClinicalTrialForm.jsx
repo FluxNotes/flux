@@ -119,12 +119,15 @@ class ClinicalTrialForm extends Component {
             <div>
                 <h1>Clinical Trial</h1>
                 <Divider className="divider"/>
-                {/*Buttons here*/}
+
+                {/*Interface here*/}
                 <h4 className="header-spacing">Trial<span className="helper-text"> Choose one</span></h4>
                 <div className="btn-group-trial-clinical-trial">
-                    {this.state.trials.map((trial, i) => {
-                        return this.renderTrialButtonGroup(trial, i)
-                    })}
+                    {
+                        this.state.trials.map((trial, i) => {
+                            return this.renderTrialButtonGroup(trial, i)
+                        })
+                    }
                 </div>
 
                 <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span></h4>
@@ -168,6 +171,7 @@ class ClinicalTrialForm extends Component {
                 {/*Definitions of dataelements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
+
                 <h4 className="header-spacing">Clinical Trial</h4>
                 <p id="data-element-description">
                     {ClinicalTrialsList.getDescription("clinicalTrial")}
@@ -180,11 +184,9 @@ class ClinicalTrialForm extends Component {
                 <h4 className="header-spacing">Trial</h4>
                 <p id="data-element-description">
                     {ClinicalTrialsList.getDescription("trial")}
-                    <span className="helper-text"> Choose one</span>
                 </p>
 
                 <h4 className="header-spacing">Relevant Date</h4>
-
                 <p id="data-element-description">
                     <b>{enrollmentDateLabel}</b>: {enrollmentDateDescription}
                 </p>

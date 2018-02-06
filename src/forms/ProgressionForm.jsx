@@ -153,7 +153,8 @@ class ProgressionForm extends Component {
             <div>
                 <h1>Disease Status</h1>
                 <Divider className="divider"/>
-                {/*Buttons here*/}
+                
+                {/*Interface here*/}
                 <h4 className="header-spacing">Status<span className="helper-text"> Choose one</span></h4>
                 <div className="btn-group-status-progression">
                     {
@@ -177,6 +178,7 @@ class ProgressionForm extends Component {
                 {/*Definitions of dataelements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
+                
                 <h4 className="header-spacing">Disease Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
