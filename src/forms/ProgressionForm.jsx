@@ -177,7 +177,7 @@ class ProgressionForm extends Component {
                 {/*Definitions of dataelements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
-                <h4>Disease Status</h4>
+                <h4 className="header-spacing">Disease Status</h4>
                 <p id="data-element-description">
                     {progressionLookup.getDescription("progression")}
                 </p>

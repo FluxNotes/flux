@@ -11,34 +11,48 @@ class DeceasedForm extends Component {
 
     render() {
 
-        let dateOfDeathSection = (
+        const dateOfDeathInterface = (
             <div>
-                <h4 className="header-spacing">Date of Death</h4>
-                <p id="data-element-description">
-                    The date of the patient's death.
-                    <span className="helper-text"> mm/dd/yyyy</span>
-                </p>
-
-                <DatePicker id="date-of-death"
+                <h4 className="header-spacing">Date of Death<span className="helper-text"> mm/dd/yyyy</span></h4>
+                <DatePicker 
+                    id="date-of-death"
                     handleDateChange={this.changeDate}
                     dateToSet={null}
                 />
             </div>
         );
 
+        const dateOfDeathDescription = (
+            <div>
+                <h4 className="header-spacing">Date of Death</h4>
+                <p id="data-element-description">
+                    The date of the patient's death.
+                </p>
+            </div>
+            
+        );
+
         return (
             <div>
                 <h1>Deceased</h1>
-                <p id="date-element-description">
+                <Divider className="divider"/>
+                {/*Buttons here*/}
+                {dateOfDeathInterface}
+
+                {/*Definitions of dataelements*/}
+                <h4 className="header-spacing">Definitions</h4>
+                <Divider className="divider"/>
+
+                <h4 className="header-spacing">Deceased</h4>
+                <p id="data-element-description">
                     An indication that the person is no longer living as of the date specified below.
                 </p>
-                <p id="date-element-description">
+                <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
-                <Divider className="divider"/>
-                {dateOfDeathSection}
 
+                {dateOfDeathDescription}
             </div>
         );
     }
