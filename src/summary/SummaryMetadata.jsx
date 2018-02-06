@@ -1,8 +1,8 @@
-import Lang from 'lodash'
-import moment from 'moment';
-
 import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
+import Lang from 'lodash'
+import moment from 'moment';
 
 /*
     Each section has the following properties:
@@ -476,6 +476,19 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Allergies",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Allergy"],
+                                itemsFunction: this.getItemListForAllergies
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
@@ -608,6 +621,19 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Allergies",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Allergy"],
+                                itemsFunction: this.getItemListForAllergies
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
@@ -695,7 +721,17 @@ export default class SummaryMetadata {
         });
     }
 
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
+    getItemListForAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergies();
+        return allergies.filter((a) => {
+            return a instanceof FluxAllergyIntolerance;
+        }).map((a) => {
+            return [{value: a.allergyIntolerance}];
+        });
+    }
+
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
         labResults.sort(currentConditionEntry._labResultsTimeSorter);
