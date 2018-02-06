@@ -79,24 +79,55 @@ export default class NotesPanel extends Component {
         this.saveNoteChild();
     }
 
-    handleFinishButtonClick() {
+    handleSignButtonClick() {
         console.log("clicked sign button");
+    }
+
+    renderSignButton() {
+        return (
+            <div id="finish-sign-component">
+                <Button raised className="btn_finish" onClick={() => {
+                    this.handleSignButtonClick();
+                }}>
+                    Sign note
+                </Button>
+            </div>
+        );
     }
 
     renderNotesPanelContent() {
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
-            return (
-                <Row center="xs">
-                    <Col sm={7} md={8} lg={9}>
-                        {this.renderFluxNotesEditor()}
-                    </Col>
 
-                    <Col sm={5} md={4} lg={3}>
-                        {this.renderNoteAssistant()}
-                    </Col>
-                </Row>
-            );
+            // If not viewer is editable, render the sign note button, else don't render sign note button
+            if(this.props.isNoteViewerEditable) {
+                return (
+                    <div>
+                        <Row center="xs">
+                            <Col sm={7} md={8} lg={9}>
+                                {this.renderFluxNotesEditor()}
+                                {this.renderSignButton()}
+                            </Col>
+                            <Col sm={5} md={4} lg={3}>
+                                {this.renderNoteAssistant()}
+                            </Col>
+                        </Row>
+                    </div>
+                );
+            } else {
+                return (
+                    <div>
+                        <Row center="xs">
+                            <Col sm={7} md={8} lg={9}>
+                                {this.renderFluxNotesEditor()}
+                            </Col>
+                            <Col sm={5} md={4} lg={3}>
+                                {this.renderNoteAssistant()}
+                            </Col>
+                        </Row>
+                    </div>
+                );
+            }
 
             // Else just render the note assistant
         } else {
@@ -137,18 +168,7 @@ export default class NotesPanel extends Component {
                     currentViewMode={this.props.currentViewMode}
                     updateSelectedNote={this.updateSelectedNote}
                 />
-                <div id="finish-sign-component">
-                    <Button
-                        raised
-                        className="btn_finish"
-                        onClick={() => {
-                            this.handleFinishButtonClick();
-                        }}
-                    >
-                        Sign note
-                    </Button>
 
-                </div>
             </div>
         );
     }

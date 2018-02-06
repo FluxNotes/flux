@@ -1,24 +1,25 @@
 #finish-sign-component {
     position: fixed;
     bottom: 0px;
-    /*left: 25vw;*/
-    /*width: calc(75vw - 14px);*/
     width: calc(35vw);
     background-color: #ffffff;
     border-top: 1px solid #d9d9d9 !important;
     text-align: left;
-    -webkit-box-shadow: 0px -2px 3px rgba(125,125,125,0.7);
-    -moz-box-shadow:    0px -2px 3px rgba(125,125,125,0.7);
-    box-shadow:         0px -2px 3px rgba(125,125,125,0.7);
+    -webkit-box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);
+    -moz-box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);
+    box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);
     z-index: 5;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
 }
 
 .btn_finish {
     background-color: #FFFFFF !important;
     text-transform: none !important;
-    display: inline-block;
+    display: inline-block !important;
     min-width: 90% !important;
-    margin: 20px 32px 20px 20px;
-    /*max-width: 50px;*/
-    /*justify-content: flex-start !important;*/
+    margin: 20px 20px 20px 20px;
 }
+
+
