@@ -30,7 +30,8 @@ class SummaryMetadata {
                                             const nextEncounter = patient.getNextEncounter();
                                             if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
                                             return patient.getNextEncounter().reason;
-                                        }
+                                        },
+                                        shortcut: "@reason for next visit"
                                     }
                                 ]
                             }
