@@ -1,12 +1,12 @@
 import React from 'react'
 import Portal from 'react-portal'
-import Slate from '../slate'
 import position from './caret-position'
 import SuggestionItem from './suggestion-item'
 import getCurrentWord from './current-word'
 import {
   UP_ARROW_KEY,
   DOWN_ARROW_KEY,
+  ENTER_KEY,
   RESULT_SIZE,
 } from './constants'
 
