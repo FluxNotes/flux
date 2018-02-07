@@ -3,11 +3,7 @@
     bottom: 0px;
     width: calc(35vw);
     /*background-color: #ffffff;*/
-    /*border-top: 1px solid #d9d9d9 !important;*/
     text-align: left;
-    /*-webkit-box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);*/
-    /*-moz-box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);*/
-    /*box-shadow: 0px -2px 3px rgba(125, 125, 125, 0.7);*/
     z-index: 5;
     display: flex;
     justify-content: center;
@@ -23,7 +19,8 @@
 
 .editor-panel {
     /* 106px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view content, 76px is the height of the sign button */
-    max-height: calc(100vh - 106px - 16px - 76px) !important;
-    /*needed to overwrite min-height set by fitted-panel*/
-    min-height: 0px !important;
+    height: calc(100vh - 106px - 16px - 76px) !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
 }
