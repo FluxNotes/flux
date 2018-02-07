@@ -89,3 +89,22 @@ describe('TargetedDataControl', function() {
             .to.eq('narrative');
     });
 });
+describe('TargetedDataControl - correct default visualizer Medications', function() {
+    it('correct default visualizer', function() {
+        const summaryMetadata = new SummaryMetadata();
+        // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
+        const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
+            return (section.type === "Medications");
+        });
+        const expectedDefault = 'chart';
+
+        const visualizerManager = new VisualizerManager()
+        const wrapper = shallow(<TargetedDataSection section={section} type={section.type} visualizerManager={visualizerManager} isWide={false} clinicalEvent='pre-encounter'/>);
+
+        // Initial state
+        expect(wrapper.state('defaultVisualizer'))
+            .to.eq(expectedDefault);
+        expect(wrapper.state('chosenVisualizer'))
+            .to.be.null;
+    });
+});
