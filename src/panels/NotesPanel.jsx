@@ -168,7 +168,6 @@ export default class NotesPanel extends Component {
                     currentViewMode={this.props.currentViewMode}
                     updateSelectedNote={this.updateSelectedNote}
                 />
-
             </div>
         );
     }

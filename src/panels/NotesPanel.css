@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0px;
     width: calc(35vw);
-    /*background-color: #ffffff;*/
+    background-color: #ffffff;
     text-align: left;
     z-index: 5;
     display: flex;
