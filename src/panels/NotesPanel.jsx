@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Row, Col} from 'react-flexbox-grid';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
+import Button from '../elements/Button';
 import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
 import './NotesPanel.css';
@@ -78,20 +79,55 @@ export default class NotesPanel extends Component {
         this.saveNoteChild();
     }
 
+    handleSignButtonClick() {
+        console.log("clicked sign button");
+    }
+
+    renderSignButton() {
+        return (
+            <div id="finish-sign-component">
+                <Button raised className="btn_finish" onClick={() => {
+                    this.handleSignButtonClick();
+                }}>
+                    Sign note
+                </Button>
+            </div>
+        );
+    }
+
     renderNotesPanelContent() {
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
-            return (
-                <Row center="xs">
-                    <Col sm={7} md={8} lg={9}>
-                        {this.renderFluxNotesEditor()}
-                    </Col>
 
-                    <Col sm={5} md={4} lg={3}>
-                        {this.renderNoteAssistant()}
-                    </Col>
-                </Row>
-            );
+            // If not viewer is editable, render the sign note button, else don't render sign note button
+            if(this.props.isNoteViewerEditable) {
+                return (
+                    <div>
+                        <Row center="xs">
+                            <Col sm={7} md={8} lg={9}>
+                                {this.renderFluxNotesEditor()}
+                                {this.renderSignButton()}
+                            </Col>
+                            <Col sm={5} md={4} lg={3}>
+                                {this.renderNoteAssistant()}
+                            </Col>
+                        </Row>
+                    </div>
+                );
+            } else {
+                return (
+                    <div>
+                        <Row center="xs">
+                            <Col sm={7} md={8} lg={9}>
+                                {this.renderFluxNotesEditor()}
+                            </Col>
+                            <Col sm={5} md={4} lg={3}>
+                                {this.renderNoteAssistant()}
+                            </Col>
+                        </Row>
+                    </div>
+                );
+            }
 
             // Else just render the note assistant
         } else {
@@ -107,7 +143,7 @@ export default class NotesPanel extends Component {
 
     renderFluxNotesEditor() {
         return (
-            <div className="fitted-panel panel-content dashboard-panel">
+            <div className="panel-content dashboard-panel editor-panel">
                 <FluxNotesEditor
                     onSelectionChange={this.props.handleSelectionChange}
                     newCurrentShortcut={this.props.newCurrentShortcut}

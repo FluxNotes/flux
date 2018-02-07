@@ -515,7 +515,7 @@ test('Clicking on an existing note in post encounter mode loads the note in the 
     await t
         .expect(editor.textContent)
         .notEql("Enter your clinical note here or choose a template to start from...");
-})
+});
 
 test('Clicking on a note in the clinical notes view updates the information in the note header', async t =>  {
     const clinicalNotesButton = Selector('#notes-btn');
@@ -534,8 +534,7 @@ test('Clicking on a note in the clinical notes view updates the information in t
     await t
         .expect(noteHeaderName)
         .notEql("Pathology Assessment");
-})
-
+});
 
 test('Clicking on an existing note in post encounter mode puts the NotesPanel in a read only mode with the clinical notes view displayed and the context toggle button disabled', async t => {
     const editor = Selector("div[data-slate-editor='true']");
@@ -601,8 +600,47 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     await t
         .expect(editor.textContent)
         .notEql("Enter your clinical note here or choose a template to start from...");
-})
+});
 
+test('Clicking on an existing note hides the sign note button', async t => {
+    const clinicalNotesButton = Selector('#notes-btn');
+    const note = Selector('.existing-note');
+    const signButton = Selector('.btn_finish');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on one of the existing notes
+    await t
+        .click(note)
+
+    // Check that the sign button exists
+    await t
+        .expect(signButton.exists)
+        .notOk()
+});
+
+test('Clicking on an in-progress note shows the sign note button', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('#notes-btn');
+    const newNoteButton = Selector('.note-new');
+    const signButton = Selector('.btn_finish');
+
+    // Click on the clinical notes button to switch to clinical notes view
+    await t
+        .click(clinicalNotesButton);
+
+    // Click on the new note button to create an in-progress note and toggle back to clinical notes view
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton);
+
+    // Check that the sign button exists
+    await t
+        .expect(signButton.exists)
+        .ok()
+});
 
 // Verifies automatic saving
 test('Contents of in-progress note saved when switching to a completed note and back', async t => {

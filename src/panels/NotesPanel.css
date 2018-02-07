@@ -1,0 +1,26 @@
+#finish-sign-component {
+    position: fixed;
+    bottom: 0px;
+    width: calc(35vw);
+    background-color: #ffffff;
+    text-align: left;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+}
+
+.btn_finish {
+    background-color: #FFFFFF !important;
+    text-transform: none !important;
+    display: inline-block !important;
+    min-width: 90% !important;
+    margin: 20px 20px 20px 20px;
+}
+
+.editor-panel {
+    /* 106px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view content, 76px is the height of the sign button */
+    height: calc(100vh - 106px - 16px - 76px) !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
+}
