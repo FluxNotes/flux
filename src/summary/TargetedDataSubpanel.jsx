@@ -1,47 +1,48 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
+import _ from 'lodash';
+
 import TargetedDataSection from './TargetedDataSection';
 import VisualizerManager from './VisualizerManager';
 import 'font-awesome/css/font-awesome.min.css';
 import './TargetedDataSubpanel.css';
 
-class TargetedDataSubpanel extends Component {
-    constructor() {
-        super();
+export default class TargetedDataSubpanel extends Component {
+    constructor(props) {
+        super(props);
+
         this._visualizerManager = new VisualizerManager();
     }
 
     getConditionMetadata() {
-        const {condition} = this.props;
-
+        const { condition, summaryMetadata } = this.props;
         let codeSystem, code, conditionMetadata = null;
+
         if (condition != null) {
             codeSystem = condition.codeSystem;
             code = condition.code;
-            conditionMetadata = this.props.summaryMetadata[codeSystem + "/" + code];
+            conditionMetadata = summaryMetadata[codeSystem + "/" + code];
         }
 
         if (condition == null || conditionMetadata == null) {
-            conditionMetadata = this.props.summaryMetadata["default"];
+            conditionMetadata = summaryMetadata["default"];
         }
 
         return conditionMetadata;
     }
 
     renderSections() {
-        const clinicalEvent = this.props.clinicalEvent;
+        const { clinicalEvent, patient, condition, onItemClicked, allowItemClick, isWide } = this.props;
         const conditionMetadata = this.getConditionMetadata();
-        if (conditionMetadata == null) {
-            return null;
-        }
-        const {patient, condition, onItemClicked, allowItemClick, isWide} = this.props;
+
+        if (conditionMetadata == null) return null;
 
         return conditionMetadata.sections.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);
         }).map((section, i) => {
             return (
-                <div key={i} data-test-summary-section={section.name}>
+                <div key={i} data-test-summary-section={section.name} data-minimap-short-title={section.shortName}>
                     <TargetedDataSection
                         type={section.type}
                         visualizerManager={this._visualizerManager}
@@ -49,33 +50,24 @@ class TargetedDataSubpanel extends Component {
                         section={section}
                         patient={patient}
                         condition={condition}
-                        clinicalEvent={this.props.clinicalEvent}
+                        clinicalEvent={clinicalEvent}
                         onItemClicked={onItemClicked}
                         allowItemClick={allowItemClick}
                         isWide={isWide}
                     />
-                    
-                    { i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null }
+
+                    {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}
                 </div>
             );
         });
     }
 
-    renderSummaryList() {
-        return (
-            <div id="summary-list">
-                {this.renderSections()}
-            </div>
-        );
-    }
-
     render() {
         return (
-            <div 
-                id="condition-summary-section" 
-                className={this.props.className}
-            >
-                {this.renderSummaryList()}
+            <div id="condition-summary-section" className={this.props.className}>
+                <div id="summary-list">
+                    {this.renderSections()}
+                </div>
             </div>
         );
     }
@@ -90,5 +82,3 @@ TargetedDataSubpanel.propTypes = {
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func
 };
-
-export default TargetedDataSubpanel;

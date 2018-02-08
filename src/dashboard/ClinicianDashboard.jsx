@@ -5,7 +5,7 @@ import TargetedDataPanel from '../panels/TargetedDataPanel';
 import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
 
-class ClinicianDashboard extends Component {
+export default class ClinicianDashboard extends Component {
     constructor() {
         super();
 
@@ -33,7 +33,6 @@ class ClinicianDashboard extends Component {
     // Performs any updates based on changes to the state, specifically:
     // - Updates the layout when the task changes.
     componentWillReceiveProps = (nextProps) => {
-
         // If the clinical event has changed, update the layout and if the note editor should be viewable and editable
         // based on the clinical event
         if (nextProps.appState.clinicalEvent !== this.props.appState.clinicalEvent) {
@@ -91,7 +90,7 @@ class ClinicianDashboard extends Component {
         });
     }
 
-    // Based on currentClinicalEvent, determines if a note should be viewed 
+    // Based on currentClinicalEvent, determines if a note should be viewed
     noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
             case "pre-encounter":
@@ -224,5 +223,3 @@ ClinicianDashboard.proptypes = {
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
     currentViewMode: PropTypes.object.isRequired,
 };
-
-export default ClinicianDashboard;
