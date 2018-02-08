@@ -138,9 +138,9 @@ function createInstance(key, value) {
     return value.map(v => createInstance(key, v));
   }
   if (typeof value === 'object') {
-    if (value['shr.base.ShrId'] && value['shr.base.EntryId'] && value['shr.base.EntryType']) {
+    if (value.ShrId && value.EntryId && value.EntryType) {
       // It's a reference, so just return the reference
-      return new Reference(value['shr.base.ShrId'], value['shr.base.EntryId'], value['shr.base.EntryType']);
+      return new Reference(value.ShrId, value.EntryId, value.EntryType);
     } else if (value.code && value.codeSystem) {
       // It's really the one-off representation of code.  Return just the code.  We toss codeSystem and display
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
