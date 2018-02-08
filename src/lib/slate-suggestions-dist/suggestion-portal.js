@@ -42,19 +42,12 @@ class SuggestionPortal extends React.Component {
             // Set first suggestion
             props.callback.suggestion = filteredSuggestions[this.state.selectedIndex]
         }
-    }   
-
-    // Given # positions changed, update selectedIndex with new position
-    setSelectedIndex = (selectedIndex) => {
-        this.setState({
-            selectedIndex: selectedIndex
-        })
     }
 
-    // Assigns a value to menu when the portal opens
-    onOpen = (portal) => {
+    // Given # positions changed, update selectedIndex with new position
+    setSelectedIndex = (newIndex) => {
         this.setState({
-            menu: portal.firstChild 
+            selectedIndex: newIndex
         });
     }
 
@@ -67,33 +60,8 @@ class SuggestionPortal extends React.Component {
         }
     }
 
-    // Use new key-presses to update the current suggestion
-    onKeyDown = (keyCode, data) => {
-        if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
-            const filteredSuggestions  = this.getFilteredSuggestions();
-            // If up/down, change position in list
-            const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
-            const newIndex = this.getMenuPostion(positionChange);
-            this.setSelectedIndex(newIndex)
-            this.setCallbackSuggestion(filteredSuggestions, newIndex);
-        } else {
-            // Else, determine character and update suggestions accordingly
-            const filteredSuggestions  = this.getFilteredSuggestions(data);
-            this.setSelectedIndex(0)
-            if (typeof filteredSuggestions.then === 'function') {
-                filteredSuggestions.then(filteredSuggestions => {
-                    this.setCallbackSuggestion(filteredSuggestions, 0)
-                }).catch(() => {
-                    this.setCallbackSuggestion([], 0)
-                })
-            } else {
-                this.setCallbackSuggestion(filteredSuggestions, 0)
-            }
-        }
-    }
-
     // Given # positions changed, return new index, wrapping if overflow
-    getMenuPostion = (change) => { 
+    getNewMenuPostion = (change) => { 
         const filteredSuggestions  = this.getFilteredSuggestions();
         if(filteredSuggestions.length === 0) { 
             return 0;
@@ -102,6 +70,31 @@ class SuggestionPortal extends React.Component {
             const changePlusOriginalLength = change + filteredSuggestions.length;
             const changeAfterWrapping = (this.state.selectedIndex + changePlusOriginalLength) % filteredSuggestions.length;      
             return changeAfterWrapping;
+        }
+    }
+
+    // Use new key-presses to update the current suggestion
+    onKeyDown = (keyCode, data) => {
+        if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+            // If up/down, change position in list
+            const filteredSuggestions  = this.getFilteredSuggestions();
+            const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
+            const newIndex = this.getNewMenuPostion(positionChange);
+            this.setSelectedIndex(newIndex)
+            this.setCallbackSuggestion(filteredSuggestions, newIndex);
+        } else {
+            // Else, determine character and update suggestions accordingly
+            const newFilteredSuggestions  = this.getFilteredSuggestions(data);
+            this.setSelectedIndex(0)
+            if (typeof newFilteredSuggestions.then === 'function') {
+                newFilteredSuggestions.then(newFilteredSuggestions => {
+                    this.setCallbackSuggestion(newFilteredSuggestions, 0);
+                }).catch(() => {
+                    this.setCallbackSuggestion([]);
+                })
+            } else {
+                this.setCallbackSuggestion(newFilteredSuggestions, 0);
+            }
         }
     }
 
@@ -120,7 +113,7 @@ class SuggestionPortal extends React.Component {
             // and if the state condition is good 
             return stateCondition && anchorText.text === trigger
         }
- 
+
         // Else check f the last char is a match for the trigger
         const lastChar = anchorText.text[anchorOffset - 1]
         return stateCondition && lastChar && lastChar === trigger
@@ -152,11 +145,11 @@ class SuggestionPortal extends React.Component {
     // Filter suggestions based on incoming data 
     getFilteredSuggestions = (incomingData) => {
         const { suggestions, state, capture, resultSize } = this.props
-    
-        if (!state.selection.anchorKey) return []
-    
-        const { anchorText, anchorOffset } = state
-    
+
+        if (!state.selection.anchorKey) return [];
+
+        const { anchorText, anchorOffset } = state;
+
         let nextChar = "";
         // If there is incoming data from a keydown, include that as next char
         if (incomingData !== undefined) { 
@@ -167,15 +160,13 @@ class SuggestionPortal extends React.Component {
         // Get the current word after processing the new data
         const currentWord = getCurrentWord(anchorText.text + nextChar, anchorOffset - 1, anchorOffset - 1);
         const text = this.getMatchText(currentWord, capture)
-    
+
         if (typeof suggestions === 'function') {
             return suggestions(text)
         } else {
             const filtered = suggestions
                 .filter(suggestion => suggestion.key.toLowerCase().indexOf(text) !== -1)
                 .slice(0, resultSize ? resultSize : RESULT_SIZE);
-            console.log('After filtering on: ' + text)
-            console.log(filtered);
             return filtered;
         }
     }
@@ -220,20 +211,20 @@ class SuggestionPortal extends React.Component {
 
     // Adjust menu styling and position when needed
     adjustPosition = () => {
-        const { menu } = this.state
+        const { menu } = this.state;
         // If there is no menu, return
-        if (!menu) return
-    
+        if (!menu) return;
+
         const match = this.matchCapture();
         if (match === undefined) {
             // No match: remove menu styling
-            menu.removeAttribute('style')
-            return
+            menu.removeAttribute('style');
+            return;
         }
     
         const parentNode = this.props.state.document.getParent(this.props.state.selection.startKey);
         const el = Slate.findDOMNode(parentNode);
-    
+
         if (this.matchTrigger() || match) {
             // Update position of menu styling
             const rect = position(el)
@@ -243,22 +234,30 @@ class SuggestionPortal extends React.Component {
             menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
         }
     }
+
+    // Assigns a value to menu when the portal opens
+    openPortal = (portal) => {
+        this.setState({
+            menu: portal.firstChild 
+        });
+    }
+
     // Closes portal
     closePortal = () => {
-        const { menu } = this.state
+        const { menu } = this.state;
         // No menu to close: return
         if (!menu) return;
-    
-        // Remove menu styling 
+
+        // Remove menu styling
         menu.removeAttribute('style');
         return;
     }
 
     render = () => {
         const filteredSuggestions  = this.getFilteredSuggestions();
-    
+
         return (
-            <Portal isOpened onOpen={this.onOpen}>
+            <Portal isOpened onOpen={this.openPortal}>
                 <div className="suggestion-portal">
                     <ul>
                         {filteredSuggestions.map((suggestion, index) =>
