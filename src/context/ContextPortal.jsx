@@ -122,7 +122,7 @@ class ContextPortal extends React.Component {
         menu.style.padding = 10;
         menu.style.display = 'block';
         menu.style.opacity = 1;
-        if(window.innerHeight - this.props.top < 200) {
+        if (window.innerHeight - this.props.top < 230) {
             menu.style.bottom = `${window.innerHeight - this.props.top - window.pageYOffset}px`;
             menu.style.left = `${this.props.left - window.pageXOffset + 10}px`;
         } else {
