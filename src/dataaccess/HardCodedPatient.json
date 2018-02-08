@@ -1284,6 +1284,19 @@
                 "shr.condition.Severity": {
                     "Value" : {
                         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "mild", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/reaction-event-severity"}, 
+                        "shr.core.DisplayText": {"Value": "Mild"}}]
+                    }
+                },
+                "shr.core.OccurrenceTime": {
+                    "Value": "13 JAN 2015"
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction" },
+                "shr.condition.Severity": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                         "shr.core.Coding":[{ "Value": "severe", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/reaction-event-severity"}, 
                         "shr.core.DisplayText": {"Value": "Severe"}}]
                     }
@@ -1308,6 +1321,19 @@
             }
         ],
         "shr.allergy.AdverseReaction": [
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction" },
+                "shr.condition.Severity": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "moderate", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/reaction-event-severity"}, 
+                        "shr.core.DisplayText": {"Value": "Moderate"}}]
+                    }
+                },
+                "shr.core.OccurrenceTime": {
+                    "Value": "13 JAN 2015"
+                }
+            },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction" },
                 "shr.condition.Severity": {
