@@ -11,6 +11,7 @@ import ContextPortal from '../context/ContextPortal';
 // This issue should no longer affect us in our current approach. consider allowing newer version of Slate
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
+import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
@@ -373,6 +374,7 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
+        //nicole fix? this.onChange(this.state.state); //do we just need one more thing triggering a 'change' like a extra click?
 
         var nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
@@ -604,6 +606,15 @@ class FluxNotesEditor extends React.Component {
 
     }
 
+    onCloseClick = () => {
+        this.props.setFullAppState('isNoteViewerVisible', false);
+        this.setState({
+            "targetedDataPanelSize": "50%",
+            "notesPanelSize": "10%"
+        });
+        this.props.setFullAppState('layout', "right-collapsed");
+    }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -641,13 +652,22 @@ class FluxNotesEditor extends React.Component {
                             <p className="note-description-detail-name">Date</p>
                             <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Source</p>
                             <p className="note-description-detail-value">{source}</p>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Signed By</p>
                             <p className="note-description-detail-value">{signedString}</p>
+                        </Col>
+                        <Col xs={2}>
+                            <Button
+                                raised 
+                                className="more-notes-btn"
+                                onClick={this.props.closeNote}>
+                                <img src="./red-x.png" alt="close note button" />Close Note
+                            </Button>
+                           
                         </Col>
                     </Row>
 

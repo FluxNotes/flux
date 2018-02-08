@@ -24,6 +24,7 @@ export default class NotesPanel extends Component {
         this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
         this.updateSelectedNote = this.updateSelectedNote.bind(this);
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
+        this.closeNote = this.closeNote.bind(this);
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
     }
 
@@ -42,7 +43,7 @@ export default class NotesPanel extends Component {
         }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         // Set the note to be inserted into the editor and the selected note
-        if (this.props.currentViewMode === 'pre-encounter' && !this.props.isNoteViewerVisible) {
+        if (!this.props.isNoteViewerVisible) {
 
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
             // before editor related states can be set
@@ -77,6 +78,11 @@ export default class NotesPanel extends Component {
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
     saveNoteUponKeypress() {
         this.saveNoteChild();
+    }
+
+    // invokes closing logic in NoteAssistant
+    closeNote(){
+        this.closeNoteChild();
     }
 
     handleSignButtonClick() {
@@ -157,6 +163,7 @@ export default class NotesPanel extends Component {
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    closeNote={this.closeNote}
                     documentText={this.props.documentText}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
 
@@ -189,6 +196,8 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     documentText={this.props.documentText}
                     saveNote={click => this.saveNoteChild = click}
+                    closeNote={click => this.closeNoteChild = click}
+                    noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                 />
@@ -212,6 +221,7 @@ NotesPanel.propTypes = {
     summaryItemToBeInserted: PropTypes.string,
     documentText: PropTypes.string,
     saveNote: PropTypes.func,
+    closeNote: PropTypes.func,
     errors: PropTypes.array,
     isNoteViewerEditable: PropTypes.bool,
     newCurrentShortcut: PropTypes.func,

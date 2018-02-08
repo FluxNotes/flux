@@ -112,3 +112,10 @@
     background-color: #297DA2;
     color: #fff;
 }
+
+.more-notes-btn {
+    background-color: white !important;
+    padding: 10px !important;
+    margin-top: 20px;
+    text-transform: capitalize !important;
+}
