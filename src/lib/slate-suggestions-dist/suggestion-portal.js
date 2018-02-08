@@ -11,16 +11,17 @@ import {
 } from './constants'
 
 class SuggestionPortal extends React.Component {
-
+    // Adjust position on initial mount
     componentDidMount = () => {
         this.adjustPosition()
     }
 
+    // Adjust position on each update
     componentDidUpdate = () => {
         this.adjustPosition()
     }
 
-      constructor(props) {
+    constructor(props) {
         super()
         props.callback.onKeyDown = this.onKeyDown
         props.callback.onEnter = props.onEnter
@@ -36,8 +37,8 @@ class SuggestionPortal extends React.Component {
         } else {
             const filteredSuggestions = props.suggestions.slice(0, props.resultSize ? props.resultSize : RESULT_SIZE)
             props.callback.suggestion = filteredSuggestions[this.state.selectedIndex]
-            }
         }
+    }   
 
     onOpen = (portal) => {
         this.setState({
