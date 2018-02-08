@@ -44,7 +44,7 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "3",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/base/PatientIdentifier" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "organization": "MITRE",
         "identifierType": "MRN",
         "value": "026-DH-678944",
@@ -56,7 +56,7 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId":"4",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "date": "02 AUG 2015",
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
@@ -113,7 +113,7 @@
         "shr.base.EntryId": "8",
         "shr.base.EntryType":   {"Value" : "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "408643008", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Invasive ductal carcinoma of breast"}}]},
         "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#disease"}]},
         "shr.condition.ClinicalStatus": {"Value": "active"},
@@ -536,9 +536,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -608,9 +608,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -690,9 +690,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -772,9 +772,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -854,9 +854,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -936,9 +936,9 @@
             "shr.core.Reason": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
-                        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
-                        "shr.base.EntryId": "8"
+                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                        "EntryId": "8"
                 }]
             }
         },
@@ -952,7 +952,7 @@
         "shr.base.EntryId": "15",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Mammography"}}]}},
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
@@ -974,7 +974,7 @@
         "shr.base.EntryId": "16",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0454059", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Radiation therapy procedure or service"}}]}},
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
@@ -1003,7 +1003,7 @@
         "shr.base.EntryId": "17",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0851238", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Lumpectomy"}}]}},
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
@@ -1025,7 +1025,7 @@
         "shr.base.EntryId": "18",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0796693", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Sentinel Lymph Node Biopsy"}}]}},
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
@@ -1047,7 +1047,7 @@
         "shr.base.EntryId": "19",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Mammography"}}]}},
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
@@ -1070,8 +1070,8 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1091,9 +1091,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0677874", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Complete response or remission; no measurable or observable evidence of cancer."}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1114,9 +1114,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1136,9 +1136,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1272745", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Improving, responding to treatment"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1158,9 +1158,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1181,9 +1181,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable, neither improving nor worsening"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": {"Value": "13 JAN 2012"},
@@ -1204,9 +1204,9 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.finding.FocalSubjectReference": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"}, "shr.base.ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "8" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.FocalSubjectReference": { "EntryType": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer", "ShrId":"788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "8" },
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1546960", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Worsening, disease progressing"}}]},
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
         "shr.finding.ClinicallyRelevantTime": { "Value": "13 JAN 2012" },
@@ -1227,7 +1227,7 @@
         "shr.base.EntryId": "27",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0016658", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Fracture"}}]},
         "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#structural_abnormality"}]},
         "shr.condition.ClinicalStatus": {"Value": "active"},
@@ -1248,7 +1248,7 @@
         "shr.base.EntryId": "28",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding":[{ "Value": "433341001", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
                 "shr.core.DisplayText": {"Value": "Application of long leg splint"}}]}},
@@ -1271,7 +1271,7 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "29",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "412533000", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "Wheat Bran"}]},
         "shr.core.CreationTime": {"Value": "13 JAN 2015"},
         "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
@@ -1280,7 +1280,7 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "30",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{"Value": "410942007", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "Milk - dietary"}]},
         "shr.core.CreationTime": {"Value": "13 JAN 2015"},
         "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
@@ -1289,7 +1289,7 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "31",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/allergy/NoKnownAllergy" },        
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "409137002", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": "No known drug allergy"}]},
         "shr.core.CreationTime": {"Value": "13 JAN 2015"},
         "shr.base.LastUpdated": {"Value": "13 JUN 2015"}
@@ -1298,8 +1298,8 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "32",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.action.ActionContext": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "active" },
@@ -1327,8 +1327,8 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "33",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
-        "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1"},
-        "shr.base.Subject": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "shr.base.EntryId": "1" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.action.ActionContext": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "active" },
