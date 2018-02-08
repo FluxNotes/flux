@@ -1,5 +1,4 @@
 import { getNamespaceAndName } from '../../json-helper';
-import RouteIntoBody from './RouteIntoBody';
 import MedicationAction from './MedicationAction';
 import AdditionalDoseInstruction from './AdditionalDoseInstruction';
 import AdministrationMethod from './AdministrationMethod';
@@ -8,6 +7,7 @@ import DoseAmount from './DoseAmount';
 import TimingOfDoses from './TimingOfDoses';
 import AsNeededIndicator from './AsNeededIndicator';
 import DoseInstructionsText from './DoseInstructionsText';
+import RouteIntoBody from './RouteIntoBody';
 import AdministrationBodySite from './AdministrationBodySite';
 import MaximumDosePerTimePeriod from './MaximumDosePerTimePeriod';
 import MedicationDispenseAction from './MedicationDispenseAction';
@@ -41,7 +41,6 @@ export default class ShrMedicationObjectFactory {
       throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'RouteIntoBody': return RouteIntoBody.fromJSON(json);
     case 'MedicationAction': return MedicationAction.fromJSON(json);
     case 'AdditionalDoseInstruction': return AdditionalDoseInstruction.fromJSON(json);
     case 'AdministrationMethod': return AdministrationMethod.fromJSON(json);
@@ -50,6 +49,7 @@ export default class ShrMedicationObjectFactory {
     case 'TimingOfDoses': return TimingOfDoses.fromJSON(json);
     case 'AsNeededIndicator': return AsNeededIndicator.fromJSON(json);
     case 'DoseInstructionsText': return DoseInstructionsText.fromJSON(json);
+    case 'RouteIntoBody': return RouteIntoBody.fromJSON(json);
     case 'AdministrationBodySite': return AdministrationBodySite.fromJSON(json);
     case 'MaximumDosePerTimePeriod': return MaximumDosePerTimePeriod.fromJSON(json);
     case 'MedicationDispenseAction': return MedicationDispenseAction.fromJSON(json);
