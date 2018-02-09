@@ -338,8 +338,8 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        let indexOfLastNode = state.toJSON().document.nodes["0"].nodes.length - 1;
-        let endOfNoteKey = state.toJSON().document.nodes["0"].nodes[indexOfLastNode].key;
+        let indexOfLastNode = state.toJSON().document.nodes.length - 1;
+        let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
         if(Lang.isEqual(indexOfLastNode, 0)){
@@ -460,7 +460,15 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertPlainText = (transform, text) => {
-        let returnIndex = text.indexOf("\r");
+        // Check for \r\n, \r, or \n to insert a new line in Slate
+        let returnIndex = text.indexOf("\r\n");
+        if (returnIndex === -1) {
+            returnIndex = text.indexOf("\r");
+        }
+        if (returnIndex === -1) {
+            returnIndex = text.indexOf("\n");
+        }
+        
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
