@@ -10,15 +10,17 @@
 }
 
 #clinical-notes #note-description p.note-description-detail-name {
+    text-align: left;
     padding-bottom:2px;
     color: #919191;
-    font-size: .9rem;
+    font-size: .7rem;
     margin: 0;
 }
 
 #clinical-notes #note-description p.note-description-detail-value {
+    text-align: left;
     padding-top:0;
-    font-size: .9rem;
+    font-size: .8rem;
     margin: 0;
 }
 
@@ -111,4 +113,12 @@
 .suggestion-portal li.selected {
     background-color: #297DA2;
     color: #fff;
+}
+
+.more-notes-btn {
+    background-color: red !important;
+    padding: 0px !important;
+    margin-top: 0px !important;
+    text-transform: capitalize !important;
+    font-size: .8rem;
 }

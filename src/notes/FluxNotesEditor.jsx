@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Moment from 'moment'
 import Lang from 'lodash';
+import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
@@ -11,6 +12,7 @@ import ContextPortal from '../context/ContextPortal';
 // This issue should no longer affect us in our current approach. consider allowing newer version of Slate
 import {Row, Col} from 'react-flexbox-grid';
 import EditorToolbar from './EditorToolbar';
+import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
@@ -373,6 +375,7 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
+        //nicole fix? this.onChange(this.state.state); //do we just need one more thing triggering a 'change' like a extra click?
 
         var nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
@@ -604,6 +607,15 @@ class FluxNotesEditor extends React.Component {
 
     }
 
+    onCloseClick = () => {
+        this.props.setFullAppState('isNoteViewerVisible', false);
+        this.setState({
+            "targetedDataPanelSize": "50%",
+            "notesPanelSize": "10%"
+        });
+        this.props.setFullAppState('layout', "right-collapsed");
+    }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -612,7 +624,7 @@ class FluxNotesEditor extends React.Component {
         let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
-        let source = "Dana Farber Cancer Institute";
+        let source = "Dana Farber";
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
@@ -633,21 +645,45 @@ class FluxNotesEditor extends React.Component {
         } else {
             noteDescriptionContent = (
                 <div id="note-description">
-                    <Row>
-                        <Col xs={4}>
-                            <h1 id="note-title">{noteTitle}</h1>
+                    <Row end="xs">
+                        <Col xs={2}>
+                            <p className="note-description-detail-name">Name</p>
+                            <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
                         </Col>
                         <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
                             <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Source</p>
                             <p className="note-description-detail-value">{source}</p>
                         </Col>
-                        <Col xs={3}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Signed By</p>
                             <p className="note-description-detail-value">{signedString}</p>
+                        </Col>
+                        <Col xs={4}>
+                            <Button
+                                raised 
+                                className="more-notes-btn"
+                                disabled={this.context_disabled}
+                                onClick={this.props.closeNote}
+                                style={{
+                                    float: "right"
+                                }}
+                            >
+                                <FontAwesome 
+                                    name="times"
+                                    style={{
+                                        color: "red",
+                                        marginRight: "5px"
+                                    }}
+                                /> 
+                                <span>
+                                    Close
+                                </span>
+                            </Button>
+                           
                         </Col>
                     </Row>
 

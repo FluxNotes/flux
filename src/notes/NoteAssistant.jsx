@@ -18,7 +18,6 @@ export default class NoteAssistant extends Component {
             sortIndex: null,
             maxNotesToDisplay: 3,
         };
-
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
             // Check if the clinical notes view mode is active and if it is, set the notes button to selected, otherwise select the context button
@@ -64,6 +63,7 @@ export default class NoteAssistant extends Component {
     componentDidMount() {
         // set callback so the editor can signal a change and this class can save the note
         this.props.saveNote(this.saveNoteOnKeypress);
+        this.props.closeNote(this.closeNote);
     }
 
     getNotesFromPatient(props) {
@@ -145,7 +145,7 @@ export default class NoteAssistant extends Component {
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
-        let hospital = "Dana Farber Cancer Institute";
+        let hospital = "Dana Farber";
         let clinician = "Dr. X123";
         let signed = false;
 
@@ -170,7 +170,7 @@ export default class NoteAssistant extends Component {
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
-        let hospital = "Dana Farber Cancer Institute";
+        let hospital = "Dana Farber";
         let clinician = "Dr. X123";
         let content = emptyNote;
         let signed = false;
@@ -204,6 +204,9 @@ export default class NoteAssistant extends Component {
 
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
+        this.props.setFullAppState("noteClosed", false);
+        this.props.setFullAppState('layout', "split");
+        this.props.setFullAppState('isNoteViewerVisible', true);
 
         // Don't start saving until there is content in the editor
         if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
@@ -226,6 +229,15 @@ export default class NoteAssistant extends Component {
             this.props.setFullAppState('isNoteViewerEditable', false);
             this.toggleView("clinical-notes");
         }
+    }
+
+    // invoked by FluxNotesEditor when the Close Note button is pressed
+    // removes the editor, deselects the selected note, expands right panel
+    closeNote = () => {
+        this.props.setFullAppState("noteClosed", true);
+        this.props.setFullAppState('layout', "right-collapsed");
+        this.props.setFullAppState('isNoteViewerVisible', false);
+        this.props.setFullAppState('isNoteViewerEditable', false);
     }
 
     // Render the content for the Note Assistant panel
@@ -285,7 +297,11 @@ export default class NoteAssistant extends Component {
     }
 
     renderInProgressNote(note, i) {
-        const selected = this.props.selectedNote === note;
+        let selected = Lang.isEqual(this.props.selectedNote, note);
+        // if we have closed the note, selected = false
+        if(Lang.isEqual(this.props.noteClosed, true)){
+            selected = false;
+        }
 
         return (
             <div className={`note in-progress-note${selected ? " selected" : ""}`} key={i} onClick={() => {
@@ -332,7 +348,11 @@ export default class NoteAssistant extends Component {
 
     // For each clinical note, render the note image with the text
     renderClinicalNote(item, i) {
-        const selected = this.props.selectedNote === item;
+        let selected = Lang.isEqual(this.props.selectedNote, item);
+        // if we have closed the note, selected = false
+        if(Lang.isEqual(this.props.noteClosed, true)){
+            selected = false;
+        }
 
         return (
             <div className={`note existing-note${selected ? " selected" : ""}`} key={i} onClick={() => {
@@ -490,6 +510,7 @@ NoteAssistant.propTypes = {
     shortcutManager: PropTypes.object,
     isNoteViewerEditable: PropTypes.bool,
     saveNote: PropTypes.func,
+    closeNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
     updateCurrentlyEditingEntryId: PropTypes.func
 };

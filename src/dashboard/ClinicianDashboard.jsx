@@ -194,6 +194,7 @@ class ClinicianDashboard extends Component {
                         currentViewMode={this.props.appState.clinicalEvent}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                        noteClosed={this.props.appState.noteClosed}
                     />
                 </div>
             </div>

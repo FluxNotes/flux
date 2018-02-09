@@ -58,6 +58,7 @@ export default class FullApp extends Component {
             superRole: 'Clinician',
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
+            noteClosed: false,
         };
     }
 
