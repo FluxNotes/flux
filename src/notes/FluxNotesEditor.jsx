@@ -667,7 +667,7 @@ class FluxNotesEditor extends React.Component {
                                 className="more-notes-btn"
                                 disabled={this.context_disabled}
                                 onClick={this.props.closeNote}>
-                                <img src="./red-x.png" alt="close note button" />Close
+                                <div style={{color: "red", fontSize: ".7rem"}}>x&nbsp;</div>Close
                             </Button>
                            
                         </Col>
