@@ -34,12 +34,12 @@ class SuggestionPortal extends React.Component {
             selectedIndex: 0,
         }
 
+        // Set first suggestion
         if (typeof props.suggestions === 'function') {
-            // No assumed default input to function; just suggest nothing
-            props.callback.suggestion = undefined
+            const filteredSuggestions = props.suggestions('');
+            props.callback.suggestion = filteredSuggestions[this.state.selectedIndex]
         } else {
             const filteredSuggestions = props.suggestions.slice(0, props.resultSize ? props.resultSize : RESULT_SIZE)
-            // Set first suggestion
             props.callback.suggestion = filteredSuggestions[this.state.selectedIndex]
         }
     }
@@ -121,14 +121,14 @@ class SuggestionPortal extends React.Component {
 
     // Get the match text if there is any
     matchCapture = () => {
-        const { state, capture } = this.props
+        const { state, capture, trigger } = this.props
 
         // Selection has no anchor, we have no text: ergo no match        
         if (!state.selection.anchorKey) return ''
 
         // Else, compare current word to he 
         const { anchorText, anchorOffset } = state
-        const currentWord = getCurrentWord(anchorText.text, anchorOffset - 1, anchorOffset - 1)
+        const currentWord = getCurrentWord(anchorText.text, anchorOffset - 1, trigger)
         const text = this.getMatchText(currentWord, capture)
         return text
     }
@@ -144,7 +144,7 @@ class SuggestionPortal extends React.Component {
 
     // Filter suggestions based on incoming data 
     getFilteredSuggestions = (incomingData) => {
-        const { suggestions, state, capture, resultSize } = this.props
+        const { suggestions, state, capture, resultSize, trigger } = this.props
 
         if (!state.selection.anchorKey) return [];
 
@@ -157,8 +157,22 @@ class SuggestionPortal extends React.Component {
             if (nextChar == null) return [];
         }
 
+        // Put together newText based on nextCharacter; change offset if char is -
+        let newText = anchorText.text;
+        let offset = anchorOffset;
+        if (nextChar === "backspace") { 
+            if (newText.length > 0) { 
+                // Remove last character if we've backspaced and there is a letter
+                newText = newText.slice(0, newText.length - 1);
+                offset -= 1;
+            }
+        } else { 
+            // Else, add the processed character
+            newText += nextChar;
+        }   
+
         // Get the current word after processing the new data
-        const currentWord = getCurrentWord(anchorText.text + nextChar, anchorOffset - 1, anchorOffset - 1);
+        const currentWord = getCurrentWord(newText, offset, trigger);
         const text = this.getMatchText(currentWord, capture)
 
         if (typeof suggestions === 'function') {
@@ -175,6 +189,7 @@ class SuggestionPortal extends React.Component {
     convertSlateDataObjectToCharacter = (data) => {
         const code = data.code;
         const isShift = data.isShift;
+        if (code === 8) return "backspace";
         if (code < 48) return null;
         if (code < 58) { // number keys
             if (isShift) {
@@ -227,7 +242,8 @@ class SuggestionPortal extends React.Component {
 
         if (this.matchTrigger() || match) {
             // Update position of menu styling
-            const rect = position(el)
+            // const rect = position(el)
+            const rect = position()
             menu.style.display = 'block'
             menu.style.opacity = 1
             menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
