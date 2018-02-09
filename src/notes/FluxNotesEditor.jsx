@@ -645,7 +645,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             noteDescriptionContent = (
                 <div id="note-description">
-                    <Row>
+                    <Row end="xs">
                         <Col xs={2}>
                             <p className="note-description-detail-name">Name</p>
                             <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
@@ -668,6 +668,9 @@ class FluxNotesEditor extends React.Component {
                                 className="more-notes-btn"
                                 disabled={this.context_disabled}
                                 onClick={this.props.closeNote}
+                                style={{
+                                    float: "right"
+                                }}
                             >
                                 <FontAwesome 
                                     name="times"
