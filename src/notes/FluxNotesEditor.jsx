@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Moment from 'moment'
 import Lang from 'lodash';
+import FontAwesome from 'react-fontawesome';
 import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
@@ -645,29 +646,39 @@ class FluxNotesEditor extends React.Component {
             noteDescriptionContent = (
                 <div id="note-description">
                     <Row>
-                        <Col xs={2.4}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Name</p>
                             <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
                         </Col>
-                        <Col xs={2.4}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Date</p>
                             <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={2.4}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Source</p>
                             <p className="note-description-detail-value">{source}</p>
                         </Col>
-                        <Col xs={2.4}>
+                        <Col xs={2}>
                             <p className="note-description-detail-name">Signed By</p>
                             <p className="note-description-detail-value">{signedString}</p>
                         </Col>
-                        <Col xs={2.4}>
+                        <Col xs={4}>
                             <Button
                                 raised 
                                 className="more-notes-btn"
                                 disabled={this.context_disabled}
-                                onClick={this.props.closeNote}>
-                                <div style={{color: "red", fontSize: ".7rem"}}>x&nbsp;</div>Close
+                                onClick={this.props.closeNote}
+                            >
+                                <FontAwesome 
+                                    name="times"
+                                    style={{
+                                        color: "red",
+                                        marginRight: "5px"
+                                    }}
+                                /> 
+                                <span>
+                                    Close
+                                </span>
                             </Button>
                            
                         </Col>
