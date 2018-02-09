@@ -145,7 +145,7 @@ export default class NoteAssistant extends Component {
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
-        let hospital = "Dana Farber Cancer Institute";
+        let hospital = "Dana Farber";
         let clinician = "Dr. X123";
         let signed = false;
 
@@ -170,7 +170,7 @@ export default class NoteAssistant extends Component {
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
-        let hospital = "Dana Farber Cancer Institute";
+        let hospital = "Dana Farber";
         let clinician = "Dr. X123";
         let content = emptyNote;
         let signed = false;
@@ -237,6 +237,7 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState("noteClosed", true);
         this.props.setFullAppState('layout', "right-collapsed");
         this.props.setFullAppState('isNoteViewerVisible', false);
+        this.props.setFullAppState('isNoteViewerEditable', false);
     }
 
     // Render the content for the Note Assistant panel

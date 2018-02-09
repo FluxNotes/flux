@@ -623,7 +623,7 @@ class FluxNotesEditor extends React.Component {
         let noteTitle = "New Note";
         let date = Moment(new Date()).format('DD MMM YYYY');
         let signedString = "not signed";
-        let source = "Dana Farber Cancer Institute";
+        let source = "Dana Farber";
 
         // If a note is selected, update the note header with information from the selected note
         if (this.props.selectedNote) {
@@ -645,27 +645,29 @@ class FluxNotesEditor extends React.Component {
             noteDescriptionContent = (
                 <div id="note-description">
                     <Row>
-                        <Col xs={4}>
-                            <h1 id="note-title">{noteTitle}</h1>
+                        <Col xs={2.4}>
+                            <p className="note-description-detail-name">Name</p>
+                            <p className="note-description-detail-value" id="note-title">{noteTitle}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={2.4}>
                             <p className="note-description-detail-name">Date</p>
                             <p className="note-description-detail-value">{date}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={2.4}>
                             <p className="note-description-detail-name">Source</p>
                             <p className="note-description-detail-value">{source}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={2.4}>
                             <p className="note-description-detail-name">Signed By</p>
                             <p className="note-description-detail-value">{signedString}</p>
                         </Col>
-                        <Col xs={2}>
+                        <Col xs={2.4}>
                             <Button
                                 raised 
                                 className="more-notes-btn"
+                                disabled={this.context_disabled}
                                 onClick={this.props.closeNote}>
-                                <img src="./red-x.png" alt="close note button" />Close Note
+                                <img src="./red-x.png" alt="close note button" />Close
                             </Button>
                            
                         </Col>
