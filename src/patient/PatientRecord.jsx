@@ -188,11 +188,12 @@ class PatientRecord {
 
     }
 
-    getNextEncounterReason() {
+    getNextEncounterReasonAsString() {
         const nextEncounter = this.getNextEncounter();
+        if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
-        return nextEncounter.reason;
+        return nextEncounter.reason.map((r) => { return r.value; }).join(',');
     }
     
     getPreviousEncounter(){
@@ -403,8 +404,8 @@ class PatientRecord {
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reason.some((r) => {
-                return r.entryId === condition.entryInfo.entryId;
+            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === condition.entryInfo.entryId;
             });
         });
         return medications;
@@ -422,8 +423,8 @@ class PatientRecord {
 
     getProceduresForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedureRequested && item.reason.some((r) => {
-                    return r.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxProcedureRequested && item.reasons.some((r) => {
+                    return r.value.entryId && r.value.entryId === condition.entryInfo.entryId;
                 });
         });
     }

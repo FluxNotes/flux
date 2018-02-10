@@ -381,7 +381,7 @@
     "id": "ReasonForNextVisitInserter",
     "getData": {
       "object": "patient",
-      "method": "getNextEncounterReason"
+      "method": "getNextEncounterReasonAsString"
     },
     "isContext": false,
     "stringTriggers": [

@@ -43,11 +43,11 @@ class FluxProcedureRequested {
     }
 
     /*
-     *  Getter for reason for this procedure
+     *  Getter for reason list for this procedure
      *  Returns array of reasons
      */
-    get reason() {
-        return this._procedureRequested.actionContext.reason.value;
+    get reasons() {
+        return this._procedureRequested.actionContext.reason;
     }
 }
 

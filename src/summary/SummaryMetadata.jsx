@@ -61,9 +61,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
-                                            const nextEncounter = patient.getNextEncounter();
-                                            if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
-                                            return patient.getNextEncounter().reason;
+                                            return patient.getNextEncounterReasonAsString();
                                         },
                                         shortcut: "@reason for next visit"
                                     }

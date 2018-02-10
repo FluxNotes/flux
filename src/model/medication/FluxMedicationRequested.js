@@ -104,13 +104,13 @@ class FluxMedicationRequested {
     }
 
     /*
-     *  Getter for reason for this medication
+     *  Getter for reason list for this medication
      *  Returns array of reasons
      */
-    get reason() {
-        return this._medicationRequested.actionContext.reason.value;
+    get reasons() {
+        return this._medicationRequested.actionContext.reason;
     }
-
+    
     get code() {
         return this._medicationRequested.medicationOrCode.value.coding[0].code;
     }

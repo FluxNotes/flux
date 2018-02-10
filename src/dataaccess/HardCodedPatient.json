@@ -533,7 +533,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -605,7 +605,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -687,7 +687,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -769,7 +769,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -851,7 +851,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -933,7 +933,7 @@
                     }
                 }
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": [{
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -958,7 +958,7 @@
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2012"},
-        "shr.core.Reason": {
+        "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -987,7 +987,7 @@
                 "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
             }
         },
-        "shr.core.Reason": {
+        "shr.core.Reason": [{
            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
            "Value": [{
                    "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -1009,7 +1009,7 @@
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
-        "shr.core.Reason": {
+        "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -1031,7 +1031,7 @@
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
-        "shr.core.Reason": {
+        "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -1053,7 +1053,7 @@
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {"Value": "04 OCT 2013"},
-        "shr.core.Reason": {
+        "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
@@ -1256,7 +1256,7 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2018"},
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": [{
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
@@ -1405,10 +1405,10 @@
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
                 "Value": "plan"
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
-            }
+            }]
         },
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
@@ -1463,10 +1463,10 @@
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
                 "Value": "plan"
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "Debra Hernandez672 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
-            }
+            }]
         },
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
