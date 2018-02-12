@@ -1,6 +1,5 @@
 import React from 'react'
 import Portal from 'react-portal'
-import Slate from '../slate'
 import position from './caret-position'
 import SuggestionItem from './suggestion-item'
 import getCurrentWord from './current-word'
@@ -236,18 +235,17 @@ class SuggestionPortal extends React.Component {
             menu.removeAttribute('style');
             return;
         }
-    
-        const parentNode = this.props.state.document.getParent(this.props.state.selection.startKey);
-        const el = Slate.findDOMNode(parentNode);
 
         if (this.matchTrigger() || match) {
-            // Update position of menu styling
-            // const rect = position(el)
             const rect = position()
-            menu.style.display = 'block'
-            menu.style.opacity = 1
-            menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
-            menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+            if (!rect) { 
+                menu.removeAttribute('style');
+            } else { 
+                menu.style.display = 'block'
+                menu.style.opacity = 1
+                menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+                menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+            }
         }
     }
 
