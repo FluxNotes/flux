@@ -16,6 +16,7 @@ import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
+import position from '../lib/slate-suggestions-dist/caret-position.js'
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -45,31 +46,6 @@ const structuredFieldTypes = [
     }
 ]
 
-//  Helper Functions
-//
-// Given upper-most dom element of the editor, the current node and state, return the cursor position  
-function getPos(domElement, node, state) {
-    const offsetx = 0;
-    const offsety = 0;
-    var pos = {left: 0, top: 0};
-
-    const children = domElement.childNodes;
-
-    for (const child of children) {
-        if (child.getBoundingClientRect && child.getAttribute("data-key")) {
-            const rect = child.getBoundingClientRect();
-            pos.left = rect.left + rect.width + offsetx;
-            pos.top = rect.top + offsety;
-        }
-    }
-    return pos;
-}
-// Given a state, return the position of the cursor
-function position(state) {
-    const parentNode = state.state.document.getParent(state.state.selection.startKey);
-    const el = Slate.findDOMNode(parentNode);
-    return getPos(el, parentNode, state);
-}
 // Given  text and starting index, recursively traverse text to find index location of text
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
     if (index === initialIndex) {
@@ -276,7 +252,7 @@ class FluxNotesEditor extends React.Component {
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
-        let pos = position(this.state);
+        let pos = position();
 
         this.setState({
             isPortalOpen: true,
