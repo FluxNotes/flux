@@ -55,11 +55,16 @@ class SuggestionPortal extends React.Component {
 
   onKeyDown = (keyCode, data) => {
     if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+        const height = this.refs.suggestionPortal.offsetHeight;
+        const numberOfElementsVisible = Math.floor(height/32);
         const filteredSuggestions  = this.getFilteredSuggestions();
         const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
         const newIndex = this.getMenuPostion(positionChange);
         this.changeMenuPosition(positionChange)
         this.setCallbackSuggestion(filteredSuggestions, newIndex);
+        // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
+        // 32 is the height of each suggestion in the list, 10 allows for the margin
+        this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
     } else {
       const filteredSuggestions  = this.getFilteredSuggestions(data);
       this.setSelectedIndex(0)
@@ -216,8 +221,13 @@ class SuggestionPortal extends React.Component {
       const rect = position(el)
       menu.style.display = 'block'
       menu.style.opacity = 1
-      menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
-      menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+      if (window.innerHeight - rect.top < 230) {
+        menu.style.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+        menu.style.left = `${rect.left + window.pageXOffset + 10}px` // eslint-disable-line no-mixed-operators
+      } else {
+        menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+        menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+      }
     }
   }
 
@@ -240,7 +250,7 @@ class SuggestionPortal extends React.Component {
 
     return (
       <Portal isOpened onOpen={this.onOpen}>
-        <div className="suggestion-portal">
+        <div className="suggestion-portal" ref="suggestionPortal">
           <ul>
             {filteredSuggestions.map((suggestion, index) =>
               <SuggestionItem

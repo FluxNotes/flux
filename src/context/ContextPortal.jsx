@@ -91,8 +91,13 @@ class ContextPortal extends React.Component {
      */
     onKeyDown(keyCode) {
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+            const height = this.refs.contextPortal.offsetHeight;
+            const numberOfElementsVisible = Math.floor(height/32);
             const positionChange = (keyCode === DOWN_ARROW_KEY) ? 1 : -1; 
             this.changeMenuPosition(positionChange)
+            // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
+            // 32 is the height of each suggestion in the list, 10 allows for the margin
+            this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
             this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
@@ -122,8 +127,13 @@ class ContextPortal extends React.Component {
         menu.style.padding = 10;
         menu.style.display = 'block';
         menu.style.opacity = 1;
-        menu.style.top = `${this.props.top + window.pageYOffset}px`;
-        menu.style.left = `${this.props.left + window.pageXOffset}px`;
+        if (window.innerHeight - this.props.top < 230) {
+            menu.style.bottom = `${window.innerHeight - this.props.top - window.pageYOffset}px`;
+            menu.style.left = `${this.props.left + window.pageXOffset + 10}px`;
+        } else {
+            menu.style.top = `${this.props.top + window.pageYOffset}px`;
+            menu.style.left = `${this.props.left + window.pageXOffset}px`;
+        }
     }
     /*
      * Close the menu portal if rendering
@@ -209,7 +219,7 @@ class ContextPortal extends React.Component {
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
-                <div className="context-portal">
+                <div className="context-portal" ref="contextPortal">
                     {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>
