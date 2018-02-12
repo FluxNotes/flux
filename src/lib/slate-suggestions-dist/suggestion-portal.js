@@ -252,6 +252,7 @@ class SuggestionPortal extends React.Component {
             const rect = position()
             if (!rect) { 
                 menu.removeAttribute('style');
+                menu.style.display = 'none'
             } else { 
                 menu.style.display = 'block'
                 menu.style.opacity = 1
@@ -271,6 +272,8 @@ class SuggestionPortal extends React.Component {
     // Closes portal
     closePortal = () => {
         const { menu } = this.state;
+        console.log('----- closing portal')
+        console.log(menu)
         // No menu to close: return
         if (!menu) return;
 
