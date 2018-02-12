@@ -184,6 +184,18 @@ class SuggestionPortal extends React.Component {
         }
     }
 
+    setDefaultSuggestion = () => { 
+        const { suggestions, resultSize, trigger } = this.props
+        // Set first suggestion
+        let filteredSuggestions; 
+        if (typeof suggestions === 'function') {
+            filteredSuggestions = suggestions('');
+        } else {
+            filteredSuggestions = suggestions.slice(0, resultSize ? resultSize : RESULT_SIZE)
+        }
+        this.setCallbackSuggestion(filteredSuggestions, 0);
+    }
+
     // Turn event data into characters to match against
     convertSlateDataObjectToCharacter = (data) => {
         const code = data.code;
@@ -264,6 +276,8 @@ class SuggestionPortal extends React.Component {
 
         // Remove menu styling
         menu.removeAttribute('style');
+        // Reset default suggestion for elements
+        this.setDefaultSuggestion();
         return;
     }
 
