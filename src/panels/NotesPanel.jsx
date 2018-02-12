@@ -86,7 +86,14 @@ export default class NotesPanel extends Component {
     }
 
     handleSignButtonClick() {
-        console.log("clicked sign button");
+
+        // Set signed attribute on the selected note to be true
+        let tempNote =  this.state.selectedNote;
+        tempNote.signed = true;
+        this.setState({selectedNote: tempNote});
+
+        // Close the current note
+       this.closeNote();
     }
 
     renderSignButton() {
@@ -102,11 +109,12 @@ export default class NotesPanel extends Component {
     }
 
     renderNotesPanelContent() {
+
         // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
         if (this.props.isNoteViewerVisible) {
 
-            // If not viewer is editable, render the sign note button, else don't render sign note button
-            if(this.props.isNoteViewerEditable) {
+            // If note viewer is editable and a note is selected, render the sign note button
+            if(this.props.isNoteViewerEditable && this.state.selectedNote) {
                 return (
                     <div>
                         <Row center="xs">
@@ -120,6 +128,7 @@ export default class NotesPanel extends Component {
                         </Row>
                     </div>
                 );
+                // Else don't render sign note button
             } else {
                 return (
                     <div>
@@ -183,6 +192,7 @@ export default class NotesPanel extends Component {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
+                    loginUser={this.props.loginUser}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     setFullAppState={this.props.setFullAppState}
                     patient={this.props.patient}

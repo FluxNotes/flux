@@ -146,7 +146,7 @@ export default class NoteAssistant extends Component {
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber";
-        let clinician = "Dr. X123";
+        let clinician = this.props.loginUser;
         let signed = false;
 
         // Add new unsigned note to patient record
@@ -166,12 +166,13 @@ export default class NoteAssistant extends Component {
         let emptyNote = "";
         this.toggleView("context-tray");
         this.props.loadNote(emptyNote);
+        this.props.setFullAppState("noteClosed", false);
 
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber";
-        let clinician = "Dr. X123";
+        let clinician = this.props.loginUser;
         let content = emptyNote;
         let signed = false;
 

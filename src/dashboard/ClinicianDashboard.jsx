@@ -177,6 +177,7 @@ class ClinicianDashboard extends Component {
 
                 <div style={notesPanelStyles}>
                     <NotesPanel
+                        loginUser={this.props.loginUser}
                         contextManager={this.props.contextManager}
                         errors={this.props.appState.errors}
                         isNoteViewerVisible={isNoteViewerVisible}
