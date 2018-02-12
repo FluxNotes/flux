@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe';
 import hardCodedPatient from '../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../src/patient/PatientRecord.jsx';
+import '../../src/model/init';
 import moment from 'moment';
 
 const pageDomain = "http://localhost";
