@@ -142,8 +142,6 @@ class TabularListVisualizer extends Component {
             });
             headings = <tr>{renderedColumnHeadings}</tr>;
         }
-
-        // TODO: temp variable for now to limit number of columns to be displayed to just the number of headings. Eventually remove this
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
         return (
