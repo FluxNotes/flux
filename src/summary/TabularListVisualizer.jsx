@@ -88,7 +88,7 @@ class TabularListVisualizer extends Component {
         let firstHalfSections = [];
         let secondHalfSections = [];
         transformedSubsections.forEach((subsection) => {
-            if (firstColumnRows + subsection.list.length <= halfRows) {
+            if (firstColumnRows === 0 || ((firstColumnRows + subsection.list.length) <= halfRows)) {
                 firstColumnRows += subsection.list.length;
                 subsection.column = 1;
                 firstHalfSections.push(subsection);
