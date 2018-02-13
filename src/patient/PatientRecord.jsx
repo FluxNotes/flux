@@ -240,6 +240,22 @@ class PatientRecord {
         const allAllergies = allergies.concat(noKnownAllergies);
         return allAllergies;
     }
+
+    // returns all instances of FluxAllergyIntolerance with specificed category
+    getAllergiesByCategory(category) {
+        const allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
+        
+        // if an allergy does not have a category
+        if (category === "other") {
+            return allergies.filter((a) => {
+                return Lang.isNull(a.category);
+            });
+        }
+
+        return allergies.filter((a) => {
+            return a.category === category;
+        });
+    }
     
     getAllergiesAsText() {
         const allergies = this.getAllAllergies();
@@ -252,7 +268,7 @@ class PatientRecord {
             if (allergy instanceof FluxNoKnownAllergy) {
                 result += allergy.noKnownAllergy
             } else if (allergy instanceof FluxAllergyIntolerance) {
-                result += allergy.allergyIntolerance;
+                result += allergy.name;
             } else {
                 result += allergy.value.coding[0].displayText;
             }

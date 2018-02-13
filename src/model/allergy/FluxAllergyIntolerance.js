@@ -11,10 +11,10 @@ class FluxAllergyIntolerance {
     }
 
     /*
-     *  Getter for allergy
+     *  Getter for allergy name
      *  Returns displayText string for allergy
      */
-    get allergyIntolerance() {
+    get name() {
         return this._allergyIntolerance.value.coding[0].displayText;
     }
 

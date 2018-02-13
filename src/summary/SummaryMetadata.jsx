@@ -1,6 +1,5 @@
 import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
 import Lang from 'lodash'
 import moment from 'moment';
 
@@ -484,27 +483,27 @@ export default class SummaryMetadata {
                             {
                                 name: "Food",
                                 headings: ["Allergy", "Severity"],
-                                itemsFunction: this.getItemListForAllergies
+                                itemsFunction: this.getItemListForFoodAllergies
                             },
                             {
                                 name: "Medication",
                                 headings: ["Allergy", "Severity"],
-                                itemsFunction: this.getItemListForAllergies
+                                itemsFunction: this.getItemListForMedicationAllergies
                             },
                             {
                                 name: "Environment",
                                 headings: ["Allergy", "Severity"],
-                                itemsFunction: this.getItemListForAllergies
+                                itemsFunction: this.getItemListForEnvironmentAllergies
                             },
                             {
                                 name: "Biologic",
                                 headings: ["Allergy", "Severity"],
-                                itemsFunction: this.getItemListForAllergies
+                                itemsFunction: this.getItemListForBiologicAllergies
                             },
                             {
                                 name: "Other",
                                 headings: ["Allergy", "Severity"],
-                                itemsFunction: this.getItemListForAllergies
+                                itemsFunction: this.getItemListForOtherAllergies
                             },
                         ]
                     },
@@ -647,10 +646,30 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "",
-                                headings: ["Allergy"],
-                                itemsFunction: this.getItemListForAllergies
-                            }
+                                name: "Food",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForFoodAllergies
+                            },
+                            {
+                                name: "Medication",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForMedicationAllergies
+                            },
+                            {
+                                name: "Environment",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForEnvironmentAllergies
+                            },
+                            {
+                                name: "Biologic",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForBiologicAllergies
+                            },
+                            {
+                                name: "Other",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForOtherAllergies
+                            },
                         ]
                     },
                     {
@@ -741,13 +760,43 @@ export default class SummaryMetadata {
         });
     }
 
-    getItemListForAllergies = (patient, currentConditionEntry) => {
+    getItemListForFoodAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getAllAllergies();
-        return allergies.filter((a) => {
-            return a instanceof FluxAllergyIntolerance;
-        }).map((a) => {
-            return [{value: a.allergyIntolerance}, a.severity];
+        const allergies = patient.getAllergiesByCategory("food");
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity];
+        });
+    }
+
+    getItemListForMedicationAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergiesByCategory("medication");
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity];
+        });
+    }
+
+    getItemListForEnvironmentAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergiesByCategory("environment");
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity];
+        });
+    }
+
+    getItemListForBiologicAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergiesByCategory("biologic");
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity];
+        });
+    }
+
+    getItemListForOtherAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergiesByCategory("other");
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity];
         });
     }
 
