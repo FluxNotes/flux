@@ -198,9 +198,8 @@ class PatientRecord {
         let encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
-        
+        const now = new moment();
         return encounters.filter((encounter) => {
-            const now = new moment();
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
             return encounterStartTime.isBefore(now, "second");
         }).pop();
