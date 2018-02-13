@@ -4,11 +4,6 @@ import { setPropertiesFromJSON } from '../../json-helper';
  * Generated class for shr.condition.ClinicalStatus.
  */
 class ClinicalStatus {
-    constructor(json) {
-        if (json) {
-            this.value = json;
-        }
-    }
 
   /**
    * Get the value (aliases code).

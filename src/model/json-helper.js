@@ -1,10 +1,21 @@
-import FluxObjectFactory from './FluxObjectFactory';
 import Reference from './Reference';
 import Entry from './shr/base/Entry';
+
+// A variable to hold the root ObjectFactory.  This can be set via the exported setObjectFactory function,
+// but should typically be set by importing the module's init file.
+var OBJECT_FACTORY;
 
 // Regular expressions for parsing URIs and FQNs
 const URI_REGEX = /^http:\/\/standardhealthrecord\.org\/spec\/(.*)\/([^/]+)$/;
 const FQN_REGEX = /^((([a-z][0-9a-zA-Z-]*)\.)+)?([A-Z][0-9a-zA-Z-]+)$/;
+
+/**
+ * Sets the root ObjectFactory, which is needed for proper recursive creation of instances
+ * @param {ObjectFactory} factory - the root ObjectFactory used to create instances
+ */
+export function setObjectFactory(factory) {
+  OBJECT_FACTORY = factory;
+}
 
 /**
  * Parses the JSON and/or type to return an object with the namespace and elementName.
@@ -12,12 +23,11 @@ const FQN_REGEX = /^((([a-z][0-9a-zA-Z-]*)\.)+)?([A-Z][0-9a-zA-Z-]+)$/;
  * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
  * @returns {{namespace: string, elementName: string}} An object representing the element
  */
-function getNamespaceAndName(json={}, type) {
+export function getNamespaceAndName(json={}, type) {
   // Get the type from the JSON if we can
   if (json['shr.base.EntryType']) {
     type = json['shr.base.EntryType'].Value;
   }
-  //console.log(json['shr.base.EntryType']);
   // Ensure we have a type before proceeding
   if (!type) {
     throw new Error(`Couldn't find type for JSON: ${JSON.stringify(json)}`);
@@ -30,9 +40,8 @@ function getNamespaceAndName(json={}, type) {
     return { namespace, elementName };
   }
   // If matching on URI didn't succeed, try to match on FQN
-  const fqnMatch = type.match(FQN_REGEX); //console.log(fqnMatch)
-  if (fqnMatch) { 
-    // console.log(fqnMatch)
+  const fqnMatch = type.match(FQN_REGEX);
+  if (fqnMatch) {
     const namespace = fqnMatch[1].slice(0, -1);
     const elementName = fqnMatch[4];
     return { namespace, elementName };
@@ -49,12 +58,10 @@ function getNamespaceAndName(json={}, type) {
  * @param {object} inst - an instance of an ES6 class for a specific element
  * @param {object} json - a JSON object containing the date to set in the class
  */
-function setPropertiesFromJSON(inst, json) {
-    // console.log(json)
+export function setPropertiesFromJSON(inst, json) {
   // Loop through each key in the JSON, attempting to set it as a property on the class
   for (const key of Object.keys(json)) {
     // The key is an FQN (e.g., shr.foo.Bar), but the property is a lowercased version of the element name (e.g., bar)
-    // console.log(key)
     const property = lowerCaseFirst(key.match(FQN_REGEX)[4]);
     // First try to find and set it directly on the instance
     const setter = findSetterForProperty(inst, property);
@@ -78,7 +85,7 @@ function setPropertiesFromJSON(inst, json) {
 /**
  * Given an instance of a class and a property name, finds the setter function for that property (if it exists).
  * @param {object} inst - an instance of a class
- * @param {*} property - the name of a property
+ * @param {string} property - the name of a property
  * @returns {function} a function used to set the property on the instance
  */
 function findSetterForProperty(inst, property) {
@@ -101,7 +108,7 @@ function findSetterForProperty(inst, property) {
  * Given an instance of a class and a valid entry property name, finds the setter function for that property in the
  * class's `entryInfo` (if the class have `entryInfo` and the property exists within it).
  * @param {object} inst - An instance of a class
- * @param {*} property - The name of a property
+ * @param {string} property - The name of a property
  * @returns {function} a function used to set the property on the instance's `entryInfo`
  */
 function findSetterForEntryProperty(inst, property) {
@@ -120,9 +127,9 @@ function findSetterForEntryProperty(inst, property) {
 
 /**
  * Creates an ES6 class instance based on a value extracted from the JSON.
- * @param {*} key - the original key under which the value was stored.  This is used as a backup in case the value
+ * @param {string} key - the original key under which the value was stored.  This is used as a backup in case the value
  *   does not declare its type.
- * @param {*} value - the JSON data to create an ES6 class instance for
+ * @param {object} value - the JSON data to create an ES6 class instance for
  * @returns {object} an instance of an ES6 class representing the data
  * @private
  */
@@ -130,17 +137,19 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
-  if (typeof value === 'object') { 
-    // console.log(value)
-    if (value['shr.base.ShrId'] && value['shr.base.EntryId'] && value['shr.base.EntryType']) {
+  if (typeof value === 'object') {
+    if (value.ShrId && value.EntryId && value.EntryType) {
       // It's a reference, so just return the reference
-      return new Reference(value['shr.base.ShrId'], value['shr.base.EntryId'], value['shr.base.EntryType']);
+      return new Reference(value.ShrId, value.EntryId, value.EntryType);
     } else if (value.code && value.codeSystem) {
       // It's really the one-off representation of code.  Return just the code.  We toss codeSystem and display
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
       return value.code;
     }
-    return FluxObjectFactory.createInstance(value, key);
+    if (OBJECT_FACTORY == null) {
+      throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
+    }
+    return OBJECT_FACTORY.createInstance(value, key);
   }
   return value;
 }
@@ -157,5 +166,3 @@ function lowerCaseFirst(input) {
   }
   return input[0].toLowerCase() + input.slice(1);
 }
-
-export {getNamespaceAndName, setPropertiesFromJSON};

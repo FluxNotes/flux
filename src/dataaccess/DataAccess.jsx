@@ -1,3 +1,4 @@
+import '../model/init';
 import HardCodedReadOnlyDataSource from './HardCodedReadOnlyDataSource';
 import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';

@@ -4,6 +4,7 @@ import { setPropertiesFromJSON } from '../../json-helper';
  * Generated class for shr.medication.RouteIntoBody.
  */
 class RouteIntoBody {
+
   /**
    * Get the value (aliases codeableConcept).
    * @returns {CodeableConcept} The shr.core.CodeableConcept

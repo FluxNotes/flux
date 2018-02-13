@@ -1,3 +1,4 @@
+import '../../../src/model/init';
 import PatientRecord from '../../../src/patient/PatientRecord';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import FakeDataElement from './FakeDataElement';
