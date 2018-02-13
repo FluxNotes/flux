@@ -75,12 +75,17 @@ class SuggestionPortal extends React.Component {
     // Use new key-presses to update the current suggestion
     onKeyDown = (keyCode, data) => {
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+            const height = this.refs.suggestionPortal.offsetHeight;
+            const numberOfElementsVisible = Math.floor(height/32);
             // If up/down, change position in list
             const filteredSuggestions  = this.getFilteredSuggestions();
             const positionChange = (keyCode === DOWN_ARROW_KEY) ? +1 : -1; 
             const newIndex = this.getNewMenuPostion(positionChange);
             this.setSelectedIndex(newIndex)
             this.setCallbackSuggestion(filteredSuggestions, newIndex);
+            // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
+            // 32 is the height of each suggestion in the list, 10 allows for the margin
+            this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else {
             // Else, determine character and update suggestions accordingly
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
@@ -256,8 +261,13 @@ class SuggestionPortal extends React.Component {
             } else { 
                 menu.style.display = 'block'
                 menu.style.opacity = 1
-                menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
-                menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+                if (window.innerHeight - rect.top < 230) {
+                    menu.style.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+                    menu.style.left = `${rect.left + window.pageXOffset + 10}px` // eslint-disable-line no-mixed-operators
+                } else {
+                    menu.style.top = `${rect.top + window.pageYOffset}px` // eslint-disable-line no-mixed-operators
+                    menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
+                }
             }
         }
     }
@@ -289,7 +299,7 @@ class SuggestionPortal extends React.Component {
 
         return (
             <Portal isOpened onOpen={this.openPortal}>
-                <div className="suggestion-portal">
+                <div className="suggestion-portal" ref="suggestionPortal">
                     <ul>
                         {filteredSuggestions.map((suggestion, index) =>
                             <SuggestionItem
