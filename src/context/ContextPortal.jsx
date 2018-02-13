@@ -201,10 +201,12 @@ class ContextPortal extends React.Component {
         const TYPE_CALENDAR = 1;
         const { contexts } = this.props;
         let type;
+        let className = "context-portal";
         if (Lang.isNull(contexts)) return null;
         
         if (Lang.isArray(contexts)) {
             type = TYPE_LIST;
+            className += " scrollable";
         } else if (contexts === "date-id") {
             type = TYPE_CALENDAR;
         } else {
@@ -219,7 +221,7 @@ class ContextPortal extends React.Component {
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
-                <div className="context-portal" ref="contextPortal">
+                <div className={className} ref="contextPortal">
                     {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>
