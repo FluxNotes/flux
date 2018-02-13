@@ -172,8 +172,9 @@ class PatientRecord {
 
         // filter out any encounters happening after the specified moment argument
         return encounters.filter((encounter) => {
+            const now = new moment();
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
-            return encounterStartTime.isAfter(new moment(), "second");
+            return encounterStartTime.isAfter(now, "second");
         })[0];
     }
 
@@ -197,10 +198,12 @@ class PatientRecord {
         let encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
+        
         return encounters.filter((encounter) => {
+            const now = new moment();
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
-            return encounterStartTime.isBefore(new moment(), "second");
-        })[0];
+            return encounterStartTime.isBefore(now, "second");
+        }).pop();
         
         
     }
