@@ -19,6 +19,16 @@ class FluxAllergyIntolerance {
     }
 
     /*
+     *  Getter for category
+     *  Returns first category in substanceCategory array
+     *  Returns null if no substanceCategory or array is empty
+     */
+    get category() {
+        if (!this._allergyIntolerance.substanceCategory || this._allergyIntolerance.substanceCategory.length === 0) return null;
+        return this._allergyIntolerance.substanceCategory[0].code;
+    }
+
+    /*
      *  Getter for severity of allergy
      *  Returns the string of the most severe adverse reaction
      *  Possible return values are Mild, Moderate, Severe

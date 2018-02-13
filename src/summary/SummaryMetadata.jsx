@@ -482,10 +482,30 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "",
-                                headings: ["Allergy"],
+                                name: "Food",
+                                headings: ["Allergy", "Severity"],
                                 itemsFunction: this.getItemListForAllergies
-                            }
+                            },
+                            {
+                                name: "Medication",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForAllergies
+                            },
+                            {
+                                name: "Environment",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForAllergies
+                            },
+                            {
+                                name: "Biologic",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForAllergies
+                            },
+                            {
+                                name: "Other",
+                                headings: ["Allergy", "Severity"],
+                                itemsFunction: this.getItemListForAllergies
+                            },
                         ]
                     },
                     {
@@ -723,11 +743,11 @@ export default class SummaryMetadata {
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getAllergies();
+        const allergies = patient.getAllAllergies();
         return allergies.filter((a) => {
             return a instanceof FluxAllergyIntolerance;
         }).map((a) => {
-            return [{value: a.allergyIntolerance}];
+            return [{value: a.allergyIntolerance}, a.severity];
         });
     }
 

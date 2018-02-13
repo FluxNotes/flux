@@ -234,7 +234,7 @@ class PatientRecord {
         return conditions;
     }
     
-    getAllergies() {
+    getAllAllergies() {
         let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
         const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
         const allAllergies = allergies.concat(noKnownAllergies);
@@ -242,7 +242,7 @@ class PatientRecord {
     }
     
     getAllergiesAsText() {
-        const allergies = this.getAllergies();
+        const allergies = this.getAllAllergies();
         let result = "";
         let first = true;
         allergies.forEach((allergy, index) => {
