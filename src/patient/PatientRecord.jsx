@@ -168,25 +168,22 @@ class PatientRecord {
 
     // return the soonest upcoming encounter. Includes encounters happening later today.
     getNextEncounter(){
-        return this.getEncountersChronologicalOrder(new moment())[0];
-    }
+        let encounters = this.getEncountersChronologicalOrder();
 
-    // returns a list of upcoming encounters after the date and time of afterDateTime
-    // this includes encounters scheduled for later in the same day
-    getEncountersChronologicalOrder(afterDateTime = null){
-        let encounters = this.getEntriesOfType(FluxEncounterRequested);
-        encounters.sort(this._encounterTimeSorter);
-
-        // no date provided, return entire list
-        if(Lang.isNull(afterDateTime)){
-            return encounters;
-        }
-
-        // filter out any encounters happening before the specified afterDateTime argument
+        // filter out any encounters happening after the specified moment argument
         return encounters.filter((encounter) => {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
-            return encounterStartTime.isAfter(afterDateTime, "second");
-        });
+            return encounterStartTime.isAfter(new moment(), "second");
+        })[0];
+    }
+
+    // returns sorted list of encounters
+    getEncountersChronologicalOrder(){
+        let encounters = this.getEntriesOfType(FluxEncounterRequested);
+        encounters.sort(this._encounterTimeSorter);
+        return encounters;
+
+
     }
 
     getNextEncounterReason() {
@@ -194,6 +191,23 @@ class PatientRecord {
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
         return nextEncounter.reason;
+    }
+    
+    getPreviousEncounter(){
+        let encounters = this.getEncountersChronologicalOrder();
+
+        // filter out any encounters happening before the specified moment argument
+        return encounters.filter((encounter) => {
+            const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
+            return encounterStartTime.isBefore(new moment(), "second");
+        })[0];
+        
+        
+    }
+    
+    getPreviousEncounterReason(){
+        const previousEncounter = this.getPreviousEncounter();
+        return previousEncounter.reason;
     }
 
     getConditions() {

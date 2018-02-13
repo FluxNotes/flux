@@ -38,6 +38,7 @@ class SummaryMetadata {
                 sections: [
                     {
                         name: "Visit Reason",
+                        clinicalEvents: ["pre-encounter"],
                         type: "NarrativeOnly", 
                         narrative: [
                             {
@@ -65,6 +66,36 @@ class SummaryMetadata {
                             }
                         ]
                     },
+                    {
+                        name: "Visit Reason",
+                        clinicalEvents: ["post-encounter"],
+                        type: "NarrativeOnly", 
+                        narrative: [
+                            {
+                                defaultTemplate: "${Reason.Reason}",
+                                dataMissingTemplate: "No recent ${Reason.Reason}",
+                                useDataMissingTemplateCriteria: [
+                                    "Reason.Reason"
+                                ]
+                            },
+                        ],
+                        data: [
+                            {
+                                name: "Reason",
+                                items: [ 
+                                    {
+                                        name: "Reason",
+                                        value: (patient, currentConditionEntry) => {
+                                            const previousEncounter = patient.getPreviousEncounter();
+                                            if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
+                                            return patient.getPreviousEncounter().reason;
+                                        },
+                                        shortcut: "@reason for previous visit"
+                                    }
+                                ]
+                            }
+                        ]
+                    },                    
                     {
                         name: "Summary",
                         type: "NameValuePairs",
