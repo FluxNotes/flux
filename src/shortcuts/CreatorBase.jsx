@@ -371,7 +371,8 @@ export default class CreatorBase extends Shortcut {
                     this.callMethod(patient, updatePatientSpec);
                 });
             } else {
-                patient.addEntryToPatientWithPatientFocalSubject(this.object);
+                // todo maybe add a boolean here for signed-ness. true or false?
+                patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
             }
             this.isObjectNew = false;
         }

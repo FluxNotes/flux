@@ -38,13 +38,46 @@ class PatientRecord {
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
+        this.unsignedEntries = {};
     }
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
 			return FluxObjectFactory.createInstance(entry);
         });
-	}
+    }
+    // Greg says that adding to the data structure should only happen when updatePatient() is called.
+    // of course, not when constructed from hard coded patient.
+    // and checking the structure should happen whenever it's displayed
+    
+    // When typing a note creates an entry, it is not yet signed and this function is invoked.
+    markUnsigned(entry) {
+        console.log("Before set:");
+        console.log(this.unsignedEntries[key]);
+        // Stores a flag in a sparse data structure that indicates that this entry is unsigned
+        var key = entry.shrId + ":" + entry.entryId;
+        this.unsignedEntries[key] = true;
+    }
+
+    // when an
+    markSigned(entry){
+        // Removes the flag that indicates that this entry is unsigned
+        // Has to handle the case where something doesn't exist in unsignedEntries
+        var key = entry.shrId + ":" + entry.entryId;
+        delete this.unsignedEntries[key];
+        console.log("After delete:");
+        console.log(this.unsignedEntries[key]);
+    }
+
+    // Returns true if the entry is unsigned, false otherwise
+    isUnsigned(entry){
+        var key = entry.shrId + ":" + entry.entryId;
+        // todo verify assumption that before it is set, and after a delete, it is Undefined.
+        if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
+            return true;
+        }
+        return false;
+    }
 	
 	fromFHIR(fhirJson) {
 		// loop through each FHIR entry
@@ -80,7 +113,7 @@ class PatientRecord {
         }
     }
 
-    addEntryToPatient(entry) {
+    addEntryToPatient(entry, signed = true) { // TODO determine if a default value makes sense
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
@@ -91,13 +124,18 @@ class PatientRecord {
         entry.entryInfo.lastUpdated.instant = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
+        if(Lang.isEqual(signed, false)){
+            this.markUnsigned(entry);
+        } else{
+            this.markSigned(entry);
+        }
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
         return entry.entryInfo.entryId;
     }
 
-    addEntryToPatientWithPatientFocalSubject(entry) {
+    addEntryToPatientWithPatientFocalSubject(entry, signed) { 
         //entry.personOfRecord = this.patientReference;
-        return this.addEntryToPatient(entry);
+        return this.addEntryToPatient(entry, signed);
     }
 
     setDeceased(deceased) {
@@ -368,8 +406,13 @@ class PatientRecord {
                 "signed": signed
             }
         );
+        
+        if(Lang.isEqual(signed, false)){
+            // store in data structure
+            //this.markUnsigned()// need entryId which is generated in returned method
+        }
 
-        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote);
+        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed);
     }
 
     getNotes() {
