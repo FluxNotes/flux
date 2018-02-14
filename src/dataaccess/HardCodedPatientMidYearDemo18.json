@@ -316,18 +316,27 @@
         "shr.base.EntryId": "9",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "42512", "shr.core.DisplayText": {"Value": "Adriamycin"}}]}},
+        "shr.entity.MedicationOrCode": {
+            "Value": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                "shr.core.Coding": [
+                    {   "Value": "3002", 
+                        "shr.core.DisplayText": {"Value": "Cyclophosphamide"}
+                    }
+                ]
+            }
+        },
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
-                    "Value": 6,
+                    "Value": 600,
                     "shr.core.Units": {
                         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
                         "Value": {
                             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
-                            "Value": "10^9/L"
+                            "Value": "mg/m^2"
                         }
                     }
                 }
@@ -388,7 +397,9 @@
         "shr.base.EntryId": "10",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "3002", "shr.core.DisplayText": {"Value": "Cyclophosphamide"}}]}},
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "3002", 
+            "shr.core.DisplayText": {"Value": "Cyclophosphamide"}}]}},
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
@@ -460,7 +471,8 @@
         "shr.base.EntryId": "11",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "10324", "shr.core.DisplayText": {"Value": "Tamoxifen"}}]}},
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "10324", 
+            "shr.core.DisplayText": {"Value": "Tamoxifen"}}]}},
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
@@ -542,7 +554,8 @@
         "shr.base.EntryId": "12",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "72965", "shr.core.DisplayText": {"Value": "Letrozole"}}]}},
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "72965", 
+            "shr.core.DisplayText": {"Value": "Letrozole"}}]}},
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
@@ -624,7 +637,8 @@
         "shr.base.EntryId": "13",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "202421", "shr.core.DisplayText": {"Value": "Coumadin"}}]}},
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "202421", 
+            "shr.core.DisplayText": {"Value": "Coumadin"}}]}},
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
@@ -706,7 +720,8 @@
         "shr.base.EntryId": "14",
         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"},
         "shr.base.PersonOfRecord": { "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "shr.base.EntryId": "1" },
-        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "262105", "shr.core.DisplayText": {"Value": "Aromasin"}}]}},
+        "shr.entity.MedicationOrCode": {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "262105", 
+            "shr.core.DisplayText": {"Value": "Aromasin"}}]}},
         "shr.medication.Dosage": {
             "shr.medication.DoseAmount": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
@@ -1222,7 +1237,7 @@
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "12 MAR 2018 15:00 -0500"
+                "Value": "12 FEB 2018 15:00 -0500"
             },
             "shr.action.RequestIntent": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
@@ -1230,15 +1245,15 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": "Ms. Ortiz111 is coming in to see Dr. X123 Y987 for a regular check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                "Value": "Ms. Ortiz111 had a breast cancer follow up"
             }]
         },
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
             "Value": "01 JAN 2018"
         },
-        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
-        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+        "shr.core.CreationTime": {"Value": "12 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "12 FEB 2018"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1251,7 +1266,7 @@
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "28 FEB 2018 16:00 -0500"
+                "Value": "28 FEB 2018 18:00 -0500"
             },
             "shr.action.RequestIntent": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
@@ -1259,14 +1274,14 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": "Ms. Ortiz111 is coming in to see Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+                "Value": "Ms. Ortiz111 has a breast cancer follow up"
             }]
         },
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
             "Value": "02 JAN 2018"
         },
-        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
-        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+        "shr.core.CreationTime": {"Value": "02 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "28 FEB 2018"}
     }
 ]
