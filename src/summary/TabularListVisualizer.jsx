@@ -132,7 +132,7 @@ class TabularListVisualizer extends Component {
             subsectionname = <tr><td className="list-subsection-header">{transformedSubsection.name}</td></tr>;
         }
         if (list.length <= 0) {
-            return <div key={subsectionindex}>{subsectionname}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            return <div key={subsectionindex}><table><tbody>{subsectionname}</tbody></table><h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
         let headings = null;
         if (transformedSubsection.headings) {
@@ -278,6 +278,7 @@ class TabularListVisualizer extends Component {
             const colSize = (100 / numColumns) + "%";
             
             item.forEach((element, arrayIndex) => {
+                const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
                 elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
@@ -286,7 +287,7 @@ class TabularListVisualizer extends Component {
                         <td 
                             className={"list-missing"} 
                             data-test-summary-item={item[0]} 
-                            key={index + "-item-" + arrayIndex}
+                            key={elementId}
                         >   
                             <span>
                                 Missing Data
@@ -299,7 +300,6 @@ class TabularListVisualizer extends Component {
                     // 2. Element type is string, the value is just the string
 
                     // Make unique id for each value
-                    const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
                     columnItem = (
                         <td width={colSize}
                             className={itemClass} 
@@ -311,7 +311,7 @@ class TabularListVisualizer extends Component {
                 } else if (!isInsertable) {
                     columnItem = (
                         <td width={colSize}
-                            key={index + "-item-" + arrayIndex}
+                            key={elementId}
                         >
                             <span>
                                 {elementText}
@@ -323,7 +323,7 @@ class TabularListVisualizer extends Component {
                         <td width={colSize}
                             className={itemClass} 
                             data-test-summary-item={item[0].value} 
-                            key={index + "-item-" + arrayIndex}
+                            key={elementId}
                         >
                             <span>
                                 {elementText}
@@ -333,10 +333,10 @@ class TabularListVisualizer extends Component {
                 }
                 renderedColumns.push(columnItem);
             });
-            
+
             return (
                 <tr 
-                    key={index} 
+                    key={`${subsectionindex}-${index}-item`} 
                     className={rowClass}
                 >
                     {renderedColumns}  
