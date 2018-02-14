@@ -1322,7 +1322,7 @@
         },
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
         "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
-    },
+    },    
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
         "shr.base.EntryId": "33",
@@ -1334,7 +1334,36 @@
             "shr.action.Status": { "Value": "active" },
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "28 FEB 2018 16:00 -0500"
+                "Value": "12 FEB 2018 16:00 -0500"
+            },
+            "shr.action.RequestIntent": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
+                "Value": "plan"
+            },
+            "shr.core.Reason": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": "Debra Hernandez672 saw Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
+            }
+        },
+        "shr.encounter.ReferralDate": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
+            "Value": "02 JAN 2018"
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },    
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "33",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1" },
+        "shr.action.ActionContext": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
+            "shr.action.Status": { "Value": "active" },
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "28 FEB 2018 18:00 -0500"
             },
             "shr.action.RequestIntent": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
