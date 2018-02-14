@@ -398,5 +398,21 @@
       }
     ],
     "knownParentContexts": "Patient"
+  },
+  {
+    "type": "InsertValue",
+    "id": "ReasonForPreviousVisitInserter",
+    "getData": {
+      "object": "patient",
+      "method": "getPreviousEncounterReason"
+    },
+    "isContext": false,
+    "stringTriggers": [
+      {
+        "name": "@reason for previous visit",
+        "description": "Insert reason for patient's previous visit"
+      }
+    ],
+    "knownParentContexts": "Patient"
   }
 ]
