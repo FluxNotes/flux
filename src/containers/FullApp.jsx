@@ -7,7 +7,8 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Lang from 'lodash';
 
-import DashboardManager from '../dashboard/DashboardManager'
+import SecurityManager from '../security/SecurityManager';
+import DashboardManager from '../dashboard/DashboardManager';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
@@ -43,6 +44,7 @@ export default class FullApp extends Component {
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
+        this.securityManager = new SecurityManager();
 
         this.state = {
             clinicalEvent: "post-encounter",
@@ -55,11 +57,24 @@ export default class FullApp extends Component {
             patient: patient,
             selectedText: null,
             documentText: null,
-            superRole: 'Clinician',
+            loginUser: "",
+            superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
             noteClosed: false,
+
         };
+    }
+
+    // On component mount, grab the username of the logged in user
+    componentDidMount() {
+        const userProfile = this.securityManager.getUserProfile();
+
+        if (userProfile) {
+            this.setState({loginUser: userProfile.getUserName()});
+        } else {
+            console.error("Login failed");
+        }
     }
 
     // pass this function to children to set full app global state
@@ -152,6 +167,8 @@ export default class FullApp extends Component {
     }
 
     render() {
+
+
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
         return (
@@ -163,6 +180,7 @@ export default class FullApp extends Component {
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     supportLogin={true}
+                                    loginUser={this.state.loginUser}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
                                     clinicalEvent={this.state.clinicalEvent}
@@ -176,6 +194,7 @@ export default class FullApp extends Component {
                             // App default settings
                             title={this.props.display}
                             supportLogin={true}
+                            loginUser={this.state.loginUser}
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             dataAccess={this.dataAccess}
                             summaryMetadata={this.summaryMetadata}

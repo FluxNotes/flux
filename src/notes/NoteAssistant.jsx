@@ -66,13 +66,29 @@ export default class NoteAssistant extends Component {
         this.props.closeNote(this.closeNote);
     }
 
+    // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
+    notesTimeSorter(a, b) {
+        const a_startTime = new moment(a.date, "D MMM YYYY");
+        const b_startTime = new moment(b.date, "D MMM YYYY");
+        if (a_startTime > b_startTime) {
+            return -1;
+        }
+        if (a_startTime < b_startTime) {
+            return 1;
+        }
+
+        return 0;
+    }
+
     getNotesFromPatient(props) {
         // Generate notesToDisplay array which will be used to render the notes in clinical notes view
         let allNotes = props.patient.getNotes();
         let signedNotes = Lang.filter(allNotes, o => o.signed);
+        signedNotes.sort(this.notesTimeSorter);
         let unsignedNotes = Lang.filter(allNotes, o => !o.signed);
         const maxNotes = Math.min(this.state.maxNotesToDisplay, signedNotes.length);
         this.notesToDisplay = [];
+
         for (let i = 0; i < maxNotes; i++) {
             this.notesToDisplay.push(signedNotes[i]);
         }
@@ -146,7 +162,7 @@ export default class NoteAssistant extends Component {
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber";
-        let clinician = "Dr. X123";
+        let clinician = this.props.loginUser;
         let signed = false;
 
         // Add new unsigned note to patient record
@@ -166,12 +182,13 @@ export default class NoteAssistant extends Component {
         let emptyNote = "";
         this.toggleView("context-tray");
         this.props.loadNote(emptyNote);
+        this.props.setFullAppState("noteClosed", false);
 
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
         let hospital = "Dana Farber";
-        let clinician = "Dr. X123";
+        let clinician = this.props.loginUser;
         let content = emptyNote;
         let signed = false;
 
@@ -299,7 +316,7 @@ export default class NoteAssistant extends Component {
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
         // if we have closed the note, selected = false
-        if(Lang.isEqual(this.props.noteClosed, true)){
+        if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
@@ -350,7 +367,7 @@ export default class NoteAssistant extends Component {
     renderClinicalNote(item, i) {
         let selected = Lang.isEqual(this.props.selectedNote, item);
         // if we have closed the note, selected = false
-        if(Lang.isEqual(this.props.noteClosed, true)){
+        if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 

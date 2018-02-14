@@ -579,7 +579,7 @@ test('Clicking on an in-progress note in post encounter mode loads the note in t
     const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
-    
+
     // Enter some text in the editor
     await t
         .typeText(editor, "This is a note.");
@@ -643,14 +643,44 @@ test('Clicking on an in-progress note shows the sign note button', async t => {
         .ok()
 });
 
-// Verifies automatic saving
-test('Contents of in-progress note saved when switching to a completed note and back', async t => {
-     const editor = Selector("div[data-slate-editor='true']");
+test('Clicking on the sign note button moves the note from in progress notes to existing notes', async t => {
     const clinicalNotesButton = Selector('#notes-btn');
     const newNoteButton = Selector('.note-new');
     const inProgressNotes = Selector('.in-progress-note');
-        const note = Selector('.existing-note');
-    
+    const signNoteButton = Selector('.btn_finish');
+
+    // Click clinical notes button
+    await t
+        .click(clinicalNotesButton);
+
+    // Click "New note" button
+    await t
+        .click(newNoteButton)
+        .click(clinicalNotesButton);
+
+    // Get the current number of in-progress notes
+    const inProgressNotesLength = await inProgressNotes.count;
+
+    // Click "Sign note" button
+    await t
+        .click(signNoteButton);
+
+    // Get the updated number of in-progress notes
+    const updatedInProgressNotesLength = await inProgressNotes.count;
+
+    // There should be one less in-progress notes
+    await t
+        .expect(updatedInProgressNotesLength)
+        .eql(inProgressNotesLength - 1);
+});
+
+// Verifies automatic saving
+test('Contents of in-progress note saved when switching to a completed note and back', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    const clinicalNotesButton = Selector('#notes-btn');
+    const inProgressNotes = Selector('.in-progress-note');
+    const note = Selector('.existing-note');
+
     // Enter some text in the editor
     await t
         .typeText(editor, "This is a note.");
