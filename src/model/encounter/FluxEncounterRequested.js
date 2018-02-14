@@ -9,7 +9,7 @@ class FluxEncounterRequested {
         return this._encounterRequested.entryInfo;
     }
 
-    get reason() {
+    get reasons() {
         return this._encounterRequested.actionContext.reason;
     }
 

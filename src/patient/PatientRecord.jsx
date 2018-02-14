@@ -193,10 +193,10 @@ class PatientRecord {
         if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
-        return nextEncounter.reason.map((r) => { return r.value; }).join(',');
+        return nextEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
     
-    getPreviousEncounter(){
+    getPreviousEncounter() {
         let encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
@@ -205,13 +205,12 @@ class PatientRecord {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
             return encounterStartTime.isBefore(now, "second");
         }).pop();
-        
-        
     }
     
-    getPreviousEncounterReason(){
+    getPreviousEncounterReasonAsString() {
         const previousEncounter = this.getPreviousEncounter();
-        return previousEncounter.reason;
+        if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
+        return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
 
     getReviewOfSystems() {

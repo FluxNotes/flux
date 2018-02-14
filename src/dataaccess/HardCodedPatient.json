@@ -49,7 +49,7 @@
         "identifierType": "MRN",
         "value": "026-DH-678944",
         "fictionalPerson": true,
-        "shr.base.CreationTime": {"Value": "13 JAN 2012" },
+        "shr.core.CreationTime": {"Value": "13 JAN 2012" },
         "shr.base.LastUpdated": {"Value": "13 JAN 2012" }
     },
     {
@@ -62,7 +62,7 @@
         "hospital": "Dana Farber",
         "clinician": "Dr. Smith",
         "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
-        "shr.base.CreationTime": {"Value": "02 AUG 2015"},
+        "shr.core.CreationTime": {"Value": "02 AUG 2015"},
         "shr.base.LastUpdated": {"Value": "02 AUG 2015"},
         "signed": true
     },
@@ -76,7 +76,7 @@
         "hospital": "Dana Farber",
         "clinician": "Dr. Zheng",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has staging values T1 N1 and M0, corresponding to stage IIA.",
-        "shr.base.CreationTime": {"Value": "12 JUL 2012"},
+        "shr.core.CreationTime": {"Value": "12 JUL 2012"},
         "shr.base.LastUpdated": {"Value": "12 JUL 2012"},
         "signed": true
     },
@@ -90,7 +90,7 @@
         "hospital": "Brigham and Women's",
         "clinician": "Dr. Smith",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
-        "shr.base.CreationTime": {"Value": "20 JUN 2012"} ,
+        "shr.core.CreationTime": {"Value": "20 JUN 2012"} ,
         "shr.base.LastUpdated":{"Value": "20 JUN 2012"},
         "signed": true
     },
@@ -104,7 +104,7 @@
         "hospital": "Dana Farber",
         "clinician": "Dr. Strauss",
         "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the clinical trial PATINA on 12/24/2017.",
-        "shr.base.CreationTime": {"Value":"16 MAY 2012"},
+        "shr.core.CreationTime": {"Value":"16 MAY 2012"},
         "shr.base.LastUpdated": {"Value": "16 MAY 2012"},
         "signed": true
     },
@@ -535,12 +535,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 5 },
         "shr.base.Author": { "Value": "Dr. ABC123" },
@@ -607,12 +607,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 2 },
         "shr.base.Author": { "Value": "Dr. ABC123" },
@@ -689,12 +689,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 0 },
         "shr.base.Author": { "Value": "Dr. XYZ987" },
@@ -771,12 +771,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 2 },
         "shr.base.Author": { "Value": "Dr. ABC123" },
@@ -853,12 +853,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 5 },
         "shr.base.Author": { "Value": "Dr. XYZ987" },
@@ -935,12 +935,12 @@
             },
             "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-                "Value": [{
+                "Value": {
                         "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                         "EntryId": "8"
-                }]
-            }
+                }
+            }]
         },
         "shr.medication.NumberOfRefillsAllowed": { "Value": 3 },
         "shr.base.Author": { "Value": "Dr. ABC123" },
@@ -955,17 +955,18 @@
         "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0024671", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Mammography"}}]}},
         "shr.action.ActionContext": { 
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
-        "shr.action.Status": {"Value": "completed"},
-        "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2012"},
-        "shr.core.Reason": [{
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2012"},
+            "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
+               "Value": {
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                        "EntryId": "8"
-               }]
-           }},
+               }
+           }]
+        },
         "shr.core.CreationTime": { "Value": "13 JAN 2012"},
         "shr.base.LastUpdated": { "Value": "13 JAN 2012"}        
     },
@@ -977,26 +978,27 @@
         "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
         "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0454059", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Radiation therapy procedure or service"}}]}},
         "shr.action.ActionContext": { 
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
-        "shr.action.Status": {"Value": "completed"},
-        "shr.action.ExpectedPerformanceTime": {
-            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-            "Value": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
-                "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
-            }
-        },
-        "shr.core.Reason": [{
-           "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-           "Value": [{
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {"Value": "12 JUL 2012"},
+                    "shr.core.TimePeriodEnd": {"Value": "16 AUG 2012"}
+                }
+            },
+            "shr.core.Reason": [{
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+                "Value": {
                    "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                    "EntryId": "8"
+                }
             }]
-        }},
+        },
         "shr.core.CreationTime": { "Value": "02 JUL 2012"},
-        "shr.base.LastUpdated": { "Value": "02 JUL 2012"}            
+        "shr.base.LastUpdated": { "Value": "02 JUL 2012"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1011,12 +1013,12 @@
         "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
+               "Value": {
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                        "EntryId": "8"
-               }]
-           }},
+               }
+           }]},
         "shr.core.CreationTime": { "Value": "20 SEP 2012"},
         "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
     },
@@ -1033,12 +1035,13 @@
         "shr.action.ExpectedPerformanceTime": {"Value": "20 SEP 2012"},
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
+               "Value": {
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                        "EntryId": "8"
-               }]
-           }},
+               }
+           }]
+        },
         "shr.core.CreationTime": { "Value": "20 SEP 2012"},
         "shr.base.LastUpdated": { "Value": "20 SEP 2012"}        
     },       
@@ -1055,12 +1058,12 @@
         "shr.action.ExpectedPerformanceTime": {"Value": "04 OCT 2013"},
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
+               "Value": {
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                        "EntryId": "8"
-               }]
-           }},
+               }
+           }]},
         "shr.core.CreationTime": { "Value": "04 OCT 2013"},
         "shr.base.LastUpdated": { "Value": "04 OCT 2013"}        
     },        
@@ -1258,12 +1261,12 @@
             "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2018"},
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
-               "Value": [{
+               "Value": {
                        "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
                        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                        "EntryId": "27"
-               }]
-           }},
+               }
+           }]},
         "shr.core.CreationTime": { "Value": "13 JAN 2018"},
         "shr.base.LastUpdated": { "Value": "13 JAN 2018"}        
     },
@@ -1434,10 +1437,10 @@
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestIntent" },
                 "Value": "plan"
             },
-            "shr.core.Reason": {
+            "shr.core.Reason": [{
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "Debra Hernandez672 saw Dr. X123 Y987 for a check up on the progress of her treatment for Invasive ductal carcinoma of the breast"
-            }
+            }]
         },
         "shr.encounter.ReferralDate": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate" },
