@@ -95,33 +95,24 @@ test('Clicking "New Note" button in pre-encounter mode changes layout and displa
 fixture('Patient Mode - Minimap')
     .page(startPage);
 
-test('Section shortnames are used when minimap section too small for long section names', async t => {
+test.only('Section shortnames are used when minimap section too small for long section names', async t => {
     const visitReasonSection = Selector('.minimap-children').find('div').withText('Visit Reason');
-    const reasonSection = Selector('.minimap-children').find('div').withText(/^Reason$/);
+    const reasonSection = Selector('.minimap-children').find('div').withText('Reason');
 
     // Check long name exists and short name does not
     await t
-        .maximizeWindow()
         .expect(visitReasonSection.exists).ok();
-
-    await t
-        .expect(reasonSection.exists).notOk();
 
     // Resize window to small size, check short name exists and long name does not
     await t
         .resizeWindow(200, 100)
-        .expect(reasonSection.exists).ok();
-
-    await t
+        .expect(reasonSection.exists).ok()
         .expect(visitReasonSection.exists).notOk();
 
     // Maximize window, check long name exists and short name does not
     await t
         .maximizeWindow()
         .expect(visitReasonSection.exists).ok();
-
-    await t
-        .expect(reasonSection.exists).notOk();
 });
 
 
