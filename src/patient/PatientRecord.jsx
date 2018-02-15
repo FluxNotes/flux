@@ -241,6 +241,24 @@ class PatientRecord {
         return allAllergies;
     }
 
+    getDrugAllergies() {
+        const allergies = this.getAllAllergies();
+        return allergies.filter((a) => {
+            return (
+                (a instanceof FluxNoKnownAllergy && a.code === "409137002") ||
+                (a instanceof FluxAllergyIntolerance && a.category === "medication")
+            );
+        });
+    }
+
+    getNonDrugAllergies() {
+        const drugAllergies = this.getDrugAllergies();
+
+        return this.getAllAllergies().filter((a) => {
+            return !drugAllergies.includes(a);
+        });
+    }
+
     // returns all instances of FluxAllergyIntolerance with specificed category
     getAllergiesByCategory(category) {
         const allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);

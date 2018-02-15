@@ -16,6 +16,13 @@ class FluxNoKnownAllergy {
     get noKnownAllergy() {
         return this._noKnownAllergy.value.coding[0].displayText;
     }
+
+    /*
+     *  Getter for code
+     */
+    get code() {
+        return this._noKnownAllergy.value.coding[0].code;
+    }
 }
 
 export default FluxNoKnownAllergy;
