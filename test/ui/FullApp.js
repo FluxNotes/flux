@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, ClientFunction } from 'testcafe';
 import hardCodedPatient from '../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../src/patient/PatientRecord.jsx';
 import '../../src/model/init';
@@ -89,30 +89,6 @@ test('Clicking "New Note" button in pre-encounter mode changes layout and displa
 
     await t
         .expect(editor.exists).ok();
-});
-
-
-fixture('Patient Mode - Minimap')
-    .page(startPage);
-
-test.only('Section shortnames are used when minimap section too small for long section names', async t => {
-    const visitReasonSection = Selector('.minimap-children').find('div').withText('Visit Reason');
-    const reasonSection = Selector('.minimap-children').find('div').withText('Reason');
-
-    // Check long name exists and short name does not
-    await t
-        .expect(visitReasonSection.exists).ok();
-
-    // Resize window to small size, check short name exists and long name does not
-    await t
-        .resizeWindow(200, 100)
-        .expect(reasonSection.exists).ok()
-        .expect(visitReasonSection.exists).notOk();
-
-    // Maximize window, check long name exists and short name does not
-    await t
-        .maximizeWindow()
-        .expect(visitReasonSection.exists).ok();
 });
 
 

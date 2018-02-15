@@ -43,7 +43,7 @@ export default class SummaryMetadata {
                         name: "Visit Reason",
                         shortName: "Reason",
                         clinicalEvents: ["pre-encounter"],
-                        type: "NarrativeOnly", 
+                        type: "NarrativeOnly",
                         narrative: [
                             {
                                 defaultTemplate: "${Reason.Reason}",
@@ -72,8 +72,9 @@ export default class SummaryMetadata {
                     },
                     {
                         name: "Visit Reason",
+                        shortName: "Reason",
                         clinicalEvents: ["post-encounter"],
-                        type: "NarrativeOnly", 
+                        type: "NarrativeOnly",
                         narrative: [
                             {
                                 defaultTemplate: "${Reason.Reason}",
@@ -86,7 +87,7 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "Reason",
-                                items: [ 
+                                items: [
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
@@ -99,7 +100,7 @@ export default class SummaryMetadata {
                                 ]
                             }
                         ]
-                    },                    
+                    },
                     {
                         name: "Summary",
                         shortName: "Summary",
