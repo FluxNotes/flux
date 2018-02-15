@@ -5,6 +5,7 @@ import moment from 'moment';
 
 class FluxClinicalNote {
     constructor(json) {
+   //     console.log(json);
         this._entryInfo = new Entry();
         this._entryInfo.shrId = json['shr.base.ShrId'];
         this._entryInfo.entryId = json['shr.base.EntryId'];

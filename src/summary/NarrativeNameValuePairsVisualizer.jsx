@@ -25,6 +25,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         if all the objects in useDataMissingTemplateCriteria are null, function will return dataMissingTemplate
         otherwise, defaultTemplate is returned
     */
+    //todo create a new category in here based on isUnsigned results. if data is unsigned return dataUnsignedTemplate
     getTemplate(subsections, sentenceObject) {
         if (Lang.isNull(sentenceObject.dataMissingTemplate) || Lang.isUndefined(sentenceObject.dataMissingTemplate)) {
             return sentenceObject.defaultTemplate;
@@ -140,6 +141,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         value = "missing";
                         type = "missing-data";
                         result.push( { text: value, type: type } );
+                        // add an else-if here? and 'subsections' should contain the unsigned-ness
                     } else {
                         first = true;
                         list.forEach(_addListItemToResult);
@@ -150,7 +152,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 valueName = valueSpec.substring(index + 1);
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
-                if (item.value) {
+                console.log(item); // should set a new item.unsigned or something
+                if(item.value && (item.value.indexOf(" false") !== -1 || item.value.indexOf(" true") !== -1)){ //in band signalling at first
+                    value = item.value.substring(0, item.value.length-5);
+                    type = "unsigned-data";
+                }else if (item.value) {
                     value = item.value;
                     type = "structured-data";
                 } else {
@@ -187,7 +193,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             const template = this.getTemplate(subsections, sentenceObject);
             narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
         });
-
+        console.log(subsections);
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 

@@ -210,6 +210,8 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
+        console.log("choseSuggestedShortcut()");
+        console.log(shortcut);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
         } else {
@@ -224,6 +226,9 @@ class FluxNotesEditor extends React.Component {
             transform = this.state.state.transform();
         }
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
+        console.log("insertShortcut()"); // should this be added as a e.g. Staging entry to Patient? I think it's at the level of ClinicalNote entries only, signed=true is at the end of each.
+        // why do we need a separate data structure if we are saving every keystroke with signed=false? just reference that..
+        console.log(shortcut);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
 //            console.log(text);
             if (text.length > 0) {

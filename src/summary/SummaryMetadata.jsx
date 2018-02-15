@@ -111,7 +111,7 @@ export default class SummaryMetadata {
                             },
                             {
                                 defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}",
-                                dataMissingTemplate: "No recent ${disease status}",
+                                dataMissingTemplate: "No recent ${disease status}", //this gets activated with red underlines when not present. i need a new category of dataUnsigned
                                 useDataMissingTemplateCriteria: [
                                     "Current Diagnosis.As Of Date",
                                     "Current Diagnosis.Disease Status",
@@ -146,9 +146,16 @@ export default class SummaryMetadata {
                                     {
                                         name: "Stage",
                                         value: (patient, currentConditionEntry) => {
-                                            let s = currentConditionEntry.getMostRecentStaging();
+                                            // could monitor the ClinicalNotes within patient but...well where does the stage come from? extract the entryId there?
+                                            let s = currentConditionEntry.getMostRecentStaging(); // in here somewhere^
+                                            // s will be an Entry someday, ASCODCP-904
+                                          //  let unsigned = patient.isUnsigned(currentConditionEntry); // wrong source Entry, it's coming from the new ClinicalNote!
+                                       //     console.log(currentConditionEntry.entryInfo.entryId); // 8..a BreastCancer that isn't a note so has no signed-ness
+                                         //   console.log(s);
+                                            // we can assume items in the patient record that are not notes are 'signed', they are a part of the record/authoritative ?
+                                         //   console.log(unsigned);
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return s.stage;
+                                                return s.stage;// + " Unsigned: " + unsigned;
                                             } else {
                                                 return null;
                                             }
@@ -159,10 +166,14 @@ export default class SummaryMetadata {
                                         name: "Disease Status",
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            //p is an Entry, pass in
+                                            let unsigned = patient.isUnsigned(p);
+                                            // if true, add dashed line styling - how?
+                                            console.log(unsigned);
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return p.status;
+                                                return p.status + " " + unsigned;
                                             }
                                         }
                                     },
@@ -181,12 +192,13 @@ export default class SummaryMetadata {
                                         name: "Rationale",
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            let unsigned = patient.isUnsigned(p);
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
                                                 return p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', ');
+                                                }).join(', ') + " " + unsigned;
                                             }
                                         }
                                     }
@@ -692,6 +704,7 @@ export default class SummaryMetadata {
     }
 
     getItemListForConditions = (patient, currentConditionEntry, subsection) => {
+        //console.log(subsection); //what else is available when we're doing staging? there's a 3rd param. is it always @codniton?
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
             return [{value: c.type, shortcut: subsection.shortcut}, c.diagnosisDate, c.bodySite];

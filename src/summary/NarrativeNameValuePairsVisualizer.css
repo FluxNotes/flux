@@ -54,6 +54,12 @@ span.structured-data {
     text-decoration-color: blue;
 }
 
+span.unsigned-data {
+    cursor: pointer;
+    text-decoration: underline; /*todo dotted? overline?*/
+    text-decoration-color: green; /*todo make this blue*/
+}
+
 .menu-item {
     font-size: 0.2em;
 }

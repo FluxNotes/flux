@@ -52,18 +52,25 @@ class PatientRecord {
     
     // When typing a note creates an entry, it is not yet signed and this function is invoked.
     markUnsigned(entry) {
-        console.log("Before set:");
+        var key = entry.entryInfo.shrId + ":" + entry.entryInfo.entryId;
+
+        console.log("Before set: " + key);
         console.log(this.unsignedEntries[key]);
         // Stores a flag in a sparse data structure that indicates that this entry is unsigned
-        var key = entry.shrId + ":" + entry.entryId;
-        this.unsignedEntries[key] = true;
+        
+        this.unsignedEntries[key] = true; // potential confusion, signed = false when unsignedEntries = true
+        console.log("after set: " + key);
+        console.log(this.unsignedEntries);
+        console.log(this.entries);
     }
 
     // when an
     markSigned(entry){
         // Removes the flag that indicates that this entry is unsigned
         // Has to handle the case where something doesn't exist in unsignedEntries
-        var key = entry.shrId + ":" + entry.entryId;
+        var key = this.shrId + ":" + entry.entryInfo.entryId;
+        console.log("before delete:");
+        console.log(this.unsignedEntries[key]); // has entry 34, correct. How to tell SummaryMetadata that info is coming from 34?
         delete this.unsignedEntries[key];
         console.log("After delete:");
         console.log(this.unsignedEntries[key]);
@@ -71,7 +78,13 @@ class PatientRecord {
 
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry){
-        var key = entry.shrId + ":" + entry.entryId;
+        console.log(entry);
+        if(Lang.isNull(entry)) return false; // good error code to return? will just be red Missing text anyway
+
+        var key = this.shrId + ":" + entry.entryInfo.entryId; //not all Entries have an shrId. All have entryType. Most? have entryId. - Greg
+        console.log(this.unsignedEntries);
+        console.log(key);
+        console.log(this.unsignedEntries[key]);
         // todo verify assumption that before it is set, and after a delete, it is Undefined.
         if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
             return true;
@@ -113,7 +126,9 @@ class PatientRecord {
         }
     }
 
-    addEntryToPatient(entry, signed = true) { // TODO determine if a default value makes sense
+    addEntryToPatient(entry, signed = false) { // TODO determine if a default value makes sense
+        console.log(signed);
+        console.log(entry.signed);
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
@@ -124,6 +139,7 @@ class PatientRecord {
         entry.entryInfo.lastUpdated.instant = today;
         //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
+        //console.log(this.entries);
         if(Lang.isEqual(signed, false)){
             this.markUnsigned(entry);
         } else{
@@ -135,6 +151,7 @@ class PatientRecord {
 
     addEntryToPatientWithPatientFocalSubject(entry, signed) { 
         //entry.personOfRecord = this.patientReference;
+        console.log(signed); // this method is called from Shortcuts.json updatePatients
         return this.addEntryToPatient(entry, signed);
     }
 
@@ -410,6 +427,7 @@ class PatientRecord {
         if(Lang.isEqual(signed, false)){
             // store in data structure
             //this.markUnsigned()// need entryId which is generated in returned method
+            console.log("new note is not signed");
         }
 
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed);
