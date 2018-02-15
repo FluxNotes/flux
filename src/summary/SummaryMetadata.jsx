@@ -2,7 +2,6 @@ import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
 
 /*
     Each section has the following properties:
@@ -482,15 +481,11 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "Non Drug",
+                                name: "",
                                 headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForNonDrugAllergies
-                            },
-                            {
-                                name: "Drug",
-                                headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForDrugAllergies
-                            },
+                                itemsFunction: this.getItemListForAllergies,
+                                preTableCount: "allergies",
+                            }
                         ]
                     },
                     {
@@ -632,15 +627,11 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "Non Drug",
+                                name: "",
                                 headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForNonDrugAllergies
-                            },
-                            {
-                                name: "Drug",
-                                headings: ["Allergy", "Severity", "Effects"],
-                                itemsFunction: this.getItemListForDrugAllergies
-                            },
+                                itemsFunction: this.getItemListForAllergies,
+                                preTableCount: "allergies",
+                            }
                         ]
                     },
                     {
@@ -731,23 +722,11 @@ export default class SummaryMetadata {
         });
     }
 
-    getItemListForNonDrugAllergies = (patient, currentConditionEntry) => {
+    getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getNonDrugAllergies();
+        const allergies = patient.getAllergyIntolerances();
         return allergies.map((a) => {
-            if (a instanceof FluxAllergyIntolerance) 
-                return [{value: a.name}, a.severity, "Causes Hives"];
-            return [{value: a.noKnownAllergy}];
-        });
-    }
-
-    getItemListForDrugAllergies = (patient, currentConditionEntry) => {
-        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getDrugAllergies();
-        return allergies.map((a) => {
-            if (a instanceof FluxAllergyIntolerance) 
-                return [{value: a.name}, a.severity, "Causes Hives"];
-            return [{value: a.noKnownAllergy}, " ", " "];
+            return [{value: a.name}, a.severity, "Causes Hives"];
         });
     }
 

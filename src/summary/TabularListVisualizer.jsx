@@ -122,8 +122,11 @@ class TabularListVisualizer extends Component {
     
     // Render each subsection as a table of values 
     renderedSubsection(transformedSubsection, subsectionindex) {
-
         const list = this.getList(transformedSubsection);
+        let preTableCount = null;
+        if (transformedSubsection.preTableCount) {
+            preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
+        }
         let subsectionname = null;
         if (transformedSubsection.name && transformedSubsection.name.length > 0) {
             subsectionname = <tr><td className="list-subsection-header">{transformedSubsection.name}</td></tr>;
@@ -146,13 +149,16 @@ class TabularListVisualizer extends Component {
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
         return (
-            <table key={subsectionindex}>
-                <tbody>
-                {headings}
-                    {subsectionname}
-                    {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
-                </tbody>
-            </table>
+            <div key={subsectionindex}>
+                {preTableCount}
+                <table>
+                    <tbody>
+                    {headings}
+                        {subsectionname}
+                        {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 

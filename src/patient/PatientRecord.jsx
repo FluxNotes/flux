@@ -234,11 +234,26 @@ class PatientRecord {
         return conditions;
     }
     
+    // gets all allergy entries from patient
     getAllAllergies() {
         let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
         const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
         const allAllergies = allergies.concat(noKnownAllergies);
         return allAllergies;
+    }
+
+    // gets all allergy intolerances
+    getAllergyIntolerances() {
+        return this.getAllAllergies().filter((a) => {
+            return a instanceof FluxAllergyIntolerance;
+        });
+    }
+
+    // gets all no known allergies
+    getNoKnownAllergies() {
+        return this.getAllAllergies().filter((a) => {
+            return a instanceof FluxNoKnownAllergy;
+        });
     }
 
     getDrugAllergies() {
