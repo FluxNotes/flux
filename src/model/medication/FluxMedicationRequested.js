@@ -13,6 +13,9 @@ class FluxMedicationRequested {
      *  Returns object containing timePeriodStart and timePeriodEnd value
      */
     get expectedPerformanceTime() {
+        if (!this._medicationRequested.actionContext || !this._medicationRequested.actionContext.expectedPerformanceTime) {
+            return null;
+        }
         // doesn't support Timing option right now
         if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
@@ -51,6 +54,7 @@ class FluxMedicationRequested {
      *  Returns object with value and units
      */
     get amountPerDose() {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
         return {
             value: this._medicationRequested.dosage.doseAmount.value.decimal,
             units: this._medicationRequested.dosage.doseAmount.value.units.value.code
@@ -116,6 +120,7 @@ class FluxMedicationRequested {
     }
     
     get routeIntoBody() {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
         return this._medicationRequested.dosage.routeIntoBody.value.coding[0].displayText.value;
     }
     

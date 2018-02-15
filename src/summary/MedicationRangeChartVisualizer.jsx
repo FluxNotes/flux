@@ -82,8 +82,8 @@ class MedicationRangeChartVisualizer extends Component {
         const upperValue = rangeValues.upperValue;
         const typicalValue = rangeValues.typicalValue;
         // Only want want the number part of the value, not the unit
-        const value = med.amountPerDose.value;
-        const unit = med.amountPerDose.units;
+        const value = med.amountPerDose ? med.amountPerDose.value : null;
+        const unit = med.amountPerDose ? med.amountPerDose.units : null;
         const name = med.medication;
 
         const numColsChart = this.state.medicationVisWide ? 5 : 12;

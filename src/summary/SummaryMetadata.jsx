@@ -823,12 +823,19 @@ export default class SummaryMetadata {
         let items = [];
 
         meds.forEach((med) => {
+            const ept = med.expectedPerformanceTime;
+            if (Lang.isNull(ept)) return;
             const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
             const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
-            const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
-
+            let dosage;
+            if (!med.amountPerDose) {
+                dosage = "not specified";
+            } else {
+                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+            }
+            
             items.push({
                 group: assignedGroup,
                 title: name,

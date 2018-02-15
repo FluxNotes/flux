@@ -326,43 +326,6 @@
                 ]
             }
         },
-        "shr.medication.Dosage": {
-            "shr.medication.DoseAmount": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount" },
-                "Value": {
-                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity" },
-                    "Value": 600,
-                    "shr.core.Units": {
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
-                        "Value": {
-                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
-                            "Value": "mg/m^2"
-                        }
-                    }
-                }
-            },
-            "shr.medication.TimingOfDoses": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses" },
-                "Value": {
-                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Timing" },
-                    "shr.core.RecurrenceRange": {
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange" },
-                        "Value": { 
-                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats" },
-                            "Value": 6
-                        }
-                    }
-                }
-            },
-            "shr.medication.AsNeededIndicator": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator" },
-                "Value": false
-            },
-            "shr.medication.RouteIntoBody": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody" },
-                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "26643006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Oral route"}}]}
-            }
-        },
         "shr.action.ActionContext": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext" },
             "shr.action.Status": { "Value": "completed" },
@@ -371,10 +334,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "10 FEB 2012"
+                        "Value": "20 OCT 2015"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "20 AUG 2012"
+                        "Value": "23 FEB 2016"
                     }
                 }
             },
@@ -387,7 +350,6 @@
                 }
             }]
         },
-        "shr.medication.NumberOfRefillsAllowed": { "Value": 5 },
         "shr.base.Author": { "Value": "Dr. ABC123" },
         "shr.core.CreationTime": {"Value": "01 DEC 2013"},
         "shr.base.LastUpdated": {"Value": "01 DEC 2013"}
