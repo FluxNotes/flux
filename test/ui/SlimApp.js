@@ -96,7 +96,7 @@ test('Selecting adverseEvent, then selecting a valid grade updates copy-content'
             .contains(await gradeButtons.nth(i).innerText);
     }
 });
-test('Changing adverseEvemt via button updates copy-content', async t => {
+test('Changing adverseEvent via button updates copy-content', async t => {
     const adverseEventButtons = Selector('.btn-group-adverse-event').find("span[class^='MuiButton-label']");
     const numButtons = await adverseEventButtons.count;
     for(let i = 0; i < numButtons; i++) {
@@ -117,10 +117,10 @@ test('Changing attribution via button updates copy-content', async t => {
     }
 });
 
-fixture('Lite Mode - Clinical Trial')
+fixture('Lite Mode - Enrollment')
     .page(startPage)
     .beforeEach( async t => {
-        await t.click("#Clinical\\ Trial");
+        await t.click("#Enrollment");
     });
 test('Selecting a clinical trial updates copy-content', async t => {
     const trialButtons = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']");
@@ -133,38 +133,21 @@ test('Selecting a clinical trial updates copy-content', async t => {
             .contains(await trialButtons.nth(i).innerText);
     }
 });
-test('Selecting the enrollment date choice and a date updates copy-content', async t => {
-    const enrollmentDateChoice = Selector("#enrollment-date-choice");
+test('Selecting a date for enrollment updates copy-content', async t => {
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
     await t
         .click(firstTrial)
-        .click(enrollmentDateChoice);
 
     const enrollmentDatePicker = await Selector("#enrollment-date");
     await t
         .typeText(enrollmentDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
-        .contains(`#enrolled on #${await enrollmentDatePicker.value}`);
+        .contains(`#on #${await enrollmentDatePicker.value}`);
 });
-test('Selecting the end date choice and a date updates copy-content', async t => {
-    const endDateChoice = Selector("#end-date-choice");
-    const copyButton = Selector("#copy-content");
-    // Date only appears if a trial is selected
-    const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
-    await t
-        .click(firstTrial)
-        .click(endDateChoice);
 
-    const endDatePicker = await Selector("#end-date");
-    await t
-        .typeText(endDatePicker, '10/06/2017');
-    await t
-        .expect(copyButton.innerText)
-        .contains(await `#ended on #${await endDatePicker.value}`);
-});
 
 fixture('Lite Mode - Deceased')
     .page(startPage)

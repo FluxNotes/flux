@@ -99,15 +99,6 @@ class ClinicalTrialForm extends Component {
         );
     }
 
-    renderEndDatePicker = () => {
-        return (
-            <DatePicker id="end-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEndDateChange}
-                        dateToSet={null}
-            />
-        );
-    }
-
     render() {
         const enrollmentDateLabel = 'Enrollment Date';
         const enrollmentDateDescription = `${ClinicalTrialsList.getDescription("enrollmentDate")}`;
@@ -142,7 +133,7 @@ class ClinicalTrialForm extends Component {
                 </p>
                 <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="clinicalTrialSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    href="clinicalTrialEnrollmentSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Trial</h4>
