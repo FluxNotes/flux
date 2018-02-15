@@ -171,6 +171,7 @@ export default class FullApp extends Component {
 
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
+
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="FullApp">

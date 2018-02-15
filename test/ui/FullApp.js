@@ -1,4 +1,4 @@
-import { Selector } from 'testcafe';
+import { Selector, ClientFunction } from 'testcafe';
 import hardCodedPatient from '../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../src/patient/PatientRecord.jsx';
 import '../../src/model/init';
@@ -90,6 +90,7 @@ test('Clicking "New Note" button in pre-encounter mode changes layout and displa
     await t
         .expect(editor.exists).ok();
 });
+
 
 fixture('Patient Mode - Editor')
     .page(startPage);

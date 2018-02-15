@@ -18,14 +18,14 @@ export default class TargetedDataSection extends Component {
             chosenVisualizer: null
         };
     }
-    
+
     componentDidUpdate() {
         const optionsForSection = this.getOptions(this.props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(this.props.section, this.props.clinicalEvent, optionsForSection);
         //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
         if (this.state.defaultVisualizer !== defaultVisualizer ||
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
-            this.setState({defaultVisualizer: defaultVisualizer, chosenVisualizer: null});
+            this.setState({ defaultVisualizer, chosenVisualizer: null });
         }
     }
 
@@ -53,7 +53,7 @@ export default class TargetedDataSection extends Component {
         }
         return optionsForSection[0];
     }
-    
+
     determineIfDefaultVisualizerItemAffectsCurrentSituation = (defaultVisualizer, clinicalEvent, optionsForSection) => {
         if (Lang.isObject(defaultVisualizer)) {
             if (clinicalEvent === defaultVisualizer.clinicalEvent) {
@@ -68,7 +68,7 @@ export default class TargetedDataSection extends Component {
     }
 
     handleViewChange = (chosenVisualizer) => {
-        this.setState({chosenVisualizer});
+        this.setState({ chosenVisualizer });
     }
 
     checkVisualization = () => {
@@ -130,10 +130,10 @@ export default class TargetedDataSection extends Component {
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
         if (Lang.isNull(viz)) return null;
-        
+
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
-                
+
         return (
             <Visualizer
                 patient={patient}
