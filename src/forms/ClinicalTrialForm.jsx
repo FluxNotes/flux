@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Divider from 'material-ui/Divider';
 import SingleChoiceButton from './SingleChoiceButton';
-import Radio, {RadioGroup} from 'material-ui/Radio';
-import {FormControl, FormControlLabel} from 'material-ui/Form';
 import DatePicker from '../forms/DatePicker';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import './ClinicalTrialForm.css';
@@ -25,7 +23,7 @@ class ClinicalTrialForm extends Component {
         // What it is checking might need to change if the toxicity.attribution structure changes in Patient
         return this.props.object.title === trial.name;
     }
-    
+
 
     handleTrialSelection = (trial, isSelected) => {
         if (isSelected) {
@@ -81,12 +79,12 @@ class ClinicalTrialForm extends Component {
             <div key={trialName} className="tooltip-clinical-trial">
                 <span id={trialName} className={tooltipClass}>{trialDescription}</span>
                 <SingleChoiceButton
-                        buttonKey={i}
-                        buttonText={trialName}
-                        onClick={(e) => this.handleTrialSelection(trial, isSelected)}
-                        isSelected={isSelected}
-                        className={trialName}
-                        marginSize={marginSize}
+                    buttonKey={i}
+                    buttonText={trialName}
+                    onClick={(e) => this.handleTrialSelection(trial, isSelected)}
+                    isSelected={isSelected}
+                    className={trialName}
+                    marginSize={marginSize}
                 />
             </div>
         )
@@ -95,8 +93,8 @@ class ClinicalTrialForm extends Component {
     renderEnrollmentDatePicker = () => {
         return (
             <DatePicker id="enrollment-date" className='clinical-trial-dates'
-                handleDateChange={this.handleEnrollmentDateChange}
-                dateToSet={null}
+                        handleDateChange={this.handleEnrollmentDateChange}
+                        dateToSet={null}
             />
         );
     }
@@ -104,8 +102,8 @@ class ClinicalTrialForm extends Component {
     renderEndDatePicker = () => {
         return (
             <DatePicker id="end-date" className='clinical-trial-dates'
-                handleDateChange={this.handleEndDateChange}
-                dateToSet={null}
+                        handleDateChange={this.handleEndDateChange}
+                        dateToSet={null}
             />
         );
     }
@@ -113,11 +111,10 @@ class ClinicalTrialForm extends Component {
     render() {
         const enrollmentDateLabel = 'Enrollment Date';
         const enrollmentDateDescription = `${ClinicalTrialsList.getDescription("enrollmentDate")}`;
-        const endDateLabel = 'End Date'
-        const endDateDescription = `${ClinicalTrialsList.getDescription("endDate")}`;
+
         return (
             <div>
-                <h1>Clinical Trial</h1>
+                <h1>Enrollment</h1>
                 <Divider className="divider"/>
 
                 {/*Interface here*/}
@@ -132,47 +129,14 @@ class ClinicalTrialForm extends Component {
 
                 <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span></h4>
                 <div className="date-choices">
-                    <FormControl>
-                        <RadioGroup
-                            name="relevant dates"
-                            value={this.state.selectedDateChoice}
-                            onChange={this.handleDateChoice}>
-                            <FormControlLabel 
-                                value="enrollmentDate" 
-                                control={
-                                    <Radio 
-                                        id="enrollment-date-choice" 
-                                        className='radio-button-clinical-trial'
-                                    />
-                                }
-                                label={enrollmentDateLabel}
-                            />
-                        </RadioGroup>
-                        {this.renderEnrollmentDatePicker()}
-                        <RadioGroup
-                            name="relevant dates"
-                            value={this.state.selectedDateChoice}
-                            onChange={this.handleDateChoice}>
-                            <FormControlLabel 
-                                value="endDate" 
-                                control={
-                                    <Radio 
-                                        id="end-date-choice"
-                                        className='radio-button-clinical-trial'
-                                    />
-                                }
-                                label={endDateLabel}
-                            />
-                        </RadioGroup>
-                        {this.renderEndDatePicker()}
-                    </FormControl>
+                    {this.renderEnrollmentDatePicker()}
                 </div>
 
-                {/*Definitions of dataelements*/}
+                {/*Definitions of data elements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Clinical Trial</h4>
+                <h4 className="header-spacing">Enrollment</h4>
                 <p id="data-element-description">
                     {ClinicalTrialsList.getDescription("clinicalTrial")}
                 </p>
@@ -186,19 +150,16 @@ class ClinicalTrialForm extends Component {
                     {ClinicalTrialsList.getDescription("trial")}
                 </p>
 
-                <h4 className="header-spacing">Relevant Date</h4>
+                <h4 className="header-spacing">{enrollmentDateLabel}</h4>
                 <p id="data-element-description">
-                    <b>{enrollmentDateLabel}</b>: {enrollmentDateDescription}
-                </p>
-                <p id="data-element-description">
-                    <b>{endDateLabel}</b>: {endDateDescription}
+                    {enrollmentDateDescription}
                 </p>
             </div>
         )
     }
 }
 
-ClinicalTrialForm.proptypes = { 
+ClinicalTrialForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }

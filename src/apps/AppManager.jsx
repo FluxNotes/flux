@@ -12,7 +12,7 @@ export default class AppManager {
             },
             {
                 path: '/patina',
-                shortcuts: ['Disease Status', 'Toxicity', 'Clinical Trial', 'Deceased'],
+                shortcuts: ['Disease Status', 'Toxicity', 'Enrollment', 'Deceased'],
                 display: 'Flux Notes™ Lite (for PATINA endpoints)',
                 app: SlimApp,
                 isExact: true,
