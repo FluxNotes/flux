@@ -156,7 +156,7 @@ class FluxCondition {
     getMostRecentStaging(sinceDate = null) {
         //console.log("******************************************"); // called every keystroke
         let stagingList = this.getObservationsOfType(FluxTNMStage);
-        console.log(stagingList.length);
+       // console.log(stagingList.length);
         if (stagingList.length === 0) return null; //or here
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;

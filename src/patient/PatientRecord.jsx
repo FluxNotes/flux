@@ -78,13 +78,13 @@ class PatientRecord {
 
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry){
-        console.log(entry);
+       // console.log(entry);
         if(Lang.isNull(entry)) return false; // good error code to return? will just be red Missing text anyway
 
         var key = this.shrId + ":" + entry.entryInfo.entryId; //not all Entries have an shrId. All have entryType. Most? have entryId. - Greg
-        console.log(this.unsignedEntries);
-        console.log(key);
-        console.log(this.unsignedEntries[key]);
+      //  console.log(this.unsignedEntries);
+      //  console.log(key);
+      //  console.log(this.unsignedEntries[key]);
         // todo verify assumption that before it is set, and after a delete, it is Undefined.
         if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
             return true;

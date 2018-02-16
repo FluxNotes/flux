@@ -170,7 +170,7 @@ class TabularListVisualizer extends Component {
         
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-
+        console.log(items);
         let list;
 
         if (Lang.isUndefined(items)) {
@@ -185,12 +185,17 @@ class TabularListVisualizer extends Component {
     renderedListItems(subsectionindex, list, numberOfHeadings) {
         let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
+            console.log(item);
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
                 itemClass = "list-missing";
                 item = [ "Missing data" ];
                 onClick = null;
                 hoverClass = null;
+            } else if(item.unsigned){
+                rowClass = "list-unsigned";
+                itemClass = "list-unsigned";
+                hoverClass = "list-button-hover";
             } else {
                 rowClass = "list-captured";
                 itemClass = "list-captured";

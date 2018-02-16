@@ -60,6 +60,10 @@ export default class SummaryMetadata {
                                 items: [
                                     {
                                         name: "Reason",
+                                        unsigned: (patient, currentConditionEntry) => {  // can we call this on the item from within the visualizer? errors, need to pass params, remove this
+                                            const nextEncounter = patient.getNextEncounter();
+                                            return patient.isUnsigned(nextEncounter); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             return patient.getNextEncounterReasonAsText();
                                         },
@@ -131,7 +135,11 @@ export default class SummaryMetadata {
                                 name: "Current Diagnosis",
                                 items: [
                                     {
-                                        name: "Name",
+                                        name: "Name", 
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            // Name is embedded in the Condition, so we return the Condition entry's unsigned status
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.type;
                                         },
@@ -139,21 +147,33 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Laterality",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            // Laterality is embedded in the Condition, so we return the Condition entry's unsigned status
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.laterality;
                                         }
                                     },
                                     {
                                         name: "Stage",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Staging must be its own Entry. 
+                                            let stagingEntry = currentConditionEntry.getMostRecentStaging();
+                                            return patient.isUnsigned(stagingEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
-                                            // could monitor the ClinicalNotes within patient but...well where does the stage come from? extract the entryId there?
-                                            let s = currentConditionEntry.getMostRecentStaging(); // in here somewhere^
+                                           
+                                            let s = currentConditionEntry.getMostRecentStaging(); 
                                             // s will be an Entry someday, ASCODCP-904
                                           //  let unsigned = patient.isUnsigned(currentConditionEntry); // wrong source Entry, it's coming from the new ClinicalNote!
                                        //     console.log(currentConditionEntry.entryInfo.entryId); // 8..a BreastCancer that isn't a note so has no signed-ness
                                          //   console.log(s);
                                             // we can assume items in the patient record that are not notes are 'signed', they are a part of the record/authoritative ?
-                                         //   console.log(unsigned);
                                             if (s && s.stage && s.stage.length > 0) {
                                                 return s.stage;// + " Unsigned: " + unsigned;
                                             } else {
@@ -164,21 +184,32 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Disease Status",
+                                        unsigned: (patient, currentConditionEntry) => {  // we call this on the item from within the visualizer's getList()
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                           // console.log("disease status unsigned()****************************************************");
+                                            return patient.isUnsigned(p); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                             //p is an Entry, pass in
-                                            let unsigned = patient.isUnsigned(p);
+                                          //  let unsigned = patient.isUnsigned(p);
                                             // if true, add dashed line styling - how?
-                                            console.log(unsigned);
+                                           // console.log(unsigned);
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return p.status + " " + unsigned;
+                                                return p.status;
                                             }
                                         }
                                     },
                                     {
                                         name: "As Of Date",
+                                        unsigned: (patient, currentConditionEntry) => {  // we call this on the item from within the visualizer's getList()
+                                            // As Of Date is within the Disease Status entry
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                            //console.log("as of date unsigned()****************************************************");
+                                            return patient.isUnsigned(p); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                             if (Lang.isNull(p) || !p.status) {
@@ -190,15 +221,21 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Rationale",
+                                         unsigned: (patient, currentConditionEntry) => {  // we call this on the item from within the visualizer's getList()
+                                            // Rationale is within the Disease Status entry
+                                            let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                           // console.log("rationale unsigned()****************************************************");
+                                            return patient.isUnsigned(p); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                            let unsigned = patient.isUnsigned(p);
+                                       //     let unsigned = patient.isUnsigned(p);
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
                                                 return p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', ') + " " + unsigned;
+                                                }).join(', ');
                                             }
                                         }
                                     }
@@ -213,12 +250,20 @@ export default class SummaryMetadata {
                                 items: [
                                     {
                                         name: "Diagnosis",
+                                        unsigned: (patient, currentConditionEntry) => {  // we call this on the item from within the visualizer's getList()
+                                            // Diagnosis is within the Condition entry
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             return currentConditionEntry.diagnosisDate;
                                         }
                                     },
                                     {
                                         name: "Recurrence",
+                                        unsigned: (patient, currentConditionEntry) => {  // we call this on the item from within the visualizer's getList()
+                                            // Diagnosis is within the Condition entry
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             if (currentConditionEntry.clinicalStatus.value === "recurrence") {
                                                 return null;
@@ -395,14 +440,44 @@ export default class SummaryMetadata {
                                 items: [
                                     {
                                         name: "Color",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Tumor Dimensions must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let tumorEntry = currentConditionEntry.getMostRecentTumorDimensions().Color;
+                                            return patient.isUnsigned(tumorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: null
                                     },
                                     {
                                         name: "Weight",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Tumor Dimensions must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let tumorEntry = currentConditionEntry.getMostRecentTumorDimensions().Weight;
+                                            return patient.isUnsigned(tumorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: null
                                     },
                                     {
                                         name: "Size",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Tumor Dimensions must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let tumorEntry = currentConditionEntry.getMostRecentTumorDimensions().Size;
+                                            return patient.isUnsigned(tumorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
@@ -411,10 +486,30 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Tumor Margins",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Tumor Dimensions must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let tumorEntry = currentConditionEntry.getMostRecentTumorDimensions().TumorMargins;
+                                            return patient.isUnsigned(tumorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: null
                                     },
                                     {
                                         name: "Histological Grade",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Histological Grade must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let gradeEntry = currentConditionEntry.getMostRecentHistologicalGrade();
+                                            return patient.isUnsigned(gradeEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxHistologicGrade);
                                             return list[0].grade;
@@ -422,6 +517,16 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Receptor Status ER",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Receptor Status must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let receptorEntry = currentConditionEntry.getMostRecentReceptorStatus();
+                                            return patient.isUnsigned(receptorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let er = currentConditionEntry.getERReceptorStatus();
                                             if (Lang.isNull(er)) {
@@ -433,6 +538,16 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Receptor Status PR",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Receptor Status must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let receptorEntry = currentConditionEntry.getMostRecentReceptorStatus();
+                                            return patient.isUnsigned(receptorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let pr = currentConditionEntry.getPRReceptorStatus();
                                             if (Lang.isNull(pr)) {
@@ -444,6 +559,16 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Receptor Status HER2",
+                                        unsigned: (patient, currentConditionEntry) => { 
+                                            /*
+                                            For this to function correctly, Receptor Status must be its own Entry. 
+                                            Try something like this, calling a new function:
+                                            let receptorEntry = currentConditionEntry.getMostRecentReceptorStatus();
+                                            return patient.isUnsigned(receptorEntry);
+                                            It is currently embedded in the Condition, so we return the Condition entry's unsigned status:
+                                            */
+                                            return patient.isUnsigned(currentConditionEntry); 
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             let her2 = currentConditionEntry.getHER2ReceptorStatus();
                                             if (Lang.isNull(her2)) {

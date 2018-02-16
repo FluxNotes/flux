@@ -44,7 +44,7 @@ class VisualizerManager {
 
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-
+        console.log(items);
         let list = null;
 
         if (Lang.isUndefined(items)) {
@@ -54,9 +54,9 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
+                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut, unsigned: item.unsigned(patient, condition)};
                 } else {
-                    return {name: item.name, value: item.value(patient, condition) };
+                    return {name: item.name, value: item.value(patient, condition), unsigned: item.unsigned(patient, condition) };
                 }
             });
         }
