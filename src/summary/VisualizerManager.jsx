@@ -39,12 +39,10 @@ class VisualizerManager {
     
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
-        //console.log(subsection);
 
 
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-        console.log(items);
         let list = null;
 
         if (Lang.isUndefined(items)) {
@@ -61,13 +59,12 @@ class VisualizerManager {
             });
         }
 
-        //console.log(list);
         newsection.name = subsection.name;
         newsection.items = list.map((item) => {
             if (Lang.isNull(item.value)) {
-                return [    { value: item.name, isInsertable: false }, null ];
+                return [    { value: item.name, isInsertable: false, unsigned: item.unsigned }, null ];
             } else {
-                return [    { value: item.name, isInsertable: false }, { value: item.value, shortcut: item.shortcut } ];
+                return [    { value: item.name, isInsertable: false, unsigned: item.unsigned }, { value: item.value, shortcut: item.shortcut } ];
             }
         });
         return newsection;

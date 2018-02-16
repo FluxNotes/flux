@@ -45,7 +45,10 @@
 
 /* Unsigned element styling*/
 .tabular-list td.list-unsigned span {
-    border-bottom: 1px solid green; /* todo dashed? and blue */
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-style: dashed; 
+    text-decoration-color: blue;
 }
 
 /*Captured element styling */

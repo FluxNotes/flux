@@ -22,7 +22,6 @@ class ConditionSelection extends Component {
 
     selectCondition(conditionIndex) {
         const condition = this.props.conditions[conditionIndex];
-        console.log(condition);
         this.props.setFullAppState('condition', condition);
         this.setState({ conditionIndex });
     }

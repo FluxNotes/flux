@@ -82,7 +82,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-        //console.log(items);
         let list = null;
 
         if (Lang.isUndefined(items)) {
@@ -152,12 +151,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 valueName = valueSpec.substring(index + 1);
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
-              //  console.log(item); // should set a new item.unsigned or something
-           //     let unsigned = item.unsigned;//member of the return {} from getList, which puts in the params
-              //  console.log(unsigned);
-                //if(item.value && (item.value.indexOf(" false") !== -1 || item.value.indexOf(" true") !== -1)){ //in band signalling at first
                 if(item.value && item.unsigned){
-                    value = item.value;//.substring(0, item.value.length-5);
+                    value = item.value;
                     type = "unsigned-data";
                 }else if (item.value) {
                     value = item.value;
@@ -196,7 +191,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
             const template = this.getTemplate(subsections, sentenceObject);
             narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
         });
-        console.log(subsections);
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 

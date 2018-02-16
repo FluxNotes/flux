@@ -62,7 +62,6 @@ class ShortcutManager {
     }
     
     createShortcut(definition, trigger, onUpdate) {
-        console.log("createShortcut()");
         let className;
         let metadata;
         if (!Lang.isNull(definition)) {
