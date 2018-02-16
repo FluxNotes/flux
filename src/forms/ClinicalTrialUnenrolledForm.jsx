@@ -4,9 +4,9 @@ import Divider from 'material-ui/Divider';
 import SingleChoiceButton from './SingleChoiceButton';
 import DatePicker from '../forms/DatePicker';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
-import './ClinicalTrialForm.css';
+import './ClinicalTrialUnenrolledForm.css';
 
-class ClinicalTrialForm extends Component {
+class ClinicalTrialUnenrolledForm extends Component {
     constructor(props) {
         super(props);
         this.clinicalTrialsList = new ClinicalTrialsList();
@@ -40,6 +40,15 @@ class ClinicalTrialForm extends Component {
 
         if (this.state.selectedDateChoice === "enrollmentDate") {
             this.props.updateValue("enrollmentDateDate", selectedDate); //.format('D MMM YYYY'));
+        }
+    }
+
+    handleEndDateChange = (selectedDate) => {
+        this.setState({
+            selectedEndDate: selectedDate
+        });
+        if (this.state.selectedDateChoice === "endDate") {
+            this.props.updateValue("endDateDate", selectedDate); //.format('D MMM YYYY'));
         }
     }
 
@@ -96,7 +105,7 @@ class ClinicalTrialForm extends Component {
 
         return (
             <div>
-                <h1>Enrollment</h1>
+                <h1>Unenrolled</h1>
                 <Divider className="divider"/>
 
                 {/*Interface here*/}
@@ -141,9 +150,9 @@ class ClinicalTrialForm extends Component {
     }
 }
 
-ClinicalTrialForm.proptypes = {
+ClinicalTrialUnenrolledForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }
 
-export default ClinicalTrialForm;
+export default ClinicalTrialUnenrolledForm;

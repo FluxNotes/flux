@@ -122,7 +122,7 @@ fixture('Lite Mode - Enrollment')
     .beforeEach( async t => {
         await t.click("#Enrollment");
     });
-test('Selecting a clinical trial updates copy-content', async t => {
+test.only('Selecting a clinical trial updates copy-content', async t => {
     const trialButtons = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']");
     const numButtons = await trialButtons.count;
     const copyButton = Selector("#copy-content");
@@ -133,7 +133,7 @@ test('Selecting a clinical trial updates copy-content', async t => {
             .contains(await trialButtons.nth(i).innerText);
     }
 });
-test('Selecting a date for enrollment updates copy-content', async t => {
+test.only('Selecting a date for enrollment updates copy-content', async t => {
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
@@ -145,7 +145,7 @@ test('Selecting a date for enrollment updates copy-content', async t => {
         .typeText(enrollmentDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
-        .contains(`#on #${await enrollmentDatePicker.value}`);
+        .contains(`#${await enrollmentDatePicker.value}`);
 });
 
 

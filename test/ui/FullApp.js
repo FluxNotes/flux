@@ -203,7 +203,7 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
         .contains("#12/20/2015");
 });
 
-test('Typing "#enroll" and selecting "enrollment" from the portal in the editor results \
+test.only('Typing "#enroll" and selecting "enrollment" from the portal in the editor results \
 in a structured data insertion and the context panel updates', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
@@ -217,7 +217,7 @@ in a structured data insertion and the context panel updates', async t => {
         .contains('#enrollment');
     const contextPanelElements = Selector(".context-options-list").find('button');
     const count = await contextPanelElements.count;
-    const clinicalTrialChildren = ['#PATINA', '#TITLE', '#ON'];
+    const clinicalTrialChildren = ['#PATINA', '#TITLE'];
     for (let i = 0; i < count; i++) {
         let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
         let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
@@ -361,9 +361,9 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
 fixture('Patient Mode - Context Panel')
     .page(startPage);
 
-test('Clicking "#enrollment", "#on", "#date" and choosing a date inserts "#enrollment #on #{date chosen}"', async t => {
+test.only('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #{date chosen}"', async t => {
     const today = new moment().format('MM/DD/YYYY');
-    const expectedText = ["#enrollment", "#on", `#${today}`];
+    const expectedText = ["#enrollment", `#${today}`];
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
@@ -371,9 +371,7 @@ test('Clicking "#enrollment", "#on", "#date" and choosing a date inserts "#enrol
 
     await t
         .click(clinicalTrialButton);
-    const enrolledOnButton = await contextPanelElements.withText(/#on/ig);
-    await t
-        .click(enrolledOnButton);
+
     const dateButton = await contextPanelElements.withText(/#date/ig);
     await t
         .click(dateButton)
