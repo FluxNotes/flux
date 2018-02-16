@@ -242,6 +242,10 @@ class PatientRecord {
         return allAllergies;
     }
 
+    getAllAllergiesSortedBySeverity() {
+        return this.getAllAllergies().sort(this._allergiesSeveritySorter);
+    }
+
     // gets all allergy intolerances
     getAllergyIntolerances() {
         return this.getAllAllergies().filter((a) => {
@@ -253,24 +257,6 @@ class PatientRecord {
     getNoKnownAllergies() {
         return this.getAllAllergies().filter((a) => {
             return a instanceof FluxNoKnownAllergy;
-        });
-    }
-
-    getDrugAllergies() {
-        const allergies = this.getAllAllergies();
-        return allergies.filter((a) => {
-            return (
-                (a instanceof FluxNoKnownAllergy && a.code === "409137002") ||
-                (a instanceof FluxAllergyIntolerance && a.category === "medication")
-            );
-        });
-    }
-
-    getNonDrugAllergies() {
-        const drugAllergies = this.getDrugAllergies();
-
-        return this.getAllAllergies().filter((a) => {
-            return !drugAllergies.includes(a);
         });
     }
 
@@ -555,6 +541,42 @@ class PatientRecord {
         if (a.type > b.type) {
             return 1;
         }
+        return 0;
+    }
+
+    _allergiesSeveritySorter(a, b) {
+        let a_severity, b_severity;
+
+        switch (a.severity) {
+            case "Severe": {
+                a_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                a_severity = 0;
+                break;
+            }
+            default: {
+                a_severity = -1;
+            } 
+        }
+
+        switch (b.severity) {
+            case "Severe": {
+                b_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                b_severity = 0;
+                break;
+            }
+            default: {
+                b_severity = -1;
+            }
+        }
+
+        if (a_severity > b_severity) return -1;
+        else if (a_severity < b_severity) return 1;
         return 0;
     }
 

@@ -724,7 +724,7 @@ export default class SummaryMetadata {
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getAllergyIntolerances();
+        const allergies = patient.getAllAllergiesSortedBySeverity();
         return allergies.map((a) => {
             return [{value: a.name}, a.severity, a.manifestation];
         });
