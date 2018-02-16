@@ -68,15 +68,13 @@ class FluxCondition {
     }
 
     addObservation(observation) {
-        console.log(observation);//not here
+        console.log(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(observation);
         this._condition.evidence  = currentObservations;
     }
 
     getObservationsOfType(type) {
-        // the condition is the entry, all results are either signed or unsigned based on the overall condition
-        //console.log(this._condition.evidence);
         if (!this._condition.evidence) return [];
         return this._condition.evidence.filter((item) => {
             return item.constructor === type;
@@ -154,14 +152,12 @@ class FluxCondition {
     }
 
     getMostRecentStaging(sinceDate = null) {
-        //console.log("******************************************"); // called every keystroke
         let stagingList = this.getObservationsOfType(FluxTNMStage);
-       // console.log(stagingList.length);
-        if (stagingList.length === 0) return null; //or here
+        if (stagingList.length === 0) return null; 
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
         let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; //returns here
+        if (Lang.isNull(sinceDate)) return s; 
         const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
