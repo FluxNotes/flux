@@ -422,7 +422,7 @@ class PatientRecord {
 
     getProceduresForCondition(condition) {
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedureRequested && item.reasons.some((r) => {
+            return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === condition.entryInfo.entryId;
                 });
         });

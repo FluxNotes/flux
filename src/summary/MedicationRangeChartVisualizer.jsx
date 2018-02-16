@@ -75,12 +75,12 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedication = (med, i) => {
         // Grab range values based on medication
-        let rangeValues = MedicationInformationService.getRangeValues(med.code);
+        let rangeValues = MedicationInformationService.getRangeValues(med.code, (med.amountPerDose ? med.amountPerDose.units : null));
 
         // Set the values needed to render the range chart
-        const lowerValue = rangeValues.lowerValue;
-        const upperValue = rangeValues.upperValue;
-        const typicalValue = rangeValues.typicalValue;
+        const lowerValue = rangeValues ? rangeValues.lowerValue : null;
+        const upperValue = rangeValues ? rangeValues.upperValue : null;
+        const typicalValue = rangeValues ? rangeValues.typicalValue : null;
         // Only want want the number part of the value, not the unit
         const value = med.amountPerDose ? med.amountPerDose.value : null;
         const unit = med.amountPerDose ? med.amountPerDose.units : null;

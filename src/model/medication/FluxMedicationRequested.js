@@ -19,8 +19,8 @@ class FluxMedicationRequested {
         // doesn't support Timing option right now
         if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
-                timePeriodEnd: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
+                timePeriodStart: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value : null),
+                timePeriodEnd: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value : null)
             };
         } else {
             return this._medicationRequested.actionContext.expectedPerformanceTime.value;
@@ -66,8 +66,9 @@ class FluxMedicationRequested {
      *  Returns object with value and units
      */
     get timingOfDoses() {
+        if (!this._medicationRequested.dosage) return null;
         let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
-        if (timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
+        if (timingOfDoses.timing.recurrencePattern && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
             if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code === 'd') {
                 units = 'per day';
@@ -76,11 +77,18 @@ class FluxMedicationRequested {
                 value: timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.decimal,
                 units: units
             };
+        } else if (timingOfDoses.timing.recurrenceRange) {
+            return {
+                value: timingOfDoses.timing.recurrenceRange.value.positiveInt,
+                units: 'cycles'
+            }
+        } else if (timingOfDoses.timing.timingCode) {
+            return {
+                value: timingOfDoses.timing.timingCode.value.coding[0].displayText.value,
+                units: null
+            }
         }
-        return {
-            value: timingOfDoses.timing.recurrenceRange.value.positiveInt,
-            units: 'cycles'
-        }
+        return null;
     }
 
     /*
@@ -125,6 +133,7 @@ class FluxMedicationRequested {
     }
     
     get numberOfRefillsAllowed() {
+        if (!this._medicationRequested.numberOfRefillsAllowed) return null;
         return this._medicationRequested.numberOfRefillsAllowed.value;
     }
 }
