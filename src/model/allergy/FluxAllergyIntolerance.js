@@ -35,8 +35,18 @@ class FluxAllergyIntolerance {
      */
     get severity() {
         const adverseReactions = this.getAdverseReactionsBySeverityAndTime();
-        if (adverseReactions.length === 0) return "N/A";
+        if (adverseReactions.length === 0 || !adverseReactions[0].severity) return "";
         return adverseReactions[0].severity.value.coding[0].displayText.value;
+    }
+
+    /*
+     *  Getter for manifestation of allergy
+     *  Returns the manifestation displayText of the most severe adverse reaction
+     */
+    get manifestation() {
+        const adverseReactions = this.getAdverseReactionsBySeverityAndTime();
+        if (adverseReactions.length === 0 || !adverseReactions[0].manifestation) return "";
+        return adverseReactions[0].manifestation.value.coding[0].displayText.value;
     }
 
     /*

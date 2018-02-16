@@ -726,7 +726,7 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerances();
         return allergies.map((a) => {
-            return [{value: a.name}, a.severity, "Causes Hives"];
+            return [{value: a.name}, a.severity, a.manifestation];
         });
     }
 

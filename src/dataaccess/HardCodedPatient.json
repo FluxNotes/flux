@@ -1288,6 +1288,13 @@
                         "shr.core.DisplayText": {"Value": "Mild"}}]
                     }
                 },
+                "shr.allergy.Manifestation": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "272027003", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                        "shr.core.DisplayText": {"Value": "Headache"}}]
+                    }
+                },
                 "shr.core.OccurrenceTime": {
                     "Value": "13 JAN 2015"
                 }
@@ -1299,6 +1306,13 @@
                         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                         "shr.core.Coding":[{ "Value": "severe", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/reaction-event-severity"}, 
                         "shr.core.DisplayText": {"Value": "Severe"}}]
+                    }
+                },
+                "shr.allergy.Manifestation": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "249497008", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                        "shr.core.DisplayText": {"Value": "Vomiting"}}]
                     }
                 },
                 "shr.core.OccurrenceTime": {
@@ -1330,6 +1344,13 @@
                         "shr.core.DisplayText": {"Value": "Moderate"}}]
                     }
                 },
+                "shr.allergy.Manifestation": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "267060006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                        "shr.core.DisplayText": {"Value": "Diarrhea"}}]
+                    }
+                },
                 "shr.core.OccurrenceTime": {
                     "Value": "13 JAN 2015"
                 }
@@ -1341,6 +1362,13 @@
                         "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                         "shr.core.Coding":[{ "Value": "mild", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/reaction-event-severity"}, 
                         "shr.core.DisplayText": {"Value": "Mild"}}]
+                    }
+                },
+                "shr.allergy.Manifestation": {
+                    "Value" : {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[{ "Value": "267105001", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                        "shr.core.DisplayText": {"Value": "Itching"}}]
                     }
                 },
                 "shr.core.OccurrenceTime": {
