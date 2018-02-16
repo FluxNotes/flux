@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Portal from 'react-portal'
 import Calendar from 'rc-calendar';
 import ContextItem from './ContextItem'
+import position from '../lib/slate-suggestions-dist/caret-position';
 import Lang from 'lodash'
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
@@ -120,19 +121,26 @@ class ContextPortal extends React.Component {
     adjustPosition = () => {
         const { menu } = this.state
         if (!menu || !menu.style) return;
+        const rect = position();
 
-        menu.style.position = 'absolute';
-        menu.style.width = 300;
-        menu.style.background = '#fff';
-        menu.style.padding = 10;
-        menu.style.display = 'block';
-        menu.style.opacity = 1;
-        if (window.innerHeight - this.props.top < 230) {
-            menu.style.bottom = `${window.innerHeight - this.props.top - window.pageYOffset}px`;
-            menu.style.left = `${this.props.left + window.pageXOffset + 10}px`;
+        if (!rect) {
+            // TODO: No positioning to use. Removing style may not be correct.
+            menu.removeAttribute('style');
+            menu.style.display = 'none'
         } else {
-            menu.style.top = `${this.props.top + window.pageYOffset}px`;
-            menu.style.left = `${this.props.left + window.pageXOffset}px`;
+            menu.style.position = 'absolute';
+            menu.style.width = 300;
+            menu.style.background = '#fff';
+            menu.style.padding = 10;
+            menu.style.display = 'block';
+            menu.style.opacity = 1;
+            if (window.innerHeight - rect.top < 230) {
+                menu.style.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px`;
+                menu.style.left = `${rect.left + window.pageXOffset + 10}px`;
+            } else {
+                menu.style.top = `${rect.top + window.pageYOffset}px`;
+                menu.style.left = `${rect.left + window.pageXOffset}px`;
+            }
         }
     }
     /*

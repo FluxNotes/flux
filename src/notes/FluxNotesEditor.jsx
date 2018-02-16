@@ -164,8 +164,6 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             isPortalOpen: false,
             portalOptions: null,
-            left: 0,
-            top: 0
         };
 
         // this.props.setFullAppState('isNoteViewerEditable', true);
@@ -252,17 +250,14 @@ class FluxNotesEditor extends React.Component {
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
-        let pos = position();
 
         this.setState({
             isPortalOpen: true,
             portalOptions: portalOptions,
             needToDelete: needToDelete,
-            left: pos.left,
-            top: pos.top
         });
         this.selectingForShortcut = shortcut;
-        return transform.blur();
+        return transform.focus();
     }
 
     // called from portal when an item is selected (context is not null) or if portal is closed without
@@ -717,8 +712,6 @@ class FluxNotesEditor extends React.Component {
                     <InsertersPortal
                         state={this.state.state}/>
                     <ContextPortal
-                        left={this.state.left}
-                        top={this.state.top}
                         state={this.state.state}
                         callback={callback}
                         onSelected={this.onPortalSelection}
