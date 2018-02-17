@@ -242,8 +242,8 @@ class PatientRecord {
         return allAllergies;
     }
 
-    getAllAllergiesSortedBySeverity() {
-        return this.getAllAllergies().sort(this._allergiesSeveritySorter);
+    getAllergyIntolerancesSortedBySeverity() {
+        return this.getAllergyIntolerances().sort(this._allergiesSeveritySorter);
     }
 
     // gets all allergy intolerances

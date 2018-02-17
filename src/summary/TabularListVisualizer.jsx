@@ -132,7 +132,7 @@ class TabularListVisualizer extends Component {
             subsectionname = <tr><td className="list-subsection-header">{transformedSubsection.name}</td></tr>;
         }
         if (list.length <= 0) {
-            return <div>{subsectionname}<h2 style={{paddingTop: '10px'}} key={subsectionindex}>None</h2></div>;
+            return <div key={subsectionindex}>{subsectionname}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
         let headings = null;
         if (transformedSubsection.headings) {
@@ -142,8 +142,12 @@ class TabularListVisualizer extends Component {
             });
             headings = <tr>{renderedColumnHeadings}</tr>;
         }
-        
-        
+
+        let postList = [];
+        if (transformedSubsection.postTableList) {
+            const {patient, condition} = this.props;
+            postList = transformedSubsection.postTableList(patient, condition);
+        }
 
         // TODO: temp variable for now to limit number of columns to be displayed to just the number of headings. Eventually remove this
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
@@ -156,6 +160,11 @@ class TabularListVisualizer extends Component {
                     {headings}
                         {subsectionname}
                         {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        {this.renderedListItems(`${subsectionindex}-post`, postList, 1)}
                     </tbody>
                 </table>
             </div>

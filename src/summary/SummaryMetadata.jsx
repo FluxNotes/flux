@@ -485,6 +485,7 @@ export default class SummaryMetadata {
                                 headings: ["Allergy", "Severity", "Effects"],
                                 itemsFunction: this.getItemListForAllergies,
                                 preTableCount: "allergies",
+                                postTableList: this.getItemListForNoKnownAllergies,
                             }
                         ]
                     },
@@ -631,6 +632,7 @@ export default class SummaryMetadata {
                                 headings: ["Allergy", "Severity", "Effects"],
                                 itemsFunction: this.getItemListForAllergies,
                                 preTableCount: "allergies",
+                                postTableList: this.getItemListForNoKnownAllergies,
                             }
                         ]
                     },
@@ -724,9 +726,17 @@ export default class SummaryMetadata {
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getAllAllergiesSortedBySeverity();
+        const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
             return [{value: a.name}, a.severity, a.manifestation];
+        });
+    }
+
+    getItemListForNoKnownAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        let noKnownAllergies = patient.getNoKnownAllergies();
+        return noKnownAllergies.map((a) => {
+            return [{value: a.noKnownAllergy}];
         });
     }
 
