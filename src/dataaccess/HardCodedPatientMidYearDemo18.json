@@ -816,6 +816,66 @@
         "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
     },
     {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "18",
+        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancerGeneticAnalysisPanel"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1" },
+        "shr.finding.Members" : {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Members"},
+            "Value": [
+                {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/BRCA1Variant"},
+                    "shr.finding.FocalSubject": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/FocalSubject"},
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                            "shr.core.Coding":[
+                                {   "Value": "405827002", 
+                                    "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                                    "shr.core.DisplayText": {"Value": "Breast cancer type 1 susceptibility protein"}
+                                }
+                            ]
+                        }
+                    },
+                    "Value": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[
+                            {   "Value": "C0205160", 
+                                "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                                "shr.core.DisplayText": {"Value": "Negative"}
+                            }
+                        ]
+                    }
+                },
+                {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/BRCA2Variant"},
+                    "shr.finding.FocalSubject": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/FocalSubject"},
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                            "shr.core.Coding":[
+                                {   "Value": "405828007", 
+                                    "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                                    "shr.core.DisplayText": {"Value": "Breast cancer type 2 susceptibility protein"}
+                                }
+                            ]
+                        }
+                    },
+                    "Value": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                        "shr.core.Coding":[
+                            {   "Value": "C0205160", 
+                                "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                                "shr.core.DisplayText": {"Value": "Negative"}
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "shr.base.Author": { "Value": "Dr. ABC123" },
+        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
+        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+    },
+    {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "shr.base.EntryId": "25",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"},
@@ -869,7 +929,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "3 DEC 2013"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "3 DEC 2013"
+            },
             "shr.core.Reason": [ {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "proactive"
@@ -889,7 +952,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "13 AUG 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "13 AUG 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -913,7 +979,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "29 AUG 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "29 AUG 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -943,7 +1012,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "29 AUG 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "29 AUG 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -973,7 +1045,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "29 AUG 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "29 AUG 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1003,7 +1078,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "13 OCT 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "13 OCT 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1033,7 +1111,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "15 OCT 2015"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "15 OCT 2015"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1057,7 +1138,10 @@
         "shr.action.ActionContext": { 
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
         "shr.action.Status": {"Value": "completed"},
-        "shr.action.ExpectedPerformanceTime": {"Value": "12 MAR 2016"},
+        "shr.action.ExpectedPerformanceTime": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+            "Value": "12 MAR 2016"
+        },
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1291,7 +1375,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "10 JUL 2017"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "10 JUL 2017"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1321,7 +1408,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "10 JUL 2017"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "10 JUL 2017"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1351,7 +1441,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "17 JUL 2017"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "17 JUL 2017"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
@@ -1467,7 +1560,10 @@
         "shr.action.ActionContext": { 
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
             "shr.action.Status": {"Value": "completed"},
-            "shr.action.ExpectedPerformanceTime": {"Value": "02 NOV 2017"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": "02 NOV 2017"
+            },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                "Value": {
