@@ -468,7 +468,14 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Genetic Testing",
-                                        value: null
+                                        value: (patient, currentConditionEntry) => {
+                                            const panel = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder().pop();
+                                            console.log(panel);
+                                            return panel.members.map((item) => {
+                                                const v = item.value === 'Positive' ? '+' : '-';
+                                                return item.abbreviatedName + v;
+                                            }).join(",");
+                                        }
                                     }
                                 ]
                             }

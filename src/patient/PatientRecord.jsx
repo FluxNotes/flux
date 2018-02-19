@@ -1,22 +1,23 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';;
+import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
+import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
+import FluxCondition from '../model/condition/FluxCondition';
+import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
+import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';;
+import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
-import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
+import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
-import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
-import FluxPatient from '../model/entity/FluxPatient';
-import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
-import FluxCondition from '../model/condition/FluxCondition';
-import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -434,6 +435,12 @@ class PatientRecord {
         return procedures;
     }
 
+    getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {
+        let panels = this.getEntriesOfType(FluxBreastCancerGeneticAnalysisPanel);
+        panels.sort(this._breastCancerGeneticAnalysisPanelTimeSorter);
+        return panels;
+    }
+    
     getProgressions() {
         return this.getEntriesOfType(FluxDiseaseProgression);
     }
@@ -506,6 +513,17 @@ class PatientRecord {
     _progressionTimeSorter(a, b) {
         const a_startTime = new moment(a.asOfDate, "D MMM YYYY");
         const b_startTime = new moment(b.asOfDate, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
+    _breastCancerGeneticAnalysisPanelTimeSorter(a, b) {
+        const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
+        const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }

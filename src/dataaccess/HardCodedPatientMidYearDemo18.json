@@ -871,6 +871,7 @@
                 }
             ]
         },
+        "shr.finding.ClinicallyRelevantTime": {"Value": "15 OCT 2015"},
         "shr.base.Author": { "Value": "Dr. ABC123" },
         "shr.core.CreationTime": {"Value": "15 OCT 2015"},
         "shr.base.LastUpdated": {"Value": "15 OCT 2015"}

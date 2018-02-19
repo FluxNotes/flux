@@ -282,7 +282,7 @@ class TabularListVisualizer extends Component {
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
                 elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
-                if(Lang.isNull(element) || elementText.length === 0) {
+                if(Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
                     columnItem = (
                         <td 
                             className={"list-missing"} 

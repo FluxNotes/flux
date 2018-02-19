@@ -154,7 +154,7 @@ export default class TargetedDataSection extends Component {
         const encounterView = clinicalEvent === "encounter";
         const notFiltered = !Lang.isUndefined(section.notFiltered) && section.notFiltered;
 
-        //console.log(section.name);
+        console.log(section.name);
         return (
             <div id="targeted-data-section">
                 <h2 className="section-header">
