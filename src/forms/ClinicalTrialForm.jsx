@@ -43,22 +43,6 @@ class ClinicalTrialForm extends Component {
         }
     }
 
-    handleDateChoice = (event) => {
-        const choice = event.target.value;
-        // When changing the choice of date, set the other to null to clear it from the copy button
-        // and reset the chosen date to the value displayed in the picker.
-        if (choice === 'enrollmentDate') {
-            this.props.updateValue('endDateDate', null);
-            this.props.updateValue('enrollmentDateDate',
-                (this.state.selectedEnrollmentDate) ? this.state.selectedEnrollmentDate : null); //.format('D MMM YYYY')
-        } else if (choice === 'endDate') {
-            this.props.updateValue('enrollmentDateDate', null);
-            this.props.updateValue('endDateDate',
-                (this.state.selectedEndDate) ? this.state.selectedEndDate : null); //.format('D MMM YYYY')
-        }
-        this.setState({selectedDateChoice: choice});
-    }
-
     renderTrialButtonGroup = (trial, i) => {
         const isSelected = this.isSelectedTrial(trial);
         const marginSize = "10px";
@@ -109,7 +93,7 @@ class ClinicalTrialForm extends Component {
                     }
                 </div>
 
-                <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span></h4>
+                <h4 className="header-spacing">Enrollment Date <span className="helper-text"> mm/dd/yyyy</span></h4>
                 <div className="date-choices">
                     {this.renderEnrollmentDatePicker()}
                 </div>
@@ -120,7 +104,7 @@ class ClinicalTrialForm extends Component {
 
                 <h4 className="header-spacing">Enrollment</h4>
                 <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("clinicalTrial")}
+                    {ClinicalTrialsList.getDescription("clinicalTrialEnrollment")}
                 </p>
                 <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
@@ -129,7 +113,7 @@ class ClinicalTrialForm extends Component {
 
                 <h4 className="header-spacing">Trial</h4>
                 <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("trial")}
+                    {ClinicalTrialsList.getDescription("trialEnrollment")}
                 </p>
 
                 <h4 className="header-spacing">{enrollmentDateLabel}</h4>

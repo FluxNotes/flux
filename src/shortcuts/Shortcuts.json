@@ -223,16 +223,16 @@
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/research/Study",
     "valueObjectAttributes": [  {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
-      {"name":"enrollmentDate", "childShortcut": "ClinicalTrialEnrollmentDateCreator"},
-      {"name":"enrollmentDateDate", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate"}
+      {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"},
+      {"name":"endDateDate", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate"}
     ],
     "isContext": true,
-    "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient in a clinical trial."}],
+    "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient from a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialUnenrolledForm",
-    "structuredPhrase": "#unenrolled #${title}${% #on #${enrollmentDateDate}}",
+    "structuredPhrase": "#unenrolled #${title}${% #${endDateDate}}",
     "knownParentContexts": "Patient",
-    "description": "Support specifying the enrollment of the patient in a clinical trial.",
+    "description": "Support specifying the enrollment of the patient from a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialUnenrolledSheet.pdf"
   },
   { "type": "CreatorBase",
@@ -266,7 +266,6 @@
     "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"},
                         { "name": "#title", "description": "Pick list for clinical trial", "picker": true }],
     "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrials", "prefix": "#"},
-    "knownParentContexts": "ClinicalTrialCreator",
     "description":"Allows selection of the clinical trial.",
     "shortcutGroupName":"Clinical Trial"
   },

@@ -13,9 +13,8 @@ class ClinicalTrialUnenrolledForm extends Component {
 
         this.state = {
             trials: this.clinicalTrialsList.getAllTrials(),
-            selectedEnrollmentDate: null,
             selectedEndDate: null,
-            selectedDateChoice: 'enrollmentDate'
+            selectedDateChoice: 'endDate'
         };
     }
 
@@ -33,39 +32,14 @@ class ClinicalTrialUnenrolledForm extends Component {
         }
     }
 
-    handleEnrollmentDateChange = (selectedDate) => {
-        this.setState({
-            selectedEnrollmentDate: selectedDate
-        });
-
-        if (this.state.selectedDateChoice === "enrollmentDate") {
-            this.props.updateValue("enrollmentDateDate", selectedDate); //.format('D MMM YYYY'));
-        }
-    }
-
     handleEndDateChange = (selectedDate) => {
         this.setState({
             selectedEndDate: selectedDate
         });
+
         if (this.state.selectedDateChoice === "endDate") {
             this.props.updateValue("endDateDate", selectedDate); //.format('D MMM YYYY'));
         }
-    }
-
-    handleDateChoice = (event) => {
-        const choice = event.target.value;
-        // When changing the choice of date, set the other to null to clear it from the copy button
-        // and reset the chosen date to the value displayed in the picker.
-        if (choice === 'enrollmentDate') {
-            this.props.updateValue('endDateDate', null);
-            this.props.updateValue('enrollmentDateDate',
-                (this.state.selectedEnrollmentDate) ? this.state.selectedEnrollmentDate : null); //.format('D MMM YYYY')
-        } else if (choice === 'endDate') {
-            this.props.updateValue('enrollmentDateDate', null);
-            this.props.updateValue('endDateDate',
-                (this.state.selectedEndDate) ? this.state.selectedEndDate : null); //.format('D MMM YYYY')
-        }
-        this.setState({selectedDateChoice: choice});
     }
 
     renderTrialButtonGroup = (trial, i) => {
@@ -90,18 +64,18 @@ class ClinicalTrialUnenrolledForm extends Component {
         )
     }
 
-    renderEnrollmentDatePicker = () => {
+    renderEndDatePicker = () => {
         return (
-            <DatePicker id="enrollment-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEnrollmentDateChange}
+            <DatePicker id="end-date" className='clinical-trial-dates'
+                        handleDateChange={this.handleEndDateChange}
                         dateToSet={null}
             />
         );
     }
 
     render() {
-        const enrollmentDateLabel = 'Enrollment Date';
-        const enrollmentDateDescription = `${ClinicalTrialsList.getDescription("enrollmentDate")}`;
+        const endDateLabel = 'Unenrolled Date';
+        const endDateDescription = `${ClinicalTrialsList.getDescription("endDate")}`;
 
         return (
             <div>
@@ -118,32 +92,32 @@ class ClinicalTrialUnenrolledForm extends Component {
                     }
                 </div>
 
-                <h4 className="header-spacing">Relevant Date <span className="helper-text"> mm/dd/yyyy</span></h4>
+                <h4 className="header-spacing">Unenrolled Date <span className="helper-text"> mm/dd/yyyy</span></h4>
                 <div className="date-choices">
-                    {this.renderEnrollmentDatePicker()}
+                    {this.renderEndDatePicker()}
                 </div>
 
                 {/*Definitions of data elements*/}
                 <h4 className="header-spacing">Definitions</h4>
                 <Divider className="divider"/>
 
-                <h4 className="header-spacing">Enrollment</h4>
+                <h4 className="header-spacing">Unenrolled</h4>
                 <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("clinicalTrial")}
+                    {ClinicalTrialsList.getDescription("clinicalTrialUnenrolled")}
                 </p>
                 <p id="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="clinicalTrialEnrollmentSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                    href="clinicalTrialUnenrolledSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Trial</h4>
                 <p id="data-element-description">
-                    {ClinicalTrialsList.getDescription("trial")}
+                    {ClinicalTrialsList.getDescription("trialUnenrolled")}
                 </p>
 
-                <h4 className="header-spacing">{enrollmentDateLabel}</h4>
+                <h4 className="header-spacing">{endDateLabel}</h4>
                 <p id="data-element-description">
-                    {enrollmentDateDescription}
+                    {endDateDescription}
                 </p>
             </div>
         )
