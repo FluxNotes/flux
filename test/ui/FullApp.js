@@ -203,7 +203,7 @@ test('Typing a date in the editor results in a structured data insertion ', asyn
         .contains("#12/20/2015");
 });
 
-test.only('Typing "#enroll" and selecting "enrollment" from the portal in the editor results \
+test('Typing "#enroll" and selecting "enrollment" from the portal in the editor results \
 in a structured data insertion and the context panel updates', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     await t
@@ -226,6 +226,31 @@ in a structured data insertion and the context panel updates', async t => {
             .contains(clinicalTrialChildren[i]);
     }
 });
+
+test('Typing "#unen" and selecting "unenrolled" from the portal in the editor results \
+in a structured data insertion and the context panel updates', async t => {
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#unen");
+    const correctSuggestion = Selector(".suggestion-portal").find('li').withText('unenrolled');
+    await t
+        .click(correctSuggestion);
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.innerText)
+        .contains('#unenrolled');
+    const contextPanelElements = Selector(".context-options-list").find('button');
+    const count = await contextPanelElements.count;
+    const clinicalTrialChildren = ['#PATINA', '#TITLE'];
+    for (let i = 0; i < count; i++) {
+        let contextPanelElementInnerText = await contextPanelElements.nth(i).innerText;
+        let contextPanelElementsUpper = contextPanelElementInnerText.toUpperCase();
+        await t
+            .expect(contextPanelElementsUpper)
+            .contains(clinicalTrialChildren[i]);
+    }
+});
+
 
 test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
     const editor = Selector("div[data-slate-editor='true']");
@@ -361,13 +386,37 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
 fixture('Patient Mode - Context Panel')
     .page(startPage);
 
-test.only('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #{date chosen}"', async t => {
+test('Clicking "#enrollment", "#date" and choosing a date inserts "#enrollment #{date chosen}"', async t => {
     const today = new moment().format('MM/DD/YYYY');
     const expectedText = ["#enrollment", `#${today}`];
     const editor = Selector("div[data-slate-editor='true']");
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const clinicalTrialButton = await contextPanelElements.withText(/#enrollment/ig);
+
+    await t
+        .click(clinicalTrialButton);
+
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    const structuredFieldCount = await structuredField.count;
+    for (let i = 0; i < structuredFieldCount; i++) {
+        await t
+            .expect(structuredField.nth(i).innerText)
+            .contains(expectedText[i]);
+    }
+});
+
+test('Clicking "#unenrolled", "#date" and choosing a date inserts "#unenrolled #{date chosen}"', async t => {
+    const today = new moment().format('MM/DD/YYYY');
+    const expectedText = ["#unenrolled", `#${today}`];
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const clinicalTrialButton = await contextPanelElements.withText(/#unenrolled/ig);
 
     await t
         .click(clinicalTrialButton);

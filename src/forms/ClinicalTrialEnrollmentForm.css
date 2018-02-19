@@ -1,14 +1,3 @@
-.trial_button {
-    border: 2px solid;
-    border-radius: 10px; 
-    border-color: white;
-}
-
-.trial_button.button_selected {
-    background-color: #297DA2 !important;
-    color: #fff !important;
-}
-
 .tooltip-clinical-trial {
     position: relative;
     display: inline-block;
@@ -60,11 +49,6 @@
 .MuiInput-inkbar-113:after{
     background-color: #297DA2 !important;
 }
-
-.radio-button-clinical-trial {
-    color: #297DA2 !important;
-}
-
 
 .DayPickerInput-Overlay {
     z-index: 3;

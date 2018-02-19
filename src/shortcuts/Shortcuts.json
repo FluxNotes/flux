@@ -211,7 +211,7 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
-    "form": "ClinicalTrialForm",
+    "form": "ClinicalTrialEnrollmentForm",
     "structuredPhrase": "#enrollment #${title}${% #${enrollmentDateDate}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient in a clinical trial.",

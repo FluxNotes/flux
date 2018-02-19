@@ -6,7 +6,7 @@ import FluxDeceased from '../../../src/model/entity/FluxDeceased';
 import FluxStudy from '../../../src/model/research/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-import util from 'util';
+// import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -233,8 +233,6 @@ describe('parse', function() {
     });
     it('should return a patient record with study unenrolled data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolled);
-        console.log(util.inspect(record, false, null));
-        console.log(util.inspect(expectedOutputClinicalTrialUnenrolled, false, null));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialUnenrolled);

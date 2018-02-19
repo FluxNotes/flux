@@ -4,9 +4,9 @@ import Divider from 'material-ui/Divider';
 import SingleChoiceButton from './SingleChoiceButton';
 import DatePicker from '../forms/DatePicker';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
-import './ClinicalTrialForm.css';
+import './ClinicalTrialEnrollmentForm.css';
 
-class ClinicalTrialForm extends Component {
+class ClinicalTrialEnrollmentForm extends Component {
     constructor(props) {
         super(props);
         this.clinicalTrialsList = new ClinicalTrialsList();
@@ -125,9 +125,9 @@ class ClinicalTrialForm extends Component {
     }
 }
 
-ClinicalTrialForm.proptypes = {
+ClinicalTrialEnrollmentForm.proptypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
 }
 
-export default ClinicalTrialForm;
+export default ClinicalTrialEnrollmentForm;
