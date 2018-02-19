@@ -469,8 +469,9 @@ export default class SummaryMetadata {
                                     {
                                         name: "Genetic Testing",
                                         value: (patient, currentConditionEntry) => {
-                                            const panel = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder().pop();
-                                            console.log(panel);
+                                            const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                            if (!panels || panels.length === 0) return null;
+                                            const panel = panels.pop();
                                             return panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
