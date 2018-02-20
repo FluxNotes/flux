@@ -143,12 +143,6 @@ class TabularListVisualizer extends Component {
             headings = <tr>{renderedColumnHeadings}</tr>;
         }
 
-        let postList = [];
-        if (transformedSubsection.postTableList) {
-            const {patient, condition} = this.props;
-            postList = transformedSubsection.postTableList(patient, condition);
-        }
-
         // TODO: temp variable for now to limit number of columns to be displayed to just the number of headings. Eventually remove this
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
@@ -163,7 +157,7 @@ class TabularListVisualizer extends Component {
                     </tbody>
                 </table>
                 <ul>
-                    {this.renderedPostTableList(postList)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList)}
                 </ul>
             </div>
         );
@@ -208,7 +202,11 @@ class TabularListVisualizer extends Component {
         });
     }
 
-    renderedPostTableList(list) {
+    renderedPostTableList(itemsFunction) {
+        const {patient, condition} = this.props;
+        if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
+
+        const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;
             const elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);

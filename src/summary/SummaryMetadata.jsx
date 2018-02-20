@@ -1,7 +1,7 @@
-import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
-import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import Lang from 'lodash'
 import moment from 'moment';
+import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
+import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 
 /*
     Each section has the following properties:
