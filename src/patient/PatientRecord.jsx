@@ -604,6 +604,12 @@ class PatientRecord {
         return PatientRecord.getMostRecentEntryFromList(list);
     }
 
+    getEntryFromReference(ref) {
+        return this.entries.find((item) => {
+            return item.entryInfo.entryId === ref.entryId;
+        });
+    }
+
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
