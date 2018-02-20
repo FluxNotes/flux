@@ -1491,6 +1491,16 @@
                     "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
                     "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
                     "EntryId": "35"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "36"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "37"
                 }
             ]
         },
@@ -1506,6 +1516,34 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding": [{"Value": "C50575", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
             "shr.core.DisplayText": "alopecia"}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "36",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C61443", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": "amenorrhea"}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "37",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C118263", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": "numbness or tingling in hands and feet"}]
         },
         "Value": true,
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
