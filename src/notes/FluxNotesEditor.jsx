@@ -16,7 +16,7 @@ import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
-import position from '../lib/slate-suggestions-dist/caret-position.js'
+import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -75,6 +75,8 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
 
         this.didFocusChange = false;
+        this.editorHasFocus = false;
+        this.lastPosition = { top: 0, left: 0 };
 
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
@@ -248,6 +250,16 @@ class FluxNotesEditor extends React.Component {
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
 
+    getTextCursorPosition = () => {
+        if (!this.editorHasFocus) {
+            return this.lastPosition;
+        } else {
+            let pos = position();
+            this.lastPosition = pos;
+            return pos;
+        }
+    }
+
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
 
@@ -257,7 +269,7 @@ class FluxNotesEditor extends React.Component {
             needToDelete: needToDelete,
         });
         this.selectingForShortcut = shortcut;
-        return transform.focus();
+        return transform.blur();
     }
 
     // called from portal when an item is selected (context is not null) or if portal is closed without
@@ -342,6 +354,14 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
+    }
+
+    onFocus = () => {
+        this.editorHasFocus = true;
+    }
+
+    onBlur = () => {
+        this.editorHasFocus = false;
     }
 
     onInput = (event, data) => {
@@ -703,15 +723,22 @@ class FluxNotesEditor extends React.Component {
                         }}
                         onChange={this.onChange}
                         onInput={this.onInput}
+                        onBlur={this.onBlur}
+                        onFocus={this.onFocus}
                         onSelectionChange={this.onSelectionChange}
                         schema={schema}
                     />
                     {errorDisplay}
                     <CreatorsPortal
-                        state={this.state.state}/>
+                        state={this.state.state}
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}/>
                     <InsertersPortal
-                        state={this.state.state}/>
+                        state={this.state.state}
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}/>
                     <ContextPortal
+                        getPosition={this.getTextCursorPosition}
                         state={this.state.state}
                         callback={callback}
                         onSelected={this.onPortalSelection}

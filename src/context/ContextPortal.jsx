@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Portal from 'react-portal'
 import Calendar from 'rc-calendar';
 import ContextItem from './ContextItem'
-import position from '../lib/slate-suggestions-dist/caret-position';
 import Lang from 'lodash'
 import './ContextPortal.css';
 import 'rc-calendar/assets/index.css';
@@ -121,7 +120,7 @@ class ContextPortal extends React.Component {
     adjustPosition = () => {
         const { menu } = this.state
         if (!menu || !menu.style) return;
-        const rect = position();
+        const rect = this.props.getPosition();
 
         if (!rect) {
             // TODO: No positioning to use. Removing style may not be correct.

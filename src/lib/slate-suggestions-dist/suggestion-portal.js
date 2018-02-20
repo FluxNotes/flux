@@ -246,6 +246,12 @@ class SuggestionPortal extends React.Component {
         // If there is no menu, return
         if (!menu) return;
 
+        // Prevent portal from opening when Context Portal is open
+        if (this.props.contextPortalOpen) {
+            this.closePortal();
+            return;
+        }
+
         const match = this.matchCapture();
         if (match === undefined) {
             // No match: remove menu styling
@@ -254,10 +260,10 @@ class SuggestionPortal extends React.Component {
         }
 
         if (this.matchTrigger() || match) {
-            const rect = position()
+            const rect = this.props.getPosition();
             if (!rect) { 
-                menu.removeAttribute('style');
-                menu.style.display = 'none'
+                // menu.removeAttribute('style');
+                // menu.style.display = 'none'
             } else { 
                 menu.style.display = 'block'
                 menu.style.opacity = 1
@@ -282,13 +288,12 @@ class SuggestionPortal extends React.Component {
     // Closes portal
     closePortal = () => {
         const { menu } = this.state;
-        console.log('----- closing portal')
-        console.log(menu)
         // No menu to close: return
         if (!menu) return;
 
         // Remove menu styling
         menu.removeAttribute('style');
+        menu.style.display = 'none';
         // Reset default suggestion for elements
         this.setDefaultSuggestion();
         return;
@@ -298,7 +303,7 @@ class SuggestionPortal extends React.Component {
         const filteredSuggestions  = this.getFilteredSuggestions();
 
         return (
-            <Portal isOpened onOpen={this.openPortal}>
+            <Portal isOpened closeOnEsc closeOnOutsideClick onOpen={this.openPortal}>
                 <div className="suggestion-portal" ref="suggestionPortal">
                     <ul>
                         {filteredSuggestions.map((suggestion, index) =>
