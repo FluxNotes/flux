@@ -20,6 +20,8 @@ import moment from 'moment';
                                 code            Indicates a code to be used by an itemsFunction. This allows multiple sections to share the same
                                                 itemsFunction
                                 bands           Indicates a set of value ranges and the assessment for that range. Some visualizers display bands
+                                preTableCount   Indicates type of items in table, e.g. Allergies.  Will show count of number of items in table.
+                                postTableList   Provide list of structured data to be displayed after the table.
         defaultVisualizer   Indicates the visualizer type for the default visualizer to use for the section. The following ways to specify the
                             default are supported:
                                 "tabular"                                               The specified visualizer type will be the default
