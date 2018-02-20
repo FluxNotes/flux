@@ -71,6 +71,12 @@ exports.getRangeValues = (medication, units) => {
                 upperValue: 10,
                 typicalValue: 1
             };
+        case "224905_mg/kg":
+            return {
+                lowerValue: 2,
+                upperValue: 8,
+                typicalValue: 4
+            };
             
         default: {
             console.log(switchKey);
