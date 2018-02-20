@@ -20,8 +20,10 @@ const sampleTextDiseaseStatus = "Debra Hernandez672 is presenting with carcinoma
 const sampleTextDiseaseStatus2 = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #disease status #stable based on #imaging and #physical exam #as of #10/5/2017 #reference date #6/7/2017";
 const sampleTextToxicity = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #toxicity #nausea #grade 2 #treatment";
 const sampleTextDeceased = "Debra Hernandez672 is #deceased on #10/01/2017";
-const sampleTextClinicalTrial = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #clinical trial #PATINA #enrolled on #09/04/2017 and #ended on #10/06/2017";
-const sampleTextClinicalTrialMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #clinical trial";
+const sampleTextClinicalTrialEnrollment = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n Patient consented to #enrollment #PATINA on #09/04/2017";
+const sampleTextClinicalTrialEnrollmentMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #enrollment";
+const sampleTextClinicalTrialUnenrolled = "Debra Hernandez672 is presenting with carcinoma of the breast. \n\n Patient #unenrolled from #PATINA on #10/06/2017";
+const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenting with carcinoma of the breast.\n\n #unenrolled";
 
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
@@ -111,22 +113,34 @@ const expectedOutputDeceased = [[
         }
     })
 ], []];
-const expectedOutputClinicalTrial = [[
+const expectedOutputClinicalTrialEnrollment = [[
     new FluxStudy({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
         "shr.core.Title": {"Value": "PATINA"},
         "shr.core.EffectiveTimePeriod": {
-            "shr.core.TimePeriodStart": {"Value": "4 Sep 2017"},
-            "shr.core.TimePeriodEnd": {"Value": "6 Oct 2017"}
+            "shr.core.TimePeriodStart": {"Value": "4 Sep 2017"}
         }
     })
 ], []];
-const expectedOutputClinicalTrialMinimal = [[
+const expectedOutputClinicalTrialEnrollmentMinimal = [[
     new FluxStudy({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
     })
 ], []];
-
+const expectedOutputClinicalTrialUnenrolled = [[
+    new FluxStudy({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+        "shr.core.Title": {"Value": "PATINA"},
+        "shr.core.EffectiveTimePeriod": {
+            "shr.core.TimePeriodEnd": {"Value": "6 Oct 2017"}
+        }
+    })
+], []];
+const expectedOutputClinicalTrialUnenrolledMinimal = [[
+    new FluxStudy({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+    })
+], []];
 
 describe('getAllTriggersRegularExpression', function () { 
 
@@ -205,17 +219,29 @@ describe('parse', function() {
             .to.be.an('array')
             .and.to.eql(expectedOutputDeceased);
     });
-    it('should return a patient record with study enrollment data when parsing a note with clinical trial phases', function () {
-        const record = noteParser.parse(sampleTextClinicalTrial);
+    it('should return a patient record with study enrollment data when parsing a note with clinical trial phrases', function () {
+        const record = noteParser.parse(sampleTextClinicalTrialEnrollment);
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputClinicalTrial);
+            .and.to.eql(expectedOutputClinicalTrialEnrollment);
     });
-    it('should return a patient record with study enrollment data correctly defaulted when parsing a note with only #clinical trial', function () {
-        const record = noteParser.parse(sampleTextClinicalTrialMinimal);
+    it('should return a patient record with study enrollment data correctly defaulted when parsing a note with only #enrollment', function () {
+        const record = noteParser.parse(sampleTextClinicalTrialEnrollmentMinimal);
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputClinicalTrialMinimal);
+            .and.to.eql(expectedOutputClinicalTrialEnrollmentMinimal);
+    });
+    it('should return a patient record with study unenrolled data when parsing a note with clinical trial phrases', function () {
+        const record = noteParser.parse(sampleTextClinicalTrialUnenrolled);
+        expect(record)
+            .to.be.an('array')
+            .and.to.eql(expectedOutputClinicalTrialUnenrolled);
+    });
+    it('should return a patient record with study unenrolled data correctly defaulted when parsing a note with only #unenrolled', function () {
+        const record = noteParser.parse(sampleTextClinicalTrialUnenrolledMinimal);
+        expect(record)
+            .to.be.an('array')
+            .and.to.eql(expectedOutputClinicalTrialUnenrolledMinimal);
     });
 });
 

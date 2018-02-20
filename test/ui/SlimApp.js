@@ -20,11 +20,17 @@ test('Clicking toxicity button puts us in toxicity mode', async t => {
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Toxicity", `Current header doesn't reflect expected toxicity page header`);
 })
-test('Clicking clinical trial button puts us in clinical trial mode', async t => {
+test('Clicking enrollment button puts us in enrollment mode', async t => {
     await t
-        .click("#Clinical\\ Trial")
+        .click("#Enrollment")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
-        .eql("Clinical Trial", `Current header doesn't reflect expected toxicity page header`);
+        .eql("Enrollment", `Current header doesn't reflect expected enrollment page header`);
+})
+test('Clicking unenrolled button puts us in unenrolled mode', async t => {
+    await t
+        .click("#Unenrolled")
+        .expect(Selector("#shortcut-viewer").find('h1').innerText)
+        .eql("Unenrolled", `Current header doesn't reflect expected unenrolled page header`);
 })
 test('Clicking deceased button puts us in deceased mode', async t => {
     await t
@@ -96,7 +102,7 @@ test('Selecting adverseEvent, then selecting a valid grade updates copy-content'
             .contains(await gradeButtons.nth(i).innerText);
     }
 });
-test('Changing adverseEvemt via button updates copy-content', async t => {
+test('Changing adverseEvent via button updates copy-content', async t => {
     const adverseEventButtons = Selector('.btn-group-adverse-event').find("span[class^='MuiButton-label']");
     const numButtons = await adverseEventButtons.count;
     for(let i = 0; i < numButtons; i++) {
@@ -117,12 +123,12 @@ test('Changing attribution via button updates copy-content', async t => {
     }
 });
 
-fixture('Lite Mode - Clinical Trial')
+fixture('Lite Mode - Enrollment')
     .page(startPage)
     .beforeEach( async t => {
-        await t.click("#Clinical\\ Trial");
+        await t.click("#Enrollment");
     });
-test('Selecting a clinical trial updates copy-content', async t => {
+test('Selecting a clinical trial for enrollment updates copy-content', async t => {
     const trialButtons = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']");
     const numButtons = await trialButtons.count;
     const copyButton = Selector("#copy-content");
@@ -133,37 +139,50 @@ test('Selecting a clinical trial updates copy-content', async t => {
             .contains(await trialButtons.nth(i).innerText);
     }
 });
-test('Selecting the enrollment date choice and a date updates copy-content', async t => {
-    const enrollmentDateChoice = Selector("#enrollment-date-choice");
+test('Selecting a date for enrollment updates copy-content', async t => {
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
     await t
         .click(firstTrial)
-        .click(enrollmentDateChoice);
 
     const enrollmentDatePicker = await Selector("#enrollment-date");
     await t
         .typeText(enrollmentDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
-        .contains(`#enrolled on #${await enrollmentDatePicker.value}`);
+        .contains(`#${await enrollmentDatePicker.value}`);
 });
-test('Selecting the end date choice and a date updates copy-content', async t => {
-    const endDateChoice = Selector("#end-date-choice");
+
+fixture('Lite Mode - Unenrolled')
+    .page(startPage)
+    .beforeEach( async t => {
+        await t.click("#Unenrolled");
+    });
+test('Selecting a clinical trial for unenrolled updates copy-content', async t => {
+    const trialButtons = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']");
+    const numButtons = await trialButtons.count;
+    const copyButton = Selector("#copy-content");
+    for (let i = 0; i < numButtons; i++) {
+        await t
+            .click(trialButtons.nth(i))
+            .expect(copyButton.innerText)
+            .contains(await trialButtons.nth(i).innerText);
+    }
+});
+test('Selecting a date for unenrolled updates copy-content', async t => {
     const copyButton = Selector("#copy-content");
     // Date only appears if a trial is selected
     const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
     await t
         .click(firstTrial)
-        .click(endDateChoice);
 
     const endDatePicker = await Selector("#end-date");
     await t
         .typeText(endDatePicker, '10/06/2017');
     await t
         .expect(copyButton.innerText)
-        .contains(await `#ended on #${await endDatePicker.value}`);
+        .contains(`#${await endDatePicker.value}`);
 });
 
 fixture('Lite Mode - Deceased')

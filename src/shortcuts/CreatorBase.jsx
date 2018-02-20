@@ -251,8 +251,11 @@ export default class CreatorBase extends Shortcut {
     }
 
     getAttributeValue(name) {
-        //console.log("getAttribute for " + this.metadata["id"] + " called " + name);
+        // console.log("getAttribute for " + this.metadata["id"] + " called " + name);
+
         const voa = this.valueObjectAttributes[name];
+
+        // console.log(voa);
         if (Lang.isNull(voa["attributePath"])) {
             return this.values[voa["name"]];
         } else {
