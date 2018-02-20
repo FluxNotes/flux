@@ -1600,6 +1600,11 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla."
+            
+        },
         "shr.core.CreationTime": { "Value": "30 OCT 2017"},
         "shr.base.LastUpdated": { "Value": "02 NOV 2017"}        
     },
