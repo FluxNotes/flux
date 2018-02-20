@@ -91,6 +91,10 @@ export default class SummaryMetadata {
                                 items: [
                                     {
                                         name: "Reason",
+                                        unsigned: (patient, currentConditionEntry) => {
+                                            const previousEncounter = patient.getPreviousEncounter();
+                                            return patient.isUnsigned(previousEncounter);
+                                        },
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
                                             if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];

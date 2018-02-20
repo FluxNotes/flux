@@ -81,6 +81,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         }
 
         const items = subsection.items;
+        console.log("items");
+        console.log(items);
         const itemsFunction = subsection.itemsFunction;
         let list = null;
 
