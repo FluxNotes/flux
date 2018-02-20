@@ -49,6 +49,17 @@
     cursor: pointer;
 }
 
+.tabular-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tabular-list ul li {
+    font-size: 0.8rem;
+    text-decoration: underline blue;
+    cursor: pointer;
+}
+
 /* Heading of column*/
 .tabular-list .list-column-heading {
     color: #000;

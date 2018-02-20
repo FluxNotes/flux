@@ -476,6 +476,7 @@ export default class SummaryMetadata {
                     },
                     {
                         name: "Allergies",
+                        shortName: "Allergies",
                         clinicalEvents: ["pre-encounter"],
                         type: "Columns",
                         notFiltered: true,
@@ -736,7 +737,7 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         let noKnownAllergies = patient.getNoKnownAllergies();
         return noKnownAllergies.map((a) => {
-            return [{value: a.noKnownAllergy}];
+            return {value: a.noKnownAllergy};
         });
     }
 
@@ -753,10 +754,10 @@ export default class SummaryMetadata {
             processedLab[subsection.name] = lab.quantity.number;
             processedLab["unit"] = lab.quantity.unit;
 
-            return processedLab
+            return processedLab;
         });
 
-        return labs
+        return labs;
     }
 
     getProgressions = (patient, condition, subsection) => {

@@ -162,11 +162,9 @@ class TabularListVisualizer extends Component {
                         {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
                     </tbody>
                 </table>
-                <table>
-                    <tbody>
-                        {this.renderedListItems(`${subsectionindex}-post`, postList, 1)}
-                    </tbody>
-                </table>
+                <ul>
+                    {this.renderedPostTableList(postList)}
+                </ul>
             </div>
         );
     }
@@ -210,22 +208,74 @@ class TabularListVisualizer extends Component {
         });
     }
 
+    renderedPostTableList(list) {
+        return list.map((element, index) => {
+            const elementId = `post-item-${index}`;
+            const elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
+            if (this.props.allowItemClick) {
+                return (
+                    <li key={elementId}>
+                        {this.renderedStructuredData(elementText, element, elementId, elementText)}
+                    </li>
+                );
+            } else {
+                return (
+                    <li key={elementId}>
+                        <span>
+                            {elementText}
+                        </span>
+                    </li>
+                );
+            }
+        });
+    }
+
+    renderedStructuredData(item, element, elementId, elementText) {
+        const {
+            elementToDisplayMenu,
+            positionLeft,
+            positionTop,
+        } = this.state;
+
+        const insertItem = (element) => {
+            const callback = () => { 
+                this.props.onItemClicked(element);
+            };
+            this.closeInsertionMenu(callback);
+        };
+        return (
+            <div>
+                <span
+                    data-test-summary-item={item} 
+                    onClick={(event) => this.openInsertionMenu(event, elementId)}
+                >
+                    {elementText}
+                </span>
+                <Menu
+                    open={elementToDisplayMenu === elementId}
+                    anchorReference="anchorPosition"
+                    anchorPosition={{ top: positionTop, left: positionLeft }}
+                    onClose={(event) => this.closeInsertionMenu()}
+                    className="narrative-inserter-tooltip"
+                >
+                    <MenuItem   
+                        onClick={() => insertItem(element)}
+                        className="narrative-inserter-box"
+                    >
+                        <ListItemIcon>
+                            <FontAwesome name="plus"/>
+                        </ListItemIcon>
+                        <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
+                    </MenuItem>
+                </Menu>
+            </div>
+        );
+    }
+
     // Render a given list item as a cell in a table
     renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass) {
             // Array of all columns
             const renderedColumns = [];
-            const {
-              elementToDisplayMenu,
-              positionLeft,
-              positionTop,
-            } = this.state;
-
-            const insertItem = (element) => {
-                const callback = () => { 
-                    this.props.onItemClicked(element);
-                };
-                this.closeInsertionMenu(callback);
-            };
             
             let isInsertable, elementText;
             const numColumns = item.length;
@@ -259,29 +309,7 @@ class TabularListVisualizer extends Component {
                             className={itemClass} 
                             key={elementId}
                         >   
-                            <span
-                                data-test-summary-item={item[0].value} 
-                                onClick={(event) => this.openInsertionMenu(event, elementId)}
-                            >
-                                {elementText}
-                            </span>
-                            <Menu
-                                open={elementToDisplayMenu === elementId}
-                                anchorReference="anchorPosition"
-                                anchorPosition={{ top: positionTop, left: positionLeft }}
-                                onClose={(event) => this.closeInsertionMenu()}
-                                className="narrative-inserter-tooltip"
-                            >
-                                <MenuItem   
-                                    onClick={() => insertItem(element)}
-                                    className="narrative-inserter-box"
-                                >
-                                    <ListItemIcon>
-                                        <FontAwesome name="plus"/>
-                                    </ListItemIcon>
-                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
-                                </MenuItem>
-                            </Menu>
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
                         </td>
                     );
                 } else if (!isInsertable) {
