@@ -81,8 +81,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         }
 
         const items = subsection.items;
-        console.log("items");
-        console.log(items);
+        // console.log("items");
+        // console.log(items);
         const itemsFunction = subsection.itemsFunction;
         let list = null;
 
@@ -93,7 +93,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut, unsigned: item.unsigned(patient, condition)};
+                    return {name: item.name, value: item.value(patient, condition)[0], shortcut: item.shortcut, unsigned: item.value(patient, condition)[1]};
                 }
             });
         }

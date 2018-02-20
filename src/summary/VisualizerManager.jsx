@@ -10,9 +10,9 @@ import Lang from 'lodash';
 class VisualizerManager {
     transformMedicationsToColumns = (patient, condition, subsection) => {
         let newsection = {};
-        
-        const itemList = subsection.itemsFunction(patient, condition, subsection);        
-        
+
+        const itemList = subsection.itemsFunction(patient, condition, subsection);
+
         newsection.name = "";
         newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
@@ -27,8 +27,8 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
-            
-            return [    med.medication, 
+
+            return [    med.medication,
                         dose,
                         timing,
                         med.expectedPerformanceTime.timePeriodStart,
@@ -52,19 +52,20 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut, unsigned: item.unsigned(patient, condition)};
+                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut, unsigned: item.value(patient, condition)};
                 } else {
-                    return {name: item.name, value: item.value(patient, condition), unsigned: item.unsigned(patient, condition) };
+                    return {name: item.name, value: item.value(patient, condition), unsigned: item.value(patient, condition) };
                 }
             });
         }
 
         newsection.name = subsection.name;
         newsection.items = list.map((item) => {
+
             if (Lang.isNull(item.value)) {
-                return [    { value: item.name, isInsertable: false, unsigned: item.unsigned }, null ];
+                return [    { value: item.name, isInsertable: false}, null ];
             } else {
-                return [    { value: item.name, isInsertable: false, unsigned: item.unsigned }, { value: item.value, shortcut: item.shortcut } ];
+                return [    { value: item.name, isInsertable: false, unsigned: item.value[1] }, { value: item.value[0], shortcut: item.shortcut } ];
             }
         });
         return newsection;
@@ -81,7 +82,7 @@ class VisualizerManager {
                     { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer }
                   ];
-        
+
     getSupportedVisualizerTypesForDataType(dataType) {
         return this.visualizers.filter((viz) => {
             return (viz.dataType === dataType);
@@ -90,7 +91,7 @@ class VisualizerManager {
         });
 
     }
-    
+
     getVisualizer(dataType, visualizerType) {
         let result = this.visualizers.filter((viz) => {
             return (viz.dataType === dataType && viz.visualizerType === visualizerType)
@@ -98,7 +99,7 @@ class VisualizerManager {
         if (Lang.isNull(result) || result.length !== 1) return null;
         return result[0];
     }
-    
+
     renderIcon(visualizerType, isSelected) {
         if (visualizerType === 'tabular') {
             return this._tabularIcon(isSelected);
@@ -111,7 +112,7 @@ class VisualizerManager {
         }
         return null;
     }
-    
+
     _tabularIcon = (isSelected) => {
 //        const visualization = this.checkVisualization();
 //        const strokeColor = visualization === "tabular" ? "#3F3F3F" : "#CCCCCC";
