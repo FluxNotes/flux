@@ -193,6 +193,20 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
+                                name: "Clincal Trials",
+                                items: [
+                                    {
+                                        name: "Enrolled",
+                                        value: (patient, currentConditionEntry) => {
+                                            const clinicalTrials = patient.getEnrolledClinicalTrials();
+                                            if (Lang.isUndefined(clinicalTrials)) return "None";
+                                            return patient.getEnrolledClinicalTrials().title;
+                                            
+                                        }
+                                    },
+                                ]
+                            },                            
+                            {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
                             },

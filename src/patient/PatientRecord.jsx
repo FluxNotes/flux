@@ -12,12 +12,14 @@ import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
+import FluxStudy from '../model/research/FluxStudy';
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
+
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -246,6 +248,15 @@ class PatientRecord {
         }
         
         return result + ".";
+    }
+    
+    getClinicalTrails(){
+        return this.getEntriesOfType(FluxStudy);
+    }
+    
+    getEnrolledClinicalTrials(){
+        let enrolled = this.getClinicalTrails();
+        return enrolled.title;
     }
 
     getConditions() {
