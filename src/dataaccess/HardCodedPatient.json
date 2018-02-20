@@ -1474,5 +1474,41 @@
         },
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
         "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "34",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C95618", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": "Review of systems"}]
+        },
+        "shr.finding.Members": {
+            "Value": [
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "35"
+                }
+            ]
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "35",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C50575", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": "alopecia"}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
     }
 ]
