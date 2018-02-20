@@ -1483,7 +1483,7 @@
         "shr.finding.ObservationCode": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding": [{"Value": "C95618", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
-            "shr.core.DisplayText": "Review of systems"}]
+            "shr.core.DisplayText": {"Value": "Review of systems"}}]
         },
         "shr.finding.Members": {
             "Value": [
@@ -1515,7 +1515,7 @@
         "shr.finding.ObservationCode": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding": [{"Value": "C50575", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
-            "shr.core.DisplayText": "alopecia"}]
+            "shr.core.DisplayText": {"Value": "alopecia"}}]
         },
         "Value": true,
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
@@ -1529,7 +1529,7 @@
         "shr.finding.ObservationCode": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding": [{"Value": "C61443", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
-            "shr.core.DisplayText": "amenorrhea"}]
+            "shr.core.DisplayText": {"Value": "amenorrhea"}}]
         },
         "Value": true,
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
@@ -1543,7 +1543,7 @@
         "shr.finding.ObservationCode": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding": [{"Value": "C118263", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
-            "shr.core.DisplayText": "numbness or tingling in hands and feet"}]
+            "shr.core.DisplayText": {"Value": "numbness or tingling in hands and feet"}}]
         },
         "Value": true,
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
