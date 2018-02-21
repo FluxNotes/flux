@@ -255,8 +255,24 @@ class FluxNotesEditor extends React.Component {
             return this.lastPosition;
         } else {
             let pos = position();
-            this.lastPosition = pos;
-            return pos;
+            // If position is calculated to be 0, 0, use our old method of calculating position.
+            if (pos.top === 0 && pos.left === 0) {
+                const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
+                const el = Slate.findDOMNode(parentNode);
+                const children = el.childNodes;
+            
+                for (const child of children) {
+                    if (child.getBoundingClientRect && child.getAttribute("data-key")) {
+                        const rect = child.getBoundingClientRect();
+                        pos.left = rect.left + rect.width;
+                        pos.top = rect.top;
+                    }
+                }
+            }
+            if (pos.top !== undefined && pos.left !== undefined) {
+                this.lastPosition = pos;
+            }
+            return this.lastPosition;
         }
     }
 
