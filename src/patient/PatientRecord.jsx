@@ -189,7 +189,7 @@ class PatientRecord {
 
     }
 
-    getNextEncounterReasonAsString() {
+    getNextEncounterReasonAsText() {
         const nextEncounter = this.getNextEncounter();
         if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
@@ -208,7 +208,7 @@ class PatientRecord {
         }).pop();
     }
     
-    getPreviousEncounterReasonAsString() {
+    getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
         if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
         return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
