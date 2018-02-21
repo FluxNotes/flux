@@ -119,7 +119,7 @@ class ProgressionLineChartVisualizer extends Component {
         const yVar = "Disease status";
         const codeToValueMap =  {
             // 'Complete Response'
-            "C0677874": 2,
+            "C0677874": 3,
             // 'Complete Resection'
             "C0015250": 2,
             // 'Responding'
@@ -149,7 +149,8 @@ class ProgressionLineChartVisualizer extends Component {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);
         // Get all possible values for progression, that are numbers, and sort them
-        const yTicks = processedData.map((item) => { return item["Disease status"]; });
+        const allYValues = processedData.map((item) => { return item["Disease status"]; }).sort();
+        const yTicks = allYValues.filter((item, index) => { return (index === 0) || item !== allYValues[index-1]; });
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
