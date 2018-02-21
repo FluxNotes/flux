@@ -149,9 +149,7 @@ class ProgressionLineChartVisualizer extends Component {
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);
         // Get all possible values for progression, that are numbers, and sort them
-        const yTicks = Object.keys(valueToProgressionMap)
-                            .filter((val) => {return typeof(val) === "number"})
-                            .sort();
+        const yTicks = processedData.map((item) => { return item["Disease status"]; });
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
