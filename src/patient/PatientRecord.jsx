@@ -58,7 +58,11 @@ class PatientRecord {
         // Removes the flag that indicates that this entry is unsigned
         var key = this.shrId + ":" + entry.entryInfo.entryId;
         delete this.unsignedEntries[key];
-        // TODO: mark all of them to be signed. dont do it by each one. new method markallsigned with no arguments
+    }
+
+    // Removes the flag from all entries in unsignedEntries indicating that the entry is unsigned
+    markAllSigned() {
+        this.unsignedEntries = {};
     }
 
     // Returns true if the entry is unsigned, false otherwise
