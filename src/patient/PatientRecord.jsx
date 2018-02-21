@@ -16,6 +16,7 @@ import Guid from 'guid';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
 import FluxCondition from '../model/condition/FluxCondition';
+import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -210,6 +211,32 @@ class PatientRecord {
     getPreviousEncounterReason(){
         const previousEncounter = this.getPreviousEncounter();
         return previousEncounter.reason;
+    }
+
+    getReviewOfSystems() {
+        return this.entries.find((e) => {
+            // C95618 is code for ROS
+            return e instanceof FluxQuestionAnswer && e.observationCodeCoding === 'C95618';
+        });
+    }
+
+    getReviewOfSystemsAsText() {
+        let result;
+
+        const ros = this.getReviewOfSystems();
+        // get FluxQuestionAnswer instances from references
+        const members = ros.members.map((m) => {
+            return this.getEntryFromReference(m);
+        });
+        // get all the questionAnswers that have a value of true
+        const trueAnswers = members.filter((m) => {
+            return m.value === true;
+        }).map((m) => {
+            return m.observationCodeDisplayText;
+        });
+        result = `A complete ${members.length} point ROS was done as was unremarkable except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}.`;
+        
+        return result;
     }
 
     getConditions() {

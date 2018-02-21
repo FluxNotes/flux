@@ -407,5 +407,21 @@
       }
     ],
     "knownParentContexts": "Patient"
+  },
+  {
+    "type": "InsertValue",
+    "id": "ReviewOfSystemsInserter",
+    "getData": {
+      "object": "patient",
+      "method": "getReviewOfSystemsAsText"
+    },
+    "isContext": false,
+    "stringTriggers": [
+      {
+        "name": "@ROS",
+        "description": "Insert review of systems for patient."
+      }
+    ],
+    "knownParentContexts": "Patient"
   }
 ]

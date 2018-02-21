@@ -34,6 +34,14 @@ class FluxQuestionAnswer {
         if (Lang.isUndefined(this._questionAnswer.members)) return [];
         return this._questionAnswer.members.value;
     }
+
+    /*
+     *  Getter for value
+     *  Return value(currently just true/false for answer to questions)
+     */
+    get value() {
+        return this._questionAnswer.value;
+    }
 }
 
 export default FluxQuestionAnswer;
