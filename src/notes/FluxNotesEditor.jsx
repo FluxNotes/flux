@@ -251,29 +251,38 @@ class FluxNotesEditor extends React.Component {
     }
 
     getTextCursorPosition = () => {
-        if (!this.editorHasFocus) {
-            return this.lastPosition;
-        } else {
-            let pos = position();
-            // If position is calculated to be 0, 0, use our old method of calculating position.
-            if (pos.top === 0 && pos.left === 0) {
-                const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
-                const el = Slate.findDOMNode(parentNode);
-                const children = el.childNodes;
-            
-                for (const child of children) {
-                    if (child.getBoundingClientRect && child.getAttribute("data-key")) {
-                        const rect = child.getBoundingClientRect();
-                        pos.left = rect.left + rect.width;
-                        pos.top = rect.top;
-                    }
+        const positioningUsingSlateNodes = () => { 
+            const pos = {};
+            const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
+            const el = Slate.findDOMNode(parentNode);
+            const children = el.childNodes;
+
+            for (const child of children) {
+                if (child.getBoundingClientRect && child.getAttribute("data-key")) {
+                    const rect = child.getBoundingClientRect();
+                    pos.left = rect.left + rect.width;
+                    pos.top = rect.top;
                 }
             }
-            if (pos.top !== undefined && pos.left !== undefined) {
+            return pos;
+        };
+
+        if (!this.editorHasFocus) {
+            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
+                this.lastPosition = positioningUsingSlateNodes();
+            } else { 
+                // No changes to lastPosition
+            }
+        } else {
+            const pos = position();
+            // If position is calculated to be 0, 0, use our old method of calculating position.
+            if ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+                this.lastPosition = positioningUsingSlateNodes();
+            } else {
                 this.lastPosition = pos;
             }
-            return this.lastPosition;
         }
+        return this.lastPosition;
     }
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
@@ -542,7 +551,7 @@ class FluxNotesEditor extends React.Component {
             //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
-        state = transform.focus().apply();
+        state = transform.apply();
         this.setState({state: state});
         //return state;
     }
