@@ -1,6 +1,5 @@
 import Lang from 'lodash'
 import moment from 'moment';
-
 import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 
@@ -21,6 +20,8 @@ import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
                                 code            Indicates a code to be used by an itemsFunction. This allows multiple sections to share the same
                                                 itemsFunction
                                 bands           Indicates a set of value ranges and the assessment for that range. Some visualizers display bands
+                                preTableCount   Indicates type of items in table, e.g. Allergies.  Will show count of number of items in table.
+                                postTableList   Provide list of structured data to be displayed after the table.
         defaultVisualizer   Indicates the visualizer type for the default visualizer to use for the section. The following ways to specify the
                             default are supported:
                                 "tabular"                                               The specified visualizer type will be the default
@@ -476,6 +477,22 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Allergies",
+                        shortName: "Allergies",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Allergy", "Severity", "Effects"],
+                                itemsFunction: this.getItemListForAllergies,
+                                preTableCount: "allergies",
+                                postTableList: this.getItemListForNoKnownAllergies,
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
@@ -608,6 +625,21 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Allergies",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Allergy", "Severity", "Effects"],
+                                itemsFunction: this.getItemListForAllergies,
+                                preTableCount: "allergies",
+                                postTableList: this.getItemListForNoKnownAllergies,
+                            }
+                        ]
+                    },
+                    {
                         name: "Timeline",
                         shortName: "Timeline",
                         type: "Events",
@@ -695,7 +727,23 @@ export default class SummaryMetadata {
         });
     }
 
-    getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
+    getItemListForAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        const allergies = patient.getAllergyIntolerancesSortedBySeverity();
+        return allergies.map((a) => {
+            return [{value: a.name}, a.severity, a.manifestation];
+        });
+    }
+
+    getItemListForNoKnownAllergies = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        let noKnownAllergies = patient.getNoKnownAllergies();
+        return noKnownAllergies.map((a) => {
+            return {value: a.noKnownAllergy};
+        });
+    }
+
+    getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
         labResults.sort(currentConditionEntry._labResultsTimeSorter);
@@ -708,10 +756,10 @@ export default class SummaryMetadata {
             processedLab[subsection.name] = lab.quantity.number;
             processedLab["unit"] = lab.quantity.unit;
 
-            return processedLab
+            return processedLab;
         });
 
-        return labs
+        return labs;
     }
 
     getProgressions = (patient, condition, subsection) => {

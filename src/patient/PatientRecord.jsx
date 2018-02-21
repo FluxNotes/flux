@@ -234,15 +234,50 @@ class PatientRecord {
         return conditions;
     }
     
-    getAllergies() {
+    // gets all allergy entries from patient
+    getAllAllergies() {
         let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
         const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
         const allAllergies = allergies.concat(noKnownAllergies);
         return allAllergies;
     }
+
+    getAllergyIntolerancesSortedBySeverity() {
+        return this.getAllergyIntolerances().sort(this._allergiesSeveritySorter);
+    }
+
+    // gets all allergy intolerances
+    getAllergyIntolerances() {
+        return this.getAllAllergies().filter((a) => {
+            return a instanceof FluxAllergyIntolerance;
+        });
+    }
+
+    // gets all no known allergies
+    getNoKnownAllergies() {
+        return this.getAllAllergies().filter((a) => {
+            return a instanceof FluxNoKnownAllergy;
+        });
+    }
+
+    // returns all instances of FluxAllergyIntolerance with specificed category
+    getAllergiesByCategory(category) {
+        const allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
+        
+        // if an allergy does not have a category
+        if (category === "other") {
+            return allergies.filter((a) => {
+                return Lang.isNull(a.category);
+            });
+        }
+
+        return allergies.filter((a) => {
+            return a.category === category;
+        });
+    }
     
     getAllergiesAsText() {
-        const allergies = this.getAllergies();
+        const allergies = this.getAllAllergies();
         let result = "";
         let first = true;
         allergies.forEach((allergy, index) => {
@@ -252,7 +287,7 @@ class PatientRecord {
             if (allergy instanceof FluxNoKnownAllergy) {
                 result += allergy.noKnownAllergy
             } else if (allergy instanceof FluxAllergyIntolerance) {
-                result += allergy.allergyIntolerance;
+                result += allergy.name;
             } else {
                 result += allergy.value.coding[0].displayText;
             }
@@ -506,6 +541,42 @@ class PatientRecord {
         if (a.type > b.type) {
             return 1;
         }
+        return 0;
+    }
+
+    _allergiesSeveritySorter(a, b) {
+        let a_severity, b_severity;
+
+        switch (a.severity) {
+            case "Severe": {
+                a_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                a_severity = 0;
+                break;
+            }
+            default: {
+                a_severity = -1;
+            } 
+        }
+
+        switch (b.severity) {
+            case "Severe": {
+                b_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                b_severity = 0;
+                break;
+            }
+            default: {
+                b_severity = -1;
+            }
+        }
+
+        if (a_severity > b_severity) return -1;
+        else if (a_severity < b_severity) return 1;
         return 0;
     }
 
