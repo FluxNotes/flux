@@ -265,14 +265,12 @@ class FluxNotesEditor extends React.Component {
                 }
             }
             return pos;
-        };
+        }
 
         if (!this.editorHasFocus) {
             if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
                 this.lastPosition = positioningUsingSlateNodes();
-            } else { 
-                // No changes to lastPosition
-            }
+            } 
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
