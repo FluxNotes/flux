@@ -33,6 +33,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
         // Check if every object in useDataMissingTemplateCriteria is null, empty, or undefined
         const allNull = sentenceObject.useDataMissingTemplateCriteria.every((data) => {
+
             const index = data.indexOf(".");
             let subsectionName, list;
 
@@ -44,8 +45,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
             } 
             
             const valueName = data.substring(index + 1);
+
             subsectionName = data.substring(0, index);
             list = this.getList(subsections[subsectionName]);
+
             const item = list.find((it) => {
                 return it.name === valueName;
             });
@@ -81,8 +84,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         }
 
         const items = subsection.items;
-        // console.log("items");
-        // console.log(items);
         const itemsFunction = subsection.itemsFunction;
         let list = null;
 
@@ -93,11 +94,14 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else {
-                    return {name: item.name, value: item.value(patient, condition)[0], shortcut: item.shortcut, unsigned: item.value(patient, condition)[1]};
+                    if (item.value(patient, condition)) {
+                        return {name: item.name, value: item.value(patient, condition)[0], shortcut: item.shortcut, unsigned: item.value(patient, condition)[1]};
+                    } else {
+                        return {name: item.name, value: null};
+                    }
                 }
             });
         }
-
         return list;
     }
             
