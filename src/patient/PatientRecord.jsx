@@ -234,9 +234,13 @@ class PatientRecord {
         }).map((m) => {
             return m.observationCodeDisplayText;
         });
-        result = `A complete ${members.length} point ROS was done as was unremarkable except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}.`;
+
+        result = `A complete ${members.length} point ROS was done and was unremarkable`;
+        if (trueAnswers.length > 0) {
+            result += ` except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}`;
+        }
         
-        return result;
+        return result + ".";
     }
 
     getConditions() {
