@@ -61,7 +61,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
-                                            return patient.getNextEncounterReasonAsString();
+                                            return patient.getNextEncounterReasonAsText();
                                         },
                                         shortcut: "@reason for next visit"
                                     }
@@ -92,7 +92,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
                                             if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
-                                            return patient.getPreviousEncounterReasonAsString();
+                                            return patient.getPreviousEncounterReasonAsText();
                                         },
                                         shortcut: "@reason for previous visit"
                                     }
