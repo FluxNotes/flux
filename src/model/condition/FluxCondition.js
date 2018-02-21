@@ -68,7 +68,6 @@ class FluxCondition {
     }
 
     addObservation(observation) {
-        console.log(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(observation);
         this._condition.evidence  = currentObservations;

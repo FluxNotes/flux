@@ -40,7 +40,6 @@ class VisualizerManager {
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
 
-
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
         let list = null;
@@ -52,16 +51,24 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut, unsigned: item.value(patient, condition)};
+                    if(item.value(patient, condition)) {
+                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]], shortcut: item.shortcut};
+                    } else {
+
+                        return {name: item.name, value: null, shortcut: item.shortcut};
+                    }
                 } else {
-                    return {name: item.name, value: item.value(patient, condition), unsigned: item.value(patient, condition) };
+                    if(item.value(patient, condition)) {
+                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]] };
+                    } else {
+                        return {name: item.name, value: null};
+                    }
                 }
             });
         }
 
         newsection.name = subsection.name;
         newsection.items = list.map((item) => {
-
             if (Lang.isNull(item.value)) {
                 return [    { value: item.name, isInsertable: false}, null ];
             } else {
@@ -89,7 +96,6 @@ class VisualizerManager {
         }).map((viz) => {
             return viz.visualizerType;
         });
-
     }
 
     getVisualizer(dataType, visualizerType) {

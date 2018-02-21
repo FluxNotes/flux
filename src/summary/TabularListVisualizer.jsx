@@ -45,7 +45,7 @@ class TabularListVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-        
+
         return subsections;
     }
 

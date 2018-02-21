@@ -157,6 +157,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 valueName = valueSpec.substring(index + 1);
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
+
                 if(item.value && item.unsigned){
                     value = item.value;
                     type = "unsigned-data";
