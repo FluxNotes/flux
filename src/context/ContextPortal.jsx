@@ -120,19 +120,26 @@ class ContextPortal extends React.Component {
     adjustPosition = () => {
         const { menu } = this.state
         if (!menu || !menu.style) return;
+        const rect = this.props.getPosition();
 
-        menu.style.position = 'absolute';
-        menu.style.width = 300;
-        menu.style.background = '#fff';
-        menu.style.padding = 10;
-        menu.style.display = 'block';
-        menu.style.opacity = 1;
-        if (window.innerHeight - this.props.top < 230) {
-            menu.style.bottom = `${window.innerHeight - this.props.top - window.pageYOffset}px`;
-            menu.style.left = `${this.props.left + window.pageXOffset + 10}px`;
+        if (!rect) {
+            // TODO: No positioning to use. Removing style may not be correct.
+            menu.removeAttribute('style');
+            menu.style.display = 'none'
         } else {
-            menu.style.top = `${this.props.top + window.pageYOffset}px`;
-            menu.style.left = `${this.props.left + window.pageXOffset}px`;
+            menu.style.position = 'absolute';
+            menu.style.width = 300;
+            menu.style.background = '#fff';
+            menu.style.padding = 10;
+            menu.style.display = 'block';
+            menu.style.opacity = 1;
+            if (window.innerHeight - rect.top < 230) {
+                menu.style.bottom = `${window.innerHeight - rect.top - window.pageYOffset}px`;
+                menu.style.left = `${rect.left + window.pageXOffset + 10}px`;
+            } else {
+                menu.style.top = `${rect.top + window.pageYOffset}px`;
+                menu.style.left = `${rect.left + window.pageXOffset}px`;
+            }
         }
     }
     /*
@@ -201,10 +208,12 @@ class ContextPortal extends React.Component {
         const TYPE_CALENDAR = 1;
         const { contexts } = this.props;
         let type;
+        let className = "context-portal";
         if (Lang.isNull(contexts)) return null;
         
         if (Lang.isArray(contexts)) {
             type = TYPE_LIST;
+            className += " scrollable";
         } else if (contexts === "date-id") {
             type = TYPE_CALENDAR;
         } else {
@@ -219,7 +228,7 @@ class ContextPortal extends React.Component {
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >
-                <div className="context-portal" ref="contextPortal">
+                <div className={className} ref="contextPortal">
                     {type === TYPE_CALENDAR ? this.renderCalendar() : this.renderListOptions()}
                 </div>
             </Portal>

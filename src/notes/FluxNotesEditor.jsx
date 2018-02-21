@@ -16,6 +16,7 @@ import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
+import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -45,31 +46,6 @@ const structuredFieldTypes = [
     }
 ]
 
-//  Helper Functions
-//
-// Given upper-most dom element of the editor, the current node and state, return the cursor position  
-function getPos(domElement, node, state) {
-    const offsetx = 0;
-    const offsety = 0;
-    var pos = {left: 0, top: 0};
-
-    const children = domElement.childNodes;
-
-    for (const child of children) {
-        if (child.getBoundingClientRect && child.getAttribute("data-key")) {
-            const rect = child.getBoundingClientRect();
-            pos.left = rect.left + rect.width + offsetx;
-            pos.top = rect.top + offsety;
-        }
-    }
-    return pos;
-}
-// Given a state, return the position of the cursor
-function position(state) {
-    const parentNode = state.state.document.getParent(state.state.selection.startKey);
-    const el = Slate.findDOMNode(parentNode);
-    return getPos(el, parentNode, state);
-}
 // Given  text and starting index, recursively traverse text to find index location of text
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
     if (index === initialIndex) {
@@ -99,6 +75,8 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
 
         this.didFocusChange = false;
+        this.editorHasFocus = false;
+        this.lastPosition = { top: 0, left: 0 };
 
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
@@ -188,8 +166,6 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             isPortalOpen: false,
             portalOptions: null,
-            left: 0,
-            top: 0
         };
 
         // this.props.setFullAppState('isNoteViewerEditable', true);
@@ -274,16 +250,46 @@ class FluxNotesEditor extends React.Component {
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
 
+    getTextCursorPosition = () => {
+        const positioningUsingSlateNodes = () => { 
+            const pos = {};
+            const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
+            const el = Slate.findDOMNode(parentNode);
+            const children = el.childNodes;
+
+            for (const child of children) {
+                if (child.getBoundingClientRect && child.getAttribute("data-key")) {
+                    const rect = child.getBoundingClientRect();
+                    pos.left = rect.left + rect.width;
+                    pos.top = rect.top;
+                }
+            }
+            return pos;
+        }
+
+        if (!this.editorHasFocus) {
+            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
+                this.lastPosition = positioningUsingSlateNodes();
+            } 
+        } else {
+            const pos = position();
+            // If position is calculated to be 0, 0, use our old method of calculating position.
+            if ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+                this.lastPosition = positioningUsingSlateNodes();
+            } else {
+                this.lastPosition = pos;
+            }
+        }
+        return this.lastPosition;
+    }
+
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         let portalOptions = shortcut.getValueSelectionOptions();
-        let pos = position(this.state);
 
         this.setState({
             isPortalOpen: true,
             portalOptions: portalOptions,
             needToDelete: needToDelete,
-            left: pos.left,
-            top: pos.top
         });
         this.selectingForShortcut = shortcut;
         return transform.blur();
@@ -371,6 +377,14 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
+    }
+
+    onFocus = () => {
+        this.editorHasFocus = true;
+    }
+
+    onBlur = () => {
+        this.editorHasFocus = false;
     }
 
     onInput = (event, data) => {
@@ -535,7 +549,7 @@ class FluxNotesEditor extends React.Component {
             //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
-        state = transform.focus().apply();
+        state = transform.apply();
         this.setState({state: state});
         //return state;
     }
@@ -732,17 +746,22 @@ class FluxNotesEditor extends React.Component {
                         }}
                         onChange={this.onChange}
                         onInput={this.onInput}
+                        onBlur={this.onBlur}
+                        onFocus={this.onFocus}
                         onSelectionChange={this.onSelectionChange}
                         schema={schema}
                     />
                     {errorDisplay}
                     <CreatorsPortal
-                        state={this.state.state}/>
+                        state={this.state.state}
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}/>
                     <InsertersPortal
-                        state={this.state.state}/>
+                        state={this.state.state}
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}/>
                     <ContextPortal
-                        left={this.state.left}
-                        top={this.state.top}
+                        getPosition={this.getTextCursorPosition}
                         state={this.state.state}
                         callback={callback}
                         onSelected={this.onPortalSelection}
