@@ -49,6 +49,14 @@ class FluxProcedureRequested {
     get reasons() {
         return this._procedureRequested.actionContext.reason;
     }
+    
+    get annotation() {
+        if (this._procedureRequested.annotation) {
+            return this._procedureRequested.annotation.value;
+        } else {
+            return null;
+        }
+    }
 }
 
 export default FluxProcedureRequested;

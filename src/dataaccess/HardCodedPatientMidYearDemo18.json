@@ -204,6 +204,321 @@
         },
         "shr.finding.Evidence": [
             {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "01 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 15, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 10.30, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "10 JAN 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 14.50, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "%"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0019046", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Hemoglobin"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "25 NOV 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.74, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "5 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 3.37, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "12 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 1.86, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 4.72, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "27 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 6.75, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText":  {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": "Final"}]
+                }
+            },
+            {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "02 JAN 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 8.12, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0023508", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "White blood cell"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "25 NOV 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 4.2, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "5 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 2.3, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "12 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 1.2, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "19 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 1.9, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "27 DEC 2016" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 2.6, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {                
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/finding/Observation" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "02 JAN 2017" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
+                    "Value": 4.3, 
+                    "shr.core.Units": {
+                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Units" },
+                        "Value": {
+                            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Coding" },
+                            "Value": "10^9/L"
+                        }
+                    }
+                },
+                "shr.finding.ObservationCode": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0027950", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                    "shr.core.DisplayText": {"Value": "Neutrophil"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
                 "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
                     "shr.core.DisplayText": {"Value": "High grade or poorly differentiated"}}]},
@@ -1175,6 +1490,10 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent"
+        },
         "shr.core.CreationTime": { "Value": "13 AUG 2015"},
         "shr.base.LastUpdated": { "Value": "13 AUG 2015"}        
     },
@@ -1201,6 +1520,10 @@
                     "EntryId": "8"
                 }
             }]
+        },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate"
         },
         "shr.core.CreationTime": { "Value": "29 AUG 2015"},
         "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
@@ -1235,6 +1558,10 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%"
+        },
         "shr.core.CreationTime": { "Value": "29 AUG 2015"},
         "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
     },
@@ -1267,6 +1594,10 @@
                        "EntryId": "8"
                 }
             }]
+        },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "showed right axillary lymph node was negative for malignancy"
         },
         "shr.core.CreationTime": { "Value": "29 AUG 2015"},
         "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
@@ -1333,6 +1664,10 @@
                        "EntryId": "8"
                 }
             }]
+        },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation"
         },
         "shr.core.CreationTime": { "Value": "15 OCT 2015"},
         "shr.base.LastUpdated": { "Value": "15 OCT 2015"}        
@@ -1428,6 +1763,10 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "showed benign findings"
+        },
         "shr.core.CreationTime": { "Value": "01 SEP 2016"},
         "shr.base.LastUpdated": { "Value": "15 SEP 2016"}            
     },
@@ -1493,6 +1832,10 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "revealed stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm"
+        },
         "shr.core.CreationTime": { "Value": "02 JUN 2017"},
         "shr.base.LastUpdated": { "Value": "10 JUN 2017"}            
     },
@@ -1529,6 +1872,10 @@
                 }
             }]
         },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla and two hypodensities in the left lobe of the liver that were consistent with benign cysts"
+        },
         "shr.core.CreationTime": { "Value": "02 JUN 2017"},
         "shr.base.LastUpdated": { "Value": "20 JUN 2017"}            
     },
@@ -1564,6 +1911,10 @@
                        "EntryId": "8"
                 }
             }]
+        },
+        "shr.core.Annotation": {
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
+            "Value": "was negative for skeletal metastases"
         },
         "shr.core.CreationTime": { "Value": "02 JUN 2017"},
         "shr.base.LastUpdated": { "Value": "28 JUN 2017"}            
@@ -1785,8 +2136,7 @@
         },
         "shr.core.Annotation": {
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
-            "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla."
-            
+            "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla"
         },
         "shr.core.CreationTime": { "Value": "30 OCT 2017"},
         "shr.base.LastUpdated": { "Value": "02 NOV 2017"}        
@@ -1950,5 +2300,50 @@
         },
         "shr.core.CreationTime": {"Value": "02 JAN 2018"},
         "shr.base.LastUpdated": {"Value": "28 FEB 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "500",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0016658", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Fracture"}}]},
+        "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#structural_abnormality"}]},
+        "shr.condition.ClinicalStatus": {"Value": "active"},
+        "shr.entity.BodySiteOrCode": {"Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "724231006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+            "shr.core.DisplayText": {"Value": "Bone structure of left fibula"}}]}},
+        "shr.condition.WhenClinicallyRecognized": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
+            "Value": { 
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
+                "Value": "13 JAN 2018"
+            }
+        },
+        "shr.core.CreationTime": {"Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "13 JUN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "501",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "433341001", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
+                "shr.core.DisplayText": {"Value": "Application of long leg splint"}}]}},
+        "shr.action.ActionContext": { 
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {"Value": "13 JAN 2018"},
+            "shr.core.Reason": [{
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": {
+                       "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Injury" },
+                       "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                       "EntryId": "500"
+               }
+           }]},
+        "shr.core.CreationTime": { "Value": "13 JAN 2018"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2018"}        
     }
 ]
