@@ -269,9 +269,9 @@ class FluxCondition {
                         hpiText += procedureText;
                     }
                     if (event.annotation) {
-                        hpiText = hpiText + " which " + event.annotation + ".";
+                        hpiText += " which " + event.annotation + ".";
                     } else {
-                        hpiText = hpiText + ".";
+                        hpiText += ".";
                     }
                     break;
                 }
