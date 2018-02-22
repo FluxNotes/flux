@@ -4,11 +4,12 @@ export default class Context {
 	constructor() {
 		this.children = [];
 	}
+
 	initialize(contextManager, trigger = undefined, updatePatient = true) {
         this.contextManager = contextManager;
         this.isInContext = false;
 	}
-    
+
     getId() {
         throw new Error("implement getId in all Context implementations. not done in " + constructor.name);
     }
@@ -16,11 +17,11 @@ export default class Context {
 	getValidChildShortcuts(recurse = false) {
 		return [];
 	}
-    
+
     addChild(shortcut) {
         this.children.push(shortcut);
     }
-    
+
     removeChild(shortcut) {
         var indexToDelete = -1;
         this.children.forEach((item, i) => {
@@ -30,33 +31,39 @@ export default class Context {
         });
         this.children.splice(indexToDelete, 1);
     }
-    
+
     hasChildren() {
         return (this.children.length > 0);
     }
-	
+
 	getChildren() {
 		return this.children;
 	}
-	
+
 	getLabel() {
 		throw new Error("Invalid context. " + this.constructor.name);
 	}
+
 	getValueObject() {
 		return this.valueObject;
 	}
+
 	setValueObject(valueObject) {
 		this.valueObject = valueObject;
 	}
+
 	getAttributeValue(name) {
 		throw new Error("[getAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
 	}
+
 	setAttributeValue(name, value, publishChanges, updatePatient = true) {
 		throw new Error("[setAttributeValue]Unsupported attribute " + name + " for context shortcut " + this.constructor.name);
 	}
+
     shouldBeInContext() {
         return true;
     }
+
 	onValueChange(name, handleValueChange) {
 		let l = this.valueChangeHandlers[name];
 		if (Lang.isUndefined(l) || Lang.isNull(l)) {
@@ -64,7 +71,8 @@ export default class Context {
 			this.valueChangeHandlers[name] = l;
 		}
 		l.push(handleValueChange);
-	}	
+	}
+
 	notifyValueChangeHandlers(name) {
 		let l = this.valueChangeHandlers[name];
         if (Lang.isUndefined(l)) return;
@@ -72,7 +80,7 @@ export default class Context {
 			h(this.getAttributeValue(name));
 		});
 	}
-	
+
     updateContextStatus() {
         if (this.contextManager) {
             const shouldBeInContext = this.shouldBeInContext();
@@ -88,10 +96,11 @@ export default class Context {
             }
         }
     }
-    
+
     getKey() {
         return this.key;
     }
+
     setKey(key) {
         //console.log("setKey: " + this.constructor.name + " to " + key);
         this.key = key;

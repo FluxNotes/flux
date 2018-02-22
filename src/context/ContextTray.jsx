@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
+import FontAwesome from 'react-fontawesome';
 
 import TemplateForm from '../forms/TemplateForm';
 import ContextOptions from './ContextOptions';
@@ -61,28 +62,147 @@ export default class ContextTray extends Component {
     handleTemplateSectionClick = () => this.setState({ value: 0 })
     handlePatientSectionClick = () => this.setState({ value: 1 })
 
+    findParentContext(activeContexts) {
+        const value = this.state.value - 2;
+        if (activeContexts[value] == null) {
+            return null;
+        } else if (activeContexts[value].parentContext) {
+            return activeContexts[value].parentContext;
+        } else {
+            return activeContexts[value];
+        }
+    }
+
+    filterContextChildren(activeContexts, context) {
+        if (context == null || context.children.length === 0) {
+            return [];
+        }
+
+        return context.children.filter((childContext) => activeContexts.indexOf(childContext) > -1);
+    }
+
+    renderParentContexts(contexts) {
+        const activeContextIndex = this.state.value - 2;
+        const activeContext = contexts[activeContextIndex];
+        const parentContexts = contexts.filter((context) => context.parentContext == null && context.initiatingTrigger === '@condition');
+
+        if (parentContexts.length === 0) {
+            return null;
+        }
+
+        const selectedParentContext = this.findParentContext(contexts);
+        const children = this.filterContextChildren(contexts, selectedParentContext);
+
+        return (
+            <div>
+                <section>
+                    {parentContexts.map((context, i) => {
+                        const isActive = activeContext === context;
+                        const contextIndex = contexts.indexOf(context) + 2;
+
+                        return (
+                            <div
+                                className={`section-item${isActive ? ' selected' : ''}`}
+                                onClick={() => this.setState({ value: contextIndex })}
+                                key={`context-header-option-${contextIndex}`}
+                                title={context.text}
+                            >
+                                <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
+                                {context.text}
+                            </div>
+                        );
+                    })}
+                </section>
+
+                {activeContext && activeContext === selectedParentContext &&
+                    <ContextOptions
+                        ref={`context-option-${this.state.value}`}
+                        contextManager={this.props.contextManager}
+                        shortcutManager={this.props.shortcutManager}
+                        handleClick={this.handleShortcutClick}
+                        context={activeContext}
+                    />
+                }
+
+                {this.renderChildrenContexts(contexts, children)}
+            </div>
+        );
+    }
+
+    renderChildrenContexts(contexts, children) {
+        if (children.length === 0) {
+            return null;
+        }
+
+        const activeContextIndex = this.state.value - 2;
+        const activeContext = contexts[activeContextIndex];
+        const activeChildIndex = children.indexOf(activeContext);
+        const subchildren = children
+            .map((child) => this.filterContextChildren(contexts, child))
+            .reduce((memo, val) => memo.concat(val), []);
+
+        return (
+            <div>
+                <section>
+                    {children.map((context, i) => {
+                        const contextIndex = contexts.indexOf(context) + 2;
+                        const isActive = context === activeContext;
+
+                        return (
+                            <div
+                                className={`section-item${isActive ? ' selected' : ''}`}
+                                onClick={() => this.setState({ value: contextIndex })}
+                                key={`context-child-option-${contextIndex}`}
+                                title={context.text}
+                            >
+                                <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
+                                {context.text}
+                            </div>
+                        );
+                    })}
+                </section>
+
+                {activeChildIndex > -1 &&
+                    <ContextOptions
+                        ref={`context-option-${this.state.value}`}
+                        contextManager={this.props.contextManager}
+                        shortcutManager={this.props.shortcutManager}
+                        handleClick={this.handleShortcutClick}
+                        context={activeContext}
+                    />
+                }
+
+                {this.renderChildrenContexts(contexts, subchildren)}
+            </div>
+        );
+    }
+
     render() {
         const { value, templates } = this.state;
         const activeContexts = this.getActiveContexts();
 
         return (
             <div className="context-tray">
+                {/* TEMPLATES and PATIENT selectors - default */}
                 <section>
                     <div
                         className={`section-item${value === 0 ? ' selected' : ''}`}
                         onClick={this.handleTemplateSectionClick}
                     >
+                        <FontAwesome name={value === 0 ? 'angle-down' : 'angle-right'} fixedWidth />
                         Templates
                     </div>
 
                     <div
-                        className={`section-item${value > 0 ? ' selected' : ''}`}
+                        className={`section-item${value === 1 ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
+                        <FontAwesome name={value === 1 ? 'angle-down' : 'angle-right'} fixedWidth />
                         Patient
                     </div>
                 </section>
 
+                {/* Templates list */}
                 {value === 0 &&
                     <section>
                         <TemplateForm
@@ -94,7 +214,7 @@ export default class ContextTray extends Component {
                     </section>
                 }
 
-                {value > 0 &&
+                {value === 1 &&
                     <ContextOptions
                         contextManager={this.props.contextManager}
                         shortcutManager={this.props.shortcutManager}
@@ -102,16 +222,7 @@ export default class ContextTray extends Component {
                     />
                 }
 
-                {value > 0 && activeContexts.map((context, i) =>
-                    <ContextOptions
-                        key={i}
-                        ref={`context-option-${i}`}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        handleClick={this.handleShortcutClick}
-                        context={context}
-                    />
-                )}
+                {this.renderParentContexts(activeContexts)}
             </div>
         );
     }

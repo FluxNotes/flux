@@ -10,8 +10,6 @@ import './ContextOptions.css'
 export default class ContextOptions extends Component {
     constructor(props) {
         super(props);
-        this._handleClick = this._handleClick.bind(this);
-        this._handleSearch = this._handleSearch.bind(this);
 
         this.state = {
             searchString: "",
@@ -19,10 +17,14 @@ export default class ContextOptions extends Component {
         }
     }
 
-    _handleClick(e, i) {
+    handleClick = (e, i) => {
         e.preventDefault();
         this.setState({ searchString: "", tooltipVisibility: 'hidden' });
         this.props.handleClick(i);
+    }
+
+    handleSearch = (value) => {
+        this.setState({ searchString: value });
     }
 
     mouseLeave = () => {
@@ -31,10 +33,6 @@ export default class ContextOptions extends Component {
 
     mouseEnter = () => {
         this.setState({ tooltipVisibility: 'visible' })
-    }
-
-    _handleSearch(value) {
-        this.setState({ searchString: value });
     }
 
     render() {
@@ -111,7 +109,7 @@ export default class ContextOptions extends Component {
                             className="shortcut-search-text"
                             label="Search shortcuts"
                             value={this.state.searchString}
-                            onChange={(event) => this._handleSearch(event.target.value)}
+                            onChange={(event) => this.handleSearch(event.target.value)}
                         />
                     </div>
                 </div>
@@ -133,19 +131,24 @@ export default class ContextOptions extends Component {
                     {groupList.map((groupObj, i) => {
                         return (
                         <div key={`group-${i}`}>
-                            {groupObj.groupName != null ? <div id="data-element-description">{groupObj.groupName}</div> : <div className="hidden"></div>}
+                            {groupObj.groupName != null ?
+                                <div id="data-element-description">{groupObj.groupName}</div>
+                            :
+                                <div className="hidden"></div>
+                            }
 
                             <div key={i}>
                                 {groupObj.triggers.map((trigger, i) => {
-                                    const tooltipClass = (trigger.description.length > 100) ? "context-panel-tooltip large" : "context-panel-tooltip";
+                                    const largeTrigger = trigger.description.length > 100;
                                     const text = <span>{trigger.description}</span>
+                                    const selected = activeContextTriggers.indexOf(trigger.name) > -1;
 
                                     return (
                                         <Tooltip
                                             key={trigger.name}
                                             overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                             placement="left"
-                                            overlayClassName={tooltipClass}
+                                            overlayClassName={`context-panel-tooltip${largeTrigger ? ' large' : ''}`}
                                             overlay={text}
                                             destroyTooltipOnHide={true}
                                             mouseEnterDelay={0.5}
@@ -153,9 +156,9 @@ export default class ContextOptions extends Component {
                                             onMouseLeave={this.mouseLeave}
                                         >
                                             <div
-                                                className={`context-option${activeContextTriggers.indexOf(trigger.name) > -1 ? ' selected' : ''}`}
+                                                className={`context-option${selected ? ' selected' : ''}`}
                                                 key={trigger.name}
-                                                onClick={(e) => this._handleClick(e, trigger.name)}
+                                                onClick={(e) => this.handleClick(e, trigger.name)}
                                             >
                                                 {trigger.name}
                                             </div>
