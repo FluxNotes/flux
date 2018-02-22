@@ -225,6 +225,10 @@ class PatientRecord {
         let result;
 
         const ros = this.getReviewOfSystems();
+        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+            return "No review of systems found in record.";
+        }
+        
         // get FluxQuestionAnswer instances from references
         const members = ros.members.map((m) => {
             return this.getEntryFromReference(m);
