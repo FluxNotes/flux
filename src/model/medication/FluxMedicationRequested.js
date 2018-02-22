@@ -13,11 +13,14 @@ class FluxMedicationRequested {
      *  Returns object containing timePeriodStart and timePeriodEnd value
      */
     get expectedPerformanceTime() {
+        if (!this._medicationRequested.actionContext || !this._medicationRequested.actionContext.expectedPerformanceTime) {
+            return null;
+        }
         // doesn't support Timing option right now
         if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value,
-                timePeriodEnd: this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value
+                timePeriodStart: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value : null),
+                timePeriodEnd: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value : null)
             };
         } else {
             return this._medicationRequested.actionContext.expectedPerformanceTime.value;
@@ -51,6 +54,7 @@ class FluxMedicationRequested {
      *  Returns object with value and units
      */
     get amountPerDose() {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
         return {
             value: this._medicationRequested.dosage.doseAmount.value.decimal,
             units: this._medicationRequested.dosage.doseAmount.value.units.value.code
@@ -62,8 +66,9 @@ class FluxMedicationRequested {
      *  Returns object with value and units
      */
     get timingOfDoses() {
+        if (!this._medicationRequested.dosage) return null;
         let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
-        if (timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
+        if (timingOfDoses.timing.recurrencePattern && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
             if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code === 'd') {
                 units = 'per day';
@@ -72,11 +77,18 @@ class FluxMedicationRequested {
                 value: timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.decimal,
                 units: units
             };
+        } else if (timingOfDoses.timing.recurrenceRange) {
+            return {
+                value: timingOfDoses.timing.recurrenceRange.value.positiveInt,
+                units: 'cycles'
+            }
+        } else if (timingOfDoses.timing.timingCode) {
+            return {
+                value: timingOfDoses.timing.timingCode.value.coding[0].displayText.value,
+                units: null
+            }
         }
-        return {
-            value: timingOfDoses.timing.recurrenceRange.value.positiveInt,
-            units: 'cycles'
-        }
+        return null;
     }
 
     /*
@@ -104,22 +116,24 @@ class FluxMedicationRequested {
     }
 
     /*
-     *  Getter for reason for this medication
+     *  Getter for reason list for this medication
      *  Returns array of reasons
      */
-    get reason() {
-        return this._medicationRequested.actionContext.reason.value;
+    get reasons() {
+        return this._medicationRequested.actionContext.reason;
     }
-
+    
     get code() {
         return this._medicationRequested.medicationOrCode.value.coding[0].code;
     }
     
     get routeIntoBody() {
+        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
         return this._medicationRequested.dosage.routeIntoBody.value.coding[0].displayText.value;
     }
     
     get numberOfRefillsAllowed() {
+        if (!this._medicationRequested.numberOfRefillsAllowed) return null;
         return this._medicationRequested.numberOfRefillsAllowed.value;
     }
 }

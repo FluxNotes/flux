@@ -1,6 +1,9 @@
 import { getNamespaceAndName } from '../json-helper';
 import ShrOncologyObjectFactory from '../shr/oncology/ShrOncologyObjectFactory';
 import FluxBreastCancer from './FluxBreastCancer';
+import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
+import FluxBRCA1Variant from './FluxBRCA1Variant';
+import FluxBRCA2Variant from './FluxBRCA2Variant';
 import FluxEstrogenReceptorStatus from './FluxEstrogenReceptorStatus';
 import FluxHER2ReceptorStatus from './FluxHER2ReceptorStatus';
 import FluxProgesteroneReceptorStatus from './FluxProgesteroneReceptorStatus';
@@ -16,7 +19,10 @@ export default class FluxOncologyObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrOncologyObjectFactory
         switch (elementName) {
+            case 'BRCA1Variant': return new FluxBRCA1Variant(json);
+            case 'BRCA2Variant': return new FluxBRCA2Variant(json);
             case 'BreastCancer': return new FluxBreastCancer(json);
+            case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json);
             case 'EstrogenReceptorStatus': return new FluxEstrogenReceptorStatus(json);
             case 'ProgesteroneReceptorStatus': return new FluxProgesteroneReceptorStatus(json);
             case 'HER2ReceptorStatus': return new FluxHER2ReceptorStatus(json);

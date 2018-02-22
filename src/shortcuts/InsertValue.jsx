@@ -81,7 +81,8 @@ export default class InsertValue extends Shortcut {
                     let strResult = "";
                     result.forEach((item, itemIndex) => {
                         listItems.forEach((itemKey, attrIndex) => {
-                            strResult += this._getValueUsingPath(item, itemKey);
+                            let nextSubstring = this._getValueUsingPath(item, itemKey);
+                            if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
                             if (attrIndex < numListItems) strResult += " ";
                         });
                         if (itemIndex < numMedications) {

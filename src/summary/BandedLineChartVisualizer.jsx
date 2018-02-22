@@ -114,7 +114,16 @@ class BandedLineChartVisualizer extends Component {
         const data = subsection.itemsFunction(patient, condition, subsection);
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
-        if (Lang.isUndefined(processedData) || processedData.length === 0) return <h2 key='0' style={{paddingTop: '10px'}}>None</h2>;
+        if (Lang.isUndefined(processedData) || processedData.length === 0) {
+            return <div key={yVar}>
+                        <div className="sub-section-heading">
+                            <h2 className="sub-section-name">
+                                {yVar}
+                            </h2>
+                        </div>
+                        <h2 style={{paddingTop: '10px'}}>None</h2>
+                    </div>;
+        }
         const yUnit = processedData[0].unit;
         // Min/Max for rendering 
         const [, yMax] = this.getMinMax(processedData, yVar)

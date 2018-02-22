@@ -245,8 +245,8 @@ class FluxCondition {
         events.sort(this._eventsTimeSorter);
 
         const procedureTemplates = {
-            range: 'Patient underwent {0} from {1} to {2}.',
-            single: 'Patient underwent {0} on {1}.'
+            range: 'Patient underwent {0} from {1} to {2}',
+            single: 'Patient underwent {0} on {1}'
         };
         const medicationTemplates = {
             range: 'Patient took {0} from {1} to {2}.',
@@ -267,6 +267,11 @@ class FluxCondition {
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime);
                         hpiText += procedureText;
+                    }
+                    if (event.annotation) {
+                        hpiText += " which " + event.annotation + ".";
+                    } else {
+                        hpiText += ".";
                     }
                     break;
                 }

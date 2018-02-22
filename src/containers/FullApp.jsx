@@ -38,8 +38,13 @@ export default class FullApp extends Component {
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
+        
+        let patientId = DataAccess.DEMO_PATIENT_ID;
+        if (props.patientId) {
+            patientId = props.patientId;
+        }
 
-        let patient = this.dataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
+        let patient = this.dataAccess.getPatient(patientId);
         this.summaryMetadata = new SummaryMetadata();
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);

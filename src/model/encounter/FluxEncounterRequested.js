@@ -9,8 +9,8 @@ class FluxEncounterRequested {
         return this._encounterRequested.entryInfo;
     }
 
-    get reason() {
-        return this._encounterRequested.actionContext.reason.value;
+    get reasons() {
+        return this._encounterRequested.actionContext.reason;
     }
 
     get expectedPerformanceTime() {

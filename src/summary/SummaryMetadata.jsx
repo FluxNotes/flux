@@ -61,9 +61,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
-                                            const nextEncounter = patient.getNextEncounter();
-                                            if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
-                                            return patient.getNextEncounter().reason;
+                                            return patient.getNextEncounterReasonAsText();
                                         },
                                         shortcut: "@reason for next visit"
                                     }
@@ -94,7 +92,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
                                             if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
-                                            return patient.getPreviousEncounter().reason;
+                                            return patient.getPreviousEncounterReasonAsText();
                                         },
                                         shortcut: "@reason for previous visit"
                                     }
@@ -155,7 +153,7 @@ export default class SummaryMetadata {
                                                 return null;
                                             }
                                         },
-                                        shortcut: "@stage"
+                                        // shortcut: "@stage"
                                     },
                                     {
                                         name: "Disease Status",
@@ -470,7 +468,15 @@ export default class SummaryMetadata {
                                     },
                                     {
                                         name: "Genetic Testing",
-                                        value: null
+                                        value: (patient, currentConditionEntry) => {
+                                            const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                            if (!panels || panels.length === 0) return null;
+                                            const panel = panels.pop();
+                                            return panel.members.map((item) => {
+                                                const v = item.value === 'Positive' ? '+' : '-';
+                                                return item.abbreviatedName + v;
+                                            }).join(",");
+                                        }
                                     }
                                 ]
                             }
@@ -825,12 +831,19 @@ export default class SummaryMetadata {
         let items = [];
 
         meds.forEach((med) => {
+            const ept = med.expectedPerformanceTime;
+            if (Lang.isNull(ept)) return;
             const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
             const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
             const assignedGroup = this.assignItemToGroup(items, startTime, 1);
             const name = med.medication;
-            const dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
-
+            let dosage;
+            if (!med.amountPerDose) {
+                dosage = "not specified";
+            } else {
+                dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
+            }
+            
             items.push({
                 group: assignedGroup,
                 title: name,
