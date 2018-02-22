@@ -153,7 +153,7 @@ export default class SummaryMetadata {
                                                 return null;
                                             }
                                         },
-                                        shortcut: "@stage"
+                                        // shortcut: "@stage"
                                     },
                                     {
                                         name: "Disease Status",
