@@ -13,6 +13,7 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 import FluxStudy from '../model/research/FluxStudy';
+import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import mapper from '../lib/FHIRMapper';
@@ -249,15 +250,25 @@ class PatientRecord {
         
         return result + ".";
     }
+       
     
-    getClinicalTrails(){
-        return this.getEntriesOfType(FluxStudy);
+    getClinicalTrials(){
+        let clinicalTrialList = new ClinicalTrialsList();
+        let result = this.getEntriesOfType(FluxStudy);
+            
+        result.forEach((study) => {
+            let trial = clinicalTrialList.getClinicalTrialByName(study.title);
+            if (trial) {
+                
+                study.details = trial.description;
+            }
+            
+
+        });
+        
+        return result;
     }
-    
-    getEnrolledClinicalTrials(){
-        let enrolled = this.getClinicalTrails();
-        return enrolled.title;
-    }
+   
 
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);

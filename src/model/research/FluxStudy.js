@@ -1,5 +1,6 @@
 import Study from '../shr/research/Study';
 import Title from '../shr/core/Title';
+import Details from '../shr/core/Details';
 import Identifier from '../shr/core/Identifier';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
@@ -31,7 +32,7 @@ class FluxStudy {
         if (this._study.title) {
             return this._study.title.value;
         } else {
-            return null;
+            return "";
         }
     }
 
@@ -46,6 +47,29 @@ class FluxStudy {
         titleObj.value = title; 
         this._study.title = titleObj;
     }
+    /**
+     *  Getter for detail
+     *  This will return the displayText value from the Detail object
+     */    
+    get details() {
+        if (this._study.details) {
+            return this._study.details.value;
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     *  Setter for details
+     *  The setter method is expecting a details sting
+     *  The method will create a Details object and set the value to the detail string
+     */
+    set details(details) {
+        if (Lang.isNull(details)) return;
+        let detailsObj = new Details();
+        detailsObj.value = details; 
+        this._study.details = detailsObj;
+    }    
 
     /**
      *  Getter for identifier
