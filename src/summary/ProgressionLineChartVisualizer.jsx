@@ -150,7 +150,8 @@ class ProgressionLineChartVisualizer extends Component {
         const processedData = this.processForGraphing(data, xVar, xVarNumber, yVar, codeToValueMap);
         // Get all possible values for progression, that are numbers, and sort them
         const allYValues = processedData.map((item) => { return item["Disease status"]; }).sort();
-        const yTicks = allYValues.filter((item, index) => { return (index === 0) || item !== allYValues[index-1]; });
+        const yTicks = allYValues.filter((item, index) => { return (typeof(item) === "number") && ((index === 0) || item !== allYValues[index-1]); });
+
         return (
             <div 
                 ref={(chartParentDiv) => {this.chartParentDiv = chartParentDiv;}}
