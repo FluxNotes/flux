@@ -223,6 +223,7 @@ export default class SummaryMetadata {
                     {
                         name: "Clinical Trials",
                         shortName: "Trials",
+                        clinicalEvents: ["pre-encounter"],
                         type: "Columns",
                         notFiltered: true,
                         data: [
