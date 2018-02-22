@@ -13,14 +13,13 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
 import FluxStudy from '../model/research/FluxStudy';
-import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
+import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import Guid from 'guid';
-
 
 class PatientRecord {
     constructor(shrJson = null) {
