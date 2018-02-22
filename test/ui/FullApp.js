@@ -515,7 +515,68 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     // Assert that the number of progressions is correct
     await t
         .expect(expectedNumItems).eql(numItems, 'There should be ' + expectedNumItems + ' progression items on the timeline.');
+});
 
+test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray.', async t => {
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+
+    await t
+        .click(conditionButton);
+    const selectedCondition = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(selectedCondition);
+    const conditionSection = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
+    await t
+        .expect(conditionSection.exists)
+        .ok();
+    const conditionSectionSnapshot = await conditionSection();
+    await t
+        .expect(conditionSectionSnapshot.hasClass('selected'))
+        .ok();
+});
+
+test('Clicking "@condition" and choosing multiple conditions creates condition sections for each in the context tray.', async t => {
+    const contextPanelElements = Selector('.context-options-list').find('.context-option');
+    const sectionItemElements = Selector('.context-tray').find('.section-item');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const patientButton = await sectionItemElements.withText(/Patient/g);
+
+    // first condition
+    await t
+        .click(conditionButton);
+    const selectedConditionInvasive = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(selectedConditionInvasive);
+    const conditionSectionInvasive = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
+    await t
+        .expect(conditionSectionInvasive.exists)
+        .ok();
+    let conditionSectionInvasiveSnapshot = await conditionSectionInvasive();
+    await t
+        .expect(conditionSectionInvasiveSnapshot.hasClass('selected'))
+        .ok();
+
+    // second condition
+    await t
+        .click(patientButton);
+    await t
+        .click(conditionButton);
+    const selectedConditionFracture = Selector('.context-portal').find('li').withText('Fracture');
+    await t
+        .click(selectedConditionFracture);
+    const conditionSectionFracture = Selector('.context-tray').find('div').withAttribute('title', 'Fracture');
+    await t
+        .expect(conditionSectionFracture.exists)
+        .ok();
+    const conditionSectionFractureSnapshot = await conditionSectionFracture();
+    await t
+        .expect(conditionSectionFractureSnapshot.hasClass('selected'))
+        .ok();
+    conditionSectionInvasiveSnapshot = await conditionSectionInvasive();
+    await t
+        .expect(conditionSectionInvasiveSnapshot.hasClass('selected'))
+        .notOk();
 });
 
 
@@ -755,7 +816,6 @@ test('Contents of in-progress note saved when switching to a completed note and 
         .notEql("");
 });
 
-
 test('Clicking on an in-progress note in post encounter mode puts the NotesPanel in edit mode with the context tray displayed', async t => {
     const editor = Selector("div[data-slate-editor='true']");
     const clinicalNotesButton = Selector('#notes-btn');
@@ -936,6 +996,7 @@ test('Clicking the data visualization buttons changes the visualizer used', asyn
         }
     }
 });
+
 
 fixture('Patient Mode - Timeline')
     .page(startPage);
