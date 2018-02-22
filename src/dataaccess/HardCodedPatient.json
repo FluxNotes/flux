@@ -1474,5 +1474,307 @@
         },
         "shr.core.CreationTime": {"Value": "01 JAN 2018"},
         "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "34",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C95618", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Review of systems"}}]
+        },
+        "shr.finding.Members": {
+            "Value": [
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "35"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "36"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "37"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "38"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "39"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "40"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "41"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "42"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "43"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "44"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "45"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "46"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "47"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "48"
+                },
+                {
+                    "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"},
+                    "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+                    "EntryId": "49"
+                }
+            ]
+        },
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "35",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C50575", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "alopecia"}}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "36",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C61443", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "amenorrhea"}}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "37",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "C118263", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "numbness or tingling in hands and feet"}}]
+        },
+        "Value": true,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "38",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 4"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "39",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 5"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "40",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 6"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "41",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 7"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "42",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 8"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "43",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 9"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "44",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 10"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "45",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 11"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "46",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 12"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "47",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 13"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "48",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 14"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "shr.base.EntryId": "49",
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer" },
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d", "EntryId": "1"},
+        "shr.finding.ObservationCode": {
+            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding": [{"Value": "foo", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+            "shr.core.DisplayText": {"Value": "Question 15"}}]
+        },
+        "Value": false,
+        "shr.core.CreationTime": {"Value": "01 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "01 JAN 2018"}
     }
 ]
