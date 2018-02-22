@@ -84,7 +84,7 @@ export default class ContextTray extends Component {
     renderParentContexts(contexts) {
         const activeContextIndex = this.state.value - 2;
         const activeContext = contexts[activeContextIndex];
-        const parentContexts = contexts.filter((context) => context.parentContext == null && context.initiatingTrigger === '@condition');
+        const parentContexts = contexts.filter((context) => context.parentContext == null);
 
         if (parentContexts.length === 0) {
             return null;
@@ -183,7 +183,6 @@ export default class ContextTray extends Component {
 
         return (
             <div className="context-tray">
-                {/* TEMPLATES and PATIENT selectors - default */}
                 <section>
                     <div
                         className={`section-item${value === 0 ? ' selected' : ''}`}
@@ -202,7 +201,6 @@ export default class ContextTray extends Component {
                     </div>
                 </section>
 
-                {/* Templates list */}
                 {value === 0 &&
                     <section>
                         <TemplateForm
