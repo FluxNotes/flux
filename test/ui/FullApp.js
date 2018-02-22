@@ -783,6 +783,68 @@ test('Clicking on the sign note button moves the note from in progress notes to 
         .eql(inProgressNotesLength - 1);
 });
 
+test('Entering disease status information updates the data in the targeted data panel to indicate that the disease status information is unsigned', async t => {
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const unSignedItem = Selector('.list-unsigned');
+
+    await t
+        .click(conditionButton);
+    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(correctCondition);
+    const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
+    await t
+        .click(diseaseStatusButton);
+    const stableButton = await contextPanelElements.withText(/#stable/ig);
+    await t
+        .click(stableButton);
+    const asOfButton = await contextPanelElements.withText(/#as of/ig);
+    await t
+        .click(asOfButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    await t
+        .expect(unSignedItem.exists)
+        .ok();
+})
+
+test('Clicking on the sign note button changes the unsigned data from a dotted line to a solid line', async t => {
+    const signNoteButton = Selector('.btn_finish');
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const unSignedItem = Selector('.list-unsigned');
+
+    await t
+        .click(conditionButton);
+    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(correctCondition);
+    const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
+    await t
+        .click(diseaseStatusButton);
+    const stableButton = await contextPanelElements.withText(/#stable/ig);
+    await t
+        .click(stableButton);
+    const asOfButton = await contextPanelElements.withText(/#as of/ig);
+    await t
+        .click(asOfButton);
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('enter');
+
+    await t
+        .click(signNoteButton)
+
+    await t
+        .expect(unSignedItem.exists)
+        .notOk();
+});
+
 // Verifies automatic saving
 test('Contents of in-progress note saved when switching to a completed note and back', async t => {
     const editor = Selector("div[data-slate-editor='true']");
