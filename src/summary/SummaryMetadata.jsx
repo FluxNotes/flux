@@ -491,7 +491,7 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                headings: ["Name", "Date of Enrollment", "Description"],
+                                headings: ["Name", "Date of Enrollment", "Date of Unenrollment", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             }
                         ]
@@ -759,8 +759,9 @@ export default class SummaryMetadata {
                     {
                         value: c.title,
                     },
-                    c.enrollmentDate, 
-                    c.details
+                    c.enrollmentDate,
+                    c.endDate,
+                    c.details                  
                 ]; 
             }); 
         }
