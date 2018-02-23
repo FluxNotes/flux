@@ -219,21 +219,7 @@ export default class SummaryMetadata {
                             }
 
                         ]
-                    },
-                    {
-                        name: "Clinical Trials",
-                        shortName: "Trials",
-                        clinicalEvents: ["pre-encounter"],
-                        type: "Columns",
-                        notFiltered: true,
-                        data: [
-                            {
-                                name: "Enrolled",
-                                headings: ["Name", "Description"],
-                                itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            }
-                        ]
-                    },                    
+                    },                   
                     {
                         name: "Procedures",
                         shortName: "Procedures",
@@ -496,6 +482,20 @@ export default class SummaryMetadata {
                             }
                         ]
                     },
+                    {
+                        name: "Clinical Trials",
+                        shortName: "Trials",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Name", "Description"],
+                                itemsFunction: this.getItemListForEnrolledClinicalTrials
+                            }
+                        ]
+                    }, 
                     {
                         name: "Allergies",
                         shortName: "Allergies",
