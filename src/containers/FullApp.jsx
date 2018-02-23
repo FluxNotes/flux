@@ -52,7 +52,7 @@ export default class FullApp extends Component {
         this.securityManager = new SecurityManager();
 
         this.state = {
-            clinicalEvent: "post-encounter",
+            clinicalEvent: "pre-encounter",
             condition: null,
             contextManager: this.contextManager,
             errors: [],
