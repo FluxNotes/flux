@@ -31,6 +31,17 @@ class ClinicalTrialsList {
                 return null;
         }
     }
+    
+    getClinicalTrialByName(name){
+        let clinicalTrials = this.clinicalTrials.filter((trial) => {
+            return trial.name === name;
+        });
+        if (clinicalTrials.length === 0){
+            return null;
+        }
+
+        return clinicalTrials[0];
+    }
 }
 
 export default ClinicalTrialsList;

@@ -191,7 +191,7 @@ export default class SummaryMetadata {
                                         }
                                     }
                                 ]
-                            },
+                            },                           
                             {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
@@ -219,7 +219,7 @@ export default class SummaryMetadata {
                             }
 
                         ]
-                    },
+                    },                   
                     {
                         name: "Procedures",
                         shortName: "Procedures",
@@ -483,6 +483,20 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
+                        name: "Clinical Trials",
+                        shortName: "Trials",
+                        clinicalEvents: ["pre-encounter"],
+                        type: "Columns",
+                        notFiltered: true,
+                        data: [
+                            {
+                                name: "",
+                                headings: ["Name", "Date of Enrollment", "Date of Unenrollment", "Description"],
+                                itemsFunction: this.getItemListForEnrolledClinicalTrials
+                            }
+                        ]
+                    }, 
+                    {
                         name: "Allergies",
                         shortName: "Allergies",
                         clinicalEvents: ["pre-encounter"],
@@ -732,7 +746,27 @@ export default class SummaryMetadata {
             };
         });
     }
+        
+    getItemListForEnrolledClinicalTrials = (patient, currentConditionEntry) => {
+        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
+        const clinicalTrials = patient.getClinicalTrials(currentConditionEntry);
+        if (clinicalTrials.length === 0) {
+            return [];
+        } else {        
+            return clinicalTrials.map((c, i) => {
+                return [
+                    {
+                        value: c.title,
+                    },
+                    c.enrollmentDate,
+                    c.endDate,
+                    c.details                  
+                ]; 
+            }); 
+        }
+    }       
+        
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
