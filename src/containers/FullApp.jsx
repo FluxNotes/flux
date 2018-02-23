@@ -157,23 +157,21 @@ export default class FullApp extends Component {
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
                 if(Lang.isObject(item[arrayIndex])){
-                    this.setState({SummaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]`});
+                    this.setState({ SummaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` });
                 } else {
-                    this.setState({SummaryItemToInsert: item[arrayIndex]});
+                    this.setState({ SummaryItemToInsert: item[arrayIndex]});
                 }
             } else if (item.shortcut) {
-                this.setState({summaryItemToInsert: `${item.shortcut}[[${item.value}]]`});
+                this.setState({ summaryItemToInsert: `${item.shortcut}[[${item.value}]]` });
             } else if (item.value) {
-                this.setState({summaryItemToInsert: item.value});
+                this.setState({ summaryItemToInsert: item.value });
             } else {
-                this.setState({summaryItemToInsert: item});
+                this.setState({ summaryItemToInsert: item });
             }
         }
     }
 
     render() {
-
-
         // Get the Current Dashboard based on superRole of user
         const CurrentDashboard = this.dashboardManager.getDashboardForSuperRole(this.state.superRole);
 

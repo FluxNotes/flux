@@ -1,5 +1,6 @@
 .context-tray {
   margin: 20px 0;
+  color: #888;
 }
 
 .context-tray section {
@@ -8,12 +9,21 @@
 }
 
 .context-tray .section-item {
-  padding: 5px 20px;
+  margin: 3px 0;
   font-size: 0.9em;
   cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .context-tray .section-item:hover,
 .context-tray .section-item.selected {
   font-weight: bold;
+  color: #333;
+}
+
+.context-tray .fa {
+  font-size: 1.4em;
+  color: #aaa;
 }

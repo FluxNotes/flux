@@ -1,8 +1,8 @@
 .context-option {
-    margin: 10px 20px;
+    margin: 5px 0 5px 26px;
     cursor: pointer;
     font-size: 0.9em;
-    color: #999;
+    color: #888;
 }
 
 .context-option:hover,
