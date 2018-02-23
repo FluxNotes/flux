@@ -43,6 +43,14 @@
     border-bottom: 1px solid red;
 }
 
+/* Unsigned element styling*/
+.tabular-list td.list-unsigned span {
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-style: dashed; 
+    text-decoration-color: blue;
+}
+
 /*Captured element styling */
 .tabular-list td.list-captured span {
     border-bottom: 1px solid blue;

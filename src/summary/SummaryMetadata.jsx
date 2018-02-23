@@ -61,7 +61,9 @@ export default class SummaryMetadata {
                                     {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
-                                            return patient.getNextEncounterReasonAsText();
+                                            const nextEncounter = patient.getNextEncounter();
+                                            if (Lang.isUndefined(nextEncounter)) return ["No upcoming appointments", false];
+                                            return [patient.getNextEncounterReasonAsText(), patient.isUnsigned(nextEncounter)];
                                         },
                                         shortcut: "@reason for next visit"
                                     }
@@ -91,8 +93,8 @@ export default class SummaryMetadata {
                                         name: "Reason",
                                         value: (patient, currentConditionEntry) => {
                                             const previousEncounter = patient.getPreviousEncounter();
-                                            if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
-                                            return patient.getPreviousEncounterReasonAsText();
+                                            if (Lang.isUndefined(previousEncounter)) return ["No recent appointments", false];
+                                            return [patient.getPreviousEncounterReasonAsText(), patient.isUnsigned(previousEncounter)] ;
                                         },
                                         shortcut: "@reason for previous visit"
                                     }
@@ -133,14 +135,14 @@ export default class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.type;
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
                                         },
                                         shortcut: "@condition"
                                     },
                                     {
                                         name: "Laterality",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.laterality;
+                                            return [currentConditionEntry.laterality, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     },
                                     {
@@ -148,7 +150,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return s.stage;
+                                                return [s.stage, patient.isUnsigned(currentConditionEntry)];
                                             } else {
                                                 return null;
                                             }
@@ -162,7 +164,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return p.status;
+                                                return [p.status, patient.isUnsigned(p)];
                                             }
                                         }
                                     },
@@ -173,7 +175,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return p.asOfDate;
+                                                return [p.asOfDate, patient.isUnsigned(p)];
                                             }
                                         }
                                     },
@@ -184,14 +186,14 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return p.evidence.map(function (ev) {
+                                                return [p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', ');
+                                                }).join(', '), patient.isUnsigned(p)];
                                             }
                                         }
                                     }
                                 ]
-                            },                           
+                            },
                             {
                                 name: "Recent Lab Results",
                                 itemsFunction: this.getItemListForLabResults
@@ -202,7 +204,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Diagnosis",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.diagnosisDate;
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)] ;
                                         }
                                     },
                                     {
@@ -211,7 +213,7 @@ export default class SummaryMetadata {
                                             if (currentConditionEntry.clinicalStatus.value === "recurrence") {
                                                 return null;
                                             } else {
-                                                return "N/A";
+                                                return ["N/A", patient.isUnsigned(currentConditionEntry)];
                                             } // TODO: actually get date once we know where it is in SHR
                                         }
                                     }
@@ -219,7 +221,7 @@ export default class SummaryMetadata {
                             }
 
                         ]
-                    },                   
+                    },
                     {
                         name: "Procedures",
                         shortName: "Procedures",
@@ -381,6 +383,8 @@ export default class SummaryMetadata {
                             {
                                 name: "",
                                 items: [
+
+                                    // TODO: When return value for items that are currently null, need to also return patient.isUnsigned(currentConditionEntry)
                                     {
                                         name: "Color",
                                         value: null
@@ -394,7 +398,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
-                                            return list[0].quantity.value + " " + list[0].quantity.unit;
+                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     },
                                     {
@@ -405,7 +409,7 @@ export default class SummaryMetadata {
                                         name: "Histological Grade",
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxHistologicGrade);
-                                            return list[0].grade;
+                                            return [list[0].grade, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     },
                                     {
@@ -415,7 +419,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return er.status;
+                                                return [er.status, patient.isUnsigned(currentConditionEntry)];
                                             }
                                         }
                                     },
@@ -426,7 +430,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return pr.status;
+                                                return [pr.status, patient.isUnsigned(currentConditionEntry)];
                                             }
                                         }
                                     },
@@ -437,7 +441,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return her2.status;
+                                                return [her2.status, patient.isUnsigned(currentConditionEntry)];
                                             }
                                         }
                                     }
@@ -472,10 +476,10 @@ export default class SummaryMetadata {
                                             const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
                                             if (!panels || panels.length === 0) return null;
                                             const panel = panels.pop();
-                                            return panel.members.map((item) => {
+                                            return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(",");
+                                            }).join(","), patient.isUnsigned(currentConditionEntry)];
                                         }
                                     }
                                 ]
@@ -495,7 +499,7 @@ export default class SummaryMetadata {
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             }
                         ]
-                    }, 
+                    },
                     {
                         name: "Allergies",
                         shortName: "Allergies",
@@ -556,26 +560,26 @@ export default class SummaryMetadata {
                                     {
                                         name: "Name",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.type;
+                                            return [currentConditionEntry.type, patient.isUnsigned(currentConditionEntry)];
                                         },
                                         shortcut: "@condition"
                                     },
                                     {
                                         name: "Diagnosis Date",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.diagnosisDate;
+                                            return [currentConditionEntry.diagnosisDate, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     },
                                     {
                                         name: "Where",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.bodySite;
+                                            return [currentConditionEntry.bodySite, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     },
                                     {
                                         name: "Clinical Status",
                                         value: (patient, currentConditionEntry) => {
-                                            return currentConditionEntry.clinicalStatus;
+                                            return [currentConditionEntry.clinicalStatus, patient.isUnsigned(currentConditionEntry)];
                                         }
                                     }
                                 ]
@@ -742,30 +746,30 @@ export default class SummaryMetadata {
 
             return {
                 name: name,
-                value: value
+                value: [value, patient.isUnsigned(currentConditionEntry)]
             };
         });
     }
-        
+
     getItemListForEnrolledClinicalTrials = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
         const clinicalTrials = patient.getClinicalTrials(currentConditionEntry);
         if (clinicalTrials.length === 0) {
             return [];
-        } else {        
+        } else {
             return clinicalTrials.map((c, i) => {
                 return [
                     {
-                        value: c.title,
+                        value: [c.title, patient.isUnsigned(c)]
                     },
                     c.enrollmentDate,
                     c.details
                 ]; 
             }); 
         }
-    }       
-        
+    }
+
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
@@ -876,7 +880,7 @@ export default class SummaryMetadata {
             } else {
                 dosage = med.amountPerDose.value + " " + med.amountPerDose.units + " " + med.timingOfDoses.value + " " + med.timingOfDoses.units;
             }
-            
+
             items.push({
                 group: assignedGroup,
                 title: name,

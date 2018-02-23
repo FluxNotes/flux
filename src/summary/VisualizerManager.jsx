@@ -10,9 +10,9 @@ import Lang from 'lodash';
 class VisualizerManager {
     transformMedicationsToColumns = (patient, condition, subsection) => {
         let newsection = {};
-        
-        const itemList = subsection.itemsFunction(patient, condition, subsection);        
-        
+
+        const itemList = subsection.itemsFunction(patient, condition, subsection);
+
         newsection.name = "";
         newsection.headings = ["Medication", "Dosage", "Timing", "Start", "End"];
         newsection.items = itemList.map((med) => {
@@ -27,8 +27,8 @@ class VisualizerManager {
             } else {
                 timing = "";
             }
-            
-            return [    med.medication, 
+
+            return [    med.medication,
                         dose,
                         timing,
                         med.expectedPerformanceTime.timePeriodStart,
@@ -39,12 +39,9 @@ class VisualizerManager {
     
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
-        //console.log(subsection);
-
 
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-
         let list = null;
 
         if (Lang.isUndefined(items)) {
@@ -54,20 +51,28 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
+                    if(item.value(patient, condition)) {
+                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]], shortcut: item.shortcut};
+                    } else {
+
+                        return {name: item.name, value: null, shortcut: item.shortcut};
+                    }
                 } else {
-                    return {name: item.name, value: item.value(patient, condition) };
+                    if(item.value(patient, condition)) {
+                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]] };
+                    } else {
+                        return {name: item.name, value: null};
+                    }
                 }
             });
         }
 
-        //console.log(list);
         newsection.name = subsection.name;
         newsection.items = list.map((item) => {
             if (Lang.isNull(item.value)) {
-                return [    { value: item.name, isInsertable: false }, null ];
+                return [    { value: item.name, isInsertable: false}, null ];
             } else {
-                return [    { value: item.name, isInsertable: false }, { value: item.value, shortcut: item.shortcut } ];
+                return [    { value: item.name, isInsertable: false, unsigned: item.value[1] }, { value: item.value[0], shortcut: item.shortcut } ];
             }
         });
         return newsection;
@@ -84,16 +89,15 @@ class VisualizerManager {
                     { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
                     { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer }
                   ];
-        
+
     getSupportedVisualizerTypesForDataType(dataType) {
         return this.visualizers.filter((viz) => {
             return (viz.dataType === dataType);
         }).map((viz) => {
             return viz.visualizerType;
         });
-
     }
-    
+
     getVisualizer(dataType, visualizerType) {
         let result = this.visualizers.filter((viz) => {
             return (viz.dataType === dataType && viz.visualizerType === visualizerType)
@@ -101,7 +105,7 @@ class VisualizerManager {
         if (Lang.isNull(result) || result.length !== 1) return null;
         return result[0];
     }
-    
+
     renderIcon(visualizerType, isSelected) {
         if (visualizerType === 'tabular') {
             return this._tabularIcon(isSelected);
@@ -114,7 +118,7 @@ class VisualizerManager {
         }
         return null;
     }
-    
+
     _tabularIcon = (isSelected) => {
 //        const visualization = this.checkVisualization();
 //        const strokeColor = visualization === "tabular" ? "#3F3F3F" : "#CCCCCC";

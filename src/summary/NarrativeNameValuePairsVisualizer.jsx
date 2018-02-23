@@ -25,6 +25,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         if all the objects in useDataMissingTemplateCriteria are null, function will return dataMissingTemplate
         otherwise, defaultTemplate is returned
     */
+    //todo create a new category in here based on isUnsigned results. if data is unsigned return dataUnsignedTemplate
     getTemplate(subsections, sentenceObject) {
         if (Lang.isNull(sentenceObject.dataMissingTemplate) || Lang.isUndefined(sentenceObject.dataMissingTemplate)) {
             return sentenceObject.defaultTemplate;
@@ -32,6 +33,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
         // Check if every object in useDataMissingTemplateCriteria is null, empty, or undefined
         const allNull = sentenceObject.useDataMissingTemplateCriteria.every((data) => {
+
             const index = data.indexOf(".");
             let subsectionName, list;
 
@@ -43,8 +45,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
             } 
             
             const valueName = data.substring(index + 1);
+
             subsectionName = data.substring(0, index);
             list = this.getList(subsections[subsectionName]);
+
             const item = list.find((it) => {
                 return it.name === valueName;
             });
@@ -81,7 +85,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-
         let list = null;
 
         if (Lang.isUndefined(items)) {
@@ -91,11 +94,14 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else {
-                    return {name: item.name, value: item.value(patient, condition), shortcut: item.shortcut};
+                    if (item.value(patient, condition)) {
+                        return {name: item.name, value: item.value(patient, condition)[0], shortcut: item.shortcut, unsigned: item.value(patient, condition)[1]};
+                    } else {
+                        return {name: item.name, value: null};
+                    }
                 }
             });
         }
-
         return list;
     }
             
@@ -140,6 +146,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         value = "missing";
                         type = "missing-data";
                         result.push( { text: value, type: type } );
+                        // add an else-if here? and 'subsections' should contain the unsigned-ness
                     } else {
                         first = true;
                         list.forEach(_addListItemToResult);
@@ -150,7 +157,11 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 valueName = valueSpec.substring(index + 1);
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
-                if (item.value) {
+
+                if(item.value && item.unsigned){
+                    value = item.value;
+                    type = "unsigned-data";
+                }else if (item.value) {
                     value = item.value;
                     type = "structured-data";
                 } else {
@@ -187,7 +198,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
             const template = this.getTemplate(subsections, sentenceObject);
             narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
         });
-
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
@@ -236,7 +246,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if (snippet.type === 'structured-data' && this.props.allowItemClick) {
+            if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && this.props.allowItemClick) {
                 const snippetId = `${snippet.item.name}-${index}`
                 content.push(
                     <span key={snippetId}>

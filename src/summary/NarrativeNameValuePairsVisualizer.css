@@ -54,6 +54,13 @@ span.structured-data {
     text-decoration-color: blue;
 }
 
+span.unsigned-data {
+    cursor: pointer;
+    text-decoration-line: underline;
+    text-decoration-style: dashed; 
+    text-decoration-color: blue;
+}
+
 .menu-item {
     font-size: 0.2em;
 }

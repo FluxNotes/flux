@@ -371,7 +371,7 @@ export default class CreatorBase extends Shortcut {
                     this.callMethod(patient, updatePatientSpec);
                 });
             } else {
-                patient.addEntryToPatientWithPatientFocalSubject(this.object);
+                patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
             }
             this.isObjectNew = false;
         }

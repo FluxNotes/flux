@@ -225,7 +225,6 @@ class FluxNotesEditor extends React.Component {
         }
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-//            console.log(text);
             if (text.length > 0) {
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();

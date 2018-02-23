@@ -45,7 +45,7 @@ class TabularListVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-        
+
         return subsections;
     }
 
@@ -170,7 +170,6 @@ class TabularListVisualizer extends Component {
         
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
-
         let list;
 
         if (Lang.isUndefined(items)) {
@@ -191,6 +190,10 @@ class TabularListVisualizer extends Component {
                 item = [ "Missing data" ];
                 onClick = null;
                 hoverClass = null;
+            } else if(item[0].unsigned){
+                rowClass = "list-unsigned";
+                itemClass = "list-unsigned";
+                hoverClass = "list-button-hover";
             } else {
                 rowClass = "list-captured";
                 itemClass = "list-captured";

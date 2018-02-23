@@ -92,6 +92,9 @@ export default class NotesPanel extends Component {
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
 
+        // Clear unsigned entries
+        this.props.patient.markAllSigned();
+
         // Close the current note
        this.closeNote();
     }
