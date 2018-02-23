@@ -249,8 +249,7 @@ class PatientRecord {
         
         return result + ".";
     }
-       
-    
+           
     getClinicalTrials(){
         let clinicalTrialList = new ClinicalTrialsList();
         let result = this.getEntriesOfType(FluxStudy);
@@ -258,11 +257,8 @@ class PatientRecord {
         result.forEach((study) => {
             let trial = clinicalTrialList.getClinicalTrialByName(study.title);
             if (trial) {
-                
                 study.details = trial.description;
             }
-            
-
         });
         
         return result;

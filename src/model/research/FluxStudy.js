@@ -49,7 +49,7 @@ class FluxStudy {
     }
     /**
      *  Getter for detail
-     *  This will return the displayText value from the Detail object
+     *  This will return the displayText value from the Details object
      */    
     get details() {
         if (this._study.details) {

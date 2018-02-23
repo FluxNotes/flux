@@ -34,7 +34,8 @@ class ClinicalTrialsList {
     
     getClinicalTrialByName(name){
         let clinicalTrials = this.clinicalTrials.filter((trial) => {
-            return trial.name === name;});
+            return trial.name === name;
+        });
         if (clinicalTrials.length === 0){
             return null;
         }

@@ -751,23 +751,21 @@ export default class SummaryMetadata {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
         const clinicalTrials = patient.getClinicalTrials(currentConditionEntry);
-        if (clinicalTrials.length === 0){
+        if (clinicalTrials.length === 0) {
             return [];
-        }
-        else {        
-        
+        } else {        
             return clinicalTrials.map((c, i) => {
-                return[
+                return [
                     {
                         value: c.title,
                     },
-                 c.enrollmentDate, c.details
+                    c.enrollmentDate, 
+                    c.details
                 ]; 
             }); 
         }
     }       
         
-
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
