@@ -519,6 +519,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
                     "shr.core.DisplayText": {"Value": "High grade or poorly differentiated"}}]},
                 "shr.finding.FindingStatus": {
@@ -529,6 +530,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -543,6 +545,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -557,6 +560,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -571,6 +575,7 @@
             },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
                     "Value": 1.6, 
@@ -591,6 +596,7 @@
             },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -646,6 +652,51 @@
                         }
                     }
                 ]
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C0205160", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Negative"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C1446409", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Positive"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C1446409", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Positive"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             }
         ],
         "shr.core.CreationTime": {"Value": "29 NOV 2015"},
