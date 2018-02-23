@@ -712,10 +712,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "20 OCT 2015"
+                        "Value": "20 JAN 2015"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "23 FEB 2016"
+                        "Value": "23 MAY 2016"
                     }
                 }
             },
@@ -729,8 +729,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "10 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "10 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "10 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "10 JAN 2015"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -785,10 +785,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "20 OCT 2015"
+                        "Value": "20 JAN 2015"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "23 FEB 2016"
+                        "Value": "23 MAY 2016"
                     }
                 }
             },
@@ -802,8 +802,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "10 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "10 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "10 JAN 2015"},
+        "shr.base.LastUpdated": {"Value": "10 JAN 2015"}
     },
     
     
@@ -840,8 +840,8 @@
         },
     
         "shr.base.Author": { "Value": "Dr. XYZ987" },
-        "shr.core.CreationTime": {"Value": "06 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "06 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "06 APR 2016"},
+        "shr.base.LastUpdated": {"Value": "06 APR 2016"}
     },
     
     {
@@ -896,10 +896,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "06 JUL 2016"
+                        "Value": "06 OCT 2016"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "27 JUN 2017"
+                        "Value": "27 SEP 2017"
                     }
                 }
             },
@@ -913,8 +913,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. XYZ987" },
-        "shr.core.CreationTime": {"Value": "06 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "06 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "06 OCT 2016"},
+        "shr.base.LastUpdated": {"Value": "06 OCT 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -976,10 +976,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "17 JUL 2017"
+                        "Value": "17 OCT 2017"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "30 OCT 2017"
+                        "Value": "30 JAN 2018"
                     }
                 }
             },
@@ -993,8 +993,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": {"Value": "17 JUL 2017"}
+        "shr.core.CreationTime": {"Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2018"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1049,10 +1049,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "17 JUL 2017"
+                        "Value": "17 OCT 2017"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "30 OCT 2017"
+                        "Value": "30 JAN 2018"
                     }
                 }
             },
@@ -1066,8 +1066,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": {"Value": "17 JUL 2017"}
+        "shr.core.CreationTime": {"Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2018"}
     },
 
 
@@ -1137,7 +1137,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1151,8 +1151,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1232,7 +1232,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1246,8 +1246,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1322,7 +1322,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1336,8 +1336,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1397,8 +1397,8 @@
         },
         "shr.finding.ClinicallyRelevantTime": {"Value": "15 OCT 2015"},
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1456,15 +1456,15 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "3 DEC 2013"
+                "Value": "3 MAR 2013"
             },
             "shr.core.Reason": [ {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "proactive"
             }]
         },
-        "shr.core.CreationTime": { "Value": "13 NOV 2013"},
-        "shr.base.LastUpdated": { "Value": "23 NOV 2013"}        
+        "shr.core.CreationTime": { "Value": "1 MAR 2013"},
+        "shr.base.LastUpdated": { "Value": "3 MAR 2013"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1479,7 +1479,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "13 AUG 2015"
+                "Value": "13 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1494,8 +1494,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent"
         },
-        "shr.core.CreationTime": { "Value": "13 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "13 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "13 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "13 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1510,7 +1510,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1525,8 +1525,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1547,7 +1547,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1562,8 +1562,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1584,7 +1584,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1599,8 +1599,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed right axillary lymph node was negative for malignancy"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1621,7 +1621,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "13 OCT 2015"
+                "Value": "13 JAN 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1632,8 +1632,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "13 OCT 2015"},
-        "shr.base.LastUpdated": { "Value": "13 OCT 2015"}        
+        "shr.core.CreationTime": { "Value": "13 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2016"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1654,7 +1654,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "15 OCT 2015"
+                "Value": "15 JAN 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1669,8 +1669,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation"
         },
-        "shr.core.CreationTime": { "Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": { "Value": "15 OCT 2015"}        
+        "shr.core.CreationTime": { "Value": "15 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "15 JAN 2016"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1685,7 +1685,7 @@
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-            "Value": "12 MAR 2016"
+            "Value": "12 JUN 2016"
         },
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1695,8 +1695,40 @@
                        "EntryId": "8"
                }
            }]},
-        "shr.core.CreationTime": { "Value": "12 MAR 2016"},
-        "shr.base.LastUpdated": { "Value": "12 MAR 2016"}        
+        "shr.core.CreationTime": { "Value": "12 JUN 2016"},
+        "shr.base.LastUpdated": { "Value": "12 JUN 2016"}        
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "69",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "C51987", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                "shr.core.DisplayText": {"Value": "Adjuvant Radiation Therapy"}}]}},
+        "shr.action.ActionContext": { 
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {"Value": "18 AUG 2016"},
+                    "shr.core.TimePeriodEnd": {"Value": "29 SEP 2016"}
+                }
+            },
+            "shr.core.Reason": [{
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": {
+                       "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                       "EntryId": "8"
+                }
+            }]
+        },
+        "shr.core.CreationTime": { "Value": "18 AUG 2016"},
+        "shr.base.LastUpdated": { "Value": "29 SEP 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1714,8 +1746,8 @@
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                    "shr.core.TimePeriodStart": {"Value": "18 MAY 2016"},
-                    "shr.core.TimePeriodEnd": {"Value": "29 JUN 2016"}
+                    "shr.core.TimePeriodStart": {"Value": "20 JAN 2016"},
+                    "shr.core.TimePeriodEnd": {"Value": "23 MAY 2016"}
                 }
             },
             "shr.core.Reason": [{
@@ -1727,8 +1759,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "02 MAY 2016"},
-        "shr.base.LastUpdated": { "Value": "30 JUN 2016"}            
+        "shr.core.CreationTime": { "Value": "20 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "23 MAY 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1752,7 +1784,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "15 SEP 2016"
+                "Value": "15 DEC 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1767,8 +1799,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed benign findings"
         },
-        "shr.core.CreationTime": { "Value": "01 SEP 2016"},
-        "shr.base.LastUpdated": { "Value": "15 SEP 2016"}            
+        "shr.core.CreationTime": { "Value": "15 DEC 2016"},
+        "shr.base.LastUpdated": { "Value": "15 DEC 2016"}            
     },
 
     {
@@ -1793,11 +1825,11 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "06 JAN 2017"
+                "Value": "06 APR 2017"
             }
         },
-        "shr.core.CreationTime": { "Value": "06 JAN 2017"},
-        "shr.base.LastUpdated": { "Value": "06 JAN 2017"}            
+        "shr.core.CreationTime": { "Value": "06 APR 2017"},
+        "shr.base.LastUpdated": { "Value": "06 APR 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1821,7 +1853,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUN 2017"
+                "Value": "10 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1836,8 +1868,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "3 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "10 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1861,7 +1893,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "20 JUN 2017"
+                "Value": "20 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1876,8 +1908,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla and two hypodensities in the left lobe of the liver that were consistent with benign cysts"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "20 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "02 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1901,7 +1933,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "28 JUN 2017"
+                "Value": "28 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1916,8 +1948,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "was negative for skeletal metastases"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "28 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "02 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "28 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1938,7 +1970,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUL 2017"
+                "Value": "10 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1949,8 +1981,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "10 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "10 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "10 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1971,7 +2003,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUL 2017"
+                "Value": "10 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1982,8 +2014,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "10 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "10 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "10 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2004,7 +2036,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "17 JUL 2017"
+                "Value": "17 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -2015,8 +2047,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "17 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "17 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2058,8 +2090,8 @@
             }
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": {"Value": "30 OCT 2017"}
+        "shr.core.CreationTime": {"Value": "30 JAN 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2017"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2101,8 +2133,8 @@
             }
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": {"Value": "30 OCT 2017"}
+        "shr.core.CreationTime": {"Value": "30 JAN 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2017"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2123,7 +2155,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "02 NOV 2017"
+                "Value": "22 FEB 2018"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -2138,8 +2170,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla"
         },
-        "shr.core.CreationTime": { "Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": { "Value": "02 NOV 2017"}        
+        "shr.core.CreationTime": { "Value": "12 FEB 2018"},
+        "shr.base.LastUpdated": { "Value": "22 FEB 2018"}        
     },
     
     {
@@ -2160,15 +2192,15 @@
             }]
         },
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
-        "shr.finding.ClinicallyRelevantTime": {"Value": "02 JUL 2016"},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "02 OCT 2016"},
         "shr.finding.Evidence": [
         ],
         "shr.finding.FindingStatus": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
         },
-        "shr.core.CreationTime": {"Value": "02 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "02 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "02 OCT 2016"},
+        "shr.base.LastUpdated": {"Value": "02 OCT 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
