@@ -415,7 +415,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Receptor Status ER",
                                         value: (patient, currentConditionEntry) => {
-                                            let er = currentConditionEntry.getERReceptorStatus();
+                                            let er = currentConditionEntry.getMostRecentERReceptorStatus();
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
@@ -426,7 +426,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Receptor Status PR",
                                         value: (patient, currentConditionEntry) => {
-                                            let pr = currentConditionEntry.getPRReceptorStatus();
+                                            let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
@@ -437,7 +437,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Receptor Status HER2",
                                         value: (patient, currentConditionEntry) => {
-                                            let her2 = currentConditionEntry.getHER2ReceptorStatus();
+                                            let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {

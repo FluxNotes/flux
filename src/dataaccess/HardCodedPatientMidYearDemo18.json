@@ -57,13 +57,13 @@
         "shr.base.EntryId":"1000",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
         "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},"ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "09 AUG 2015",
+        "date": "09 NOV 2015",
         "subject": "Experienced pain in breast and felt lump in right breast during self-examination",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
         "content": "@name is a @age year old @gender presenting with pain in her right breast. She felt a lump during a self-examination.\nOrdering mammography.",
-        "shr.base.CreationTime": {"Value": "09 AUG 2015"},
-        "shr.base.LastUpdated": {"Value": "09 AUG 2015"},
+        "shr.base.CreationTime": {"Value": "09 NOV 2015"},
+        "shr.base.LastUpdated": {"Value": "09 NOV 2015"},
         "signed": true
     },
     {
@@ -71,13 +71,13 @@
         "shr.base.EntryId": "1005",
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote" },
         "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "13 AUG 2015",
+        "date": "13 NOV 2015",
         "subject": "Mammography",
         "hospital": "Hospital X",
         "clinician": "Dr. Zheng",
         "content": "@patient given mammography.\nshowed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. Order a right targeted spot compression breast ultrasound.",
-        "shr.base.CreationTime": {"Value": "13 AUG 2015"},
-        "shr.base.LastUpdated": {"Value": "13 AUG 2015"},
+        "shr.base.CreationTime": {"Value": "13 NOV 2015"},
+        "shr.base.LastUpdated": {"Value": "13 NOV 2015"},
         "signed": true
     },
     {
@@ -85,13 +85,27 @@
         "shr.base.EntryId": "1010",
         "shr.base.EntryType": { "Value" :  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
         "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "29 AUG 2015",
+        "date": "29 NOV 2015",
         "subject": "Ultrasound Report",
         "hospital": "Hospital X",
         "clinician": "Dr. Strauss",
         "content": "@patient given a right targeted spot compression breast ultrasound of a palpable lump. Image revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate",
-        "shr.base.CreationTime": {"Value": "29 AUG 2015"} ,
-        "shr.base.LastUpdated":{"Value": "29 AUG 2015"},
+        "shr.base.CreationTime": {"Value": "29 NOV 2015"} ,
+        "shr.base.LastUpdated":{"Value": "29 NOV 2015"},
+        "signed": true
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "1070",
+        "shr.base.EntryType": {"Value":  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
+        "date": "27 SEP 2017",
+        "subject": "Treatment Progress",
+        "hospital": "Hospital X",
+        "clinician": "Dr. Smith",
+        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 42-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\n\nASSESSMENT:\nStop Tamoxifen.",
+        "shr.base.CreationTime": {"Value":"27 SEP 2017"},
+        "shr.base.LastUpdated": {"Value": "27 SEP 2017"},
         "signed": true
     },
     {
@@ -99,13 +113,13 @@
         "shr.base.EntryId": "1080",
         "shr.base.EntryType": {"Value":  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
         "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "10 JUL 2017",
+        "date": "10 OCT 2017",
         "subject": "Pre-chemotherapy",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
-        "content": "REASON FOR VISIT:\nReplace Port-A-Cath\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 43-year-old premenopausal Hispanic woman who had an unremarkable mammogram December 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on August 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on August 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on August 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on October 13, 2015. TTE done on October 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from October 20, 2015 to February 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on March 12, 2016. Pathology report on March 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from May 18, 2016 to June 29, 2016.\n\nShe started Tamoxifen July 6, 2016.\n\nA bilateral 3D mammogram on September 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on January 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on June 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm. \n\nCT of the chest with contrast June 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on June 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan June 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained June 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped June 27, 2017.\n\n\nASSESSMENT:\nA Port-A-Cath was replaced today.\nShe will start induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on July 17, 2017.",
-        "shr.base.CreationTime": {"Value":"03 NOV 2017"},
-        "shr.base.LastUpdated": {"Value": "03 NOV 2017"},
+        "content": "REASON FOR VISIT:\nReplace Port-A-Cath\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 42-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped September 27, 2017.\n\n\nASSESSMENT:\nA Port-A-Cath was replaced today.\nShe will start induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on October 17, 2017.",
+        "shr.base.CreationTime": {"Value":"10 OCT 2017"},
+        "shr.base.LastUpdated": {"Value": "10 OCT 2017"},
         "signed": true
     },
     {
@@ -113,30 +127,15 @@
         "shr.base.EntryId": "1085",
         "shr.base.EntryType": {"Value":  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
         "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "30 OCT 2017",
+        "date": "30 JAN 2018",
         "subject": "Treatment Check-in",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
-        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 43-year-old premenopausal Hispanic woman who had an unremarkable mammogram December 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on August 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on August 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on August 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on October 13, 2015. TTE done on October 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from October 20, 2015 to February 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on March 12, 2016. Pathology report on March 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from May 18, 2016 to June 29, 2016.\n\nShe started Tamoxifen July 6, 2016.\n\nA bilateral 3D mammogram on September 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on January 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on June 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm. \n\nCT of the chest with contrast June 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on June 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan June 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained June 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped June 27, 2017.\n\nA Port-A-Cath was replaced on July 10, 2017.\nShe underwent induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on July 17, 2017.\n\nASSESSMENT:\nAlthough her #disease status is #stable #as of #10/30/2017, recommending to halt after 5 cycles due to #toxicity #Grade 3 #myalgia and #toxicity #Grade 3 #peripheral motor neuropathy attributed to paclitaxel.",
-        "shr.base.CreationTime": {"Value":"03 NOV 2017"},
-        "shr.base.LastUpdated": {"Value": "03 NOV 2017"},
+        "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 43-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped September 27, 2017.\n\nA Port-A-Cath was replaced on October 10, 2017.\nShe underwent induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on October 17, 2017.\n\nASSESSMENT:\nAlthough her #disease status is #stable #as of #10/30/2017, recommending to halt after 5 cycles due to #toxicity #Grade 3 #myalgia and #toxicity #Grade 3 #peripheral motor neuropathy attributed to paclitaxel.",
+        "shr.base.CreationTime": {"Value":"30 JAN 2018"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2018"},
         "signed": true
     },
-    {
-        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-        "shr.base.EntryId": "1090",
-        "shr.base.EntryType": {"Value":  "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"},
-        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1"},
-        "date": "03 NOV 2017",
-        "subject": "Review of CT Scan",
-        "hospital": "Hospital X",
-        "clinician": "Dr. Smith",
-        "content": "REASON FOR VISIT:\nCT Scan Results Review\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 43-year-old premenopausal Hispanic woman who had an unremarkable mammogram December 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on August 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on August 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on August 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on October 13, 2015. TTE done on October 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from October 20, 2015 to February 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford on March 12, 2016. Pathology report on March 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno from May 18, 2016 to June 29, 2016.\n\nShe started Tamoxifen July 6, 2016.\n\nA bilateral 3D mammogram on September 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on January 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on June 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm. \n\nCT of the chest with contrast June 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on June 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan June 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained June 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped June 27, 2017.\n\nA Port-A-Cath was replaced on July 10, 2017.\nShe underwent induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on July 17, 2017. Although her disease status was stable as of October 30, 2017, therapy was halted after 5 cycles due to Grade 3 myalgia and Grade 3 peripheral neuropathy attributed to paclitaxel. \n\nASSESSMENT:\nContrast enhanced CT of the Chest revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla",
-        "shr.base.CreationTime": {"Value":"03 NOV 2017"},
-        "shr.base.LastUpdated": {"Value": "03 NOV 2017"},
-        "signed": true
-    },
-    
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "shr.base.EntryId": "8",
@@ -199,7 +198,7 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
             "Value": { 
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             }
         },
         "shr.finding.Evidence": [
@@ -520,6 +519,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HistologicGrade"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "369792005", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
                     "shr.core.DisplayText": {"Value": "High grade or poorly differentiated"}}]},
                 "shr.finding.FindingStatus": {
@@ -530,6 +530,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -544,6 +545,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -558,6 +560,7 @@
             },
             {
                 "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value":  {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -572,6 +575,7 @@
             },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Quantity" },
                     "Value": 1.6, 
@@ -592,6 +596,7 @@
             },
             {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage" },
+                "shr.finding.ClinicallyRelevantTime": { "Value": "29 NOV 2015" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
                     "shr.core.Coding":[{
@@ -647,10 +652,55 @@
                         }
                     }
                 ]
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C0205160", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Negative"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C1446409", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Positive"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
+            },
+            {
+                "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"},
+                "shr.finding.ClinicallyRelevantTime": { "Value": "20 SEP 2017" },
+                "Value":  {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{
+                        "Value": "C1446409", 
+                        "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                        "shr.core.DisplayText": {"Value": "Positive"}}]},
+                "shr.finding.FindingStatus": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+                    "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, 
+                        "shr.core.DisplayText": {"Value": "Final"}}]
+                }
             }
         ],
-        "shr.core.CreationTime": {"Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": {"Value": "29 AUG 2015"}
+        "shr.core.CreationTime": {"Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": {"Value": "29 NOV 2015"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -712,10 +762,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "20 OCT 2015"
+                        "Value": "20 JAN 2016"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "23 FEB 2016"
+                        "Value": "23 MAY 2016"
                     }
                 }
             },
@@ -729,8 +779,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "10 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "10 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "20 JAN 2016"},
+        "shr.base.LastUpdated": {"Value": "23 MAY 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -785,10 +835,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "20 OCT 2015"
+                        "Value": "20 JAN 2016"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "23 FEB 2016"
+                        "Value": "23 MAY 2016"
                     }
                 }
             },
@@ -802,8 +852,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "10 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "10 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "20 JAN 2016"},
+        "shr.base.LastUpdated": {"Value": "20 JAN 2016"}
     },
     
     
@@ -840,8 +890,8 @@
         },
     
         "shr.base.Author": { "Value": "Dr. XYZ987" },
-        "shr.core.CreationTime": {"Value": "06 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "06 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "06 APR 2016"},
+        "shr.base.LastUpdated": {"Value": "06 APR 2016"}
     },
     
     {
@@ -896,10 +946,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "06 JUL 2016"
+                        "Value": "06 OCT 2016"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "27 JUN 2017"
+                        "Value": "27 SEP 2017"
                     }
                 }
             },
@@ -913,8 +963,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. XYZ987" },
-        "shr.core.CreationTime": {"Value": "06 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "06 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "06 OCT 2016"},
+        "shr.base.LastUpdated": {"Value": "06 OCT 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -976,10 +1026,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "17 JUL 2017"
+                        "Value": "17 OCT 2017"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "30 OCT 2017"
+                        "Value": "30 JAN 2018"
                     }
                 }
             },
@@ -993,8 +1043,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": {"Value": "17 JUL 2017"}
+        "shr.core.CreationTime": {"Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2018"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1049,10 +1099,10 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "17 JUL 2017"
+                        "Value": "17 OCT 2017"
                     },
                     "shr.core.TimePeriodEnd": {
-                        "Value": "30 OCT 2017"
+                        "Value": "30 JAN 2018"
                     }
                 }
             },
@@ -1066,8 +1116,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": {"Value": "17 JUL 2017"}
+        "shr.core.CreationTime": {"Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2018"}
     },
 
 
@@ -1137,7 +1187,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1151,8 +1201,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1232,7 +1282,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1246,8 +1296,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1322,7 +1372,7 @@
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
                     "shr.core.TimePeriodStart": {
-                        "Value": "15 OCT 2015"
+                        "Value": "15 FEB 2016"
                     }
                 }
             },
@@ -1336,8 +1386,8 @@
             }]
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
@@ -1397,8 +1447,8 @@
         },
         "shr.finding.ClinicallyRelevantTime": {"Value": "15 OCT 2015"},
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": {"Value": "15 OCT 2015"}
+        "shr.core.CreationTime": {"Value": "15 FEB 2016"},
+        "shr.base.LastUpdated": {"Value": "15 FEB 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1456,15 +1506,15 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "3 DEC 2013"
+                "Value": "3 MAR 2013"
             },
             "shr.core.Reason": [ {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
                 "Value": "proactive"
             }]
         },
-        "shr.core.CreationTime": { "Value": "13 NOV 2013"},
-        "shr.base.LastUpdated": { "Value": "23 NOV 2013"}        
+        "shr.core.CreationTime": { "Value": "1 MAR 2013"},
+        "shr.base.LastUpdated": { "Value": "3 MAR 2013"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1479,7 +1529,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "13 AUG 2015"
+                "Value": "13 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1494,8 +1544,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent"
         },
-        "shr.core.CreationTime": { "Value": "13 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "13 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "13 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "13 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1510,7 +1560,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1525,8 +1575,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1547,7 +1597,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1562,8 +1612,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1584,7 +1634,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "29 AUG 2015"
+                "Value": "29 NOV 2015"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1599,8 +1649,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed right axillary lymph node was negative for malignancy"
         },
-        "shr.core.CreationTime": { "Value": "29 AUG 2015"},
-        "shr.base.LastUpdated": { "Value": "29 AUG 2015"}        
+        "shr.core.CreationTime": { "Value": "29 NOV 2015"},
+        "shr.base.LastUpdated": { "Value": "29 NOV 2015"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1621,7 +1671,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "13 OCT 2015"
+                "Value": "13 JAN 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1632,8 +1682,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "13 OCT 2015"},
-        "shr.base.LastUpdated": { "Value": "13 OCT 2015"}        
+        "shr.core.CreationTime": { "Value": "13 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "13 JAN 2016"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1654,7 +1704,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "15 OCT 2015"
+                "Value": "15 JAN 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1669,8 +1719,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation"
         },
-        "shr.core.CreationTime": { "Value": "15 OCT 2015"},
-        "shr.base.LastUpdated": { "Value": "15 OCT 2015"}        
+        "shr.core.CreationTime": { "Value": "15 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "15 JAN 2016"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1685,7 +1735,7 @@
         "shr.action.Status": {"Value": "completed"},
         "shr.action.ExpectedPerformanceTime": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-            "Value": "12 MAR 2016"
+            "Value": "12 JUN 2016"
         },
         "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1695,8 +1745,40 @@
                        "EntryId": "8"
                }
            }]},
-        "shr.core.CreationTime": { "Value": "12 MAR 2016"},
-        "shr.base.LastUpdated": { "Value": "12 MAR 2016"}        
+        "shr.core.CreationTime": { "Value": "12 JUN 2016"},
+        "shr.base.LastUpdated": { "Value": "12 JUN 2016"}        
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "69",
+        "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"},
+        "shr.base.PersonOfRecord": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1" },
+        "shr.base.Subject": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1" },
+        "shr.entity.Type" : {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+            "shr.core.Coding":[{ "Value": "C51987", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, 
+                "shr.core.DisplayText": {"Value": "Adjuvant Radiation Therapy"}}]}},
+        "shr.action.ActionContext": { 
+            "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"}, 
+            "shr.action.Status": {"Value": "completed"},
+            "shr.action.ExpectedPerformanceTime": {
+                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
+                "Value": {
+                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
+                    "shr.core.TimePeriodStart": {"Value": "18 AUG 2016"},
+                    "shr.core.TimePeriodEnd": {"Value": "29 SEP 2016"}
+                }
+            },
+            "shr.core.Reason": [{
+               "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
+               "Value": {
+                       "EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition" },
+                       "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                       "EntryId": "8"
+                }
+            }]
+        },
+        "shr.core.CreationTime": { "Value": "18 AUG 2016"},
+        "shr.base.LastUpdated": { "Value": "29 SEP 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1714,8 +1796,8 @@
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
                 "Value": {
                     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod" },
-                    "shr.core.TimePeriodStart": {"Value": "18 MAY 2016"},
-                    "shr.core.TimePeriodEnd": {"Value": "29 JUN 2016"}
+                    "shr.core.TimePeriodStart": {"Value": "20 JAN 2016"},
+                    "shr.core.TimePeriodEnd": {"Value": "23 MAY 2016"}
                 }
             },
             "shr.core.Reason": [{
@@ -1727,8 +1809,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "02 MAY 2016"},
-        "shr.base.LastUpdated": { "Value": "30 JUN 2016"}            
+        "shr.core.CreationTime": { "Value": "20 JAN 2016"},
+        "shr.base.LastUpdated": { "Value": "23 MAY 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1752,7 +1834,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "15 SEP 2016"
+                "Value": "15 DEC 2016"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1767,8 +1849,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "showed benign findings"
         },
-        "shr.core.CreationTime": { "Value": "01 SEP 2016"},
-        "shr.base.LastUpdated": { "Value": "15 SEP 2016"}            
+        "shr.core.CreationTime": { "Value": "15 DEC 2016"},
+        "shr.base.LastUpdated": { "Value": "15 DEC 2016"}            
     },
 
     {
@@ -1793,11 +1875,11 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "06 JAN 2017"
+                "Value": "06 APR 2017"
             }
         },
-        "shr.core.CreationTime": { "Value": "06 JAN 2017"},
-        "shr.base.LastUpdated": { "Value": "06 JAN 2017"}            
+        "shr.core.CreationTime": { "Value": "06 APR 2017"},
+        "shr.base.LastUpdated": { "Value": "06 APR 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1821,7 +1903,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUN 2017"
+                "Value": "10 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1836,8 +1918,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "3 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "10 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1861,7 +1943,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "20 JUN 2017"
+                "Value": "20 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1876,8 +1958,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla and two hypodensities in the left lobe of the liver that were consistent with benign cysts"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "20 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "02 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "20 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1901,7 +1983,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "28 JUN 2017"
+                "Value": "28 SEP 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1916,8 +1998,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "was negative for skeletal metastases"
         },
-        "shr.core.CreationTime": { "Value": "02 JUN 2017"},
-        "shr.base.LastUpdated": { "Value": "28 JUN 2017"}            
+        "shr.core.CreationTime": { "Value": "02 SEP 2017"},
+        "shr.base.LastUpdated": { "Value": "28 SEP 2017"}            
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1938,7 +2020,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUL 2017"
+                "Value": "10 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1949,8 +2031,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "10 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "10 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "10 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1971,7 +2053,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "10 JUL 2017"
+                "Value": "10 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -1982,8 +2064,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "10 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "10 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "10 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "10 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2004,7 +2086,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "17 JUL 2017"
+                "Value": "17 OCT 2017"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -2015,8 +2097,8 @@
                 }
             }]
         },
-        "shr.core.CreationTime": { "Value": "17 JUL 2017"},
-        "shr.base.LastUpdated": { "Value": "17 JUL 2017"}        
+        "shr.core.CreationTime": { "Value": "17 OCT 2017"},
+        "shr.base.LastUpdated": { "Value": "17 OCT 2017"}        
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2058,8 +2140,8 @@
             }
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": {"Value": "30 OCT 2017"}
+        "shr.core.CreationTime": {"Value": "30 JAN 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2017"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2101,8 +2183,8 @@
             }
         },
         "shr.base.Author": { "Value": "Dr. ABC123" },
-        "shr.core.CreationTime": {"Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": {"Value": "30 OCT 2017"}
+        "shr.core.CreationTime": {"Value": "30 JAN 2017"},
+        "shr.base.LastUpdated": {"Value": "30 JAN 2017"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -2123,7 +2205,7 @@
             "shr.action.Status": {"Value": "completed"},
             "shr.action.ExpectedPerformanceTime": {
                 "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime" },
-                "Value": "02 NOV 2017"
+                "Value": "22 FEB 2018"
             },
             "shr.core.Reason": [{
                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/Reason" },
@@ -2138,8 +2220,8 @@
             "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"}, 
             "Value": "revealed pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla"
         },
-        "shr.core.CreationTime": { "Value": "30 OCT 2017"},
-        "shr.base.LastUpdated": { "Value": "02 NOV 2017"}        
+        "shr.core.CreationTime": { "Value": "12 FEB 2018"},
+        "shr.base.LastUpdated": { "Value": "22 FEB 2018"}        
     },
     
     {
@@ -2160,15 +2242,15 @@
             }]
         },
         "shr.finding.ObservationCode": {"Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0421176", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Progression"}}]}},
-        "shr.finding.ClinicallyRelevantTime": {"Value": "02 JUL 2016"},
+        "shr.finding.ClinicallyRelevantTime": {"Value": "02 OCT 2016"},
         "shr.finding.Evidence": [
         ],
         "shr.finding.FindingStatus": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
         },
-        "shr.core.CreationTime": {"Value": "02 JUL 2016"},
-        "shr.base.LastUpdated": {"Value": "02 JUL 2016"}
+        "shr.core.CreationTime": {"Value": "02 OCT 2016"},
+        "shr.base.LastUpdated": {"Value": "02 OCT 2016"}
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",

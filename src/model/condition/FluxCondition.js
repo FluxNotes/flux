@@ -87,7 +87,7 @@ class FluxCondition {
     // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
     getLabResultsChronologicalOrder(sinceDate) {
         let results = this.getTests();
-        results.sort(this._labResultsTimeSorter);
+        results.sort(this._observationsTimeSorter);
 
         let mostRecentLabResults = results;
         if (sinceDate && !Lang.isNull(sinceDate)) {
@@ -165,21 +165,22 @@ class FluxCondition {
         }
     } 
 
-    _getReceptorStatus(receptorType) {
-        let list = this.getObservationsOfType(receptorType);
-        if (list.length === 0) return null; else return list[0];
+    _getMostRecentReceptorStatus(receptorType) {
+        const list = this.getObservationsOfType(receptorType);
+        const sortedList = list.sort(this._observationsTimeSorter);
+        if (list.length === 0) return null; else return sortedList.pop();
     }
 
-    getERReceptorStatus() {
-        return this._getReceptorStatus(FluxEstrogenReceptorStatus);
+    getMostRecentERReceptorStatus() {
+        return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
     }
 
-    getPRReceptorStatus() {
-        return this._getReceptorStatus(FluxProgesteroneReceptorStatus);
+    getMostRecentPRReceptorStatus() {
+        return this._getMostRecentReceptorStatus(FluxProgesteroneReceptorStatus);
     }
 
-    getHER2ReceptorStatus() {
-        return this._getReceptorStatus(FluxHER2ReceptorStatus);
+    getMostRecentHER2ReceptorStatus() {
+        return this._getMostRecentReceptorStatus(FluxHER2ReceptorStatus);
     }
 
     /**
@@ -393,7 +394,7 @@ class FluxCondition {
     }
 
     // Sorts the lab results in chronological order
-    _labResultsTimeSorter(a, b) {
+    _observationsTimeSorter(a, b) {
         const a_startTime = new moment(a.clinicallyRelevantTime, "D MMM YYYY");
         const b_startTime = new moment(b.clinicallyRelevantTime, "D MMM YYYY");
         if (a_startTime < b_startTime) {
