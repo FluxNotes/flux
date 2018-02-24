@@ -271,7 +271,7 @@ class TabularListVisualizer extends Component {
         );
     }
 
-    // Render a given list item as a cell in a table
+    // Render a given list item as a row in a table
     renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass) {
             // Array of all columns
             const renderedColumns = [];
@@ -279,15 +279,26 @@ class TabularListVisualizer extends Component {
             let isInsertable, elementText;
             const numColumns = item.length;
             const colSize = (100 / numColumns) + "%";
-            
+            let isUnsigned;
             item.forEach((element, arrayIndex) => {
                 const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
-                elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
+                elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : (Lang.isArray(element) ? element[0] : element));
                 const longElementText = elementText;
                 if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
-                if (Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
+                if (Lang.isNull(elementText)) {
+                    itemClass = 'list-missing';
+                } else {
+                    if (Lang.isArray(elementText)) {
+                        isUnsigned = elementText[1];
+                        elementText = elementText[0];
+                    } else {
+                        isUnsigned = false;
+                    }
+                    itemClass = (isUnsigned ? 'list-unsigned' : 'list-captured');
+                }
+                if(Lang.isNull(element) || Lang.isUndefined(elementText) || Lang.isNull(elementText) || (typeof(elementText) === 'string' && elementText.length === 0)) {
                     columnItem = (
                         <td
                             className={"list-missing"}

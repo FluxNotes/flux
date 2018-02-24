@@ -143,6 +143,7 @@ export default class CreatorBase extends Shortcut {
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
+        this.removeFromPatient();
         return result;
     }
 
@@ -364,7 +365,19 @@ export default class CreatorBase extends Shortcut {
             }
         }
     }
-
+    
+    removeFromPatient() {
+        if (this.isObjectNew) return;
+        const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
+        if (undoUpdatePatientSpecList) {
+            undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
+                this.callMethod(this.patient, undoUpdatePatientSpec);
+            });
+        } else {
+            this.patient.removeEntryFromPatient(this.object);
+        }
+    }
+    
     updatePatient(patient, contextManager) {
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];
@@ -375,6 +388,7 @@ export default class CreatorBase extends Shortcut {
             } else {
                 patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
             }
+            this.patient = patient;
             this.isObjectNew = false;
         }
     }

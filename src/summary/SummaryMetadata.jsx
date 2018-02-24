@@ -757,15 +757,19 @@ export default class SummaryMetadata {
         if (clinicalTrials.length === 0) {
             return [];
         } else {
-            return clinicalTrials.map((c, i) => {
+            return clinicalTrials.filter((c) => {
+                return (c.title);
+            }).map((c, i) => {
                 return [
                     {
                         value: [c.title, patient.isUnsigned(c)]
                     },
-                    c.enrollmentDate,
+                    {
+                        value: [c.enrollmentDate, patient.isUnsigned(c)]
+                    },
                     c.details
                 ]; 
-            }); 
+            });
         }
     }
 

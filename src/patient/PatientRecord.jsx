@@ -30,9 +30,7 @@ class PatientRecord {
             this.person = this.getPerson();
             //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
             this.shrId = this.patient.entryInfo.shrId;
-            this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                return o.entryInfo.entryId;
-            })) + 1;
+            this._calculateNextEntryId();
         } else { // create a new patient
             this.entries = [];
             this.patient = null;
@@ -43,6 +41,12 @@ class PatientRecord {
         }
         this.unsignedEntries = {};
     }
+    
+    _calculateNextEntryId() {
+        this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
+            return o.entryInfo.entryId;
+        })) + 1;
+    }        
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
@@ -99,7 +103,7 @@ class PatientRecord {
 		});
 
         this.patient = this.getPatient();
-        this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
+        this._calculateNextEntryId();
     }
     
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
@@ -126,7 +130,7 @@ class PatientRecord {
         this.entries.push(entry);
         if(Lang.isEqual(signed, false)){
             this.markUnsigned(entry);
-        } else{
+        } else {
             this.markSigned(entry);
         }
         // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
@@ -136,6 +140,16 @@ class PatientRecord {
     addEntryToPatientWithPatientFocalSubject(entry, signed) { 
         //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry, signed);
+    }
+    
+    removeEntryFromPatient(entry) {
+        const index = this.entries.indexOf(entry);
+        if (index >= 0) {
+            this.entries.splice(index, 1);
+            this._calculateNextEntryId();
+        } else {
+            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId);
+        }
     }
 
     setDeceased(deceased) {
