@@ -74,40 +74,19 @@ export default class CreatorBase extends Shortcut {
 
     // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
     shouldBeInContext() {
-        //console.log("shouldBeInContext " + this.getLabel());
         const voaList = this.metadata["valueObjectAttributes"];
         let value, isSettable;
         let result = false;
         voaList.forEach((voa) => {
             value = this.getAttributeValue(voa.name);
-            //console.log(value);
             isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
-            //console.log("isSettable = " + isSettable);
             if (isSettable) {
- /*               if (Lang.isNull(value)) {
-                    result = true;
-                    return;
-                }
-                if (Lang.isString(value)) {
-                    if (value.length === 0) {
-                        result = true;
-                        return;
-                    }
-                } else */
                 if (Lang.isArray(value)) {
                     if (value.length < voa.numberOfItems) {
-                        //console.log(voa.name + " is not completely set.");
                         result = true;
                         return true;
                     }
-                } /*else if (Lang.isBoolean(value)) {
-                    if (!value) {
-                        result = true;
-                        return;
-                    }
-                }*/
-                else if (!(this.isSet[voa.name])) {
-                    //console.log(voa.name + " is not set.");
+                } else if (!(this.isSet[voa.name])) {
                     result = true;
                     return;
                 }
@@ -118,7 +97,6 @@ export default class CreatorBase extends Shortcut {
                 }
             }
         });
-        //console.log(this.getShortcutType() + " in context: " + result);
         return result;
     }
 
@@ -166,7 +144,6 @@ export default class CreatorBase extends Shortcut {
             if (isConditional) {
                 end = structuredPhrase.indexOf("}", end + 1); // adjust end to be 2nd close bracket
                 conditional = structuredPhrase.substring(start + 3, end);
-                //conditional = valueName.substring(1);
                 start2 = conditional.indexOf("${");
                 end2 = conditional.indexOf("}", start2 + 2);
                 valueName = conditional.substring(start2 + 2, end2);
@@ -175,7 +152,6 @@ export default class CreatorBase extends Shortcut {
                 value = this.getAttributeValue(valueName);
                 if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
-                    //if (!Lang.isNull(value) && value !== '') {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
                     result += before;
@@ -213,8 +189,6 @@ export default class CreatorBase extends Shortcut {
     }
 
     _followPath(object, attributePath, startIndex) {
-        //console.log("_followPath");
-        //console.log(object);
         let i, attributeName, list, index, start, end;
         const len = attributePath.length;
         let result = object;
@@ -237,11 +211,8 @@ export default class CreatorBase extends Shortcut {
                 list = result[attributeName];
                 result = list[index];
             } else {
-                //console.log("value attribute: " + attributePath[i]);
                 result = result[attributePath[i]];
             }
-            //console.log(attributePath[i]);
-            //console.log(result);
             if (Lang.isUndefined(result)) return null;
         }
         return result;
@@ -252,11 +223,8 @@ export default class CreatorBase extends Shortcut {
     }
 
     getAttributeValue(name) {
-        // console.log("getAttribute for " + this.metadata["id"] + " called " + name);
-
         const voa = this.valueObjectAttributes[name];
 
-        // console.log(voa);
         if (Lang.isNull(voa["attributePath"])) {
             return this.values[voa["name"]];
         } else {
@@ -266,23 +234,17 @@ export default class CreatorBase extends Shortcut {
     }
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
-        //console.log("setAttributeValue " + name + " to " + value);
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
-        //console.log(voa);
         this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
-        //console.log(this.object);
-        //console.log(setMethod);
         if (value == null && voa.default) {
-            //console.log("   defaulting to " + voa.default);
             value = voa.default;
             if (value === "$today") {
                 value = new moment().format('D MMM YYYY');
             }
         }
-        //console.log("setAttributeValue " + name + " to " + value);
         if (Lang.isUndefined(patientSetMethod)) {
             if (Lang.isUndefined(setMethod)) {
                 this.values[name] = value;
@@ -296,7 +258,6 @@ export default class CreatorBase extends Shortcut {
                 }
             }
         } else {
-            //console.log(this.object);
             if (voa["type"] === "list" && !Lang.isArray(value)) {
                 let list = this.getAttributeValue(name);
                 list.push(value);
@@ -337,11 +298,11 @@ export default class CreatorBase extends Shortcut {
         });
         if (Lang.isUndefined(listAttribute)) {
             if (obj === "patient") {
-                patient[method](...args);
+                return patient[method](...args);
             } else if (obj === "$valueObject") {
-                this.object[method](...args);
+                return this.object[method](...args);
             } else if (obj === "$parentValueObject") {
-                this.parentContext.getValueObject()[method](...args);
+                return this.parentContext.getValueObject()[method](...args);
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }
@@ -350,20 +311,24 @@ export default class CreatorBase extends Shortcut {
                 let list = Lang.get(patient, listAttribute);
                 args.forEach((a) => list.push(a));
                 Lang.set(patient, listAttribute, list);
+                return this.object;
             } else if (obj === "$valueObject") {
                 let list = Lang.get(this.object, listAttribute);
                 args.forEach((a) => list.push(a));
                 Lang.set(this.object, listAttribute, list);
+                return this.object;
             } else if (obj === "$parentValueObject") {
                 if (!Lang.isUndefined(this.parentContext)) {
                     let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
                     args.forEach((a) => list.push(a));
                     Lang.set(this.parentContext.getValueObject(), listAttribute, list);
+                    return this.object;
                 }
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }
         }
+        return null;
     }
     
     removeFromPatient() {
@@ -381,12 +346,20 @@ export default class CreatorBase extends Shortcut {
     updatePatient(patient, contextManager) {
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];
+            let result;
             if (updatePatientSpecList) {
                 updatePatientSpecList.forEach((updatePatientSpec) => {
-                    this.callMethod(patient, updatePatientSpec);
+                    result = this.callMethod(patient, updatePatientSpec);
+                    if (Lang.isNull(result)) {
+                        return;
+                    }
+                    if (result) {
+                        this.object = result;
+                    }
                 });
+                if (Lang.isNull(result)) return;
             } else {
-                patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
+                this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
             }
             this.patient = patient;
             this.isObjectNew = false;

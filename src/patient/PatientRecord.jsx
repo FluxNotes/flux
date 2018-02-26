@@ -116,6 +116,19 @@ class PatientRecord {
             this.entries[index] = updatedEntry;
         }
     }
+    
+    addUnenrolled(entry, signed = false) {
+        if (!(entry.title) || entry.title.length === 0) return null;
+        var found = this.entries.find(function(element) {
+            if (!(element instanceof FluxStudy)) return false;
+            return element.title === entry.title;
+        });
+        if(!Lang.isUndefined(found)) {
+            return found;
+        } else {
+            return this.addEntryToPatientWithPatientFocalSubject(entry, signed);
+        }            
+    }
 
     addEntryToPatient(entry, signed = false) {
         entry.entryInfo.shrId = this.shrId;
@@ -126,15 +139,13 @@ class PatientRecord {
         entry.entryInfo.creationTime.dateTime = today;
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
-        //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
         if(Lang.isEqual(signed, false)){
             this.markUnsigned(entry);
         } else {
             this.markSigned(entry);
         }
-        // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
-        return entry.entryInfo.entryId;
+        return entry; //entry.entryInfo.entryId;
     }
 
     addEntryToPatientWithPatientFocalSubject(entry, signed) { 
@@ -423,7 +434,7 @@ class PatientRecord {
         );
         
 
-        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed);
+        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed).entryInfo.entryId;
     }
 
     getNotes() {

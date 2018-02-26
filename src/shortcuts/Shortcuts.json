@@ -225,6 +225,7 @@
     "valueObjectAttributes": [  {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
       {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}
     ],
+    "updatePatient": [{"object":"patient", "method": "addUnenrolled", "args": [ "$valueObject" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient from a clinical trial."}],
     "regexpTrigger": null,
