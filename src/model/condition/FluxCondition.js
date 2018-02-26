@@ -87,10 +87,11 @@ class FluxCondition {
     // This method takes in a sinceDate, oldest date acceptable. All results returned must be more recent than sinceDate
     getLabResultsChronologicalOrder(sinceDate) {
         let results = this.getTests();
-        let sortedResults = results.sort(this._observationsTimeSorter);
-        let mostRecentLabResults = sortedResults;
+        results.sort(this._observationsTimeSorter);
+        
+        let mostRecentLabResults = results;
         if (sinceDate && !Lang.isNull(sinceDate)) {
-            mostRecentLabResults = this.getMostRecentLabResults(sortedResults, sinceDate);
+            mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
         }
 
         return mostRecentLabResults;
@@ -242,7 +243,7 @@ class FluxCondition {
         if (recentProgression) {
             events.push(recentProgression);
         }
-        events = events.sort(this._eventsTimeSorter);
+        events.sort(this._eventsTimeSorter);
 
         const procedureTemplates = {
             range: 'Patient underwent {0} from {1} to {2}',
