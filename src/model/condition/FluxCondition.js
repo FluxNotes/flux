@@ -219,9 +219,9 @@ class FluxCondition {
         }
 
         // ER, PR, HER2
-        const erStatus = this.getERReceptorStatus();
-        const prStatus = this.getPRReceptorStatus();
-        const her2Status = this.getHER2ReceptorStatus();
+        const erStatus = this.getMostRecentERReceptorStatus();
+        const prStatus = this.getMostRecentPRReceptorStatus();
+        const her2Status = this.getMostRecentHER2ReceptorStatus();
         if (erStatus) {
             hpiText += ` Estrogen receptor was ${erStatus.status}.`;
         }
