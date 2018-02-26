@@ -789,7 +789,7 @@ export default class SummaryMetadata {
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getTests();
-        labResults.sort(currentConditionEntry._labResultsTimeSorter);
+        labResults.sort(currentConditionEntry._observationsTimeSorter);
 
         const labs = labResults.filter((lab, i) => {
             return lab.codeableConceptCode === subsection.code;
