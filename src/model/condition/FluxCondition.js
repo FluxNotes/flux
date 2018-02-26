@@ -88,7 +88,7 @@ class FluxCondition {
     getLabResultsChronologicalOrder(sinceDate) {
         let results = this.getTests();
         results.sort(this._observationsTimeSorter);
-        
+
         let mostRecentLabResults = results;
         if (sinceDate && !Lang.isNull(sinceDate)) {
             mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
