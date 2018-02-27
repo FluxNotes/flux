@@ -15,7 +15,7 @@ In addition, a no-patient version of the above concept has been created for situ
 * In a terminal navigate into the flux folder (stay at the project root)
 * Enter 'yarn install'
 * Enter 'yarn start' to launch the development web server and open a browser to view the application
-* To view patient mode, append patient to the end of the default url (result url would be http://localhost:3000/#/patient)
+* To view patient mode, append patient to the end of the default url (result url would be http://localhost:3000/patient)
 
 
 ## Technical Details
