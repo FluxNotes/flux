@@ -124,7 +124,6 @@ export default class NoteAssistant extends Component {
     }
 
     disableContextToggleButton() {
-        // added this for selecting notes button
         this.notes_btn_classname = "toggle-button-selected";
         this.notes_stroke = "#FFFFFF";
         this.notes_disabled = false;
