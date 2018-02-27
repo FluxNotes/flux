@@ -117,10 +117,14 @@
     color: #fff;
 }
 
-.more-notes-btn {
-    background-color: red !important;
+.close-note-btn {
+    background-color: white !important;
     padding: 0px !important;
     margin-top: 0px !important;
-    text-transform: capitalize !important;
-    font-size: .8rem;
+    text-transform: none !important;
 }
+
+.close-note-btn:hover {
+    background: #E6E6E6 !important;
+}
+
