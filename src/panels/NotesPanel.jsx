@@ -26,6 +26,12 @@ export default class NotesPanel extends Component {
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
         this.closeNote = this.closeNote.bind(this);
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
+        this.openNoteByIdParent = this.openNoteByIdParent.bind(this);
+    }
+    // This function invokes the note opening logic in NoteAssistant
+    openNoteByIdParent(id) {
+        console.log("NotesPanel.openNoteByIdParent " + id);
+        this.openNoteByIdChild(id);
     }
 
     updateNoteAssistantMode(mode) {
@@ -57,8 +63,14 @@ export default class NotesPanel extends Component {
                     this.setState({selectedNote: note});
                     if (!note) {
                         this.setState({currentlyEditingEntryId: -1});
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {currentlyEditingEntryId: -1}; 
+            }); //duplicate data for now to see if this should be brought up to FullApp
                     } else {
                         this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {currentlyEditingEntryId: note.entryInfo.entryId}; 
+            });//duplicate data for now to see if this should be brought up to FullApp
                     }
                 }
             });
@@ -72,7 +84,11 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateCurrentlyEditingEntryId(id) {
+        console.log("Setting fullappstate to ID " + id);
         this.setState({currentlyEditingEntryId: id});
+                this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {currentlyEditingEntryId: id};
+        });//duplicate data for now to see if this should be brought up to FullApp
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
@@ -186,6 +202,7 @@ export default class NotesPanel extends Component {
 
                     currentViewMode={this.props.currentViewMode}
                     updateSelectedNote={this.updateSelectedNote}
+                    appState={this.props.appState}
                 />
             </div>
         );
@@ -213,6 +230,8 @@ export default class NotesPanel extends Component {
                     noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
+                    appState={this.props.appState}
+                    openNoteByIdChild={click => this.openNoteById = click}
                 />
             </div>
         );

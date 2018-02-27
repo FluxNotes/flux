@@ -67,6 +67,7 @@ export default class FullApp extends Component {
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
             noteClosed: false,
+            currentlyEditingEntryId: -1,
 
         };
     }
