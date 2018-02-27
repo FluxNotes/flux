@@ -34,6 +34,7 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
             this.disableContextToggleButton();
         }
+        console.log("NoteAssistant constructor " + this.props.appState.currentlyEditingEntryId);
     }
 
     notesNotDisplayed = null;
@@ -64,6 +65,7 @@ export default class NoteAssistant extends Component {
         // set callback so the editor can signal a change and this class can save the note
         this.props.saveNote(this.saveNoteOnKeypress);
         this.props.closeNote(this.closeNote);
+        this.props.openNoteByIdChild(this.openNoteById);
     }
 
     // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
@@ -220,6 +222,11 @@ export default class NoteAssistant extends Component {
                 this.updateExistingNote();
             }
         }
+    }
+
+    openNoteById(id){
+        // Gets the note object associated with this entryId and calls openNote below
+        console.log("in openNoteById with: " + id);
     }
 
     // Gets called when clicking on one of the notes in the clinical notes view
@@ -532,5 +539,6 @@ NoteAssistant.propTypes = {
     saveNote: PropTypes.func,
     closeNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    updateCurrentlyEditingEntryId: PropTypes.func
+    updateCurrentlyEditingEntryId: PropTypes.func,
+    openNoteByIdChild: PropTypes.func
 };

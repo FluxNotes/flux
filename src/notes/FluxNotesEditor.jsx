@@ -69,6 +69,7 @@ class FluxNotesEditor extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.documentText);
         this.contextManager = this.props.contextManager;
         this.updateErrors = this.props.updateErrors;
 
@@ -422,9 +423,17 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    // doesn't fire when switch from pre to post encounter
+    componentWillMount = () => {
+        console.log(this.props.documentText);
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {documentText: this.props.documentText};
+        });
+    }
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-
+        
         // Check if the item to be inserted is updated
         if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
