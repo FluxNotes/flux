@@ -160,11 +160,7 @@ class FluxTNMStage {
         const t = this.t_Stage;
         const n = this.n_Stage;
         const m = this.m_Stage;
-        // console.log("calculateStage: " + t + " " + n + " " + m);
-        if (t.length === 0 || n.length === 0 || m.length === 0) {
-            this.stage = '';
-            return; // not complete value
-        }
+
         this.stage = staging.breastCancerPrognosticStage(t, n, m);
     }
 }

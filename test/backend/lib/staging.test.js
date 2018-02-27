@@ -36,9 +36,11 @@ describe('breastCancerPrognosticStage', () => {
 
     it('should return null for invalid T, N, M values', () => {
         expect(staging.breastCancerPrognosticStage(1,2,0))
-            .to.be.null;
+            .to.be.a('string')
+            .and.to.be.empty;
         expect(staging.breastCancerPrognosticStage('foo','bar',11.5))
-            .to.be.null;
+            .to.be.a('string')
+            .and.to.be.empty;
     });
 
     it('should return null for undefined staging given T, N, M', () => {
@@ -63,9 +65,10 @@ describe('breastCancerPrognosticStage', () => {
             .and.to.equal('IB');
     });
 
-    it('should reject invalid M values', () => {
-        expect(staging.breastCancerPrognosticStage('T1', 'N1', 'M?'))
-            .to.be.null;
+    it('should return "IIA" with T1, N1, and no M value', () => {
+        expect(staging.breastCancerPrognosticStage('T1', 'N1'))
+            .to.be.a('string')
+            .and.to.equal('IIA');
     });
 });
 
