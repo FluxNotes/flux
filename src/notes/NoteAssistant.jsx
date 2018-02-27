@@ -105,7 +105,6 @@ export default class NoteAssistant extends Component {
     }
 
     onNotesToggleButtonClicked() {
-        console.log("notes toggle button selected");
         this.notes_btn_classname = "toggle-button-selected";
         this.notes_stroke = "#FFFFFF";
         this.notes_disabled = false;
