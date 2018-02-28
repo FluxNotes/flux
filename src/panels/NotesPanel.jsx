@@ -161,7 +161,7 @@ export default class NotesPanel extends Component {
 
     renderFluxNotesEditor() {
         return (
-            <div className="panel-content dashboard-panel editor-panel">
+            <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
                     onSelectionChange={this.props.handleSelectionChange}
                     newCurrentShortcut={this.props.newCurrentShortcut}
