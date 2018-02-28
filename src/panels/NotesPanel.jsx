@@ -57,14 +57,14 @@ export default class NotesPanel extends Component {
                     this.setState({selectedNote: note});
                     if (!note) {
                         this.setState({currentlyEditingEntryId: -1});
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            return {currentlyEditingEntryId: -1}; 
-            }); //duplicate data for now to see if this should be brought up to FullApp
+                        this.props.setFullAppStateWithCallback(function(prevState, props){
+                            return {currentlyEditingEntryId: -1}; 
+                        });
                     } else {
                         this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            return {currentlyEditingEntryId: note.entryInfo.entryId}; 
-            });//duplicate data for now to see if this should be brought up to FullApp
+                        this.props.setFullAppStateWithCallback(function(prevState, props){
+                            return {currentlyEditingEntryId: note.entryInfo.entryId}; 
+                        });
                     }
                 }
             });
@@ -78,11 +78,10 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateCurrentlyEditingEntryId(id) {
-        console.log("Setting fullappstate to ID " + id);
         this.setState({currentlyEditingEntryId: id});
-                this.props.setFullAppStateWithCallback(function(prevState, props){
+        this.props.setFullAppStateWithCallback(function(prevState, props){
             return {currentlyEditingEntryId: id};
-        });//duplicate data for now to see if this should be brought up to FullApp
+        });
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
