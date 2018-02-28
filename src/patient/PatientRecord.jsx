@@ -716,6 +716,12 @@ class PatientRecord {
         });
     }
 
+    getEntryById(id){
+        return this.entries.find((item) => {
+            return Lang.isEqual(item.entryInfo.entryId, id);
+        });
+    }
+
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];

@@ -57,8 +57,14 @@ export default class NotesPanel extends Component {
                     this.setState({selectedNote: note});
                     if (!note) {
                         this.setState({currentlyEditingEntryId: -1});
+                        this.props.setFullAppStateWithCallback(function(prevState, props){
+                            return {currentlyEditingEntryId: -1}; 
+                        });
                     } else {
                         this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
+                        this.props.setFullAppStateWithCallback(function(prevState, props){
+                            return {currentlyEditingEntryId: note.entryInfo.entryId}; 
+                        });
                     }
                 }
             });
@@ -73,6 +79,9 @@ export default class NotesPanel extends Component {
 
     handleUpdateCurrentlyEditingEntryId(id) {
         this.setState({currentlyEditingEntryId: id});
+        this.props.setFullAppStateWithCallback(function(prevState, props){
+            return {currentlyEditingEntryId: id};
+        });
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
@@ -186,6 +195,7 @@ export default class NotesPanel extends Component {
 
                     currentViewMode={this.props.currentViewMode}
                     updateSelectedNote={this.updateSelectedNote}
+                    appState={this.props.appState}
                 />
             </div>
         );
@@ -213,6 +223,8 @@ export default class NotesPanel extends Component {
                     noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
+                    appState={this.props.appState}
+                    currentClinicalEvent={this.props.currentClinicalEvent}
                 />
             </div>
         );
@@ -244,4 +256,5 @@ NotesPanel.propTypes = {
     handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
     summaryItemToInsert: PropTypes.string,
+    currentClinicalEvent: PropTypes.string,
 };
