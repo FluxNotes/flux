@@ -26,12 +26,6 @@ export default class NotesPanel extends Component {
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
         this.closeNote = this.closeNote.bind(this);
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
-        this.openNoteByIdParent = this.openNoteByIdParent.bind(this);
-    }
-    // This function invokes the note opening logic in NoteAssistant
-    openNoteByIdParent(id) {
-        console.log("NotesPanel.openNoteByIdParent " + id);
-        this.openNoteByIdChild(id);
     }
 
     updateNoteAssistantMode(mode) {
@@ -231,7 +225,7 @@ export default class NotesPanel extends Component {
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                     appState={this.props.appState}
-                    openNoteByIdChild={click => this.openNoteById = click}
+                    currentClinicalEvent={this.props.currentClinicalEvent}
                 />
             </div>
         );
@@ -263,4 +257,5 @@ NotesPanel.propTypes = {
     handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
     summaryItemToInsert: PropTypes.string,
+    currentClinicalEvent: PropTypes.string,
 };
