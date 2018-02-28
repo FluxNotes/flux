@@ -65,8 +65,17 @@ export default class NoteAssistant extends Component {
         // set callback so the editor can signal a change and this class can save the note
         this.props.saveNote(this.saveNoteOnKeypress);
         this.props.closeNote(this.closeNote);
-        this.props.openNoteByIdChild(this.openNoteById);
     }
+
+    componentWillReceiveProps(nextProps) {
+            const currentEvent = this.props.currentClinicalEvent;
+            const nextEvent = nextProps.currentClinicalEvent;
+
+            if (currentEvent !== nextEvent) {
+                const note = this.props.patient.getEntryById(nextProps.currentlyEditingEntryId);
+                this.openNote(!note.signed, note);
+            }
+        }
 
     // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
     notesTimeSorter(a, b) {
@@ -221,10 +230,6 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    openNoteById(id){
-        // Gets the note object associated with this entryId and calls openNote below
-        console.log("in openNoteById with: " + id);
-    }
 
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
@@ -537,5 +542,5 @@ NoteAssistant.propTypes = {
     closeNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
     updateCurrentlyEditingEntryId: PropTypes.func,
-    openNoteByIdChild: PropTypes.func
+    currentClinicalEvent: PropTypes.string,
 };

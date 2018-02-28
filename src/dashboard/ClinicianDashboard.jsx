@@ -11,9 +11,9 @@ export default class ClinicianDashboard extends Component {
 
         this.state = {
             targetedDataPanelSize: "default",
-            notesPanelSize: "default"
+            notesPanelSize: "default",
+            currentClinicalEvent: "pre-encounter"
         };
-        this.openNoteByIdGrandParent = this.openNoteByIdGrandParent.bind(this);
     }
 
     // Performs any initialization that needs to happen when the component mounts, specifically:
@@ -96,28 +96,22 @@ export default class ClinicianDashboard extends Component {
         switch (currentClinicalEvent) {
             case "pre-encounter":
                 this.props.setFullAppState('isNoteViewerVisible', false);
+                this.setState({currentClinicalEvent: "pre-encounter"});
                 break;
             case "encounter":
                 this.props.setFullAppState('isNoteViewerVisible', true);
-                // In the cases where the note viewer is visible, re-load the current note after switching clinical event
-                this.props.openNoteByIdGrandParent(this.props.appState.currentlyEditingEntryId);
+                this.setState({currentClinicalEvent: "encounter"});
                 break;
             case "post-encounter":
                 this.props.setFullAppState('isNoteViewerVisible', true);
-                console.log(this.props.appState.currentlyEditingEntryId + "; going to POST: " + this.props.appState.documentText); // 
-                // In the cases where the note viewer is visible, re-load the current note after switching clinical event
-                this.props.openNoteByIdGrandParent(this.props.appState.currentlyEditingEntryId);
+                this.setState({currentClinicalEvent: "post-encounter"});
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
                 this.props.setFullAppState('isNoteViewerVisible', false);
+                this.setState({currentClinicalEvent: "default"});
                 return;
         }
-    }
-    // This function invokes the note opening logic in NoteAssistant
-    openNoteByIdGrandParent(id) {
-        console.log("ClinicianDashboard.openNoteById " + id);
-        this.openNoteByIdParent(id);
     }
 
     // Based on currentClinicalEvent, determines if a note should be editable
@@ -207,7 +201,7 @@ export default class ClinicianDashboard extends Component {
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         noteClosed={this.props.appState.noteClosed}
                         appState={this.props.appState}
-                        openNoteById={click => this.openNoteByIdParent = click}
+                        currentClinicalEvent={this.state.currentClinicalEvent}
                     />
                 </div>
             </div>
