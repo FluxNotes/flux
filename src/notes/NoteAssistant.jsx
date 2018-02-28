@@ -34,7 +34,6 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
             this.disableContextToggleButton();
         }
-        console.log("NoteAssistant constructor " + this.props.appState.currentlyEditingEntryId);
     }
 
     notesNotDisplayed = null;
@@ -229,7 +228,6 @@ export default class NoteAssistant extends Component {
             }
         }
     }
-
 
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
