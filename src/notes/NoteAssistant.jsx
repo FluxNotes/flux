@@ -72,7 +72,9 @@ export default class NoteAssistant extends Component {
 
             if (currentEvent !== nextEvent) {
                 const note = this.props.patient.getEntryById(nextProps.currentlyEditingEntryId);
-                this.openNote(!note.signed, note);
+                if(!Lang.isUndefined(note)){
+                    this.openNote(!note.signed, note);
+                }
             }
         }
 
