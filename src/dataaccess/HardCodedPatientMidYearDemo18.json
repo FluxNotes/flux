@@ -3,32 +3,12 @@
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "shr.base.EntryId": "1",
         "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"},
-        "Value":{
-            "shr.base.EntryType":{ "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"},
-            "shr.base.HumanName": "Ella Ortiz111",
-            "shr.base.DateOfBirth": "15 DEC 1974",
-            "shr.base.AdministrativeGender": "female",
-            "shr.core.Address": { 
-                "shr.core.AddressLine": [{ "Value": "123 Other Street"}], 
-                "shr.core.City": { "Value": "Boston"}, 
-                "shr.core.State": { "Value": "MA"}, 
-                "shr.core.Country": { "Value": "US"}, 
-                "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value": "primary_residence" }}}
+        "Value": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
             },
-            "shr.entity.LanguageUsed": [{ "Value": { "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/base/Language"}, "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": [{ "Value": "en-US", "shr.core.DisplayText": {"Value": "English (United States)"}}]}}}],
-            "shr.core.ContactPoint": [
-                { 
-                    "shr.core.TelecomNumberOrAddress":{"Value": "999-555-5555"}, 
-                    "shr.entity.Type": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},
-                    "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"home"}}}
-                },
-                {
-                    "shr.core.TelecomNumberOrAddress":{ "Value":"999-555-4444"},
-                    "shr.entity.Type": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "phone"}]}},
-                    "shr.entity.Purpose": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding": {"Value":"mobile"}}}
-                }
-            ],
-            "shr.entity.Headshot": {"shr.core.Attachment": {"shr.core.ResourceLocation": {"Value": "./EllaOrtiz111.png"}}}
+            "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+            "EntryId": "2"
         },           
         "shr.entity.PlaceOfBirth": { "Value": "US" },
         "shr.entity.BirthSex": { "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{"Value": "F", "shr.core.DisplayText":{ "Value": "Female"}}]}},
@@ -39,6 +19,133 @@
         "shr.entity.FathersName": { "Value": "Jose Ortiz111" },
         "shr.core.CreationTime": { "Value": "13 JAN 2012"},
         "shr.base.LastUpdated": { "Value": "13 JAN 2012"} 
+    },
+    {
+        "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "shr.base.EntryId": "2",
+        "shr.base.EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+        },
+        "shr.base.HumanName": "Ella Ortiz111",
+        "shr.base.DateOfBirth": "15 DEC 1974",
+        "shr.base.AdministrativeGender": "female",
+        "shr.core.Address": {
+            "shr.core.AddressLine": [
+                {
+                    "Value": "123 Other Street"
+                }
+            ],
+            "shr.core.City": {
+                "Value": "Boston"
+            },
+            "shr.core.State": {
+                "Value": "MA"
+            },
+            "shr.core.Country": {
+                "Value": "US"
+            },
+            "shr.entity.Purpose": {
+                "Value": {
+                    "shr.base.EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "shr.core.Coding": {
+                        "Value": "primary_residence"
+                    }
+                }
+            }
+        },
+        "shr.entity.LanguageUsed": [
+            {
+                "Value": {
+                    "shr.base.EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/base/Language"
+                    },
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": [
+                            {
+                                "Value": "en-US",
+                                "shr.core.DisplayText": {
+                                    "Value": "English (United States)"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "shr.core.ContactPoint": [
+            {
+                "shr.core.TelecomNumberOrAddress": {
+                    "Value": "999-555-5555"
+                },
+                "shr.entity.Type": {
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": [
+                            {
+                                "Value": "phone"
+                            }
+                        ]
+                    }
+                },
+                "shr.entity.Purpose": {
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": {
+                            "Value": "home"
+                        }
+                    }
+                }
+            },
+            {
+                "shr.core.TelecomNumberOrAddress": {
+                    "Value": "999-555-4444"
+                },
+                "shr.entity.Type": {
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": [
+                            {
+                                "Value": "phone"
+                            }
+                        ]
+                    }
+                },
+                "shr.entity.Purpose": {
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": {
+                            "Value": "mobile"
+                        }
+                    }
+                }
+            }
+        ],
+        "shr.entity.Headshot": {
+            "shr.core.Attachment": {
+                "shr.core.ResourceLocation": {
+                    "Value": "./EllaOrtiz111.png"
+                }
+            }
+        },
+        "shr.core.CreationTime": {
+            "Value": "13 JAN 2012"
+        },
+        "shr.base.LastUpdated": {
+            "Value": "13 JAN 2012"
+        }
     },
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",

@@ -12,7 +12,7 @@ class PatientControlPanel extends Component {
     render() {
         const { patient } = this.props;
         const login = (this.props.supportLogin) ? ( <Button style={{color: "#17263f"}}>{this.props.loginUser}</Button> ) : "";
-        const firstName = patient.getName().split(' ')[0];
+        const firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
 
         return (
