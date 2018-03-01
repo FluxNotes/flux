@@ -11,7 +11,8 @@ export default class ClinicianDashboard extends Component {
 
         this.state = {
             targetedDataPanelSize: "default",
-            notesPanelSize: "default"
+            notesPanelSize: "default",
+            currentClinicalEvent: "pre-encounter"
         };
     }
 
@@ -95,16 +96,20 @@ export default class ClinicianDashboard extends Component {
         switch (currentClinicalEvent) {
             case "pre-encounter":
                 this.props.setFullAppState('isNoteViewerVisible', false);
+                this.setState({currentClinicalEvent: "pre-encounter"});
                 break;
             case "encounter":
                 this.props.setFullAppState('isNoteViewerVisible', true);
+                this.setState({currentClinicalEvent: "encounter"});
                 break;
             case "post-encounter":
                 this.props.setFullAppState('isNoteViewerVisible', true);
+                this.setState({currentClinicalEvent: "post-encounter"});
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
                 this.props.setFullAppState('isNoteViewerVisible', false);
+                this.setState({currentClinicalEvent: "default"});
                 return;
         }
     }
@@ -195,6 +200,8 @@ export default class ClinicianDashboard extends Component {
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         noteClosed={this.props.appState.noteClosed}
+                        appState={this.props.appState}
+                        currentClinicalEvent={this.state.currentClinicalEvent}
                     />
                 </div>
             </div>

@@ -422,9 +422,10 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-
+        
         // Check if the item to be inserted is updated
         if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {

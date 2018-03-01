@@ -66,6 +66,18 @@ export default class NoteAssistant extends Component {
         this.props.closeNote(this.closeNote);
     }
 
+    componentWillReceiveProps(nextProps) {
+            const currentEvent = this.props.currentClinicalEvent;
+            const nextEvent = nextProps.currentClinicalEvent;
+
+            if (currentEvent !== nextEvent) {
+                const note = this.props.patient.getEntryById(nextProps.currentlyEditingEntryId);
+                if(!Lang.isUndefined(note)){
+                    this.openNote(!note.signed, note);
+                }
+            }
+        }
+
     // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
     notesTimeSorter(a, b) {
         const a_startTime = new moment(a.date, "D MMM YYYY");
@@ -532,5 +544,6 @@ NoteAssistant.propTypes = {
     saveNote: PropTypes.func,
     closeNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    updateCurrentlyEditingEntryId: PropTypes.func
+    updateCurrentlyEditingEntryId: PropTypes.func,
+    currentClinicalEvent: PropTypes.string,
 };
