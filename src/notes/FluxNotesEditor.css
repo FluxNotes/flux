@@ -128,3 +128,10 @@
     background: #E6E6E6 !important;
 }
 
+.editor-panel {
+    /* 106px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view content, 130px accounts for the editor header and editor toolbar plus margins, 76px is the height of the sign button */
+    height: calc(100vh - 106px - 16px - 130px - 76px) !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
+}
