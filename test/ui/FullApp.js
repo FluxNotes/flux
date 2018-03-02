@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const pageDomain = "http://localhost";
 const pagePort = "3000";
-const pageRoute = "/patient"
+const pageRoute = "/demo1"
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
 fixture('Patient Mode - Patient Control Panel')

@@ -28,7 +28,7 @@ test('Links on landing page work', async t => {
         .click(fullModeLink);
     pathname = await t.eval(() => window.location).pathname ;
     await t
-        .expect(pathname === '/patient');
+        .expect(pathname === '/demo2');
 
     await t
         .navigateTo(landingPage);

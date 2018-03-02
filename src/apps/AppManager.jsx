@@ -84,7 +84,7 @@ export default class AppManager {
                 }
             },
             {
-                path: '/patient',
+                path: '/demo1',
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,
@@ -92,7 +92,7 @@ export default class AppManager {
                 shortcuts: []
             },
             {
-                path: '/myd18',
+                path: '/demo2',
                 display: 'Flux Notes™',
                 app: FullApp,
                 isExact: true,

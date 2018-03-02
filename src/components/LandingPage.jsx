@@ -184,7 +184,7 @@ export default class LandingPage extends Component {
 
                     <div className="landing-products-full">
                         <Paper className="landing-products-interaction">
-                            <a href="/patient" id="link-to-full">
+                            <a href="/demo2" id="link-to-full">
                                 <div className="landing-products-image">
                                     <img src="./landing/Fluxnotes_full_animation.gif" alt="Flux Notes Full" />
                                 </div>
