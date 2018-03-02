@@ -1,8 +1,10 @@
 import TimePeriod from '../shr/core/TimePeriod';
 import ProcedureRequested from '../shr/procedure/ProcedureRequested';
+import FluxObject from '../base/FluxObject';
 
-class FluxProcedureRequested {
+class FluxProcedureRequested extends FluxObject {
     constructor(json) {
+        super();
         this._procedureRequested= ProcedureRequested.fromJSON(json);
     }
 

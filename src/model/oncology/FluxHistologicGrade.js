@@ -1,7 +1,9 @@
 import HistologicGrade from '../shr/oncology/HistologicGrade';
+import FluxObject from '../base/FluxObject';
 
-class FluxHistologicGrade {
+class FluxHistologicGrade extends FluxObject {
     constructor(json) {
+        super();
         this._histologicGrade = HistologicGrade.fromJSON(json);
     }
 

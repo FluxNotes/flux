@@ -1,8 +1,10 @@
 import AllergyIntolerance from '../shr/allergy/AllergyIntolerance';
+import FluxObject from '../base/FluxObject';
 import moment from 'moment';
 
-class FluxAllergyIntolerance {
+class FluxAllergyIntolerance extends FluxObject {
     constructor(json) {
+        super();
         this._allergyIntolerance = AllergyIntolerance.fromJSON(json);
     }
 

@@ -2,6 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../finding/FluxObservation';
 import HER2ReceptorStatus from '../shr/oncology/HER2ReceptorStatus';
+import FluxObject from '../base/FluxObject';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 class FluxHER2ReceptorStatus extends FluxObservation {

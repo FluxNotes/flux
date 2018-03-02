@@ -2,6 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../finding/FluxObservation';
 import ProgesteroneReceptorStatus from '../shr/oncology/ProgesteroneReceptorStatus';
+import FluxObject from '../base/FluxObject';
 import lookup from '../../lib/receptor_lookup.jsx';
 
 class FluxProgesteroneReceptorStatus extends FluxObservation {

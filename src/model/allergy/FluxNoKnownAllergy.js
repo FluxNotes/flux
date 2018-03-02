@@ -1,7 +1,9 @@
 import NoKnownAllergy from '../shr/allergy/NoKnownAllergy';
+import FluxObject from '../base/FluxObject';
 
-class FluxNoKnownAllergy {
+class FluxNoKnownAllergy extends FluxObject {
     constructor(json) {
+        super();
         this._noKnownAllergy = NoKnownAllergy.fromJSON(json);
     }
     

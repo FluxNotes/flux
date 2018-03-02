@@ -1,7 +1,9 @@
 import TumorDimensions from '../shr/oncology/TumorDimensions';
+import FluxObject from '../base/FluxObject';
 
-class FluxTumorDimensions {
+class FluxTumorDimensions extends FluxObject {
     constructor(json) {
+        super();
         this._tumorDimensions = TumorDimensions.fromJSON(json);
     }
 

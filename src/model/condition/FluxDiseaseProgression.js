@@ -6,12 +6,14 @@ import ClinicallyRelevantTime from '../shr/finding/ClinicallyRelevantTime';
 import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
 import EntryType from '../shr/base/EntryType';
+import FluxObject from '../base/FluxObject';
 import moment from 'moment';
 import LastUpdated from '../shr/base/LastUpdated';
 
 // FluxDiseaseProgression class to hide codeableconcepts
-class FluxDiseaseProgression {
+class FluxDiseaseProgression extends FluxObject {
     constructor(json) {
+        super();
         this._diseaseProgression = DiseaseProgression.fromJSON(json);
         if (!this._diseaseProgression.entryInfo) {
             let entry = new Entry();

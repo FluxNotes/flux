@@ -7,10 +7,12 @@ import EntryType from '../shr/base/EntryType';
 import EffectiveTimePeriod from '../shr/core/EffectiveTimePeriod';
 import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
+import FluxObject from '../base/FluxObject';
 import Lang from 'lodash';
 
-class FluxStudy {
+class FluxStudy extends FluxObject {
     constructor(json) {
+        super();
         this._study = Study.fromJSON(json);
         if (!this._study.entryInfo) {
             let entry = new Entry();
