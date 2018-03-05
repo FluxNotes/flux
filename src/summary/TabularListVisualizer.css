@@ -16,8 +16,7 @@
 
 .tabular-list .list-subsection-header {
     color: #333 !important;
-    font-style: italic;
-    font-weight: bold;
+    font-weight: 600;
     border-top: 0;
 }
 
@@ -74,4 +73,5 @@
     background-color: #ffffff;
     padding: 8px 10px;
     border-bottom: 1px solid lightgray;
+    font-weight: 600 !important;
 }
