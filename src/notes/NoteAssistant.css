@@ -144,6 +144,10 @@ li.sort-item:hover {
     border-color: #ccc #fff;
 }
 
+.in-progress-note {
+    border: 2px dashed #ccc;
+}
+
 .existing-note-date {
     font-size: 0.8rem;
     padding-bottom: 5px;
