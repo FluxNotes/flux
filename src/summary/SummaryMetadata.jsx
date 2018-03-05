@@ -364,7 +364,7 @@ export default class SummaryMetadata {
                         ]
                     },
                     {
-                        name: "Pathology Results",
+                        name: "Pathology",
                         shortName: "Pathology",
                         type: "NameValuePairs",
                         /*eslint no-template-curly-in-string: "off"*/
