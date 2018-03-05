@@ -1,12 +1,10 @@
 import Entry from '../shr/base/Entry';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
-import FluxObject from '../base/FluxObject';
 import moment from 'moment';
 
-class FluxClinicalNote extends FluxObject {
+class FluxClinicalNote {
     constructor(json) {
-        super();
         this._entryInfo = new Entry();
         this._entryInfo.shrId = json['shr.base.ShrId'];
         this._entryInfo.entryId = json['shr.base.EntryId'];

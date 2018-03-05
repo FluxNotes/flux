@@ -3,7 +3,7 @@ import Injury from '../shr/condition/Injury';
 
 class FluxInjury extends FluxCondition {
     constructor(json) {
-        super();
+        super(json);
         this._condition = Injury.fromJSON(json);
     }
     /**

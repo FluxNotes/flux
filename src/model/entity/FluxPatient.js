@@ -1,10 +1,8 @@
 import Patient from "../shr/entity/Patient";
 import Deceased from "../shr/entity/Deceased";
-import FluxObject from '../base/FluxObject';
 
 class FluxPatient {
     constructor(json) {
-        super();
         this._patient = Patient.fromJSON(json);
     }
 

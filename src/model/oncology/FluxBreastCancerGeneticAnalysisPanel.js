@@ -1,9 +1,7 @@
 import BreastCancerGeneticAnalysisPanel from '../shr/oncology/BreastCancerGeneticAnalysisPanel';
-import FluxObject from '../base/FluxObject';
 
-class FluxBreastCancerGeneticAnalysisPanel extends FluxObject {
+class FluxBreastCancerGeneticAnalysisPanel {
     constructor(json) {
-        super();
         this._breastCancerGeneticAnalysisPanel = BreastCancerGeneticAnalysisPanel.fromJSON(json);
     }
     

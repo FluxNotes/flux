@@ -1,12 +1,10 @@
 import Deceased from '../shr/entity/Deceased';
 import DateOfDeath from '../shr/entity/DateOfDeath';
 import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
-import FluxObject from '../base/FluxObject';
 import Lang from 'lodash';
 
-class FluxDeceased extends FluxObject {
+class FluxDeceased {
     constructor(json) {
-        super();
         this._deceased = Deceased.fromJSON(json);
     }
 

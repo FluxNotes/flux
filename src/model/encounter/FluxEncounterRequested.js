@@ -1,9 +1,7 @@
 import EncounterRequested from '../shr/encounter/EncounterRequested';
-import FluxObject from '../base/FluxObject';
 
-class FluxEncounterRequested extends FluxObject {
+class FluxEncounterRequested {
     constructor(json) {
-        super();
         this._encounterRequested = EncounterRequested.fromJSON(json);
     }
 

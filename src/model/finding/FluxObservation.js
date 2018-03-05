@@ -1,10 +1,8 @@
 import Observation from '../shr/finding/Observation';
 import Quantity from '../shr/core/Quantity';
-import FluxObject from '../base/FluxObject';
 
-class FluxObservation extends FluxObject {
+class FluxObservation {
     constructor(json) {
-        super();
         this._observation = Observation.fromJSON(json);
     }
     

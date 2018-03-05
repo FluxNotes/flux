@@ -1,10 +1,8 @@
 import QuestionAnswer from '../shr/finding/QuestionAnswer';
-import FluxObject from '../base/FluxObject';
 import Lang from 'lodash';
 
-class FluxQuestionAnswer extends FluxObject {
+class FluxQuestionAnswer {
     constructor(json) {
-        super();
         this._questionAnswer = QuestionAnswer.fromJSON(json);
     }
 

@@ -1,9 +1,7 @@
 import BRCA1Variant from '../shr/oncology/BRCA1Variant';
-import FluxObject from '../base/FluxObject';
 
-class FluxBRCA1Variant extends FluxObject {
+class FluxBRCA1Variant {
     constructor(json) {
-        super();
         this._brca1Variant = BRCA1Variant.fromJSON(json);
     }
     

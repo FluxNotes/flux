@@ -1,12 +1,10 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
 import TimePeriod from '../shr/core/TimePeriod';
-import FluxObject from '../base/FluxObject';
 import moment from 'moment';
 
-class FluxMedicationRequested extends FluxObject {
+class FluxMedicationRequested {
     constructor(json) {
-        super();
         this._medicationRequested = MedicationRequested.fromJSON(json);
     }
 
