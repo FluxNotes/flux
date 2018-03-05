@@ -51,14 +51,14 @@ span.missing-data {
 span.structured-data {
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color: blue;
+    text-decoration-color: #0182D7 ;
 }
 
 span.unsigned-data {
     cursor: pointer;
     text-decoration-line: underline;
     text-decoration-style: dashed; 
-    text-decoration-color: blue;
+    text-decoration-color: #0182D7 ;
 }
 
 .menu-item {
