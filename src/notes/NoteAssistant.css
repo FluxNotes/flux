@@ -117,16 +117,18 @@ li.sort-item:hover {
 }
 
 /* Notes */
-
+/* Close to done, but not quite. Selecting a note doesn't look great. Shifting dropshadow so light comes from folded corner helps */
 .note {
     position: relative;
     max-width: 200px;
     padding: 0.5em 1em;
     margin: 1em 0;
     color: #000;
+    border: 1px solid transparent;
     background: #fff;
-    border: 1px solid #ccc;
     border-radius: 5px 0 5px 5px;
+    /* box-shadow: 0px 1px 5px 1px #ccc; */
+    box-shadow: -1px 2px 5px 1px #ccc;
 }
 
 .note:hover {
@@ -137,12 +139,48 @@ li.sort-item:hover {
 .note::before {
     content: "";
     position: absolute;
-    top: -2px;
-    right: -2px;
-    border-width: 0 16px 16px 0;
+    top: 0px;
+    right: 0px;
+    border-width: 0 13px 14px 0;
     border-style: solid;
-    border-color: #ccc #fff;
+    border-color: transparent #fff;
+    box-shadow: 3px -3px 0px 3px #fff, 0px 0px 5px 1px #ccc;
 }
+.note::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -7px;
+    border-top: 1px solid #f1efef;
+    border-radius: 5px;
+    width: 20px;
+    transform: rotate(48deg);
+    transform-origin: top left;
+}
+.selected::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-top: 1px solid #9ecfef;
+    border-width: 0 13px 14px 0;
+    border-style: solid;
+    border-color: transparent #fff;
+    box-shadow: 3px -3px 0px 3px #fff, 0px 0px 5px 1px #9ecfef;
+}
+.selected::after {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: -7px;
+    border-top: 2px solid #9ecfef;
+    border-radius: 5px;
+    width: 20px;
+    transform: rotate(48deg);
+    transform-origin: top left;
+    /* box-shadow: 0px 0px 5px 1px #9ecfef; */
+}
+/* END */
 
 .in-progress-note {
     border: 2px dashed #ccc;
