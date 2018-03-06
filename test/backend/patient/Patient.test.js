@@ -20,6 +20,7 @@ const hardCodedPatientObj = new PatientRecord(hardCodedPatient);
 const hardCodedPatientEntries = hardCodedPatientObj.entries;
 // The patient record entry -- should be an shr object
 const hardCodedPatientRecord = hardCodedPatientObj.getPatient();
+const hardCodedPerson = hardCodedPatientObj.getPerson();
 
 // // Helpers
 // function getValidTypeFrom(patient) { 
@@ -80,7 +81,7 @@ describe('getName', function () {
         expect(hardCodedPatientRecord)
             .to.not.be.null;
         // Path to name based on SHR record api. 
-        const expectedName = hardCodedPatientRecord.name;
+        const expectedName = hardCodedPerson.name;
         expect(hardCodedPatientObj.getName())
             .to.be.a('string')
             .and.to.eql(expectedName);
@@ -98,7 +99,7 @@ describe('getDateOfBirth', function () {
         expect(hardCodedPatientObj)
             .to.not.be.null;
         // Path to date based on SHR record api, use to create moment obj. 
-        const expectedDate = new Moment(hardCodedPatient[0].Value['shr.base.DateOfBirth'], "D MMM YYYY").format("D MMM YYYY").toUpperCase();
+        const expectedDate = hardCodedPerson.dateOfBirth;
         expect(hardCodedPatientObj.getDateOfBirth())
             .to.be.a('string')
             .and.to.equal(expectedDate);

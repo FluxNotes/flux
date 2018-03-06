@@ -26,6 +26,7 @@ class PatientRecord {
         if (!Lang.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
             this.patient = this.getPatient();
+            this.person = this.getPerson();
             //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
             this.shrId = this.patient.entryInfo.shrId;
             this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
@@ -34,6 +35,7 @@ class PatientRecord {
         } else { // create a new patient
             this.entries = [];
             this.patient = null;
+            this.person = null;
             this.shrId = Guid.raw();
             this.nextEntryId = 1;
             //this.patientReference = null;
@@ -152,22 +154,19 @@ class PatientRecord {
     }
 
     getName() {
-        let patient = this.getPatient();
-        if (Lang.isNull(patient)) return null;
-        return patient.name;
+        if (Lang.isNull(this.person)) return null;
+        return this.person.name;
     }
 
     getDateOfBirth() {
-        let patient = this.getPatient();
-        if (Lang.isNull(patient)) return null;
-        return patient.dateOfBirth;
+        if (Lang.isNull(this.person)) return null;
+        return this.person.dateOfBirth;
     }
 
     getAge() {
-        let patient = this.getPatient();
-        if (Lang.isNull(patient)) return null;
+        if (Lang.isNull(this.person)) return null;
         var today = new Date();
-        var birthDate = new Date(patient.dateOfBirth);
+        var birthDate = new Date(this.getDateOfBirth());
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -177,13 +176,17 @@ class PatientRecord {
     }
 
     getGender() {
-        let patient = this.getPatient();
-        if (Lang.isNull(patient)) return null;
-        return patient.gender;
+        if (Lang.isNull(this.patient)) return null;
+        return this.patient.gender;
     }
 
     getPatient() {
         return this.getMostRecentEntryOfType(FluxPatient);
+    }
+
+    getPerson() {
+        if (Lang.isUndefined(this.patient.person)) return null;
+        return this.getEntryFromReference(this.patient.person);
     }
 
     getMRN() {
@@ -196,13 +199,12 @@ class PatientRecord {
     }
 
     getMostRecentPhoto() {
-        return this.patient.headshot;
+        return this.person.headshot;
     }
 
     getCurrentHomeAddress() {
-        let patient = this.getPatient();
-        if (Lang.isNull(patient) || !patient.address) return null;
-        return patient.address;
+        if (Lang.isNull(this.person)) return null;        
+        return this.person.address;
     }
 
     // return the soonest upcoming encounter. Includes encounters happening later today.
