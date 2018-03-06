@@ -16,6 +16,7 @@
 
 .tabular-list .list-subsection-header {
     color: #333 !important;
+    /*font-style: italic;*/
     font-weight: 600;
     border-top: 0;
 }
