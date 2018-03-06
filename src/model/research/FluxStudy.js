@@ -117,7 +117,10 @@ class FluxStudy {
     }
   
     set endDate(val) {
-        if (Lang.isNull(val)) return;
+        if (Lang.isNull(val) && this._study.effectiveTimePeriod) {
+            this._study.effectiveTimePeriod.timePeriodEnd = null;
+            return;
+        }
         if (!this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod = new EffectiveTimePeriod();
         }

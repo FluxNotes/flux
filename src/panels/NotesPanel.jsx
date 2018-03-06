@@ -34,6 +34,7 @@ export default class NotesPanel extends Component {
 
     updateSelectedNote(note) {
         this.setState({selectedNote: note});
+        this.props.setOpenClinicalNote(note);
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -55,6 +56,7 @@ export default class NotesPanel extends Component {
                 if (this.props.isNoteViewerVisible) {
                     this.setState({updatedEditorNote: note});
                     this.setState({selectedNote: note});
+                    this.props.setOpenClinicalNote(note);
                     if (!note) {
                         this.setState({currentlyEditingEntryId: -1});
                     } else {

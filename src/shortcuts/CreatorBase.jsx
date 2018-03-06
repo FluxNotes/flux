@@ -121,7 +121,7 @@ export default class CreatorBase extends Shortcut {
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
-        this.removeFromPatient();
+        this.removeFromPatient(this.props.clinicalNote);
         return result;
     }
 
@@ -285,7 +285,7 @@ export default class CreatorBase extends Shortcut {
         return this.metadata["id"];
     }
 
-    callMethod(patient, spec) {
+    callMethod(patient, spec, clinicalNote) {
         //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
         const obj = spec["object"];
         const method = spec["method"];
@@ -294,11 +294,14 @@ export default class CreatorBase extends Shortcut {
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
             if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });
         if (Lang.isUndefined(listAttribute)) {
             if (obj === "patient") {
                 return patient[method](...args);
+            } else if (obj === "$clinicalNote") {
+                return clinicalNote[method](...args);
             } else if (obj === "$valueObject") {
                 return this.object[method](...args);
             } else if (obj === "$parentValueObject") {
@@ -343,13 +346,13 @@ export default class CreatorBase extends Shortcut {
         }
     }
     
-    updatePatient(patient, contextManager) {
+    updatePatient(patient, contextManager, clinicalNote) {
         if (this.isObjectNew) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             let result;
             if (updatePatientSpecList) {
                 updatePatientSpecList.forEach((updatePatientSpec) => {
-                    result = this.callMethod(patient, updatePatientSpec);
+                    result = this.callMethod(patient, updatePatientSpec, clinicalNote);
                     if (Lang.isNull(result)) {
                         return;
                     }
@@ -359,7 +362,7 @@ export default class CreatorBase extends Shortcut {
                 });
                 if (Lang.isNull(result)) return;
             } else {
-                this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, false);
+                this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
             this.patient = patient;
             this.isObjectNew = false;

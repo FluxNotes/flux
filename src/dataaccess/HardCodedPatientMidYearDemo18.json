@@ -2036,6 +2036,7 @@
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
             "shr.core.Coding":[{ "Value": "final", "shr.core.CodeSystem": {"Value": "http://hl7.org/fhir/observation-status"}, "shr.core.DisplayText": {"Value": "Final"}}]
         },
+        "shr.base.SourceClinicalNote": { "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"}, "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e", "EntryId": "1085" },
         "shr.core.CreationTime": {"Value": "30 JAN 2018"},
         "shr.base.LastUpdated": {"Value": "30 JAN 2018"}
     },

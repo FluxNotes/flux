@@ -55,7 +55,7 @@ class PatientRecord {
     }
     
     // When typing a note creates an entry, it is not yet signed and this function is invoked.
-    markUnsigned(entry) {
+/*    markUnsigned(entry) {
         var key = entry.entryInfo.shrId + ":" + entry.entryInfo.entryId;
         // Stores a flag in a sparse data structure that indicates that this entry is unsigned
         this.unsignedEntries[key] = true; // potential confusion, signed = false when unsignedEntries = true
@@ -65,7 +65,7 @@ class PatientRecord {
         // Removes the flag that indicates that this entry is unsigned
         var key = this.shrId + ":" + entry.entryInfo.entryId;
         delete this.unsignedEntries[key];
-    }
+    }*/
 
     // Removes the flag from all entries in unsignedEntries indicating that the entry is unsigned
     markAllSigned() {
@@ -76,11 +76,17 @@ class PatientRecord {
     isUnsigned(entry){
         if(Lang.isNull(entry)) return false;
 
-        var key = this.shrId + ":" + entry.entryInfo.entryId;
+        if (entry.entryInfo.sourceClinicalNote) {
+            //console.log(entry.entryInfo.sourceClinicalNote);
+            let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
+            return !clinicalNote.signed;
+        }
+        return false;
+/*        var key = this.shrId + ":" + entry.entryInfo.entryId;
         if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
             return true;
         }
-        return false;
+        return false;*/
     }
 	
 	fromFHIR(fhirJson) {
@@ -117,7 +123,7 @@ class PatientRecord {
         }
     }
     
-    addUnenrolled(entry, signed = false) {
+    addUnenrolled(entry, clinicalNote) {
         if (!(entry.title) || entry.title.length === 0) return null;
         var found = this.entries.find(function(element) {
             if (!(element instanceof FluxStudy)) return false;
@@ -126,31 +132,34 @@ class PatientRecord {
         if(!Lang.isUndefined(found)) {
             return found;
         } else {
-            return this.addEntryToPatientWithPatientFocalSubject(entry, signed);
+            return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
         }            
     }
 
-    addEntryToPatient(entry, signed = false) {
+    addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
         let today = new moment().format("D MMM YYYY");
         entry.entryInfo.creationTime = new CreationTime();
         entry.entryInfo.creationTime.dateTime = today;
+        if (clinicalNote) {
+            entry.entryInfo.sourceClinicalNote = PatientRecord.createEntryReferenceTo(clinicalNote.entryInfo);
+        }
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
         this.entries.push(entry);
-        if(Lang.isEqual(signed, false)){
+/*        if(Lang.isEqual(signed, false)){
             this.markUnsigned(entry);
         } else {
             this.markSigned(entry);
-        }
+        }*/
         return entry; //entry.entryInfo.entryId;
     }
 
-    addEntryToPatientWithPatientFocalSubject(entry, signed) { 
+    addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) { 
         //entry.personOfRecord = this.patientReference;
-        return this.addEntryToPatient(entry, signed);
+        return this.addEntryToPatient(entry, clinicalNote);
     }
     
     removeEntryFromPatient(entry) {
@@ -434,7 +443,7 @@ class PatientRecord {
         );
         
 
-        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed).entryInfo.entryId;
+        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
     getNotes() {
@@ -725,12 +734,6 @@ class PatientRecord {
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
             return item instanceof type
-        });
-    }
-
-    static getEntriesOfTypeFromList(list, type) {
-        return list.filter((item) => {
-            return item.entryType[0] === type
         });
     }
 
