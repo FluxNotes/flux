@@ -12,6 +12,26 @@
     background-color: white;
 }
 
+.patient-control-panel .logo-accompaniment { 
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.patient-control-panel .logo-accompaniment .title {
+    display: block;
+    color: steelblue;
+    font-size: 1.4rem;
+    font-weight: 600;
+    vertical-align: 0.5em;
+    padding-left: 5px;
+}
+
+.patient-control-panel .logo-accompaniment .login {
+    display: block;
+    font-size: 0.8rem;
+    margin-left: 0.4rem;
+}
+/*
 .patient-control-panel .title {
     color: steelblue;
     font-size: 24px;
@@ -19,10 +39,11 @@
     vertical-align: 0.5em;
     padding-left: 5px;
 }
+
 .patient-control-panel .login {
     margin-left: 0.4rem;
 }
-
+*/
 .vertical-divider {
     border-left: 1px solid #ddd;
     height: 40px

@@ -126,16 +126,11 @@ class VisualizerManager {
         return (
             <svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" opacity="0.8">
-                    <g id="Group-4-Copy" transform="translate(0.884726, 0.440969)" stroke={strokeColor}
-                       strokeWidth="1.62" fill="#FFFFFF">
-                        <rect id="Rectangle-9-Copy-7" x="0.445109978" y="0.73198638" width="7.21076743"
-                              height="7.21833702"></rect>
-                        <rect id="Rectangle-9-Copy-8" x="0.445109978" y="8.26516734" width="7.21076743"
-                              height="7.21833702"></rect>
-                        <rect id="Rectangle-9-Copy-9" x="7.81454794" y="0.73198638" width="7.21076743"
-                              height="7.21833702"></rect>
-                        <rect id="Rectangle-9-Copy-10" x="7.81454794" y="8.26516734" width="7.21076743"
-                              height="7.21833702"></rect>
+                    <g id="Group-4-Copy" transform="translate(0.884726, 0.440969)" stroke={strokeColor} strokeWidth="1.62">
+                        <rect id="Rectangle-9-Copy-7" x="0.445109978" y="0.73198638" width="7.21076743" height="7.21833702"></rect>
+                        <rect id="Rectangle-9-Copy-8" x="0.445109978" y="8.26516734" width="7.21076743" height="7.21833702"></rect>
+                        <rect id="Rectangle-9-Copy-9" x="7.81454794" y="0.73198638" width="7.21076743" height="7.21833702"></rect>
+                        <rect id="Rectangle-9-Copy-10" x="7.81454794" y="8.26516734" width="7.21076743" height="7.21833702"></rect>
                     </g>
                 </g>
             </svg>
