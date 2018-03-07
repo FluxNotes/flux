@@ -35,7 +35,7 @@ h2.subsection span {
 }
 
 .tabular-list tr:nth-child(even) { 
-    background-color: #f1f1f180;
+    background-color: #f8f8f8;
 }
 
 .tabular-list tr:nth-child(odd) { 
