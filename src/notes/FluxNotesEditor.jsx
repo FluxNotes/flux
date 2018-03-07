@@ -245,8 +245,19 @@ class FluxNotesEditor extends React.Component {
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {
-        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
+        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
+        const shortcutTrigger = matches.before[0];
+
+        // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+        const validShortcut = shortcuts.some((shortcut) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+            return triggers.some((trigger) => {
+                return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
+            });
+        });
+
+        // insert plain text if not a valid shortcut
+        return validShortcut ? this.insertShortcut(def, shortcutTrigger, "", transform).insertText(' ') : this.insertPlainText(transform, shortcutTrigger).insertText(' ');
     }
 
     getTextCursorPosition = () => {
