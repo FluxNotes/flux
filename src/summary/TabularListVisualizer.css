@@ -7,6 +7,7 @@
     width: 98%;
     margin-top: 10px;
     /*table-layout: fixed;*/
+    margin-bottom: 30px !important;
 }
 
 .tabular-list table, tr, td {
@@ -16,9 +17,21 @@
 
 .tabular-list .list-subsection-header {
     color: #333 !important;
-    font-style: italic;
-    font-weight: bold;
-    border-top: 0;
+    font-weight: 600;
+}
+
+h2.subsection {
+    width:98%;
+    text-align:left;
+    border-bottom: 1px solid #cccccc;
+    line-height:0.1em;
+    margin:20px 10px 10px 0px !important;
+}
+
+h2.subsection span {
+    background:#fff;
+    font-size: 0.8rem;
+    padding-right: 10px;
 }
 
 .tabular-list tr:nth-child(even) { 
@@ -74,4 +87,5 @@
     background-color: #ffffff;
     padding: 8px 10px;
     border-bottom: 1px solid lightgray;
+    font-weight: 600 !important;
 }
