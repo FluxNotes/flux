@@ -4,7 +4,6 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 
-// import Button from '../elements/Button';
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
 
