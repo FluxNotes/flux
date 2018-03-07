@@ -35,7 +35,7 @@ h2.subsection span {
 }
 
 .tabular-list tr:nth-child(even) { 
-    background-color: #f1f1f1;
+    background-color: #f8f8f8;
 }
 
 .tabular-list tr:nth-child(odd) { 
@@ -61,12 +61,12 @@ h2.subsection span {
     cursor: pointer;
     text-decoration-line: underline;
     text-decoration-style: dashed; 
-    text-decoration-color: blue;
+    text-decoration-color: #0182D7;
 }
 
 /*Captured element styling */
 .tabular-list td.list-captured span {
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #0182D7;
     cursor: pointer;
 }
 
@@ -77,7 +77,7 @@ h2.subsection span {
 
 .tabular-list ul li {
     font-size: 0.8rem;
-    text-decoration: underline blue;
+    text-decoration: underline #0182D7;
     cursor: pointer;
 }
 

@@ -12,7 +12,7 @@ span.button-hover {
 .toggle-buttons-container {
     display: flex !important;
     margin-left: auto;
-    max-width: 222px;
+    max-width: 211px; /* Max width of Notes is 211px. This should match. */
     margin-right: 0;
 }
 
@@ -142,6 +142,10 @@ li.sort-item:hover {
     border-width: 0 16px 16px 0;
     border-style: solid;
     border-color: #ccc #fff;
+}
+
+.in-progress-note {
+    border: 2px dashed #ccc;
 }
 
 .existing-note-date {
