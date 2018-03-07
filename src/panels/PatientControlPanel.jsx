@@ -4,14 +4,14 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 
-import Button from '../elements/Button';
+// import Button from '../elements/Button';
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
 
 class PatientControlPanel extends Component {
     render() {
         const { patient } = this.props;
-        const login = (this.props.supportLogin) ? ( <Button style={{color: "#17263f"}}>{this.props.loginUser}</Button> ) : "";
+        const login = (this.props.supportLogin) ? this.props.loginUser : "";
         const firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
 
@@ -23,10 +23,12 @@ class PatientControlPanel extends Component {
                             <Col sm={2}>
                                 <Row middle="xs">
                                     <Col sm={12}>
-                                        <img src="fluxnotes_logo_color.png" height="40px" width="30px" alt="Flux Notes logo" />
-                                        <span className="title"> {this.props.appTitle}</span>
+                                        <img src="fluxnotes_logo_color.png" height="45px" width="33px" alt="Flux Notes logo" />
+                                        <div className="logo-accompaniment">
+                                            <span className="title"> {this.props.appTitle}</span>
+                                            <span className="login">{login}</span>
+                                        </div>
                                     </Col>
-                                    <span className="login">{login}</span>
                                 </Row>
                             </Col>
 
