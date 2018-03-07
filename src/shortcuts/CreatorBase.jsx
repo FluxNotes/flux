@@ -121,7 +121,7 @@ export default class CreatorBase extends Shortcut {
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
-        this.removeFromPatient(this.props.clinicalNote);
+        this.removeFromPatient();
         return result;
     }
 
