@@ -45,21 +45,20 @@ span.plain {
 }
 
 span.missing-data {
-    text-decoration: underline;
-    text-decoration-color: red;
+    border-bottom: 1px solid red;
+    text-decoration: none;
 }
 
 span.structured-data {
     cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: #0182D7 ;
+    border-bottom: 1px solid #0182D7;
+    text-decoration: none;
 }
 
 span.unsigned-data {
     cursor: pointer;
-    text-decoration-line: underline;
-    text-decoration-style: dashed; 
-    text-decoration-color: #0182D7 ;
+    border-bottom: 1.5px dashed #0182D7;
+    text-decoration: none;
 }
 
 .menu-item {

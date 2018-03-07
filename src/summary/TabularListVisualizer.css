@@ -59,9 +59,8 @@ h2.subsection span {
 /* Unsigned element styling*/
 .tabular-list td.list-unsigned span {
     cursor: pointer;
-    text-decoration-line: underline;
-    text-decoration-style: dashed; 
-    text-decoration-color: #0182D7;
+    border-bottom: 1.5px dashed #0182D7;
+    text-decoration: none;
 }
 
 /*Captured element styling */
