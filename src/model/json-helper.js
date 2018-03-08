@@ -137,6 +137,7 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
+  if (value == null) return null;
   if (typeof value === 'object') {
     if (value.ShrId && value.EntryId && value.EntryType) {
       // It's a reference, so just return the reference

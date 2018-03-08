@@ -6,7 +6,7 @@ import FluxDeceased from '../../../src/model/entity/FluxDeceased';
 import FluxStudy from '../../../src/model/research/FluxStudy';
 import moment from 'moment';
 import {expect} from 'chai';
-// import util from 'util';
+import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -125,6 +125,10 @@ const expectedOutputClinicalTrialEnrollment = [[
 const expectedOutputClinicalTrialEnrollmentMinimal = [[
     new FluxStudy({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+        "shr.core.Title": null,
+        "shr.core.EffectiveTimePeriod": {
+            "shr.core.TimePeriodStart": {"Value": null}
+        }
     })
 ], []];
 const expectedOutputClinicalTrialUnenrolled = [[
@@ -139,6 +143,10 @@ const expectedOutputClinicalTrialUnenrolled = [[
 const expectedOutputClinicalTrialUnenrolledMinimal = [[
     new FluxStudy({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
+        "shr.core.Title": null,
+        "shr.core.EffectiveTimePeriod": {
+            "shr.core.TimePeriodEnd": {"Value": null}
+        }
     })
 ], []];
 
