@@ -223,20 +223,13 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-
-        let shortcut; 
+        
         // check if shortcutTrigger is currently valid
-        if (!this.shortcutTriggerCheck(shortcutTrigger)) {
-            shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
-            // if shortcut has a regexpTrigger, do not insert plain text
-            if (!Lang.isNull(shortcut) && !shortcut.metadata.regexpTrigger) {
-                return this.insertPlainText(transform, shortcutTrigger);
-            }
+        if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
+            return this.insertPlainText(transform, shortcutTrigger);
         }
 
-        if (Lang.isUndefined(shortcut)) {
-            shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
-        }
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
                 shortcut.setText(text);
