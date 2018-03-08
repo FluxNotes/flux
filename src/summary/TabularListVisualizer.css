@@ -53,19 +53,19 @@ h2.subsection span {
 
 /* Missing element styling*/
 .tabular-list td.list-missing span {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.5);
 }
 
 /* Unsigned element styling*/
 .tabular-list td.list-unsigned span {
     cursor: pointer;
-    border-bottom: 1.5px dashed #0182D7;
+    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
     text-decoration: none;
 }
 
 /*Captured element styling */
 .tabular-list td.list-captured span {
-    border-bottom: 1px solid #0182D7;
+    border-bottom: 1px solid rgba(1, 130, 215, 0.5);
     cursor: pointer;
 }
 
