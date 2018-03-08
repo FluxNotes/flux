@@ -133,7 +133,7 @@ class TabularListVisualizer extends Component {
             subsectionname = <h2 className="subsection list-subsection-header"><span>{transformedSubsection.name}</span></h2>;
         }
         if (list.length <= 0) {
-            return <div key={subsectionindex}><table><tbody>{subsectionname}</tbody></table><h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            return <div key={subsectionindex}>{subsectionname}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
         let headings = null;
         if (transformedSubsection.headings) {
@@ -257,7 +257,7 @@ class TabularListVisualizer extends Component {
                     onClose={(event) => this.closeInsertionMenu()}
                     className="narrative-inserter-tooltip"
                 >
-                    <MenuItem   
+                    <MenuItem
                         onClick={() => insertItem(element)}
                         className="narrative-inserter-box"
                     >
