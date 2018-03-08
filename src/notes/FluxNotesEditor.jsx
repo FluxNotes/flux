@@ -223,7 +223,20 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
+
+        let shortcut; 
+        // check if shortcutTrigger is currently valid
+        if (!this.shortcutTriggerCheck(shortcutTrigger)) {
+            shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
+            // if shortcut has a regexpTrigger, do not insert plain text
+            if (!Lang.isNull(shortcut) && !shortcut.metadata.regexpTrigger) {
+                return this.insertPlainText(transform, shortcutTrigger);
+            }
+        }
+
+        if (Lang.isUndefined(shortcut)) {
+            shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
+        }
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
                 shortcut.setText(text);
@@ -245,19 +258,8 @@ class FluxNotesEditor extends React.Component {
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {
-        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
-        const shortcutTrigger = matches.before[0];
-
-        // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
-        const validShortcut = shortcuts.some((shortcut) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
-            return triggers.some((trigger) => {
-                return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
-            });
-        });
-
-        // insert plain text if not a valid shortcut
-        return validShortcut ? this.insertShortcut(def, shortcutTrigger, "", transform).insertText(' ') : this.insertPlainText(transform, shortcutTrigger).insertText(' ');
+        // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
+        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
 
     getTextCursorPosition = () => {
@@ -562,6 +564,21 @@ class FluxNotesEditor extends React.Component {
         state = transform.apply();
         this.setState({state: state});
         //return state;
+    }
+
+    /**
+     * Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+     */
+    shortcutTriggerCheck = (shortcutTrigger) => {
+        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
+
+        // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+        return shortcuts.some((shortcut) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+            return triggers.some((trigger) => {
+                return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
+            });
+        });
     }
 
     /**
