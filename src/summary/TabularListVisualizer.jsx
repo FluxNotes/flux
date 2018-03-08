@@ -6,6 +6,7 @@ import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import './TabularListVisualizer.css';
+import Tooltip from 'rc-tooltip';
 
 
 /*
@@ -167,7 +168,6 @@ class TabularListVisualizer extends Component {
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
-        
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
         let list;
@@ -285,6 +285,8 @@ class TabularListVisualizer extends Component {
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
                 elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
+                let longElementText = elementText;
+                if(!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
                 if(Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
                     columnItem = (
                         <td 
@@ -297,43 +299,64 @@ class TabularListVisualizer extends Component {
                             </span>
                         </td>
                     );
-                } else if (this.props.allowItemClick && isInsertable) {
-                    // Get value off of element given two cases: 
-                    // 1. Element type is shortcut, value is returned by element.value()
-                    // 2. Element type is string, the value is just the string
-
-                    // Make unique id for each value
-                    columnItem = (
-                        <td width={colSize}
-                            className={itemClass} 
-                            key={elementId}
-                        >   
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
-                        </td>
-                    );
-                } else if (!isInsertable) {
-                    columnItem = (
-                        <td width={colSize}
-                            key={elementId}
-                        >
-                            <span>
-                                {elementText}
-                            </span>
-                        </td>
-                    );
-                } else {
-                    columnItem = (
-                        <td width={colSize}
-                            className={itemClass} 
-                            data-test-summary-item={item[0].value} 
-                            key={elementId}
-                        >
-                            <span>
-                                {elementText}
-                            </span>
-                        </td>
-                    );
                 }
+                else if (this.props.allowItemClick && isInsertable) {
+                        // Get value off of element given two cases:
+                        // 1. Element type is shortcut, value is returned by element.value()
+                        // 2. Element type is string, the value is just the string
+
+                        // Make unique id for each value
+                        columnItem = (
+                            <td width={colSize}
+                                className={itemClass}
+                                key={elementId}
+                            >
+                            {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
+                            </td>
+
+                        );
+                    } else if (!isInsertable) {
+                        columnItem = (
+                            <td width={colSize}
+                                key={elementId}
+                            >
+                                <span>
+                                    {elementText}
+                                </span>
+                            </td>
+                        );
+                    } else {
+                        columnItem = (
+                            <td width={colSize}
+                                className={itemClass}
+                                data-test-summary-item={item[0].value}
+                                key={elementId}
+                            >
+                                <span>
+                                    {elementText}
+                                </span>
+                            </td>
+                        );
+                    }
+
+                    if(!Lang.isNull(elementText) && elementText.length > 100){
+                        const text = <span>{longElementText}</span>
+                        columnItem = (
+                            <Tooltip
+                                key={elementId}
+                                overlayStyle={{'visibility': true}}
+                                placement="top"
+                                overlayClassName={`context-panel-tooltip large`}
+                                overlay={text}
+                                destroyTooltipOnHide={true}
+                                mouseEnterDelay={0.5}
+                                onMouseEnter={this.mouseEnter}
+                                onMouseLeave={this.mouseLeave}
+                            >
+                            {columnItem}
+                            </Tooltip>
+                    )}
+
                 renderedColumns.push(columnItem);
             });
 
