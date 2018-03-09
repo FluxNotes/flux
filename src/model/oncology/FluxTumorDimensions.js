@@ -5,6 +5,10 @@ class FluxTumorDimensions {
         this._tumorDimensions = TumorDimensions.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._tumorDimensions.entryInfo;
+    }
+
     /**
      *  Getter for quantity
      *  will return object with properties value and unit

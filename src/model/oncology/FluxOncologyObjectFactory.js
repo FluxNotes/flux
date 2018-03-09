@@ -12,7 +12,7 @@ import FluxTNMStage from './FluxTNMStage';
 import FluxTumorDimensions from './FluxTumorDimensions';
 
 export default class FluxOncologyObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.oncology') {
             throw new Error(`Unsupported type in ShrOncologyObjectFactory: ${type}`);
@@ -21,7 +21,7 @@ export default class FluxOncologyObjectFactory {
         switch (elementName) {
             case 'BRCA1Variant': return new FluxBRCA1Variant(json);
             case 'BRCA2Variant': return new FluxBRCA2Variant(json);
-            case 'BreastCancer': return new FluxBreastCancer(json);
+            case 'BreastCancer': return new FluxBreastCancer(json, patientRecord);
             case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json);
             case 'EstrogenReceptorStatus': return new FluxEstrogenReceptorStatus(json);
             case 'ProgesteroneReceptorStatus': return new FluxProgesteroneReceptorStatus(json);

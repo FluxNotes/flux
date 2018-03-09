@@ -5,6 +5,10 @@ class FluxHistologicGrade {
         this._histologicGrade = HistologicGrade.fromJSON(json);
     }
 
+    get entryInfo() {
+        return this._histologicGrade.entryInfo;
+    }
+
     /**
      *  Getter for grade
      *  This will return the displayText string from CodeableConcept Value
