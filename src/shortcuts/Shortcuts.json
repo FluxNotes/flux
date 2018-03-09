@@ -212,7 +212,7 @@
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialEnrollmentForm",
-    "structuredPhrase": "#enrollment in #${title}${% on #${enrollmentDateDate}}",
+    "structuredPhrase": "#enrollment in #${title}${% on #${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient in a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialEnrollmentSheet.pdf"
@@ -230,7 +230,7 @@
     "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient from a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialUnenrolledForm",
-    "structuredPhrase": "#unenrolled from #${title}${% on #${endDateDate}}",
+    "structuredPhrase": "#unenrolled from #${title}${% on #${date}}",
     "knownParentContexts": "Patient",
     "description": "Support specifying the enrollment of the patient from a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialUnenrolledSheet.pdf"

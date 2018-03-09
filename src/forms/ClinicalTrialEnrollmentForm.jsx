@@ -39,7 +39,7 @@ class ClinicalTrialEnrollmentForm extends Component {
         });
 
         if (this.state.selectedDateChoice === "enrollmentDate") {
-            this.props.updateValue("enrollmentDateDate", selectedDate); //.format('D MMM YYYY'));
+            this.props.updateValue("date", selectedDate); //.format('D MMM YYYY'));
         }
     }
 

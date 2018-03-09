@@ -38,7 +38,7 @@ class ClinicalTrialUnenrolledForm extends Component {
         });
 
         if (this.state.selectedDateChoice === "endDate") {
-            this.props.updateValue("endDateDate", selectedDate); //.format('D MMM YYYY'));
+            this.props.updateValue("date", selectedDate); //.format('D MMM YYYY'));
         }
     }
 
