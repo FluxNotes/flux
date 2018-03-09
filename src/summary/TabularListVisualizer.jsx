@@ -285,78 +285,77 @@ class TabularListVisualizer extends Component {
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
                 elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
-                let longElementText = elementText;
-                if(!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
-                if(Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
+                const longElementText = elementText;
+                if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
+                if (Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
                     columnItem = (
-                        <td 
-                            className={"list-missing"} 
-                            data-test-summary-item={item[0]} 
+                        <td
+                            className={"list-missing"}
+                            data-test-summary-item={item[0]}
                             key={elementId}
-                        >   
+                        >
                             <span>
                                 Missing Data
                             </span>
                         </td>
                     );
-                }
-                else if (this.props.allowItemClick && isInsertable) {
-                        // Get value off of element given two cases:
-                        // 1. Element type is shortcut, value is returned by element.value()
-                        // 2. Element type is string, the value is just the string
+                } else if (this.props.allowItemClick && isInsertable) {
+                    // Get value off of element given two cases:
+                    // 1. Element type is shortcut, value is returned by element.value()
+                    // 2. Element type is string, the value is just the string
 
-                        // Make unique id for each value
-                        columnItem = (
-                            <td width={colSize}
-                                className={itemClass}
-                                key={elementId}
-                            >
+                    // Make unique id for each value
+                    columnItem = (
+                        <td width={colSize}
+                            className={itemClass}
+                            key={elementId}
+                        >
                             {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
-                            </td>
+                        </td>
 
-                        );
-                    } else if (!isInsertable) {
-                        columnItem = (
-                            <td width={colSize}
-                                key={elementId}
-                            >
-                                <span>
-                                    {elementText}
-                                </span>
-                            </td>
-                        );
-                    } else {
-                        columnItem = (
-                            <td width={colSize}
-                                className={itemClass}
-                                data-test-summary-item={item[0].value}
-                                key={elementId}
-                            >
-                                <span>
-                                    {elementText}
-                                </span>
-                            </td>
-                        );
-                    }
+                    );
+                } else if (!isInsertable) {
+                    columnItem = (
+                        <td width={colSize}
+                            key={elementId}
+                        >
+                            <span>
+                                {elementText}
+                            </span>
+                        </td>
+                    );
+                } else {
+                    columnItem = (
+                        <td width={colSize}
+                            className={itemClass}
+                            data-test-summary-item={item[0].value}
+                            key={elementId}
+                        >
+                            <span>
+                                {elementText}
+                            </span>
+                        </td>
+                    );
+                }
 
-                    if(!Lang.isNull(elementText) && elementText.length > 100){
-                        const text = <span>{longElementText}</span>
-                        columnItem = (
-                            <Tooltip
-                                key={elementId}
-                                overlayStyle={{'visibility': true}}
-                                placement="top"
-                                overlayClassName={`context-panel-tooltip large`}
-                                overlay={text}
-                                destroyTooltipOnHide={true}
-                                mouseEnterDelay={0.5}
-                                onMouseEnter={this.mouseEnter}
-                                onMouseLeave={this.mouseLeave}
-                            >
+                if (!Lang.isNull(elementText) && elementText.length > 100) {
+                    const text = <span>{longElementText}</span>
+                    columnItem = (
+                        <Tooltip
+                            key={elementId}
+                            overlayStyle={{ 'visibility': true }}
+                            placement="top"
+                            overlayClassName={`context-panel-tooltip large`}
+                            overlay={text}
+                            destroyTooltipOnHide={true}
+                            mouseEnterDelay={0.5}
+                            onMouseEnter={this.mouseEnter}
+                            onMouseLeave={this.mouseLeave}
+                        >
                             {columnItem}
-                            </Tooltip>
-                    )}
-
+                        </Tooltip>
+                    )
+                }
                 renderedColumns.push(columnItem);
             });
 
