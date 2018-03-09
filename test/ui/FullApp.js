@@ -932,7 +932,7 @@ test('Clicking on the sign note button moves the note from in progress notes to 
         .eql(inProgressNotesLength - 1);
 });
 
-test.only('Entering disease status information updates the data in the targeted data panel to indicate that the disease status information is unsigned', async t => {
+test('Entering disease status information updates the data in the targeted data panel to indicate that the disease status information is unsigned', async t => {
     const clinicalEventSelector = Selector('.clinical-event-select');
     await t
         .click(clinicalEventSelector)
