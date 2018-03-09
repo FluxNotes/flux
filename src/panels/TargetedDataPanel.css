@@ -10,7 +10,7 @@
 .fitted-panel .minimap {
     position: absolute;
     left: 0;
-    /*margin: 0;*/
+    margin: 0;
     background-color: #ffffff;
     border: none;
     float: none;
@@ -18,22 +18,23 @@
     -webkit-backface-visibility: hidden;
 }
 
-/*.minimap-viewport {
+.minimap-viewport {
     background-color: #555;
-    opacity: 0.1;
+    opacity: 0.15;
     width: 100px !important;
-}*/
+}
 
 .minimap-children {
     display: flex;
-    /*margin: 3px 10px;*/
+    margin: 3px 10px;
     align-items: center;
     justify-content: center;
-    /*background-color: #fff;*/
+    background-color: #fff;
     background-color: #eee;
     border-radius: 5px;
-    /*border: 1px solid #ccc;*/
-    /*cursor: pointer;*/
+    border: 1px solid #ccc;
+    cursor: pointer;
+    /*min-height: 10px;*/
 }
 
 .minimap-children .minimap-title {

@@ -84,7 +84,7 @@ export class Minimap extends React.Component {
     const sourceRect = this.source.getBoundingClientRect();
 
     let {width, height} = this.props
-    height = (this.props.isFullHeight) ? sourceRect.height - 50 : this.props.height;
+    height = (this.props.isFullHeight) ? sourceRect.height : this.props.height;
 
     let ratioX = width / scrollWidth;
     let ratioY = height / scrollHeight;
@@ -100,6 +100,7 @@ export class Minimap extends React.Component {
     }
 
     const nodes = this.ref.querySelectorAll(this.props.selector)
+    let diff = 0;
     this.setState({
       ...this.state,
       height,
@@ -108,16 +109,22 @@ export class Minimap extends React.Component {
         const {width, height, left, top} = node.getBoundingClientRect()
 
         const wM = width * ratioX;
-        const hM = height * ratioY;
+        let hM = Math.round(height * ratioY);
         const xM = (left + scrollLeft - sourceRect.left) * ratioX;
-        const yM = (top + scrollTop - sourceRect.top) * ratioY;
+        const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
         const title = node.getAttribute(this.props.titleAttribute);
         const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
+
+        if (hM < 0) {
+          diff += 0 - hM;
+          hM = 0;
+        }
+
         return (
           <ChildComponent
             key={key}
             width={Math.round( wM )}
-            height={Math.round( hM )}
+            height={hM}
             left={Math.round( xM )}
             top={Math.round( yM )}
             node={node}
