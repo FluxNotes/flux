@@ -4,7 +4,6 @@ import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxDiseaseProgression from './FluxDiseaseProgression';
-import PatientRecord from '../../patient/PatientRecord';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -67,8 +66,7 @@ class FluxCondition {
 
     addObservation(observation) {
         this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation);
-        let ref = PatientRecord.createEntryReferenceTo(observation);
-        //console.log(ref);
+        let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(ref);
         this._condition.evidence  = currentObservations;
@@ -82,7 +80,6 @@ class FluxCondition {
     
     getObservationsOfType(type) {
         if (!this._condition.evidence) return [];
-        //console.log(this._condition.evidence);
         return this._condition.evidence.map((item) => {
             return this._patientRecord.getEntryFromReference(item);
         }).filter((item) => {

@@ -150,7 +150,7 @@ class PatientRecord {
         return (entry.entryType.indexOf(type) >= 0);
     }
 
-    static createEntryReferenceTo(entry) {
+    createEntryReferenceTo(entry) {
         return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
         //return {"EntryType": {"Value" : entry.entryInfo.entryType.value }, "ShrId": entry.entryInfo.shrId, "EntryId": entry.entryInfo.entryId};
     }
