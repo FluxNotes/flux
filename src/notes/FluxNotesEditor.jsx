@@ -223,6 +223,12 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
+        
+        // check if shortcutTrigger is currently valid
+        if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
+            return this.insertPlainText(transform, shortcutTrigger);
+        }
+
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             if (text.length > 0) {
@@ -551,6 +557,21 @@ class FluxNotesEditor extends React.Component {
         state = transform.apply();
         this.setState({state: state});
         //return state;
+    }
+
+    /**
+     * Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+     */
+    shortcutTriggerCheck = (shortcutTrigger) => {
+        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
+
+        // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+        return shortcuts.some((shortcut) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
+            return triggers.some((trigger) => {
+                return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
+            });
+        });
     }
 
     /**

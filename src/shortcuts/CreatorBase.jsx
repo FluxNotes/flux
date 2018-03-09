@@ -354,9 +354,11 @@ export default class CreatorBase extends Shortcut {
                 args.forEach((a) => list.push(a));
                 Lang.set(this.object, listAttribute, list);
             } else if (obj === "$parentValueObject") {
-                let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
-                args.forEach((a) => list.push(a));
-                Lang.set(this.parentContext.getValueObject(), listAttribute, list);
+                if (!Lang.isUndefined(this.parentContext)) {
+                    let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
+                    args.forEach((a) => list.push(a));
+                    Lang.set(this.parentContext.getValueObject(), listAttribute, list);
+                }
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }

@@ -209,6 +209,19 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .contains(new PatientRecord(hardCodedPatient).getName());
 });
 
+test('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+    const editor = Selector("div[data-slate-editor='true']");
+    await t
+        .typeText(editor, "#imaging #staging ")
+    const structuredField = editor.find("span[class='structured-field']");
+    await t
+        .expect(structuredField.exists).notOk();
+});
+
 test('Typing a date in the editor results in a structured data insertion ', async t => {
     const clinicalEventSelector = Selector('.clinical-event-select');
     await t
