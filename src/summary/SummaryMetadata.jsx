@@ -1,6 +1,5 @@
 import Lang from 'lodash'
 import moment from 'moment';
-import FluxHistologicGrade from '../model/oncology/FluxHistologicGrade';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 
 /*
@@ -408,8 +407,8 @@ export default class SummaryMetadata {
                                     {
                                         name: "Histological Grade",
                                         value: (patient, currentConditionEntry) => {
-                                            let list = currentConditionEntry.getObservationsOfType(FluxHistologicGrade);
-                                            return [list[0].grade, patient.isUnsigned(currentConditionEntry)];
+                                            let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
+                                            return [ histologicalGrade.grade, patient.isUnsigned(histologicalGrade) ];
                                         }
                                     },
                                     {
@@ -788,9 +787,7 @@ export default class SummaryMetadata {
 
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => { 
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const labResults = currentConditionEntry.getTests();
-        labResults.sort(currentConditionEntry._observationsTimeSorter);
-
+        const labResults = currentConditionEntry.getLabResultsChronologicalOrder();
         const labs = labResults.filter((lab, i) => {
             return lab.codeableConceptCode === subsection.code;
         }).map((lab, i) => {

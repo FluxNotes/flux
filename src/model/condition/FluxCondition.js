@@ -4,17 +4,12 @@ import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxDiseaseProgression from './FluxDiseaseProgression';
-import FluxTNMStage from '../oncology/FluxTNMStage';
-import FluxEstrogenReceptorStatus from '../oncology/FluxEstrogenReceptorStatus';
-import FluxProgesteroneReceptorStatus from '../oncology/FluxProgesteroneReceptorStatus';
-import FluxHER2ReceptorStatus from '../oncology/FluxHER2ReceptorStatus';
-import FluxTumorDimensions from '../oncology/FluxTumorDimensions';
-import FluxHistologicGrade from '../oncology/FluxHistologicGrade';
 import Lang from 'lodash';
 import moment from 'moment';
 
 class FluxCondition {
-    constructor(json) {
+    constructor(json, patientRecord) {
+        this._patientRecord = patientRecord;
         this._condition = Condition.fromJSON(json);
     }
 
@@ -45,7 +40,9 @@ class FluxCondition {
     }
 
     get observation() {
-        return this._condition.evidence || [];
+        return this._condition.evidence.map((item) => {
+            return this._patientRecord.getEntryFromReference(item);
+        }) || [];
     }
 
     get bodySite() {
@@ -68,14 +65,24 @@ class FluxCondition {
     }
 
     addObservation(observation) {
+        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation);
+        let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
-        currentObservations.push(observation);
+        currentObservations.push(ref);
         this._condition.evidence  = currentObservations;
     }
 
+    getObservationsOfTypeChronologicalOrder(type) {
+        let results = this.getObservationsOfType(type);
+        results.sort(this._observationsTimeSorter);
+        return results;
+    }
+    
     getObservationsOfType(type) {
         if (!this._condition.evidence) return [];
-        return this._condition.evidence.filter((item) => {
+        return this._condition.evidence.map((item) => {
+            return this._patientRecord.getEntryFromReference(item);
+        }).filter((item) => {
             return item.constructor === type;
         });
     }
@@ -149,89 +156,8 @@ class FluxCondition {
 
         return mostRecentLabResultsArray;
     }
-
-    getMostRecentStaging(sinceDate = null) {
-        let stagingList = this.getObservationsOfType(FluxTNMStage);
-        if (stagingList.length === 0) return null; 
-        const sortedStagingList = stagingList.sort(this._stageTimeSorter);
-        const length = sortedStagingList.length;
-        let s = (sortedStagingList[length - 1]);
-        if (Lang.isNull(sinceDate)) return s; 
-        const startTime = new moment(s.occurrenceTime, "D MMM YYYY");
-        if (startTime < sinceDate) {
-            return null;
-        } else {
-            return s;
-        }
-    } 
-
-    _getMostRecentReceptorStatus(receptorType) {
-        const list = this.getObservationsOfType(receptorType);
-        const sortedList = list.sort(this._observationsTimeSorter);
-        if (list.length === 0) return null; else return sortedList.pop();
-    }
-
-    getMostRecentERReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxEstrogenReceptorStatus);
-    }
-
-    getMostRecentPRReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxProgesteroneReceptorStatus);
-    }
-
-    getMostRecentHER2ReceptorStatus() {
-        return this._getMostRecentReceptorStatus(FluxHER2ReceptorStatus);
-    }
-
-    /**
-     *  function to build HPI Narrative
-     *  Starts with initial summary of patient information
-     *  Then details chronological history of patient's procedures, medications, and most recent progression
-     */
-    buildHpiNarrative(patient) {
-        // Initial patient introduction section
-        const name = patient.getName();
-        const age = patient.getAge();
-        const gender = patient.getGender();
-
-        let hpiText = `${name} is a ${age} year old ${gender}.`;
-        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
-        
-        // Laterality
-        if (this.laterality) {
-            hpiText += ` Breast cancer diagnosed in ${this.laterality} breast.`;
-        }
-
-        // Staging
-        const staging = this.getMostRecentStaging();
-        if (staging && staging.stage) {
-            hpiText += ` Stage ${staging.stage} ${staging.t_Stage} ${staging.n_Stage} ${staging.m_Stage} disease.`;
-        }
-
-        // Tumor Size and HistologicGrade
-        const tumorSize = this.getObservationsOfType(FluxTumorDimensions);
-        const histologicGrade = this.getObservationsOfType(FluxHistologicGrade);
-        if (tumorSize.length > 0) {
-            hpiText += ` Primary tumor size was ${tumorSize[0].quantity.value} ${tumorSize[0].quantity.unit}.`;
-        }
-        if (histologicGrade.length > 0) {
-            hpiText += ` Histological grade was ${histologicGrade[0].grade}.`;
-        }
-
-        // ER, PR, HER2
-        const erStatus = this.getMostRecentERReceptorStatus();
-        const prStatus = this.getMostRecentPRReceptorStatus();
-        const her2Status = this.getMostRecentHER2ReceptorStatus();
-        if (erStatus) {
-            hpiText += ` Estrogen receptor was ${erStatus.status}.`;
-        }
-        if (prStatus) {
-            hpiText += ` Progesteron receptor was ${prStatus.status}.`;
-        }
-        if (her2Status) {
-            hpiText += ` HER2 was ${her2Status.status}.`;
-        }
-
+    
+    buildEventNarrative(hpiText, patient) {
         // Build narrative from sorted events
         // Get procedures, medications, recent lab results, and most recent progression from patient
         // Sort by start time and add snippets about each event to result text
@@ -314,7 +240,6 @@ class FluxCondition {
                 }
             }
         });
-        
         return hpiText;
     }
 

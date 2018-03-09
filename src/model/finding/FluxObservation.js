@@ -6,6 +6,10 @@ class FluxObservation {
         this._observation = Observation.fromJSON(json);
     }
     
+    get entryInfo() {
+        return this._observation.entryInfo;
+    }
+
     /**
      *  Getter for quantity
      *  If _value is an instance of Quantity, will return object with properties number and unit

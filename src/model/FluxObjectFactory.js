@@ -18,7 +18,7 @@ import FluxOncologyObjectFactory from './oncology/FluxOncologyObjectFactory';
  *  Default case will return SHR model classes if no Flux wrapper class is found
  */
 export default class FluxObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace } = getNamespaceAndName(json, type);
         switch (namespace) {
             case 'shr.adverse': return FluxAdverseObjectFactory.createInstance(json, type);
@@ -29,7 +29,7 @@ export default class FluxObjectFactory {
             case 'shr.entity': return FluxEntityObjectFactory.createInstance(json, type);
             case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type);
-            case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type);
+            case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.procedure': return FluxProcedureObjectFactory.createInstance(json, type);
             case 'shr.research': return FluxResearchObjectFactory.createInstance(json, type);
             case 'shr.allergy': return FluxAllergyObjectFactory.createInstance(json, type);

@@ -16,6 +16,7 @@ import FluxStudy from '../model/research/FluxStudy';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
+import Reference from '../model/Reference';
 import mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -45,7 +46,7 @@ class PatientRecord {
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
-			return FluxObjectFactory.createInstance(entry);
+			return FluxObjectFactory.createInstance(entry, undefined, this);
         });
     }
     
@@ -149,8 +150,9 @@ class PatientRecord {
         return (entry.entryType.indexOf(type) >= 0);
     }
 
-    static createEntryReferenceTo(entry) {
-        return {"entryType": entry.entryType[0], "shrId": entry.shrId, "entryId": entry.entryId};
+    createEntryReferenceTo(entry) {
+        return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
+        //return {"EntryType": {"Value" : entry.entryInfo.entryType.value }, "ShrId": entry.entryInfo.shrId, "EntryId": entry.entryInfo.entryId};
     }
 
     getName() {

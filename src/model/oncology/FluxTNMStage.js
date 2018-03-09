@@ -5,25 +5,22 @@ import TNMStage from '../shr/oncology/TNMStage';
 import T_Stage from '../shr/oncology/T_Stage';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import Lang from 'lodash';
+import FluxObservation from '../finding/FluxObservation';
 import lookup from '../../lib/tnmstage_lookup.jsx';
 import staging from '../../lib/staging.jsx';
 
 // FluxTNMStage class to hide codeableconcepts
-class FluxTNMStage {
+class FluxTNMStage extends FluxObservation {
     constructor(json) {
-        this._tnmStage = TNMStage.fromJSON(json);
-        if (!this._tnmStage.entryInfo) {
+        super();
+        this._observation = TNMStage.fromJSON(json);
+        if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/oncology/TNMStage';
-            this._tnmStage.entryInfo = entry;
-            this._tnmStage.observationComponent = [];
+            this._observation.entryInfo = entry;
+            this._observation.observationComponent = [];
         }
-    }
-
-    get entryInfo() {
-        return this._tnmStage.entryInfo;
     }
 
     /**
@@ -31,7 +28,7 @@ class FluxTNMStage {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        return this._tnmStage.value.coding[0].displayText.value;
+        return this._observation.value.coding[0].displayText.value;
     }
 
     /**
@@ -40,7 +37,7 @@ class FluxTNMStage {
      *  The function will lookup the corresponding coding/codesystem and set the TNMStage entry value property
      */
     set stage(stage) {
-        this._tnmStage.value = lookup.getStagingCodeableConcept(stage);
+        this._observation.value = lookup.getStagingCodeableConcept(stage);
     }
 
     /**
@@ -48,7 +45,7 @@ class FluxTNMStage {
      *  This will return the displayText string from T_Stage
      */
     get t_Stage() {
-        const tStage = this._tnmStage._observationComponent.find(o => {
+        const tStage = this._observation._observationComponent.find(o => {
             return o instanceof T_Stage;
         });
         if (!tStage) return null;
@@ -63,13 +60,13 @@ class FluxTNMStage {
     set t_Stage(tStage) {
         let t = new T_Stage();
         t.value = lookup.getTStageCodeableConcept(tStage);
-        const tIndex = this._tnmStage.observationComponent.findIndex((o) => {
+        const tIndex = this._observation.observationComponent.findIndex((o) => {
             return o instanceof T_Stage;
         });
         if (tIndex >= 0) {
-            this._tnmStage.observationComponent[tIndex] = t;
+            this._observation.observationComponent[tIndex] = t;
         } else {
-            this._tnmStage.observationComponent.push(t);
+            this._observation.observationComponent.push(t);
         }
         this._calculateStage();
     }
@@ -79,7 +76,7 @@ class FluxTNMStage {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
-        const nStage = this._tnmStage._observationComponent.find(o => {
+        const nStage = this._observation._observationComponent.find(o => {
             return o instanceof N_Stage
         });
         if (!nStage) return null;
@@ -94,13 +91,13 @@ class FluxTNMStage {
     set n_Stage(nStage) {
         let n = new N_Stage();
         n.value = lookup.getNStageCodeableConcept(nStage);
-        const nIndex = this._tnmStage.observationComponent.findIndex((o) => {
+        const nIndex = this._observation.observationComponent.findIndex((o) => {
             return o instanceof N_Stage;
         });
         if (nIndex >= 0) {
-            this._tnmStage.observationComponent[nIndex] = n;
+            this._observation.observationComponent[nIndex] = n;
         } else {
-            this._tnmStage.observationComponent.push(n);
+            this._observation.observationComponent.push(n);
         }
         this._calculateStage();
     }
@@ -110,7 +107,7 @@ class FluxTNMStage {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
-        const mStage = this._tnmStage._observationComponent.find(o => {
+        const mStage = this._observation._observationComponent.find(o => {
             return o instanceof M_Stage;
         });
         if (!mStage) return null;
@@ -125,24 +122,15 @@ class FluxTNMStage {
     set m_Stage(mStage) {
         let m = new M_Stage();
         m.value = lookup.getMStageCodeableConcept(mStage);
-        const mIndex = this._tnmStage.observationComponent.findIndex((o) => {
+        const mIndex = this._observation.observationComponent.findIndex((o) => {
             return o instanceof M_Stage;
         });
         if (mIndex >= 0) {
-            this._tnmStage.observationComponent[mIndex] = m;
+            this._observation.observationComponent[mIndex] = m;
         } else {
-            this._tnmStage.observationComponent.push(m);
+            this._observation.observationComponent.push(m);
         }
         this._calculateStage();
-    }
-
-    /*
-     * Getter for clinicallyRelevantTime
-     * This will return the value string from _clinicallyRelevantTime
-     */
-    get clinicallyRelevantTime() {
-        if (Lang.isUndefined(this._tnmStage._clinicallyRelevantTime)) return null;
-        return this._tnmStage._clinicallyRelevantTime.value;
     }
 
     /*
@@ -153,7 +141,7 @@ class FluxTNMStage {
     set clinicallyRelevantTime(clinicallyRelevantTime) {
         let t = new ClinicallyRelevantTime();
         t.value = clinicallyRelevantTime;
-        this._tnmStage._clinicallyRelevantTime = t;
+        this._observation._clinicallyRelevantTime = t;
     }
     
     _calculateStage() {
