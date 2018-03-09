@@ -6,6 +6,7 @@ import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import './TabularListVisualizer.css';
+import Tooltip from 'rc-tooltip';
 
 
 /*
@@ -167,7 +168,6 @@ class TabularListVisualizer extends Component {
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
-        
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
         let list;
@@ -285,31 +285,34 @@ class TabularListVisualizer extends Component {
                 let columnItem = null;
                 isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
                 elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : element);
-                if(Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
+                const longElementText = elementText;
+                if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
+                if (Lang.isNull(element) || Lang.isUndefined(elementText) || elementText.length === 0) {
                     columnItem = (
-                        <td 
-                            className={"list-missing"} 
-                            data-test-summary-item={item[0]} 
+                        <td
+                            className={"list-missing"}
+                            data-test-summary-item={item[0]}
                             key={elementId}
-                        >   
+                        >
                             <span>
                                 Missing Data
                             </span>
                         </td>
                     );
                 } else if (this.props.allowItemClick && isInsertable) {
-                    // Get value off of element given two cases: 
+                    // Get value off of element given two cases:
                     // 1. Element type is shortcut, value is returned by element.value()
                     // 2. Element type is string, the value is just the string
 
                     // Make unique id for each value
                     columnItem = (
                         <td width={colSize}
-                            className={itemClass} 
+                            className={itemClass}
                             key={elementId}
-                        >   
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
+                        >
+                            {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
                         </td>
+
                     );
                 } else if (!isInsertable) {
                     columnItem = (
@@ -324,8 +327,8 @@ class TabularListVisualizer extends Component {
                 } else {
                     columnItem = (
                         <td width={colSize}
-                            className={itemClass} 
-                            data-test-summary-item={item[0].value} 
+                            className={itemClass}
+                            data-test-summary-item={item[0].value}
                             key={elementId}
                         >
                             <span>
@@ -333,6 +336,25 @@ class TabularListVisualizer extends Component {
                             </span>
                         </td>
                     );
+                }
+
+                if (!Lang.isNull(elementText) && elementText.length > 100) {
+                    const text = <span>{longElementText}</span>
+                    columnItem = (
+                        <Tooltip
+                            key={elementId}
+                            overlayStyle={{ 'visibility': true }}
+                            placement="top"
+                            overlayClassName={`tabular-list-tooltip`}
+                            overlay={text}
+                            destroyTooltipOnHide={true}
+                            mouseEnterDelay={0.5}
+                            onMouseEnter={this.mouseEnter}
+                            onMouseLeave={this.mouseLeave}
+                        >
+                            {columnItem}
+                        </Tooltip>
+                    )
                 }
                 renderedColumns.push(columnItem);
             });
