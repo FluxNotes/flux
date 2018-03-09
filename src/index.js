@@ -1,19 +1,23 @@
-
 import 'es6-shim';
-import 'babel-polyfill'
+import 'babel-polyfill';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import App from './App';
+import Root from './components/Root';
+import configureStore from './store/configureStore';
+// import './styles/app.scss'; // add when SASS conversion complete
 import './index.css';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
+const store = configureStore();
+
+window.store = store;
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
+render(
+  <Root store={store} />,
+  document.getElementById('root')
 );

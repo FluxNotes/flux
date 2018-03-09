@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Grid, Row, Col} from 'react-flexbox-grid';
-import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
@@ -14,6 +14,7 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
+
 import '../styles/FullApp.css';
 
 const theme = createMuiTheme({
@@ -38,7 +39,7 @@ export default class FullApp extends Component {
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
-        
+
         let patientId = DataAccess.DEMO_PATIENT_ID;
         if (props.patientId) {
             patientId = props.patientId;
