@@ -74,6 +74,13 @@ h2.subsection span {
     padding: 0;
 }
 
+.tabular-list-tooltip .rc-tooltip-inner{
+    width: 200px;
+    min-height: 22px;
+    text-align: center;
+    border-radius: 6px;
+}
+
 .tabular-list ul li {
     font-size: 0.8rem;
     text-decoration: underline #0182D7;

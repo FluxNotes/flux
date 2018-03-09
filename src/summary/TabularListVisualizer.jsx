@@ -345,7 +345,7 @@ class TabularListVisualizer extends Component {
                             key={elementId}
                             overlayStyle={{ 'visibility': true }}
                             placement="top"
-                            overlayClassName={`context-panel-tooltip large`}
+                            overlayClassName={`tabular-list-tooltip`}
                             overlay={text}
                             destroyTooltipOnHide={true}
                             mouseEnterDelay={0.5}
