@@ -309,9 +309,6 @@
             }
         },
         "shr.finding.Evidence": [
-
-
-
             {
                 "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
                 "EntryId": "2000",
@@ -432,11 +429,6 @@
                 "EntryId": "2240",
                 "EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"}
             }
-
-
-
-
-
         ],
         "shr.core.CreationTime": {"Value": "29 NOV 2015"},
         "shr.base.LastUpdated": {"Value": "29 NOV 2015"}
@@ -2469,15 +2461,6 @@
         "shr.core.CreationTime": { "Value": "13 JAN 2018"},
         "shr.base.LastUpdated": { "Value": "13 JAN 2018"}
     },
-    
-    
-    
-    
-    
-    
-    
-    
-    
     {
         "shr.base.ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "shr.base.EntryId": "2000",
