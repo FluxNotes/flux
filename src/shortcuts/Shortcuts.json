@@ -203,11 +203,13 @@
     "id": "ClinicalTrialCreator",
     "name": "enrollment",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/research/Study",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
     "valueObjectAttributes": [  
         {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
         {"name":"date", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate", "childShortcut": "DateCreator"}
     ],
+    "updatePatient": [  {"object":"$valueObject", "attribute": "status", "args": [ "enrolled"]},
+                        {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
@@ -221,7 +223,7 @@
     "id": "ClinicalTrialUnenrolledCreator",
     "name": "unenrolled",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/research/Study",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
     "valueObjectAttributes": [  {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
       {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}
     ],

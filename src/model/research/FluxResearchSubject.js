@@ -4,10 +4,11 @@ import Details from '../shr/core/Details';
 import Identifier from '../shr/core/Identifier';
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
-import EffectiveTimePeriod from '../shr/core/EffectiveTimePeriod';
+import ParticipationPeriod from '../shr/action/ParticipationPeriod';
 import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 import Lang from 'lodash';
+import lookup from '../../lib/clinicaltrial_lookup.jsx';
 
 class FluxResearchSubject {
     constructor(json) {
@@ -36,15 +37,19 @@ class FluxResearchSubject {
         }
     }
 
+    _createStudyIfNeeded() {
+        if (!this._researchSubject.study) {
+            this._researchSubject.study = new FluxStudy();
+        }
+    }
+
     /**
      *  Setter for title
      *  The setter method is expecting a title sting
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
-        if (!this._researchSubject.study) {
-            this._researchSubject.study = new FluxStudy();
-        }
+        _createStudyIfNeeded();
         if (Lang.isNull(title)) {
             this._researchSubject.study.title = null;
             return;
@@ -58,8 +63,8 @@ class FluxResearchSubject {
      *  This will return the displayText value from the Details object
      */    
     get details() {
-        if (this._researchSubject.details) {
-            return this._researchSubject.details.value;
+        if (this._researchSubject.study.details) {
+            return this._researchSubject.study.details.value;
         } else {
             return "";
         }
@@ -72,9 +77,10 @@ class FluxResearchSubject {
      */
     set details(details) {
         if (Lang.isNull(details)) return;
+        _createStudyIfNeeded();
         let detailsObj = new Details();
         detailsObj.value = details; 
-        this._researchSubject.details = detailsObj;
+        this._researchSubject.study.details = detailsObj;
     }    
 
     /**
@@ -82,7 +88,7 @@ class FluxResearchSubject {
      *  This will return the displayText value from the Identifier object
      */
     get identifier() {
-        return this._researchSubject.identifier.value;
+        return this._researchSubject.study.identifier.value || "";
     }
 
     /**
@@ -91,45 +97,55 @@ class FluxResearchSubject {
      *  The method will create an Identifier object and set the value to the identifier string
      */
     set identifier(identifier) {
+        _createStudyIfNeeded();
         let i = new Identifier();
         i.value = identifier;
-        this._researchSubject.identifier = i;
+        this._researchSubject.study.identifier = i;
     }
 
     get enrollmentDate() {
-        if (!this._researchSubject.effectiveTimePeriod || !this._researchSubject.effectiveTimePeriod.timePeriodStart) return null;
-        return this._researchSubject.effectiveTimePeriod.timePeriodStart.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriodStart) return null;
+        return this._researchSubject.participationPeriod.timePeriodStart.value;
     }
   
     set enrollmentDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.effectiveTimePeriod) {
-            this._researchSubject.effectiveTimePeriod.timePeriodStart = null;
+        if (Lang.isNull(val) && this._researchSubject.participationPeriod) {
+            this._researchSubject.participationPeriod.timePeriodStart = null;
             return;
         }
-        if (!this._researchSubject.effectiveTimePeriod) {
-            this._researchSubject.effectiveTimePeriod = new EffectiveTimePeriod();
+        if (!this._researchSubject.participationPeriod) {
+            this._researchSubject.participationPeriod = new ParticipationPeriod();
         }
         let timePeriodStart = new TimePeriodStart();
         timePeriodStart.value = val;
-        this._researchSubject.effectiveTimePeriod.timePeriodStart = timePeriodStart;
+        this._researchSubject.participationPeriod.timePeriodStart = timePeriodStart;
     }
   
     get endDate() {
-        if (!this._researchSubject.effectiveTimePeriod || !this._researchSubject.effectiveTimePeriod.timePeriodEnd) return null;
-        return this._researchSubject.effectiveTimePeriod.timePeriodEnd.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriodEnd) return null;
+        return this._researchSubject.participationPeriod.timePeriodEnd.value;
     }
   
     set endDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.effectiveTimePeriod) {
-            this._researchSubject.effectiveTimePeriod.timePeriodEnd = null;
+        if (Lang.isNull(val) && this._researchSubject.participationPeriod) {
+            this._researchSubject.participationPeriod.timePeriodEnd = null;
             return;
         }
-        if (!this._researchSubject.effectiveTimePeriod) {
-            this._researchSubject.effectiveTimePeriod = new EffectiveTimePeriod();
+        if (!this._researchSubject.participationPeriod) {
+            this._researchSubject.participationPeriod = new ParticipationPeriod();
         }
         let timePeriodEnd = new TimePeriodEnd();
         timePeriodEnd.value = val;
-        this._researchSubject.effectiveTimePeriod.timePeriodEnd = timePeriodEnd;
+        this._researchSubject.participationPeriod.timePeriodEnd = timePeriodEnd;
+    }
+
+    get status() {
+        if (!this._researchSubject.status.value) return null;
+        return this._researchSubject.status.value.coding[0].displayText.value;
+    }
+
+    set status(val) {
+        this._researchSubject.status.value = lookup.getStatusCodeableConcept(val);
     }
 }
 

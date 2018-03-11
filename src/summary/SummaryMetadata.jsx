@@ -765,10 +765,10 @@ export default class SummaryMetadata {
                         value: [c.title, patient.isUnsigned(c)]
                     },
                     {
-                        value: [c.enrollmentDate, patient.isUnsigned(c)]
+                        value: [(c,status === 'candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c)]
                     },
                     {
-                        value: [c.endDate, patient.isUnsigned(c)]
+                        value: [(c.status === 'candidate' || c.status === 'enrolled' || c.status === 'active') ? 'N/A' : c.endDate, patient.isUnsigned(c)]
                     },
                     c.details
                 ]; 

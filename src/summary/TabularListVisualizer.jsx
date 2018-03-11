@@ -237,7 +237,8 @@ class TabularListVisualizer extends Component {
         } = this.state;
 
         const insertItem = (element) => {
-            const callback = () => { 
+            if (Lang.isArray(element.value)) element.value = element.value[0];
+            const callback = () => {
                 this.props.onItemClicked(element);
             };
             this.closeInsertionMenu(callback);

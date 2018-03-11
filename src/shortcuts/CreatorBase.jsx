@@ -290,6 +290,7 @@ export default class CreatorBase extends Shortcut {
         const obj = spec["object"];
         const method = spec["method"];
         const listAttribute = spec["listAttribute"];
+        const attribute = spec["attribute"];
         const argSpecs = spec["args"];
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
@@ -297,7 +298,7 @@ export default class CreatorBase extends Shortcut {
             if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });
-        if (Lang.isUndefined(listAttribute)) {
+        if (Lang.isUndefined(listAttribute) && Lang.isUndefined(attribute)) {
             if (obj === "patient") {
                 return patient[method](...args);
             } else if (obj === "$clinicalNote") {
@@ -306,6 +307,21 @@ export default class CreatorBase extends Shortcut {
                 return this.object[method](...args);
             } else if (obj === "$parentValueObject") {
                 return this.parentContext.getValueObject()[method](...args);
+            } else {
+                console.error("unsupported object type: " + obj + " for updatePatient");
+            }
+        } else if (Lang.isUndefined(listAttribute)) {
+            if (args.length !== 1) {
+                console.warn("attribute only supports a single argument which is the new value for the attribute: " + spec["id"]);
+            }
+            if (obj === "patient") {
+                return patient[attribute] = args[0];
+            } else if (obj === "$clinicalNote") {
+                return clinicalNote[attribute] = args[0];
+            } else if (obj === "$valueObject") {
+                return this.object[attribute] = args[0];
+            } else if (obj === "$parentValueObject") {
+                return this.parentContext.getValueObject()[attribute] = args[0];
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }
