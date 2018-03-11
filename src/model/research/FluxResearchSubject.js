@@ -1,4 +1,6 @@
+import FluxStudy from './FluxStudy';
 import ResearchSubject from '../shr/research/ResearchSubject';
+import Status from '../shr/action/Status';
 import Title from '../shr/core/Title';
 import Details from '../shr/core/Details';
 import Identifier from '../shr/core/Identifier';
@@ -30,7 +32,7 @@ class FluxResearchSubject {
      *  This will return the displayText value from the Title object
      */
     get title() {
-        if (this._researchSubject.study.title) {
+        if (this._researchSubject.study && this._researchSubject.study.title) {
             return this._researchSubject.study.title.value;
         } else {
             return "";
@@ -49,7 +51,7 @@ class FluxResearchSubject {
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
-        _createStudyIfNeeded();
+        this._createStudyIfNeeded();
         if (Lang.isNull(title)) {
             this._researchSubject.study.title = null;
             return;
@@ -63,7 +65,7 @@ class FluxResearchSubject {
      *  This will return the displayText value from the Details object
      */    
     get details() {
-        if (this._researchSubject.study.details) {
+        if (this._researchSubject.study && this._researchSubject.study.details) {
             return this._researchSubject.study.details.value;
         } else {
             return "";
@@ -77,7 +79,7 @@ class FluxResearchSubject {
      */
     set details(details) {
         if (Lang.isNull(details)) return;
-        _createStudyIfNeeded();
+        this._createStudyIfNeeded();
         let detailsObj = new Details();
         detailsObj.value = details; 
         this._researchSubject.study.details = detailsObj;
@@ -97,7 +99,7 @@ class FluxResearchSubject {
      *  The method will create an Identifier object and set the value to the identifier string
      */
     set identifier(identifier) {
-        _createStudyIfNeeded();
+        this._createStudyIfNeeded();
         let i = new Identifier();
         i.value = identifier;
         this._researchSubject.study.identifier = i;
@@ -140,11 +142,14 @@ class FluxResearchSubject {
     }
 
     get status() {
-        if (!this._researchSubject.status.value) return null;
+        if (!this._researchSubject.status || !this._researchSubject.status.value) return null;
         return this._researchSubject.status.value.coding[0].displayText.value;
     }
 
     set status(val) {
+        if (!this._researchSubject.status) {
+            this._researchSubject.status = new Status();
+        }
         this._researchSubject.status.value = lookup.getStatusCodeableConcept(val);
     }
 }

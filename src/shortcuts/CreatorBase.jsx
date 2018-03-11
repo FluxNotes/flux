@@ -373,7 +373,7 @@ export default class CreatorBase extends Shortcut {
                         return;
                     }
                     if (result) {
-                        this.object = result;
+                        if (Lang.isObject(result)) this.object = result;
                     }
                 });
                 if (Lang.isNull(result)) return;

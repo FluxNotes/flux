@@ -758,17 +758,17 @@ export default class SummaryMetadata {
             return [];
         } else {
             return clinicalTrials.filter((c) => {
-                return (c.title);
+                return (c.title) && (c.status !== 'Candidate');
             }).map((c, i) => {
                 return [
                     {
                         value: [c.title, patient.isUnsigned(c)]
                     },
                     {
-                        value: [(c,status === 'candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c)]
+                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c)]
                     },
                     {
-                        value: [(c.status === 'candidate' || c.status === 'enrolled' || c.status === 'active') ? 'N/A' : c.endDate, patient.isUnsigned(c)]
+                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c)]
                     },
                     c.details
                 ]; 

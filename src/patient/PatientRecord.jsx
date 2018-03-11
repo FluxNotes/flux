@@ -12,7 +12,7 @@ import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
-import FluxStudy from '../model/research/FluxStudy';
+import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -126,10 +126,11 @@ class PatientRecord {
     addUnenrolled(entry, clinicalNote) {
         if (!(entry.title) || entry.title.length === 0) return null;
         var found = this.entries.find(function(element) {
-            if (!(element instanceof FluxStudy)) return false;
+            if (!(element instanceof FluxResearchSubject)) return false;
             return element.title === entry.title;
         });
         if(!Lang.isUndefined(found)) {
+            found.status = 'Completed';
             return found;
         } else {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
@@ -149,11 +150,6 @@ class PatientRecord {
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
         this.entries.push(entry);
-/*        if(Lang.isEqual(signed, false)){
-            this.markUnsigned(entry);
-        } else {
-            this.markSigned(entry);
-        }*/
         return entry; //entry.entryInfo.entryId;
     }
 
@@ -325,7 +321,7 @@ class PatientRecord {
            
     getClinicalTrials(){
         let clinicalTrialList = new ClinicalTrialsList();
-        let result = this.getEntriesOfType(FluxStudy);
+        let result = this.getEntriesOfType(FluxResearchSubject);
             
         result.forEach((study) => {
             let trial = clinicalTrialList.getClinicalTrialByName(study.title);
