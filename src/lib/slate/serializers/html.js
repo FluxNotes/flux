@@ -6,6 +6,9 @@ import cheerio from 'cheerio'
 import typeOf from 'type-of'
 import { Record } from 'immutable'
 
+let structuredFieldConverter = function() { console.log("Initial method");}
+let state = {};
+
 /**
  * String.
  *
@@ -258,9 +261,14 @@ class Html {
    * @return {String|Array}
    */
 
-  serialize = (state, options = {}) => {
+  serialize = (state, options = {}, structuredFieldConverter) => {
     const { document } = state
-    const elements = document.nodes.map(this.serializeNode)
+    //console.log(state.document.nodes);
+    this.structuredFieldConverter = structuredFieldConverter;
+    this.state = state;
+    const elements = document.nodes.map(this.serializeNode);
+   //   function(x) { this.serializeNode(x, structuredFieldConverter); })
+    //console.log(elements);
     if (options.render === false) return elements
 
     const html = ReactDOMServer.renderToStaticMarkup(<body>{elements}</body>)
@@ -276,7 +284,19 @@ class Html {
    */
 
   serializeNode = (node) => {
+        // 'copy' the text every time into the note
+        // Need to artificially set selection to the current node
+        console.log(node);
+        let currentNode = {
+            startKey: "0", // TODO make these accurate and not hard-coded
+            startOffset: 0,
+            endKey: "1",
+           endOffset: 1
+        }; 
+        let convertedText = this.structuredFieldConverter(this.state, currentNode);
+        console.log(convertedText); // successfully converted first SF
     if (node.kind == 'text') {
+      //console.log(node.kind);
       const ranges = node.getRanges()
       return ranges.map(this.serializeRange)
     }
@@ -285,8 +305,17 @@ class Html {
 
     for (const rule of this.rules) {
       if (!rule.serialize) continue
-      const ret = rule.serialize(node, children)
-      if (ret) return addKey(ret)
+      const ret = rule.serialize(node, children, convertedText) // calls my serialize methods
+      //console.log(ret);
+      if(typeof ret === 'string'){
+        console.log("is a string, making element: " + ret);
+        ret = React.createElement('div', {}, ret);
+      }
+      else{
+        console.log("is not a string");
+        console.log(ret);
+      }
+      if (ret) return addKey(ret) //Can't remove tags with something like .slice(5, -6) because ret is not a string
     }
 
     throw new Error(`No serializer defined for node of type "${node.type}".`)
@@ -306,6 +335,7 @@ class Html {
     return range.marks.reduce((children, mark) => {
       for (const rule of this.rules) {
         if (!rule.serialize) continue
+        //console.log("serializing Marks"); //maybe I don't need to worry about this, or maybe I do if a structuredField is stylized?
         const ret = rule.serialize(mark, children)
         if (ret) return addKey(ret)
       }

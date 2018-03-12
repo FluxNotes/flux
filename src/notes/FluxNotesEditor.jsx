@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
+//import Html from '../lib/slate/serializers/html' not needed, Html is imported in slate/index.js imported one line above
 import Moment from 'moment'
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
@@ -20,6 +21,179 @@ import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
+//import Html from 'slate-html-serializer';
+
+const BLOCK_TAGS = {
+  blockquote: 'quote',
+  p: 'paragraph',
+  pre: 'code',
+    em: 'italic',
+  strong: 'bold',
+  u: 'underline',
+}
+ 
+//let key = 1;
+/* Add a dictionary of mark tags.
+const MARK_TAGS = {
+  em: 'italic',
+  strong: 'bold',
+  u: 'underline',
+}*/ 
+ 
+const rules = [
+  {
+    deserialize(el, next) {
+      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+      if (!type) return    //   generalize this
+      return {
+        object: 'block',
+        type: type,
+        nodes: next(el.childNodes),
+      }
+    },
+    serialize(obj, children, convertedText) {
+     // if (obj.kind !== 'block') return //  
+        console.log("Serialize is running");
+        console.log(obj);
+        console.log(children);
+        console.log(convertedText);
+       /* if(!Lang.isUndefined(children[0])){
+            children = children[0];
+        }*/
+        if(obj.type === 'bold'){
+            return <strong>{children}</strong>
+        } else if(obj.type === 'italic'){
+            return <em>{children}</em>
+        } else if(obj.type === 'underlined'){
+            return <u>{children}</u>
+        } else if(obj.type === 'line'){
+          //  console.log("Is a line");
+            if(React.isValidElement(children)){
+                console.log("not returning anything, no styling*********************"); //never happens
+                //return children;
+            } else{
+              //  console.log("not a valid element:");
+             //   console.log(children);
+                return <div key='42'>{children}</div>
+            }
+            // pur return div in else
+        } else if(obj.type === 'structured_field'){
+            // children is empty in structured_field
+            console.log("Is a structured_field, returning: " + convertedText);
+            let retval = <p>{convertedText}</p>
+            console.log(retval);
+            /* We don't have a this.structuredFieldPlugin inside rules
+            let convertedText = this.structuredFieldPlugin.convertToText(obj, children);
+            return <p>{convertedText}</p>*/
+            return <p>{convertedText}</p> // converted is the full text and this gets appended to the text -twice
+            /* 2 hashtags with words before between and after:
+            <div>words before 
+                <p>words before @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
+                </p> words between 
+                    <p>words before @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
+                </p> words after</div>
+                */
+/*
+<div>words betfore <p>words betfore @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
+</p> words between <p>words betfore @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
+</p> words after</div>
+*/
+        }else{
+            console.log("returning nothing");
+            //  return ( <div>{children}</div> );
+            // Don't need to return on every invocation
+        }
+      
+      /* good stuff, just commented to simplify
+      switch (obj.type) {
+          case 'structured_field': // unsure what to do here
+            console.log("2: structured_field " + children);
+            return {children} 
+        case 'bold':
+          return <strong>{children}</strong>
+        case 'italic':
+          return <em>{children}</em>
+        case 'underlined':
+          return <u>{children}</u>
+        case 'code':
+          return (
+            <pre>
+              <code>{children}</code>
+            </pre>
+          )
+        case 'paragraph':
+          return <p>{children}</p>
+        case 'quote':
+          return <blockquote>{children}</blockquote>
+        case 'line':
+            console.log("1: line " + children);
+            console.log(obj);
+    
+           return {children} //testing
+          /* 
+         return  Array.prototype.forEach.call(children, function(child){
+              this.serialize(child. children); //or something, they use reduce() accumulator
+          });**
+        
+        default:
+            return null
+      }*/
+    },
+  },
+  /* Add a new rule that handles marks...
+  {
+    deserialize(el, next) {
+      const type = MARK_TAGS[el.tagName.toLowerCase()]
+      if (!type) return
+      return {
+        object: 'mark',
+        type: type,
+        nodes: next(el.childNodes),
+      }
+    },
+    serialize(obj, children) {
+                console.log(obj);
+      console.log(obj.object);
+      if (obj.object !== 'mark') return // limits us to mark type...but what is obj.object? not on these objects. Does what it should though with !==
+        console.log("Serialize2: ");
+
+      switch (obj.type) {
+        case 'bold':
+          return <strong>{children}</strong>
+        case 'italic':
+          return <em>{children}</em>
+        case 'underline':
+          return <u>{children}</u>
+      /*  case 'line':
+          console.log("2: line" + children);
+           /* return {children} - has this and got:
+          1: lineList [ List [ Disease  ], [object Object], List [   ], [object Object], List [  based on  ], [object Object], List [  and  ], [object Object], List [   ], [object Object], List [   ], [object Object], List [ . ] ]
+16:20:32.930 invariant.js:42 Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in.
+*
+         return Array.prototype.forEach.call(children, function(child){
+              this.serialize(child. children); //or something, they use reduce() accumulator
+          });* return <strong>{children}</strong>
+        case 'structured_field': // unsure what to do here
+          console.log("2: structured_field " + children);
+          /* return {children} - has this and got:
+          1: lineList [ List [ Disease  ], [object Object], List [   ], [object Object], List [  based on  ], [object Object], List [  and  ], [object Object], List [   ], [object Object], List [   ], [object Object], List [ . ] ]
+16:20:32.930 invariant.js:42 Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in.
+*
+          return Array.prototype.forEach.call(children, function(child){
+              this.serialize(child. children); //or something, they use reduce() accumulator
+          }); * return <strong>{children}</strong> **
+            default:
+            return {children}
+      }
+    },
+  },*/
+];
+//const initialValue = '<p></p>';
+console.log(Slate); //ther isn't a Slate.Node, does Html assume a different version of Slate?
+//const test = Slate.Html.deserialize('<em>hi</em> there'); // not a function
+//console.log(test);
+const html = new Slate.Html({ rules });
+console.log(html); // .serialize() takes an object with .nodes, like maybe: ome object containing document: {nodes: [ object: '', nodes: [] ]}
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -166,6 +340,7 @@ class FluxNotesEditor extends React.Component {
             state: initialState,
             isPortalOpen: false,
             portalOptions: null,
+            value: '', //html.deserialize(initialValue), param needs to be an object
         };
 
         // this.props.setFullAppState('isNoteViewerEditable', true);
@@ -373,9 +548,31 @@ class FluxNotesEditor extends React.Component {
             startKey: "0",
             startOffset: 0,
             endKey: endOfNoteKey,
-           endOffset: endOfNoteOffset
+            endOffset: endOfNoteOffset
         }; 
         let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
+        //console.log(fullText);
+        // problem is fullText has been converted but is never added to state, and is not accessed by html.js
+        // because it has no notion of text being transformed
+
+
+        // put styling tags in before saving
+        // todo save something more than plain text
+        //WRONG: const htmlContents = HTML.serialize(some object containing document: {nodes: [ object: '', nodes: [] ]})
+       // console.log(state);// is this the right kind? we need .documents.nodes[0].type == something defined in rules
+        if(!Lang.isUndefined(fullText) && !Lang.isUndefined(fullText.length) && fullText.length > 1){
+            //Does { render: false } prevent tag duplication? No
+            const string = html.serialize(state, {render: false}, this.structuredFieldPlugin.convertToText); //trying options like: {render: false} causes the first error to go away
+            // with render: false this is a List of Lists of Lists with text
+            
+            console.log(string); // to be saved if it has html tags
+            // TODO: set the text to the string containing styling tags
+            // fullText = string;
+        } else{
+            console.log("fullText is not defined");
+        }
+
+
         this.props.setFullAppStateWithCallback(function(prevState, props){
             return {documentText: fullText};
         });
@@ -657,6 +854,37 @@ class FluxNotesEditor extends React.Component {
         this.props.setFullAppState('layout', "right-collapsed");
     }
 
+    renderNode = props => {
+        switch (props.node.type) {
+        case 'code':
+            return (
+            <pre {...props.attributes}>
+                <code>{props.children}</code>
+            </pre>
+            )
+        case 'paragraph':
+            return <p {...props.attributes}>{props.children}</p>
+        case 'quote':
+            return <blockquote {...props.attributes}>{props.children}</blockquote>
+        default:
+            return  <p {...props.attributes}>{props.children}</p>
+        }
+    }
+ 
+    // Add a `renderMark` method to render marks.
+    renderMark = props => {
+        switch (props.mark.type) {
+            case 'bold':
+                return <strong>{props.children}</strong>
+            case 'italic':
+                return <em>{props.children}</em>
+            case 'underline':
+                return <u>{props.children}</u>
+            default:
+                return <p {...props.attributes}>{props.children}</p>
+            }
+        }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -778,6 +1006,10 @@ class FluxNotesEditor extends React.Component {
                         onFocus={this.onFocus}
                         onSelectionChange={this.onSelectionChange}
                         schema={schema}
+                        value={this.state.value}
+                        // Add the ability to render our nodes and marks...
+                        renderNode={this.renderNode}
+                        renderMark={this.renderMark}
                     />
                     {errorDisplay}
                     <CreatorsPortal
