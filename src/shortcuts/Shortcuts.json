@@ -219,23 +219,26 @@
     "description": "Support specifying the enrollment of the patient in a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialEnrollmentSheet.pdf"
   },
-  { "type": "CreatorBase",
+  { "type": "UpdaterBase",
     "id": "ClinicalTrialUnenrolledCreator",
     "name": "unenrolled",
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
-    "valueObjectAttributes": [  {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
-      {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}
+    "idAttributes": [
+        {"name":"title", "attribute":"title", "isSettable":"true", "childShortcut": "ClinicalTrialTitleCreator"}
     ],
-    "updatePatient": [{"object":"patient", "method": "addUnenrolled", "args": [ "$valueObject", "$clinicalNote" ]}],
-    "undoUpdatePatient": [],
+    "valueObjectAttributes": [  
+        {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}
+    ],
+    "updatePatient": [  {"object":"$valueObject", "attribute": "status", "args": [ "completed"]} ],
+    "undoUpdatePatient": [ {"object":"$valueObject", "attribute": "status", "args": [ "enrolled"]} ],
     "isContext": true,
     "stringTriggers": [{ "name": "#unenrolled", "description": "Support specifying the unenrollment of the patient from a clinical trial."}],
     "regexpTrigger": null,
     "form": "ClinicalTrialUnenrolledForm",
     "structuredPhrase": "#unenrolled from #${title}${% on #${date}}",
     "knownParentContexts": "Patient",
-    "description": "Support specifying the enrollment of the patient from a clinical trial.",
+    "description": "Support specifying the unenrollment of the patient from a clinical trial.",
     "structuredPhraseDocumentation": "clinicalTrialUnenrolledSheet.pdf"
   },
   { "type": "CreatorBase",

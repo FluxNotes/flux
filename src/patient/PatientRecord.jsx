@@ -145,7 +145,7 @@ class PatientRecord {
         entry.entryInfo.creationTime = new CreationTime();
         entry.entryInfo.creationTime.dateTime = today;
         if (clinicalNote) {
-            entry.entryInfo.sourceClinicalNote = PatientRecord.createEntryReferenceTo(clinicalNote.entryInfo);
+            entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
         }
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
@@ -181,8 +181,10 @@ class PatientRecord {
     }
 
     createEntryReferenceTo(entry) {
-        return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
-        //return {"EntryType": {"Value" : entry.entryInfo.entryType.value }, "ShrId": entry.entryInfo.shrId, "EntryId": entry.entryInfo.entryId};
+        if (entry.entryInfo) {
+            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
+        }
+        return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
     }
 
     getName() {
@@ -730,6 +732,12 @@ class PatientRecord {
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
             return item instanceof type
+        });
+    }
+    getEntriesOfEntryType(entryType) {
+        console.log("getEntriesOfType: " + entryType);
+        return this.entries.filter((entry) => {
+            return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
         });
     }
 

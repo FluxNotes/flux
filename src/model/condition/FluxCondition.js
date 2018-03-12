@@ -1,6 +1,9 @@
 import BodySite from '../shr/entity/BodySite';
 import Condition from '../shr/condition/Condition';
 import FluxDiseaseProgression from './FluxDiseaseProgression';
+import FluxMedicationRequested from '../medication/FluxMedicationRequested';
+import FluxObservation from '../finding/FluxObservation';
+import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import Lang from 'lodash';
 import moment from 'moment';
 
