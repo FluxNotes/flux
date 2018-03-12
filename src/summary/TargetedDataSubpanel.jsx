@@ -11,8 +11,21 @@ import './TargetedDataSubpanel.css';
 export default class TargetedDataSubpanel extends Component {
     constructor(props) {
         super(props);
-
+        // No patient by default
+        this._relevantPatientEntries = {};
         this._visualizerManager = new VisualizerManager();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) { 
+        const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
+
+        // Only update when a change occurs on non-note related objects.
+        if (!_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)) { 
+            this._relevantPatientEntries = _.cloneDeep(newRelevantPatientEntries);
+            return true;
+        } else { 
+            return false
+        }
     }
 
     getConditionMetadata() {

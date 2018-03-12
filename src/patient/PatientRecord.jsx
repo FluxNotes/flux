@@ -712,6 +712,14 @@ class PatientRecord {
         });
     }
 
+    getEntriesOtherThanNotes() {
+        return this.entries.filter((item) => { 
+            // FIXME: FluxBreastCancer has a circular dependency to patientrecord (and it's clinical notes)? 
+            // Is this a pervasive problem? Are we planning on fixing this? 
+            return !(item instanceof FluxClinicalNote || item instanceof FluxBreastCancer);
+        });
+    }
+
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
             return item instanceof type
