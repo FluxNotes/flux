@@ -121,13 +121,13 @@ export default class NotesPanel extends Component {
                 return (
                     <div>
                         <Row center="xs">
-                            <Col sm={7} md={8} lg={9}>
+                            <div className="editor-wrapper">
                                 {this.renderFluxNotesEditor()}
                                 {this.renderSignButton()}
-                            </Col>
-                            <Col sm={5} md={4} lg={3}>
+                            </div>
+                            <div className="note-assistant-wrapper">
                                 {this.renderNoteAssistant()}
-                            </Col>
+                            </div>
                         </Row>
                     </div>
                 );
@@ -136,12 +136,12 @@ export default class NotesPanel extends Component {
                 return (
                     <div>
                         <Row center="xs">
-                            <Col sm={7} md={8} lg={9}>
+                            <div className="editor-wrapper">
                                 {this.renderFluxNotesEditor()}
-                            </Col>
-                            <Col sm={5} md={4} lg={3}>
+                            </div>
+                            <div className="note-assistant-wrapper">
                                 {this.renderNoteAssistant()}
-                            </Col>
+                            </div>
                         </Row>
                     </div>
                 );
@@ -151,9 +151,9 @@ export default class NotesPanel extends Component {
         } else {
             return (
                 <Row center="xs">
-                    <Col sm={12}>
+                    <div className="note-assistant-wrapper">
                         {this.renderNoteAssistant()}
-                    </Col>
+                    </div>
                 </Row>
             );
         }

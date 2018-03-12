@@ -16,3 +16,13 @@
     min-width: 90% !important;
     margin: 20px 20px 20px 20px;
 }
+
+.note-assistant-wrapper {
+    width: 224px;
+}
+
+.editor-wrapper {
+    width: calc(100% - 224px - 16px);
+    padding-left: 8px;
+    padding-right: 8px;
+}

@@ -72,8 +72,8 @@ export default class ClinicianDashboard extends Component {
                 newNotesPanelSize = "75%";
                 break;
             case "right-collapsed":
-                newTargetedDataPanelSize = "75%";
-                newNotesPanelSize = "25%";
+                newTargetedDataPanelSize = "calc(100% - 200px)";
+                newNotesPanelSize = "";
                 break;
             case "split":
                 newTargetedDataPanelSize = "40%";
