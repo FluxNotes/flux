@@ -77,11 +77,14 @@ export default class ContextTray extends Component {
         if (context == null || context.children.length === 0) {
             return [];
         }
-
+        
         return context.children.filter((childContext) => activeContexts.indexOf(childContext) > -1);
     }
 
     renderParentContexts(contexts) {
+        
+        console.log("contexts");
+        console.log(contexts);
         const activeContextIndex = this.state.value - 2;
         const activeContext = contexts[activeContextIndex];
         const parentContexts = contexts.filter((context) => context.parentContext == null);
