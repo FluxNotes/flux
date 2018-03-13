@@ -13,6 +13,9 @@ export default class ContextTray extends Component {
         super(props);
 
         this.state = {
+            // value keeps track of which context is active
+            // 0 when Templates are selected. 1 when Patient is selected
+            // In editor, value is incremented by 1 for each context added (i.e @condition, #disease status)
             value: 1,
             lastActiveContextCount: 0,
             templates: [
@@ -39,6 +42,7 @@ export default class ContextTray extends Component {
         }
     }
 
+    // Get all contexts being used in the editor
     getActiveContexts() {
         let activeContexts = [];
 
@@ -82,19 +86,25 @@ export default class ContextTray extends Component {
     }
 
     renderParentContexts(contexts) {
-        
-        console.log("contexts");
-        console.log(contexts);
         const activeContextIndex = this.state.value - 2;
         const activeContext = contexts[activeContextIndex];
         const parentContexts = contexts.filter((context) => context.parentContext == null);
+
+        console.log("parent contexts");
+        console.log(parentContexts);
 
         if (parentContexts.length === 0) {
             return null;
         }
 
         const selectedParentContext = this.findParentContext(contexts);
+
+        console.log("selected parent context");
+        console.log(selectedParentContext);
         const children = this.filterContextChildren(contexts, selectedParentContext);
+
+        // console.log("children");
+        // console.log(children);
 
         return (
             <div>
@@ -103,17 +113,39 @@ export default class ContextTray extends Component {
                         const isActive = activeContext === context;
                         const contextIndex = contexts.indexOf(context) + 2;
 
-                        return (
-                            <div
-                                className={`section-item${isActive ? ' selected' : ''}`}
-                                onClick={() => this.setState({ value: contextIndex })}
-                                key={`context-header-option-${contextIndex}`}
-                                title={context.text}
-                            >
-                                <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
-                                {context.text}
-                            </div>
-                        );
+                        console.log("is active");
+                        console.log(isActive);
+
+                        console.log("context");
+                        console.log(context);
+
+                        if (!isActive && (selectedParentContext !== context)) {
+                            return (
+                                <div
+                                    className={`section-item${isActive ? ' selected' : '-disabled'}`}
+
+                                    key={`context-header-option-${contextIndex}`}
+                                    title={context.text}
+                                >
+                                    {/*<FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />*/}
+                                    {context.text}
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div
+                                    className={`section-item${isActive ? ' selected' : ''}`}
+                                    onClick={() => this.setState({ value: contextIndex })}
+                                    key={`context-header-option-${contextIndex}`}
+                                    title={context.text}
+                                >
+                                    <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
+                                    {context.text}
+                                </div>
+                            );
+                        }
+
+
                     })}
                 </section>
 
@@ -183,6 +215,11 @@ export default class ContextTray extends Component {
     render() {
         const { value, templates } = this.state;
         const activeContexts = this.getActiveContexts();
+
+        // console.log(activeContexts);
+        // console.log("value: ");
+        // console.log(value);
+        // console.log("activeContexts");
 
         return (
             <div className="context-tray">

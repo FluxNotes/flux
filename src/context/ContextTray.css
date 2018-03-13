@@ -23,6 +23,15 @@
   color: #333;
 }
 
+.context-tray .section-item-disabled {
+  margin: 3px 0px 3px 26px;
+  font-size: 0.9em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
 .context-tray .fa {
   font-size: 1.4em;
   color: #aaa;
