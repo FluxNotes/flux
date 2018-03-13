@@ -90,21 +90,12 @@ export default class ContextTray extends Component {
         const activeContext = contexts[activeContextIndex];
         const parentContexts = contexts.filter((context) => context.parentContext == null);
 
-        console.log("parent contexts");
-        console.log(parentContexts);
-
         if (parentContexts.length === 0) {
             return null;
         }
 
         const selectedParentContext = this.findParentContext(contexts);
-
-        console.log("selected parent context");
-        console.log(selectedParentContext);
         const children = this.filterContextChildren(contexts, selectedParentContext);
-
-        // console.log("children");
-        // console.log(children);
 
         return (
             <div>
@@ -113,21 +104,13 @@ export default class ContextTray extends Component {
                         const isActive = activeContext === context;
                         const contextIndex = contexts.indexOf(context) + 2;
 
-                        console.log("is active");
-                        console.log(isActive);
-
-                        console.log("context");
-                        console.log(context);
-
                         if (!isActive && (selectedParentContext !== context)) {
                             return (
                                 <div
                                     className={`section-item${isActive ? ' selected' : '-disabled'}`}
-
                                     key={`context-header-option-${contextIndex}`}
                                     title={context.text}
                                 >
-                                    {/*<FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />*/}
                                     {context.text}
                                 </div>
                             );
@@ -215,11 +198,6 @@ export default class ContextTray extends Component {
     render() {
         const { value, templates } = this.state;
         const activeContexts = this.getActiveContexts();
-
-        // console.log(activeContexts);
-        // console.log("value: ");
-        // console.log(value);
-        // console.log("activeContexts");
 
         return (
             <div className="context-tray">
