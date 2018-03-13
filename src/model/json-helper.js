@@ -150,6 +150,7 @@ function createInstance(key, value) {
     if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
+    console.log("createInstance of " + key);
     return OBJECT_FACTORY.createInstance(value, key);
   }
   return value;

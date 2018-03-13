@@ -1,6 +1,7 @@
-import FluxStudy from './FluxStudy';
 import ResearchSubject from '../shr/research/ResearchSubject';
 import Status from '../shr/action/Status';
+import Study from '../shr/research/Study';
+import TimePeriod from '../shr/core/TimePeriod';
 import Title from '../shr/core/Title';
 import Details from '../shr/core/Details';
 import Identifier from '../shr/core/Identifier';
@@ -41,7 +42,7 @@ class FluxResearchSubject {
 
     _createStudyIfNeeded() {
         if (!this._researchSubject.study) {
-            this._researchSubject.study = new FluxStudy();
+            this._researchSubject.study = new Study();
         }
     }
 
@@ -56,9 +57,10 @@ class FluxResearchSubject {
             this._researchSubject.study.title = null;
             return;
         }
-        let titleObj = new Title();
-        titleObj.value = title; 
-        this._researchSubject.study.title = titleObj;
+        if (!this._researchSubject.study.title) {
+            this._researchSubject.study.title = new Title();
+        }
+        this._researchSubject.study.title.value = title; 
     }
     /**
      *  Getter for detail
@@ -106,39 +108,47 @@ class FluxResearchSubject {
     }
 
     get enrollmentDate() {
-        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriodStart) return null;
-        return this._researchSubject.participationPeriod.timePeriodStart.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !!this._researchSubject.participationPeriod.timePeriod.timePeriodStart) return null;
+        return this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value;
     }
   
     set enrollmentDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.participationPeriod) {
-            this._researchSubject.participationPeriod.timePeriodStart = null;
+        if (Lang.isNull(val) && this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
+            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = null;
             return;
         }
         if (!this._researchSubject.participationPeriod) {
             this._researchSubject.participationPeriod = new ParticipationPeriod();
         }
-        let timePeriodStart = new TimePeriodStart();
-        timePeriodStart.value = val;
-        this._researchSubject.participationPeriod.timePeriodStart = timePeriodStart;
+        if (!this._researchSubject.participationPeriod.timePeriod) {
+            this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
+        }
+        if (!this._researchSubject.participationPeriod.timePeriod.timePeriodStart) {
+            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = new TimePeriodStart();
+        }
+        this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value = val;
     }
   
     get endDate() {
-        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriodEnd) return null;
-        return this._researchSubject.participationPeriod.timePeriodEnd.value;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.timePeriodEnd) return null;
+        return this._researchSubject.participationPeriod.timePeriod.timePeriodEnd.value;
     }
   
     set endDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.participationPeriod) {
-            this._researchSubject.participationPeriod.timePeriodEnd = null;
+        if (Lang.isNull(val) && this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
+            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = null;
             return;
         }
         if (!this._researchSubject.participationPeriod) {
             this._researchSubject.participationPeriod = new ParticipationPeriod();
         }
-        let timePeriodEnd = new TimePeriodEnd();
-        timePeriodEnd.value = val;
-        this._researchSubject.participationPeriod.timePeriodEnd = timePeriodEnd;
+        if (!this._researchSubject.participationPeriod.timePeriod) {
+            this._researchSubject.participationPeriod.timePeriod = new TimePeriod();
+        }
+        if (!this._researchSubject.participationPeriod.timePeriod.timePeriodEnd) {
+            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = new TimePeriodEnd();
+        }
+        this._researchSubject.participationPeriod.timePeriod.timePeriodEnd.value = val;
     }
 
     get status() {

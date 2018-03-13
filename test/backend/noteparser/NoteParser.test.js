@@ -3,10 +3,10 @@ import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProg
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
 import FluxDeceased from '../../../src/model/entity/FluxDeceased';
-import FluxStudy from '../../../src/model/research/FluxStudy';
+import FluxResearchSubject from '../../../src/model/research/FluxResearchSubject';
 import moment from 'moment';
 import {expect} from 'chai';
-//import util from 'util';
+import util from 'util';
 
 const noteParser = new NoteParser();
 
@@ -114,38 +114,62 @@ const expectedOutputDeceased = [[
     })
 ], []];
 const expectedOutputClinicalTrialEnrollment = [[
-    new FluxStudy({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
-        "shr.core.Title": {"Value": "PATINA"},
-        "shr.core.EffectiveTimePeriod": {
-            "shr.core.TimePeriodStart": {"Value": "4 Sep 2017"}
+    new FluxResearchSubject({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
+        "shr.research.Study": {
+            "shr.core.Title": {"Value": "PATINA"}
+        },
+        "shr.action.ParticipationPeriod": {
+            "shr.core.TimePeriod": {
+                "shr.core.TimePeriodStart": {
+                    "Value": "4 Sep 2017"
+                }
+            }
         }
     })
 ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[
-    new FluxStudy({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
-        "shr.core.Title": null,
-        "shr.core.EffectiveTimePeriod": {
-            "shr.core.TimePeriodStart": {"Value": null}
+    new FluxResearchSubject({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
+        "shr.research.Study": {
+            "shr.core.Title": null
+        },
+        "shr.action.ParticipationPeriod": {
+            "shr.core.TimePeriod": {
+                "shr.core.TimePeriodStart": {
+                    "Value": null
+                }
+            }
         }
     })
 ], []];
 const expectedOutputClinicalTrialUnenrolled = [[
-    new FluxStudy({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
-        "shr.core.Title": {"Value": "PATINA"},
-        "shr.core.EffectiveTimePeriod": {
-            "shr.core.TimePeriodEnd": {"Value": "6 Oct 2017"}
+    new FluxResearchSubject({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
+        "shr.research.Study": {
+            "shr.core.Title": {"Value": "PATINA"}
+        },
+        "shr.action.ParticipationPeriod": {
+            "shr.core.TimePeriod": {
+                "shr.core.TimePeriodEnd": {
+                    "Value": "6 Oct 2017"
+                }
+            }
         }
     })
 ], []];
 const expectedOutputClinicalTrialUnenrolledMinimal = [[
-    new FluxStudy({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/Study"},
-        "shr.core.Title": null,
-        "shr.core.EffectiveTimePeriod": {
-            "shr.core.TimePeriodEnd": {"Value": null}
+    new FluxResearchSubject({
+        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
+        "shr.research.Study": {
+            "shr.core.Title": null
+        },
+        "shr.action.ParticipationPeriod": {
+            "shr.core.TimePeriod": {
+                "shr.core.TimePeriodEnd": {
+                    "Value": null
+                }
+            }
         }
     })
 ], []];
@@ -229,6 +253,8 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollment);
+        console.log(util.inspect(record, false, null));
+        console.log(util.inspect(expectedOutputClinicalTrialEnrollment, false, null));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollment);
