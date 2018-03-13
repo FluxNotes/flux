@@ -1,38 +1,37 @@
 .context-tray {
-  margin: 20px 0;
-  color: #888;
+    margin: 20px 0;
+    color: #888;
 }
 
 .context-tray section {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
 }
 
 .context-tray .section-item {
-  margin: 3px 0;
-  font-size: 0.9em;
-  cursor: pointer;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+    margin: 3px 0;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .context-tray .section-item:hover,
 .context-tray .section-item.selected {
-  font-weight: bold;
-  color: #333;
+    font-weight: bold;
+    color: #333;
 }
 
 .context-tray .section-item-disabled {
-  margin: 3px 0px 3px 26px;
-  font-size: 0.9em;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+    margin: 3px 0px 3px 26px;
+    font-size: 0.9em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-
 .context-tray .fa {
-  font-size: 1.4em;
-  color: #aaa;
+    font-size: 1.4em;
+    color: #aaa;
 }
