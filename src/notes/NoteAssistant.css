@@ -12,7 +12,7 @@ span.button-hover {
 .toggle-buttons-container {
     display: flex !important;
     margin-left: auto;
-    max-width: 211px; /* Max width of Notes is 211px. This should match. */
+    max-width: 188px; /* Max width of Notes is 188px. This should match. */
     margin-right: 0;
 }
 
@@ -45,6 +45,7 @@ span.button-hover {
     font-weight: bold;
     font-size: 0.8em;
     margin: 10px;
+    max-width: 184px;
 }
 
 /* Sort */
@@ -56,6 +57,7 @@ span.button-hover {
 
 .sort-selection {
     margin-bottom: 20px;
+    max-width: 184px;
 }
 
 .sort-select {
@@ -103,6 +105,7 @@ li.sort-item:hover {
     background-color: white !important;
     padding: 10px !important;
     margin-top: 20px;
+    max-width: 184px;
 }
 
 .more-notes-btn:hover {
@@ -120,7 +123,7 @@ li.sort-item:hover {
 
 .note {
     position: relative;
-    max-width: 200px;
+    max-width: 150px;
     padding: 0.5em 1em;
     margin: 1em 0;
     color: #000;
