@@ -18,14 +18,36 @@ export default class TargetedDataSubpanel extends Component {
 
     shouldComponentUpdate(nextProps, nextState) { 
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
+        
+        // Need to ignore patientRecords on entries. 
+        // Solution: Remove them during comparison, restore those value after comparison.
+        const arrayOfPatientRecords = newRelevantPatientEntries.reduce(function (accumulator, currentEntry, currentIndex) { 
+            if (currentEntry._patientRecord) { 
+                const copyOfPatientRecord = currentEntry._patientRecord;
+                currentEntry._patientRecord = null;
+                accumulator.push({
+                    srcIndex: currentIndex,
+                    patientRecordCopy : copyOfPatientRecord
+                });
+            } 
+            return accumulator; 
+        }, []);
 
-        // Only update when a change occurs on non-note related objects.
-        if (!_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)) { 
+        // Only update local value when a change occurs on non-note related objects.
+        const relevantChangesMade = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)
+        if (relevantChangesMade) { 
             this._relevantPatientEntries = _.cloneDeep(newRelevantPatientEntries);
-            return true;
-        } else { 
-            return false
         }
+        // Restore all patientRecord references.  
+        for (const objIndex in arrayOfPatientRecords) { 
+            const copyObj = arrayOfPatientRecords[objIndex];
+            const srcIndex = copyObj.srcIndex;
+            const patientRecordCopy = copyObj.patientRecordCopy;
+            // Get the src object, and restore the old value using our copy
+            newRelevantPatientEntries[srcIndex]._patientRecord = patientRecordCopy;
+        };
+        // Return true when relevantChanges have been made.
+        return relevantChangesMade;
     }
 
     getConditionMetadata() {
