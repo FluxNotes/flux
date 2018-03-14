@@ -93,7 +93,7 @@ export default class UpdaterBase extends Shortcut {
 
     // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
     shouldBeInContext() {
-        const voaList = this.metadata["valueObjectAttributes"];
+        const voaList = this.metadata["valueObjectAttributes"].concat(this.metadata["idAttributes"]);
         let value, isSettable;
         let result = false;
         voaList.forEach((voa) => {
