@@ -13,6 +13,9 @@ export default class ContextTray extends Component {
         super(props);
 
         this.state = {
+            // value keeps track of which context is active
+            // 0 when Templates are selected. 1 when Patient is selected
+            // In editor, value is incremented by 1 for each context added (i.e @condition, #disease status)
             value: 1,
             lastActiveContextCount: 0,
             templates: [
@@ -39,6 +42,7 @@ export default class ContextTray extends Component {
         }
     }
 
+    // Get all contexts being used in the editor
     getActiveContexts() {
         let activeContexts = [];
 
@@ -77,7 +81,7 @@ export default class ContextTray extends Component {
         if (context == null || context.children.length === 0) {
             return [];
         }
-
+        
         return context.children.filter((childContext) => activeContexts.indexOf(childContext) > -1);
     }
 
@@ -100,17 +104,31 @@ export default class ContextTray extends Component {
                         const isActive = activeContext === context;
                         const contextIndex = contexts.indexOf(context) + 2;
 
-                        return (
-                            <div
-                                className={`section-item${isActive ? ' selected' : ''}`}
-                                onClick={() => this.setState({ value: contextIndex })}
-                                key={`context-header-option-${contextIndex}`}
-                                title={context.text}
-                            >
-                                <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
-                                {context.text}
-                            </div>
-                        );
+                        if (!isActive && (selectedParentContext !== context)) {
+                            return (
+                                <div
+                                    className={`section-item${isActive ? ' selected' : '-disabled'}`}
+                                    key={`context-header-option-${contextIndex}`}
+                                    title={context.text}
+                                >
+                                    {context.text}
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div
+                                    className={`section-item${isActive ? ' selected' : ''}`}
+                                    onClick={() => this.setState({ value: contextIndex })}
+                                    key={`context-header-option-${contextIndex}`}
+                                    title={context.text}
+                                >
+                                    <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
+                                    {context.text}
+                                </div>
+                            );
+                        }
+
+
                     })}
                 </section>
 

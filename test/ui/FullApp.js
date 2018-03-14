@@ -664,6 +664,38 @@ test('Clicking "@condition" and choosing multiple conditions creates condition s
         .notOk();
 });
 
+test('Clicking "@condition" and choosing multiple conditions does not allow user to select other conditions besides the current condition from the context tray in the condition section.', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+    const contextPanelElements = Selector('.context-options-list').find('.context-option');
+    const sectionItemElements = Selector('.context-tray').find('.section-item');
+    const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const patientButton = await sectionItemElements.withText(/Patient/g);
+
+    // Input first condition
+    await t
+        .click(conditionButton);
+    const selectedConditionFracture = Selector('.context-portal').find('li').withText('Fracture');
+    await t
+        .click(selectedConditionFracture);
+
+    // Input second condition
+    await t
+        .click(patientButton);
+    await t
+        .click(conditionButton);
+    const selectedConditionInvasive = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    await t
+        .click(selectedConditionInvasive);
+
+    const condition1Button = await sectionItemElements.withText(/Fracture/g);
+
+    await t
+        .expect(condition1Button.exists)
+        .notOk()
+});
 
 fixture('Patient Mode - Clinical Notes list')
     .page(startPage);
