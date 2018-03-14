@@ -73,7 +73,7 @@ export function setPropertiesFromJSON(inst, json) {
     if (setterOnEntry) {
       setterOnEntry.call(inst.entryInfo, createInstance(key, json[key]));
     }
-    // If we didn't find a match directly or on entryInfo, spit an error to the console.  The exception is for
+  // If we didn't find a match directly or on entryInfo, spit an error to the console.  The exception is for
     // shr.base.EntryType, which is used to indicate the field's type in the JSON, but not necessarily always a
     // settable property in the class.
     if (!setter && !setterOnEntry && key !== 'shr.base.EntryType') {
@@ -100,7 +100,7 @@ function findSetterForProperty(inst, property) {
   if (pd) {
     return pd.set;
   }
-  // It didn't exist on this prototype, but may be from a superclass
+// It didn't exist on this prototype, but may be from a superclass
   return findSetterForProperty(proto, property);
 }
 
@@ -137,6 +137,7 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
+  if (value == null) return null;
   if (typeof value === 'object') {
     if (value.ShrId && value.EntryId && value.EntryType) {
       // It's a reference, so just return the reference
@@ -149,7 +150,8 @@ function createInstance(key, value) {
     if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
-    return OBJECT_FACTORY.createInstance(value, key);
+    const result = OBJECT_FACTORY.createInstance(value, key);
+    return result;
   }
   return value;
 }

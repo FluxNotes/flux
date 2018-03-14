@@ -126,7 +126,8 @@ export default class FullApp extends Component {
     // Update shortcuts and update patients accordingly
     handleShortcutUpdate = (s) => {
         let p = this.state.patient;
-        s.updatePatient(p, this.contextManager);
+        let note = this.state.openClinicalNote;
+        s.updatePatient(p, this.contextManager, note);
     }
 
     // Update the current structured field we're within.
@@ -148,6 +149,12 @@ export default class FullApp extends Component {
         this.setState({
             selectedText: selectedText
         })
+    }
+    
+    setOpenClinicalNote = (openClinicalNote) => {
+        this.setState({
+            openClinicalNote: openClinicalNote
+        });
     }
 
     // Update the summaryItemToInsert based on the item given
@@ -220,6 +227,7 @@ export default class FullApp extends Component {
                             handleStructuredFieldExited={this.handleStructuredFieldExited}
                             handleSelectionChange={this.handleSelectionChange}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
+                            setOpenClinicalNote={this.setOpenClinicalNote}
                         />
                     </Grid>
                 </div>

@@ -1,4 +1,4 @@
-import { ListItemIcon, ListItemText } from 'material-ui/List';
+    import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
@@ -94,8 +94,9 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else {
-                    if (item.value(patient, condition)) {
-                        return {name: item.name, value: item.value(patient, condition)[0], shortcut: item.shortcut, unsigned: item.value(patient, condition)[1]};
+                    let val = item.value(patient, condition);
+                    if (val) {
+                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1]};
                     } else {
                         return {name: item.name, value: null};
                     }
@@ -122,7 +123,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return item.name === valueName;
         };
         let _addLabResultToNarrative = (item) => {
-            return item.name + ": " + item.value;
+            return item.name + ": " + item.value[0];
         };
         let _addListItemToResult = (listItem) => {
             if (!first) result.push( { text: ', ', type: 'plain' });
@@ -157,7 +158,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 valueName = valueSpec.substring(index + 1);
                 list = this.getList(subsections[subsectionName]);
                 item = list.find(_filterItemsByName);
-
+                
                 if(item.value && item.unsigned){
                     value = item.value;
                     type = "unsigned-data";
@@ -236,9 +237,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
           positionTop,
         } = this.state;
         
-        const insertItem = (item) => {
-            const callback = () => { 
-                this.props.onItemClicked(item);
+        const insertItem = (element) => {
+            if (Lang.isArray(element.value)) element.value = element.value[0];
+            const callback = () => {
+                this.props.onItemClicked(element);
             };
             this.closeInsertionMenu(callback);
         };
@@ -248,6 +250,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         narrative.forEach((snippet, index) => {
             if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && this.props.allowItemClick) {
                 const snippetId = `${snippet.item.name}-${index}`
+                const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(
                     <span key={snippetId}>
                         <span 
@@ -270,7 +273,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 <ListItemIcon>
                                     <FontAwesome name="plus"/>
                                 </ListItemIcon>
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippet.item.value}"`} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippetValue}"`} />
                             </MenuItem>
                         </Menu>
                     </span>

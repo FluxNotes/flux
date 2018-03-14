@@ -1,4 +1,5 @@
 import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
 import moment from 'moment';
@@ -8,6 +9,8 @@ class FluxClinicalNote {
         this._entryInfo = new Entry();
         this._entryInfo.shrId = json['shr.base.ShrId'];
         this._entryInfo.entryId = json['shr.base.EntryId'];
+        this._entryInfo.entryType = new EntryType();
+        this._entryInfo.entryType.value = "http://standardhealthrecord.org/spec/shr/core/ClinicalNote";
         let today = new moment().format("D MMM YYYY");
         this._entryInfo.creationTime = new CreationTime();
         this._entryInfo.creationTime.dateTime = today;

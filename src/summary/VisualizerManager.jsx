@@ -54,7 +54,6 @@ class VisualizerManager {
                     if(item.value(patient, condition)) {
                         return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]], shortcut: item.shortcut};
                     } else {
-
                         return {name: item.name, value: null, shortcut: item.shortcut};
                     }
                 } else {
@@ -72,7 +71,7 @@ class VisualizerManager {
             if (Lang.isNull(item.value)) {
                 return [    { value: item.name, isInsertable: false}, null ];
             } else {
-                return [    { value: item.name, isInsertable: false, unsigned: item.value[1] }, { value: item.value[0], shortcut: item.shortcut } ];
+                return [    { value: item.name, isInsertable: false}, { value: item.value, shortcut: item.shortcut } ];
             }
         });
         return newsection;

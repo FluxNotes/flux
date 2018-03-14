@@ -12,7 +12,7 @@ import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
 import FluxQuestionAnswer from '../model/finding/FluxQuestionAnswer';
-import FluxStudy from '../model/research/FluxStudy';
+import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import CreationTime from '../model/shr/core/CreationTime';
 import LastUpdated from '../model/shr/base/LastUpdated';
@@ -30,9 +30,7 @@ class PatientRecord {
             this.person = this.getPerson();
             //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
             this.shrId = this.patient.entryInfo.shrId;
-            this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-                return o.entryInfo.entryId;
-            })) + 1;
+            this._calculateNextEntryId();
         } else { // create a new patient
             this.entries = [];
             this.patient = null;
@@ -41,8 +39,13 @@ class PatientRecord {
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
-        this.unsignedEntries = {};
     }
+    
+    _calculateNextEntryId() {
+        this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
+            return o.entryInfo.entryId;
+        })) + 1;
+    }        
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
@@ -50,33 +53,21 @@ class PatientRecord {
         });
     }
     
-    // When typing a note creates an entry, it is not yet signed and this function is invoked.
-    markUnsigned(entry) {
-        var key = entry.entryInfo.shrId + ":" + entry.entryInfo.entryId;
-        // Stores a flag in a sparse data structure that indicates that this entry is unsigned
-        this.unsignedEntries[key] = true; // potential confusion, signed = false when unsignedEntries = true
-    }
-
-    markSigned(entry){
-        // Removes the flag that indicates that this entry is unsigned
-        var key = this.shrId + ":" + entry.entryInfo.entryId;
-        delete this.unsignedEntries[key];
-    }
-
-    // Removes the flag from all entries in unsignedEntries indicating that the entry is unsigned
-    markAllSigned() {
-        this.unsignedEntries = {};
-    }
-
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry){
         if(Lang.isNull(entry)) return false;
 
-        var key = this.shrId + ":" + entry.entryInfo.entryId;
+        if (entry.entryInfo.sourceClinicalNote) {
+            //console.log(entry.entryInfo.sourceClinicalNote);
+            let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
+            return !clinicalNote.signed;
+        }
+        return false;
+/*        var key = this.shrId + ":" + entry.entryInfo.entryId;
         if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
             return true;
         }
-        return false;
+        return false;*/
     }
 	
 	fromFHIR(fhirJson) {
@@ -99,7 +90,7 @@ class PatientRecord {
 		});
 
         this.patient = this.getPatient();
-        this.nextEntryId = Math.max.apply(Math, this.entries.map(function(o) { return o.entryInfo.entryId; })) + 1;
+        this._calculateNextEntryId();
     }
     
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
@@ -112,30 +103,50 @@ class PatientRecord {
             this.entries[index] = updatedEntry;
         }
     }
+    
+    addUnenrolled(entry, clinicalNote) {
+        if (!(entry.title) || entry.title.length === 0) return null;
+        var found = this.entries.find(function(element) {
+            if (!(element instanceof FluxResearchSubject)) return false;
+            return element.title === entry.title;
+        });
+        if(!Lang.isUndefined(found)) {
+            found.status = 'Completed';
+            return found;
+        } else {
+            return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
+        }            
+    }
 
-    addEntryToPatient(entry, signed = false) {
+    addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
         let today = new moment().format("D MMM YYYY");
         entry.entryInfo.creationTime = new CreationTime();
         entry.entryInfo.creationTime.dateTime = today;
+        if (clinicalNote) {
+            entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
+        }
         entry.entryInfo.lastUpdated = new LastUpdated();
         entry.entryInfo.lastUpdated.instant = today;
-        //entry.entryInfo.entryType = [ "http://standardhealthrecord.org/core/ClinicalNote" ]; probably not needed, uses instanceof
         this.entries.push(entry);
-        if(Lang.isEqual(signed, false)){
-            this.markUnsigned(entry);
-        } else{
-            this.markSigned(entry);
-        }
-        // TODO evaluate saving updated PatientRecord/entries to the database. Should it happen every time it changes, e.g. right here? or less frequently.
-        return entry.entryInfo.entryId;
+        return entry; //entry.entryInfo.entryId;
     }
 
-    addEntryToPatientWithPatientFocalSubject(entry, signed) { 
+    addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) { 
         //entry.personOfRecord = this.patientReference;
-        return this.addEntryToPatient(entry, signed);
+        return this.addEntryToPatient(entry, clinicalNote);
+    }
+    
+    removeEntryFromPatient(entry) {
+        const index = this.entries.indexOf(entry);
+        if (index >= 0) {
+            this.entries.splice(index, 1);
+            this._calculateNextEntryId();
+        } else {
+            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId);
+        }
     }
 
     setDeceased(deceased) {
@@ -151,8 +162,10 @@ class PatientRecord {
     }
 
     createEntryReferenceTo(entry) {
-        return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
-        //return {"EntryType": {"Value" : entry.entryInfo.entryType.value }, "ShrId": entry.entryInfo.shrId, "EntryId": entry.entryInfo.entryId};
+        if (entry.entryInfo) {
+            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
+        }
+        return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
     }
 
     getName() {
@@ -291,12 +304,14 @@ class PatientRecord {
            
     getClinicalTrials(){
         let clinicalTrialList = new ClinicalTrialsList();
-        let result = this.getEntriesOfType(FluxStudy);
+        let result = this.getEntriesOfType(FluxResearchSubject);
             
         result.forEach((study) => {
-            let trial = clinicalTrialList.getClinicalTrialByName(study.title);
-            if (trial) {
-                study.details = trial.description;
+            if (study.title) {
+                let trial = clinicalTrialList.getClinicalTrialByName(study.title);
+                if (trial) {
+                    study.details = trial.description;
+                }
             }
         });
         
@@ -409,7 +424,7 @@ class PatientRecord {
         );
         
 
-        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, signed);
+        return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
     getNotes() {
@@ -702,10 +717,9 @@ class PatientRecord {
             return item instanceof type
         });
     }
-
-    static getEntriesOfTypeFromList(list, type) {
-        return list.filter((item) => {
-            return item.entryType[0] === type
+    getEntriesOfEntryType(entryType) {
+        return this.entries.filter((entry) => {
+            return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
         });
     }
 

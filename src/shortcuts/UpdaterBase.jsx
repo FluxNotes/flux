@@ -1,21 +1,20 @@
+import FluxObjectFactory from '../model/FluxObjectFactory';
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
-import FluxObjectFactory from '../model/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
-export default class CreatorBase extends Shortcut {
+export default class UpdaterBase extends Shortcut {
     constructor(onUpdate, metadata, object) {
         super();
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
         if (Lang.isUndefined(object)) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
-            this.isObjectNew = true;
+            this.object = null;
         } else {
             this.object = object;
-            this.isObjectNew = false;
         }
+        this.isObjectNew = false;
         this.setValueObject(this.object);
 
         // get attribute descriptions
@@ -23,10 +22,23 @@ export default class CreatorBase extends Shortcut {
         this.valueObjectAttributes = {};
         this.values = {};
         this.isSet = {};
+        this.idAttributes = [];
+        this._createAttributePaths(metadataVOA, this.valueObjectAttributes, this.values, this.isSet, null);
+
+        const idMetadataVOA =this.metadata["idAttributes"];
+        this._createAttributePaths(idMetadataVOA, this.valueObjectAttributes, this.values, this.isSet, this.idAttributes);
+
+        this.idComplete = false;
+        this.onUpdate = onUpdate;
+        this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.getAttributeValue = this.getAttributeValue.bind(this);
+    }
+
+    _createAttributePaths(metadataVOA, valueObjectAttributes, values, isSet, idAttributes) {
         metadataVOA.forEach((attrib) => {
-            this.isSet[attrib.name] = false;
+            isSet[attrib.name] = false;
             if (Lang.isUndefined(attrib["attribute"])) {
-                this.values[attrib.name] = false;
+                values[attrib.name] = false;
                 attrib["attributePath"] = null;
                 attrib["type"] = "boolean";
             } else {
@@ -36,12 +48,15 @@ export default class CreatorBase extends Shortcut {
                     attrib["type"] = "string";
                 }
                 attrib["attributePath"] = attrib["attribute"].split(".");
-
             }
-            this.valueObjectAttributes[attrib.name] = attrib;
+            if (idAttributes) {
+                idAttributes.push(attrib.name);
+                attrib["isId"] = true;
+            } else {
+                attrib["isId"] = false;
+            }
+            valueObjectAttributes[attrib.name] = attrib;
         });
-        this.onUpdate = onUpdate;
-        this.setAttributeValue = this.setAttributeValue.bind(this);
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true) {
@@ -66,6 +81,10 @@ export default class CreatorBase extends Shortcut {
                 this.setAttributeValue(attrib.name, null, true, updatePatient);
             }
         });
+        const idMetadataVOA = this.metadata["idAttributes"];
+        idMetadataVOA.forEach((attrib) => {
+            this.setAttributeValue(attrib.name, null, true, updatePatient);
+        });
     }
 
     isContext() {
@@ -74,7 +93,7 @@ export default class CreatorBase extends Shortcut {
 
     // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
     shouldBeInContext() {
-        const voaList = this.metadata["valueObjectAttributes"];
+        const voaList = this.metadata["valueObjectAttributes"].concat(this.metadata["idAttributes"]);
         let value, isSettable;
         let result = false;
         voaList.forEach((voa) => {
@@ -109,7 +128,7 @@ export default class CreatorBase extends Shortcut {
             tagName: this.metadata["form"],
             props: {
                 updateValue: this.setAttributeValue,
-                object: this.object,
+                getValue: this.getAttributeValue,
                 ...this.configuration
             },
             children: []
@@ -121,7 +140,6 @@ export default class CreatorBase extends Shortcut {
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
-        this.removeFromPatient();
         return result;
     }
 
@@ -150,7 +168,7 @@ export default class CreatorBase extends Shortcut {
                 before = conditional.substring(0, start2);
                 after = conditional.substring(end2 + 1);
                 value = this.getAttributeValue(valueName);
-                if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
@@ -223,17 +241,40 @@ export default class CreatorBase extends Shortcut {
     }
 
     getAttributeValue(name) {
+        return this.values[name];
+    }
+
+    _getAttributeValue(obj, name) {
         const voa = this.valueObjectAttributes[name];
 
         if (Lang.isNull(voa["attributePath"])) {
             return this.values[voa["name"]];
         } else {
             const attributePath = voa["attributePath"];
-            return this._followPath(this.object, attributePath, 0);
+            return this._followPath(obj, attributePath, 0);
         }
     }
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
+        const voa = this.valueObjectAttributes[name];
+        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
+        this.isSet[name] = (value != null);
+        if (value == null && voa.default) {
+            value = voa.default;
+            if (value === "$today") {
+                value = new moment().format('D MMM YYYY');
+            }
+        }
+        this.values[name] = value;
+
+        if (this.isContext()) this.updateContextStatus();
+        if (this.onUpdate && updatePatient) this.onUpdate(this);
+        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }
+    }
+
+    _setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");
         this.isSet[name] = (value != null);
@@ -247,7 +288,7 @@ export default class CreatorBase extends Shortcut {
         }
         if (Lang.isUndefined(patientSetMethod)) {
             if (Lang.isUndefined(setMethod)) {
-                this.values[name] = value;
+                //this.values[name] = value;
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
                     let list = this.getAttributeValue(name);
@@ -266,12 +307,8 @@ export default class CreatorBase extends Shortcut {
                 PatientRecord[patientSetMethod](this.object, value);
             }
         }
-        if (this.isContext()) this.updateContextStatus();
-        if (this.onUpdate && updatePatient) this.onUpdate(this);
-        if (publishChanges) {
-            this.notifyValueChangeHandlers(name);
-        }
     }
+
 
     getLabel() {
         return this.metadata["name"];
@@ -349,40 +386,89 @@ export default class CreatorBase extends Shortcut {
         }
         return null;
     }
-    
-    removeFromPatient() {
-        if (this.isObjectNew) return;
-        const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
-        if (undoUpdatePatientSpecList) {
-            undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
-                this.callMethod(this.patient, undoUpdatePatientSpec);
+
+    getValueObject() {
+        if (!this.valueObject) {
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            Object.keys(this.valueObjectAttributes).forEach((voa) => {
+                this._setAttributeValue(voa, this.values[voa]);
             });
-        } else {
-            this.patient.removeEntryFromPatient(this.object);
+            this.setValueObject(this.object);
         }
-    }
+		return this.valueObject;
+	}
     
     updatePatient(patient, contextManager, clinicalNote) {
-        if (this.isObjectNew) {
-            const updatePatientSpecList = this.metadata["updatePatient"];
-            let result;
-            if (updatePatientSpecList) {
-                updatePatientSpecList.forEach((updatePatientSpec) => {
-                    result = this.callMethod(patient, updatePatientSpec, clinicalNote);
-                    if (Lang.isNull(result)) {
-                        return;
+        let idComplete = true;
+        this.idAttributes.forEach((idAttrib) => {
+            idComplete &= this.getAttributeIsSet(idAttrib);
+        });
+        if (!idComplete) {
+            if (this.idComplete) {
+                if (this.isObjectNew) {
+                    this.patient.removeEntryFromPatient(this.object);
+                    this.isObjectNew = false;
+                    this.setValueObject(null);
+                    this.object = null;
+                } else {
+                    const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
+                    if (undoUpdatePatientSpecList) {
+                        undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
+                            this.callMethod(this.patient, undoUpdatePatientSpec);
+                        });
                     }
-                    if (result) {
-                        if (Lang.isObject(result)) this.object = result;
-                    }
-                });
-                if (Lang.isNull(result)) return;
-            } else {
-                this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
+                }
             }
-            this.patient = patient;
-            this.isObjectNew = false;
+            this.idComplete = false;
+            if (this.isContext()) this.updateContextStatus();
+            return;
         }
+        this.idComplete = true;
+        const entryType = this.metadata["valueObject"];
+        let entries = patient.getEntriesOfEntryType(entryType);
+        let match, val;
+        let filteredEntries = entries.filter((entry) => {
+            match = true;
+            this.idAttributes.forEach((idAttrib) => {
+                val = this._getAttributeValue(entry, idAttrib);
+                if (typeof val === 'string') {
+                    match &= (val.toUpperCase() === this.values[idAttrib].toUpperCase());
+                } else {
+                    match &= (val === this.values[idAttrib]);
+                }
+            });
+            return match;
+        });
+
+        if (filteredEntries.length === 0) {
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
+            this.isObjectNew = true;
+        } else {
+            this.object = filteredEntries[0];
+        }
+
+        Object.keys(this.valueObjectAttributes).forEach((voa) => {
+            if (!voa.isId || this.isObjectNew) {
+                this._setAttributeValue(voa, this.values[voa]);
+            }
+        });
+
+        const updatePatientSpecList = this.metadata["updatePatient"];
+        if (updatePatientSpecList) {
+            updatePatientSpecList.forEach((updatePatientSpec) => {
+                this.callMethod(patient, updatePatientSpec, clinicalNote);
+            });
+        }
+        this.setValueObject(this.object);
+
+        if (this.isContext()) this.updateContextStatus();
+//        if (this.onUpdate) this.onUpdate(this);
+/*        if (publishChanges) {
+            this.notifyValueChangeHandlers(name);
+        }*/
+
+        this.patient = patient;
     }
 
     getPrefixCharacter() {

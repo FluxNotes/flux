@@ -16,11 +16,12 @@ class ClinicalTrialUnenrolledForm extends Component {
             selectedEndDate: null,
             selectedDateChoice: 'endDate'
         };
+        this.props.updateValue("title", null, false, false);
     }
 
     isSelectedTrial = (trial) => {
-        // What it is checking might need to change if the toxicity.attribution structure changes in Patient
-        return this.props.object.title === trial.name;
+        const curTitle = this.props.getValue("title");
+        return curTitle && curTitle.toUpperCase() === trial.name.toUpperCase();
     }
 
 
@@ -38,7 +39,7 @@ class ClinicalTrialUnenrolledForm extends Component {
         });
 
         if (this.state.selectedDateChoice === "endDate") {
-            this.props.updateValue("endDateDate", selectedDate); //.format('D MMM YYYY'));
+            this.props.updateValue("date", selectedDate); //.format('D MMM YYYY'));
         }
     }
 

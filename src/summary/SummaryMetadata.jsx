@@ -149,7 +149,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return [s.stage, patient.isUnsigned(currentConditionEntry)];
+                                                return [s.stage, patient.isUnsigned(s)];
                                             } else {
                                                 return null;
                                             }
@@ -397,7 +397,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let list = currentConditionEntry.getObservationsOfType(FluxTumorDimensions);
                                             if (list.length === 0) return null;
-                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(currentConditionEntry)];
+                                            return [list[0].quantity.value + " " + list[0].quantity.unit, patient.isUnsigned(list[0])];
                                         }
                                     },
                                     {
@@ -418,7 +418,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return [er.status, patient.isUnsigned(currentConditionEntry)];
+                                                return [er.status, patient.isUnsigned(er)];
                                             }
                                         }
                                     },
@@ -429,7 +429,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return [pr.status, patient.isUnsigned(currentConditionEntry)];
+                                                return [pr.status, patient.isUnsigned(pr)];
                                             }
                                         }
                                     },
@@ -440,7 +440,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return [her2.status, patient.isUnsigned(currentConditionEntry)];
+                                                return [her2.status, patient.isUnsigned(her2)];
                                             }
                                         }
                                     }
@@ -478,7 +478,7 @@ export default class SummaryMetadata {
                                             return [panel.members.map((item) => {
                                                 const v = item.value === 'Positive' ? '+' : '-';
                                                 return item.abbreviatedName + v;
-                                            }).join(","), patient.isUnsigned(currentConditionEntry)];
+                                            }).join(","), patient.isUnsigned(panel)];
                                         }
                                     }
                                 ]
@@ -494,7 +494,7 @@ export default class SummaryMetadata {
                         data: [
                             {
                                 name: "",
-                                headings: ["Name", "Date of Enrollment", "Description"],
+                                headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             }
                         ]
@@ -745,7 +745,7 @@ export default class SummaryMetadata {
 
             return {
                 name: name,
-                value: [value, patient.isUnsigned(currentConditionEntry)]
+                value: [value, patient.isUnsigned(l)]
             };
         });
     }
@@ -757,15 +757,22 @@ export default class SummaryMetadata {
         if (clinicalTrials.length === 0) {
             return [];
         } else {
-            return clinicalTrials.map((c, i) => {
+            return clinicalTrials.filter((c) => {
+                return (c.title) && (c.status !== 'Candidate');
+            }).map((c, i) => {
                 return [
                     {
                         value: [c.title, patient.isUnsigned(c)]
                     },
-                    c.enrollmentDate,
+                    {
+                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c)]
+                    },
+                    {
+                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c)]
+                    },
                     c.details
                 ]; 
-            }); 
+            });
         }
     }
 

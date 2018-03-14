@@ -195,6 +195,7 @@ export default class ClinicianDashboard extends Component {
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         noteClosed={this.props.appState.noteClosed}
+                        setOpenClinicalNote={this.props.setOpenClinicalNote}
                     />
                 </div>
             </div>

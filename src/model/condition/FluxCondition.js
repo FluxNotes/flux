@@ -1,9 +1,9 @@
 import BodySite from '../shr/entity/BodySite';
 import Condition from '../shr/condition/Condition';
+import FluxDiseaseProgression from './FluxDiseaseProgression';
+import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
-import FluxMedicationRequested from '../medication/FluxMedicationRequested';
-import FluxDiseaseProgression from './FluxDiseaseProgression';
 import Lang from 'lodash';
 import moment from 'moment';
 
@@ -64,12 +64,27 @@ class FluxCondition {
         return this._condition.bodySiteOrCode.value.laterality.value.coding[0].displayText.value;        
     }
 
-    addObservation(observation) {
-        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation);
+    addObservation(observation, clinicalNote) {
+        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation, clinicalNote);
         let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(ref);
         this._condition.evidence  = currentObservations;
+    }
+
+    removeObservation(observation) {
+        this._patientRecord.removeEntryFromPatient(observation);
+        const matchingRefs = this._condition.evidence.filter((ref) => {
+            return (    ref.entryId === observation.entryInfo.entryId &&
+                        ref.entryType === observation.entryInfo.entryType.value &&
+                        ref.shrId === observation.entryInfo.shrId);
+        });
+        if (matchingRefs.length > 0) {
+            const index = this._condition.evidence.indexOf(matchingRefs[0]);
+            this._condition.evidence.splice(index, 1);
+        } else {
+            console.error("Attempted to delete an entry that does not exist: " + observation.entryInfo.entryId);
+        }
     }
 
     getObservationsOfTypeChronologicalOrder(type) {

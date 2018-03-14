@@ -185,6 +185,22 @@ class Entry extends Any {
   }
 
   /**
+   * Get the SourceClinicalNote.
+   * @returns {SourceClinicalNote} The shr.base.SourceClinicalNote
+   */
+  get sourceClinicalNote() {
+    return this._sourceClinicalNote;
+  }
+
+  /**
+   * Set the SourceClinicalNote.
+   * @param {SourceClinicalNote} sourceClinicalNote - The shr.base.SourceClinicalNote
+   */
+  set sourceClinicalNote(sourceClinicalNote) {
+    this._sourceClinicalNote = sourceClinicalNote;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Entry class.
    * The JSON must be valid against the Entry JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize

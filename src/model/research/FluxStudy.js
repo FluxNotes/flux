@@ -42,7 +42,10 @@ class FluxStudy {
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
-        if (Lang.isNull(title)) return;
+        if (Lang.isNull(title)) {
+            this._study.title = null;
+            return;
+        }
         let titleObj = new Title();
         titleObj.value = title; 
         this._study.title = titleObj;
@@ -96,7 +99,10 @@ class FluxStudy {
     }
   
     set enrollmentDate(val) {
-        if (Lang.isNull(val)) return;
+        if (Lang.isNull(val) && this._study.effectiveTimePeriod) {
+            this._study.effectiveTimePeriod.timePeriodStart = null;
+            return;
+        }
         if (!this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod = new EffectiveTimePeriod();
         }
@@ -111,7 +117,10 @@ class FluxStudy {
     }
   
     set endDate(val) {
-        if (Lang.isNull(val)) return;
+        if (Lang.isNull(val) && this._study.effectiveTimePeriod) {
+            this._study.effectiveTimePeriod.timePeriodEnd = null;
+            return;
+        }
         if (!this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod = new EffectiveTimePeriod();
         }
