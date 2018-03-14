@@ -13,14 +13,22 @@ export default class TargetedDataSubpanel extends Component {
         super(props);
         // No patient by default
         this._relevantPatientEntries = {};
+        this._signedNotesCount = 0;
+        this._clinicalEvent = "";
+        this._currentIsWide = null;
         this._visualizerManager = new VisualizerManager();
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
-        
-        // Need to ignore patientRecords on entries. 
+        // Four current reasons to update:
+        // - There is a change to the entries this component cares about
+        // - A note has been signed and our representation of the data should reflect it's new signedness
+        // - Clinical event has shifted
+        // - isWide has changed
+        // Case 1: Entries
+        // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
+        const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
         const arrayOfPatientRecords = newRelevantPatientEntries.reduce(function (accumulator, currentEntry, currentIndex) { 
             if (currentEntry._patientRecord) { 
                 const copyOfPatientRecord = currentEntry._patientRecord;
@@ -32,10 +40,10 @@ export default class TargetedDataSubpanel extends Component {
             } 
             return accumulator; 
         }, []);
-
-        // Only update local value when a change occurs on non-note related objects.
-        const relevantChangesMade = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)
-        if (relevantChangesMade) { 
+        // Only update local value when a change occurs on non-note related objects, or a new number of notes.
+        const changesToRelevantEntries = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)
+        // Update our local entries if updated
+        if (changesToRelevantEntries) { 
             this._relevantPatientEntries = _.cloneDeep(newRelevantPatientEntries);
         }
         // Restore all patientRecord references.  
@@ -46,8 +54,32 @@ export default class TargetedDataSubpanel extends Component {
             // Get the src object, and restore the old value using our copy
             newRelevantPatientEntries[srcIndex]._patientRecord = patientRecordCopy;
         };
-        // Return true when relevantChanges have been made.
-        return relevantChangesMade;
+        
+        // Case 2: SignedNote count 
+        const newSignedNotesCount = nextProps.patient.getNotes().reduce(function (totalNumberOfSignedNotes, currentNote) { 
+            return totalNumberOfSignedNotes + (currentNote.signed ? 1 : 0);
+        }, 0);
+        const changesToSignedNotesCount = newSignedNotesCount !== this._signedNotesCount;
+        // Update our local count of signed notes if updated
+        if (changesToSignedNotesCount) { 
+            this._signedNotesCount = newSignedNotesCount; 
+        }
+
+        // Case 3: ClinicalEvent 
+        const newClinicalEvent = nextProps.clinicalEvent;
+        const changesToClinicalEvent = (this._clinicalEvent !== newClinicalEvent)
+        if(changesToClinicalEvent) { 
+            this._clinicalEvent = newClinicalEvent;
+        }
+
+        // Case 4: isWide 
+        const newIsWide = nextProps.isWide;
+        const changesToIsWide = (this._currentIsWide !== newIsWide)
+        if(changesToIsWide) { 
+            this._currentIsWide = newIsWide;
+        }
+
+        return changesToRelevantEntries || changesToSignedNotesCount || changesToClinicalEvent || changesToIsWide;
     }
 
     getConditionMetadata() {
