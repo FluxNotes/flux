@@ -64,8 +64,8 @@ class FluxCondition {
         return this._condition.bodySiteOrCode.value.laterality.value.coding[0].displayText.value;        
     }
 
-    addObservation(observation) {
-        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation);
+    addObservation(observation, clinicalNote) {
+        this._patientRecord.addEntryToPatientWithPatientFocalSubject(observation, clinicalNote);
         let ref = this._patientRecord.createEntryReferenceTo(observation);
         let currentObservations = this._condition.evidence || [];
         currentObservations.push(ref);
