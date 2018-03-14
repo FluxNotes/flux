@@ -225,7 +225,7 @@
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
     "idAttributes": [
-        {"name":"title", "attribute":"title", "isSettable":"true", "childShortcut": "ClinicalTrialTitleCreator"}
+        {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"}
     ],
     "valueObjectAttributes": [  
         {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}

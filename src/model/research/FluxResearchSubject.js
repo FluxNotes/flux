@@ -43,6 +43,7 @@ class FluxResearchSubject {
     _createStudyIfNeeded() {
         if (!this._researchSubject.study) {
             this._researchSubject.study = new Study();
+            this._researchSubject.study.entryInfo = new Entry();
         }
     }
 
@@ -53,10 +54,10 @@ class FluxResearchSubject {
      */
     set title(title) {
         this._createStudyIfNeeded();
-        if (Lang.isNull(title)) {
+/*        if (Lang.isNull(title)) {
             this._researchSubject.study.title = null;
             return;
-        }
+        }*/
         if (!this._researchSubject.study.title) {
             this._researchSubject.study.title = new Title();
         }
@@ -108,15 +109,17 @@ class FluxResearchSubject {
     }
 
     get enrollmentDate() {
-        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !!this._researchSubject.participationPeriod.timePeriod.timePeriodStart) return null;
+        if (!this._researchSubject.participationPeriod || !this._researchSubject.participationPeriod.timePeriod || !this._researchSubject.participationPeriod.timePeriod.timePeriodStart) return null;
         return this._researchSubject.participationPeriod.timePeriod.timePeriodStart.value;
     }
   
     set enrollmentDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodStart = null;
+/*        if (Lang.isNull(val)) {
+            if (this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
+                this._researchSubject.participationPeriod.timePeriod.timePeriodStart = null;
+            }
             return;
-        }
+        }*/
         if (!this._researchSubject.participationPeriod) {
             this._researchSubject.participationPeriod = new ParticipationPeriod();
         }
@@ -135,10 +138,12 @@ class FluxResearchSubject {
     }
   
     set endDate(val) {
-        if (Lang.isNull(val) && this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
-            this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = null;
+/*        if (Lang.isNull(val)) {
+            if (this._researchSubject.participationPeriod && this._researchSubject.participationPeriod.timePeriod) {
+                this._researchSubject.participationPeriod.timePeriod.timePeriodEnd = null;
+            }
             return;
-        }
+        }*/
         if (!this._researchSubject.participationPeriod) {
             this._researchSubject.participationPeriod = new ParticipationPeriod();
         }

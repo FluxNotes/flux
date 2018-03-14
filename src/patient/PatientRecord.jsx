@@ -326,9 +326,11 @@ class PatientRecord {
         let result = this.getEntriesOfType(FluxResearchSubject);
             
         result.forEach((study) => {
-            let trial = clinicalTrialList.getClinicalTrialByName(study.title);
-            if (trial) {
-                study.details = trial.description;
+            if (study.title) {
+                let trial = clinicalTrialList.getClinicalTrialByName(study.title);
+                if (trial) {
+                    study.details = trial.description;
+                }
             }
         });
         
@@ -735,7 +737,6 @@ class PatientRecord {
         });
     }
     getEntriesOfEntryType(entryType) {
-        console.log("getEntriesOfType: " + entryType);
         return this.entries.filter((entry) => {
             return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
         });

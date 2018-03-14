@@ -1,3 +1,4 @@
+import FluxObjectFactory from '../model/FluxObjectFactory';
 import PatientRecord from '../patient/PatientRecord';
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
@@ -13,6 +14,7 @@ export default class UpdaterBase extends Shortcut {
         } else {
             this.object = object;
         }
+        this.isObjectNew = false;
         this.setValueObject(this.object);
 
         // get attribute descriptions
@@ -29,6 +31,7 @@ export default class UpdaterBase extends Shortcut {
         this.idComplete = false;
         this.onUpdate = onUpdate;
         this.setAttributeValue = this.setAttributeValue.bind(this);
+        this.getAttributeValue = this.getAttributeValue.bind(this);
     }
 
     _createAttributePaths(metadataVOA, valueObjectAttributes, values, isSet, idAttributes) {
@@ -78,6 +81,10 @@ export default class UpdaterBase extends Shortcut {
                 this.setAttributeValue(attrib.name, null, true, updatePatient);
             }
         });
+        const idMetadataVOA = this.metadata["idAttributes"];
+        idMetadataVOA.forEach((attrib) => {
+            this.setAttributeValue(attrib.name, null, true, updatePatient);
+        });
     }
 
     isContext() {
@@ -121,7 +128,7 @@ export default class UpdaterBase extends Shortcut {
             tagName: this.metadata["form"],
             props: {
                 updateValue: this.setAttributeValue,
-                object: this.object,
+                getValue: this.getAttributeValue,
                 ...this.configuration
             },
             children: []
@@ -161,7 +168,7 @@ export default class UpdaterBase extends Shortcut {
                 before = conditional.substring(0, start2);
                 after = conditional.substring(end2 + 1);
                 value = this.getAttributeValue(valueName);
-                if (Lang.isNull(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
+                if (Lang.isNull(value) || Lang.isUndefined(value) || value === '' || (Lang.isArray(value) && value.length === 0)) {
                 } else {
                     if (value instanceof moment) value = value.format('MM/DD/YYYY');
                     haveAValue = true;
@@ -230,13 +237,10 @@ export default class UpdaterBase extends Shortcut {
     }
     
     getAttributeIsSet(name) {
-        //console.log("UpdaterBase.getAttributeIsSet. " + name + " => " + this.isSet[name]);
         return this.isSet[name];
     }
 
     getAttributeValue(name) {
-        //console.log("UpdaterBase.getAttributeValue. " + name + " => " + this.values[name]);
-        //return this._getAttributeValue(this.object, name);
         return this.values[name];
     }
 
@@ -382,49 +386,70 @@ export default class UpdaterBase extends Shortcut {
         }
         return null;
     }
+
+    getValueObject() {
+        if (!this.valueObject) {
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            Object.keys(this.valueObjectAttributes).forEach((voa) => {
+                this._setAttributeValue(voa, this.values[voa]);
+            });
+            this.setValueObject(this.object);
+        }
+		return this.valueObject;
+	}
     
     updatePatient(patient, contextManager, clinicalNote) {
-        console.log("UpdaterBase.updatePatient");
         let idComplete = true;
         this.idAttributes.forEach((idAttrib) => {
             idComplete &= this.getAttributeIsSet(idAttrib);
         });
         if (!idComplete) {
             if (this.idComplete) {
-                const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
-                if (undoUpdatePatientSpecList) {
-                    undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
-                        this.callMethod(this.patient, undoUpdatePatientSpec);
-                    });
-                }        
+                if (this.isObjectNew) {
+                    this.patient.removeEntryFromPatient(this.object);
+                    this.isObjectNew = false;
+                    this.setValueObject(null);
+                    this.object = null;
+                } else {
+                    const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
+                    if (undoUpdatePatientSpecList) {
+                        undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
+                            this.callMethod(this.patient, undoUpdatePatientSpec);
+                        });
+                    }
+                }
             }
             this.idComplete = false;
+            if (this.isContext()) this.updateContextStatus();
             return;
         }
         this.idComplete = true;
         const entryType = this.metadata["valueObject"];
         let entries = patient.getEntriesOfEntryType(entryType);
-        //console.log(entries);
         let match, val;
         let filteredEntries = entries.filter((entry) => {
             match = true;
             this.idAttributes.forEach((idAttrib) => {
                 val = this._getAttributeValue(entry, idAttrib);
-                match &= (val === this.values[idAttrib]);
+                if (typeof val === 'string') {
+                    match &= (val.toUpperCase() === this.values[idAttrib].toUpperCase());
+                } else {
+                    match &= (val === this.values[idAttrib]);
+                }
             });
             return match;
         });
 
-        //console.log(filteredEntries);
         if (filteredEntries.length === 0) {
-            console.warn("object not found");
-            return;
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
+            this.isObjectNew = true;
+        } else {
+            this.object = filteredEntries[0];
         }
-        this.object = filteredEntries[0];
 
         Object.keys(this.valueObjectAttributes).forEach((voa) => {
-            if (!voa.isId) {
-                console.log(voa);
+            if (!voa.isId || this.isObjectNew) {
                 this._setAttributeValue(voa, this.values[voa]);
             }
         });
@@ -435,6 +460,7 @@ export default class UpdaterBase extends Shortcut {
                 this.callMethod(patient, updatePatientSpec, clinicalNote);
             });
         }
+        this.setValueObject(this.object);
 
         if (this.isContext()) this.updateContextStatus();
 //        if (this.onUpdate) this.onUpdate(this);

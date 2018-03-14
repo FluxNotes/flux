@@ -132,7 +132,7 @@ const expectedOutputClinicalTrialEnrollmentMinimal = [[
     new FluxResearchSubject({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
         "shr.research.Study": {
-            "shr.core.Title": null
+            "shr.core.Title": {"Value": null }
         },
         "shr.action.ParticipationPeriod": {
             "shr.core.TimePeriod": {
@@ -162,7 +162,7 @@ const expectedOutputClinicalTrialUnenrolledMinimal = [[
     new FluxResearchSubject({
         "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
         "shr.research.Study": {
-            "shr.core.Title": null
+            "shr.core.Title": {"Value": null }
         },
         "shr.action.ParticipationPeriod": {
             "shr.core.TimePeriod": {
@@ -253,8 +253,6 @@ describe('parse', function() {
     });
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollment);
-        console.log(util.inspect(record, false, null));
-        console.log(util.inspect(expectedOutputClinicalTrialEnrollment, false, null));
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollment);
