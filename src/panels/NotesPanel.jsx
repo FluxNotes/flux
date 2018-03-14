@@ -83,7 +83,7 @@ export default class NotesPanel extends Component {
     }
 
     // invokes closing logic in NoteAssistant
-    closeNote(){
+    closeNote() {
         this.closeNoteChild();
     }
 
@@ -93,9 +93,6 @@ export default class NotesPanel extends Component {
         let tempNote =  this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
-
-        // Clear unsigned entries
-        this.props.patient.markAllSigned();
 
         // Close the current note
        this.closeNote();
