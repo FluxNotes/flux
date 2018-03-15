@@ -712,6 +712,12 @@ class PatientRecord {
         });
     }
 
+    getEntriesOtherThanNotes() {
+        return this.entries.filter((item) => { 
+            return !(item instanceof FluxClinicalNote);
+        });
+    }
+
     getEntriesOfType(type) {
         return this.entries.filter((item) => {
             return item instanceof type

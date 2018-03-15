@@ -11,8 +11,92 @@ import './TargetedDataSubpanel.css';
 export default class TargetedDataSubpanel extends Component {
     constructor(props) {
         super(props);
-
+        // No patient by default
+        this._relevantPatientEntries = {};
+        this._signedNotesCount = 0;
+        this._clinicalEvent = "";
+        this._currentIsWide = null;
+        this._currentConditionString = "";
         this._visualizerManager = new VisualizerManager();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) { 
+        // Five current reasons to update:
+        // - There is a change to the entries this component cares about
+        // - A note has been signed and our representation of the data should reflect it's new signedness
+        // - Clinical event has shifted
+        // - isWide has changed
+        // - Condition has changed
+        // Case 1: Entries
+        // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
+        // Solution: Remove them during comparison, restore those value after comparison.
+        const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
+        const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
+            if (currentEntry._patientRecord) { 
+                const copyOfPatientRecord = currentEntry._patientRecord;
+                currentEntry._patientRecord = null;
+                accumulator.push({
+                    srcIndex: currentIndex,
+                    patientRecordCopy : copyOfPatientRecord
+                });
+            } 
+            return accumulator; 
+        }, []);
+        // Only update local value when a change occurs on non-note related objects, or a new number of notes.
+        const changesToRelevantEntries = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)
+        // Update our local entries if updated
+        if (changesToRelevantEntries) { 
+            this._relevantPatientEntries = _.cloneDeep(newRelevantPatientEntries);
+        }
+        // Restore all patientRecord references.  
+        for (const objIndex in arrayOfPatientRecords) { 
+            const copyObj = arrayOfPatientRecords[objIndex];
+            const srcIndex = copyObj.srcIndex;
+            const patientRecordCopy = copyObj.patientRecordCopy;
+            // Get the src object, and restore the old value using our copy
+            newRelevantPatientEntries[srcIndex]._patientRecord = patientRecordCopy;
+        };
+        
+        // Case 2: SignedNote count 
+        const newSignedNotesCount = nextProps.patient.getNotes().reduce((totalNumberOfSignedNotes, currentNote) => { 
+            return totalNumberOfSignedNotes + (currentNote.signed ? 1 : 0);
+        }, 0);
+        const changesToSignedNotesCount = newSignedNotesCount !== this._signedNotesCount;
+        // Update our local count of signed notes if updated
+        if (changesToSignedNotesCount) { 
+            this._signedNotesCount = newSignedNotesCount; 
+        }
+
+        // Case 3: ClinicalEvent 
+        const newClinicalEvent = nextProps.clinicalEvent;
+        const changesToClinicalEvent = (this._clinicalEvent !== newClinicalEvent)
+        if (changesToClinicalEvent) { 
+            this._clinicalEvent = newClinicalEvent;
+        }
+
+        // Case 4: isWide 
+        const newIsWide = nextProps.isWide;
+        const changesToIsWide = (this._currentIsWide !== newIsWide)
+        if (changesToIsWide) { 
+            this._currentIsWide = newIsWide;
+        }
+
+        // Case 5: Condition string changes: need string represenatation
+        const newConditionCodeSystem = nextProps.condition.codeSystem;
+        const newConditionCode = nextProps.condition.code
+        // May not be human readable, but is a unique identifier and that's all we need here.
+        const newConditionString = `${newConditionCodeSystem}${newConditionCode}`;
+        // const changesToConditionString = false; 
+        const changesToConditionString = (this._currentConditionString !== newConditionString)
+        if (changesToConditionString) { 
+            this._currentConditionString = newConditionString
+        }
+
+        return changesToRelevantEntries 
+            || changesToSignedNotesCount 
+            || changesToClinicalEvent 
+            || changesToIsWide
+            || changesToConditionString;
     }
 
     getConditionMetadata() {
