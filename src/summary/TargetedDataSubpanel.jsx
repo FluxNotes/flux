@@ -77,7 +77,7 @@ export default class TargetedDataSubpanel extends Component {
         // Case 4: isWide 
         const newIsWide = nextProps.isWide;
         const changesToIsWide = (this._currentIsWide !== newIsWide)
-        if(changesToIsWide) { 
+        if (changesToIsWide) { 
             this._currentIsWide = newIsWide;
         }
 
