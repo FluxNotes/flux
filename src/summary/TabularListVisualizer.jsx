@@ -236,13 +236,12 @@ class TabularListVisualizer extends Component {
             positionTop,
         } = this.state;
 
-        const insertItem = (element) => {
-            if (Lang.isArray(element.value)) element.value = element.value[0];
+        const onMenuItemClicked = (fn, element) => {
             const callback = () => {
-                this.props.onItemClicked(element);
-            };
+                fn(element);
+            }
             this.closeInsertionMenu(callback);
-        };
+        }
         return (
             <div>
                 <span
@@ -258,15 +257,22 @@ class TabularListVisualizer extends Component {
                     onClose={(event) => this.closeInsertionMenu()}
                     className="narrative-inserter-tooltip"
                 >
-                    <MenuItem
-                        onClick={() => insertItem(element)}
-                        className="narrative-inserter-box"
-                    >
-                        <ListItemIcon>
-                            <FontAwesome name="plus"/>
-                        </ListItemIcon>
-                        <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
-                    </MenuItem>
+                    {
+                        this.props.actions.map((a, index) => {
+                            return (
+                                <MenuItem
+                                    key={`${elementId}-${index}`}
+                                    onClick={() => onMenuItemClicked(a.handler, element)}
+                                    className="narrative-inserter-box"
+                                >
+                                    <ListItemIcon>
+                                        <FontAwesome name="plus"/>
+                                    </ListItemIcon>
+                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
+                                </MenuItem>
+                            )
+                        })
+                    }
                 </Menu>
             </div>
         );
@@ -412,8 +418,8 @@ TabularListVisualizer.propTypes = {
     conditionSection: PropTypes.object,
     sectionTransform: PropTypes.func,
     isWide: PropTypes.bool,
-    onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    actions: PropTypes.array
 };
 
 export default TabularListVisualizer;

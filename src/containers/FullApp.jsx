@@ -70,6 +70,13 @@ export default class FullApp extends Component {
             noteClosed: false,
 
         };
+
+        this.actions = [
+            {
+                type: "structured-data",
+                handler: this.handleSummaryItemSelected
+            }
+        ]
     }
 
     // On component mount, grab the username of the logged in user
@@ -161,6 +168,7 @@ export default class FullApp extends Component {
     // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
         if (item) {
+            if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
@@ -229,6 +237,9 @@ export default class FullApp extends Component {
                             handleSelectionChange={this.handleSelectionChange}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             setOpenClinicalNote={this.setOpenClinicalNote}
+
+                            // Actions
+                            actions={this.actions}
                         />
                     </Grid>
                 </div>

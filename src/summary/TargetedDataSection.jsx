@@ -125,7 +125,7 @@ export default class TargetedDataSection extends Component {
     // TODO: Add a List type and a tabular renderer for it for Procedures section. case where left column is data
     //       and not just a label
     renderSection = (section) => {
-        const { patient, condition, onItemClicked, allowItemClick, isWide, type } = this.props;
+        const { patient, condition, allowItemClick, isWide, type, actions } = this.props;
         const visualization = this.checkVisualization();
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
@@ -140,9 +140,9 @@ export default class TargetedDataSection extends Component {
                 condition={condition}
                 conditionSection={section}
                 sectionTransform={sectionTransform}
-                onItemClicked={onItemClicked}
                 allowItemClick={allowItemClick}
                 isWide={isWide}
+                actions={actions}
             />
         );
     }
@@ -176,6 +176,7 @@ TargetedDataSection.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     onItemClicked: PropTypes.func,
+    actions: PropTypes.array,
     allowItemClick: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired

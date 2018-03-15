@@ -237,13 +237,12 @@ class NarrativeNameValuePairsVisualizer extends Component {
           positionTop,
         } = this.state;
         
-        const insertItem = (element) => {
-            if (Lang.isArray(element.value)) element.value = element.value[0];
+        const onMenuItemClicked = (fn, element) => {
             const callback = () => {
-                this.props.onItemClicked(element);
-            };
+                fn(element);
+            }
             this.closeInsertionMenu(callback);
-        };
+        }
         
         // now go through each snippet and build up HTML to render
         let content = [];
@@ -266,15 +265,22 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             onClose={(event) => this.closeInsertionMenu()}
                             className="narrative-inserter-tooltip"
                         >
-                            <MenuItem   
-                                onClick={() => insertItem(snippet.item)}
-                                className="narrative-inserter-box"
-                            >
-                                <ListItemIcon>
-                                    <FontAwesome name="plus"/>
-                                </ListItemIcon>
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippetValue}"`} />
-                            </MenuItem>
+                            {
+                                this.props.actions.map((a, index) => {
+                                    return (
+                                        <MenuItem   
+                                            key={`${snippetId}-${index}`}
+                                            onClick={() => onMenuItemClicked(a.handler, snippet.item)}
+                                            className="narrative-inserter-box"
+                                        >
+                                            <ListItemIcon>
+                                                <FontAwesome name="plus"/>
+                                            </ListItemIcon>
+                                            <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippetValue}"`} />
+                                        </MenuItem>
+                                    )
+                                })
+                            }
                         </Menu>
                     </span>
                 );
@@ -299,8 +305,8 @@ NarrativeNameValuePairsVisualizer.propTypes = {
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
-    onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    actions: PropTypes.array
 };
 
 export default NarrativeNameValuePairsVisualizer;

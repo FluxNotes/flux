@@ -36,8 +36,8 @@ export default class TargetedDataPanel extends Component {
                                 condition={this.props.appState.condition}
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 summaryMetadata={this.props.appState.summaryMetadata}
-                                onItemClicked={this.props.handleSummaryItemSelected}
                                 allowItemClick={this.props.isNoteViewerEditable}
+                                actions={this.props.actions}
                             />
                         </div>
                     </div>
@@ -54,7 +54,7 @@ TargetedDataPanel.proptypes = {
         summaryMetadata: PropTypes.object.isRequired
     }).isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
-    handleSummaryItemSelected: PropTypes.func.isRequired,
+    actions: PropTypes.array.isRequired,
     isWide: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
