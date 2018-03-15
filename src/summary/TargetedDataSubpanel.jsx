@@ -31,7 +31,7 @@ export default class TargetedDataSubpanel extends Component {
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
-        const arrayOfPatientRecords = newRelevantPatientEntries.reduce(function (accumulator, currentEntry, currentIndex) { 
+        const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
             if (currentEntry._patientRecord) { 
                 const copyOfPatientRecord = currentEntry._patientRecord;
                 currentEntry._patientRecord = null;
@@ -58,7 +58,7 @@ export default class TargetedDataSubpanel extends Component {
         };
         
         // Case 2: SignedNote count 
-        const newSignedNotesCount = nextProps.patient.getNotes().reduce(function (totalNumberOfSignedNotes, currentNote) { 
+        const newSignedNotesCount = nextProps.patient.getNotes().reduce((totalNumberOfSignedNotes, currentNote) => { 
             return totalNumberOfSignedNotes + (currentNote.signed ? 1 : 0);
         }, 0);
         const changesToSignedNotesCount = newSignedNotesCount !== this._signedNotesCount;
@@ -70,7 +70,7 @@ export default class TargetedDataSubpanel extends Component {
         // Case 3: ClinicalEvent 
         const newClinicalEvent = nextProps.clinicalEvent;
         const changesToClinicalEvent = (this._clinicalEvent !== newClinicalEvent)
-        if(changesToClinicalEvent) { 
+        if (changesToClinicalEvent) { 
             this._clinicalEvent = newClinicalEvent;
         }
 
