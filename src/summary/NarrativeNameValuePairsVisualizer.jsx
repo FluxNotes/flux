@@ -249,7 +249,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         narrative.forEach((snippet, index) => {
             if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && this.props.allowItemClick) {
                 const snippetId = `${snippet.item.name}-${index}`
-                const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
+                // const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(
                     <span key={snippetId}>
                         <span 
@@ -266,17 +266,20 @@ class NarrativeNameValuePairsVisualizer extends Component {
                             className="narrative-inserter-tooltip"
                         >
                             {
-                                this.props.actions.map((a, index) => {
+                                this.props.actions.filter(a => a.type === "structured-data").map((a, index) => {
+                                    const icon = a.icon ? (
+                                        <ListItemIcon>
+                                            <FontAwesome name={a.icon} />
+                                        </ListItemIcon>
+                                    ) : null;
                                     return (
                                         <MenuItem   
                                             key={`${snippetId}-${index}`}
                                             onClick={() => onMenuItemClicked(a.handler, snippet.item)}
                                             className="narrative-inserter-box"
                                         >
-                                            <ListItemIcon>
-                                                <FontAwesome name="plus"/>
-                                            </ListItemIcon>
-                                            <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippetValue}"`} />
+                                            {icon}
+                                            <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
                                         </MenuItem>
                                     )
                                 })

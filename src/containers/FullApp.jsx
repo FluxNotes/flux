@@ -74,7 +74,9 @@ export default class FullApp extends Component {
         this.actions = [
             {
                 type: "structured-data",
-                handler: this.handleSummaryItemSelected
+                handler: this.handleSummaryItemSelected,
+                text: "Insert Data",
+                icon: "plus"
             }
         ]
     }

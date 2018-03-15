@@ -245,7 +245,7 @@ class TabularListVisualizer extends Component {
         return (
             <div>
                 <span
-                    data-test-summary-item={item} 
+                    data-test-summary-item={item}
                     onClick={(event) => this.openInsertionMenu(event, elementId)}
                 >
                     {elementText}
@@ -258,17 +258,20 @@ class TabularListVisualizer extends Component {
                     className="narrative-inserter-tooltip"
                 >
                     {
-                        this.props.actions.map((a, index) => {
+                        this.props.actions.filter(a => a.type === "structured-data").map((a, index) => {
+                            const icon = a.icon ? (
+                                <ListItemIcon>
+                                    <FontAwesome name={a.icon} />
+                                </ListItemIcon>
+                            ) : null;
                             return (
                                 <MenuItem
                                     key={`${elementId}-${index}`}
                                     onClick={() => onMenuItemClicked(a.handler, element)}
                                     className="narrative-inserter-box"
                                 >
-                                    <ListItemIcon>
-                                        <FontAwesome name="plus"/>
-                                    </ListItemIcon>
-                                    <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${elementText}"`} />
+                                    {icon}
+                                    <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
                                 </MenuItem>
                             )
                         })
