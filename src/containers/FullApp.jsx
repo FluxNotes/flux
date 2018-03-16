@@ -71,6 +71,14 @@ export default class FullApp extends Component {
 
         };
 
+        /*  actions is a list of actions passed to the visualizers
+         *  TODO: Add additional properties that define the criteria in which an action should be available(missing, signed, unsigned, editor open etc...)
+         *  Each action has following properties:
+         *      type     Indicates the type of action.  Can be 'structured-data' or 'missing-data'
+         *      handler  Function defined in FullApp that performs some action when the item is clicked
+         *      text     Text to display for this action in the Menu
+         *      icon     FontAwesome(?) icon to display
+         */
         this.actions = [
             {
                 type: "structured-data",
