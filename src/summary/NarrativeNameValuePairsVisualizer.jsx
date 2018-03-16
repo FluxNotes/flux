@@ -202,6 +202,57 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
+    // renders Menu for snippet and associated actions as Menu items
+    // Will check whether an action should be rendered as a Menu item based on criteria of each action
+    renderedMenu = (snippet, snippetId, actionType) => {
+        const {
+            snippetDisplayingMenu,
+            positionLeft,
+            positionTop,
+        } = this.state;
+        const onMenuItemClicked = (fn, element) => {
+            const callback = () => {
+                fn(element);
+            }
+            this.closeInsertionMenu(callback);
+        }
+
+        // Filter actions by type
+        // TODO: Filter actions by specific criteria
+        const filteredActions = this.props.actions.filter(a => a.type === actionType);
+        if (filteredActions.length === 0) return null;
+        return (
+            <Menu
+                open={snippetDisplayingMenu === snippetId}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: positionTop, left: positionLeft }}
+                onClose={(event) => this.closeInsertionMenu()}
+                className="narrative-inserter-tooltip"
+            >
+                {
+                    // map filterActions to MenuItems
+                    filteredActions.map((a, index) => {
+                        const icon = a.icon ? (
+                            <ListItemIcon>
+                                <FontAwesome name={a.icon} />
+                            </ListItemIcon>
+                        ) : null;
+                        return (
+                            <MenuItem
+                                key={`${snippetId}-${index}`}
+                                onClick={() => onMenuItemClicked(a.handler, snippet)}
+                                className="narrative-inserter-box"
+                            >
+                                {icon}
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
+                            </MenuItem>
+                        )
+                    })
+                }
+            </Menu>
+        );
+    }
+
     // Opens the insertion menu for the given snippet id, based on cursor location
     openInsertionMenu = (event, snippetId) => { 
         // Get menu coordinates
@@ -231,18 +282,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
-        const {
-          snippetDisplayingMenu,
-          positionLeft,
-          positionTop,
-        } = this.state;
-        
-        const onMenuItemClicked = (fn, element) => {
-            const callback = () => {
-                fn(element);
-            }
-            this.closeInsertionMenu(callback);
-        }
         
         // now go through each snippet and build up HTML to render
         let content = [];
@@ -258,33 +297,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             {snippet.text}
                         </span>
-                        <Menu
-                            open={snippetDisplayingMenu === snippetId}
-                            anchorReference="anchorPosition"
-                            anchorPosition={{ top: positionTop, left: positionLeft }}
-                            onClose={(event) => this.closeInsertionMenu()}
-                            className="narrative-inserter-tooltip"
-                        >
-                            {
-                                this.props.actions.filter(a => a.type === "structured-data").map((a, index) => {
-                                    const icon = a.icon ? (
-                                        <ListItemIcon>
-                                            <FontAwesome name={a.icon} />
-                                        </ListItemIcon>
-                                    ) : null;
-                                    return (
-                                        <MenuItem   
-                                            key={`${snippetId}-${index}`}
-                                            onClick={() => onMenuItemClicked(a.handler, snippet.item)}
-                                            className="narrative-inserter-box"
-                                        >
-                                            {icon}
-                                            <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
-                                        </MenuItem>
-                                    )
-                                })
-                            }
-                        </Menu>
+                        {this.renderedMenu(snippet.item, snippetId, "structured-data")}
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
