@@ -230,18 +230,6 @@ class TabularListVisualizer extends Component {
     }
 
     renderedStructuredData(item, element, elementId, elementText) {
-        const {
-            elementToDisplayMenu,
-            positionLeft,
-            positionTop,
-        } = this.state;
-
-        const onMenuItemClicked = (fn, element) => {
-            const callback = () => {
-                fn(element);
-            }
-            this.closeInsertionMenu(callback);
-        }
         return (
             <div>
                 <span
@@ -250,33 +238,7 @@ class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                <Menu
-                    open={elementToDisplayMenu === elementId}
-                    anchorReference="anchorPosition"
-                    anchorPosition={{ top: positionTop, left: positionLeft }}
-                    onClose={(event) => this.closeInsertionMenu()}
-                    className="narrative-inserter-tooltip"
-                >
-                    {
-                        this.props.actions.filter(a => a.type === "structured-data").map((a, index) => {
-                            const icon = a.icon ? (
-                                <ListItemIcon>
-                                    <FontAwesome name={a.icon} />
-                                </ListItemIcon>
-                            ) : null;
-                            return (
-                                <MenuItem
-                                    key={`${elementId}-${index}`}
-                                    onClick={() => onMenuItemClicked(a.handler, element)}
-                                    className="narrative-inserter-box"
-                                >
-                                    {icon}
-                                    <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
-                                </MenuItem>
-                            )
-                        })
-                    }
-                </Menu>
+                {this.renderedMenu(element, elementId, "structured-data")}
             </div>
         );
     }
@@ -388,6 +350,57 @@ class TabularListVisualizer extends Component {
                     {renderedColumns}  
                 </tr>
             );
+    }
+
+    // renders Menu for element and associated actions as Menu items
+    // Will check whether an action should be rendered as a Menu item based on criteria of each action
+    renderedMenu = (element, elementId, actionType) => {
+        const {
+            elementToDisplayMenu,
+            positionLeft,
+            positionTop,
+        } = this.state;
+        const onMenuItemClicked = (fn, element) => {
+            const callback = () => {
+                fn(element);
+            }
+            this.closeInsertionMenu(callback);
+        }
+
+        // Filter actions by type
+        // TODO: Filter actions by specific criteria
+        const filteredActions = this.props.actions.filter(a => a.type === actionType);
+        if (filteredActions.length === 0) return null;
+        return (
+            <Menu
+                open={elementToDisplayMenu === elementId}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: positionTop, left: positionLeft }}
+                onClose={(event) => this.closeInsertionMenu()}
+                className="narrative-inserter-tooltip"
+            >
+                {
+                    // map filteredActions to MenuItems
+                    filteredActions.map((a, index) => {
+                        const icon = a.icon ? (
+                            <ListItemIcon>
+                                <FontAwesome name={a.icon} />
+                            </ListItemIcon>
+                        ) : null;
+                        return (
+                            <MenuItem
+                                key={`${elementId}-${index}`}
+                                onClick={() => onMenuItemClicked(a.handler, element)}
+                                className="narrative-inserter-box"
+                            >
+                                {icon}
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
+                            </MenuItem>
+                        )
+                    })
+                }
+            </Menu>
+        );
     }
     
     // Opens the insertion menu for the given element id, based on cursor location
