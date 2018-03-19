@@ -6,63 +6,9 @@ import Paper from 'material-ui/Paper';
 import SearchSuggestion from './SearchSuggestion.jsx';
 import SearchInput from './SearchInput.jsx';
 
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-];
-
-function getSuggestions(inputValue) {
-    let count = 0;
-
-    return suggestions.filter(suggestion => {
-        const keep =
-            (!inputValue || suggestion.label.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) &&
-            count < 5;
-
-        if (keep) {
-            count += 1;
-        }
-
-        return keep;
-    });
-}
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        height: 250,
     },
     container: {
         flexGrow: 1,
@@ -77,9 +23,51 @@ const styles = theme => ({
     }
 });
 
+
+function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
 class PatientSearch extends React.Component { 
+    constructor(props) { 
+        super(props)
+        const patient = props.patient;
+        const firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
+        this.state = {
+            firstName: firstName,
+        };
+    }
+
+    getSuggestions(inputValue) {
+        let count = 0;
+        const notes = this.props.patient.getNotes();
+        console.log(notes);
+
+        return notes.filter((note) => {
+            const keep =
+                (!inputValue || note.content.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) &&
+                count < 5;
+
+            if (keep) {
+                count += 1;
+            }
+
+            return keep;
+        }).map((note) => {
+            const str = `([^\S\n]\\S*){0,2}${escapeRegExp(inputValue.toLowerCase())}([^\S\n]\\S*){0,2}`
+            const regex = new RegExp(str);
+            const result = regex.exec(note.content.toLowerCase());
+            return {
+                label: `${note.date} - ${note.subject}`,
+                noteReference: `ShrId: ${note.entryInfo.shrId}, Entry: ${note.entryInfo.entryId}`,
+                contentSnapshot: result[0].slice(0, 25), 
+            }    
+        }); 
+    }
+
     render () { 
-        const { classes } = this.props;
+        const { classes, patient } = this.props;
+
         return (
             <div className={classes.root}>
                 <Downshift>
@@ -91,23 +79,27 @@ class PatientSearch extends React.Component {
                             fullWidth={true}
                             classes={classes}
                             InputProps={getInputProps({
-                                placeholder: 'Search a country (start with a)',
+                                placeholder: `Search ${this.state.firstName}'s record`,
                                 id: 'integration-downshift-simple',
                             })}
                         />
                         {isOpen 
                             ? (
                                 <Paper className={classes.paper} square>
-                                    {getSuggestions(inputValue).map((suggestion, index) =>
-                                        <SearchSuggestion
-                                            suggestion={suggestion}
-                                            key={suggestion.label}
-                                            index={index}
-                                            itemProps={getItemProps({ item: suggestion.label })}
-                                            highlightedIndex={highlightedIndex}
-                                            selectedItem={selectedItem}
-                                        />
-                                    )}
+                                    {this.getSuggestions(inputValue).map((suggestion, index) => { 
+                                        console.log(suggestion)
+                                        return (
+                                            <SearchSuggestion
+                                                suggestion={suggestion}
+                                                key={suggestion.label}
+                                                index={index}
+                                                itemProps={getItemProps({ item: suggestion.label })}
+                                                highlightedIndex={highlightedIndex}
+                                                selectedItem={selectedItem}
+                                            />
+                                        );
+                                    })}
+                                    
                                 </Paper>
                             ) 
                             : null

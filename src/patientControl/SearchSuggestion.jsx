@@ -16,7 +16,7 @@ class SearchSuggestion extends React.Component {
                     fontWeight: isSelected ? 500 : 400,
                 }}
             >
-                {suggestion.label}
+                {suggestion.contentSnapshot}
             </MenuItem>
         );
     }
