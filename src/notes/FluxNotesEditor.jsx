@@ -735,7 +735,7 @@ class FluxNotesEditor extends React.Component {
         let errorDisplay = "";
         if (this.props.errors && this.props.errors.length > 0) {
             errorDisplay = (
-                <div>
+                <div id="error">
                     <Divider className="divider"/>
                     <h1 style={{color: 'red'}}>{this.props.errors.join()}</h1>
                     <Divider className="divider"/>
@@ -763,23 +763,26 @@ class FluxNotesEditor extends React.Component {
 
                         isReadOnly={!this.props.isNoteViewerEditable}
                     />
-                    <Slate.Editor
-                        className="editor-panel"
-                        placeholder={'Enter your clinical note here or choose a template to start from...'}
-                        plugins={this.plugins}
-                        readOnly={!this.props.isNoteViewerEditable}
-                        state={this.state.state}
-                        ref={function (c) {
-                            editor = c;
-                        }}
-                        onChange={this.onChange}
-                        onInput={this.onInput}
-                        onBlur={this.onBlur}
-                        onFocus={this.onFocus}
-                        onSelectionChange={this.onSelectionChange}
-                        schema={schema}
-                    />
-                    {errorDisplay}
+                    <div className="editor-content">
+                        <Slate.Editor
+                            className="editor-panel"
+                            placeholder={'Enter your clinical note here or choose a template to start from...'}
+                            plugins={this.plugins}
+                            readOnly={!this.props.isNoteViewerEditable}
+                            state={this.state.state}
+                            ref={function (c) {
+                                editor = c;
+                            }}
+                            onChange={this.onChange}
+                            onInput={this.onInput}
+                            onBlur={this.onBlur}
+                            onFocus={this.onFocus}
+                            onSelectionChange={this.onSelectionChange}
+                            schema={schema}
+                        />
+                        {errorDisplay}
+                    </div>
+
                     <CreatorsPortal
                         state={this.state.state}
                         contextPortalOpen={this.state.isPortalOpen}
