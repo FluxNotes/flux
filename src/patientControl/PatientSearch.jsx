@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import keycode from 'keycode';
 import Downshift from 'downshift';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -75,10 +74,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit,
         left: 0,
         right: 0,
-    },
-    chip: {
-        margin: `${theme.spacing.unit}px ${theme.spacing.unit / 4}px`,
-    },
+    }
 });
 
 class PatientSearch extends React.Component { 
@@ -88,6 +84,7 @@ class PatientSearch extends React.Component {
             <div className={classes.root}>
                 <Downshift>
                   {
+                    // Define what the search-bar is going to look like. 
                     ({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
                       <div className={classes.container}>
                         <SearchInput
@@ -104,6 +101,7 @@ class PatientSearch extends React.Component {
                                     {getSuggestions(inputValue).map((suggestion, index) =>
                                         <SearchSuggestion
                                             suggestion={suggestion}
+                                            key={suggestion.label}
                                             index={index}
                                             itemProps={getItemProps({ item: suggestion.label })}
                                             highlightedIndex={highlightedIndex}
@@ -125,6 +123,7 @@ class PatientSearch extends React.Component {
 
 PatientSearch.propTypes = {
   classes: PropTypes.object.isRequired,
+  patient: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PatientSearch);

@@ -58,7 +58,9 @@ class PatientControlPanel extends Component {
                                     </Col>
                                     <Col sm={9}>
                                         <div className="search-wrapper">
-                                            <PatientSearch/>
+                                            <PatientSearch
+                                                patient={this.props.patient}
+                                            />
                                         </div>
                                     </Col>
                                 </Row>

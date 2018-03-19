@@ -10,7 +10,6 @@ class SearchSuggestion extends React.Component {
         return (
             <MenuItem
                 {...itemProps}
-                key={suggestion.label}
                 selected={isHighlighted}
                 component="div"
                 style={{
