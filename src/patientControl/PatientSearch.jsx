@@ -54,7 +54,8 @@ class PatientSearch extends React.Component {
                 const space = '([^\\S\\n])'; 
                 const escInput = escapeRegExp(inputValue.toLowerCase());
                 const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
-                const strVar = `(${space}${escInput}${continueToNextWord}|^${escInput}${continueToNextWord})`
+                const possibleTrigger = '(@|#){0,1}'
+                const strVar = `(${space}${possibleTrigger}${escInput}${continueToNextWord}|^${possibleTrigger}${escInput}${continueToNextWord})`
                 const regex = new RegExp(strVar);
                 const result = regex.exec(note.content.toLowerCase());
                 if (result) { 
