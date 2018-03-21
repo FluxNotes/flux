@@ -303,17 +303,23 @@ class FluxNotesEditor extends React.Component {
         return transform.blur();
     }
 
-    // called from portal when an item is selected (context is not null) or if portal is closed without
-    // selection (context is null)
-    onPortalSelection = (state, context) => {
-        this.setState({isPortalOpen: false});
-        if (Lang.isNull(context)) return state;
+    // called from portal when an item is selected (selection is not null) or if portal is closed without
+    // selection (selection is null)
+    onPortalSelection = (state, selection) => {
+
         let shortcut = this.selectingForShortcut;
         this.selectingForShortcut = null;
+        this.setState({isPortalOpen: false});
+        if (Lang.isNull(selection)) {
+            // Removes the shortcut from its parent
+            shortcut.onBeforeDeleted();
+            return state;
+        }
+
         shortcut.clearValueSelectionOptions();
-        shortcut.setText(context.context);
+        shortcut.setText(selection.context);
         if (shortcut.isContext()) {
-            shortcut.setValueObject(context.object);
+            shortcut.setValueObject(selection.object);
         }
         this.contextManager.contextUpdated();
         let transform;
@@ -397,8 +403,6 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
-        //nicole fix? this.onChange(this.state.state); //do we just need one more thing triggering a 'change' like a extra click?
-
         var nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
             anchorOffset: data.anchorOffset,
