@@ -236,7 +236,7 @@ export default class FullApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             shortcutManager={this.shortcutManager}
                             contextManager={this.contextManager}
-                            searchSelectedItem={this.searchSelectedItem}
+                            searchSelectedItem={this.state.searchSelectedItem}
 
                             // State
                             appState={this.state}

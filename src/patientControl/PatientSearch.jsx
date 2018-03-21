@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     paper: {
         position: 'absolute',
-        width: "400px",
+        width: "30vw",
         zIndex: 1,
         marginTop: theme.spacing.unit,
         // top: 0,
@@ -37,6 +37,35 @@ class PatientSearch extends React.Component {
         this.state = {
             firstName: firstName,
         };
+    }
+
+    openNote = (note) => {
+        this.props.setFullAppState('searchSelectedItem', note)
+
+        // this.props.setFullAppState("noteClosed", false);
+        // this.props.setFullAppState('layout', "split");
+        // this.props.setFullAppState('isNoteViewerVisible', true);
+        // // Don't start saving until there is content in the editor
+        // if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
+        //     if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
+        //         this.saveEditorContentsToNewNote();
+        //     } else {
+        //         this.updateExistingNote();
+        //     }
+        // }
+        // this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
+        // // the lines below are duplicative
+        // this.props.updateSelectedNote(note);
+        // this.props.loadNote(note);
+
+        // // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
+        // if (isInProgressNote) {
+        //     this.props.setFullAppState('isNoteViewerEditable', true);
+        //     this.toggleView("context-tray");
+        // } else {
+        //     this.props.setFullAppState('isNoteViewerEditable', false);
+        //     this.toggleView("clinical-notes");
+        // }
     }
 
     getSuggestions(inputValue) {
@@ -80,9 +109,8 @@ class PatientSearch extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Downshift
-                    // Define what the search-bar is going to look like. 
-                    render={({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => {
+                <Downshift>
+                    {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => {
                         return (
                             <div className={classes.container}>
                                 <SearchInput
@@ -91,13 +119,20 @@ class PatientSearch extends React.Component {
                                     InputProps={getInputProps({
                                         placeholder: `Search ${this.state.firstName}'s record`,
                                         id: 'integration-downshift-simple',
+                                        onKeyDown: event => {
+                                            if (event.key === 'Enter') {
+                                                // Prevent Downshift's default 'Enter' behavior.
+                                                event.preventDownshiftDefault = true;
+                                                const selectedElement = (highlightedIndex ? this.getSuggestions(inputValue)[highlightedIndex] : this.getSuggestions(inputValue)[0])
+                                                this.openNote(selectedElement.note);
+                                            }
+                                        },
                                     })}
                                 />
                                 {isOpen 
                                     ? (
                                         <Paper className={classes.paper} square>
                                             {this.getSuggestions(inputValue).map((suggestion, index) => { 
-                                                console.log(suggestion)
                                                 return (
                                                     <SearchSuggestion
                                                         suggestion={suggestion}
@@ -118,7 +153,7 @@ class PatientSearch extends React.Component {
                             </div>
                         );
                     }}
-                />
+                </Downshift>
             </div>
         );
     }

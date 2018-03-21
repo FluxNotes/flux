@@ -8,31 +8,6 @@ import './SearchSuggestion.css';
 class SearchSuggestion extends React.Component {
     openNote = (note) => { 
         this.props.setFullAppState('searchSelectedItem', note)
-
-        // this.props.setFullAppState("noteClosed", false);
-        // this.props.setFullAppState('layout', "split");
-        // this.props.setFullAppState('isNoteViewerVisible', true);
-        // // Don't start saving until there is content in the editor
-        // if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-        //     if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
-        //         this.saveEditorContentsToNewNote();
-        //     } else {
-        //         this.updateExistingNote();
-        //     }
-        // }
-        // this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
-        // // the lines below are duplicative
-        // this.props.updateSelectedNote(note);
-        // this.props.loadNote(note);
-
-        // // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
-        // if (isInProgressNote) {
-        //     this.props.setFullAppState('isNoteViewerEditable', true);
-        //     this.toggleView("context-tray");
-        // } else {
-        //     this.props.setFullAppState('isNoteViewerEditable', false);
-        //     this.toggleView("clinical-notes");
-        // }
     }
 
     render() { 

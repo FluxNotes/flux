@@ -66,6 +66,18 @@ export default class NoteAssistant extends Component {
         this.props.closeNote(this.closeNote);
     }
 
+    componentWillReceiveProps(nextProps) { 
+        console.log("nextProps.searchSelectedItem")
+        console.log(nextProps.searchSelectedItem)
+        if (nextProps.searchSelectedItem) { 
+            console.log(">>>>>>>>> nextProps.searchSelectedItem")
+            console.log(nextProps.searchSelectedItem)
+            const newNote = nextProps.searchSelectedItem;
+            this.openNote(newNote.signed, newNote)
+            this.props.setFullAppState("searchSelectedItem", null);
+        }
+    }
+
     // Sorts the lab results in chronological order with the most recent first (so that it shows up first in the clinical notes list)
     notesTimeSorter(a, b) {
         const a_startTime = new moment(a.date, "D MMM YYYY");

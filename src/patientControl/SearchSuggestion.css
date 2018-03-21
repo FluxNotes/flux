@@ -19,4 +19,6 @@
 
 .suggestion-text { 
     font-size: 12px;
+    word-wrap: break-word;
+    display: inline-block;
 }
