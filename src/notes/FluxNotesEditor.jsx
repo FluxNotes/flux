@@ -245,6 +245,9 @@ class FluxNotesEditor extends React.Component {
             } else {
                 return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
             }
+        } else if (text.length > 0) {
+            shortcut.setText(text)
+            return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
         } else {
             return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
         }
@@ -535,6 +538,10 @@ class FluxNotesEditor extends React.Component {
                     after = remainder.substring(2, end);
                     // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
                     remainder = remainder.substring(end + 2);
+                    // If there were brackets, but nothing in the brackets, add a space to be inserted, otherwise pulls current data.
+                    if (after.length === 0) {
+                        after = ' ';
+                    }
                     // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
                 } else if (remainder.startsWith(" [[")) {
                     remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
