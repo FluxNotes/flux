@@ -1,0 +1,22 @@
+.suggestion-label { 
+    width: 90px;
+    display: inline-block;
+    word-wrap: break-word;
+    font-size: 10px;
+}
+
+.dividing-line:after { 
+    background: #b1b1b1;
+    width: 1px;
+    content: "";
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 20px;
+    margin: -5px 10px -5px 10px;
+}
+
+.suggestion-text { 
+    font-size: 12px;
+}

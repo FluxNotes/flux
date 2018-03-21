@@ -16,9 +16,10 @@ const styles = theme => ({
     },
     paper: {
         position: 'absolute',
+        width: "400px",
         zIndex: 1,
         marginTop: theme.spacing.unit,
-        left: 0,
+        // top: 0,
         right: 0,
     }
 });
@@ -39,83 +40,93 @@ class PatientSearch extends React.Component {
     }
 
     getSuggestions(inputValue) {
-        let count = 0;
         const notes = this.props.patient.getNotes();
-        console.log(notes);
 
-        return notes.filter((note) => {
-            const keep =
-                (!inputValue || note.content.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) &&
-                count < 5;
+        return notes.reduce((suggestions, note) => {
+            // const str = `([^\\S\n]\\S*){0,2}${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
+            // const str = `([^\\S\n]\\S*[^\\S\n]){0,1}${escapeRegExp(inputValue.toLowerCase())}([^\\S\n]\\S*){0,2}`
+            // const str = `${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
+            // const str = `([^\\S\n]){0,1}${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
+            //TODO: Fix to search for best options, not just the first five. 
 
-            if (keep) {
-                count += 1;
+            // If we need more suggestions and there is content in the note
+            if (suggestions.length < 5 && note.content && inputValue) {
+                const space = '([^\\S\\n])'; 
+                const escInput = escapeRegExp(inputValue.toLowerCase());
+                const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
+                const strVar = `(${space}${escInput}${continueToNextWord}|^${escInput}${continueToNextWord})`
+                const regex = new RegExp(strVar);
+                const result = regex.exec(note.content.toLowerCase());
+                if (result) { 
+                    suggestions.push({
+                        date: note.date,
+                        subject: note.subject,
+                        noteReference: {
+                            shrId: note.entryInfo.shrId, 
+                            entryId: note.entryInfo.entryId,
+                        },
+                        contentSnapshot: result[0].slice(0, 25), 
+                        note: note
+                    });    
+                }
             }
-
-            return keep;
-        }).map((note) => {
-            const str = `([^\S\n]\\S*){0,2}${escapeRegExp(inputValue.toLowerCase())}([^\S\n]\\S*){0,2}`
-            const regex = new RegExp(str);
-            const result = regex.exec(note.content.toLowerCase());
-            return {
-                label: `${note.date} - ${note.subject}`,
-                noteReference: `ShrId: ${note.entryInfo.shrId}, Entry: ${note.entryInfo.entryId}`,
-                contentSnapshot: result[0].slice(0, 25), 
-            }    
-        }); 
+            return suggestions;
+        }, []); 
     }
 
     render () { 
-        const { classes, patient } = this.props;
+        const { classes, setFullAppState } = this.props;
 
         return (
             <div className={classes.root}>
-                <Downshift>
-                  {
+                <Downshift
                     // Define what the search-bar is going to look like. 
-                    ({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => (
-                      <div className={classes.container}>
-                        <SearchInput
-                            fullWidth={true}
-                            classes={classes}
-                            InputProps={getInputProps({
-                                placeholder: `Search ${this.state.firstName}'s record`,
-                                id: 'integration-downshift-simple',
-                            })}
-                        />
-                        {isOpen 
-                            ? (
-                                <Paper className={classes.paper} square>
-                                    {this.getSuggestions(inputValue).map((suggestion, index) => { 
-                                        console.log(suggestion)
-                                        return (
-                                            <SearchSuggestion
-                                                suggestion={suggestion}
-                                                key={suggestion.label}
-                                                index={index}
-                                                itemProps={getItemProps({ item: suggestion.label })}
-                                                highlightedIndex={highlightedIndex}
-                                                selectedItem={selectedItem}
-                                            />
-                                        );
+                    render={({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => {
+                        return (
+                            <div className={classes.container}>
+                                <SearchInput
+                                    fullWidth={true}
+                                    classes={classes}
+                                    InputProps={getInputProps({
+                                        placeholder: `Search ${this.state.firstName}'s record`,
+                                        id: 'integration-downshift-simple',
                                     })}
-                                    
-                                </Paper>
-                            ) 
-                            : null
-                        }
-                      </div>
-                    )
-                  }
-                </Downshift>
+                                />
+                                {isOpen 
+                                    ? (
+                                        <Paper className={classes.paper} square>
+                                            {this.getSuggestions(inputValue).map((suggestion, index) => { 
+                                                console.log(suggestion)
+                                                return (
+                                                    <SearchSuggestion
+                                                        suggestion={suggestion}
+                                                        key={suggestion.date + suggestion.subject}
+                                                        index={index}
+                                                        itemProps={getItemProps({ item: suggestion.contentSnapshot })}
+                                                        highlightedIndex={highlightedIndex}
+                                                        selectedItem={selectedItem}
+                                                        setFullAppState={setFullAppState}
+                                                    />
+                                                );
+                                            })}
+                                            
+                                        </Paper>
+                                    ) 
+                                    : null
+                                }
+                            </div>
+                        );
+                    }}
+                />
             </div>
         );
     }
 }
 
 PatientSearch.propTypes = {
-  classes: PropTypes.object.isRequired,
-  patient: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
+    setFullAppState: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(PatientSearch);

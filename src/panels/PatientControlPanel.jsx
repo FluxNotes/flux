@@ -59,6 +59,7 @@ class PatientControlPanel extends Component {
                                         <div className="search-wrapper">
                                             <PatientSearch
                                                 patient={this.props.patient}
+                                                setFullAppState={this.props.setFullAppState}
                                             />
                                         </div>
                                     </Col>

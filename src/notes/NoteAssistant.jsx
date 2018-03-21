@@ -532,5 +532,6 @@ NoteAssistant.propTypes = {
     saveNote: PropTypes.func,
     closeNote: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    updateCurrentlyEditingEntryId: PropTypes.func
+    updateCurrentlyEditingEntryId: PropTypes.func,
+    searchSelectedItem: PropTypes.object,
 };
