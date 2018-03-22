@@ -82,7 +82,7 @@ const rules = [
         } else if(obj.type === 'structured_field'){
             // children is empty in structured_field
             //nope console.log("Is a structured_field, returning: " + convertedText);
-            let result = "", start, end;
+            let result = "";
             // Greg recommended just copying this block of code into the rules.serialize() because it does what you want when you have a SF
             // It does the whole string, though, and drops the bold tags
                 let shortcut = obj.data.get("shortcut");
@@ -568,7 +568,7 @@ class FluxNotesEditor extends React.Component {
             
             console.log(string); // to be saved if it has html tags
             // TODO: set the text to the string containing styling tags
-            // fullText = string;
+            fullText = string; // make sure this is being stored in the patient correctly
         } else{
             console.log("fullText is not defined");
         }
@@ -583,6 +583,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
+        console.log(this.props.patient.entries);
     }
 
     onFocus = () => {
