@@ -173,7 +173,7 @@ function StructuredFieldPlugin(opts) {
         // state.document. style?
         // This cycles through state.document's descendants/siblings and may not have styling info
         // styling info is in the marks? or somewhere inside state.document.
-        console.log(state.document);
+        console.log(state.document); // has .text which is missing tags, and .nodes which is a complex data structure, perhaps bold marks are in there
         const startOffset = selection.startOffset;
         const endOffset = selection.endOffset;
         let blocks = [];

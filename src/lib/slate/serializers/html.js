@@ -6,7 +6,6 @@ import cheerio from 'cheerio'
 import typeOf from 'type-of'
 import { Record } from 'immutable'
 
-let structuredFieldConverter = function() { console.log("Initial method");}
 let state = {};
 
 /**
@@ -261,14 +260,12 @@ class Html {
    * @return {String|Array}
    */
 
-  serialize = (state, options = {}, structuredFieldConverter) => {
+  serialize = (state, options = {}) => {
     const { document } = state
     //console.log(state.document.nodes);
-    this.structuredFieldConverter = structuredFieldConverter;
     this.state = state;
     const elements = document.nodes.map(this.serializeNode);
-   //   function(x) { this.serializeNode(x, structuredFieldConverter); })
-    //console.log(elements);
+    console.log(elements);
     if (options.render === false) return elements
 
     const html = ReactDOMServer.renderToStaticMarkup(<body>{elements}</body>)
@@ -284,18 +281,10 @@ class Html {
    */
 
   serializeNode = (node) => {
-        // 'copy' the text every time into the note
-        // Need to artificially set selection to the current node
-        console.log(node);
-       /* let currentNode = {
-            startKey: "0", // TODO make these accurate and not hard-coded
-            startOffset: 0,
-            endKey: "1",
-           endOffset: 1
-        }; 
-        let convertedText = this.structuredFieldConverter(this.state, currentNode);
-        console.log(convertedText); // successfully converted first SF - this loses the tags and is the wrong place to make changes anyway if we can avoid it, part of Slate */
-    if (node.kind == 'text') {
+      // 'copy' the text every time into the note
+      // Need to artificially set selection to the current node
+      console.log(node);
+      if (node.kind == 'text') {
       //console.log(node.kind);
       const ranges = node.getRanges()
       return ranges.map(this.serializeRange)

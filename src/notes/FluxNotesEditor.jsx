@@ -97,7 +97,7 @@ const rules = [
                     result += shortcut.getText();
                 }
                 // sf
-                //console.log("SF returns " + result); // returns the correct thing, i.e. @age[[43]]
+                console.log("SF returns " + result); // returns the correct thing, i.e. @age[[43]]
                 return result;
         }else{
             console.log("returning nothing");
@@ -563,7 +563,7 @@ class FluxNotesEditor extends React.Component {
        // console.log(state);// is this the right kind? we need .documents.nodes[0].type == something defined in rules
         if(!Lang.isUndefined(fullText) && !Lang.isUndefined(fullText.length) && fullText.length > 1){
             //Does { render: false } prevent tag duplication? No
-            const string = html.serialize(state, {}, this.structuredFieldPlugin.convertToText); //trying options like: {render: false} causes the first error to go away
+            const string = html.serialize(state, {}); //trying options like: {render: false} causes the first error to go away
             // with render: false this is a List of Lists of Lists with text
             
             console.log(string); // to be saved if it has html tags
@@ -583,7 +583,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
-        console.log(this.props.patient.entries);
+        console.log(this.props.patient.entries[90].content);
     }
 
     onFocus = () => {
