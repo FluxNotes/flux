@@ -123,8 +123,6 @@ class PatientSearch extends React.Component {
                                         id: 'integration-downshift-simple',
                                         onKeyDown: (event) => {
                                             if (event.key === 'Enter') {
-                                                // Prevent Downshift's default 'Enter' behavior.
-                                                // event.preventDownshiftDefault = true;
                                                 const selectedElement = this.getSuggestions(inputValue)[highlightedIndex];
                                                 this.openNote(selectedElement.note);
                                             }
