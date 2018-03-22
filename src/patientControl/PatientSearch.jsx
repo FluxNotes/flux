@@ -80,24 +80,40 @@ class PatientSearch extends React.Component {
 
             // If we need more suggestions and there is content in the note
             if (suggestions.length < 5 && note.content && inputValue) {
+                //  Establish some common variables for our regex
                 const space = '([^\\S\\n])'; 
-                const escInput = escapeRegExp(inputValue.toLowerCase());
+                const escapedInput = escapeRegExp(inputValue.toLowerCase());
                 const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
-                const possibleTrigger = '(@|#){0,1}'
-                const strVar = `(${space}${possibleTrigger}${escInput}${continueToNextWord}|^${possibleTrigger}${escInput}${continueToNextWord})`
+                const possibleTrigger = '(@|#|\\[\\[|\\]\\]){0,1}'
+                const strVar = `(${space}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`
                 const regex = new RegExp(strVar);
-                const result = regex.exec(note.content.toLowerCase());
-                if (result) { 
+                // Search note content
+                const relevantNoteContent = (note.content).toLowerCase();
+                const contentMatches = regex.exec(relevantNoteContent);
+                // Search note metadata
+                const relevantNoteMetadata = (
+                    note.date + ' ' + 
+                    note.subject + ' ' + 
+                    note.clinician + ' ' + 
+                    note.hospital
+                ).toLowerCase();
+                const metadataMatches = regex.exec(relevantNoteMetadata)
+                if (contentMatches) { 
                     suggestions.push({
                         date: note.date,
                         subject: note.subject,
-                        noteReference: {
-                            shrId: note.entryInfo.shrId, 
-                            entryId: note.entryInfo.entryId,
-                        },
-                        contentSnapshot: result[0].slice(0, 25), 
-                        note: note
-                    });    
+                        hospital: note.hospital,
+                        contentSnapshot: contentMatches[0].slice(0, 25),
+                        note: note,
+                    });
+                } else if(metadataMatches) { 
+                    suggestions.push({
+                        date: note.date,
+                        subject: note.subject,
+                        hospital: note.hospital,
+                        contentSnapshot: note.content.slice(0, 25),
+                        note: note,
+                    });
                 }
             }
             return suggestions;
@@ -119,10 +135,10 @@ class PatientSearch extends React.Component {
                                     fullWidth={true}
                                     classes={classes}
                                     InputProps={getInputProps({
-                                        placeholder: `Search ${this.state.firstName}'s record`,
+                                        placeholder: `Search ${this.state.firstName}'s notes`,
                                         id: 'integration-downshift-simple',
                                         onKeyDown: (event) => {
-                                            if (event.key === 'Enter') {
+                                            if (event.key === 'Enter' && this.getSuggestions(inputValue)[highlightedIndex]) {
                                                 const selectedElement = this.getSuggestions(inputValue)[highlightedIndex];
                                                 this.openNote(selectedElement.note);
                                             }

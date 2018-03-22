@@ -22,11 +22,13 @@ class SearchSuggestion extends React.Component {
                 onClick={() => this.openNote(suggestion.note)}
                 style={{
                     fontWeight: isSelected ? 500 : 400,
+                    height: "100%",
                 }}
             >
                 <div className="suggestion-label">
-                    <span style={{display: "block"}}>{suggestion.date}</span>
-                    <span style={{display: "block"}}>{suggestion.subject}</span>
+                    <span style={{display: "block", margin: "0"}}>{suggestion.date}</span>
+                    <span style={{display: "block", margin: "0"}}>{suggestion.subject}</span>
+                    <span style={{display: "block", margin: "0"}}>{suggestion.hospital}</span>
                 </div> 
                 <span className="dividing-line"></span> 
                 <span className="suggestion-text">{suggestion.contentSnapshot}</span> 
