@@ -151,7 +151,7 @@ export default class FullApp extends Component {
             selectedText: selectedText
         })
     }
-    
+
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote

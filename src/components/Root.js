@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import routes from '../routes';
-import { Router, browserHistory } from 'react-router';
+import { Route } from 'react-router';
 
 const Root = (props) => {
   const { store } = props;
