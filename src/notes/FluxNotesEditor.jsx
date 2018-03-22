@@ -55,10 +55,10 @@ const rules = [
     },
     serialize(obj, children, convertedText = null) {
      // if (obj.kind !== 'block') return //   obj.data.get
-        console.log("Serialize is running");
-        console.log(obj);
-        console.log(children);
-        console.log(convertedText);
+     //   console.log("Serialize is running");
+     //   console.log(obj);
+     //   console.log(children);
+     //   console.log(convertedText);
        /* if(!Lang.isUndefined(children[0])){
             children = children[0];
         }*/
@@ -91,13 +91,13 @@ const rules = [
                     if (typeof(text) === "string" && text.startsWith(shortcut.getPrefixCharacter())) {
                         text = text.substring(1);
                     }
-                    console.log(text);
+          //          console.log(text);
                     result += `${shortcut.initiatingTrigger}[[${text}]]`;
                 } else {
                     result += shortcut.getText();
                 }
                 // sf
-                console.log("SF returns " + result);
+                //console.log("SF returns " + result); // returns the correct thing, i.e. @age[[43]]
                 return result;
         }else{
             console.log("returning nothing");
@@ -190,11 +190,11 @@ const rules = [
   },*/
 ];
 //const initialValue = '<p></p>';
-console.log(Slate); //ther isn't a Slate.Node, does Html assume a different version of Slate?
+//console.log(Slate); //ther isn't a Slate.Node, does Html assume a different version of Slate?
 //const test = Slate.Html.deserialize('<em>hi</em> there'); // not a function
 //console.log(test);
 const html = new Slate.Html({ rules });
-console.log(html); // .serialize() takes an object with .nodes, like maybe: ome object containing document: {nodes: [ object: '', nodes: [] ]}
+//console.log(html); // .serialize() takes an object with .nodes, like maybe: ome object containing document: {nodes: [ object: '', nodes: [] ]}
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');

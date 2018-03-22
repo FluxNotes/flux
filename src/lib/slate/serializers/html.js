@@ -307,13 +307,13 @@ class Html {
       if (!rule.serialize) continue
       const ret = rule.serialize(node, children) // calls my serialize methods
       //console.log(ret);
-      if(typeof ret === 'string'){
-        console.log("is a string, making element: " + ret);
+      if(typeof ret === 'string'){ // this seemingly never happens, probably can remove the if-else entirely
+       // console.log("is a string, making element: " + ret);
         ret = React.createElement('div', {}, ret);
       }
       else{
-        console.log("is not a string");
-        console.log(ret);
+       // console.log("is not a string");
+       // console.log(ret);
       }
       if (ret) return addKey(ret) //Can't remove tags with something like .slice(5, -6) because ret is not a string
     }
