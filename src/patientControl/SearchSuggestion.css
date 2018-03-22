@@ -1,5 +1,5 @@
 .suggestion-label { 
-    width: 90px;
+    min-width: 80px;
     display: inline-block;
     word-wrap: break-word;
     font-size: 10px;
@@ -18,7 +18,7 @@
 }
 
 .suggestion-text { 
-    font-size: 12px;
+    font-size: 14px;
     word-wrap: break-word;
     display: inline-block;
 }

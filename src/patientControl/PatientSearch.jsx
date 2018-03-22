@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     paper: {
         position: 'absolute',
-        width: "30vw",
+        width: "25vw",
         zIndex: 1,
         marginTop: theme.spacing.unit,
         // top: 0,
@@ -109,7 +109,9 @@ class PatientSearch extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Downshift>
+                <Downshift
+                    defaultHighlightedIndex={0}
+                >
                     {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => {
                         return (
                             <div className={classes.container}>
@@ -119,11 +121,11 @@ class PatientSearch extends React.Component {
                                     InputProps={getInputProps({
                                         placeholder: `Search ${this.state.firstName}'s record`,
                                         id: 'integration-downshift-simple',
-                                        onKeyDown: event => {
+                                        onKeyDown: (event) => {
                                             if (event.key === 'Enter') {
                                                 // Prevent Downshift's default 'Enter' behavior.
-                                                event.preventDownshiftDefault = true;
-                                                const selectedElement = (highlightedIndex ? this.getSuggestions(inputValue)[highlightedIndex] : this.getSuggestions(inputValue)[0])
+                                                // event.preventDownshiftDefault = true;
+                                                const selectedElement = this.getSuggestions(inputValue)[highlightedIndex];
                                                 this.openNote(selectedElement.note);
                                             }
                                         },
