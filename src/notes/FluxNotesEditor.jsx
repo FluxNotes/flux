@@ -509,6 +509,8 @@ class FluxNotesEditor extends React.Component {
         }
         const {anchorText, anchorOffset} = state
         const text = anchorText.text
+        console.log("Does this lose styling by setting editor to the following variable?:"); // doesn't run during insertion of structured_field ??
+        console.log(text); // if this has no tags, we need to fix how this method works to preserve styling
 
         let index = {start: anchorOffset - 1, end: anchorOffset}
 
@@ -583,7 +585,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
-        console.log(this.props.patient.entries[90].content);
+        console.log(this.props.patient.entries[90].content); // correct note stored in patient EXCEPT the styling immediately preceding only structured fields entered via Suggestions plugin. Structured fields selected  by clicking in right panel don't remove the styling
     }
 
     onFocus = () => {
