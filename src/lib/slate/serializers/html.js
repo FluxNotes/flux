@@ -305,7 +305,7 @@ class Html {
 
     for (const rule of this.rules) {
       if (!rule.serialize) continue
-      const ret = rule.serialize(node, children, convertedText) // calls my serialize methods
+      const ret = rule.serialize(node, children) // calls my serialize methods
       //console.log(ret);
       if(typeof ret === 'string'){
         console.log("is a string, making element: " + ret);
