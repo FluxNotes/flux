@@ -17,6 +17,7 @@ const styles = theme => ({
     paper: {
         position: 'absolute',
         width: "25vw",
+        minWidth: "200px",
         zIndex: 1,
         marginTop: theme.spacing.unit,
         // top: 0,
@@ -39,45 +40,15 @@ class PatientSearch extends React.Component {
         };
     }
 
-    openNote = (note) => {
+    findThisItem = (note) => {
         this.props.setFullAppState('searchSelectedItem', note)
-
-        // this.props.setFullAppState("noteClosed", false);
-        // this.props.setFullAppState('layout', "split");
-        // this.props.setFullAppState('isNoteViewerVisible', true);
-        // // Don't start saving until there is content in the editor
-        // if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-        //     if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
-        //         this.saveEditorContentsToNewNote();
-        //     } else {
-        //         this.updateExistingNote();
-        //     }
-        // }
-        // this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
-        // // the lines below are duplicative
-        // this.props.updateSelectedNote(note);
-        // this.props.loadNote(note);
-
-        // // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
-        // if (isInProgressNote) {
-        //     this.props.setFullAppState('isNoteViewerEditable', true);
-        //     this.toggleView("context-tray");
-        // } else {
-        //     this.props.setFullAppState('isNoteViewerEditable', false);
-        //     this.toggleView("clinical-notes");
-        // }
     }
 
     getSuggestions(inputValue) {
         const notes = this.props.patient.getNotes();
 
         return notes.reduce((suggestions, note) => {
-            // const str = `([^\\S\n]\\S*){0,2}${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
-            // const str = `([^\\S\n]\\S*[^\\S\n]){0,1}${escapeRegExp(inputValue.toLowerCase())}([^\\S\n]\\S*){0,2}`
-            // const str = `${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
-            // const str = `([^\\S\n]){0,1}${escapeRegExp(inputValue.toLowerCase())}(\\S*[^\\S\n]\\S*){0,2}`
             //TODO: Fix to search for best options, not just the first five. 
-
             // If we need more suggestions and there is content in the note
             if (suggestions.length < 5 && note.content && inputValue) {
                 //  Establish some common variables for our regex
@@ -140,7 +111,7 @@ class PatientSearch extends React.Component {
                                         onKeyDown: (event) => {
                                             if (event.key === 'Enter' && this.getSuggestions(inputValue)[highlightedIndex]) {
                                                 const selectedElement = this.getSuggestions(inputValue)[highlightedIndex];
-                                                this.openNote(selectedElement.note);
+                                                this.findThisItem(selectedElement.note);
                                             }
                                         },
                                     })}
