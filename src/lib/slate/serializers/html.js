@@ -287,14 +287,14 @@ class Html {
         // 'copy' the text every time into the note
         // Need to artificially set selection to the current node
         console.log(node);
-        let currentNode = {
+       /* let currentNode = {
             startKey: "0", // TODO make these accurate and not hard-coded
             startOffset: 0,
             endKey: "1",
            endOffset: 1
         }; 
         let convertedText = this.structuredFieldConverter(this.state, currentNode);
-        console.log(convertedText); // successfully converted first SF
+        console.log(convertedText); // successfully converted first SF - this loses the tags and is the wrong place to make changes anyway if we can avoid it, part of Slate */
     if (node.kind == 'text') {
       //console.log(node.kind);
       const ranges = node.getRanges()

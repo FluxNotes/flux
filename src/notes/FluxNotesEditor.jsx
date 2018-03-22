@@ -21,6 +21,8 @@ import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
+import InsertValue from '../shortcuts/InsertValue';
+import CreatorChild from '../shortcuts/CreatorChild';
 //import Html from 'slate-html-serializer';
 
 const BLOCK_TAGS = {
@@ -51,8 +53,8 @@ const rules = [
         nodes: next(el.childNodes),
       }
     },
-    serialize(obj, children, convertedText) {
-     // if (obj.kind !== 'block') return //  
+    serialize(obj, children, convertedText = null) {
+     // if (obj.kind !== 'block') return //   obj.data.get
         console.log("Serialize is running");
         console.log(obj);
         console.log(children);
@@ -74,30 +76,29 @@ const rules = [
             } else{
               //  console.log("not a valid element:");
              //   console.log(children);
-                return <div key='42'>{children}</div>
+                return <div key='0'>{children}</div>
             }
             // pur return div in else
         } else if(obj.type === 'structured_field'){
             // children is empty in structured_field
-            console.log("Is a structured_field, returning: " + convertedText);
-            let retval = <p>{convertedText}</p>
-            console.log(retval);
-            /* We don't have a this.structuredFieldPlugin inside rules
-            let convertedText = this.structuredFieldPlugin.convertToText(obj, children);
-            return <p>{convertedText}</p>*/
-            return <p>{convertedText}</p> // converted is the full text and this gets appended to the text -twice
-            /* 2 hashtags with words before between and after:
-            <div>words before 
-                <p>words before @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
-                </p> words between 
-                    <p>words before @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
-                </p> words after</div>
-                */
-/*
-<div>words betfore <p>words betfore @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
-</p> words between <p>words betfore @age[[51]] words between @patient[[Debra Hernandez672 is a 51 year old Female]] words after
-</p> words after</div>
-*/
+            //nope console.log("Is a structured_field, returning: " + convertedText);
+            let result = "", start, end;
+            // Greg recommended just copying this block of code into the rules.serialize() because it does what you want when you have a SF
+            // It does the whole string, though, and drops the bold tags
+                let shortcut = obj.data.get("shortcut");
+                if (shortcut instanceof InsertValue || (shortcut instanceof CreatorChild /*&& Lang.isArray(shortcut.determineText(contextManager)) */)) {
+                    let text = shortcut.getText();
+                    if (typeof(text) === "string" && text.startsWith(shortcut.getPrefixCharacter())) {
+                        text = text.substring(1);
+                    }
+                    console.log(text);
+                    result += `${shortcut.initiatingTrigger}[[${text}]]`;
+                } else {
+                    result += shortcut.getText();
+                }
+                // sf
+                console.log("SF returns " + result);
+                return result;
         }else{
             console.log("returning nothing");
             //  return ( <div>{children}</div> );
@@ -562,7 +563,7 @@ class FluxNotesEditor extends React.Component {
        // console.log(state);// is this the right kind? we need .documents.nodes[0].type == something defined in rules
         if(!Lang.isUndefined(fullText) && !Lang.isUndefined(fullText.length) && fullText.length > 1){
             //Does { render: false } prevent tag duplication? No
-            const string = html.serialize(state, {render: false}, this.structuredFieldPlugin.convertToText); //trying options like: {render: false} causes the first error to go away
+            const string = html.serialize(state, {}, this.structuredFieldPlugin.convertToText); //trying options like: {render: false} causes the first error to go away
             // with render: false this is a List of Lists of Lists with text
             
             console.log(string); // to be saved if it has html tags

@@ -151,6 +151,7 @@ function StructuredFieldPlugin(opts) {
             } else if (blk.kind === 'text') {
                 result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
+                // Approach 1: copying this block of code into the rules.serialize() because it does what you want when you have a sturctured field
                 let shortcut = blk.data.get("shortcut");
                 if (shortcut instanceof InsertValue || (shortcut instanceof CreatorChild && Lang.isArray(shortcut.determineText(contextManager)))) {
                     let text = shortcut.getText();
@@ -161,6 +162,7 @@ function StructuredFieldPlugin(opts) {
                 } else {
                     result += shortcut.getText();
                 }
+                // end of code block to copy
             }
         });
         return result;
@@ -168,6 +170,10 @@ function StructuredFieldPlugin(opts) {
 
     function convertToText(state, selection) {
         const startBlock = state.document.getDescendant(selection.startKey);
+        // state.document. style?
+        // This cycles through state.document's descendants/siblings and may not have styling info
+        // styling info is in the marks? or somewhere inside state.document.
+        console.log(state.document);
         const startOffset = selection.startOffset;
         const endOffset = selection.endOffset;
         let blocks = [];
