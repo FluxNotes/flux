@@ -1,15 +1,10 @@
 import React from 'react';
+import 'es6-shim';
+import 'babel-polyfill';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-// import 'es6-shim';
-// import 'babel-polyfill';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-// import Root from './components/Root';
-// import configureStore from './store/configureStore';
-// // import './styles/app.scss'; // add when SASS conversion complete
-// import './index.css';
 
 import store, { history } from './store/configureStore';
 import App from './containers/App';
@@ -31,16 +26,3 @@ render(
   </Provider>,
   target
 );
-
-
-
-// const store = configureStore();
-
-// window.store = store;
-
-
-
-// render(
-//   <Root store={store} />,
-//   document.getElementById('root')
-// );
