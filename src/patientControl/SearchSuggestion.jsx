@@ -26,12 +26,12 @@ class SearchSuggestion extends React.Component {
                 }}
             >
                 <div className="suggestion-label">
-                    <span style={{display: "block", margin: "0"}}>{suggestion.date}</span>
-                    <span style={{display: "block", margin: "0"}}>{suggestion.subject}</span>
-                    <span style={{display: "block", margin: "0"}}>{suggestion.hospital}</span>
+                    <p className="label-content">{suggestion.date}</p>
+                    <p className="label-content">{suggestion.subject}</p>
+                    <p className="label-content">{suggestion.hospital}</p>
                 </div> 
                 <span className="dividing-line"></span> 
-                <span className="suggestion-text">{suggestion.contentSnapshot}</span> 
+                <p className="suggestion-text">{suggestion.contentSnapshot}</p> 
             </MenuItem>
         );
     }

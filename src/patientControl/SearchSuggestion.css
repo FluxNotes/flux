@@ -1,8 +1,14 @@
 .suggestion-label { 
-    min-width: 100px;
+    min-width: 80px;
     display: inline-block;
-    word-wrap: break-word;
     font-size: 10px;
+}
+
+.suggestion-label p.label-content { 
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dividing-line:after { 
@@ -13,12 +19,14 @@
     top: 0;
     bottom: 0;
     right: 0;
-    min-height: 20px;
+    min-height: 25px;
     margin: -5px 10px -5px 10px;
 }
 
 .suggestion-text { 
     font-size: 14px;
-    word-wrap: break-word;
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

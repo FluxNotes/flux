@@ -17,11 +17,11 @@ const styles = theme => ({
     paper: {
         position: 'absolute',
         width: "25vw",
-        minWidth: "200px",
+        minWidth: "250px",
         zIndex: 1,
         marginTop: theme.spacing.unit,
-        // top: 0,
         right: 0,
+        padding: "8px auto",
     }
 });
 
