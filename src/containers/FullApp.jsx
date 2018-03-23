@@ -78,13 +78,18 @@ export default class FullApp extends Component {
          *      handler  Function defined in FullApp that performs some action when the item is clicked
          *      text     Text to display for this action in the Menu
          *      icon     FontAwesome(?) icon to display
+         *      isNoteOpen Boolean whether note action can happen if note is editable or not
+         *      actionCriteria  What criteria this action is avalaible for 
          */
         this.actions = [
             {
                 type: "structured-data",
                 handler: this.handleSummaryItemSelected,
-                text: "Insert Data",
-                icon: "plus"
+                text: "Insert ",
+                icon: "plus",
+                isNoteOpen: true,
+                actionCriteria: "unsigned"
+
             }
         ]
     }

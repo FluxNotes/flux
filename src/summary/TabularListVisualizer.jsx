@@ -238,7 +238,7 @@ class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, "structured-data")}
+                {this.renderedMenu(element, elementId, elementText, "structured-data")}
             </div>
         );
     }
@@ -354,7 +354,7 @@ class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, actionType) => {
+    renderedMenu = (element, elementId, elementText, actionType) => {
         const {
             elementToDisplayMenu,
             positionLeft,
@@ -369,7 +369,7 @@ class TabularListVisualizer extends Component {
 
         // Filter actions by type
         // TODO: Filter actions by specific criteria
-        const filteredActions = this.props.actions.filter(a => a.type === actionType);
+        const filteredActions = this.props.actions.filter(a => a.type === actionType || a.isNoteOpen === true);
         if (filteredActions.length === 0) return null;
         return (
             <Menu
@@ -394,7 +394,7 @@ class TabularListVisualizer extends Component {
                                 className="narrative-inserter-box"
                             >
                                 {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text + elementText} />
                             </MenuItem>
                         )
                     })
