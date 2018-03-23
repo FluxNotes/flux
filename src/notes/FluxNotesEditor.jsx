@@ -45,15 +45,24 @@ const MARK_TAGS = {
 const rules = [
   {
     deserialize(el, next) {
-        const type = BLOCK_TAGS[el.tagName.toLowerCase()]
-        if (!type) return    //   generalize this
-            console.log(type);
+        console.log(el);
+        if(Lang.isNull(el.tagName)){
+             return {
+                object: 'block',
+                type: "text", // or el.type
+                nodes: next(el.childNodes),
+            }
+        } else{
+            const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+            if (!type) return    //   generalize this
+                console.log(type);
 
-      return {
-        object: 'block',
-        type: type,
-        nodes: next(el.childNodes),
-      }
+            return {
+                object: 'block',
+                type: type,
+                nodes: next(el.childNodes),
+            }
+        }
     },
     serialize(obj, children, convertedText = null) {
      // if (obj.kind !== 'block') return //   obj.data.get
@@ -670,8 +679,20 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
                 // TODO: need to deserialize HTML from updatedEditorNote.content and add styling before setting the editor contents.
+                let deserializedNote = null; 
+                console.log(nextProps.updatedEditorNote.content);
+                if(nextProps.updatedEditorNote.content)   {
+                 // picked a random method (deserializeMark) to invoke just to be sure that we are calling things correctly
+                    //   html.deserializeMark(null); oddly, the console.log on the first line of this method doesn't print, but we see the "cannot read type of null" caused by the second line of this method
+                    
+                    // deserialize() is running until it hits an error but console logs in the method do not show up
+                    deserializedNote = html.deserialize(nextProps.updatedEditorNote.content, {}); // what should the first parameter be?
+                    // parameter 2: {toRaw: true} just means it doesn't deserialize the tags, don't want that
+                    console.log(deserializedNote);
+                }  
 
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
+                // TODO: is it wise to insert an undefined variable here when the editor is empty?
+                this.insertTextWithStructuredPhrases(deserializedNote, undefined, false);
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {

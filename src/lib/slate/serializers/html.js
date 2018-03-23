@@ -96,9 +96,14 @@ class Html {
    */
 
   deserialize = (html, options = {}) => {
-    const $ = cheerio.load(html).root()
-    const children = $.children().toArray()
-    let nodes = this.deserializeElements(children)
+    console.log('in deserialize(html)');
+    console.log(html);
+    const $ = cheerio.load(html).root();
+    console.log($);
+    const children = $.children().toArray();
+    console.log(children);
+    let nodes = this.deserializeElements(children);
+    console.log(nodes);
 
     // HACK: ensure for now that all top-level inline are wrapped into a block.
     nodes = nodes.reduce((memo, node, i, original) => {
@@ -126,7 +131,7 @@ class Html {
 
       memo.push(block)
       return memo
-    }, [])
+    }, []);
 
     const raw = {
       kind: 'state',
@@ -134,14 +139,14 @@ class Html {
         kind: 'document',
         nodes,
       }
-    }
+    };
 
     if (options.toRaw) {
-      return raw
+      return raw;
     }
 
-    const state = Raw.deserialize(raw, { terse: true })
-    return state
+    const state = Raw.deserialize(raw, { terse: true });
+    return state;
   }
 
   /**
@@ -220,6 +225,7 @@ class Html {
    */
 
   deserializeMark = (mark) => {
+    console.log("in deserializeMark");
     const { type, data } = mark
 
     const applyMark = (node) => {
