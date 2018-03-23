@@ -1,11 +1,23 @@
 import Deceased from '../shr/entity/Deceased';
 import DateOfDeath from '../shr/entity/DateOfDeath';
 import GeneralizedDateTime from '../shr/core/GeneralizedDateTime';
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import Lang from 'lodash';
 
 class FluxDeceased {
     constructor(json) {
         this._deceased = Deceased.fromJSON(json);
+        if (!this._deceased.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/entity/Deceased';
+            this._deceased.entryInfo = entry;
+        }
+    }
+
+    get entryInfo() {
+        return this._deceased.entryInfo;
     }
 
     /**

@@ -140,6 +140,7 @@ class PatientRecord {
     }
     
     removeEntryFromPatient(entry) {
+        console.log('remove entry')
         const index = this.entries.indexOf(entry);
         if (index >= 0) {
             this.entries.splice(index, 1);
@@ -149,7 +150,9 @@ class PatientRecord {
         }
     }
 
-    setDeceased(deceased) {
+    setDeceased(deceased, clinicalNote) {
+        if (Lang.isNull(deceased)) this.removeEntryFromPatient(this.patient.deceased);
+        else this.addEntryToPatientWithPatientFocalSubject(deceased, clinicalNote);
         this.patient.deceased = deceased;
     }
 
@@ -737,6 +740,12 @@ class PatientRecord {
     getEntryFromReference(ref) {
         return this.entries.find((item) => {
             return item.entryInfo.entryId === ref.entryId;
+        });
+    }
+
+    getEntryById(entryId) {
+        return this.entries.find((entry) => {
+            return entry.entryInfo.entryId === entryId;
         });
     }
 

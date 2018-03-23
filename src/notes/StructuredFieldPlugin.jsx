@@ -1,4 +1,5 @@
 import InsertValue from '../shortcuts/InsertValue';
+import CreatorBase from '../shortcuts/CreatorBase';
 import CreatorChild from '../shortcuts/CreatorChild';
 import React from 'react';
 import Slate from '../lib/slate';
@@ -158,11 +159,15 @@ function StructuredFieldPlugin(opts) {
                         text = text.substring(1);
                     }
                     result += `${shortcut.initiatingTrigger}[[${text}]]`;
+                } else if (shortcut instanceof CreatorBase) {
+                    let entryId = shortcut.getValueObject().entryInfo.entryId;
+                    result += `${shortcut.initiatingTrigger}[[{"entryId":${entryId}}]]`;
                 } else {
                     result += shortcut.getText();
                 }
             }
         });
+        
         return result;
     }
 

@@ -228,10 +228,10 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
-
-        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
+        
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            if (text.length > 0) {
+            if (!Lang.isUndefined(text)) {
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();
                 portalOptions.forEach((option) => {
@@ -255,7 +255,7 @@ class FluxNotesEditor extends React.Component {
 
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
+        return this.insertShortcut(def, matches.before[0], undefined, transform).insertText(' ');
     }
 
     getTextCursorPosition = () => {
@@ -554,7 +554,7 @@ class FluxNotesEditor extends React.Component {
                     after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
                     remainder = remainder.substring(end + 2);
                 } else {
-                    after = "";
+                    after = undefined;
                 }
 
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
