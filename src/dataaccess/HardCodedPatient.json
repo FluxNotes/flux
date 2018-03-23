@@ -168,7 +168,7 @@
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
         "clinician": "Dr. Smith",
-        "content": "@name is a @age year old @gender presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
+        "content": "@name[[Debra Hernandez672]] is a @age[[49]] year old @gender[[Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nDisease #disease status #Stable based on #Pathology and #Symptoms #as of #08/02/2015.",
         "shr.core.CreationTime": {"Value": "02 AUG 2015"},
         "shr.base.LastUpdated": {"Value": "02 AUG 2015"},
         "signed": true
@@ -182,7 +182,7 @@
         "subject": "Consult",
         "hospital": "Dana Farber",
         "clinician": "Dr. Zheng",
-        "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name has staging values T1 N1 and M0, corresponding to stage IIA.",
+        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nPathology report indicates @name[[Debra Hernandez672]] has staging values T1 N1 and M0, corresponding to stage IIA.",
         "shr.core.CreationTime": {"Value": "12 JUL 2012"},
         "shr.base.LastUpdated": {"Value": "12 JUL 2012"},
         "signed": true
@@ -196,7 +196,7 @@
         "subject": "Clinical post-op",
         "hospital": "Brigham and Women's",
         "clinician": "Dr. Smith",
-        "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
+        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\nToxicity Grade 4 Anemia related to Treatment",
         "shr.core.CreationTime": {"Value": "20 JUN 2012"} ,
         "shr.base.LastUpdated":{"Value": "20 JUN 2012"},
         "signed": true
@@ -210,7 +210,7 @@
         "subject": "Clinical follow-up",
         "hospital": "Dana Farber",
         "clinician": "Dr. Strauss",
-        "content": "@patient presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name is enrolled in the clinical trial PATINA on 12/24/2017.",
+        "content": "@patient[[Debra Hernandez672 is a 46 year old Female]] presenting with @condition[[Invasive ductal carcinoma of breast]].\n@name[[Debra Hernandez672]] is enrolled in the clinical trial PATINA on 12/24/2017.",
         "shr.core.CreationTime": {"Value":"16 MAY 2012"},
         "shr.base.LastUpdated": {"Value": "16 MAY 2012"},
         "signed": true

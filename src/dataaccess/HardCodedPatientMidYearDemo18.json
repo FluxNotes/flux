@@ -168,7 +168,7 @@
         "subject": "Experienced pain in breast and felt lump in right breast during self-examination",
         "hospital": "Hospital X",
         "clinician": "Dr. Smith",
-        "content": "@name is a @age year old @gender presenting with pain in her right breast. She felt a lump during a self-examination.\nOrdering mammography.",
+        "content": "@name[[Ella Ortiz111]] is a @age[[40]] year old @gender[[Female]] presenting with pain in her right breast. She felt a lump during a self-examination.\nOrdering mammography.",
         "shr.base.CreationTime": {"Value": "09 NOV 2015"},
         "shr.base.LastUpdated": {"Value": "09 NOV 2015"},
         "signed": true
@@ -182,7 +182,7 @@
         "subject": "Mammography",
         "hospital": "Hospital X",
         "clinician": "Dr. Zheng",
-        "content": "@patient given mammography.\nshowed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. Order a right targeted spot compression breast ultrasound.",
+        "content": "@patient[[Ella Ortiz111 is a 40 year old Female]] given mammography.\nshowed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. Order a right targeted spot compression breast ultrasound.",
         "shr.base.CreationTime": {"Value": "13 NOV 2015"},
         "shr.base.LastUpdated": {"Value": "13 NOV 2015"},
         "signed": true
@@ -196,7 +196,7 @@
         "subject": "Ultrasound Report",
         "hospital": "Hospital X",
         "clinician": "Dr. Strauss",
-        "content": "@patient given a right targeted spot compression breast ultrasound of a palpable lump. Image revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate",
+        "content": "@patient[[Ella Ortiz111 is a 40 year old Female]] given a right targeted spot compression breast ultrasound of a palpable lump. Image revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate",
         "shr.base.CreationTime": {"Value": "29 NOV 2015"} ,
         "shr.base.LastUpdated":{"Value": "29 NOV 2015"},
         "signed": true
