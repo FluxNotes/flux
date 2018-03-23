@@ -265,7 +265,7 @@ class Html {
     //console.log(state.document.nodes);
     this.state = state;
     const elements = document.nodes.map(this.serializeNode);
-    console.log(elements);
+    //console.log(elements);
     if (options.render === false) return elements
 
     const html = ReactDOMServer.renderToStaticMarkup(<body>{elements}</body>)
@@ -283,7 +283,7 @@ class Html {
   serializeNode = (node) => {
       // 'copy' the text every time into the note
       // Need to artificially set selection to the current node
-      console.log(node);
+      //console.log(node);
       if (node.kind == 'text') {
       //console.log(node.kind);
       const ranges = node.getRanges()

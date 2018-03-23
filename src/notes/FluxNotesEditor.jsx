@@ -29,7 +29,7 @@ const BLOCK_TAGS = {
   blockquote: 'quote',
   p: 'paragraph',
   pre: 'code',
-    em: 'italic',
+  em: 'italic',
   strong: 'bold',
   u: 'underline',
 }
@@ -45,8 +45,10 @@ const MARK_TAGS = {
 const rules = [
   {
     deserialize(el, next) {
-      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
-      if (!type) return    //   generalize this
+        const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+        if (!type) return    //   generalize this
+            console.log(type);
+
       return {
         object: 'block',
         type: type,
@@ -97,10 +99,10 @@ const rules = [
                     result += shortcut.getText();
                 }
                 // sf
-                console.log("SF returns " + result); // returns the correct thing, i.e. @age[[43]]
+           //     console.log("SF returns " + result); // returns the correct thing, i.e. @age[[43]]
                 return result;
         }else{
-            console.log("returning nothing");
+           // console.log("returning nothing");
             //  return ( <div>{children}</div> );
             // Don't need to return on every invocation
         }
@@ -396,6 +398,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) {
+        console.log("in insertShortcut");
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -519,9 +522,17 @@ class FluxNotesEditor extends React.Component {
         }
 
         const newText = `${text.substring(0, index.start)}`
+        // NOTE: Possible one off error here
+        const charactersInStructuredPhrase = (text.length - index.start)
+        // console.log(text[anchorOffset -1]);
+        // console.log(text);
+        // console.log(newText);
+        // console.log(anchorOffset);
+        // return transform
+        //     .deleteBackward(anchorOffset)
+        //     .insertText(newText)
         return transform
-            .deleteBackward(anchorOffset)
-            .insertText(newText)
+            .deleteBackward(charactersInStructuredPhrase);
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
@@ -585,7 +596,7 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             state: state
         });
-        console.log(this.props.patient.entries[90].content); // correct note stored in patient EXCEPT the styling immediately preceding only structured fields entered via Suggestions plugin. Structured fields selected  by clicking in right panel don't remove the styling
+        //console.log(this.props.patient.entries[90].content); // correct note stored in patient EXCEPT the styling immediately preceding only structured fields entered via Suggestions plugin. Structured fields selected  by clicking in right panel don't remove the styling
     }
 
     onFocus = () => {
@@ -658,6 +669,7 @@ class FluxNotesEditor extends React.Component {
             else {
 
                 this.resetEditorAndContext();
+                // TODO: need to deserialize HTML from updatedEditorNote.content and add styling before setting the editor contents.
 
                 this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
 
@@ -716,6 +728,7 @@ class FluxNotesEditor extends React.Component {
         let before = '', after = '';
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
+        console.log(triggers);
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {

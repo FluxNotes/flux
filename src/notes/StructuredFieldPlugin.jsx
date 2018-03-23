@@ -328,6 +328,7 @@ function StructuredFieldPlugin(opts) {
  * @return {Slate.Transform}
  */
 function insertStructuredField(opts, transform, shortcut) {
+    console.log("inside insertStructuredField");
     const { state } = transform;
     if (!state.selection.startKey) return false;
 
