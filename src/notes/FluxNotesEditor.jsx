@@ -19,6 +19,7 @@ import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
+import InsertValue from '../shortcuts/InsertValue';
 import './FluxNotesEditor.css';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
@@ -223,15 +224,15 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        
+
         // check if shortcutTrigger is currently valid
         if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
-        
+
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            if (!Lang.isUndefined(text)) {
+            if (text.length > 0) {
                 shortcut.setText(text);
                 let portalOptions = shortcut.getValueSelectionOptions();
                 portalOptions.forEach((option) => {
@@ -245,7 +246,7 @@ class FluxNotesEditor extends React.Component {
             } else {
                 return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
             }
-        } else if (text.length > 0) {
+        } else if (text.length > 0 && shortcut instanceof InsertValue) {
             shortcut.setText(text)
             return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
         } else {
@@ -255,7 +256,7 @@ class FluxNotesEditor extends React.Component {
 
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(def, matches.before[0], undefined, transform).insertText(' ');
+        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
     }
 
     getTextCursorPosition = () => {
@@ -554,7 +555,7 @@ class FluxNotesEditor extends React.Component {
                     after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
                     remainder = remainder.substring(end + 2);
                 } else {
-                    after = undefined;
+                    after = "";
                 }
 
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);

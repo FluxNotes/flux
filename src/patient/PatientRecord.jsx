@@ -140,7 +140,6 @@ class PatientRecord {
     }
     
     removeEntryFromPatient(entry) {
-        console.log('remove entry')
         const index = this.entries.indexOf(entry);
         if (index >= 0) {
             this.entries.splice(index, 1);
