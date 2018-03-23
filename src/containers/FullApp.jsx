@@ -107,7 +107,7 @@ export default class FullApp extends Component {
         this.setState({summaryItemToInsert: ''});
     }
 
-    // Given a shortcutClass, a type and an object, create a new shortcut and change errors is needed.
+    // Given a shortcutClass, a type and an object, create a new shortcut and change errors as needed.
     newCurrentShortcut = (shortcutC, shortcutType, updatePatient = true) => {
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.handleShortcutUpdate);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);

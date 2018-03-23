@@ -715,6 +715,37 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
         .notOk()
 });
 
+test('Not choosing an option from a portal still allows user to delete parent shortcut', async t => {
+    const clinicalEventSelector = Selector('.clinical-event-select');
+    await t
+        .click(clinicalEventSelector)
+        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+
+    const editor = Selector("div[data-slate-editor='true']");
+    const structuredField = editor.find("span[class='structured-field']");
+    const contextPanelElements = Selector(".context-options-list").find('.context-option');
+    const clinicalTrialButton = await contextPanelElements.withText(/#enrollment/ig);
+
+    // Select post-encounter mode
+    await t
+        .click(clinicalTrialButton);
+
+    const dateButton = await contextPanelElements.withText(/#date/ig);
+    await t
+        .click(dateButton)
+        .pressKey('esc');
+
+    await t
+        .click(editor);
+
+    await t
+        .pressKey('backspace');
+
+    await t
+        .expect(structuredField.exists)
+        .notOk();
+});
+
 fixture('Patient Mode - Clinical Notes list')
     .page(startPage);
 
