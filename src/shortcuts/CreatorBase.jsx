@@ -283,6 +283,10 @@ export default class CreatorBase extends Shortcut {
         return "#" + this.metadata["name"];
     }
 
+    getResultText() {
+        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+    }
+
     getId() {
         return this.metadata["id"];
     }

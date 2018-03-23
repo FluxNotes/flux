@@ -138,7 +138,15 @@ export default class InsertValue extends Shortcut {
 
 	getText() {
 		return this.text;
-	}
+    }
+    
+    getResultText() {
+        let text = this.text;
+        if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            text = text.substring(1);
+        }
+        return `${this.initiatingTrigger}[[${text}]]`;
+    }
 		
 	setText(text) {
 		this.text = text;
