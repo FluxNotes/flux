@@ -253,7 +253,7 @@ export default class CreatorBase extends Shortcut {
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
                     let list = this.getAttributeValue(name);
-                    list.push(value);
+                    if (!list.includes(value)) list.push(value);
                     Lang.set(this.object, setMethod, list);
                 } else {
                     Lang.set(this.object, setMethod, value);
