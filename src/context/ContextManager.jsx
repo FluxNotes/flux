@@ -101,7 +101,8 @@ class ContextManager {
         this.contexts.forEach((item, i) => {
             if (item === shortcut) index = i;
         });
-        if (index === -1) throw new Error("Unable to remove shortcut because not found in contexts.");
+
+        if (index === -1) return;
         this.contexts.splice(index, 1);
 
         this.removeShortcutFromActiveContexts(shortcut);
