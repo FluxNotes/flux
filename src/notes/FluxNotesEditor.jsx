@@ -45,12 +45,23 @@ const MARK_TAGS = {
 const rules = [
   {
     deserialize(el, next) {
+        // TODO March 26 4:45 text gets put into separate lines ex. aa <strong> bb </strong> gets reloaded as aa \n <strong> bb </strong>
+        // TODO March 26 4:45 can't type after reloading a note.
+        // TODO March 26 4:45 Bold and italics are preseved. Confirm other styling are working as well.
         console.log(el);
         if(Lang.isNull(el.tagName)){
+            const marks = [];
+            if (!Lang.isNull(el.parent) && !Lang.isUndefined(BLOCK_TAGS[el.parent.name.toLowerCase()])) {
+                marks.push({ type: BLOCK_TAGS[el.parent.name.toLowerCase()]})
+            }
              return {
                 object: 'block',
-                type: "text", // or el.type
-                nodes: next(el.childNodes),
+                kind: 'text',
+                type: "inline", // or el.type
+                // nodes: next(el.childNodes),
+                // characters: [{marks: [], text: "j"}],
+                text: el.data,
+                marks
             }
         } else{
             const type = BLOCK_TAGS[el.tagName.toLowerCase()]
@@ -59,6 +70,7 @@ const rules = [
 
             return {
                 object: 'block',
+                kind: 'block',
                 type: type,
                 nodes: next(el.childNodes),
             }
@@ -679,20 +691,28 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
                 // TODO: need to deserialize HTML from updatedEditorNote.content and add styling before setting the editor contents.
-                let deserializedNote = null; 
+                let deserializedState = null; 
                 console.log(nextProps.updatedEditorNote.content);
                 if(nextProps.updatedEditorNote.content)   {
                  // picked a random method (deserializeMark) to invoke just to be sure that we are calling things correctly
                     //   html.deserializeMark(null); oddly, the console.log on the first line of this method doesn't print, but we see the "cannot read type of null" caused by the second line of this method
-                    
+                
                     // deserialize() is running until it hits an error but console logs in the method do not show up
-                    deserializedNote = html.deserialize(nextProps.updatedEditorNote.content, {}); // what should the first parameter be?
+                    deserializedState = html.deserialize(nextProps.updatedEditorNote.content, {}); // what should the first parameter be?
                     // parameter 2: {toRaw: true} just means it doesn't deserialize the tags, don't want that
-                    console.log(deserializedNote);
+                    //console.log(deserializedNote);
                 }  
-
+                
                 // TODO: is it wise to insert an undefined variable here when the editor is empty?
-                this.insertTextWithStructuredPhrases(deserializedNote, undefined, false);
+                // console.log(deserializedState)
+                // console.log(deserializedState.toJSON())
+                // TODO: March 26 4:45 deserializer returns slate state, which knows nothing about structured fields. Set structured fields in addition to setting state.
+                // dont have a string to insert this.insertTextWithStructuredPhrases(deserializedNote, undefined, false);
+                if (!Lang.isNull(deserializedState)) {
+                    this.setState({state: deserializedState});
+                }
+                // console.log(nextProps.updatedEditorNote.content)
+                // this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {

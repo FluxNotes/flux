@@ -100,7 +100,8 @@ class Html {
     console.log(html);
     const $ = cheerio.load(html).root();
     console.log($);
-    const children = $.children().toArray();
+    const children = $[0].children//.toArray();
+    // const children = $.children().toArray();
     console.log(children);
     let nodes = this.deserializeElements(children);
     console.log(nodes);
