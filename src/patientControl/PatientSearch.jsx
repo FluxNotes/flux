@@ -52,39 +52,53 @@ class PatientSearch extends React.Component {
             // If we need more suggestions and there is content in the note
             if (suggestions.length < 5 && note.content && inputValue) {
                 //  Establish some common variables for our regex
-                const space = '([^\\S\\n])'; 
-                const possibleTrigger = '(@|#|\\[\\[|\\]\\]){0,1}'
-                const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
-                const escapedInput = escapeRegExp(inputValue.toLowerCase());
-                const strVar = `(${space}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`
-                const regex = new RegExp(strVar);
+                inputValue = inputValue.toLowerCase();
+                const spaceOrPeriod = '([^\\S\\n]|\\.)'; 
+                const possibleTrigger = '(@|#|\\[\\[|\\]\\]){0,1}';
+                const continueToNextWord = `(\\S*${spaceOrPeriod}\\S*){0,2}`;
+                const escapedInput = escapeRegExp(inputValue);
+                const inputPattern = `(${spaceOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
+                const regex = new RegExp(inputPattern);
                 // Search note content
                 const relevantNoteContent = (note.content).toLowerCase();
                 const contentMatches = regex.exec(relevantNoteContent);
                 // Search note metadata
                 const relevantNoteMetadata = (
-                    note.date + ' ' + 
-                    note.subject + ' ' + 
-                    note.clinician + ' ' + 
+                    note.date + ' ' +
+                    note.subject + ' ' +
                     note.hospital
                 ).toLowerCase();
-                const metadataMatches = regex.exec(relevantNoteMetadata)
+                const metadataMatches = regex.exec(relevantNoteMetadata);
+                // NewSuggestion object -- to be pushed with relevant data if there's a match
+                let newSuggestion = { 
+                    date: note.date,
+                    subject: note.subject,
+                    hospital: note.hospital,
+                    inputValue: inputValue,
+                    note: note,
+                }
                 if (contentMatches) { 
-                    suggestions.push({
-                        date: note.date,
-                        subject: note.subject,
-                        hospital: note.hospital,
-                        contentSnapshot: contentMatches[0].slice(0, 25),
-                        note: note,
-                    });
-                } else if(metadataMatches) { 
-                    suggestions.push({
-                        date: note.date,
-                        subject: note.subject,
-                        hospital: note.hospital,
-                        contentSnapshot: note.content.slice(0, 25),
-                        note: note,
-                    });
+                    // Want a snapshot of text surrounding matched text
+                    const inputPatternForSnapshot = `(${spaceOrPeriod}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`;
+                    const regexForSnapshot = new RegExp(inputPatternForSnapshot);
+                    const contentMatchesForSnapshot = regexForSnapshot.exec(relevantNoteContent);
+                    // Add additional metadata, push to suggestions
+                    newSuggestion.contentSnapshot = contentMatchesForSnapshot[0].slice(0, 25);
+                    newSuggestion.matchedOn = "contentSnapshot";
+                    suggestions.push(newSuggestion);
+                } else if(metadataMatches) {
+                    let matchedMetaData; 
+                    if (note.date.toLowerCase().indexOf(inputValue) !== -1) {
+                        matchedMetaData = "date";
+                    } else if (note.subject.toLowerCase().indexOf(inputValue) !== -1) {
+                        matchedMetaData = "subject";
+                    } else if (note.hospital.toLowerCase().indexOf(inputValue) !== -1) {
+                        matchedMetaData = "hospital";
+                    }
+                    // Add additional metadata, push to suggestions
+                    newSuggestion.contentSnapshot = note.content.slice(0, 25);
+                    newSuggestion.matchedOn = matchedMetaData;
+                    suggestions.push(newSuggestion);
                 }
             }
             return suggestions;

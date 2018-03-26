@@ -14,6 +14,29 @@ class SearchSuggestion extends React.Component {
         const { suggestion, index, itemProps, highlightedIndex, selectedItem } = this.props;
         const isHighlighted = highlightedIndex === index;
         const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
+
+        const fullSnapshot = suggestion.contentSnapshot;
+        const inputValue = suggestion.inputValue;
+        const indexOfMatch = fullSnapshot.indexOf(inputValue);
+        const preText = fullSnapshot.slice(0, indexOfMatch);
+        const postText = fullSnapshot.slice(inputValue.length + preText.length, fullSnapshot.length);
+        
+        let suggestionText = '';
+        // highlight inputValue
+        if(suggestion.matchedOn === "contentSnapshot") { 
+            suggestionText = (
+                <div className="suggestion-text">
+                    <span>{preText}</span>
+                    <span className="highlightedInputValue">{inputValue}</span>
+                    <span>{postText}</span>
+                </div>
+            )
+        } else { 
+            suggestionText = (
+                <span className="suggestion-text">{suggestion.contentSnapshot}</span> 
+            );
+        }
+
         return (
             <MenuItem
                 {...itemProps}
@@ -26,12 +49,12 @@ class SearchSuggestion extends React.Component {
                 }}
             >
                 <div className="suggestion-label">
-                    <p className="label-content">{suggestion.date}</p>
-                    <p className="label-content">{suggestion.subject}</p>
-                    <p className="label-content">{suggestion.hospital}</p>
+                    <span className={"label-content " + (suggestion.matchedOn === "date" ? "highlightedInputValue" : "")}>{suggestion.date}</span>
+                    <span className={"label-content " + (suggestion.matchedOn === "subject" ? "highlightedInputValue" : "")}>{suggestion.subject}</span>
+                    <span className={"label-content " + (suggestion.matchedOn === "hospital" ? "highlightedInputValue" : "")}>{suggestion.hospital}</span>
                 </div> 
                 <span className="dividing-line"></span> 
-                <p className="suggestion-text">{suggestion.contentSnapshot}</p> 
+                {suggestionText} 
             </MenuItem>
         );
     }

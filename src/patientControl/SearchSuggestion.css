@@ -6,7 +6,7 @@
     padding: 5px auto;
 }
 
-.suggestion-label p.label-content { 
+.suggestion-label .label-content { 
     display: block;
     margin: 0;
     white-space: nowrap;
@@ -33,4 +33,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.highlightedInputValue{ 
+    font-weight: 600;
 }
