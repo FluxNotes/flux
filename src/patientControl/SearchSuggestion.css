@@ -2,11 +2,15 @@
     min-width: 80px;
     display: inline-block;
     font-size: 10px;
+    width: 80px;
+    padding: 5px auto;
 }
 
 .suggestion-label p.label-content { 
     display: block;
+    margin: 0;
     white-space: nowrap;
+    line-height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
 }

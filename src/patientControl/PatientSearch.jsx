@@ -53,9 +53,9 @@ class PatientSearch extends React.Component {
             if (suggestions.length < 5 && note.content && inputValue) {
                 //  Establish some common variables for our regex
                 const space = '([^\\S\\n])'; 
-                const escapedInput = escapeRegExp(inputValue.toLowerCase());
-                const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
                 const possibleTrigger = '(@|#|\\[\\[|\\]\\]){0,1}'
+                const continueToNextWord = '(\\S*[^\\S\\n]\\S*){0,2}';
+                const escapedInput = escapeRegExp(inputValue.toLowerCase());
                 const strVar = `(${space}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`
                 const regex = new RegExp(strVar);
                 // Search note content
