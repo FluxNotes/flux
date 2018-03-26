@@ -118,7 +118,7 @@ export default class FullApp extends Component {
             });
             newShortcut = null;
         } else {
-            newShortcut.initialize(this.contextManager, shortcutType, updatePatient);
+            newShortcut.initialize(this.contextManager, shortcutType, updatePatient, shortcutData);
         }
         this.updateErrors(errors);
         return newShortcut;
