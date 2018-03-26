@@ -149,9 +149,7 @@ class PatientRecord {
         }
     }
 
-    setDeceased(deceased, clinicalNote) {
-        if (Lang.isNull(deceased)) this.removeEntryFromPatient(this.patient.deceased);
-        else this.addEntryToPatientWithPatientFocalSubject(deceased, clinicalNote);
+    setDeceased(deceased) {
         this.patient.deceased = deceased;
     }
 

@@ -1,5 +1,5 @@
 import Patient from "../shr/entity/Patient";
-
+import Deceased from "../shr/entity/Deceased";
 class FluxPatient {
     constructor(json) {
         this._patient = Patient.fromJSON(json);
@@ -24,7 +24,9 @@ class FluxPatient {
         return this._patient.deceased;
     }
 
-    set deceased(deceased) {
+    set deceased(val) {
+        let deceased = new Deceased();
+        deceased.value = val;
         this._patient.deceased = deceased;
     }
 }

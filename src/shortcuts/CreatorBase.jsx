@@ -284,6 +284,7 @@ export default class CreatorBase extends Shortcut {
     }
 
     getResultText() {
+        if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
         return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
     }
 
