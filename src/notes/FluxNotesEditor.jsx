@@ -223,34 +223,17 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
-        
+
         // check if shortcutTrigger is currently valid
         if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
 
-        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, updatePatient);
-        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            if (text.length > 0) {
-                shortcut.setText(text);
-                let portalOptions = shortcut.getValueSelectionOptions();
-                portalOptions.forEach((option) => {
-                    if (option.context === text) {
-                        shortcut.setValueObject(option.object);
-                        //this.contextManager.contextUpdated();                        
-                    }
-                });
-                shortcut.clearValueSelectionOptions();
-                return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
-            } else {
-                return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
-            }
-        } else if (text.length > 0) {
-            shortcut.setText(text)
-            return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
-        } else {
-            return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
+        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
         }
+        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {

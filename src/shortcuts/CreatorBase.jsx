@@ -5,15 +5,17 @@ import Lang from 'lodash';
 import moment from 'moment';
 
 export default class CreatorBase extends Shortcut {
-    constructor(onUpdate, metadata, object) {
+    constructor(onUpdate, metadata, patient, shortcutData) {
         super();
         this.metadata = metadata;
         this.text = "#" + this.metadata["name"];
-        if (Lang.isUndefined(object)) {
+        this.patient = patient;
+        if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
             this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
             this.isObjectNew = true;
         } else {
-            this.object = object;
+            const dataObj = JSON.parse(shortcutData);
+            this.object = patient.getEntryById(dataObj.entryId);
             this.isObjectNew = false;
         }
         this.setValueObject(this.object);
@@ -281,6 +283,11 @@ export default class CreatorBase extends Shortcut {
         return "#" + this.metadata["name"];
     }
 
+    getResultText() {
+        if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
+        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+    }
+
     getId() {
         return this.metadata["id"];
     }
@@ -380,7 +387,6 @@ export default class CreatorBase extends Shortcut {
             } else {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
-            this.patient = patient;
             this.isObjectNew = false;
         }
     }

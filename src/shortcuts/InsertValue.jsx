@@ -2,21 +2,32 @@ import Shortcut from './Shortcut';
 import Lang from 'lodash';
 
 export default class InsertValue extends Shortcut {
-    constructor(onUpdate, metadata) {
+    constructor(onUpdate, metadata, patient, shortcutData) {
         super();
         this.metadata = metadata;
-		this.text = null;
+        this.text = null;
     }
-    
-	initialize(contextManager, trigger = undefined, updatePatient = true) {
-		super.initialize(contextManager, trigger, updatePatient);
-		let text = this.determineText(contextManager);
-		if (Lang.isArray(text)) {
-			this.flagForTextSelection(text);
-		} else {
-			this.setText(text);
-		}
-	}
+
+    initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
+        super.initialize(contextManager, trigger, updatePatient);
+        let text = this.determineText(contextManager);
+        if (Lang.isArray(text)) {
+            this.flagForTextSelection(text);
+        } else {
+            if (shortcutData.length > 0) this.setText(shortcutData);
+            else this.setText(text);
+        }
+
+        if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
+            this.text = shortcutData;
+            const portalOptions = this.getValueSelectionOptions();
+            portalOptions.forEach((option) => {
+                if (option.context === shortcutData) {
+                    this.setValueObject(option.object);
+                }
+            });
+        }
+    }
 
 	getPrefixCharacter() {
 		return "@";
@@ -138,7 +149,15 @@ export default class InsertValue extends Shortcut {
 
 	getText() {
 		return this.text;
-	}
+    }
+    
+    getResultText() {
+        let text = this.text;
+        if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            text = text.substring(1);
+        }
+        return `${this.initiatingTrigger}[[${text}]]`;
+    }
 		
 	setText(text) {
 		this.text = text;

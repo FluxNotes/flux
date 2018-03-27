@@ -37,6 +37,10 @@ class Shortcut extends Context {
         return this.getShortcutType();
     }
 
+    getResultText() {
+        return this.getText();
+    }
+
     getLabel() {
         throw new Error("Invalid context. " + this.constructor.name);
     }   

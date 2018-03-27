@@ -62,7 +62,7 @@ class ShortcutManager {
         return this.shortcutsToSupportList;
     }
     
-    createShortcut(definition, trigger, onUpdate) {
+    createShortcut(definition, trigger, patient, shortcutData, onUpdate) {
         let className;
         let metadata;
         if (!Lang.isNull(definition)) {
@@ -76,15 +76,15 @@ class ShortcutManager {
         className = metadata["type"];
         let newShortcut;
         if (className === "CreatorBase") {
-            newShortcut = new CreatorBase(onUpdate, metadata);
+            newShortcut = new CreatorBase(onUpdate, metadata, patient, shortcutData);
         } else if (className === "UpdaterBase") {
-            newShortcut = new UpdaterBase(onUpdate, metadata);
+            newShortcut = new UpdaterBase(onUpdate, metadata, patient, shortcutData);
         } else if (className === "CreatorChild") {
-            newShortcut = new CreatorChild(onUpdate, metadata);
+            newShortcut = new CreatorChild(onUpdate, metadata, patient, shortcutData);
         } else if (className === "CreatorIntermediary") {
-            newShortcut = new CreatorIntermediary(onUpdate, metadata);
+            newShortcut = new CreatorIntermediary(onUpdate, metadata, patient, shortcutData);
         } else if (className === "InsertValue") {
-            newShortcut = new InsertValue(onUpdate, metadata);
+            newShortcut = new InsertValue(onUpdate, metadata, patient, shortcutData);
         } else {
             console.error("unsupported type: " + className);
             return null;

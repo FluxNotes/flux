@@ -71,7 +71,12 @@ class FluxDiseaseProgression {
      *  The method will lookup the corresponding coding/codesystem and set the evidence array
      */
     set evidence(evidence) {
-        this._diseaseProgression.evidence = evidence.map((e) => {
+        // filter evidence to ignore case and to make sure there are no duplicates
+        const filteredEvidence = evidence.map(e => e.toLowerCase()).filter((e, index, arr) => {
+            return arr.indexOf(e) === index;
+        });
+
+        this._diseaseProgression.evidence = filteredEvidence.map((e) => {
             let ev = new Evidence();
             ev.value = lookup.getEvidenceCodeableConcept(e);   
             return ev;

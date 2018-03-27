@@ -740,6 +740,12 @@ class PatientRecord {
         });
     }
 
+    getEntryById(entryId) {
+        return this.entries.find((entry) => {
+            return entry.entryInfo.entryId === entryId;
+        });
+    }
+
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
