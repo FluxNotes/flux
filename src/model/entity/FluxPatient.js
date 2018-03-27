@@ -1,5 +1,6 @@
 import Patient from "../shr/entity/Patient";
 import Deceased from "../shr/entity/Deceased";
+
 class FluxPatient {
     constructor(json) {
         this._patient = Patient.fromJSON(json);
