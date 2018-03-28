@@ -54,7 +54,7 @@ class PatientSearch extends React.Component {
                 //  Establish some common variables for our regex
                 inputValue = inputValue.toLowerCase();
                 const spaceOrPeriod = '([^\\S\\n]|\\.)'; 
-                const possibleTrigger = '(@|#|\\[\\[|\\]\\]){0,1}';
+                const possibleTrigger = '(@|#|\\S*\\[\\[|\\]\\]){0,1}';
                 const continueToNextWord = `(\\S*${spaceOrPeriod}\\S*){0,2}`;
                 const escapedInput = escapeRegExp(inputValue);
                 const inputPattern = `(${spaceOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
