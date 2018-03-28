@@ -31,7 +31,7 @@ const BLOCK_TAGS = {
   pre: 'code',
   em: 'italic',
   strong: 'bold',
-  u: 'underline',
+  u: 'underlined',
 }
  
 //let key = 1;
@@ -70,7 +70,7 @@ const rules = [
 
             return {
                 object: 'block',
-                kind: 'block',
+                kind: 'block', // TODO: This should only be a block when a new paragraph is started in the editor. Need a better way to conditionally decide the kind.
                 type: type,
                 nodes: next(el.childNodes),
             }

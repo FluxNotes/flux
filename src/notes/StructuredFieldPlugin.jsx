@@ -149,6 +149,9 @@ function StructuredFieldPlugin(opts) {
             } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
                 result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
             } else if (blk.kind === 'text') {
+                // console.log("blk.kind === text")
+                // console.log(blk)
+                // console.log(blk.toJSON())
                 result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 // Approach 1: copying this block of code into the rules.serialize() because it does what you want when you have a sturctured field
