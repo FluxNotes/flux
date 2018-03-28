@@ -72,7 +72,6 @@ export default class FullApp extends Component {
         };
 
         /*  actions is a list of actions passed to the visualizers
-         *  TODO: Add additional properties that define the criteria in which an action should be available(missing, signed, unsigned, editor open etc...)
          *  Each action has following properties:
          *      type     Indicates the type of action.  Can be 'structured-data' or 'missing-data'
          *      handler  Function defined in FullApp that performs some action when the item is clicked
@@ -85,7 +84,7 @@ export default class FullApp extends Component {
             {
                 type: "structured-data",
                 handler: this.handleSummaryItemSelected,
-                text: "Insert ",
+                text: "Insert {elementText}",
                 icon: "plus",
                 isNoteEditable: true,
                 actionCriteria: "unsigned"

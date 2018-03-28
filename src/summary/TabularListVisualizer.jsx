@@ -368,7 +368,6 @@ class TabularListVisualizer extends Component {
         }
 
         // Filter actions by type
-        // TODO: Filter actions by specific criteria
         const filteredActions = this.props.actions.filter(a => a.type === actionType || a.isNoteEditable === allowItemClick);
         if (filteredActions.length === 0) return null;
         return (
@@ -387,6 +386,7 @@ class TabularListVisualizer extends Component {
                                 <FontAwesome name={a.icon} />
                             </ListItemIcon>
                         ) : null;
+                        const text = a.text.replace("{elementText}", elementText);
                         return (
                             <MenuItem
                                 key={`${elementId}-${index}`}
@@ -394,7 +394,7 @@ class TabularListVisualizer extends Component {
                                 className="narrative-inserter-box"
                             >
                                 {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text + elementText} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
                             </MenuItem>
                         )
                     })
