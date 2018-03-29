@@ -12,7 +12,7 @@ export default class ContextOptions extends Component {
         super(props);
 
         this.state = {
-            searchString: "",
+            searchString: '',
             tooltipVisibility: 'visible'
         }
     }
@@ -51,6 +51,7 @@ export default class ContextOptions extends Component {
                 count++;
             });
         });
+        const countBeforeSearch = count;
 
         // enable filter?
         const showFilter = (count > 10);
@@ -58,6 +59,7 @@ export default class ContextOptions extends Component {
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
         count = 0;
+
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
@@ -90,7 +92,7 @@ export default class ContextOptions extends Component {
             }
         });
 
-        if (totalShown === 0) {
+        if (!showFilter && totalShown === 0) {
             return null;
         }
 
@@ -102,7 +104,7 @@ export default class ContextOptions extends Component {
                     <div className="shortcut-search-container">
                         <div className="shortcut-search-title">
                             <div>Filter:</div>
-                            <div className="count">(showing {totalShown} of {count})</div>
+                            <div className="count">(showing {totalShown} of {countBeforeSearch})</div>
                         </div>
 
                         <TextField
