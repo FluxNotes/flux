@@ -6,6 +6,7 @@ import getCurrentWord from './current-word'
 import {
     UP_ARROW_KEY,
     DOWN_ARROW_KEY,
+    ENTER_KEY,
     RESULT_SIZE,
 } from './constants'
 
@@ -74,6 +75,8 @@ class SuggestionPortal extends React.Component {
 
     // Use new key-presses to update the current suggestion
     onKeyDown = (keyCode, data) => {
+
+        console.log("got in key down");
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
             const height = this.refs.suggestionPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
@@ -86,7 +89,15 @@ class SuggestionPortal extends React.Component {
             // newIndex - (numberOfElementsVisible - 1) forces the scrolling to happen once your reach the bottom of the list in view.
             // 32 is the height of each suggestion in the list, 10 allows for the margin
             this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
-        } else {
+        }
+
+        else if (keyCode === ENTER_KEY){
+            console.log("entering key down for enter button");
+        }
+
+
+
+        else {
             // Else, determine character and update suggestions accordingly
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
             this.setSelectedIndex(0)
@@ -164,11 +175,14 @@ class SuggestionPortal extends React.Component {
         // Put together newText based on nextCharacter; change offset if char is -
         let newText = anchorText.text;
         let offset = anchorOffset;
-        if (nextChar === "backspace") { 
+        if (nextChar === "backspace") {
             if (newText.length > 0) { 
                 // Remove last character if we've backspaced and there is a letter
                 newText = newText.slice(0, newText.length - 1);
                 offset -= 1;
+
+                console.log("new text");
+                console.log(newText);
             }
         } else { 
             // Else, add the processed character

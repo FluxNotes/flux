@@ -275,6 +275,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+        console.log("open portal to select value for shortcut");
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -290,7 +291,13 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
 
+        console.log("on portal selection");
         let shortcut = this.selectingForShortcut;
+
+        console.log("shortcut");
+        console.log(shortcut);
+
+
         this.selectingForShortcut = null;
         this.setState({isPortalOpen: false});
         if (Lang.isNull(selection)) {
@@ -330,6 +337,13 @@ class FluxNotesEditor extends React.Component {
         }
 
         const newText = `${text.substring(0, index.start)}`
+        console.log("suggestion delete method called");
+        console.log(newText);
+        console.log(text);
+        console.log(index);
+
+        console.log("state");
+        console.log(state);
         return transform
             .deleteBackward(anchorOffset)
             .insertText(newText)
