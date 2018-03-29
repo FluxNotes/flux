@@ -54,17 +54,16 @@ class PatientSearch extends React.Component {
             // If we need more suggestions and there is content in the note
             if (note.content && inputValue) {
                 //  Establish some common variables for our regex
-                inputValue = inputValue.toLowerCase();
                 const spaceOrNewlineOrPeriod = '(?:[^\\S]|\\.)'; 
-                const possibleTrigger = '(?:@|#|\\S*\\[\\[|\\]\\]){0,1}';
+                const possibleTrigger = '(?:#|@|\\S*\\[\\[|\\]\\]){0,1}';
                 const continueToNextWord = `(?:\\S*${spaceOrNewlineOrPeriod}\\S*){0,6}`;
                 const escapedInput = `${escapeRegExp(inputValue)}`
                 // combines for out pattern; adds capture group for snapshot of information
                 const inputPattern = `(?:${spaceOrNewlineOrPeriod}(${possibleTrigger}${escapedInput}${continueToNextWord})|^(${possibleTrigger}${escapedInput}${continueToNextWord}))`;
 
-                const regex = new RegExp(inputPattern);
+                const regex = new RegExp(inputPattern, "i");
                 // Search note content
-                const relevantNoteContent = (note.content).toLowerCase();
+                const relevantNoteContent = (note.content);
                 const contentMatches = regex.exec(relevantNoteContent);
                 // Search note metadata
                 const relevantNoteMetadata = (
@@ -83,9 +82,11 @@ class PatientSearch extends React.Component {
                 }
                 if (contentMatches) { 
                     // TODO: For each match, do this.
-                    // console.log(contentMatches) 
-                    // Want a snapshot of text surrounding matched text
-                    newSuggestion.contentSnapshot = contentMatches[1];
+                    console.log(contentMatches) 
+                    // Want a snapshot of text surrounding matched text: 
+                    // group one -- in the middle of a sentence; 
+                    // group two -- at the beginning of a sentence;
+                    newSuggestion.contentSnapshot = (contentMatches[1] ? contentMatches[1] : contentMatches[2]);
                     newSuggestion.matchedOn = "contentSnapshot";
                     suggestions.push(newSuggestion);
                 } else if(metadataMatches) {

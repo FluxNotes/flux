@@ -15,11 +15,18 @@ class SearchSuggestion extends React.Component {
         const isHighlighted = highlightedIndex === index;
         const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
 
+        // 
         const fullSnapshot = suggestion.contentSnapshot;
         const inputValue = suggestion.inputValue;
-        const indexOfMatch = fullSnapshot.indexOf(inputValue);
+        // Lowercase versions for index finding
+        console.log(suggestion)
+        const fullSnapshotLowerCase = fullSnapshot.toLowerCase();
+        const inputValueLowerCase = inputValue.toLowerCase();
+        const indexOfMatch = fullSnapshotLowerCase.indexOf(inputValueLowerCase);
+        // Slice original copies for highlighting
         const preText = fullSnapshot.slice(0, indexOfMatch);
-        const postText = fullSnapshot.slice(inputValue.length + preText.length, fullSnapshot.length);
+        const highlightedText = fullSnapshot.slice(indexOfMatch, preText.length + inputValue.length)
+        const postText = fullSnapshot.slice(preText.length + inputValue.length, fullSnapshot.length);
         
         let suggestionText = '';
         // highlight inputValue
@@ -27,7 +34,7 @@ class SearchSuggestion extends React.Component {
             suggestionText = (
                 <div className="suggestion-text">
                     <span>{preText}</span>
-                    <span className="highlightedInputValue">{inputValue}</span>
+                    <span className="highlightedInputValue">{highlightedText}</span>
                     <span>{postText}</span>
                 </div>
             )
