@@ -51,14 +51,16 @@ class VisualizerManager {
                 if (Lang.isNull(item.value)) {
                     return {name: item.name, value: null};
                 } else if (item.shortcut) {
-                    if(item.value(patient, condition)) {
-                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]], shortcut: item.shortcut};
+                    const itemValue = item.value(patient, condition);
+                    if (itemValue) {
+                        return {name: item.name, value: itemValue, shortcut: item.shortcut};
                     } else {
                         return {name: item.name, value: null, shortcut: item.shortcut};
                     }
                 } else {
-                    if(item.value(patient, condition)) {
-                        return {name: item.name, value: [item.value(patient, condition)[0], item.value(patient, condition)[1]] };
+                    const itemValue = item.value(patient, condition);
+                    if (itemValue) {
+                        return {name: item.name, value: itemValue };
                     } else {
                         return {name: item.name, value: null};
                     }

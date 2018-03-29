@@ -224,7 +224,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const filteredActions = this.props.actions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(snippet)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
         if (filteredActions.length === 0) return null;
         return (

@@ -282,7 +282,8 @@ class TabularListVisualizer extends Component {
                             </span>
                         </td>
                     );
-                } else if (this.props.allowItemClick && isInsertable) {
+                //} else if (this.props.allowItemClick && isInsertable) {
+                } else if (isInsertable) {
                     // Get value off of element given two cases:
                     // 1. Element type is shortcut, value is returned by element.value()
                     // 2. Element type is string, the value is just the string
@@ -373,7 +374,7 @@ class TabularListVisualizer extends Component {
         const filteredActions = this.props.actions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
         if (filteredActions.length === 0) return null;
         return (

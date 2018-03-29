@@ -163,7 +163,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.status, patient.isUnsigned(p)];
+                                                return [p.status, patient.isUnsigned(p), p.sourceClinicalNoteReference];
                                             }
                                         }
                                     },

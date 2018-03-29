@@ -91,6 +91,16 @@ export default class FullApp extends Component {
                     existingValueSigned: "either",
                     editableNoteOpen: true
                 }
+            },
+            {
+                handler: this.openReferencedNote,
+                text: "Open Source Note",
+                icon: null,
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: "either"
+                }
             }
         ]
     }
@@ -181,8 +191,15 @@ export default class FullApp extends Component {
         });
     }
 
+    openReferencedNote = (item, arrayIndex = -1) => {
+        console.log("openReferencedNote");
+        console.log(item);
+        console.log(arrayIndex);
+    }
+
     // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
+        console.log(item, arrayIndex);
         if (item) {
             if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.

@@ -1,3 +1,4 @@
+import FluxEntry from '../base/FluxEntry';
 import DiseaseProgression from '../shr/condition/DiseaseProgression';
 import Evidence from '../shr/finding/Evidence';
 import lookup from '../../lib/progression_lookup.jsx';
@@ -10,9 +11,10 @@ import moment from 'moment';
 import LastUpdated from '../shr/base/LastUpdated';
 
 // FluxDiseaseProgression class to hide codeableconcepts
-class FluxDiseaseProgression {
+class FluxDiseaseProgression extends FluxEntry {
     constructor(json) {
-        this._diseaseProgression = DiseaseProgression.fromJSON(json);
+        super(json);
+        this._entry = this._diseaseProgression = DiseaseProgression.fromJSON(json);
         if (!this._diseaseProgression.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
