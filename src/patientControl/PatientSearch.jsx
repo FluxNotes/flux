@@ -52,14 +52,16 @@ class PatientSearch extends React.Component {
         return notes.reduce((suggestions, note) => {
             //TODO: Fix to search for best options, not just the first five. 
             // If we need more suggestions and there is content in the note
-            if (suggestions.length < 5 && note.content && inputValue) {
+            if (note.content && inputValue) {
                 //  Establish some common variables for our regex
                 inputValue = inputValue.toLowerCase();
-                const spaceOrNewlineOrPeriod = '([^\\S]|\\.)'; 
-                const possibleTrigger = '(@|#|\\S*\\[\\[|\\]\\]){0,1}';
-                const continueToNextWord = `(\\S*${spaceOrNewlineOrPeriod}\\S*){0,6}`;
-                const escapedInput = escapeRegExp(inputValue)
-                const inputPattern = `(${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
+                const spaceOrNewlineOrPeriod = '(?:[^\\S]|\\.)'; 
+                const possibleTrigger = '(?:@|#|\\S*\\[\\[|\\]\\]){0,1}';
+                const continueToNextWord = `(?:\\S*${spaceOrNewlineOrPeriod}\\S*){0,6}`;
+                const escapedInput = `${escapeRegExp(inputValue)}`
+                // combines for out pattern; adds capture group for snapshot of information
+                const inputPattern = `(?:${spaceOrNewlineOrPeriod}(${possibleTrigger}${escapedInput}${continueToNextWord})|^(${possibleTrigger}${escapedInput}${continueToNextWord}))`;
+
                 const regex = new RegExp(inputPattern);
                 // Search note content
                 const relevantNoteContent = (note.content).toLowerCase();
@@ -80,12 +82,10 @@ class PatientSearch extends React.Component {
                     note: note,
                 }
                 if (contentMatches) { 
+                    // TODO: For each match, do this.
+                    console.log(contentMatches) 
                     // Want a snapshot of text surrounding matched text
-                    const inputPatternForSnapshot = `(${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`;
-                    const regexForSnapshot = new RegExp(inputPatternForSnapshot);
-                    const contentMatchesForSnapshot = regexForSnapshot.exec(relevantNoteContent);
-                    // Add additional metadata, push to suggestions
-                    newSuggestion.contentSnapshot = contentMatchesForSnapshot[0];
+                    newSuggestion.contentSnapshot = contentMatches[1];
                     newSuggestion.matchedOn = "contentSnapshot";
                     suggestions.push(newSuggestion);
                 } else if(metadataMatches) {
