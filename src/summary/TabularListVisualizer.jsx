@@ -368,9 +368,7 @@ class TabularListVisualizer extends Component {
         }
 
         let isSigned = true;
-        if (Lang.isArray(element.value)) {
-            isSigned = !element.value[1];
-        }
+        if (Lang.isArray(element.value)) isSigned = !element.value[1];
         // Filter actions by whenToDisplay property on action
         const filteredActions = this.props.actions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;

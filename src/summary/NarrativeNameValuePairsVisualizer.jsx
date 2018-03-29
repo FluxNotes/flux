@@ -204,7 +204,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
 
     // renders Menu for snippet and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (snippet, snippetId, actionType) => {
+    renderedMenu = (snippet, snippetId, snippetText) => {
         const {
             snippetDisplayingMenu,
             positionLeft,
@@ -217,9 +217,15 @@ class NarrativeNameValuePairsVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
-        // Filter actions by type
-        // TODO: Filter actions by specific criteria
-        const filteredActions = this.props.actions.filter(a => a.type === actionType);
+        let isSigned = true;
+        const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
+        isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
+        // Filter actions by whenToDisplay property on action
+        const filteredActions = this.props.actions.filter((a) => {
+            if (a.whenToDisplay.valueExists && Lang.isNull(snippet)) return false;
+            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
+            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+        });
         if (filteredActions.length === 0) return null;
         return (
             <Menu
@@ -237,6 +243,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 <FontAwesome name={a.icon} />
                             </ListItemIcon>
                         ) : null;
+                        const text = a.text.replace("{elementText}", snippetText);
                         return (
                             <MenuItem
                                 key={`${snippetId}-${index}`}
@@ -244,7 +251,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                                 className="narrative-inserter-box"
                             >
                                 {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={a.text} />
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
                             </MenuItem>
                         )
                     })
@@ -297,7 +304,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             {snippet.text}
                         </span>
-                        {this.renderedMenu(snippet.item, snippetId, "structured-data")}
+                        {this.renderedMenu(snippet.item, snippetId, snippet.text)}
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
