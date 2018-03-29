@@ -79,7 +79,7 @@ export default class FullApp extends Component {
          *      whenToDisplay    Criteria on when to display the action.  Currently has the following properties:
          *                          valueExists         Boolean value indicating whether value should exist.  
          *                          existingValueSigned Boolean value indicating whether value should be signed.  Can be string value "either".
-         *                          editableNoteOpen    Boolean value indicating whether note should be open 
+         *                          editableNoteOpen    Boolean value indicating whether note should be open or string "either" if it doesn't matter. 
          */
         this.actions = [
             {
@@ -95,7 +95,7 @@ export default class FullApp extends Component {
             {
                 handler: this.openReferencedNote,
                 text: "Open Source Note",
-                icon: null,
+                icon: "sticky-note",
                 whenToDisplay: {
                     valueExists: true,
                     existingValueSigned: "either",
