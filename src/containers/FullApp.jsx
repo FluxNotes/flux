@@ -70,6 +70,29 @@ export default class FullApp extends Component {
             noteClosed: false,
 
         };
+
+        /*  actions is a list of actions passed to the visualizers
+         *  Each action has following properties:
+         *      handler          Function defined in FullApp that performs some action when the item is clicked
+         *      text             Text to display for this action in the Menu
+         *      icon             FontAwesome(?) icon to display
+         *      whenToDisplay    Criteria on when to display the action.  Currently has the following properties:
+         *                          valueExists         Boolean value indicating whether value should exist.  
+         *                          existingValueSigned Boolean value indicating whether value should be signed.  Can be string value "either".
+         *                          editableNoteOpen    Boolean value indicating whether note should be open 
+         */
+        this.actions = [
+            {
+                handler: this.handleSummaryItemSelected,
+                text: "Insert {elementText}",
+                icon: "plus",
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: true
+                }
+            }
+        ]
     }
 
     // On component mount, grab the username of the logged in user
@@ -161,6 +184,7 @@ export default class FullApp extends Component {
     // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
         if (item) {
+            if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
@@ -229,6 +253,9 @@ export default class FullApp extends Component {
                             handleSelectionChange={this.handleSelectionChange}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             setOpenClinicalNote={this.setOpenClinicalNote}
+
+                            // Actions
+                            actions={this.actions}
                         />
                     </Grid>
                 </div>

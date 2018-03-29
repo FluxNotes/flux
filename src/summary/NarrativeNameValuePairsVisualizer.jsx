@@ -202,6 +202,64 @@ class NarrativeNameValuePairsVisualizer extends Component {
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
 
+    // renders Menu for snippet and associated actions as Menu items
+    // Will check whether an action should be rendered as a Menu item based on criteria of each action
+    renderedMenu = (snippet, snippetId, snippetText) => {
+        const {
+            snippetDisplayingMenu,
+            positionLeft,
+            positionTop,
+        } = this.state;
+        const onMenuItemClicked = (fn, element) => {
+            const callback = () => {
+                fn(element);
+            }
+            this.closeInsertionMenu(callback);
+        }
+
+        let isSigned = true;
+        const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
+        isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
+        // Filter actions by whenToDisplay property on action
+        const filteredActions = this.props.actions.filter((a) => {
+            if (a.whenToDisplay.valueExists && Lang.isNull(snippet)) return false;
+            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
+            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+        });
+        if (filteredActions.length === 0) return null;
+        return (
+            <Menu
+                open={snippetDisplayingMenu === snippetId}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: positionTop, left: positionLeft }}
+                onClose={(event) => this.closeInsertionMenu()}
+                className="narrative-inserter-tooltip"
+            >
+                {
+                    // map filterActions to MenuItems
+                    filteredActions.map((a, index) => {
+                        const icon = a.icon ? (
+                            <ListItemIcon>
+                                <FontAwesome name={a.icon} />
+                            </ListItemIcon>
+                        ) : null;
+                        const text = a.text.replace("{elementText}", snippetText);
+                        return (
+                            <MenuItem
+                                key={`${snippetId}-${index}`}
+                                onClick={() => onMenuItemClicked(a.handler, snippet)}
+                                className="narrative-inserter-box"
+                            >
+                                {icon}
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
+                            </MenuItem>
+                        )
+                    })
+                }
+            </Menu>
+        );
+    }
+
     // Opens the insertion menu for the given snippet id, based on cursor location
     openInsertionMenu = (event, snippetId) => { 
         // Get menu coordinates
@@ -231,26 +289,13 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // build list of snippets that are part of narrative to support typing each snippet so each
         // can be given correct formatting and interactions
         const narrative = this.buildNarrative();
-        const {
-          snippetDisplayingMenu,
-          positionLeft,
-          positionTop,
-        } = this.state;
-        
-        const insertItem = (element) => {
-            if (Lang.isArray(element.value)) element.value = element.value[0];
-            const callback = () => {
-                this.props.onItemClicked(element);
-            };
-            this.closeInsertionMenu(callback);
-        };
         
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
             if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && this.props.allowItemClick) {
                 const snippetId = `${snippet.item.name}-${index}`
-                const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
+                // const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(
                     <span key={snippetId}>
                         <span 
@@ -259,23 +304,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             {snippet.text}
                         </span>
-                        <Menu
-                            open={snippetDisplayingMenu === snippetId}
-                            anchorReference="anchorPosition"
-                            anchorPosition={{ top: positionTop, left: positionLeft }}
-                            onClose={(event) => this.closeInsertionMenu()}
-                            className="narrative-inserter-tooltip"
-                        >
-                            <MenuItem   
-                                onClick={() => insertItem(snippet.item)}
-                                className="narrative-inserter-box"
-                            >
-                                <ListItemIcon>
-                                    <FontAwesome name="plus"/>
-                                </ListItemIcon>
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={`Insert "${snippetValue}"`} />
-                            </MenuItem>
-                        </Menu>
+                        {this.renderedMenu(snippet.item, snippetId, snippet.text)}
                     </span>
                 );
             } else if (snippet.type !== 'plain') {
@@ -299,8 +328,8 @@ NarrativeNameValuePairsVisualizer.propTypes = {
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
-    onItemClicked: PropTypes.func,
-    allowItemClick: PropTypes.bool
+    allowItemClick: PropTypes.bool,
+    actions: PropTypes.array
 };
 
 export default NarrativeNameValuePairsVisualizer;

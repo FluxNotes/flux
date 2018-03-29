@@ -117,7 +117,7 @@ export default class TargetedDataSubpanel extends Component {
     }
 
     renderSections() {
-        const { clinicalEvent, patient, condition, onItemClicked, allowItemClick, isWide } = this.props;
+        const { clinicalEvent, patient, condition, allowItemClick, isWide, actions } = this.props;
         const conditionMetadata = this.getConditionMetadata();
 
         if (conditionMetadata == null) return null;
@@ -135,9 +135,9 @@ export default class TargetedDataSubpanel extends Component {
                         patient={patient}
                         condition={condition}
                         clinicalEvent={clinicalEvent}
-                        onItemClicked={onItemClicked}
                         allowItemClick={allowItemClick}
                         isWide={isWide}
+                        actions={actions}
                     />
 
                     {i < conditionMetadata.sections.length - 1 ? <Divider className="divider"/> : null}
@@ -164,5 +164,6 @@ TargetedDataSubpanel.propTypes = {
     condition: PropTypes.object,
     summaryMetadata: PropTypes.object,
     allowItemClick: PropTypes.bool,
-    onItemClicked: PropTypes.func
+    onItemClicked: PropTypes.func,
+    actions: PropTypes.array
 };

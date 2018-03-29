@@ -212,6 +212,7 @@ ClinicianDashboard.proptypes = {
     handleStructuredFieldExited: PropTypes.func.isRequired,
     handleSelectionChange: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
+    actions: PropTypes.array.isRequired,
     itemInserted: PropTypes.func.isRequired,
     updateErrors: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
