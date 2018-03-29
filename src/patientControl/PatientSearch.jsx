@@ -52,7 +52,7 @@ class PatientSearch extends React.Component {
         return notes.reduce((suggestions, note) => {
             //TODO: Fix to search for best options, not just the first five. 
             // If we need more suggestions and there is content in the note
-            if (note.content && inputValue) {
+            if (note.content && inputValue && inputValue.length >= 2) {
                 //  Establish some common variables for our regex
                 const spaceOrNewlineOrPeriod = '(?:[^\\S]|\\.)'; 
                 const possibleTrigger = '(?:#|@|\\S*\\[\\[|\\]\\]){0,1}';
@@ -91,11 +91,11 @@ class PatientSearch extends React.Component {
                     suggestions.push(newSuggestion);
                 } else if(metadataMatches) {
                     let matchedMetaData; 
-                    if (note.date.toLowerCase().indexOf(inputValue) !== -1) {
+                    if (note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                         matchedMetaData = "date";
-                    } else if (note.subject.toLowerCase().indexOf(inputValue) !== -1) {
+                    } else if (note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                         matchedMetaData = "subject";
-                    } else if (note.hospital.toLowerCase().indexOf(inputValue) !== -1) {
+                    } else if (note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                         matchedMetaData = "hospital";
                     }
                     // Add additional metadata, push to suggestions
