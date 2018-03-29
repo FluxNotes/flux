@@ -22,6 +22,8 @@ const styles = theme => ({
         marginTop: theme.spacing.unit,
         right: 0,
         padding: "8px auto",
+        maxHeight:"300px",
+        overflowY: "auto"
     }
 });
 
@@ -53,11 +55,11 @@ class PatientSearch extends React.Component {
             if (suggestions.length < 5 && note.content && inputValue) {
                 //  Establish some common variables for our regex
                 inputValue = inputValue.toLowerCase();
-                const spaceOrPeriod = '([^\\S\\n]|\\.)'; 
+                const spaceOrNewlineOrPeriod = '([^\\S]|\\.)'; 
                 const possibleTrigger = '(@|#|\\S*\\[\\[|\\]\\]){0,1}';
-                const continueToNextWord = `(\\S*${spaceOrPeriod}\\S*){0,2}`;
-                const escapedInput = escapeRegExp(inputValue);
-                const inputPattern = `(${spaceOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
+                const continueToNextWord = `(\\S*${spaceOrNewlineOrPeriod}\\S*){0,6}`;
+                const escapedInput = escapeRegExp(inputValue)
+                const inputPattern = `(${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
                 const regex = new RegExp(inputPattern);
                 // Search note content
                 const relevantNoteContent = (note.content).toLowerCase();
@@ -79,11 +81,11 @@ class PatientSearch extends React.Component {
                 }
                 if (contentMatches) { 
                     // Want a snapshot of text surrounding matched text
-                    const inputPatternForSnapshot = `(${spaceOrPeriod}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`;
+                    const inputPatternForSnapshot = `(${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}${continueToNextWord}|^${possibleTrigger}${escapedInput}${continueToNextWord})`;
                     const regexForSnapshot = new RegExp(inputPatternForSnapshot);
                     const contentMatchesForSnapshot = regexForSnapshot.exec(relevantNoteContent);
                     // Add additional metadata, push to suggestions
-                    newSuggestion.contentSnapshot = contentMatchesForSnapshot[0].slice(0, 25);
+                    newSuggestion.contentSnapshot = contentMatchesForSnapshot[0];
                     newSuggestion.matchedOn = "contentSnapshot";
                     suggestions.push(newSuggestion);
                 } else if(metadataMatches) {
@@ -139,7 +141,7 @@ class PatientSearch extends React.Component {
                                                         suggestion={suggestion}
                                                         key={suggestion.date + suggestion.subject}
                                                         index={index}
-                                                        itemProps={getItemProps({ item: suggestion.contentSnapshot })}
+                                                        itemProps={getItemProps({ item: inputValue })}
                                                         highlightedIndex={highlightedIndex}
                                                         selectedItem={selectedItem}
                                                         setFullAppState={setFullAppState}
