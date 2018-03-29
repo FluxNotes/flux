@@ -83,7 +83,7 @@ class PatientSearch extends React.Component {
                 }
                 if (contentMatches) { 
                     // TODO: For each match, do this.
-                    console.log(contentMatches) 
+                    // console.log(contentMatches) 
                     // Want a snapshot of text surrounding matched text
                     newSuggestion.contentSnapshot = contentMatches[1];
                     newSuggestion.matchedOn = "contentSnapshot";
