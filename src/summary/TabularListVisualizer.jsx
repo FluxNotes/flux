@@ -238,7 +238,7 @@ class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText, "structured-data")}
+                {this.renderedMenu(element, elementId, elementText)}
             </div>
         );
     }
@@ -354,7 +354,7 @@ class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText, actionType, allowItemClick) => {
+    renderedMenu = (element, elementId, elementText) => {
         const {
             elementToDisplayMenu,
             positionLeft,
@@ -367,8 +367,16 @@ class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
-        // Filter actions by type
-        const filteredActions = this.props.actions.filter(a => a.type === actionType || a.isNoteEditable === allowItemClick);
+        let isSigned = true;
+        if (Lang.isArray(element.value)) {
+            isSigned = !element.value[1];
+        }
+        // Filter actions by whenToDisplay property on action
+        const filteredActions = this.props.actions.filter((a) => {
+            if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
+            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
+            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+        });
         if (filteredActions.length === 0) return null;
         return (
             <Menu

@@ -73,22 +73,24 @@ export default class FullApp extends Component {
 
         /*  actions is a list of actions passed to the visualizers
          *  Each action has following properties:
-         *      type     Indicates the type of action.  Can be 'structured-data' or 'missing-data'
-         *      handler  Function defined in FullApp that performs some action when the item is clicked
-         *      text     Text to display for this action in the Menu
-         *      icon     FontAwesome(?) icon to display
-         *      isNoteOpen      Boolean whether note action can happen if note is editable or not
-         *      actionCriteria       What criteria this action is avalaible for 
+         *      handler          Function defined in FullApp that performs some action when the item is clicked
+         *      text             Text to display for this action in the Menu
+         *      icon             FontAwesome(?) icon to display
+         *      whenToDisplay    Criteria on when to display the action.  Currently has the following properties:
+         *                          valueExists         Boolean value indicating whether value should exist.  
+         *                          existingValueSigned Boolean value indicating whether value should be signed.  Can be string value "either".
+         *                          editableNoteOpen    Boolean value indicating whether note should be open 
          */
         this.actions = [
             {
-                type: "structured-data",
                 handler: this.handleSummaryItemSelected,
                 text: "Insert {elementText}",
                 icon: "plus",
-                isNoteEditable: true,
-                actionCriteria: "unsigned"
-
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: true
+                }
             }
         ]
     }
