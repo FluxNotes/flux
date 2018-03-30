@@ -52,14 +52,10 @@ export default class NotesPanel extends Component {
 
     updateSelectedNote(note) {
         this.setState({selectedNote: note});
-        this.props.setOpenClinicalNote(note);
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
-        if (!Lang.isNull(note)) {
-            this.props.setFullAppState("documentText", note.content);
-        }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         // Set the note to be inserted into the editor and the selected note
         if (!this.props.isNoteViewerVisible) {
@@ -73,6 +69,7 @@ export default class NotesPanel extends Component {
                 if (this.props.isNoteViewerVisible) {
                     this.setState({updatedEditorNote: note});
                     this.setState({selectedNote: note});
+                    this.props.setFullAppState("documentText", note.content);
                     this.props.setOpenClinicalNote(note);
                     if (!note) {
                         this.setState({currentlyEditingEntryId: -1});
@@ -81,6 +78,11 @@ export default class NotesPanel extends Component {
                     }
                 }
             });
+        } else {
+            if (!Lang.isNull(note)) {
+                this.props.setFullAppState("documentText", note.content);
+                this.props.setOpenClinicalNote(note);
+            }
         }
 
         // This gets called in other modes besides pre-encounter mode. Check that the editor exists and then update the
