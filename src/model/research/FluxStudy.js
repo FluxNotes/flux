@@ -1,3 +1,4 @@
+import FluxEntry from '../base/FluxEntry';
 import Study from '../shr/research/Study';
 import Title from '../shr/core/Title';
 import Details from '../shr/core/Details';
@@ -9,9 +10,10 @@ import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 import Lang from 'lodash';
 
-class FluxStudy {
+class FluxStudy extends FluxEntry {
     constructor(json) {
-        this._study = Study.fromJSON(json);
+        super(json);
+        this._entry = this._study = Study.fromJSON(json);
         if (!this._study.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();

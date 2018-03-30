@@ -7,7 +7,7 @@ import lookup from '../../lib/receptor_lookup.jsx';
 class FluxHER2ReceptorStatus extends FluxObservation {
     constructor(json) {
         super();
-        this._observation = HER2ReceptorStatus.fromJSON(json);
+        this._entry = this._observation = HER2ReceptorStatus.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();

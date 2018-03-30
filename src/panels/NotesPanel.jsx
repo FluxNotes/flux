@@ -29,10 +29,8 @@ export default class NotesPanel extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        console.log(this.state);
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             const note = nextProps.openClinicalNote;
-            
             if (!this.props.isNoteViewerVisible) {
                 this.handleUpdateEditorWithNote(note);
             } else {

@@ -266,6 +266,7 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState('layout', "right-collapsed");
         this.props.setFullAppState('isNoteViewerVisible', false);
         this.props.setFullAppState('isNoteViewerEditable', false);
+        this.props.setFullAppState('openClinicalNote', null);
     }
 
     // Render the content for the Note Assistant panel

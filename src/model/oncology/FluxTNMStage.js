@@ -13,7 +13,7 @@ import staging from '../../lib/staging.jsx';
 class FluxTNMStage extends FluxObservation {
     constructor(json) {
         super();
-        this._observation = TNMStage.fromJSON(json);
+        this._entry = this._observation = TNMStage.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();

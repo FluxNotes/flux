@@ -197,17 +197,17 @@ export default class FullApp extends Component {
     }
 
     openReferencedNote = (item, arrayIndex = -1) => {
-        console.log("openReferencedNote");
-        console.log(item);
-        console.log(arrayIndex);
+        if (!item.value || item.value.length < 3) {
+            //TODO need a pop-up message
+            console.log("No source note available. Information was probably entered into EHR as structured data.");
+            return;
+        }
         const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
-        console.log(sourceNote)
         this.setOpenClinicalNote(sourceNote);
     }
 
     // Update the summaryItemToInsert based on the item given
     handleSummaryItemSelected = (item, arrayIndex = -1) => {
-        console.log(item, arrayIndex);
         if (item) {
             if (Lang.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
