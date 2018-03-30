@@ -104,6 +104,15 @@ export default class NotesPanel extends Component {
     // invokes closing logic in NoteAssistant
     closeNote() {
         this.closeNoteChild();
+        this.props.setFullAppState("documentText", null);
+        this.props.setOpenClinicalNote(null);
+        this.setState({
+            updatedEditorNote: null,
+            noteAssistantMode: "context-tray",
+            // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
+            selectedNote: null,
+            currentlyEditingEntryId: -1
+        });
     }
 
     handleSignButtonClick() {
