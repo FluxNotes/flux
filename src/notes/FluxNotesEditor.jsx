@@ -57,7 +57,7 @@ const BLOCK_TAGS = {
 const MARK_TAGS = {
   em: 'italic',
   strong: 'bold',
-  u: 'underline',
+  u: 'underlined',
 }
  
 const rules = [
@@ -68,7 +68,7 @@ const rules = [
       // TODO March 26 4:45 text gets put into separate lines ex. aa <strong> bb </strong> gets reloaded as aa \n <strong> bb </strong>
       // TODO March 26 4:45 can't type after reloading a note.
       // TODO March 26 4:45 Bold and italics are preseved. Confirm other styling are working as well.
-      console.log(el);
+      // console.log(el);
       if(Lang.isNull(el.tagName)){
           const marks = [];
           if (!Lang.isNull(el.parent) && !Lang.isUndefined(BLOCK_TAGS[el.parent.name.toLowerCase()])) {
@@ -86,7 +86,7 @@ const rules = [
       } else{
           const type = BLOCK_TAGS[el.tagName.toLowerCase()]
           if (!type) return    //   generalize this
-              console.log(type);
+              // console.log(type);
       
           return {
               object: 'block',
@@ -115,9 +115,9 @@ const rules = [
           case 'paragraph':
             return <p>{children}</p>
           case 'line':
-               console.log("Is a line");
+               // console.log("Is a line");
               if(React.isValidElement(children)){
-                  console.log("not returning anything, no styling*********************"); //never happens
+                  // console.log("not returning anything, no styling*********************"); //never happens
                   //return children;
               } else{
                 //  console.log("not a valid element:");
@@ -150,7 +150,7 @@ const rules = [
             return <strong>{children}</strong>
           case 'italic':
             return <em>{children}</em>
-          case 'underline':
+          case 'underlined':
             return <u>{children}</u>
         }
       }
@@ -506,7 +506,7 @@ class FluxNotesEditor extends React.Component {
         }
         
         this.props.setFullAppStateWithCallback(function(prevState, props){
-          console.log('is this being called ever')
+          // console.log('is this being called ever')
             return {documentText: docText};
         });
 
@@ -612,6 +612,21 @@ class FluxNotesEditor extends React.Component {
             .splitBlock();
     }
 
+    insertBoldText = (transform, text) => {
+        let boldStartIndex = text.indexOf('<strong>');
+        let boldEndIndex = text.indexOf('</strong>');
+        // JULIA check end case
+        if (boldStartIndex === -1 || boldEndIndex === -1) {
+            return transform.insertText(text);
+        }
+        let beforeBoldText = text.substring(0, boldStartIndex);
+        let boldText = text.substring(boldStartIndex + 8, boldEndIndex); // +8 offsets the word <strong>
+        let afterBoldText = text.substring(boldEndIndex + 9); // +9 offsets the word </strong>
+        text = beforeBoldText + boldText + afterBoldText; // Update text to remove <strong> </strong>
+        transform.insertText(beforeBoldText).toggleMark('bold').insertText(boldText).toggleMark('bold');
+        this.insertBoldText(transform, afterBoldText);
+    }
+
     insertPlainText = (transform, text) => {
         // Check for \r\n, \r, or \n to insert a new line in Slate
         let returnIndex = text.indexOf("\r\n");
@@ -627,6 +642,22 @@ class FluxNotesEditor extends React.Component {
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(returnIndex + 1));
         } else {
+            // Get rid of <div> tags
+            if (text.includes('<div>')) {
+                text = text.substring(5);
+            }
+            if (text.includes('</div>')) {
+                text = text.substring(0, text.length - 6);
+            }
+
+
+            this.insertBoldText(transform, text);
+            return transform;
+            // TODO add these cases as well. May need a main function around all three cases.
+            // let italicStartIndex = text.indexOf('<em>');
+            // let italicEndIndex = text.indexOf('</em>');
+            // let underlinedStartIndex = text.indexOf('<u>');
+            // let underlinedEndIndex = text.indexOf('</u>');
             return transform.insertText(text);
         }
     }
