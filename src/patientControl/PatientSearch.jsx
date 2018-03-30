@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import SearchSuggestion from './SearchSuggestion.jsx';
 import SearchInput from './SearchInput.jsx';
+import Lang from 'lodash';
 
 const styles = theme => ({
     root: {
@@ -48,30 +49,19 @@ class PatientSearch extends React.Component {
 
     getSuggestions(inputValue) {
         const notes = this.props.patient.getNotes();
-
         return notes.reduce((suggestions, note) => {
-            //TODO: Fix to search for best options, not just the first five. 
-            // If we need more suggestions and there is content in the note
+            // If we have long-enough input and there is content in the note
             if (note.content && inputValue && inputValue.length >= 2) {
                 //  Establish some common variables for our regex
-                const spaceOrNewlineOrPeriod = '(?:[^\\S]|\\.)'; 
+                const spaceOrNewlineOrPeriod = '(?:[^\\S\\n]|\\.)'; 
                 const possibleTrigger = '(?:#|@|\\S*\\[\\[|\\]\\]){0,1}';
-                const continueToNextWord = `(?:\\S*${spaceOrNewlineOrPeriod}\\S*){0,6}`;
                 const escapedInput = `${escapeRegExp(inputValue)}`
-                // combines for out pattern; adds capture group for snapshot of information
-                const inputPattern = `(?:${spaceOrNewlineOrPeriod}(${possibleTrigger}${escapedInput}${continueToNextWord})|^(${possibleTrigger}${escapedInput}${continueToNextWord}))`;
-
-                const regex = new RegExp(inputPattern, "i");
+                // combines for our pattern; adds capture group for snapshot of information
+                const inputPattern = `(?:${spaceOrNewlineOrPeriod}${possibleTrigger}${escapedInput}|^${possibleTrigger}${escapedInput})`;
+                const regex = new RegExp(inputPattern, "gim");
                 // Search note content
                 const relevantNoteContent = (note.content);
-                const contentMatches = regex.exec(relevantNoteContent);
-                // Search note metadata
-                const relevantNoteMetadata = (
-                    note.date + ' ' +
-                    note.subject + ' ' +
-                    note.hospital
-                ).toLowerCase();
-                const metadataMatches = regex.exec(relevantNoteMetadata);
+                let contentMatches = regex.exec(relevantNoteContent);
                 // NewSuggestion object -- to be pushed with relevant data if there's a match
                 let newSuggestion = { 
                     date: note.date,
@@ -81,27 +71,38 @@ class PatientSearch extends React.Component {
                     note: note,
                 }
                 if (contentMatches) { 
-                    // TODO: For each match, do this.
-                    console.log(contentMatches) 
-                    // Want a snapshot of text surrounding matched text: 
-                    // group one -- in the middle of a sentence; 
-                    // group two -- at the beginning of a sentence;
-                    newSuggestion.contentSnapshot = (contentMatches[1] ? contentMatches[1] : contentMatches[2]);
-                    newSuggestion.matchedOn = "contentSnapshot";
-                    suggestions.push(newSuggestion);
-                } else if(metadataMatches) {
-                    let matchedMetaData; 
-                    if (note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                        matchedMetaData = "date";
-                    } else if (note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                        matchedMetaData = "subject";
-                    } else if (note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
-                        matchedMetaData = "hospital";
+                    // For each match, add a suggestion.
+                    while (contentMatches) { 
+                        // Want a snapshot of text; use index and continue 100 chars
+                        newSuggestion.contentSnapshot = relevantNoteContent.slice(contentMatches.index, contentMatches.index + 100)
+                        newSuggestion.matchedOn = "contentSnapshot";
+                        // Clone the object
+                        suggestions.push(Lang.clone(newSuggestion));
+                        contentMatches = regex.exec(relevantNoteContent);
                     }
-                    // Add additional metadata, push to suggestions
-                    newSuggestion.contentSnapshot = note.content.slice(0, 25);
-                    newSuggestion.matchedOn = matchedMetaData;
-                    suggestions.push(newSuggestion);
+                } else {
+                    // Search note metadata
+                    const relevantNoteMetadata = (
+                        note.date + ' ' +
+                        note.subject + ' ' +
+                        note.hospital
+                    ).toLowerCase();
+                    const metadataMatches = regex.exec(relevantNoteMetadata);
+
+                    if(metadataMatches) {
+                        let matchedMetaData; 
+                        if (note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+                            matchedMetaData = "date";
+                        } else if (note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+                            matchedMetaData = "subject";
+                        } else if (note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+                            matchedMetaData = "hospital";
+                        }
+                        // Add additional metadata, push to suggestions
+                        newSuggestion.contentSnapshot = note.content.slice(0, 25);
+                        newSuggestion.matchedOn = matchedMetaData;
+                        suggestions.push(newSuggestion);
+                    }
                 }
             }
             return suggestions;
@@ -115,8 +116,9 @@ class PatientSearch extends React.Component {
             <div className={classes.root}>
                 <Downshift
                     defaultHighlightedIndex={0}
+                    itemToString={() => ""}
                 >
-                    {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex }) => {
+                    {({ getInputProps, getItemProps, isOpen, inputValue, selectedItem, highlightedIndex, selectItem }) => {
                         return (
                             <div className={classes.container}>
                                 <SearchInput
@@ -129,6 +131,7 @@ class PatientSearch extends React.Component {
                                             if (event.key === 'Enter' && this.getSuggestions(inputValue)[highlightedIndex]) {
                                                 const selectedElement = this.getSuggestions(inputValue)[highlightedIndex];
                                                 this.findThisItem(selectedElement.note);
+                                                selectItem("");
                                             }
                                         },
                                     })}
@@ -140,9 +143,9 @@ class PatientSearch extends React.Component {
                                                 return (
                                                     <SearchSuggestion
                                                         suggestion={suggestion}
-                                                        key={suggestion.date + suggestion.subject}
+                                                        key={suggestion.date + suggestion.subject + index}
                                                         index={index}
-                                                        itemProps={getItemProps({ item: inputValue })}
+                                                        itemProps={getItemProps({ item: "" })}
                                                         highlightedIndex={highlightedIndex}
                                                         selectedItem={selectedItem}
                                                         setFullAppState={setFullAppState}

@@ -15,11 +15,9 @@ class SearchSuggestion extends React.Component {
         const isHighlighted = highlightedIndex === index;
         const isSelected = (selectedItem || '').indexOf(suggestion.label) > -1;
 
-        // 
         const fullSnapshot = suggestion.contentSnapshot;
         const inputValue = suggestion.inputValue;
         // Lowercase versions for index finding
-        console.log(suggestion)
         const fullSnapshotLowerCase = fullSnapshot.toLowerCase();
         const inputValueLowerCase = inputValue.toLowerCase();
         const indexOfMatch = fullSnapshotLowerCase.indexOf(inputValueLowerCase);
