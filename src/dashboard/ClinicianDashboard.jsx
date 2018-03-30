@@ -187,6 +187,7 @@ export default class ClinicianDashboard extends Component {
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         patient={this.props.appState.patient}
                         documentText={this.props.appState.documentText}
+                        openClinicalNote={this.props.appState.openClinicalNote}
                         shortcutManager={this.props.shortcutManager}
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
                         updateErrors={this.props.updateErrors}

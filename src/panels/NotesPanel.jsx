@@ -28,6 +28,26 @@ export default class NotesPanel extends Component {
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        console.log(this.state);
+        if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            const note = nextProps.openClinicalNote;
+            
+            if (!this.props.isNoteViewerVisible) {
+                this.handleUpdateEditorWithNote(note);
+            } else {
+                const mode = note.signed ? "clinical-notes" : "context-tray";
+                this.props.setFullAppState("documentText", note.content);
+                this.setState({
+                    selectedNote: note,
+                    updatedEditorNote: note,
+                    noteAssistantMode: mode,
+                    currentlyEditingEntryId: note.entryInfo.entryId
+                });
+            }
+        }
+    }
+
     updateNoteAssistantMode(mode) {
         this.setState({noteAssistantMode: mode});
     }
@@ -45,7 +65,6 @@ export default class NotesPanel extends Component {
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         // Set the note to be inserted into the editor and the selected note
         if (!this.props.isNoteViewerVisible) {
-
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
             // before editor related states can be set
             this.props.setFullAppStateWithCallback({
@@ -233,6 +252,7 @@ NotesPanel.propTypes = {
     shortcutManager: PropTypes.object,
     summaryItemToBeInserted: PropTypes.string,
     documentText: PropTypes.string,
+    openClinicalNote: PropTypes.object,
     saveNote: PropTypes.func,
     closeNote: PropTypes.func,
     errors: PropTypes.array,

@@ -63,12 +63,17 @@ export default class FullApp extends Component {
             patient: patient,
             selectedText: null,
             documentText: null,
+            openClinicalNote: null,
             loginUser: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
+<<<<<<< HEAD
             noteClosed: false,
             searchSelectedItem: null,
+=======
+            noteClosed: false
+>>>>>>> Updated openReferencedNote function to get ClinicalNote entry and set it.  It is passed into NotesPanel as a prop and the note is opened in the editor.
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -195,6 +200,9 @@ export default class FullApp extends Component {
         console.log("openReferencedNote");
         console.log(item);
         console.log(arrayIndex);
+        const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
+        console.log(sourceNote)
+        this.setOpenClinicalNote(sourceNote);
     }
 
     // Update the summaryItemToInsert based on the item given
