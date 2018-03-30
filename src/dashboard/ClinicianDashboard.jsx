@@ -196,6 +196,7 @@ export default class ClinicianDashboard extends Component {
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         noteClosed={this.props.appState.noteClosed}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
+                        searchSelectedItem={this.props.searchSelectedItem}
                     />
                 </div>
             </div>
@@ -224,4 +225,5 @@ ClinicianDashboard.proptypes = {
     summaryMetadata: PropTypes.object.isRequired,
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
     currentViewMode: PropTypes.object.isRequired,
+    searchSelectedItem: PropTypes.object,
 };

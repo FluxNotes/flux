@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-import Input from 'material-ui/Input';
+// import Input from 'material-ui/Input';
+import PatientSearch from '../patientControl/PatientSearch'
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -11,7 +12,6 @@ class PatientControlPanel extends Component {
     render() {
         const { patient } = this.props;
         const login = (this.props.supportLogin) ? this.props.loginUser : "";
-        const firstName = patient.getName() ? patient.getName().split(' ')[0] : "";
         const patientConditions = this.props.patient ? this.props.patient.getConditions() : [];
 
         return (
@@ -57,11 +57,9 @@ class PatientControlPanel extends Component {
                                     </Col>
                                     <Col sm={9}>
                                         <div className="search-wrapper">
-                                            <span className="fa fa-search search-icon"></span>
-                                            <Input
-                                                id="search"
-                                                placeholder={`Search ${firstName}'s Record...`}
-                                                className="search-field"
+                                            <PatientSearch
+                                                patient={this.props.patient}
+                                                setFullAppState={this.props.setFullAppState}
                                             />
                                         </div>
                                     </Col>

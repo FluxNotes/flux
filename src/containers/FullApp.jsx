@@ -68,7 +68,7 @@ export default class FullApp extends Component {
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
             noteClosed: false,
-
+            searchSelectedItem: null,
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -236,6 +236,7 @@ export default class FullApp extends Component {
                             summaryMetadata={this.summaryMetadata}
                             shortcutManager={this.shortcutManager}
                             contextManager={this.contextManager}
+                            searchSelectedItem={this.state.searchSelectedItem}
 
                             // State
                             appState={this.state}

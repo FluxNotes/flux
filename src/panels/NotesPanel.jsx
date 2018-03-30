@@ -212,6 +212,7 @@ export default class NotesPanel extends Component {
                     noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
+                    searchSelectedItem={this.props.searchSelectedItem}
                 />
             </div>
         );
@@ -243,4 +244,5 @@ NotesPanel.propTypes = {
     handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
     summaryItemToInsert: PropTypes.string,
+    searchSelectedItem: PropTypes.object,
 };

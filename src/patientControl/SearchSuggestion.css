@@ -1,0 +1,40 @@
+.suggestion-label { 
+    min-width: 80px;
+    display: inline-block;
+    font-size: 10px;
+    width: 80px;
+    padding: 5px auto;
+}
+
+.suggestion-label .label-content { 
+    display: block;
+    margin: 0;
+    white-space: nowrap;
+    line-height: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dividing-line:after { 
+    background: #b1b1b1;
+    width: 1px;
+    content: "";
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 25px;
+    margin: -5px 10px -5px 10px;
+}
+
+.suggestion-text { 
+    font-size: 14px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.highlightedInputValue{ 
+    font-weight: 600;
+}
