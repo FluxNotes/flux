@@ -90,6 +90,8 @@ class ContextPortal extends React.Component {
      * Navigate and interact with menu based on button presses
      */
     onKeyDown(keyCode) {
+        // console.log("keycode");
+        // console.log(keyCode);
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
             const height = this.refs.contextPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
@@ -99,6 +101,8 @@ class ContextPortal extends React.Component {
             // 32 is the height of each suggestion in the list, 10 allows for the margin
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
+
+            // console.log("ENTER key pressed");
             this.setState({ active: false, justActive: false });
             this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
         }

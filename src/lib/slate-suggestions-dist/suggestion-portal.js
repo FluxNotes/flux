@@ -76,8 +76,10 @@ class SuggestionPortal extends React.Component {
     // Use new key-presses to update the current suggestion
     onKeyDown = (keyCode, data) => {
 
-        console.log("got in key down");
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
+            // console.log("got in key down");
+            // console.log("key: " + keyCode);
+
             const height = this.refs.suggestionPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
             // If up/down, change position in list
@@ -91,15 +93,24 @@ class SuggestionPortal extends React.Component {
             this.refs.suggestionPortal.scrollTop = (newIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         }
 
-        else if (keyCode === ENTER_KEY){
-            console.log("entering key down for enter button");
-        }
+        // //this doesn't seem like it's getting called
+        // else if (keyCode === ENTER_KEY){
+        //     console.log("entering key down for enter button");
+        // }
 
 
 
         else {
+            // console.log("got in key down");
+            console.log("key: " + keyCode);
             // Else, determine character and update suggestions accordingly
+
+            console.log("data:");
+            console.log(data);
+
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
+            console.log("new filtered suggestions");
+            console.log(newFilteredSuggestions);
             this.setSelectedIndex(0)
             if (typeof newFilteredSuggestions.then === 'function') {
                 newFilteredSuggestions.then(newFilteredSuggestions => {

@@ -209,10 +209,17 @@ class FluxNotesEditor extends React.Component {
 
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
+
+        console.log("STATE");
+        console.log(state); // At this point both clicking and using enter button shows that @ro is in the text in the state
+
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
-            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply();
+            //does state somehow get changed in here?
+
+            return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply(); // why does this use apply and the one in insertShortcut does not?
         } else {
+
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
@@ -276,6 +283,16 @@ class FluxNotesEditor extends React.Component {
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
         console.log("open portal to select value for shortcut");
+
+        console.log("need to delete");
+        console.log(needToDelete);
+
+
+        console.log("transform");
+        console.log(transform);
+        // At this point the transform state text and anchor offset is the same for both mouse click and enter button
+
+
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
@@ -297,6 +314,9 @@ class FluxNotesEditor extends React.Component {
         console.log("shortcut");
         console.log(shortcut);
 
+        //TODO: check state in here
+        console.log("STATE in on portal selection");
+        console.log(state);
 
         this.selectingForShortcut = null;
         this.setState({isPortalOpen: false});
@@ -314,6 +334,7 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
         let transform;
         if (this.state.needToDelete) {
+
             transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
         } else {
             transform = this.state.state.transform();
@@ -400,6 +421,7 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
+
         var nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
             anchorOffset: data.anchorOffset,
