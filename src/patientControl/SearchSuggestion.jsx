@@ -7,7 +7,8 @@ import './SearchSuggestion.css';
 
 class SearchSuggestion extends React.Component {
     openNote = (note) => { 
-        this.props.setFullAppState('searchSelectedItem', note)
+        this.props.setFullAppState('searchSelectedItem', note);
+        this.props.selectItem('');
     }
 
     render() { 
@@ -58,7 +59,7 @@ class SearchSuggestion extends React.Component {
                     <span className={"label-content " + (suggestion.matchedOn === "subject" ? "highlightedInputValue" : "")}>{suggestion.subject}</span>
                     <span className={"label-content " + (suggestion.matchedOn === "hospital" ? "highlightedInputValue" : "")}>{suggestion.hospital}</span>
                 </div> 
-                <span className="dividing-line"></span> 
+                <span className="dividing-line"></span>
                 {suggestionText} 
             </MenuItem>
         );
@@ -70,6 +71,7 @@ SearchSuggestion.propTypes = {
     index: PropTypes.number,
     itemProps: PropTypes.object,
     selectedItem: PropTypes.string,
+    selectItem: PropTypes.func.isRequired,
     suggestion: PropTypes.shape({ label: PropTypes.string }).isRequired,
     setFullAppState: PropTypes.func.isRequired,
 };

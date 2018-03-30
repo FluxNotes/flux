@@ -148,6 +148,7 @@ class PatientSearch extends React.Component {
                                                         itemProps={getItemProps({ item: "" })}
                                                         highlightedIndex={highlightedIndex}
                                                         selectedItem={selectedItem}
+                                                        selectItem={selectItem}
                                                         setFullAppState={setFullAppState}
                                                     />
                                                 );
