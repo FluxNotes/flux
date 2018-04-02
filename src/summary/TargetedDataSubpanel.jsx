@@ -16,17 +16,19 @@ export default class TargetedDataSubpanel extends Component {
         this._signedNotesCount = 0;
         this._clinicalEvent = "";
         this._currentIsWide = null;
+        this._currentAllowItemClick = null;
         this._currentConditionString = "";
         this._visualizerManager = new VisualizerManager();
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Five current reasons to update:
+        // Six current reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
         // - isWide has changed
         // - Condition has changed
+        // - allowItemClick has changed
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
@@ -76,12 +78,12 @@ export default class TargetedDataSubpanel extends Component {
 
         // Case 4: isWide 
         const newIsWide = nextProps.isWide;
-        const changesToIsWide = (this._currentIsWide !== newIsWide)
+        const changesToIsWide = (this._currentIsWide !== newIsWide);
         if (changesToIsWide) { 
             this._currentIsWide = newIsWide;
         }
 
-        // Case 5: Condition string changes: need string represenatation
+        // Case 5: Condition string changes: need string representation
         const newConditionCodeSystem = nextProps.condition.codeSystem;
         const newConditionCode = nextProps.condition.code
         // May not be human readable, but is a unique identifier and that's all we need here.
@@ -92,11 +94,19 @@ export default class TargetedDataSubpanel extends Component {
             this._currentConditionString = newConditionString
         }
 
+        // Case 6: allowItemClick
+        const newAllowItemClick = nextProps.allowItemClick;
+        const changesToAllowItemClick = (this._currentAllowItemClick !== newAllowItemClick);
+        if (changesToAllowItemClick) {
+            this._currentAllowItemClick = newAllowItemClick;
+        }
+
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
             || changesToClinicalEvent 
             || changesToIsWide
-            || changesToConditionString;
+            || changesToConditionString
+            || changesToAllowItemClick;
     }
 
     getConditionMetadata() {

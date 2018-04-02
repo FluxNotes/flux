@@ -31,18 +31,7 @@ export default class NotesPanel extends Component {
     componentWillReceiveProps = (nextProps) => {
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
             const note = nextProps.openClinicalNote;
-            if (!this.props.isNoteViewerVisible) {
-                this.handleUpdateEditorWithNote(note);
-            } else {
-                const mode = note.signed ? "clinical-notes" : "context-tray";
-                this.props.setFullAppState("documentText", note.content);
-                this.setState({
-                    selectedNote: note,
-                    updatedEditorNote: note,
-                    noteAssistantMode: mode,
-                    currentlyEditingEntryId: note.entryInfo.entryId
-                });
-            }
+            this.handleUpdateEditorWithNote(note);
         }
     }
 
@@ -64,7 +53,7 @@ export default class NotesPanel extends Component {
             this.props.setFullAppStateWithCallback({
                 layout: 'split',
                 isNoteViewerVisible: true,
-                isNoteViewerEditable: true
+                isNoteViewerEditable: !note.signed,
             }, () => {
                 if (this.props.isNoteViewerVisible) {
                     this.setState({updatedEditorNote: note});
@@ -80,8 +69,16 @@ export default class NotesPanel extends Component {
             });
         } else {
             if (!Lang.isNull(note)) {
+                const mode = note.signed ? "clinical-notes" : "context-tray";
                 this.props.setFullAppState("documentText", note.content);
+                this.props.setFullAppState("isNoteViewerEditable", !note.signed);
                 this.props.setOpenClinicalNote(note);
+                this.setState({
+                    selectedNote: note,
+                    updatedEditorNote: note,
+                    noteAssistantMode: mode,
+                    currentlyEditingEntryId: note.entryInfo.entryId
+                });
             }
         }
 

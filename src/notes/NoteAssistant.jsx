@@ -190,9 +190,7 @@ export default class NoteAssistant extends Component {
 
     // creates blank new note and puts it on the screen
     createBlankNewNote = () => {
-        let emptyNote = "";
         this.toggleView("context-tray");
-        this.props.loadNote(emptyNote);
         this.props.setFullAppState("noteClosed", false);
 
         // Create info to be set for new note
@@ -200,7 +198,7 @@ export default class NoteAssistant extends Component {
         let subject = "New Note";
         let hospital = "Dana Farber";
         let clinician = this.props.loginUser;
-        let content = emptyNote;
+        let content = "";
         let signed = false;
 
         // Add new unsigned note to patient record
