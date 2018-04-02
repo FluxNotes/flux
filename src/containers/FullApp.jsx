@@ -196,7 +196,7 @@ export default class FullApp extends Component {
     }
 
     openReferencedNote = (item, arrayIndex = -1) => {
-        if (!item.value || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
+        if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
                 snackbarOpen: true,
                 snackbarMessage: "No source note available. Information was probably entered into EHR as structured data."
