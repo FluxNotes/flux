@@ -5,6 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
+import Snackbar from 'material-ui/Snackbar';
 import Lang from 'lodash';
 
 import SecurityManager from '../security/SecurityManager';
@@ -68,12 +69,10 @@ export default class FullApp extends Component {
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
             summaryMetadata: this.summaryMetadata.getMetadata(),
-<<<<<<< HEAD
-            noteClosed: false,
             searchSelectedItem: null,
-=======
-            noteClosed: false
->>>>>>> Updated openReferencedNote function to get ClinicalNote entry and set it.  It is passed into NotesPanel as a prop and the note is opened in the editor.
+            noteClosed: false,
+            snackbarOpen: false,
+            snackbarMessage: "",
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -197,9 +196,11 @@ export default class FullApp extends Component {
     }
 
     openReferencedNote = (item, arrayIndex = -1) => {
-        if (!item.value || item.value.length < 3) {
-            //TODO need a pop-up message
-            console.log("No source note available. Information was probably entered into EHR as structured data.");
+        if (!item.value || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: "No source note available. Information was probably entered into EHR as structured data."
+            });
             return;
         }
         const sourceNote = this.state.patient.getEntryFromReference(item.value[2]);
@@ -226,6 +227,10 @@ export default class FullApp extends Component {
                 this.setState({ summaryItemToInsert: item });
             }
         }
+    }
+
+    handleSnackbarClose = () => {
+        this.setState({ snackbarOpen: false });
     }
 
     render() {
@@ -283,8 +288,16 @@ export default class FullApp extends Component {
                             // Actions
                             actions={this.actions}
                         />
-                    </Grid>
-                </div>
+                        
+                        <Snackbar 
+                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+                            autoHideDuration={3000}
+                            onClose={this.handleSnackbarClose}
+                            open={this.state.snackbarOpen}
+                            message={this.state.snackbarMessage}
+                        />
+                    </Grid> 
+                </div>  
             </MuiThemeProvider>
         );
     }
