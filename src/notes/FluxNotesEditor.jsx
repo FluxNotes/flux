@@ -612,19 +612,82 @@ class FluxNotesEditor extends React.Component {
             .splitBlock();
     }
 
-    insertBoldText = (transform, text) => {
+    insertTextWithStyles = (transform, text) => {
         let boldStartIndex = text.indexOf('<strong>');
         let boldEndIndex = text.indexOf('</strong>');
-        // JULIA check end case
-        if (boldStartIndex === -1 || boldEndIndex === -1) {
+        let italicStartIndex = text.indexOf('<em>');
+        let italicEndIndex = text.indexOf('</em>');
+        let underlinedStartIndex = text.indexOf('<u>');
+        let underlinedEndIndex = text.indexOf('</u>');
+
+        // No styles to be added.
+        if (boldStartIndex === -1 && boldEndIndex === -1 
+            && italicStartIndex === -1 && italicEndIndex === -1
+            && underlinedStartIndex === -1 && underlinedEndIndex === -1) {
             return transform.insertText(text);
         }
-        let beforeBoldText = text.substring(0, boldStartIndex);
-        let boldText = text.substring(boldStartIndex + 8, boldEndIndex); // +8 offsets the word <strong>
-        let afterBoldText = text.substring(boldEndIndex + 9); // +9 offsets the word </strong>
+
+        // Order the styles to know which to apply next
+        let styleMarkings = [
+            { name: 'boldStartIndex', value: text.indexOf('<strong>') },
+            { name: 'boldEndIndex', value: text.indexOf('</strong>') },
+            { name: 'italicStartIndex', value: text.indexOf('<em>') },
+            { name: 'italicEndIndex', value: text.indexOf('</em>') },
+            { name: 'underlinedStartIndex', value: text.indexOf('<u>') },
+            { name: 'underlinedEndIndex', value: text.indexOf('</u>') },
+        ];
+        styleMarkings.sort((a, b) => a.value - b.value);
+        let firstStyle = styleMarkings[styleMarkings.findIndex(a => a.value > -1)];
+
+        if (firstStyle.name === 'boldStartIndex') {
+            this.insertBoldText(transform, text, boldStartIndex, boldEndIndex);
+        } else if (firstStyle.name === 'italicStartIndex') {
+            this.insertItalicText(transform, text, italicStartIndex, italicEndIndex);
+        } else if (firstStyle.name === 'underlinedStartIndex') {
+            this.insertUnderlinedText(transform, text, underlinedStartIndex, underlinedEndIndex);
+        }
+    }
+
+    insertBoldText = (transform, text, startIndex, endIndex) => {
+        if (startIndex === -1 && endIndex === -1) {
+            return transform.insertTextWithStyles(text);
+        }
+        let beforeBoldText = text.substring(0, startIndex);
+        let boldText = text.substring(startIndex + 8, endIndex); // +8 offsets the word <strong>
+        let afterBoldText = text.substring(endIndex + 9); // +9 offsets the word </strong>
         text = beforeBoldText + boldText + afterBoldText; // Update text to remove <strong> </strong>
-        transform.insertText(beforeBoldText).toggleMark('bold').insertText(boldText).toggleMark('bold');
-        this.insertBoldText(transform, afterBoldText);
+        transform.insertText(beforeBoldText).toggleMark('bold');
+        this.insertTextWithStyles(transform, boldText);
+        transform.toggleMark('bold');
+        this.insertTextWithStyles(transform, afterBoldText);
+    }
+
+    insertItalicText = (transform, text, startIndex, endIndex) => {
+        if (startIndex === -1 && endIndex === -1) {
+            return transform.insertTextWithStyles(text);
+        }
+        let beforeItalicText = text.substring(0, startIndex);
+        let italicText = text.substring(startIndex + 4, endIndex); // +4 offsets the word <em>
+        let afterItalicText = text.substring(endIndex + 5); // +5 offsets the word </em>
+        text = beforeItalicText + italicText + afterItalicText; // Update text to remove <em> </em>
+        transform.insertText(beforeItalicText).toggleMark('italic');
+        this.insertTextWithStyles(transform, italicText);
+        transform.toggleMark('italic');
+        this.insertTextWithStyles(transform, afterItalicText);
+    }
+
+    insertUnderlinedText = (transform, text, startIndex, endIndex) => {
+        if (startIndex === -1 && endIndex === -1) {
+            return transform.insertTextWithStyles(text);
+        }
+        let beforeUnderlinedText = text.substring(0, startIndex);
+        let underlinedText = text.substring(startIndex + 3, endIndex); // +3 offsets the word <u>
+        let afterUnderlinedText = text.substring(endIndex + 4); // +4 offsets the word </u>
+        text = beforeUnderlinedText + underlinedText + afterUnderlinedText; // Update text to remove <u> </u>
+        transform.insertText(beforeUnderlinedText).toggleMark('underlined')
+        this.insertTextWithStyles(transform, underlinedText);
+        transform.toggleMark('underlined');
+        this.insertTextWithStyles(transform, afterUnderlinedText);
     }
 
     insertPlainText = (transform, text) => {
@@ -651,14 +714,9 @@ class FluxNotesEditor extends React.Component {
             }
 
 
-            this.insertBoldText(transform, text);
+            this.insertTextWithStyles(transform, text);
             return transform;
-            // TODO add these cases as well. May need a main function around all three cases.
-            // let italicStartIndex = text.indexOf('<em>');
-            // let italicEndIndex = text.indexOf('</em>');
-            // let underlinedStartIndex = text.indexOf('<u>');
-            // let underlinedEndIndex = text.indexOf('</u>');
-            return transform.insertText(text);
+            // return transform.insertText(text);
         }
     }
     /*
