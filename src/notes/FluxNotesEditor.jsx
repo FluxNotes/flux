@@ -210,7 +210,7 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
 
-        console.log("STATE");
+        console.log("STATE in choseSuggestedShortcut");
         console.log(state); // At this point both clicking and using enter button shows that @ro is in the text in the state
 
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
@@ -298,9 +298,10 @@ class FluxNotesEditor extends React.Component {
         this.setState({
             isPortalOpen: true,
             portalOptions: portalOptions,
-            needToDelete: needToDelete,
+            needToDelete: needToDelete
         });
         this.selectingForShortcut = shortcut;
+
         return transform.blur();
     }
 
@@ -378,6 +379,13 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
+
+        // nicole: this is getting the wrong state
+
+        console.log("in on change");
+        console.log("on change state");
+        console.log(state.anchorOffset);
+
         let indexOfLastNode = state.toJSON().document.nodes.length - 1;
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
@@ -681,6 +689,11 @@ class FluxNotesEditor extends React.Component {
     }
 
     render = () => {
+
+        console.log("in render");
+        console.log(this.state.state.anchorOffset);
+
+
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
 

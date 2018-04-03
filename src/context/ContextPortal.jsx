@@ -36,6 +36,11 @@ class ContextPortal extends React.Component {
      * Updates state when context updates 
      */
     componentWillReceiveProps = (nextProps) => {
+
+        // console.log("next props");
+        // console.log(nextProps);
+
+
         if (nextProps.contexts !== this.props.contexts) {
             this.setState({
                 selectedIndex: 0
@@ -102,7 +107,10 @@ class ContextPortal extends React.Component {
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
 
-            // console.log("ENTER key pressed");
+            // for bad case, we see 0, for good case anchor offset is 3. state is already wrong here
+            console.log("ENTER key pressed");
+            console.log("anchor offset in context portal");
+            console.log(this.props.state.anchorOffset);
             this.setState({ active: false, justActive: false });
             this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
         }

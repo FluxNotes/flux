@@ -102,15 +102,15 @@ class SuggestionPortal extends React.Component {
 
         else {
             // console.log("got in key down");
-            console.log("key: " + keyCode);
+            // console.log("key: " + keyCode);
             // Else, determine character and update suggestions accordingly
 
-            console.log("data:");
-            console.log(data);
+            // console.log("data:");
+            // console.log(data);
 
             const newFilteredSuggestions  = this.getFilteredSuggestions(data);
-            console.log("new filtered suggestions");
-            console.log(newFilteredSuggestions);
+            // console.log("new filtered suggestions");
+            // console.log(newFilteredSuggestions);
             this.setSelectedIndex(0)
             if (typeof newFilteredSuggestions.then === 'function') {
                 newFilteredSuggestions.then(newFilteredSuggestions => {
