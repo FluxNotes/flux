@@ -282,7 +282,6 @@ class TabularListVisualizer extends Component {
                             </span>
                         </td>
                     );
-                //} else if (this.props.allowItemClick && isInsertable) {
                 } else if (isInsertable) {
                     // Get value off of element given two cases:
                     // 1. Element type is shortcut, value is returned by element.value()
