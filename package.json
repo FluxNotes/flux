@@ -27,7 +27,7 @@
     "material-ui": "v1.0.0-beta.30",
     "material-ui-icons": "1.0.0-beta.15",
     "mkdirp": "0.5.1",
-    "moment": "2.18.1",
+    "moment": "2.22.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
     "positions": "1.6.1",
@@ -62,6 +62,9 @@
     "slate-auto-replace": "0.5.0",
     "sync-request": "^4.1.0",
     "testcafe": "0.17.1"
+  },
+  "resolutions": {
+    "moment": "2.22.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
