@@ -12,7 +12,7 @@
 }
 
 .context-options-list {
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 
