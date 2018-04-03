@@ -46,46 +46,25 @@ export default class NotesPanel extends Component {
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
-        // Set the note to be inserted into the editor and the selected note
-        if (!this.props.isNoteViewerVisible) {
+        if (!Lang.isNull(note)) {
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
             // before editor related states can be set
             this.props.setFullAppStateWithCallback({
                 layout: 'split',
                 isNoteViewerVisible: true,
                 isNoteViewerEditable: !note.signed,
+                noteClosed: false
             }, () => {
-                if (this.props.isNoteViewerVisible) {
-                    this.setState({updatedEditorNote: note});
-                    this.setState({selectedNote: note});
-                    this.props.setFullAppState("documentText", note.content);
-                    this.props.setOpenClinicalNote(note);
-                    if (!note) {
-                        this.setState({currentlyEditingEntryId: -1});
-                    } else {
-                        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
-                    }
-                }
-            });
-        } else {
-            if (!Lang.isNull(note)) {
                 const mode = note.signed ? "clinical-notes" : "context-tray";
-                this.props.setFullAppState("documentText", note.content);
-                this.props.setFullAppState("isNoteViewerEditable", !note.signed);
-                this.props.setOpenClinicalNote(note);
                 this.setState({
                     selectedNote: note,
                     updatedEditorNote: note,
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: note.entryInfo.entryId
                 });
-            }
-        }
-
-        // This gets called in other modes besides pre-encounter mode. Check that the editor exists and then update the
-        // state so that updatedEditorNote has the note to update the editor with
-        if (this.props.isNoteViewerVisible) {
-            this.setState({updatedEditorNote: note});
+                this.props.setFullAppState("documentText", note.content);
+                this.props.setOpenClinicalNote(note);
+            });
         }
     }
 
