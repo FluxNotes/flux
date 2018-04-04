@@ -1,14 +1,4 @@
-span.button-hover {
-    cursor: pointer;
-}
-
-.toggle-button {
-    min-width: 70px !important;
-    min-height: 20px !important;
-    display: inline-block !important;
-    background-color: #FFFFFF !important;
-}
-
+/* Buttons */
 .toggle-buttons-container {
     display: flex !important;
     margin-left: auto;
@@ -16,25 +6,20 @@ span.button-hover {
     margin-right: 0;
 }
 
-#notes-btn {
-    width: 50%
-}
-
-#context-btn {
-    width: 50%;
-}
-.toggle-button-selected {
-    background-color: #3399FF !important;
+.toggle-button {
     min-width: 70px !important;
     min-height: 20px !important;
+    width: 50% !important;
     display: inline-block !important;
+    background-color: #FFFFFF !important;
+}
+
+.toggle-button-selected {
+    background-color: #3399FF !important;
 }
 
 .toggle-button-disabled {
     background-color: #e6e6e6 !important;
-    min-width: 70px !important;
-    min-height: 20px !important;
-    display: inline-block !important;
 }
 
 .clinical-notes-panel { 
@@ -47,6 +32,41 @@ span.button-hover {
     margin: 10px;
     max-width: 184px;
 }
+
+.note-new {
+    margin: 10px 0 20px;
+    text-align: center;
+    display: block;
+}
+
+.note-new:hover {
+    cursor:pointer;
+    background: #e6e6e6;
+}
+
+.note-new .note-new-text {
+    font-size: 1.1rem;
+}
+
+.note-new-text .fa {
+    padding-right: 10px;
+}
+
+.clinical-notes-btn:hover {
+    transform: scale(1.1);
+}
+
+.more-notes-btn {
+    background-color: white !important;
+    padding: 10px !important;
+    margin-top: 20px;
+    max-width: 184px;
+}
+
+.more-notes-btn:hover {
+    background: #e6e6e6 !important;
+}
+
 
 /* Sort */
 
@@ -75,50 +95,6 @@ li.sort-item:hover {
     color: #fff;
 }
 
-/* Buttons */
-
-.note-new {
-    margin: 10px 0 20px;
-    text-align: center;
-    display: block;
-}
-
-.note-new:hover {
-    cursor:pointer;
-    background: #e6e6e6;
-}
-
-.note-new-text {
-    color: #555;
-    font-size: 1.1rem;
-}
-
-.note-new-text .fa {
-    padding-right: 10px;
-}
-
-.clinical-notes-btn:hover {
-    transform: scale(1.1);
-}
-
-.more-notes-btn {
-    background-color: white !important;
-    padding: 10px !important;
-    margin-top: 20px;
-    max-width: 184px;
-}
-
-.more-notes-btn:hover {
-    background: #e6e6e6 !important;
-}
-
-/* Icons */
-
-.icon-arrow-left {
-    width: 20px;
-    margin-left: 10px;
-}
-
 /* Notes */
 
 .note {
@@ -126,11 +102,14 @@ li.sort-item:hover {
     max-width: 150px;
     padding: 0.5em 1em;
     margin: 1em 0;
-    color: #000;
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 5px 0 5px 5px;
 }
+.note > * { 
+    font-size: 0.8rem;
+    color: #555;
+ }
 
 .note:hover {
     cursor: pointer;
@@ -151,29 +130,21 @@ li.sort-item:hover {
     border: 2px dashed #ccc;
 }
 
+.in-progress-text {
+    font-weight: bold;
+}
+
 .existing-note-date {
-    font-size: 0.8rem;
     padding-bottom: 5px;
-    color: #555;
     font-weight: bold;
 }
 
 .existing-note-subject {
-    font-size: 0.8rem;
-    color: #555;
     padding-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
 
-.in-progress-text {
-    font-size: 0.8rem;
-    color: #555;
-    font-weight: bold;
-}
-
 .existing-note-metadata {
-    font-size: 0.8rem;
-    color: #555;
     margin-bottom: 5px;
 }
 

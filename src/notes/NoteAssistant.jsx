@@ -13,10 +13,10 @@ import './NoteAssistant.css';
 export default class NoteAssistant extends Component {
     constructor(props) {
         super(props);
-
+        // TODO: uncomment this when renderMoreNotesButton is reactivated
+        // this.maxNotesToDisplay = 100;
         this.state = {
-            sortIndex: null,
-            maxNotesToDisplay: 3,
+            sortIndex: 0,
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -28,21 +28,13 @@ export default class NoteAssistant extends Component {
                 this.onContextToggleButtonClicked();
             }
         }
-
         // If the note editor is note editable, set the notes button to selected and disable the context button
         else {
-            this.onNotesToggleButtonClicked();
             this.disableContextToggleButton();
         }
     }
 
-    notesNotDisplayed = null;
-    notesToDisplay = [];
-    inProgressNotes = [];
-
     componentWillUpdate(nextProps, nextState) {
-        this.getNotesFromPatient(nextProps);
-
         if (nextProps.noteAssistantMode === "context-tray") {
             this.onContextToggleButtonClicked();
         } else {
@@ -52,12 +44,6 @@ export default class NoteAssistant extends Component {
         if (!nextProps.isNoteViewerEditable) {
             this.disableContextToggleButton();
         }
-    }
-
-    componentWillMount() {
-        // Set default value for sort selection
-        this.selectSort(0);
-        this.getNotesFromPatient(this.props);
     }
 
     componentDidMount() {
@@ -86,25 +72,6 @@ export default class NoteAssistant extends Component {
         }
 
         return 0;
-    }
-
-    getNotesFromPatient(props) {
-        // Generate notesToDisplay array which will be used to render the notes in clinical notes view
-        let allNotes = props.patient.getNotes();
-        let signedNotes = Lang.filter(allNotes, o => o.signed);
-        signedNotes.sort(this.notesTimeSorter);
-        let unsignedNotes = Lang.filter(allNotes, o => !o.signed);
-        const maxNotes = Math.min(this.state.maxNotesToDisplay, signedNotes.length);
-        this.notesToDisplay = [];
-
-        for (let i = 0; i < maxNotes; i++) {
-            this.notesToDisplay.push(signedNotes[i]);
-        }
-
-        // Set the number of notes that are not being displayed
-        let missingNotes = signedNotes.length - this.state.maxNotesToDisplay;
-        this.notesNotDisplayed = missingNotes;
-        this.inProgressNotes = unsignedNotes;
     }
 
     // Switch view (i.e clinical notes view or context tray)
@@ -291,13 +258,17 @@ export default class NoteAssistant extends Component {
                 return (
                     <div className="clinical-notes-panel">
                         {this.renderNewNote()}
-                        {this.renderInProgressNotes()}
+                        <div id="in-progress-note-list">
+                            {this.renderInProgressNotes()}
+                        </div> 
 
                         <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
-                        {/*Sort selection is currently disabled*/}
-                        {/*this.renderSortSelection()*/}
-                        {this.renderNotes()}
-                        {this.renderMoreNotesButton()}
+                        <div id="signed-note-list">
+                            {/*TODO: Complete and enable sort selection/more-notes button*/}
+                            {/*this.renderSortSelection()*/}
+                            {this.renderNotes()}
+                            {/*this.renderMoreNotesButton()*/}
+                        </div> 
                     </div>
                 );
 
@@ -319,7 +290,9 @@ export default class NoteAssistant extends Component {
     }
 
     renderInProgressNotes() {
-        return this.inProgressNotes.map((note, i) => this.renderInProgressNote(note, i));
+        const inProgressNotes = Lang.filter(this.props.patient.getNotes(), o => !o.signed);
+
+        return inProgressNotes.map((note, i) => this.renderInProgressNote(note, i));
     }
 
     renderInProgressNote(note, i) {
@@ -334,10 +307,8 @@ export default class NoteAssistant extends Component {
                 this.openNote(true, note)
             }}>
                 <div className="in-progress-text">In progress note</div>
-
                 <div className="existing-note-date">{note.date}</div>
                 <div className="existing-note-subject">{note.subject}</div>
-
                 {this.renderMetaDataText(note, 30)}
             </div>
         );
@@ -367,7 +338,13 @@ export default class NoteAssistant extends Component {
 
     // Render the list of clinical notes
     renderNotes() {
-        return this.notesToDisplay.map((item, i) => // item is a signed note
+        // Generate notesToDisplay array which will be used to render the notes in clinical notes view
+        const signedNotes = Lang.filter(this.props.patient.getNotes(), o => o.signed);
+        // TODO: sort notes based on selected sort; use the notesTimeSorter right now.
+        signedNotes.sort(this.notesTimeSorter);
+        const maxNotes = this.maxNotesToDisplay ? Math.min(this.maxNotesToDisplay, signedNotes.length) : signedNotes.length;
+        
+        return signedNotes.slice(0, maxNotes).map((item, i) => // item is a signed note
             this.renderClinicalNote(item, i)
         );
     }
@@ -449,10 +426,14 @@ export default class NoteAssistant extends Component {
 
     // Render the button to display more notes that are not currently displayed
     renderMoreNotesButton() {
-        if (this.notesNotDisplayed > 0) {
+        const signedNotes = Lang.filter(this.props.patient.getNotes(), o => o.signed);
+        // Set the number of notes that are not being displayed
+        const numberofMissingNotes = signedNotes.length - this.maxNotesToDisplay;
+
+        if (numberofMissingNotes > 0) {
             return (
                 <Button raised className="more-notes-btn">
-                    View {this.notesNotDisplayed} more clinical note{this.notesNotDisplayed > 1 ? 's' : ''}
+                    View {numberofMissingNotes} more clinical note{numberofMissingNotes > 1 ? 's' : ''}
                 </Button>
             );
         }
@@ -463,8 +444,7 @@ export default class NoteAssistant extends Component {
             <div className="toggle-buttons-container">
                 <MaterialButton
                     raised
-                    id="notes-btn"
-                    className={this.notes_btn_classname}
+                    className={"toggle-button " + this.notes_btn_classname}
                     disabled={this.notes_disabled}
                     onClick={() => {
                         this.toggleView("clinical-notes")
@@ -485,8 +465,7 @@ export default class NoteAssistant extends Component {
                 </MaterialButton>
                 <MaterialButton
                     raised
-                    id="context-btn"
-                    className={this.context_btn_classname}
+                    className={"toggle-button " + this.context_btn_classname}
                     disabled={this.context_disabled}
                     onClick={() => {
                         this.toggleView("context-tray")
