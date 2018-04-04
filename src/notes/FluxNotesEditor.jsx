@@ -490,20 +490,22 @@ class FluxNotesEditor extends React.Component {
             startOffset: 0,
             endKey: endOfNoteKey,
            endOffset: endOfNoteOffset
-        }; 
-        let textEncodingOfState = this.structuredFieldPlugin.convertToText(state, entireNote);
-        let docText = textEncodingOfState
-        if(!Lang.isUndefined(docText) && !Lang.isUndefined(docText.length) && docText.length > 1){
-            //Does { render: false } prevent tag duplication? No
-            const htmlEncodingOfState = html.serialize(state, {}); //trying options like: {render: false} causes the first error to go away
-            // with render: false this is a List of Lists of Lists with text
-            
-            console.log(htmlEncodingOfState); // to be saved if it has html tags
-            // TODO: set the text to the string containing styling tags
-            docText = htmlEncodingOfState; // make sure this is being stored in the patient correctly
-        } else{
-            console.log("docText is not defined");
-        }
+        };
+        let docText = this.structuredFieldPlugin.convertToText(state, entireNote); 
+        // console.log(docText)
+        // let textEncodingOfState = this.structuredFieldPlugin.convertToText(state, entireNote);
+        // let docText = textEncodingOfState
+        // if(!Lang.isUndefined(docText) && !Lang.isUndefined(docText.length) && docText.length > 1){
+        //     //Does { render: false } prevent tag duplication? No
+        //     const htmlEncodingOfState = html.serialize(state, {}); //trying options like: {render: false} causes the first error to go away
+        //     // with render: false this is a List of Lists of Lists with text
+        // 
+        //     console.log(htmlEncodingOfState); // to be saved if it has html tags
+        //     // TODO: set the text to the string containing styling tags
+        //     docText = htmlEncodingOfState; // make sure this is being stored in the patient correctly
+        // } else{
+        //     console.log("docText is not defined");
+        // }
         
         this.props.setFullAppStateWithCallback(function(prevState, props){
           // console.log('is this being called ever')
@@ -629,65 +631,80 @@ class FluxNotesEditor extends React.Component {
 
         // Order the styles to know which to apply next
         let styleMarkings = [
-            { name: 'boldStartIndex', value: text.indexOf('<strong>') },
-            { name: 'boldEndIndex', value: text.indexOf('</strong>') },
-            { name: 'italicStartIndex', value: text.indexOf('<em>') },
-            { name: 'italicEndIndex', value: text.indexOf('</em>') },
-            { name: 'underlinedStartIndex', value: text.indexOf('<u>') },
-            { name: 'underlinedEndIndex', value: text.indexOf('</u>') },
+            { name: 'boldStartIndex', value: boldStartIndex },
+            { name: 'boldEndIndex', value: boldEndIndex },
+            { name: 'italicStartIndex', value: italicStartIndex },
+            { name: 'italicEndIndex', value: italicEndIndex },
+            { name: 'underlinedStartIndex', value: underlinedStartIndex },
+            { name: 'underlinedEndIndex', value: underlinedEndIndex },
         ];
         styleMarkings.sort((a, b) => a.value - b.value);
         let firstStyle = styleMarkings[styleMarkings.findIndex(a => a.value > -1)];
 
-        if (firstStyle.name === 'boldStartIndex') {
+        if (firstStyle.name === 'boldStartIndex' || firstStyle.name === 'boldEndIndex') {
             this.insertBoldText(transform, text, boldStartIndex, boldEndIndex);
-        } else if (firstStyle.name === 'italicStartIndex') {
+        } else if (firstStyle.name === 'italicStartIndex' || firstStyle.name === 'italicEndIndex') {
             this.insertItalicText(transform, text, italicStartIndex, italicEndIndex);
-        } else if (firstStyle.name === 'underlinedStartIndex') {
+        } else if (firstStyle.name === 'underlinedStartIndex' || firstStyle.name === 'underlinedEndIndex') {
             this.insertUnderlinedText(transform, text, underlinedStartIndex, underlinedEndIndex);
         }
     }
 
     insertBoldText = (transform, text, startIndex, endIndex) => {
         if (startIndex === -1 && endIndex === -1) {
-            return transform.insertTextWithStyles(text);
+            return transform.insertText(text);
         }
-        let beforeBoldText = text.substring(0, startIndex);
-        let boldText = text.substring(startIndex + 8, endIndex); // +8 offsets the word <strong>
-        let afterBoldText = text.substring(endIndex + 9); // +9 offsets the word </strong>
-        text = beforeBoldText + boldText + afterBoldText; // Update text to remove <strong> </strong>
-        transform.insertText(beforeBoldText).toggleMark('bold');
-        this.insertTextWithStyles(transform, boldText);
-        transform.toggleMark('bold');
-        this.insertTextWithStyles(transform, afterBoldText);
+        this.addStyle(transform, text, startIndex, endIndex, 8, 'bold');
     }
 
     insertItalicText = (transform, text, startIndex, endIndex) => {
         if (startIndex === -1 && endIndex === -1) {
-            return transform.insertTextWithStyles(text);
+            return transform.insertText(text);
         }
-        let beforeItalicText = text.substring(0, startIndex);
-        let italicText = text.substring(startIndex + 4, endIndex); // +4 offsets the word <em>
-        let afterItalicText = text.substring(endIndex + 5); // +5 offsets the word </em>
-        text = beforeItalicText + italicText + afterItalicText; // Update text to remove <em> </em>
-        transform.insertText(beforeItalicText).toggleMark('italic');
-        this.insertTextWithStyles(transform, italicText);
-        transform.toggleMark('italic');
-        this.insertTextWithStyles(transform, afterItalicText);
+        this.addStyle(transform, text, startIndex, endIndex, 4, 'italic');
     }
 
     insertUnderlinedText = (transform, text, startIndex, endIndex) => {
         if (startIndex === -1 && endIndex === -1) {
-            return transform.insertTextWithStyles(text);
+            return transform.insertText(text);
         }
-        let beforeUnderlinedText = text.substring(0, startIndex);
-        let underlinedText = text.substring(startIndex + 3, endIndex); // +3 offsets the word <u>
-        let afterUnderlinedText = text.substring(endIndex + 4); // +4 offsets the word </u>
-        text = beforeUnderlinedText + underlinedText + afterUnderlinedText; // Update text to remove <u> </u>
-        transform.insertText(beforeUnderlinedText).toggleMark('underlined')
-        this.insertTextWithStyles(transform, underlinedText);
-        transform.toggleMark('underlined');
-        this.insertTextWithStyles(transform, afterUnderlinedText);
+        this.addStyle(transform, text, startIndex, endIndex, 3, 'underlined');
+    }
+    
+    addStyle = (transform, text, startIndex, endIndex, wordOffset, type) => {
+        let startOffset = 0; // This represents how many characters to cut off from the text string at the startIndex.
+        if (startIndex !== -1) {
+            // <someStyle> is in the text string, so increase startOffset by word length to remove the word <someStyle>
+            startOffset = wordOffset;
+        } else {
+            // No HTML style tag present so set startIndex to the beginning of the string and leave startOffset as 0 since no word to remove.
+            startIndex = 0; 
+        }
+
+        let endOffset = 0; // This represents how many characters to cut off from the text string at the endIndex.
+        if (endIndex !== -1) {
+            // The word </someStyle> is in the text string, so endOffset is wordOffset + 1 to remove the word </someStyle>
+            endOffset = wordOffset + 1;
+        } else {
+            // No HTML style tag present so set endIndex to the end of the string and leave endOffset as 0 since no word to remove.
+            endIndex = text.length;
+        }
+
+        if (startIndex > endIndex) {
+            // case of </style> text <style>. This happens when style is inserted after structured phrase.
+            // Treat this case as only handling the ending tag. Reset start to beginning of word.
+            startIndex = 0;
+            startOffset = 0;
+        }
+
+        let beforeBoldText = text.substring(0, startIndex);
+        let boldText = text.substring(startIndex + startOffset, endIndex);
+        let afterBoldText = text.substring(endIndex + endOffset);
+        text = beforeBoldText + boldText + afterBoldText; // Update text to remove <someStyle> </someStyle>
+        transform.insertText(beforeBoldText).toggleMark(type);
+        this.insertTextWithStyles(transform, boldText);
+        transform.toggleMark(type);
+        this.insertTextWithStyles(transform, afterBoldText);
     }
 
     insertPlainText = (transform, text) => {

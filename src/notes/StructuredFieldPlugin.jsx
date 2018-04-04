@@ -133,22 +133,54 @@ function StructuredFieldPlugin(opts) {
     
     function convertBlocksToText(state, blocks, startOffset, endOffset) {
         let result = "", start, end;
+        let localStyle = [];
+        let tempResult = '<div>';
+        let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         blocks.forEach((blk, index) => {
             start = (index === 0) ? start = startOffset : start = 0;
             end = (index === blocks.length - 1) ? end = endOffset : end = -1;
             if (blk.kind === 'block' && blk.type === 'line') {
+                // TODO Get new lines to work with tempResult
                 result += '\r';
+                // tempResult += '</div><div>';
             } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
                 result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
+                tempResult += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
             } else if (blk.kind === 'text') {
+                const characters = blk.toJSON().characters;
+                characters.forEach(char => {
+                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
+                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+                    if (inMarksNotLocal.length > 0) {
+                        inMarksNotLocal.forEach(mark => {
+                            tempResult += `<${markToHTMLTag[mark.type]}>`;
+                        });
+                    }
+                    if (inLocalNotMarks.length > 0) {
+                        Lang.reverse(inLocalNotMarks).forEach(mark => {
+                            tempResult += `</${markToHTMLTag[mark.type]}>`;
+                        });
+                    }
+                    tempResult += char.text;
+                    localStyle = char.marks;
+                });
                 result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
             } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
                 let shortcut = blk.data.get("shortcut");
                 result += shortcut.getResultText();
+                tempResult += `${shortcut.getResultText()}`;
             }
         });
         
-        return result;
+        if (localStyle.length > 0) {
+            Lang.reverse(localStyle).forEach(mark => {
+                tempResult += `</${markToHTMLTag[mark.type]}>`;
+            });
+        }
+        tempResult += '</div>';
+        // TODO replace tempResult with result once finished.
+        return tempResult;
+        // return result;
     }
 
     function convertToText(state, selection) {
