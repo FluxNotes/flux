@@ -1,9 +1,11 @@
+import FluxEntry from '../base/FluxEntry';
 import Observation from '../shr/finding/Observation';
 import Quantity from '../shr/core/Quantity';
 
-class FluxObservation {
+class FluxObservation extends FluxEntry {
     constructor(json) {
-        this._observation = Observation.fromJSON(json);
+        super(json);
+        this._entry = this._observation = Observation.fromJSON(json);
     }
     
     get entryInfo() {

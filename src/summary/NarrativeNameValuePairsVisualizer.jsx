@@ -96,7 +96,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 } else {
                     let val = item.value(patient, condition);
                     if (val) {
-                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1]};
+                        return {name: item.name, value: val[0], shortcut: item.shortcut, unsigned: val[1], sourceNote: val[2]};
                     } else {
                         return {name: item.name, value: null};
                     }
@@ -212,7 +212,16 @@ class NarrativeNameValuePairsVisualizer extends Component {
         } = this.state;
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
-                fn(element);
+                // convert element to format action is expecting
+                const transformedElement = {
+                    shortcut: element.shortcut,
+                    value: [
+                        element.value,
+                        element.unsigned,
+                        element.sourceNote
+                    ]
+                };
+                fn(transformedElement);
             }
             this.closeInsertionMenu(callback);
         }
@@ -224,7 +233,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         const filteredActions = this.props.actions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(snippet)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            return a.whenToDisplay.editableNoteOpen === this.props.allowItemClick;
+            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
         if (filteredActions.length === 0) return null;
         return (
@@ -293,7 +302,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
         // now go through each snippet and build up HTML to render
         let content = [];
         narrative.forEach((snippet, index) => {
-            if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && this.props.allowItemClick) {
+            const isInsertable = (Lang.isNull(snippet.item) || Lang.isUndefined(snippet.item) ? false : (Lang.isUndefined(snippet.item.isInsertable) ? true : snippet.item.IsInsertable));
+            if ((snippet.type === 'structured-data' || snippet.type === "unsigned-data") && isInsertable) {
                 const snippetId = `${snippet.item.name}-${index}`
                 // const snippetValue = (Lang.isArray(snippet.item.value) ? snippet.item.value[0] : snippet.item.value);
                 content.push(

@@ -149,7 +149,7 @@ export default class SummaryMetadata {
                                         value: (patient, currentConditionEntry) => {
                                             let s = currentConditionEntry.getMostRecentStaging();
                                             if (s && s.stage && s.stage.length > 0) {
-                                                return [s.stage, patient.isUnsigned(s)];
+                                                return [s.stage, patient.isUnsigned(s), s.sourceClinicalNoteReference];
                                             } else {
                                                 return null;
                                             }
@@ -163,7 +163,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.status, patient.isUnsigned(p)];
+                                                return [p.status, patient.isUnsigned(p), p.sourceClinicalNoteReference];
                                             }
                                         }
                                     },
@@ -174,7 +174,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(p) || !p.status) {
                                                 return null;
                                             } else {
-                                                return [p.asOfDate, patient.isUnsigned(p)];
+                                                return [p.asOfDate, patient.isUnsigned(p), p.sourceClinicalNoteReference];
                                             }
                                         }
                                     },
@@ -187,7 +187,7 @@ export default class SummaryMetadata {
                                             } else {
                                                 return [p.evidence.map(function (ev) {
                                                     return ev;
-                                                }).join(', '), patient.isUnsigned(p)];
+                                                }).join(', '), patient.isUnsigned(p), p.sourceClinicalNoteReference];
                                             }
                                         }
                                     }
@@ -418,7 +418,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(er)) {
                                                 return null;
                                             } else {
-                                                return [er.status, patient.isUnsigned(er)];
+                                                return [er.status, patient.isUnsigned(er), er.sourceClinicalNoteReference];
                                             }
                                         }
                                     },
@@ -429,7 +429,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(pr)) {
                                                 return null;
                                             } else {
-                                                return [pr.status, patient.isUnsigned(pr)];
+                                                return [pr.status, patient.isUnsigned(pr), pr.sourceClinicalNoteReference];
                                             }
                                         }
                                     },
@@ -440,7 +440,7 @@ export default class SummaryMetadata {
                                             if (Lang.isNull(her2)) {
                                                 return null;
                                             } else {
-                                                return [her2.status, patient.isUnsigned(her2)];
+                                                return [her2.status, patient.isUnsigned(her2), her2.sourceClinicalNoteReference];
                                             }
                                         }
                                     }
@@ -762,13 +762,13 @@ export default class SummaryMetadata {
             }).map((c, i) => {
                 return [
                     {
-                        value: [c.title, patient.isUnsigned(c)]
+                        value: [c.title, patient.isUnsigned(c), c.sourceClinicalNoteReference]
                     },
                     {
-                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c)]
+                        value: [(c.status === 'Candidate') ? 'N/A' : c.enrollmentDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
                     },
                     {
-                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c)]
+                        value: [(c.status === 'Candidate' || c.status === 'Enrolled' || c.status === 'Active') ? 'N/A' : c.endDate, patient.isUnsigned(c), c.sourceClinicalNoteReference]
                     },
                     c.details
                 ]; 

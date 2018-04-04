@@ -28,48 +28,43 @@ export default class NotesPanel extends Component {
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            const note = nextProps.openClinicalNote;
+            this.handleUpdateEditorWithNote(note);
+        }
+    }
+
     updateNoteAssistantMode(mode) {
         this.setState({noteAssistantMode: mode});
     }
 
     updateSelectedNote(note) {
         this.setState({selectedNote: note});
-        this.props.setOpenClinicalNote(note);
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote(note) {
-        if (!Lang.isNull(note)) {
-            this.props.setFullAppState("documentText", note.content);
-        }
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
-        // Set the note to be inserted into the editor and the selected note
-        if (!this.props.isNoteViewerVisible) {
-
+        if (!Lang.isNull(note)) {
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
             // before editor related states can be set
             this.props.setFullAppStateWithCallback({
                 layout: 'split',
                 isNoteViewerVisible: true,
-                isNoteViewerEditable: true
+                isNoteViewerEditable: !note.signed,
+                noteClosed: false
             }, () => {
-                if (this.props.isNoteViewerVisible) {
-                    this.setState({updatedEditorNote: note});
-                    this.setState({selectedNote: note});
-                    this.props.setOpenClinicalNote(note);
-                    if (!note) {
-                        this.setState({currentlyEditingEntryId: -1});
-                    } else {
-                        this.setState({currentlyEditingEntryId: note.entryInfo.entryId});
-                    }
-                }
+                const mode = note.signed ? "clinical-notes" : "context-tray";
+                this.setState({
+                    selectedNote: note,
+                    updatedEditorNote: note,
+                    noteAssistantMode: mode,
+                    currentlyEditingEntryId: note.entryInfo.entryId
+                });
+                this.props.setFullAppState("documentText", note.content);
+                this.props.setOpenClinicalNote(note);
             });
-        }
-
-        // This gets called in other modes besides pre-encounter mode. Check that the editor exists and then update the
-        // state so that updatedEditorNote has the note to update the editor with
-        if (this.props.isNoteViewerVisible) {
-            this.setState({updatedEditorNote: note});
         }
     }
 
@@ -85,6 +80,15 @@ export default class NotesPanel extends Component {
     // invokes closing logic in NoteAssistant
     closeNote() {
         this.closeNoteChild();
+        this.props.setFullAppState("documentText", null);
+        this.props.setOpenClinicalNote(null);
+        this.setState({
+            updatedEditorNote: null,
+            noteAssistantMode: "context-tray",
+            // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
+            selectedNote: null,
+            currentlyEditingEntryId: -1
+        });
     }
 
     handleSignButtonClick() {
@@ -233,6 +237,7 @@ NotesPanel.propTypes = {
     shortcutManager: PropTypes.object,
     summaryItemToBeInserted: PropTypes.string,
     documentText: PropTypes.string,
+    openClinicalNote: PropTypes.object,
     saveNote: PropTypes.func,
     closeNote: PropTypes.func,
     errors: PropTypes.array,

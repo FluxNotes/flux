@@ -1,4 +1,5 @@
 import ResearchSubject from '../shr/research/ResearchSubject';
+import FluxEntry from '../base/FluxEntry';
 import Status from '../shr/action/Status';
 import Study from '../shr/research/Study';
 import TimePeriod from '../shr/core/TimePeriod';
@@ -13,9 +14,10 @@ import TimePeriodEnd from '../shr/core/TimePeriodEnd';
 import Lang from 'lodash';
 import lookup from '../../lib/clinicaltrial_lookup.jsx';
 
-class FluxResearchSubject {
+class FluxResearchSubject extends FluxEntry {
     constructor(json) {
-        this._researchSubject = ResearchSubject.fromJSON(json);
+        super();
+        this._entry = this._researchSubject = ResearchSubject.fromJSON(json);
         if (!this._researchSubject.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();

@@ -8,7 +8,7 @@ import lookup from '../../lib/receptor_lookup.jsx';
 class FluxEstrogenReceptorStatus extends FluxObservation {
     constructor(json) {
         super();
-        this._observation = EstrogenReceptorStatus.fromJSON(json);
+        this._entry = this._observation = EstrogenReceptorStatus.fromJSON(json);
         if (!this._observation.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();

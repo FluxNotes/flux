@@ -3,6 +3,7 @@ import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
 import moment from 'moment';
+import Lang from 'lodash';
 
 class FluxClinicalNote {
     constructor(json) {
@@ -21,7 +22,7 @@ class FluxClinicalNote {
         if (json.hospital) this._hospital = json.hospital;
         if (json.clinician) this._clinician = json.clinician;
         if (json.content) this._content = json.content;
-        if (json.signed) this._signed = json.signed;
+        if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
     }
     /**
      * Getter for entry information (shr.base.Entry)
