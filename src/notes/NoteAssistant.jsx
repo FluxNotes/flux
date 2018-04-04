@@ -190,7 +190,6 @@ export default class NoteAssistant extends Component {
 
     // creates blank new note and puts it on the screen
     createBlankNewNote = () => {
-        this.toggleView("context-tray");
         this.props.setFullAppState("noteClosed", false);
 
         // Create info to be set for new note
@@ -295,8 +294,8 @@ export default class NoteAssistant extends Component {
                         {this.renderInProgressNotes()}
 
                         <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
-
-                        {this.renderSortSelection()}
+                        {/*Sort selection is currently disabled*/}
+                        {/*this.renderSortSelection()*/}
                         {this.renderNotes()}
                         {this.renderMoreNotesButton()}
                     </div>
