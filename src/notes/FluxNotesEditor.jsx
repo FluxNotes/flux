@@ -16,6 +16,7 @@ import Button from '../elements/Button';
 import Divider from 'material-ui/Divider';
 import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
+import ContextPortalPlugin from '../context/ContextPortalPlugin'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import NoteParser from '../noteparser/NoteParser';
@@ -115,10 +116,22 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedShortcut.bind(this)
         });
 
+        // setup context portal plugin
+        this.contextPortalPlugin = ContextPortalPlugin({
+            // TODO: pass in options (list to display). This is a function like suggestions in this.suggestionsPluginInserters
+            contexts: this.state.portalOptions,
+            // TODO: need a function to call back to when on enter (mouse click and enter)
+        });
+
+
+
+
         this.plugins = [
             this.suggestionsPluginCreators,
             this.suggestionsPluginInserters,
-            this.structuredFieldPlugin
+            this.structuredFieldPlugin,
+            this.contextPortalPlugin
+
         ];
 
         // The logic below that builds the regular expression could possibly be replaced by the regular
@@ -836,12 +849,12 @@ class FluxNotesEditor extends React.Component {
                         state={this.state.state}
                         contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}/>
-                    <ContextPortal
+                    <ContextPortalPlugin
                         getPosition={this.getTextCursorPosition}
                         state={this.state.state}
                         callback={callback}
                         onSelected={this.onPortalSelection}
-                        contexts={this.state.portalOptions}
+
                         capture={/@([\w]*)/}
                         trigger={"@"}
                         onChange={this.onChange}
