@@ -194,6 +194,12 @@ class SuggestionPortal extends React.Component {
 
                 console.log("new text");
                 console.log(newText);
+
+                console.log("anchor text");
+                console.log(anchorText);
+
+                console.log("anchor offset");
+                console.log(anchorOffset);
             }
         } else { 
             // Else, add the processed character

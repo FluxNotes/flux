@@ -210,8 +210,8 @@ class FluxNotesEditor extends React.Component {
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
 
-        console.log("STATE in choseSuggestedShortcut");
-        console.log(state); // At this point both clicking and using enter button shows that @ro is in the text in the state
+        // console.log(">>>>> STATE in choseSuggestedShortcut");
+        // console.log(state); // At this point both clicking and using enter button shows that @ro is in the text in the state
 
         const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
@@ -309,11 +309,11 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
 
-        console.log("on portal selection");
+        // console.log("on portal selection");
         let shortcut = this.selectingForShortcut;
-
-        console.log("shortcut");
-        console.log(shortcut);
+        //
+        // console.log("shortcut");
+        // console.log(shortcut);
 
         //TODO: check state in here
         console.log("STATE in on portal selection");
@@ -363,9 +363,10 @@ class FluxNotesEditor extends React.Component {
         console.log(newText);
         console.log(text);
         console.log(index);
-
-        console.log("state");
-        console.log(state);
+        console.log(state)
+        //
+        // console.log("state");
+        // console.log(state);
         return transform
             .deleteBackward(anchorOffset)
             .insertText(newText)
@@ -380,11 +381,16 @@ class FluxNotesEditor extends React.Component {
 
     onChange = (state) => {
 
-        // nicole: this is getting the wrong state
+        // debugger
+
+        // nicole: this is getting the wrong state. need to find what gets called right before this that sets the state
 
         console.log("in on change");
-        console.log("on change state");
+        console.log('anchor offset')
         console.log(state.anchorOffset);
+        console.log('on change state')
+        console.log(state);
+
 
         let indexOfLastNode = state.toJSON().document.nodes.length - 1;
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
@@ -455,6 +461,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     onSelectionChange = (selection, state) => {
+        // console.log('>>> On selection change');
+        // console.log('>>> state: ');
+        // console.log(state);
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
             return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
@@ -690,8 +699,8 @@ class FluxNotesEditor extends React.Component {
 
     render = () => {
 
-        console.log("in render");
-        console.log(this.state.state.anchorOffset);
+        // console.log("in render");
+        // console.log(this.state.state.anchorOffset);
 
 
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;

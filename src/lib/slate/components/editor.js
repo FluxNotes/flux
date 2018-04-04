@@ -223,6 +223,19 @@ class Editor extends React.Component {
    */
 
   onChange = (state) => {
+    // nicole: this gets called before onchange call in flux notes editor.
+
+    console.log(">>>>>>>> INSIDE SLATE EDITOR >>>>>>>>");
+    console.log("--- state ---")
+    console.log(state);
+    console.log("--- this.state ---");
+    console.log(this.state.state);
+
+    // at this point, state is wrong but this.state looks right
+
+
+    // TODO:  ... so replace  all "state" with "this.state.state"?
+
     if (state == this.state.state) return
     const { tmp, props } = this
     const { stack } = this.state

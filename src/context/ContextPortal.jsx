@@ -81,6 +81,11 @@ class ContextPortal extends React.Component {
      * Only trigger keydown if the portal wasn't just activated
      */
     handleKeydownCP = (e) => {
+        console.log('---Keydown, contetxt portal')
+        // console.log(this.state)
+        console.log(this.state)
+        console.log("e.which")
+        console.log(e.which)
         if (this.state.active) {
             e.preventDefault();
             e.stopPropagation();

@@ -246,6 +246,9 @@ class Content extends React.Component {
    */
 
   isInEditor = (target) => {
+
+    console.log(">>>>>> isInEditor >>>>>>")
+
     const { element } = this
     return (
       (target.isContentEditable) &&
@@ -631,6 +634,12 @@ class Content extends React.Component {
    */
 
   onKeyDown = (event) => {
+
+    console.log(">>>> IN CONTENT.JS onKeyDown >>>>")
+    console.log(this.props);
+
+    // nicole: at this point the state is correct
+
     if (this.props.readOnly) return
     if (!this.isInEditor(event.target)) return
 
@@ -730,6 +739,8 @@ class Content extends React.Component {
    */
 
   onSelect = (event) => {
+
+    // TODO: see if this gets called on enter and on mouse click
     if (this.props.readOnly) return
     if (this.tmp.isCopying) return
     if (this.tmp.isComposing) return
