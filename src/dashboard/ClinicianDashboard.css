@@ -3,7 +3,7 @@
 }
 
 #clinician-dashboard-content .fitted-panel {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     text-align: left;
     /* 106px is the height of the Patient Control Panel, 16px is the height of the top margin of post encounter view content*/

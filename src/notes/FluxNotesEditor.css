@@ -132,7 +132,7 @@
     content, 130px accounts for the editor header and editor toolbar plus margins, 76px is the height of the sign button,
     20px is the margin on the sign button */
     height: calc(100vh - 96px - 16px - 130px - 76px - 20px) !important;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     text-align: left;
 }
