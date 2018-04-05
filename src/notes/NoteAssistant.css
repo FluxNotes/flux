@@ -99,7 +99,7 @@ li.sort-item:hover {
 
 .note {
     position: relative;
-    max-width: 150px;
+    width: 150px;
     padding: 0.5em 1em;
     margin: 1em 0;
     background: #fff;
