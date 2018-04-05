@@ -1,11 +1,41 @@
-/* Buttons */
+/* Wrappers */
+.note-assistant-wrapper { 
+    display: flex;
+    flex-direction: column;
+    width: 175px;
+    margin-left: auto;
+    max-height: calc(100vh - 106px - 16px);
+    min-height: 400px !important;
+}
+
+.note-assistant-content-wrapper { 
+    margin-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+    .note-assistant-wrapper { 
+        width: 150px;
+     }
+}
+
 .toggle-buttons-container {
     display: flex !important;
     margin-left: auto;
+    width: inherit;
     max-width: 188px; /* Max width of Notes is 188px. This should match. */
+    min-height: 41px;
     margin-right: 0;
 }
 
+.clinical-notes-panel { 
+    margin-left: auto;
+    width: inherit;
+    margin-right: 5px;
+}
+
+/* Buttons */
 .toggle-button {
     min-width: 70px !important;
     min-height: 20px !important;
@@ -22,10 +52,6 @@
     background-color: #e6e6e6 !important;
 }
 
-.clinical-notes-panel { 
-    float: right;
-}
-
 .previous-notes-label {
     font-weight: bold;
     font-size: 0.8em;
@@ -33,27 +59,24 @@
     max-width: 184px;
 }
 
-.note-new {
-    margin: 10px 0 20px;
+.note.note-new {
+    /*margin: 10px 20px;*/
+    width: auto;
     text-align: center;
     display: block;
 }
 
-.note-new:hover {
+.note.note-new:hover {
     cursor:pointer;
     background: #e6e6e6;
 }
 
-.note-new .note-new-text {
+.note.note-new .note-new-text {
     font-size: 1.1rem;
 }
 
-.note-new-text .fa {
+.note .note-new-text .fa {
     padding-right: 10px;
-}
-
-.clinical-notes-btn:hover {
-    transform: scale(1.1);
 }
 
 .more-notes-btn {
@@ -99,7 +122,8 @@ li.sort-item:hover {
 
 .note {
     position: relative;
-    width: 150px;
+    width: inherit;
+    max-width: 150px;
     padding: 0.5em 1em;
     margin: 1em 0;
     background: #fff;

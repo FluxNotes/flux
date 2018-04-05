@@ -12,9 +12,9 @@
 }
 
 
-#clinician-dashboard-content .fitted-panel:last-child { 
-    margin-right: 10px;
-}
+/*#clinician-dashboard-content .fitted-panel:last-child { 
+    padding-right: 15px;
+}*/
 
 #clinician-dashboard-content .right-border-box {
     border-right: 2px dashed #ddd;
