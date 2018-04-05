@@ -201,7 +201,7 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState('isNoteViewerVisible', true);
 
         // Don't start saving until there is content in the editor
-        if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
+        if (this.props.isNoteViewerEditable === true && !Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
             if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
                 this.saveEditorContentsToNewNote();
             } else {
