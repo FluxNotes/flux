@@ -119,7 +119,10 @@ export default class NoteAssistant extends Component {
     }
 
     updateExistingNote = () => {
-        var entryId = this.props.currentlyEditingEntryId;
+        this.updateNote(this.props.currentlyEditingEntryId);
+    }
+
+    updateNote = (entryId) => {
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
@@ -201,12 +204,8 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState('isNoteViewerVisible', true);
 
         // Don't start saving until there is content in the editor
-        if (this.props.isNoteViewerEditable === true && !Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
-            if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
-                this.saveEditorContentsToNewNote();
-            } else {
-                this.updateExistingNote();
-            }
+        if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
+            this.updateExistingNote();
         }
         this.props.updateCurrentlyEditingEntryId(note.entryInfo.entryId);
         // the lines below are duplicative
