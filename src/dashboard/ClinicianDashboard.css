@@ -11,11 +11,6 @@
     min-height: 400px !important;
 }
 
-
-/*#clinician-dashboard-content .fitted-panel:last-child { 
-    padding-right: 15px;
-}*/
-
 #clinician-dashboard-content .right-border-box {
     border-right: 2px dashed #ddd;
 }
