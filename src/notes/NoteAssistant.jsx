@@ -444,6 +444,7 @@ export default class NoteAssistant extends Component {
             <div className="toggle-buttons-container">
                 <MaterialButton
                     raised
+                    id="notes-btn"
                     className={"toggle-button " + this.notes_btn_classname}
                     disabled={this.notes_disabled}
                     onClick={() => {
@@ -465,6 +466,7 @@ export default class NoteAssistant extends Component {
                 </MaterialButton>
                 <MaterialButton
                     raised
+                    id="context-btn"
                     className={"toggle-button " + this.context_btn_classname}
                     disabled={this.context_disabled}
                     onClick={() => {
