@@ -2,7 +2,7 @@
 .note-assistant-wrapper { 
     display: flex;
     flex-direction: column;
-    width: 175px;
+    width: 182px;
     margin-left: auto;
     max-height: calc(100vh - 106px - 16px);
     min-height: 400px !important;
