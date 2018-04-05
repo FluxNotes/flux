@@ -2,7 +2,7 @@
 .note-assistant-wrapper { 
     display: flex;
     flex-direction: column;
-    width: 182px;
+    width: 175px;
     margin-left: auto;
     max-height: calc(100vh - 106px - 16px);
     min-height: 400px !important;
@@ -13,10 +13,14 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-
+@media only screen and (min-width: 1200px) and (max-width: 1300px) { 
+    .note-assistant-wrapper { 
+        width: 160px;
+    }
+}
 @media only screen and (min-width: 577px) and (max-width: 768px) {
     .note-assistant-wrapper { 
-        width: 150px;
+        width: 170px;
      }
 }
 
