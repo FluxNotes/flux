@@ -22,16 +22,14 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-tagline-text">
-                        Flux Notes™ is an open source, standard health record based application that will expand the
-                        availability of structured high quality, longitudinal and computable health records data to
-                        support clinical oncology research.
+                        Flux Notes™ is a proof-of-concept prototype that defines a method for capturing structured
+                        data through the authoring of clinical notes.
                     </div>
                 </div>
 
                 <div className="landing-mission">
-                    <strong>Increase the data pool</strong> by establishing large scale, prospective collection and
-                    integration of high quality clinical data across multiple clinical care sites to augment data
-                    collected from clinical trials.
+                    <strong>Align clinician incentives</strong> and <strong>reduce burden</strong> while significantly
+                    improving the capture of structured clinical treatment data.
                 </div>
 
                 <div className="divider divider-short"></div>
@@ -39,67 +37,17 @@ export default class LandingPage extends Component {
                 <div className="landing-capabilities">
                     <div className="landing-capabilities-card">
                         <div className="landing-capabilities-card-icon">
-                            {this.EfficacyResearchIcon()}
-                        </div>
-
-                        <div className="landing-capabilities-card-description">
-                            <div className="landing-capabilities-card-description-title">
-                                Inform data-driven patient care
-                            </div>
-
-                            <div className="landing-capabilities-card-description-text">
-                                Understand the efficacy and safety of approved therapeutic agents in populations not
-                                adequately addressed by randomized clinical trials.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="landing-capabilities-card">
-                        <div className="landing-capabilities-card-icon">
-                            {this.RareDiseasesIcon()}
-                        </div>
-
-                        <div className="landing-capabilities-card-description">
-                            <div className="landing-capabilities-card-description-title">
-                                Drive rare disease research
-                            </div>
-
-                            <div className="landing-capabilities-card-description-text">
-                                Enable research and develop effective treatments for patients with rare tumors or uncommon
-                                disease subtypes.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="landing-capabilities-card">
-                        <div className="landing-capabilities-card-icon">
                             {this.RegimenAnalysisIcon()}
                         </div>
 
                         <div className="landing-capabilities-card-description">
                             <div className="landing-capabilities-card-description-title">
-                                Inform therapeutics development
+                                Embrace the narrative approach
                             </div>
 
                             <div className="landing-capabilities-card-description-text">
-                                Understand the natural history and response to therapy for diseases where multiple sequential
-                                therapeutic regimens are employed.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="landing-capabilities-card">
-                        <div className="landing-capabilities-card-icon">
-                            {this.MarketSurveillanceIcon()}
-                        </div>
-
-                        <div className="landing-capabilities-card-description">
-                            <div className="landing-capabilities-card-description-title">
-                                Inform regulatory decision-making
-                            </div>
-
-                            <div className="landing-capabilities-card-description-text">
-                                Achieve efficient and accurate post-market surveillance of FDA-approved therapeutics.
+                                Embrace the clinician-preferred narrative approach to capturing structured treatment
+                                data during encounters using an evolving, flexible, and assistive method.
                             </div>
                         </div>
                     </div>
@@ -111,11 +59,12 @@ export default class LandingPage extends Component {
 
                         <div className="landing-capabilities-card-description">
                             <div className="landing-capabilities-card-description-title">
-                                Optimize utilization
+                                Incentivize collection of data
                             </div>
 
                             <div className="landing-capabilities-card-description-text">
-                                Provide data for use in optimizing cancer care resource utilization.
+                                Incentivize collection of high-quality treatment data at the point of care to
+                                significantly improve the capture of structured clinical treatment data.
                             </div>
                         </div>
                     </div>
@@ -127,11 +76,12 @@ export default class LandingPage extends Component {
 
                         <div className="landing-capabilities-card-description">
                             <div className="landing-capabilities-card-description-title">
-                                Lower provider burden
+                                Lower clinician burden
                             </div>
 
                             <div className="landing-capabilities-card-description-text">
-                                Reduce provider burden for collecting and viewing patient data.
+                                Reduce clinician burden for collecting and viewing patient data by visualizing the
+                                right information at the right time in the right format based on structured data.
                             </div>
                         </div>
                     </div>
@@ -140,48 +90,6 @@ export default class LandingPage extends Component {
                 <div className="divider divider-short"></div>
 
                 <div className="landing-products">
-                    <div className="landing-products-lite">
-                        <Paper className="landing-products-interaction">
-                            <a href="/patina" id="link-to-lite">
-                                <div className="landing-products-image">
-                                    <img src="./landing/img_fluxnotes_lite.jpg" alt="Flux Notes Lite" />
-                                </div>
-
-                                <div className="landing-products-link">
-                                    <span>Flux Notes™ Lite</span>
-                                    <FontAwesome name="arrow-right" />
-                                </div>
-                            </a>
-                        </Paper>
-
-                        <div className="landing-products-description">
-                            <div className="landing-products-title-mobile">
-                                Flux Notes™ Lite
-                                <span>Viewable on desktop</span>
-                            </div>
-
-                            <div className="landing-products-summary">
-                                Flux Notes™ Lite helps clinicians capture data to drive clinical endpoints, such as
-                                disease status and toxicity. This information is stored in a structured data format
-                                that can be easily analyzed and shared across multiple clinical care sites.
-
-                                <div className="landing-products-summary-divider"></div>
-                            </div>
-
-                            <div className="landing-products-text">
-                                <p>
-                                    Provides an easy mechanism for clinicians to generate data such as disease status
-                                    and toxicity information via an interface.
-                                </p>
-
-                                <p>
-                                    Allows clinicians to copy the resulting structured shorthand phrase and paste it
-                                    into their EHR notes entry.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="landing-products-full">
                         <Paper className="landing-products-interaction">
                             <a href="/demo2" id="link-to-full">
@@ -190,7 +98,7 @@ export default class LandingPage extends Component {
                                 </div>
 
                                 <div className="landing-products-link">
-                                    <span>Flux Notes™ Full</span>
+                                    <span>Flux Notes™</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
                             </a>
@@ -198,12 +106,12 @@ export default class LandingPage extends Component {
 
                         <div className="landing-products-description">
                             <div className="landing-products-title-mobile">
-                                Flux Notes™ Full
+                                Flux Notes™
                                 <span>Viewable on desktop</span>
                             </div>
 
                             <div className="landing-products-summary">
-                                Flux Notes™ Full allows information capture via extensible structured phrases driven by
+                                Flux Notes™ allows information capture via extensible structured phrases driven by
                                 the Standard Health Record (SHR).
 
                                 <div className="landing-products-summary-divider"></div>
@@ -211,7 +119,7 @@ export default class LandingPage extends Component {
 
                             <div className="landing-products-text">
                                 <p>
-                                    The clinician will be able to type, dictate, and insert templates.
+                                    The clinician is able to type, dictate, and insert templates.
                                 </p>
 
                                 <p>
@@ -220,8 +128,14 @@ export default class LandingPage extends Component {
                                 </p>
 
                                 <p>
-                                    The approach of Flux Notes™ Full will be to deploy it at hospitals and integrate
+                                    The approach of Flux Notes™ will be to deploy it at hospitals and integrate
                                     bi-directionally with existing EHRs.
+                                </p>
+
+                                <p>
+                                    A Flux Notes™ Lite version helps clinicians capture data to drive clinical endpoints, such as
+                                    disease status and toxicity. This information is stored in a structured data format
+                                    that can be easily analyzed and shared across multiple clinical care sites.
                                 </p>
                             </div>
                         </div>
@@ -261,8 +175,7 @@ export default class LandingPage extends Component {
                         <div className="landing-get-involved-info-description">
                             Support the collection of high quality real-world data (RWD) to enable clinical oncology
                             research. Contact us to learn more about the project, or about piloting Flux Notes™ in a
-                            clinical setting. Help grow Flux Notes™ by committing to
-                            the <a href="https://github.com/standardhealth/flux" alt="Flux Notes Repository">repository</a> today.
+                            clinical setting.
                         </div>
                     </div>
 
@@ -289,7 +202,7 @@ export default class LandingPage extends Component {
 
                         <div className="landing-initiatives-description">
                             <p>
-                                This tool is one of multiple open source prototypes in development by MITRE with the
+                                This tool is one of multiple prototypes in development by MITRE with the
                                 end goal of providing complete, accurate, and computable records to inform the best
                                 care for each individual.
                             </p>
