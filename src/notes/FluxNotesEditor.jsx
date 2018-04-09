@@ -46,121 +46,6 @@ const structuredFieldTypes = [
     }
 ]
 
-const BLOCK_TAGS = {
-  blockquote: 'quote',
-  p: 'paragraph',
-  pre: 'code',
-  div: 'line',
-}
-
-// Add a dictionary of mark tags.
-const MARK_TAGS = {
-  em: 'italic',
-  strong: 'bold',
-  u: 'underlined',
-}
-
-const rules = [
-  {
-    deserialize(el, next) {
-      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
-
-      // TODO March 26 4:45 text gets put into separate lines ex. aa <strong> bb </strong> gets reloaded as aa \n <strong> bb </strong>
-      // TODO March 26 4:45 can't type after reloading a note.
-      // TODO March 26 4:45 Bold and italics are preseved. Confirm other styling are working as well.
-      // console.log(el);
-      if(Lang.isNull(el.tagName)){
-          const marks = [];
-          if (!Lang.isNull(el.parent) && !Lang.isUndefined(BLOCK_TAGS[el.parent.name.toLowerCase()])) {
-              marks.push({ type: BLOCK_TAGS[el.parent.name.toLowerCase()]})
-          }
-           return {
-              object: 'block',
-              kind: 'text',
-              type: "inline", // or el.type
-              // nodes: next(el.childNodes),
-              // characters: [{marks: [], text: "j"}],
-              text: el.data,
-              marks
-          }
-      } else{
-          const type = BLOCK_TAGS[el.tagName.toLowerCase()]
-          if (!type) return    //   generalize this
-              // console.log(type);
-
-          return {
-              object: 'block',
-              kind: 'block', // TODO: This should only be a block when a new paragraph is started in the editor. Need a better way to conditionally decide the kind.
-              type: type,
-              nodes: next(el.childNodes),
-          }
-      // }
-      // if (type) {
-      //   return {
-      //     object: 'block',
-      //     type: type,
-      //     nodes: next(el.childNodes),
-      //   }
-      }
-    },
-    serialize(obj, children) {
-      if (obj.kind == 'block') {
-        switch (obj.type) {
-          case 'code':
-            return (
-              <pre>
-                <code>{children}</code>
-              </pre>
-            )
-          case 'paragraph':
-            return <p>{children}</p>
-          case 'line':
-               // console.log("Is a line");
-              if(React.isValidElement(children)){
-                  // console.log("not returning anything, no styling*********************"); //never happens
-                  //return children;
-              } else{
-                //  console.log("not a valid element:");
-                //   console.log(children);
-                  return <div key='0'>{children}</div>
-              }
-              // pur return div in else
-          case 'quote':
-            return <blockquote>{children}</blockquote>
-        }
-      }
-    },
-  },
-  // Add a new rule that handles marks...
-  {
-    deserialize(el, next) {
-      const type = MARK_TAGS[el.tagName.toLowerCase()]
-      if (type) {
-        return {
-          object: 'mark',
-          type: type,
-          nodes: next(el.childNodes),
-        }
-      }
-    },
-    serialize(obj, children) {
-      if (obj.kind == 'mark') {
-        switch (obj.type) {
-          case 'bold':
-            return <strong>{children}</strong>
-          case 'italic':
-            return <em>{children}</em>
-          case 'underlined':
-            return <u>{children}</u>
-        }
-      }
-    },
-  },
-]
-
-const html = new Slate.Html({ rules });
-
-
 // Given  text and starting index, recursively traverse text to find index location of text
 function getIndexRangeForCurrentWord(text, index, initialIndex, initialChar) {
     if (index === initialIndex) {
@@ -483,6 +368,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
         // state.selection only has a getter for these values so create a new object
         let entireNote = {
@@ -492,23 +378,8 @@ class FluxNotesEditor extends React.Component {
            endOffset: endOfNoteOffset
         };
         let docText = this.structuredFieldPlugin.convertToText(state, entireNote); 
-        // console.log(docText)
-        // let textEncodingOfState = this.structuredFieldPlugin.convertToText(state, entireNote);
-        // let docText = textEncodingOfState
-        // if(!Lang.isUndefined(docText) && !Lang.isUndefined(docText.length) && docText.length > 1){
-        //     //Does { render: false } prevent tag duplication? No
-        //     const htmlEncodingOfState = html.serialize(state, {}); //trying options like: {render: false} causes the first error to go away
-        //     // with render: false this is a List of Lists of Lists with text
-        // 
-        //     console.log(htmlEncodingOfState); // to be saved if it has html tags
-        //     // TODO: set the text to the string containing styling tags
-        //     docText = htmlEncodingOfState; // make sure this is being stored in the patient correctly
-        // } else{
-        //     console.log("docText is not defined");
-        // }
         
         this.props.setFullAppStateWithCallback(function(prevState, props){
-          // console.log('is this being called ever')
             return {documentText: docText};
         });
 
