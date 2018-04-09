@@ -142,7 +142,7 @@ function StructuredFieldPlugin(opts) {
             if (blk.kind === 'block' && blk.type === 'line') {
                 // TODO Get new lines to work with tempResult
                 result += '\r';
-                // tempResult += '</div><div>';
+                tempResult += '</div><div>';
             } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
                 result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
                 tempResult += convertBlocksToText(state, blk.nodes, startOffset, endOffset);

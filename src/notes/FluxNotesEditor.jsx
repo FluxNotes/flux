@@ -52,14 +52,14 @@ const BLOCK_TAGS = {
   pre: 'code',
   div: 'line',
 }
- 
+
 // Add a dictionary of mark tags.
 const MARK_TAGS = {
   em: 'italic',
   strong: 'bold',
   u: 'underlined',
 }
- 
+
 const rules = [
   {
     deserialize(el, next) {
@@ -87,7 +87,7 @@ const rules = [
           const type = BLOCK_TAGS[el.tagName.toLowerCase()]
           if (!type) return    //   generalize this
               // console.log(type);
-      
+
           return {
               object: 'block',
               kind: 'block', // TODO: This should only be a block when a new paragraph is started in the editor. Need a better way to conditionally decide the kind.
@@ -709,6 +709,7 @@ class FluxNotesEditor extends React.Component {
 
     insertPlainText = (transform, text) => {
         // Check for \r\n, \r, or \n to insert a new line in Slate
+        let divReturnIndex = -1;
         let returnIndex = text.indexOf("\r\n");
         if (returnIndex === -1) {
             returnIndex = text.indexOf("\r");
@@ -716,20 +717,20 @@ class FluxNotesEditor extends React.Component {
         if (returnIndex === -1) {
             returnIndex = text.indexOf("\n");
         }
+        if (returnIndex === -1) {
+            divReturnIndex = text.indexOf('</div><div>');
+        }
         
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(returnIndex + 1));
+        } else if (divReturnIndex >= 0) {
+            // TODO will returnIndex be relevant any more? how about with dictation?
+            let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
+            result = this.insertNewLine(result);
+            return this.insertPlainText(result, text.substring(divReturnIndex + 11));
         } else {
-            // Get rid of <div> tags
-            if (text.includes('<div>')) {
-                text = text.substring(5);
-            }
-            if (text.includes('</div>')) {
-                text = text.substring(0, text.length - 6);
-            }
-
 
             this.insertTextWithStyles(transform, text);
             return transform;
@@ -747,6 +748,14 @@ class FluxNotesEditor extends React.Component {
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
+        
+        // Get rid of <div> tags
+        if (!Lang.isUndefined(remainder) && remainder.includes('<div>')) {
+            remainder = remainder.substring(5);
+        }
+        if (!Lang.isUndefined(remainder) && remainder.includes('</div>')) {
+            remainder = remainder.substring(0, remainder.length - 6);
+        }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
 
