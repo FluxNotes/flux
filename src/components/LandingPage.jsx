@@ -18,12 +18,12 @@ export default class LandingPage extends Component {
 
                 <div className="landing-tagline">
                     <div className="landing-tagline-title">
-                        Capture and view structured real-world clinical care data.
+                        Capture and view structured real-world clinical care data
                     </div>
 
                     <div className="landing-tagline-text">
-                        Flux Notes™ is a proof-of-concept prototype that defines a method for capturing structured
-                        data through the authoring of clinical notes.
+                        Flux Notes™ demonstrates an approach to capturing treatment data in a structured form as a
+                        clinician authors a clinical note in the preferred narrative form.
                     </div>
                 </div>
 
