@@ -63,8 +63,8 @@ export default class LandingPage extends Component {
                             </div>
 
                             <div className="landing-capabilities-card-description-text">
-                                Incentivize collection of high-quality treatment data at the point of care to
-                                significantly improve the capture of structured clinical treatment data.
+                                Provide clinicians with the key information they need when they need it and in a
+                                format that works best for them in order to incentivize collection of data.
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@ export default class LandingPage extends Component {
                             </div>
 
                             <div className="landing-capabilities-card-description-text">
-                                Reduce clinician burden for collecting and viewing patient data by visualizing the
-                                right information at the right time in the right format based on structured data.
+                                Allow clinicians to visualize the right information at the right time in the right
+                                format based on structured data while reducing duplicate entry of information.
                             </div>
                         </div>
                     </div>
@@ -111,8 +111,8 @@ export default class LandingPage extends Component {
                             </div>
 
                             <div className="landing-products-summary">
-                                Flux Notes™ allows information capture via extensible structured phrases driven by
-                                the Standard Health Record (SHR).
+                                Flux Notes™ is a concept demonstration that allows information capture via extensible
+                                structured phrases driven by the Standard Health Record (SHR).
 
                                 <div className="landing-products-summary-divider"></div>
                             </div>
@@ -128,8 +128,9 @@ export default class LandingPage extends Component {
                                 </p>
 
                                 <p>
-                                    The approach of Flux Notes™ will be to deploy it at hospitals and integrate
-                                    bi-directionally with existing EHRs.
+                                    Adoption of the Flux Notes™ approach may include Electronic Health Record
+                                    (EHR) adoption using structure-phrases either directly, through Flux Notes™, or
+                                    through an optional or standard extensional application.
                                 </p>
 
                                 <p>
