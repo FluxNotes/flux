@@ -94,6 +94,25 @@
     background: #e6e6e6 !important;
 }
 
+#delete-note-container{ 
+    display: flex;
+    align-content: center;
+}
+
+#delete-note-button { 
+    padding: 10px;
+    margin:auto;
+    text-transform: none;
+    background-color: #ffffff;
+}
+
+#delete-note-button:hover { 
+    background-color: #e6e6e6;
+}
+
+#delete-note-button #trash-icon { 
+    margin-right: 10px;
+}
 
 /* Sort */
 
