@@ -1,44 +1,59 @@
-span.button-hover {
-    cursor: pointer;
+/* Wrappers */
+.note-assistant-wrapper { 
+    display: flex;
+    flex-direction: column;
+    width: 175px;
+    margin-left: auto;
+    max-height: calc(100vh - 106px - 16px);
+    min-height: 400px !important;
 }
 
-.toggle-button {
-    min-width: 70px !important;
-    min-height: 20px !important;
-    display: inline-block !important;
-    background-color: #FFFFFF !important;
+.note-assistant-content-wrapper { 
+    margin-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1300px) { 
+    .note-assistant-wrapper { 
+        width: 160px;
+    }
+}
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+    .note-assistant-wrapper { 
+        width: 170px;
+     }
 }
 
 .toggle-buttons-container {
     display: flex !important;
     margin-left: auto;
+    width: inherit;
     max-width: 188px; /* Max width of Notes is 188px. This should match. */
+    min-height: 41px;
     margin-right: 0;
 }
 
-#notes-btn {
-    width: 50%
+.clinical-notes-panel { 
+    margin-left: auto;
+    width: inherit;
+    margin-right: 5px;
 }
 
-#context-btn {
-    width: 50%;
-}
-.toggle-button-selected {
-    background-color: #3399FF !important;
+/* Buttons */
+.toggle-button {
     min-width: 70px !important;
     min-height: 20px !important;
+    width: 50% !important;
     display: inline-block !important;
+    background-color: #FFFFFF !important;
+}
+
+.toggle-button-selected {
+    background-color: #3399FF !important;
 }
 
 .toggle-button-disabled {
     background-color: #e6e6e6 !important;
-    min-width: 70px !important;
-    min-height: 20px !important;
-    display: inline-block !important;
-}
-
-.clinical-notes-panel { 
-    float: right;
 }
 
 .previous-notes-label {
@@ -47,6 +62,38 @@ span.button-hover {
     margin: 10px;
     max-width: 184px;
 }
+
+.note.note-new {
+    /*margin: 10px 20px;*/
+    width: auto;
+    text-align: center;
+    display: block;
+}
+
+.note.note-new:hover {
+    cursor:pointer;
+    background: #e6e6e6;
+}
+
+.note.note-new .note-new-text {
+    font-size: 1.1rem;
+}
+
+.note .note-new-text .fa {
+    padding-right: 10px;
+}
+
+.more-notes-btn {
+    background-color: white !important;
+    padding: 10px !important;
+    margin-top: 20px;
+    max-width: 184px;
+}
+
+.more-notes-btn:hover {
+    background: #e6e6e6 !important;
+}
+
 
 /* Sort */
 
@@ -75,62 +122,22 @@ li.sort-item:hover {
     color: #fff;
 }
 
-/* Buttons */
-
-.note-new {
-    margin: 10px 0 20px;
-    text-align: center;
-    display: block;
-}
-
-.note-new:hover {
-    cursor:pointer;
-    background: #e6e6e6;
-}
-
-.note-new-text {
-    color: #555;
-    font-size: 1.1rem;
-}
-
-.note-new-text .fa {
-    padding-right: 10px;
-}
-
-.clinical-notes-btn:hover {
-    transform: scale(1.1);
-}
-
-.more-notes-btn {
-    background-color: white !important;
-    padding: 10px !important;
-    margin-top: 20px;
-    max-width: 184px;
-}
-
-.more-notes-btn:hover {
-    background: #e6e6e6 !important;
-}
-
-/* Icons */
-
-.icon-arrow-left {
-    width: 20px;
-    margin-left: 10px;
-}
-
 /* Notes */
 
 .note {
     position: relative;
+    width: inherit;
     max-width: 150px;
     padding: 0.5em 1em;
     margin: 1em 0;
-    color: #000;
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 5px 0 5px 5px;
 }
+.note > * { 
+    font-size: 0.8rem;
+    color: #555;
+ }
 
 .note:hover {
     cursor: pointer;
@@ -151,29 +158,21 @@ li.sort-item:hover {
     border: 2px dashed #ccc;
 }
 
+.in-progress-text {
+    font-weight: bold;
+}
+
 .existing-note-date {
-    font-size: 0.8rem;
     padding-bottom: 5px;
-    color: #555;
     font-weight: bold;
 }
 
 .existing-note-subject {
-    font-size: 0.8rem;
-    color: #555;
     padding-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
 
-.in-progress-text {
-    font-size: 0.8rem;
-    color: #555;
-    font-weight: bold;
-}
-
 .existing-note-metadata {
-    font-size: 0.8rem;
-    color: #555;
     margin-bottom: 5px;
 }
 
