@@ -98,6 +98,7 @@ export default class NotesPanel extends Component {
     // Removes a note from patient object if the note is unsigned 
     deleteSelectedNote = () => { 
         if (this.state.selectedNote && !this.state.selectedNote.signed) { 
+            this.props.patient.deleteEntriesWithSourceClinicalNote(this.state.selectedNote);
             this.props.patient.removeClinicalNote(this.state.selectedNote);
         } else { 
             console.error('Tried to remove a note that is signed')

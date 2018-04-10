@@ -126,7 +126,6 @@ export default class NoteAssistant extends Component {
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
-            // console.log(this.props.patient.getNotes());
             var found = this.props.patient.getNotes().find(function (element) {
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
@@ -233,7 +232,6 @@ export default class NoteAssistant extends Component {
     }
 
     deleteSelectedNote = () => { 
-        console.log('>> DeleteSelectedNote')
         this.props.deleteSelectedNote();
         this.closeNote();
     }

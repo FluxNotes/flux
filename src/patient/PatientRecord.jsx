@@ -58,7 +58,6 @@ class PatientRecord {
         if(Lang.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
-            //console.log(entry.entryInfo.sourceClinicalNote);
             let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
             return !clinicalNote.signed;
         }
@@ -432,6 +431,18 @@ class PatientRecord {
         this.removeEntryFromPatient(note);
     }
 
+    // Remove all entries with this source clinical note
+    deleteEntriesWithSourceClinicalNote(note) { 
+        const entriesToRemove = this.getEntriesWithSourceClinicalNote(note);
+        for (let i = 0; i < entriesToRemove.length; i++) {
+            const currentEntryToRemove = entriesToRemove[i]; 
+            const indexOfEntryToRemove = this.entries.indexOf(currentEntryToRemove)
+            if (indexOfEntryToRemove >= 0) { 
+                this.entries.splice(indexOfEntryToRemove, 1);
+            }
+        }
+    }
+
     getNotes() {
         return this.getEntriesOfType(FluxClinicalNote);
     }
@@ -731,6 +742,16 @@ class PatientRecord {
     getEntriesOfEntryType(entryType) {
         return this.entries.filter((entry) => {
             return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
+        });
+    }
+
+    getEntriesWithSourceClinicalNote(note) { 
+        return this.entries.filter((entry) => { 
+            if (entry.sourceClinicalNoteReference) { 
+                return entry.sourceClinicalNoteReference.entryId === note.entryInfo.entryId;
+            } else { 
+                return false;
+            }
         });
     }
 
