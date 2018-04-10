@@ -29,7 +29,7 @@ export default class NotesPanel extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        if (Lang.isNull(nextProps.openClinicalNote) && !Lang.isNull(this.props.openClinicalNote) && nextProps.documentText !== this.props.documentText) {
+        if (Lang.isNull(nextProps.openClinicalNote) && !Lang.isNull(this.props.openClinicalNote) && !this.props.openClinicalNote.signed && nextProps.documentText !== this.props.documentText) {
             this.props.openClinicalNote.content = nextProps.documentText;
         }
 
