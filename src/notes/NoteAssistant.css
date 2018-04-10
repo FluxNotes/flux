@@ -96,12 +96,12 @@
 
 #delete-note-container{ 
     display: flex;
-    align-content: center;
+    justify-content: center;
 }
 
 #delete-note-button { 
     padding: 10px;
-    margin:auto;
+    margin-bottom: 10px;
     text-transform: none;
     background-color: #ffffff;
 }

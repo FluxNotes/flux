@@ -427,6 +427,11 @@ class PatientRecord {
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
+    // Remove a given clinical note from a patient record
+    removeClinicalNote(note) { 
+        this.removeEntryFromPatient(note);
+    }
+
     getNotes() {
         return this.getEntriesOfType(FluxClinicalNote);
     }

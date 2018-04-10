@@ -234,6 +234,8 @@ export default class NoteAssistant extends Component {
 
     deleteSelectedNote = () => { 
         console.log('>> DeleteSelectedNote')
+        this.props.deleteSelectedNote();
+        this.closeNote();
     }
 
     // Render the content for the Note Assistant panel

@@ -95,10 +95,19 @@ export default class NotesPanel extends Component {
         });
     }
 
-    handleSignButtonClick() {
+    // Removes a note from patient object if the note is unsigned 
+    deleteSelectedNote = () => { 
+        if (this.state.selectedNote && !this.state.selectedNote.signed) { 
+            this.props.patient.removeClinicalNote(this.state.selectedNote);
+        } else { 
+            console.error('Tried to remove a note that is signed')
+        }
+    }
+
+    handleSignButtonClick = () => {
 
         // Set signed attribute on the selected note to be true
-        let tempNote =  this.state.selectedNote;
+        const tempNote =  this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
 
@@ -106,7 +115,7 @@ export default class NotesPanel extends Component {
        this.closeNote();
     }
 
-    renderSignButton() {
+    renderSignButton = () => {
         return (
             <div id="finish-sign-component">
                 <Button raised className="btn_finish" onClick={() => {
@@ -217,6 +226,7 @@ export default class NotesPanel extends Component {
                     documentText={this.props.documentText}
                     saveNote={click => this.saveNoteChild = click}
                     closeNote={click => this.closeNoteChild = click}
+                    deleteSelectedNote={this.deleteSelectedNote}
                     noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
