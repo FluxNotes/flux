@@ -16,12 +16,6 @@ test('Links on landing page work', async t => {
     let pathname;
 
     await t
-        .click(Selector('#link-to-lite'));
-    pathname = await t.eval(() => window.location).pathname ;
-    await t
-        .expect(pathname === '/patina');
-
-    await t
         .navigateTo(landingPage);
 
     await t
