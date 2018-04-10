@@ -4,7 +4,7 @@ import {
     UP_ARROW_KEY,
     DOWN_ARROW_KEY,
     ENTER_KEY
-} from './constants'
+} from '../lib/slate-suggestions-dist/constants'
 
 function matchTrigger(state, trigger) {
     const currentNode = state.blocks.first()
@@ -52,9 +52,15 @@ function ContextPortalPlugin(opts) {
         }
     }
 
+
+
     return {
         onKeyDown,
         ContextPortal: (props) => {
+
+            console.log("!!!!!!!!!!! props in context portal plugin");
+
+            console.log(props);
             return (
                 <Portal
                     {...props}

@@ -73,7 +73,7 @@ class ContextPortal extends React.Component {
      */
     onClose = () => {
         if (this.props.isOpened) {
-            this.props.onChange(this.props.onSelected(this.props.state, null));
+            // this.props.onChange(this.props.onSelected(this.props.state, null));
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
@@ -117,7 +117,7 @@ class ContextPortal extends React.Component {
             console.log("anchor offset in context portal");
             console.log(this.props.state.anchorOffset);
             this.setState({ active: false, justActive: false });
-            this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
+            // this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
         }
     }
     /*
@@ -181,7 +181,7 @@ class ContextPortal extends React.Component {
         this.closePortal();
         const context = { key: 'set-date-id', context: `${date.format("MM/DD/YYYY")}`, object: date };
         const state = this.props.onSelected(this.props.state, context);
-        this.props.onChange(state);
+        // this.props.onChange(state);
     }
     
     renderListOptions = () => {
@@ -221,6 +221,10 @@ class ContextPortal extends React.Component {
      * View of the current menu
      */
     render = () => {
+
+        console.log("********** portal options ******************");
+        console.log(this.props);
+
         const TYPE_LIST = 0;
         const TYPE_CALENDAR = 1;
         const { contexts } = this.props;

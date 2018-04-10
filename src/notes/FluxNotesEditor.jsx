@@ -4,7 +4,6 @@ import Slate from '../lib/slate';
 import Moment from 'moment'
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import ContextPortal from '../context/ContextPortal';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
 // when we change the selection and give focus in our key handlers, Slate changes the selection including
 // focus and then immediately takes focus away. Not an issue in 0.20.2 and older. package.json currently
@@ -118,11 +117,22 @@ class FluxNotesEditor extends React.Component {
 
         // setup context portal plugin
         this.contextPortalPlugin = ContextPortalPlugin({
+            trigger: '@',
+            capture: /@([\w]*)/,
             // TODO: pass in options (list to display). This is a function like suggestions in this.suggestionsPluginInserters
-            contexts: this.state.portalOptions,
+            // contexts: this.state.portalOptions,
             // TODO: need a function to call back to when on enter (mouse click and enter)
+            onSelected: this.onPortalSelection.bind(this)
         });
 
+
+        //
+        // callback={callback}
+        // capture={/@([\w]*)/}
+        // trigger={"@"}
+        // onChange={this.onChange}
+        // onSelected={this.onPortalSelection}
+        // contextManager={this.contextManager}
 
 
 
@@ -219,6 +229,13 @@ class FluxNotesEditor extends React.Component {
         });
         return suggestionsShortcuts.slice(0, 10);
     }
+
+    getContexts() {
+        console.log("!!! **** IN getContexts ********")
+        return this.state.portalOptions;
+    }
+
+
 
     choseSuggestedShortcut(suggestion) {
         const {state} = this.state;
@@ -718,6 +735,7 @@ class FluxNotesEditor extends React.Component {
 
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const ContextPortalPlugin = this.contextPortalPlugin.ContextPortal;
 
         // Preset note header information
         let noteTitle = "New Note";
@@ -802,6 +820,9 @@ class FluxNotesEditor extends React.Component {
         }
         const callback = {}
         let editor = null;
+        console.log("%%%%%% protal potions");
+        console.log(this.state.portalOptions);
+
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -850,16 +871,11 @@ class FluxNotesEditor extends React.Component {
                         contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}/>
                     <ContextPortalPlugin
-                        getPosition={this.getTextCursorPosition}
                         state={this.state.state}
-                        callback={callback}
-                        onSelected={this.onPortalSelection}
-
-                        capture={/@([\w]*)/}
-                        trigger={"@"}
-                        onChange={this.onChange}
                         isOpened={this.state.isPortalOpen}
-                        contextManager={this.contextManager}
+                        getPosition={this.getTextCursorPosition}
+                        contexts={this.state.portalOptions}
+                        onChange={this.onChange}
                     />
                 </div>
             </div>
