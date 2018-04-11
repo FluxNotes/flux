@@ -76,7 +76,7 @@ class FluxNotesEditor extends React.Component {
 
         this.didFocusChange = false;
         this.editorHasFocus = false;
-        this.lastPosition = { top: 0, left: 0 };
+        this.lastPosition = {top: 0, left: 0};
 
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
@@ -117,12 +117,7 @@ class FluxNotesEditor extends React.Component {
 
         // setup context portal plugin
         this.contextPortalPlugin = ContextPortalPlugin({
-            trigger: '@',
-            capture: /@([\w]*)/,
-            // TODO: pass in options (list to display). This is a function like suggestions in this.suggestionsPluginInserters
-            // contexts: this.state.portalOptions,
-            // TODO: need a function to call back to when on enter (mouse click and enter)
-            onSelected: this.onPortalSelection.bind(this)
+            onEnter: this.onPortalSelection.bind(this)
         });
 
 
@@ -135,12 +130,12 @@ class FluxNotesEditor extends React.Component {
         // contextManager={this.contextManager}
 
 
-
         this.plugins = [
             this.suggestionsPluginCreators,
             this.suggestionsPluginInserters,
-            this.structuredFieldPlugin,
-            this.contextPortalPlugin
+            this.contextPortalPlugin,
+            this.structuredFieldPlugin
+
 
         ];
 
@@ -187,7 +182,8 @@ class FluxNotesEditor extends React.Component {
     resetEditorState() {
         this.state = {
             state: initialState,
-            isPortalOpen: false,
+            isContextPortalOpen: false,
+
             portalOptions: null,
         };
 
@@ -231,10 +227,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     getContexts() {
-        console.log("!!! **** IN getContexts ********")
+        // console.log("!!! **** IN getContexts ********")
         return this.state.portalOptions;
     }
-
 
 
     choseSuggestedShortcut(suggestion) {
@@ -249,7 +244,6 @@ class FluxNotesEditor extends React.Component {
 
             return this.openPortalToSelectValueForShortcut(shortcut, true, state.transform()).apply(); // why does this use apply and the one in insertShortcut does not?
         } else {
-
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
@@ -279,7 +273,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     getTextCursorPosition = () => {
-        const positioningUsingSlateNodes = () => { 
+        const positioningUsingSlateNodes = () => {
             const pos = {};
             const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
             const el = Slate.findDOMNode(parentNode);
@@ -296,9 +290,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (!this.editorHasFocus) {
-            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
+            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {
                 this.lastPosition = positioningUsingSlateNodes();
-            } 
+            }
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
@@ -312,21 +306,23 @@ class FluxNotesEditor extends React.Component {
     }
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
-        console.log("open portal to select value for shortcut");
+        // console.log("open portal to select value for shortcut");
+        //
+        // console.log("need to delete");
+        // console.log(needToDelete);
 
-        console.log("need to delete");
-        console.log(needToDelete);
 
-
-        console.log("transform");
-        console.log(transform);
+        // console.log("transform");
+        // console.log(transform);
         // At this point the transform state text and anchor offset is the same for both mouse click and enter button
 
 
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: true,
+            // isPortalOpen: true,
+            isContextPortalOpen: true,
+
             portalOptions: portalOptions,
             needToDelete: needToDelete
         });
@@ -341,16 +337,19 @@ class FluxNotesEditor extends React.Component {
 
         // console.log("on portal selection");
         let shortcut = this.selectingForShortcut;
-        //
-        // console.log("shortcut");
-        // console.log(shortcut);
 
         //TODO: check state in here
-        console.log("STATE in on portal selection");
-        console.log(state);
+
+        //
+        // console.log("STATE in on portal selection");
+        // console.log(state);
 
         this.selectingForShortcut = null;
-        this.setState({isPortalOpen: false});
+        this.setState({
+            // isPortalOpen: false
+            isContextPortalOpen: false,
+
+        });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -375,6 +374,7 @@ class FluxNotesEditor extends React.Component {
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
     suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
+        // console.log(" #### suggestion delete method called");
         const {state} = this.state;
         if (Lang.isNull(transform)) {
             transform = state.transform();
@@ -385,15 +385,18 @@ class FluxNotesEditor extends React.Component {
         let index = {start: anchorOffset - 1, end: anchorOffset}
 
         if (text[anchorOffset - 1] !== prefixCharacter) {
+            console.log("ANCHOR OFFSET: " + anchorOffset);
+
             index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
         }
 
         const newText = `${text.substring(0, index.start)}`
-        console.log("suggestion delete method called");
-        console.log(newText);
-        console.log(text);
-        console.log(index);
-        console.log(state)
+
+        // console.log(newText);
+        // console.log(text);
+        // console.log(index);
+        // console.log(state)
+
         //
         // console.log("state");
         // console.log(state);
@@ -410,26 +413,33 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
+        //
+        // if (this.state.isSuggestionInsertPortalOpen) {
+        //     // console.log(" !!!!!!!!!!!!!! STATE !!!!!!!!!!!!!!!!!!!!");
+        //     // console.log(state);
+        //
+        //     return;
+        // }
 
         // debugger
 
         // nicole: this is getting the wrong state. need to find what gets called right before this that sets the state
 
-        console.log("in on change");
-        console.log('anchor offset')
-        console.log(state.anchorOffset);
-        console.log('on change state')
-        console.log(state);
+        // console.log("in on change");
+        // console.log('anchor offset')
+        // console.log(state.anchorOffset);
+        // console.log('on change state')
+        // console.log(state);
 
 
         let indexOfLastNode = state.toJSON().document.nodes.length - 1;
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if(Lang.isEqual(indexOfLastNode, 0)){
+        if (Lang.isEqual(indexOfLastNode, 0)) {
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
-        } else{
-            if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
+        } else {
+            if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
                 endOfNoteOffset = this.props.documentText.length;
             }
         }
@@ -441,12 +451,10 @@ class FluxNotesEditor extends React.Component {
             startKey: "0",
             startOffset: 0,
             endKey: endOfNoteKey,
-           endOffset: endOfNoteOffset
-        }; 
+            endOffset: endOfNoteOffset
+        };
         let fullText = this.structuredFieldPlugin.convertToText(state, entireNote);
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            return {documentText: fullText};
-        });
+        this.props.setFullAppState("documentText", fullText);
 
         // save
         this.props.saveNoteUponKeypress();
@@ -563,7 +571,7 @@ class FluxNotesEditor extends React.Component {
         if (returnIndex === -1) {
             returnIndex = text.indexOf("\n");
         }
-        
+
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
             result = this.insertNewLine(result);
@@ -735,7 +743,7 @@ class FluxNotesEditor extends React.Component {
 
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
-        const ContextPortalPlugin = this.contextPortalPlugin.ContextPortal;
+        const ContextPortal = this.contextPortalPlugin.ContextPortal;
 
         // Preset note header information
         let noteTitle = "New Note";
@@ -749,7 +757,7 @@ class FluxNotesEditor extends React.Component {
             date = this.props.selectedNote.date;
             source = this.props.selectedNote.hospital;
 
-            if(this.props.selectedNote.signed) {
+            if (this.props.selectedNote.signed) {
                 signedString = this.props.selectedNote.clinician;
             } else {
                 signedString = "not signed";
@@ -781,7 +789,7 @@ class FluxNotesEditor extends React.Component {
                         </Col>
                         <Col xs={4}>
                             <Button
-                                raised 
+                                raised
                                 className="close-note-btn"
                                 disabled={this.context_disabled}
                                 onClick={this.props.closeNote}
@@ -789,18 +797,18 @@ class FluxNotesEditor extends React.Component {
                                     float: "right"
                                 }}
                             >
-                                <FontAwesome 
+                                <FontAwesome
                                     name="times"
                                     style={{
                                         color: "red",
                                         marginRight: "5px"
                                     }}
-                                /> 
+                                />
                                 <span>
                                     Close
                                 </span>
                             </Button>
-                           
+
                         </Col>
                     </Row>
 
@@ -820,8 +828,8 @@ class FluxNotesEditor extends React.Component {
         }
         const callback = {}
         let editor = null;
-        console.log("%%%%%% protal potions");
-        console.log(this.state.portalOptions);
+        // console.log("%%%%%% protal potions");
+        // console.log(this.state.portalOptions);
 
         /**
          * Render the editor, toolbar, dropdown and description for note
@@ -862,20 +870,23 @@ class FluxNotesEditor extends React.Component {
                         {errorDisplay}
                     </div>
 
+
                     <CreatorsPortal
                         state={this.state.state}
-                        contextPortalOpen={this.state.isPortalOpen}
+                        contextPortalOpen={this.state.isContextPortalOpen}
                         getPosition={this.getTextCursorPosition}/>
                     <InsertersPortal
                         state={this.state.state}
-                        contextPortalOpen={this.state.isPortalOpen}
+                        contextPortalOpen={this.state.isContextPortalOpen}
                         getPosition={this.getTextCursorPosition}/>
-                    <ContextPortalPlugin
+                    <ContextPortal
                         state={this.state.state}
-                        isOpened={this.state.isPortalOpen}
+                        isOpened={this.state.isContextPortalOpen}
+                        onSelected={this.onPortalSelection}
                         getPosition={this.getTextCursorPosition}
                         contexts={this.state.portalOptions}
                         onChange={this.onChange}
+                        callback={callback}
                     />
                 </div>
             </div>

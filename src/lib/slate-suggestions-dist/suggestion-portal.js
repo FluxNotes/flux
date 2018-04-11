@@ -26,7 +26,9 @@ class SuggestionPortal extends React.Component {
         // Set callback values so we can pass functions up
         props.callback.onKeyDown = this.onKeyDown
         props.callback.onEnter = props.onEnter
+        props.callback.isPortalOpen = this.isPortalOpen
         props.callback.closePortal = this.closePortal
+
         props.callback.readOnly = false
 
         // Storing selected index in state b/c updates should trigger a re-render
@@ -77,8 +79,7 @@ class SuggestionPortal extends React.Component {
     onKeyDown = (keyCode, data) => {
 
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
-            // console.log("got in key down");
-            // console.log("key: " + keyCode);
+            console.log("[SUGGESTION PORTAL] got in key down: " + keyCode);
 
             const height = this.refs.suggestionPortal.offsetHeight;
             const numberOfElementsVisible = Math.floor(height/32);
@@ -309,8 +310,14 @@ class SuggestionPortal extends React.Component {
         }
     }
 
+    isPortalOpen = () => {
+        const { menu } = this.state;
+        return menu && menu.style && menu.style.display !== 'none';
+    }
+
     // Assigns a value to menu when the portal opens
     openPortal = (portal) => {
+        console.log("suggestion portal opened");
         this.setState({
             menu: portal.firstChild 
         });
@@ -318,10 +325,11 @@ class SuggestionPortal extends React.Component {
 
     // Closes portal
     closePortal = () => {
+
+        console.log("close suggestion portal");
         const { menu } = this.state;
         // No menu to close: return
         if (!menu) return;
-
         // Remove menu styling
         menu.removeAttribute('style');
         menu.style.display = 'none';

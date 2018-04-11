@@ -6,21 +6,24 @@ import {
     ENTER_KEY
 } from '../lib/slate-suggestions-dist/constants'
 
-function matchTrigger(state, trigger) {
-    const currentNode = state.blocks.first()
 
-    return state.isFocused && trigger.test(currentNode.text)
-}
 
 function ContextPortalPlugin(opts) {
-    const capture = opts.capture
+
     const callback = {}
 
     function onKeyDown(e, data, state, editor) {
+
+
+        if(!callback.isPortalOpen()) {
+            return;
+        }
         const keyCode = e.keyCode
+
+        console.log("In context portal plugin's key down: " + keyCode);
         callback.editor = editor
 
-        if (matchTrigger(state, capture)) {
+
             // Prevent default up and down arrow key press when portal is open
             if ((keyCode === UP_ARROW_KEY || keyCode === DOWN_ARROW_KEY)) {
                 e.preventDefault()
@@ -49,7 +52,7 @@ function ContextPortalPlugin(opts) {
                     callback.onKeyDown(keyCode, data);
                 }
             }
-        }
+
     }
 
 
@@ -57,10 +60,6 @@ function ContextPortalPlugin(opts) {
     return {
         onKeyDown,
         ContextPortal: (props) => {
-
-            console.log("!!!!!!!!!!! props in context portal plugin");
-
-            console.log(props);
             return (
                 <Portal
                     {...props}
