@@ -129,7 +129,14 @@ class NarrativeNameValuePairsVisualizer extends Component {
             if (!first) result.push( { text: ', ', type: 'plain' });
             value = _addLabResultToNarrative(listItem);
             type = "structured-data";
-            result.push( { text: value, type: type, item: listItem } );
+            result.push({
+                text: value,
+                type: type,
+                item: {
+                    value: listItem.value[0],
+                    unsigned: listItem.value[1]
+                }
+            });
             if (first) first = false;
         };
         while (pos !== -1) {

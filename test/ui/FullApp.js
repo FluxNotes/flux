@@ -982,10 +982,10 @@ test('Clicking on the sign note button moves the note from in progress notes to 
 });
 
 test('Entering disease status information updates the data in the targeted data panel to indicate that the disease status information is unsigned', async t => {
-    const clinicalEventSelector = Selector('.clinical-event-select');
+    const newNoteButton = Selector('.note-new');
     await t
-        .click(clinicalEventSelector)
-        .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+        .click(newNoteButton);
+        
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const unSignedItem = Selector('.list-unsigned');
