@@ -5,6 +5,7 @@ import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
 import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
+import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
 
 export default class NotesPanel extends Component {
@@ -26,6 +27,7 @@ export default class NotesPanel extends Component {
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
         this.closeNote = this.closeNote.bind(this);
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
+        this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -98,8 +100,26 @@ export default class NotesPanel extends Component {
     // Removes a note from patient object if the note is unsigned 
     deleteSelectedNote = () => { 
         if (this.state.selectedNote && !this.state.selectedNote.signed) { 
+            console.log(">>> DeleteSelectedNote")
+            console.log("patient")
+            console.log(this.props.patient)
+            console.log("contextManager")
+            console.log(this.props.contextManager)
+            console.log("example shortcut")
+            console.log(this.props.contextManager.contexts[0])
+            console.log("selectedNote")
+            console.log(this.state.selectedNote);
+            console.log("note content")
+            console.log(this.state.selectedNote.content);
+
+            const recognizedShortcuts = this.noteParser.getListOfTriggersFromText(this.state.selectedNote.content)[0];
+
+            console.log("recognizedShortcuts");
+            console.log(recognizedShortcuts);
+
             this.props.patient.deleteEntriesWithSourceClinicalNote(this.state.selectedNote);
             this.props.patient.removeClinicalNote(this.state.selectedNote);
+
         } else { 
             console.error('Tried to remove a note that is signed')
         }
