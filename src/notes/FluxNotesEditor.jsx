@@ -320,8 +320,16 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(transform)) {
             transform = state.transform();
         }
-        const {anchorText, anchorOffset} = state
-        const text = anchorText.text
+        let {anchorText, anchorOffset} = state;
+        let anchorKey = state.anchorBlock.key;
+        let text = anchorText.text
+        if (text.length === 0) {
+            const block = state.document.getPreviousSibling(anchorKey);
+            if (block) {
+                text = block.getFirstText().text;
+                anchorOffset = text.length;
+            }
+        }
 
         let index = {start: anchorOffset - 1, end: anchorOffset}
 
@@ -331,6 +339,7 @@ class FluxNotesEditor extends React.Component {
 
         const newText = `${text.substring(0, index.start)}`
         return transform
+            .deleteBackward(0)
             .deleteBackward(anchorOffset)
             .insertText(newText)
     }
