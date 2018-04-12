@@ -95,15 +95,8 @@ class SummaryHeader extends Component {
                                     <div id="condition-summary-section" className="dashboard-panel panel-content">
                                         <Grid fluid>
                                             <Row middle="xs">
-                                                <Col sm={6}>
-                                                    <h3>Workflow</h3>
-                                                    <ClinicalEventSelection
-                                                        possibleClinicalEvents={this.props.possibleClinicalEvents}
-                                                        clinicalEvent={this.props.clinicalEvent}
-                                                        setFullAppState={this.props.setFullAppState}
-                                                    />
-                                                </Col>
-                                                <Col sm={6}>
+                                                {/* TODO: Add patient toggle */}
+                                                <Col sm={12}>
                                                     <ConditionSelection
                                                         conditions={this.props.patientConditions}
                                                         setFullAppState={this.props.setFullAppState}
@@ -113,7 +106,7 @@ class SummaryHeader extends Component {
                                         </Grid>
                                     </div>
                                 </Col>
-                                
+
                                 <Col sm={2}>
                                     <div className="view item">
 {/*                                        <h3>View</h3>
