@@ -1,6 +1,7 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
 import TimePeriod from '../shr/core/TimePeriod';
+import Timing from '../shr/core/Timing';
 import moment from 'moment';
 
 class FluxMedicationRequested {
@@ -17,13 +18,16 @@ class FluxMedicationRequested {
             return null;
         }
         // doesn't support Timing option right now
-        if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
+        if (this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof Timing) {
+            return null;
+        } else if (this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
                 timePeriodStart: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value : null),
                 timePeriodEnd: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value : null)
             };
         } else {
-            return this._medicationRequested.actionContext.expectedPerformanceTime.value;
+            const date = this._medicationRequested.actionContext.expectedPerformanceTime.value;
+            return { timePeriodStart: date, timePeriodEnd: date };
         }
     }
     
@@ -124,7 +128,7 @@ class FluxMedicationRequested {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._medicationRequested.actionContext.reason;
+        return this._medicationRequested.actionContext.reason || [];
     }
     
     get code() {
@@ -133,7 +137,7 @@ class FluxMedicationRequested {
     
     get routeIntoBody() {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
-        return this._medicationRequested.dosage.routeIntoBody.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._medicationRequested.dosage.routeIntoBody.value.coding[0]);
     }
     
     get numberOfRefillsAllowed() {
