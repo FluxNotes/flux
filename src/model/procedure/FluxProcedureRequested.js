@@ -39,7 +39,7 @@ class FluxProcedureRequested {
      *  Returns procedure name string
      */
     get name() {
-        return this._procedureRequested.type.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._procedureRequested.type.value.coding[0]);
     }
 
     /*
@@ -56,6 +56,17 @@ class FluxProcedureRequested {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Extract a human-readable string from a code.
+     *
+     * @param {Coding} coding
+     * @returns {string} the display text if available, otherwise the code.
+     * @private
+     */
+    _displayTextOrCode(coding) {
+        return coding.displayText ? coding.displayText.value : coding.value;
     }
 }
 

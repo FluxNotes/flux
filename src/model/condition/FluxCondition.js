@@ -6,6 +6,7 @@ import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import Lang from 'lodash';
 import moment from 'moment';
+import Reference from '../Reference';
 
 class FluxCondition {
     constructor(json, patientRecord) {
@@ -36,7 +37,7 @@ class FluxCondition {
 
     get type() {
         if (!this._condition.value) return null;
-        return this._condition.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._condition.value.coding[0]);
     }
 
     get observation() {
@@ -46,15 +47,17 @@ class FluxCondition {
     }
 
     get bodySite() {
-        if (this._condition.bodySiteOrCode.value instanceof BodySite) {
-            return this._condition.bodySiteOrCode.value.value.coding[0].displayText.value;
+        if (!this._condition.bodySiteOrCode || this._condition.bodySiteOrCode.length < 1) {
+            return null;
+        } else if (this._condition.bodySiteOrCode[0].value instanceof BodySite) {
+            return this._displayTextOrCode(this._condition.bodySiteOrCode[0].value.value.coding[0]);
         } else { // CodeableConcept
-            return this._condition.bodySiteOrCode.value.coding[0].displayText.value;
+            return this._displayTextOrCode(this._condition.bodySiteOrCode[0].value.coding[0]);
         }
     }
     
     get clinicalStatus() {
-        return this._condition.clinicalStatus.value;
+        return this._condition.clinicalStatus ? this._condition.clinicalStatus.value : null;
     }
     
     get laterality() {
@@ -96,6 +99,7 @@ class FluxCondition {
     getObservationsOfType(type) {
         if (!this._condition.evidence) return [];
         return this._condition.evidence.map((item) => {
+            if (item.value instanceof Reference) item = item.value;
             return this._patientRecord.getEntryFromReference(item);
         }).filter((item) => {
             return item.constructor === type;
@@ -344,6 +348,17 @@ class FluxCondition {
             return 1;
         }
         return 0;
+    }
+
+    /**
+     * Extract a human-readable string from a code.
+     *
+     * @param {Coding} coding
+     * @returns {string} the display text if available, otherwise the code.
+     * @private
+     */
+    _displayTextOrCode(coding) {
+        return coding.displayText ? coding.displayText.value : coding.value;
     }
 }
 

@@ -46,7 +46,7 @@ class FluxMedicationRequested {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._medicationRequested.medicationOrCode.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._medicationRequested.medicationOrCode.value.coding[0]);
     }
 
     /*
@@ -88,7 +88,11 @@ class FluxMedicationRequested {
                 units: null
             }
         }
-        return null;
+
+        return {
+            value: null,
+            units: null
+        };
     }
 
     /*
@@ -104,7 +108,7 @@ class FluxMedicationRequested {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.author.value;
+        return this._medicationRequested.author ? this._medicationRequested.author.value: null;
     }
     
     /*
@@ -135,6 +139,17 @@ class FluxMedicationRequested {
     get numberOfRefillsAllowed() {
         if (!this._medicationRequested.numberOfRefillsAllowed) return null;
         return this._medicationRequested.numberOfRefillsAllowed.value;
+    }
+
+    /**
+     * Extract a human-readable string from a code.
+     *
+     * @param {Coding} coding
+     * @returns {string} the display text if available, otherwise the code.
+     * @private
+     */
+    _displayTextOrCode(coding) {
+        return coding.displayText ? coding.displayText.value : coding.value;
     }
 }
 

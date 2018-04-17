@@ -3,6 +3,7 @@ import DataAccess from './DataAccess';
 import PatientRecord from '../patient/PatientRecord';
 import hardCodedPatient from './HardCodedPatient.json';
 import hardCodedPatientMidYearDemo18 from './HardCodedPatientMidYearDemo18.json';
+import curationPatient from './sample_curation_output.json';
 
 class HardCodedReadOnlyDataSource extends IDataSource {
     getPatient(id) {
@@ -10,6 +11,8 @@ class HardCodedReadOnlyDataSource extends IDataSource {
             return new PatientRecord(hardCodedPatient);
         } else if (hardCodedPatientMidYearDemo18[0]["shr.base.ShrId"] === id) {
             return new PatientRecord(hardCodedPatientMidYearDemo18);
+        } else if (curationPatient[0]["shr.base.ShrId"].Value === id) {
+            return new PatientRecord(curationPatient);
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
