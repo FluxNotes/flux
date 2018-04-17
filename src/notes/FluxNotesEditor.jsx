@@ -339,7 +339,7 @@ class FluxNotesEditor extends React.Component {
             index = getIndexRangeForCurrentWord(text, anchorOffset - 1, anchorOffset - 1, prefixCharacter)
         }
 
-        const newText = `${text.substring(0, index.start)}`
+        // const newText = `${text.substring(0, index.start)}`
         const charactersInStructuredPhrase = (text.length - index.start)
 
         return transform
@@ -360,7 +360,7 @@ class FluxNotesEditor extends React.Component {
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if(Lang.isEqual(indexOfLastNode, 0)){
+        if(Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)){
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
         } else{
             if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
@@ -375,7 +375,7 @@ class FluxNotesEditor extends React.Component {
             startKey: "0",
             startOffset: 0,
             endKey: endOfNoteKey,
-           endOffset: endOfNoteOffset
+            endOffset: endOfNoteOffset
         };
         let docText = this.structuredFieldPlugin.convertToText(state, entireNote); 
         
@@ -492,11 +492,16 @@ class FluxNotesEditor extends React.Component {
         let italicEndIndex = text.indexOf('</em>');
         let underlinedStartIndex = text.indexOf('<u>');
         let underlinedEndIndex = text.indexOf('</u>');
+        let unorderedListStartIndex = text.indexOf('<ul>');
+        let unorderedListEndIndex = text.indexOf('</ul>');
+        let listItemStartIndex = text.indexOf('<li>');
+        let listItemEndIndex = text.indexOf('</li>');
 
         // No styles to be added.
         if (boldStartIndex === -1 && boldEndIndex === -1 
             && italicStartIndex === -1 && italicEndIndex === -1
-            && underlinedStartIndex === -1 && underlinedEndIndex === -1) {
+            && underlinedStartIndex === -1 && underlinedEndIndex === -1
+            && unorderedListStartIndex === -1 && unorderedListEndIndex === -1) {
             return transform.insertText(text);
         }
 
@@ -508,6 +513,10 @@ class FluxNotesEditor extends React.Component {
             { name: 'italicEndIndex', value: italicEndIndex },
             { name: 'underlinedStartIndex', value: underlinedStartIndex },
             { name: 'underlinedEndIndex', value: underlinedEndIndex },
+            { name: 'unorderedListStartIndex', value: unorderedListStartIndex },
+            { name: 'unorderedListEndIndex', value: unorderedListEndIndex },
+            { name: 'listItemStartIndex', value: listItemStartIndex },
+            { name: 'listItemEndIndex', value: listItemEndIndex },
         ];
         styleMarkings.sort((a, b) => a.value - b.value);
         let firstStyle = styleMarkings[styleMarkings.findIndex(a => a.value > -1)];
@@ -518,6 +527,10 @@ class FluxNotesEditor extends React.Component {
             this.insertItalicText(transform, text, italicStartIndex, italicEndIndex);
         } else if (firstStyle.name === 'underlinedStartIndex' || firstStyle.name === 'underlinedEndIndex') {
             this.insertUnderlinedText(transform, text, underlinedStartIndex, underlinedEndIndex);
+        } else if (firstStyle.name === 'unorderedListStartIndex' || firstStyle.name === 'unorderedListEndIndex') {
+            this.insertUnorderedList(transform, text, unorderedListStartIndex, unorderedListEndIndex);
+        } else if (firstStyle.name === 'listItemStartIndex' || firstStyle.name === 'listItemEndIndex') {
+            this.insertUnorderedList(transform, text, -1, text.length - 1);
         }
     }
 
@@ -541,8 +554,52 @@ class FluxNotesEditor extends React.Component {
         }
         this.addStyle(transform, text, startIndex, endIndex, 3, 'underlined');
     }
-    
-    addStyle = (transform, text, startIndex, endIndex, wordOffset, type) => {
+
+    insertUnorderedList = (transform, text, startIndex, endIndex) => {
+        if (startIndex === -1 && endIndex === -1) {
+            return transform.insertText(text);
+        }
+
+        let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, endIndex, 4);
+        let beforeListText = text.substring(0, calculatedStartIndex);
+        let listText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+        let afterListText = text.substring(calculatedEndIndex + endOffset);
+        text = beforeListText + listText + afterListText;
+
+        let bullets = [];
+        let liStartIndex = listText.indexOf('<li>');
+        let liEndIndex = listText.indexOf('</li>');
+        while(liStartIndex !== -1 && liEndIndex !== -1) {
+            let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(listText, liStartIndex, liEndIndex, 4);
+            let before = listText.substring(0, calculatedStartIndex);
+            let during = listText.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+            let after = listText.substring(calculatedEndIndex + endOffset);
+            listText = before + during + after;
+            bullets.push(during);
+            liStartIndex = listText.indexOf('<li>');
+            liEndIndex = listText.indexOf('</li>');
+        }
+
+        const type = 'bulleted-list';
+        if (beforeListText !== '') {
+            transform.insertText(beforeListText);
+            transform.splitBlock();
+        }
+        transform
+            .setBlock(type + '-item')
+            .wrapBlock(type);
+        for (let i = 0; i < bullets.length; i++) {
+            this.insertTextWithStyles(transform, bullets[i]);
+            transform.splitBlock();
+        }
+        transform
+            .setBlock('line')
+            .unwrapBlock('bulleted-list')
+            .unwrapBlock('numbered-list');
+        this.insertTextWithStyles(transform, afterListText);
+    }
+
+    getOffsets = (text, startIndex, endIndex, wordOffset) => {
         let startOffset = 0; // This represents how many characters to cut off from the text string at the startIndex.
         if (startIndex !== -1) {
             // <someStyle> is in the text string, so increase startOffset by word length to remove the word <someStyle>
@@ -567,10 +624,15 @@ class FluxNotesEditor extends React.Component {
             startIndex = 0;
             startOffset = 0;
         }
+        return { calculatedStartIndex: startIndex, calculatedEndIndex: endIndex, startOffset, endOffset };
+    }
 
-        let beforeBoldText = text.substring(0, startIndex);
-        let boldText = text.substring(startIndex + startOffset, endIndex);
-        let afterBoldText = text.substring(endIndex + endOffset);
+    addStyle = (transform, text, startIndex, endIndex, wordOffset, type) => {
+        let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, endIndex, wordOffset);
+
+        let beforeBoldText = text.substring(0, calculatedStartIndex);
+        let boldText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+        let afterBoldText = text.substring(calculatedEndIndex + endOffset);
         text = beforeBoldText + boldText + afterBoldText; // Update text to remove <someStyle> </someStyle>
         transform.insertText(beforeBoldText).toggleMark(type);
         this.insertTextWithStyles(transform, boldText);
@@ -589,7 +651,7 @@ class FluxNotesEditor extends React.Component {
             returnIndex = text.indexOf("\n");
         }
         if (returnIndex === -1) {
-            divReturnIndex = text.indexOf('</div><div>');
+            divReturnIndex = text.indexOf('</div>');
         }
         
         if (returnIndex >= 0) {
@@ -600,7 +662,7 @@ class FluxNotesEditor extends React.Component {
             // TODO will returnIndex be relevant any more? how about with dictation?
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
-            return this.insertPlainText(result, text.substring(divReturnIndex + 11));
+            return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
         } else {
 
             this.insertTextWithStyles(transform, text);
@@ -619,13 +681,10 @@ class FluxNotesEditor extends React.Component {
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
-        
-        // Get rid of <div> tags
-        if (!Lang.isUndefined(remainder) && remainder.includes('<div>')) {
-            remainder = remainder.substring(5);
-        }
-        if (!Lang.isUndefined(remainder) && remainder.includes('</div>')) {
-            remainder = remainder.substring(0, remainder.length - 6);
+
+        // Open div tags don't trigger any action now, so just remove them.
+        if (!Lang.isUndefined(remainder)) {
+            remainder = remainder.split('<div>').join('');
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
@@ -732,14 +791,18 @@ class FluxNotesEditor extends React.Component {
     handleBlockUpdate = (type) => {
         let {state} = this.state;
         const transform = state.transform();
-        const DEFAULT_NODE = "";
+        const { document } = state;
+        const DEFAULT_NODE = "line";
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
             const isList = this.handleBlockCheck(type + '-item')
 
+            const isType = state.blocks.some((block) => {
+                return !!document.getClosest(block.key, parent => parent.type === type)
+            });
 
-            if (isList) {
+            if (isList && isType) {
                 transform
                     .setBlock(DEFAULT_NODE)
                     .unwrapBlock('bulleted-list')

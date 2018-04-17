@@ -130,59 +130,53 @@ function StructuredFieldPlugin(opts) {
         });
         return state;
     }
-    
-    function convertBlocksToText(state, blocks, startOffset, endOffset) {
-        let result = "", start, end;
+
+    function convertSlateNodesToText(state, nodes, startOffset, endOffset) {
+        let result = '';
         let localStyle = [];
-        let tempResult = '<div>';
         let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
-        blocks.forEach((blk, index) => {
-            start = (index === 0) ? start = startOffset : start = 0;
-            end = (index === blocks.length - 1) ? end = endOffset : end = -1;
-            if (blk.kind === 'block' && blk.type === 'line') {
-                // TODO Get new lines to work with tempResult
-                result += '\r';
-                tempResult += '</div><div>';
-            } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
-                result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
-                tempResult += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
-            } else if (blk.kind === 'text') {
-                const characters = blk.toJSON().characters;
-                characters.forEach(char => {
+        nodes.forEach((node, index) => {
+            if (node.type === 'line') {
+                result += `<div>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</div>`;
+            } else if (node.characters && node.characters.length > 0) {
+                node.characters.forEach(char => {
                     const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
                     const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
-                            tempResult += `<${markToHTMLTag[mark.type]}>`;
+                            result += `<${markToHTMLTag[mark.type]}>`;
                         });
                     }
                     if (inLocalNotMarks.length > 0) {
                         Lang.reverse(inLocalNotMarks).forEach(mark => {
-                            tempResult += `</${markToHTMLTag[mark.type]}>`;
+                            result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
-                    tempResult += char.text;
                     localStyle = char.marks;
+                    result += char.text;
                 });
-                result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
-            } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
-                let shortcut = blk.data.get("shortcut");
+                if (localStyle.length > 0) {
+                    Lang.reverse(localStyle).forEach(mark => {
+                        result += `</${markToHTMLTag[mark.type]}>`;
+                    });
+                }
+            } else if (node.type === 'structured_field') {
+                let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
-                tempResult += `${shortcut.getResultText()}`;
+            } else if (node.type === 'bulleted-list') {
+                result += `<ul>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</ul>`;
+            } else if (node.type === 'bulleted-list-item') {
+                // node.nodes will be text here.
+                result += `<li>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</li>`;
+            } else if (node.type === '' && node.nodes) {
+                // TODO what is this case? it happens if close, reopen, type at end. Other cases? how to give it a type?
+                result += convertSlateNodesToText(state, node.nodes, startOffset, endOffset);
             }
         });
-        
-        if (localStyle.length > 0) {
-            Lang.reverse(localStyle).forEach(mark => {
-                tempResult += `</${markToHTMLTag[mark.type]}>`;
-            });
-        }
-        tempResult += '</div>';
-        // TODO replace tempResult with result once finished.
-        return tempResult;
-        // return result;
+        return result;
     }
 
+    // TODO: Clean up this function
     function convertToText(state, selection) {
         const startBlock = state.document.getDescendant(selection.startKey);
         const startOffset = selection.startOffset;
@@ -217,7 +211,8 @@ function StructuredFieldPlugin(opts) {
             }
         } while (block && block.key !== endKey);
         if (block) blocks.push(block);
-        return convertBlocksToText(state, blocks, startOffset, endOffset);
+        const textString = `${convertSlateNodesToText(state, state.document.toJSON().nodes, startOffset, endOffset)}`;
+        return textString;
     }
 
     function onCopy(event, data, state, editor) {
