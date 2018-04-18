@@ -165,7 +165,9 @@ function StructuredFieldPlugin(opts) {
                 result += shortcut.getResultText();
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</ul>`;
-            } else if (node.type === 'bulleted-list-item') {
+            } else if (node.type === 'numbered-list') {
+                result += `<ol>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</ol>`;
+            } else if (node.type === 'bulleted-list-item' || node.type === 'numbered-list-item') {
                 // node.nodes will be text here.
                 result += `<li>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</li>`;
             } else if (node.type === '' && node.nodes) {
