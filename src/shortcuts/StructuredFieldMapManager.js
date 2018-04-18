@@ -5,7 +5,6 @@ class StructuredFieldMapManager {
     }
 
     clearStructuredFieldMap() { 
-        console.log("clearStructuredFieldMap")
         this.clearKeyToShortcutMap();
         this.clearIdToShortcutMap();
     }

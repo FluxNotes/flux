@@ -22,10 +22,6 @@ function StructuredFieldPlugin(opts) {
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
         const nodes = state.document.getInlines();
-        console.log("keyToShortcutMap");
-        console.log(keyToShortcutMap);
-        console.log("opts");
-        console.log(opts);
         if (nodes.size !== keyToShortcutMap.size) {
             var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
@@ -86,9 +82,7 @@ function StructuredFieldPlugin(opts) {
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
 
     function onPaste(event, data, state, editor) {
-        //console.log("onPaste");
         const html = data.html || null; //event.clipboardData.getData('text/html') || null;
-        //console.log(html);
         let fragment = null;
         if (
             !fragment &&
@@ -99,7 +93,6 @@ function StructuredFieldPlugin(opts) {
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             if (encoded) fragment = encoded;
             const decoded = window.decodeURIComponent(window.atob(encoded));
-            //console.log(decoded);
             
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -120,7 +113,6 @@ function StructuredFieldPlugin(opts) {
     }
     
     function onCut(event, data, state, editor) {
-        //console.log("onCut");
         this.onCopy(event, data, state, editor); // doesn't change state
         const window = getWindow(event.target)
 
@@ -176,7 +168,6 @@ function StructuredFieldPlugin(opts) {
             }
             
             blocks.push(block);
-            //console.log(block);
             curKey = block.key;
             if (curKey !== endKey) {
                 block = state.document.getNextSibling(curKey);
@@ -194,7 +185,6 @@ function StructuredFieldPlugin(opts) {
             }
         } while (block && block.key !== endKey);
         if (block) blocks.push(block);
-        //console.log(blocks);
         return convertBlocksToText(state, blocks, startOffset, endOffset);
     }
 
@@ -349,9 +339,6 @@ function createStructuredField(opts, shortcut) {
     let sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
-    console.log(">>> createStructuredField")
-    console.log("structuredFieldMapManager")
-    console.log(opts.structuredFieldMapManager)
 	return sf;
 }
 

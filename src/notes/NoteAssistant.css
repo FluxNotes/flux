@@ -112,6 +112,7 @@
 
 #delete-note-button #trash-icon { 
     margin-right: 10px;
+    color: rgba(255, 0, 0, 0.7);
 }
 
 /* Sort */
