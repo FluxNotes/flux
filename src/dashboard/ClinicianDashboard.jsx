@@ -173,7 +173,6 @@ export default class ClinicianDashboard extends Component {
                         {...this.props}
                     />
                 </div>
-
                 <div style={notesPanelStyles}>
                     <NotesPanel
                         loginUser={this.props.loginUser}
@@ -198,6 +197,7 @@ export default class ClinicianDashboard extends Component {
                         noteClosed={this.props.appState.noteClosed}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
                         searchSelectedItem={this.props.searchSelectedItem}
+                        structuredFieldMapManager={this.props.structuredFieldMapManager}
                     />
                 </div>
             </div>
@@ -227,4 +227,5 @@ ClinicianDashboard.proptypes = {
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
     currentViewMode: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    structuredFieldMapManager: PropTypes.object,
 };

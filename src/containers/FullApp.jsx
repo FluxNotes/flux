@@ -11,6 +11,7 @@ import Lang from 'lodash';
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
 import ShortcutManager from '../shortcuts/ShortcutManager';
+import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
@@ -52,27 +53,29 @@ export default class FullApp extends Component {
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
         this.securityManager = new SecurityManager();
+        this.structuredFieldMapManager = new StructuredFieldMapManager();
 
         this.state = {
             clinicalEvent: "pre-encounter",
             condition: null,
             contextManager: this.contextManager,
+            documentText: null,
             errors: [],
             layout: "",
             isNoteViewerVisible: false,
             isNoteViewerEditable: false,
-            patient: patient,
-            selectedText: null,
-            documentText: null,
-            openClinicalNote: null,
             loginUser: "",
-            superRole: 'Clinician', // possibly add that to security manager too
-            summaryItemToInsert: '',
-            summaryMetadata: this.summaryMetadata.getMetadata(),
-            searchSelectedItem: null,
             noteClosed: false,
+            openClinicalNote: null,
+            patient: patient,
+            searchSelectedItem: null,
+            selectedText: null,
             snackbarOpen: false,
             snackbarMessage: "",
+            superRole: 'Clinician', // possibly add that to security manager too
+            summaryItemToInsert: '',
+            // structuredFieldMapManager: this.structuredFieldMapManager,
+            summaryMetadata: this.summaryMetadata.getMetadata(),
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -267,6 +270,7 @@ export default class FullApp extends Component {
                             shortcutManager={this.shortcutManager}
                             contextManager={this.contextManager}
                             searchSelectedItem={this.state.searchSelectedItem}
+                            structuredFieldMapManager={this.structuredFieldMapManager}
 
                             // State
                             appState={this.state}

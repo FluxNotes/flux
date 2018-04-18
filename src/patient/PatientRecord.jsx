@@ -431,18 +431,6 @@ class PatientRecord {
         this.removeEntryFromPatient(note);
     }
 
-    // Remove all entries with this source clinical note
-    deleteEntriesWithSourceClinicalNote(note) { 
-        const entriesToRemove = this.getEntriesWithSourceClinicalNote(note);
-        for (let i = 0; i < entriesToRemove.length; i++) {
-            const currentEntryToRemove = entriesToRemove[i]; 
-            const indexOfEntryToRemove = this.entries.indexOf(currentEntryToRemove)
-            if (indexOfEntryToRemove >= 0) { 
-                this.entries.splice(indexOfEntryToRemove, 1);
-            }
-        }
-    }
-
     getNotes() {
         return this.getEntriesOfType(FluxClinicalNote);
     }

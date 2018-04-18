@@ -9,25 +9,26 @@ function createOpts(opts) {
 	return opts;
 }
 
-let structuredFieldMap = new Map();
 
 function StructuredFieldPlugin(opts) {
-	opts = createOpts(opts);
+    opts = createOpts(opts);
     let contextManager = opts.contextManager;
-	let updateErrors = opts.updateErrors;
+    let updateErrors = opts.updateErrors;
     let insertText = opts.insertText;
-
-    function clearStructuredFieldMap() {
-        structuredFieldMap = new Map();
-        return structuredFieldMap;
-    }
+    const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
         
     function onChange(state, editor) {
         var deletedKeys = [];
+        const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
+        const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
         const nodes = state.document.getInlines();
-        if (nodes.size !== structuredFieldMap.size) {
+        console.log("keyToShortcutMap");
+        console.log(keyToShortcutMap);
+        console.log("opts");
+        console.log(opts);
+        if (nodes.size !== keyToShortcutMap.size) {
             var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
-            structuredFieldMap.forEach((value, key) => {
+            keyToShortcutMap.forEach((value, key) => {
                 if (!currentNodesMap.has(key)) {
                     deletedKeys.push(key);
                 }
@@ -36,9 +37,10 @@ function StructuredFieldPlugin(opts) {
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
-            shortcut = structuredFieldMap.get(key);
+            shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
-                structuredFieldMap.delete(key);
+                keyToShortcutMap.delete(key);
+                idToShortcutMap.delete(shortcut.metadata.id)
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
@@ -345,7 +347,11 @@ function createStructuredField(opts, shortcut) {
         }
     };
     let sf = Slate.Inline.create(properties);
-    structuredFieldMap.set(sf.key, shortcut);
+    opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
+    opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
+    console.log(">>> createStructuredField")
+    console.log("structuredFieldMapManager")
+    console.log(opts.structuredFieldMapManager)
 	return sf;
 }
 
