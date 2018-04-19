@@ -616,6 +616,13 @@ class FluxNotesEditor extends React.Component {
         let bullets = [];
         let liStartIndex = listText.indexOf('<li>');
         let liEndIndex = listText.indexOf('</li>');
+        let tag = type === 'numbered-list' ? '<ol>' : '<ul>';
+        let nextListStart = listText.indexOf(tag);
+        let nextListString = '';
+        if (nextListStart > -1) {
+            nextListString = listText.substring(nextListStart);
+            listText = listText.substring(0, nextListStart);
+        }
         let after = '';
         let structuredFieldToFollow = false;
         while(liStartIndex !== -1 || liEndIndex !== -1) {
@@ -643,6 +650,7 @@ class FluxNotesEditor extends React.Component {
                 transform.splitBlock();
             }
         }
+        after += nextListString;
         this.insertTextWithStyles(transform, after);
     }
 
@@ -706,7 +714,6 @@ class FluxNotesEditor extends React.Component {
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(returnIndex + 1));
         } else if (divReturnIndex >= 0) {
-            // TODO will returnIndex be relevant any more? how about with dictation?
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>

@@ -170,9 +170,6 @@ function StructuredFieldPlugin(opts) {
             } else if (node.type === 'bulleted-list-item' || node.type === 'numbered-list-item') {
                 // node.nodes will be text here.
                 result += `<li>${convertSlateNodesToText(node.nodes)}</li>`;
-            } else if (node.type === '' && node.nodes) {
-                // TODO what is this case? it happens if close, reopen, type at end. Other cases? how to give it a type?
-                result += convertSlateNodesToText(node.nodes);
             }
         });
         return result;
