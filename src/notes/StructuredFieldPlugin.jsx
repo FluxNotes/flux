@@ -131,13 +131,13 @@ function StructuredFieldPlugin(opts) {
         return state;
     }
 
-    function convertSlateNodesToText(state, nodes, startOffset, endOffset) {
+    function convertSlateNodesToText(nodes) {
         let result = '';
         let localStyle = [];
         let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         nodes.forEach((node, index) => {
             if (node.type === 'line') {
-                result += `<div>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</div>`;
+                result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
             } else if (node.characters && node.characters.length > 0) {
                 node.characters.forEach(char => {
                     const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
@@ -164,57 +164,22 @@ function StructuredFieldPlugin(opts) {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
             } else if (node.type === 'bulleted-list') {
-                result += `<ul>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</ul>`;
+                result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {
-                result += `<ol>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</ol>`;
+                result += `<ol>${convertSlateNodesToText(node.nodes)}</ol>`;
             } else if (node.type === 'bulleted-list-item' || node.type === 'numbered-list-item') {
                 // node.nodes will be text here.
-                result += `<li>${convertSlateNodesToText(state, node.nodes, startOffset, endOffset)}</li>`;
+                result += `<li>${convertSlateNodesToText(node.nodes)}</li>`;
             } else if (node.type === '' && node.nodes) {
                 // TODO what is this case? it happens if close, reopen, type at end. Other cases? how to give it a type?
-                result += convertSlateNodesToText(state, node.nodes, startOffset, endOffset);
+                result += convertSlateNodesToText(node.nodes);
             }
         });
         return result;
     }
 
-    // TODO: Clean up this function
     function convertToText(state, selection) {
-        const startBlock = state.document.getDescendant(selection.startKey);
-        const startOffset = selection.startOffset;
-        const endOffset = selection.endOffset;
-        let blocks = [];
-        const endKey = selection.endKey;
-        let block = startBlock;
-        let parentBlock, curKey;
-        do {
-            if (block.kind === 'text') {
-                parentBlock = state.document.getParent(block.key);
-                if (parentBlock.kind === 'inline' && parentBlock.type === 'structured_field') {
-                    block = parentBlock;
-                }
-            }
-            
-            blocks.push(block);
-            curKey = block.key;
-            if (curKey !== endKey) {
-                block = state.document.getNextSibling(curKey);
-                if (Lang.isUndefined(block)) {
-                    block = state.document.getParent(curKey);
-                    if (block.kind === 'block' && block.type === 'line') {
-                        blocks.push(block);
-                        block = state.document.getNextSibling(block.key);
-                        //console.log(block);
-                        if (block) block = block.getFirstText(); // 1st child
-                    }
-                }
-            } else {
-                block = undefined;
-            }
-        } while (block && block.key !== endKey);
-        if (block) blocks.push(block);
-        const textString = `${convertSlateNodesToText(state, state.document.toJSON().nodes, startOffset, endOffset)}`;
-        return textString;
+        return `${convertSlateNodesToText(state.document.toJSON().nodes)}`;
     }
 
     function onCopy(event, data, state, editor) {
