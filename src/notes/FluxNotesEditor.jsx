@@ -706,7 +706,8 @@ class FluxNotesEditor extends React.Component {
                                 disabled={this.context_disabled}
                                 onClick={this.props.closeNote}
                                 style={{
-                                    float: "right"
+                                    float: "right",
+                                    lineHeight: "2.1rem"
                                 }}
                             >
                                 <FontAwesome 
