@@ -116,6 +116,9 @@ class PatientRecord {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
         }            
     }
+    reAddEntryToPatient(entry){
+        this.entries.push(entry);
+    }
 
     addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.shrId;
@@ -433,6 +436,13 @@ class PatientRecord {
 
     getNotes() {
         return this.getEntriesOfType(FluxClinicalNote);
+    }
+
+    getInProgressNotes(){
+        let notes = this.getNotes();
+        return notes.filter((inprog) => {
+            return inprog.signed === false;
+        });
     }
 
     getKeyEventsChronologicalOrder() {

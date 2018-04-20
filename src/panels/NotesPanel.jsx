@@ -124,9 +124,18 @@ export default class NotesPanel extends Component {
     handleSignButtonClick = () => {
 
         // Set signed attribute on the selected note to be true
+        
         const tempNote =  this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
+        let inProg = this.props.patient.getInProgressNotes();
+        inProg.forEach((a) => {
+            this.props.patient.removeClinicalNote(a)
+        });
+        this.props.dataAccess.savePatient(this.props.patient);
+        inProg.forEach((b) => {
+            this.props.patient.reAddEntryToPatient(b);
+        });
 
         // Close the current note
        this.closeNote();

@@ -197,6 +197,7 @@ export default class ClinicianDashboard extends Component {
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
                         searchSelectedItem={this.props.searchSelectedItem}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
+                        dataAccess={this.props.dataAccess}
                     />
                 </div>
             </div>
