@@ -196,7 +196,6 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
-                    onSelectionChange={this.props.handleSelectionChange}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     itemInserted={this.props.itemInserted}
                     summaryItemToInsert={this.props.summaryItemToInsert}
@@ -278,7 +277,6 @@ NotesPanel.propTypes = {
     itemInserted: PropTypes.func,
     updateErrors: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
     summaryItemToInsert: PropTypes.string,
     searchSelectedItem: PropTypes.object,

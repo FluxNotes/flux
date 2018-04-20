@@ -809,7 +809,6 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.proptypes = {
-    onSelectionChange: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     itemInserted: PropTypes.object,
     summaryItemToInsert: PropTypes.string,

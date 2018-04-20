@@ -69,7 +69,6 @@ export default class FullApp extends Component {
             openClinicalNote: null,
             patient: patient,
             searchSelectedItem: null,
-            selectedText: null,
             snackbarOpen: false,
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
@@ -185,13 +184,6 @@ export default class FullApp extends Component {
         })
     }
 
-    // Update the selected text
-    handleSelectionChange = (selectedText) => {
-        this.setState({
-            selectedText: selectedText
-        })
-    }
-
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote
@@ -285,7 +277,6 @@ export default class FullApp extends Component {
                             handleShortcutUpdate={this.handleShortcutUpdate}
                             handleStructuredFieldEntered={this.handleStructuredFieldEntered}
                             handleStructuredFieldExited={this.handleStructuredFieldExited}
-                            handleSelectionChange={this.handleSelectionChange}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             setOpenClinicalNote={this.setOpenClinicalNote}
 
