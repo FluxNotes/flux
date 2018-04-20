@@ -119,7 +119,7 @@ class FluxDiseaseProgression extends FluxEntry {
     
     get focalSubjectReference() {
         if (this._diseaseProgression.focalSubjectReference) {
-            return this._diseaseProgression.focalSubjectReference;
+            return this._diseaseProgression.focalSubjectReference.value || this._diseaseProgression.focalSubjectReference;
         }
         return null;
     }

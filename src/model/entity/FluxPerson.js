@@ -10,7 +10,8 @@ class FluxPerson {
     }
 
     get name() {
-        return this._person.humanName;
+        if (!this._person.humanName || this._person.humanName.length < 1) return null;
+        return this._person.humanName[0].value;
     }
 
     get dateOfBirth() {
@@ -18,10 +19,12 @@ class FluxPerson {
     }
 
     get address() {
-        return this._person.address;
+        if (!this._person.address || this._person.address.length < 1) return null;
+        return this._person.address[0];
     }
 
     get headshot() {
+        if (!this._person.headshot || !this._person.headshot.attachment.resourceLocation) return null;
         return this._person.headshot.attachment.resourceLocation.uri;
     }
 }

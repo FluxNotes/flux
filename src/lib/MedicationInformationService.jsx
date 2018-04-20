@@ -79,7 +79,7 @@ exports.getRangeValues = (medication, units) => {
             };
             
         default: {
-            console.log(switchKey);
+            console.warn(switchKey);
             return null;
         }
 

@@ -217,7 +217,7 @@ class PatientRecord {
     }
 
     getCurrentHomeAddress() {
-        if (Lang.isNull(this.person)) return null;        
+        if (Lang.isNull(this.person)) return null;   
         return this.person.address;
     }
 
@@ -483,9 +483,10 @@ class PatientRecord {
 
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === condition.entryInfo.entryId;
+                return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
         return medications;
@@ -502,9 +503,10 @@ class PatientRecord {
     }
 
     getProceduresForCondition(condition) {
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
             return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === condition.entryInfo.entryId;
+                    return r.value.entryId && r.value.entryId === conditionEntryId;
                 });
         });
     }
@@ -532,29 +534,36 @@ class PatientRecord {
     }
 
     getProgressionsForCondition(condition) {
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxDiseaseProgression && item.focalSubjectReference.entryId === condition.entryInfo.entryId;
+            return item instanceof FluxDiseaseProgression && item.focalSubjectReference.entryId === conditionEntryId;
         });
     }
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         progressions = progressions.filter((progression) => {
-            return progression.focalSubjectReference.entryId === condition.entryInfo.entryId;
+            return progression.focalSubjectReference.entryId === conditionEntryId;
         });
         return progressions;
     }
 
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
-            return (item instanceof FluxCondition)
-                && progression.focalSubjectReference.entryId === item.entryInfo.entryId
+            if (item instanceof FluxCondition) {
+                const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
+                return progression.focalSubjectReference.entryId === conditionEntryId;
+            } else {
+                return false;
+            }
         });
         return result[0];
     }
 
     getMostRecentProgressionForCondition(condition, sinceDate = null) {
         let progressionList = this.getProgressionsForCondition(condition);
+        if (progressionList.length === 0) return null;
         const sortedProgressionList = progressionList.sort(this._progressionTimeSorter);
         const length = sortedProgressionList.length;
         let p = (sortedProgressionList[length - 1]);
@@ -750,6 +759,7 @@ class PatientRecord {
 
     getEntryFromReference(ref) {
         return this.entries.find((item) => {
+            if (!Lang.isUndefined(item.entryInfo.entryId.id)) return item.entryInfo.entryId.id === ref.entryId;
             return item.entryInfo.entryId === ref.entryId;
         });
     }

@@ -14,7 +14,18 @@ class FluxHistologicGrade {
      *  This will return the displayText string from CodeableConcept Value
      */
     get grade() {
-        return this._histologicGrade.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._histologicGrade.value.coding[0]);
+    }
+
+    /**
+     * Extract a human-readable string from a code.
+     *
+     * @param {Coding} coding
+     * @returns {string} the display text if available, otherwise the code.
+     * @private
+     */
+    _displayTextOrCode(coding) {
+        return coding.displayText ? coding.displayText.value : coding.value;
     }
 }
 

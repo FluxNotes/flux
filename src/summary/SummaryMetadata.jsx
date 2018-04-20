@@ -209,7 +209,7 @@ export default class SummaryMetadata {
                                     {
                                         name: "Recurrence",
                                         value: (patient, currentConditionEntry) => {
-                                            if (currentConditionEntry.clinicalStatus.value === "recurrence") {
+                                            if (currentConditionEntry.clinicalStatus === "recurrence") {
                                                 return null;
                                             } else {
                                                 return ["N/A", patient.isUnsigned(currentConditionEntry)];

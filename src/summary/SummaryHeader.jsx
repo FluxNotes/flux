@@ -63,6 +63,10 @@ class SummaryHeader extends Component {
     render() {
         const { photo, patientName, dateOfBirth, age, administrativeSex, address } = this.props;
 
+        const dateOfBirthString = (dateOfBirth) ? `${dateOfBirth} (${age})` : '?';
+        const administrativeSexString = (administrativeSex) ? administrativeSex : '?';
+        //{address ? address.city.value : ""}, {address ? address.state.value : ""}
+        const locationString = (address) ? `${address.city.value}, ${address.state.value}` : '?'; 
         return (
             <div id="summary-header">
                 <Grid className="FullApp-content" fluid>
@@ -83,9 +87,9 @@ class SummaryHeader extends Component {
                             &nbsp;
                             <div className="patient-info item">
                                 <h1>{patientName}</h1>
-                                <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirth} ({age})</span></h3>
-                                <h3 className="patient-item">Admin. Sex:  <span>{administrativeSex}</span></h3>
-                                <h3 className="patient-item">Location: <span>{address ? address.city.value : ""}, {address ? address.state.value : ""}</span></h3>
+                                <h3 className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></h3>
+                                <h3 className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></h3>
+                                <h3 className="patient-item">Location: <span>{locationString}</span></h3>
                             </div>
                         </Col>
 

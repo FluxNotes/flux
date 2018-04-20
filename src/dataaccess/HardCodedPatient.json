@@ -26,35 +26,44 @@
         "shr.base.EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
         },
-        "shr.base.HumanName": "Debra Hernandez672",
+        "shr.base.HumanName": [
+            {
+                "shr.base.EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                },
+                "Value": "Debra Hernandez672"
+            }
+        ],
         "shr.base.DateOfBirth": "5 APR 1966",
         "shr.base.AdministrativeGender": "female",
-        "shr.core.Address": {
-            "shr.core.AddressLine": [
-                {
-                    "Value": "123 Main Street"
-                }
-            ],
-            "shr.core.City": {
-                "Value": "Boston"
-            },
-            "shr.core.State": {
-                "Value": "MA"
-            },
-            "shr.core.Country": {
-                "Value": "US"
-            },
-            "shr.entity.Purpose": {
-                "Value": {
-                    "shr.base.EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "shr.core.Coding": {
-                        "Value": "primary_residence"
+        "shr.core.Address": [
+            {
+                "shr.core.AddressLine": [
+                    {
+                        "Value": "123 Main Street"
+                    }
+                ],
+                "shr.core.City": {
+                    "Value": "Boston"
+                },
+                "shr.core.State": {
+                    "Value": "MA"
+                },
+                "shr.core.Country": {
+                    "Value": "US"
+                },
+                "shr.entity.Purpose": {
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": {
+                            "Value": "primary_residence"
+                        }
                     }
                 }
             }
-        },
+        ],
         "shr.entity.LanguageUsed": [
             {
                 "Value": {
@@ -224,25 +233,49 @@
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "408643008", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, "shr.core.DisplayText": {"Value": "Invasive ductal carcinoma of breast"}}]},
         "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#disease"}]},
         "shr.condition.ClinicalStatus": {"Value": "active"},
-        "shr.entity.BodySiteOrCode": {"Value" :
-            {   "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/entity/BodySite"},
-                "Value": {  "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
+        "shr.entity.BodySiteOrCode": [
+            {
+                "Value": {
+                    "shr.base.EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/BodySite"
+                    },
+                    "Value": {
+                        "shr.base.EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                        },
+                        "shr.core.Coding": [
+                            {
+                                "Value": "73056007",
+                                "shr.core.CodeSystem": {
+                                    "Value": "http://snomed.info/sct"
+                                },
+                                "shr.core.DisplayText": {
+                                    "Value": "Right breast structure"
+                                }
+                            }
+                        ]
+                    },
+                    "shr.entity.Laterality": {
+                        "Value": {
+                            "shr.base.EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                            },
                             "shr.core.Coding": [
-                            {   "Value": "73056007", 
-                                "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
-                                "shr.core.DisplayText": {"Value": "Right breast structure"}
-                            }]
-                         },
-                "shr.entity.Laterality":{"Value": {     "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                                                        "shr.core.Coding": [
-                                                        {   "Value": "C25228", 
-                                                            "shr.core.CodeSystem": {"Value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"}, 
-                                                            "shr.core.DisplayText": {"Value": "Right"}
-                                                        }]
-                                                  }
-                                        }
+                                {
+                                    "Value": "C25228",
+                                    "shr.core.CodeSystem": {
+                                        "Value": "https://evs.nci.nih.gov/ftp1/CDISC/SDTM/"
+                                    },
+                                    "shr.core.DisplayText": {
+                                        "Value": "Right"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
             }
-        },
+        ],
         "shr.condition.WhenClinicallyRecognized": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
             "Value": { 
@@ -1099,8 +1132,26 @@
         "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0016658", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Fracture"}}]},
         "shr.core.Category": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#structural_abnormality"}]},
         "shr.condition.ClinicalStatus": {"Value": "active"},
-        "shr.entity.BodySiteOrCode": {"Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "724231006", "shr.core.CodeSystem": {"Value": "http://snomed.info/sct"}, 
-            "shr.core.DisplayText": {"Value": "Bone structure of left fibula"}}]}},
+        "shr.entity.BodySiteOrCode": [
+            {
+                "Value": {
+                    "shr.base.EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "shr.core.Coding": [
+                        {
+                            "Value": "724231006",
+                            "shr.core.CodeSystem": {
+                                "Value": "http://snomed.info/sct"
+                            },
+                            "shr.core.DisplayText": {
+                                "Value": "Bone structure of left fibula"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "shr.condition.WhenClinicallyRecognized": {
             "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedTemporalContext"},
             "Value": { 

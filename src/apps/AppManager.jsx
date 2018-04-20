@@ -101,6 +101,15 @@ export default class AppManager {
                 shortcuts: []
             },
             {
+                path: '/demo3',
+                display: 'Flux Notes™',
+                app: FullApp,
+                isExact: true,
+                dataSource: 'HardCodedReadOnlyDataSource',
+                patientId: 'urn:x-person:123456',
+                shortcuts: []
+            },
+            {
                 path: '/p2',
                 display: 'Flux Notes™',
                 app: FullApp,

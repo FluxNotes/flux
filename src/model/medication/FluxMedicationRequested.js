@@ -1,6 +1,7 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
 import TimePeriod from '../shr/core/TimePeriod';
+import Timing from '../shr/core/Timing';
 import moment from 'moment';
 
 class FluxMedicationRequested {
@@ -17,13 +18,16 @@ class FluxMedicationRequested {
             return null;
         }
         // doesn't support Timing option right now
-        if(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
+        if (this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof Timing) {
+            return null;
+        } else if (this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
                 timePeriodStart: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodStart.value : null),
                 timePeriodEnd: (this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd ? this._medicationRequested.actionContext.expectedPerformanceTime.value.timePeriodEnd.value : null)
             };
         } else {
-            return this._medicationRequested.actionContext.expectedPerformanceTime.value;
+            const date = this._medicationRequested.actionContext.expectedPerformanceTime.value;
+            return { timePeriodStart: date, timePeriodEnd: date };
         }
     }
     
@@ -46,7 +50,7 @@ class FluxMedicationRequested {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._medicationRequested.medicationOrCode.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._medicationRequested.medicationOrCode.value.coding[0]);
     }
 
     /*
@@ -88,7 +92,11 @@ class FluxMedicationRequested {
                 units: null
             }
         }
-        return null;
+
+        return {
+            value: null,
+            units: null
+        };
     }
 
     /*
@@ -104,7 +112,7 @@ class FluxMedicationRequested {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.author.value;
+        return this._medicationRequested.author ? this._medicationRequested.author.value: null;
     }
     
     /*
@@ -120,7 +128,7 @@ class FluxMedicationRequested {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._medicationRequested.actionContext.reason;
+        return this._medicationRequested.actionContext.reason || [];
     }
     
     get code() {
@@ -129,12 +137,23 @@ class FluxMedicationRequested {
     
     get routeIntoBody() {
         if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
-        return this._medicationRequested.dosage.routeIntoBody.value.coding[0].displayText.value;
+        return this._displayTextOrCode(this._medicationRequested.dosage.routeIntoBody.value.coding[0]);
     }
     
     get numberOfRefillsAllowed() {
         if (!this._medicationRequested.numberOfRefillsAllowed) return null;
         return this._medicationRequested.numberOfRefillsAllowed.value;
+    }
+
+    /**
+     * Extract a human-readable string from a code.
+     *
+     * @param {Coding} coding
+     * @returns {string} the display text if available, otherwise the code.
+     * @private
+     */
+    _displayTextOrCode(coding) {
+        return coding.displayText ? coding.displayText.value : coding.value;
     }
 }
 
