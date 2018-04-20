@@ -175,7 +175,25 @@ class FluxCondition {
 
         return mostRecentLabResultsArray;
     }
-    
+    /**
+     *  function to build HPI Narrative
+     *  Starts with initial summary of patient information
+     *  Then details chronological history of patient's procedures, medications, and most recent progression
+     */
+    buildHpiNarrative(patient) {
+        // Initial patient introduction section
+        const name = patient.getName();
+        const age = patient.getAge();
+        const gender = patient.getGender();
+
+        let hpiText = `${name} is a ${age} year old ${gender}.`;
+        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+
+        hpiText = this.buildEventNarrative(hpiText, patient);
+
+        return hpiText;
+    }
+
     buildEventNarrative(hpiText, patient) {
         // Build narrative from sorted events
         // Get procedures, medications, recent lab results, and most recent progression from patient
