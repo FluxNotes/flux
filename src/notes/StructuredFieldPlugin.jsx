@@ -130,62 +130,53 @@ function StructuredFieldPlugin(opts) {
         });
         return state;
     }
-    
-    function convertBlocksToText(state, blocks, startOffset, endOffset) {
-        let result = "", start, end;
-        blocks.forEach((blk, index) => {
-            start = (index === 0) ? start = startOffset : start = 0;
-            end = (index === blocks.length - 1) ? end = endOffset : end = -1;
-            if (blk.kind === 'block' && blk.type === 'line') {
-                result += '\r';
-            } else if (blk.kind === 'block' || (blk.kind === 'inline' && blk.type !== 'structured_field')) {
-                result += convertBlocksToText(state, blk.nodes, startOffset, endOffset);
-            } else if (blk.kind === 'text') {
-                result += (end === -1) ? blk.text.substring(start) : blk.text.substring(start, end);
-            } else if (blk.kind === 'inline' && blk.type === 'structured_field') {
-                let shortcut = blk.data.get("shortcut");
+
+    function convertSlateNodesToText(nodes) {
+        let result = '';
+        let localStyle = [];
+        let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
+        nodes.forEach((node, index) => {
+            if (node.type === 'line') {
+                result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
+            } else if (node.characters && node.characters.length > 0) {
+                node.characters.forEach(char => {
+                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
+                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+                    if (inMarksNotLocal.length > 0) {
+                        inMarksNotLocal.forEach(mark => {
+                            result += `<${markToHTMLTag[mark.type]}>`;
+                        });
+                    }
+                    if (inLocalNotMarks.length > 0) {
+                        Lang.reverse(inLocalNotMarks).forEach(mark => {
+                            result += `</${markToHTMLTag[mark.type]}>`;
+                        });
+                    }
+                    localStyle = char.marks;
+                    result += char.text;
+                });
+                if (localStyle.length > 0) {
+                    Lang.reverse(localStyle).forEach(mark => {
+                        result += `</${markToHTMLTag[mark.type]}>`;
+                    });
+                }
+            } else if (node.type === 'structured_field') {
+                let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
+            } else if (node.type === 'bulleted-list') {
+                result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
+            } else if (node.type === 'numbered-list') {
+                result += `<ol>${convertSlateNodesToText(node.nodes)}</ol>`;
+            } else if (node.type === 'bulleted-list-item' || node.type === 'numbered-list-item') {
+                // node.nodes will be text here.
+                result += `<li>${convertSlateNodesToText(node.nodes)}</li>`;
             }
         });
-        
         return result;
     }
 
     function convertToText(state, selection) {
-        const startBlock = state.document.getDescendant(selection.startKey);
-        const startOffset = selection.startOffset;
-        const endOffset = selection.endOffset;
-        let blocks = [];
-        const endKey = selection.endKey;
-        let block = startBlock;
-        let parentBlock, curKey;
-        do {
-            if (block.kind === 'text') {
-                parentBlock = state.document.getParent(block.key);
-                if (parentBlock.kind === 'inline' && parentBlock.type === 'structured_field') {
-                    block = parentBlock;
-                }
-            }
-            
-            blocks.push(block);
-            curKey = block.key;
-            if (curKey !== endKey) {
-                block = state.document.getNextSibling(curKey);
-                if (Lang.isUndefined(block)) {
-                    block = state.document.getParent(curKey);
-                    if (block.kind === 'block' && block.type === 'line') {
-                        blocks.push(block);
-                        block = state.document.getNextSibling(block.key);
-                        //console.log(block);
-                        if (block) block = block.getFirstText(); // 1st child
-                    }
-                }
-            } else {
-                block = undefined;
-            }
-        } while (block && block.key !== endKey);
-        if (block) blocks.push(block);
-        return convertBlocksToText(state, blocks, startOffset, endOffset);
+        return `${convertSlateNodesToText(state.document.toJSON().nodes)}`;
     }
 
     function onCopy(event, data, state, editor) {
