@@ -58,7 +58,6 @@ class PatientRecord {
         if(Lang.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
-            //console.log(entry.entryInfo.sourceClinicalNote);
             let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
             return !clinicalNote.signed;
         }
@@ -427,6 +426,11 @@ class PatientRecord {
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
+    // Remove a given clinical note from a patient record
+    removeClinicalNote(note) { 
+        this.removeEntryFromPatient(note);
+    }
+
     getNotes() {
         return this.getEntriesOfType(FluxClinicalNote);
     }
@@ -726,6 +730,16 @@ class PatientRecord {
     getEntriesOfEntryType(entryType) {
         return this.entries.filter((entry) => {
             return entry.entryInfo.entryType && entry.entryInfo.entryType.value === entryType;
+        });
+    }
+
+    getEntriesWithSourceClinicalNote(note) { 
+        return this.entries.filter((entry) => { 
+            if (entry.sourceClinicalNoteReference) { 
+                return entry.sourceClinicalNoteReference.entryId === note.entryInfo.entryId;
+            } else { 
+                return false;
+            }
         });
     }
 

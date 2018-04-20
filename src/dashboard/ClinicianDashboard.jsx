@@ -173,7 +173,6 @@ export default class ClinicianDashboard extends Component {
                         {...this.props}
                     />
                 </div>
-
                 <div style={notesPanelStyles}>
                     <NotesPanel
                         loginUser={this.props.loginUser}
@@ -182,7 +181,6 @@ export default class ClinicianDashboard extends Component {
                         isNoteViewerVisible={isNoteViewerVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
                         itemInserted={this.props.itemInserted}
-                        handleSelectionChange={this.props.handleSelectionChange}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         patient={this.props.appState.patient}
@@ -198,6 +196,7 @@ export default class ClinicianDashboard extends Component {
                         noteClosed={this.props.appState.noteClosed}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
                         searchSelectedItem={this.props.searchSelectedItem}
+                        structuredFieldMapManager={this.props.structuredFieldMapManager}
                     />
                 </div>
             </div>
@@ -212,7 +211,6 @@ ClinicianDashboard.proptypes = {
     handleShortcutUpdate: PropTypes.func.isRequired,
     handleStructuredFieldEntered: PropTypes.func.isRequired,
     handleStructuredFieldExited: PropTypes.func.isRequired,
-    handleSelectionChange: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     actions: PropTypes.array.isRequired,
     itemInserted: PropTypes.func.isRequired,
@@ -227,4 +225,5 @@ ClinicianDashboard.proptypes = {
     updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
     currentViewMode: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    structuredFieldMapManager: PropTypes.object,
 };

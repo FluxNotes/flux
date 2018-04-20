@@ -70,6 +70,7 @@ class FluxNotesEditor extends React.Component {
         super(props);
 
         this.contextManager = this.props.contextManager;
+        this.structuredFieldMapManager = this.props.structuredFieldMapManager;
         this.updateErrors = this.props.updateErrors;
 
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
@@ -90,6 +91,7 @@ class FluxNotesEditor extends React.Component {
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases
         };
@@ -179,7 +181,7 @@ class FluxNotesEditor extends React.Component {
         this.props.handleUpdateEditorWithNote(null);
 
         // This clears error messages from the editor
-        this.structuredFieldPlugin.clearStructuredFieldMap();
+        this.structuredFieldMapManager.clearStructuredFieldMap();
 
         // This clears the contexts so that the tray starts back at the patient context
         this.contextManager.clearContexts();
@@ -469,7 +471,7 @@ class FluxNotesEditor extends React.Component {
         if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
             this.resetEditorAndContext();
             this.props.handleUpdateEditorWithNote(null);
-            this.structuredFieldPlugin.clearStructuredFieldMap();
+            this.structuredFieldMapManager.clearStructuredFieldMap();
             this.contextManager.clearContexts();
             this.props.updateSelectedNote(null);
         }
@@ -807,7 +809,6 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.proptypes = {
-    onSelectionChange: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     itemInserted: PropTypes.object,
     summaryItemToInsert: PropTypes.string,

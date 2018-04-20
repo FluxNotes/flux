@@ -935,6 +935,41 @@ test('Clicking New Note button adds a new in progress note to the list', async t
         .expect(inProgressNotesUpdatedLength).eql(1);
 });
 
+test('Clicking New Note button and clicking delete-note button should have no net effect on the # of inProgressNotes', async t => {
+    // const clinicalEventSelector = Selector('.clinical-event-select');
+    // await t
+    //     .click(clinicalEventSelector)
+    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+    const clinicalNotesButton = Selector('#notes-btn');
+    const contextTrayButton = Selector('#context-btn');
+    const deleteNoteButton = Selector('#delete-note-button');
+    const newNoteButton = Selector('.note-new');
+    const inProgressNotes = Selector('.in-progress-note');
+
+    await t
+        .click(clinicalNotesButton);
+
+    const inProgressNotesLength = await inProgressNotes.count;
+
+    // There are no unsigned notes on the patient's record initially
+    await t
+        .expect(inProgressNotesLength).eql(0);
+
+    // Create a new note, and delete it immediately
+    await t
+        .click(newNoteButton)
+        .click(contextTrayButton)
+        .click(deleteNoteButton)
+        .click(clinicalNotesButton);
+
+    const inProgressNotesUpdatedLength = await inProgressNotes.count;
+
+    // Adding a new note adds an unsigned, in-progress note
+    await t
+        .expect(inProgressNotesUpdatedLength).eql(inProgressNotesLength);
+});
+
+
 test('Clicking on an existing note in post encounter mode loads the note in the editor', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t

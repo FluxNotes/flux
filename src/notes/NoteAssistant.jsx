@@ -126,7 +126,6 @@ export default class NoteAssistant extends Component {
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
-            // console.log(this.props.patient.getNotes());
             var found = this.props.patient.getNotes().find(function (element) {
                 return Lang.isEqual(element.entryInfo.entryId, entryId);
             });
@@ -232,6 +231,11 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState('openClinicalNote', null);
     }
 
+    deleteSelectedNote = () => { 
+        this.props.deleteSelectedNote();
+        this.closeNote();
+    }
+
     // Render the content for the Note Assistant panel
     renderNoteAssistantContent(noteAssistantMode) {
         const allNotes = this.props.patient.getNotes();
@@ -248,6 +252,7 @@ export default class NoteAssistant extends Component {
                             shortcutManager={this.props.shortcutManager}
                             onShortcutClicked={this.props.handleSummaryItemSelected}
                         />
+                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
                 );
 
@@ -345,6 +350,19 @@ export default class NoteAssistant extends Component {
         
         return signedNotes.slice(0, maxNotes).map((item, i) => // item is a signed note
             this.renderClinicalNote(item, i)
+        );
+    }
+
+    // Renders a button for deleting the current note if appropriate
+    renderDeleteNoteButton = () => { 
+        return (
+            <div id="delete-note-container">
+                <Button raised id="delete-note-button" onClick={this.deleteSelectedNote}> 
+                    <FontAwesome name="trash" id="trash-icon"/> 
+                    <span>Delete Note</span>
+                </Button>
+            </div> 
+            
         );
     }
 

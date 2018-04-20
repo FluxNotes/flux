@@ -5,6 +5,7 @@ import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
 import Lang from 'lodash';
 import NoteAssistant from '../notes/NoteAssistant';
+import NoteParser from '../noteparser/NoteParser';
 import './NotesPanel.css';
 
 export default class NotesPanel extends Component {
@@ -26,6 +27,7 @@ export default class NotesPanel extends Component {
         this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
         this.closeNote = this.closeNote.bind(this);
         this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
+        this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -95,10 +97,34 @@ export default class NotesPanel extends Component {
         });
     }
 
-    handleSignButtonClick() {
+    // Removes a note from patient object if the note is unsigned 
+    deleteSelectedNote = () => { 
+        if (this.state.selectedNote && !this.state.selectedNote.signed) { 
+            // Find the shortcuts in the current note.
+            const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.selectedNote.content)[0].reverse();
+            for (const index in recognizedShortcutsObjects) { 
+                // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
+                const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
+                const mappedShortcutMetadata = this.props.shortcutManager.shortcutMap[currentShortcutTrigger]
+                const currentShortcutId = (mappedShortcutMetadata) ? mappedShortcutMetadata.id : null;
+                const currentShortcut = this.props.structuredFieldMapManager.idToShortcutMap.get(currentShortcutId);
+                if (currentShortcut && currentShortcut.onBeforeDeleted) { 
+                    currentShortcut.onBeforeDeleted();
+                }
+            }
+            // Clear all shortcuts from the current mapManager
+            this.props.structuredFieldMapManager.clearStructuredFieldMap();
+            this.props.patient.removeClinicalNote(this.state.selectedNote);
+
+        } else { 
+            console.error('Tried to remove a note that is signed')
+        }
+    }
+
+    handleSignButtonClick = () => {
 
         // Set signed attribute on the selected note to be true
-        let tempNote =  this.state.selectedNote;
+        const tempNote =  this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
 
@@ -106,7 +132,7 @@ export default class NotesPanel extends Component {
        this.closeNote();
     }
 
-    renderSignButton() {
+    renderSignButton = () => {
         return (
             <div id="finish-sign-component">
                 <Button raised className="btn_finish" onClick={() => {
@@ -170,7 +196,6 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
-                    onSelectionChange={this.props.handleSelectionChange}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     itemInserted={this.props.itemInserted}
                     summaryItemToInsert={this.props.summaryItemToInsert}
@@ -185,6 +210,7 @@ export default class NotesPanel extends Component {
                     closeNote={this.closeNote}
                     documentText={this.props.documentText}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    structuredFieldMapManager={this.props.structuredFieldMapManager}
 
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
@@ -217,6 +243,7 @@ export default class NotesPanel extends Component {
                     documentText={this.props.documentText}
                     saveNote={click => this.saveNoteChild = click}
                     closeNote={click => this.closeNoteChild = click}
+                    deleteSelectedNote={this.deleteSelectedNote}
                     noteClosed={this.props.noteClosed}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
@@ -250,8 +277,8 @@ NotesPanel.propTypes = {
     itemInserted: PropTypes.func,
     updateErrors: PropTypes.func,
     handleSummaryItemSelected: PropTypes.func,
-    handleSelectionChange: PropTypes.func,
     setFullAppState: PropTypes.func,
     summaryItemToInsert: PropTypes.string,
     searchSelectedItem: PropTypes.object,
+    structuredFieldMapManager: PropTypes.object,
 };
