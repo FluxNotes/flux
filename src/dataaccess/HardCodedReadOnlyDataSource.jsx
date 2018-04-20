@@ -26,7 +26,7 @@ class HardCodedReadOnlyDataSource extends IDataSource {
     }
     
     savePatient(patient) {
-        console.log("saving of patients is not implemented in hard-coded read only patient data source.");
+        console.log("saving of patients is not implemented in hard-coded read only patient data source. Updated Patient record ", patient);
     }
 }
 

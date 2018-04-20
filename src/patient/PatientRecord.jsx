@@ -435,6 +435,13 @@ class PatientRecord {
         return this.getEntriesOfType(FluxClinicalNote);
     }
 
+    getInProgressNotes(){
+        let notes = this.getNotes();
+        return notes.filter((inprog) => {
+            return inprog.signed === false;
+        });
+    }
+
     getKeyEventsChronologicalOrder() {
         let conditions = this.getConditions();
         let result = [];
