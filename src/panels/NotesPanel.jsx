@@ -133,6 +133,9 @@ export default class NotesPanel extends Component {
             this.props.patient.removeClinicalNote(a)
         });
         this.props.dataAccess.savePatient(this.props.patient);
+        inProg.forEach((b) => {
+            this.props.patient.reAddEntryToPatient(b);
+        });
 
         // Close the current note
        this.closeNote();

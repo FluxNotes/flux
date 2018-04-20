@@ -116,6 +116,9 @@ class PatientRecord {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
         }            
     }
+    reAddEntryToPatient(entry){
+        this.entries.push(entry);
+    }
 
     addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.shrId;
