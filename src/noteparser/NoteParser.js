@@ -63,6 +63,9 @@ export default class NoteParser {
         }
         const shortcut = new shortcutC();*/
         //console.log(trigger);
+
+        console.log("in note parser createShortcut");
+
         const shortcut = this.shortcutManager.createShortcut(trigger.definition, trigger.trigger); //, onUpdate, object
         shortcut.initialize(this.contextManager, trigger.trigger);
         shortcut.setKey("1");
@@ -104,7 +107,9 @@ export default class NoteParser {
                 }
             } else {
                 //console.log(match[0]);
-                matches.push({trigger: match[0], definition: null});
+                // this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
+                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0])}); // new line that sets definition
+                // matches.push({trigger: match[0], definition: null}); // Original line
             }
             pos = hashPos + 1;
             hashPos = nextPos;

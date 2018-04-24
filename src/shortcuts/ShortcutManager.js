@@ -61,8 +61,15 @@ class ShortcutManager {
     getSupportedShortcuts() {
         return this.shortcutsToSupportList;
     }
-    
+
+    getMetadataForTrigger(trigger) {
+        return this.shortcutMap[trigger.toLowerCase()];
+    }
+
     createShortcut(definition, trigger, patient, shortcutData, onUpdate) {
+
+        console.log("in ShortcutManager createShortcut");
+
         let className;
         let metadata;
         if (!Lang.isNull(definition)) {

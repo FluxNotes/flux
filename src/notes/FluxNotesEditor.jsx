@@ -742,6 +742,9 @@ class FluxNotesEditor extends React.Component {
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
 
+        console.log("triggers");
+        console.log(triggers);
+
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
