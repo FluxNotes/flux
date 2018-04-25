@@ -227,7 +227,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         // check if shortcutTrigger is currently valid
-        if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
+        if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
 
@@ -797,8 +797,16 @@ class FluxNotesEditor extends React.Component {
 
     /**
      * Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+     * or if the shortcutTrigger matches the shortcut's regexpTrigger
      */
-    shortcutTriggerCheck = (shortcutTrigger) => {
+    shortcutTriggerCheck = (shortcutC, shortcutTrigger) => {
+        // Check regexpTrigger before checking currently valid shortcuts
+        if (!Lang.isNull(shortcutC) && !Lang.isUndefined(shortcutC.regexpTrigger) && !Lang.isNull(shortcutC.regexpTrigger)) {
+            const regexpTrigger = new RegExp(shortcutC.regexpTrigger);
+            if (regexpTrigger.test(shortcutTrigger))
+                return true;
+        }
+
         const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
 
         // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts

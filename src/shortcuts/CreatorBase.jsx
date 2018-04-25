@@ -313,7 +313,8 @@ export default class CreatorBase extends Shortcut {
             } else if (obj === "$valueObject") {
                 return this.object[method](...args);
             } else if (obj === "$parentValueObject") {
-                return this.parentContext.getValueObject()[method](...args);
+                if (!Lang.isUndefined(this.parentContext))
+                    return this.parentContext.getValueObject()[method](...args);
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
             }
