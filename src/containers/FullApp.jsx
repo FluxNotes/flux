@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
@@ -27,7 +29,7 @@ const theme = createMuiTheme({
     }
 });
 
-export default class FullApp extends Component {
+export class FullApp extends Component {
     constructor(props) {
         super(props);
         this.possibleClinicalEvents = [
@@ -83,9 +85,9 @@ export default class FullApp extends Component {
          *      text             Text to display for this action in the Menu
          *      icon             FontAwesome(?) icon to display
          *      whenToDisplay    Criteria on when to display the action.  Currently has the following properties:
-         *                          valueExists         Boolean value indicating whether value should exist.  
+         *                          valueExists         Boolean value indicating whether value should exist.
          *                          existingValueSigned Boolean value indicating whether value should be signed.  Can be string value "either".
-         *                          editableNoteOpen    Boolean value indicating whether note should be open or string "either" if it doesn't matter. 
+         *                          editableNoteOpen    Boolean value indicating whether note should be open or string "either" if it doesn't matter.
          */
         this.actions = [
             {
@@ -283,16 +285,16 @@ export default class FullApp extends Component {
                             // Actions
                             actions={this.actions}
                         />
-                        
-                        <Snackbar 
+
+                        <Snackbar
                             anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
                             autoHideDuration={3000}
                             onClose={this.handleSnackbarClose}
                             open={this.state.snackbarOpen}
                             message={this.state.snackbarMessage}
                         />
-                    </Grid> 
-                </div>  
+                    </Grid>
+                </div>
             </MuiThemeProvider>
         );
     }
@@ -302,4 +304,20 @@ FullApp.proptypes = {
     dataSource: PropTypes.string.isRequired,
     shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
+};
+
+// these props are used for dispatching actions
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    // TODO: add actions
+  }, dispatch);
 }
+
+// these props come from the application's state when it is started
+function mapStateToProps(state) {
+  return {
+    // TODO: add state
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FullApp);
