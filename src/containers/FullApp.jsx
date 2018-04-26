@@ -75,7 +75,6 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
-            // structuredFieldMapManager: this.structuredFieldMapManager,
             summaryMetadata: this.summaryMetadata.getMetadata(),
         };
 
@@ -255,35 +254,29 @@ export class FullApp extends Component {
 
                         <CurrentDashboard
                             // App default settings
-                            title={this.props.display}
-                            supportLogin={true}
-                            loginUser={this.state.loginUser}
-                            possibleClinicalEvents={this.possibleClinicalEvents}
-                            dataAccess={this.dataAccess}
-                            summaryMetadata={this.summaryMetadata}
-                            shortcutManager={this.shortcutManager}
-                            contextManager={this.contextManager}
-                            searchSelectedItem={this.state.searchSelectedItem}
-                            structuredFieldMapManager={this.structuredFieldMapManager}
-
-                            // State
+                            actions={this.actions}
                             appState={this.state}
-
-                            // Functions
-                            setFullAppState={this.setFullAppState}
-                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            updateErrors={this.updateErrors}
-                            onContextUpdate={this.onContextUpdate}
-                            itemInserted={this.itemInserted}
-                            newCurrentShortcut={this.newCurrentShortcut}
+                            contextManager={this.contextManager}
+                            dataAccess={this.dataAccess}
                             handleShortcutUpdate={this.handleShortcutUpdate}
                             handleStructuredFieldEntered={this.handleStructuredFieldEntered}
                             handleStructuredFieldExited={this.handleStructuredFieldExited}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
+                            itemInserted={this.itemInserted}
+                            loginUser={this.state.loginUser}
+                            newCurrentShortcut={this.newCurrentShortcut}
+                            onContextUpdate={this.onContextUpdate}
+                            possibleClinicalEvents={this.possibleClinicalEvents}
+                            searchSelectedItem={this.state.searchSelectedItem}
+                            setFullAppState={this.setFullAppState}
+                            setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                             setOpenClinicalNote={this.setOpenClinicalNote}
-
-                            // Actions
-                            actions={this.actions}
+                            shortcutManager={this.shortcutManager}
+                            structuredFieldMapManager={this.structuredFieldMapManager}
+                            summaryMetadata={this.summaryMetadata}
+                            supportLogin={true}
+                            title={this.props.display}
+                            updateErrors={this.updateErrors}
                         />
 
                         <Snackbar

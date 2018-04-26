@@ -205,28 +205,26 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
-                    newCurrentShortcut={this.props.newCurrentShortcut}
-                    itemInserted={this.props.itemInserted}
-                    summaryItemToInsert={this.props.summaryItemToInsert}
-                    patient={this.props.patient}
+                    closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
-                    shortcutManager={this.props.shortcutManager}
-                    updateErrors={this.props.updateErrors}
+                    currentViewMode={this.props.currentViewMode}
+                    documentText={this.props.documentText}
                     errors={this.props.errors}
+                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    itemInserted={this.props.itemInserted}
+                    newCurrentShortcut={this.props.newCurrentShortcut}
+                    patient={this.props.patient}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
-                    closeNote={this.closeNote}
-                    documentText={this.props.documentText}
-                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    shortcutManager={this.props.shortcutManager}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
-
+                    summaryItemToInsert={this.props.summaryItemToInsert}
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
-                    selectedNote={this.state.selectedNote}
-                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
-
-                    currentViewMode={this.props.currentViewMode}
+                    updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
@@ -237,26 +235,26 @@ export default class NotesPanel extends Component {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
-                    loginUser={this.props.loginUser}
-                    isNoteViewerEditable={this.props.isNoteViewerEditable}
-                    setFullAppState={this.props.setFullAppState}
-                    patient={this.props.patient}
-                    contextManager={this.props.contextManager}
-                    shortcutManager={this.props.shortcutManager}
-                    handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                    loadNote={this.handleUpdateEditorWithNote}
-                    noteAssistantMode={this.state.noteAssistantMode}
-                    updateNoteAssistantMode={this.updateNoteAssistantMode}
-                    selectedNote={this.state.selectedNote}
-                    updateSelectedNote={this.updateSelectedNote}
-                    documentText={this.props.documentText}
-                    saveNote={click => this.saveNoteChild = click}
                     closeNote={click => this.closeNoteChild = click}
-                    deleteSelectedNote={this.deleteSelectedNote}
-                    noteClosed={this.props.noteClosed}
-                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
+                    contextManager={this.props.contextManager}
+                    deleteSelectedNote={this.deleteSelectedNote}
+                    documentText={this.props.documentText}
+                    handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    loadNote={this.handleUpdateEditorWithNote}
+                    loginUser={this.props.loginUser}
+                    noteAssistantMode={this.state.noteAssistantMode}
+                    noteClosed={this.props.noteClosed}
+                    patient={this.props.patient}
+                    saveNote={click => this.saveNoteChild = click}
                     searchSelectedItem={this.props.searchSelectedItem}
+                    selectedNote={this.state.selectedNote}
+                    setFullAppState={this.props.setFullAppState}
+                    shortcutManager={this.props.shortcutManager}
+                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
+                    updateNoteAssistantMode={this.updateNoteAssistantMode}
+                    updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
         );

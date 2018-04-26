@@ -134,11 +134,11 @@ export default class ContextTray extends Component {
 
                 {activeContext && activeContext === selectedParentContext &&
                     <ContextOptions
-                        ref={`context-option-${this.state.value}`}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        handleClick={this.handleShortcutClick}
                         context={activeContext}
+                        contextManager={this.props.contextManager}
+                        handleClick={this.handleShortcutClick}
+                        ref={`context-option-${this.state.value}`}
+                        shortcutManager={this.props.shortcutManager}
                     />
                 }
 
@@ -182,11 +182,11 @@ export default class ContextTray extends Component {
 
                 {activeChildIndex > -1 &&
                     <ContextOptions
-                        ref={`context-option-${this.state.value}`}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        handleClick={this.handleShortcutClick}
                         context={activeContext}
+                        contextManager={this.props.contextManager}
+                        handleClick={this.handleShortcutClick}
+                        ref={`context-option-${this.state.value}`}
+                        shortcutManager={this.props.shortcutManager}
                     />
                 }
 

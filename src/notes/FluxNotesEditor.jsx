@@ -105,16 +105,16 @@ class FluxNotesEditor extends React.Component {
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
-            trigger: '#',
             capture: /#([\w\s\-,]*)/,
-            suggestions: this.suggestionFunction.bind(this, '#'),
             onEnter: this.choseSuggestedShortcut.bind(this)
+            suggestions: this.suggestionFunction.bind(this, '#'),
+            trigger: '#',
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
-            trigger: '@',
             capture: /@([\w\s\-,]*)/,
-            suggestions: this.suggestionFunction.bind(this, '@'),
             onEnter: this.choseSuggestedShortcut.bind(this)
+            suggestions: this.suggestionFunction.bind(this, '@'),
+            trigger: '@',
         });
 
         this.plugins = [
@@ -985,14 +985,12 @@ class FluxNotesEditor extends React.Component {
                 {noteDescriptionContent}
                 <div className="MyEditor-root">
                     <EditorToolbar
-                        onMarkCheck={this.handleMarkCheck}
-                        onBlockCheck={this.handleBlockCheck}
-
-                        onMarkUpdate={this.handleMarkUpdate}
-                        onBlockUpdate={this.handleBlockUpdate}
-                        patient={this.props.patient}
-
                         isReadOnly={!this.props.isNoteViewerEditable}
+                        onBlockCheck={this.handleBlockCheck}
+                        onBlockUpdate={this.handleBlockUpdate}
+                        onMarkCheck={this.handleMarkCheck}
+                        onMarkUpdate={this.handleMarkUpdate}
+                        patient={this.props.patient}
                     />
                     <div className="editor-content">
                         <Slate.Editor
@@ -1015,24 +1013,26 @@ class FluxNotesEditor extends React.Component {
                     </div>
 
                     <CreatorsPortal
-                        state={this.state.state}
                         contextPortalOpen={this.state.isPortalOpen}
-                        getPosition={this.getTextCursorPosition}/>
-                    <InsertersPortal
-                        state={this.state.state}
-                        contextPortalOpen={this.state.isPortalOpen}
-                        getPosition={this.getTextCursorPosition}/>
-                    <ContextPortal
                         getPosition={this.getTextCursorPosition}
                         state={this.state.state}
-                        callback={callback}
-                        onSelected={this.onPortalSelection}
-                        contexts={this.state.portalOptions}
+                    />
+                    <InsertersPortal
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}
+                        state={this.state.state}
+                    />
+                    <ContextPortal
                         capture={/@([\w]*)/}
-                        trigger={"@"}
-                        onChange={this.onChange}
-                        isOpened={this.state.isPortalOpen}
+                        callback={callback}
                         contextManager={this.contextManager}
+                        contexts={this.state.portalOptions}
+                        getPosition={this.getTextCursorPosition}
+                        isOpened={this.state.isPortalOpen}
+                        onSelected={this.onPortalSelection}
+                        onChange={this.onChange}
+                        state={this.state.state}
+                        trigger={"@"}
                     />
                 </div>
             </div>

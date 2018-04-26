@@ -175,29 +175,28 @@ export default class ClinicianDashboard extends Component {
                 </div>
                 <div style={notesPanelStyles}>
                     <NotesPanel
-                        loginUser={this.props.loginUser}
                         contextManager={this.props.contextManager}
+                        currentViewMode={this.props.appState.clinicalEvent}
+                        dataAccess={this.props.dataAccess}
+                        documentText={this.props.appState.documentText}
                         errors={this.props.appState.errors}
+                        handleSummaryItemSelected={this.props.handleSummaryItemSelected}
                         isNoteViewerVisible={isNoteViewerVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
                         itemInserted={this.props.itemInserted}
-                        handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                        loginUser={this.props.loginUser}
                         newCurrentShortcut={this.props.newCurrentShortcut}
-                        patient={this.props.appState.patient}
-                        documentText={this.props.appState.documentText}
+                        noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
-                        shortcutManager={this.props.shortcutManager}
-                        summaryItemToInsert={this.props.appState.summaryItemToInsert}
-                        updateErrors={this.props.updateErrors}
-                        updateLayoutOnNewNoteClicked={this.updateLayoutOnNewNoteClicked}
-                        currentViewMode={this.props.appState.clinicalEvent}
+                        patient={this.props.appState.patient}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                        noteClosed={this.props.appState.noteClosed}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
                         searchSelectedItem={this.props.searchSelectedItem}
+                        shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
-                        dataAccess={this.props.dataAccess}
+                        summaryItemToInsert={this.props.appState.summaryItemToInsert}
+                        updateErrors={this.props.updateErrors}
                     />
                 </div>
             </div>
@@ -223,8 +222,6 @@ ClinicianDashboard.proptypes = {
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
-    updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
-    currentViewMode: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     structuredFieldMapManager: PropTypes.object,
 };
