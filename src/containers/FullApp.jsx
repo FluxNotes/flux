@@ -75,7 +75,6 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
-            summaryMetadata: this.summaryMetadata.getMetadata(),
         };
 
         /*  actions is a list of actions passed to the visualizers
