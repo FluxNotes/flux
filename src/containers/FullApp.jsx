@@ -171,20 +171,6 @@ export class FullApp extends Component {
         s.updatePatient(p, this.contextManager, note);
     }
 
-    // Update the current structured field we're within.
-    handleStructuredFieldEntered = (field) => {
-        this.setState({
-            withinStructuredField: field
-        })
-    }
-
-    // Update the current structured field to be null
-    handleStructuredFieldExited = (field) => {
-        this.setState({
-            withinStructuredField: null
-        })
-    }
-
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote
@@ -259,8 +245,6 @@ export class FullApp extends Component {
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
                             handleShortcutUpdate={this.handleShortcutUpdate}
-                            handleStructuredFieldEntered={this.handleStructuredFieldEntered}
-                            handleStructuredFieldExited={this.handleStructuredFieldExited}
                             handleSummaryItemSelected={this.handleSummaryItemSelected}
                             itemInserted={this.itemInserted}
                             loginUser={this.state.loginUser}

@@ -166,11 +166,11 @@ export default class ClinicianDashboard extends Component {
             <div id="clinician-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
+                        {...this.props}
                         isWide={isTargetedDataPanelWide}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
-                        {...this.props}
                     />
                 </div>
                 <div style={notesPanelStyles}>
@@ -209,8 +209,6 @@ ClinicianDashboard.proptypes = {
     contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     handleShortcutUpdate: PropTypes.func.isRequired,
-    handleStructuredFieldEntered: PropTypes.func.isRequired,
-    handleStructuredFieldExited: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     actions: PropTypes.array.isRequired,
     itemInserted: PropTypes.func.isRequired,
