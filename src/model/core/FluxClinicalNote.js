@@ -2,14 +2,15 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
+import PersonOfRecord from '../shr/base/PersonOfRecord';
 import moment from 'moment';
 import Lang from 'lodash';
 
 class FluxClinicalNote {
     constructor(json) {
         this._entryInfo = new Entry();
-        this._entryInfo.shrId = json['shr.base.ShrId'];
-        this._entryInfo.entryId = json['shr.base.EntryId'];
+        this._entryInfo.shrId = json['ShrId'];
+        this._entryInfo.entryId = json['EntryId'];
         this._entryInfo.entryType = new EntryType();
         this._entryInfo.entryType.value = "http://standardhealthrecord.org/spec/shr/core/ClinicalNote";
         let today = new moment().format("D MMM YYYY");
@@ -17,6 +18,8 @@ class FluxClinicalNote {
         this._entryInfo.creationTime.dateTime = today;
         this._entryInfo.lastUpdated = new LastUpdated();
         this._entryInfo.lastUpdated.instant = today;
+        this._entryInfo.personOfRecord = new PersonOfRecord();
+        this._entryInfo.personOfRecord.value = json['PersonOfRecord'];
         if (json.date) this._date = json.date;
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;
@@ -85,6 +88,23 @@ class FluxClinicalNote {
     
     set signed(val) {
         this._signed = val;
+    }
+
+    toJSON() {
+        let clinicalNoteJSON = {};
+        clinicalNoteJSON.ShrId = this.entryInfo.shrId;
+        clinicalNoteJSON.EntryId = this.entryInfo.entryId;
+        clinicalNoteJSON.EntryType = this.entryInfo.entryType;
+        clinicalNoteJSON.PersonOfRecord = this.entryInfo.personOfRecord;
+        clinicalNoteJSON.date = this.date;
+        clinicalNoteJSON.subject = this.subject;
+        clinicalNoteJSON.hospital = this.hospital;
+        clinicalNoteJSON.clinician = this.clinician;
+        clinicalNoteJSON.content = this.content;
+        clinicalNoteJSON.CreationTime = this.entryInfo.creationTime;
+        clinicalNoteJSON.LastUpdated = this.entryInfo.lastUpdated;
+        clinicalNoteJSON.signed = this.signed;
+        return clinicalNoteJSON;
     }
 }
 

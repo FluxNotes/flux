@@ -55,4 +55,12 @@ export default class Reference {
   set entryType(entryType) {
     this._entryType = entryType;
   }
+
+  toJSON() {
+    return {
+      '_ShrId': this._shrId,
+      '_EntryId': this._entryId,
+      '_EntryType': this._entryType
+    };
+  }
 }

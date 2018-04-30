@@ -15,10 +15,21 @@ class GeneralizedDuration {
 
   /**
    * Set the choice value; one of: shr.core.Duration, shr.core.SemiquantDuration.
+   * This field/value is required.
    * @param {(Duration|SemiquantDuration)} value - The choice value; one of: shr.core.Duration, shr.core.SemiquantDuration
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.Duration, shr.core.SemiquantDuration and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(Duration|SemiquantDuration)} value - The choice value; one of: shr.core.Duration, shr.core.SemiquantDuration
+   * @returns {GeneralizedDuration} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class GeneralizedDuration {
   static fromJSON(json={}) {
     const inst = new GeneralizedDuration();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the GeneralizedDuration class to a JSON object.
+   * The JSON is expected to be valid against the GeneralizedDuration JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GeneralizedDuration' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

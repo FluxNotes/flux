@@ -27,6 +27,10 @@ class FluxHistologicGrade {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
+
+    toJSON() {
+        return this._histologicGrade.toJSON();
+    }
 }
 
 export default FluxHistologicGrade;

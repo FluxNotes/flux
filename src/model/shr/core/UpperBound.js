@@ -15,10 +15,21 @@ class UpperBound {
 
   /**
    * Set the value (aliases quantity).
+   * This field/value is required.
    * @param {Quantity} value - The shr.core.Quantity
    */
   set value(value) {
     this._quantity = value;
+  }
+
+  /**
+   * Set the value (aliases quantity) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} value - The shr.core.Quantity
+   * @returns {UpperBound} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class UpperBound {
 
   /**
    * Set the Quantity.
+   * This field/value is required.
    * @param {Quantity} quantity - The shr.core.Quantity
    */
   set quantity(quantity) {
     this._quantity = quantity;
+  }
+
+  /**
+   * Set the Quantity and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   * @returns {UpperBound} this.
+   */
+  withQuantity(quantity) {
+    this.quantity = quantity; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class UpperBound {
   static fromJSON(json={}) {
     const inst = new UpperBound();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the UpperBound class to a JSON object.
+   * The JSON is expected to be valid against the UpperBound JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/UpperBound' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

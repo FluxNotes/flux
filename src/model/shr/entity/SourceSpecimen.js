@@ -15,10 +15,21 @@ class SourceSpecimen {
 
   /**
    * Set the value (aliases specimen).
+   * This field/value is required.
    * @param {Reference} value - The shr.entity.Specimen reference
    */
   set value(value) {
     this._specimen = value;
+  }
+
+  /**
+   * Set the value (aliases specimen) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.entity.Specimen reference
+   * @returns {SourceSpecimen} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class SourceSpecimen {
 
   /**
    * Set the shr.entity.Specimen reference.
+   * This field/value is required.
    * @param {Reference} specimen - The shr.entity.Specimen reference
    */
   set specimen(specimen) {
     this._specimen = specimen;
+  }
+
+  /**
+   * Set the shr.entity.Specimen reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} specimen - The shr.entity.Specimen reference
+   * @returns {SourceSpecimen} this.
+   */
+  withSpecimen(specimen) {
+    this.specimen = specimen; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class SourceSpecimen {
   static fromJSON(json={}) {
     const inst = new SourceSpecimen();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SourceSpecimen class to a JSON object.
+   * The JSON is expected to be valid against the SourceSpecimen JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SourceSpecimen' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

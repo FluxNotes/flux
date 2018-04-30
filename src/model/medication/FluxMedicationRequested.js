@@ -155,6 +155,10 @@ class FluxMedicationRequested {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
+
+    toJSON() {
+        return this._medicationRequested.toJSON();
+    }
 }
 
 export default FluxMedicationRequested;

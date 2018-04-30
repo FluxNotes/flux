@@ -1,6 +1,4 @@
 import { getNamespaceAndName } from '../../json-helper';
-import ExposureRoute from './ExposureRoute';
-import ExposureMethod from './ExposureMethod';
 import FinancialSituationPanel from './FinancialSituationPanel';
 import AnnualIncome from './AnnualIncome';
 import IncomeSource from './IncomeSource';
@@ -21,7 +19,9 @@ import NumberOfDependents from './NumberOfDependents';
 import ExposureToAgent from './ExposureToAgent';
 import ExposureSourceOrVector from './ExposureSourceOrVector';
 import ExposureAmount from './ExposureAmount';
+import ExposureMethod from './ExposureMethod';
 import ExposureReason from './ExposureReason';
+import ExposureRoute from './ExposureRoute';
 import AnimalExposure from './AnimalExposure';
 import SocialEnvironment from './SocialEnvironment';
 import TransportationAvailability from './TransportationAvailability';
@@ -47,8 +47,6 @@ export default class ShrEnvironmentObjectFactory {
       throw new Error(`Unsupported type in ShrEnvironmentObjectFactory: ${type}`);
     }
     switch (elementName) {
-    case 'ExposureRoute': return ExposureRoute.fromJSON(json);
-    case 'ExposureMethod': return ExposureMethod.fromJSON(json);
     case 'FinancialSituationPanel': return FinancialSituationPanel.fromJSON(json);
     case 'AnnualIncome': return AnnualIncome.fromJSON(json);
     case 'IncomeSource': return IncomeSource.fromJSON(json);
@@ -69,7 +67,9 @@ export default class ShrEnvironmentObjectFactory {
     case 'ExposureToAgent': return ExposureToAgent.fromJSON(json);
     case 'ExposureSourceOrVector': return ExposureSourceOrVector.fromJSON(json);
     case 'ExposureAmount': return ExposureAmount.fromJSON(json);
+    case 'ExposureMethod': return ExposureMethod.fromJSON(json);
     case 'ExposureReason': return ExposureReason.fromJSON(json);
+    case 'ExposureRoute': return ExposureRoute.fromJSON(json);
     case 'AnimalExposure': return AnimalExposure.fromJSON(json);
     case 'SocialEnvironment': return SocialEnvironment.fromJSON(json);
     case 'TransportationAvailability': return TransportationAvailability.fromJSON(json);

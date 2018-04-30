@@ -16,6 +16,10 @@ class FluxToxicReaction extends FluxAdverseEvent {
             this._adverseEvent.entryInfo = entry;
         }
     }
+
+    toJSON() {
+        return this._adverseEvent.toJSON();
+    }
 }
 
 export default FluxToxicReaction;

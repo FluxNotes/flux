@@ -7,6 +7,9 @@ class FluxInjury extends FluxCondition {
         this._condition = Injury.fromJSON(json);
     }
 
+    toJSON() {
+        return this._condition.toJSON();
+    }
 }
 
 export default FluxInjury;

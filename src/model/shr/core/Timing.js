@@ -22,6 +22,15 @@ class Timing {
   }
 
   /**
+   * Set the OccurrenceTime array and return 'this' for chaining.
+   * @param {Array<OccurrenceTime>} occurrenceTime - The shr.core.OccurrenceTime array
+   * @returns {Timing} this.
+   */
+  withOccurrenceTime(occurrenceTime) {
+    this.occurrenceTime = occurrenceTime; return this;
+  }
+
+  /**
    * Get the TimingCode.
    * @returns {TimingCode} The shr.core.TimingCode
    */
@@ -35,6 +44,15 @@ class Timing {
    */
   set timingCode(timingCode) {
     this._timingCode = timingCode;
+  }
+
+  /**
+   * Set the TimingCode and return 'this' for chaining.
+   * @param {TimingCode} timingCode - The shr.core.TimingCode
+   * @returns {Timing} this.
+   */
+  withTimingCode(timingCode) {
+    this.timingCode = timingCode; return this;
   }
 
   /**
@@ -54,6 +72,15 @@ class Timing {
   }
 
   /**
+   * Set the EventDuration and return 'this' for chaining.
+   * @param {EventDuration} eventDuration - The shr.core.EventDuration
+   * @returns {Timing} this.
+   */
+  withEventDuration(eventDuration) {
+    this.eventDuration = eventDuration; return this;
+  }
+
+  /**
    * Get the RecurrencePattern.
    * @returns {RecurrencePattern} The shr.core.RecurrencePattern
    */
@@ -67,6 +94,15 @@ class Timing {
    */
   set recurrencePattern(recurrencePattern) {
     this._recurrencePattern = recurrencePattern;
+  }
+
+  /**
+   * Set the RecurrencePattern and return 'this' for chaining.
+   * @param {RecurrencePattern} recurrencePattern - The shr.core.RecurrencePattern
+   * @returns {Timing} this.
+   */
+  withRecurrencePattern(recurrencePattern) {
+    this.recurrencePattern = recurrencePattern; return this;
   }
 
   /**
@@ -86,6 +122,15 @@ class Timing {
   }
 
   /**
+   * Set the RecurrenceRange and return 'this' for chaining.
+   * @param {RecurrenceRange} recurrenceRange - The shr.core.RecurrenceRange
+   * @returns {Timing} this.
+   */
+  withRecurrenceRange(recurrenceRange) {
+    this.recurrenceRange = recurrenceRange; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Timing class.
    * The JSON must be valid against the Timing JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -94,6 +139,30 @@ class Timing {
   static fromJSON(json={}) {
     const inst = new Timing();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Timing class to a JSON object.
+   * The JSON is expected to be valid against the Timing JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Timing' } };
+    if (this.occurrenceTime != null) {
+      inst['OccurrenceTime'] = this.occurrenceTime.map(f => f.toJSON());
+    }
+    if (this.timingCode != null) {
+      inst['TimingCode'] = typeof this.timingCode.toJSON === 'function' ? this.timingCode.toJSON() : this.timingCode;
+    }
+    if (this.eventDuration != null) {
+      inst['EventDuration'] = typeof this.eventDuration.toJSON === 'function' ? this.eventDuration.toJSON() : this.eventDuration;
+    }
+    if (this.recurrencePattern != null) {
+      inst['RecurrencePattern'] = typeof this.recurrencePattern.toJSON === 'function' ? this.recurrencePattern.toJSON() : this.recurrencePattern;
+    }
+    if (this.recurrenceRange != null) {
+      inst['RecurrenceRange'] = typeof this.recurrenceRange.toJSON === 'function' ? this.recurrenceRange.toJSON() : this.recurrenceRange;
+    }
     return inst;
   }
 }

@@ -18,10 +18,21 @@ class Morphology extends ObservationComponent {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {Morphology} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -34,10 +45,21 @@ class Morphology extends ObservationComponent {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {Morphology} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -49,6 +71,30 @@ class Morphology extends ObservationComponent {
   static fromJSON(json={}) {
     const inst = new Morphology();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Morphology class to a JSON object.
+   * The JSON is expected to be valid against the Morphology JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/Morphology' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.valueAbsentReason != null) {
+      inst['ValueAbsentReason'] = typeof this.valueAbsentReason.toJSON === 'function' ? this.valueAbsentReason.toJSON() : this.valueAbsentReason;
+    }
+    if (this.observationCode != null) {
+      inst['ObservationCode'] = typeof this.observationCode.toJSON === 'function' ? this.observationCode.toJSON() : this.observationCode;
+    }
+    if (this.interpretation != null) {
+      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
+    }
+    if (this.referenceRange != null) {
+      inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
     return inst;
   }
 }

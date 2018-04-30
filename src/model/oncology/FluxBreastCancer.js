@@ -112,6 +112,10 @@ class FluxBreastCancer extends FluxCondition {
         
         return hpiText;
     }
+
+    toJSON() {
+        return this._condition.toJSON();
+    }
 }
 
 export default FluxBreastCancer;

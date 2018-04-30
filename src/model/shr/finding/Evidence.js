@@ -15,10 +15,21 @@ class Evidence {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.base.Content reference.
+   * This field/value is required.
    * @param {(CodeableConcept|Reference)} value - The choice value; one of: shr.core.CodeableConcept, shr.base.Content reference
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.base.Content reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(CodeableConcept|Reference)} value - The choice value; one of: shr.core.CodeableConcept, shr.base.Content reference
+   * @returns {Evidence} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class Evidence {
   static fromJSON(json={}) {
     const inst = new Evidence();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Evidence class to a JSON object.
+   * The JSON is expected to be valid against the Evidence JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/Evidence' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

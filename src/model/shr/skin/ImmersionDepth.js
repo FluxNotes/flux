@@ -15,10 +15,21 @@ class ImmersionDepth {
 
   /**
    * Set the value (aliases quantity).
+   * This field/value is required.
    * @param {Quantity} value - The shr.core.Quantity
    */
   set value(value) {
     this._quantity = value;
+  }
+
+  /**
+   * Set the value (aliases quantity) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} value - The shr.core.Quantity
+   * @returns {ImmersionDepth} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class ImmersionDepth {
 
   /**
    * Set the Quantity.
+   * This field/value is required.
    * @param {Quantity} quantity - The shr.core.Quantity
    */
   set quantity(quantity) {
     this._quantity = quantity;
+  }
+
+  /**
+   * Set the Quantity and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   * @returns {ImmersionDepth} this.
+   */
+  withQuantity(quantity) {
+    this.quantity = quantity; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class ImmersionDepth {
   static fromJSON(json={}) {
     const inst = new ImmersionDepth();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ImmersionDepth class to a JSON object.
+   * The JSON is expected to be valid against the ImmersionDepth JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/skin/ImmersionDepth' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

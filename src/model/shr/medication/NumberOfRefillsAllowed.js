@@ -15,10 +15,21 @@ class NumberOfRefillsAllowed {
 
   /**
    * Set the value (aliases positiveInt).
+   * This field/value is required.
    * @param {positiveInt} value - The positiveInt
    */
   set value(value) {
     this._positiveInt = value;
+  }
+
+  /**
+   * Set the value (aliases positiveInt) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} value - The positiveInt
+   * @returns {NumberOfRefillsAllowed} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class NumberOfRefillsAllowed {
 
   /**
    * Set the positiveInt.
+   * This field/value is required.
    * @param {positiveInt} positiveInt - The positiveInt
    */
   set positiveInt(positiveInt) {
     this._positiveInt = positiveInt;
+  }
+
+  /**
+   * Set the positiveInt and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} positiveInt - The positiveInt
+   * @returns {NumberOfRefillsAllowed} this.
+   */
+  withPositiveInt(positiveInt) {
+    this.positiveInt = positiveInt; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class NumberOfRefillsAllowed {
   static fromJSON(json={}) {
     const inst = new NumberOfRefillsAllowed();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the NumberOfRefillsAllowed class to a JSON object.
+   * The JSON is expected to be valid against the NumberOfRefillsAllowed JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/NumberOfRefillsAllowed' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

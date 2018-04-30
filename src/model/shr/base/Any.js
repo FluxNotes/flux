@@ -16,5 +16,14 @@ class Any {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+  /**
+   * Serializes an instance of the Any class to a JSON object.
+   * The JSON is expected to be valid against the Any JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Any' } };
+    return inst;
+  }
 }
 export default Any;

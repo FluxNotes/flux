@@ -15,10 +15,21 @@ class FamilyName {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {FamilyName} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class FamilyName {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {FamilyName} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class FamilyName {
   static fromJSON(json={}) {
     const inst = new FamilyName();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the FamilyName class to a JSON object.
+   * The JSON is expected to be valid against the FamilyName JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/FamilyName' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

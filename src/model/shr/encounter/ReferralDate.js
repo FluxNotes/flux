@@ -15,10 +15,21 @@ class ReferralDate {
 
   /**
    * Set the value (aliases date).
+   * This field/value is required.
    * @param {date} value - The date
    */
   set value(value) {
     this._date = value;
+  }
+
+  /**
+   * Set the value (aliases date) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {date} value - The date
+   * @returns {ReferralDate} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class ReferralDate {
 
   /**
    * Set the date.
+   * This field/value is required.
    * @param {date} date - The date
    */
   set date(date) {
     this._date = date;
+  }
+
+  /**
+   * Set the date and return 'this' for chaining.
+   * This field/value is required.
+   * @param {date} date - The date
+   * @returns {ReferralDate} this.
+   */
+  withDate(date) {
+    this.date = date; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class ReferralDate {
   static fromJSON(json={}) {
     const inst = new ReferralDate();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ReferralDate class to a JSON object.
+   * The JSON is expected to be valid against the ReferralDate JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/ReferralDate' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

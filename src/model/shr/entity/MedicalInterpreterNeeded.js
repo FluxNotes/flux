@@ -15,10 +15,21 @@ class MedicalInterpreterNeeded {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {MedicalInterpreterNeeded} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class MedicalInterpreterNeeded {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {MedicalInterpreterNeeded} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -47,10 +69,21 @@ class MedicalInterpreterNeeded {
 
   /**
    * Set the Language.
+   * This field/value is required.
    * @param {Language} language - The shr.base.Language
    */
   set language(language) {
     this._language = language;
+  }
+
+  /**
+   * Set the Language and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Language} language - The shr.base.Language
+   * @returns {MedicalInterpreterNeeded} this.
+   */
+  withLanguage(language) {
+    this.language = language; return this;
   }
 
   /**
@@ -62,6 +95,21 @@ class MedicalInterpreterNeeded {
   static fromJSON(json={}) {
     const inst = new MedicalInterpreterNeeded();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicalInterpreterNeeded class to a JSON object.
+   * The JSON is expected to be valid against the MedicalInterpreterNeeded JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MedicalInterpreterNeeded' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
     return inst;
   }
 }

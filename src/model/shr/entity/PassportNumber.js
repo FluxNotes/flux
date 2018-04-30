@@ -15,10 +15,21 @@ class PassportNumber {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {PassportNumber} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class PassportNumber {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {PassportNumber} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -47,10 +69,21 @@ class PassportNumber {
 
   /**
    * Set the CountryOfIssue.
+   * This field/value is required.
    * @param {CountryOfIssue} countryOfIssue - The shr.entity.CountryOfIssue
    */
   set countryOfIssue(countryOfIssue) {
     this._countryOfIssue = countryOfIssue;
+  }
+
+  /**
+   * Set the CountryOfIssue and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CountryOfIssue} countryOfIssue - The shr.entity.CountryOfIssue
+   * @returns {PassportNumber} this.
+   */
+  withCountryOfIssue(countryOfIssue) {
+    this.countryOfIssue = countryOfIssue; return this;
   }
 
   /**
@@ -70,6 +103,15 @@ class PassportNumber {
   }
 
   /**
+   * Set the EffectiveTimePeriod and return 'this' for chaining.
+   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
+   * @returns {PassportNumber} this.
+   */
+  withEffectiveTimePeriod(effectiveTimePeriod) {
+    this.effectiveTimePeriod = effectiveTimePeriod; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the PassportNumber class.
    * The JSON must be valid against the PassportNumber JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -78,6 +120,24 @@ class PassportNumber {
   static fromJSON(json={}) {
     const inst = new PassportNumber();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the PassportNumber class to a JSON object.
+   * The JSON is expected to be valid against the PassportNumber JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/PassportNumber' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.countryOfIssue != null) {
+      inst['CountryOfIssue'] = typeof this.countryOfIssue.toJSON === 'function' ? this.countryOfIssue.toJSON() : this.countryOfIssue;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
     return inst;
   }
 }

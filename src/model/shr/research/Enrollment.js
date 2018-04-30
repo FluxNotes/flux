@@ -15,10 +15,21 @@ class Enrollment {
 
   /**
    * Set the value (aliases group).
+   * This field/value is required.
    * @param {Reference} value - The shr.entity.Group reference
    */
   set value(value) {
     this._group = value;
+  }
+
+  /**
+   * Set the value (aliases group) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.entity.Group reference
+   * @returns {Enrollment} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Enrollment {
 
   /**
    * Set the shr.entity.Group reference.
+   * This field/value is required.
    * @param {Reference} group - The shr.entity.Group reference
    */
   set group(group) {
     this._group = group;
+  }
+
+  /**
+   * Set the shr.entity.Group reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} group - The shr.entity.Group reference
+   * @returns {Enrollment} this.
+   */
+  withGroup(group) {
+    this.group = group; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Enrollment {
   static fromJSON(json={}) {
     const inst = new Enrollment();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Enrollment class to a JSON object.
+   * The JSON is expected to be valid against the Enrollment JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/Enrollment' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

@@ -22,6 +22,15 @@ class Range {
   }
 
   /**
+   * Set the LowerBound and return 'this' for chaining.
+   * @param {LowerBound} lowerBound - The shr.core.LowerBound
+   * @returns {Range} this.
+   */
+  withLowerBound(lowerBound) {
+    this.lowerBound = lowerBound; return this;
+  }
+
+  /**
    * Get the UpperBound.
    * @returns {UpperBound} The shr.core.UpperBound
    */
@@ -38,6 +47,15 @@ class Range {
   }
 
   /**
+   * Set the UpperBound and return 'this' for chaining.
+   * @param {UpperBound} upperBound - The shr.core.UpperBound
+   * @returns {Range} this.
+   */
+  withUpperBound(upperBound) {
+    this.upperBound = upperBound; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Range class.
    * The JSON must be valid against the Range JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -46,6 +64,21 @@ class Range {
   static fromJSON(json={}) {
     const inst = new Range();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Range class to a JSON object.
+   * The JSON is expected to be valid against the Range JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Range' } };
+    if (this.lowerBound != null) {
+      inst['LowerBound'] = typeof this.lowerBound.toJSON === 'function' ? this.lowerBound.toJSON() : this.lowerBound;
+    }
+    if (this.upperBound != null) {
+      inst['UpperBound'] = typeof this.upperBound.toJSON === 'function' ? this.upperBound.toJSON() : this.upperBound;
+    }
     return inst;
   }
 }

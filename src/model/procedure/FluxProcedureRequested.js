@@ -68,6 +68,10 @@ class FluxProcedureRequested {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
+
+    toJSON() {
+        return this._procedureRequested.toJSON();
+    }
 }
 
 export default FluxProcedureRequested;

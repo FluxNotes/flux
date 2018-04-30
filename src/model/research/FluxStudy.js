@@ -130,6 +130,10 @@ class FluxStudy extends FluxEntry {
         timePeriodEnd.value = val;
         this._study.effectiveTimePeriod.timePeriodEnd = timePeriodEnd;
     }
+
+    toJSON() {
+        return this._study.toJSON();
+    }
 }
 
 export default FluxStudy;

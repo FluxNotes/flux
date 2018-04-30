@@ -378,6 +378,10 @@ class FluxCondition {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
+
+    toJSON() {
+        return this._condition.toJSON();
+    }
 }
 
 export default FluxCondition;

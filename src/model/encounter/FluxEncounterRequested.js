@@ -16,6 +16,10 @@ class FluxEncounterRequested {
     get expectedPerformanceTime() {
         return this._encounterRequested.actionContext.expectedPerformanceTime.value;
     }
+
+    toJSON() {
+        return this._encounterRequested.toJSON();
+    }
 }
 
 export default FluxEncounterRequested;

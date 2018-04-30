@@ -15,10 +15,21 @@ class PrincipalInvestigator {
 
   /**
    * Set the value (aliases practitioner).
+   * This field/value is required.
    * @param {Reference} value - The shr.entity.Practitioner reference
    */
   set value(value) {
     this._practitioner = value;
+  }
+
+  /**
+   * Set the value (aliases practitioner) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.entity.Practitioner reference
+   * @returns {PrincipalInvestigator} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class PrincipalInvestigator {
 
   /**
    * Set the shr.entity.Practitioner reference.
+   * This field/value is required.
    * @param {Reference} practitioner - The shr.entity.Practitioner reference
    */
   set practitioner(practitioner) {
     this._practitioner = practitioner;
+  }
+
+  /**
+   * Set the shr.entity.Practitioner reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} practitioner - The shr.entity.Practitioner reference
+   * @returns {PrincipalInvestigator} this.
+   */
+  withPractitioner(practitioner) {
+    this.practitioner = practitioner; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class PrincipalInvestigator {
   static fromJSON(json={}) {
     const inst = new PrincipalInvestigator();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the PrincipalInvestigator class to a JSON object.
+   * The JSON is expected to be valid against the PrincipalInvestigator JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/research/PrincipalInvestigator' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

@@ -15,10 +15,21 @@ class SubstanceCategory {
 
   /**
    * Set the value (aliases code).
+   * This field/value is required.
    * @param {code} value - The code
    */
   set value(value) {
     this._code = value;
+  }
+
+  /**
+   * Set the value (aliases code) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {code} value - The code
+   * @returns {SubstanceCategory} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class SubstanceCategory {
 
   /**
    * Set the code.
+   * This field/value is required.
    * @param {code} code - The code
    */
   set code(code) {
     this._code = code;
+  }
+
+  /**
+   * Set the code and return 'this' for chaining.
+   * This field/value is required.
+   * @param {code} code - The code
+   * @returns {SubstanceCategory} this.
+   */
+  withCode(code) {
+    this.code = code; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class SubstanceCategory {
   static fromJSON(json={}) {
     const inst = new SubstanceCategory();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SubstanceCategory class to a JSON object.
+   * The JSON is expected to be valid against the SubstanceCategory JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/allergy/SubstanceCategory' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

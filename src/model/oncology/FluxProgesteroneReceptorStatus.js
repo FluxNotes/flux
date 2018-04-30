@@ -30,6 +30,10 @@ class FluxProgesteroneReceptorStatus extends FluxObservation {
     set status(statusVal) {
         this._observation.value = lookup.getReceptorCodeableConcept(statusVal);
     }
+
+    toJSON() {
+        return this._observation.toJSON();
+    }
 }
 
 export default FluxProgesteroneReceptorStatus;

@@ -15,10 +15,21 @@ class MinCount {
 
   /**
    * Set the value (aliases integer).
+   * This field/value is required.
    * @param {integer} value - The integer
    */
   set value(value) {
     this._integer = value;
+  }
+
+  /**
+   * Set the value (aliases integer) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {integer} value - The integer
+   * @returns {MinCount} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class MinCount {
 
   /**
    * Set the integer.
+   * This field/value is required.
    * @param {integer} integer - The integer
    */
   set integer(integer) {
     this._integer = integer;
+  }
+
+  /**
+   * Set the integer and return 'this' for chaining.
+   * This field/value is required.
+   * @param {integer} integer - The integer
+   * @returns {MinCount} this.
+   */
+  withInteger(integer) {
+    this.integer = integer; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class MinCount {
   static fromJSON(json={}) {
     const inst = new MinCount();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MinCount class to a JSON object.
+   * The JSON is expected to be valid against the MinCount JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/MinCount' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

@@ -25,6 +25,15 @@ class Attachment extends EmbeddedContent {
   }
 
   /**
+   * Set the BinaryData and return 'this' for chaining.
+   * @param {BinaryData} binaryData - The shr.core.BinaryData
+   * @returns {Attachment} this.
+   */
+  withBinaryData(binaryData) {
+    this.binaryData = binaryData; return this;
+  }
+
+  /**
    * Get the ContentType.
    * @returns {ContentType} The shr.core.ContentType
    */
@@ -38,6 +47,15 @@ class Attachment extends EmbeddedContent {
    */
   set contentType(contentType) {
     this._contentType = contentType;
+  }
+
+  /**
+   * Set the ContentType and return 'this' for chaining.
+   * @param {ContentType} contentType - The shr.core.ContentType
+   * @returns {Attachment} this.
+   */
+  withContentType(contentType) {
+    this.contentType = contentType; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class Attachment extends EmbeddedContent {
   }
 
   /**
+   * Set the Language and return 'this' for chaining.
+   * @param {Language} language - The shr.base.Language
+   * @returns {Attachment} this.
+   */
+  withLanguage(language) {
+    this.language = language; return this;
+  }
+
+  /**
    * Get the ResourceLocation.
    * @returns {ResourceLocation} The shr.core.ResourceLocation
    */
@@ -70,6 +97,15 @@ class Attachment extends EmbeddedContent {
    */
   set resourceLocation(resourceLocation) {
     this._resourceLocation = resourceLocation;
+  }
+
+  /**
+   * Set the ResourceLocation and return 'this' for chaining.
+   * @param {ResourceLocation} resourceLocation - The shr.core.ResourceLocation
+   * @returns {Attachment} this.
+   */
+  withResourceLocation(resourceLocation) {
+    this.resourceLocation = resourceLocation; return this;
   }
 
   /**
@@ -89,6 +125,15 @@ class Attachment extends EmbeddedContent {
   }
 
   /**
+   * Set the ResourceSize and return 'this' for chaining.
+   * @param {ResourceSize} resourceSize - The shr.core.ResourceSize
+   * @returns {Attachment} this.
+   */
+  withResourceSize(resourceSize) {
+    this.resourceSize = resourceSize; return this;
+  }
+
+  /**
    * Get the Hash.
    * @returns {Hash} The shr.core.Hash
    */
@@ -102,6 +147,15 @@ class Attachment extends EmbeddedContent {
    */
   set hash(hash) {
     this._hash = hash;
+  }
+
+  /**
+   * Set the Hash and return 'this' for chaining.
+   * @param {Hash} hash - The shr.core.Hash
+   * @returns {Attachment} this.
+   */
+  withHash(hash) {
+    this.hash = hash; return this;
   }
 
   /**
@@ -121,6 +175,15 @@ class Attachment extends EmbeddedContent {
   }
 
   /**
+   * Set the Title and return 'this' for chaining.
+   * @param {Title} title - The shr.core.Title
+   * @returns {Attachment} this.
+   */
+  withTitle(title) {
+    this.title = title; return this;
+  }
+
+  /**
    * Get the CreationTime.
    * @returns {CreationTime} The shr.core.CreationTime
    */
@@ -137,6 +200,15 @@ class Attachment extends EmbeddedContent {
   }
 
   /**
+   * Set the CreationTime and return 'this' for chaining.
+   * @param {CreationTime} creationTime - The shr.core.CreationTime
+   * @returns {Attachment} this.
+   */
+  withCreationTime(creationTime) {
+    this.creationTime = creationTime; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Attachment class.
    * The JSON must be valid against the Attachment JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -145,6 +217,39 @@ class Attachment extends EmbeddedContent {
   static fromJSON(json={}) {
     const inst = new Attachment();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Attachment class to a JSON object.
+   * The JSON is expected to be valid against the Attachment JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Attachment' } };
+    if (this.binaryData != null) {
+      inst['BinaryData'] = typeof this.binaryData.toJSON === 'function' ? this.binaryData.toJSON() : this.binaryData;
+    }
+    if (this.contentType != null) {
+      inst['ContentType'] = typeof this.contentType.toJSON === 'function' ? this.contentType.toJSON() : this.contentType;
+    }
+    if (this.language != null) {
+      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    }
+    if (this.resourceLocation != null) {
+      inst['ResourceLocation'] = typeof this.resourceLocation.toJSON === 'function' ? this.resourceLocation.toJSON() : this.resourceLocation;
+    }
+    if (this.resourceSize != null) {
+      inst['ResourceSize'] = typeof this.resourceSize.toJSON === 'function' ? this.resourceSize.toJSON() : this.resourceSize;
+    }
+    if (this.hash != null) {
+      inst['Hash'] = typeof this.hash.toJSON === 'function' ? this.hash.toJSON() : this.hash;
+    }
+    if (this.title != null) {
+      inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
+    }
+    if (this.creationTime != null) {
+      inst['CreationTime'] = typeof this.creationTime.toJSON === 'function' ? this.creationTime.toJSON() : this.creationTime;
+    }
     return inst;
   }
 }

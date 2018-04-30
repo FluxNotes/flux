@@ -19,5 +19,17 @@ class RequestedAgainstContext extends ActionContext {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+  /**
+   * Serializes an instance of the RequestedAgainstContext class to a JSON object.
+   * The JSON is expected to be valid against the RequestedAgainstContext JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/RequestedAgainstContext' } };
+    if (this.reason != null) {
+      inst['Reason'] = this.reason.map(f => f.toJSON());
+    }
+    return inst;
+  }
 }
 export default RequestedAgainstContext;

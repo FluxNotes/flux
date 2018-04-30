@@ -15,10 +15,21 @@ class Manufacturer {
 
   /**
    * Set the value (aliases organization).
+   * This field/value is required.
    * @param {Reference} value - The shr.entity.Organization reference
    */
   set value(value) {
     this._organization = value;
+  }
+
+  /**
+   * Set the value (aliases organization) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.entity.Organization reference
+   * @returns {Manufacturer} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Manufacturer {
 
   /**
    * Set the shr.entity.Organization reference.
+   * This field/value is required.
    * @param {Reference} organization - The shr.entity.Organization reference
    */
   set organization(organization) {
     this._organization = organization;
+  }
+
+  /**
+   * Set the shr.entity.Organization reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} organization - The shr.entity.Organization reference
+   * @returns {Manufacturer} this.
+   */
+  withOrganization(organization) {
+    this.organization = organization; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Manufacturer {
   static fromJSON(json={}) {
     const inst = new Manufacturer();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Manufacturer class to a JSON object.
+   * The JSON is expected to be valid against the Manufacturer JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Manufacturer' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

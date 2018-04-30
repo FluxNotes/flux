@@ -169,6 +169,10 @@ class FluxResearchSubject extends FluxEntry {
         }
         this._researchSubject.status.value = lookup.getStatusCodeableConcept(val);
     }
+
+    toJSON() {
+        return this._researchSubject.toJSON();
+    }
 }
 
 export default FluxResearchSubject;

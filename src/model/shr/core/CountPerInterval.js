@@ -22,6 +22,15 @@ class CountPerInterval {
   }
 
   /**
+   * Set the MinCount and return 'this' for chaining.
+   * @param {MinCount} minCount - The shr.core.MinCount
+   * @returns {CountPerInterval} this.
+   */
+  withMinCount(minCount) {
+    this.minCount = minCount; return this;
+  }
+
+  /**
    * Get the MaxCount.
    * @returns {MaxCount} The shr.core.MaxCount
    */
@@ -38,6 +47,15 @@ class CountPerInterval {
   }
 
   /**
+   * Set the MaxCount and return 'this' for chaining.
+   * @param {MaxCount} maxCount - The shr.core.MaxCount
+   * @returns {CountPerInterval} this.
+   */
+  withMaxCount(maxCount) {
+    this.maxCount = maxCount; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the CountPerInterval class.
    * The JSON must be valid against the CountPerInterval JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -46,6 +64,21 @@ class CountPerInterval {
   static fromJSON(json={}) {
     const inst = new CountPerInterval();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the CountPerInterval class to a JSON object.
+   * The JSON is expected to be valid against the CountPerInterval JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/CountPerInterval' } };
+    if (this.minCount != null) {
+      inst['MinCount'] = typeof this.minCount.toJSON === 'function' ? this.minCount.toJSON() : this.minCount;
+    }
+    if (this.maxCount != null) {
+      inst['MaxCount'] = typeof this.maxCount.toJSON === 'function' ? this.maxCount.toJSON() : this.maxCount;
+    }
     return inst;
   }
 }

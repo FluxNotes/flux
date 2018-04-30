@@ -25,6 +25,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {AllergyIntolerance} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the value (aliases codeableConcept).
    * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
@@ -34,10 +43,21 @@ class AllergyIntolerance extends SpecializedFinding {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {AllergyIntolerance} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -50,10 +70,21 @@ class AllergyIntolerance extends SpecializedFinding {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {AllergyIntolerance} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -66,10 +97,21 @@ class AllergyIntolerance extends SpecializedFinding {
 
   /**
    * Set the Subject.
+   * This field/value is required.
    * @param {Subject} subject - The shr.base.Subject
    */
   set subject(subject) {
     this._subject = subject;
+  }
+
+  /**
+   * Set the Subject and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Subject} subject - The shr.base.Subject
+   * @returns {AllergyIntolerance} this.
+   */
+  withSubject(subject) {
+    this.subject = subject; return this;
   }
 
   /**
@@ -89,6 +131,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the ClinicalStatus and return 'this' for chaining.
+   * @param {ClinicalStatus} clinicalStatus - The shr.condition.ClinicalStatus
+   * @returns {AllergyIntolerance} this.
+   */
+  withClinicalStatus(clinicalStatus) {
+    this.clinicalStatus = clinicalStatus; return this;
+  }
+
+  /**
    * Get the SubstanceCategory array.
    * @returns {Array<SubstanceCategory>} The shr.allergy.SubstanceCategory array
    */
@@ -105,6 +156,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the SubstanceCategory array and return 'this' for chaining.
+   * @param {Array<SubstanceCategory>} substanceCategory - The shr.allergy.SubstanceCategory array
+   * @returns {AllergyIntolerance} this.
+   */
+  withSubstanceCategory(substanceCategory) {
+    this.substanceCategory = substanceCategory; return this;
+  }
+
+  /**
    * Get the VerificationStatus.
    * @returns {VerificationStatus} The shr.allergy.VerificationStatus
    */
@@ -114,10 +174,21 @@ class AllergyIntolerance extends SpecializedFinding {
 
   /**
    * Set the VerificationStatus.
+   * This field/value is required.
    * @param {VerificationStatus} verificationStatus - The shr.allergy.VerificationStatus
    */
   set verificationStatus(verificationStatus) {
     this._verificationStatus = verificationStatus;
+  }
+
+  /**
+   * Set the VerificationStatus and return 'this' for chaining.
+   * This field/value is required.
+   * @param {VerificationStatus} verificationStatus - The shr.allergy.VerificationStatus
+   * @returns {AllergyIntolerance} this.
+   */
+  withVerificationStatus(verificationStatus) {
+    this.verificationStatus = verificationStatus; return this;
   }
 
   /**
@@ -137,6 +208,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the Type and return 'this' for chaining.
+   * @param {Type} type - The shr.entity.Type
+   * @returns {AllergyIntolerance} this.
+   */
+  withType(type) {
+    this.type = type; return this;
+  }
+
+  /**
    * Get the Criticality.
    * @returns {Criticality} The shr.condition.Criticality
    */
@@ -150,6 +230,15 @@ class AllergyIntolerance extends SpecializedFinding {
    */
   set criticality(criticality) {
     this._criticality = criticality;
+  }
+
+  /**
+   * Set the Criticality and return 'this' for chaining.
+   * @param {Criticality} criticality - The shr.condition.Criticality
+   * @returns {AllergyIntolerance} this.
+   */
+  withCriticality(criticality) {
+    this.criticality = criticality; return this;
   }
 
   /**
@@ -169,6 +258,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the AdverseReaction array and return 'this' for chaining.
+   * @param {Array<AdverseReaction>} adverseReaction - The shr.allergy.AdverseReaction array
+   * @returns {AllergyIntolerance} this.
+   */
+  withAdverseReaction(adverseReaction) {
+    this.adverseReaction = adverseReaction; return this;
+  }
+
+  /**
    * Get the Onset.
    * @returns {Onset} The shr.condition.Onset
    */
@@ -182,6 +280,15 @@ class AllergyIntolerance extends SpecializedFinding {
    */
   set onset(onset) {
     this._onset = onset;
+  }
+
+  /**
+   * Set the Onset and return 'this' for chaining.
+   * @param {Onset} onset - The shr.condition.Onset
+   * @returns {AllergyIntolerance} this.
+   */
+  withOnset(onset) {
+    this.onset = onset; return this;
   }
 
   /**
@@ -201,6 +308,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the Abatement and return 'this' for chaining.
+   * @param {Abatement} abatement - The shr.condition.Abatement
+   * @returns {AllergyIntolerance} this.
+   */
+  withAbatement(abatement) {
+    this.abatement = abatement; return this;
+  }
+
+  /**
    * Get the MostRecentOccurrenceTime.
    * @returns {MostRecentOccurrenceTime} The shr.allergy.MostRecentOccurrenceTime
    */
@@ -217,6 +333,15 @@ class AllergyIntolerance extends SpecializedFinding {
   }
 
   /**
+   * Set the MostRecentOccurrenceTime and return 'this' for chaining.
+   * @param {MostRecentOccurrenceTime} mostRecentOccurrenceTime - The shr.allergy.MostRecentOccurrenceTime
+   * @returns {AllergyIntolerance} this.
+   */
+  withMostRecentOccurrenceTime(mostRecentOccurrenceTime) {
+    this.mostRecentOccurrenceTime = mostRecentOccurrenceTime; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the AllergyIntolerance class.
    * The JSON must be valid against the AllergyIntolerance JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -225,6 +350,73 @@ class AllergyIntolerance extends SpecializedFinding {
   static fromJSON(json={}) {
     const inst = new AllergyIntolerance();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AllergyIntolerance class to a JSON object.
+   * The JSON is expected to be valid against the AllergyIntolerance JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/allergy/AllergyIntolerance' };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.focalSubject != null) {
+      inst['FocalSubject'] = typeof this.focalSubject.toJSON === 'function' ? this.focalSubject.toJSON() : this.focalSubject;
+    }
+    if (this.focalSubjectReference != null) {
+      inst['FocalSubjectReference'] = typeof this.focalSubjectReference.toJSON === 'function' ? this.focalSubjectReference.toJSON() : this.focalSubjectReference;
+    }
+    if (this.findingMethod != null) {
+      inst['FindingMethod'] = typeof this.findingMethod.toJSON === 'function' ? this.findingMethod.toJSON() : this.findingMethod;
+    }
+    if (this.findingStatus != null) {
+      inst['FindingStatus'] = typeof this.findingStatus.toJSON === 'function' ? this.findingStatus.toJSON() : this.findingStatus;
+    }
+    if (this.evidence != null) {
+      inst['Evidence'] = this.evidence.map(f => f.toJSON());
+    }
+    if (this.clinicalStatus != null) {
+      inst['ClinicalStatus'] = typeof this.clinicalStatus.toJSON === 'function' ? this.clinicalStatus.toJSON() : this.clinicalStatus;
+    }
+    if (this.substanceCategory != null) {
+      inst['SubstanceCategory'] = this.substanceCategory.map(f => f.toJSON());
+    }
+    if (this.verificationStatus != null) {
+      inst['VerificationStatus'] = typeof this.verificationStatus.toJSON === 'function' ? this.verificationStatus.toJSON() : this.verificationStatus;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.criticality != null) {
+      inst['Criticality'] = typeof this.criticality.toJSON === 'function' ? this.criticality.toJSON() : this.criticality;
+    }
+    if (this.adverseReaction != null) {
+      inst['AdverseReaction'] = this.adverseReaction.map(f => f.toJSON());
+    }
+    if (this.onset != null) {
+      inst['Onset'] = typeof this.onset.toJSON === 'function' ? this.onset.toJSON() : this.onset;
+    }
+    if (this.abatement != null) {
+      inst['Abatement'] = typeof this.abatement.toJSON === 'function' ? this.abatement.toJSON() : this.abatement;
+    }
+    if (this.mostRecentOccurrenceTime != null) {
+      inst['MostRecentOccurrenceTime'] = typeof this.mostRecentOccurrenceTime.toJSON === 'function' ? this.mostRecentOccurrenceTime.toJSON() : this.mostRecentOccurrenceTime;
+    }
     return inst;
   }
 }

@@ -15,10 +15,21 @@ class Narrative {
 
   /**
    * Set the value (aliases xhtml).
+   * This field/value is required.
    * @param {xhtml} value - The xhtml
    */
   set value(value) {
     this._xhtml = value;
+  }
+
+  /**
+   * Set the value (aliases xhtml) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {xhtml} value - The xhtml
+   * @returns {Narrative} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Narrative {
 
   /**
    * Set the xhtml.
+   * This field/value is required.
    * @param {xhtml} xhtml - The xhtml
    */
   set xhtml(xhtml) {
     this._xhtml = xhtml;
+  }
+
+  /**
+   * Set the xhtml and return 'this' for chaining.
+   * This field/value is required.
+   * @param {xhtml} xhtml - The xhtml
+   * @returns {Narrative} this.
+   */
+  withXhtml(xhtml) {
+    this.xhtml = xhtml; return this;
   }
 
   /**
@@ -47,10 +69,21 @@ class Narrative {
 
   /**
    * Set the NarrativeQualifier.
+   * This field/value is required.
    * @param {NarrativeQualifier} narrativeQualifier - The shr.base.NarrativeQualifier
    */
   set narrativeQualifier(narrativeQualifier) {
     this._narrativeQualifier = narrativeQualifier;
+  }
+
+  /**
+   * Set the NarrativeQualifier and return 'this' for chaining.
+   * This field/value is required.
+   * @param {NarrativeQualifier} narrativeQualifier - The shr.base.NarrativeQualifier
+   * @returns {Narrative} this.
+   */
+  withNarrativeQualifier(narrativeQualifier) {
+    this.narrativeQualifier = narrativeQualifier; return this;
   }
 
   /**
@@ -62,6 +95,21 @@ class Narrative {
   static fromJSON(json={}) {
     const inst = new Narrative();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Narrative class to a JSON object.
+   * The JSON is expected to be valid against the Narrative JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Narrative' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.narrativeQualifier != null) {
+      inst['NarrativeQualifier'] = typeof this.narrativeQualifier.toJSON === 'function' ? this.narrativeQualifier.toJSON() : this.narrativeQualifier;
+    }
     return inst;
   }
 }

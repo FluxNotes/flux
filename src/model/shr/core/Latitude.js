@@ -15,10 +15,21 @@ class Latitude {
 
   /**
    * Set the value (aliases decimal).
+   * This field/value is required.
    * @param {decimal} value - The decimal
    */
   set value(value) {
     this._decimal = value;
+  }
+
+  /**
+   * Set the value (aliases decimal) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {decimal} value - The decimal
+   * @returns {Latitude} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Latitude {
 
   /**
    * Set the decimal.
+   * This field/value is required.
    * @param {decimal} decimal - The decimal
    */
   set decimal(decimal) {
     this._decimal = decimal;
+  }
+
+  /**
+   * Set the decimal and return 'this' for chaining.
+   * This field/value is required.
+   * @param {decimal} decimal - The decimal
+   * @returns {Latitude} this.
+   */
+  withDecimal(decimal) {
+    this.decimal = decimal; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Latitude {
   static fromJSON(json={}) {
     const inst = new Latitude();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Latitude class to a JSON object.
+   * The JSON is expected to be valid against the Latitude JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Latitude' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

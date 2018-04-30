@@ -25,6 +25,15 @@ class SurgicalProcedureNotPerformed extends SurgicalProcedure {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {SurgicalProcedureNotPerformed} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the NotPerformedContext.
    * @returns {NotPerformedContext} The shr.action.NotPerformedContext
    */
@@ -34,10 +43,21 @@ class SurgicalProcedureNotPerformed extends SurgicalProcedure {
 
   /**
    * Set the NotPerformedContext.
+   * This field/value is required.
    * @param {NotPerformedContext} actionContext - The shr.action.NotPerformedContext
    */
   set actionContext(actionContext) {
     this._actionContext = actionContext;
+  }
+
+  /**
+   * Set the NotPerformedContext and return 'this' for chaining.
+   * This field/value is required.
+   * @param {NotPerformedContext} actionContext - The shr.action.NotPerformedContext
+   * @returns {SurgicalProcedureNotPerformed} this.
+   */
+  withActionContext(actionContext) {
+    this.actionContext = actionContext; return this;
   }
 
   /**
@@ -49,6 +69,85 @@ class SurgicalProcedureNotPerformed extends SurgicalProcedure {
   static fromJSON(json={}) {
     const inst = new SurgicalProcedureNotPerformed();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SurgicalProcedureNotPerformed class to a JSON object.
+   * The JSON is expected to be valid against the SurgicalProcedureNotPerformed JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedureNotPerformed' };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.category != null) {
+      inst['Category'] = this.category.map(f => f.toJSON());
+    }
+    if (this.actionContext != null) {
+      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.bodySite != null) {
+      inst['BodySite'] = this.bodySite.map(f => f.toJSON());
+    }
+    if (this.associatedStudy != null) {
+      inst['AssociatedStudy'] = typeof this.associatedStudy.toJSON === 'function' ? this.associatedStudy.toJSON() : this.associatedStudy;
+    }
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
+    }
+    if (this.annotation != null) {
+      inst['Annotation'] = this.annotation.map(f => f.toJSON());
+    }
+    if (this.directSite != null) {
+      inst['DirectSite'] = this.directSite.map(f => f.toJSON());
+    }
+    if (this.directSiteCode != null) {
+      inst['DirectSiteCode'] = this.directSiteCode.map(f => f.toJSON());
+    }
+    if (this.indirectSite != null) {
+      inst['IndirectSite'] = this.indirectSite.map(f => f.toJSON());
+    }
+    if (this.indirectSiteCode != null) {
+      inst['IndirectSiteCode'] = this.indirectSiteCode.map(f => f.toJSON());
+    }
+    if (this.surgicalApproach != null) {
+      inst['SurgicalApproach'] = this.surgicalApproach.map(f => f.toJSON());
+    }
+    if (this.access != null) {
+      inst['Access'] = this.access.map(f => f.toJSON());
+    }
+    if (this.usingDevice != null) {
+      inst['UsingDevice'] = this.usingDevice.map(f => f.toJSON());
+    }
+    if (this.usingDeviceCode != null) {
+      inst['UsingDeviceCode'] = this.usingDeviceCode.map(f => f.toJSON());
+    }
+    if (this.usingAccessDevice != null) {
+      inst['UsingAccessDevice'] = this.usingAccessDevice.map(f => f.toJSON());
+    }
+    if (this.usingAccessDeviceCode != null) {
+      inst['UsingAccessDeviceCode'] = this.usingAccessDeviceCode.map(f => f.toJSON());
+    }
+    if (this.indirectDevice != null) {
+      inst['IndirectDevice'] = this.indirectDevice.map(f => f.toJSON());
+    }
+    if (this.indirectDeviceCode != null) {
+      inst['IndirectDeviceCode'] = this.indirectDeviceCode.map(f => f.toJSON());
+    }
     return inst;
   }
 }

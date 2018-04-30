@@ -15,10 +15,21 @@ class ApplicableAgeRange {
 
   /**
    * Set the value (aliases range).
+   * This field/value is required.
    * @param {Range} value - The shr.core.Range
    */
   set value(value) {
     this._range = value;
+  }
+
+  /**
+   * Set the value (aliases range) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Range} value - The shr.core.Range
+   * @returns {ApplicableAgeRange} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class ApplicableAgeRange {
 
   /**
    * Set the Range.
+   * This field/value is required.
    * @param {Range} range - The shr.core.Range
    */
   set range(range) {
     this._range = range;
+  }
+
+  /**
+   * Set the Range and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Range} range - The shr.core.Range
+   * @returns {ApplicableAgeRange} this.
+   */
+  withRange(range) {
+    this.range = range; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class ApplicableAgeRange {
   static fromJSON(json={}) {
     const inst = new ApplicableAgeRange();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ApplicableAgeRange class to a JSON object.
+   * The JSON is expected to be valid against the ApplicableAgeRange JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/ApplicableAgeRange' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

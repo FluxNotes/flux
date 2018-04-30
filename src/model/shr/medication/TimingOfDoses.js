@@ -15,10 +15,21 @@ class TimingOfDoses {
 
   /**
    * Set the value (aliases timing).
+   * This field/value is required.
    * @param {Timing} value - The shr.core.Timing
    */
   set value(value) {
     this._timing = value;
+  }
+
+  /**
+   * Set the value (aliases timing) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Timing} value - The shr.core.Timing
+   * @returns {TimingOfDoses} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class TimingOfDoses {
 
   /**
    * Set the Timing.
+   * This field/value is required.
    * @param {Timing} timing - The shr.core.Timing
    */
   set timing(timing) {
     this._timing = timing;
+  }
+
+  /**
+   * Set the Timing and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Timing} timing - The shr.core.Timing
+   * @returns {TimingOfDoses} this.
+   */
+  withTiming(timing) {
+    this.timing = timing; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class TimingOfDoses {
   static fromJSON(json={}) {
     const inst = new TimingOfDoses();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the TimingOfDoses class to a JSON object.
+   * The JSON is expected to be valid against the TimingOfDoses JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

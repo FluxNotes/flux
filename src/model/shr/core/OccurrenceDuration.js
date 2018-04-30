@@ -15,10 +15,21 @@ class OccurrenceDuration {
 
   /**
    * Set the value (aliases duration).
+   * This field/value is required.
    * @param {Duration} value - The shr.core.Duration
    */
   set value(value) {
     this._duration = value;
+  }
+
+  /**
+   * Set the value (aliases duration) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Duration} value - The shr.core.Duration
+   * @returns {OccurrenceDuration} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class OccurrenceDuration {
 
   /**
    * Set the Duration.
+   * This field/value is required.
    * @param {Duration} duration - The shr.core.Duration
    */
   set duration(duration) {
     this._duration = duration;
+  }
+
+  /**
+   * Set the Duration and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Duration} duration - The shr.core.Duration
+   * @returns {OccurrenceDuration} this.
+   */
+  withDuration(duration) {
+    this.duration = duration; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class OccurrenceDuration {
   static fromJSON(json={}) {
     const inst = new OccurrenceDuration();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the OccurrenceDuration class to a JSON object.
+   * The JSON is expected to be valid against the OccurrenceDuration JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/OccurrenceDuration' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

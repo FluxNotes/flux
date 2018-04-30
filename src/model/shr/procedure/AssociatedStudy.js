@@ -15,10 +15,21 @@ class AssociatedStudy {
 
   /**
    * Set the value (aliases study).
+   * This field/value is required.
    * @param {Reference} value - The shr.research.Study reference
    */
   set value(value) {
     this._study = value;
+  }
+
+  /**
+   * Set the value (aliases study) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.research.Study reference
+   * @returns {AssociatedStudy} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class AssociatedStudy {
 
   /**
    * Set the shr.research.Study reference.
+   * This field/value is required.
    * @param {Reference} study - The shr.research.Study reference
    */
   set study(study) {
     this._study = study;
+  }
+
+  /**
+   * Set the shr.research.Study reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} study - The shr.research.Study reference
+   * @returns {AssociatedStudy} this.
+   */
+  withStudy(study) {
+    this.study = study; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class AssociatedStudy {
   static fromJSON(json={}) {
     const inst = new AssociatedStudy();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AssociatedStudy class to a JSON object.
+   * The JSON is expected to be valid against the AssociatedStudy JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/AssociatedStudy' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

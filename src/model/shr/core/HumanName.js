@@ -15,10 +15,21 @@ class HumanName {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {HumanName} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class HumanName {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {HumanName} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -54,6 +76,15 @@ class HumanName {
   }
 
   /**
+   * Set the HumanNamePrefix and return 'this' for chaining.
+   * @param {HumanNamePrefix} humanNamePrefix - The shr.core.HumanNamePrefix
+   * @returns {HumanName} this.
+   */
+  withHumanNamePrefix(humanNamePrefix) {
+    this.humanNamePrefix = humanNamePrefix; return this;
+  }
+
+  /**
    * Get the GivenName array.
    * @returns {Array<GivenName>} The shr.core.GivenName array
    */
@@ -67,6 +98,15 @@ class HumanName {
    */
   set givenName(givenName) {
     this._givenName = givenName;
+  }
+
+  /**
+   * Set the GivenName array and return 'this' for chaining.
+   * @param {Array<GivenName>} givenName - The shr.core.GivenName array
+   * @returns {HumanName} this.
+   */
+  withGivenName(givenName) {
+    this.givenName = givenName; return this;
   }
 
   /**
@@ -86,6 +126,15 @@ class HumanName {
   }
 
   /**
+   * Set the FamilyName and return 'this' for chaining.
+   * @param {FamilyName} familyName - The shr.core.FamilyName
+   * @returns {HumanName} this.
+   */
+  withFamilyName(familyName) {
+    this.familyName = familyName; return this;
+  }
+
+  /**
    * Get the HumanNameSuffix array.
    * @returns {Array<HumanNameSuffix>} The shr.core.HumanNameSuffix array
    */
@@ -99,6 +148,15 @@ class HumanName {
    */
   set humanNameSuffix(humanNameSuffix) {
     this._humanNameSuffix = humanNameSuffix;
+  }
+
+  /**
+   * Set the HumanNameSuffix array and return 'this' for chaining.
+   * @param {Array<HumanNameSuffix>} humanNameSuffix - The shr.core.HumanNameSuffix array
+   * @returns {HumanName} this.
+   */
+  withHumanNameSuffix(humanNameSuffix) {
+    this.humanNameSuffix = humanNameSuffix; return this;
   }
 
   /**
@@ -118,6 +176,15 @@ class HumanName {
   }
 
   /**
+   * Set the Purpose and return 'this' for chaining.
+   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @returns {HumanName} this.
+   */
+  withPurpose(purpose) {
+    this.purpose = purpose; return this;
+  }
+
+  /**
    * Get the EffectiveTimePeriod.
    * @returns {EffectiveTimePeriod} The shr.core.EffectiveTimePeriod
    */
@@ -134,6 +201,15 @@ class HumanName {
   }
 
   /**
+   * Set the EffectiveTimePeriod and return 'this' for chaining.
+   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
+   * @returns {HumanName} this.
+   */
+  withEffectiveTimePeriod(effectiveTimePeriod) {
+    this.effectiveTimePeriod = effectiveTimePeriod; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the HumanName class.
    * The JSON must be valid against the HumanName JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -142,6 +218,36 @@ class HumanName {
   static fromJSON(json={}) {
     const inst = new HumanName();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the HumanName class to a JSON object.
+   * The JSON is expected to be valid against the HumanName JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/HumanName' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.humanNamePrefix != null) {
+      inst['HumanNamePrefix'] = typeof this.humanNamePrefix.toJSON === 'function' ? this.humanNamePrefix.toJSON() : this.humanNamePrefix;
+    }
+    if (this.givenName != null) {
+      inst['GivenName'] = this.givenName.map(f => f.toJSON());
+    }
+    if (this.familyName != null) {
+      inst['FamilyName'] = typeof this.familyName.toJSON === 'function' ? this.familyName.toJSON() : this.familyName;
+    }
+    if (this.humanNameSuffix != null) {
+      inst['HumanNameSuffix'] = this.humanNameSuffix.map(f => f.toJSON());
+    }
+    if (this.purpose != null) {
+      inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
     return inst;
   }
 }

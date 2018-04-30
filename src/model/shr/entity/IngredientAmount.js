@@ -15,10 +15,21 @@ class IngredientAmount {
 
   /**
    * Set the value (aliases ratio).
+   * This field/value is required.
    * @param {Ratio} value - The shr.core.Ratio
    */
   set value(value) {
     this._ratio = value;
+  }
+
+  /**
+   * Set the value (aliases ratio) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Ratio} value - The shr.core.Ratio
+   * @returns {IngredientAmount} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class IngredientAmount {
 
   /**
    * Set the Ratio.
+   * This field/value is required.
    * @param {Ratio} ratio - The shr.core.Ratio
    */
   set ratio(ratio) {
     this._ratio = ratio;
+  }
+
+  /**
+   * Set the Ratio and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Ratio} ratio - The shr.core.Ratio
+   * @returns {IngredientAmount} this.
+   */
+  withRatio(ratio) {
+    this.ratio = ratio; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class IngredientAmount {
   static fromJSON(json={}) {
     const inst = new IngredientAmount();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the IngredientAmount class to a JSON object.
+   * The JSON is expected to be valid against the IngredientAmount JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/IngredientAmount' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

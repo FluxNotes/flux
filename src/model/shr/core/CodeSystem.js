@@ -15,10 +15,21 @@ class CodeSystem {
 
   /**
    * Set the value (aliases uri).
+   * This field/value is required.
    * @param {uri} value - The uri
    */
   set value(value) {
     this._uri = value;
+  }
+
+  /**
+   * Set the value (aliases uri) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {uri} value - The uri
+   * @returns {CodeSystem} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class CodeSystem {
 
   /**
    * Set the uri.
+   * This field/value is required.
    * @param {uri} uri - The uri
    */
   set uri(uri) {
     this._uri = uri;
+  }
+
+  /**
+   * Set the uri and return 'this' for chaining.
+   * This field/value is required.
+   * @param {uri} uri - The uri
+   * @returns {CodeSystem} this.
+   */
+  withUri(uri) {
+    this.uri = uri; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class CodeSystem {
   static fromJSON(json={}) {
     const inst = new CodeSystem();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the CodeSystem class to a JSON object.
+   * The JSON is expected to be valid against the CodeSystem JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/CodeSystem' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

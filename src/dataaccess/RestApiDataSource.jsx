@@ -29,7 +29,10 @@ class RestApiDataSource extends IDataSource {
     }
     
     savePatient(patient) {
-        console.error("saving of patients is not implemented in restapidataSource.");
+        // console.error("saving of patients is not implemented in restapidataSource.");
+        console.log("Working on saving patients");
+        // toJson here. Send back all the JSONs. API just stores those.
+        this.api.savePatient(patient);
     }
 }
 

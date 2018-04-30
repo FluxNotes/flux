@@ -22,6 +22,15 @@ class AdverseReaction {
   }
 
   /**
+   * Set the AllergenIrritant and return 'this' for chaining.
+   * @param {AllergenIrritant} allergenIrritant - The shr.allergy.AllergenIrritant
+   * @returns {AdverseReaction} this.
+   */
+  withAllergenIrritant(allergenIrritant) {
+    this.allergenIrritant = allergenIrritant; return this;
+  }
+
+  /**
    * Get the Manifestation.
    * @returns {Manifestation} The shr.allergy.Manifestation
    */
@@ -35,6 +44,15 @@ class AdverseReaction {
    */
   set manifestation(manifestation) {
     this._manifestation = manifestation;
+  }
+
+  /**
+   * Set the Manifestation and return 'this' for chaining.
+   * @param {Manifestation} manifestation - The shr.allergy.Manifestation
+   * @returns {AdverseReaction} this.
+   */
+  withManifestation(manifestation) {
+    this.manifestation = manifestation; return this;
   }
 
   /**
@@ -54,6 +72,15 @@ class AdverseReaction {
   }
 
   /**
+   * Set the Details and return 'this' for chaining.
+   * @param {Details} details - The shr.core.Details
+   * @returns {AdverseReaction} this.
+   */
+  withDetails(details) {
+    this.details = details; return this;
+  }
+
+  /**
    * Get the OccurrenceTime.
    * @returns {OccurrenceTime} The shr.core.OccurrenceTime
    */
@@ -67,6 +94,15 @@ class AdverseReaction {
    */
   set occurrenceTime(occurrenceTime) {
     this._occurrenceTime = occurrenceTime;
+  }
+
+  /**
+   * Set the OccurrenceTime and return 'this' for chaining.
+   * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
+   * @returns {AdverseReaction} this.
+   */
+  withOccurrenceTime(occurrenceTime) {
+    this.occurrenceTime = occurrenceTime; return this;
   }
 
   /**
@@ -86,6 +122,15 @@ class AdverseReaction {
   }
 
   /**
+   * Set the Severity and return 'this' for chaining.
+   * @param {Severity} severity - The shr.condition.Severity
+   * @returns {AdverseReaction} this.
+   */
+  withSeverity(severity) {
+    this.severity = severity; return this;
+  }
+
+  /**
    * Get the RouteIntoBody.
    * @returns {RouteIntoBody} The shr.medication.RouteIntoBody
    */
@@ -102,6 +147,15 @@ class AdverseReaction {
   }
 
   /**
+   * Set the RouteIntoBody and return 'this' for chaining.
+   * @param {RouteIntoBody} routeIntoBody - The shr.medication.RouteIntoBody
+   * @returns {AdverseReaction} this.
+   */
+  withRouteIntoBody(routeIntoBody) {
+    this.routeIntoBody = routeIntoBody; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the AdverseReaction class.
    * The JSON must be valid against the AdverseReaction JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -110,6 +164,33 @@ class AdverseReaction {
   static fromJSON(json={}) {
     const inst = new AdverseReaction();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AdverseReaction class to a JSON object.
+   * The JSON is expected to be valid against the AdverseReaction JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/allergy/AdverseReaction' } };
+    if (this.allergenIrritant != null) {
+      inst['AllergenIrritant'] = typeof this.allergenIrritant.toJSON === 'function' ? this.allergenIrritant.toJSON() : this.allergenIrritant;
+    }
+    if (this.manifestation != null) {
+      inst['Manifestation'] = typeof this.manifestation.toJSON === 'function' ? this.manifestation.toJSON() : this.manifestation;
+    }
+    if (this.details != null) {
+      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    }
+    if (this.occurrenceTime != null) {
+      inst['OccurrenceTime'] = typeof this.occurrenceTime.toJSON === 'function' ? this.occurrenceTime.toJSON() : this.occurrenceTime;
+    }
+    if (this.severity != null) {
+      inst['Severity'] = typeof this.severity.toJSON === 'function' ? this.severity.toJSON() : this.severity;
+    }
+    if (this.routeIntoBody != null) {
+      inst['RouteIntoBody'] = typeof this.routeIntoBody.toJSON === 'function' ? this.routeIntoBody.toJSON() : this.routeIntoBody;
+    }
     return inst;
   }
 }

@@ -30,6 +30,10 @@ class FluxDeceased {
         this._deceased.dateOfDeath = dateOfDeath;
         this._deceased.value = (!Lang.isNull(date));
     }
+
+    toJSON() {
+        return this._adverseEvent.toJSON();
+    }
 }
 
 export default FluxDeceased;

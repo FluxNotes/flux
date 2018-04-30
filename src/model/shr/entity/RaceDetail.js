@@ -15,10 +15,21 @@ class RaceDetail {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.core.CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} value - The choice value; one of: shr.core.CodeableConcept, shr.core.CodeableConcept
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.core.CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The choice value; one of: shr.core.CodeableConcept, shr.core.CodeableConcept
+   * @returns {RaceDetail} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class RaceDetail {
   static fromJSON(json={}) {
     const inst = new RaceDetail();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RaceDetail class to a JSON object.
+   * The JSON is expected to be valid against the RaceDetail JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RaceDetail' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

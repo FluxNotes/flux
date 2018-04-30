@@ -15,10 +15,21 @@ class GestationalTemporalContext {
 
   /**
    * Set the choice value; one of: shr.core.GestationalAge, shr.core.GestationalTimePeriod.
+   * This field/value is required.
    * @param {(GestationalAge|GestationalTimePeriod)} value - The choice value; one of: shr.core.GestationalAge, shr.core.GestationalTimePeriod
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.GestationalAge, shr.core.GestationalTimePeriod and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(GestationalAge|GestationalTimePeriod)} value - The choice value; one of: shr.core.GestationalAge, shr.core.GestationalTimePeriod
+   * @returns {GestationalTemporalContext} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class GestationalTemporalContext {
   static fromJSON(json={}) {
     const inst = new GestationalTemporalContext();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the GestationalTemporalContext class to a JSON object.
+   * The JSON is expected to be valid against the GestationalTemporalContext JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GestationalTemporalContext' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

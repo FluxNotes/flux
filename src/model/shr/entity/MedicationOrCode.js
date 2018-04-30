@@ -15,10 +15,21 @@ class MedicationOrCode {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Medication.
+   * This field/value is required.
    * @param {(CodeableConcept|Medication)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Medication
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Medication and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(CodeableConcept|Medication)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Medication
+   * @returns {MedicationOrCode} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class MedicationOrCode {
   static fromJSON(json={}) {
     const inst = new MedicationOrCode();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the MedicationOrCode class to a JSON object.
+   * The JSON is expected to be valid against the MedicationOrCode JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/MedicationOrCode' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

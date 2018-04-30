@@ -15,10 +15,21 @@ class ActionTaken {
 
   /**
    * Set the Details.
+   * This field/value is required.
    * @param {Details} details - The shr.core.Details
    */
   set details(details) {
     this._details = details;
+  }
+
+  /**
+   * Set the Details and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Details} details - The shr.core.Details
+   * @returns {ActionTaken} this.
+   */
+  withDetails(details) {
+    this.details = details; return this;
   }
 
   /**
@@ -38,6 +49,15 @@ class ActionTaken {
   }
 
   /**
+   * Set the shr.medication.MedicationChange reference and return 'this' for chaining.
+   * @param {Reference} medicationChange - The shr.medication.MedicationChange reference
+   * @returns {ActionTaken} this.
+   */
+  withMedicationChange(medicationChange) {
+    this.medicationChange = medicationChange; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the ActionTaken class.
    * The JSON must be valid against the ActionTaken JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -46,6 +66,21 @@ class ActionTaken {
   static fromJSON(json={}) {
     const inst = new ActionTaken();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ActionTaken class to a JSON object.
+   * The JSON is expected to be valid against the ActionTaken JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/adverse/ActionTaken' } };
+    if (this.details != null) {
+      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    }
+    if (this.medicationChange != null) {
+      inst['MedicationChange'] = typeof this.medicationChange.toJSON === 'function' ? this.medicationChange.toJSON() : this.medicationChange;
+    }
     return inst;
   }
 }

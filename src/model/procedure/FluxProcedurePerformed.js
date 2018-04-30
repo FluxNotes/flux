@@ -37,6 +37,10 @@ class FluxProcedurePerformed {
     get name() {
         return this._procedurePerformed.type.value.coding[0].displayText.value;
     }
+
+    toJSON() {
+        return this._procedurePerformed.toJSON();
+    }
 }
 
 export default FluxProcedurePerformed;

@@ -25,6 +25,15 @@ class Content extends Any {
   }
 
   /**
+   * Set the RelatedEncounter and return 'this' for chaining.
+   * @param {RelatedEncounter} relatedEncounter - The shr.base.RelatedEncounter
+   * @returns {Content} this.
+   */
+  withRelatedEncounter(relatedEncounter) {
+    this.relatedEncounter = relatedEncounter; return this;
+  }
+
+  /**
    * Get the Author.
    * @returns {Author} The shr.base.Author
    */
@@ -38,6 +47,15 @@ class Content extends Any {
    */
   set author(author) {
     this._author = author;
+  }
+
+  /**
+   * Set the Author and return 'this' for chaining.
+   * @param {Author} author - The shr.base.Author
+   * @returns {Content} this.
+   */
+  withAuthor(author) {
+    this.author = author; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class Content extends Any {
   }
 
   /**
+   * Set the Informant and return 'this' for chaining.
+   * @param {Informant} informant - The shr.base.Informant
+   * @returns {Content} this.
+   */
+  withInformant(informant) {
+    this.informant = informant; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Content class.
    * The JSON must be valid against the Content JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -65,6 +92,24 @@ class Content extends Any {
   static fromJSON(json={}) {
     const inst = new Content();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Content class to a JSON object.
+   * The JSON is expected to be valid against the Content JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/base/Content' } };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
     return inst;
   }
 }

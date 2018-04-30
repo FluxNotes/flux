@@ -69,6 +69,10 @@ class FluxAdverseEvent {
         c.value = lookup.getAttributionCodeableConcept(causeCategory);
         this._adverseEvent.causeCategory = c; 
     }
+
+    toJSON() {
+        return this._adverseEvent.toJSON();
+    }
 }
 
 export default FluxAdverseEvent;
