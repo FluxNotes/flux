@@ -17,3 +17,6 @@ yarn-error.log*
 
 # sass outputs
 # *.css // Add once project has completely converted to SASS
+
+#Visual Paradigm Project Files 
+*.vpp.bak*
