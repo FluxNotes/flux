@@ -521,13 +521,13 @@ export default class NoteAssistant extends Component {
 }
 
 NoteAssistant.propTypes = {
-    patient: PropTypes.object,
-    contextManager: PropTypes.object,
-    shortcutManager: PropTypes.object,
-    isNoteViewerEditable: PropTypes.bool,
-    saveNote: PropTypes.func,
     closeNote: PropTypes.func,
+    contextManager: PropTypes.object,
     handleSummaryItemSelected: PropTypes.func,
-    updateCurrentlyEditingEntryId: PropTypes.func,
+    isNoteViewerEditable: PropTypes.bool,
+    patient: PropTypes.object,
+    saveNote: PropTypes.func,
     searchSelectedItem: PropTypes.object,
+    shortcutManager: PropTypes.object,
+    updateCurrentlyEditingEntryId: PropTypes.func,
 };

@@ -278,8 +278,8 @@ export class FullApp extends Component {
 
 FullApp.proptypes = {
     dataSource: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
     shortcuts: PropTypes.array.isRequired,
-    display: PropTypes.string.isRequired
 };
 
 // these props are used for dispatching actions

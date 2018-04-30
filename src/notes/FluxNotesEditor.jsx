@@ -106,13 +106,13 @@ class FluxNotesEditor extends React.Component {
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
-            onEnter: this.choseSuggestedShortcut.bind(this)
+            onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
-            onEnter: this.choseSuggestedShortcut.bind(this)
+            onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
@@ -443,9 +443,9 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        // Check if the updatedEditorNote property has been updated
-        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
+       // Check if the updatedEditorNote property has been updated
+        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -1041,18 +1041,18 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.proptypes = {
-    newCurrentShortcut: PropTypes.func.isRequired,
-    itemInserted: PropTypes.object,
-    summaryItemToInsert: PropTypes.string,
-    patient: PropTypes.object.isRequired,
-    shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    updateErrors: PropTypes.func.isRequired,
     errors: PropTypes.array.isRequired,
+    isNoteViewerEditable: PropTypes.bool.isRequired,
+    itemInserted: PropTypes.object,
+    newCurrentShortcut: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired,
     resetEditorState: PropTypes.func.isRequired,
     resetEditorAndContext: PropTypes.func.isRequired,
-    isNoteViewerEditable: PropTypes.bool.isRequired,
+    summaryItemToInsert: PropTypes.string,
+    shortcutManager: PropTypes.object.isRequired,
     setFullAppState: PropTypes.func.isRequired,
+    updateErrors: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;

@@ -245,9 +245,9 @@ export default class ContextTray extends Component {
 }
 
 ContextTray.proptypes = {
-    ref: PropTypes.func.isRequired,
-    patient: PropTypes.object.isRequired,
-    shortcutManager: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
-    onShortcutClicked: PropTypes.func.isRequired
+    onShortcutClicked: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired,
+    ref: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
 }

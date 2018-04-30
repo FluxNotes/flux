@@ -205,16 +205,15 @@ export default class ClinicianDashboard extends Component {
 }
 
 ClinicianDashboard.proptypes = {
+    actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     handleShortcutUpdate: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
-    actions: PropTypes.array.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    updateErrors: PropTypes.func.isRequired,
-    onContextUpdate: PropTypes.func.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
+    onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
@@ -222,4 +221,5 @@ ClinicianDashboard.proptypes = {
     summaryMetadata: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     structuredFieldMapManager: PropTypes.object,
+    updateErrors: PropTypes.func.isRequired,
 };

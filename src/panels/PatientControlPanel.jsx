@@ -75,12 +75,12 @@ class PatientControlPanel extends Component {
 
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
-    supportLogin: PropTypes.bool.isRequired,
-    patient: PropTypes.object.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
+    layout: PropTypes.string,
+    patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
-    layout: PropTypes.string
+    supportLogin: PropTypes.bool.isRequired,
 };
 
 export default PatientControlPanel;

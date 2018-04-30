@@ -21,12 +21,6 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1
         };
 
-        this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
-        this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
-        this.updateSelectedNote = this.updateSelectedNote.bind(this);
-        this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
-        this.closeNote = this.closeNote.bind(this);
-        this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
     }
 
@@ -41,16 +35,16 @@ export default class NotesPanel extends Component {
         }
     }
 
-    updateNoteAssistantMode(mode) {
+    updateNoteAssistantMode = (mode) => {
         this.setState({noteAssistantMode: mode});
     }
 
-    updateSelectedNote(note) {
+    updateSelectedNote = (note) => {
         this.setState({selectedNote: note});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
-    handleUpdateEditorWithNote(note) {
+    handleUpdateEditorWithNote = (note) => {
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         if (!Lang.isNull(note)) {
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
@@ -74,17 +68,17 @@ export default class NotesPanel extends Component {
         }
     }
 
-    handleUpdateCurrentlyEditingEntryId(id) {
+    handleUpdateCurrentlyEditingEntryId = (id) => {
         this.setState({currentlyEditingEntryId: id});
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
-    saveNoteUponKeypress() {
+    saveNoteUponKeypress = () => {
         this.saveNoteChild();
     }
 
     // invokes closing logic in NoteAssistant
-    closeNote() {
+    closeNote = () => {
         this.closeNoteChild();
         this.props.setFullAppState("documentText", null);
         this.props.setOpenClinicalNote(null);
@@ -122,7 +116,6 @@ export default class NotesPanel extends Component {
     }
 
     handleSignButtonClick = () => {
-
         // Set signed attribute on the selected note to be true
         
         const tempNote =  this.state.selectedNote;
@@ -270,22 +263,22 @@ export default class NotesPanel extends Component {
 }
 
 NotesPanel.propTypes = {
-    patient: PropTypes.object,
-    contextManager: PropTypes.object,
-    shortcutManager: PropTypes.object,
-    summaryItemToBeInserted: PropTypes.string,
-    documentText: PropTypes.string,
-    openClinicalNote: PropTypes.object,
-    saveNote: PropTypes.func,
     closeNote: PropTypes.func,
+    contextManager: PropTypes.object,
+    documentText: PropTypes.string,
     errors: PropTypes.array,
+    handleSummaryItemSelected: PropTypes.func,
+    itemInserted: PropTypes.func,
     isNoteViewerEditable: PropTypes.bool,
     newCurrentShortcut: PropTypes.func,
-    itemInserted: PropTypes.func,
-    updateErrors: PropTypes.func,
-    handleSummaryItemSelected: PropTypes.func,
-    setFullAppState: PropTypes.func,
-    summaryItemToInsert: PropTypes.string,
+    openClinicalNote: PropTypes.object,
+    patient: PropTypes.object,
+    saveNote: PropTypes.func,
     searchSelectedItem: PropTypes.object,
+    setFullAppState: PropTypes.func,
+    shortcutManager: PropTypes.object,
+    summaryItemToBeInserted: PropTypes.string,
+    summaryItemToInsert: PropTypes.string,
     structuredFieldMapManager: PropTypes.object,
+    updateErrors: PropTypes.func,
 };
