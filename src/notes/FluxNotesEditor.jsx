@@ -1041,18 +1041,26 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.proptypes = {
+    closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
+    currentViewMode: PropTypes.string.isRequired,
+    documentText: PropTypes.object,
     errors: PropTypes.array.isRequired,
+    handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.object,
     newCurrentShortcut: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
-    resetEditorState: PropTypes.func.isRequired,
-    resetEditorAndContext: PropTypes.func.isRequired,
-    summaryItemToInsert: PropTypes.string,
-    shortcutManager: PropTypes.object.isRequired,
+    saveNoteUponKeypress: PropTypes.func.isRequired,
+    selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
+    setFullAppStateWithCallback: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    structuredFieldMapManager: PropTypes.object.isRequired,
+    summaryItemToInsert: PropTypes.string.isRequired,
+    updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
+    updateSelectedNote: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;
