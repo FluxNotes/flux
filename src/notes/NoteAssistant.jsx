@@ -247,10 +247,10 @@ export default class NoteAssistant extends Component {
                 return (
                     <div>
                         <ContextTray
-                            patient={this.props.patient}
                             contextManager={this.props.contextManager}
-                            shortcutManager={this.props.shortcutManager}
                             onShortcutClicked={this.props.handleSummaryItemSelected}
+                            patient={this.props.patient}
+                            shortcutManager={this.props.shortcutManager}
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
