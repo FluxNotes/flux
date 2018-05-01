@@ -3,7 +3,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
-import FullApp from '../../../src/containers/FullApp';
+import { FullApp } from '../../../src/containers/FullApp';
 import SummaryHeader from '../../../src/summary/SummaryHeader';
 import TargetedDataSection from '../../../src/summary/TargetedDataSection';
 import Button from '../../../src/elements/Button';

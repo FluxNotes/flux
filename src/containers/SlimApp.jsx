@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Lang from 'lodash';
 
@@ -9,7 +11,7 @@ import ShortcutViewer from '../viewer/ShortcutViewer';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import '../styles/SlimApp.css';
 
-export default class SlimApp extends Component {
+class SlimApp extends Component {
     constructor(props) {
         super(props);
 
@@ -78,4 +80,20 @@ SlimApp.proptypes = {
     shortcutConfigurations: PropTypes.object.isRequired,
     shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
+};
+
+// these props are used for dispatching actions
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    // TODO: add actions
+  }, dispatch);
 }
+
+// these props come from the application's state when it is started
+function mapStateToProps(state) {
+  return {
+    // TODO: add state
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SlimApp);
