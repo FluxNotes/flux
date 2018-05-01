@@ -60,7 +60,7 @@ export default class NotesPanel extends Component {
                     selectedNote: note,
                     updatedEditorNote: note,
                     noteAssistantMode: mode,
-                    currentlyEditingEntryId: note.entryInfo.entryId
+                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
                 this.props.setFullAppState("documentText", note.content);
                 this.props.setOpenClinicalNote(note);
@@ -69,7 +69,7 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateCurrentlyEditingEntryId = (id) => {
-        this.setState({currentlyEditingEntryId: id});
+        this.setState({currentlyEditingEntryId: parseInt(id, 10)});
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant

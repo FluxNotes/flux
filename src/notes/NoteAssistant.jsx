@@ -147,7 +147,6 @@ export default class NoteAssistant extends Component {
 
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
-        // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
         this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
 
         var found = this.props.patient.getNotes().find(function (element) {
