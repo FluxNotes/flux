@@ -1029,8 +1029,8 @@ class FluxNotesEditor extends React.Component {
                         contexts={this.state.portalOptions}
                         getPosition={this.getTextCursorPosition}
                         isOpened={this.state.isPortalOpen}
-                        onSelected={this.onPortalSelection}
                         onChange={this.onChange}
+                        onSelected={this.onPortalSelection}
                         state={this.state.state}
                         trigger={"@"}
                     />
