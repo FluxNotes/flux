@@ -48,16 +48,15 @@ export default class TargetedDataPanel extends Component {
 }
 
 TargetedDataPanel.proptypes = {
+    actions: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,
+        clinicalEvent: PropTypes.object.isRequired,
         condition: PropTypes.object,
     }).isRequired,
-    actions: PropTypes.array.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
-    itemInserted: PropTypes.func.isRequired,
-    possibleClinicalEvents: PropTypes.array.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
 }

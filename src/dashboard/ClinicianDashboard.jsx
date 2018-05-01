@@ -166,10 +166,12 @@ export default class ClinicianDashboard extends Component {
             <div id="clinician-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
-                        {...this.props}
-                        isWide={isTargetedDataPanelWide}
-                        isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
+                        actions={this.props.actions}
+                        appState={this.props.appState}
                         isNoteViewerEditable={isNoteViewerEditable}
+                        isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
+                        isWide={isTargetedDataPanelWide}
+                        summaryMetadata={this.props.summaryMetadata}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                     />
                 </div>
