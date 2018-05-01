@@ -1430,6 +1430,13 @@
                 ]
             }
         },
+        "MedicationBeforeChange": { 
+            "Value": {
+                "EntryType": { 
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationUsed"
+                }
+            }
+        },
         "ActionContext": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"
