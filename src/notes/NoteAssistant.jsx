@@ -525,7 +525,7 @@ NoteAssistant.propTypes = {
     currentlyEditingEntryId: PropTypes.number.isRequired,
     contextManager: PropTypes.object.isRequired,
     deleteSelectedNote: PropTypes.func.isRequired,
-    documentText: PropTypes.object,
+    documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     loadNote: PropTypes.func.isRequired, 

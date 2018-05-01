@@ -61,7 +61,7 @@ export class FullApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             contextManager: this.contextManager,
-            documentText: null,
+            documentText: "",
             errors: [],
             layout: "",
             isNoteViewerVisible: false,

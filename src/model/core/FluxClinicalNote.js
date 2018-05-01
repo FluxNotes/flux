@@ -21,7 +21,8 @@ class FluxClinicalNote {
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;
         if (json.clinician) this._clinician = json.clinician;
-        if (json.content) this._content = json.content;
+        // Ensures even empty strings result in content definition
+        if (json.content || json.content === "") this._content = json.content;
         if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
     }
     /**

@@ -266,7 +266,7 @@ NotesPanel.propTypes = {
     contextManager: PropTypes.object,
     currentViewMode: PropTypes.string.isRequired,
     dataAccess: PropTypes.object.isRequired,
-    documentText: PropTypes.object,
+    documentText: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     isNoteViewerVisible: PropTypes.bool.isRequired,
