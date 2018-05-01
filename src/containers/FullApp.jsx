@@ -226,13 +226,13 @@ export class FullApp extends Component {
                             <Col sm={12}>
                                 <PatientControlPanel
                                     appTitle={this.props.display}
-                                    supportLogin={true}
+                                    clinicalEvent={this.state.clinicalEvent}
+                                    layout={this.state.layout}
                                     loginUser={this.state.loginUser}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
-                                    clinicalEvent={this.state.clinicalEvent}
                                     setFullAppState={this.setFullAppState}
-                                    layout={this.state.layout}
+                                    supportLogin={true}
                                 />
                             </Col>
                         </Row>
@@ -257,8 +257,6 @@ export class FullApp extends Component {
                             shortcutManager={this.shortcutManager}
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}
-                            supportLogin={true}
-                            title={this.props.display}
                             updateErrors={this.updateErrors}
                         />
 

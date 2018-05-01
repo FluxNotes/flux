@@ -181,18 +181,18 @@ export default class ClinicianDashboard extends Component {
                         documentText={this.props.appState.documentText}
                         errors={this.props.appState.errors}
                         handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                        isNoteViewerVisible={isNoteViewerVisible}
                         isNoteViewerEditable={isNoteViewerEditable}
+                        isNoteViewerVisible={isNoteViewerVisible}
                         itemInserted={this.props.itemInserted}
                         loginUser={this.props.loginUser}
                         newCurrentShortcut={this.props.newCurrentShortcut}
                         noteClosed={this.props.appState.noteClosed}
                         openClinicalNote={this.props.appState.openClinicalNote}
                         patient={this.props.appState.patient}
+                        searchSelectedItem={this.props.searchSelectedItem}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
-                        searchSelectedItem={this.props.searchSelectedItem}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
@@ -212,14 +212,16 @@ ClinicianDashboard.proptypes = {
     handleShortcutUpdate: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     itemInserted: PropTypes.func.isRequired,
+    loginUser: PropTypes.string.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
+    searchSelectedItem: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setOpenClinicalNote: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-    summaryMetadata: PropTypes.object.isRequired,
-    searchSelectedItem: PropTypes.object,
     structuredFieldMapManager: PropTypes.object,
+    summaryMetadata: PropTypes.object.isRequired,
     updateErrors: PropTypes.func.isRequired,
 };

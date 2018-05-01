@@ -20,3 +20,4 @@ yarn-error.log*
 
 #Visual Paradigm Project Files 
 *.vpp.bak*
+*.vpp.lck*
