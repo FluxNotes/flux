@@ -177,8 +177,8 @@ export default class ContextOptions extends Component {
 }
 
 ContextOptions.proptypes = {
-    shortcutManager: PropTypes.object.isRequired,
+    context: PropTypes.object,
     contextManager: PropTypes.object.isRequired,
     handleClick: PropTypes.func.isRequired,
-    context: PropTypes.object,
+    shortcutManager: PropTypes.object.isRequired,
 }

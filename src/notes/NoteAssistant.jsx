@@ -147,7 +147,6 @@ export default class NoteAssistant extends Component {
 
         // Add new unsigned note to patient record
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
-        // this.setState({currentlyEditingEntryId: currentlyEditingEntryId});
         this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
 
         var found = this.props.patient.getNotes().find(function (element) {
@@ -247,10 +246,10 @@ export default class NoteAssistant extends Component {
                 return (
                     <div>
                         <ContextTray
-                            patient={this.props.patient}
                             contextManager={this.props.contextManager}
-                            shortcutManager={this.props.shortcutManager}
                             onShortcutClicked={this.props.handleSummaryItemSelected}
+                            patient={this.props.patient}
+                            shortcutManager={this.props.shortcutManager}
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
@@ -521,13 +520,24 @@ export default class NoteAssistant extends Component {
 }
 
 NoteAssistant.propTypes = {
-    patient: PropTypes.object,
-    contextManager: PropTypes.object,
-    shortcutManager: PropTypes.object,
-    isNoteViewerEditable: PropTypes.bool,
-    saveNote: PropTypes.func,
-    closeNote: PropTypes.func,
-    handleSummaryItemSelected: PropTypes.func,
-    updateCurrentlyEditingEntryId: PropTypes.func,
+    closeNote: PropTypes.func.isRequired,
+    currentlyEditingEntryId: PropTypes.number.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    deleteSelectedNote: PropTypes.func.isRequired,
+    documentText: PropTypes.string.isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+    isNoteViewerEditable: PropTypes.bool.isRequired,
+    loadNote: PropTypes.func.isRequired, 
+    loginUser: PropTypes.string.isRequired,
+    noteAssistantMode: PropTypes.string.isRequired,
+    noteClosed: PropTypes.bool.isRequired,
+    patient: PropTypes.object.isRequired,
+    saveNote: PropTypes.func.isRequired,
     searchSelectedItem: PropTypes.object,
+    selectedNote: PropTypes.object,
+    setFullAppState: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    updateCurrentlyEditingEntryId: PropTypes.func.isRequired,
+    updateNoteAssistantMode: PropTypes.func.isRequired,
+    updateSelectedNote: PropTypes.func.isRequired,
 };

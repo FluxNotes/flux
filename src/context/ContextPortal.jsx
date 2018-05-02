@@ -237,17 +237,16 @@ class ContextPortal extends React.Component {
 }
 
 ContextPortal.proptypes = { 
-    left: PropTypes.number.isRequired,
-    top: PropTypes.number.isRequired,
-    state: PropTypes.object,
-    callback: PropTypes.object,
-    onSelected: PropTypes.func.isRequired,
-    contexts: PropTypes.object,
     capture: PropTypes.object.isRequired,
-    trigger: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    callback: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    contexts: PropTypes.object,
+    getPosition: PropTypes.func.isRequired,
     isOpened: PropTypes.bool.isRequired,
-    contextManager: PropTypes.object.isRequired
+    onChange: PropTypes.func.isRequired,
+    onSelected: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired,
+    trigger: PropTypes.string.isRequired,
 }
 
 export default ContextPortal

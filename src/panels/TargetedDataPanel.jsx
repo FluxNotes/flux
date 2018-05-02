@@ -35,7 +35,7 @@ export default class TargetedDataPanel extends Component {
                                 patient={this.props.appState.patient}
                                 condition={this.props.appState.condition}
                                 clinicalEvent={this.props.appState.clinicalEvent}
-                                summaryMetadata={this.props.appState.summaryMetadata}
+                                summaryMetadata={this.props.summaryMetadata.getMetadata()}
                                 allowItemClick={this.props.isNoteViewerEditable}
                                 actions={this.props.actions}
                             />
@@ -48,16 +48,15 @@ export default class TargetedDataPanel extends Component {
 }
 
 TargetedDataPanel.proptypes = {
+    actions: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,
+        clinicalEvent: PropTypes.object.isRequired,
         condition: PropTypes.object,
-        summaryMetadata: PropTypes.object.isRequired
     }).isRequired,
-    targetedDataPanelSize: PropTypes.string.isRequired,
-    actions: PropTypes.array.isRequired,
-    isWide: PropTypes.bool.isRequired,
-    itemInserted: PropTypes.func.isRequired,
-    isTargetedDataSubpanelVisible: PropTypes.bool,
-    possibleClinicalEvents: PropTypes.array.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
+    isTargetedDataSubpanelVisible: PropTypes.bool,
+    isWide: PropTypes.bool.isRequired,
+    summaryMetadata: PropTypes.object.isRequired,
+    targetedDataPanelSize: PropTypes.string.isRequired,
 }

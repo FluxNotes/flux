@@ -61,7 +61,7 @@ export class FullApp extends Component {
             clinicalEvent: "pre-encounter",
             condition: null,
             contextManager: this.contextManager,
-            documentText: null,
+            documentText: "",
             errors: [],
             layout: "",
             isNoteViewerVisible: false,
@@ -75,8 +75,6 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
-            // structuredFieldMapManager: this.structuredFieldMapManager,
-            summaryMetadata: this.summaryMetadata.getMetadata(),
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -172,20 +170,6 @@ export class FullApp extends Component {
         s.updatePatient(p, this.contextManager, note);
     }
 
-    // Update the current structured field we're within.
-    handleStructuredFieldEntered = (field) => {
-        this.setState({
-            withinStructuredField: field
-        })
-    }
-
-    // Update the current structured field to be null
-    handleStructuredFieldExited = (field) => {
-        this.setState({
-            withinStructuredField: null
-        })
-    }
-
     setOpenClinicalNote = (openClinicalNote) => {
         this.setState({
             openClinicalNote: openClinicalNote
@@ -242,48 +226,38 @@ export class FullApp extends Component {
                             <Col sm={12}>
                                 <PatientControlPanel
                                     appTitle={this.props.display}
-                                    supportLogin={true}
+                                    clinicalEvent={this.state.clinicalEvent}
+                                    layout={this.state.layout}
                                     loginUser={this.state.loginUser}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
-                                    clinicalEvent={this.state.clinicalEvent}
                                     setFullAppState={this.setFullAppState}
-                                    layout={this.state.layout}
+                                    supportLogin={true}
                                 />
                             </Col>
                         </Row>
 
                         <CurrentDashboard
                             // App default settings
-                            title={this.props.display}
-                            supportLogin={true}
-                            loginUser={this.state.loginUser}
-                            possibleClinicalEvents={this.possibleClinicalEvents}
-                            dataAccess={this.dataAccess}
-                            summaryMetadata={this.summaryMetadata}
-                            shortcutManager={this.shortcutManager}
-                            contextManager={this.contextManager}
-                            searchSelectedItem={this.state.searchSelectedItem}
-                            structuredFieldMapManager={this.structuredFieldMapManager}
-
-                            // State
+                            actions={this.actions}
                             appState={this.state}
-
-                            // Functions
+                            contextManager={this.contextManager}
+                            dataAccess={this.dataAccess}
+                            handleShortcutUpdate={this.handleShortcutUpdate}
+                            handleSummaryItemSelected={this.handleSummaryItemSelected}
+                            itemInserted={this.itemInserted}
+                            loginUser={this.state.loginUser}
+                            newCurrentShortcut={this.newCurrentShortcut}
+                            onContextUpdate={this.onContextUpdate}
+                            possibleClinicalEvents={this.possibleClinicalEvents}
+                            searchSelectedItem={this.state.searchSelectedItem}
                             setFullAppState={this.setFullAppState}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
-                            updateErrors={this.updateErrors}
-                            onContextUpdate={this.onContextUpdate}
-                            itemInserted={this.itemInserted}
-                            newCurrentShortcut={this.newCurrentShortcut}
-                            handleShortcutUpdate={this.handleShortcutUpdate}
-                            handleStructuredFieldEntered={this.handleStructuredFieldEntered}
-                            handleStructuredFieldExited={this.handleStructuredFieldExited}
-                            handleSummaryItemSelected={this.handleSummaryItemSelected}
                             setOpenClinicalNote={this.setOpenClinicalNote}
-
-                            // Actions
-                            actions={this.actions}
+                            shortcutManager={this.shortcutManager}
+                            structuredFieldMapManager={this.structuredFieldMapManager}
+                            summaryMetadata={this.summaryMetadata}
+                            updateErrors={this.updateErrors}
                         />
 
                         <Snackbar
@@ -302,8 +276,8 @@ export class FullApp extends Component {
 
 FullApp.proptypes = {
     dataSource: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
     shortcuts: PropTypes.array.isRequired,
-    display: PropTypes.string.isRequired
 };
 
 // these props are used for dispatching actions

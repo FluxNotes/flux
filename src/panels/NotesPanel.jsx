@@ -21,12 +21,6 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1
         };
 
-        this.handleUpdateEditorWithNote = this.handleUpdateEditorWithNote.bind(this);
-        this.updateNoteAssistantMode = this.updateNoteAssistantMode.bind(this);
-        this.updateSelectedNote = this.updateSelectedNote.bind(this);
-        this.saveNoteUponKeypress = this.saveNoteUponKeypress.bind(this);
-        this.closeNote = this.closeNote.bind(this);
-        this.handleUpdateCurrentlyEditingEntryId = this.handleUpdateCurrentlyEditingEntryId.bind(this);
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
     }
 
@@ -41,16 +35,16 @@ export default class NotesPanel extends Component {
         }
     }
 
-    updateNoteAssistantMode(mode) {
+    updateNoteAssistantMode = (mode) => {
         this.setState({noteAssistantMode: mode});
     }
 
-    updateSelectedNote(note) {
+    updateSelectedNote = (note) => {
         this.setState({selectedNote: note});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
-    handleUpdateEditorWithNote(note) {
+    handleUpdateEditorWithNote = (note) => {
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
         if (!Lang.isNull(note)) {
             // *Note: setFullAppStateWithCallback is used instead of setFullAppState because the editor needs to be created
@@ -66,7 +60,7 @@ export default class NotesPanel extends Component {
                     selectedNote: note,
                     updatedEditorNote: note,
                     noteAssistantMode: mode,
-                    currentlyEditingEntryId: note.entryInfo.entryId
+                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
                 this.props.setFullAppState("documentText", note.content);
                 this.props.setOpenClinicalNote(note);
@@ -74,19 +68,19 @@ export default class NotesPanel extends Component {
         }
     }
 
-    handleUpdateCurrentlyEditingEntryId(id) {
-        this.setState({currentlyEditingEntryId: id});
+    handleUpdateCurrentlyEditingEntryId = (id) => {
+        this.setState({currentlyEditingEntryId: parseInt(id, 10)});
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
-    saveNoteUponKeypress() {
+    saveNoteUponKeypress = () => {
         this.saveNoteChild();
     }
 
     // invokes closing logic in NoteAssistant
-    closeNote() {
+    closeNote = () => {
         this.closeNoteChild();
-        this.props.setFullAppState("documentText", null);
+        this.props.setFullAppState("documentText", "");
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,
@@ -122,7 +116,6 @@ export default class NotesPanel extends Component {
     }
 
     handleSignButtonClick = () => {
-
         // Set signed attribute on the selected note to be true
         
         const tempNote =  this.state.selectedNote;
@@ -205,28 +198,26 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
-                    newCurrentShortcut={this.props.newCurrentShortcut}
-                    itemInserted={this.props.itemInserted}
-                    summaryItemToInsert={this.props.summaryItemToInsert}
-                    patient={this.props.patient}
+                    closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
-                    shortcutManager={this.props.shortcutManager}
-                    updateErrors={this.props.updateErrors}
+                    currentViewMode={this.props.currentViewMode}
+                    documentText={this.props.documentText}
                     errors={this.props.errors}
+                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    itemInserted={this.props.itemInserted}
+                    newCurrentShortcut={this.props.newCurrentShortcut}
+                    patient={this.props.patient}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
-                    closeNote={this.closeNote}
-                    documentText={this.props.documentText}
-                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    shortcutManager={this.props.shortcutManager}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
-
+                    summaryItemToInsert={this.props.summaryItemToInsert}
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
-                    selectedNote={this.state.selectedNote}
-                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
-
-                    currentViewMode={this.props.currentViewMode}
+                    updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
@@ -237,26 +228,26 @@ export default class NotesPanel extends Component {
         return (
             <div className="fitted-panel panel-content dashboard-panel">
                 <NoteAssistant
-                    loginUser={this.props.loginUser}
-                    isNoteViewerEditable={this.props.isNoteViewerEditable}
-                    setFullAppState={this.props.setFullAppState}
-                    patient={this.props.patient}
-                    contextManager={this.props.contextManager}
-                    shortcutManager={this.props.shortcutManager}
-                    handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                    loadNote={this.handleUpdateEditorWithNote}
-                    noteAssistantMode={this.state.noteAssistantMode}
-                    updateNoteAssistantMode={this.updateNoteAssistantMode}
-                    selectedNote={this.state.selectedNote}
-                    updateSelectedNote={this.updateSelectedNote}
-                    documentText={this.props.documentText}
-                    saveNote={click => this.saveNoteChild = click}
                     closeNote={click => this.closeNoteChild = click}
-                    deleteSelectedNote={this.deleteSelectedNote}
-                    noteClosed={this.props.noteClosed}
-                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
+                    contextManager={this.props.contextManager}
+                    deleteSelectedNote={this.deleteSelectedNote}
+                    documentText={this.props.documentText}
+                    handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                    isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    loadNote={this.handleUpdateEditorWithNote}
+                    loginUser={this.props.loginUser}
+                    noteAssistantMode={this.state.noteAssistantMode}
+                    noteClosed={this.props.noteClosed}
+                    patient={this.props.patient}
+                    saveNote={click => this.saveNoteChild = click}
                     searchSelectedItem={this.props.searchSelectedItem}
+                    selectedNote={this.state.selectedNote}
+                    setFullAppState={this.props.setFullAppState}
+                    shortcutManager={this.props.shortcutManager}
+                    updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
+                    updateNoteAssistantMode={this.updateNoteAssistantMode}
+                    updateSelectedNote={this.updateSelectedNote}
                 />
             </div>
         );
@@ -272,22 +263,26 @@ export default class NotesPanel extends Component {
 }
 
 NotesPanel.propTypes = {
-    patient: PropTypes.object,
     contextManager: PropTypes.object,
-    shortcutManager: PropTypes.object,
-    summaryItemToBeInserted: PropTypes.string,
-    documentText: PropTypes.string,
-    openClinicalNote: PropTypes.object,
-    saveNote: PropTypes.func,
-    closeNote: PropTypes.func,
-    errors: PropTypes.array,
-    isNoteViewerEditable: PropTypes.bool,
-    newCurrentShortcut: PropTypes.func,
-    itemInserted: PropTypes.func,
-    updateErrors: PropTypes.func,
-    handleSummaryItemSelected: PropTypes.func,
-    setFullAppState: PropTypes.func,
-    summaryItemToInsert: PropTypes.string,
+    currentViewMode: PropTypes.string.isRequired,
+    dataAccess: PropTypes.object.isRequired,
+    documentText: PropTypes.string.isRequired,
+    errors: PropTypes.array.isRequired,
+    handleSummaryItemSelected: PropTypes.func.isRequired,
+    isNoteViewerVisible: PropTypes.bool.isRequired,
+    isNoteViewerEditable: PropTypes.bool.isRequired,
+    itemInserted: PropTypes.func.isRequired,
+    loginUser: PropTypes.string.isRequired,
+    newCurrentShortcut: PropTypes.func.isRequired,
+    noteClosed: PropTypes.bool.isRequired,
+    openClinicalNote: PropTypes.object, 
+    patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
-    structuredFieldMapManager: PropTypes.object,
+    setFullAppState: PropTypes.func.isRequired,
+    setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setOpenClinicalNote: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
+    structuredFieldMapManager: PropTypes.object.isRequired,
+    summaryItemToInsert: PropTypes.string.isRequired,
+    updateErrors: PropTypes.func.isRequired,
 };

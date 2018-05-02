@@ -1,9 +1,6 @@
-// Import React and other libraries
 import React from 'react'
-// Font awesome for icons
+import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
-// material-ui
-// Styling
 import './EditorToolbar.css';
 
 class EditorToolbar extends React.Component {
@@ -140,5 +137,14 @@ class EditorToolbar extends React.Component {
         )
     }
 }
+
+EditorToolbar.proptypes = { 
+    isReadOnly: PropTypes.bool.isRequired,
+    onBlockCheck: PropTypes.func.isRequired,
+    onBlockUpdate: PropTypes.func.isRequired,
+    onMarkCheck: PropTypes.func.isRequired,
+    onMarkUpdate: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired,
+};
 
 export default EditorToolbar;

@@ -32,8 +32,8 @@ export default class TemplateForm extends Component {
 }
 
 TemplateForm.proptypes = {
-    patient: PropTypes.object.isRequired,
-    heading: PropTypes.string.isRequired,
-    templates: PropTypes.array.isRequired,
     handleClick: PropTypes.func.isRequired,
+    heading: PropTypes.string.isRequired,
+    patient: PropTypes.object.isRequired,
+    templates: PropTypes.array.isRequired,
 }

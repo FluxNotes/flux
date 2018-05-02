@@ -166,38 +166,39 @@ export default class ClinicianDashboard extends Component {
             <div id="clinician-dashboard-content" style={{display: "flex"}}>
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
-                        isWide={isTargetedDataPanelWide}
-                        isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
+                        actions={this.props.actions}
+                        appState={this.props.appState}
                         isNoteViewerEditable={isNoteViewerEditable}
+                        isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
+                        isWide={isTargetedDataPanelWide}
+                        summaryMetadata={this.props.summaryMetadata}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
-                        {...this.props}
                     />
                 </div>
                 <div style={notesPanelStyles}>
                     <NotesPanel
-                        loginUser={this.props.loginUser}
                         contextManager={this.props.contextManager}
-                        errors={this.props.appState.errors}
-                        isNoteViewerVisible={isNoteViewerVisible}
-                        isNoteViewerEditable={isNoteViewerEditable}
-                        itemInserted={this.props.itemInserted}
-                        handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                        newCurrentShortcut={this.props.newCurrentShortcut}
-                        patient={this.props.appState.patient}
-                        documentText={this.props.appState.documentText}
-                        openClinicalNote={this.props.appState.openClinicalNote}
-                        shortcutManager={this.props.shortcutManager}
-                        summaryItemToInsert={this.props.appState.summaryItemToInsert}
-                        updateErrors={this.props.updateErrors}
-                        updateLayoutOnNewNoteClicked={this.updateLayoutOnNewNoteClicked}
                         currentViewMode={this.props.appState.clinicalEvent}
+                        dataAccess={this.props.dataAccess}
+                        documentText={this.props.appState.documentText}
+                        errors={this.props.appState.errors}
+                        handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                        isNoteViewerEditable={isNoteViewerEditable}
+                        isNoteViewerVisible={isNoteViewerVisible}
+                        itemInserted={this.props.itemInserted}
+                        loginUser={this.props.loginUser}
+                        newCurrentShortcut={this.props.newCurrentShortcut}
+                        noteClosed={this.props.appState.noteClosed}
+                        openClinicalNote={this.props.appState.openClinicalNote}
+                        patient={this.props.appState.patient}
+                        searchSelectedItem={this.props.searchSelectedItem}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                        noteClosed={this.props.appState.noteClosed}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
-                        searchSelectedItem={this.props.searchSelectedItem}
+                        shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
-                        dataAccess={this.props.dataAccess}
+                        summaryItemToInsert={this.props.appState.summaryItemToInsert}
+                        updateErrors={this.props.updateErrors}
                     />
                 </div>
             </div>
@@ -206,25 +207,23 @@ export default class ClinicianDashboard extends Component {
 }
 
 ClinicianDashboard.proptypes = {
+    actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
     contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     handleShortcutUpdate: PropTypes.func.isRequired,
-    handleStructuredFieldEntered: PropTypes.func.isRequired,
-    handleStructuredFieldExited: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
-    actions: PropTypes.array.isRequired,
     itemInserted: PropTypes.func.isRequired,
-    updateErrors: PropTypes.func.isRequired,
-    onContextUpdate: PropTypes.func.isRequired,
+    loginUser: PropTypes.string.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
+    onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
+    searchSelectedItem: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setOpenClinicalNote: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-    summaryMetadata: PropTypes.object.isRequired,
-    updateLayoutOnNewNoteClicked: PropTypes.func.isRequired,
-    currentViewMode: PropTypes.object.isRequired,
-    searchSelectedItem: PropTypes.object,
     structuredFieldMapManager: PropTypes.object,
+    summaryMetadata: PropTypes.object.isRequired,
+    updateErrors: PropTypes.func.isRequired,
 };

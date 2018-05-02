@@ -134,11 +134,11 @@ export default class ContextTray extends Component {
 
                 {activeContext && activeContext === selectedParentContext &&
                     <ContextOptions
-                        ref={`context-option-${this.state.value}`}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        handleClick={this.handleShortcutClick}
                         context={activeContext}
+                        contextManager={this.props.contextManager}
+                        handleClick={this.handleShortcutClick}
+                        ref={`context-option-${this.state.value}`}
+                        shortcutManager={this.props.shortcutManager}
                     />
                 }
 
@@ -182,11 +182,11 @@ export default class ContextTray extends Component {
 
                 {activeChildIndex > -1 &&
                     <ContextOptions
-                        ref={`context-option-${this.state.value}`}
-                        contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
-                        handleClick={this.handleShortcutClick}
                         context={activeContext}
+                        contextManager={this.props.contextManager}
+                        handleClick={this.handleShortcutClick}
+                        ref={`context-option-${this.state.value}`}
+                        shortcutManager={this.props.shortcutManager}
                     />
                 }
 
@@ -222,10 +222,10 @@ export default class ContextTray extends Component {
                 {value === 0 &&
                     <section>
                         <TemplateForm
-                            patient={this.props.patient}
-                            heading=""
-                            templates={templates.map((item) => { return item.name })}
                             handleClick={this.insertTemplate}
+                            heading=""
+                            patient={this.props.patient}
+                            templates={templates.map((item) => { return item.name })}
                         />
                     </section>
                 }
@@ -233,8 +233,8 @@ export default class ContextTray extends Component {
                 {value === 1 &&
                     <ContextOptions
                         contextManager={this.props.contextManager}
-                        shortcutManager={this.props.shortcutManager}
                         handleClick={this.handleShortcutClick}
+                        shortcutManager={this.props.shortcutManager}
                     />
                 }
 
@@ -245,9 +245,8 @@ export default class ContextTray extends Component {
 }
 
 ContextTray.proptypes = {
-    ref: PropTypes.func.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-    contextManager: PropTypes.object.isRequired,
-    onShortcutClicked: PropTypes.func.isRequired
 }
