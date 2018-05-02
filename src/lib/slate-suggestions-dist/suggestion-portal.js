@@ -300,8 +300,9 @@ class SuggestionPortal extends React.Component {
     }
 
     render = () => {
-        const filteredSuggestions  = this.getFilteredSuggestions();
-
+        const filteredSuggestions = this.getFilteredSuggestions();
+        this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
+        
         return (
             <Portal isOpened closeOnEsc closeOnOutsideClick onOpen={this.openPortal}>
                 <div className="suggestion-portal" ref="suggestionPortal">
