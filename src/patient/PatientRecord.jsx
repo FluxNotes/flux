@@ -485,6 +485,13 @@ class PatientRecord {
         });
     }
 
+    getActiveMedicationsChronologicalOrder() {
+        let list = this.getActiveMedications();
+        list.sort(this._medsTimeSorter);
+        return list;
+    }
+
+
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._medsTimeSorter);
@@ -493,6 +500,17 @@ class PatientRecord {
 
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        medications = medications.filter((med) => {
+            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
+        });
+        return medications;
+    }
+
+    getActiveMedicationsForConditionChronologicalOrder(condition) {
+        let medications = this.getActiveMedicationsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequested && med.reasons.some((r) => {

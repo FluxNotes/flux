@@ -728,7 +728,7 @@ export default class SummaryMetadata {
 
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        return patient.getMedicationsForConditionChronologicalOrder(condition);
+        return patient.getActiveMedicationsForConditionChronologicalOrder(condition);
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {
