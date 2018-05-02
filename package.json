@@ -57,7 +57,7 @@
     "redux-promise-middleware": "^5.0.0",
     "redux-thunk": "^2.2.0",
     "run-script-os": "1.0.2",
-    "shr_rest_client": "^0.0.5",
+    "shr_rest_client": "^0.0.6",
     "slate": "0.20.2",
     "slate-auto-replace": "0.5.0",
     "sync-request": "^4.1.0",
