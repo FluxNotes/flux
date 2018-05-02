@@ -321,7 +321,7 @@ class TabularListVisualizer extends Component {
                     );
                 }
 
-                if (!Lang.isNull(elementText) && elementText.length > 100) {
+                if (!Lang.isNull(elementText) && !Lang.isUndefined(elementText) && elementText.length > 100) {
                     const text = <span>{longElementText}</span>
                     columnItem = (
                         <Tooltip
