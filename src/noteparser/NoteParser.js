@@ -71,6 +71,16 @@ export default class NoteParser {
         shortcut.setKey("1");
         return shortcut;
     }
+
+    isPickList(trigger) {
+
+        if (trigger.definition.getData.itemKey) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
         
     getListOfTriggersFromText(note) {
         let unrecognizedTriggers = [];

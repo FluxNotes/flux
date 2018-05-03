@@ -724,7 +724,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
     /*
-     * Handle updates when we have a new
+     * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
         let state;
@@ -734,6 +734,7 @@ class FluxNotesEditor extends React.Component {
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
+        let arrayOfPickLists = [];
 
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
@@ -747,6 +748,12 @@ class FluxNotesEditor extends React.Component {
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
+
+                
+                if (this.noteParser.isPickList(trigger)) {
+                    arrayOfPickLists.push(trigger);
+                }
+                
 
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
@@ -793,6 +800,10 @@ class FluxNotesEditor extends React.Component {
         state = transform.apply();
         this.setState({state: state});
         //return state;
+        
+        
+        console.log("shortcuts that are picklists");
+        console.log(arrayOfPickLists);
     }
 
     /**

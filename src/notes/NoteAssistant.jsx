@@ -6,6 +6,7 @@ import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
+import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
 import moment from 'moment';
 import './NoteAssistant.css';
@@ -253,6 +254,9 @@ export default class NoteAssistant extends Component {
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
+                    // <div>
+                    //     <PickListOptionsPanel/>
+                    // </div>
                 );
 
             // Render the clinical notes view which includes new note button, resume note button,
