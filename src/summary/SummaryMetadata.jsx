@@ -728,13 +728,24 @@ export default class SummaryMetadata {
 
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const allMeds = patient.getMedicationsForConditionChronologicalOrder(condition)
         const activeMeds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
         medicationChanges.forEach(change => {
             console.log(change);
-            const medAfterChange = change.medicationAfterChange.reference;
+            const medAfterChangeRef = change.medicationAfterChange.reference;
+            // Determine if there the medAfterChange corresponds to an active med
+            // Get that med if it exists, undefined otherwise
+            const activeMedAfterChange = activeMeds.find((med) => { 
+                return med.entryId === medAfterChangeRef.entryId;
+            });
+            if (activeMedAfterChange) { 
+                // Add the medBeforeChange to the active med, for use in visualization
+                const medBeforeChangeRef = change.medicationBeforeChange.reference;
+                const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
+                activeMedAfterChange.medicationBeforeChange = medBeforeChange;
+            }
         });
+        console.log(activeMeds)
         return activeMeds;
     }
 
