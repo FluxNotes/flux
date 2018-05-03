@@ -32,7 +32,7 @@ class FluxDeceased {
     }
 
     toJSON() {
-        return this._adverseEvent.toJSON();
+        return this._deceased.toJSON();
     }
 }
 

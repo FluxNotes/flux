@@ -29,11 +29,13 @@ class RestApiDataSource extends IDataSource {
     }
     
     savePatient(patient) {
-        let entriesJSON = patient.entries.map(entry => {
-            return entry.toJSON();
-        });
+        if (patient) {
+            let entriesJSON = patient.entries.map(entry => {
+                return entry.toJSON();
+            });
 
-        this.api.updatePatientRecord(entriesJSON);
+            this.api.updatePatientRecord(entriesJSON);
+        }
     }
 }
 
