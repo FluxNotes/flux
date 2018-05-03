@@ -728,7 +728,14 @@ export default class SummaryMetadata {
 
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        return patient.getActiveMedicationsForConditionChronologicalOrder(condition);
+        const allMeds = patient.getMedicationsForConditionChronologicalOrder(condition)
+        const activeMeds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
+        const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
+        medicationChanges.forEach(change => {
+            console.log(change);
+            const medAfterChange = change.medicationAfterChange.reference;
+        });
+        return activeMeds;
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {

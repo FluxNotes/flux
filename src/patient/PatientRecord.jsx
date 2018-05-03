@@ -7,6 +7,7 @@ import FluxCondition from '../model/condition/FluxCondition';
 import FluxDiseaseProgression from '../model/condition/FluxDiseaseProgression';
 import FluxEncounterRequested from '../model/encounter/FluxEncounterRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
+import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
@@ -476,28 +477,13 @@ class PatientRecord {
     getMedications() {
         return this.getEntriesOfType(FluxMedicationRequested);
     }
-    
-    getActiveMedications() {
-        const allmeds = this.getMedications();
-        const today = new moment();
-        return allmeds.filter((med) => {
-            return med.isActiveAsOf(today);
-        });
-    }
-
-    getActiveMedicationsChronologicalOrder() {
-        let list = this.getActiveMedications();
-        list.sort(this._medsTimeSorter);
-        return list;
-    }
-
 
     getMedicationsChronologicalOrder() {
         let list = this.getMedications();
         list.sort(this._medsTimeSorter);
         return list;
     }
-
+    
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
@@ -509,6 +495,20 @@ class PatientRecord {
         return medications;
     }
 
+    getActiveMedications() {
+        const allmeds = this.getMedications();
+        const today = new moment();
+        return allmeds.filter((med) => {
+            return med.isActiveAsOf(today);
+        });
+    }
+    
+    getActiveMedicationsChronologicalOrder() {
+        let list = this.getActiveMedications();
+        list.sort(this._medsTimeSorter);
+        return list;
+    }
+
     getActiveMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getActiveMedicationsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
@@ -518,6 +518,34 @@ class PatientRecord {
             });
         });
         return medications;
+    }
+    
+    getMedicationChanges() { 
+        return this.getEntriesOfType(FluxMedicationChange);
+    }
+
+    getMedicationChangesChronologicalOrder() { 
+        let list = this.getMedicationChanges();
+        console.log("this.getMedicationChanges")
+        list.sort(this._medChangesTimeSorter);
+        return list;
+    }
+
+    getMedicationChangesForConditionChronologicalOrder(condition) { 
+        let medicationsChanges = this.getMedicationChangesChronologicalOrder();
+        console.log(medicationsChanges);
+        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        medicationsChanges = medicationsChanges.filter((change) => {
+            const medBeforeChange = this.getEntryFromReference(change.medicationBeforeChange.reference);
+            const medAfterChange = this.getEntryFromReference(change.medicationAfterChange.reference);
+            const eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            }) || medAfterChange.reasons.some((r) => {
+                return r.value.entryId && r.value.entryId === conditionEntryId;
+            });
+            return change instanceof FluxMedicationChange && eitherChangeIsRelated;
+        });
+        return medicationsChanges;
     }
 
     getProcedures() {
@@ -603,7 +631,19 @@ class PatientRecord {
             return p;
         }
     }
-
+    _medChangesTimeSorter = (a, b) => {
+        const a_medicationAfter_performanceTime = this.getEntryFromReference(a.medicationAfterChange.value).expectedPerformanceTime;
+        const b_medicationAfter_performanceTime = this.getEntryFromReference(b.medicationAfterChange.value).expectedPerformanceTime;
+        const a_startTime = new moment(a_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
+        const b_startTime = new moment(b_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
+        if (a_startTime < b_startTime) {
+            return -1;
+        }
+        if (a_startTime > b_startTime) {
+            return 1;
+        }
+        return 0;
+    }
     _medsTimeSorter(a, b) {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
