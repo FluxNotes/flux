@@ -731,7 +731,6 @@ export default class SummaryMetadata {
         const activeMeds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
         medicationChanges.forEach(change => {
-            console.log(change);
             const medAfterChangeRef = change.medicationAfterChange.reference;
             // Determine if there the medAfterChange corresponds to an active med
             // Get that med if it exists, undefined otherwise
@@ -743,9 +742,12 @@ export default class SummaryMetadata {
                 const medBeforeChangeRef = change.medicationBeforeChange.reference;
                 const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
                 activeMedAfterChange.medicationBeforeChange = medBeforeChange;
+                activeMedAfterChange.medicationChange = { 
+                    type: change.type,
+                    date: change.whenChanged,
+                }
             }
         });
-        console.log(activeMeds)
         return activeMeds;
     }
 

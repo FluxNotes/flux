@@ -526,14 +526,12 @@ class PatientRecord {
 
     getMedicationChangesChronologicalOrder() { 
         let list = this.getMedicationChanges();
-        console.log("this.getMedicationChanges")
         list.sort(this._medChangesTimeSorter);
         return list;
     }
 
     getMedicationChangesForConditionChronologicalOrder(condition) { 
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
-        console.log(medicationsChanges);
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
             const medBeforeChange = this.getEntryFromReference(change.medicationBeforeChange.reference);
