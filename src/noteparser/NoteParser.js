@@ -74,10 +74,14 @@ export default class NoteParser {
 
     isPickList(trigger) {
 
-        if (trigger.definition.getData.itemKey) {
-            return true;
-        }
-        else {
+        if (trigger.definition.getData) {
+            if (trigger.definition.getData.itemKey) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
             return false;
         }
     }

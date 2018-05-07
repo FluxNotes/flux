@@ -279,6 +279,15 @@ export default class NoteAssistant extends Component {
                     </div>
                 );
 
+            case "pick-list-options-panel":
+                return (
+                    <div>
+                        <PickListOptionsPanel
+                            updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                        />
+                    </div>
+                )
+
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
                 return "";

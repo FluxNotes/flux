@@ -219,6 +219,8 @@ export default class NotesPanel extends Component {
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
+
+                    updateNoteAssistantMode={this.updateNoteAssistantMode}
                 />
             </div>
         );

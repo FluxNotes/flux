@@ -749,12 +749,6 @@ class FluxNotesEditor extends React.Component {
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
-                
-                if (this.noteParser.isPickList(trigger)) {
-                    arrayOfPickLists.push(trigger);
-                }
-                
-
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
@@ -766,6 +760,12 @@ class FluxNotesEditor extends React.Component {
                 // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
                 if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
                     transform = this.insertPlainText(transform, ' ');
+                }
+
+                // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
+                // If not no option is selected, then push the shortcut to the array
+                if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[[") || remainder.startsWith(" [["))) {
+                    arrayOfPickLists.push(trigger);
                 }
 
                 // Deals with @condition phrases inserted via data summary panel buttons. 
@@ -797,13 +797,25 @@ class FluxNotesEditor extends React.Component {
             //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
-        state = transform.apply();
-        this.setState({state: state});
-        //return state;
-        
-        
+
         console.log("shortcuts that are picklists");
         console.log(arrayOfPickLists);
+
+        // Open PickListOptionsPanel if inserting structured phrases that have multi options
+        if (arrayOfPickLists.length > 0 ) {
+            console.log("inside if. open options panel");
+            this.props.updateNoteAssistantMode('pick-list-options-panel');
+
+
+
+
+        } else  {
+            console.log("nothing in the array of pick lists");
+            // Insert the text into the editor
+            state = transform.apply();
+            this.setState({state: state});
+            return state;
+        }
     }
 
     /**
@@ -1083,6 +1095,7 @@ FluxNotesEditor.proptypes = {
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
+    updateNoteAssistantMode: PropTypes.func.isRequired,
 }
 
 export default FluxNotesEditor;

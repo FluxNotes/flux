@@ -1,1 +1,13 @@
+.pickList-options-panel {
+    margin: 20px 0;
+    color: #888;
+}
+
+#cancel-btn {
+    min-width: 70px;
+    min-height: 20px;
+    width: 50%;
+    background-color: #FFFFFF;
+    margin-top: 10%;
+}
 
