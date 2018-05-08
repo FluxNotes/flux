@@ -20,6 +20,7 @@ export default class NotesPanel extends Component {
             selectedNote: null,
             currentlyEditingEntryId: -1,
             arrayOfPickLists: [],
+            templateToInsert: null
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -42,6 +43,14 @@ export default class NotesPanel extends Component {
 
     updateSelectedNote = (note) => {
         this.setState({selectedNote: note});
+    }
+
+    updateTemplateToInsert = (template) => {
+        this.setState({ templateToInsert: template });
+    }
+
+    updateTemplateWithSelectedPickListOptions = (selectedPickListOptions) => {
+        console.log(selectedPickListOptions);
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -227,6 +236,7 @@ export default class NotesPanel extends Component {
                     shortcutManager={this.props.shortcutManager}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
+                    templateToInsert={this.state.templateToInsert}
                     // Pass in note that the editor is to be updated with
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
@@ -235,6 +245,7 @@ export default class NotesPanel extends Component {
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
 
+                    updateTemplateToInsert={this.updateTemplateToInsert}
                 />
             </div>
         );
@@ -265,6 +276,7 @@ export default class NotesPanel extends Component {
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
+                    updateTemplateToInsert={this.updateTemplateToInsert}
                 />
             </div>
         );

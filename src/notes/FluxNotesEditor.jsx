@@ -443,6 +443,11 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        console.log(nextProps)
+        if (this.props.templateToInsert !== nextProps.templateToInsert && !Lang.isNull(nextProps.templateToInsert) && nextProps.templateToInsert.length > 0) {
+            this.insertTemplate(nextProps.templateToInsert);
+        }
+
 
        // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
@@ -768,6 +773,7 @@ class FluxNotesEditor extends React.Component {
                     localArrayOfPickLists.push(trigger);
                 }
 
+
                 // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {
                     end = remainder.indexOf("]]");
@@ -806,6 +812,7 @@ class FluxNotesEditor extends React.Component {
 
         // let localArrayOfPickListsWithOptions = [];
 
+
         // for (let i = 0; i < localArrayOfPickLists.length;  i++) {
         //
         // }
@@ -825,6 +832,16 @@ class FluxNotesEditor extends React.Component {
             this.setState({state: state});
             return state;
         }
+    }
+
+    /**
+     *  Checks if any of the shortcuts in the template require the user to choose from pick list
+     *  If not, function will call insertTextWithStructuredPhrases to insert completed template into editor
+     */
+    insertTemplate = (template) => {
+        const triggers = this.noteParser.getListOfTriggersFromText(template)[0];
+        console.log(template);
+        this.insertTextWithStructuredPhrases(template);
     }
 
     /**
@@ -1101,10 +1118,12 @@ FluxNotesEditor.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
+    templateToInsert: PropTypes.string.isRequired,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
+    updateTemplateToInsert: PropTypes.func.isRequired
 }
 
 export default FluxNotesEditor;

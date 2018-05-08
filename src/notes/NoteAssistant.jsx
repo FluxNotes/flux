@@ -248,7 +248,7 @@ export default class NoteAssistant extends Component {
                     <div>
                         <ContextTray
                             contextManager={this.props.contextManager}
-                            onShortcutClicked={this.props.handleSummaryItemSelected}
+                            onShortcutClicked={this.props.updateTemplateToInsert}
                             patient={this.props.patient}
                             shortcutManager={this.props.shortcutManager}
                         />
@@ -555,4 +555,5 @@ NoteAssistant.propTypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
+    updateTemplateToInsert: PropTypes.func.isRequired
 };
