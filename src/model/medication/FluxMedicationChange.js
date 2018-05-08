@@ -31,11 +31,6 @@ class FluxMedicationChange {
      * Returns type as a string
      */
     get type() { 
-        // // Return displayText if possible
-        // return (this._medicationChange.type.value.coding[0].displayText.value 
-        //     ? this._medicationChange.type.value.coding[0].displayText.value
-        //     : this._medicationChange.type.value.coding[0].code
-        // );
         // Return code
         return this._medicationChange.type.value.coding[0].code;
     }
