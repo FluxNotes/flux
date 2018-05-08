@@ -294,6 +294,7 @@ export default class NotesPanel extends Component {
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
                     updateTemplateToInsert={this.updateTemplateToInsert}
+                    updateTemplateWithSelectedPickListOptions={this.updateTemplateWithSelectedPickListOptions}
                 />
             </div>
         );
