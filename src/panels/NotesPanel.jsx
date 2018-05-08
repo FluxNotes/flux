@@ -50,7 +50,20 @@ export default class NotesPanel extends Component {
     }
 
     updateTemplateWithSelectedPickListOptions = (selectedPickListOptions) => {
+        let templateToInsert = this.state.templateToInsert;
+
+        if (!Lang.isNull(this.state.templateToInsert) && selectedPickListOptions.length > 0) {
+            // Loop through selectedPickListOptions and replace in template
+            selectedPickListOptions.forEach((option) => {
+                const index = templateToInsert.indexOf(option.trigger) + option.trigger.length;
+                // Replace instance of shortcut with bracketed notation
+                templateToInsert = templateToInsert.slice(0, index) + `[[${option.selectionOption}]]` + templateToInsert.slice(index);
+            });
+        }
+
+        this.setState({ templateToInsert: templateToInsert });
         console.log(selectedPickListOptions);
+        console.log(templateToInsert);
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
