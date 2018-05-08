@@ -738,8 +738,6 @@ class FluxNotesEditor extends React.Component {
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
-        let localArrayOfPickLists = [];
-
 
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
@@ -747,9 +745,6 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-
-        // console.log("triggers");
-        // console.log(triggers);
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
@@ -766,13 +761,6 @@ class FluxNotesEditor extends React.Component {
                 if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
                     transform = this.insertPlainText(transform, ' ');
                 }
-
-                // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
-                // If not no option is selected, then push the shortcut to the array
-                if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[[") || remainder.startsWith(" [["))) {
-                    localArrayOfPickLists.push(trigger);
-                }
-
 
                 // Deals with @condition phrases inserted via data summary panel buttons. 
                 if (remainder.startsWith("[[")) {
@@ -805,41 +793,11 @@ class FluxNotesEditor extends React.Component {
             transform = this.insertPlainText(transform, remainder);
         }
 
-        console.log("shortcuts that are picklists");
-        console.log(localArrayOfPickLists);
 
+        state = transform.apply();
+        this.setState({state: state});
+        // return state;
 
-
-        // TODO: update arrayOfPickLists state;
-        // for each pick list, add options to it
-
-        let localArrayOfPickListsWithOptions = [];
-
-
-        localArrayOfPickLists.forEach((pickList) => {
-            localArrayOfPickListsWithOptions.push(
-                {
-                    'trigger': pickList.trigger,
-                    'options': this.state.portalOptions
-                }
-            )
-        });
-
-        this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
-
-
-        // Open PickListOptionsPanel if inserting structured phrases that have multi options
-        if (localArrayOfPickLists.length > 0 ) {
-            // console.log("inside if. open options panel");
-            this.props.updateNoteAssistantMode('pick-list-options-panel');
-
-        } else  {
-            // console.log("nothing in the array of pick lists");
-            // Insert the text into the editor
-            state = transform.apply();
-            this.setState({state: state});
-            return state;
-        }
     }
 
     /**
@@ -880,15 +838,20 @@ class FluxNotesEditor extends React.Component {
                 // Temporarily create shortcut from trigger to get selectionOptions
                 let tempShortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
                 tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
-                console.log(tempShortcut);
+
+                let shortcutOptions = tempShortcut.getValueSelectionOptions().map((shortcutOption) => {return shortcutOption.context});
+                console.log("shortcut options");
+                console.log(shortcutOptions);
                 localArrayOfPickListsWithOptions.push(
                     {
                         'trigger': pickList.trigger,
-                        'options': this.state.portalOptions
+                        'options': shortcutOptions
                     }
                 )
             });
-            console.log(localArrayOfPickLists)
+
+            this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
+            this.props.updateNoteAssistantMode('pick-list-options-panel');
         } else {
             this.insertTextWithStructuredPhrases(template);
         }
