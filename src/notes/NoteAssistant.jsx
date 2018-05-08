@@ -284,6 +284,7 @@ export default class NoteAssistant extends Component {
                     <div>
                         <PickListOptionsPanel
                             updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                            arrayOfPickLists={this.props.arrayOfPickLists}
                         />
                     </div>
                 )
@@ -553,4 +554,5 @@ NoteAssistant.propTypes = {
     updateCurrentlyEditingEntryId: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
+    arrayOfPickLists: PropTypes.array.isRequired,
 };

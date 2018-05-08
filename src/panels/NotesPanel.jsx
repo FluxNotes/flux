@@ -18,7 +18,8 @@ export default class NotesPanel extends Component {
             noteAssistantMode: "context-tray",
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
             selectedNote: null,
-            currentlyEditingEntryId: -1
+            currentlyEditingEntryId: -1,
+            arrayOfPickLists: [],
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -70,6 +71,17 @@ export default class NotesPanel extends Component {
 
     handleUpdateCurrentlyEditingEntryId = (id) => {
         this.setState({currentlyEditingEntryId: parseInt(id, 10)});
+    }
+
+    handleUpdateArrayOfPickLists = (array) => {
+
+        console.log("Updating array of pick lists: ");
+        console.log(array);
+        this.setState(
+            {
+                arrayOfPickLists: array
+            }
+        )
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
@@ -219,8 +231,10 @@ export default class NotesPanel extends Component {
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateSelectedNote={this.updateSelectedNote}
-
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
+                    arrayOfPickLists={this.arrayOfPickLists}
+                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
+
                 />
             </div>
         );
@@ -250,6 +264,7 @@ export default class NotesPanel extends Component {
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
+                    arrayOfPickLists={this.state.arrayOfPickLists}
                 />
             </div>
         );

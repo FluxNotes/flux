@@ -734,7 +734,7 @@ class FluxNotesEditor extends React.Component {
         let remainder = textToBeInserted;
         let start, end;
         let before = '', after = '';
-        let arrayOfPickLists = [];
+        let localArrayOfPickLists = [];
 
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
@@ -743,8 +743,8 @@ class FluxNotesEditor extends React.Component {
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
 
-        console.log("triggers");
-        console.log(triggers);
+        // console.log("triggers");
+        // console.log(triggers);
 
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
@@ -765,7 +765,7 @@ class FluxNotesEditor extends React.Component {
                 // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
                 // If not no option is selected, then push the shortcut to the array
                 if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[[") || remainder.startsWith(" [["))) {
-                    arrayOfPickLists.push(trigger);
+                    localArrayOfPickLists.push(trigger);
                 }
 
                 // Deals with @condition phrases inserted via data summary panel buttons. 
@@ -798,19 +798,28 @@ class FluxNotesEditor extends React.Component {
             transform = this.insertPlainText(transform, remainder);
         }
 
-        console.log("shortcuts that are picklists");
-        console.log(arrayOfPickLists);
+        // console.log("shortcuts that are picklists");
+        // console.log(localArrayOfPickLists);
+
+        // TODO: update arrayOfPickLists state;
+        // for each pick list, add options to it
+
+        // let localArrayOfPickListsWithOptions = [];
+
+        // for (let i = 0; i < localArrayOfPickLists.length;  i++) {
+        //
+        // }
+
+        this.props.handleUpdateArrayOfPickLists(localArrayOfPickLists);
+
 
         // Open PickListOptionsPanel if inserting structured phrases that have multi options
-        if (arrayOfPickLists.length > 0 ) {
-            console.log("inside if. open options panel");
+        if (localArrayOfPickLists.length > 0 ) {
+            // console.log("inside if. open options panel");
             this.props.updateNoteAssistantMode('pick-list-options-panel');
 
-
-
-
         } else  {
-            console.log("nothing in the array of pick lists");
+            // console.log("nothing in the array of pick lists");
             // Insert the text into the editor
             state = transform.apply();
             this.setState({state: state});

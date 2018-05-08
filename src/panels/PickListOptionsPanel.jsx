@@ -6,13 +6,12 @@ import './PickListOptionsPanel.css';
 export default class PickListOptionsPanel extends Component {
     constructor(props) {
         super(props);
+    }
 
-        // this.state = {
-        //     array: [
-        //         { trigger: '@condition'},
-        //         { trigger: '@procedure'}
-        //     ]
-        // };
+    componentWillReceiveProps = (nextProps) => {
+
+        console.log("in pick list options panel");
+        console.log(nextProps.arrayOfPickLists);
     }
 
 
@@ -44,4 +43,5 @@ export default class PickListOptionsPanel extends Component {
 
 PickListOptionsPanel.proptypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
+    arrayOfPickLists: PropTypes.array.isRequired,
 }
