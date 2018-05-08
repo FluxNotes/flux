@@ -22,6 +22,15 @@ class Coverage {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {Coverage} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the Type.
    * @returns {Type} The shr.entity.Type
    */
@@ -31,10 +40,21 @@ class Coverage {
 
   /**
    * Set the Type.
+   * This field/value is required.
    * @param {Type} type - The shr.entity.Type
    */
   set type(type) {
     this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Type} type - The shr.entity.Type
+   * @returns {Coverage} this.
+   */
+  withType(type) {
+    this.type = type; return this;
   }
 
   /**
@@ -54,6 +74,15 @@ class Coverage {
   }
 
   /**
+   * Set the InsuranceMemberId and return 'this' for chaining.
+   * @param {InsuranceMemberId} insuranceMemberId - The shr.financial.InsuranceMemberId
+   * @returns {Coverage} this.
+   */
+  withInsuranceMemberId(insuranceMemberId) {
+    this.insuranceMemberId = insuranceMemberId; return this;
+  }
+
+  /**
    * Get the EffectiveTimePeriod.
    * @returns {EffectiveTimePeriod} The shr.core.EffectiveTimePeriod
    */
@@ -70,6 +99,15 @@ class Coverage {
   }
 
   /**
+   * Set the EffectiveTimePeriod and return 'this' for chaining.
+   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
+   * @returns {Coverage} this.
+   */
+  withEffectiveTimePeriod(effectiveTimePeriod) {
+    this.effectiveTimePeriod = effectiveTimePeriod; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Coverage class.
    * The JSON must be valid against the Coverage JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -78,6 +116,25 @@ class Coverage {
   static fromJSON(json={}) {
     const inst = new Coverage();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Coverage class to a JSON object.
+   * The JSON is expected to be valid against the Coverage JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.insuranceMemberId != null) {
+      inst['InsuranceMemberId'] = typeof this.insuranceMemberId.toJSON === 'function' ? this.insuranceMemberId.toJSON() : this.insuranceMemberId;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
     return inst;
   }
 }

@@ -9,9 +9,9 @@ class HardCodedReadOnlyDataSource extends IDataSource {
     getPatient(id) {
         if (id === DataAccess.DEMO_PATIENT_ID) {
             return new PatientRecord(hardCodedPatient);
-        } else if (hardCodedPatientMidYearDemo18[0]["shr.base.ShrId"] === id) {
+        } else if (hardCodedPatientMidYearDemo18[0]["ShrId"] === id) {
             return new PatientRecord(hardCodedPatientMidYearDemo18);
-        } else if (curationPatient[0]["shr.base.ShrId"].Value === id) {
+        } else if (curationPatient[0]["ShrId"].Value === id) {
             return new PatientRecord(curationPatient);
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");

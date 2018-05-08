@@ -12,6 +12,10 @@ class FluxBRCA1Variant {
     get value() {
         return this._brca1Variant.value.coding[0].displayText.value;
     }
+
+    toJSON() {
+        return this._brca1Variant.toJSON();
+    }
 }
 
 export default FluxBRCA1Variant;

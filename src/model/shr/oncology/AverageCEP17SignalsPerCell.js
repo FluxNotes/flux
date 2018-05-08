@@ -18,10 +18,21 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
 
   /**
    * Set the value (aliases quantity).
+   * This field/value is required.
    * @param {Quantity} value - The shr.core.Quantity
    */
   set value(value) {
     this._quantity = value;
+  }
+
+  /**
+   * Set the value (aliases quantity) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} value - The shr.core.Quantity
+   * @returns {AverageCEP17SignalsPerCell} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -34,10 +45,21 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
 
   /**
    * Set the Quantity.
+   * This field/value is required.
    * @param {Quantity} quantity - The shr.core.Quantity
    */
   set quantity(quantity) {
     this._quantity = quantity;
+  }
+
+  /**
+   * Set the Quantity and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Quantity} quantity - The shr.core.Quantity
+   * @returns {AverageCEP17SignalsPerCell} this.
+   */
+  withQuantity(quantity) {
+    this.quantity = quantity; return this;
   }
 
   /**
@@ -50,10 +72,21 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
 
   /**
    * Set the ObservationCode.
+   * This field/value is required.
    * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
    */
   set observationCode(observationCode) {
     this._observationCode = observationCode;
+  }
+
+  /**
+   * Set the ObservationCode and return 'this' for chaining.
+   * This field/value is required.
+   * @param {ObservationCode} observationCode - The shr.finding.ObservationCode
+   * @returns {AverageCEP17SignalsPerCell} this.
+   */
+  withObservationCode(observationCode) {
+    this.observationCode = observationCode; return this;
   }
 
   /**
@@ -65,6 +98,30 @@ class AverageCEP17SignalsPerCell extends ObservationComponent {
   static fromJSON(json={}) {
     const inst = new AverageCEP17SignalsPerCell();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the AverageCEP17SignalsPerCell class to a JSON object.
+   * The JSON is expected to be valid against the AverageCEP17SignalsPerCell JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/oncology/AverageCEP17SignalsPerCell' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.valueAbsentReason != null) {
+      inst['ValueAbsentReason'] = typeof this.valueAbsentReason.toJSON === 'function' ? this.valueAbsentReason.toJSON() : this.valueAbsentReason;
+    }
+    if (this.observationCode != null) {
+      inst['ObservationCode'] = typeof this.observationCode.toJSON === 'function' ? this.observationCode.toJSON() : this.observationCode;
+    }
+    if (this.interpretation != null) {
+      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
+    }
+    if (this.referenceRange != null) {
+      inst['ReferenceRange'] = this.referenceRange.map(f => f.toJSON());
+    }
     return inst;
   }
 }

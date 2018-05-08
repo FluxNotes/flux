@@ -15,10 +15,21 @@ class Ethnicity {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {Ethnicity} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Ethnicity {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {Ethnicity} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -54,6 +76,15 @@ class Ethnicity {
   }
 
   /**
+   * Set the EthnicityDetail array and return 'this' for chaining.
+   * @param {Array<EthnicityDetail>} ethnicityDetail - The shr.entity.EthnicityDetail array
+   * @returns {Ethnicity} this.
+   */
+  withEthnicityDetail(ethnicityDetail) {
+    this.ethnicityDetail = ethnicityDetail; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Ethnicity class.
    * The JSON must be valid against the Ethnicity JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -62,6 +93,21 @@ class Ethnicity {
   static fromJSON(json={}) {
     const inst = new Ethnicity();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Ethnicity class to a JSON object.
+   * The JSON is expected to be valid against the Ethnicity JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Ethnicity' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.ethnicityDetail != null) {
+      inst['EthnicityDetail'] = this.ethnicityDetail.map(f => f.toJSON());
+    }
     return inst;
   }
 }

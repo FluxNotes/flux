@@ -15,10 +15,21 @@ class NumberOfRepeats {
 
   /**
    * Set the value (aliases positiveInt).
+   * This field/value is required.
    * @param {positiveInt} value - The positiveInt
    */
   set value(value) {
     this._positiveInt = value;
+  }
+
+  /**
+   * Set the value (aliases positiveInt) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} value - The positiveInt
+   * @returns {NumberOfRepeats} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class NumberOfRepeats {
 
   /**
    * Set the positiveInt.
+   * This field/value is required.
    * @param {positiveInt} positiveInt - The positiveInt
    */
   set positiveInt(positiveInt) {
     this._positiveInt = positiveInt;
+  }
+
+  /**
+   * Set the positiveInt and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} positiveInt - The positiveInt
+   * @returns {NumberOfRepeats} this.
+   */
+  withPositiveInt(positiveInt) {
+    this.positiveInt = positiveInt; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class NumberOfRepeats {
   static fromJSON(json={}) {
     const inst = new NumberOfRepeats();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the NumberOfRepeats class to a JSON object.
+   * The JSON is expected to be valid against the NumberOfRepeats JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

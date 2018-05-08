@@ -42,6 +42,10 @@ class FluxQuestionAnswer {
     get value() {
         return this._questionAnswer.value;
     }
+
+    toJSON() {
+        return this._questionAnswer.toJSON();
+    }
 }
 
 export default FluxQuestionAnswer;

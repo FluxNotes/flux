@@ -22,6 +22,15 @@ class Coding {
   }
 
   /**
+   * Set the value (aliases code) and return 'this' for chaining.
+   * @param {code} value - The code
+   * @returns {Coding} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
+  }
+
+  /**
    * Get the code.
    * @returns {code} The code
    */
@@ -35,6 +44,15 @@ class Coding {
    */
   set code(code) {
     this._code = code;
+  }
+
+  /**
+   * Set the code and return 'this' for chaining.
+   * @param {code} code - The code
+   * @returns {Coding} this.
+   */
+  withCode(code) {
+    this.code = code; return this;
   }
 
   /**
@@ -54,6 +72,15 @@ class Coding {
   }
 
   /**
+   * Set the CodeSystem and return 'this' for chaining.
+   * @param {CodeSystem} codeSystem - The shr.core.CodeSystem
+   * @returns {Coding} this.
+   */
+  withCodeSystem(codeSystem) {
+    this.codeSystem = codeSystem; return this;
+  }
+
+  /**
    * Get the CodeSystemVersion.
    * @returns {CodeSystemVersion} The shr.core.CodeSystemVersion
    */
@@ -67,6 +94,15 @@ class Coding {
    */
   set codeSystemVersion(codeSystemVersion) {
     this._codeSystemVersion = codeSystemVersion;
+  }
+
+  /**
+   * Set the CodeSystemVersion and return 'this' for chaining.
+   * @param {CodeSystemVersion} codeSystemVersion - The shr.core.CodeSystemVersion
+   * @returns {Coding} this.
+   */
+  withCodeSystemVersion(codeSystemVersion) {
+    this.codeSystemVersion = codeSystemVersion; return this;
   }
 
   /**
@@ -86,6 +122,15 @@ class Coding {
   }
 
   /**
+   * Set the DisplayText and return 'this' for chaining.
+   * @param {DisplayText} displayText - The shr.core.DisplayText
+   * @returns {Coding} this.
+   */
+  withDisplayText(displayText) {
+    this.displayText = displayText; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Coding class.
    * The JSON must be valid against the Coding JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -94,6 +139,27 @@ class Coding {
   static fromJSON(json={}) {
     const inst = new Coding();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Coding class to a JSON object.
+   * The JSON is expected to be valid against the Coding JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.codeSystem != null) {
+      inst['CodeSystem'] = typeof this.codeSystem.toJSON === 'function' ? this.codeSystem.toJSON() : this.codeSystem;
+    }
+    if (this.codeSystemVersion != null) {
+      inst['CodeSystemVersion'] = typeof this.codeSystemVersion.toJSON === 'function' ? this.codeSystemVersion.toJSON() : this.codeSystemVersion;
+    }
+    if (this.displayText != null) {
+      inst['DisplayText'] = typeof this.displayText.toJSON === 'function' ? this.displayText.toJSON() : this.displayText;
+    }
     return inst;
   }
 }

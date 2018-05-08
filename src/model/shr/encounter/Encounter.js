@@ -25,6 +25,15 @@ class Encounter extends Action {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {Encounter} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the Subject.
    * @returns {Subject} The shr.base.Subject
    */
@@ -38,6 +47,15 @@ class Encounter extends Action {
    */
   set subject(subject) {
     this._subject = subject;
+  }
+
+  /**
+   * Set the Subject and return 'this' for chaining.
+   * @param {Subject} subject - The shr.base.Subject
+   * @returns {Encounter} this.
+   */
+  withSubject(subject) {
+    this.subject = subject; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class Encounter extends Action {
   }
 
   /**
+   * Set the ReferralDate and return 'this' for chaining.
+   * @param {ReferralDate} referralDate - The shr.encounter.ReferralDate
+   * @returns {Encounter} this.
+   */
+  withReferralDate(referralDate) {
+    this.referralDate = referralDate; return this;
+  }
+
+  /**
    * Get the ReferralSourceType.
    * @returns {ReferralSourceType} The shr.encounter.ReferralSourceType
    */
@@ -70,6 +97,15 @@ class Encounter extends Action {
    */
   set referralSourceType(referralSourceType) {
     this._referralSourceType = referralSourceType;
+  }
+
+  /**
+   * Set the ReferralSourceType and return 'this' for chaining.
+   * @param {ReferralSourceType} referralSourceType - The shr.encounter.ReferralSourceType
+   * @returns {Encounter} this.
+   */
+  withReferralSourceType(referralSourceType) {
+    this.referralSourceType = referralSourceType; return this;
   }
 
   /**
@@ -89,6 +125,15 @@ class Encounter extends Action {
   }
 
   /**
+   * Set the TypeAsaCoding and return 'this' for chaining.
+   * @param {TypeAsaCoding} typeAsaCoding - The shr.core.TypeAsaCoding
+   * @returns {Encounter} this.
+   */
+  withTypeAsaCoding(typeAsaCoding) {
+    this.typeAsaCoding = typeAsaCoding; return this;
+  }
+
+  /**
    * Get the ServiceGiven array.
    * @returns {Array<ServiceGiven>} The shr.encounter.ServiceGiven array
    */
@@ -102,6 +147,15 @@ class Encounter extends Action {
    */
   set serviceGiven(serviceGiven) {
     this._serviceGiven = serviceGiven;
+  }
+
+  /**
+   * Set the ServiceGiven array and return 'this' for chaining.
+   * @param {Array<ServiceGiven>} serviceGiven - The shr.encounter.ServiceGiven array
+   * @returns {Encounter} this.
+   */
+  withServiceGiven(serviceGiven) {
+    this.serviceGiven = serviceGiven; return this;
   }
 
   /**
@@ -121,6 +175,15 @@ class Encounter extends Action {
   }
 
   /**
+   * Set the ServiceProvider and return 'this' for chaining.
+   * @param {ServiceProvider} serviceProvider - The shr.encounter.ServiceProvider
+   * @returns {Encounter} this.
+   */
+  withServiceProvider(serviceProvider) {
+    this.serviceProvider = serviceProvider; return this;
+  }
+
+  /**
    * Get the TreatmentCooperation.
    * @returns {TreatmentCooperation} The shr.encounter.TreatmentCooperation
    */
@@ -137,6 +200,15 @@ class Encounter extends Action {
   }
 
   /**
+   * Set the TreatmentCooperation and return 'this' for chaining.
+   * @param {TreatmentCooperation} treatmentCooperation - The shr.encounter.TreatmentCooperation
+   * @returns {Encounter} this.
+   */
+  withTreatmentCooperation(treatmentCooperation) {
+    this.treatmentCooperation = treatmentCooperation; return this;
+  }
+
+  /**
    * Get the PaymentSource.
    * @returns {PaymentSource} The shr.encounter.PaymentSource
    */
@@ -150,6 +222,15 @@ class Encounter extends Action {
    */
   set paymentSource(paymentSource) {
     this._paymentSource = paymentSource;
+  }
+
+  /**
+   * Set the PaymentSource and return 'this' for chaining.
+   * @param {PaymentSource} paymentSource - The shr.encounter.PaymentSource
+   * @returns {Encounter} this.
+   */
+  withPaymentSource(paymentSource) {
+    this.paymentSource = paymentSource; return this;
   }
 
   // Ommitting getter/setter for TBD: HealthConcern
@@ -175,6 +256,58 @@ class Encounter extends Action {
   static fromJSON(json={}) {
     const inst = new Encounter();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Encounter class to a JSON object.
+   * The JSON is expected to be valid against the Encounter JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/Encounter' };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.category != null) {
+      inst['Category'] = this.category.map(f => f.toJSON());
+    }
+    if (this.actionContext != null) {
+      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.referralDate != null) {
+      inst['ReferralDate'] = typeof this.referralDate.toJSON === 'function' ? this.referralDate.toJSON() : this.referralDate;
+    }
+    if (this.referralSourceType != null) {
+      inst['ReferralSourceType'] = typeof this.referralSourceType.toJSON === 'function' ? this.referralSourceType.toJSON() : this.referralSourceType;
+    }
+    if (this.typeAsaCoding != null) {
+      inst['TypeAsaCoding'] = typeof this.typeAsaCoding.toJSON === 'function' ? this.typeAsaCoding.toJSON() : this.typeAsaCoding;
+    }
+    if (this.serviceGiven != null) {
+      inst['ServiceGiven'] = this.serviceGiven.map(f => f.toJSON());
+    }
+    if (this.serviceProvider != null) {
+      inst['ServiceProvider'] = typeof this.serviceProvider.toJSON === 'function' ? this.serviceProvider.toJSON() : this.serviceProvider;
+    }
+    if (this.treatmentCooperation != null) {
+      inst['TreatmentCooperation'] = typeof this.treatmentCooperation.toJSON === 'function' ? this.treatmentCooperation.toJSON() : this.treatmentCooperation;
+    }
+    if (this.paymentSource != null) {
+      inst['PaymentSource'] = typeof this.paymentSource.toJSON === 'function' ? this.paymentSource.toJSON() : this.paymentSource;
+    }
     return inst;
   }
 }

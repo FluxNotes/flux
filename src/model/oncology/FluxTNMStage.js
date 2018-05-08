@@ -151,6 +151,10 @@ class FluxTNMStage extends FluxObservation {
 
         this.stage = staging.breastCancerPrognosticStage(t, n, m);
     }
+
+    toJSON() {
+        return this._observation.toJSON();
+    }
 }
 
 export default FluxTNMStage;

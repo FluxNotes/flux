@@ -15,10 +15,21 @@ class Affiliation {
 
   /**
    * Set the value (aliases organization).
+   * This field/value is required.
    * @param {Organization} value - The shr.entity.Organization
    */
   set value(value) {
     this._organization = value;
+  }
+
+  /**
+   * Set the value (aliases organization) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Organization} value - The shr.entity.Organization
+   * @returns {Affiliation} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Affiliation {
 
   /**
    * Set the Organization.
+   * This field/value is required.
    * @param {Organization} organization - The shr.entity.Organization
    */
   set organization(organization) {
     this._organization = organization;
+  }
+
+  /**
+   * Set the Organization and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Organization} organization - The shr.entity.Organization
+   * @returns {Affiliation} this.
+   */
+  withOrganization(organization) {
+    this.organization = organization; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Affiliation {
   static fromJSON(json={}) {
     const inst = new Affiliation();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Affiliation class to a JSON object.
+   * The JSON is expected to be valid against the Affiliation JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Affiliation' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

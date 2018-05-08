@@ -25,6 +25,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the DirectSite array and return 'this' for chaining.
+   * @param {Array<DirectSite>} directSite - The shr.procedure.DirectSite array
+   * @returns {SurgicalProcedure} this.
+   */
+  withDirectSite(directSite) {
+    this.directSite = directSite; return this;
+  }
+
+  /**
    * Get the DirectSiteCode array.
    * @returns {Array<DirectSiteCode>} The shr.procedure.DirectSiteCode array
    */
@@ -38,6 +47,15 @@ class SurgicalProcedure extends ProcedureAction {
    */
   set directSiteCode(directSiteCode) {
     this._directSiteCode = directSiteCode;
+  }
+
+  /**
+   * Set the DirectSiteCode array and return 'this' for chaining.
+   * @param {Array<DirectSiteCode>} directSiteCode - The shr.procedure.DirectSiteCode array
+   * @returns {SurgicalProcedure} this.
+   */
+  withDirectSiteCode(directSiteCode) {
+    this.directSiteCode = directSiteCode; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the IndirectSite array and return 'this' for chaining.
+   * @param {Array<IndirectSite>} indirectSite - The shr.procedure.IndirectSite array
+   * @returns {SurgicalProcedure} this.
+   */
+  withIndirectSite(indirectSite) {
+    this.indirectSite = indirectSite; return this;
+  }
+
+  /**
    * Get the IndirectSiteCode array.
    * @returns {Array<IndirectSiteCode>} The shr.procedure.IndirectSiteCode array
    */
@@ -70,6 +97,15 @@ class SurgicalProcedure extends ProcedureAction {
    */
   set indirectSiteCode(indirectSiteCode) {
     this._indirectSiteCode = indirectSiteCode;
+  }
+
+  /**
+   * Set the IndirectSiteCode array and return 'this' for chaining.
+   * @param {Array<IndirectSiteCode>} indirectSiteCode - The shr.procedure.IndirectSiteCode array
+   * @returns {SurgicalProcedure} this.
+   */
+  withIndirectSiteCode(indirectSiteCode) {
+    this.indirectSiteCode = indirectSiteCode; return this;
   }
 
   /**
@@ -89,6 +125,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the SurgicalApproach array and return 'this' for chaining.
+   * @param {Array<SurgicalApproach>} surgicalApproach - The shr.procedure.SurgicalApproach array
+   * @returns {SurgicalProcedure} this.
+   */
+  withSurgicalApproach(surgicalApproach) {
+    this.surgicalApproach = surgicalApproach; return this;
+  }
+
+  /**
    * Get the Access array.
    * @returns {Array<Access>} The shr.procedure.Access array
    */
@@ -102,6 +147,15 @@ class SurgicalProcedure extends ProcedureAction {
    */
   set access(access) {
     this._access = access;
+  }
+
+  /**
+   * Set the Access array and return 'this' for chaining.
+   * @param {Array<Access>} access - The shr.procedure.Access array
+   * @returns {SurgicalProcedure} this.
+   */
+  withAccess(access) {
+    this.access = access; return this;
   }
 
   /**
@@ -121,6 +175,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the UsingDevice array and return 'this' for chaining.
+   * @param {Array<UsingDevice>} usingDevice - The shr.procedure.UsingDevice array
+   * @returns {SurgicalProcedure} this.
+   */
+  withUsingDevice(usingDevice) {
+    this.usingDevice = usingDevice; return this;
+  }
+
+  /**
    * Get the UsingDeviceCode array.
    * @returns {Array<UsingDeviceCode>} The shr.procedure.UsingDeviceCode array
    */
@@ -134,6 +197,15 @@ class SurgicalProcedure extends ProcedureAction {
    */
   set usingDeviceCode(usingDeviceCode) {
     this._usingDeviceCode = usingDeviceCode;
+  }
+
+  /**
+   * Set the UsingDeviceCode array and return 'this' for chaining.
+   * @param {Array<UsingDeviceCode>} usingDeviceCode - The shr.procedure.UsingDeviceCode array
+   * @returns {SurgicalProcedure} this.
+   */
+  withUsingDeviceCode(usingDeviceCode) {
+    this.usingDeviceCode = usingDeviceCode; return this;
   }
 
   /**
@@ -153,6 +225,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the UsingAccessDevice array and return 'this' for chaining.
+   * @param {Array<UsingAccessDevice>} usingAccessDevice - The shr.procedure.UsingAccessDevice array
+   * @returns {SurgicalProcedure} this.
+   */
+  withUsingAccessDevice(usingAccessDevice) {
+    this.usingAccessDevice = usingAccessDevice; return this;
+  }
+
+  /**
    * Get the UsingAccessDeviceCode array.
    * @returns {Array<UsingAccessDeviceCode>} The shr.procedure.UsingAccessDeviceCode array
    */
@@ -166,6 +247,15 @@ class SurgicalProcedure extends ProcedureAction {
    */
   set usingAccessDeviceCode(usingAccessDeviceCode) {
     this._usingAccessDeviceCode = usingAccessDeviceCode;
+  }
+
+  /**
+   * Set the UsingAccessDeviceCode array and return 'this' for chaining.
+   * @param {Array<UsingAccessDeviceCode>} usingAccessDeviceCode - The shr.procedure.UsingAccessDeviceCode array
+   * @returns {SurgicalProcedure} this.
+   */
+  withUsingAccessDeviceCode(usingAccessDeviceCode) {
+    this.usingAccessDeviceCode = usingAccessDeviceCode; return this;
   }
 
   /**
@@ -185,6 +275,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the IndirectDevice array and return 'this' for chaining.
+   * @param {Array<IndirectDevice>} indirectDevice - The shr.procedure.IndirectDevice array
+   * @returns {SurgicalProcedure} this.
+   */
+  withIndirectDevice(indirectDevice) {
+    this.indirectDevice = indirectDevice; return this;
+  }
+
+  /**
    * Get the IndirectDeviceCode array.
    * @returns {Array<IndirectDeviceCode>} The shr.procedure.IndirectDeviceCode array
    */
@@ -201,6 +300,15 @@ class SurgicalProcedure extends ProcedureAction {
   }
 
   /**
+   * Set the IndirectDeviceCode array and return 'this' for chaining.
+   * @param {Array<IndirectDeviceCode>} indirectDeviceCode - The shr.procedure.IndirectDeviceCode array
+   * @returns {SurgicalProcedure} this.
+   */
+  withIndirectDeviceCode(indirectDeviceCode) {
+    this.indirectDeviceCode = indirectDeviceCode; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the SurgicalProcedure class.
    * The JSON must be valid against the SurgicalProcedure JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -209,6 +317,84 @@ class SurgicalProcedure extends ProcedureAction {
   static fromJSON(json={}) {
     const inst = new SurgicalProcedure();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SurgicalProcedure class to a JSON object.
+   * The JSON is expected to be valid against the SurgicalProcedure JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/procedure/SurgicalProcedure' } };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.category != null) {
+      inst['Category'] = this.category.map(f => f.toJSON());
+    }
+    if (this.actionContext != null) {
+      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.bodySite != null) {
+      inst['BodySite'] = this.bodySite.map(f => f.toJSON());
+    }
+    if (this.associatedStudy != null) {
+      inst['AssociatedStudy'] = typeof this.associatedStudy.toJSON === 'function' ? this.associatedStudy.toJSON() : this.associatedStudy;
+    }
+    if (this.partOf != null) {
+      inst['PartOf'] = typeof this.partOf.toJSON === 'function' ? this.partOf.toJSON() : this.partOf;
+    }
+    if (this.annotation != null) {
+      inst['Annotation'] = this.annotation.map(f => f.toJSON());
+    }
+    if (this.directSite != null) {
+      inst['DirectSite'] = this.directSite.map(f => f.toJSON());
+    }
+    if (this.directSiteCode != null) {
+      inst['DirectSiteCode'] = this.directSiteCode.map(f => f.toJSON());
+    }
+    if (this.indirectSite != null) {
+      inst['IndirectSite'] = this.indirectSite.map(f => f.toJSON());
+    }
+    if (this.indirectSiteCode != null) {
+      inst['IndirectSiteCode'] = this.indirectSiteCode.map(f => f.toJSON());
+    }
+    if (this.surgicalApproach != null) {
+      inst['SurgicalApproach'] = this.surgicalApproach.map(f => f.toJSON());
+    }
+    if (this.access != null) {
+      inst['Access'] = this.access.map(f => f.toJSON());
+    }
+    if (this.usingDevice != null) {
+      inst['UsingDevice'] = this.usingDevice.map(f => f.toJSON());
+    }
+    if (this.usingDeviceCode != null) {
+      inst['UsingDeviceCode'] = this.usingDeviceCode.map(f => f.toJSON());
+    }
+    if (this.usingAccessDevice != null) {
+      inst['UsingAccessDevice'] = this.usingAccessDevice.map(f => f.toJSON());
+    }
+    if (this.usingAccessDeviceCode != null) {
+      inst['UsingAccessDeviceCode'] = this.usingAccessDeviceCode.map(f => f.toJSON());
+    }
+    if (this.indirectDevice != null) {
+      inst['IndirectDevice'] = this.indirectDevice.map(f => f.toJSON());
+    }
+    if (this.indirectDeviceCode != null) {
+      inst['IndirectDeviceCode'] = this.indirectDeviceCode.map(f => f.toJSON());
+    }
     return inst;
   }
 }

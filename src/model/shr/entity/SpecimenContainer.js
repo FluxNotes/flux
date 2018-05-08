@@ -25,6 +25,15 @@ class SpecimenContainer extends Entity {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {SpecimenContainer} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the Identifier.
    * @returns {Identifier} The shr.core.Identifier
    */
@@ -38,6 +47,15 @@ class SpecimenContainer extends Entity {
    */
   set identifier(identifier) {
     this._identifier = identifier;
+  }
+
+  /**
+   * Set the Identifier and return 'this' for chaining.
+   * @param {Identifier} identifier - The shr.core.Identifier
+   * @returns {SpecimenContainer} this.
+   */
+  withIdentifier(identifier) {
+    this.identifier = identifier; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class SpecimenContainer extends Entity {
   }
 
   /**
+   * Set the Details and return 'this' for chaining.
+   * @param {Details} details - The shr.core.Details
+   * @returns {SpecimenContainer} this.
+   */
+  withDetails(details) {
+    this.details = details; return this;
+  }
+
+  /**
    * Get the Capacity.
    * @returns {Capacity} The shr.entity.Capacity
    */
@@ -70,6 +97,15 @@ class SpecimenContainer extends Entity {
    */
   set capacity(capacity) {
     this._capacity = capacity;
+  }
+
+  /**
+   * Set the Capacity and return 'this' for chaining.
+   * @param {Capacity} capacity - The shr.entity.Capacity
+   * @returns {SpecimenContainer} this.
+   */
+  withCapacity(capacity) {
+    this.capacity = capacity; return this;
   }
 
   /**
@@ -89,6 +125,15 @@ class SpecimenContainer extends Entity {
   }
 
   /**
+   * Set the SpecimenQuantity and return 'this' for chaining.
+   * @param {SpecimenQuantity} specimenQuantity - The shr.entity.SpecimenQuantity
+   * @returns {SpecimenContainer} this.
+   */
+  withSpecimenQuantity(specimenQuantity) {
+    this.specimenQuantity = specimenQuantity; return this;
+  }
+
+  /**
    * Get the Additive array.
    * @returns {Array<Additive>} The shr.entity.Additive array
    */
@@ -102,6 +147,15 @@ class SpecimenContainer extends Entity {
    */
   set additive(additive) {
     this._additive = additive;
+  }
+
+  /**
+   * Set the Additive array and return 'this' for chaining.
+   * @param {Array<Additive>} additive - The shr.entity.Additive array
+   * @returns {SpecimenContainer} this.
+   */
+  withAdditive(additive) {
+    this.additive = additive; return this;
   }
 
   /**
@@ -121,6 +175,15 @@ class SpecimenContainer extends Entity {
   }
 
   /**
+   * Set the SequenceNumber and return 'this' for chaining.
+   * @param {SequenceNumber} sequenceNumber - The shr.entity.SequenceNumber
+   * @returns {SpecimenContainer} this.
+   */
+  withSequenceNumber(sequenceNumber) {
+    this.sequenceNumber = sequenceNumber; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the SpecimenContainer class.
    * The JSON must be valid against the SpecimenContainer JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -129,6 +192,46 @@ class SpecimenContainer extends Entity {
   static fromJSON(json={}) {
     const inst = new SpecimenContainer();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SpecimenContainer class to a JSON object.
+   * The JSON is expected to be valid against the SpecimenContainer JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SpecimenContainer' };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.identifier != null) {
+      inst['Identifier'] = typeof this.identifier.toJSON === 'function' ? this.identifier.toJSON() : this.identifier;
+    }
+    if (this.details != null) {
+      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    }
+    if (this.capacity != null) {
+      inst['Capacity'] = typeof this.capacity.toJSON === 'function' ? this.capacity.toJSON() : this.capacity;
+    }
+    if (this.specimenQuantity != null) {
+      inst['SpecimenQuantity'] = typeof this.specimenQuantity.toJSON === 'function' ? this.specimenQuantity.toJSON() : this.specimenQuantity;
+    }
+    if (this.additive != null) {
+      inst['Additive'] = this.additive.map(f => f.toJSON());
+    }
+    if (this.sequenceNumber != null) {
+      inst['SequenceNumber'] = typeof this.sequenceNumber.toJSON === 'function' ? this.sequenceNumber.toJSON() : this.sequenceNumber;
+    }
     return inst;
   }
 }

@@ -19,6 +19,10 @@ class FluxTumorDimensions {
             unit: this._tumorDimensions.value.units.value.code
         };
     }
+
+    toJSON() {
+        return this._tumorDimensions.toJSON();
+    }
 }
 
 export default FluxTumorDimensions;

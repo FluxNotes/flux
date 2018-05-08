@@ -15,10 +15,21 @@ class Method {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {Method} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Method {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {Method} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Method {
   static fromJSON(json={}) {
     const inst = new Method();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Method class to a JSON object.
+   * The JSON is expected to be valid against the Method JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/Method' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

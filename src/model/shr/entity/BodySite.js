@@ -18,10 +18,21 @@ class BodySite extends Entity {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {BodySite} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -34,10 +45,21 @@ class BodySite extends Entity {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {BodySite} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -57,6 +79,15 @@ class BodySite extends Entity {
   }
 
   /**
+   * Set the Laterality and return 'this' for chaining.
+   * @param {Laterality} laterality - The shr.entity.Laterality
+   * @returns {BodySite} this.
+   */
+  withLaterality(laterality) {
+    this.laterality = laterality; return this;
+  }
+
+  /**
    * Get the Directionality.
    * @returns {Directionality} The shr.entity.Directionality
    */
@@ -70,6 +101,15 @@ class BodySite extends Entity {
    */
   set directionality(directionality) {
     this._directionality = directionality;
+  }
+
+  /**
+   * Set the Directionality and return 'this' for chaining.
+   * @param {Directionality} directionality - The shr.entity.Directionality
+   * @returns {BodySite} this.
+   */
+  withDirectionality(directionality) {
+    this.directionality = directionality; return this;
   }
 
   /**
@@ -89,6 +129,15 @@ class BodySite extends Entity {
   }
 
   /**
+   * Set the PortionTotality and return 'this' for chaining.
+   * @param {PortionTotality} portionTotality - The shr.entity.PortionTotality
+   * @returns {BodySite} this.
+   */
+  withPortionTotality(portionTotality) {
+    this.portionTotality = portionTotality; return this;
+  }
+
+  /**
    * Get the ClockDirection.
    * @returns {ClockDirection} The shr.core.ClockDirection
    */
@@ -102,6 +151,15 @@ class BodySite extends Entity {
    */
   set clockDirection(clockDirection) {
     this._clockDirection = clockDirection;
+  }
+
+  /**
+   * Set the ClockDirection and return 'this' for chaining.
+   * @param {ClockDirection} clockDirection - The shr.core.ClockDirection
+   * @returns {BodySite} this.
+   */
+  withClockDirection(clockDirection) {
+    this.clockDirection = clockDirection; return this;
   }
 
   /**
@@ -121,6 +179,15 @@ class BodySite extends Entity {
   }
 
   /**
+   * Set the Distance and return 'this' for chaining.
+   * @param {Distance} distance - The shr.core.Distance
+   * @returns {BodySite} this.
+   */
+  withDistance(distance) {
+    this.distance = distance; return this;
+  }
+
+  /**
    * Get the Details.
    * @returns {Details} The shr.core.Details
    */
@@ -134,6 +201,15 @@ class BodySite extends Entity {
    */
   set details(details) {
     this._details = details;
+  }
+
+  /**
+   * Set the Details and return 'this' for chaining.
+   * @param {Details} details - The shr.core.Details
+   * @returns {BodySite} this.
+   */
+  withDetails(details) {
+    this.details = details; return this;
   }
 
   /**
@@ -153,6 +229,15 @@ class BodySite extends Entity {
   }
 
   /**
+   * Set the BodySiteMarker and return 'this' for chaining.
+   * @param {BodySiteMarker} bodySiteMarker - The shr.entity.BodySiteMarker
+   * @returns {BodySite} this.
+   */
+  withBodySiteMarker(bodySiteMarker) {
+    this.bodySiteMarker = bodySiteMarker; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the BodySite class.
    * The JSON must be valid against the BodySite JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -161,6 +246,51 @@ class BodySite extends Entity {
   static fromJSON(json={}) {
     const inst = new BodySite();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the BodySite class to a JSON object.
+   * The JSON is expected to be valid against the BodySite JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/BodySite' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.laterality != null) {
+      inst['Laterality'] = typeof this.laterality.toJSON === 'function' ? this.laterality.toJSON() : this.laterality;
+    }
+    if (this.directionality != null) {
+      inst['Directionality'] = typeof this.directionality.toJSON === 'function' ? this.directionality.toJSON() : this.directionality;
+    }
+    if (this.portionTotality != null) {
+      inst['PortionTotality'] = typeof this.portionTotality.toJSON === 'function' ? this.portionTotality.toJSON() : this.portionTotality;
+    }
+    if (this.clockDirection != null) {
+      inst['ClockDirection'] = typeof this.clockDirection.toJSON === 'function' ? this.clockDirection.toJSON() : this.clockDirection;
+    }
+    if (this.distance != null) {
+      inst['Distance'] = typeof this.distance.toJSON === 'function' ? this.distance.toJSON() : this.distance;
+    }
+    if (this.details != null) {
+      inst['Details'] = typeof this.details.toJSON === 'function' ? this.details.toJSON() : this.details;
+    }
+    if (this.bodySiteMarker != null) {
+      inst['BodySiteMarker'] = typeof this.bodySiteMarker.toJSON === 'function' ? this.bodySiteMarker.toJSON() : this.bodySiteMarker;
+    }
     return inst;
   }
 }

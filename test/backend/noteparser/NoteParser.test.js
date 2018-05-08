@@ -1,4 +1,7 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
+import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
+    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON,
+    clinicalTrialUnenrolledMinimalJSON } from './NoteParserUtils';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
@@ -28,151 +31,15 @@ const sampleTextClinicalTrialUnenrolledMinimal = "Debra Hernandez672 is presenti
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
-const expectedOutputStaging = [[
-    new FluxTNMStage(
-      {
-            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage" },
-            "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "", "shr.core.CodeSystem": {"Value": ""}, "shr.core.DisplayText": {"Value": "IIA"}}]},
-            "shr.finding.ObservationComponent": [
-                {
-                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/T_Stage" },
-                    "Value": {
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                        "shr.core.Coding":[{ "Value": "369900003", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "T2"}}]}
-                },
-                {
-                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/N_Stage" },
-                    "Value": {
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                        "shr.core.Coding":[{ "Value": "436311000124105", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "N0"}}]}
-                },
-                {
-                    "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/oncology/M_Stage" },
-                    "Value": {
-                        "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},
-                        "shr.core.Coding":[{ "Value": "433581000124101", "shr.core.CodeSystem": {"Value": "urn:oid:2.16.840.1.113883.6.96"}, "shr.core.DisplayText": {"Value": "M0"}}]}
-                }
-            ],
-        }
-    )
-], []];
-const expectedOutputDiseaseStatus = [[
-    new FluxDiseaseProgression({
-        "shr.base.EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
-        },
-        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
-        "shr.finding.Evidence": [   
-            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
-            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
-        ],
-        "shr.core.CreationTime": {"Value": today},
-        "shr.base.LastUpdated": {"Value": today}
-    })
-], []];
-const expectedOutputDiseaseStatus2 = [[
-    new FluxDiseaseProgression({
-        "shr.base.EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
-        },
-        "Value" : {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0205360", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Stable"}}], "shr.core.DisplayText": {"Value":"Stable"}},
-        "shr.finding.Evidence": [   
-            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0011923", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Imaging"}}], "shr.core.DisplayText": {"Value":"Imaging"}}},
-            {"Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C0031809", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value":"Physical exam"}}], "shr.core.DisplayText": {"Value":"Physical exam"}}}
-        ],
-        "shr.finding.ClinicallyRelevantTime": {"Value": "7 Jun 2017"},
-        "shr.core.CreationTime": {"Value": "5 Oct 2017"},
-        "shr.base.LastUpdated": {"Value": today}
-    })
-], []];
-const expectedOutputToxicity = [[
-    new FluxToxicReaction(
-        {
-            "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/ToxicReaction"},
-            "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "10028813", "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, "shr.core.DisplayText": {"Value": "Nausea"}}], "shr.core.DisplayText": {"Value":"Nausea"}},
-            "shr.adverse.AdverseEventGrade": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/AdverseEventGrade"},
-                "Value":{"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "C1513374", "shr.core.CodeSystem": {"Value": "http://ncimeta.nci.nih.gov"}, "shr.core.DisplayText": {"Value": "Grade 2"}}], "shr.core.DisplayText": {"Value":"Grade 2"}},
-            },
-            "shr.adverse.CauseCategory": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/adverse/CauseCategory"},
-                "Value": {"shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"},"shr.core.Coding":[{ "Value": "#Treatment", "shr.core.CodeSystem": {"Value": "https://www.meddra.org/"}, "shr.core.DisplayText": {"Value": "Treatment"}}], "shr.core.DisplayText": {"Value":"Treatment"}},
-            }
-        }
-    )
-], []];
-const expectedOutputDeceased = [[
-    new FluxDeceased({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/entity/Deceased"},
-        "Value": true,
-        "shr.entity.DateOfDeath": {
-            "Value": {
-                "shr.base.EntryType": { "Value": "http://standardhealthrecord.org/spec/shr/core/GeneralizedDateTime"},
-                "Value": "1 Oct 2017"
-            }
-        }
-    })
-], []];
-const expectedOutputClinicalTrialEnrollment = [[
-    new FluxResearchSubject({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
-        "shr.research.Study": {
-            "shr.core.Title": {"Value": "PATINA"}
-        },
-        "shr.action.ParticipationPeriod": {
-            "shr.core.TimePeriod": {
-                "shr.core.TimePeriodStart": {
-                    "Value": "4 Sep 2017"
-                }
-            }
-        }
-    })
-], []];
-const expectedOutputClinicalTrialEnrollmentMinimal = [[
-    new FluxResearchSubject({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
-        "shr.research.Study": {
-            "shr.core.Title": {"Value": null }
-        },
-        "shr.action.ParticipationPeriod": {
-            "shr.core.TimePeriod": {
-                "shr.core.TimePeriodStart": {
-                    "Value": null
-                }
-            }
-        }
-    })
-], []];
-const expectedOutputClinicalTrialUnenrolled = [[
-    new FluxResearchSubject({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
-        "shr.research.Study": {
-            "shr.core.Title": {"Value": "PATINA"}
-        },
-        "shr.action.ParticipationPeriod": {
-            "shr.core.TimePeriod": {
-                "shr.core.TimePeriodEnd": {
-                    "Value": "6 Oct 2017"
-                }
-            }
-        }
-    })
-], []];
-const expectedOutputClinicalTrialUnenrolledMinimal = [[
-    new FluxResearchSubject({
-        "shr.base.EntryType": {"Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"},
-        "shr.research.Study": {
-            "shr.core.Title": {"Value": null }
-        },
-        "shr.action.ParticipationPeriod": {
-            "shr.core.TimePeriod": {
-                "shr.core.TimePeriodEnd": {
-                    "Value": null
-                }
-            }
-        }
-    })
-], []];
+const expectedOutputStaging = [[ new FluxTNMStage(stagingJSON) ], []];
+const expectedOutputDiseaseStatus = [[ new FluxDiseaseProgression(diseaseStatusJSON) ], []];
+const expectedOutputDiseaseStatus2 = [[ new FluxDiseaseProgression(diseaseStatus2JSON) ], []];
+const expectedOutputToxicity = [[ new FluxToxicReaction(toxicityJSON) ], []];
+const expectedOutputDeceased = [[ new FluxDeceased(deceasedJSON) ], []];
+const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
+const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
+const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
+const expectedOutputClinicalTrialUnenrolledMinimal = [[ new FluxResearchSubject(clinicalTrialUnenrolledMinimalJSON) ], []];
 
 describe('getAllTriggersRegularExpression', function () { 
 

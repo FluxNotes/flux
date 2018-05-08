@@ -15,10 +15,21 @@ class Likelihood {
 
   /**
    * Set the value (aliases positiveInt).
+   * This field/value is required.
    * @param {positiveInt} value - The positiveInt
    */
   set value(value) {
     this._positiveInt = value;
+  }
+
+  /**
+   * Set the value (aliases positiveInt) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} value - The positiveInt
+   * @returns {Likelihood} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Likelihood {
 
   /**
    * Set the positiveInt.
+   * This field/value is required.
    * @param {positiveInt} positiveInt - The positiveInt
    */
   set positiveInt(positiveInt) {
     this._positiveInt = positiveInt;
+  }
+
+  /**
+   * Set the positiveInt and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} positiveInt - The positiveInt
+   * @returns {Likelihood} this.
+   */
+  withPositiveInt(positiveInt) {
+    this.positiveInt = positiveInt; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Likelihood {
   static fromJSON(json={}) {
     const inst = new Likelihood();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Likelihood class to a JSON object.
+   * The JSON is expected to be valid against the Likelihood JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Likelihood' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

@@ -23,6 +23,10 @@ class FluxNoKnownAllergy {
     get code() {
         return this._noKnownAllergy.value.coding[0].code;
     }
+
+    toJSON() {
+        return this._noKnownAllergy.toJSON();
+    }
 }
 
 export default FluxNoKnownAllergy;

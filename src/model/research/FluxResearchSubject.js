@@ -46,6 +46,8 @@ class FluxResearchSubject extends FluxEntry {
         if (!this._researchSubject.study) {
             this._researchSubject.study = new Study();
             this._researchSubject.study.entryInfo = new Entry();
+            this._researchSubject.study.entryInfo.entryType = new EntryType();
+            this._researchSubject.study.entryInfo.entryType.uri = 'http://standardhealthrecord.org/spec/shr/research/Study';
         }
     }
 
@@ -168,6 +170,10 @@ class FluxResearchSubject extends FluxEntry {
             this._researchSubject.status = new Status();
         }
         this._researchSubject.status.value = lookup.getStatusCodeableConcept(val);
+    }
+
+    toJSON() {
+        return this._researchSubject.toJSON();
     }
 }
 

@@ -99,6 +99,9 @@ class FluxAllergyIntolerance {
         return 0;
     }
 
+    toJSON() {
+        return this._allergyIntolerance.toJSON();
     }
+}
 
-    export default FluxAllergyIntolerance;
+export default FluxAllergyIntolerance;

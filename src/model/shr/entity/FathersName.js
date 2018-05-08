@@ -15,10 +15,21 @@ class FathersName {
 
   /**
    * Set the value (aliases humanName).
+   * This field/value is required.
    * @param {HumanName} value - The shr.core.HumanName
    */
   set value(value) {
     this._humanName = value;
+  }
+
+  /**
+   * Set the value (aliases humanName) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {HumanName} value - The shr.core.HumanName
+   * @returns {FathersName} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class FathersName {
 
   /**
    * Set the HumanName.
+   * This field/value is required.
    * @param {HumanName} humanName - The shr.core.HumanName
    */
   set humanName(humanName) {
     this._humanName = humanName;
+  }
+
+  /**
+   * Set the HumanName and return 'this' for chaining.
+   * This field/value is required.
+   * @param {HumanName} humanName - The shr.core.HumanName
+   * @returns {FathersName} this.
+   */
+  withHumanName(humanName) {
+    this.humanName = humanName; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class FathersName {
   static fromJSON(json={}) {
     const inst = new FathersName();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the FathersName class to a JSON object.
+   * The JSON is expected to be valid against the FathersName JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/FathersName' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

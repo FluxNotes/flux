@@ -15,10 +15,21 @@ class Capacity {
 
   /**
    * Set the value (aliases simpleQuantity).
+   * This field/value is required.
    * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
    */
   set value(value) {
     this._simpleQuantity = value;
+  }
+
+  /**
+   * Set the value (aliases simpleQuantity) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
+   * @returns {Capacity} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Capacity {
 
   /**
    * Set the SimpleQuantity.
+   * This field/value is required.
    * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
    */
   set simpleQuantity(simpleQuantity) {
     this._simpleQuantity = simpleQuantity;
+  }
+
+  /**
+   * Set the SimpleQuantity and return 'this' for chaining.
+   * This field/value is required.
+   * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
+   * @returns {Capacity} this.
+   */
+  withSimpleQuantity(simpleQuantity) {
+    this.simpleQuantity = simpleQuantity; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Capacity {
   static fromJSON(json={}) {
     const inst = new Capacity();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Capacity class to a JSON object.
+   * The JSON is expected to be valid against the Capacity JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Capacity' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

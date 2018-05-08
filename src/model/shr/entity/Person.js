@@ -25,6 +25,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {Person} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the HumanName array.
    * @returns {Array<HumanName>} The shr.core.HumanName array
    */
@@ -38,6 +47,15 @@ class Person extends Entity {
    */
   set humanName(humanName) {
     this._humanName = humanName;
+  }
+
+  /**
+   * Set the HumanName array and return 'this' for chaining.
+   * @param {Array<HumanName>} humanName - The shr.core.HumanName array
+   * @returns {Person} this.
+   */
+  withHumanName(humanName) {
+    this.humanName = humanName; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the AnonymizedFlag and return 'this' for chaining.
+   * @param {AnonymizedFlag} anonymizedFlag - The shr.entity.AnonymizedFlag
+   * @returns {Person} this.
+   */
+  withAnonymizedFlag(anonymizedFlag) {
+    this.anonymizedFlag = anonymizedFlag; return this;
+  }
+
+  /**
    * Get the FictionalPersonFlag.
    * @returns {FictionalPersonFlag} The shr.entity.FictionalPersonFlag
    */
@@ -70,6 +97,15 @@ class Person extends Entity {
    */
   set fictionalPersonFlag(fictionalPersonFlag) {
     this._fictionalPersonFlag = fictionalPersonFlag;
+  }
+
+  /**
+   * Set the FictionalPersonFlag and return 'this' for chaining.
+   * @param {FictionalPersonFlag} fictionalPersonFlag - The shr.entity.FictionalPersonFlag
+   * @returns {Person} this.
+   */
+  withFictionalPersonFlag(fictionalPersonFlag) {
+    this.fictionalPersonFlag = fictionalPersonFlag; return this;
   }
 
   /**
@@ -89,6 +125,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the DateOfBirth and return 'this' for chaining.
+   * @param {DateOfBirth} dateOfBirth - The shr.entity.DateOfBirth
+   * @returns {Person} this.
+   */
+  withDateOfBirth(dateOfBirth) {
+    this.dateOfBirth = dateOfBirth; return this;
+  }
+
+  /**
    * Get the AdministrativeGender.
    * @returns {AdministrativeGender} The shr.entity.AdministrativeGender
    */
@@ -102,6 +147,15 @@ class Person extends Entity {
    */
   set administrativeGender(administrativeGender) {
     this._administrativeGender = administrativeGender;
+  }
+
+  /**
+   * Set the AdministrativeGender and return 'this' for chaining.
+   * @param {AdministrativeGender} administrativeGender - The shr.entity.AdministrativeGender
+   * @returns {Person} this.
+   */
+  withAdministrativeGender(administrativeGender) {
+    this.administrativeGender = administrativeGender; return this;
   }
 
   /**
@@ -121,6 +175,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the Address array and return 'this' for chaining.
+   * @param {Array<Address>} address - The shr.core.Address array
+   * @returns {Person} this.
+   */
+  withAddress(address) {
+    this.address = address; return this;
+  }
+
+  /**
    * Get the Headshot.
    * @returns {Headshot} The shr.entity.Headshot
    */
@@ -134,6 +197,15 @@ class Person extends Entity {
    */
   set headshot(headshot) {
     this._headshot = headshot;
+  }
+
+  /**
+   * Set the Headshot and return 'this' for chaining.
+   * @param {Headshot} headshot - The shr.entity.Headshot
+   * @returns {Person} this.
+   */
+  withHeadshot(headshot) {
+    this.headshot = headshot; return this;
   }
 
   /**
@@ -153,6 +225,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the ContactPoint array and return 'this' for chaining.
+   * @param {Array<ContactPoint>} contactPoint - The shr.core.ContactPoint array
+   * @returns {Person} this.
+   */
+  withContactPoint(contactPoint) {
+    this.contactPoint = contactPoint; return this;
+  }
+
+  /**
    * Get the LanguageUsed array.
    * @returns {Array<LanguageUsed>} The shr.entity.LanguageUsed array
    */
@@ -166,6 +247,15 @@ class Person extends Entity {
    */
   set languageUsed(languageUsed) {
     this._languageUsed = languageUsed;
+  }
+
+  /**
+   * Set the LanguageUsed array and return 'this' for chaining.
+   * @param {Array<LanguageUsed>} languageUsed - The shr.entity.LanguageUsed array
+   * @returns {Person} this.
+   */
+  withLanguageUsed(languageUsed) {
+    this.languageUsed = languageUsed; return this;
   }
 
   /**
@@ -185,6 +275,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the ActiveFlag and return 'this' for chaining.
+   * @param {ActiveFlag} activeFlag - The shr.entity.ActiveFlag
+   * @returns {Person} this.
+   */
+  withActiveFlag(activeFlag) {
+    this.activeFlag = activeFlag; return this;
+  }
+
+  /**
    * Get the shr.entity.ExternalHealthRecord reference array.
    * @returns {Array<Reference>} The shr.entity.ExternalHealthRecord reference array
    */
@@ -201,6 +300,15 @@ class Person extends Entity {
   }
 
   /**
+   * Set the shr.entity.ExternalHealthRecord reference array and return 'this' for chaining.
+   * @param {Array<Reference>} externalHealthRecord - The shr.entity.ExternalHealthRecord reference array
+   * @returns {Person} this.
+   */
+  withExternalHealthRecord(externalHealthRecord) {
+    this.externalHealthRecord = externalHealthRecord; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Person class.
    * The JSON must be valid against the Person JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -209,6 +317,61 @@ class Person extends Entity {
   static fromJSON(json={}) {
     const inst = new Person();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Person class to a JSON object.
+   * The JSON is expected to be valid against the Person JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Person' };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.humanName != null) {
+      inst['HumanName'] = this.humanName.map(f => f.toJSON());
+    }
+    if (this.anonymizedFlag != null) {
+      inst['AnonymizedFlag'] = typeof this.anonymizedFlag.toJSON === 'function' ? this.anonymizedFlag.toJSON() : this.anonymizedFlag;
+    }
+    if (this.fictionalPersonFlag != null) {
+      inst['FictionalPersonFlag'] = typeof this.fictionalPersonFlag.toJSON === 'function' ? this.fictionalPersonFlag.toJSON() : this.fictionalPersonFlag;
+    }
+    if (this.dateOfBirth != null) {
+      inst['DateOfBirth'] = typeof this.dateOfBirth.toJSON === 'function' ? this.dateOfBirth.toJSON() : this.dateOfBirth;
+    }
+    if (this.administrativeGender != null) {
+      inst['AdministrativeGender'] = typeof this.administrativeGender.toJSON === 'function' ? this.administrativeGender.toJSON() : this.administrativeGender;
+    }
+    if (this.address != null) {
+      inst['Address'] = this.address.map(f => f.toJSON());
+    }
+    if (this.headshot != null) {
+      inst['Headshot'] = typeof this.headshot.toJSON === 'function' ? this.headshot.toJSON() : this.headshot;
+    }
+    if (this.contactPoint != null) {
+      inst['ContactPoint'] = this.contactPoint.map(f => f.toJSON());
+    }
+    if (this.languageUsed != null) {
+      inst['LanguageUsed'] = this.languageUsed.map(f => f.toJSON());
+    }
+    if (this.activeFlag != null) {
+      inst['ActiveFlag'] = typeof this.activeFlag.toJSON === 'function' ? this.activeFlag.toJSON() : this.activeFlag;
+    }
+    if (this.externalHealthRecord != null) {
+      inst['ExternalHealthRecord'] = this.externalHealthRecord.map(f => f.toJSON());
+    }
     return inst;
   }
 }

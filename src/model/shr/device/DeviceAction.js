@@ -18,10 +18,21 @@ class DeviceAction extends Action {
 
   /**
    * Set the Subject.
+   * This field/value is required.
    * @param {Subject} subject - The shr.base.Subject
    */
   set subject(subject) {
     this._subject = subject;
+  }
+
+  /**
+   * Set the Subject and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Subject} subject - The shr.base.Subject
+   * @returns {DeviceAction} this.
+   */
+  withSubject(subject) {
+    this.subject = subject; return this;
   }
 
   /**
@@ -34,10 +45,21 @@ class DeviceAction extends Action {
 
   /**
    * Set the Device.
+   * This field/value is required.
    * @param {Device} device - The shr.device.Device
    */
   set device(device) {
     this._device = device;
+  }
+
+  /**
+   * Set the Device and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Device} device - The shr.device.Device
+   * @returns {DeviceAction} this.
+   */
+  withDevice(device) {
+    this.device = device; return this;
   }
 
   /**
@@ -57,6 +79,15 @@ class DeviceAction extends Action {
   }
 
   /**
+   * Set the Implanted and return 'this' for chaining.
+   * @param {Implanted} implanted - The shr.device.Implanted
+   * @returns {DeviceAction} this.
+   */
+  withImplanted(implanted) {
+    this.implanted = implanted; return this;
+  }
+
+  /**
    * Get the BodySite.
    * @returns {BodySite} The shr.entity.BodySite
    */
@@ -73,6 +104,15 @@ class DeviceAction extends Action {
   }
 
   /**
+   * Set the BodySite and return 'this' for chaining.
+   * @param {BodySite} bodySite - The shr.entity.BodySite
+   * @returns {DeviceAction} this.
+   */
+  withBodySite(bodySite) {
+    this.bodySite = bodySite; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the DeviceAction class.
    * The JSON must be valid against the DeviceAction JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -81,6 +121,45 @@ class DeviceAction extends Action {
   static fromJSON(json={}) {
     const inst = new DeviceAction();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the DeviceAction class to a JSON object.
+   * The JSON is expected to be valid against the DeviceAction JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/device/DeviceAction' } };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.category != null) {
+      inst['Category'] = this.category.map(f => f.toJSON());
+    }
+    if (this.actionContext != null) {
+      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.device != null) {
+      inst['Device'] = typeof this.device.toJSON === 'function' ? this.device.toJSON() : this.device;
+    }
+    if (this.implanted != null) {
+      inst['Implanted'] = typeof this.implanted.toJSON === 'function' ? this.implanted.toJSON() : this.implanted;
+    }
+    if (this.bodySite != null) {
+      inst['BodySite'] = typeof this.bodySite.toJSON === 'function' ? this.bodySite.toJSON() : this.bodySite;
+    }
     return inst;
   }
 }

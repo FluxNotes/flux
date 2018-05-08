@@ -22,6 +22,15 @@ class RelationshipType {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {RelationshipType} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the value (aliases codeableConcept).
    * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
@@ -31,10 +40,21 @@ class RelationshipType {
 
   /**
    * Set the value (aliases codeableConcept).
+   * This field/value is required.
    * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
     this._codeableConcept = value;
+  }
+
+  /**
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
+   * @returns {RelationshipType} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -47,10 +67,21 @@ class RelationshipType {
 
   /**
    * Set the CodeableConcept.
+   * This field/value is required.
    * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
   set codeableConcept(codeableConcept) {
     this._codeableConcept = codeableConcept;
+  }
+
+  /**
+   * Set the CodeableConcept and return 'this' for chaining.
+   * This field/value is required.
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
+   * @returns {RelationshipType} this.
+   */
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -62,6 +93,19 @@ class RelationshipType {
   static fromJSON(json={}) {
     const inst = new RelationshipType();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RelationshipType class to a JSON object.
+   * The JSON is expected to be valid against the RelationshipType JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/RelationshipType' };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

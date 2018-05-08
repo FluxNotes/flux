@@ -22,6 +22,15 @@ class ActionContext {
   }
 
   /**
+   * Set the Reason array and return 'this' for chaining.
+   * @param {Array<Reason>} reason - The shr.core.Reason array
+   * @returns {ActionContext} this.
+   */
+  withReason(reason) {
+    this.reason = reason; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the ActionContext class.
    * The JSON must be valid against the ActionContext JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -30,6 +39,18 @@ class ActionContext {
   static fromJSON(json={}) {
     const inst = new ActionContext();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ActionContext class to a JSON object.
+   * The JSON is expected to be valid against the ActionContext JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/ActionContext' } };
+    if (this.reason != null) {
+      inst['Reason'] = this.reason.map(f => f.toJSON());
+    }
     return inst;
   }
 }

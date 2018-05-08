@@ -51,6 +51,10 @@ class FluxObservation extends FluxEntry {
             return null;
         }
     }
+
+    toJSON() {
+        return this._observation.toJSON();
+    }
 }
 
 export default FluxObservation;

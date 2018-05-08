@@ -15,10 +15,21 @@ class StateOfIssue {
 
   /**
    * Set the value (aliases state).
+   * This field/value is required.
    * @param {State} value - The shr.core.State
    */
   set value(value) {
     this._state = value;
+  }
+
+  /**
+   * Set the value (aliases state) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {State} value - The shr.core.State
+   * @returns {StateOfIssue} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class StateOfIssue {
 
   /**
    * Set the State.
+   * This field/value is required.
    * @param {State} state - The shr.core.State
    */
   set state(state) {
     this._state = state;
+  }
+
+  /**
+   * Set the State and return 'this' for chaining.
+   * This field/value is required.
+   * @param {State} state - The shr.core.State
+   * @returns {StateOfIssue} this.
+   */
+  withState(state) {
+    this.state = state; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class StateOfIssue {
   static fromJSON(json={}) {
     const inst = new StateOfIssue();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the StateOfIssue class to a JSON object.
+   * The JSON is expected to be valid against the StateOfIssue JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/StateOfIssue' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

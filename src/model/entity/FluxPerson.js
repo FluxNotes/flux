@@ -27,6 +27,10 @@ class FluxPerson {
         if (!this._person.headshot || !this._person.headshot.attachment.resourceLocation) return null;
         return this._person.headshot.attachment.resourceLocation.uri;
     }
+
+    toJSON() {
+        return this._person.toJSON();
+    }
 }
 
 export default FluxPerson;

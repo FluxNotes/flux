@@ -15,10 +15,21 @@ class Origin {
 
   /**
    * Set the value (aliases simpleQuantity).
+   * This field/value is required.
    * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
    */
   set value(value) {
     this._simpleQuantity = value;
+  }
+
+  /**
+   * Set the value (aliases simpleQuantity) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {SimpleQuantity} value - The shr.core.SimpleQuantity
+   * @returns {Origin} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Origin {
 
   /**
    * Set the SimpleQuantity.
+   * This field/value is required.
    * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
    */
   set simpleQuantity(simpleQuantity) {
     this._simpleQuantity = simpleQuantity;
+  }
+
+  /**
+   * Set the SimpleQuantity and return 'this' for chaining.
+   * This field/value is required.
+   * @param {SimpleQuantity} simpleQuantity - The shr.core.SimpleQuantity
+   * @returns {Origin} this.
+   */
+  withSimpleQuantity(simpleQuantity) {
+    this.simpleQuantity = simpleQuantity; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class Origin {
   static fromJSON(json={}) {
     const inst = new Origin();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Origin class to a JSON object.
+   * The JSON is expected to be valid against the Origin JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Origin' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

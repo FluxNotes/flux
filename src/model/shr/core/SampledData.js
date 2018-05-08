@@ -15,10 +15,21 @@ class SampledData {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {SampledData} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class SampledData {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {SampledData} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -47,10 +69,21 @@ class SampledData {
 
   /**
    * Set the Origin.
+   * This field/value is required.
    * @param {Origin} origin - The shr.core.Origin
    */
   set origin(origin) {
     this._origin = origin;
+  }
+
+  /**
+   * Set the Origin and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Origin} origin - The shr.core.Origin
+   * @returns {SampledData} this.
+   */
+  withOrigin(origin) {
+    this.origin = origin; return this;
   }
 
   /**
@@ -63,10 +96,21 @@ class SampledData {
 
   /**
    * Set the MillisecondsBetweenSamples.
+   * This field/value is required.
    * @param {MillisecondsBetweenSamples} millisecondsBetweenSamples - The shr.core.MillisecondsBetweenSamples
    */
   set millisecondsBetweenSamples(millisecondsBetweenSamples) {
     this._millisecondsBetweenSamples = millisecondsBetweenSamples;
+  }
+
+  /**
+   * Set the MillisecondsBetweenSamples and return 'this' for chaining.
+   * This field/value is required.
+   * @param {MillisecondsBetweenSamples} millisecondsBetweenSamples - The shr.core.MillisecondsBetweenSamples
+   * @returns {SampledData} this.
+   */
+  withMillisecondsBetweenSamples(millisecondsBetweenSamples) {
+    this.millisecondsBetweenSamples = millisecondsBetweenSamples; return this;
   }
 
   /**
@@ -86,6 +130,15 @@ class SampledData {
   }
 
   /**
+   * Set the CorrectionFactor and return 'this' for chaining.
+   * @param {CorrectionFactor} correctionFactor - The shr.core.CorrectionFactor
+   * @returns {SampledData} this.
+   */
+  withCorrectionFactor(correctionFactor) {
+    this.correctionFactor = correctionFactor; return this;
+  }
+
+  /**
    * Get the LowerLimit.
    * @returns {LowerLimit} The shr.core.LowerLimit
    */
@@ -99,6 +152,15 @@ class SampledData {
    */
   set lowerLimit(lowerLimit) {
     this._lowerLimit = lowerLimit;
+  }
+
+  /**
+   * Set the LowerLimit and return 'this' for chaining.
+   * @param {LowerLimit} lowerLimit - The shr.core.LowerLimit
+   * @returns {SampledData} this.
+   */
+  withLowerLimit(lowerLimit) {
+    this.lowerLimit = lowerLimit; return this;
   }
 
   /**
@@ -118,6 +180,15 @@ class SampledData {
   }
 
   /**
+   * Set the UpperLimit and return 'this' for chaining.
+   * @param {UpperLimit} upperLimit - The shr.core.UpperLimit
+   * @returns {SampledData} this.
+   */
+  withUpperLimit(upperLimit) {
+    this.upperLimit = upperLimit; return this;
+  }
+
+  /**
    * Get the Dimensions.
    * @returns {Dimensions} The shr.core.Dimensions
    */
@@ -127,10 +198,21 @@ class SampledData {
 
   /**
    * Set the Dimensions.
+   * This field/value is required.
    * @param {Dimensions} dimensions - The shr.core.Dimensions
    */
   set dimensions(dimensions) {
     this._dimensions = dimensions;
+  }
+
+  /**
+   * Set the Dimensions and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Dimensions} dimensions - The shr.core.Dimensions
+   * @returns {SampledData} this.
+   */
+  withDimensions(dimensions) {
+    this.dimensions = dimensions; return this;
   }
 
   /**
@@ -142,6 +224,36 @@ class SampledData {
   static fromJSON(json={}) {
     const inst = new SampledData();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SampledData class to a JSON object.
+   * The JSON is expected to be valid against the SampledData JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/SampledData' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.origin != null) {
+      inst['Origin'] = typeof this.origin.toJSON === 'function' ? this.origin.toJSON() : this.origin;
+    }
+    if (this.millisecondsBetweenSamples != null) {
+      inst['MillisecondsBetweenSamples'] = typeof this.millisecondsBetweenSamples.toJSON === 'function' ? this.millisecondsBetweenSamples.toJSON() : this.millisecondsBetweenSamples;
+    }
+    if (this.correctionFactor != null) {
+      inst['CorrectionFactor'] = typeof this.correctionFactor.toJSON === 'function' ? this.correctionFactor.toJSON() : this.correctionFactor;
+    }
+    if (this.lowerLimit != null) {
+      inst['LowerLimit'] = typeof this.lowerLimit.toJSON === 'function' ? this.lowerLimit.toJSON() : this.lowerLimit;
+    }
+    if (this.upperLimit != null) {
+      inst['UpperLimit'] = typeof this.upperLimit.toJSON === 'function' ? this.upperLimit.toJSON() : this.upperLimit;
+    }
+    if (this.dimensions != null) {
+      inst['Dimensions'] = typeof this.dimensions.toJSON === 'function' ? this.dimensions.toJSON() : this.dimensions;
+    }
     return inst;
   }
 }

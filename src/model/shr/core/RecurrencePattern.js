@@ -22,6 +22,15 @@ class RecurrencePattern {
   }
 
   /**
+   * Set the RecurrenceInterval and return 'this' for chaining.
+   * @param {RecurrenceInterval} recurrenceInterval - The shr.core.RecurrenceInterval
+   * @returns {RecurrencePattern} this.
+   */
+  withRecurrenceInterval(recurrenceInterval) {
+    this.recurrenceInterval = recurrenceInterval; return this;
+  }
+
+  /**
    * Get the DayOfWeek array.
    * @returns {Array<DayOfWeek>} The shr.core.DayOfWeek array
    */
@@ -35,6 +44,15 @@ class RecurrencePattern {
    */
   set dayOfWeek(dayOfWeek) {
     this._dayOfWeek = dayOfWeek;
+  }
+
+  /**
+   * Set the DayOfWeek array and return 'this' for chaining.
+   * @param {Array<DayOfWeek>} dayOfWeek - The shr.core.DayOfWeek array
+   * @returns {RecurrencePattern} this.
+   */
+  withDayOfWeek(dayOfWeek) {
+    this.dayOfWeek = dayOfWeek; return this;
   }
 
   /**
@@ -54,6 +72,15 @@ class RecurrencePattern {
   }
 
   /**
+   * Set the TimeOfDay array and return 'this' for chaining.
+   * @param {Array<TimeOfDay>} timeOfDay - The shr.core.TimeOfDay array
+   * @returns {RecurrencePattern} this.
+   */
+  withTimeOfDay(timeOfDay) {
+    this.timeOfDay = timeOfDay; return this;
+  }
+
+  /**
    * Get the DailyLifeEvent array.
    * @returns {Array<DailyLifeEvent>} The shr.core.DailyLifeEvent array
    */
@@ -67,6 +94,15 @@ class RecurrencePattern {
    */
   set dailyLifeEvent(dailyLifeEvent) {
     this._dailyLifeEvent = dailyLifeEvent;
+  }
+
+  /**
+   * Set the DailyLifeEvent array and return 'this' for chaining.
+   * @param {Array<DailyLifeEvent>} dailyLifeEvent - The shr.core.DailyLifeEvent array
+   * @returns {RecurrencePattern} this.
+   */
+  withDailyLifeEvent(dailyLifeEvent) {
+    this.dailyLifeEvent = dailyLifeEvent; return this;
   }
 
   /**
@@ -86,6 +122,15 @@ class RecurrencePattern {
   }
 
   /**
+   * Set the LifeEventOffset and return 'this' for chaining.
+   * @param {LifeEventOffset} lifeEventOffset - The shr.core.LifeEventOffset
+   * @returns {RecurrencePattern} this.
+   */
+  withLifeEventOffset(lifeEventOffset) {
+    this.lifeEventOffset = lifeEventOffset; return this;
+  }
+
+  /**
    * Get the CountPerInterval.
    * @returns {CountPerInterval} The shr.core.CountPerInterval
    */
@@ -102,6 +147,15 @@ class RecurrencePattern {
   }
 
   /**
+   * Set the CountPerInterval and return 'this' for chaining.
+   * @param {CountPerInterval} countPerInterval - The shr.core.CountPerInterval
+   * @returns {RecurrencePattern} this.
+   */
+  withCountPerInterval(countPerInterval) {
+    this.countPerInterval = countPerInterval; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the RecurrencePattern class.
    * The JSON must be valid against the RecurrencePattern JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -110,6 +164,33 @@ class RecurrencePattern {
   static fromJSON(json={}) {
     const inst = new RecurrencePattern();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RecurrencePattern class to a JSON object.
+   * The JSON is expected to be valid against the RecurrencePattern JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/RecurrencePattern' } };
+    if (this.recurrenceInterval != null) {
+      inst['RecurrenceInterval'] = typeof this.recurrenceInterval.toJSON === 'function' ? this.recurrenceInterval.toJSON() : this.recurrenceInterval;
+    }
+    if (this.dayOfWeek != null) {
+      inst['DayOfWeek'] = this.dayOfWeek.map(f => f.toJSON());
+    }
+    if (this.timeOfDay != null) {
+      inst['TimeOfDay'] = this.timeOfDay.map(f => f.toJSON());
+    }
+    if (this.dailyLifeEvent != null) {
+      inst['DailyLifeEvent'] = this.dailyLifeEvent.map(f => f.toJSON());
+    }
+    if (this.lifeEventOffset != null) {
+      inst['LifeEventOffset'] = typeof this.lifeEventOffset.toJSON === 'function' ? this.lifeEventOffset.toJSON() : this.lifeEventOffset;
+    }
+    if (this.countPerInterval != null) {
+      inst['CountPerInterval'] = typeof this.countPerInterval.toJSON === 'function' ? this.countPerInterval.toJSON() : this.countPerInterval;
+    }
     return inst;
   }
 }

@@ -15,10 +15,21 @@ class TypeAsaCoding {
 
   /**
    * Set the value (aliases coding).
+   * This field/value is required.
    * @param {Coding} value - The shr.core.Coding
    */
   set value(value) {
     this._coding = value;
+  }
+
+  /**
+   * Set the value (aliases coding) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Coding} value - The shr.core.Coding
+   * @returns {TypeAsaCoding} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class TypeAsaCoding {
 
   /**
    * Set the Coding.
+   * This field/value is required.
    * @param {Coding} coding - The shr.core.Coding
    */
   set coding(coding) {
     this._coding = coding;
+  }
+
+  /**
+   * Set the Coding and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Coding} coding - The shr.core.Coding
+   * @returns {TypeAsaCoding} this.
+   */
+  withCoding(coding) {
+    this.coding = coding; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class TypeAsaCoding {
   static fromJSON(json={}) {
     const inst = new TypeAsaCoding();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the TypeAsaCoding class to a JSON object.
+   * The JSON is expected to be valid against the TypeAsaCoding JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/TypeAsaCoding' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

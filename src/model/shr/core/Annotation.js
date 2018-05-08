@@ -15,10 +15,21 @@ class Annotation {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {Annotation} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Annotation {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {Annotation} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -47,10 +69,21 @@ class Annotation {
 
   /**
    * Set the Author.
+   * This field/value is required.
    * @param {Author} author - The shr.base.Author
    */
   set author(author) {
     this._author = author;
+  }
+
+  /**
+   * Set the Author and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Author} author - The shr.base.Author
+   * @returns {Annotation} this.
+   */
+  withAuthor(author) {
+    this.author = author; return this;
   }
 
   /**
@@ -63,10 +96,21 @@ class Annotation {
 
   /**
    * Set the OccurrenceTime.
+   * This field/value is required.
    * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    */
   set occurrenceTime(occurrenceTime) {
     this._occurrenceTime = occurrenceTime;
+  }
+
+  /**
+   * Set the OccurrenceTime and return 'this' for chaining.
+   * This field/value is required.
+   * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
+   * @returns {Annotation} this.
+   */
+  withOccurrenceTime(occurrenceTime) {
+    this.occurrenceTime = occurrenceTime; return this;
   }
 
   /**
@@ -78,6 +122,24 @@ class Annotation {
   static fromJSON(json={}) {
     const inst = new Annotation();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Annotation class to a JSON object.
+   * The JSON is expected to be valid against the Annotation JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Annotation' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.occurrenceTime != null) {
+      inst['OccurrenceTime'] = typeof this.occurrenceTime.toJSON === 'function' ? this.occurrenceTime.toJSON() : this.occurrenceTime;
+    }
     return inst;
   }
 }

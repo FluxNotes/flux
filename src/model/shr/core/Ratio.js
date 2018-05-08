@@ -15,10 +15,21 @@ class Ratio {
 
   /**
    * Set the Numerator.
+   * This field/value is required.
    * @param {Numerator} numerator - The shr.core.Numerator
    */
   set numerator(numerator) {
     this._numerator = numerator;
+  }
+
+  /**
+   * Set the Numerator and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Numerator} numerator - The shr.core.Numerator
+   * @returns {Ratio} this.
+   */
+  withNumerator(numerator) {
+    this.numerator = numerator; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Ratio {
 
   /**
    * Set the Denominator.
+   * This field/value is required.
    * @param {Denominator} denominator - The shr.core.Denominator
    */
   set denominator(denominator) {
     this._denominator = denominator;
+  }
+
+  /**
+   * Set the Denominator and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Denominator} denominator - The shr.core.Denominator
+   * @returns {Ratio} this.
+   */
+  withDenominator(denominator) {
+    this.denominator = denominator; return this;
   }
 
   /**
@@ -46,6 +68,21 @@ class Ratio {
   static fromJSON(json={}) {
     const inst = new Ratio();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Ratio class to a JSON object.
+   * The JSON is expected to be valid against the Ratio JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Ratio' } };
+    if (this.numerator != null) {
+      inst['Numerator'] = typeof this.numerator.toJSON === 'function' ? this.numerator.toJSON() : this.numerator;
+    }
+    if (this.denominator != null) {
+      inst['Denominator'] = typeof this.denominator.toJSON === 'function' ? this.denominator.toJSON() : this.denominator;
+    }
     return inst;
   }
 }

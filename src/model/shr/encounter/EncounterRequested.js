@@ -25,6 +25,15 @@ class EncounterRequested extends Encounter {
   }
 
   /**
+   * Set the entry information and return 'this' for chaining.
+   * @param {Entry} entryInfo - The shr.base.Entry
+   * @returns {EncounterRequested} this.
+   */
+  withEntryInfo(entryInfo) {
+    this.entryInfo = entryInfo; return this;
+  }
+
+  /**
    * Get the RequestedContext.
    * @returns {RequestedContext} The shr.action.RequestedContext
    */
@@ -34,10 +43,21 @@ class EncounterRequested extends Encounter {
 
   /**
    * Set the RequestedContext.
+   * This field/value is required.
    * @param {RequestedContext} actionContext - The shr.action.RequestedContext
    */
   set actionContext(actionContext) {
     this._actionContext = actionContext;
+  }
+
+  /**
+   * Set the RequestedContext and return 'this' for chaining.
+   * This field/value is required.
+   * @param {RequestedContext} actionContext - The shr.action.RequestedContext
+   * @returns {EncounterRequested} this.
+   */
+  withActionContext(actionContext) {
+    this.actionContext = actionContext; return this;
   }
 
   // Ommitting getter/setter for TBD: HealthConcern
@@ -63,6 +83,58 @@ class EncounterRequested extends Encounter {
   static fromJSON(json={}) {
     const inst = new EncounterRequested();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the EncounterRequested class to a JSON object.
+   * The JSON is expected to be valid against the EncounterRequested JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = this._entryInfo.toJSON();
+    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/EncounterRequested' };
+    if (this.relatedEncounter != null) {
+      inst['RelatedEncounter'] = typeof this.relatedEncounter.toJSON === 'function' ? this.relatedEncounter.toJSON() : this.relatedEncounter;
+    }
+    if (this.author != null) {
+      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    }
+    if (this.informant != null) {
+      inst['Informant'] = typeof this.informant.toJSON === 'function' ? this.informant.toJSON() : this.informant;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.category != null) {
+      inst['Category'] = this.category.map(f => f.toJSON());
+    }
+    if (this.actionContext != null) {
+      inst['ActionContext'] = typeof this.actionContext.toJSON === 'function' ? this.actionContext.toJSON() : this.actionContext;
+    }
+    if (this.subject != null) {
+      inst['Subject'] = typeof this.subject.toJSON === 'function' ? this.subject.toJSON() : this.subject;
+    }
+    if (this.referralDate != null) {
+      inst['ReferralDate'] = typeof this.referralDate.toJSON === 'function' ? this.referralDate.toJSON() : this.referralDate;
+    }
+    if (this.referralSourceType != null) {
+      inst['ReferralSourceType'] = typeof this.referralSourceType.toJSON === 'function' ? this.referralSourceType.toJSON() : this.referralSourceType;
+    }
+    if (this.typeAsaCoding != null) {
+      inst['TypeAsaCoding'] = typeof this.typeAsaCoding.toJSON === 'function' ? this.typeAsaCoding.toJSON() : this.typeAsaCoding;
+    }
+    if (this.serviceGiven != null) {
+      inst['ServiceGiven'] = this.serviceGiven.map(f => f.toJSON());
+    }
+    if (this.serviceProvider != null) {
+      inst['ServiceProvider'] = typeof this.serviceProvider.toJSON === 'function' ? this.serviceProvider.toJSON() : this.serviceProvider;
+    }
+    if (this.treatmentCooperation != null) {
+      inst['TreatmentCooperation'] = typeof this.treatmentCooperation.toJSON === 'function' ? this.treatmentCooperation.toJSON() : this.treatmentCooperation;
+    }
+    if (this.paymentSource != null) {
+      inst['PaymentSource'] = typeof this.paymentSource.toJSON === 'function' ? this.paymentSource.toJSON() : this.paymentSource;
+    }
     return inst;
   }
 }

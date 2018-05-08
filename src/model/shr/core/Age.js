@@ -25,6 +25,15 @@ class Age extends Quantity {
   }
 
   /**
+   * Set the Units and return 'this' for chaining.
+   * @param {Units} units - The shr.core.Units
+   * @returns {Age} this.
+   */
+  withUnits(units) {
+    this.units = units; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Age class.
    * The JSON must be valid against the Age JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -33,6 +42,24 @@ class Age extends Quantity {
   static fromJSON(json={}) {
     const inst = new Age();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Age class to a JSON object.
+   * The JSON is expected to be valid against the Age JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Age' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.comparator != null) {
+      inst['Comparator'] = typeof this.comparator.toJSON === 'function' ? this.comparator.toJSON() : this.comparator;
+    }
+    if (this.units != null) {
+      inst['Units'] = typeof this.units.toJSON === 'function' ? this.units.toJSON() : this.units;
+    }
     return inst;
   }
 }

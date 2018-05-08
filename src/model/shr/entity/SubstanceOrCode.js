@@ -15,10 +15,21 @@ class SubstanceOrCode {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Substance.
+   * This field/value is required.
    * @param {(CodeableConcept|Substance)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Substance
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Substance and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(CodeableConcept|Substance)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Substance
+   * @returns {SubstanceOrCode} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class SubstanceOrCode {
   static fromJSON(json={}) {
     const inst = new SubstanceOrCode();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the SubstanceOrCode class to a JSON object.
+   * The JSON is expected to be valid against the SubstanceOrCode JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/SubstanceOrCode' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

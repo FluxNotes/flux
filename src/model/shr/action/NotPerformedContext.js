@@ -25,6 +25,15 @@ class NotPerformedContext extends ActionContext {
   }
 
   /**
+   * Set the RelatedRequest and return 'this' for chaining.
+   * @param {RelatedRequest} relatedRequest - The shr.action.RelatedRequest
+   * @returns {NotPerformedContext} this.
+   */
+  withRelatedRequest(relatedRequest) {
+    this.relatedRequest = relatedRequest; return this;
+  }
+
+  /**
    * Get the RelatedPlan.
    * @returns {RelatedPlan} The shr.action.RelatedPlan
    */
@@ -38,6 +47,15 @@ class NotPerformedContext extends ActionContext {
    */
   set relatedPlan(relatedPlan) {
     this._relatedPlan = relatedPlan;
+  }
+
+  /**
+   * Set the RelatedPlan and return 'this' for chaining.
+   * @param {RelatedPlan} relatedPlan - The shr.action.RelatedPlan
+   * @returns {NotPerformedContext} this.
+   */
+  withRelatedPlan(relatedPlan) {
+    this.relatedPlan = relatedPlan; return this;
   }
 
   /**
@@ -57,6 +75,15 @@ class NotPerformedContext extends ActionContext {
   }
 
   /**
+   * Set the OccurrenceTimeOrPeriod and return 'this' for chaining.
+   * @param {OccurrenceTimeOrPeriod} occurrenceTimeOrPeriod - The shr.core.OccurrenceTimeOrPeriod
+   * @returns {NotPerformedContext} this.
+   */
+  withOccurrenceTimeOrPeriod(occurrenceTimeOrPeriod) {
+    this.occurrenceTimeOrPeriod = occurrenceTimeOrPeriod; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the NotPerformedContext class.
    * The JSON must be valid against the NotPerformedContext JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -65,6 +92,27 @@ class NotPerformedContext extends ActionContext {
   static fromJSON(json={}) {
     const inst = new NotPerformedContext();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the NotPerformedContext class to a JSON object.
+   * The JSON is expected to be valid against the NotPerformedContext JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/NotPerformedContext' } };
+    if (this.reason != null) {
+      inst['Reason'] = this.reason.map(f => f.toJSON());
+    }
+    if (this.relatedRequest != null) {
+      inst['RelatedRequest'] = typeof this.relatedRequest.toJSON === 'function' ? this.relatedRequest.toJSON() : this.relatedRequest;
+    }
+    if (this.relatedPlan != null) {
+      inst['RelatedPlan'] = typeof this.relatedPlan.toJSON === 'function' ? this.relatedPlan.toJSON() : this.relatedPlan;
+    }
+    if (this.occurrenceTimeOrPeriod != null) {
+      inst['OccurrenceTimeOrPeriod'] = typeof this.occurrenceTimeOrPeriod.toJSON === 'function' ? this.occurrenceTimeOrPeriod.toJSON() : this.occurrenceTimeOrPeriod;
+    }
     return inst;
   }
 }

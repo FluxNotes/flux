@@ -15,10 +15,21 @@ class CountryOfIssue {
 
   /**
    * Set the value (aliases country).
+   * This field/value is required.
    * @param {Country} value - The shr.core.Country
    */
   set value(value) {
     this._country = value;
+  }
+
+  /**
+   * Set the value (aliases country) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Country} value - The shr.core.Country
+   * @returns {CountryOfIssue} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class CountryOfIssue {
 
   /**
    * Set the Country.
+   * This field/value is required.
    * @param {Country} country - The shr.core.Country
    */
   set country(country) {
     this._country = country;
+  }
+
+  /**
+   * Set the Country and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Country} country - The shr.core.Country
+   * @returns {CountryOfIssue} this.
+   */
+  withCountry(country) {
+    this.country = country; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class CountryOfIssue {
   static fromJSON(json={}) {
     const inst = new CountryOfIssue();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the CountryOfIssue class to a JSON object.
+   * The JSON is expected to be valid against the CountryOfIssue JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/CountryOfIssue' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

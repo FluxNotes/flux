@@ -15,10 +15,21 @@ class BodySiteOrCode {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.BodySite.
+   * This field/value is required.
    * @param {(CodeableConcept|BodySite)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.BodySite
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.BodySite and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(CodeableConcept|BodySite)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.BodySite
+   * @returns {BodySiteOrCode} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -30,6 +41,18 @@ class BodySiteOrCode {
   static fromJSON(json={}) {
     const inst = new BodySiteOrCode();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the BodySiteOrCode class to a JSON object.
+   * The JSON is expected to be valid against the BodySiteOrCode JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/BodySiteOrCode' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

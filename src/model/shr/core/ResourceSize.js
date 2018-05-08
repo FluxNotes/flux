@@ -15,10 +15,21 @@ class ResourceSize {
 
   /**
    * Set the value (aliases unsignedInt).
+   * This field/value is required.
    * @param {unsignedInt} value - The unsignedInt
    */
   set value(value) {
     this._unsignedInt = value;
+  }
+
+  /**
+   * Set the value (aliases unsignedInt) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {unsignedInt} value - The unsignedInt
+   * @returns {ResourceSize} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class ResourceSize {
 
   /**
    * Set the unsignedInt.
+   * This field/value is required.
    * @param {unsignedInt} unsignedInt - The unsignedInt
    */
   set unsignedInt(unsignedInt) {
     this._unsignedInt = unsignedInt;
+  }
+
+  /**
+   * Set the unsignedInt and return 'this' for chaining.
+   * This field/value is required.
+   * @param {unsignedInt} unsignedInt - The unsignedInt
+   * @returns {ResourceSize} this.
+   */
+  withUnsignedInt(unsignedInt) {
+    this.unsignedInt = unsignedInt; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class ResourceSize {
   static fromJSON(json={}) {
     const inst = new ResourceSize();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ResourceSize class to a JSON object.
+   * The JSON is expected to be valid against the ResourceSize JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/ResourceSize' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

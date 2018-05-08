@@ -22,6 +22,15 @@ class Participant {
   }
 
   /**
+   * Set the value (aliases party) and return 'this' for chaining.
+   * @param {Reference} value - The shr.entity.Party reference
+   * @returns {Participant} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
+  }
+
+  /**
    * Get the shr.entity.Party reference.
    * @returns {Reference} The shr.entity.Party reference
    */
@@ -35,6 +44,15 @@ class Participant {
    */
   set party(party) {
     this._party = party;
+  }
+
+  /**
+   * Set the shr.entity.Party reference and return 'this' for chaining.
+   * @param {Reference} party - The shr.entity.Party reference
+   * @returns {Participant} this.
+   */
+  withParty(party) {
+    this.party = party; return this;
   }
 
   /**
@@ -54,6 +72,15 @@ class Participant {
   }
 
   /**
+   * Set the ParticipationType and return 'this' for chaining.
+   * @param {ParticipationType} participationType - The shr.action.ParticipationType
+   * @returns {Participant} this.
+   */
+  withParticipationType(participationType) {
+    this.participationType = participationType; return this;
+  }
+
+  /**
    * Get the ParticipationPeriod.
    * @returns {ParticipationPeriod} The shr.action.ParticipationPeriod
    */
@@ -67,6 +94,15 @@ class Participant {
    */
   set participationPeriod(participationPeriod) {
     this._participationPeriod = participationPeriod;
+  }
+
+  /**
+   * Set the ParticipationPeriod and return 'this' for chaining.
+   * @param {ParticipationPeriod} participationPeriod - The shr.action.ParticipationPeriod
+   * @returns {Participant} this.
+   */
+  withParticipationPeriod(participationPeriod) {
+    this.participationPeriod = participationPeriod; return this;
   }
 
   /**
@@ -86,6 +122,15 @@ class Participant {
   }
 
   /**
+   * Set the OnBehalfOf and return 'this' for chaining.
+   * @param {OnBehalfOf} onBehalfOf - The shr.core.OnBehalfOf
+   * @returns {Participant} this.
+   */
+  withOnBehalfOf(onBehalfOf) {
+    this.onBehalfOf = onBehalfOf; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Participant class.
    * The JSON must be valid against the Participant JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -94,6 +139,27 @@ class Participant {
   static fromJSON(json={}) {
     const inst = new Participant();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Participant class to a JSON object.
+   * The JSON is expected to be valid against the Participant JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/Participant' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.participationType != null) {
+      inst['ParticipationType'] = typeof this.participationType.toJSON === 'function' ? this.participationType.toJSON() : this.participationType;
+    }
+    if (this.participationPeriod != null) {
+      inst['ParticipationPeriod'] = typeof this.participationPeriod.toJSON === 'function' ? this.participationPeriod.toJSON() : this.participationPeriod;
+    }
+    if (this.onBehalfOf != null) {
+      inst['OnBehalfOf'] = typeof this.onBehalfOf.toJSON === 'function' ? this.onBehalfOf.toJSON() : this.onBehalfOf;
+    }
     return inst;
   }
 }

@@ -18,5 +18,17 @@ class PaymentSource {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+  /**
+   * Serializes an instance of the PaymentSource class to a JSON object.
+   * The JSON is expected to be valid against the PaymentSource JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/encounter/PaymentSource' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    return inst;
+  }
 }
 export default PaymentSource;

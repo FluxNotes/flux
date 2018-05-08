@@ -15,10 +15,21 @@ class PlannedActivities {
 
   /**
    * Set the value (aliases action).
+   * This field/value is required.
    * @param {Reference} value - The shr.action.Action reference
    */
   set value(value) {
     this._action = value;
+  }
+
+  /**
+   * Set the value (aliases action) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.action.Action reference
+   * @returns {PlannedActivities} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class PlannedActivities {
 
   /**
    * Set the shr.action.Action reference.
+   * This field/value is required.
    * @param {Reference} action - The shr.action.Action reference
    */
   set action(action) {
     this._action = action;
+  }
+
+  /**
+   * Set the shr.action.Action reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} action - The shr.action.Action reference
+   * @returns {PlannedActivities} this.
+   */
+  withAction(action) {
+    this.action = action; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class PlannedActivities {
   static fromJSON(json={}) {
     const inst = new PlannedActivities();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the PlannedActivities class to a JSON object.
+   * The JSON is expected to be valid against the PlannedActivities JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/careplan/PlannedActivities' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

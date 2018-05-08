@@ -18,10 +18,21 @@ class City extends GeopoliticalLocation {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {City} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -34,10 +45,21 @@ class City extends GeopoliticalLocation {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {City} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -49,6 +71,18 @@ class City extends GeopoliticalLocation {
   static fromJSON(json={}) {
     const inst = new City();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the City class to a JSON object.
+   * The JSON is expected to be valid against the City JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/City' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
     return inst;
   }
 }

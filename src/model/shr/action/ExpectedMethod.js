@@ -15,10 +15,21 @@ class ExpectedMethod {
 
   /**
    * Set the value (aliases method).
+   * This field/value is required.
    * @param {Reference} value - The shr.action.Method reference
    */
   set value(value) {
     this._method = value;
+  }
+
+  /**
+   * Set the value (aliases method) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.action.Method reference
+   * @returns {ExpectedMethod} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class ExpectedMethod {
 
   /**
    * Set the shr.action.Method reference.
+   * This field/value is required.
    * @param {Reference} method - The shr.action.Method reference
    */
   set method(method) {
     this._method = method;
+  }
+
+  /**
+   * Set the shr.action.Method reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} method - The shr.action.Method reference
+   * @returns {ExpectedMethod} this.
+   */
+  withMethod(method) {
+    this.method = method; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class ExpectedMethod {
   static fromJSON(json={}) {
     const inst = new ExpectedMethod();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the ExpectedMethod class to a JSON object.
+   * The JSON is expected to be valid against the ExpectedMethod JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/action/ExpectedMethod' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

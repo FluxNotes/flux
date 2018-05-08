@@ -15,10 +15,21 @@ class RelatedFinding {
 
   /**
    * Set the value (aliases finding).
+   * This field/value is required.
    * @param {Reference} value - The shr.finding.Finding reference
    */
   set value(value) {
     this._finding = value;
+  }
+
+  /**
+   * Set the value (aliases finding) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} value - The shr.finding.Finding reference
+   * @returns {RelatedFinding} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class RelatedFinding {
 
   /**
    * Set the shr.finding.Finding reference.
+   * This field/value is required.
    * @param {Reference} finding - The shr.finding.Finding reference
    */
   set finding(finding) {
     this._finding = finding;
+  }
+
+  /**
+   * Set the shr.finding.Finding reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Reference} finding - The shr.finding.Finding reference
+   * @returns {RelatedFinding} this.
+   */
+  withFinding(finding) {
+    this.finding = finding; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class RelatedFinding {
   static fromJSON(json={}) {
     const inst = new RelatedFinding();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the RelatedFinding class to a JSON object.
+   * The JSON is expected to be valid against the RelatedFinding JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/finding/RelatedFinding' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

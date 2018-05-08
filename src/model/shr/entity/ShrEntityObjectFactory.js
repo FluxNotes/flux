@@ -23,6 +23,7 @@ import ActiveFlagAsaCodeableConcept from './ActiveFlagAsaCodeableConcept';
 import ExternalHealthRecord from './ExternalHealthRecord';
 import AccessTime from './AccessTime';
 import Patient from './Patient';
+import MedicalRecordNumber from './MedicalRecordNumber';
 import PlaceOfBirth from './PlaceOfBirth';
 import MultipleBirth from './MultipleBirth';
 import MultipleBirthOrder from './MultipleBirthOrder';
@@ -134,6 +135,7 @@ export default class ShrEntityObjectFactory {
     case 'ExternalHealthRecord': return ExternalHealthRecord.fromJSON(json);
     case 'AccessTime': return AccessTime.fromJSON(json);
     case 'Patient': return Patient.fromJSON(json);
+    case 'MedicalRecordNumber': return MedicalRecordNumber.fromJSON(json);
     case 'PlaceOfBirth': return PlaceOfBirth.fromJSON(json);
     case 'MultipleBirth': return MultipleBirth.fromJSON(json);
     case 'MultipleBirthOrder': return MultipleBirthOrder.fromJSON(json);

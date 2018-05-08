@@ -16,5 +16,14 @@ class GeopoliticalLocation {
     setPropertiesFromJSON(inst, json);
     return inst;
   }
+  /**
+   * Serializes an instance of the GeopoliticalLocation class to a JSON object.
+   * The JSON is expected to be valid against the GeopoliticalLocation JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/GeopoliticalLocation' } };
+    return inst;
+  }
 }
 export default GeopoliticalLocation;

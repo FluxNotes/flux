@@ -132,6 +132,10 @@ class FluxDiseaseProgression extends FluxEntry {
         let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
         this.focalSubjectReference = ref;
     }
+
+    toJSON() {
+        return this._diseaseProgression.toJSON();
+    }
 }
 
 export default FluxDiseaseProgression;

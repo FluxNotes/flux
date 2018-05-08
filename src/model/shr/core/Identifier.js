@@ -15,10 +15,21 @@ class Identifier {
 
   /**
    * Set the value (aliases string).
+   * This field/value is required.
    * @param {string} value - The string
    */
   set value(value) {
     this._string = value;
+  }
+
+  /**
+   * Set the value (aliases string) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} value - The string
+   * @returns {Identifier} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Identifier {
 
   /**
    * Set the string.
+   * This field/value is required.
    * @param {string} string - The string
    */
   set string(string) {
     this._string = string;
+  }
+
+  /**
+   * Set the string and return 'this' for chaining.
+   * This field/value is required.
+   * @param {string} string - The string
+   * @returns {Identifier} this.
+   */
+  withString(string) {
+    this.string = string; return this;
   }
 
   /**
@@ -54,6 +76,15 @@ class Identifier {
   }
 
   /**
+   * Set the Purpose and return 'this' for chaining.
+   * @param {Purpose} purpose - The shr.entity.Purpose
+   * @returns {Identifier} this.
+   */
+  withPurpose(purpose) {
+    this.purpose = purpose; return this;
+  }
+
+  /**
    * Get the Type.
    * @returns {Type} The shr.entity.Type
    */
@@ -67,6 +98,15 @@ class Identifier {
    */
   set type(type) {
     this._type = type;
+  }
+
+  /**
+   * Set the Type and return 'this' for chaining.
+   * @param {Type} type - The shr.entity.Type
+   * @returns {Identifier} this.
+   */
+  withType(type) {
+    this.type = type; return this;
   }
 
   /**
@@ -86,6 +126,15 @@ class Identifier {
   }
 
   /**
+   * Set the CodeSystem and return 'this' for chaining.
+   * @param {CodeSystem} codeSystem - The shr.core.CodeSystem
+   * @returns {Identifier} this.
+   */
+  withCodeSystem(codeSystem) {
+    this.codeSystem = codeSystem; return this;
+  }
+
+  /**
    * Get the EffectiveTimePeriod.
    * @returns {EffectiveTimePeriod} The shr.core.EffectiveTimePeriod
    */
@@ -99,6 +148,15 @@ class Identifier {
    */
   set effectiveTimePeriod(effectiveTimePeriod) {
     this._effectiveTimePeriod = effectiveTimePeriod;
+  }
+
+  /**
+   * Set the EffectiveTimePeriod and return 'this' for chaining.
+   * @param {EffectiveTimePeriod} effectiveTimePeriod - The shr.core.EffectiveTimePeriod
+   * @returns {Identifier} this.
+   */
+  withEffectiveTimePeriod(effectiveTimePeriod) {
+    this.effectiveTimePeriod = effectiveTimePeriod; return this;
   }
 
   /**
@@ -118,6 +176,15 @@ class Identifier {
   }
 
   /**
+   * Set the Issuer and return 'this' for chaining.
+   * @param {Issuer} issuer - The shr.entity.Issuer
+   * @returns {Identifier} this.
+   */
+  withIssuer(issuer) {
+    this.issuer = issuer; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the Identifier class.
    * The JSON must be valid against the Identifier JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -126,6 +193,33 @@ class Identifier {
   static fromJSON(json={}) {
     const inst = new Identifier();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Identifier class to a JSON object.
+   * The JSON is expected to be valid against the Identifier JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Identifier' } };
+    if (this.value != null) {
+      inst['Value'] = this.value;
+    }
+    if (this.purpose != null) {
+      inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
+    }
+    if (this.type != null) {
+      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    }
+    if (this.codeSystem != null) {
+      inst['CodeSystem'] = typeof this.codeSystem.toJSON === 'function' ? this.codeSystem.toJSON() : this.codeSystem;
+    }
+    if (this.effectiveTimePeriod != null) {
+      inst['EffectiveTimePeriod'] = typeof this.effectiveTimePeriod.toJSON === 'function' ? this.effectiveTimePeriod.toJSON() : this.effectiveTimePeriod;
+    }
+    if (this.issuer != null) {
+      inst['Issuer'] = typeof this.issuer.toJSON === 'function' ? this.issuer.toJSON() : this.issuer;
+    }
     return inst;
   }
 }

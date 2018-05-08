@@ -15,10 +15,21 @@ class LanguageUsed {
 
   /**
    * Set the value (aliases language).
+   * This field/value is required.
    * @param {Language} value - The shr.base.Language
    */
   set value(value) {
     this._language = value;
+  }
+
+  /**
+   * Set the value (aliases language) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Language} value - The shr.base.Language
+   * @returns {LanguageUsed} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class LanguageUsed {
 
   /**
    * Set the Language.
+   * This field/value is required.
    * @param {Language} language - The shr.base.Language
    */
   set language(language) {
     this._language = language;
+  }
+
+  /**
+   * Set the Language and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Language} language - The shr.base.Language
+   * @returns {LanguageUsed} this.
+   */
+  withLanguage(language) {
+    this.language = language; return this;
   }
 
   /**
@@ -54,6 +76,15 @@ class LanguageUsed {
   }
 
   /**
+   * Set the SpokenLanguageProficiency and return 'this' for chaining.
+   * @param {SpokenLanguageProficiency} spokenLanguageProficiency - The shr.entity.SpokenLanguageProficiency
+   * @returns {LanguageUsed} this.
+   */
+  withSpokenLanguageProficiency(spokenLanguageProficiency) {
+    this.spokenLanguageProficiency = spokenLanguageProficiency; return this;
+  }
+
+  /**
    * Get the WrittenLanguageProficiency.
    * @returns {WrittenLanguageProficiency} The shr.entity.WrittenLanguageProficiency
    */
@@ -67,6 +98,15 @@ class LanguageUsed {
    */
   set writtenLanguageProficiency(writtenLanguageProficiency) {
     this._writtenLanguageProficiency = writtenLanguageProficiency;
+  }
+
+  /**
+   * Set the WrittenLanguageProficiency and return 'this' for chaining.
+   * @param {WrittenLanguageProficiency} writtenLanguageProficiency - The shr.entity.WrittenLanguageProficiency
+   * @returns {LanguageUsed} this.
+   */
+  withWrittenLanguageProficiency(writtenLanguageProficiency) {
+    this.writtenLanguageProficiency = writtenLanguageProficiency; return this;
   }
 
   /**
@@ -86,6 +126,15 @@ class LanguageUsed {
   }
 
   /**
+   * Set the LanguageQualifier array and return 'this' for chaining.
+   * @param {Array<LanguageQualifier>} languageQualifier - The shr.entity.LanguageQualifier array
+   * @returns {LanguageUsed} this.
+   */
+  withLanguageQualifier(languageQualifier) {
+    this.languageQualifier = languageQualifier; return this;
+  }
+
+  /**
    * Deserializes JSON data to an instance of the LanguageUsed class.
    * The JSON must be valid against the LanguageUsed JSON schema, although this is not validated by the function.
    * @param {object} json - the JSON data to deserialize
@@ -94,6 +143,27 @@ class LanguageUsed {
   static fromJSON(json={}) {
     const inst = new LanguageUsed();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the LanguageUsed class to a JSON object.
+   * The JSON is expected to be valid against the LanguageUsed JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/LanguageUsed' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.spokenLanguageProficiency != null) {
+      inst['SpokenLanguageProficiency'] = typeof this.spokenLanguageProficiency.toJSON === 'function' ? this.spokenLanguageProficiency.toJSON() : this.spokenLanguageProficiency;
+    }
+    if (this.writtenLanguageProficiency != null) {
+      inst['WrittenLanguageProficiency'] = typeof this.writtenLanguageProficiency.toJSON === 'function' ? this.writtenLanguageProficiency.toJSON() : this.writtenLanguageProficiency;
+    }
+    if (this.languageQualifier != null) {
+      inst['LanguageQualifier'] = this.languageQualifier.map(f => f.toJSON());
+    }
     return inst;
   }
 }

@@ -15,10 +15,21 @@ class PlaceOfBirth {
 
   /**
    * Set the value (aliases geopoliticalLocation).
+   * This field/value is required.
    * @param {GeopoliticalLocation} value - The shr.core.GeopoliticalLocation
    */
   set value(value) {
     this._geopoliticalLocation = value;
+  }
+
+  /**
+   * Set the value (aliases geopoliticalLocation) and return 'this' for chaining.
+   * This field/value is required.
+   * @param {GeopoliticalLocation} value - The shr.core.GeopoliticalLocation
+   * @returns {PlaceOfBirth} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class PlaceOfBirth {
 
   /**
    * Set the GeopoliticalLocation.
+   * This field/value is required.
    * @param {GeopoliticalLocation} geopoliticalLocation - The shr.core.GeopoliticalLocation
    */
   set geopoliticalLocation(geopoliticalLocation) {
     this._geopoliticalLocation = geopoliticalLocation;
+  }
+
+  /**
+   * Set the GeopoliticalLocation and return 'this' for chaining.
+   * This field/value is required.
+   * @param {GeopoliticalLocation} geopoliticalLocation - The shr.core.GeopoliticalLocation
+   * @returns {PlaceOfBirth} this.
+   */
+  withGeopoliticalLocation(geopoliticalLocation) {
+    this.geopoliticalLocation = geopoliticalLocation; return this;
   }
 
   /**
@@ -46,6 +68,18 @@ class PlaceOfBirth {
   static fromJSON(json={}) {
     const inst = new PlaceOfBirth();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the PlaceOfBirth class to a JSON object.
+   * The JSON is expected to be valid against the PlaceOfBirth JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/PlaceOfBirth' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
     return inst;
   }
 }

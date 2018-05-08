@@ -29,7 +29,13 @@ class RestApiDataSource extends IDataSource {
     }
     
     savePatient(patient) {
-        console.error("saving of patients is not implemented in restapidataSource.");
+        if (patient) {
+            let entriesJSON = patient.entries.map(entry => {
+                return entry.toJSON();
+            });
+
+            this.api.updatePatientRecord(entriesJSON);
+        }
     }
 }
 

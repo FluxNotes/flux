@@ -7,7 +7,6 @@ var OBJECT_FACTORY;
 
 // Regular expressions for parsing URIs and FQNs
 const URI_REGEX = /^http:\/\/standardhealthrecord\.org\/spec\/(.*)\/([^/]+)$/;
-const FQN_REGEX = /^((([a-z][0-9a-zA-Z-]*)\.)+)?([A-Z][0-9a-zA-Z-]+)$/;
 
 /**
  * Sets the root ObjectFactory, which is needed for proper recursive creation of instances
@@ -25,25 +24,20 @@ export function setObjectFactory(factory) {
  */
 export function getNamespaceAndName(json={}, type) {
   // Get the type from the JSON if we can
-  if (json['shr.base.EntryType']) {
-    type = json['shr.base.EntryType'].Value;
+  if (json['EntryType']) {
+    type = json['EntryType'].Value;
   }
   // Ensure we have a type before proceeding
   if (!type) {
     throw new Error(`Couldn't find type for JSON: ${JSON.stringify(json)}`);
+  } else if (type === 'EntryType') {
+    return { namespace: 'shr.base', elementName: 'EntryType' };
   }
   // Try to match on a URI
   const uriMatch = type.match(URI_REGEX);
   if (uriMatch) {
     const namespace = uriMatch[1].split('/').join('.');
     const elementName = uriMatch[2];
-    return { namespace, elementName };
-  }
-  // If matching on URI didn't succeed, try to match on FQN
-  const fqnMatch = type.match(FQN_REGEX);
-  if (fqnMatch) {
-    const namespace = fqnMatch[1].slice(0, -1);
-    const elementName = fqnMatch[4];
     return { namespace, elementName };
   }
   // No match, so throw an error
@@ -61,8 +55,8 @@ export function getNamespaceAndName(json={}, type) {
 export function setPropertiesFromJSON(inst, json) {
   // Loop through each key in the JSON, attempting to set it as a property on the class
   for (const key of Object.keys(json)) {
-    // The key is an FQN (e.g., shr.foo.Bar), but the property is a lowercased version of the element name (e.g., bar)
-    const property = lowerCaseFirst(key.match(FQN_REGEX)[4]);
+    // The key has a captialized name (e.g., Bar), but the property is a lowercased version of the element name (e.g., bar)
+    const property = lowerCaseFirst(key);
     // First try to find and set it directly on the instance
     const setter = findSetterForProperty(inst, property);
     if (setter) {
@@ -73,10 +67,10 @@ export function setPropertiesFromJSON(inst, json) {
     if (setterOnEntry) {
       setterOnEntry.call(inst.entryInfo, createInstance(key, json[key]));
     }
-  // If we didn't find a match directly or on entryInfo, spit an error to the console.  The exception is for
+    // If we didn't find a match directly or on entryInfo, spit an error to the console.  The exception is for
     // shr.base.EntryType, which is used to indicate the field's type in the JSON, but not necessarily always a
     // settable property in the class.
-    if (!setter && !setterOnEntry && key !== 'shr.base.EntryType') {
+    if (!setter && !setterOnEntry && key !== 'EntryType') {
       console.error(`${inst.constructor.name}: No setter for '${property}' property`);
     }
   }
@@ -100,7 +94,7 @@ function findSetterForProperty(inst, property) {
   if (pd) {
     return pd.set;
   }
-// It didn't exist on this prototype, but may be from a superclass
+  // It didn't exist on this prototype, but may be from a superclass
   return findSetterForProperty(proto, property);
 }
 
@@ -139,9 +133,9 @@ function createInstance(key, value) {
   }
   if (value == null) return null;
   if (typeof value === 'object') {
-    if (value.ShrId && value.EntryId && value.EntryType) {
+    if (value._ShrId && value._EntryId && value._EntryType) {
       // It's a reference, so just return the reference
-      return new Reference(value.ShrId, value.EntryId, value.EntryType);
+      return new Reference(value._ShrId, value._EntryId, value._EntryType);
     } else if (value.code && value.codeSystem) {
       // It's really the one-off representation of code.  Return just the code.  We toss codeSystem and display
       // because in SHR, a 'code' really is *just* a string.  The JSON schema probably needs to be adjusted.
@@ -150,8 +144,7 @@ function createInstance(key, value) {
     if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
-    const result = OBJECT_FACTORY.createInstance(value, key);
-    return result;
+    return OBJECT_FACTORY.createInstance(value, key);
   }
   return value;
 }

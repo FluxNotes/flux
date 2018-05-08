@@ -30,6 +30,10 @@ class FluxPatient {
         deceased.value = val;
         this._patient.deceased = deceased;
     }
+
+    toJSON() {
+        return this._patient.toJSON();
+    }
 }
 
 export default FluxPatient;

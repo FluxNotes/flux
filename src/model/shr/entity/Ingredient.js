@@ -15,10 +15,21 @@ class Ingredient {
 
   /**
    * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Substance reference.
+   * This field/value is required.
    * @param {(CodeableConcept|Reference)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Substance reference
    */
   set value(value) {
     this._value = value;
+  }
+
+  /**
+   * Set the choice value; one of: shr.core.CodeableConcept, shr.entity.Substance reference and return 'this' for chaining.
+   * This field/value is required.
+   * @param {(CodeableConcept|Reference)} value - The choice value; one of: shr.core.CodeableConcept, shr.entity.Substance reference
+   * @returns {Ingredient} this.
+   */
+  withValue(value) {
+    this.value = value; return this;
   }
 
   /**
@@ -31,10 +42,21 @@ class Ingredient {
 
   /**
    * Set the IngredientAmount.
+   * This field/value is required.
    * @param {IngredientAmount} ingredientAmount - The shr.entity.IngredientAmount
    */
   set ingredientAmount(ingredientAmount) {
     this._ingredientAmount = ingredientAmount;
+  }
+
+  /**
+   * Set the IngredientAmount and return 'this' for chaining.
+   * This field/value is required.
+   * @param {IngredientAmount} ingredientAmount - The shr.entity.IngredientAmount
+   * @returns {Ingredient} this.
+   */
+  withIngredientAmount(ingredientAmount) {
+    this.ingredientAmount = ingredientAmount; return this;
   }
 
   /**
@@ -46,6 +68,21 @@ class Ingredient {
   static fromJSON(json={}) {
     const inst = new Ingredient();
     setPropertiesFromJSON(inst, json);
+    return inst;
+  }
+  /**
+   * Serializes an instance of the Ingredient class to a JSON object.
+   * The JSON is expected to be valid against the Ingredient JSON schema, but no validation checks are performed.
+   * @returns {object} a JSON object populated with the data from the element
+   */
+  toJSON() {
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/entity/Ingredient' } };
+    if (this.value != null) {
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+    }
+    if (this.ingredientAmount != null) {
+      inst['IngredientAmount'] = typeof this.ingredientAmount.toJSON === 'function' ? this.ingredientAmount.toJSON() : this.ingredientAmount;
+    }
     return inst;
   }
 }
