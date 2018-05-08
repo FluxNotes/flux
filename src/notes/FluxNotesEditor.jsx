@@ -839,9 +839,37 @@ class FluxNotesEditor extends React.Component {
      *  If not, function will call insertTextWithStructuredPhrases to insert completed template into editor
      */
     insertTemplate = (template) => {
+        let remainder = template;
+        let start, end;
+        let localArrayOfPickLists = [];
         const triggers = this.noteParser.getListOfTriggersFromText(template)[0];
-        console.log(template);
-        this.insertTextWithStructuredPhrases(template);
+
+        // Loop through shortcut triggers to determine if any of them require users to choose from pick list
+        if (!Lang.isNull(triggers)) {
+            triggers.forEach((trigger) => {
+                start = remainder.indexOf(trigger.trigger);
+                remainder = remainder.substring(start + trigger.trigger.length);
+
+                // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
+                // If not no option is selected, then push the shortcut to the array
+                if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[["))) {
+                    localArrayOfPickLists.push(trigger);
+                }
+
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
+                    remainder = remainder.substring(end + 2);
+                }
+
+            });
+        }
+
+        if (localArrayOfPickLists.length > 0) {
+            console.log(localArrayOfPickLists)
+        } else {
+            this.insertTextWithStructuredPhrases(template);
+        }
     }
 
     /**
