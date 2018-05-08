@@ -77,7 +77,7 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedicationChange = (medChange, medBefore) => { 
         return (
-            <Row start="xs">
+            <Row center="xs">
                 <Col xs={12} className="medication-change">
                     <span className='medication-change-type'>
                         {this.stringForMedicationChangeType(medChange.type)}

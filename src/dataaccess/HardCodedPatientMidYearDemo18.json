@@ -1431,6 +1431,9 @@
             }
         },
         "MedicationBeforeChange": { 
+            "EntryType": { 
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
+            },
             "Value": {
                 "EntryType": { 
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
@@ -1440,6 +1443,9 @@
             }
         },
         "MedicationAfterChange": { 
+            "EntryType": { 
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationAfterChange"
+            },
             "Value": {
                 "EntryType": { 
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
