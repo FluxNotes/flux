@@ -874,6 +874,20 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (localArrayOfPickLists.length > 0) {
+            let localArrayOfPickListsWithOptions = [];
+
+            localArrayOfPickLists.forEach((pickList) => {
+                // Temporarily create shortcut from trigger to get selectionOptions
+                let tempShortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
+                tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
+                console.log(tempShortcut);
+                localArrayOfPickListsWithOptions.push(
+                    {
+                        'trigger': pickList.trigger,
+                        'options': this.state.portalOptions
+                    }
+                )
+            });
             console.log(localArrayOfPickLists)
         } else {
             this.insertTextWithStructuredPhrases(template);
