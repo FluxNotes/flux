@@ -69,8 +69,6 @@ class MedicationRangeChartVisualizer extends Component {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
         if (items.length === 0) return <h2 key={index}>None</h2>;
-        // console.log('itemsToBeRendered:')
-        // console.log(items)
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
     }
@@ -107,11 +105,19 @@ class MedicationRangeChartVisualizer extends Component {
      */
     stringForMedicationChangeType(changeType) { 
         switch (changeType) {
+            case "reduced":
+                return 'Reduced';
+            case "increased":
+                return 'Increased';
             case "temp_stop":
-                return changeType.charAt(0).toUpperCase() + changeType.slice(1).replace('_', ' ') + " ";
+                return 'Temporarily stopped';
+            case "swap":
+                return 'Swapped';
+            case "stop":
+                return 'Stopped';
             default:
-                // Behavior for swap, stop, increased, reduced
-                return changeType.charAt(0).toUpperCase() + changeType.slice(1) + " ";
+                console.error('Unsupported medication change type used in medication: ' + changeType)                
+                return str(changeType);
         }
     }
 
