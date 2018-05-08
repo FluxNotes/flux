@@ -55,14 +55,18 @@ export default class NotesPanel extends Component {
         if (!Lang.isNull(this.state.templateToInsert) && selectedPickListOptions.length > 0) {
             // Loop through selectedPickListOptions and replace in template
             selectedPickListOptions.forEach((option) => {
-                const index = templateToInsert.indexOf(option.trigger) + option.trigger.length;
+                const triggerLength = option.trigger.length;
+                let index = templateToInsert.indexOf(option.trigger) + triggerLength;
+                // Search for next instance of trigger if bracketed notation is already provided
+                while (templateToInsert.substring(index).startsWith("[[")) {
+                    index = templateToInsert.indexOf(option.trigger, index + 1) + triggerLength;
+                }
                 // Replace instance of shortcut with bracketed notation
                 templateToInsert = templateToInsert.slice(0, index) + `[[${option.selectionOption}]]` + templateToInsert.slice(index);
             });
         }
 
         this.setState({ templateToInsert: templateToInsert });
-        console.log(selectedPickListOptions);
         console.log(templateToInsert);
     }
 
