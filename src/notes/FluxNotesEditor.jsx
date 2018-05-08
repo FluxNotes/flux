@@ -443,7 +443,6 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        console.log(nextProps)
         if (this.props.templateToInsert !== nextProps.templateToInsert && !Lang.isNull(nextProps.templateToInsert) && nextProps.templateToInsert.length > 0) {
             this.insertTemplate(nextProps.templateToInsert);
         }
@@ -741,6 +740,7 @@ class FluxNotesEditor extends React.Component {
         let before = '', after = '';
         let localArrayOfPickLists = [];
 
+
         // Open div tags don't trigger any action now, so just remove them.
         if (!Lang.isUndefined(remainder)) {
             remainder = remainder.split('<div>').join('');
@@ -796,6 +796,7 @@ class FluxNotesEditor extends React.Component {
                 }
 
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
+
             });
         }
 
@@ -804,20 +805,27 @@ class FluxNotesEditor extends React.Component {
             transform = this.insertPlainText(transform, remainder);
         }
 
-        // console.log("shortcuts that are picklists");
-        // console.log(localArrayOfPickLists);
+        console.log("shortcuts that are picklists");
+        console.log(localArrayOfPickLists);
+
+
 
         // TODO: update arrayOfPickLists state;
         // for each pick list, add options to it
 
-        // let localArrayOfPickListsWithOptions = [];
+        let localArrayOfPickListsWithOptions = [];
 
 
-        // for (let i = 0; i < localArrayOfPickLists.length;  i++) {
-        //
-        // }
+        localArrayOfPickLists.forEach((pickList) => {
+            localArrayOfPickListsWithOptions.push(
+                {
+                    'trigger': pickList.trigger,
+                    'options': this.state.portalOptions
+                }
+            )
+        });
 
-        this.props.handleUpdateArrayOfPickLists(localArrayOfPickLists);
+        this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
 
 
         // Open PickListOptionsPanel if inserting structured phrases that have multi options
