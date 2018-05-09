@@ -840,8 +840,8 @@ class FluxNotesEditor extends React.Component {
                 tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
 
                 let shortcutOptions = tempShortcut.getValueSelectionOptions().map((shortcutOption) => {return shortcutOption.context});
-                console.log("shortcut options");
-                console.log(shortcutOptions);
+                // console.log("shortcut options");
+                // console.log(shortcutOptions);
                 localArrayOfPickListsWithOptions.push(
                     {
                         'trigger': pickList.trigger,
