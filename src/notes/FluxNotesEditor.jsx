@@ -43,6 +43,10 @@ const structuredFieldTypes = [
     {
         name: 'typeStructuredField',
         value: 'structured_field'
+    },
+    {
+        name: 'typeStructuredField',
+        value: 'single_hashtag_structured_field'
     }
 ]
 

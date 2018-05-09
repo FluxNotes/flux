@@ -1,3 +1,4 @@
 {
-    "rules": {}
+    "rules": {},
+    "parser": "babel-eslint"
 }
