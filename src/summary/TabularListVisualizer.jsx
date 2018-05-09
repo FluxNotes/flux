@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Table, { TableBody, TableCell, TableFooter, TablePagination, TableRow } from 'material-ui/Table';
+import { TableCell, TableRow } from 'material-ui/Table';
 import FontAwesome from 'react-fontawesome';
 import Tooltip from 'rc-tooltip';
 
+import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
 
 /*
@@ -148,7 +149,7 @@ export default class TabularListVisualizer extends Component {
             transformedSubsection.headings.forEach((heading, headingIndex) => {
                 renderedColumnHeadings.push(<th key={subsectionindex + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
             });
-            headings = <tr>{renderedColumnHeadings}</tr>;
+            headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
 
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
@@ -158,25 +159,9 @@ export default class TabularListVisualizer extends Component {
                 {preTableCount}
                 {subsectionname}
 
-                <Table>
-                    <TableBody>
-                        {headings ? headings : <tr></tr>}
-                        {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
-                    </TableBody>
-
-                    <TableFooter>
-                        <TableRow>
-                            <TablePagination
-                              colSpan={3}
-                              count={10}
-                              rowsPerPage={10}
-                              page={1}
-                              onChangePage={() => null}
-                              onChangeRowsPerPage={() => null}
-                            />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
+                <TabularListVisualizerTable
+                    headers={headings}
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings)} />
 
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList)}
@@ -279,7 +264,6 @@ export default class TabularListVisualizer extends Component {
         const colSize = (100 / numColumns) + "%";
         let isUnsigned;
 
-        console.debug(item);
         item.forEach((element, arrayIndex) => {
             const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
             let columnItem = null;

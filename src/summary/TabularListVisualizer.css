@@ -1,4 +1,4 @@
-.tabular-list { 
+.tabular-list {
     margin-bottom: 20px;
 }
 
@@ -34,11 +34,11 @@ h2.subsection span {
     padding-right: 10px;
 }
 
-.tabular-list tr:nth-child(even) { 
+.tabular-list tbody tr:nth-child(odd) {
     background-color: #f8f8f8;
 }
 
-.tabular-list tr:nth-child(odd) { 
+.tabular-list tbody tr:nth-child(even) {
     background-color: #fff;
 }
 
