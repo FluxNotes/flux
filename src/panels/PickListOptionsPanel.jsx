@@ -55,23 +55,13 @@ export default class PickListOptionsPanel extends Component {
     updateSelectedOptions(selectedOption, trigger) {
         console.log("--------selectedOptions length: " + this.selectedOptions.length);
 
-
-        if (this.selectedOptions.length > 0) {
-            for (let i = 0; i < this.selectedOptions.length; i++) {
-                if (trigger === this.selectedOptions[i].trigger) {
-                    this.selectedOptions[i] = {
-                        "trigger": trigger,
-                        "selectedOption": selectedOption
-                    }
-                } else {
-                    this.selectedOptions.push(
-                        {
-                            "trigger": trigger,
-                            "selectedOption": selectedOption
-                        }
-                    )
-                    break;
-                }
+        const index = this.selectedOptions.findIndex((option) => {
+            return trigger === option.trigger;
+        });
+        if (index >= 0) {
+            this.selectedOptions[index] = {
+                "trigger": trigger,
+                "selectedOption": selectedOption
             }
         }
         else {
@@ -83,12 +73,12 @@ export default class PickListOptionsPanel extends Component {
             )
         }
 
-        if (this.selectedOptions.length === this.props.arrayOfPickLists.length) {
-            console.log("got all " + this.props.arrayOfPickLists.length + " of them move on");
+        // if (this.selectedOptions.length === this.props.arrayOfPickLists.length) {
+        //     console.log("got all " + this.props.arrayOfPickLists.length + " of them move on");
 
 
-            this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
-        }
+        //     this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
+        // }
 
         console.log("selected options");
         console.log(this.selectedOptions);
