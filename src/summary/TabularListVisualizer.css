@@ -6,7 +6,6 @@
     border-collapse: collapse;
     width: 98%;
     margin-top: 10px;
-    /*table-layout: fixed;*/
     margin-bottom: 30px !important;
 }
 
@@ -34,6 +33,10 @@ h2.subsection span {
     padding-right: 10px;
 }
 
+.tabular-list tr {
+    height: inherit;
+}
+
 .tabular-list tbody tr:nth-child(odd) {
     background-color: #f8f8f8;
 }
@@ -45,6 +48,9 @@ h2.subsection span {
 /* Most table elements only have a top border */
 .tabular-list td {
     padding: 8px 10px;
+    border: 0;
+    color: #555;
+    font-family: "Open Sans", Arial, sans-serif;
 }
 
 /* Include the bottom border on the last row of the table */
@@ -94,4 +100,6 @@ h2.subsection span {
     padding: 8px 10px;
     border-bottom: 1px solid lightgray;
     font-weight: 600 !important;
+    font-family: "Open Sans", Arial, sans-serif;
+    text-align: left;
 }
