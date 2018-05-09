@@ -827,7 +827,6 @@ class FluxNotesEditor extends React.Component {
                     // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
                     remainder = remainder.substring(end + 2);
                 }
-
             });
         }
 
@@ -854,6 +853,8 @@ class FluxNotesEditor extends React.Component {
             this.props.updateNoteAssistantMode('pick-list-options-panel');
         } else {
             this.insertTextWithStructuredPhrases(template);
+            this.props.updateTemplateToInsert(null);
+            this.props.updateNoteAssistantMode('clinical-notes');
         }
     }
 

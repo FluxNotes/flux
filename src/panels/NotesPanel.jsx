@@ -62,7 +62,7 @@ export default class NotesPanel extends Component {
                     index = templateToInsert.indexOf(option.trigger, index + 1) + triggerLength;
                 }
                 // Replace instance of shortcut with bracketed notation
-                templateToInsert = templateToInsert.slice(0, index) + `[[${option.selectionOption}]]` + templateToInsert.slice(index);
+                templateToInsert = templateToInsert.slice(0, index) + `[[${option.selectedOption}]]` + templateToInsert.slice(index);
             });
         }
 

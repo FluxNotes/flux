@@ -13,7 +13,6 @@ export default class PickListOptionsPanel extends Component {
         this.state = {
             tooltipVisibility: 'visible',
             optionIndex: "",
-
         }
 
         this.selectedOptions = [];
@@ -33,15 +32,19 @@ export default class PickListOptionsPanel extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
+    handleCancelButtonClick = () => {
+        console.log('handle cancel button click')
+        this.toggleView("clinical-notes");
+        this.props.updateTemplateToInsert(null);
+    }
+
     handleOptionButtonClick(option, trigger) {
         // this.option_btn_classname = "option-btn-selected";
         console.log("you clicked: " + option);
         this.updateSelectedOptions(option, trigger);
-
     }
 
     handleOptionDropDownSelection(index, options, trigger) {
-
         this.setState({optionIndex: index});
 
         console.log("you selected: " + options[index]);
@@ -54,8 +57,7 @@ export default class PickListOptionsPanel extends Component {
 
 
         if (this.selectedOptions.length > 0) {
-
-            for (let i=0; i < this.selectedOptions.length; i++) {
+            for (let i = 0; i < this.selectedOptions.length; i++) {
                 if (trigger === this.selectedOptions[i].trigger) {
                     this.selectedOptions[i] = {
                         "trigger": trigger,
@@ -93,8 +95,6 @@ export default class PickListOptionsPanel extends Component {
     }
 
     renderPanel(pickLists, i) {
-
-
         // Loop through each shortcut in the array and render the options
         return (
             pickLists.map((shortcut, i) => {
@@ -111,14 +111,12 @@ export default class PickListOptionsPanel extends Component {
     }
 
     renderShortcutOptions(shortcut, i) {
-
         let options = shortcut.options;
-        let trigger = shortcut.trigger;
+        const trigger = shortcut.trigger;
 
         if (options.length < 8) {
             return (
                 options.map((option, i) => {
-
                     // const largeTrigger = option.length > 100;
                     let optionLabel = "";
                     if (option.length > 12) {
@@ -131,7 +129,7 @@ export default class PickListOptionsPanel extends Component {
                         <div key={i}>
                             <Tooltip
                                 key={i}
-                                overlayStyle={{'visibility': this.state.tooltipVisibility}}
+                                overlayStyle={{ 'visibility': this.state.tooltipVisibility }}
                                 placement="left"
                                 overlay={text}
                                 destroyTooltipOnHide={true}
@@ -143,7 +141,7 @@ export default class PickListOptionsPanel extends Component {
                                     raised
                                     id={`${option}-btn`}
                                     className={this.option_btn_classname}
-                                    style={{textTransform: "none"}}
+                                    style={{ textTransform: "none" }}
                                     onClick={() => {
                                         this.handleOptionButtonClick(option, trigger)
                                     }}>
@@ -162,7 +160,6 @@ export default class PickListOptionsPanel extends Component {
                         value={this.state.optionIndex}
                         onChange={(event) => this.handleOptionDropDownSelection(event.target.value, options, trigger)}
                     >
-
                         {this.renderOptionList(options)}
                     </Select>
                 </div>
@@ -183,8 +180,7 @@ export default class PickListOptionsPanel extends Component {
 
 
     render() {
-
-        let pickLists = this.props.arrayOfPickLists;
+        const pickLists = this.props.arrayOfPickLists;
 
         return (
             <div className="pickList-options-panel">
@@ -194,9 +190,7 @@ export default class PickListOptionsPanel extends Component {
                 <MaterialButton
                     raised
                     id="cancel-btn"
-                    onClick={() => {
-                        this.toggleView("clinical-notes")
-                    }}>
+                    onClick={this.handleCancelButtonClick}>
                     Cancel
                 </MaterialButton>
             </div>
@@ -207,5 +201,6 @@ export default class PickListOptionsPanel extends Component {
 PickListOptionsPanel.proptypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
+    updateTemplateToInsert: PropTypes.func.isRequired,
     updateTemplateWithSelectedPickListOptions: PropTypes.func.isRequired
 };
