@@ -38,6 +38,11 @@ export default class PickListOptionsPanel extends Component {
         this.props.updateTemplateToInsert(null);
     }
 
+    handleOkButtonClick = () => {
+        this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
+    }
+
+
     handleOptionButtonClick(option, trigger) {
         // this.option_btn_classname = "option-btn-selected";
         console.log("you clicked: " + option);
@@ -104,13 +109,13 @@ export default class PickListOptionsPanel extends Component {
         let options = shortcut.options;
         const trigger = shortcut.trigger;
 
+        // If the number of options is small, generate buttons for each button
         if (options.length < 8) {
             return (
                 options.map((option, i) => {
-                    // const largeTrigger = option.length > 100;
                     let optionLabel = "";
                     if (option.length > 12) {
-                        optionLabel = option.slice(0, 12);
+                        optionLabel = option.slice(0, 12) + "...";
                     } else {
                         optionLabel = option;
                     }
@@ -142,10 +147,13 @@ export default class PickListOptionsPanel extends Component {
                     )
                 })
             );
-        } else {
+        }
+        // If there are a lot of options, render a drop down instead of buttons
+        else {
             return (
                 <div className="option-select-container">
                     <Select
+
                         className="option-select"
                         value={this.state.optionIndex}
                         onChange={(event) => this.handleOptionDropDownSelection(event.target.value, options, trigger)}
@@ -182,6 +190,12 @@ export default class PickListOptionsPanel extends Component {
                     id="cancel-btn"
                     onClick={this.handleCancelButtonClick}>
                     Cancel
+                </MaterialButton>
+                <MaterialButton
+                    raised
+                    id="ok-btn"
+                    onClick={this.handleOkButtonClick}>
+                    Ok
                 </MaterialButton>
             </div>
         );

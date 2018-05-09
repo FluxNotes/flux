@@ -10,6 +10,10 @@
     margin-top: 10%;
 }
 
+.option-btn:hover {
+    background: #E6E6E6 !important;
+}
+
 .option-btn-selected {
     width: 90%;
     min-height: 20px;
@@ -18,18 +22,40 @@
 }
 
 .shortcut-options-container {
-    margin-bottom: 15%;
+    margin-bottom: 50px;
 }
 
 .option-select-container {
-    width: 90%;
+    /*width: 90%;*/
+    margin-bottom: 20px;
+    max-width: 184px;
 }
 
-#cancel-btn {
+.option-select {
+    width: 90%;
+    max-width: 200px;
+    margin-top: 15px;
+}
+
+.option-select-container .option-select {
+    font-size: 0.8em;
+}
+
+.option-item:hover {
+    background-color: #1384b5 !important;
+    color: #fff !important;
+}
+
+
+#cancel-btn, #ok-btn {
     min-width: 70px;
     min-height: 20px;
     width: 50%;
     background-color: #FFFFFF;
     margin-top: 10%;
+}
+
+#cancel-btn:hover, #ok-btn:hover {
+    background: #E6E6E6 !important;
 }
 
