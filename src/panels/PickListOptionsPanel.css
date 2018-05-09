@@ -6,12 +6,23 @@
 .option-btn {
     width: 90%;
     min-height: 20px;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF !important;
+    margin-top: 10%;
+}
+
+.option-btn-selected {
+    width: 90%;
+    min-height: 20px;
+    background-color: #3399FF !important;
     margin-top: 10%;
 }
 
 .shortcut-options-container {
     margin-bottom: 15%;
+}
+
+.option-select-container {
+    width: 90%;
 }
 
 #cancel-btn {

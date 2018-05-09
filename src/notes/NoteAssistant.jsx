@@ -254,9 +254,6 @@ export default class NoteAssistant extends Component {
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                     </div>
-                    // <div>
-                    //     <PickListOptionsPanel/>
-                    // </div>
                 );
 
             // Render the clinical notes view which includes new note button, resume note button,

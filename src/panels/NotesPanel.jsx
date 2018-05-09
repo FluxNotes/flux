@@ -101,8 +101,8 @@ export default class NotesPanel extends Component {
 
     handleUpdateArrayOfPickLists = (array) => {
 
-        console.log("Updating array of pick lists: ");
-        console.log(array);
+        // console.log("Updating array of pick lists: ");
+        // console.log(array);
         this.setState(
             {
                 arrayOfPickLists: array
