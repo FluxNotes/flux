@@ -117,7 +117,7 @@ class MedicationRangeChartVisualizer extends Component {
                 return 'Stopped';
             default:
                 console.error('Unsupported medication change type used in medication: ' + changeType)                
-                return str(changeType);
+                return `${changeType}`;
         }
     }
 
