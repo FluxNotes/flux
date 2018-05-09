@@ -4,21 +4,19 @@
 }
 
 .option-btn {
-    width: 90%;
-    min-height: 20px;
+    width: 90% !important;
+    min-height: 20px !important;
     background-color: #FFFFFF !important;
-    margin-top: 10%;
+    margin-top: 20px !important;
 }
 
 .option-btn:hover {
     background: #E6E6E6 !important;
 }
 
-.option-btn-selected {
-    width: 90%;
-    min-height: 20px;
+.single-choice-button.selected {
     background-color: #3399FF !important;
-    margin-top: 10%;
+    color: #fff !important;
 }
 
 .shortcut-options-container {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MaterialButton from 'material-ui/Button';
+import SingleChoiceButton from '../forms/SingleChoiceButton';
 import Tooltip from 'rc-tooltip';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
@@ -13,10 +14,10 @@ export default class PickListOptionsPanel extends Component {
         this.state = {
             tooltipVisibility: 'visible',
             optionIndex: "",
+            selectedButton: ""
         }
 
         this.selectedOptions = [];
-        this.option_btn_classname = "option-btn";
     }
 
     mouseLeave = () => {
@@ -46,6 +47,7 @@ export default class PickListOptionsPanel extends Component {
     handleOptionButtonClick(option, trigger) {
         // this.option_btn_classname = "option-btn-selected";
         console.log("you clicked: " + option);
+        this.setState({selectedButton: option});
         this.updateSelectedOptions(option, trigger);
     }
 
@@ -132,16 +134,26 @@ export default class PickListOptionsPanel extends Component {
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseLeave}
                             >
-                                <MaterialButton
-                                    raised
-                                    id={`${option}-btn`}
-                                    className={this.option_btn_classname}
-                                    style={{ textTransform: "none" }}
-                                    onClick={() => {
-                                        this.handleOptionButtonClick(option, trigger)
-                                    }}>
-                                    {optionLabel}
-                                </MaterialButton>
+                                {/*<MaterialButton*/}
+                                    {/*raised*/}
+                                    {/*id={`${option}-btn`}*/}
+                                    {/*className={this.option_btn_classname}*/}
+                                    {/*style={{ textTransform: "none" }}*/}
+                                    {/*onClick={() => {*/}
+                                        {/*this.handleOptionButtonClick(option, trigger)*/}
+                                    {/*}}>*/}
+                                    {/*{optionLabel}*/}
+                                {/*</MaterialButton>*/}
+
+                                <SingleChoiceButton
+                                    buttonKey={i}
+                                    className="option-btn"
+                                    buttonText={optionLabel}
+                                    onClick={(e) => this.handleOptionButtonClick(option, trigger)}
+                                    isSelected={option === this.state.selectedButton}
+
+                                />
+
                             </Tooltip>
                         </div>
                     )
