@@ -20,7 +20,7 @@ export default class ContextTray extends Component {
             lastActiveContextCount: 0,
 
             templates: [
-                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
+                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT: @procedure\n\nPLAN:\n\n' },
                 { name: 'op note', content: 'op note' },
                 { name: 'follow-up', content: 'follow up' },
                 { name: 'consult note', content: '@patient presenting with ' }
@@ -110,6 +110,7 @@ export default class ContextTray extends Component {
                                 <div
                                     className={`section-item${isActive ? ' selected' : '-disabled'}`}
                                     key={`context-header-option-${contextIndex}`}
+                                    id={`section-item-${context.text}`}
                                     title={context.text}
                                 >
                                     {context.text}
@@ -121,6 +122,7 @@ export default class ContextTray extends Component {
                                     className={`section-item${isActive ? ' selected' : ''}`}
                                     onClick={() => this.setState({ value: contextIndex })}
                                     key={`context-header-option-${contextIndex}`}
+                                    id={`section-item-${context.text}`}
                                     title={context.text}
                                 >
                                     <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />
