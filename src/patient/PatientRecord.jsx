@@ -40,6 +40,7 @@ class PatientRecord {
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
+        this._medChangesTimeSorter = this._medChangesTimeSorter.bind(this);
     }
     
     _calculateNextEntryId() {
@@ -629,7 +630,7 @@ class PatientRecord {
             return p;
         }
     }
-    _medChangesTimeSorter = (a, b) => {
+    _medChangesTimeSorter (a, b) {
         const a_medicationAfter_performanceTime = this.getEntryFromReference(a.medicationAfterChange.value).expectedPerformanceTime;
         const b_medicationAfter_performanceTime = this.getEntryFromReference(b.medicationAfterChange.value).expectedPerformanceTime;
         const a_startTime = new moment(a_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
