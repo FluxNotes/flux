@@ -1,5 +1,6 @@
 .pickList-options-panel {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
     color: #888;
 }
 
@@ -22,11 +23,10 @@
 }
 
 .shortcut-options-container {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .option-select-container {
-    /*width: 90%;*/
     margin-bottom: 20px;
     max-width: 184px;
 }

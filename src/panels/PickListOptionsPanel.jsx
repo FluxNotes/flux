@@ -136,7 +136,7 @@ export default class PickListOptionsPanel extends Component {
         const trigger = shortcut.trigger;
 
         // If the number of options is small, generate buttons for each button
-        if (options.length < 8) {
+        if (options.length < 5) {
             return (
                 options.map((option, i) => {
                     let optionLabel = "";
@@ -175,6 +175,7 @@ export default class PickListOptionsPanel extends Component {
         else {
             return (
                 <div className="option-select-container">
+
                     <Select
                         className="option-select"
                         value={this.state.optionIndex}
