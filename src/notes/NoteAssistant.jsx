@@ -42,7 +42,7 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
         }
 
-        if (!nextProps.isNoteViewerEditable) {
+        if (!nextProps.isNoteViewerEditable || nextProps.noteAssistantMode === "pick-list-options-panel") {
             this.disableContextToggleButton();
         }
     }
