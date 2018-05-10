@@ -27,6 +27,11 @@
     width: 130px;
     white-space: nowrap;
     overflow: hidden;
+    line-height: 30px;
+}
+
+.shortcut-options-container .option-btn:hover {
+    background-color: #E6E6E6;
 }
 
 .shortcut-options-container .option-btn.selected,
@@ -63,8 +68,6 @@
 }
 
 .pickList-options-panel .pickList-options-buttons button {
-    display: flex;
-    align-items: center;
     border: 2px solid #E6E6E6;
     border-radius: 5px;
     box-shadow: none;
@@ -74,23 +77,24 @@
     margin-right: 8px;
 }
 
-.pickList-options-panel button#cancel-btn,
-.pickList-options-panel .option-btn:hover {
-    background-color: #E6E6E6;
+.pickList-options-panel button#cancel-btn {
+    border: 2px solid #E6E6E6;
+    min-width: 60px;
+    background-color: #fff;
 }
 
 .pickList-options-panel button#ok-btn {
-    border: 2px solid #3399FF;
-    background-color: #3399FF;
+    border: 2px solid #777;
+    background-color: #777;
     color: #fff;
 }
 
 .pickList-options-panel button#cancel-btn:hover {
-    background-color: #DDD;
-    border-color: #DDD;
+    background-color: #E6E6E6;
+    border-color: #E6E6E6;
 }
 
 .pickList-options-panel button#ok-btn:hover {
-    background-color: #1C8CFC;
-    border-color: #1C8CFC;
+    background-color: #555;
+    border-color: #555;
 }
