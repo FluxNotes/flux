@@ -33,8 +33,6 @@ export default class PickListOptionsPanel extends Component {
                 trigger: pickList.trigger
             };
         });
-        console.log(this.arrayOfPickLists)
-        console.log(this.triggerSelections)
     }
 
     mouseLeave = () => {
@@ -58,10 +56,6 @@ export default class PickListOptionsPanel extends Component {
 
     // Pass array of select of pick list options to be used in updating the template to be inserted
     handleOkButtonClick = () => {
-
-        console.log("Ok button selected options");
-        console.log(this.triggerSelections);
-
         // Verify that we have an option for each pick list
         const isAllSelected = this.triggerSelections.every((triggerSelection) => {
            return !Lang.isUndefined(triggerSelection.selectedOption);
@@ -90,8 +84,6 @@ export default class PickListOptionsPanel extends Component {
             }
         );
 
-        console.log("selectedButton");
-        console.log(this.state.selectedButtons);
         this.updateSelectedOptions(option, trigger);
         // Only one selection required from the user so just send results back to NotesPanel after selection
         if (this.triggerSelections.length === 1 && !Lang.isUndefined(this.triggerSelections[0].selectedOption)) {
@@ -165,13 +157,15 @@ export default class PickListOptionsPanel extends Component {
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseLeave}
                             >
-                                <SingleChoiceButton
-                                    buttonKey={i}
-                                    className="option-btn"
-                                    buttonText={option}
-                                    onClick={(e) => this.handleOptionButtonClick(option, trigger)}
-                                    isSelected={option === this.state.selectedButtons[trigger]}
-                                />
+                                <div>
+                                    <SingleChoiceButton
+                                        buttonKey={i}
+                                        className="option-btn"
+                                        buttonText={option}
+                                        onClick={(e) => this.handleOptionButtonClick(option, trigger)}
+                                        isSelected={option === this.state.selectedButtons[trigger]}
+                                    />
+                                </div>
                             </Tooltip>
                         </div>
                     )
