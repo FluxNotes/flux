@@ -40,7 +40,6 @@ class PatientRecord {
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
-        this._medChangesTimeSorter = this._medChangesTimeSorter.bind(this);
     }
     
     _calculateNextEntryId() {
