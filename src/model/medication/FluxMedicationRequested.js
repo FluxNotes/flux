@@ -46,6 +46,14 @@ class FluxMedicationRequested {
     }
 
     /*
+     *  Getter for entryId
+     *  Returns string corresponding to entryId
+     */
+    get entryId() {
+        return this._medicationRequested.entryInfo.entryId;
+    }
+
+    /*
      *  Getter for medication
      *  Returns displayText string for medication
      */
@@ -155,7 +163,9 @@ class FluxMedicationRequested {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
-
+    /**
+     * Return a JSON representation of medicationRequested
+     */
     toJSON() {
         return this._medicationRequested.toJSON();
     }

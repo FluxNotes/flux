@@ -1392,13 +1392,13 @@
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             },
-            "Value": "06 APR 2016"
+            "Value": "30 JAN 2018"
         },
         "LastUpdated": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             },
-            "Value": "06 APR 2016"
+            "Value": "30 JAN 2018"
         },
         "Author": {
             "EntryType": {
@@ -1428,6 +1428,30 @@
                         }
                     }
                 ]
+            }
+        },
+        "MedicationBeforeChange": { 
+            "EntryType": { 
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
+            },
+            "Value": {
+                "EntryType": { 
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+                },
+                "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "EntryId": "14"
+            }
+        },
+        "MedicationAfterChange": { 
+            "EntryType": { 
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationAfterChange"
+            },
+            "Value": {
+                "EntryType": { 
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+                },
+                "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "EntryId": "19"
             }
         },
         "ActionContext": {
@@ -1956,7 +1980,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
                     },
-                    "Value": 180,
+                    "Value": 200,
                     "Units": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
@@ -2824,6 +2848,187 @@
                     }
                 }
             ]
+        }
+    },
+    {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+        },
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "EntryId": "19",
+        "PersonOfRecord": {
+            "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+            "_EntryId": "1",
+            "_EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
+            }
+        },
+        "CreationTime": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            },
+            "Value": "30 JAN 2018"
+        },
+        "LastUpdated": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            },
+            "Value": "30 JAN 2018"
+        },
+        "Author": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Author"
+            },
+            "Value": "Dr. ABC123"
+        },
+        "ActionContext": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/action/RequestedContext"
+            },
+            "Reason": [
+                {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Reason"
+                    },
+                    "Value": {
+                        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                        "_EntryId": "8",
+                        "_EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"
+                        }
+                    }
+                }
+            ],
+            "Status": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/Status"
+                },
+                "Value": "completed"
+            },
+            "ExpectedPerformanceTime": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/action/ExpectedPerformanceTime"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                    },
+                    "TimePeriodStart": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                        },
+                        "Value": "30 JAN 2018"
+                    }
+                }
+            }
+        },
+        "MedicationOrCode": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/MedicationOrCode"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        },
+                        "Value": "56946",
+                        "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "PACLitaxel"
+                        }
+                    }
+                ]
+            }
+        },
+        "Dosage": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"
+            },
+            "DoseAmount": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
+                    },
+                    "Value": 180,
+                    "Units": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "mg/m2"
+                        }
+                    }
+                }
+            },
+            "TimingOfDoses": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"
+                    },
+                    "RecurrenceRange": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats"
+                            },
+                            "Value": 5
+                        }
+                    }
+                }
+            },
+            "AsNeededIndicator": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"
+                },
+                "Value": false
+            },
+            "RouteIntoBody": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/RouteIntoBody"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "Value": "26643006",
+                            "CodeSystem": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                },
+                                "Value": "http://snomed.info/sct"
+                            },
+                            "DisplayText": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                },
+                                "Value": "Oral route"
+                            }
+                        }
+                    ]
+                }
+            }
         }
     },
     {
@@ -5208,7 +5413,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-        "EntryId": "90",
+        "EntryId": "91",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
             "_EntryId": "1",
@@ -5335,7 +5540,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
         },
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
-        "EntryId": "90",
+        "EntryId": "92",
         "PersonOfRecord": {
             "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
             "_EntryId": "1",

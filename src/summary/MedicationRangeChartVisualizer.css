@@ -20,3 +20,11 @@
     height: 100%;
 }
 
+.medication-change { 
+    font-size: 12px;
+    padding: 10px;
+}
+
+.medication-change-type{ 
+    font-weight: 700;
+}
