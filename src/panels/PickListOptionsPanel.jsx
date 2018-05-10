@@ -101,7 +101,7 @@ export default class PickListOptionsPanel extends Component {
 
     handleOptionDropDownSelection(index, options, trigger) {
         this.setState({optionIndex: index});
-        if (this.state.optionIndex >=0) {
+        if (index >= 0) {
             this.updateSelectedOptions(options[index], trigger);
         }
 
