@@ -15,7 +15,7 @@ export default class PickListOptionsPanel extends Component {
         this.state = {
             tooltipVisibility: 'visible',
             // optionIndex keeps track of index of item selected in the drop down
-            optionIndex: "",
+            optionIndex: -1,
             selectedButtons: {}
         }
 
@@ -62,6 +62,13 @@ export default class PickListOptionsPanel extends Component {
         console.log("Ok button selected options");
         console.log(this.triggerSelections);
 
+        // Verify that we have an option for each pick list
+        const isAllSelected = this.triggerSelections.every((triggerSelection) => {
+           return !Lang.isUndefined(triggerSelection.selectedOption);
+        });
+
+        if (!isAllSelected) return;
+
         this.triggerSelections = this.triggerSelections.map((triggerSelection, i) => {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
             return {
@@ -94,7 +101,10 @@ export default class PickListOptionsPanel extends Component {
 
     handleOptionDropDownSelection(index, options, trigger) {
         this.setState({optionIndex: index});
-        this.updateSelectedOptions(options[index], trigger);
+        if (this.state.optionIndex >=0) {
+            this.updateSelectedOptions(options[index], trigger);
+        }
+
     }
 
     // Update triggerSelections array, which keeps track of the option selected by the user for each pick list.
@@ -181,6 +191,11 @@ export default class PickListOptionsPanel extends Component {
                         value={this.state.optionIndex}
                         onChange={(event) => this.handleOptionDropDownSelection(event.target.value, options, trigger)}
                     >
+                        <MenuItem
+                            className="option-item"
+                            value={this.state.optionIndex}>
+                            <i>Select an option</i>
+                        </MenuItem>
                         {this.renderOptionList(options)}
                     </Select>
                 </div>
