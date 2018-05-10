@@ -1,34 +1,47 @@
 .pickList-options-panel {
     margin-top: 20px;
     margin-bottom: 10px;
-    color: #888;
+    color: #777;
 }
 
-.option-btn {
-    width: 90% !important;
-    min-height: 20px !important;
-    background-color: #FFFFFF !important;
-    margin-top: 20px !important;
-}
-
-.option-btn
-
-.option-btn:hover {
-    background: #E6E6E6 !important;
-}
-
-.single-choice-button.selected {
-    background-color: #3399FF !important;
-    color: #fff !important;
-}
+/* ------------------------- SHORTCUT OPTIONS ------------------------------ */
 
 .shortcut-options-container {
     margin-bottom: 30px;
 }
 
+.shortcut-options-container .option-btn {
+    height: inherit;
+    width: 95%;
+    margin: 3px 0;
+    border: 2px solid #E6E6E6;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #777;
+}
+
+.shortcut-options-container .option-btn span {
+    display: block;
+    text-align: left;
+    text-overflow: ellipsis;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.shortcut-options-container .option-btn.selected,
+.shortcut-options-container .option-btn.selected:hover {
+    background-color: #3399FF;
+    border-color: #3399FF;
+    color: #fff;
+}
+
+/* ------------------------- SELECT OPTIONS -------------------------------- */
+
 .option-select-container {
     margin-bottom: 20px;
     max-width: 184px;
+    color: #777;
 }
 
 .option-select {
@@ -39,22 +52,45 @@
 
 .option-select-container .option-select {
     font-size: 0.8em;
+    width: 95%;
 }
 
-.option-item:hover {
-    background-color: #1384b5 !important;
-    color: #fff !important;
+/* ------------------------- OK/CANCEL BUTTONS ----------------------------- */
+
+.pickList-options-panel .pickList-options-buttons {
+    display: flex;
+    margin-top: 30px;
 }
 
-#cancel-btn, #ok-btn {
-    min-width: 70px;
-    min-height: 20px;
-    width: 50%;
-    background-color: #FFFFFF;
-    margin-top: 10%;
+.pickList-options-panel .pickList-options-buttons button {
+    display: flex;
+    align-items: center;
+    border: 2px solid #E6E6E6;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #777;
+    min-width: inherit;
+    flex: 1;
+    margin-right: 8px;
 }
 
-#cancel-btn:hover, #ok-btn:hover {
-    background: #E6E6E6 !important;
+.pickList-options-panel button#cancel-btn,
+.pickList-options-panel .option-btn:hover {
+    background-color: #E6E6E6;
 }
 
+.pickList-options-panel button#ok-btn {
+    border: 2px solid #3399FF;
+    background-color: #3399FF;
+    color: #fff;
+}
+
+.pickList-options-panel button#cancel-btn:hover {
+    background-color: #DDD;
+    border-color: #DDD;
+}
+
+.pickList-options-panel button#ok-btn:hover {
+    background-color: #1C8CFC;
+    border-color: #1C8CFC;
+}

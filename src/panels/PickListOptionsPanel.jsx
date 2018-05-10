@@ -149,20 +149,13 @@ export default class PickListOptionsPanel extends Component {
         if (options.length < 5) {
             return (
                 options.map((option, i) => {
-                    let optionLabel = "";
-                    if (option.length > 12) {
-                        optionLabel = option.slice(0, 12) + "...";
-                    } else {
-                        optionLabel = option;
-                    }
-                    const text = <span>{option}</span>
                     return (
                         <div key={i}>
                             <Tooltip
                                 key={i}
                                 overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                 placement="left"
-                                overlay={text}
+                                overlay={option}
                                 destroyTooltipOnHide={true}
                                 mouseEnterDelay={0.5}
                                 onMouseEnter={this.mouseEnter}
@@ -171,7 +164,7 @@ export default class PickListOptionsPanel extends Component {
                                 <SingleChoiceButton
                                     buttonKey={i}
                                     className="option-btn"
-                                    buttonText={optionLabel}
+                                    buttonText={option}
                                     onClick={(e) => this.handleOptionButtonClick(option, trigger)}
                                     isSelected={option === this.state.selectedButtons[trigger]}
                                 />
@@ -220,21 +213,24 @@ export default class PickListOptionsPanel extends Component {
             <div className="pickList-options-panel">
                 {this.renderPanel(this.arrayOfPickLists)}
 
-                <MaterialButton
-                    raised
-                    id="cancel-btn"
-                    onClick={this.handleCancelButtonClick}>
-                    Cancel
-                </MaterialButton>
-                {this.triggerSelections.length > 1 ?
+                <div className="pickList-options-buttons">
                     <MaterialButton
                         raised
-                        id="ok-btn"
-                        onClick={this.handleOkButtonClick}
-                        >
-                        Ok
-                    </MaterialButton> : null
-                }
+                        id="cancel-btn"
+                        onClick={this.handleCancelButtonClick}>
+                        Cancel
+                    </MaterialButton>
+
+                    {this.triggerSelections.length > 1 ?
+                        <MaterialButton
+                            raised
+                            id="ok-btn"
+                            onClick={this.handleOkButtonClick}
+                            >
+                            Ok
+                        </MaterialButton> : null
+                    }
+                </div>
             </div>
         );
     }
