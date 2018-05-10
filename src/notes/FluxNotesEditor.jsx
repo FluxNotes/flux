@@ -442,8 +442,8 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        if (this.props.templateToInsert !== nextProps.templateToInsert && !Lang.isNull(nextProps.templateToInsert) && nextProps.templateToInsert.length > 0) {
-            this.insertTemplate(nextProps.templateToInsert);
+        if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+            this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
        // Check if the updatedEditorNote property has been updated
@@ -794,14 +794,14 @@ class FluxNotesEditor extends React.Component {
     }
 
     /**
-     *  Checks if any of the shortcuts in the template require the user to choose from pick list
-     *  If not, function will call insertTextWithStructuredPhrases to insert completed template into editor
+     *  Checks if any of the shortcuts in the contextTrayItem require the user to choose from pick list
+     *  If not, function will call insertTextWithStructuredPhrases to insert completed contextTrayItem into editor
      */
-    insertTemplate = (template) => {
-        let remainder = template;
+    insertContextTrayItem = (contextTrayItem) => {
+        let remainder = contextTrayItem;
         let start, end;
         let localArrayOfPickLists = [];
-        const triggers = this.noteParser.getListOfTriggersFromText(template)[0];
+        const triggers = this.noteParser.getListOfTriggersFromText(contextTrayItem)[0];
 
         // Loop through shortcut triggers to determine if any of them require users to choose from pick list
         if (!Lang.isNull(triggers)) {
@@ -840,15 +840,15 @@ class FluxNotesEditor extends React.Component {
                     }
                 )
             });
-            this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
 
+            this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
         }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {
-            this.insertTextWithStructuredPhrases(template);
-            this.props.updateTemplateToInsert(null);
+            this.insertTextWithStructuredPhrases(contextTrayItem);
+            this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
         }
     }
@@ -1127,12 +1127,12 @@ FluxNotesEditor.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
-    templateToInsert: PropTypes.string.isRequired,
+    contextTrayItemToInsert: PropTypes.string.isRequired,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
-    updateTemplateToInsert: PropTypes.func.isRequired
+    updateContextTrayItemToInsert: PropTypes.func.isRequired
 }
 
 export default FluxNotesEditor;

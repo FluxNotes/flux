@@ -247,7 +247,7 @@ export default class NoteAssistant extends Component {
                     <div>
                         <ContextTray
                             contextManager={this.props.contextManager}
-                            onShortcutClicked={this.props.updateTemplateToInsert}
+                            onShortcutClicked={this.props.updateContextTrayItemToInsert}
                             patient={this.props.patient}
                             shortcutManager={this.props.shortcutManager}
                         />
@@ -282,8 +282,8 @@ export default class NoteAssistant extends Component {
                         <PickListOptionsPanel
                             updateNoteAssistantMode={this.props.updateNoteAssistantMode}
                             arrayOfPickLists={this.props.arrayOfPickLists}
-                            updateTemplateToInsert={this.props.updateTemplateToInsert}
-                            updateTemplateWithSelectedPickListOptions={this.props.updateTemplateWithSelectedPickListOptions}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
                         />
                     </div>
                 )
@@ -554,6 +554,6 @@ NoteAssistant.propTypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
-    updateTemplateToInsert: PropTypes.func.isRequired,
-    updateTemplateWithSelectedPickListOptions: PropTypes.func.isRequired
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
 };

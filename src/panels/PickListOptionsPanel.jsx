@@ -50,11 +50,11 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text
     handleCancelButtonClick = () => {
-        this.props.updateTemplateToInsert(null);
+        this.props.updateContextTrayItemToInsert(null);
         this.toggleView('context-tray')
     }
 
-    // Pass array of select of pick list options to be used in updating the template to be inserted
+    // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
     handleOkButtonClick = () => {
         // Verify that we have an option for each pick list
         const isAllSelected = this.triggerSelections.every((triggerSelection) => {
@@ -71,7 +71,7 @@ export default class PickListOptionsPanel extends Component {
             }
         });
 
-        this.props.updateTemplateWithSelectedPickListOptions(this.triggerSelections);
+        this.props.updateContextTrayItemWithSelectedPickListOptions(this.triggerSelections);
     }
 
     handleOptionButtonClick(option, trigger) {
@@ -238,6 +238,6 @@ export default class PickListOptionsPanel extends Component {
 PickListOptionsPanel.proptypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
-    updateTemplateToInsert: PropTypes.func.isRequired,
-    updateTemplateWithSelectedPickListOptions: PropTypes.func.isRequired
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
 };
