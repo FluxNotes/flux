@@ -60,6 +60,13 @@
     width: 95%;
 }
 
+.option-tooltip .rc-tooltip-inner{
+    width: 200px;
+    min-height: 22px;
+    text-align: center;
+    border-radius: 6px;
+}
+
 /* ------------------------- OK/CANCEL BUTTONS ----------------------------- */
 
 .pickList-options-panel .pickList-options-buttons {

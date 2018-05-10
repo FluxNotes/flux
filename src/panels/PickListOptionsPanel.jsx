@@ -151,6 +151,7 @@ export default class PickListOptionsPanel extends Component {
                                 key={i}
                                 overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                 placement="left"
+                                overlayClassName={`option-tooltip`}
                                 overlay={option}
                                 destroyTooltipOnHide={true}
                                 mouseEnterDelay={0.5}
