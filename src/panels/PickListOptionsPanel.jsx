@@ -105,6 +105,10 @@ export default class PickListOptionsPanel extends Component {
             this.updateSelectedOptions(options[index], trigger);
         }
 
+        // Only one selection required from the user so just send results back to NotesPanel after selection
+        if (this.triggerSelections.length === 1 && !Lang.isUndefined(this.triggerSelections[0].selectedOption)) {
+            this.handleOkButtonClick();
+        }
     }
 
     // Update triggerSelections array, which keeps track of the option selected by the user for each pick list.
