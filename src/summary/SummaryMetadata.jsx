@@ -728,27 +728,27 @@ export default class SummaryMetadata {
 
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const activeMeds = patient.getActiveMedicationsForConditionChronologicalOrder(condition);
+        const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
         medicationChanges.forEach(change => {
             const medAfterChangeRef = change.medicationAfterChange.reference;
-            // Determine if there the medAfterChange corresponds to an active med
+            // Determine if there the medAfterChange corresponds to an med
             // Get that med if it exists, undefined otherwise
-            const activeMedAfterChange = activeMeds.find((med) => { 
+            const medAfterChange = meds.find((med) => { 
                 return med.entryId === medAfterChangeRef.entryId;
             });
-            if (activeMedAfterChange) { 
-                // Add the medBeforeChange to the active med, for use in visualization
+            if (medAfterChange) { 
+                // Add the medBeforeChange to the med, for use in visualization
                 const medBeforeChangeRef = change.medicationBeforeChange.reference;
                 const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                activeMedAfterChange.medicationBeforeChange = medBeforeChange;
-                activeMedAfterChange.medicationChange = { 
+                medAfterChange.medicationBeforeChange = medBeforeChange;
+                medAfterChange.medicationChange = { 
                     type: change.type,
                     date: change.whenChanged,
                 }
             }
         });
-        return activeMeds;
+        return meds;
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {
