@@ -28,6 +28,12 @@ class FluxMedicationAfterChange {
     get shrId() {
         return this._medicationAfterChange.value.shrId;
     }
+    /**
+     * Return a JSON representation of medicationAfterChange
+     */
+    toJSON() {
+        return this._medicationAfterChange.toJSON();
+    }
 }
 
 export default FluxMedicationAfterChange;

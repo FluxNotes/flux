@@ -41,6 +41,12 @@ class FluxMedicationChange {
     get whenChanged() {
         return this._medicationChange.entryInfo.creationTime.value;
     }
+    /**
+     * Return a JSON representation of medicationChange
+     */
+    toJSON() {
+        return this._medicationChange.toJSON();
+    }
 }
 
 export default FluxMedicationChange;

@@ -163,7 +163,9 @@ class FluxMedicationRequested {
     _displayTextOrCode(coding) {
         return coding.displayText ? coding.displayText.value : coding.value;
     }
-
+    /**
+     * Return a JSON representation of medicationRequested
+     */
     toJSON() {
         return this._medicationRequested.toJSON();
     }
