@@ -345,7 +345,6 @@ class FluxNotesEditor extends React.Component {
         return transform
             .deleteBackward(0)
             .deleteBackward(charactersInStructuredPhrase);
-
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
@@ -446,7 +445,6 @@ class FluxNotesEditor extends React.Component {
         if (this.props.templateToInsert !== nextProps.templateToInsert && !Lang.isNull(nextProps.templateToInsert) && nextProps.templateToInsert.length > 0) {
             this.insertTemplate(nextProps.templateToInsert);
         }
-
 
        // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
@@ -752,7 +750,6 @@ class FluxNotesEditor extends React.Component {
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
-                    //transform = transform.insertText(before);
                     transform = this.insertPlainText(transform, before);
                 }
                 remainder = remainder.substring(start + trigger.trigger.length);
@@ -784,20 +781,16 @@ class FluxNotesEditor extends React.Component {
                 }
 
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
-
             });
         }
 
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
-
 
         state = transform.apply();
         this.setState({state: state});
         // return state;
-
     }
 
     /**
@@ -817,7 +810,7 @@ class FluxNotesEditor extends React.Component {
                 remainder = remainder.substring(start + trigger.trigger.length);
 
                 // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
-                // If not no option is selected, then push the shortcut to the array
+                // If no option is selected, then push the shortcut to the array
                 if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[["))) {
                     localArrayOfPickLists.push(trigger);
                 }
@@ -830,6 +823,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
 
+        // Build array of pick lists and store options for each pick list
         if (localArrayOfPickLists.length > 0) {
             let localArrayOfPickListsWithOptions = [];
 
@@ -839,8 +833,6 @@ class FluxNotesEditor extends React.Component {
                 tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
 
                 let shortcutOptions = tempShortcut.getValueSelectionOptions().map((shortcutOption) => {return shortcutOption.context});
-                // console.log("shortcut options");
-                // console.log(shortcutOptions);
                 localArrayOfPickListsWithOptions.push(
                     {
                         'trigger': pickList.trigger,
@@ -848,10 +840,13 @@ class FluxNotesEditor extends React.Component {
                     }
                 )
             });
-
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
+
+            // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
-        } else {
+        }
+        // If the text to be inserted does not contain any pick lists, insert the text
+        else {
             this.insertTextWithStructuredPhrases(template);
             this.props.updateTemplateToInsert(null);
             this.props.updateNoteAssistantMode('clinical-notes');

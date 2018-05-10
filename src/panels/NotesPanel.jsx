@@ -46,7 +46,7 @@ export default class NotesPanel extends Component {
     }
 
     updateTemplateToInsert = (template) => {
-        this.setState({ templateToInsert: template });
+        this.setState({templateToInsert: template});
     }
 
     updateTemplateWithSelectedPickListOptions = (selectedPickListOptions) => {
@@ -66,8 +66,7 @@ export default class NotesPanel extends Component {
             });
         }
 
-        this.setState({ templateToInsert: templateToInsert });
-        console.log(templateToInsert);
+        this.setState({templateToInsert: templateToInsert});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -100,14 +99,7 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateArrayOfPickLists = (array) => {
-
-        // console.log("Updating array of pick lists: ");
-        // console.log(array);
-        this.setState(
-            {
-                arrayOfPickLists: array
-            }
-        )
+        this.setState({arrayOfPickLists: array})
     }
 
     // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
@@ -130,17 +122,17 @@ export default class NotesPanel extends Component {
     }
 
     // Removes a note from patient object if the note is unsigned 
-    deleteSelectedNote = () => { 
-        if (this.state.selectedNote && !this.state.selectedNote.signed) { 
+    deleteSelectedNote = () => {
+        if (this.state.selectedNote && !this.state.selectedNote.signed) {
             // Find the shortcuts in the current note.
             const recognizedShortcutsObjects = this.noteParser.getListOfTriggersFromText(this.state.selectedNote.content)[0].reverse();
-            for (const index in recognizedShortcutsObjects) { 
+            for (const index in recognizedShortcutsObjects) {
                 // Get the actual shortcut obj from structuredFieldMapManager lookup -- need id of shortcut to retrieve
                 const currentShortcutTrigger = recognizedShortcutsObjects[index].trigger.toLowerCase();
                 const mappedShortcutMetadata = this.props.shortcutManager.shortcutMap[currentShortcutTrigger]
                 const currentShortcutId = (mappedShortcutMetadata) ? mappedShortcutMetadata.id : null;
                 const currentShortcut = this.props.structuredFieldMapManager.idToShortcutMap.get(currentShortcutId);
-                if (currentShortcut && currentShortcut.onBeforeDeleted) { 
+                if (currentShortcut && currentShortcut.onBeforeDeleted) {
                     currentShortcut.onBeforeDeleted();
                 }
             }
@@ -148,15 +140,15 @@ export default class NotesPanel extends Component {
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
 
-        } else { 
+        } else {
             console.error('Tried to remove a note that is signed')
         }
     }
 
     handleSignButtonClick = () => {
         // Set signed attribute on the selected note to be true
-        
-        const tempNote =  this.state.selectedNote;
+
+        const tempNote = this.state.selectedNote;
         tempNote.signed = true;
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
@@ -169,7 +161,7 @@ export default class NotesPanel extends Component {
         });
 
         // Close the current note
-       this.closeNote();
+        this.closeNote();
     }
 
     renderSignButton = () => {
@@ -190,7 +182,7 @@ export default class NotesPanel extends Component {
         if (this.props.isNoteViewerVisible) {
 
             // If note viewer is editable and a note is selected, render the sign note button
-            if(this.props.isNoteViewerEditable && this.state.selectedNote) {
+            if (this.props.isNoteViewerEditable && this.state.selectedNote) {
                 return (
                     <div>
                         <Row center="xs">
@@ -261,7 +253,6 @@ export default class NotesPanel extends Component {
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
-
                     updateTemplateToInsert={this.updateTemplateToInsert}
                 />
             </div>
@@ -322,7 +313,7 @@ NotesPanel.propTypes = {
     loginUser: PropTypes.string.isRequired,
     newCurrentShortcut: PropTypes.func.isRequired,
     noteClosed: PropTypes.bool.isRequired,
-    openClinicalNote: PropTypes.object, 
+    openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,

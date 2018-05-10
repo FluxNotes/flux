@@ -5,7 +5,6 @@ import SingleChoiceButton from '../forms/SingleChoiceButton';
 import Tooltip from 'rc-tooltip';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
-
 import './PickListOptionsPanel.css';
 
 export default class PickListOptionsPanel extends Component {
@@ -13,6 +12,7 @@ export default class PickListOptionsPanel extends Component {
         super(props);
         this.state = {
             tooltipVisibility: 'visible',
+            // optionIndex keeps track of index of item selected in the drop down
             optionIndex: "",
             selectedButton: ""
         }
@@ -33,44 +33,44 @@ export default class PickListOptionsPanel extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
+    // Cancels insertion of text
     handleCancelButtonClick = () => {
-        console.log('handle cancel button click')
         this.toggleView("clinical-notes");
         this.props.updateTemplateToInsert(null);
     }
 
+    // Pass array of select of pick list options to be used in updating the template to be inserted
     handleOkButtonClick = () => {
         this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
     }
 
-
     handleOptionButtonClick(option, trigger) {
-        // this.option_btn_classname = "option-btn-selected";
-        console.log("you clicked: " + option);
         this.setState({selectedButton: option});
         this.updateSelectedOptions(option, trigger);
     }
 
     handleOptionDropDownSelection(index, options, trigger) {
         this.setState({optionIndex: index});
-
-        console.log("you selected: " + options[index]);
         this.updateSelectedOptions(options[index], trigger);
-
     }
 
+    // Update selectedOptions array, which keeps track of the option selected by the user for each pick list.
+    // Note: Only one option is saved per pick list
     updateSelectedOptions(selectedOption, trigger) {
-        console.log("--------selectedOptions length: " + this.selectedOptions.length);
 
         const index = this.selectedOptions.findIndex((option) => {
             return trigger === option.trigger;
         });
+
+        // If there are other options that are saved in the array, check if the trigger option has already been saved
+        // If it has already been saved, overwrite the option with the most recent option selected
         if (index >= 0) {
             this.selectedOptions[index] = {
                 "trigger": trigger,
                 "selectedOption": selectedOption
             }
         }
+        // If no options have been saved, push to the array
         else {
             this.selectedOptions.push(
                 {
@@ -79,18 +79,9 @@ export default class PickListOptionsPanel extends Component {
                 }
             )
         }
-
-        // if (this.selectedOptions.length === this.props.arrayOfPickLists.length) {
-        //     console.log("got all " + this.props.arrayOfPickLists.length + " of them move on");
-
-
-        //     this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
-        // }
-
-        console.log("selected options");
-        console.log(this.selectedOptions);
     }
 
+    // Render pick list option panel
     renderPanel(pickLists, i) {
         // Loop through each shortcut in the array and render the options
         return (
@@ -107,6 +98,7 @@ export default class PickListOptionsPanel extends Component {
         );
     }
 
+    // Render the options for each pick list (shortcut)
     renderShortcutOptions(shortcut, i) {
         let options = shortcut.options;
         const trigger = shortcut.trigger;
@@ -126,7 +118,7 @@ export default class PickListOptionsPanel extends Component {
                         <div key={i}>
                             <Tooltip
                                 key={i}
-                                overlayStyle={{ 'visibility': this.state.tooltipVisibility }}
+                                overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                 placement="left"
                                 overlay={text}
                                 destroyTooltipOnHide={true}
@@ -134,26 +126,13 @@ export default class PickListOptionsPanel extends Component {
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseLeave}
                             >
-                                {/*<MaterialButton*/}
-                                    {/*raised*/}
-                                    {/*id={`${option}-btn`}*/}
-                                    {/*className={this.option_btn_classname}*/}
-                                    {/*style={{ textTransform: "none" }}*/}
-                                    {/*onClick={() => {*/}
-                                        {/*this.handleOptionButtonClick(option, trigger)*/}
-                                    {/*}}>*/}
-                                    {/*{optionLabel}*/}
-                                {/*</MaterialButton>*/}
-
                                 <SingleChoiceButton
                                     buttonKey={i}
                                     className="option-btn"
                                     buttonText={optionLabel}
                                     onClick={(e) => this.handleOptionButtonClick(option, trigger)}
                                     isSelected={option === this.state.selectedButton}
-
                                 />
-
                             </Tooltip>
                         </div>
                     )
@@ -165,7 +144,6 @@ export default class PickListOptionsPanel extends Component {
             return (
                 <div className="option-select-container">
                     <Select
-
                         className="option-select"
                         value={this.state.optionIndex}
                         onChange={(event) => this.handleOptionDropDownSelection(event.target.value, options, trigger)}
@@ -177,6 +155,7 @@ export default class PickListOptionsPanel extends Component {
         }
     }
 
+    // Render option list for the drop dow
     renderOptionList(options) {
         return options.map((option, index) =>
             <MenuItem
@@ -188,13 +167,11 @@ export default class PickListOptionsPanel extends Component {
         );
     }
 
-
     render() {
         const pickLists = this.props.arrayOfPickLists;
 
         return (
             <div className="pickList-options-panel">
-
                 {this.renderPanel(pickLists)}
 
                 <MaterialButton
