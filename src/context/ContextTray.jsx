@@ -20,7 +20,7 @@ export default class ContextTray extends Component {
             lastActiveContextCount: 0,
 
             templates: [
-                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT: @procedure\n\nPLAN:\n\n' },
+                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT: @procedure\n\nPLAN: @condition\n\n' },
                 { name: 'op note', content: 'op note' },
                 { name: 'follow-up', content: 'follow up' },
                 { name: 'consult note', content: '@patient presenting with ' }

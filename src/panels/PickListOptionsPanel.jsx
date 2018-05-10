@@ -14,10 +14,10 @@ export default class PickListOptionsPanel extends Component {
             tooltipVisibility: 'visible',
             // optionIndex keeps track of index of item selected in the drop down
             optionIndex: "",
-            selectedButton: ""
+            selectedButton: {}
         }
 
-        this.selectedOptions = [];
+        this.triggerSelections = [];
     }
 
     mouseLeave = () => {
@@ -35,17 +35,43 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text
     handleCancelButtonClick = () => {
-        this.toggleView("clinical-notes");
+
         this.props.updateTemplateToInsert(null);
     }
 
     // Pass array of select of pick list options to be used in updating the template to be inserted
     handleOkButtonClick = () => {
-        this.props.updateTemplateWithSelectedPickListOptions(this.selectedOptions);
+
+        console.log("Ok button selected options");
+        console.log(this.triggerSelections);
+
+        this.triggerSelections = this.triggerSelections.map((triggerSelection, i) => {
+
+            let underScoreIndex = triggerSelection.trigger.indexOf("_");
+            return {
+                trigger: triggerSelection.trigger.slice(0, underScoreIndex),
+                selectedOption: triggerSelection.selectedOption
+            }
+        });
+
+        this.props.updateTemplateWithSelectedPickListOptions(this.triggerSelections);
+        this.toggleView("context-tray");
     }
 
     handleOptionButtonClick(option, trigger) {
-        this.setState({selectedButton: option});
+
+        let temp = this.state.selectedButton;
+
+        temp[trigger] = option;
+
+        this.setState(
+            {
+                "selectedButton": temp
+            }
+        );
+
+        console.log("selectedButton");
+        console.log(this.state.selectedButton);
         this.updateSelectedOptions(option, trigger);
     }
 
@@ -54,25 +80,25 @@ export default class PickListOptionsPanel extends Component {
         this.updateSelectedOptions(options[index], trigger);
     }
 
-    // Update selectedOptions array, which keeps track of the option selected by the user for each pick list.
+    // Update triggerSelections array, which keeps track of the option selected by the user for each pick list.
     // Note: Only one option is saved per pick list
     updateSelectedOptions(selectedOption, trigger) {
 
-        const index = this.selectedOptions.findIndex((option) => {
+        const index = this.triggerSelections.findIndex((option) => {
             return trigger === option.trigger;
         });
 
         // If there are other options that are saved in the array, check if the trigger option has already been saved
         // If it has already been saved, overwrite the option with the most recent option selected
         if (index >= 0) {
-            this.selectedOptions[index] = {
+            this.triggerSelections[index] = {
                 "trigger": trigger,
                 "selectedOption": selectedOption
             }
         }
         // If no options have been saved, push to the array
         else {
-            this.selectedOptions.push(
+            this.triggerSelections.push(
                 {
                     "trigger": trigger,
                     "selectedOption": selectedOption
@@ -86,7 +112,8 @@ export default class PickListOptionsPanel extends Component {
         // Loop through each shortcut in the array and render the options
         return (
             pickLists.map((shortcut, i) => {
-                let shortcutName = shortcut.trigger.slice(1);
+                let underScoreIndex = shortcut.trigger.indexOf("_");
+                let shortcutName = shortcut.trigger.slice(1, underScoreIndex);
                 shortcutName = shortcutName.charAt(0).toUpperCase() + shortcutName.slice(1);
                 return (
                     <div key={i} className="shortcut-options-container">
@@ -131,7 +158,7 @@ export default class PickListOptionsPanel extends Component {
                                     className="option-btn"
                                     buttonText={optionLabel}
                                     onClick={(e) => this.handleOptionButtonClick(option, trigger)}
-                                    isSelected={option === this.state.selectedButton}
+                                    isSelected={option === this.state.selectedButton[trigger]}
                                 />
                             </Tooltip>
                         </div>
@@ -168,7 +195,26 @@ export default class PickListOptionsPanel extends Component {
     }
 
     render() {
-        const pickLists = this.props.arrayOfPickLists;
+        let pickLists = this.props.arrayOfPickLists;
+
+
+        pickLists = pickLists.map((pickList, index) => {
+           
+            return {
+               trigger:  pickList.trigger + "_" + index,
+                options: pickList.options
+            }
+
+        });
+
+
+        console.log("pick lists");
+        console.log(pickLists);
+
+        console.log("trigger selections");
+        console.log(this.triggerSelections);
+
+
 
         return (
             <div className="pickList-options-panel">
