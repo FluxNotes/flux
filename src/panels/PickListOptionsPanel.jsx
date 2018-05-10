@@ -5,6 +5,7 @@ import SingleChoiceButton from '../forms/SingleChoiceButton';
 import Tooltip from 'rc-tooltip';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
+import Lang from 'lodash';
 import './PickListOptionsPanel.css';
 
 export default class PickListOptionsPanel extends Component {
@@ -51,8 +52,8 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text
     handleCancelButtonClick = () => {
-        this.toggleView("context-tray");
         this.props.updateTemplateToInsert(null);
+        this.toggleView('context-tray')
     }
 
     // Pass array of select of pick list options to be used in updating the template to be inserted
@@ -70,7 +71,6 @@ export default class PickListOptionsPanel extends Component {
         });
 
         this.props.updateTemplateWithSelectedPickListOptions(this.triggerSelections);
-
     }
 
     handleOptionButtonClick(option, trigger) {
@@ -86,6 +86,10 @@ export default class PickListOptionsPanel extends Component {
         console.log("selectedButton");
         console.log(this.state.selectedButtons);
         this.updateSelectedOptions(option, trigger);
+        // Only one selection required from the user so just send results back to NotesPanel after selection
+        if (this.triggerSelections.length === 1 && !Lang.isUndefined(this.triggerSelections[0].selectedOption)) {
+            this.handleOkButtonClick();
+        }
     }
 
     handleOptionDropDownSelection(index, options, trigger) {
@@ -206,12 +210,15 @@ export default class PickListOptionsPanel extends Component {
                     onClick={this.handleCancelButtonClick}>
                     Cancel
                 </MaterialButton>
-                <MaterialButton
-                    raised
-                    id="ok-btn"
-                    onClick={this.handleOkButtonClick}>
-                    Ok
-                </MaterialButton>
+                {this.triggerSelections.length > 1 ?
+                    <MaterialButton
+                        raised
+                        id="ok-btn"
+                        onClick={this.handleOkButtonClick}
+                        >
+                        Ok
+                    </MaterialButton> : null
+                }
             </div>
         );
     }
