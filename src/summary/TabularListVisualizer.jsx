@@ -1,25 +1,29 @@
-import React, {Component} from 'react';
-import {Row, Col} from 'react-flexbox-grid';
+import React, { Component } from 'react';
+import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import { TableCell, TableRow } from 'material-ui/Table';
 import FontAwesome from 'react-fontawesome';
-import './TabularListVisualizer.css';
 import Tooltip from 'rc-tooltip';
 
+import TabularListVisualizerTable from './TabularListVisualizerTable';
+import './TabularListVisualizer.css';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
  diagnosis-related, genetics-related, etc.
  */
-class TabularListVisualizer extends Component {
+export default class TabularListVisualizer extends Component {
     // Initialize values for insertion popups
-    constructor(props) { 
+    constructor(props) {
         super(props);
+
         this.state = {
+            count: 0,
             elementToDisplayMenu: null,
-            positionTop: 0, // Just so the menu can be spotted more easily
+            positionTop: 0,  // Just so the menu can be spotted more easily
             positionLeft: 0, // Same as above
         }
     }
@@ -36,11 +40,9 @@ class TabularListVisualizer extends Component {
 
     // Get a list of subsections to display given the current condition section
     getSubsections() {
-        const {patient, condition, conditionSection} = this.props;
+        const { patient, condition, conditionSection } = this.props;
 
-        if (patient == null || condition == null || conditionSection == null) {
-            return [];
-        }
+        if (patient == null || condition == null || conditionSection == null) return [];
 
         let subsections = [];
         conditionSection.data.forEach((subsection) => {
@@ -51,10 +53,11 @@ class TabularListVisualizer extends Component {
     }
 
     renderedSubsections(subsections) {
-        const isSingleColumn = !this.props.isWide;
-        const {patient, condition, sectionTransform} = this.props;
-
         if (subsections.length === 0) return null;
+
+        const { patient, condition, sectionTransform } = this.props;
+        const isSingleColumn = !this.props.isWide;
+
         let transformedSubsections = subsections.map((subsection) => {
             if (!Lang.isUndefined(sectionTransform) && !Lang.isNull(sectionTransform)) {
                 return sectionTransform(patient, condition, subsection);
@@ -62,7 +65,7 @@ class TabularListVisualizer extends Component {
                 return subsection;
             }
         });
-        
+
         let list = this.getList(transformedSubsections[0]);
         const numColumns = (list.length === 0) ? 1 : list[0].length;
 
@@ -82,9 +85,9 @@ class TabularListVisualizer extends Component {
            subsection.list = this.getList(subsection);
            numRows += subsection.list.length + 1;
         });
-        
+
         let halfRows = numRows / 2;
-        
+
         let firstColumnRows = 0;
         let firstHalfSections = [];
         let secondHalfSections = [];
@@ -114,47 +117,52 @@ class TabularListVisualizer extends Component {
                 <Col sm={6}>
                     {renderedFirstHalf}
                 </Col>
+
                 <Col sm={6}>
                     {renderedSecondHalf}
                 </Col>
             </Row>
         );
     }
-    
-    // Render each subsection as a table of values 
+
+    // Render each subsection as a table of values
     renderedSubsection(transformedSubsection, subsectionindex) {
         const list = this.getList(transformedSubsection);
+
         let preTableCount = null;
         if (transformedSubsection.preTableCount) {
             preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
         }
+
         let subsectionname = null;
         if (transformedSubsection.name && transformedSubsection.name.length > 0) {
             subsectionname = <h2 className="subsection list-subsection-header"><span>{transformedSubsection.name}</span></h2>;
         }
+
         if (list.length <= 0) {
             return <div key={subsectionindex}>{subsectionname}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
+
         let headings = null;
         if (transformedSubsection.headings) {
             let renderedColumnHeadings = [];
             transformedSubsection.headings.forEach((heading, headingIndex) => {
                 renderedColumnHeadings.push(<th key={subsectionindex + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
             });
-            headings = <tr>{renderedColumnHeadings}</tr>;
+            headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
+
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
         return (
             <div key={subsectionindex}>
                 {preTableCount}
                 {subsectionname}
-                <table>
-                    <tbody>
-                    {headings ? headings : <tr></tr>}
-                        {this.renderedListItems(subsectionindex, list, numberOfHeadings)}
-                    </tbody>
-                </table>
+
+                <TabularListVisualizerTable
+                    headers={headings}
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings)} />
+
                 <ul>
                     {this.renderedPostTableList(transformedSubsection.postTableList)}
                 </ul>
@@ -168,6 +176,7 @@ class TabularListVisualizer extends Component {
         if (patient == null || condition == null || conditionSection == null) {
             return [];
         }
+
         const items = subsection.items;
         const itemsFunction = subsection.itemsFunction;
         let list;
@@ -180,9 +189,10 @@ class TabularListVisualizer extends Component {
         return list;
     }
 
-    // Render all list items 
+    // Render all list items
     renderedListItems(subsectionindex, list, numberOfHeadings) {
         let onClick, hoverClass, rowClass, itemClass = "";
+
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
@@ -199,7 +209,8 @@ class TabularListVisualizer extends Component {
                 itemClass = "list-captured";
                 hoverClass = "list-button-hover";
             }
-            return this.renderedListItem(item.slice(0,numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass);
+
+            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass);
         });
     }
 
@@ -245,81 +256,85 @@ class TabularListVisualizer extends Component {
 
     // Render a given list item as a row in a table
     renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass) {
-            // Array of all columns
-            const renderedColumns = [];
-            
-            let isInsertable, elementText;
-            const numColumns = item.length;
-            const colSize = (100 / numColumns) + "%";
-            let isUnsigned;
-            item.forEach((element, arrayIndex) => {
-                const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
-                let columnItem = null;
-                isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
-                elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : (Lang.isArray(element) ? element[0] : element));
-                const longElementText = elementText;
-                if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
-                if (Lang.isNull(elementText)) {
-                    itemClass = 'list-missing';
-                } else {
-                    if (Lang.isArray(elementText)) {
-                        isUnsigned = elementText[1];
-                        elementText = elementText[0];
-                    } else {
-                        isUnsigned = false;
-                    }
-                    itemClass = (isUnsigned ? 'list-unsigned' : 'list-captured');
-                }
-                if(Lang.isNull(element) || Lang.isUndefined(elementText) || Lang.isNull(elementText) || (typeof(elementText) === 'string' && elementText.length === 0)) {
-                    columnItem = (
-                        <td
-                            className={"list-missing"}
-                            data-test-summary-item={item[0]}
-                            key={elementId}
-                        >
-                            <span>
-                                Missing Data
-                            </span>
-                        </td>
-                    );
-                } else if (isInsertable) {
-                    // Get value off of element given two cases:
-                    // 1. Element type is shortcut, value is returned by element.value()
-                    // 2. Element type is string, the value is just the string
+        // Array of all columns
+        const renderedColumns = [];
 
-                    // Make unique id for each value
-                    columnItem = (
-                        <td width={colSize}
-                            className={itemClass}
-                            key={elementId}
-                        >
-                            {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
-                        </td>
+        let isInsertable, elementText;
+        const numColumns = item.length;
+        const colSize = (100 / numColumns) + "%";
+        let isUnsigned;
 
-                    );
-                } else if (!isInsertable) {
-                    columnItem = (
-                        <td width={colSize}
-                            key={elementId}
-                        >
-                            <span>
-                                {elementText}
-                            </span>
-                        </td>
-                    );
+        item.forEach((element, arrayIndex) => {
+            const elementId = `${subsectionindex}-${index}-item-${arrayIndex}`
+            let columnItem = null;
+            isInsertable = (Lang.isNull(element) ? false : (Lang.isUndefined(element.isInsertable) ? true : element.IsInsertable));
+            elementText = Lang.isNull(element) ? null : (Lang.isObject(element) ? element.value : (Lang.isArray(element) ? element[0] : element));
+            const longElementText = elementText;
+
+            if (!Lang.isNull(elementText) && elementText.length > 100) elementText = elementText.substring(0, 100) + "...";
+
+            if (Lang.isNull(elementText)) {
+                itemClass = 'list-missing';
+            } else {
+                if (Lang.isArray(elementText)) {
+                    isUnsigned = elementText[1];
+                    elementText = elementText[0];
                 } else {
-                    columnItem = (
-                        <td width={colSize}
-                            className={itemClass}
-                            data-test-summary-item={item[0].value}
-                            key={elementId}
-                        >
-                            <span>
-                                {elementText}
-                            </span>
-                        </td>
-                    );
+                    isUnsigned = false;
                 }
+                itemClass = (isUnsigned ? 'list-unsigned' : 'list-captured');
+            }
+
+            if(Lang.isNull(element) || Lang.isUndefined(elementText) || Lang.isNull(elementText) || (typeof(elementText) === 'string' && elementText.length === 0)) {
+                columnItem = (
+                    <TableCell
+                        className={"list-missing"}
+                        data-test-summary-item={item[0]}
+                        key={elementId}
+                    >
+                        <span>
+                            Missing Data
+                        </span>
+                    </TableCell>
+                );
+            } else if (isInsertable) {
+                // Get value off of element given two cases:
+                // 1. Element type is shortcut, value is returned by element.value()
+                // 2. Element type is string, the value is just the string
+
+                // Make unique id for each value
+                columnItem = (
+                    <TableCell width={colSize}
+                        className={itemClass}
+                        key={elementId}
+                    >
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
+                    </TableCell>
+
+                );
+            } else if (!isInsertable) {
+                columnItem = (
+                    <TableCell width={colSize}
+                        key={elementId}
+                    >
+                        <span>
+                            {elementText}
+                        </span>
+                    </TableCell>
+                );
+            } else {
+                columnItem = (
+                    <TableCell width={colSize}
+                        className={itemClass}
+                        data-test-summary-item={item[0].value}
+                        key={elementId}
+                    >
+                        <span>
+                            {elementText}
+                        </span>
+                    </TableCell>
+                );
+            }
 
                 if (!Lang.isNull(elementText) && !Lang.isUndefined(elementText) && elementText.length > 100) {
                     const text = <span>{longElementText}</span>
@@ -342,24 +357,21 @@ class TabularListVisualizer extends Component {
                 renderedColumns.push(columnItem);
             });
 
-            return (
-                <tr 
-                    key={`${subsectionindex}-${index}-item`} 
-                    className={rowClass}
-                >
-                    {renderedColumns}  
-                </tr>
-            );
+        return (
+            <TableRow
+                key={`${subsectionindex}-${index}-item`}
+                className={rowClass}
+            >
+                {renderedColumns}
+            </TableRow>
+        );
     }
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText) => {
-        const {
-            elementToDisplayMenu,
-            positionLeft,
-            positionTop,
-        } = this.state;
+        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
+
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);
@@ -375,6 +387,7 @@ class TabularListVisualizer extends Component {
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
             return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
+
         if (filteredActions.length === 0) return null;
         return (
             <Menu
@@ -408,16 +421,16 @@ class TabularListVisualizer extends Component {
             </Menu>
         );
     }
-    
+
     // Opens the insertion menu for the given element id, based on cursor location
-    openInsertionMenu = (event, elementId) => { 
+    openInsertionMenu = (event, elementId) => {
         // Get menu coordinates
         let x = event.clientX;  // Get the horizontal coordinate of mouse
         x += 4;                // push menu a little to the right
         let y = event.clientY;  // Get the vertical coordinate of mouse
         y += 7;                // push a little to the bottom of cursor
 
-        this.setState({ 
+        this.setState({
             elementToDisplayMenu: elementId,
             positionLeft: x,
             positionTop: y,
@@ -425,10 +438,10 @@ class TabularListVisualizer extends Component {
     }
 
     // Closes the insertion menu
-    closeInsertionMenu = (callback) => { 
-        if (callback) { 
+    closeInsertionMenu = (callback) => {
+        if (callback) {
             this.setState({ elementToDisplayMenu: null }, callback);
-        } else { 
+        } else {
             this.setState({ elementToDisplayMenu: null });
         }
     }
@@ -443,5 +456,3 @@ TabularListVisualizer.propTypes = {
     allowItemClick: PropTypes.bool,
     actions: PropTypes.array
 };
-
-export default TabularListVisualizer;
