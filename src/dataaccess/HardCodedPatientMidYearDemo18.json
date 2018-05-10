@@ -1980,7 +1980,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
                     },
-                    "Value": 180,
+                    "Value": 200,
                     "Units": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Units"
@@ -2958,7 +2958,7 @@
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"
                     },
-                    "Value": 200,
+                    "Value": 180,
                     "Units": {
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Units"

@@ -728,7 +728,7 @@ export default class SummaryMetadata {
 
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
-        const meds = patient.getMedicationsForConditionChronologicalOrder(condition);
+        let meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
         medicationChanges.forEach(change => {
             const medAfterChangeRef = change.medicationAfterChange.reference;
@@ -746,6 +746,10 @@ export default class SummaryMetadata {
                     type: change.type,
                     date: change.whenChanged,
                 }
+                // Remove before medication from vis
+                meds = meds.filter((med) => { 
+                    return med.entryId !== medBeforeChangeRef.entryId;
+                })
             }
         });
         return meds;
