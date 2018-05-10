@@ -849,7 +849,7 @@ class FluxNotesEditor extends React.Component {
         else {
             this.insertTextWithStructuredPhrases(template);
             this.props.updateTemplateToInsert(null);
-            this.props.updateNoteAssistantMode('clinical-notes');
+            this.props.updateNoteAssistantMode('context-tray');
         }
     }
 

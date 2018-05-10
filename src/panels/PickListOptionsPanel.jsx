@@ -51,7 +51,7 @@ export default class PickListOptionsPanel extends Component {
 
     // Cancels insertion of text
     handleCancelButtonClick = () => {
-
+        this.toggleView("context-tray");
         this.props.updateTemplateToInsert(null);
     }
 
@@ -70,7 +70,7 @@ export default class PickListOptionsPanel extends Component {
         });
 
         this.props.updateTemplateWithSelectedPickListOptions(this.triggerSelections);
-        this.toggleView("context-tray");
+
     }
 
     handleOptionButtonClick(option, trigger) {
