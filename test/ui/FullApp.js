@@ -671,13 +671,21 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    // Click on "Invasive..." button in the option panel
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
+
+    // Enter space in editor to trigger list of shortcuts for the selected condition
+
+    await t
+        .typeText(editor, " ");
+
 
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
