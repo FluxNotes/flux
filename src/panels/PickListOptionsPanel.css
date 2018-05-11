@@ -36,9 +36,9 @@
 
 .shortcut-options-container .option-btn.selected,
 .shortcut-options-container .option-btn.selected:hover {
-    background-color: #3399FF;
-    border-color: #3399FF;
-    color: #fff;
+    background-color: #3399FF !important;
+    border-color: #3399FF !important;
+    color: #fff !important;
 }
 
 /* ------------------------- SELECT OPTIONS -------------------------------- */

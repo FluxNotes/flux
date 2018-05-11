@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ChoiceButton from '../elements/ChoiceButton';
 
+import "./SingleChoiceButton.css"
+
 class SingleChoiceButton extends Component {
     render() {
         let className = "single-choice-button "
