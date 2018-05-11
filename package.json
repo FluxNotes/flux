@@ -80,7 +80,7 @@
     "test::darwin:linux": "yarn test-backend:darwin:linux && yarn test-ui:darwin:linux",
     "test-backend": "run-script-os",
     "test-backend:win32": "set CI=true&&react-scripts test",
-    "test-backend:darwin:linux": "CI=true react-scripts test",
+    "test-backend:darwin:linux": "CI=true react-scripts test --env=jsdom",
     "test-ui": "run-script-os",
     "test-ui:win32": "yarn test-ui-all",
     "test-ui:darwin:linux": "yarn test-ui-chrome",

@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
@@ -10,6 +10,13 @@ import Button from '../../../src/elements/Button';
 import SummaryMetadata from '../../../src/summary/SummaryMetadata';
 import VisualizerManager from '../../../src/summary/VisualizerManager';
 import TabularNameValuePairsVisualizer from '../../../src/summary/NarrativeNameValuePairsVisualizer';
+
+import Slate from '../../../src/lib/slate';
+import DataAccess from '../../../src/dataaccess/DataAccess';
+import ContextManager from '../../../src/context/ContextManager';
+import ShortcutManager from '../../../src/shortcuts/ShortcutManager';
+import StructuredFieldMapManager from '../../../src/shortcuts/StructuredFieldMapManager';
+import FluxNotesEditor from '../../../src/notes/FluxNotesEditor';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -106,5 +113,75 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
             .to.eq(expectedDefault);
         expect(wrapper.state('chosenVisualizer'))
             .to.be.null;
+    });
+});
+
+describe('FluxNotesEditor', function() {
+    beforeEach(() => {
+      // Set up window and document to be used by Slate in test
+      window.getSelection = () => {
+          return {
+              addRange: () => {},
+              extend: () => {},
+              removeAllRanges: () => {}
+          }
+      }
+      // window.document.createRange = jest.fn();
+      document.createRange = function() {
+          return {
+              setEnd: function(){},
+              setStart: function(){},
+              getBoundingClientRect: function(){
+                  return {right: 0};
+              },
+              // getClientRects: () => {}//JULIA added
+          }
+      };
+    })
+    it('inserts supplied text for inserter shortcuts', () => {
+        // Set up Managers that are needed by FluxNotesEditor
+        let dataAccess = new DataAccess("NewPatientOnlyDataSource");
+        let patient = dataAccess.newPatient();
+        const contextManager = new ContextManager(patient, () => {});
+        const shortcutManager = new ShortcutManager();
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const wrapper = mount(<FluxNotesEditor
+            closeNote={() => {}}
+            updatedEditorNote={{ content: '' }}
+            shortcutManager={shortcutManager}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            updatedEditorNote={null}
+            handleUpdateEditorWithNote={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            setFullAppState={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            saveNoteUponKeypress={jest.fn()}
+        />);
+        expect(wrapper).to.exist;
+        // wrapper.find('.editor-content').simulate('click'); //goes into on change
+
+        let noteContent = '@name[[Test Name]] is a @age[[49]] year old @gender[[Female]] coming in for follow up.';
+        const updatedEditorNote = { content: noteContent };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        wrapper.setProps({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = wrapper.find('.structured-field');
+        expect(structuredField.at(0).text()).to.equal(`Test Name `);
+        expect(structuredField.at(1).text()).to.equal(`49 `);
+        expect(structuredField.at(2).text()).to.equal(`Female `);
+        // Check full text
+        expect(wrapper.find('.editor-content').text()).to.contains('Test Name  is a  49  year old  Female  coming in for follow up.')
     });
 });
