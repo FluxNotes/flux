@@ -410,9 +410,11 @@ test("Switching contexts without closing a context chooses the correct parent co
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
+        .click(invasiveButton)
         .typeText(editor, ' ');
 
     for (let i = 0; i < textToType.length; i++) {
@@ -429,7 +431,7 @@ test("Switching contexts without closing a context chooses the correct parent co
     }
 });
 
-test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
+test.only("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t
     //     .click(clinicalEventSelector)
@@ -449,9 +451,11 @@ test("Typing #PR into the editor followed by #Positive results in structured dat
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
+        .click(invasiveButton)
         .typeText(editor, ' ');
 
     for (let i = 0; i < textToType.length; i++) {
@@ -488,9 +492,11 @@ test("Typing #HER2 into the editor followed by #Positive results in structured d
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
+        .click(invasiveButton)
         .typeText(editor, ' ');
 
     for (let i = 0; i < textToType.length; i++) {
@@ -527,9 +533,11 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
+        .click(invasiveButton)
         .typeText(editor, ' ');
 
     for (let i = 0; i < textToType.length; i++) {
