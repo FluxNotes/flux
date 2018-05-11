@@ -12,13 +12,6 @@ export default class PickListOptionsPanel extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            tooltipVisibility: 'visible',
-            // optionIndex keeps track of index of item selected in the drop down
-            optionIndex: -1,
-            selectedButtons: {}
-        }
-
         // Add an index at the end of trigger string to differentiate shortcuts with the same trigger
         this.arrayOfPickLists = this.props.arrayOfPickLists.map((pickList, i) => {
             return {
@@ -28,11 +21,16 @@ export default class PickListOptionsPanel extends Component {
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
-        this.triggerSelections = this.arrayOfPickLists.map((pickList) => {
+        let triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
                 trigger: pickList.trigger
             };
         });
+
+        this.state = {
+            triggerSelections,
+            tooltipVisibility: 'visible',
+        };
     }
 
     mouseLeave = () => {
@@ -57,13 +55,13 @@ export default class PickListOptionsPanel extends Component {
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
     handleOkButtonClick = () => {
         // Verify that we have an option for each pick list
-        const isAllSelected = this.triggerSelections.every((triggerSelection) => {
+        const isAllSelected = this.state.triggerSelections.every((triggerSelection) => {
            return !Lang.isUndefined(triggerSelection.selectedOption);
         });
 
         if (!isAllSelected) return;
 
-        this.triggerSelections = this.triggerSelections.map((triggerSelection, i) => {
+        let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
@@ -71,34 +69,24 @@ export default class PickListOptionsPanel extends Component {
             }
         });
 
-        this.props.updateContextTrayItemWithSelectedPickListOptions(this.triggerSelections);
+        this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
     }
 
     handleOptionButtonClick(option, trigger) {
-        let selectedButtons = this.state.selectedButtons;
-        selectedButtons[trigger] = option;
-
-        this.setState(
-            {
-                "selectedButtons": selectedButtons
-            }
-        );
-
         this.updateSelectedOptions(option, trigger);
         // Only one selection required from the user so just send results back to NotesPanel after selection
-        if (this.triggerSelections.length === 1 && !Lang.isUndefined(this.triggerSelections[0].selectedOption)) {
+        if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
             this.handleOkButtonClick();
         }
     }
 
     handleOptionDropDownSelection(index, options, trigger) {
-        this.setState({optionIndex: index});
         if (index >= 0) {
             this.updateSelectedOptions(options[index], trigger);
         }
-
+        
         // Only one selection required from the user so just send results back to NotesPanel after selection
-        if (this.triggerSelections.length === 1 && !Lang.isUndefined(this.triggerSelections[0].selectedOption)) {
+        if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
             this.handleOkButtonClick();
         }
     }
@@ -106,13 +94,15 @@ export default class PickListOptionsPanel extends Component {
     // Update triggerSelections array, which keeps track of the option selected by the user for each pick list.
     // Note: Only one option is saved per pick list
     updateSelectedOptions(selectedOption, trigger) {
-        const index = this.triggerSelections.findIndex((option) => {
+        const index = this.state.triggerSelections.findIndex((option) => {
             return trigger === option.trigger;
         });
 
         // Find index of trigger in triggerSelections and set the selectedOption
         if (index >= 0) {
-            this.triggerSelections[index].selectedOption = selectedOption;
+            let triggerSelections = [...this.state.triggerSelections];
+            triggerSelections[index].selectedOption = selectedOption;
+            this.setState({ triggerSelections });
         } else {
             console.error(`Trigger ${trigger} is not in triggerSelections array.`);
         }
@@ -143,6 +133,8 @@ export default class PickListOptionsPanel extends Component {
 
         // If the number of options is small, generate buttons for each button
         if (options.length < 5) {
+            const triggerIndex = this.state.triggerSelections.findIndex(triggerSelection => trigger === triggerSelection.trigger);
+
             return (
                 options.map((option, i) => {
                     return (
@@ -164,7 +156,7 @@ export default class PickListOptionsPanel extends Component {
                                         className="option-btn"
                                         buttonText={option}
                                         onClick={(e) => this.handleOptionButtonClick(option, trigger)}
-                                        isSelected={option === this.state.selectedButtons[trigger]}
+                                        isSelected={option === this.state.triggerSelections[triggerIndex].selectedOption}
                                     />
                                 </div>
                             </Tooltip>
@@ -175,17 +167,21 @@ export default class PickListOptionsPanel extends Component {
         }
         // If there are a lot of options, render a drop down instead of buttons
         else {
+            const triggerIndex = this.state.triggerSelections.findIndex((triggerSelection) => {
+                return trigger === triggerSelection.trigger && !Lang.isUndefined(triggerSelection.selectedOption);
+            });
+            const dropDownIndex = triggerIndex === -1 ? -1 : options.indexOf(this.state.triggerSelections[triggerIndex].selectedOption);
+
             return (
                 <div className="option-select-container">
-
                     <Select
                         className="option-select"
-                        value={this.state.optionIndex}
+                        value={dropDownIndex}
                         onChange={(event) => this.handleOptionDropDownSelection(event.target.value, options, trigger)}
                     >
                         <MenuItem
                             className="option-item"
-                            value={this.state.optionIndex}>
+                            value={dropDownIndex}>
                             <i>Select an option</i>
                         </MenuItem>
                         {this.renderOptionList(options)}
@@ -220,7 +216,7 @@ export default class PickListOptionsPanel extends Component {
                         Cancel
                     </MaterialButton>
 
-                    {this.triggerSelections.length > 1 ?
+                    {this.state.triggerSelections.length > 1 ?
                         <MaterialButton
                             raised
                             id="ok-btn"
