@@ -414,7 +414,8 @@ test("Switching contexts without closing a context chooses the correct parent co
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
-        .click(invasiveButton);
+        .click(invasiveButton)
+        .typeText(editor, " ");
 
     for (let i = 0; i < textToType.length; i++) {
         await t
