@@ -414,8 +414,7 @@ test("Switching contexts without closing a context chooses the correct parent co
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
-        .click(invasiveButton)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -455,8 +454,7 @@ test("Typing #PR into the editor followed by #Positive results in structured dat
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
-        .click(invasiveButton)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -496,8 +494,7 @@ test("Typing #HER2 into the editor followed by #Positive results in structured d
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
-        .click(invasiveButton)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -537,8 +534,7 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
-        .click(invasiveButton)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -689,10 +685,6 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     await t
         .click(invasiveButton);
 
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
-
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
         .click(diseaseStatusButton);
@@ -770,10 +762,6 @@ test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" c
     await t
         .click(invasiveButton);
 
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
-
     const conditionSection = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
     await t
         .expect(conditionSection.exists)
@@ -812,10 +800,6 @@ test('Clicking "@condition" and choosing multiple conditions creates condition s
     await t
         .click(invasiveButton);
 
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
-
     const conditionSectionInvasive = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
     await t
         .expect(conditionSectionInvasive.exists)
@@ -836,10 +820,6 @@ test('Clicking "@condition" and choosing multiple conditions creates condition s
     const fractureButton = await optionsForm.withText(/Fracture/ig);
     await t
         .click(fractureButton);
-
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
 
     const conditionSectionFracture = Selector('.context-tray').find('div').withAttribute('title', 'Fracture');
     await t
@@ -884,10 +864,6 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     await t
         .click(fractureButton);
 
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
-
     // Input second condition
     await t
         .click(patientButton);
@@ -898,10 +874,6 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
     await t
         .click(invasiveButton);
-
-    // Enter space in editor to trigger list of shortcuts for the selected condition
-    await t
-        .typeText(editor, " ");
 
     const condition1Button = await sectionItemElements.withText(/Fracture/g);
 
@@ -1233,9 +1205,13 @@ test('Entering disease status information updates the data in the targeted data 
 
     await t
         .click(conditionButton);
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
+
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
         .click(diseaseStatusButton);
@@ -1253,7 +1229,7 @@ test('Entering disease status information updates the data in the targeted data 
     await t
         .expect(unSignedItem.exists)
         .ok();
-})
+});
 
 test('Clicking on the sign note button changes the unsigned data from a dotted line to a solid line', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
@@ -1274,9 +1250,11 @@ test('Clicking on the sign note button changes the unsigned data from a dotted l
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
 
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
