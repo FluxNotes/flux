@@ -28,19 +28,12 @@ export default class ContextTray extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        let activeContexts = this.getActiveContexts();
+    componentDidMount() {
+        this.updateContextAndScroll();
+    }
 
-        if (this.state.lastActiveContextCount !== activeContexts.length) {
-            this.setState({
-                value: activeContexts.length + 1,
-                lastActiveContextCount: activeContexts.length
-            }, () => {
-                // scrolls to newest ContextOption section
-                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
-                if (newContextSection) newContextSection.scrollIntoView();
-            });
-        }
+    componentDidUpdate(prevProps, prevState) {
+        this.updateContextAndScroll();
     }
 
     // Get all contexts being used in the editor
@@ -54,6 +47,22 @@ export default class ContextTray extends Component {
         });
 
         return activeContexts;
+    }
+
+    // Update context state and scroll to newest ContextOption section
+    updateContextAndScroll = () => {
+        let activeContexts = this.getActiveContexts();
+
+        if (this.state.lastActiveContextCount !== activeContexts.length) {
+            this.setState({
+                value: activeContexts.length + 1,
+                lastActiveContextCount: activeContexts.length
+            }, () => {
+                // scrolls to newest ContextOption section
+                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
+                if (newContextSection) newContextSection.scrollIntoView();
+            });
+        }
     }
 
     insertTemplate = (i) => {
