@@ -75,6 +75,7 @@ export default class ContextTray extends Component {
 
     handleTemplateSectionClick = () => this.setState({ value: 0 })
     handlePatientSectionClick = () => this.setState({ value: 1 })
+    handleSnippetClick = () => console.log("snippit click")
 
     findParentContext(activeContexts) {
         const value = this.state.value - 2;
@@ -218,16 +219,14 @@ export default class ContextTray extends Component {
                         className={`section-item${value === 0 ? ' selected' : ''}`}
                         onClick={this.handleTemplateSectionClick}
                     >
-                        <FontAwesome name={value === 0 ? 'angle-down' : 'angle-right'} fixedWidth />
-                        Templates
-                    </div>
+                        TEMPLATES
+                    </div>                        
 
                     <div
                         className={`section-item${value === 1 ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
-                        <FontAwesome name={value === 1 ? 'angle-down' : 'angle-right'} fixedWidth />
-                        Patient
+                        CONTEXT
                     </div>
                 </section>
 
