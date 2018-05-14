@@ -126,7 +126,9 @@ export default class ContextOptions extends Component {
             .map(({ context }) => context.initiatingTrigger);
 
         return (
-            <section>
+            <section
+                className={'section-active'}
+            >
                 <div className='context-options-list'>
                     {filterBar}
 
@@ -170,7 +172,7 @@ export default class ContextOptions extends Component {
                             </div>
                         </div>);
                     })}
-                </div>
+                    </div>
             </section>
         );
     }
