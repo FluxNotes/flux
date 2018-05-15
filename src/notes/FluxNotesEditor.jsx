@@ -227,7 +227,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         // check if shortcutTrigger is currently valid
-        if (Lang.isNull(shortcutC) && !this.shortcutTriggerCheck(shortcutTrigger)) {
+        if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
             return this.insertPlainText(transform, shortcutTrigger);
         }
 
@@ -345,7 +345,6 @@ class FluxNotesEditor extends React.Component {
         return transform
             .deleteBackward(0)
             .deleteBackward(charactersInStructuredPhrase);
-
     }
 
     insertStructuredFieldTransform(transform, shortcut) {
@@ -443,6 +442,9 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
+        if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+            this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
+        }
 
        // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
@@ -724,7 +726,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
     /*
-     * Handle updates when we have a new
+     * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
         let state;
@@ -748,7 +750,6 @@ class FluxNotesEditor extends React.Component {
                 start = remainder.indexOf(trigger.trigger);
                 if (start > 0) {
                     before = remainder.substring(0, start);
-                    //transform = transform.insertText(before);
                     transform = this.insertPlainText(transform, before);
                 }
                 remainder = remainder.substring(start + trigger.trigger.length);
@@ -784,18 +785,86 @@ class FluxNotesEditor extends React.Component {
         }
 
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            //transform = transform.insertText(remainder);
             transform = this.insertPlainText(transform, remainder);
         }
+
         state = transform.apply();
         this.setState({state: state});
-        //return state;
+        // return state;
+    }
+
+    /**
+     *  Checks if any of the shortcuts in the contextTrayItem require the user to choose from pick list
+     *  If not, function will call insertTextWithStructuredPhrases to insert completed contextTrayItem into editor
+     */
+    insertContextTrayItem = (contextTrayItem) => {
+        let remainder = contextTrayItem;
+        let start, end;
+        let localArrayOfPickLists = [];
+        const triggers = this.noteParser.getListOfTriggersFromText(contextTrayItem)[0];
+
+        // Loop through shortcut triggers to determine if any of them require users to choose from pick list
+        if (!Lang.isNull(triggers)) {
+            triggers.forEach((trigger) => {
+                start = remainder.indexOf(trigger.trigger);
+                remainder = remainder.substring(start + trigger.trigger.length);
+
+                // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
+                // If no option is selected, then push the shortcut to the array
+                if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[["))) {
+                    localArrayOfPickLists.push(trigger);
+                }
+
+                if (remainder.startsWith("[[")) {
+                    end = remainder.indexOf("]]");
+                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
+                    remainder = remainder.substring(end + 2);
+                }
+            });
+        }
+
+        // Build array of pick lists and store options for each pick list
+        if (localArrayOfPickLists.length > 0) {
+            let localArrayOfPickListsWithOptions = [];
+
+            localArrayOfPickLists.forEach((pickList) => {
+                // Temporarily create shortcut from trigger to get selectionOptions
+                let tempShortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
+                tempShortcut.initialize(this.props.contextManager, pickList.trigger, false);
+
+                let shortcutOptions = tempShortcut.getValueSelectionOptions().map((shortcutOption) => {return shortcutOption.context});
+                localArrayOfPickListsWithOptions.push(
+                    {
+                        'trigger': pickList.trigger,
+                        'options': shortcutOptions
+                    }
+                )
+            });
+
+            this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
+            // Switch note assistant view to the pick list options panel
+            this.props.updateNoteAssistantMode('pick-list-options-panel');
+        }
+        // If the text to be inserted does not contain any pick lists, insert the text
+        else {
+            this.insertTextWithStructuredPhrases(contextTrayItem);
+            this.props.updateContextTrayItemToInsert(null);
+            this.props.updateNoteAssistantMode('context-tray');
+        }
     }
 
     /**
      * Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
+     * or if the shortcutTrigger matches the shortcut's regexpTrigger
      */
-    shortcutTriggerCheck = (shortcutTrigger) => {
+    shortcutTriggerCheck = (shortcutC, shortcutTrigger) => {
+        // Check regexpTrigger before checking currently valid shortcuts
+        if (!Lang.isNull(shortcutC) && !Lang.isUndefined(shortcutC.regexpTrigger) && !Lang.isNull(shortcutC.regexpTrigger)) {
+            const regexpTrigger = new RegExp(shortcutC.regexpTrigger);
+            if (regexpTrigger.test(shortcutTrigger))
+                return true;
+        }
+
         const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
 
         // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
@@ -1058,9 +1127,12 @@ FluxNotesEditor.proptypes = {
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
+    contextTrayItemToInsert: PropTypes.string.isRequired,
     updatedEditorNote: PropTypes.object,
     updateErrors: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
+    updateNoteAssistantMode: PropTypes.func.isRequired,
+    updateContextTrayItemToInsert: PropTypes.func.isRequired
 }
 
 export default FluxNotesEditor;

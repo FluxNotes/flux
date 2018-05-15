@@ -410,10 +410,12 @@ test("Switching contexts without closing a context chooses the correct parent co
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
-        .typeText(editor, ' ');
+        .click(invasiveButton)
+        .typeText(editor, " ");
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -449,10 +451,11 @@ test("Typing #PR into the editor followed by #Positive results in structured dat
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -488,10 +491,11 @@ test("Typing #HER2 into the editor followed by #Positive results in structured d
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -527,10 +531,11 @@ test("Typing #ER into the editor followed by #Positive results in structured dat
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition)
-        .typeText(editor, ' ');
+        .click(invasiveButton);
 
     for (let i = 0; i < textToType.length; i++) {
         await t
@@ -671,13 +676,15 @@ test('Clicking "@condition", "#disease status", "#stable", "#as of", "#date" and
     const structuredField = editor.find("span[class='structured-field']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    // Click on "Invasive..." button in the option panel
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
 
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
@@ -743,15 +750,18 @@ test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" c
     await t
         .click(newNoteButton)
 
+    const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector(".context-options-list").find('.context-option');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     await t
         .click(conditionButton);
 
-    const selectedCondition = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    // Click on "Invasive..." button in the option panel
     await t
-        .click(selectedCondition);
+        .click(invasiveButton);
 
     const conditionSection = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
     await t
@@ -775,18 +785,21 @@ test('Clicking "@condition" and choosing multiple conditions creates condition s
     await t
         .click(newNoteButton)
 
+    const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
     const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const patientButton = await sectionItemElements.withText(/Patient/g);
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
     // first condition
     await t
         .click(conditionButton);
 
-    const selectedConditionInvasive = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    // Click on "Invasive..." button in the option panel
     await t
-        .click(selectedConditionInvasive);
+        .click(invasiveButton);
 
     const conditionSectionInvasive = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
     await t
@@ -805,9 +818,9 @@ test('Clicking "@condition" and choosing multiple conditions creates condition s
     await t
         .click(conditionButton);
 
-    const selectedConditionFracture = Selector('.context-portal').find('li').withText('Fracture');
+    const fractureButton = await optionsForm.withText(/Fracture/ig);
     await t
-        .click(selectedConditionFracture);
+        .click(fractureButton);
 
     const conditionSectionFracture = Selector('.context-tray').find('div').withAttribute('title', 'Fracture');
     await t
@@ -836,18 +849,21 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     await t
         .click(newNoteButton)
 
+    const editor = Selector("div[data-slate-editor='true']");
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
     const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
     const patientButton = await sectionItemElements.withText(/Patient/g);
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const fractureButton = await optionsForm.withText(/Fracture/ig);
 
     // Input first condition
     await t
         .click(conditionButton);
 
-    const selectedConditionFracture = Selector('.context-portal').find('li').withText('Fracture');
+    // Click on "Invasive..." button in the option panel
     await t
-        .click(selectedConditionFracture);
+        .click(fractureButton);
 
     // Input second condition
     await t
@@ -856,9 +872,9 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     await t
         .click(conditionButton);
 
-    const selectedConditionInvasive = Selector('.context-portal').find('li').withText('Invasive ductal carcinoma of breast');
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
     await t
-        .click(selectedConditionInvasive);
+        .click(invasiveButton);
 
     const condition1Button = await sectionItemElements.withText(/Fracture/g);
 
@@ -1190,9 +1206,13 @@ test('Entering disease status information updates the data in the targeted data 
 
     await t
         .click(conditionButton);
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
+
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t
         .click(diseaseStatusButton);
@@ -1210,7 +1230,7 @@ test('Entering disease status information updates the data in the targeted data 
     await t
         .expect(unSignedItem.exists)
         .ok();
-})
+});
 
 test('Clicking on the sign note button changes the unsigned data from a dotted line to a solid line', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
@@ -1231,9 +1251,11 @@ test('Clicking on the sign note button changes the unsigned data from a dotted l
     await t
         .click(conditionButton);
 
-    let correctCondition = Selector(".context-portal").find('li').withText('Invasive ductal carcinoma of breast');
+    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
+    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+
     await t
-        .click(correctCondition);
+        .click(invasiveButton);
 
     const diseaseStatusButton = await contextPanelElements.withText(/#disease status/ig);
     await t

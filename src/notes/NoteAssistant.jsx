@@ -6,6 +6,7 @@ import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
+import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
 import moment from 'moment';
 import './NoteAssistant.css';
@@ -41,7 +42,7 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
         }
 
-        if (!nextProps.isNoteViewerEditable) {
+        if (!nextProps.isNoteViewerEditable || nextProps.noteAssistantMode === "pick-list-options-panel") {
             this.disableContextToggleButton();
         }
     }
@@ -52,8 +53,8 @@ export default class NoteAssistant extends Component {
         this.props.closeNote(this.closeNote);
     }
 
-    componentWillReceiveProps(nextProps) { 
-        if (nextProps.searchSelectedItem) { 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
             this.openNote(newNote.signed, newNote)
             this.props.setFullAppState("searchSelectedItem", null);
@@ -105,7 +106,6 @@ export default class NoteAssistant extends Component {
         this.context_disabled = true;
         this.context_fill = "#FFFFFF";
     }
-
 
     // Update the selected index for the sort drop down
     selectSort(sortIndex) {
@@ -230,7 +230,7 @@ export default class NoteAssistant extends Component {
         this.props.setFullAppState('openClinicalNote', null);
     }
 
-    deleteSelectedNote = () => { 
+    deleteSelectedNote = () => {
         this.props.deleteSelectedNote();
         this.closeNote();
     }
@@ -247,7 +247,7 @@ export default class NoteAssistant extends Component {
                     <div>
                         <ContextTray
                             contextManager={this.props.contextManager}
-                            onShortcutClicked={this.props.handleSummaryItemSelected}
+                            onShortcutClicked={this.props.updateContextTrayItemToInsert}
                             patient={this.props.patient}
                             shortcutManager={this.props.shortcutManager}
                         />
@@ -263,7 +263,7 @@ export default class NoteAssistant extends Component {
                         {this.renderNewNote()}
                         <div id="in-progress-note-list">
                             {this.renderInProgressNotes()}
-                        </div> 
+                        </div>
 
                         <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
                         <div id="signed-note-list">
@@ -271,9 +271,22 @@ export default class NoteAssistant extends Component {
                             {/*this.renderSortSelection()*/}
                             {this.renderNotes()}
                             {/*this.renderMoreNotesButton()*/}
-                        </div> 
+                        </div>
                     </div>
                 );
+
+            // Render the pick list options panel which allows users to select options for the pick lists
+            case "pick-list-options-panel":
+                return (
+                    <div>
+                        <PickListOptionsPanel
+                            updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                            arrayOfPickLists={this.props.arrayOfPickLists}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
+                        />
+                    </div>
+                )
 
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
@@ -346,22 +359,22 @@ export default class NoteAssistant extends Component {
         // TODO: sort notes based on selected sort; use the notesTimeSorter right now.
         signedNotes.sort(this.notesTimeSorter);
         const maxNotes = this.maxNotesToDisplay ? Math.min(this.maxNotesToDisplay, signedNotes.length) : signedNotes.length;
-        
+
         return signedNotes.slice(0, maxNotes).map((item, i) => // item is a signed note
             this.renderClinicalNote(item, i)
         );
     }
 
     // Renders a button for deleting the current note if appropriate
-    renderDeleteNoteButton = () => { 
+    renderDeleteNoteButton = () => {
         return (
             <div id="delete-note-container">
-                <Button raised id="delete-note-button" onClick={this.deleteSelectedNote}> 
-                    <FontAwesome name="trash" id="trash-icon"/> 
+                <Button raised id="delete-note-button" onClick={this.deleteSelectedNote}>
+                    <FontAwesome name="trash" id="trash-icon"/>
                     <span>Delete Note</span>
                 </Button>
-            </div> 
-            
+            </div>
+
         );
     }
 
@@ -507,7 +520,7 @@ export default class NoteAssistant extends Component {
     render() {
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
-        const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes") 
+        const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes")
         return (
             <div className="note-assistant-wrapper">
                 {this.renderToggleButtons()}
@@ -527,7 +540,7 @@ NoteAssistant.propTypes = {
     documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
-    loadNote: PropTypes.func.isRequired, 
+    loadNote: PropTypes.func.isRequired,
     loginUser: PropTypes.string.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     noteClosed: PropTypes.bool.isRequired,
@@ -540,4 +553,7 @@ NoteAssistant.propTypes = {
     updateCurrentlyEditingEntryId: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
+    arrayOfPickLists: PropTypes.array.isRequired,
+    updateContextTrayItemToInsert: PropTypes.func.isRequired,
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
 };

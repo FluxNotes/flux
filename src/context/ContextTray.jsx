@@ -18,28 +18,22 @@ export default class ContextTray extends Component {
             // In editor, value is incremented by 1 for each context added (i.e @condition, #disease status)
             value: 1,
             lastActiveContextCount: 0,
+
             templates: [
-                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition[[Invasive ductal carcinoma of breast]]\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
+                { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
                 { name: 'op note', content: 'op note' },
-                { name: 'follow-up', content: 'follow up' },
+                { name: 'follow-up', content: 'FOLLOW UP:\nPatient is showing signs of @condition @condition\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure' },
                 { name: 'consult note', content: '@patient presenting with ' }
             ]
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        let activeContexts = this.getActiveContexts();
+    componentDidMount() {
+        this.updateContextAndScroll();
+    }
 
-        if (this.state.lastActiveContextCount !== activeContexts.length) {
-            this.setState({
-                value: activeContexts.length + 1,
-                lastActiveContextCount: activeContexts.length
-            }, () => {
-                // scrolls to newest ContextOption section
-                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
-                if (newContextSection) newContextSection.scrollIntoView();
-            });
-        }
+    componentDidUpdate(prevProps, prevState) {
+        this.updateContextAndScroll();
     }
 
     // Get all contexts being used in the editor
@@ -53,6 +47,22 @@ export default class ContextTray extends Component {
         });
 
         return activeContexts;
+    }
+
+    // Update context state and scroll to newest ContextOption section
+    updateContextAndScroll = () => {
+        let activeContexts = this.getActiveContexts();
+
+        if (this.state.lastActiveContextCount !== activeContexts.length) {
+            this.setState({
+                value: activeContexts.length + 1,
+                lastActiveContextCount: activeContexts.length
+            }, () => {
+                // scrolls to newest ContextOption section
+                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
+                if (newContextSection) newContextSection.scrollIntoView();
+            });
+        }
     }
 
     insertTemplate = (i) => {
@@ -109,6 +119,7 @@ export default class ContextTray extends Component {
                                 <div
                                     className={`section-item${isActive ? ' selected' : '-disabled'}`}
                                     key={`context-header-option-${contextIndex}`}
+                                    id={`section-item-${context.text}`}
                                     title={context.text}
                                 >
                                     {context.text}
@@ -120,6 +131,7 @@ export default class ContextTray extends Component {
                                     className={`section-item${isActive ? ' selected' : ''}`}
                                     onClick={() => this.setState({ value: contextIndex })}
                                     key={`context-header-option-${contextIndex}`}
+                                    id={`section-item-${context.text}`}
                                     title={context.text}
                                 >
                                     <FontAwesome name={isActive ? 'angle-down' : 'angle-right'} fixedWidth />

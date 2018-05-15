@@ -1,5 +1,5 @@
 /* Wrappers */
-.note-assistant-wrapper { 
+.note-assistant-wrapper {
     display: flex;
     flex-direction: column;
     width: 175px;
@@ -8,32 +8,31 @@
     min-height: 400px !important;
 }
 
-.note-assistant-content-wrapper { 
+.note-assistant-content-wrapper {
     margin-top: 5px;
     overflow-y: auto;
     overflow-x: hidden;
 }
-@media only screen and (min-width: 1200px) and (max-width: 1300px) { 
-    .note-assistant-wrapper { 
+@media only screen and (min-width: 1200px) and (max-width: 1300px) {
+    .note-assistant-wrapper {
         width: 160px;
     }
 }
 @media only screen and (min-width: 577px) and (max-width: 768px) {
-    .note-assistant-wrapper { 
+    .note-assistant-wrapper {
         width: 170px;
      }
 }
 
 .toggle-buttons-container {
     display: flex !important;
-    margin-left: auto;
+    margin-right: auto;
     width: inherit;
-    max-width: 188px; /* Max width of Notes is 188px. This should match. */
+    max-width: 95%;
     min-height: 41px;
-    margin-right: 0;
 }
 
-.clinical-notes-panel { 
+.clinical-notes-panel {
     margin-left: auto;
     width: inherit;
     margin-right: 5px;
@@ -94,23 +93,23 @@
     background: #e6e6e6 !important;
 }
 
-#delete-note-container{ 
+#delete-note-container{
     display: flex;
     justify-content: center;
 }
 
-#delete-note-button { 
+#delete-note-button {
     padding: 10px;
     margin-bottom: 10px;
     text-transform: none;
     background-color: #ffffff;
 }
 
-#delete-note-button:hover { 
+#delete-note-button:hover {
     background-color: #e6e6e6;
 }
 
-#delete-note-button #trash-icon { 
+#delete-note-button #trash-icon {
     margin-right: 10px;
     color: rgba(255, 0, 0, 0.7);
 }
@@ -154,7 +153,7 @@ li.sort-item:hover {
     border: 1px solid #ccc;
     border-radius: 5px 0 5px 5px;
 }
-.note > * { 
+.note > * {
     font-size: 0.8rem;
     color: #555;
  }
