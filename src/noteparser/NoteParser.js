@@ -28,14 +28,7 @@ export default class NoteParser {
         let allTriggers = this.shortcutManager.getAllStringTriggers();
         //console.log(allTriggers);
         let allShortcuts = this.shortcutManager.getAllShortcutDefinitions();
-        /*let curTriggers;
-         allShortcuts.forEach((shortcutC) => {
-         curTriggers = shortcutC.getStringTriggers().map((obj) => { return obj.name; });;
-         allTriggers = allTriggers.concat(curTriggers);
-         curTriggers.forEach((item) => {
-         this.triggerMap[item.toLowerCase()] = shortcutC;
-         });
-         });*/
+
         this.allStringTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
 
         // build list of regular expression triggers
@@ -64,18 +57,8 @@ export default class NoteParser {
 
     // This method takes in a trigger. If the trigger is a pick list (a shortcut that has multiple options) return true, otherwise return false
     isPickList(trigger) {
-
         // Note: only pick list triggers have an itemKey in getData
-        if (trigger.definition.getData) {
-            if (trigger.definition.getData.itemKey) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+       return (trigger.definition.getData && trigger.definition.getData.itemKey);
     }
 
     getListOfTriggersFromText(note) {
@@ -85,8 +68,6 @@ export default class NoteParser {
         let matches = [];
         let match, substr, nextPos, found;
         let checkForTriggerRegExpMatch = (tocheck) => {
-            //console.log(tocheck.regexp + " against '" + substr + "'");
-            //console.log(tocheck);
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
                 //console.log("matched " + tocheck.regexp);
@@ -141,10 +122,6 @@ export default class NoteParser {
                 }
             }
         });
-        /*        let triggerPos = note.indexOf('#', pos);
-         let triggerPos2 = note.indexOf('@', pos);
-         if (atPos != -1 && atPos < hashPos) hashPos = atPos;
-         */
         return triggerPos;
     }
 
