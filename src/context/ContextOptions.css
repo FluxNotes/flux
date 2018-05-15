@@ -18,8 +18,8 @@
 }
 
 .section-active{
-    border-left: 1px solid #888;
-    margin-left: 13px;
+    border-left: 3px solid #eee;
+    margin-left: 5px;
 }
 
 #shortcut-search {

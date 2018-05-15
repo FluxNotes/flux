@@ -109,7 +109,7 @@ export default class ContextTray extends Component {
         const children = this.filterContextChildren(contexts, selectedParentContext);
 
         return (
-            <div>
+            <div className="condition-contexts">
                 <section>
                     {parentContexts.map((context, i) => {
                         const isActive = activeContext === context;

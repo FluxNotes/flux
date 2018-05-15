@@ -33,5 +33,13 @@
 
 .context-tray .fa {
     font-size: 1.4em;
+    width: 14px;
+    margin-left: 2px;
     color: #3399FF;
+}
+
+.condition-contexts,
+.section-active {
+    border-left: 3px solid #eee;
+    margin-left: 5px;
 }
