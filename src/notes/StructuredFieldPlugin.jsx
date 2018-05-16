@@ -16,7 +16,7 @@ function StructuredFieldPlugin(opts) {
     let updateErrors = opts.updateErrors;
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
-        
+
     function onChange(state, editor) {
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
@@ -78,58 +78,6 @@ function StructuredFieldPlugin(opts) {
 			}
 		]
 	};
-    
-    const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
-
-    function onPaste(event, data, state, editor) {
-        const html = data.html || null; //event.clipboardData.getData('text/html') || null;
-        let fragment = null;
-        if (
-            !fragment &&
-            html &&
-            ~html.indexOf(' flux-string="')
-        ) {
-            const matches = FRAGMENT_MATCHER.exec(html);
-            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
-            if (encoded) fragment = encoded;
-            const decoded = window.decodeURIComponent(window.atob(encoded));
-            
-            // because insertion of shortcuts into the context relies on the current selection, during a paste
-            // we override the routine that checks the location of a structured field relative to the selection
-            // since we know we are inserting from left to right always. Make sure we restore the normal method
-            // when done
-            // NoteParser also overrides this function since there is no slate
-            const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
-            contextManager.setIsBlock1BeforeBlock2(() => { return false; });
-            insertText(decoded);
-            contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
-            event.preventDefault();
-            return state;
-        } else if (data.text) {
-            event.preventDefault();
-            insertText(data.text);
-            return state;
-        }
-    }
-    
-    function onCut(event, data, state, editor) {
-        this.onCopy(event, data, state, editor); // doesn't change state
-        const window = getWindow(event.target)
-
-        // Once the fake cut content has successfully been added to the clipboard,
-        // delete the content in the current selection.
-        let next;
-        window.requestAnimationFrame(() => {
-            next = editor
-                .getState()
-                .transform()
-                .delete()
-                .apply();
-
-            editor.onChange(next);
-        });
-        return state;
-    }
 
     function convertSlateNodesToText(nodes) {
         let result = '';
@@ -181,7 +129,7 @@ function StructuredFieldPlugin(opts) {
 
     function onCopy(event, data, state, editor) {
         let { selection } = state;
-   
+
         const window = getWindow(event.target);
         const native = window.getSelection();
         const { endBlock, endInline } = state;
@@ -193,7 +141,7 @@ function StructuredFieldPlugin(opts) {
         if (native.isCollapsed && !isVoid) return;
 
         let fluxString = convertToText(state, selection);
-        //console.log("copy: " + fluxString);
+        // console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -219,8 +167,8 @@ function StructuredFieldPlugin(opts) {
         // copy has `contenteditable="false"` the copy will fail, and nothing will
         // be put in the clipboard. So we remove them all. (2017/05/04)
         if (Slate.IS_CHROME || Slate.IS_SAFARI) {
-          const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
-          els.forEach(el => el.removeAttribute('contenteditable'));
+            const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
+            els.forEach(el => el.removeAttribute('contenteditable'));
         }
 
         // Set a `flux-string` attribute on a non-empty node, so it shows up
@@ -259,16 +207,66 @@ function StructuredFieldPlugin(opts) {
 
         // Revert to the previous selection right after copying.
         window.requestAnimationFrame(() => {
-          body.removeChild(div);
-          native.removeAllRanges();
-          native.addRange(range);
+            body.removeChild(div);
+            native.removeAllRanges();
+            native.addRange(range);
         })
         return state;
     }
-		
+
+    const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
+
+    function onPaste(event, data, state, editor) {
+        const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
+        if (
+            html &&
+            ~html.indexOf(' flux-string="')
+        ) {
+            const matches = FRAGMENT_MATCHER.exec(html);
+            const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
+            const decoded = window.decodeURIComponent(window.atob(encoded));
+            // console.log(decoded)
+
+            // because insertion of shortcuts into the context relies on the current selection, during a paste
+            // we override the routine that checks the location of a structured field relative to the selection
+            // since we know we are inserting from left to right always. Make sure we restore the normal method
+            // when done
+            // NoteParser also overrides this function since there is no slate
+            const saveIsBlock1BeforeBlock2 = contextManager.getIsBlock1BeforeBlock2();
+            contextManager.setIsBlock1BeforeBlock2(() => { return false; });
+            insertText(decoded);
+            contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
+            event.preventDefault();
+            return state;
+        } else if (data.text) {
+            event.preventDefault();
+            insertText(data.text);
+            return state;
+        }
+    }
+
+    function onCut(event, data, state, editor) {
+        this.onCopy(event, data, state, editor); // doesn't change state
+        const window = getWindow(event.target)
+
+        // Once the fake cut content has successfully been added to the clipboard,
+        // delete the content in the current selection.
+        let next;
+        window.requestAnimationFrame(() => {
+            next = editor
+                .getState()
+                .transform()
+                .delete()
+                .apply();
+
+            editor.onChange(next);
+        });
+        return state;
+    }
+
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
-		a cursor. see style top value of -18px  */	    
+		a cursor. see style top value of -18px  */
 	return {
 	    clearStructuredFieldMap,
         onChange,
@@ -277,7 +275,7 @@ function StructuredFieldPlugin(opts) {
         onPaste,
         schema,
         convertToText,
-		
+
         utils: {
             //isSelectionInStructuredField
         },

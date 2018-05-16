@@ -16,7 +16,11 @@ export default class CreatorBase extends Shortcut {
         } else {
             const dataObj = JSON.parse(shortcutData);
             this.object = patient.getEntryById(dataObj.entryId);
-            this.isObjectNew = false;
+            // We want to try and get this object -- if there is none, make a new one
+            this.isObjectNew = !this.object;
+            if (!this.object) { 
+                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            }
         }
         this.setValueObject(this.object);
 
@@ -198,7 +202,6 @@ export default class CreatorBase extends Shortcut {
         let perItemFollowPath = (item) => {
             return this._followPath(item, attributePath, i + 1);
         };
-
         for (i = startIndex; i < len; i++) {
             if (attributePath[i].endsWith("[]")) {
                 attributeName = attributePath[i].substring(0, attributePath[i].length - 2);
@@ -226,7 +229,6 @@ export default class CreatorBase extends Shortcut {
 
     getAttributeValue(name) {
         const voa = this.valueObjectAttributes[name];
-
         if (Lang.isNull(voa["attributePath"])) {
             return this.values[voa["name"]];
         } else {
