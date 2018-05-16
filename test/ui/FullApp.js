@@ -201,7 +201,8 @@ test('In pre-encounter mode, clicking the "New Note" button clears the editor co
         .eql("Enter your clinical note here or choose a template to start from...");
 });
 
-test('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
+// Test covered by an Enzyme test
+test.skip('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t
     //     .click(clinicalEventSelector)
@@ -222,7 +223,8 @@ test('Typing an inserterShortcut in the editor results in a structured data inse
         .contains(new PatientRecord(hardCodedPatient).getName());
 });
 
-test('Pasting an inserterShortcut in the editor with [[]] notation sets that text rather than pulling current data ', async t => {
+// Test covered by an Enzyme test
+test.skip('Pasting an inserterShortcut in the editor with [[]] notation sets that text rather than pulling current data ', async t => {
     // This test mimics loading an inserter shortcut in a note that specifies its values. Ex. @age[[89]]
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t
@@ -774,7 +776,8 @@ test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" c
         .ok();
 });
 
-test('Clicking "@condition" and choosing multiple conditions creates condition sections for each in the context tray.', async t => {
+// Test covered by an Enzyme test
+test.skip('Clicking "@condition" and choosing multiple conditions creates condition sections for each in the context tray.', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t
     //     .click(clinicalEventSelector)
