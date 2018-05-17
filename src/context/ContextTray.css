@@ -4,8 +4,7 @@
 }
 
 .context-tray section {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 1px 0;
 }
 
 .context-tray .section-item {
@@ -33,5 +32,13 @@
 
 .context-tray .fa {
     font-size: 1.4em;
-    color: #aaa;
+    width: 14px;
+    margin-left: 2px;
+    color: #3399FF;
+}
+
+.condition-contexts,
+.section-active {
+    border-left: 3px solid #eee;
+    margin-left: 5px;
 }

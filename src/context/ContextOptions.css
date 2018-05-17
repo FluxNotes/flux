@@ -2,7 +2,7 @@
     margin: 5px 0 5px 26px;
     cursor: pointer;
     font-size: 0.9em;
-    color: #888;
+    color: #555
 }
 
 .context-option:hover,
@@ -14,6 +14,12 @@
 .context-options-list {
     overflow-y: hidden;
     overflow-x: hidden;
+    font-weight: normal;
+}
+
+.section-active{
+    border-left: 3px solid #eee;
+    margin-left: 5px;
 }
 
 #shortcut-search {

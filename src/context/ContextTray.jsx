@@ -108,7 +108,7 @@ export default class ContextTray extends Component {
         const children = this.filterContextChildren(contexts, selectedParentContext);
 
         return (
-            <div>
+            <div className="condition-contexts">
                 <section>
                     {parentContexts.map((context, i) => {
                         const isActive = activeContext === context;
@@ -218,16 +218,14 @@ export default class ContextTray extends Component {
                         className={`section-item${value === 0 ? ' selected' : ''}`}
                         onClick={this.handleTemplateSectionClick}
                     >
-                        <FontAwesome name={value === 0 ? 'angle-down' : 'angle-right'} fixedWidth />
-                        Templates
-                    </div>
+                        TEMPLATES
+                    </div>                        
 
                     <div
                         className={`section-item${value === 1 ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
-                        <FontAwesome name={value === 1 ? 'angle-down' : 'angle-right'} fixedWidth />
-                        Patient
+                        CONTEXT
                     </div>
                 </section>
 
