@@ -433,7 +433,7 @@
         "description": "Insert review of systems for patient."
       }
     ],
-    "kn,ownParentContexts": "Patient"
+    "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
     "id": "DateOfDiagnosisInserter",
