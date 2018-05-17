@@ -170,9 +170,10 @@ export default class ContextOptions extends Component {
                                     );
                                 })}
                             </div>
+
                         </div>);
                     })}
-                    </div>
+                </div>
             </section>
         );
     }

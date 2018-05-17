@@ -75,7 +75,6 @@ export default class ContextTray extends Component {
 
     handleTemplateSectionClick = () => this.setState({ value: 0 })
     handlePatientSectionClick = () => this.setState({ value: 1 })
-    handleSnippetClick = () => console.log("snippit click")
 
     findParentContext(activeContexts) {
         const value = this.state.value - 2;
