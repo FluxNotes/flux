@@ -138,8 +138,7 @@ describe('FluxNotesEditor', function() {
               setStart: function(){},
               getBoundingClientRect: function(){
                   return {right: 0};
-              },
-              // getClientRects: () => {}//JULIA added
+              }
           }
       };
     })
