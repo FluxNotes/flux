@@ -792,7 +792,7 @@ test.skip('Clicking "@condition" and choosing multiple conditions creates condit
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
     const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const patientButton = await sectionItemElements.withText(/Patient/g);
+    const patientButton = await sectionItemElements.withText(/CONTEXT/g);
     const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
@@ -856,7 +856,7 @@ test('Clicking "@condition" and choosing multiple conditions does not allow user
     const contextPanelElements = Selector('.context-options-list').find('.context-option');
     const sectionItemElements = Selector('.context-tray').find('.section-item');
     const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const patientButton = await sectionItemElements.withText(/Patient/g);
+    const patientButton = await sectionItemElements.withText(/CONTEXT/g);
     const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
     const fractureButton = await optionsForm.withText(/Fracture/ig);
 
