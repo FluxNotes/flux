@@ -434,5 +434,12 @@
       }
     ],
     "knownParentContexts": "Patient"
+  },
+  { "type": "InsertValue",
+    "id": "DateOfDiagnosisInserter",
+    "getData": {"object": "$parentValueObject", "method": "getDiagnosisDate"},
+    "isContext": false,
+    "stringTriggers": [{"name": "@dateofdiagnosis", "description": "Patient's date of diagnosis in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
+    "knownParentContexts": "ConditionInserter"
   }
 ]

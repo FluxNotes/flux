@@ -25,6 +25,10 @@ class FluxCondition {
         return null;
     }
 
+    getDiagnosisDate() {
+        return this.diagnosisDate;
+    }
+
     get code() {
         if (!this._condition.value) return null;
         return this._condition.value.coding[0].value;
