@@ -10,8 +10,8 @@ For easiest integration, we will generate a coffee file using cql-to-elm:
 3. Clone the [clinical_quality_language](https://github.com/cqframework/clinical_quality_language) repository to a location of your choice
 4. `cd ${path_to_clinical_quality_language}/Src/java` (replacing `${path_to_clinical_quality_language}` with the path to the local clone)
 5. `./gradlew :cql-to-elm:installDist`
-    * If you get a connection timeout warning, create a `gradle.properties` file in your `GRADLE_USER_HOME` directory(default is the `.gradle` directory).  Use [these settings](https://mitrepedia.mitre.org/index.php/Proxy_Settings#Gradle) for the MITRE proxy.
-6. `./cql-to-elm/build/install/cql-to-elm/bin/cql-to-elm --format=COFFEE --input ${path_to_cql} --output ${path_to_cql-execution}/src/`
+    * If you get a connection timeout warning, create a `gradle.properties` file in your `GRADLE_USER_HOME` directory(default is the `~/.gradle` directory) with your proxy settings.
+6. `./cql-to-elm/build/install/cql-to-elm/bin/cql-to-elm --format=COFFEE --input ${path_to_cql_file} --output ${path_to_cql-execution}/src/`
 
 We will now have a JSON ELM coffeescript file for the measure in the `src` directory of the `cql-execution` repository.  Now we must compile it to javascript in the `lib` directory.  There is a simple Cakefile build script for this (cake is installed with coffeescript):
 1. `cd ${path_to_cql-execution}`
