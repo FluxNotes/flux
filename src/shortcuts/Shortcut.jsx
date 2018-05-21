@@ -1,6 +1,7 @@
 import Context from '../context/Context';
 //import React from 'react';
 import Lang from 'lodash';
+import moment from 'moment';
 
 class Shortcut extends Context {
     constructor() {
@@ -55,7 +56,35 @@ class Shortcut extends Context {
     
     //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item}
     flagForTextSelection(options) {
+        console.log("options");
+        console.log(options);
+
+        // call options.sort (sort function in here)
+        options.sort(this._optionsTimeSorter);
+
+
         this.optionsToSelectFrom = options;
+    }
+
+    _optionsTimeSorter(a, b) {
+
+        console.log("a: " + a);
+        console.log("b: " + b);
+
+
+        const a_startTime = new moment(a.date, "D MMM YYYY");
+        const b_startTime = new moment(b.date, "D MMM YYYY");
+
+        console.log("a_startTime: " + a_startTime);
+        console.log("b_startTime: " + b_startTime);
+
+        if (a_startTime < b_startTime) {
+            return 1;
+        }
+        if (a_startTime > b_startTime) {
+            return -1;
+        }
+        return 0;
     }
     
     getValueSelectionOptions() {

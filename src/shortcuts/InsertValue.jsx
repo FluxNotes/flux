@@ -77,10 +77,18 @@ export default class InsertValue extends Shortcut {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {
                     const itemKey = callSpec["itemKey"].split(".");
                     const itemContext = callSpec["itemContext"].split(".");
+                    const itemDate = callSpec["itemDate"];
+
+                    console.log("Item date");
+                    console.log(itemDate);
                     return result.map((item) => {
+                    console.log("Item occurrence time");
+                        console.log(item[itemDate]);
+                        // console.log(this._getValueUsingPath(item, itemDate));
                         return {key: this._getValueUsingPath(item, itemKey), 
                                 context: this._getValueUsingPath(item, itemContext), 
-                                object: item};
+                                object: item,
+                                date: item[itemDate]};
                     });
                 } else {
                     let listItems = callSpec["listItems"];
