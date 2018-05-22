@@ -56,8 +56,10 @@ class Shortcut extends Context {
     
     //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
-        // Sort the options by time
-        options.sort(this._optionsTimeSorter);
+        // Sort the options by time if options is an array
+        if (Lang.isArray(options)) {
+            options.sort(this._optionsTimeSorter);
+        }
         this.optionsToSelectFrom = options;
     }
 
