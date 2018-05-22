@@ -54,29 +54,17 @@ class Shortcut extends Context {
         return []; // no errors
     }
     
-    //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item}
+    //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
-        console.log("options");
-        console.log(options);
-
-        // call options.sort (sort function in here)
+        // Sort the options by time
         options.sort(this._optionsTimeSorter);
-
-
         this.optionsToSelectFrom = options;
     }
 
+    // Sorts array items by time with most recent item first
     _optionsTimeSorter(a, b) {
-
-        console.log("a: " + a);
-        console.log("b: " + b);
-
-
         const a_startTime = new moment(a.date, "D MMM YYYY");
         const b_startTime = new moment(b.date, "D MMM YYYY");
-
-        console.log("a_startTime: " + a_startTime);
-        console.log("b_startTime: " + b_startTime);
 
         if (a_startTime < b_startTime) {
             return 1;
