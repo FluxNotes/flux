@@ -71,6 +71,7 @@ export default class InsertValue extends Shortcut {
                 console.error("not supported yet " + callSpec);
             }
         } else if (callObject === "patient") {
+            //"getData": [ {"object": "patient", "method": "getAge"}]
             result = contextManager.getPatient()[callSpec["method"]]();
             if (Lang.isArray(result)) {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {
@@ -109,6 +110,7 @@ export default class InsertValue extends Shortcut {
             }
             return result;
         } else if (callObject === "parent") {
+            //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
             return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getAttributeValue(attribute);
         } else if (callObject === "$parentValueObject") {
