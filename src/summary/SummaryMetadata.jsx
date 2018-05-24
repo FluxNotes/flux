@@ -860,7 +860,7 @@ export default class SummaryMetadata {
         let items = [];
 
         progressions.forEach((prog) => {
-            const assignedGroup = this.assignItemToGroup(items, prog.clinicallyRelevantTime, groupStartIndex);
+            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, prog.clinicallyRelevantTime);
 
             let classes = 'progression-item';
             // Do not include progression on timeline if status not set
@@ -900,7 +900,7 @@ export default class SummaryMetadata {
             if (Lang.isNull(ept)) return;
             const startTime = new moment(med.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
             const endTime = new moment(med.expectedPerformanceTime.timePeriodEnd, "D MMM YYYY");
-            const assignedGroup = this.assignItemToGroup(items, startTime, 1);
+            const assignedGroup = this.assignItemToGroup(items, 1, startTime, endTime);
             const name = med.medication;
             let dosage;
             if (!med.amountPerDose) {
@@ -932,7 +932,7 @@ export default class SummaryMetadata {
         procedures.forEach((proc) => {
             let startTime = new moment(typeof proc.occurrenceTime === 'string' ? proc.occurrenceTime : proc.occurrenceTime.timePeriodStart, "D MMM YYYY");
             let endTime = proc.occurrenceTime.timePeriodStart ? (!Lang.isNull(proc.occurrenceTime.timePeriodEnd) ? new moment(proc.occurrenceTime.timePeriodEnd, "D MMM YYYY") : null) : null;
-            const assignedGroup = this.assignItemToGroup(items, startTime, groupStartIndex);
+            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, startTime, endTime);
 
             let classes = 'event-item';
             //let endDate = proc.endDate;
@@ -970,7 +970,7 @@ export default class SummaryMetadata {
         let items = [];
 
         events.forEach((evt) => {
-            const assignedGroup = this.assignItemToGroup(items, evt.start_time, groupStartIndex);
+            const assignedGroup = this.assignItemToGroup(items, groupStartIndex, evt.start_time, evt.end_time);
 
             let classes = 'progression-item';
             let startDate = new moment(evt.start_time, "D MMM YYYY");
@@ -1006,7 +1006,7 @@ export default class SummaryMetadata {
     // Assigns a new timeline item to a group in the timeline, avoiding conflicts with
     // existing timeline items. If firstAvailableGroup is provided, the group assigned
     // will not be less than the firstAvailableGroup.
-    assignItemToGroup = (existingItems, startTime, firstAvailableGroup) => {
+    assignItemToGroup = (existingItems, firstAvailableGroup, startTime, endTime = null) => {
         let availableGroup = firstAvailableGroup || 1;
         let assignedGroup = null;
 
@@ -1016,8 +1016,13 @@ export default class SummaryMetadata {
 
             for (let i = 0; i < existingItemsInGroup.length; i++) {
                 const existingItem = existingItemsInGroup[i];
+                // endTime not always guarentted; perform our check conditionally here 
+                const doesEndTimeConflictWithExistingItem = (endTime ? endTime < existingItem.end_time && endTime >= existingItem.start_time : false);
+                const doesStartTimeConflictWithExistingItem = startTime < existingItem.end_time && startTime >= existingItem.start_time;
+                const doesNewCoverOld = endTime ? startTime <= existingItem.start_time && endTime >= existingItem.end_time : false;
+
                 // At the current group level, the new item conflicts with an existing item
-                if (startTime < existingItem.end_time && startTime >= existingItem.start_time) {
+                if (doesEndTimeConflictWithExistingItem || doesStartTimeConflictWithExistingItem || doesNewCoverOld) {
                     conflict = true;
                     break;
                 }
