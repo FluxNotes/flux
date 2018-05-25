@@ -327,7 +327,7 @@ class PatientRecord {
     }
     
     getActiveConditions() {
-        return this.getConditions().filter((c) => {
+        return this.getConditionsChronologicalOrder().filter((c) => {
             return (c.clinicalStatus === 'active' || c.clinicalStatus === 'recurrence');
         });
     }
@@ -646,10 +646,10 @@ class PatientRecord {
         const a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
-            return -1;
+            return 1;
         }
         if (a_startTime > b_startTime) {
-            return 1;
+            return -1;
         }
         return 0;
     }
@@ -706,10 +706,10 @@ class PatientRecord {
         let b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
         if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
-            return -1;
+            return 1;
         }
         if (a_startTime > b_startTime) {
-            return 1;
+            return -1;
         }
         return 0;
     }
@@ -730,10 +730,10 @@ class PatientRecord {
         const a_startTime = new moment(a.diagnosisDate, "D MMM YYYY");
         const b_startTime = new moment(b.diagnosisDate, "D MMM YYYY");
         if (a_startTime < b_startTime) {
-            return -1;
+            return 1;
         }
         if (a_startTime > b_startTime) {
-            return 1;
+            return -1;
         }
         return 0;
     }

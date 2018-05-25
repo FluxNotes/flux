@@ -30,7 +30,15 @@ class FluxMedicationRequested {
             return { timePeriodStart: date, timePeriodEnd: date };
         }
     }
-    
+
+    /*
+     *  Getter for start date
+     *  Returns object containing timePeriodStart value
+     */
+    get startDate() {
+        return this.expectedPerformanceTime.timePeriodStart || null;
+    }
+
     isActiveAsOf(date) {
         const expectedPerformanceTime = this.expectedPerformanceTime;
         if (!expectedPerformanceTime || !(this._medicationRequested.actionContext.expectedPerformanceTime.value instanceof TimePeriod)) return null;

@@ -29,9 +29,9 @@ export default class InsertValue extends Shortcut {
         }
     }
 
-	getPrefixCharacter() {
-		return "@";
-	}
+    getPrefixCharacter() {
+        return "@";
+    }
 
     _getValueUsingPath(item, attributePath) {
         let result = item, i;
@@ -40,7 +40,7 @@ export default class InsertValue extends Shortcut {
         }
         return result;
     }
-    
+
     _resolveCallSpec(callSpec, contextManager) {
         let result;
         const callObject = callSpec["object"];
@@ -53,8 +53,8 @@ export default class InsertValue extends Shortcut {
                 let index = string.indexOf("${"), index2;
                 while (index !== -1) {
                     if (start !== index) result += string.substring(start, index);
-                    index2 = string.indexOf("}", index+2);
-                    callId = string.substring(index+2, index2);
+                    index2 = string.indexOf("}", index + 2);
+                    callId = string.substring(index + 2, index2);
                     result += this._resolveCallSpec(params[callId], contextManager);
                     start = index2 + 1;
                     if (start < string.length) {
@@ -77,10 +77,15 @@ export default class InsertValue extends Shortcut {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {
                     const itemKey = callSpec["itemKey"].split(".");
                     const itemContext = callSpec["itemContext"].split(".");
+                    const itemDate = callSpec["itemDate"];
+
                     return result.map((item) => {
-                        return {key: this._getValueUsingPath(item, itemKey), 
-                                context: this._getValueUsingPath(item, itemContext), 
-                                object: item};
+                        return {
+                            key: this._getValueUsingPath(item, itemKey),
+                            context: this._getValueUsingPath(item, itemContext),
+                            object: item,
+                            date: item[itemDate]
+                        };
                     });
                 } else {
                     let listItems = callSpec["listItems"];
@@ -105,7 +110,7 @@ export default class InsertValue extends Shortcut {
             }
             return result;
         } else if (callObject === "parent") {
-        //   "getData": {"object": "parent", "attribute": "stage"},
+            //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
             return this.contextManager.getActiveContextOfType(this.metadata.knownParentContexts).getAttributeValue(attribute);
         } else if (callObject === "$parentValueObject") {
@@ -116,41 +121,41 @@ export default class InsertValue extends Shortcut {
         }
         return null;
     }
-    
+
     /*
      * Determines the text to display for this particular inserter shortcut. Some shortcuts
      * will return a string value, but others can returns a list of possible options for the
      * user to select from. Each item in that list must be a javascript object like this:
      *   {  key: <identifier for item>, 
-            context: <label or title to display to user>, 
-            object: <full SHR data object represented>
-         }
+     context: <label or title to display to user>,
+     object: <full SHR data object represented>
+     }
      */
-	determineText(contextManager) {
+    determineText(contextManager) {
         const callSpec = this.metadata["getData"];
         return this._resolveCallSpec(callSpec, contextManager);
-	}
-    
-    getShortcutType() { 
+    }
+
+    getShortcutType() {
         return this.metadata["id"];
     }
- 
+
     isContext() {
         return this.metadata.isContext;
     }
 
-	getLabel() {
-		return this.getText();
-	}
+    getLabel() {
+        return this.getText();
+    }
 
     getId() {
         return this.metadata["id"];
     }
 
-	getText() {
-		return this.text;
+    getText() {
+        return this.text;
     }
-    
+
     getResultText() {
         let text = this.text;
         if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
@@ -158,8 +163,8 @@ export default class InsertValue extends Shortcut {
         }
         return `${this.initiatingTrigger}[[${text}]]`;
     }
-		
-	setText(text) {
-		this.text = text;
-	}
+
+    setText(text) {
+        this.text = text;
+    }
 }

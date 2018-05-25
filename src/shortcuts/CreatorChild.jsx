@@ -83,7 +83,6 @@ export default class CreatorChild extends Shortcut {
     // This returns a placeholder object to trigger opening the Context Portal.
     // return 'date-id' opens calendar.
     determineText(contextManager) {
-        //console.log("determine text" + this.metadata.picker);
         if (!Lang.isObject(this.metadata.picker)) {
             return this.metadata.picker;
         } else if (Lang.isArray(this.metadata.picker)) {
