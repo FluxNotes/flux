@@ -18,6 +18,7 @@ import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
+import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 
@@ -44,10 +45,10 @@ const structuredFieldTypes = [
         name: 'typeStructuredField',
         value: 'structured_field'
     },
-    {
-        name: 'typeStructuredField',
-        value: 'single_hashtag_structured_field'
-    }
+    // {
+    //     name: 'typeStructuredField',
+    //     value: 'single_hashtag_structured_field'
+    // }
 ]
 
 // Given  text and starting index, recursively traverse text to find index location of text
@@ -88,6 +89,7 @@ class FluxNotesEditor extends React.Component {
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
+        this.plugins = [];
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
@@ -99,13 +101,23 @@ class FluxNotesEditor extends React.Component {
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases
         };
+
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
             const typeValue = type.value;
             structuredFieldPluginOptions[typeName] = typeValue;
         });
 
+        const singleHashtagKeywordStructuredFieldPluginOptions = {
+            contextManager: this.contextManager,
+            shortcutManager: this.props.shortcutManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            updateErrors: this.updateErrors,
+            createShortcut: this.props.newCurrentShortcut
+        };
+
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
@@ -121,19 +133,18 @@ class FluxNotesEditor extends React.Component {
             trigger: '@',
         });
 
-        this.plugins = [
-            this.suggestionsPluginCreators,
-            this.suggestionsPluginInserters,
-            this.structuredFieldPlugin
-        ];
-
+        this.plugins.push(this.suggestionsPluginCreators)
+        this.plugins.push(this.suggestionsPluginInserters)
+        this.plugins.push(this.structuredFieldPlugin)
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
         this.autoReplaceBeforeRegExp = undefined;
         let autoReplaceAfters = [];
-        let allShortcutDefinitions = this.props.shortcutManager.getAllShortcutDefinitions();
-        allShortcutDefinitions.forEach((def) => {
+        // Get all non-keyword shortcuts for autoreplace
+        let allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        allNonKeywordShortcuts.forEach((def) => {
             let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
@@ -152,7 +163,7 @@ class FluxNotesEditor extends React.Component {
 
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;
-        allShortcutDefinitions.forEach((def) => {
+        allNonKeywordShortcuts.forEach((def) => {
             triggerRegExp = def.regexpTrigger;
             if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
@@ -228,7 +239,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -736,6 +747,8 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
+        console.log("this.insertTextWithStructuredPhrases")
+        console.log(textToBeInserted)
         let state;
         const currentState = this.state.state;
 
@@ -750,7 +763,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-
+        console.log(triggers)
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 

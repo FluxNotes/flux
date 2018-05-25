@@ -30,6 +30,8 @@ function StructuredFieldPlugin(opts) {
                 }
             });
         }
+        // Sort the keys in reverse order of creation -- new keys are always > old keys
+        deletedKeys.sort((a, b) => b - a)
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {

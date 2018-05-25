@@ -1,4 +1,5 @@
 import Lang from 'lodash'
+import Collection from 'lodash'
 import PatientContext from './PatientContext';
 
 class ContextManager {
@@ -50,7 +51,7 @@ class ContextManager {
 
 	// returns undefined if not found
 	getActiveContextOfType(contextType) {
-		let context = this.activeContexts.find((item) => {
+		let context = Collection.find(this.activeContexts, (item) => {
 			return (item.getShortcutType() === contextType);
 		});
 
