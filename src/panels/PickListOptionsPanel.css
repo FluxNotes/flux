@@ -67,6 +67,11 @@
     border-radius: 6px;
 }
 
+.option-item {
+    display: flex;
+    justify-content: space-between !important;
+}
+
 /* ------------------------- OK/CANCEL BUTTONS ----------------------------- */
 
 .pickList-options-panel .pickList-options-buttons {

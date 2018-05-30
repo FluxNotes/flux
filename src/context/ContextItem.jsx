@@ -29,7 +29,7 @@ class ContextItem extends React.Component {
                 onClick={this.onClick}
                 onMouseEnter={this.onMouseEnter}
             >
-                {this.props.context.context}
+                {`${this.props.context.context} (${this.props.context.date})`}
             </li>
         );
     }
