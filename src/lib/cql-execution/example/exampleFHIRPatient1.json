@@ -1,0 +1,69 @@
+{
+    "resourceType": "Bundle",
+    "id": "Has a pregnancy Condition",
+    "type": "collection",
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "Patient",
+                "id": "93d8b432-f097-4c82-b111-8577e1d9d89f",
+                "name": [
+                    {
+                        "given": [
+                            "Jane"
+                        ],
+                        "family": [
+                            "Smith"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "1984-02-16T00:00:00.000Z"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Condition",
+                "id": "dd401c80-0f1a-4563-b3cb-7a19c6f1ae72",
+                "patient": {
+                    "reference": "Patient/93d8b432-f097-4c82-b111-8577e1d9d89f"
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "203082005",
+                            "display": "Fibromyalgia (disorder)"
+                        }
+                    ],
+                    "text": "Fibromyalgia (disorder)"
+                },
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "onsetDateTime": "2012-04-05T00:00:00.000Z"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Condition",
+                "id": "4cbb918e-57c5-45ab-b7b0-d8248cd17254",
+                "patient": {
+                    "reference": "Patient/93d8b432-f097-4c82-b111-8577e1d9d89f"
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "77386006",
+                            "display": "Pregnant (finding)"
+                        }
+                    ],
+                    "text": "Pregnant (finding)"
+                },
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "onsetDateTime": "2018-04-05T00:00:00.000Z"
+            }
+        }
+    ]
+}
