@@ -1,0 +1,2145 @@
+{
+  "2.16.840.1.113883.3.464.1003.103.12.1001": {
+    "20180326": {
+      "oid": "2.16.840.1.113883.3.464.1003.103.12.1001",
+      "version": "20180326",
+      "codes": [
+        {
+          "code": "105401000119101",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "106281000119103",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "111552007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "127012008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "1481000119100",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190330002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190331003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190368000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190369008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190372001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190389009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "190390000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "199229001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "199230006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "23045005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "237599002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "237604008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "237618001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "237619009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "250.00",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.01",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.02",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.03",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.10",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.11",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.12",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.13",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.20",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.21",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.22",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.23",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.30",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.31",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.32",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.33",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.40",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.41",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.42",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.43",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.50",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.51",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.52",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.53",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.60",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.61",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.62",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.63",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.70",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.71",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.72",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.73",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.80",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.81",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.82",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.83",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.90",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.91",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.92",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "250.93",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "2751001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "28032008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "31321000119102",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "313435000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "313436004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "314771006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "314893005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "314902007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "314903002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "314904008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "33559001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "357.2",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "359642000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "362.01",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.02",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.03",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.04",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.05",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.06",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "362.07",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "366.41",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "426875007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "427089005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "42954008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "44054006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "445260006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "46635009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "4783006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "51002006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "59079001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "5969009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609561005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609562003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609563008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609564002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609566000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609567009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609568004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609569007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609570008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609571007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609572000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609573005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609574004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609575003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609576002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609577006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "609578001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "648.00",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "648.01",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "648.02",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "648.03",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "648.04",
+          "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+          "version": "2013"
+        },
+        {
+          "code": "70694009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "709147009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "716362006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "71791000119104",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "719216001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "75524006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "75682002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "76751001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "81531005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "91352004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "9859006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "E10.10",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.11",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.21",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.22",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.29",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.321",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3211",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3212",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3213",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3219",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.329",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3291",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3292",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3293",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3299",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.331",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3312",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3313",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.339",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3391",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3392",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3393",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3399",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.341",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3411",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3412",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3413",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3419",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.349",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3491",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3492",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3493",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3499",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.351",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3511",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3512",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3513",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3519",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3521",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3522",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3523",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3529",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3531",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3532",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3533",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3539",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3541",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3542",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3543",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3549",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3551",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3552",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3553",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3559",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.359",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3591",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3592",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3593",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.3599",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.36",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.37X1",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.37X2",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.37X3",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.37X9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.39",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.40",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.41",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.42",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.43",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.44",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.49",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.51",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.52",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.59",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.610",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.618",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.620",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.621",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.622",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.628",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.630",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.638",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.641",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.649",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.65",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.69",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.8",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E10.9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.00",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.01",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.10",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.11",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.21",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.22",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.29",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.321",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3211",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3212",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3213",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3219",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.329",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3291",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3292",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3293",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3299",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.331",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3312",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3313",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.339",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3391",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3392",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3393",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3399",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.341",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3411",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3412",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3413",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3419",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.349",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3491",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3492",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3493",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3499",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.351",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3511",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3512",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3513",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3519",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3521",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3522",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3523",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3529",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3531",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3532",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3533",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3539",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3541",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3542",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3543",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3549",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3551",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3552",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3553",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3559",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.359",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3591",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3592",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3593",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.3599",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.36",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.37X1",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.37X2",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.37X3",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.37X9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.39",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.40",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.41",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.42",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.43",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.44",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.49",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.51",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.52",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.59",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.610",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.618",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.620",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.621",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.622",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.628",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.630",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.638",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.641",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.649",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.65",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.69",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.8",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E11.9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.00",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.01",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.10",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.11",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.21",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.22",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.29",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.321",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3211",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3212",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3213",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3219",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.329",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3291",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3292",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3293",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3299",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.331",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3312",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3313",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.339",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3391",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3392",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3393",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3399",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.341",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3411",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3412",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3413",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3419",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.349",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3491",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3492",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3493",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3499",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.351",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3511",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3512",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3513",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3519",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3521",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3522",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3523",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3529",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3531",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3532",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3533",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3539",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3541",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3542",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3543",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3549",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3551",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3552",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3553",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3559",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.359",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3591",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3592",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3593",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.3599",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.36",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.37X1",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.37X2",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.37X3",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.37X9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.39",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.40",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.41",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.42",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.43",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.44",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.49",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.51",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.52",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.59",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.610",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.618",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.620",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.621",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.622",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.628",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.630",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.638",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.641",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.649",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.65",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.69",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.8",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "E13.9",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.011",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.012",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.013",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.019",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.02",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.03",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.111",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.112",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.113",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.119",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.12",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.13",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.311",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.312",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.313",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.319",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.32",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.33",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.811",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.812",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.813",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.819",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.82",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        },
+        {
+          "code": "O24.83",
+          "system": "urn:oid:2.16.840.1.113883.6.90",
+          "version": "2018"
+        }
+      ]
+    }
+  }
+}
