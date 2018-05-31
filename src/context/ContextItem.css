@@ -2,9 +2,15 @@
 .context-portal .context-menu-item {
     padding: 5px 10px;
     width: 300px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .context-portal .context-menu-item[data-active="true"] {
     background-color: #1384b5;
     color: #fff;
+}
+
+.right-aligned {
+    padding-left: 15px;
 }

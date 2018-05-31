@@ -278,7 +278,7 @@ describe('FluxNotesEditor', function() {
         conditionButton.simulate('click');
 
         const optionsForm = notesPanelWrapper.find('.pickList-options-panel').find('.option-btn').find('span');
-        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast' });
+        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 13 JAN 2012' });
         invasiveButton.simulate('click');
 
         const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');

@@ -26,6 +26,14 @@ class FluxProcedureRequested {
         }
     }
 
+    get dateLabel() {
+        if (this.occurrenceTime.timePeriodStart) {
+            return `${this.occurrenceTime.timePeriodStart}―${this.occurrenceTime.timePeriodEnd}`;
+        } else {
+            return `${this.occurrenceTime}`;
+        }
+    }
+
     /*
      *  Getter for status
      *  Returns status string

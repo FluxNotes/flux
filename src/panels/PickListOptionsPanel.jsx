@@ -11,7 +11,6 @@ import './PickListOptionsPanel.css';
 export default class PickListOptionsPanel extends Component {
     constructor(props) {
         super(props);
-
         // Add an index at the end of trigger string to differentiate shortcuts with the same trigger
         this.arrayOfPickLists = this.props.arrayOfPickLists.map((pickList, i) => {
             return {
@@ -65,7 +64,7 @@ export default class PickListOptionsPanel extends Component {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption: triggerSelection.selectedOption
+                selectedOption: triggerSelection.selectedOption.context
             }
         });
 
@@ -144,7 +143,7 @@ export default class PickListOptionsPanel extends Component {
                                 overlayStyle={{'visibility': this.state.tooltipVisibility}}
                                 placement="left"
                                 overlayClassName={`option-tooltip`}
-                                overlay={option}
+                                overlay={`${option.context} ${option.date}`}
                                 destroyTooltipOnHide={true}
                                 mouseEnterDelay={0.5}
                                 onMouseEnter={this.mouseEnter}
@@ -154,7 +153,7 @@ export default class PickListOptionsPanel extends Component {
                                     <SingleChoiceButton
                                         buttonKey={i}
                                         className="option-btn"
-                                        buttonText={option}
+                                        buttonText={`${option.context} ${option.date}`}
                                         onClick={(e) => this.handleOptionButtonClick(option, trigger)}
                                         isSelected={option === this.state.triggerSelections[triggerIndex].selectedOption}
                                     />
@@ -163,6 +162,7 @@ export default class PickListOptionsPanel extends Component {
                         </div>
                     )
                 })
+
             );
         }
         // If there are a lot of options, render a drop down instead of buttons
@@ -197,8 +197,15 @@ export default class PickListOptionsPanel extends Component {
             <MenuItem
                 className="option-item"
                 key={`option-${index}`}
-                value={index}>
-                {option}
+                value={index}
+            >
+                <span>
+                    {option.context}
+                </span>
+                <span className="right-aligned">
+                    {option.date}
+                </span>                
+                
             </MenuItem>
         );
     }
