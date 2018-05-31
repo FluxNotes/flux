@@ -72,6 +72,10 @@
     justify-content: space-between !important;
 }
 
+.right-aligned {
+    padding-left: 15px;
+}
+
 /* ------------------------- OK/CANCEL BUTTONS ----------------------------- */
 
 .pickList-options-panel .pickList-options-buttons {

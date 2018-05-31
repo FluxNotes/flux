@@ -840,7 +840,6 @@ class FluxNotesEditor extends React.Component {
                         'options': shortcutOptions,
                     }
                 )
-                console.log(localArrayOfPickListsWithOptions)
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);

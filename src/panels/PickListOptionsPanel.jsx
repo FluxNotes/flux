@@ -199,7 +199,7 @@ export default class PickListOptionsPanel extends Component {
                 key={`option-${index}`}
                 value={index}
             >
-                <span className="left-aligned">
+                <span>
                     {option.context}
                 </span>
                 <span className="right-aligned">
