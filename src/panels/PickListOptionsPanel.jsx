@@ -52,23 +52,33 @@ export default class PickListOptionsPanel extends Component {
     }
 
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
-    handleOkButtonClick = () => {
+    handleOkButtonClick = (selectedOption) => {
         // Verify that we have an option for each pick list
         const isAllSelected = this.state.triggerSelections.every((triggerSelection) => {
            return !Lang.isUndefined(triggerSelection.selectedOption);
         });
 
-        if (!isAllSelected) return;
-
-        let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
+        let triggerSelection = selectedOption;
+        if (triggerSelection) {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
-            return {
+            const option = [{
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
                 selectedOption: triggerSelection.selectedOption.context
-            }
-        });
+            }];
+            this.props.updateContextTrayItemWithSelectedPickListOptions(option)
+        }
 
-        this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
+        // if (!isAllSelected) return;
+        // 
+        // let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
+        //     let underScoreIndex = triggerSelection.trigger.indexOf("_");
+        //     return {
+        //         trigger: triggerSelection.trigger.slice(0, underScoreIndex),
+        //         selectedOption: triggerSelection.selectedOption
+        //     }
+        // });
+        // 
+        // this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
     }
 
     handleOptionButtonClick(option, trigger) {
@@ -102,6 +112,7 @@ export default class PickListOptionsPanel extends Component {
             let triggerSelections = [...this.state.triggerSelections];
             triggerSelections[index].selectedOption = selectedOption;
             this.setState({ triggerSelections });
+            this.handleOkButtonClick(triggerSelections[index]);
         } else {
             console.error(`Trigger ${trigger} is not in triggerSelections array.`);
         }

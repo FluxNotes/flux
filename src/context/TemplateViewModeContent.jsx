@@ -8,7 +8,7 @@ export default class TemplateViewModeContent extends Component {
     templates = [
         { name: 'progress note', content: 'REASON FOR VISIT:\n@reason for next visit @condition\n\nHISTORY OF PRESENT ILLNESS:\n@HPI\n\nREVIEW OF SYSTEMS:\n\nALLERGIES:\n@ALLERGIES\n\nMEDICATIONS:\n@active medications\n\nPHYSICAL EXAM:\n\nASSESSMENT:\n\nPLAN:\n\n' },
         { name: 'op note', content: 'op note' },
-        // { name: 'follow-up', content: 'FOLLOW UP:\nPatient is showing signs of @condition @condition\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure' },
+        { name: 'follow-up', content: 'FOLLOW UP:\nPatient is showing signs of @condition @condition\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure' },
         { name: 'consult note', content: '@patient presenting with ' }
     ];
 

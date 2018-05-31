@@ -235,7 +235,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) => {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, openPortal = true) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -247,7 +247,8 @@ class FluxNotesEditor extends React.Component {
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, openPortal);
+            // return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
@@ -291,11 +292,21 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, openPortal = true) {
+        if (!openPortal) {
+            this.setState({
+                isPortalOpen: openPortal,
+                needToDelete: needToDelete,
+            });
+            this.selectingForShortcut = null;
+            this.insertPlainText(transform, shortcut.initiatingTrigger);
+            return transform.blur();
+        }
+        
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: true,
+            isPortalOpen: openPortal,
             portalOptions: portalOptions,
             needToDelete: needToDelete,
         });
@@ -477,7 +488,8 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
 
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
+                let openPortal = this.props.noteAssistantMode !== 'pick-list-options-panel';
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, openPortal);
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
@@ -746,7 +758,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, openPortal = true) => {
         let state;
         const currentState = this.state.state;
 
@@ -796,8 +808,7 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-
-                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
+                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, openPortal);
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
@@ -858,8 +869,10 @@ class FluxNotesEditor extends React.Component {
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
+            this.props.setFullAppState('isNoteViewerEditable', false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
+            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
         }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {

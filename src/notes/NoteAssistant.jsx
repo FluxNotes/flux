@@ -520,7 +520,8 @@ export default class NoteAssistant extends Component {
     render() {
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
-        const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes")
+        // const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes")
+        const noteAssistantMode = this.props.noteAssistantMode;//TODO: changing breaks some cases
         return (
             <div className="note-assistant-wrapper">
                 {this.renderToggleButtons()}

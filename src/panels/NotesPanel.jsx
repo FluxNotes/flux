@@ -15,7 +15,7 @@ export default class NotesPanel extends Component {
         this.state = {
             // updatedEditorNote is the note to be loaded in the editor
             updatedEditorNote: null,
-            noteAssistantMode: "context-tray",
+            noteAssistantMode: "clinical-notes",//"context-tray", //TODO - changing default breaks other cases
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
             selectedNote: null,
             currentlyEditingEntryId: -1,
@@ -67,6 +67,7 @@ export default class NotesPanel extends Component {
         }
 
         this.setState({contextTrayItemToInsert: contextTrayItemToInsert});
+        this.setState({updatedEditorNote: { content: contextTrayItemToInsert }});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
@@ -237,6 +238,7 @@ export default class NotesPanel extends Component {
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
+                    noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     selectedNote={this.state.selectedNote}
