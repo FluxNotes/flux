@@ -1,0 +1,96 @@
+{
+  "resourceType": "Bundle",
+  "id": "Old_Foot_Exam_Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "Old_Foot_Exam",
+        "gender": "male",
+        "birthDate": "1982-01-30"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "3-1",
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Diabetes mellitus type 2 (disorder)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/Old_Foot_Exam"
+        },
+        "onsetDateTime": "2015-01-30"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "3-2",
+        "subject": {
+          "reference": "Patient/Old_Foot_Exam"
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "401191002",
+              "display": "Diabetic foot examination (regime/therapy)"
+            }
+          ]
+        },
+        "performedDateTime": "2017-03-30"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "3-3",
+        "subject": {
+          "reference": "Patient/Old_Foot_Exam"
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "134388005",
+              "display": "Monofilament foot sensation test (procedure)"
+            }
+          ]
+        },
+        "performedDateTime": "2017-03-30"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "3-4",
+        "subject": {
+          "reference": "Patient/Old_Foot_Exam"
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "91161007",
+              "display": "Pedal pulse taking (procedure)"
+            }
+          ]
+        },
+        "performedDateTime": "2017-03-30"
+      }
+    }
+  ]
+}

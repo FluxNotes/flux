@@ -9,6 +9,7 @@ include FHIRHelpers version '1.0.2' called FHIRHelpers
 // Value set and codes loosely borrowed from CMS 123v7
 codesystem "SNOMEDCT": 'http://snomed.info/sct'
 valueset "Diabetes": '2.16.840.1.113883.3.464.1003.103.12.1001'
+valueset "Breast Cancer": '2.16.840.1.113883.3.526.2.98'
 code "Diabetic foot examination (regime/therapy) code": '401191002' from "SNOMEDCT" display 'Diabetic foot examination (regime/therapy)'
 code "Monofilament foot sensation test (procedure) code": '134388005' from "SNOMEDCT" display 'Monofilament foot sensation test (procedure)'
 code "Pedal pulse taking (procedure) code": '91161007' from "SNOMEDCT" display 'Pedal pulse taking (procedure)'

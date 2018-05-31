@@ -46,6 +46,10 @@
             "name": "Diabetes",
             "id": "2.16.840.1.113883.3.464.1003.103.12.1001",
             "accessLevel": "Public"
+          }, {
+            "name": "Breast Cancer",
+            "id": "2.16.840.1.113883.3.526.2.98",
+            "accessLevel": "Public"
           }
         ]
       },

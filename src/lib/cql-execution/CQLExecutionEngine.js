@@ -6,6 +6,7 @@ import exampleCql from './example/cql/DiabeticFootExam';
 import examplePatient1 from './example/patients/exampleFHIRPatient1.json';
 import examplePatient2 from './example/patients/exampleFHIRPatient2.json';
 import examplePatient3 from './example/patients/No_Foot_Exam.json';
+import examplePatient4 from './example/patients/Old_Foot_Exam.json';
 
 /*
  *  returns CQL execution results when passed in a measure and set of patients
@@ -32,5 +33,5 @@ exports.getCQLResults = (cqlLogic, psource) => {
 // returns CQL Results using example measure(age.cql -> age.coffee -> (age.js, age.js.map))
 // and example patient source
 exports.getExampleCQLResults = () => {
-    return exports.getCQLResults(exampleCql, [examplePatient1, examplePatient2, examplePatient3]);
+    return exports.getCQLResults(exampleCql, [examplePatient1, examplePatient2, examplePatient3, examplePatient4]);
 }
