@@ -1,6 +1,8 @@
 import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword'
 import Lang from 'lodash';
+import { Selection } from '../lib/slate';
 import Collection from 'lodash';
+import { list } from 'postcss';
 
 function createOpts(opts) {
     opts = opts || {};
@@ -9,92 +11,126 @@ function createOpts(opts) {
 
 function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     opts = createOpts(opts);
-    let shortcutManager = opts.shortcutManager;
-    let contextManager = opts.contextManager;
-	let createShortcut = opts.createShortcut;
 	let updateErrors = opts.updateErrors;
-	// maps keys to lists of active keywords
-	let nodeKeyToActiveKeywords = {};
+    const shortcutManager = opts.shortcutManager;
+    const contextManager = opts.contextManager;
+	const createShortcut = opts.createShortcut;
+	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
+	const suggestionDeleteExistingTransform = opts.suggestionDeleteExistingTransform;
+	const structuredFieldMapManager = opts.structuredFieldMapManager;
 
-	//  On change, add/remove shortcuts for keywords
-    function onChange(state, editor) {
-		const docText = state.document.text;
-		// console.log(docText)
-		// console.log('---- getKeyToActives....')
-		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
-		const nodes = state.document.getBlocks();
-		nodes.forEach((node) => {
-			const curKey = node.key;
-			const curText = node.text;
-			// Initialize the array of keywords if this is a new node.
-			if (Lang.isUndefined(nodeKeyToActiveKeywords[curKey])) nodeKeyToActiveKeywords[curKey] = [];
-			// get all shortcuts relevant for this block key 
-			const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey)
-			if (relevantSingleHashtagKeywordMappings.length !== 0) { 
-				const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
-				listOfKeywordShortcutClasses.forEach((keywordClass, ...otherargs) =>{
-					// Check all relevant keywords for new additions or removals
-					const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
-					const foundKeywordInClosetBlock = scanTextForKeywordObject(curText, keywords)
-					if (foundKeywordInClosetBlock) { 
-						// either already detected or new
-						const isNewKeyword = Lang.isUndefined(nodeKeyToActiveKeywords[curKey].find((keywordShortcut) => { 
-							return foundKeywordInClosetBlock.name.toLowerCase() === keywordShortcut.initiatingTrigger.toLowerCase();
-						}));
-						if (isNewKeyword) { 
-							const newKeywordShortcut = createShortcut(null, foundKeywordInClosetBlock.name)
-							addActiveKeywordFromMap(newKeywordShortcut, curKey)
-						} 
-					} else { 
-						// either deleted or sofar undetected
-						const activeShortcutMissing = scanTextForMissingKeywordShortcut(curText, nodeKeyToActiveKeywords[curKey])
-						if (activeShortcutMissing) { 
-							deleteShortcut(activeShortcutMissing, curKey)
-						}
-					}
-				})
-			}	
-		});
+	function onBeforeInput (e, data, editorState) { 
+		e.preventDefault()
+		// Insert text and parse results
+		const curTransform  = editorState.transform().insertText(e.data);
+		const curKey = curTransform.state.endKey;
+		const curNode = curTransform.state.endBlock;
 
-        return state;
+		// Apply transform operations -- if there are no relevant operations, effective noop
+		return replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state).apply()
 	}
+
+	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
+		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
+		const curKey = curNode.key;
+		let curText = curNode.text;
+		const startingNumberOfOperations = curTransform.operations.length;
+
+		const keyToShortcutMap = structuredFieldMapManager.keyToShortcutMap;
+
+		// get all shortcuts relevant for this block key 
+		const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey)
+		// console.log("relevantSingleHashtagKeywordMappings")
+		// console.log(relevantSingleHashtagKeywordMappings)
+
+		if (relevantSingleHashtagKeywordMappings.length !== 0) {
+			// Get all relevant keywordShortcuts, 
+			const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+			for (const keywordClass of listOfKeywordShortcutClasses) {
+				// console.log('for KeywordClass')
+				// console.log(keywordClass)
+				// console.log(curText)
+				// Scan text to find any necessary replacements 
+				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
+				const keywordInClosetBlock = scanTextForKeywordObject(curText, keywords)
+				if (!Lang.isUndefined(keywordInClosetBlock)) { 
+					const keywordText = keywordInClosetBlock.name.toLowerCase()
+					const newKeywordShortcut = createShortcut(null, keywordText)
+					// KeywordRange never be null -- we've already confirmed the existance of the keyword
+					let keywordRange;
+					if(curNode.nodes) { 
+						for (const childNode of curNode.nodes){
+							keywordRange = getRangeForKeyword(childNode, keywordText)
+							if (keywordRange) break;
+						}
+					} else {
+						// console.log(curNode)
+						keywordRange = getRangeForKeyword(curNode, keywordText)
+					}
+					// Remove keyword from block, using first character as the prefix
+					curTransform = curTransform.select(keywordRange).delete();
+					console.log('just deleted')
+					console.log(curTransform)
+					// Add shortcut to text; add 
+					curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
+					curNode = curTransform.state.endBlock
+					curText = curNode.text;
+				} 
+			}
+		}
+		if (curTransform.operations.length > startingNumberOfOperations) { 
+			console.log('non-trivial transforms')
+			console.log(curTransform.operations.length)
+			curTransform = curTransform.collapseToEndOfNextText().focus()
+		}
+		return curTransform
+	}
+
+	// Get the slate Range of the freeText associated with a given keywordText
+	function getRangeForKeyword (curNode, keywordText) { 
+		// console.log("--- getRangeForKeyword")
+		// console.log("keywordText")
+		// console.log(keywordText)
+
+		// Return nothing if text is not found in this node
+		if (curNode.text.toLowerCase().indexOf(keywordText) === -1) {
+			return;  
+		} else { 
+			const anchorKey = curNode.key;
+			const anchorOffset = curNode.text.toLowerCase().indexOf(keywordText);
+			const focusKey = anchorKey;
+			const focusOffset = anchorOffset + keywordText.length;
+			const isBackward = false;
+			const isFocused = false;
+
+			return {
+				anchorKey: anchorKey,
+				anchorOffset: anchorOffset,
+				focusKey: focusKey,
+				focusOffset: focusOffset,
+				isFocused: isFocused,
+				isBackward: isBackward,
+			}
+		}
+	}
+	// For all inline and text nodes, find the node with our keyword
 	
 	// Delete shortcut and remove traces from activeKeyword Map
 	function deleteShortcut (keywordShortcut, curKey) { 
+		const keyToShortcutMap = structuredFieldMapManager.keyToShortcutMap;
+        const idToShortcutMap = structuredFieldMapManager.idToShortcutMap;
 		if (keywordShortcut.onBeforeDeleted()) {
-			removeActiveKeywordFromMap(keywordShortcut, curKey)
+			keyToShortcutMap.delete(curKey);
+			idToShortcutMap.delete(keywordShortcut.metadata.id)
 			contextManager.contextUpdated();
 		} else {
 			updateErrors([ "Unable to delete " + keywordShortcut.getLabel() + " because " + keywordShortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((keywordShortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
 		}
 	}
 
-	// Splice out keyword from array ofo values
-	function removeActiveKeywordFromMap(keywordShortcut, key) { 
-		const keywordArray = nodeKeyToActiveKeywords[key];
-		const indexOfKeyword = keywordArray.indexOf(keywordShortcut);
-		if (indexOfKeyword === -1) { 
-			console.error('tried to remove a keyword from our map of nodeKey to keywords; no such keyword existed')
-		} else { 
-			keywordArray.splice(indexOfKeyword, 1)
-		}
-	}
-
-	// add keyword to array of keywords for this nodeKey
-	function addActiveKeywordFromMap(keyword, key) { 
-		// console.log("addingActiveKeyword")
-		// Create an array for key if needed
-		let keywordArray = nodeKeyToActiveKeywords[key];
-		if (Lang.isUndefined(keywordArray)) {
-			nodeKeyToActiveKeywords[key] = [];
-			keywordArray = nodeKeyToActiveKeywords[key];
-		}
-		keywordArray.push(keyword)
-		// console.log(keywordArray)
-	}
-
 	// Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
 	function scanTextForKeywordObject(text, keywordObjects) { 
+		// return 
 		for (const keywordObj of keywordObjects) { 
 			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) { 
 				return keywordObj
@@ -142,9 +178,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function getKeyToActiveSingleHashtagKeywordShortcutMappings() { 
 		const listOfSingleHashtagKeywordShortcutMappings = [];
 		
-		opts.structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => { 
-			// console.log("map")
-			// console.log(map)
+		structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => { 
 			// Only list mappings for SingleHashtagKeyword shortcuts
 			if (shortcut instanceof SingleHashtagKeyword) {
 				const mapping = {};
@@ -156,9 +190,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 
 	return {
-        onChange,
+		onBeforeInput,
 		
         utils: {
+			replaceAllRelevantKeywordsInBlock: replaceAllRelevantKeywordsInBlock
         },
     };
 }

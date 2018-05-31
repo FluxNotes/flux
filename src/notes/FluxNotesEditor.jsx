@@ -113,7 +113,9 @@ class FluxNotesEditor extends React.Component {
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             updateErrors: this.updateErrors,
-            createShortcut: this.props.newCurrentShortcut
+            createShortcut: this.props.newCurrentShortcut,
+            insertStructuredFieldTransform: this.insertStructuredFieldTransform,
+            suggestionDeleteExistingTransform: this.suggestionDeleteExistingTransform,
         };
 
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
@@ -335,7 +337,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
-    suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
+    suggestionDeleteExistingTransform = (transform = null, prefixCharacter) => {
         const {state} = this.state;
         if (Lang.isNull(transform)) {
             transform = state.transform();
@@ -365,10 +367,11 @@ class FluxNotesEditor extends React.Component {
             .deleteBackward(charactersInStructuredPhrase);
     }
 
-    insertStructuredFieldTransform(transform, shortcut) {
+    insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
-        //console.log(result[0]);
+        // console.log("result[0]");
+        // console.log(result[0]);
         return result[0];
     }
 
@@ -739,6 +742,7 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
         } else {
             this.insertTextWithStyles(transform, text);
+            transform = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
             return transform;
             // return transform.insertText(text);
         }
@@ -747,7 +751,8 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
-        console.log("this.insertTextWithStructuredPhrases")
+        console.log("---- insertTextWithStructuredPhrases")
+        console.log("textToBeInserted")
         console.log(textToBeInserted)
         let state;
         const currentState = this.state.state;
@@ -763,7 +768,6 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-        console.log(triggers)
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
@@ -803,14 +807,14 @@ class FluxNotesEditor extends React.Component {
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
             });
         }
-
+        console.log("remainder")
+        console.log(remainder)
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
             transform = this.insertPlainText(transform, remainder);
         }
 
         state = transform.apply();
         this.setState({state: state});
-        // return state;
     }
 
     /**

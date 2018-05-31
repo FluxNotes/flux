@@ -36,7 +36,6 @@ function addTriggerForCurrentShortcut(triggerObject, currentShortcut) {
                 return (item.childShortcut === currentShortcut.id);
             });
             if (!Lang.isUndefined(voa)) {
-                console.log(voa)
                 voa["numberOfItems"] = list.length;
             }
         }
@@ -76,8 +75,8 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
                 return (item.childShortcut === currentShortcut.id);
             });
             if (!Lang.isUndefined(voa)) {
-                console.log("voa")
-                console.log(voa)
+                // console.log("voa")
+                // console.log(voa)
                 voa["numberOfItems"] = list.length;
             }
         }
@@ -140,16 +139,16 @@ class ShortcutManager {
             throw new Error("Unknown triggerOrKeyword '" + triggerOrKeyword + "'. No structured phrase found.");
         }
         className = metadata["type"];
-        console.log("className")
-        console.log(className)
-        console.log("definition")
-        console.log(definition)
-        console.log("triggerOrKeyword")
-        console.log(triggerOrKeyword)
-        console.log("shortcutMap")
-        console.log(this.shortcutMap)
-        console.log("metadata")
-        console.log(metadata)
+        // console.log("className")
+        // console.log(className)
+        // console.log("definition")
+        // console.log(definition)
+        // console.log("triggerOrKeyword")
+        // console.log(triggerOrKeyword)
+        // console.log("shortcutMap")
+        // console.log(this.shortcutMap)
+        // console.log("metadata")
+        // console.log(metadata)
         let newShortcut;
         if (className === "CreatorBase") {
             newShortcut = new CreatorBase(onUpdate, metadata, patient, shortcutData);
@@ -335,7 +334,6 @@ class ShortcutManager {
 
     getKeywordsForShortcut(shortcutId, context) { 
         if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) { 
-            console.log('keywords is undefined?!?1')
             return []
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();

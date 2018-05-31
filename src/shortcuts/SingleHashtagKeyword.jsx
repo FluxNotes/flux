@@ -48,7 +48,6 @@ export default class SingleHashtagKeyword extends Shortcut {
         });
         this.onUpdate = onUpdate;
         this.setAttributeValue = this.setAttributeValue.bind(this);
-        console.log(this.metadata)
     }
 
     initialize(contextManager, trigger = undefined, updatePatient = true) {
