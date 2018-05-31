@@ -1,0 +1,36 @@
+{
+  "resourceType": "Bundle",
+  "id": "No_Foot_Exam_Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "No_Foot_Exam",
+        "gender": "female",
+        "birthDate": "1973-04-28"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "1-1",
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Diabetes mellitus type 2 (disorder)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/No_Foot_Exam"
+        },
+        "onsetDateTime": "2012-10-05"
+      }
+    }
+  ]
+}
