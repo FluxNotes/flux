@@ -1,4 +1,252 @@
 {
+  "2.16.840.1.113883.3.526.2.98": {
+    "20180326": {
+      "oid": "2.16.840.1.113883.3.526.2.98",
+      "version": "20180326",
+      "codes": [
+        {
+          "code": "109886000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188147009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188151006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188152004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188153009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188154003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188155002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188156001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188157005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "188159008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "254837009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "254838004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "254839007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "254840009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "278054005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "286893002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "286894008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "286895009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "286896005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "286897001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "372064008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "372092003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "372093008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "372094002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "372137005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373080008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373081007",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373082000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373083005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373088001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373089009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373090000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "373091001",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "403458008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "403946000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "408643008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "417181009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "427685000",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "431396003",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "708921005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93680004",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93745008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93776002",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93796005",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93874009",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93876006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "93924008",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        },
+        {
+          "code": "94115006",
+          "system": "http://snomed.info/sct",
+          "version": "2018-03"
+        }
+      ]
+    }
+  },
   "2.16.840.1.113883.3.464.1003.103.12.1001": {
     "20180326": {
       "oid": "2.16.840.1.113883.3.464.1003.103.12.1001",
@@ -2138,254 +2386,6 @@
           "code": "O24.83",
           "system": "urn:oid:2.16.840.1.113883.6.90",
           "version": "2018"
-        }
-      ]
-    }
-  },
-  "2.16.840.1.113883.3.526.2.98": {
-    "20180326": {
-      "oid": "2.16.840.1.113883.3.526.2.98",
-      "version": "20180326",
-      "codes": [
-        {
-          "code": "109886000",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188147009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188151006",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188152004",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188153009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188154003",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188155002",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188156001",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188157005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "188159008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "254837009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "254838004",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "254839007",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "254840009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "278054005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "286893002",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "286894008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "286895009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "286896005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "286897001",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "372064008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "372092003",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "372093008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "372094002",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "372137005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373080008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373081007",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373082000",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373083005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373088001",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373089009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373090000",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "373091001",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "403458008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "403946000",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "408643008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "417181009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "427685000",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "431396003",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "708921005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93680004",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93745008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93776002",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93796005",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93874009",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93876006",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "93924008",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
-        },
-        {
-          "code": "94115006",
-          "system": "http://snomed.info/sct",
-          "version": "2018-03"
         }
       ]
     }
