@@ -44,11 +44,7 @@ const structuredFieldTypes = [
     {
         name: 'typeStructuredField',
         value: 'structured_field'
-    },
-    // {
-    //     name: 'typeStructuredField',
-    //     value: 'single_hashtag_structured_field'
-    // }
+    }
 ]
 
 // Given  text and starting index, recursively traverse text to find index location of text

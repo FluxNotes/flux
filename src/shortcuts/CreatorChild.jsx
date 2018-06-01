@@ -114,14 +114,14 @@ export default class CreatorChild extends Shortcut {
         }
         this.text = text;
         // console.log("CreatorChild.setText: " + this.metadata.picker);
-        console.log("Metadata ")
-        console.log(this.metadata);
+        // console.log("Metadata ")
+        // console.log(this.metadata);
         let value = text;
         if (this.metadata.picker === 'date-id') {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
-            console.log("set " + this.metadata.parentAttribute + " to " + value);
+            // console.log("set " + this.metadata.parentAttribute + " to " + value);
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient);
         }
     }

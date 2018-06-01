@@ -139,16 +139,6 @@ class ShortcutManager {
             throw new Error("Unknown triggerOrKeyword '" + triggerOrKeyword + "'. No structured phrase found.");
         }
         className = metadata["type"];
-        // console.log("className")
-        // console.log(className)
-        // console.log("definition")
-        // console.log(definition)
-        // console.log("triggerOrKeyword")
-        // console.log(triggerOrKeyword)
-        // console.log("shortcutMap")
-        // console.log(this.shortcutMap)
-        // console.log("metadata")
-        // console.log(metadata)
         let newShortcut;
         if (className === "CreatorBase") {
             newShortcut = new CreatorBase(onUpdate, metadata, patient, shortcutData);
