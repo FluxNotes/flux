@@ -21,7 +21,16 @@ class ContextManager {
 
 	getActiveContexts() {
 		return this.activeContexts;
-	}
+    }
+    
+    getActiveSingleHashtagKeywordShortcuts(shortcutManager) { 
+        return this.getActiveContexts().reduce((listOfSingleHashtagKeywordShortcuts, currentActiveShortcut) => { 
+            if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) { 
+                listOfSingleHashtagKeywordShortcuts.push(currentActiveShortcut);
+            }
+            return listOfSingleHashtagKeywordShortcuts
+        }, [])
+    }
 
 	getCurrentlyValidShortcuts(shortcutManager) {
 		//let result = this.patientContext.getValidChildShortcuts(true);

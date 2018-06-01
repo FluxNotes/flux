@@ -351,6 +351,10 @@ class ShortcutManager {
     getShortcutGroupName(shortcutId) {
         return this.shortcuts[shortcutId]["shortcutGroupName"];
     }
+
+    isShortcutInstanceOfSingleHashtagKeyword(shortcut) { 
+        return shortcut instanceof SingleHashtagKeyword 
+    }
 }
 
 export default ShortcutManager;
