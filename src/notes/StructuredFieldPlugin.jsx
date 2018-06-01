@@ -229,8 +229,8 @@ function StructuredFieldPlugin(opts) {
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
-            console.log("decoded")
-            console.log(decoded)
+            // console.log("decoded")
+            // console.log(decoded)
 
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection

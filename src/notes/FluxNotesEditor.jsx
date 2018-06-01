@@ -109,13 +109,10 @@ class FluxNotesEditor extends React.Component {
         });
 
         const singleHashtagKeywordStructuredFieldPluginOptions = {
-            contextManager: this.contextManager,
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
-            updateErrors: this.updateErrors,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
-            suggestionDeleteExistingTransform: this.suggestionDeleteExistingTransform,
         };
 
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
@@ -751,9 +748,6 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
-        console.log("---- insertTextWithStructuredPhrases")
-        console.log("textToBeInserted")
-        console.log(textToBeInserted)
         let state;
         const currentState = this.state.state;
 
@@ -807,8 +801,6 @@ class FluxNotesEditor extends React.Component {
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
             });
         }
-        console.log("remainder")
-        console.log(remainder)
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
             transform = this.insertPlainText(transform, remainder);
         }
