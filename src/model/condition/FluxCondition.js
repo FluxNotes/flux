@@ -66,9 +66,10 @@ class FluxCondition {
     
     get laterality() {
         if (    !this._condition.bodySiteOrCode || 
-                !this._condition.bodySiteOrCode.value || 
-                !(this._condition.bodySiteOrCode.value instanceof BodySite)) return null;
-        return this._condition.bodySiteOrCode.value.laterality.value.coding[0].displayText.value;        
+                this._condition.bodySiteOrCode.length < 1 ||
+                !this._condition.bodySiteOrCode[0].value ||
+                !(this._condition.bodySiteOrCode[0].value instanceof BodySite)) return null;
+        return this._condition.bodySiteOrCode[0].value.laterality.value.coding[0].displayText.value;
     }
 
     addObservation(observation, clinicalNote) {
