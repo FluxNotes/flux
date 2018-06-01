@@ -9,8 +9,8 @@ import examplePatient3 from './example/patients/No_Foot_Exam.json';
 import examplePatient4 from './example/patients/Old_Foot_Exam.json';
 
 /*
- *  returns CQL execution results when passed in a measure and set of patients
- *  cqlLogic is a javascript file compiled from coffeescript, which was converted from a CQL file defining logic
+ *  returns CQL execution results when passed in a CQL file(JSON ELM) and set of patients
+ *  cqlLogic is a JSON ELM file, which was converted from a CQL file defining logic
  *  psource is an array of patients each represented as a FHIR bundle
  */ 
 exports.getCQLResults = (cqlLogic, psource) => {
@@ -30,7 +30,7 @@ exports.getCQLResults = (cqlLogic, psource) => {
     return executor.exec(patientSource);
 }
 
-// returns CQL Results using example measure(age.cql -> age.coffee -> (age.js, age.js.map))
+// returns CQL Results using example CQL logic(age.cql -> age.JSON)
 // and example patient source
 exports.getExampleCQLResults = () => {
     return exports.getCQLResults(exampleCql, [examplePatient1, examplePatient2, examplePatient3, examplePatient4]);
