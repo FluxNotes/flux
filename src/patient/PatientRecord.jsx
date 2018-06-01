@@ -1,5 +1,5 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';;
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
 import FluxBreastCancer from '../model/oncology/FluxBreastCancer';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -41,19 +41,19 @@ class PatientRecord {
             //this.patientReference = null;
         }
     }
-    
+
     _calculateNextEntryId() {
         this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
             return o.entryInfo.entryId;
         })) + 1;
-    }        
+    }
 
     _loadJSON(shrJson) {
         return shrJson.map((entry) => {
 			return FluxObjectFactory.createInstance(entry, undefined, this);
         });
     }
-    
+
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry){
         if(Lang.isNull(entry)) return false;
@@ -69,7 +69,7 @@ class PatientRecord {
         }
         return false;*/
     }
-	
+
 	fromFHIR(fhirJson) {
 		// loop through each FHIR entry
 		// map to correct SHR entryTypes
@@ -92,7 +92,7 @@ class PatientRecord {
         this.patient = this.getPatient();
         this._calculateNextEntryId();
     }
-    
+
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
     updateExistingEntry(updatedEntry){
         var found = this.entries.find(function(element){
@@ -103,7 +103,7 @@ class PatientRecord {
             this.entries[index] = updatedEntry;
         }
     }
-    
+
     addUnenrolled(entry, clinicalNote) {
         if (!(entry.title) || entry.title.length === 0) return null;
         var found = this.entries.find(function(element) {
@@ -115,7 +115,7 @@ class PatientRecord {
             return found;
         } else {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
-        }            
+        }
     }
     reAddEntryToPatient(entry){
         this.entries.push(entry);
@@ -137,11 +137,11 @@ class PatientRecord {
         return entry; //entry.entryInfo.entryId;
     }
 
-    addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) { 
+    addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) {
         //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry, clinicalNote);
     }
-    
+
     removeEntryFromPatient(entry) {
         const index = this.entries.indexOf(entry);
         if (index >= 0) {
@@ -221,7 +221,7 @@ class PatientRecord {
     }
 
     getCurrentHomeAddress() {
-        if (Lang.isNull(this.person)) return null;   
+        if (Lang.isNull(this.person)) return null;
         return this.person.address;
     }
 
@@ -253,7 +253,7 @@ class PatientRecord {
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
         return nextEncounter.reasons.map((r) => { return r.value; }).join(',');
     }
-    
+
     getPreviousEncounter() {
         let encounters = this.getEncountersChronologicalOrder();
 
@@ -264,7 +264,7 @@ class PatientRecord {
             return encounterStartTime.isBefore(now, "second");
         }).pop();
     }
-    
+
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
         if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
@@ -285,7 +285,7 @@ class PatientRecord {
         if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
             return "No review of systems found in record.";
         }
-        
+
         // get FluxQuestionAnswer instances from references
         const members = ros.members.map((m) => {
             return this.getEntryFromReference(m);
@@ -301,14 +301,14 @@ class PatientRecord {
         if (trueAnswers.length > 0) {
             result += ` except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}`;
         }
-        
+
         return result + ".";
     }
-           
+
     getClinicalTrials(){
         let clinicalTrialList = new ClinicalTrialsList();
         let result = this.getEntriesOfType(FluxResearchSubject);
-            
+
         result.forEach((study) => {
             if (study.title) {
                 let trial = clinicalTrialList.getClinicalTrialByName(study.title);
@@ -317,15 +317,15 @@ class PatientRecord {
                 }
             }
         });
-        
+
         return result;
     }
-   
+
 
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);
     }
-    
+
     getActiveConditions() {
         return this.getConditionsChronologicalOrder().filter((c) => {
             return (c.clinicalStatus === 'active' || c.clinicalStatus === 'recurrence');
@@ -343,7 +343,7 @@ class PatientRecord {
         conditions.sort(this._conditionsAlphaSorter);
         return conditions;
     }
-    
+
     // gets all allergy entries from patient
     getAllAllergies() {
         let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
@@ -373,7 +373,7 @@ class PatientRecord {
     // returns all instances of FluxAllergyIntolerance with specificed category
     getAllergiesByCategory(category) {
         const allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
-        
+
         // if an allergy does not have a category
         if (category === "other") {
             return allergies.filter((a) => {
@@ -385,7 +385,7 @@ class PatientRecord {
             return a.category === category;
         });
     }
-    
+
     getAllergiesAsText() {
         const allergies = this.getAllAllergies();
         let result = "";
@@ -425,13 +425,13 @@ class PatientRecord {
                 "signed": signed
             }
         );
-        
+
 
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
 
     // Remove a given clinical note from a patient record
-    removeClinicalNote(note) { 
+    removeClinicalNote(note) {
         this.removeEntryFromPatient(note);
     }
 
@@ -483,7 +483,7 @@ class PatientRecord {
         list.sort(this._medsTimeSorter);
         return list;
     }
-    
+
     getMedicationsForConditionChronologicalOrder(condition) {
         let medications = this.getMedicationsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
@@ -502,7 +502,7 @@ class PatientRecord {
             return med.isActiveAsOf(today);
         });
     }
-    
+
     getActiveMedicationsChronologicalOrder() {
         let list = this.getActiveMedications();
         list.sort(this._medsTimeSorter);
@@ -519,18 +519,18 @@ class PatientRecord {
         });
         return medications;
     }
-    
-    getMedicationChanges() { 
+
+    getMedicationChanges() {
         return this.getEntriesOfType(FluxMedicationChange);
     }
 
-    getMedicationChangesChronologicalOrder() { 
+    getMedicationChangesChronologicalOrder() {
         let list = this.getMedicationChanges();
         list.sort(this._medChangesTimeSorter);
         return list;
     }
 
-    getMedicationChangesForConditionChronologicalOrder(condition) { 
+    getMedicationChangesForConditionChronologicalOrder(condition) {
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
@@ -576,7 +576,7 @@ class PatientRecord {
         panels.sort(this._breastCancerGeneticAnalysisPanelTimeSorter);
         return panels;
     }
-    
+
     getProgressions() {
         return this.getEntriesOfType(FluxDiseaseProgression);
     }
@@ -762,7 +762,7 @@ class PatientRecord {
             }
             default: {
                 a_severity = -1;
-            } 
+            }
         }
 
         switch (b.severity) {
@@ -792,7 +792,7 @@ class PatientRecord {
     }
 
     getEntriesOtherThanNotes() {
-        return this.entries.filter((item) => { 
+        return this.entries.filter((item) => {
             return !(item instanceof FluxClinicalNote);
         });
     }
@@ -808,11 +808,11 @@ class PatientRecord {
         });
     }
 
-    getEntriesWithSourceClinicalNote(note) { 
-        return this.entries.filter((entry) => { 
-            if (entry.sourceClinicalNoteReference) { 
+    getEntriesWithSourceClinicalNote(note) {
+        return this.entries.filter((entry) => {
+            if (entry.sourceClinicalNoteReference) {
                 return entry.sourceClinicalNoteReference.entryId === note.entryInfo.entryId;
-            } else { 
+            } else {
                 return false;
             }
         });

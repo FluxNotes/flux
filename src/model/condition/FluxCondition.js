@@ -2,6 +2,7 @@ import BodySite from '../shr/entity/BodySite';
 import Condition from '../shr/condition/Condition';
 import FluxDiseaseProgression from './FluxDiseaseProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
+import FluxToxicReaction from '../adverse/FluxToxicReaction';
 import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
 import Lang from 'lodash';
@@ -69,6 +70,57 @@ class FluxCondition {
                 !this._condition.bodySiteOrCode.value || 
                 !(this._condition.bodySiteOrCode.value instanceof BodySite)) return null;
         return this._condition.bodySiteOrCode.value.laterality.value.coding[0].displayText.value;        
+    }
+
+
+    // Given a toxicity adverse event, return the grade value
+    getToxicityValueByName(name) {
+
+        // Get all the toxicities
+        const toxicities = this.getToxicities();
+
+        // Loop through the toxicities and save the ones that match the name
+        let arrayOfCurrentToxicities = [];
+
+        for (var i = 0; i < toxicities.length; i++) {
+            let allCapsAdverseEvent = toxicities[i].adverseEvent.toUpperCase();
+            let allCapsName = name.toUpperCase();
+
+            if (allCapsAdverseEvent === allCapsName) {
+                arrayOfCurrentToxicities.push(toxicities[i]);
+            }
+        }
+
+        arrayOfCurrentToxicities.sort(this._toxicitiesTimeSorter);
+
+        // Return grade for the toxicity. If there is no toxicity for the adverse event, return "None"
+        if (arrayOfCurrentToxicities[0]) {
+            return arrayOfCurrentToxicities[0].adverseEventGrade;
+        }
+        else {
+            return "None";
+        }
+    }
+
+    // Returns sorted array of toxicities. Most recent toxicity is at index 0
+    _toxicitiesTimeSorter(a, b) {
+        const a_time = new moment(a.entryInfo.lastUpdated.value, "D MMM YYYY");
+        const b_time = new moment(b.entryInfo.lastUpdated.value, "D MMM YYYY");
+        if (a_time < b_time) {
+            return 1;
+        }
+        if (a_time > b_time) {
+            return -1;
+        }
+        return 0;
+    }
+
+    getToxicities() {
+        const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
+        const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
+        return entries.filter((item) => {
+            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.focalSubjectReference._entryId === conditionEntryId;
+        });
     }
 
     addObservation(observation, clinicalNote) {
