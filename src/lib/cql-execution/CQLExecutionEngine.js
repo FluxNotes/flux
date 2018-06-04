@@ -2,7 +2,7 @@ import cql from 'cql-execution';
 import cqlfhir from 'cql-exec-fhir';
 import CodeService from './codeservice/CodeService';
 import valueset_db from './codeservice/vsac_cache/valueset-db.json';
-import exampleCql from './example/cql/BreastCancer';
+import exampleCql from './example/cql/PALLASpatient';
 import examplePatient1 from './example/patients/exampleFHIRPatient1.json';
 import examplePatient2 from './example/patients/exampleFHIRPatient2.json';
 import examplePatient3 from './example/patients/No_Foot_Exam.json';

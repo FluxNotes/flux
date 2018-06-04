@@ -42,6 +42,211 @@
                 "verificationStatus": "confirmed",
                 "onsetDateTime": "2012-04-05T00:00:00.000Z"
             }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "58b3663f3425def0f0f6c031",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16112-5",
+                            "display": "Estrogen Receptor"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/93d8b432-f097-4c82-b111-8577e1d9d89f"
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "222",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16113-3",
+                            "display": "Progesterone Receptor"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "224",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "41995-2",
+                            "display": "Hemoglobin"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 12,
+                    "unit": "g/dL",
+                    "system": "http://loinc.org",
+                    "code": "g/dL"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "225",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "26515-7",
+                            "display": "Platelets"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 300000,
+                    "unit": "mm3",
+                    "system": "http://loinc.org",
+                    "code": "mm3"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "2226",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "74885-5",
+                            "display": "HER2"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "2245",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "67203-0",
+                            "display": "AJCC"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 3,
+                    "unit": "stage",
+                    "system": "http://loinc.org",
+                    "code": "stage"
+                }
+            }
+        },      
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "22445",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "66174-4",
+                            "display": "Pregnant"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "260385009",
+                        "display": "Negative (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "22454",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "42800-3",
+                            "display": "ECOG"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 1,
+                    "unit": "ecog",
+                    "system": "http://loinc.org",
+                    "code": "ecog"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "224544",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "26499-4",
+                            "display": "Neutrophils"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 2000,
+                    "unit": "mm3",
+                    "system": "http://loinc.org",
+                    "code": "mm3"
+                }
+            }
         }
     ]
 }
