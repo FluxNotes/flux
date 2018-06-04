@@ -125,7 +125,11 @@ export default class SummaryMetadata {
                                 useDataMissingTemplateCriteria: [
                                     "Recent Lab Results"
                                 ]
-                            }
+                            },
+                            {
+                                defaultTemplate: "Key toxicities include Peripheral motor neurpathy: ${Key Toxicities.Peripheral motor neuropathy}, Blood clots: ${Key Toxicities.Blood clots}, Neutropenia: ${Key Toxicities.Neutropenia}, Nausea/Vomiting: ${Key Toxicities.Nausea/Vomiting}",
+                            },
+
                         ],
                         data: [
                             {
@@ -189,6 +193,36 @@ export default class SummaryMetadata {
                                                     return ev;
                                                 }).join(', '), patient.isUnsigned(p), p.sourceClinicalNoteReference];
                                             }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Key Toxicities",
+                                items: [
+                                    {
+                                        name: "Peripheral motor neuropathy",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.getToxicityValueByName("Peripheral motor neuropathy"), patient.isUnsigned(currentConditionEntry)] ;
+                                        }
+
+                                    },
+                                    {
+                                        name: "Blood clots",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.getToxicityValueByName("Blood clots"), patient.isUnsigned(currentConditionEntry)] ;
+                                        }
+                                    },
+                                    {
+                                        name: "Neutropenia",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.getToxicityValueByName("Neutropenia"), patient.isUnsigned(currentConditionEntry)] ;
+                                        }
+                                    },
+                                    {
+                                        name: "Nausea/Vomiting",
+                                        value: (patient, currentConditionEntry) => {
+                                            return [currentConditionEntry.getToxicityValueByName("Nausea/Vomiting"), patient.isUnsigned(currentConditionEntry)] ;
                                         }
                                     }
                                 ]
