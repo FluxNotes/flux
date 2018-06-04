@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import toxicityLookup from '../lib/toxicreaction_lookup';
 import ToxicReaction from '../model/shr/adverse/ToxicReaction';
 import Lang from 'lodash'
-import Array from 'lodash'
+import Collection from 'lodash'
 import './ToxicityForm.css';
 
 function titlecase(label) {
@@ -211,7 +211,7 @@ class ToxicityForm extends Component {
                 elemCopy.name = elemCopy.name.toLowerCase();
                 return elemCopy;
             });
-            const currentAdverseEvent = Array.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
+            const currentAdverseEvent = Collection.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
             gradeDescription = currentAdverseEvent[currentGradeLevel];
         }
 

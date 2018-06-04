@@ -1,5 +1,5 @@
 const Lang = require('lodash/lang');
-const Array = require('lodash/array');
+const Collection = require('lodash/collection');
 const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
@@ -8924,7 +8924,7 @@ exports.isValidGradeForAdverseEvent = (possibleGrade, possibleAdverseEvent) => {
     // If they are both
     if (exports.isValidGrade(possibleGrade) && exports.isValidAdverseEvent(possibleAdverseEvent)) { 
         // Find the object
-        const adverseEventInLookup = Array.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
+        const adverseEventInLookup = Collection.find(adverseEventOptions, (adverseEvent) => { return adverseEvent.name.toLowerCase() === possibleAdverseEvent.toLowerCase()});
         return !Lang.isNull(adverseEventInLookup[possibleGrade])
     } else {
         return false;
