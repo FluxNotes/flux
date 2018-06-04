@@ -119,7 +119,7 @@ class FluxCondition {
         const entries =this._patientRecord.getEntriesOfType(FluxToxicReaction)
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
-            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.focalSubjectReference._entryId === conditionEntryId;
+            return item instanceof FluxToxicReaction && item._adverseEvent && item._adverseEvent.focalSubjectReference && item._adverseEvent.focalSubjectReference._entryId === conditionEntryId;
         });
     }
 
