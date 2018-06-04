@@ -1,0 +1,46 @@
+{
+    "resourceType": "Bundle",
+    "id": "Aged 17 years or younger",
+    "type": "collection",
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "Patient",
+                "id": "3cb09ecb-e927-4946-82b3-89957e193215",
+                "name": [
+                    {
+                        "given": [
+                            "Joe"
+                        ],
+                        "family": [
+                            "Smith"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2003-02-16T00:00:00.000Z"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "MedicationOrder",
+                "id": "4db6bfae-1ad4-4bdd-9d02-6b8c65dc3c33",
+                "dateWritten": "2018-04-05T00:00:00.000Z",
+                "status": "active",
+                "patient": {
+                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
+                },
+                "medicationCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                            "code": "197591",
+                            "display": "Diazepam 5 MG Oral Tablet"
+                        }
+                    ],
+                    "text": "Diazepam 5 MG Oral Tablet"
+                }
+            }
+        }
+    ]
+}

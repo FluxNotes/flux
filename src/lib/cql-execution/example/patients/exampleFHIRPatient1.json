@@ -1,0 +1,47 @@
+{
+    "resourceType": "Bundle",
+    "id": "Has a pregnancy Condition",
+    "type": "collection",
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "Patient",
+                "id": "93d8b432-f097-4c82-b111-8577e1d9d89f",
+                "name": [
+                    {
+                        "given": [
+                            "Jane"
+                        ],
+                        "family": [
+                            "Smith"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "1984-02-16T00:00:00.000Z"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Condition",
+                "id": "dd401c80-0f1a-4563-b3cb-7a19c6f1ae72",
+                "patient": {
+                    "reference": "Patient/93d8b432-f097-4c82-b111-8577e1d9d89f"
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "254837009",
+                            "display": "Malignant neoplasm of breast (disorder)"
+                        }
+                    ],
+                    "text": "Malignant neoplasm of breast (disorder)"
+                },
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "onsetDateTime": "2012-04-05T00:00:00.000Z"
+            }
+        }
+    ]
+}
