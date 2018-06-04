@@ -7,8 +7,16 @@ For easiest integration, we will generate a coffee file using cql-to-elm:
 2. Clone the [clinical_quality_language](https://github.com/cqframework/clinical_quality_language) repository to a location of your choice
 3. `cd ${path_to_clinical_quality_language}/Src/java` (replacing `${path_to_clinical_quality_language}` with the path to the local clone)
 4. `./gradlew :cql-to-elm:installDist`
-    * If you get a connection timeout warning, create a `gradle.properties` file in your `GRADLE_USER_HOME` directory(default is the `~/.gradle` directory) with your proxy settings.
+    * If you get a connection timeout warning, create a `gradle.properties` file in your `GRADLE_USER_HOME` directory(default is the `~/.gradle` directory) with your proxy settings:
+        systemProp.http.proxyHost={proxy server name}
+        systemProp.http.proxyPort={proxy port}
+        systemProp.https.proxyHost={proxy server name}
+        systemProp.https.proxyPort={proxy port}
 5. `./cql-to-elm/build/install/cql-to-elm/bin/cql-to-elm --format=JSON --input ${path_to_cql_file} --output ${outputJSON path}`
+
+For example:
+./cql-to-elm/build/install/cql-to-elm/bin/cql-to-elm --format=JSON --input ${flux}/src/lib/cql-execution/example/cql/age.cql --output ./test.json
+
 
 We will now have a JSON representation of the ELM for our CQL file in our outputJSON path.  This JSON file can be passed to the `getCQLResults` function as the `cqlLogic` parameter.
 
