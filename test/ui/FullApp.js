@@ -201,53 +201,6 @@ test('In pre-encounter mode, clicking the "New Note" button clears the editor co
         .eql("Enter your clinical note here or choose a template to start from...");
 });
 
-// Test covered by an Enzyme test
-test.skip('Typing an inserterShortcut in the editor results in a structured data insertion ', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
-
-    const editor = Selector("div[data-slate-editor='true']");
-    await t
-        .typeText(editor, "@name ")
-
-    const structuredField = editor.find("span[class='structured-field']");
-    await t
-        .expect(structuredField.innerText)
-        .contains(new PatientRecord(hardCodedPatient).getName());
-});
-
-// Test covered by an Enzyme test
-test.skip('Pasting an inserterShortcut in the editor with [[]] notation sets that text rather than pulling current data ', async t => {
-    // This test mimics loading an inserter shortcut in a note that specifies its values. Ex. @age[[89]]
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
-
-    const editor = Selector("div[data-slate-editor='true']");
-    await t
-        .typeText(editor, "@age[[89]] ", { paste: true });
-    const structuredField = editor.find("span[class='structured-field']");
-
-    // The structured field set the specified value, not the current value on the patient record.
-    await t
-        .expect(structuredField.innerText)
-        .notContains(new PatientRecord(hardCodedPatient).getAge())
-        .expect(structuredField.innerText).contains('89');
-});
-
 test('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', async t => {
     // const clinicalEventSelector = Selector('.clinical-event-select');
     // await t
@@ -261,7 +214,7 @@ test('Typing an inserterShortcut that is not currently valid in the editor does 
 
     const editor = Selector("div[data-slate-editor='true']");
     await t
-        .typeText(editor, "#imaging #staging ")
+        .typeText(editor, "#imaging")
 
     const structuredField = editor.find("span[class='structured-field']");
     await t
@@ -391,46 +344,6 @@ test("Typing '#deceased' in the editor results in a structured data insertion an
     await t
         .expect(contextPanelElementUpper)
         .contains(deceasedChild);
-});
-
-test("Switching contexts without closing a context chooses the correct parent context and successfully enters information in editor", async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
-
-    const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('.context-option');
-    const structuredField = editor.find("span[class='structured-field']");
-    const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const textToType = ["#toxicity ", "#nausea ", "#staging ", "#T0 "];
-    await t
-        .click(conditionButton);
-
-    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
-    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
-
-    await t
-        .click(invasiveButton)
-        .typeText(editor, " ");
-
-    for (let i = 0; i < textToType.length; i++) {
-        await t
-            .typeText(editor, textToType[i]);
-    };
-
-    textToType.splice(0, 0, 'condition placeholder');
-    const structuredFieldCount = await structuredField.count;
-    for (let i = 1; i < structuredFieldCount; i++) {
-        await t
-            .expect(structuredField.nth(i).innerText)
-            .contains(textToType[i]);
-    }
 });
 
 test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
@@ -774,71 +687,6 @@ test('Clicking "@condition" and choosing "Invasive ductal carcinoma of breast" c
     await t
         .expect(conditionSectionSnapshot.hasClass('selected'))
         .ok();
-});
-
-// Test covered by an Enzyme test
-test.skip('Clicking "@condition" and choosing multiple conditions creates condition sections for each in the context tray.', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
-
-    const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector('.context-options-list').find('.context-option');
-    const sectionItemElements = Selector('.context-tray').find('.section-item');
-    const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const patientButton = await sectionItemElements.withText(/CONTEXT/g);
-    const optionsForm = Selector(".pickList-options-panel").find(".option-btn");
-    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
-
-    // first condition
-    await t
-        .click(conditionButton);
-
-    // Click on "Invasive..." button in the option panel
-    await t
-        .click(invasiveButton);
-
-    const conditionSectionInvasive = Selector('.context-tray').find('div').withAttribute('title', 'Invasive ductal carcinoma of breast');
-    await t
-        .expect(conditionSectionInvasive.exists)
-        .ok();
-
-    let conditionSectionInvasiveSnapshot = await conditionSectionInvasive();
-    await t
-        .expect(conditionSectionInvasiveSnapshot.hasClass('selected'))
-        .ok();
-
-    // second condition
-    await t
-        .click(patientButton);
-
-    await t
-        .click(conditionButton);
-
-    const fractureButton = await optionsForm.withText(/Fracture/ig);
-    await t
-        .click(fractureButton);
-
-    const conditionSectionFracture = Selector('.context-tray').find('div').withAttribute('title', 'Fracture');
-    await t
-        .expect(conditionSectionFracture.exists)
-        .ok();
-
-    const conditionSectionFractureSnapshot = await conditionSectionFracture();
-    await t
-        .expect(conditionSectionFractureSnapshot.hasClass('selected'))
-        .ok();
-
-    conditionSectionInvasiveSnapshot = await conditionSectionInvasive();
-    await t
-        .expect(conditionSectionInvasiveSnapshot.hasClass('selected'))
-        .notOk();
 });
 
 test('Clicking "@condition" and choosing multiple conditions does not allow user to select other conditions besides the current condition from the context tray in the condition section.', async t => {
