@@ -283,6 +283,7 @@ function StructuredFieldPlugin(opts) {
 
         utils: {
             //isSelectionInStructuredField
+            convertSlateNodesToText: convertSlateNodesToText,
         },
 
         transforms: {

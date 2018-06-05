@@ -37,6 +37,8 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			for (const keywordClass of listOfKeywordShortcutClasses) {
 				// Scan text to find any necessary replacements 
 				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
+				// Sort keywords based on length -- we want to match longest options first
+				keywords.sort(_sortKeywordByNameLength);
 				const keywordInClosetBlock = scanTextForKeywordObject(curText, keywords)
 				if (!Lang.isUndefined(keywordInClosetBlock)) { 
 					const keywordText = keywordInClosetBlock.name.toLowerCase()
@@ -49,7 +51,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 							if (keywordRange) break;
 						}
 					} else {
-						// console.log(curNode)
 						keywordRange = getRangeForKeyword(curNode, keywordText)
 					}
 					// Remove keyword from block, using first character as the prefix
@@ -94,9 +95,12 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
 	function scanTextForKeywordObject(text, keywordObjects) { 
-		// return 
+		const trailingCharacterRegex = /[\s\r\n.!?;,\-)}\]]/;
+		const textToMatch = text.toLowerCase();
+		// We only want to match if there is a 'phrase finishing' character at the end of the text
 		for (const keywordObj of keywordObjects) { 
-			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) { 
+			const keywordTextToMatch = new RegExp(keywordObj.name.toLowerCase() + trailingCharacterRegex.source)
+			if (textToMatch.search(keywordTextToMatch) !== -1) { 
 				return keywordObj
 			}
 		}
@@ -109,6 +113,11 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			// We want to get the closest block to the keyword's 
 			return state.document.getClosestBlock(Object.keys(mapping)[0]).key === currentNodeKey;
 		});
+	}
+
+	// Sort keywords based on name length 
+	function _sortKeywordByNameLength(keywordA, keywordB) { 
+		return keywordB.name.length - keywordA.name.length;
 	}
 
 	// Given a keywordShortcutClass, get all of the associated keywords
