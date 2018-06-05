@@ -28,7 +28,6 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
 		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
 		const curKey = curNode.key;
-		let curText = curNode.text;
 		// To track if additional operations are done later
 		const startingNumberOfOperations = curTransform.operations.length;
 
@@ -42,7 +41,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
 				// Sort keywords based on length -- we want to match longest options first
 				keywords.sort(_sortKeywordByNameLength);
-				const keywordInClosetBlock = scanTextForKeywordObject(curText, keywords)
+				const keywordInClosetBlock = scanTextForKeywordObject(curNode.text, keywords)
 				if (!Lang.isUndefined(keywordInClosetBlock)) { 
 					const keywordText = keywordInClosetBlock.name.toLowerCase()
 					const newKeywordShortcut = createShortcut(null, keywordText)
@@ -61,14 +60,13 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 					// Add shortcut to text; update curNode and curText
 					curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
 					curNode = curTransform.state.endBlock
-					curText = curNode.text;
 				} 
 			}
 		}
 		// If operations have been done, put selection at the end of recent insertion
 		const isNewOperations = curTransform.operations.length > startingNumberOfOperations
 		if (isNewOperations) { 
-			curTransform = curTransform.collapseToEndOfNextText().focus()
+			curTransform = curTransform.collapseToEndOf(curNode).focus()
 		}
 		return [curTransform, isNewOperations]
 	}
