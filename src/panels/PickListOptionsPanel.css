@@ -60,6 +60,10 @@
     width: 95%;
 }
 
+.option-tooltip {
+    z-index: 9999 !important;
+}
+
 .option-tooltip .rc-tooltip-inner{
     width: 200px;
     min-height: 22px;

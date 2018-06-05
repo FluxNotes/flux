@@ -458,23 +458,31 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    componentDidMount = () => {
+        if (this.props.inModal) {
+            this.insertContextTrayItem(this.props.contextTrayItemToInsert);
+            let openPortal = this.props.noteAssistantMode !== 'pick-list-options-panel';
+            // this.insertTextWithStructuredPhrases(this.props.documentText, undefined, false, openPortal);
+        }
+    }
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
 
         // Check if the item to be inserted is updated
-        if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
+        if (nextProps.updateEditorContent && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
                 this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert);
                 this.props.itemInserted();
             }
         }
 
-        if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+        if (nextProps.updateEditorContent && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
        // Check if the updatedEditorNote property has been updated
-        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+        if (nextProps.updateEditorContent && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -501,7 +509,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Check if the current view mode changes
-        if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
+        if (nextProps.updateEditorContent && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
             this.resetEditorAndContext();
             this.props.handleUpdateEditorWithNote(null);
             this.structuredFieldMapManager.clearStructuredFieldMap();
@@ -872,13 +880,13 @@ class FluxNotesEditor extends React.Component {
             this.props.setFullAppState('isNoteViewerEditable', false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            if (this.props.inModal) this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
         }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {
-            this.insertTextWithStructuredPhrases(contextTrayItem);
-            this.props.updateContextTrayItemToInsert(null);
-            this.props.updateNoteAssistantMode('context-tray');
+            // this.insertTextWithStructuredPhrases(contextTrayItem);
+            // this.props.updateContextTrayItemToInsert(null);
+            // this.props.updateNoteAssistantMode('context-tray');
         }
     }
 

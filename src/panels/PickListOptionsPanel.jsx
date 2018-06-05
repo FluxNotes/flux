@@ -29,6 +29,7 @@ export default class PickListOptionsPanel extends Component {
         this.state = {
             triggerSelections,
             tooltipVisibility: 'visible',
+            isAllSelected: false
         };
     }
 
@@ -45,47 +46,43 @@ export default class PickListOptionsPanel extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
-    // Cancels insertion of text
+    // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
         this.props.updateContextTrayItemToInsert(null);
+        this.props.contextManager.clearContexts();
         this.toggleView('context-tray')
     }
 
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
-    handleOkButtonClick = (selectedOption) => {
+    handleInsertChosenOption = () => {
         // Verify that we have an option for each pick list
         const isAllSelected = this.state.triggerSelections.every((triggerSelection) => {
            return !Lang.isUndefined(triggerSelection.selectedOption);
         });
 
-        let triggerSelection = selectedOption;
-        if (triggerSelection) {
+        this.setState({ isAllSelected });
+
+        let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
-            const option = [{
+            return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
                 selectedOption: triggerSelection.selectedOption.context
-            }];
-            this.props.updateContextTrayItemWithSelectedPickListOptions(option)
-        }
+            }
+        });
 
-        // if (!isAllSelected) return;
-        // 
-        // let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
-        //     let underScoreIndex = triggerSelection.trigger.indexOf("_");
-        //     return {
-        //         trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-        //         selectedOption: triggerSelection.selectedOption
-        //     }
-        // });
-        // 
-        // this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
+        this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
+    }
+
+    handleOkButtonClick = () => {
+        this.handleInsertChosenOption();
+        this.toggleView('context-tray');
     }
 
     handleOptionButtonClick(option, trigger) {
         this.updateSelectedOptions(option, trigger);
         // Only one selection required from the user so just send results back to NotesPanel after selection
         if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleOkButtonClick();
+            this.handleInsertChosenOption();
         }
     }
 
@@ -96,7 +93,7 @@ export default class PickListOptionsPanel extends Component {
         
         // Only one selection required from the user so just send results back to NotesPanel after selection
         if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleOkButtonClick();
+            this.handleInsertChosenOption();
         }
     }
 
@@ -112,7 +109,7 @@ export default class PickListOptionsPanel extends Component {
             let triggerSelections = [...this.state.triggerSelections];
             triggerSelections[index].selectedOption = selectedOption;
             this.setState({ triggerSelections });
-            this.handleOkButtonClick(triggerSelections[index]);
+            this.handleInsertChosenOption();
         } else {
             console.error(`Trigger ${trigger} is not in triggerSelections array.`);
         }
@@ -234,7 +231,7 @@ export default class PickListOptionsPanel extends Component {
                         Cancel
                     </MaterialButton>
 
-                    {this.state.triggerSelections.length > 1 ?
+                    {this.state.isAllSelected ?
                         <MaterialButton
                             raised
                             id="ok-btn"

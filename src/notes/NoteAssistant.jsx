@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import MaterialButton from 'material-ui/Button';
+import Modal from 'material-ui/Modal';
+import FluxNotesEditor from './FluxNotesEditor';
+import {Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -276,17 +279,75 @@ export default class NoteAssistant extends Component {
                 );
 
             // Render the pick list options panel which allows users to select options for the pick lists
-            case "pick-list-options-panel":
+            case "pick-list-options-panel": {
+                let styles = {
+                    height: '80%',
+                    width: '80%',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    position: 'absolute',
+                    background: 'white',
+                    padding: "20px"
+                };
+                // TODO separate out into a separate component
                 return (
-                    <div>
-                        <PickListOptionsPanel
-                            updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-                            arrayOfPickLists={this.props.arrayOfPickLists}
-                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                            updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
-                        />
-                    </div>
+                    <Modal
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        open={noteAssistantMode === 'pick-list-options-panel'}
+                        // onClose={this.handleClose}
+                    >
+                        <div style={styles}>
+                            <Row center="xs">
+                                <Col sm={7} md={8} lg={9}>
+                                    <FluxNotesEditor
+                                        closeNote={this.props.closeNote}
+                                        contextManager={this.props.contextManager}
+                                        currentViewMode={'pre-encounter'}
+                                        documentText={this.props.documentText}
+                                        errors={this.props.errors}
+                                        handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
+                                        isNoteViewerEditable={false}
+                                        itemInserted={this.props.itemInserted}
+                                        newCurrentShortcut={this.props.newCurrentShortcut}
+                                        noteAssistantMode={this.props.noteAssistantMode}
+                                        patient={this.props.patient}
+                                        saveNoteUponKeypress={this.props.saveNoteUponKeypress}
+                                        selectedNote={this.props.selectedNote}
+                                        setFullAppState={this.props.setFullAppState}
+                                        setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                                        shortcutManager={this.props.shortcutManager}
+                                        structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                        summaryItemToInsert={this.props.summaryItemToInsert}
+                                        contextTrayItemToInsert={this.props.contextTrayItemToInsert}
+                                        // Pass in note that the editor is to be updated with
+                                        updatedEditorNote={this.props.updatedEditorNote}
+                                        updateErrors={this.props.updateErrors}
+                                        updateSelectedNote={this.props.updateSelectedNote}
+                                        updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                                        arrayOfPickLists={this.props.arrayOfPickLists}
+                                        handleUpdateArrayOfPickLists={this.props.handleUpdateArrayOfPickLists}
+                                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                                        inModal={true}
+                                        updateEditorContent={this.props.updateEditorContent}
+                                        saveNoteUponKeypress={this.props.saveNoteUponKeypress}
+                                    />
+                                </Col>
+                                <Col sm={5} md={4} lg={3}>
+                                    <PickListOptionsPanel
+                                        updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                                        arrayOfPickLists={this.props.arrayOfPickLists}
+                                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                                        updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
+                                        contextManager={this.props.contextManager}
+                                    />
+                                </Col>
+                            </Row>
+                        </div>
+                    </Modal>
                 )
+            }
 
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);

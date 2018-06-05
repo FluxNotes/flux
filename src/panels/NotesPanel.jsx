@@ -51,15 +51,29 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
         let contextTrayItemToInsert = this.state.contextTrayItemToInsert;
+        // Clear old selections
+        while (contextTrayItemToInsert.indexOf('[[') >= 0) {
+            let indexStart = contextTrayItemToInsert.indexOf('[[');
+            let indexEnd = contextTrayItemToInsert.indexOf(']]');
+            contextTrayItemToInsert = contextTrayItemToInsert.slice(0, indexStart) + contextTrayItemToInsert.slice(indexEnd + 2);
+        }
 
         if (!Lang.isNull(this.state.contextTrayItemToInsert) && selectedPickListOptions.length > 0) {
             // Loop through selectedPickListOptions and replace in contextTrayItem
+            let searchIndex = 0;
             selectedPickListOptions.forEach((option) => {
                 const triggerLength = option.trigger.length;
-                let index = contextTrayItemToInsert.indexOf(option.trigger) + triggerLength;
+                // Skip selections that have not been made yet
+                if (option.selectedOption === undefined) {
+                    // update searchIndex to start searching the string after the trigger we are skipping over
+                    searchIndex = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
+                    return;
+                }
+
+                let index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex) + triggerLength;
                 // Search for next instance of trigger if bracketed notation is already provided
                 while (contextTrayItemToInsert.substring(index).startsWith("[[")) {
-                    index = contextTrayItemToInsert.indexOf(option.trigger, index + 1) + triggerLength;
+                    index = contextTrayItemToInsert.indexOf(option.trigger, searchIndex + index + 1) + triggerLength;
                 }
                 // Replace instance of shortcut with bracketed notation
                 contextTrayItemToInsert = contextTrayItemToInsert.slice(0, index) + `[[${option.selectedOption}]]` + contextTrayItemToInsert.slice(index);
@@ -256,6 +270,8 @@ export default class NotesPanel extends Component {
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
+                    inModal={false}
+                    updateEditorContent={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                 />
             </div>
         );
@@ -268,6 +284,7 @@ export default class NotesPanel extends Component {
                     closeNote={click => this.closeNoteChild = click}
                     currentlyEditingEntryId={this.state.currentlyEditingEntryId}
                     contextManager={this.props.contextManager}
+                    contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     deleteSelectedNote={this.deleteSelectedNote}
                     documentText={this.props.documentText}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
@@ -281,13 +298,22 @@ export default class NotesPanel extends Component {
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
+                    setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     shortcutManager={this.props.shortcutManager}
+                    structuredFieldMapManager={this.props.structuredFieldMapManager}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
                     arrayOfPickLists={this.state.arrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
+                    updatedEditorNote={this.state.updatedEditorNote}
+                    updateErrors={this.props.updateErrors}
+                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
+                    newCurrentShortcut={this.props.newCurrentShortcut}
+                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
+                    updateEditorContent={this.state.noteAssistantMode === 'pick-list-options-panel'}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
                 />
             </div>
         );
