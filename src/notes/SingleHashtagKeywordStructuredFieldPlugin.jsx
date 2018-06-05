@@ -95,7 +95,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
 	// Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
 	function scanTextForKeywordObject(text, keywordObjects) { 
-		const trailingCharacterRegex = /[\s\r\n.!?;,\-)}\]]/;
+		const trailingCharacterRegex = /[\s\r\n.!?;,)}\]]/;
 		const textToMatch = text.toLowerCase();
 		// We only want to match if there is a 'phrase finishing' character at the end of the text
 		for (const keywordObj of keywordObjects) { 

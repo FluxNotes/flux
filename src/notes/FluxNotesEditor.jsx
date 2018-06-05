@@ -150,7 +150,7 @@ class FluxNotesEditor extends React.Component {
         // can switch to the commented out trigger to support non-space characters but need to put
         // character used instead of always space when inserting the structured field. 
         this.plugins.push(AutoReplace({
-            //"trigger": /[\s\r\n.!?;,]/,
+            // "trigger": /[\s\r\n.!?;,)}\]]/,
             "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
             "transform": this.autoReplaceTransform.bind(this, null)
@@ -167,6 +167,7 @@ class FluxNotesEditor extends React.Component {
                 const triggerRegExpModified = triggerRegExp;
                 //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
+                    // "trigger": /[\s\r\n.!?;,)}\]]/,
                     "trigger": 'space',
                     "before": triggerRegExpModified,
                     "transform": this.autoReplaceTransform.bind(this, def)
