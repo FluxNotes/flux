@@ -64,9 +64,12 @@ export default class PickListOptionsPanel extends Component {
 
         let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
+            let selectedOption = triggerSelection.selectedOption
+                ? triggerSelection.selectedOption.context
+                : triggerSelection.selectedOption;
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption: triggerSelection.selectedOption.context
+                selectedOption
             }
         });
 
