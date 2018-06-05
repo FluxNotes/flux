@@ -25,7 +25,7 @@ code "Negative (qualifier value)": '260385009' from "SNOMEDCT" display 'Negative
 code "ECOG performance status grade Observed": '42800-3' from "LOINC" display 'ECOG performance status grade Observed'
 code "Neutrophils [#/volume] in Blood": '26499-4' from "LOINC" display 'Neutrophils [#/volume] in Blood'
 
-// CONCEPTS : Unsure why these are necessary to get the codes to work, but without them the 
+// CONCEPTS : Unsure why these are necessary, but without them the 
 // data retrieval for "Observation" wouldnt work.
 
 concept "Estrogen Receptor" : { "Estrogen receptor [Interpretation] Tissue" } display 'Estrogen Receptor [Interpretation]'
@@ -43,7 +43,7 @@ concept "Neutrophils": { "Neutrophils [#/volume] in Blood" } display 'Neutrophil
 
 context Patient
 
-define InDemographic:
+define InDemographic :
    AgeInYears() >= 18
    
 define HasBreastCancer:
@@ -110,8 +110,38 @@ define NeutrophilsInRange:
         and O.valueQuantity.unit.value  = 'mm3'
   )
 
+
+define ER_check_missing:
+  not (exists( [Observation: "Estrogen Receptor"] O ) )
+
+define PR_check_missing:
+  not (exists( [Observation: "Progesterone Receptor"] O ))
+
+define HER2_check_missing:
+  not (exists(  [Observation: "HER2"] O ))
+
+define Hemoglobin_check_missing:
+  not (exists( [Observation: "Hemoglobin"] O ))
+
+define AJCC_check_missing:
+  not (exists ( [Observation: "AJCC"] O ))
+
+define Pregnancy_check_missing:
+  not (exists( [Observation: "Pregnant"] O ))
+
+define ECOG_check_missing:
+  not (exists( [Observation: "ECOG"] O))
+
+define Neutrophils_check_missing:
+  not (exists( [Observation: "Neutrophils"] O))
+
+define Platelets_check_missing:
+  not (exists ( [Observation: "Platelets"] O ))
+
+  
 define MeetsInclusionCriteria:
-  InDemographic and ERPositive 
+  InDemographic 
+  and ERPositive
   and PRPositive 
   and AJCCInRange
   and PlateletsInRange
@@ -121,3 +151,31 @@ define MeetsInclusionCriteria:
   and ECOGInRange 
   and NeutrophilsInRange
   and NotPregnant
+
+// This function will distinguish whether the given patient
+// is disqualified from the trial (they have data that meets exclusion criteria)
+// or if their data is missing, meaning that clinicians can get information
+// and determine further eligibility.
+
+define check_not_disqualified:
+  (HER2Positive or HER2_check_missing)
+  and (PRPositive or PR_check_missing)
+  and (HemoglobinInRange or Hemoglobin_check_missing)
+  and (ERPositive or ER_check_missing)
+  and (HER2Positive or HER2_check_missing)
+  and (NotPregnant or Pregnancy_check_missing)
+  and (ECOGInRange or ECOG_check_missing)
+  and (PlateletsInRange or Platelets_check_missing)
+  and (AJCCInRange or AJCC_check_missing)
+
+// Ideally, this function will tell health care providers
+// what to ask patients to see if they are eligible for a clinical
+// trial. 
+
+// Returns an array of missing data fields to determine
+// if a patient is eligible for a given trial.
+
+
+
+  
+
