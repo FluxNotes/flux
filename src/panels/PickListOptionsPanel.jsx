@@ -118,8 +118,8 @@ export default class PickListOptionsPanel extends Component {
         }
     }
 
-    // Render pick list option panel
-    renderPanel(pickLists, i) {
+    // Render pick list options
+    renderOptions(pickLists, i) {
         // Loop through each shortcut in the array and render the options
         return (
             pickLists.map((shortcut, i) => {
@@ -223,10 +223,13 @@ export default class PickListOptionsPanel extends Component {
 
     render() {
         return (
-            <div className="pickList-options-panel">
-                {this.renderPanel(this.arrayOfPickLists)}
+            <div id="pickList-options-panel">
 
-                <div className="pickList-options-buttons">
+                <div id="pickList-options">
+                    {this.renderOptions(this.arrayOfPickLists)}
+                </div>
+
+                <div id="pickList-action-buttons">
                     <MaterialButton
                         raised
                         id="cancel-btn"

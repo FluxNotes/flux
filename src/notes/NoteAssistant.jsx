@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 import MaterialButton from 'material-ui/Button';
 import Modal from 'material-ui/Modal';
 import FluxNotesEditor from './FluxNotesEditor';
-import {Row, Col} from 'react-flexbox-grid';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -298,7 +298,7 @@ export default class NoteAssistant extends Component {
                         open={noteAssistantMode === 'pick-list-options-panel'}
                         // onClose={this.handleClose}
                     >
-                        <div style={styles}>
+                        <Grid style={styles}>
                             <Row center="xs">
                                 <Col sm={7} md={8} lg={9}>
                                     <FluxNotesEditor
@@ -344,7 +344,7 @@ export default class NoteAssistant extends Component {
                                     />
                                 </Col>
                             </Row>
-                        </div>
+                        </Grid>
                     </Modal>
                 )
             }
