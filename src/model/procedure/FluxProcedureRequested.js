@@ -51,6 +51,15 @@ class FluxProcedureRequested {
     }
 
     /*
+     *  Getter for procedure code
+     *  Returns procedure code string
+     */
+    get code() {
+        if (!this._procedureRequested.type) return null;
+        return this._procedureRequested.type.value.coding[0].code;
+    }
+
+    /*
      *  Getter for reason list for this procedure
      *  Returns array of reasons
      */

@@ -108,7 +108,7 @@ class FluxBreastCancer extends FluxCondition {
             hpiText += ` HER2 was ${her2Status.status}.`;
         }
 
-        hpiText = this.buildEventNarrative(hpiText, patient);
+        hpiText = this.buildEventNarrative(hpiText, patient, this.code);
         
         return hpiText;
     }

@@ -1,0 +1,31 @@
+{
+    "408643008": {
+        "exclusions": {
+            "procedures": [
+                {
+                    "name": "Insertion of Port-a-cath",
+                    "code": "312376000",
+                    "codeSystem": "http://snomed.info/sct"
+                },
+                {
+                    "name": "Removal of Port-a-cath",
+                    "code": "312379007",
+                    "codeSystem": "http://snomed.info/sct"
+                }
+            ],
+            "medications": [
+                {
+                    "name": "ibuprofen 600mg tablet",
+                    "code": "316077",
+                    "codeSystem": "http://snomed.info/sct"
+                }
+            ]
+        }
+    },
+    "default": {
+        "exclusions": {
+            "procedures": [],
+            "medications": []
+        }
+    }
+}

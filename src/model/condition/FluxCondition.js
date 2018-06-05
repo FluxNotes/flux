@@ -5,6 +5,7 @@ import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicReaction from '../adverse/FluxToxicReaction';
 import FluxObservation from '../finding/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
+import hpiConfig from '../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
 import Reference from '../Reference';
@@ -251,7 +252,7 @@ class FluxCondition {
         return hpiText;
     }
 
-    buildEventNarrative(hpiText, patient) {
+    buildEventNarrative(hpiText, patient, conditionCode = null) {
         // Build narrative from sorted events
         // Get procedures, medications, recent lab results, and most recent progression from patient
         // Sort by start time and add snippets about each event to result text
@@ -265,6 +266,13 @@ class FluxCondition {
         }
         events.sort(this._eventsTimeSorter);
 
+        // Check hpiConfig for procedures and medications to exclude for condition
+        const exclusions = hpiConfig[conditionCode] ? hpiConfig[conditionCode].exclusions : hpiConfig["default"].exclusions;
+        
+        events = events.filter((event) => {
+            return !exclusions.procedures.some(p => p.code === event.code) && !exclusions.medications.some(m => m.code === event.code);
+        });
+        
         const procedureTemplates = {
             range: 'Patient underwent {0} from {1} to {2}',
             single: 'Patient underwent {0} on {1}'
