@@ -174,8 +174,17 @@ define check_not_disqualified:
 
 // Returns an array of missing data fields to determine
 // if a patient is eligible for a given trial.
-
-
+define find_missing_data:
+  Tuple {
+    "Progesterone receptor": PR_check_missing, 
+    "Estrogen receptor": ER_check_missing,
+    "Hemoglobin": Hemoglobin_check_missing,
+    "HER2": HER2_check_missing,
+    "Pregnant/Not Pregnant": Pregnancy_check_missing,
+    "ECOG": ECOG_check_missing,
+    "Platelets": Platelets_check_missing,
+    "AJCC": AJCC_check_missing
+  }
 
   
 

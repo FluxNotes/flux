@@ -1293,6 +1293,62 @@
                   } ]
                } ]
             }
+         }, {
+            "name" : "find_missing_data",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Tuple",
+               "element" : [ {
+                  "name" : "Progesterone receptor",
+                  "value" : {
+                     "name" : "PR_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "Estrogen receptor",
+                  "value" : {
+                     "name" : "ER_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "Hemoglobin",
+                  "value" : {
+                     "name" : "Hemoglobin_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "HER2",
+                  "value" : {
+                     "name" : "HER2_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "Pregnant/Not Pregnant",
+                  "value" : {
+                     "name" : "Pregnancy_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "ECOG",
+                  "value" : {
+                     "name" : "ECOG_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "Platelets",
+                  "value" : {
+                     "name" : "Platelets_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "name" : "AJCC",
+                  "value" : {
+                     "name" : "AJCC_check_missing",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
          } ]
       }
    }

@@ -846,49 +846,34 @@ export default class SummaryMetadata {
     getItemListForClinicalTrialEligibility = () => {
         const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient]);
         let eligibility = "Not eligible";
-        if (result.patientResults['93d8b432-f097-4c82-b111-8577e1d9d89f'].MeetsInclusionCriteria) {
+        let missing_criteria = ["None"];
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+
+        if (result.patientResults[patient_id].MeetsInclusionCriteria) {
             eligibility = "Potentially eligible";
         }
-        const missing_data_test = this.getMissingCriteriaListTrialEligibility();
-        return [[{ value: 'PALLAS' }, 'Palbociclib Collaborative Adjuvant Studygreg', eligibility, missing_data_test.toString()]];
+        else if (result.patientResults[patient_id].check_not_disqualified) {
+            eligibility = "Potentially eligible, but missing necessary data fields";
+            missing_criteria = this.getMissingCriteriaListTrialEligibility();
+        }
+        else {
+            eligibility = "Not eligible"
+        }
+        return [[{ value: 'PALLAS' }, 'Palbociclib Collaborative Adjuvant Study', eligibility, missing_criteria.toString()]];
 
     }
 
-  getMissingCriteriaListTrialEligibility = () => {
+    getMissingCriteriaListTrialEligibility = () => {
         const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient]);
-        let missing_criteria = [];
-        const patient_id = '93d8b432-f097-4c82-b111-8577e1d9d89f';
-        if (result.patientResults[patient_id].MeetsInclusionCriteria) {
-            return missing_criteria;
-        }
-        if (result.patientResults[patient_id].check_not_disqualified) {
-            if (result.patientResults[patient_id].HER2_check_missing) {
-              missing_criteria.push('HER2 ');
-            }
-            if (result.patientResults[patient_id].ER_check_missing) {
-              missing_criteria.push('ER ');
-            }
-            if (result.patientResults[patient_id].PR_check_missing) {
-                missing_criteria.push('PR ');
-            }
-            if (result.patientResults[patient_id].AJCC_check_missing) {
-                missing_criteria.push('AJCC ');
-            }
-            if (result.patientResults[patient_id].Platelets_check_missing) {
-                missing_criteria.push('Platelets ');
-            }
-            if (result.patientResults[patient_id].ECOG_check_missing) {
-                missing_criteria.push('ECOG');
-            }
-            if (result.patientResults[patient_id].Hemoglobin_check_missing) {
-                missing_criteria.push('Hemoglobin');
-            }
-            if (result.patientResults[patient_id].Pregnancy_check_missing) {
-                missing_criteria.push('Pregnant/Not Pregnant ');
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        let missing_fields = [];
+        const missing_criteria = result.patientResults[patient_id].find_missing_data;
+        for (var property in missing_criteria) {
+            if (missing_criteria[property] === true) {
+                missing_fields.push(property);
             }
         }
-        return missing_criteria;
-
+        return missing_fields;
     } 
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
