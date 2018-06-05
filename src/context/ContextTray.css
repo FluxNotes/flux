@@ -22,6 +22,10 @@
     color: #333;
 }
 
+.context-tray .section-menu {
+    border-bottom: 3px solid #eee;
+}
+
 .context-tray .section-item-disabled {
     margin: 3px 0px 3px 26px;
     font-size: 0.9em;
@@ -39,6 +43,6 @@
 
 .condition-contexts,
 .section-active {
-    border-left: 3px solid #eee;
+    /*border-left: 3px solid #eee;*/
     margin-left: 5px;
 }
