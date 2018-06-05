@@ -14,12 +14,15 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
 
 	function onBeforeInput (e, data, editorState) { 
-		e.preventDefault()
 		// Insert text and replace relevant keywords in results
 		const curTransform  = editorState.transform().insertText(e.data);
 		const curNode = curTransform.state.endBlock;
-		// Apply transform operations -- if there are no relevant operations, effective noop
-		return replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state).apply()
+		// Apply transform operations if there were matches; else nothing
+		const [newTransform, isTransformNew] = replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state)
+		if (isTransformNew) { 
+			e.preventDefault()
+			return newTransform.apply()
+		}
 	}
 
 	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
@@ -63,10 +66,11 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 			}
 		}
 		// If operations have been done, put selection at the end of recent insertion
-		if (curTransform.operations.length > startingNumberOfOperations) { 
+		const isNewOperations = curTransform.operations.length > startingNumberOfOperations
+		if (isNewOperations) { 
 			curTransform = curTransform.collapseToEndOfNextText().focus()
 		}
-		return curTransform
+		return [curTransform, isNewOperations]
 	}
 
 	// Get the slate Range of the freeText associated with a given keywordText

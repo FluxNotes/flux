@@ -150,8 +150,8 @@ class FluxNotesEditor extends React.Component {
         // can switch to the commented out trigger to support non-space characters but need to put
         // character used instead of always space when inserting the structured field. 
         this.plugins.push(AutoReplace({
-            // "trigger": /[\s\r\n.!?;,)}\]]/,
-            "trigger": 'space',
+            "trigger": /[\s\r\n.!?;,)}\]]/,
+            // "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
             "transform": this.autoReplaceTransform.bind(this, null)
         }));
@@ -167,8 +167,8 @@ class FluxNotesEditor extends React.Component {
                 const triggerRegExpModified = triggerRegExp;
                 //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
-                    // "trigger": /[\s\r\n.!?;,)}\]]/,
-                    "trigger": 'space',
+                    "trigger": /[\s\r\n.!?;,)}\]]/,
+                    // "trigger": 'space',
                     "before": triggerRegExpModified,
                     "transform": this.autoReplaceTransform.bind(this, def)
                 }));
@@ -254,7 +254,8 @@ class FluxNotesEditor extends React.Component {
 
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
+        const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+        return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
 
     getTextCursorPosition = () => {
@@ -736,8 +737,8 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
         } else {
             this.insertTextWithStyles(transform, text);
-            transform = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
-            return transform;
+            const [newTransform, ] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
+            return newTransform;
             // return transform.insertText(text);
         }
     }
