@@ -1,6 +1,11 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
+import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
+import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
+import PALLAS_ineligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json';
+
 
 /*
     Each section has the following properties:
@@ -530,6 +535,12 @@ export default class SummaryMetadata {
                                 name: "",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
+                            },
+                            {
+                                name: "Eligible Clinical Trials",
+                                headings: ["Name", "Description", "Eligibility"],
+                                itemsFunction: this.getItemListForClinicalTrialEligibility
+
                             }
                         ]
                     },
@@ -832,6 +843,16 @@ export default class SummaryMetadata {
                 ]; 
             });
         }
+    }
+
+    getItemListForClinicalTrialEligibility = () => {
+        const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
+        var eligibility = "Not eligible";
+        if (result) {
+            eligibility = "Potentially eligible";
+        }
+        if (result.patientResults['93d8b432-f097-4c82-b111-8577e1d9d89f'].MeetsInclusionCriteria)
+        return [[{value: 'PALLAS'}, 'Palbociclib Collaborative Adjuvant Study', eligibility]];
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
