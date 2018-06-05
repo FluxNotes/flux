@@ -137,3 +137,13 @@
     text-align: left;
 }
 
+.editor-content-modal {
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: left;
+}
+
+.note-description-divider {
+    margin: 20px 0px !important;
+    clear: both;
+}

@@ -330,7 +330,7 @@ export default class NoteAssistant extends Component {
                                         handleUpdateArrayOfPickLists={this.props.handleUpdateArrayOfPickLists}
                                         updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                                         inModal={true}
-                                        updateEditorContent={this.props.updateEditorContent}
+                                        shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
                                         saveNoteUponKeypress={this.props.saveNoteUponKeypress}
                                     />
                                 </Col>

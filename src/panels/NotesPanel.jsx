@@ -271,7 +271,7 @@ export default class NotesPanel extends Component {
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     inModal={false}
-                    updateEditorContent={this.state.noteAssistantMode !== 'pick-list-options-panel'}
+                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                 />
             </div>
         );
@@ -312,7 +312,7 @@ export default class NotesPanel extends Component {
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
-                    updateEditorContent={this.state.noteAssistantMode === 'pick-list-options-panel'}
+                    shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                 />
             </div>

@@ -22,9 +22,9 @@
 
 .shortcut-options-container .option-btn span {
     display: block;
-    text-align: left;
+    text-align: center;
     text-overflow: ellipsis;
-    width: 130px;
+    width: 85%;
     white-space: nowrap;
     overflow: hidden;
     line-height: 30px;
@@ -45,13 +45,11 @@
 
 .option-select-container {
     margin-bottom: 20px;
-    max-width: 184px;
     color: #777;
 }
 
 .option-select {
     width: 100%;
-    max-width: 200px;
     margin-top: 15px;
 }
 

@@ -470,19 +470,19 @@ class FluxNotesEditor extends React.Component {
     componentWillReceiveProps = (nextProps) => {
 
         // Check if the item to be inserted is updated
-        if (nextProps.updateEditorContent && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
+        if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
                 this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert);
                 this.props.itemInserted();
             }
         }
 
-        if (nextProps.updateEditorContent && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+        if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
        // Check if the updatedEditorNote property has been updated
-        if (nextProps.updateEditorContent && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+        if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -509,7 +509,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Check if the current view mode changes
-        if (nextProps.updateEditorContent && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
+        if (nextProps.shouldEditorContentUpdate && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
             this.resetEditorAndContext();
             this.props.handleUpdateEditorWithNote(null);
             this.structuredFieldMapManager.clearStructuredFieldMap();
@@ -1040,32 +1040,33 @@ class FluxNotesEditor extends React.Component {
                             <p className="note-description-detail-value">{signedString}</p>
                         </Col>
                         <Col xs={4}>
-                            <Button
-                                raised 
-                                className="close-note-btn"
-                                disabled={this.context_disabled}
-                                onClick={this.props.closeNote}
-                                style={{
-                                    float: "right",
-                                    lineHeight: "2.1rem"
-                                }}
-                            >
-                                <FontAwesome 
-                                    name="times"
+                            { !this.props.inModal &&
+                                <Button
+                                    raised 
+                                    className="close-note-btn"
+                                    disabled={this.context_disabled}
+                                    onClick={this.props.closeNote}
                                     style={{
-                                        color: "red",
-                                        marginRight: "5px"
+                                        float: "right",
+                                        lineHeight: "2.1rem"
                                     }}
-                                /> 
-                                <span>
-                                    Close
-                                </span>
-                            </Button>
-                           
+                                >
+                                    <FontAwesome 
+                                        name="times"
+                                        style={{
+                                            color: "red",
+                                            marginRight: "5px"
+                                        }}
+                                    /> 
+                                    <span>
+                                        Close
+                                    </span>
+                                </Button>
+                            }
                         </Col>
                     </Row>
 
-                    <Divider className="divider"/>
+                    <Divider className="note-description-divider"/>
                 </div>
             );
         }
@@ -1081,6 +1082,7 @@ class FluxNotesEditor extends React.Component {
         }
         const callback = {}
         let editor = null;
+        let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -1090,15 +1092,17 @@ class FluxNotesEditor extends React.Component {
             }}>
                 {noteDescriptionContent}
                 <div className="MyEditor-root">
-                    <EditorToolbar
-                        isReadOnly={!this.props.isNoteViewerEditable}
-                        onBlockCheck={this.handleBlockCheck}
-                        onBlockUpdate={this.handleBlockUpdate}
-                        onMarkCheck={this.handleMarkCheck}
-                        onMarkUpdate={this.handleMarkUpdate}
-                        patient={this.props.patient}
-                    />
-                    <div className="editor-content">
+                    { !this.props.inModal &&
+                        <EditorToolbar
+                            isReadOnly={!this.props.isNoteViewerEditable}
+                            onBlockCheck={this.handleBlockCheck}
+                            onBlockUpdate={this.handleBlockUpdate}
+                            onMarkCheck={this.handleMarkCheck}
+                            onMarkUpdate={this.handleMarkUpdate}
+                            patient={this.props.patient}
+                        />
+                    }
+                    <div className={editorClassName}>
                         <Slate.Editor
                             className="editor-panel"
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
