@@ -10,6 +10,7 @@ codesystem "LOINC": 'http://loinc.org'
 // SOURCE : https://vsac.nlm.nih.gov/valueset/expansions?pr=all
 // value set to represent all breast cancer conditions.
 valueset "Breast Cancer": '2.16.840.1.113883.3.526.2.98'
+valueset "Trastuzumab": '2.16.840.1.113762.1.4.1116.57'
 
 // CODES : used to represent conditions, lab results, or other data fields to be entered for the clinical trial
 
@@ -64,11 +65,12 @@ define PRPositive:
         where O.interpretation.coding[0].code.value = '10828004'
   )
 
-define HER2Positive:
+define HER2Negative:
   exists(
     [Observation: "HER2"] O
       where O.interpretation.coding[0].code.value != '260385009'
-  )
+  ) and
+  (not exists ( [Medication: "Trastuzumab"] M ))
 
 define HemoglobinInRange:
   exists(
@@ -145,7 +147,7 @@ define MeetsInclusionCriteria:
   and PRPositive 
   and AJCCInRange
   and PlateletsInRange
-  and HER2Positive
+  and HER2Negative
   and HemoglobinInRange
   and HasBreastCancer
   and ECOGInRange 
@@ -158,11 +160,10 @@ define MeetsInclusionCriteria:
 // and determine further eligibility.
 
 define check_not_disqualified:
-  (HER2Positive or HER2_check_missing)
+  (HER2Negative or HER2_check_missing)
   and (PRPositive or PR_check_missing)
   and (HemoglobinInRange or Hemoglobin_check_missing)
   and (ERPositive or ER_check_missing)
-  and (HER2Positive or HER2_check_missing)
   and (NotPregnant or Pregnancy_check_missing)
   and (ECOGInRange or ECOG_check_missing)
   and (PlateletsInRange or Platelets_check_missing)

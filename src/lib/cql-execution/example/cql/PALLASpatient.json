@@ -41,6 +41,10 @@
             "name" : "Breast Cancer",
             "id" : "2.16.840.1.113883.3.526.2.98",
             "accessLevel" : "Public"
+         }, {
+            "name" : "Trastuzumab",
+            "id" : "2.16.840.1.113762.1.4.1116.57",
+            "accessLevel" : "Public"
          } ]
       },
       "codes" : {
@@ -402,64 +406,88 @@
                }
             }
          }, {
-            "name" : "HER2Positive",
+            "name" : "HER2Negative",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "Exists",
-               "operand" : {
-                  "type" : "Query",
-                  "source" : [ {
-                     "alias" : "O",
-                     "expression" : {
-                        "dataType" : "{http://hl7.org/fhir}Observation",
-                        "codeProperty" : "code",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "HER2",
-                              "type" : "ConceptRef"
-                           }
-                        }
-                     }
-                  } ],
-                  "relationship" : [ ],
-                  "where" : {
-                     "type" : "Not",
-                     "operand" : {
-                        "type" : "Equal",
-                        "operand" : [ {
-                           "path" : "value",
-                           "type" : "Property",
-                           "source" : {
-                              "path" : "code",
-                              "type" : "Property",
-                              "source" : {
-                                 "type" : "Indexer",
-                                 "operand" : [ {
-                                    "path" : "coding",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "path" : "interpretation",
-                                       "scope" : "O",
-                                       "type" : "Property"
-                                    }
-                                 }, {
-                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                    "value" : "0",
-                                    "type" : "Literal"
-                                 } ]
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "Exists",
+                  "operand" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "O",
+                        "expression" : {
+                           "dataType" : "{http://hl7.org/fhir}Observation",
+                           "codeProperty" : "code",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "type" : "ToList",
+                              "operand" : {
+                                 "name" : "HER2",
+                                 "type" : "ConceptRef"
                               }
                            }
-                        }, {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "260385009",
-                           "type" : "Literal"
-                        } ]
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "code",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "type" : "Indexer",
+                                    "operand" : [ {
+                                       "path" : "coding",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "path" : "interpretation",
+                                          "scope" : "O",
+                                          "type" : "Property"
+                                       }
+                                    }, {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                       "value" : "0",
+                                       "type" : "Literal"
+                                    } ]
+                                 }
+                              }
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "260385009",
+                              "type" : "Literal"
+                           } ]
+                        }
                      }
                   }
-               }
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "type" : "Exists",
+                     "operand" : {
+                        "type" : "Query",
+                        "source" : [ {
+                           "alias" : "M",
+                           "expression" : {
+                              "dataType" : "{http://hl7.org/fhir}Medication",
+                              "codeProperty" : "code",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Trastuzumab",
+                                 "type" : "ValueSetRef"
+                              }
+                           }
+                        } ],
+                        "relationship" : [ ]
+                     }
+                  }
+               } ]
             }
          }, {
             "name" : "HemoglobinInRange",
@@ -1159,7 +1187,7 @@
                                     "type" : "ExpressionRef"
                                  } ]
                               }, {
-                                 "name" : "HER2Positive",
+                                 "name" : "HER2Negative",
                                  "type" : "ExpressionRef"
                               } ]
                            }, {
@@ -1202,53 +1230,41 @@
                               "operand" : [ {
                                  "type" : "And",
                                  "operand" : [ {
-                                    "type" : "And",
+                                    "type" : "Or",
                                     "operand" : [ {
-                                       "type" : "Or",
-                                       "operand" : [ {
-                                          "name" : "HER2Positive",
-                                          "type" : "ExpressionRef"
-                                       }, {
-                                          "name" : "HER2_check_missing",
-                                          "type" : "ExpressionRef"
-                                       } ]
+                                       "name" : "HER2Negative",
+                                       "type" : "ExpressionRef"
                                     }, {
-                                       "type" : "Or",
-                                       "operand" : [ {
-                                          "name" : "PRPositive",
-                                          "type" : "ExpressionRef"
-                                       }, {
-                                          "name" : "PR_check_missing",
-                                          "type" : "ExpressionRef"
-                                       } ]
+                                       "name" : "HER2_check_missing",
+                                       "type" : "ExpressionRef"
                                     } ]
                                  }, {
                                     "type" : "Or",
                                     "operand" : [ {
-                                       "name" : "HemoglobinInRange",
+                                       "name" : "PRPositive",
                                        "type" : "ExpressionRef"
                                     }, {
-                                       "name" : "Hemoglobin_check_missing",
+                                       "name" : "PR_check_missing",
                                        "type" : "ExpressionRef"
                                     } ]
                                  } ]
                               }, {
                                  "type" : "Or",
                                  "operand" : [ {
-                                    "name" : "ERPositive",
+                                    "name" : "HemoglobinInRange",
                                     "type" : "ExpressionRef"
                                  }, {
-                                    "name" : "ER_check_missing",
+                                    "name" : "Hemoglobin_check_missing",
                                     "type" : "ExpressionRef"
                                  } ]
                               } ]
                            }, {
                               "type" : "Or",
                               "operand" : [ {
-                                 "name" : "HER2Positive",
+                                 "name" : "ERPositive",
                                  "type" : "ExpressionRef"
                               }, {
-                                 "name" : "HER2_check_missing",
+                                 "name" : "ER_check_missing",
                                  "type" : "ExpressionRef"
                               } ]
                            } ]
