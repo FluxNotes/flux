@@ -4,7 +4,7 @@ import FluxObjectFactory from '../model/FluxObjectFactory';
 import Lang from 'lodash';
 import moment from 'moment';
 
-export default class CreatorBase extends Shortcut {
+export default class SingleHashtagKeyword extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
         super();
         this.metadata = metadata;

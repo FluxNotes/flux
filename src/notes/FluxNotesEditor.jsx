@@ -18,6 +18,7 @@ import AutoReplace from 'slate-auto-replace'
 import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
+import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 
@@ -84,6 +85,7 @@ class FluxNotesEditor extends React.Component {
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
+        this.plugins = [];
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
@@ -95,13 +97,22 @@ class FluxNotesEditor extends React.Component {
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases
         };
+
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
             const typeValue = type.value;
             structuredFieldPluginOptions[typeName] = typeValue;
         });
 
+        const singleHashtagKeywordStructuredFieldPluginOptions = {
+            shortcutManager: this.props.shortcutManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            createShortcut: this.props.newCurrentShortcut,
+            insertStructuredFieldTransform: this.insertStructuredFieldTransform,
+        };
+
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
@@ -117,19 +128,18 @@ class FluxNotesEditor extends React.Component {
             trigger: '@',
         });
 
-        this.plugins = [
-            this.suggestionsPluginCreators,
-            this.suggestionsPluginInserters,
-            this.structuredFieldPlugin
-        ];
-
+        this.plugins.push(this.suggestionsPluginCreators)
+        this.plugins.push(this.suggestionsPluginInserters)
+        this.plugins.push(this.structuredFieldPlugin)
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
         this.autoReplaceBeforeRegExp = undefined;
         let autoReplaceAfters = [];
-        let allShortcutDefinitions = this.props.shortcutManager.getAllShortcutDefinitions();
-        allShortcutDefinitions.forEach((def) => {
+        // Get all non-keyword shortcuts for autoreplace
+        let allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        allNonKeywordShortcuts.forEach((def) => {
             let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
@@ -137,15 +147,18 @@ class FluxNotesEditor extends React.Component {
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
 
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
+        // can switch to the commented out trigger to support non-space characters but need to put
+        // character used instead of always space when inserting the structured field. 
         this.plugins.push(AutoReplace({
-            "trigger": 'space',
+            "trigger": /[\s\r\n.!?;,)}\]]/,
+            // "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
             "transform": this.autoReplaceTransform.bind(this, null)
         }));
 
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;
-        allShortcutDefinitions.forEach((def) => {
+        allNonKeywordShortcuts.forEach((def) => {
             triggerRegExp = def.regexpTrigger;
             if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
@@ -154,7 +167,8 @@ class FluxNotesEditor extends React.Component {
                 const triggerRegExpModified = triggerRegExp;
                 //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
-                    "trigger": 'space',
+                    "trigger": /[\s\r\n.!?;,)}\]]/,
+                    // "trigger": 'space',
                     "before": triggerRegExpModified,
                     "transform": this.autoReplaceTransform.bind(this, def)
                 }));
@@ -221,7 +235,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut(shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -240,7 +254,8 @@ class FluxNotesEditor extends React.Component {
 
     autoReplaceTransform(def, transform, e, data, matches) {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
-        return this.insertShortcut(def, matches.before[0], "", transform).insertText(' ');
+        const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+        return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
 
     getTextCursorPosition = () => {
@@ -317,7 +332,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
-    suggestionDeleteExistingTransform(transform = null, prefixCharacter) {
+    suggestionDeleteExistingTransform = (transform = null, prefixCharacter) => {
         const {state} = this.state;
         if (Lang.isNull(transform)) {
             transform = state.transform();
@@ -347,10 +362,11 @@ class FluxNotesEditor extends React.Component {
             .deleteBackward(charactersInStructuredPhrase);
     }
 
-    insertStructuredFieldTransform(transform, shortcut) {
+    insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
         let result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
-        //console.log(result[0]);
+        // console.log("result[0]");
+        // console.log(result[0]);
         return result[0];
     }
 
@@ -721,8 +737,10 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
         } else {
             this.insertTextWithStyles(transform, text);
-            return transform;
-            // return transform.insertText(text);
+            // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
+            transform.insertText(' ')
+            const [newTransform, ] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
+            return newTransform.deleteBackward(1).focus();
         }
     }
     /*
@@ -743,7 +761,6 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
-
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
@@ -783,14 +800,12 @@ class FluxNotesEditor extends React.Component {
                 transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
             });
         }
-
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
             transform = this.insertPlainText(transform, remainder);
         }
 
         state = transform.apply();
         this.setState({state: state});
-        // return state;
     }
 
     /**

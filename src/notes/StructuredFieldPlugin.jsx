@@ -30,6 +30,8 @@ function StructuredFieldPlugin(opts) {
                 }
             });
         }
+        // Sort the keys in reverse order of creation -- new keys are always > old keys
+        deletedKeys.sort((a, b) => b - a)
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
@@ -84,6 +86,8 @@ function StructuredFieldPlugin(opts) {
         let localStyle = [];
         let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         nodes.forEach((node, index) => {
+            // console.log("node")
+            // console.log(node)
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
             } else if (node.characters && node.characters.length > 0) {
@@ -225,6 +229,7 @@ function StructuredFieldPlugin(opts) {
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
+            // console.log("decoded")
             // console.log(decoded)
 
             // because insertion of shortcuts into the context relies on the current selection, during a paste
@@ -278,6 +283,7 @@ function StructuredFieldPlugin(opts) {
 
         utils: {
             //isSelectionInStructuredField
+            convertSlateNodesToText: convertSlateNodesToText,
         },
 
         transforms: {
@@ -300,6 +306,8 @@ function insertStructuredField(opts, transform, shortcut) {
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
     shortcut.setKey(sf.key);
+    // console.log('shortcut kind')
+    // console.log(sf.kind)
     if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {
@@ -328,6 +336,8 @@ function createStructuredField(opts, shortcut) {
     let sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
+    // console.log("sf")
+    // console.log(sf)
 	return sf;
 }
 

@@ -48,9 +48,11 @@ export default class NoteParser {
         return this.allStringTriggersRegExp;
     }
 
-    createShortcut(trigger) {
-        const shortcut = this.shortcutManager.createShortcut(trigger.definition, trigger.trigger); //, onUpdate, object
-        shortcut.initialize(this.contextManager, trigger.trigger);
+    createShortcut(triggerOrKeywordObject) {
+        const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
+
+        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText); //, onUpdate, object
+        shortcut.initialize(this.contextManager, triggerOrKeywordText);
         shortcut.setKey("1");
         return shortcut;
     }
@@ -125,6 +127,54 @@ export default class NoteParser {
         return triggerPos;
     }
 
+    // Given a note, create a list of all keywords found in the note and their definitions
+    getAllKeywordsFromText (note) { 
+        const keywordsFoundInText = [];
+        // Get currently active singleHashtagShortcuts 
+        const listOfSingleHashtagKeywordShortcuts = this.contextManager.getActiveSingleHashtagKeywordShortcuts(this.shortcutManager);
+        if (Lang.isUndefined(listOfSingleHashtagKeywordShortcuts)) return [];
+        // For each singleHashtagShortcut 
+        for (const singleHashtagShortcut of listOfSingleHashtagKeywordShortcuts) { 
+            // Get all types of keywords 
+            const keywordClassesForShortcut = this.getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagShortcut)
+            // For each type of keywords 
+            for (const curKeywordClass of keywordClassesForShortcut) { 
+                // get all keywordObjects for that type of keyword (representing all possibble values of that keyword)
+                const keywordObjects = this.getKeywordsBasedOnKeywordShortcutClass(curKeywordClass)
+                // scan text for any of those keywordObject Values 
+                const foundKeyword = this.scanTextForAnyKeywordObjects(note, keywordObjects)
+                if (foundKeyword) { 
+                    // if keyword in text, add to our list of found keywords
+                    const keywordText = foundKeyword.name.toLowerCase()
+                    keywordsFoundInText.push({
+                        keyword: keywordText, 
+                        definition: this.shortcutManager.getMetadataForTrigger(keywordText)
+                    });
+                }
+            }
+        }
+        return keywordsFoundInText
+    }
+
+    // Given keywordsObjects representing potential keyword values and text, find the first keywordObject who appears in our text
+    scanTextForAnyKeywordObjects(text, keywordObjects) { 
+		for (const keywordObj of keywordObjects) { 
+			if (text.toLowerCase().indexOf(keywordObj.name.toLowerCase()) !== -1) { 
+				return keywordObj
+			}
+        }
+	}
+
+    // Given a keywordShortcutClass, get all of the associated keywords
+    getKeywordsBasedOnKeywordShortcutClass(keywordShortcutClass) { 
+        return this.shortcutManager.getKeywordsForShortcut(keywordShortcutClass)
+    }
+
+    // Given a singleHashtagKeywordShortcut, return all possible child keywordClasses 
+    getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagKeywordShortcut) { 
+        return this.shortcutManager.getValidChildShortcutsInContext(singleHashtagKeywordShortcut)
+    }
+    
     parse(note) {
         this.patientRecord = [];
         // console.log("parse: " + note);
@@ -132,6 +182,9 @@ export default class NoteParser {
         const structuredPhrases = result[0];
         //console.log(structuredPhrases);
         let data = structuredPhrases.map(this.createShortcut.bind(this));
+        const foundKeywords = this.getAllKeywordsFromText(note);
+        data = data.concat(foundKeywords.map(this.createShortcut.bind(this)));
+        // console.log(data)
         let dataObj;
         data.forEach((item) => {
             dataObj = item.getValueObject();
