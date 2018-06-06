@@ -737,9 +737,10 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
         } else {
             this.insertTextWithStyles(transform, text);
+            // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
+            transform.insertText(' ')
             const [newTransform, ] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state)
-            return newTransform;
-            // return transform.insertText(text);
+            return newTransform.deleteBackward(1).focus();
         }
     }
     /*
