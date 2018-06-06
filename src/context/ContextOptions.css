@@ -1,5 +1,5 @@
 .context-option {
-    margin: 5px 0 5px 26px;
+    margin: 5px 0 5px 0px;
     cursor: pointer;
     font-size: 0.9em;
     color: #555
@@ -18,7 +18,7 @@
 }
 
 .section-active{
-    border-left: 3px solid #eee;
+    /*border-left: 3px solid #eee;*/
     margin-left: 5px;
 }
 
@@ -35,7 +35,6 @@
 }
 
 .shortcut-search-title {
-    margin: 0 20px 5px;
     font-size: 0.9em;
 }
 
@@ -44,7 +43,6 @@
 }
 
 .shortcut-search-text {
-    left: 20px;
     font-size: 0.8em;
 }
 

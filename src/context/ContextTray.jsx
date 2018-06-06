@@ -9,14 +9,17 @@ import ContextOptions from './ContextOptions';
 import './ContextTray.css';
 
 export default class ContextTray extends Component {
+    //these are the possible view mode constants
+    TEMPLATE_VIEW = 0;
+    CONTEXT_VIEW = 1;
     constructor(props) {
         super(props);
 
         this.state = {
-            // value keeps track of which context is active
+            // viewMode keeps track of which context is active
             // 0 when Templates are selected. 1 when Patient is selected
-            // In editor, value is incremented by 1 for each context added (i.e @condition, #disease status)
-            value: 1,
+            // In editor, viewMode is incremented by 1 for each context added (i.e @condition, #disease status)
+            viewMode: this.CONTEXT_VIEW,
             lastActiveContextCount: 0,
 
             templates: [
@@ -55,11 +58,11 @@ export default class ContextTray extends Component {
 
         if (this.state.lastActiveContextCount !== activeContexts.length) {
             this.setState({
-                value: activeContexts.length + 1,
+                currentContextIndex: activeContexts.length - 1,
                 lastActiveContextCount: activeContexts.length
             }, () => {
                 // scrolls to newest ContextOption section
-                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.value - 2}`]);
+                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.currentContextIndex}`]);
                 if (newContextSection) newContextSection.scrollIntoView();
             });
         }
@@ -73,17 +76,17 @@ export default class ContextTray extends Component {
         this.props.onShortcutClicked(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
     }
 
-    handleTemplateSectionClick = () => this.setState({ value: 0 })
-    handlePatientSectionClick = () => this.setState({ value: 1 })
+    handleTemplateSectionClick = () => this.setState({ viewMode: this.TEMPLATE_VIEW })
+    handlePatientSectionClick = () => this.setState({ viewMode: this.CONTEXT_VIEW })
 
     findParentContext(activeContexts) {
-        const value = this.state.value - 2;
-        if (activeContexts[value] == null) {
+        const currentContextIndex = this.state.currentContextIndex;
+        if (activeContexts[currentContextIndex] == null) {
             return null;
-        } else if (activeContexts[value].parentContext) {
-            return activeContexts[value].parentContext;
+        } else if (activeContexts[currentContextIndex].parentContext) {
+            return activeContexts[currentContextIndex].parentContext;
         } else {
-            return activeContexts[value];
+            return activeContexts[currentContextIndex];
         }
     }
 
@@ -96,7 +99,8 @@ export default class ContextTray extends Component {
     }
 
     renderParentContexts(contexts) {
-        const activeContextIndex = this.state.value - 2;
+        if (this.state.viewMode !== this.TEMPLATE_VIEW) {
+        const activeContextIndex = this.state.currentContextIndex;
         const activeContext = contexts[activeContextIndex];
         const parentContexts = contexts.filter((context) => context.parentContext == null);
 
@@ -112,7 +116,7 @@ export default class ContextTray extends Component {
                 <section>
                     {parentContexts.map((context, i) => {
                         const isActive = activeContext === context;
-                        const contextIndex = contexts.indexOf(context) + 2;
+                        const contextIndex = contexts.indexOf(context);
 
                         if (!isActive && (selectedParentContext !== context)) {
                             return (
@@ -129,7 +133,7 @@ export default class ContextTray extends Component {
                             return (
                                 <div
                                     className={`section-item${isActive ? ' selected' : ''}`}
-                                    onClick={() => this.setState({ value: contextIndex })}
+                                    onClick={() => this.setState({ currentContextIndex: contextIndex })}
                                     key={`context-header-option-${contextIndex}`}
                                     id={`section-item-${context.text}`}
                                     title={context.text}
@@ -149,7 +153,7 @@ export default class ContextTray extends Component {
                         context={activeContext}
                         contextManager={this.props.contextManager}
                         handleClick={this.handleShortcutClick}
-                        ref={`context-option-${this.state.value}`}
+                        ref={`context-option-${this.state.viewMode}`}
                         shortcutManager={this.props.shortcutManager}
                     />
                 }
@@ -157,14 +161,14 @@ export default class ContextTray extends Component {
                 {this.renderChildrenContexts(contexts, children)}
             </div>
         );
-    }
+    }};
 
     renderChildrenContexts(contexts, children) {
         if (children.length === 0) {
             return null;
         }
 
-        const activeContextIndex = this.state.value - 2;
+        const activeContextIndex = this.state.currentContextIndex;
         const activeContext = contexts[activeContextIndex];
         const activeChildIndex = children.indexOf(activeContext);
         const subchildren = children
@@ -175,13 +179,13 @@ export default class ContextTray extends Component {
             <div>
                 <section>
                     {children.map((context, i) => {
-                        const contextIndex = contexts.indexOf(context) + 2;
+                        const contextIndex = contexts.indexOf(context);
                         const isActive = context === activeContext;
 
                         return (
                             <div
                                 className={`section-item${isActive ? ' selected' : ''}`}
-                                onClick={() => this.setState({ value: contextIndex })}
+                                onClick={() => this.setState({ currentContextIndex: contextIndex })}
                                 key={`context-child-option-${contextIndex}`}
                                 title={context.text}
                             >
@@ -197,7 +201,7 @@ export default class ContextTray extends Component {
                         context={activeContext}
                         contextManager={this.props.contextManager}
                         handleClick={this.handleShortcutClick}
-                        ref={`context-option-${this.state.value}`}
+                        ref={`context-option-${this.state.viewMode}`}
                         shortcutManager={this.props.shortcutManager}
                     />
                 }
@@ -208,28 +212,30 @@ export default class ContextTray extends Component {
     }
 
     render() {
-        const { value, templates } = this.state;
+        const { viewMode, templates } = this.state;
         const activeContexts = this.getActiveContexts();
 
         return (
             <div className="context-tray">
                 <section>
+                    <div className="section-menu">
                     <div
-                        className={`section-item${value === 0 ? ' selected' : ''}`}
+                        className={`section-item${viewMode === this.TEMPLATE_VIEW ? ' selected' : ''}`}
                         onClick={this.handleTemplateSectionClick}
                     >
                         TEMPLATES
                     </div>                        
 
                     <div
-                        className={`section-item${value === 1 ? ' selected' : ''}`}
+                        className={`section-item${viewMode === this.CONTEXT_VIEW ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
                         CONTEXT
                     </div>
+                    </div>
                 </section>
 
-                {value === 0 &&
+                {viewMode === this.TEMPLATE_VIEW &&
                     <section>
                         <TemplateForm
                             handleClick={this.insertTemplate}
@@ -240,7 +246,7 @@ export default class ContextTray extends Component {
                     </section>
                 }
 
-                {value === 1 &&
+                {viewMode === this.CONTEXT_VIEW &&
                     <ContextOptions
                         contextManager={this.props.contextManager}
                         handleClick={this.handleShortcutClick}
