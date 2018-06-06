@@ -166,11 +166,7 @@ define check_not_disqualified:
   and (NotPregnant or Pregnancy_check_missing)
   and (ECOGInRange or ECOG_check_missing)
   and (PlateletsInRange or Platelets_check_missing)
-  and (AJCCInRange or AJCC_check_missing)
-
-// Ideally, this function will tell health care providers
-// what to ask patients to see if they are eligible for a clinical
-// trial. 
+  and (AJCCInRange or AJCC_check_missing) 
 
 // Returns an array of missing data fields to determine
 // if a patient is eligible for a given trial.
