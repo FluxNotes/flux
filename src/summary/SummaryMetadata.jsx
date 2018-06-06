@@ -4,6 +4,7 @@ import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
+import PALLAS_ineligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
 
 /*
     Each section has the following properties:
@@ -844,7 +845,7 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = () => {
-        const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient]);
+        const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
         let eligibility = "Not eligible";
         let missingCriteria = ["None"];
 
