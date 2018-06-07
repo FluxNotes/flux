@@ -519,8 +519,6 @@ class FluxNotesEditor extends React.Component {
 
         // Check if mode changes
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
-            console.log('here')
-            console.log(nextProps)
             this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
             this.props.updateContextTrayItemToInsert(null);
             this.props.setFullAppState('isNoteViewerEditable', true);
@@ -889,16 +887,19 @@ class FluxNotesEditor extends React.Component {
             this.props.setFullAppState('isNoteViewerEditable', false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
-            if (this.props.inModal) this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            if (this.props.inModal) {
+                this.resetEditorState();
+                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            }
         }
         else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            console.log(this.props)
-            // this.insertTextWithStructuredPhrases(contextTrayItem);
-            // this.props.updateContextTrayItemToInsert(null);
+            if (this.props.inModal) {
+                this.resetEditorState();
+                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            }
         }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {
-            console.log('else insert context trya item')
             this.insertTextWithStructuredPhrases(contextTrayItem);
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
