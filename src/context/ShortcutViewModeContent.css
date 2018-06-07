@@ -1,0 +1,39 @@
+#shortcut-mode-contexts .section-item {
+    margin: 3px 0;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#shortcut-mode-contexts .section-item:hover,
+#shortcut-mode-contexts .section-item.selected {
+    font-weight: bold;
+    color: #333;
+}
+
+#shortcut-mode-contexts .section-menu {
+    border-bottom: 3px solid #eee;
+}
+
+#shortcut-mode-contexts .section-item-disabled {
+    margin: 3px 0px 3px 26px;
+    font-size: 0.9em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#shortcut-mode-contexts .fa {
+    font-size: 1.4em;
+    width: 14px;
+    margin-left: 2px;
+    color: #3399FF;
+}
+
+.condition-contexts,
+.section-active {
+    /*border-left: 3px solid #eee;*/
+    margin-left: 5px;
+}

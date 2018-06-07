@@ -35,6 +35,26 @@ export default class ContextOptions extends Component {
         this.setState({ tooltipVisibility: 'visible' })
     }
 
+    renderSearchFilter(totalShown, countBeforeSearch) { 
+        return (
+            <div id="shortcut-search">
+                <div className="shortcut-search-container">
+                    <div className="shortcut-search-title">
+                        <div>Filter:</div>
+                        <div className="count">(showing {totalShown} of {countBeforeSearch})</div>
+                    </div>
+
+                    <TextField
+                        className="shortcut-search-text"
+                        label="Search shortcuts"
+                        value={this.state.searchString}
+                        onChange={(event) => this.handleSearch(event.target.value)}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     render() {
         let context = this.props.context;
         if (Lang.isUndefined(context)) {
@@ -104,28 +124,6 @@ export default class ContextOptions extends Component {
             return null;
         }
 
-        // do we add search bar
-        let filterBar = "";
-        if (showFilter) {
-            filterBar = (
-                <div id="shortcut-search">
-                    <div className="shortcut-search-container">
-                        <div className="shortcut-search-title">
-                            <div>Filter:</div>
-                            <div className="count">(showing {totalShown} of {countBeforeSearch})</div>
-                        </div>
-
-                        <TextField
-                            className="shortcut-search-text"
-                            label="Search shortcuts"
-                            value={this.state.searchString}
-                            onChange={(event) => this.handleSearch(event.target.value)}
-                        />
-                    </div>
-                </div>
-            );
-        }
-
         // generates list of active triggers (triggers that have at least 1 shortcut)
         // used to bold the active triggers in the sidebar
         const activeContextTriggers = this.props.contextManager.getActiveContexts()
@@ -138,7 +136,7 @@ export default class ContextOptions extends Component {
                 className={'section-active'}
             >
                 <div className='context-options-list'>
-                    {filterBar}
+                    {showFilter && this.renderSearchFilter(totalShown, countBeforeSearch)} 
 
                     {groupList.map((groupObj, i) => {
                         return (
