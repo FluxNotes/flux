@@ -1,3 +1,9 @@
+import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
+import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
+import PALLAS_ineligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
+
+
 class ClinicalTrialsList {
     constructor() {
         this.clinicalTrials = [
@@ -18,7 +24,7 @@ class ClinicalTrialsList {
                 description: 'PALbociclib CoLlaborative Adjuvant Study: A randomized phase III trial of Palbociclib with standard adjuvant endocrine therapy versus standard adjuvant endocrine therapy alone for hormone receptor positive (HR+) / human epidermal growth factor receptor 2 (HER2)-negative early breast cancer',
                 studyStartDate: 8/1/2015,
                 cliniclTrialsGovIdentifier: 'NCT02513394',
-                inclusionCriteriaCQL: null,
+                inclusionCriteriaCQL: PALLAScql,
                 exclusionCriteriaCQL: null,
                 informationalURL: 'https://clinicaltrials.gov/ct2/show/NCT02513394',
                 additionalCriteria: [   'Signed informed consent prior to study specific procedures',
@@ -44,7 +50,8 @@ class ClinicalTrialsList {
         return this.clinicalTrials;
     }
     
-    static getDescription(dataElement){
+    // How do you know which trial to extract from?
+    static getDescription(dataElement, trialName){
         switch(dataElement) {
             case "clinicalTrialEnrollment":
                 return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
@@ -61,6 +68,40 @@ class ClinicalTrialsList {
             default:
                 return null;
         }
+    }
+
+    findPatientEligibility(){
+        let eligibility = "Potentially Eligible";
+        let missingCriteria = ["None"];
+        let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        let eligibleTrials = [];
+        
+        for (let n in this.clinicalTrials) {
+            let trial = this.clinicalTrials[n];
+            if (trial.inclusionCriteriaCQL != null) {
+                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
+                if (result.patientResults[patient_id].MeetsInclusionCriteria) {
+                     eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
+                 }
+                else if (result.patientResults[patient_id].check_not_disqualified) {
+                    eligibility = "Potentially eligible, but missing necessary data fields";
+                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].find_missing_data);
+                    console.log(missingCriteria);
+                    eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
+                }
+            }
+        }
+        return eligibleTrials;    
+    }
+
+    getMissingCriteriaListTrialEligibility(missingCriteria) {
+        let missingFields = [];
+        for (let property in missingCriteria) {
+            if (missingCriteria[property] === true) {
+                missingFields.push(property);
+            }
+        }
+        return missingFields;
     }
     
     getClinicalTrialByName(name){

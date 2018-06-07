@@ -1,10 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
-import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
-import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
-import PALLAS_ineligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
+import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 
 /*
     Each section has the following properties:
@@ -845,39 +842,9 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = () => {
-        const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
-        let eligibility = "Not eligible";
-        let missingCriteria = ["None"];
-
-        // patient_id can be replaced with any other patient ID and used to check
-        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
-
-        if (result.patientResults[patient_id].MeetsInclusionCriteria) {
-            eligibility = "Potentially eligible";
-        }
-        else if (result.patientResults[patient_id].check_not_disqualified) {
-            eligibility = "Potentially eligible, but missing necessary data fields";
-            missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].find_missing_data);
-        }
-        else {
-            eligibility = "Not eligible"
-        }
-        return [[{ value: 'PALLAS' }, 'Palbociclib Collaborative Adjuvant Study', eligibility, missingCriteria.join(", ")]];
-
+        let clinical_trials = new ClinicalTrialsList();
+        return clinical_trials.findPatientEligibility();
     }
-
-    getMissingCriteriaListTrialEligibility = (missingCriteria) => {
-        let missingFields = [];
-        for (let property in missingCriteria) {
-            if (missingCriteria[property] === true) {
-                missingFields.push(property);
-            }
-        }
-
-        // Returns a list of all criteria that are not included in the patient_id's fhir 
-        // profile.
-        return missingFields;
-    } 
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
