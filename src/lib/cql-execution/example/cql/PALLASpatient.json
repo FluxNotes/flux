@@ -883,7 +883,7 @@
                }
             }
          }, {
-            "name" : "ER_check_missing",
+            "name" : "ERCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -912,7 +912,7 @@
                }
             }
          }, {
-            "name" : "PR_check_missing",
+            "name" : "PRCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -941,7 +941,7 @@
                }
             }
          }, {
-            "name" : "HER2_check_missing",
+            "name" : "HER2CheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -970,7 +970,7 @@
                }
             }
          }, {
-            "name" : "Hemoglobin_check_missing",
+            "name" : "HemoglobinCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -999,7 +999,7 @@
                }
             }
          }, {
-            "name" : "AJCC_check_missing",
+            "name" : "AJCCCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1028,7 +1028,7 @@
                }
             }
          }, {
-            "name" : "Pregnancy_check_missing",
+            "name" : "PregnancyCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1057,7 +1057,7 @@
                }
             }
          }, {
-            "name" : "ECOG_check_missing",
+            "name" : "ECOGCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1086,7 +1086,7 @@
                }
             }
          }, {
-            "name" : "Neutrophils_check_missing",
+            "name" : "NeutrophilsCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1115,7 +1115,7 @@
                }
             }
          }, {
-            "name" : "Platelets_check_missing",
+            "name" : "PlateletsCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1144,7 +1144,7 @@
                }
             }
          }, {
-            "name" : "MeetsInclusionCriteria",
+            "name" : "meetsInclusionCriteria",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1212,7 +1212,7 @@
                } ]
             }
          }, {
-            "name" : "check_not_disqualified",
+            "name" : "checkNotDisqualified",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1235,7 +1235,7 @@
                                        "name" : "HER2Negative",
                                        "type" : "ExpressionRef"
                                     }, {
-                                       "name" : "HER2_check_missing",
+                                       "name" : "HER2CheckMissing",
                                        "type" : "ExpressionRef"
                                     } ]
                                  }, {
@@ -1244,7 +1244,7 @@
                                        "name" : "PRPositive",
                                        "type" : "ExpressionRef"
                                     }, {
-                                       "name" : "PR_check_missing",
+                                       "name" : "PRCheckMissing",
                                        "type" : "ExpressionRef"
                                     } ]
                                  } ]
@@ -1254,7 +1254,7 @@
                                     "name" : "HemoglobinInRange",
                                     "type" : "ExpressionRef"
                                  }, {
-                                    "name" : "Hemoglobin_check_missing",
+                                    "name" : "HemoglobinCheckMissing",
                                     "type" : "ExpressionRef"
                                  } ]
                               } ]
@@ -1264,7 +1264,7 @@
                                  "name" : "ERPositive",
                                  "type" : "ExpressionRef"
                               }, {
-                                 "name" : "ER_check_missing",
+                                 "name" : "ERCheckMissing",
                                  "type" : "ExpressionRef"
                               } ]
                            } ]
@@ -1274,7 +1274,7 @@
                               "name" : "NotPregnant",
                               "type" : "ExpressionRef"
                            }, {
-                              "name" : "Pregnancy_check_missing",
+                              "name" : "PregnancyCheckMissing",
                               "type" : "ExpressionRef"
                            } ]
                         } ]
@@ -1284,7 +1284,7 @@
                            "name" : "ECOGInRange",
                            "type" : "ExpressionRef"
                         }, {
-                           "name" : "ECOG_check_missing",
+                           "name" : "ECOGCheckMissing",
                            "type" : "ExpressionRef"
                         } ]
                      } ]
@@ -1294,7 +1294,7 @@
                         "name" : "PlateletsInRange",
                         "type" : "ExpressionRef"
                      }, {
-                        "name" : "Platelets_check_missing",
+                        "name" : "PlateletsCheckMissing",
                         "type" : "ExpressionRef"
                      } ]
                   } ]
@@ -1304,13 +1304,13 @@
                      "name" : "AJCCInRange",
                      "type" : "ExpressionRef"
                   }, {
-                     "name" : "AJCC_check_missing",
+                     "name" : "AJCCCheckMissing",
                      "type" : "ExpressionRef"
                   } ]
                } ]
             }
          }, {
-            "name" : "find_missing_data",
+            "name" : "findMissingData",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1318,49 +1318,49 @@
                "element" : [ {
                   "name" : "Progesterone receptor",
                   "value" : {
-                     "name" : "PR_check_missing",
+                     "name" : "PRCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "Estrogen receptor",
                   "value" : {
-                     "name" : "ER_check_missing",
+                     "name" : "ERCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "Hemoglobin",
                   "value" : {
-                     "name" : "Hemoglobin_check_missing",
+                     "name" : "HemoglobinCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "HER2",
                   "value" : {
-                     "name" : "HER2_check_missing",
+                     "name" : "HER2CheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "Pregnant/Not Pregnant",
                   "value" : {
-                     "name" : "Pregnancy_check_missing",
+                     "name" : "PregnancyCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "ECOG",
                   "value" : {
-                     "name" : "ECOG_check_missing",
+                     "name" : "ECOGCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "Platelets",
                   "value" : {
-                     "name" : "Platelets_check_missing",
+                     "name" : "PlateletsCheckMissing",
                      "type" : "ExpressionRef"
                   }
                }, {
                   "name" : "AJCC",
                   "value" : {
-                     "name" : "AJCC_check_missing",
+                     "name" : "AJCCCheckMissing",
                      "type" : "ExpressionRef"
                   }
                } ]

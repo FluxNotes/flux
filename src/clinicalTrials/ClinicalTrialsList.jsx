@@ -77,30 +77,22 @@ class ClinicalTrialsList {
         for (let n in this.clinicalTrials) {
             
             let trial = this.clinicalTrials[n];
-<<<<<<< HEAD
-            if (trial.inclusionCriteriaCQL != null) {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                if (result.patientResults[patient_id].MeetsInclusionCriteria) {
-                     eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
-=======
             let missingCriteria = ["None"];
             if (trial.inclusionCriteriaCQL != null) 
             {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
+                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
                 
-                if (result.patientResults[patient_id].MeetsInclusionCriteria) 
+                if (result.patientResults[patient_id].meetsInclusionCriteria) 
                 {
                      eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible"});
->>>>>>> Fixed bug with returning eligible clinical trials in the proper format.
                  }
-                else if (result.patientResults[patient_id].check_not_disqualified) 
+                else if (result.patientResults[patient_id].checkNotDisqualified) 
                 {
-                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].find_missing_data);
+                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
                     eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields"});
                 }
             }
         }
-        //console.log(eligibleTrials);
         return eligibleTrials;    
     }
 

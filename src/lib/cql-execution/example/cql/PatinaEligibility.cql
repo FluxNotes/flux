@@ -119,7 +119,7 @@ define HemoglobinInRange:
 
 
 // FINAL: MeetsInclusionCriteria
-define MeetsInclusionCriteria:
+define meetsInclusionCriteria:
   InDemographic
   and HasMetastaticBreastCancer
   and IsHormoneReceptorPositive

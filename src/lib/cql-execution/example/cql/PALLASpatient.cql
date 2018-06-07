@@ -113,35 +113,35 @@ define NeutrophilsInRange:
   )
 
 
-define ER_check_missing:
+define ERCheckMissing:
   not (exists( [Observation: "Estrogen Receptor"] O ) )
 
-define PR_check_missing:
+define PRCheckMissing:
   not (exists( [Observation: "Progesterone Receptor"] O ))
 
-define HER2_check_missing:
+define HER2CheckMissing:
   not (exists(  [Observation: "HER2"] O ))
 
-define Hemoglobin_check_missing:
+define HemoglobinCheckMissing:
   not (exists( [Observation: "Hemoglobin"] O ))
 
-define AJCC_check_missing:
+define AJCCCheckMissing:
   not (exists ( [Observation: "AJCC"] O ))
 
-define Pregnancy_check_missing:
+define PregnancyCheckMissing:
   not (exists( [Observation: "Pregnant"] O ))
 
-define ECOG_check_missing:
+define ECOGCheckMissing:
   not (exists( [Observation: "ECOG"] O))
 
-define Neutrophils_check_missing:
+define NeutrophilsCheckMissing:
   not (exists( [Observation: "Neutrophils"] O))
 
-define Platelets_check_missing:
+define PlateletsCheckMissing:
   not (exists ( [Observation: "Platelets"] O ))
 
   
-define MeetsInclusionCriteria:
+define meetsInclusionCriteria:
   InDemographic 
   and ERPositive
   and PRPositive 
@@ -159,28 +159,28 @@ define MeetsInclusionCriteria:
 // or if their data is missing, meaning that clinicians can get information
 // and determine further eligibility.
 
-define check_not_disqualified:
-  (HER2Negative or HER2_check_missing)
-  and (PRPositive or PR_check_missing)
-  and (HemoglobinInRange or Hemoglobin_check_missing)
-  and (ERPositive or ER_check_missing)
-  and (NotPregnant or Pregnancy_check_missing)
-  and (ECOGInRange or ECOG_check_missing)
-  and (PlateletsInRange or Platelets_check_missing)
-  and (AJCCInRange or AJCC_check_missing) 
+define checkNotDisqualified:
+  (HER2Negative or HER2CheckMissing)
+  and (PRPositive or PRCheckMissing)
+  and (HemoglobinInRange or HemoglobinCheckMissing)
+  and (ERPositive or ERCheckMissing)
+  and (NotPregnant or PregnancyCheckMissing)
+  and (ECOGInRange or ECOGCheckMissing)
+  and (PlateletsInRange or PlateletsCheckMissing)
+  and (AJCCInRange or AJCCCheckMissing) 
 
 // Returns an array of missing data fields to determine
 // if a patient is eligible for a given trial.
-define find_missing_data:
+define findMissingData:
   Tuple {
-    "Progesterone receptor": PR_check_missing, 
-    "Estrogen receptor": ER_check_missing,
-    "Hemoglobin": Hemoglobin_check_missing,
-    "HER2": HER2_check_missing,
-    "Pregnant/Not Pregnant": Pregnancy_check_missing,
-    "ECOG": ECOG_check_missing,
-    "Platelets": Platelets_check_missing,
-    "AJCC": AJCC_check_missing
+    "Progesterone receptor": PRCheckMissing, 
+    "Estrogen receptor": ERCheckMissing,
+    "Hemoglobin": HemoglobinCheckMissing,
+    "HER2": HER2CheckMissing,
+    "Pregnant/Not Pregnant": PregnancyCheckMissing,
+    "ECOG": ECOGCheckMissing,
+    "Platelets": PlateletsCheckMissing,
+    "AJCC": AJCCCheckMissing
   }
 
   

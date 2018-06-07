@@ -829,7 +829,7 @@
                }
             }
          }, {
-            "name" : "MeetsInclusionCriteria",
+            "name" : "meetsInclusionCriteria",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
