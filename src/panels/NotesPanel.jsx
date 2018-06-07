@@ -21,7 +21,6 @@ export default class NotesPanel extends Component {
             currentlyEditingEntryId: -1,
             arrayOfPickLists: [],
             contextTrayItemToInsert: null,
-            searchIndex: 0
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -47,21 +46,12 @@ export default class NotesPanel extends Component {
     }
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
-        let searchIndex = this.state.searchIndex;
-        if (this.state.contextTrayItemToInsert === null) {
-            searchIndex = this.state.selectedNote.content.length;
-            contextTrayItem = this.state.selectedNote.content + contextTrayItem;
-        }
-        this.setState({
-            searchIndex,
-            contextTrayItemToInsert: contextTrayItem
-        });
+        this.setState({ contextTrayItemToInsert: contextTrayItem });
     }
 
     updateContextTrayItemWithSelectedPickListOptions = (selectedPickListOptions) => {
         let contextTrayItemToInsert = this.state.contextTrayItemToInsert;
-        let previousNoteContent = contextTrayItemToInsert.slice(0, this.state.searchIndex + 1);
-        contextTrayItemToInsert = contextTrayItemToInsert.slice(this.state.searchIndex + 1);
+        
         // Clear old selections
         while (contextTrayItemToInsert.indexOf('[[') >= 0) {
             let indexStart = contextTrayItemToInsert.indexOf('[[');
@@ -91,9 +81,7 @@ export default class NotesPanel extends Component {
             });
         }
 
-        contextTrayItemToInsert = previousNoteContent + contextTrayItemToInsert;
         this.setState({contextTrayItemToInsert: contextTrayItemToInsert});
-        // this.setState({updatedEditorNote: { content: contextTrayItemToInsert }});
     }
 
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
