@@ -521,7 +521,7 @@ class FluxNotesEditor extends React.Component {
         // This means user either clicked the OK or Cancel button on the modal
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
             // User clicked cancel button
-            if (nextProps.contextTrayItemToInsert !== null) {
+            if (nextProps.contextTrayItemToInsert === null) {
                 this.props.setFullAppState('isNoteViewerEditable', true);    
             } else { // User clicked OK button so insert text
                 this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
