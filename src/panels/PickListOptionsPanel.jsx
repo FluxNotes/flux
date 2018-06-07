@@ -69,7 +69,7 @@ export default class PickListOptionsPanel extends Component {
                 : triggerSelection.selectedOption;
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption
+                selectedOption: selectedOption
             }
         });
 
@@ -79,7 +79,6 @@ export default class PickListOptionsPanel extends Component {
     handleOkButtonClick = () => {
         this.toggleView('context-tray');
         this.handleInsertChosenOption();
-        // this.props.updateContextTrayItemToInsert(null);
     }
 
     handleOptionButtonClick(option, trigger) {

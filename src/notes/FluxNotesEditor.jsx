@@ -458,11 +458,10 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    // When the editor in the modal first is triggered, insert the contextTrayItem when it mounts.
     componentDidMount = () => {
         if (this.props.inModal) {
             this.insertContextTrayItem(this.props.contextTrayItemToInsert);
-            let openPortal = this.props.noteAssistantMode !== 'pick-list-options-panel';
-            // this.insertTextWithStructuredPhrases(this.props.documentText, undefined, false, openPortal);
         }
     }
 
@@ -897,15 +896,12 @@ class FluxNotesEditor extends React.Component {
                 this.resetEditorState();
                 this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
             }
-        }
-        else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+        } else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
             if (this.props.inModal) {
                 this.resetEditorState();
                 this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
             }
-        }
-        // If the text to be inserted does not contain any pick lists, insert the text
-        else {
+        } else { // If the text to be inserted does not contain any pick lists, insert the text
             this.insertTextWithStructuredPhrases(contextTrayItem);
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');

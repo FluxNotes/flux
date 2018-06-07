@@ -331,7 +331,6 @@ export default class NoteAssistant extends Component {
                                         updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                                         inModal={true}
                                         shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
-                                        saveNoteUponKeypress={this.props.saveNoteUponKeypress}
                                     />
                                 </Col>
                                 <Col sm={5} md={4} lg={3}>
@@ -581,8 +580,11 @@ export default class NoteAssistant extends Component {
     render() {
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
-        // const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes")
-        const noteAssistantMode = this.props.noteAssistantMode;//TODO: changing breaks some cases
+        // If the editor is read only because we need to select picklists, then we need the note assistant mode to open the portal
+        let noteAssistantMode = "clinical-notes";
+        if (this.props.isNoteViewerEditable || this.props.noteAssistantMode === 'pick-list-options-panel') {
+          noteAssistantMode = this.props.noteAssistantMode;
+        }
         return (
             <div className="note-assistant-wrapper">
                 {this.renderToggleButtons()}

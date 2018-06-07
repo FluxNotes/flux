@@ -15,7 +15,7 @@ export default class NotesPanel extends Component {
         this.state = {
             // updatedEditorNote is the note to be loaded in the editor
             updatedEditorNote: null,
-            noteAssistantMode: "clinical-notes",//"context-tray", //TODO - changing default breaks other cases
+            noteAssistantMode: "context-tray",
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
             selectedNote: null,
             currentlyEditingEntryId: -1,
