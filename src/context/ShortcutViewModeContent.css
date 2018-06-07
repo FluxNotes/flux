@@ -1,4 +1,4 @@
-#shortcut-mode-contexts .section-item {
+/* #shortcut-mode-contexts .section-item {
     margin: 3px 0;
     font-size: 0.9em;
     cursor: pointer;
@@ -30,7 +30,7 @@
     width: 14px;
     margin-left: 2px;
     color: #3399FF;
-}
+} */
 
 .condition-contexts,
 .section-active {

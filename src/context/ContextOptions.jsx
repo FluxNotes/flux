@@ -35,26 +35,6 @@ export default class ContextOptions extends Component {
         this.setState({ tooltipVisibility: 'visible' })
     }
 
-    renderSearchFilter(totalShown, countBeforeSearch) { 
-        return (
-            <div id="shortcut-search">
-                <div className="shortcut-search-container">
-                    <div className="shortcut-search-title">
-                        <div>Filter:</div>
-                        <div className="count">(showing {totalShown} of {countBeforeSearch})</div>
-                    </div>
-
-                    <TextField
-                        className="shortcut-search-text"
-                        label="Search shortcuts"
-                        value={this.state.searchString}
-                        onChange={(event) => this.handleSearch(event.target.value)}
-                    />
-                </div>
-            </div>
-        );
-    }
-
     render() {
         let context = this.props.context;
         if (Lang.isUndefined(context)) {
@@ -83,7 +63,7 @@ export default class ContextOptions extends Component {
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+                if (!showFilter || this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     count++;
@@ -91,7 +71,7 @@ export default class ContextOptions extends Component {
             });
             // Add keywords as well
             this.props.shortcutManager.getKeywordsForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+                if (!showFilter || this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     count++;
@@ -112,6 +92,7 @@ export default class ContextOptions extends Component {
                 groupList.push(currentGroup);
             }
             else {
+                // TODO: Add a dot dot dot to signal there are more to show, but that search is needed to view.
                 if (countToShow === 5) return;
 
                 countToShow++;
@@ -136,8 +117,6 @@ export default class ContextOptions extends Component {
                 className={'section-active'}
             >
                 <div className='context-options-list'>
-                    {showFilter && this.renderSearchFilter(totalShown, countBeforeSearch)} 
-
                     {groupList.map((groupObj, i) => {
                         return (
                         <div key={`group-${i}`}>

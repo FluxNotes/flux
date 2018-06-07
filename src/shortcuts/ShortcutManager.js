@@ -126,6 +126,17 @@ class ShortcutManager {
         return this.shortcutMap[trigger.toLowerCase()];
     }
 
+    // Determines if a shortcut is used to group together other shortcuts
+    // Which is the case iff the shortcut is: 
+    // 1. Referenced as a parent shortcut, && 
+    // 2. Referenced as a parent shortcut by shortcuts who themselves have no group name
+
+    isShortcutAGroupName(trigger) { 
+        return this.shortcutDefinitions.filter((shortcut, i) => { 
+            return shortcut["knownParentContexts"] === trigger && Lang.isUndefined(shortcut["shortcutGroupName"])
+        }).length !== 0;
+    }
+
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
 
         let className;

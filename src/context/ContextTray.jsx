@@ -34,16 +34,16 @@ export default class ContextTray extends Component {
         return (
             <div className="context-tray">
                 <section>
-                    <div className="section-menu">
+                    <div className="view-mode-section-menu">
                     <div
-                        className={`section-item${viewMode === this.TEMPLATE_VIEW ? ' selected' : ''}`}
+                        className={`view-mode-section-item${viewMode === this.TEMPLATE_VIEW ? ' selected' : ''}`}
                         onClick={this.handleTemplateSectionClick}
                     >
                         TEMPLATES
                     </div>                        
 
                     <div
-                        className={`section-item${viewMode === this.CONTEXT_VIEW ? ' selected' : ''}`}
+                        className={`view-mode-section-item${viewMode === this.CONTEXT_VIEW ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
                         CONTEXT

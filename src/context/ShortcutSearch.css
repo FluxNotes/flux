@@ -1,0 +1,23 @@
+#shortcut-search {
+    padding: 15px 0;
+    background-color: #ffffff;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.shortcut-search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.shortcut-search-title {
+    font-size: 0.9em;
+}
+
+.shortcut-search-title .count {
+    font-style: italic;
+}
+
+.shortcut-search-text {
+    font-size: 0.8em;
+}
