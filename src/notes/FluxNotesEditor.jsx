@@ -882,11 +882,14 @@ class FluxNotesEditor extends React.Component {
             this.props.updateNoteAssistantMode('pick-list-options-panel');
             if (this.props.inModal) this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
         }
+        else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+            
+        }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {
-            // this.insertTextWithStructuredPhrases(contextTrayItem);
-            // this.props.updateContextTrayItemToInsert(null);
-            // this.props.updateNoteAssistantMode('context-tray');
+            this.insertTextWithStructuredPhrases(contextTrayItem);
+            this.props.updateContextTrayItemToInsert(null);
+            this.props.updateNoteAssistantMode('context-tray');
         }
     }
 
