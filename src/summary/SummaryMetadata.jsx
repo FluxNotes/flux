@@ -853,8 +853,14 @@ export default class SummaryMetadata {
 
     // NOTE: PATINA Eligibility by Lucy
     getItemListForClinicalTrialEligibility = () => {
-        let clinical_trials = new ClinicalTrialsList();
-        return clinical_trials.findPatientEligibility();
+        let trialsList = new ClinicalTrialsList();
+        let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
+        let eligibleTrials = []
+        
+        clinicalTrialsAndCriteriaList.forEach((trial) => {
+            eligibleTrials.push([{ value: trial.info.name }, trial.info.description, trial.eligibility, trial.criteria.join(", ")]);
+        });
+        return eligibleTrials;
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {

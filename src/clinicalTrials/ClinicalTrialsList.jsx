@@ -51,8 +51,7 @@ class ClinicalTrialsList {
         return this.clinicalTrials;
     }
     
-    // How do you know which trial to extract from?
-    static getDescription(dataElement, trialName){
+    static getDescription(dataElement){
         switch(dataElement) {
             case "clinicalTrialEnrollment":
                 return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
@@ -72,26 +71,36 @@ class ClinicalTrialsList {
     }
 
     findPatientEligibility(){
-        let eligibility = "Potentially Eligible";
-        let missingCriteria = ["None"];
         let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
         
         for (let n in this.clinicalTrials) {
+            
             let trial = this.clinicalTrials[n];
+<<<<<<< HEAD
             if (trial.inclusionCriteriaCQL != null) {
                 let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
                 if (result.patientResults[patient_id].MeetsInclusionCriteria) {
                      eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
+=======
+            let missingCriteria = ["None"];
+            if (trial.inclusionCriteriaCQL != null) 
+            {
+                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
+                
+                if (result.patientResults[patient_id].MeetsInclusionCriteria) 
+                {
+                     eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible"});
+>>>>>>> Fixed bug with returning eligible clinical trials in the proper format.
                  }
-                else if (result.patientResults[patient_id].check_not_disqualified) {
-                    eligibility = "Potentially eligible, but missing necessary data fields";
+                else if (result.patientResults[patient_id].check_not_disqualified) 
+                {
                     missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].find_missing_data);
-                    console.log(missingCriteria);
-                    eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
+                    eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields"});
                 }
             }
         }
+        //console.log(eligibleTrials);
         return eligibleTrials;    
     }
 
