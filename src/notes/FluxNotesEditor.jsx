@@ -516,6 +516,15 @@ class FluxNotesEditor extends React.Component {
             this.contextManager.clearContexts();
             this.props.updateSelectedNote(null);
         }
+
+        // Check if mode changes
+        if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
+            console.log('here')
+            console.log(nextProps)
+            this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
+            this.props.updateContextTrayItemToInsert(null);
+            this.props.setFullAppState('isNoteViewerEditable', true);
+        }
     }
 
     insertNewLine = (transform) => {
@@ -883,13 +892,17 @@ class FluxNotesEditor extends React.Component {
             if (this.props.inModal) this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
         }
         else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            
+            console.log(this.props)
+            // this.insertTextWithStructuredPhrases(contextTrayItem);
+            // this.props.updateContextTrayItemToInsert(null);
         }
         // If the text to be inserted does not contain any pick lists, insert the text
         else {
+            console.log('else insert context trya item')
             this.insertTextWithStructuredPhrases(contextTrayItem);
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
+            
         }
     }
 
