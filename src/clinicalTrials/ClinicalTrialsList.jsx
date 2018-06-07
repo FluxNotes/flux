@@ -1,7 +1,8 @@
 import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
+import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
-import PALLAS_ineligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
+import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
 
 
 class ClinicalTrialsList {
@@ -13,7 +14,7 @@ class ClinicalTrialsList {
                 description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer',
                 studyStartDate: 6/21/2017,
                 cliniclTrialsGovIdentifier: 'NCT02947685',
-                inclusionCriteriaCQL: null,
+                inclusionCriteriaCQL: PATINAcql,
                 exclusionCriteriaCQL: null,
                 informationalURL: 'https://clinicaltrials.gov/ct2/show/NCT02947685',
                 additionalCriteria: []
@@ -79,7 +80,7 @@ class ClinicalTrialsList {
         for (let n in this.clinicalTrials) {
             let trial = this.clinicalTrials[n];
             if (trial.inclusionCriteriaCQL != null) {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PALLAS_ineligiblePatient]);
+                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
                 if (result.patientResults[patient_id].MeetsInclusionCriteria) {
                      eligibleTrials.push([{ value: trial.name }, trial.description, eligibility, missingCriteria.join(", ")]);
                  }

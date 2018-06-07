@@ -1,6 +1,6 @@
 {
     "resourceType": "Bundle",
-    "id": "Aged 17 years or younger",
+    "id": "Patient with stage 4 breast cancer",
     "type": "collection",
     "entry": [
         {
@@ -10,15 +10,15 @@
                 "name": [
                     {
                         "given": [
-                            "Joe"
+                            "Jen"
                         ],
                         "family": [
                             "Smith"
                         ]
                     }
                 ],
-                "gender": "male",
-                "birthDate": "2003-02-16T00:00:00.000Z"
+                "gender": "female",
+                "birthDate": "1990-02-16T00:00:00.000Z"
             }
         },
         {
@@ -39,6 +39,226 @@
                         }
                     ],
                     "text": "Diazepam 5 MG Oral Tablet"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Condition",
+                "id": "dd401c80-0f1a-4563-b3cb-7a19c6f1ae72",
+                "patient": {
+                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "254837009",
+                            "display": "Malignant neoplasm of breast (disorder)"
+                        }
+                    ],
+                    "text": "Malignant neoplasm of breast (disorder)"
+                },
+                "clinicalStatus": "active",
+                "verificationStatus": "confirmed",
+                "onsetDateTime": "2012-04-05T00:00:00.000Z",
+                "stage" : {
+                    "summary" : {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "258299008",
+                                "display": "Metastasis stage M4 (finding)"
+                            }
+                        ],
+                        "text": "Metastasis stage M4 (finding)"
+                    }
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "Kjejq-hI91-E5bGcq-w7EHL",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "74885-5",
+                            "display": "HER2"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "58b3663f3425def0f0f6c031",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16112-5",
+                            "display": "Estrogen Receptor"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "lWGl-6IZS-Fy71k-x3YItT0",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16113-3",
+                            "display": "Progesterone Receptor"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "a5rtpU-SMLTO7A-4Im-GtGA",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "42800-3",
+                            "display": "ECOG"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 1,
+                    "unit": "ecog",
+                    "system": "http://loinc.org",
+                    "code": "ecog"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "bgJX-oBbNU-KuZBw-kmCfMI",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "66174-4",
+                            "display": "Pregnant"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "260385009",
+                        "display": "Negative (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "QiIN-pzz-IlHLVeqXc-NCUv",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "26499-4",
+                            "display": "Neutrophils"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 1200,
+                    "unit": "mm3",
+                    "system": "http://loinc.org",
+                    "code": "mm3"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "aHZD-naXYm-vZfJY-ApAPQl",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "26515-7",
+                            "display": "Platelets"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 300000,
+                    "unit": "mm3",
+                    "system": "http://loinc.org",
+                    "code": "mm3"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "bS9-3ADp-oiQOWnS-mJJjos",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "41995-2",
+                            "display": "Hemoglobin"
+                        }
+                    ]
+                },
+                "valueQuantity": {
+                    "value": 12,
+                    "unit": "g/dL",
+                    "system": "http://loinc.org",
+                    "code": "g/dL"
                 }
             }
         }
