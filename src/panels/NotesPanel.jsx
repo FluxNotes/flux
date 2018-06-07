@@ -250,6 +250,7 @@ export default class NotesPanel extends Component {
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
+                    inModal={false}
                     itemInserted={this.props.itemInserted}
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
@@ -259,6 +260,7 @@ export default class NotesPanel extends Component {
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     shortcutManager={this.props.shortcutManager}
+                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
@@ -270,8 +272,6 @@ export default class NotesPanel extends Component {
                     arrayOfPickLists={this.arrayOfPickLists}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
-                    inModal={false}
-                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                 />
             </div>
         );
@@ -288,18 +288,23 @@ export default class NotesPanel extends Component {
                     deleteSelectedNote={this.deleteSelectedNote}
                     documentText={this.props.documentText}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
+                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
+                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     loadNote={this.handleUpdateEditorWithNote}
                     loginUser={this.props.loginUser}
+                    newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
                     patient={this.props.patient}
                     saveNote={click => this.saveNoteChild = click}
+                    saveNoteUponKeypress={this.saveNoteUponKeypress}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     shortcutManager={this.props.shortcutManager}
+                    shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     updateCurrentlyEditingEntryId={this.handleUpdateCurrentlyEditingEntryId}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
@@ -309,11 +314,6 @@ export default class NotesPanel extends Component {
                     updateContextTrayItemWithSelectedPickListOptions={this.updateContextTrayItemWithSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
-                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
-                    newCurrentShortcut={this.props.newCurrentShortcut}
-                    handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
-                    shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
                 />
             </div>
         );

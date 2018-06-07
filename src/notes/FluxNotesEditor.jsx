@@ -235,7 +235,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, openPortal = true) => {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -247,8 +247,7 @@ class FluxNotesEditor extends React.Component {
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, openPortal);
-            // return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, shouldPortalOpen);
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
@@ -292,10 +291,11 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, openPortal = true) {
-        if (!openPortal) {
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, shouldPortalOpen = true) {
+        // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
+        if (!shouldPortalOpen) {
             this.setState({
-                isPortalOpen: openPortal,
+                isPortalOpen: shouldPortalOpen,
                 needToDelete: needToDelete,
             });
             this.selectingForShortcut = null;
@@ -306,7 +306,7 @@ class FluxNotesEditor extends React.Component {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: openPortal,
+            isPortalOpen: shouldPortalOpen,
             portalOptions: portalOptions,
             needToDelete: needToDelete,
         });
@@ -467,6 +467,7 @@ class FluxNotesEditor extends React.Component {
 
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
+        // Only update text if the shouldEditorContentUpdate is true. For example, this will be false in the main editor if the modal is also open.
 
         // Check if the item to be inserted is updated
         if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
@@ -495,8 +496,8 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
 
-                let openPortal = this.props.noteAssistantMode !== 'pick-list-options-panel';
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, openPortal);
+                let shouldPortalOpen = this.props.noteAssistantMode !== 'pick-list-options-panel';
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, shouldPortalOpen);
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
@@ -778,7 +779,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, openPortal = true) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
         let state;
         const currentState = this.state.state;
 
@@ -828,7 +829,7 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, openPortal);
+                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen);
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
@@ -905,7 +906,6 @@ class FluxNotesEditor extends React.Component {
             this.insertTextWithStructuredPhrases(contextTrayItem);
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
-            
         }
     }
 
@@ -1177,14 +1177,17 @@ FluxNotesEditor.proptypes = {
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
+    inModal: PropTypes.bool.isRequired,
     itemInserted: PropTypes.object,
     newCurrentShortcut: PropTypes.func.isRequired,
+    noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
     saveNoteUponKeypress: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
+    shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
     contextTrayItemToInsert: PropTypes.string.isRequired,

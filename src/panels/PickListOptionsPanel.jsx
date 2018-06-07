@@ -256,5 +256,6 @@ PickListOptionsPanel.proptypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    contextManager: PropTypes.object.isRequired
 };
