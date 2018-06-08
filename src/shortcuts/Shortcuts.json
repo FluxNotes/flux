@@ -442,5 +442,30 @@
     "isContext": false,
     "stringTriggers": [{"name": "@dateofdiagnosis", "description": "Patient's date of diagnosis in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
     "knownParentContexts": "ConditionInserter"
+  },
+
+  { "type": "CreatorBase",
+    "id": "MedicationChangeStopCreator",
+    "name": "medication change stop",
+    "getData": null,
+    "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
+    "valueObjectAttributes": [
+      {"name":"medicationBeforeChange", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "MedicationCreator"}
+    ],
+    "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "stop"]},
+                        {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
+    "isContext": true,
+    "stringTriggers": [{ "name": "#stop medication", "description": "Support specifying medication change to stop for a medication."}],
+    "regexpTrigger": null,
+    "structuredPhrase": "#"
+  },
+  { "type": "CreatorChild",
+    "id": "MedicationCreator",
+    "parentAttribute": "MedicationChangeStopCreator",
+    "stringTriggers": [ {"object":"patient", "method":"getActiveMedications", "prefix": "#"},
+      { "name": "#medication", "description": "Pick list for medications", "picker": true }],
+    "picker": { "object": "patient", "method": "getActiveMedications", "prefix": "#"},
+    "description":"Allows selection of the medication.",
+    "shortcutGroupName":"Medication"
   }
 ]

@@ -1,4 +1,6 @@
 import MedicationChange from '../shr/medication/MedicationChange';
+import Type from "../shr/entity/Type";
+import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 
 class FluxMedicationChange {
     constructor(json) {
@@ -16,7 +18,13 @@ class FluxMedicationChange {
      * Returns medicaitonRequested object
      */
     get medicationBeforeChange() {
+        console.log(this._medicationChange);
+        console.log(this._medicationChange.medicationBeforeChange);
       return this._medicationChange.medicationBeforeChange;
+    }
+
+    set medicationBeforeChange(medication) {
+        this._medicationChange.medicationBeforeChange = medication;
     }
 
     /**
@@ -34,6 +42,16 @@ class FluxMedicationChange {
         // Return code
         return this._medicationChange.type.value.coding[0].code;
     }
+
+    set type(code) {
+
+        if (!this._medicationChange.type) {
+            this._medicationChange.type = new Type();
+        }
+        this._medicationChange.type.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+
+    }
+
     /**
      * Getter for when the medicationChange happened, using the creation time of the entry as the time prescribed
      * Returns date as a string
