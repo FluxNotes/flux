@@ -46,7 +46,7 @@ export default class ContextTray extends Component {
                         className={`view-mode-section-item${viewMode === this.SHORTCUT_VIEW ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
-                        CONTEXT
+                        SHORTCUTS
                     </div>
                     </div>
                 </section>
