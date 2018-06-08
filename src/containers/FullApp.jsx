@@ -18,13 +18,8 @@ import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import SummaryMetadata from '../summary/SummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 
 import '../styles/FullApp.css';
-
-
-const result = CQLExecutionEngine.getExampleCQLResults();
-console.log(result);
 
 const theme = createMuiTheme({
     palette: {

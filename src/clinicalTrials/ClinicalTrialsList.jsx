@@ -1,8 +1,8 @@
 import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
-import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
+import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
 import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
-import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
-import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient2.json'
+import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
+import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json'
 
 
 class ClinicalTrialsList {
@@ -92,7 +92,7 @@ class ClinicalTrialsList {
                 {
                     missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
                     let missingCriteriaNumber = missingCriteria.length;
-                    checkedCriteriaNumber = checkedCriteriaNumber - missingCriteriaNumber;
+                    checkedCriteriaNumber -=  missingCriteriaNumber;
                     eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber+" of "+totalCriteriaNumber});
                 }
                 
