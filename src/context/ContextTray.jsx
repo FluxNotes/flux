@@ -8,7 +8,7 @@ import './ContextTray.css';
 export default class ContextTray extends Component {
     //these are the possible view mode constants
     TEMPLATE_VIEW = 0;
-    CONTEXT_VIEW = 1;
+    SHORTCUT_VIEW = 1;
     constructor(props) {
         super(props);
 
@@ -16,7 +16,7 @@ export default class ContextTray extends Component {
             // viewMode keeps track of which context is active
             // 0 when Templates are selected. 1 when Patient is selected
             // In editor, viewMode is incremented by 1 for each context added (i.e @condition, #disease status)
-            viewMode: this.CONTEXT_VIEW,
+            viewMode: this.SHORTCUT_VIEW,
         };
     }
 
@@ -25,7 +25,7 @@ export default class ContextTray extends Component {
     })
     
     handlePatientSectionClick = () => this.setState({ 
-        viewMode: this.CONTEXT_VIEW 
+        viewMode: this.SHORTCUT_VIEW 
     })
 
     render() {
@@ -43,7 +43,7 @@ export default class ContextTray extends Component {
                     </div>                        
 
                     <div
-                        className={`view-mode-section-item${viewMode === this.CONTEXT_VIEW ? ' selected' : ''}`}
+                        className={`view-mode-section-item${viewMode === this.SHORTCUT_VIEW ? ' selected' : ''}`}
                         onClick={this.handlePatientSectionClick}
                     >
                         CONTEXT
@@ -58,7 +58,7 @@ export default class ContextTray extends Component {
                     />
                 }
 
-                {viewMode === this.CONTEXT_VIEW &&
+                {viewMode === this.SHORTCUT_VIEW &&
                     <ShortcutViewModeContent
                         contextManager={this.props.contextManager}
                         handleClick={this.handleShortcutClick}
