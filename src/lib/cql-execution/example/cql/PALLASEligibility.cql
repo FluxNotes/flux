@@ -68,8 +68,8 @@ define PRPositive:
 define HER2Negative:
   exists(
     [Observation: "HER2"] O
-      where O.interpretation.coding[0].code.value != '260385009'
-  ) and
+      where O.interpretation.coding[0].code.value = '260385009'
+  ) or
   (not exists ( [Medication: "Trastuzumab"] M ))
 
 define HemoglobinInRange:
