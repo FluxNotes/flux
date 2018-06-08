@@ -102,58 +102,6 @@
         {
             "resource": {
                 "resourceType": "Observation",
-                "id": "58b3663f3425def0f0f6c031",
-                "status": "final",
-                "code": {
-                    "coding": [
-                        {
-                            "system": "http://loinc.org",
-                            "code": "16112-5",
-                            "display": "Estrogen Receptor"
-                        }
-                    ]
-                },
-                "subject": {
-                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
-                },
-                "interpretation": {
-                    "coding": [{
-                        "system": "http://snomed.info/sct",
-                        "code": "10828004",
-                        "display": "Positive (qualifier value)"
-                    }]
-                }
-            }
-        },
-        {
-            "resource": {
-                "resourceType": "Observation",
-                "id": "lWGl-6IZS-Fy71k-x3YItT0",
-                "status": "final",
-                "code": {
-                    "coding": [
-                        {
-                            "system": "http://loinc.org",
-                            "code": "16113-3",
-                            "display": "Progesterone Receptor"
-                        }
-                    ]
-                },
-                "subject": {
-                    "reference": "Patient/3cb09ecb-e927-4946-82b3-89957e193215"
-                },
-                "interpretation": {
-                    "coding": [{
-                        "system": "http://snomed.info/sct",
-                        "code": "10828004",
-                        "display": "Positive (qualifier value)"
-                    }]
-                }
-            }
-        },
-        {
-            "resource": {
-                "resourceType": "Observation",
                 "id": "a5rtpU-SMLTO7A-4Im-GtGA",
                 "status": "final",
                 "code": {

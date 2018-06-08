@@ -528,13 +528,13 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "",
+                                name: "Enrolled",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             },
                             {
-                                name: "Eligible Clinical Trials",
-                                headings: ["Name", "Description", "Eligibility", "Missing Criteria"],
+                                name: "Potential to Enroll",
+                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
                                 itemsFunction: this.getItemListForClinicalTrialEligibility
 
                             }
@@ -858,7 +858,7 @@ export default class SummaryMetadata {
         let eligibleTrials = []
         
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, trial.info.description, trial.eligibility, trial.criteria.join(", ")]);
+            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
         });
         return eligibleTrials;
     }

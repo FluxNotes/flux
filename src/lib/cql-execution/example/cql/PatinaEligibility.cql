@@ -128,3 +128,52 @@ define meetsInclusionCriteria:
   and NeutrophilsInRange
   and PlateletsInRange
   and HemoglobinInRange
+
+define ERCheckMissing:
+  not (exists( [Observation: "Estrogen Receptor"] O ) )
+
+define PRCheckMissing:
+  not (exists( [Observation: "Progesterone Receptor"] O ))
+
+define HER2CheckMissing:
+  not (exists(  [Observation: "HER2"] O ))
+
+define HemoglobinCheckMissing:
+  not (exists( [Observation: "Hemoglobin"] O ))
+
+define PregnancyCheckMissing:
+  not (exists( [Observation: "Pregnant"] O ))
+
+define ECOGCheckMissing:
+  not (exists( [Observation: "ECOG"] O))
+
+define NeutrophilsCheckMissing:
+  not (exists( [Observation: "Neutrophils"] O))
+
+define PlateletsCheckMissing:
+  not (exists ( [Observation: "Platelets"] O ))
+
+// This function will distinguish whether the given patient
+// is disqualified from the trial (they have data that meets exclusion criteria)
+// or if their data is missing, meaning that clinicians can get information
+// and determine further eligibility.
+
+define checkNotDisqualified:
+  (IsHER2Positive or HER2CheckMissing)
+  and (IsHormoneReceptorPositive or ERCheckMissing or PRCheckMissing)
+  and (HemoglobinInRange or HemoglobinCheckMissing)
+  and (IsNotPregnant or PregnancyCheckMissing)
+  and (ECOGInRange or ECOGCheckMissing)
+  and (PlateletsInRange or PlateletsCheckMissing)
+
+// Returns an array of missing data fields to determine
+// if a patient is eligible for a given trial.
+define findMissingData:
+  Tuple {
+    "Progesterone receptor and Estrogen receptor": PRCheckMissing and ERCheckMissing,
+    "Hemoglobin": HemoglobinCheckMissing,
+    "HER2": HER2CheckMissing,
+    "Pregnant/Not Pregnant": PregnancyCheckMissing,
+    "ECOG": ECOGCheckMissing,
+    "Platelets": PlateletsCheckMissing
+  }

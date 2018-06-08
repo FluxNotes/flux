@@ -12,7 +12,7 @@ class ClinicalTrialsList {
                 id: 'patina', 
                 name: 'PATINA', 
                 description: 'A Randomized, Open Label, Phase III Trial to Evaluate the Efficacy and Safety of Palbociclib + Anti-HER2 Therapy + Endocrine Therapy vs. Anti-HER2 Therapy + Endocrine Therapy after Induction Treatment for Hormone Receptor Positive (HR+)/HER2-Positive Metastatic Breast Cancer',
-                studyStartDate: 6/21/2017,
+                studyStartDate: '21 Jun 2017',
                 cliniclTrialsGovIdentifier: 'NCT02947685',
                 inclusionCriteriaCQL: PATINAcql,
                 exclusionCriteriaCQL: null,
@@ -23,7 +23,7 @@ class ClinicalTrialsList {
                 id: 'pallas',
                 name: 'PALLAS',
                 description: 'PALbociclib CoLlaborative Adjuvant Study: A randomized phase III trial of Palbociclib with standard adjuvant endocrine therapy versus standard adjuvant endocrine therapy alone for hormone receptor positive (HR+) / human epidermal growth factor receptor 2 (HER2)-negative early breast cancer',
-                studyStartDate: 8/1/2015,
+                studyStartDate: '1 Aug 2015',
                 cliniclTrialsGovIdentifier: 'NCT02513394',
                 inclusionCriteriaCQL: PALLAScql,
                 exclusionCriteriaCQL: null,
@@ -75,25 +75,30 @@ class ClinicalTrialsList {
         let eligibleTrials = [];
         
         for (let n in this.clinicalTrials) {
-            
             let trial = this.clinicalTrials[n];
             let missingCriteria = ["None"];
             if (trial.inclusionCriteriaCQL != null) 
             {
                 let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                
+                let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
+                let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
+                let extraCriteriaNumber = trial.additionalCriteria.length;
+                let totalCriteriaNumber = checkedCriteriaNumber + extraCriteriaNumber;
                 if (result.patientResults[patient_id].meetsInclusionCriteria) 
                 {
-                     eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible"});
-                 }
+                     eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber+" of "+totalCriteriaNumber});
+                }
                 else if (result.patientResults[patient_id].checkNotDisqualified) 
                 {
                     missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
-                    eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields"});
+                    let missingCriteriaNumber = missingCriteria.length;
+                    checkedCriteriaNumber = checkedCriteriaNumber - missingCriteriaNumber;
+                    eligibleTrials.push({info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber+" of "+totalCriteriaNumber});
                 }
+                
             }
         }
-        return eligibleTrials;    
+        return eligibleTrials;   
     }
 
     getMissingCriteriaListTrialEligibility(missingCriteria) {
