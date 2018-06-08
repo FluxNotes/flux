@@ -35,9 +35,8 @@ export default class ShortcutViewModeContent extends Component {
                 lastActiveContextCount: activeContexts.length
             }, () => {
                 // scrolls to newest ContextOption section
-                const newContextSection = findDOMNode(this.refs[`context-option-${this.state.currentContextIndex}`]);
+                const newContextSection = findDOMNode(this[`context-option-${this.state.currentContextIndex}`]);
                 if (newContextSection && newContextSection.scrollIntoView) {
-                    // console.log(newContextSection) 
                     newContextSection.scrollIntoView(false);
                 }
             });
@@ -73,17 +72,28 @@ export default class ShortcutViewModeContent extends Component {
         } else { 
             // const activeContextIndex = this.state.currentContextIndex;
             // const activeContext = activeContexts[activeContextIndex];
-            const listOfContextOptions = activeContexts.map((context, i) => { 
-                // const contextIndex = activeContexts.indexOf(context);
+            const listOfContextOptions = activeContexts.map((context, i) => {
+                // Since contexts move down in the list as more get added, we need an invariant to describe the items location in the list
+                // Contexts come in stack order, so newest contexts are on the top, oldest on the bottom
+                // The first context we entered will always be the last one in the list, so we want the unique i.d. for the last item to be 0;
+                // The newest item should have a 
+                const uniqueIndex = activeContexts.length - (i + 1);
+                            
                 return (
                     <ContextOptions
-                        key={`context-options-list-${i}`}
+                        key={`context-options-list-${uniqueIndex}`}
                         context={context}
                         contextManager={this.props.contextManager}
                         className="each-context"
                         searchString={this.state.searchString}
-                        handleClick={this.handleShortcutClick}
-                        ref={`context-option-${i}`}
+                        handleClick={(...args) => { 
+                            // Set the state with the new index
+                            this.setState({currentContextIndex: uniqueIndex});
+                            return this.handleShortcutClick(...args)
+                        }}
+                        ref={(optionsList) => {
+                            this[`context-option-${uniqueIndex}`] = optionsList
+                        }}
                         shortcutManager={this.props.shortcutManager}
                     />
                 )
