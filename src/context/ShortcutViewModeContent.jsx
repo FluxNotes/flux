@@ -68,23 +68,21 @@ export default class ShortcutViewModeContent extends Component {
         if (activeContexts.length === 0) {
             return null;
         } else { 
-            const activeContextIndex = this.state.currentContextIndex;
-            const activeContext = activeContexts[activeContextIndex];
+            // const activeContextIndex = this.state.currentContextIndex;
+            // const activeContext = activeContexts[activeContextIndex];
             const listOfContextOptions = activeContexts.map((context, i) => { 
-                const contextIndex = activeContexts.indexOf(context);
+                // const contextIndex = activeContexts.indexOf(context);
                 return (
-                    <div
+                    <ContextOptions
                         key={`context-options-list-${i}`}
-                    >
-                        <ContextOptions
-                            context={context}
-                            contextManager={this.props.contextManager}
-                            searchString={this.state.searchString}
-                            handleClick={this.handleShortcutClick}
-                            ref={`context-option-${this.state.currentContextIndex}`}
-                            shortcutManager={this.props.shortcutManager}
-                        />
-                    </div>
+                        context={context}
+                        contextManager={this.props.contextManager}
+                        className="each-context"
+                        searchString={this.state.searchString}
+                        handleClick={this.handleShortcutClick}
+                        ref={`context-option-${this.state.currentContextIndex}`}
+                        shortcutManager={this.props.shortcutManager}
+                    />
                 )
             })
             // Render the options for the context:

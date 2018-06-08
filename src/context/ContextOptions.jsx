@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
-import TextField from 'material-ui/TextField';
 
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
@@ -45,15 +44,14 @@ export default class ContextOptions extends Component {
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // count how many triggers we have
-        let count = 0;
-        validShortcuts.forEach((shortcut, i) => {
-            count += this.props.shortcutManager.getTriggersForShortcut(shortcut, context).length;
-        });
-        const countBeforeSearch = count;
+        // let count = 0;
+        // validShortcuts.forEach((shortcut, i) => {
+        //     count += this.props.shortcutManager.getTriggersForShortcut(shortcut, context).length;
+        // });
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
-        count = 0;
+        // count = 0;
 
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
@@ -62,7 +60,7 @@ export default class ContextOptions extends Component {
                 if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
-                    count++;
+                    // count++;
                 }
             });
             // Add keywords as well
@@ -71,7 +69,7 @@ export default class ContextOptions extends Component {
                 if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
-                    count++;
+                    // count++;
                 }
             });
         });
@@ -112,12 +110,16 @@ export default class ContextOptions extends Component {
 
         return (
             <section
-                // className={''}
+                className={'context-options-section'}
             >
                 <div className='context-options-list'>
                     {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
                     {(context.metadata && this.props.shortcutManager.isShortcutAGroupName(context.metadata.id) && groupList.length > 0) && 
                         <div className={`context-options-header`}> {context.text} </div>
+                    }
+                    {/* Put pseudo header above parent context */}
+                    {(Lang.isUndefined(context.metadata)) && 
+                        <div className={`context-options-header`}></div>
                     }
                     {/* Render all the shortcuts in each group */}
                     {groupList.map((groupObj, i) => {

@@ -5,6 +5,10 @@
     color: #555
 }
 
+.context-option:last-of-type { 
+    margin-bottom: 0;
+}
+
 .context-option:hover,
 .context-option.selected {
     color: #555;
@@ -22,8 +26,8 @@
 }
 
 /*
- * Tooltip Styling
- */
+* Tooltip Styling
+*/
 
 .context-panel-tooltip .rc-tooltip-inner{
     width: 150px;
