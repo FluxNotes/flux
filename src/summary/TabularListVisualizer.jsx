@@ -151,7 +151,7 @@ export default class TabularListVisualizer extends Component {
             });
             headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
-
+        console.log(transformedSubsection.name);
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
         
         return (

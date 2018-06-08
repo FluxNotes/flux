@@ -909,28 +909,10 @@ export default class SummaryMetadata {
         }
     }
 
-<<<<<<< HEAD
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
         const trialsList = new ClinicalTrialsList();
         const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
-=======
-    
-    getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        let trialsList = new ClinicalTrialsList();
-        let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
-        let enrolledTrials = this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry);
-        // if (not ) {
-        //     console.log(enrolledTrials[0]);
-        // }
-
-        // for (let trial in enrolledTrials) {
-
-        // }
-        
-        let eligibleTrials = [];
-        
->>>>>>> Work in progress
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
         });
