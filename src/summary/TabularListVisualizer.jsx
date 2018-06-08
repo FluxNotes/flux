@@ -215,7 +215,6 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedPostTableList(itemsFunction, subsectionname) {
-
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
