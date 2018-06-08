@@ -14,7 +14,7 @@ export default class TemplateViewModeContent extends Component {
 
     // Insert the content of the template as you would a shortcut
     insertTemplate = (i) => {
-        this.props.onShortcutClicked(this.state.templates[i].content);
+        this.props.onShortcutClicked(this.templates[i].content);
     }
 
     // Just render the form for the templates; if additional information was to rendered, we would do it here.

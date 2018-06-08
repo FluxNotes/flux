@@ -115,7 +115,12 @@ export default class ContextOptions extends Component {
                 <div className='context-options-list'>
                     {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
                     {(context.metadata && this.props.shortcutManager.isShortcutAGroupName(context.metadata.id) && groupList.length > 0) && 
-                        <div className={`context-options-header`}> {context.text} </div>
+                        <div 
+                            className={`context-options-header`}
+                            title={context.text}
+                        > 
+                            {context.text} 
+                        </div>
                     }
                     {/* Put pseudo header above parent context */}
                     {(Lang.isUndefined(context.metadata)) && 
@@ -127,7 +132,12 @@ export default class ContextOptions extends Component {
                         <div key={`group-${i}`}>
                             {/* Use group name if available */}
                             {groupObj.groupName != null &&
-                                <div className="context-options-header">{groupObj.groupName}</div>
+                                <div 
+                                    className="context-options-header"
+                                    title={groupObj.groupName}
+                                >
+                                    {groupObj.groupName}
+                                </div>
                             }
 
                             <div key={i}>

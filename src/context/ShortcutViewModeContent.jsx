@@ -36,7 +36,10 @@ export default class ShortcutViewModeContent extends Component {
             }, () => {
                 // scrolls to newest ContextOption section
                 const newContextSection = findDOMNode(this.refs[`context-option-${this.state.currentContextIndex}`]);
-                if (newContextSection) newContextSection.scrollIntoView(false);
+                if (newContextSection && newContextSection.scrollIntoView) {
+                    // console.log(newContextSection) 
+                    newContextSection.scrollIntoView(false);
+                }
             });
         }
     }
@@ -80,7 +83,7 @@ export default class ShortcutViewModeContent extends Component {
                         className="each-context"
                         searchString={this.state.searchString}
                         handleClick={this.handleShortcutClick}
-                        ref={`context-option-${this.state.currentContextIndex}`}
+                        ref={`context-option-${i}`}
                         shortcutManager={this.props.shortcutManager}
                     />
                 )
