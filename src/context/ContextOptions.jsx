@@ -144,8 +144,6 @@ export default class ContextOptions extends Component {
                                 {groupObj.triggers.map((trigger, i) => {
                                     const largeTrigger = trigger.description.length > 100;
                                     const text = <span>{trigger.description}</span>
-                                    const selected = activeContextTriggers.indexOf(trigger.name) > -1;
-
                                     return (
                                         <Tooltip
                                             key={trigger.name}
@@ -159,7 +157,7 @@ export default class ContextOptions extends Component {
                                             onMouseLeave={this.mouseLeave}
                                         >
                                             <div
-                                                className={`context-option${selected ? ' selected' : ''}`}
+                                                className="context-option"
                                                 key={trigger.name}
                                                 onClick={(e) => this.handleClick(e, trigger.name)}
                                             >
