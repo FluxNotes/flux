@@ -100,21 +100,28 @@ export default class ContextOptions extends Component {
         if (totalShown === 0) {
             return null;
         }
+        
+        const validShortcutMetadata = validShortcuts
+            .map((shortcutId) => this.props.shortcutManager.getShortcutMetadata(shortcutId));
 
-        // generates list of active triggers (triggers that have at least 1 shortcut)
-        // used to bold the active triggers in the sidebar
-        const activeContextTriggers = this.props.contextManager.getActiveContexts()
-            .map((context) => ({ context, shortcuts: this.props.shortcutManager.getValidChildShortcutsInContext(context) }))
-            .filter(({ shortcuts }) => shortcuts.length > 0)
-            .map(({ context }) => context.initiatingTrigger);
-
+        const isCurrentContextAGroupName = (
+            // Does the context have metadata -- if not, it's the parent context
+            !Lang.isUndefined(context.metadata)
+            // Does this group have some active elements to display
+            && groupList.length > 0 
+            // A shortcut is used to group together other active shortcuts iff. its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
+            && validShortcutMetadata.filter((shortcutMetadata, i) => { 
+                if (Lang.isUndefined(shortcutMetadata)) return false
+                return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"])
+            }).length !== 0
+        );
         return (
             <section
                 className={'context-options-section'}
             >
                 <div className='context-options-list'>
                     {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
-                    {(context.metadata && this.props.shortcutManager.isShortcutAGroupName(context.metadata.id) && groupList.length > 0) && 
+                    {(isCurrentContextAGroupName) && 
                         <div 
                             className={`context-options-header`}
                             title={context.text}
