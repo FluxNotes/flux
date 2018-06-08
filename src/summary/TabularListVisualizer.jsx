@@ -151,7 +151,7 @@ export default class TabularListVisualizer extends Component {
             });
             headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
-
+        console.log(transformedSubsection.name);
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
         return (
@@ -371,7 +371,7 @@ export default class TabularListVisualizer extends Component {
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionname) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
+        
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);

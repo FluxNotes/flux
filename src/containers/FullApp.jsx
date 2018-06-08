@@ -111,6 +111,7 @@ export class FullApp extends Component {
             {
                 handler: this.addEnrollmentToEditor,
                 text: "Enroll patient",
+                icon: "check",
                 whenToDisplay: {
                     valueExists: true,
                     existingValueSigned: "either",
