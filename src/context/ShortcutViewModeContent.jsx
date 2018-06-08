@@ -72,20 +72,10 @@ export default class ShortcutViewModeContent extends Component {
             const activeContext = activeContexts[activeContextIndex];
             const listOfContextOptions = activeContexts.map((context, i) => { 
                 const contextIndex = activeContexts.indexOf(context);
-                // Render a header for the upper most contexts context: 
-                const headerForContextWithNoParent = (
-                    <div
-                        className={`section-item`}
-                    >
-                        {context.text}
-                    </div>
-                )
-                console.log(context)
                 return (
                     <div
                         key={`context-options-list-${i}`}
                     >
-                        {this.props.shortcutManager.isShortcutAGroupName(context.metadata.id) && headerForContextWithNoParent}
                         <ContextOptions
                             context={context}
                             contextManager={this.props.contextManager}

@@ -17,11 +17,6 @@
     font-weight: normal;
 }
 
-.section-active{
-    /*border-left: 3px solid #eee;*/
-    margin-left: 5px;
-}
-
 .hidden {
     display: none;
 }
@@ -41,7 +36,7 @@
     width: 220px;
 }
 
-#data-element-description {
+.context-options-header {
     margin-top: 15px;
     font-style: italic;
     font-size: 0.9em;

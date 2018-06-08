@@ -47,14 +47,9 @@ export default class ContextOptions extends Component {
         // count how many triggers we have
         let count = 0;
         validShortcuts.forEach((shortcut, i) => {
-            this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
-                count++;
-            });
+            count += this.props.shortcutManager.getTriggersForShortcut(shortcut, context).length;
         });
         const countBeforeSearch = count;
-
-        // enable filter?
-        const showFilter = (count > 10);
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
@@ -63,7 +58,8 @@ export default class ContextOptions extends Component {
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
+                // If there's a search string to filter on, filter
+                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     count++;
@@ -71,7 +67,8 @@ export default class ContextOptions extends Component {
             });
             // Add keywords as well
             this.props.shortcutManager.getKeywordsForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
+                // If there's a search string to filter on, filter
+                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     count++;
@@ -101,7 +98,8 @@ export default class ContextOptions extends Component {
             }
         });
 
-        if (!showFilter && totalShown === 0) {
+        // Return no section if there's nothing to show
+        if (totalShown === 0) {
             return null;
         }
 
@@ -114,16 +112,20 @@ export default class ContextOptions extends Component {
 
         return (
             <section
-                className={'section-active'}
+                // className={''}
             >
                 <div className='context-options-list'>
+                    {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
+                    {(context.metadata && this.props.shortcutManager.isShortcutAGroupName(context.metadata.id) && groupList.length > 0) && 
+                        <div className={`context-options-header`}> {context.text} </div>
+                    }
+                    {/* Render all the shortcuts in each group */}
                     {groupList.map((groupObj, i) => {
                         return (
                         <div key={`group-${i}`}>
-                            {groupObj.groupName != null ?
-                                <div id="data-element-description">{groupObj.groupName}</div>
-                            :
-                                <div className="hidden"></div>
+                            {/* Use group name if available */}
+                            {groupObj.groupName != null &&
+                                <div className="context-options-header">{groupObj.groupName}</div>
                             }
 
                             <div key={i}>

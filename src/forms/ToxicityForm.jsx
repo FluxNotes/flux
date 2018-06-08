@@ -352,28 +352,28 @@ class ToxicityForm extends Component {
                     <Divider className="divider"/>
 
                     <h4 className="header-spacing">Toxicity</h4>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {toxicityLookup.getDescription("toxicity")}
                     </p>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         Based on your selections below, the copy button at the bottom will copy a <a href="toxicitySheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                     </p>
 
                     <h4 className="header-spacing">Adverse Event</h4>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {toxicityLookup.getDescription("adverseEvent")}
                     </p>
 
                     <h4 className="header-spacing">Grade</h4>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {toxicityLookup.getDescription("grade")}
                     </p>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {customGradePrompt}
                     </p>
 
                     <h4 className="header-spacing">Attribution</h4>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {toxicityLookup.getDescription("attribution")}
                     </p>
 
