@@ -841,22 +841,11 @@ export default class SummaryMetadata {
         }
     }
 
-    // NOTE: PALLAS Eligibility by Jessica
-    // getItemListForClinicalTrialEligibility = () => {
-    //     const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient]);
-    //     let eligibility = "Not eligible";
-    //     if (result.patientResults['93d8b432-f097-4c82-b111-8577e1d9d89f'].MeetsInclusionCriteria) {
-    //         eligibility = "Potentially eligible";
-    //     }
-    //     return [[{ value: 'PALLAS' }, 'Palbociclib Collaborative Adjuvant Study', eligibility]];
-    // }
-
-    // NOTE: PATINA Eligibility by Lucy
     getItemListForClinicalTrialEligibility = () => {
         let trialsList = new ClinicalTrialsList();
         let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
         let eligibleTrials = []
-        
+
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
         });
