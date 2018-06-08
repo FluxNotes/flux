@@ -533,7 +533,7 @@ export default class SummaryMetadata {
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             },
                             {
-                                name: "Potential to Enroll",
+                                name: "Potential to enroll",
                                 headings: ["Name", "Criteria Fit", "Opened", "Description"],
                                 itemsFunction: this.getItemListForClinicalTrialEligibility
 
@@ -841,13 +841,21 @@ export default class SummaryMetadata {
         }
     }
 
-    getItemListForClinicalTrialEligibility = () => {
+    getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
         let trialsList = new ClinicalTrialsList();
         let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
-        let eligibleTrials = []
-
+        let eligibleTrials = [];
+        let enrolledTrials = this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry);
+        let enrolledTrialsName = [];
+        if (enrolledTrials[0]) {
+            enrolledTrialsName = enrolledTrials.map(trial => {
+                return trial[0].value[0];
+            });
+        }
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
+            if (enrolledTrialsName.indexOf(trial.info.name) === -1) {
+                eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
+            }
         });
         return eligibleTrials;
     }
