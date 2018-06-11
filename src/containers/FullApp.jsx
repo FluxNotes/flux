@@ -117,7 +117,7 @@ export class FullApp extends Component {
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: true,
-                    displayInSubsections: ["Eligible Clinical Trials"]
+                    displayInSubsections: ["Potential to enroll"]
                 }
             }
         ]
