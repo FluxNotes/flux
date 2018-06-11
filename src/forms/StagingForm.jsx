@@ -49,13 +49,13 @@ class StagingForm extends Component {
     return (
        <div>
             <h1>TNM Staging</h1>
-            <p id="data-element-description">
+            <p className="data-element-description">
               {stagingLookup.getDescription("TNMStage")}
             </p>
             <Divider className="divider" />
 
             <h4>Tumor Size</h4>
-            <p id="data-element-description">
+            <p className="data-element-description">
               {stagingLookup.getDescription("tumorSize")}
             </p>
             {this.state.tumorValues.map((t, i) => {
@@ -81,7 +81,7 @@ class StagingForm extends Component {
             })}
 
             <h4>Node</h4>
-            <p id="data-element-description">
+            <p className="data-element-description">
               {stagingLookup.getDescription("nodeSize")}
             </p>
             {this.state.nodeValues.map((n, i) => {
@@ -107,7 +107,7 @@ class StagingForm extends Component {
             })}
 
             <h4>Metastasis</h4>
-            <p id="data-element-description">
+            <p className="data-element-description">
               {stagingLookup.getDescription("metastasis")}
             </p>
             {this.state.metastasisValues.map((m, i) => {
@@ -133,7 +133,7 @@ class StagingForm extends Component {
             })}
 
             <h4>Prognostic Stage</h4>
-            <p id="data-element-description">
+            <p className="data-element-description">
               {stagingLookup.getDescription("prognosticStage")}
             </p>
             <div className="stage">{staging.breastCancerPrognosticStage(this.props.object.tStage, this.props.object.nStage, this.props.object.mStage) || 'Undefined'}</div>

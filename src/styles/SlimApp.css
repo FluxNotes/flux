@@ -56,3 +56,10 @@
 .SlimApp-content a {
     color: #297DA2;
 }
+
+
+.SlimApp-content .data-element-description {
+    margin-top: 15px;
+    font-style: italic;
+    font-size: 0.9em;
+}

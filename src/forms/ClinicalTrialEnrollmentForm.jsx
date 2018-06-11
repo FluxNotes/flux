@@ -103,21 +103,21 @@ class ClinicalTrialEnrollmentForm extends Component {
                 <Divider className="divider"/>
 
                 <h4 className="header-spacing">Enrollment</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {ClinicalTrialsList.getDescription("clinicalTrialEnrollment")}
                 </p>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="clinicalTrialEnrollmentSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Trial</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {ClinicalTrialsList.getDescription("trialEnrollment")}
                 </p>
 
                 <h4 className="header-spacing">{enrollmentDateLabel}</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {enrollmentDateDescription}
                 </p>
             </div>

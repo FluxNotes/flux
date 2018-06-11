@@ -25,7 +25,7 @@ class DeceasedForm extends Component {
         const dateOfDeathDescription = (
             <div>
                 <h4 className="header-spacing">Date of Death</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     The date of the patient's death.
                 </p>
             </div>
@@ -45,10 +45,10 @@ class DeceasedForm extends Component {
                 <Divider className="divider"/>
 
                 <h4 className="header-spacing">Deceased</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     An indication that the person is no longer living as of the date specified below.
                 </p>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="deceasedSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>

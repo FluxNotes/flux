@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import Tooltip from 'rc-tooltip';
-import TextField from 'material-ui/TextField';
 
 import 'rc-tooltip/assets/bootstrap.css';
 import './ContextOptions.css'
@@ -45,36 +44,32 @@ export default class ContextOptions extends Component {
         let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // count how many triggers we have
-        let count = 0;
-        validShortcuts.forEach((shortcut, i) => {
-            this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
-                count++;
-            });
-        });
-        const countBeforeSearch = count;
-
-        // enable filter?
-        const showFilter = (count > 10);
+        // let count = 0;
+        // validShortcuts.forEach((shortcut, i) => {
+        //     count += this.props.shortcutManager.getTriggersForShortcut(shortcut, context).length;
+        // });
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
         let triggers = [];
-        count = 0;
+        // count = 0;
 
         validShortcuts.forEach((shortcut, i) => {
             let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+                // If there's a search string to filter on, filter
+                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
-                    count++;
+                    // count++;
                 }
             });
             // Add keywords as well
             this.props.shortcutManager.getKeywordsForShortcut(shortcut, context).forEach((trigger, j) => {
-                if (!showFilter || this.state.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.state.searchString.toLowerCase()) !== -1) {
+                // If there's a search string to filter on, filter
+                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
                     let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
-                    count++;
+                    // count++;
                 }
             });
         });
@@ -92,6 +87,7 @@ export default class ContextOptions extends Component {
                 groupList.push(currentGroup);
             }
             else {
+                // TODO: Add a dot dot dot to signal there are more to show, but that search is needed to view.
                 if (countToShow === 5) return;
 
                 countToShow++;
@@ -100,61 +96,61 @@ export default class ContextOptions extends Component {
             }
         });
 
-        if (!showFilter && totalShown === 0) {
+        // Return no section if there's nothing to show
+        if (totalShown === 0) {
             return null;
         }
+        
+        const validShortcutMetadata = validShortcuts
+            .map((shortcutId) => this.props.shortcutManager.getShortcutMetadata(shortcutId));
 
-        // do we add search bar
-        let filterBar = "";
-        if (showFilter) {
-            filterBar = (
-                <div id="shortcut-search">
-                    <div className="shortcut-search-container">
-                        <div className="shortcut-search-title">
-                            <div>Filter:</div>
-                            <div className="count">(showing {totalShown} of {countBeforeSearch})</div>
-                        </div>
-
-                        <TextField
-                            className="shortcut-search-text"
-                            label="Search shortcuts"
-                            value={this.state.searchString}
-                            onChange={(event) => this.handleSearch(event.target.value)}
-                        />
-                    </div>
-                </div>
-            );
-        }
-
-        // generates list of active triggers (triggers that have at least 1 shortcut)
-        // used to bold the active triggers in the sidebar
-        const activeContextTriggers = this.props.contextManager.getActiveContexts()
-            .map((context) => ({ context, shortcuts: this.props.shortcutManager.getValidChildShortcutsInContext(context) }))
-            .filter(({ shortcuts }) => shortcuts.length > 0)
-            .map(({ context }) => context.initiatingTrigger);
-
+        const isCurrentContextAGroupName = (
+            // Does the context have metadata -- if not, it's the parent context
+            !Lang.isUndefined(context.metadata)
+            // Does this group have some active elements to display
+            && groupList.length > 0 
+            // A shortcut is used to group together other active shortcuts iff. its referenced as a parent shortcut by >=1 active shortcuts who themselves have no group name
+            && validShortcutMetadata.filter((shortcutMetadata, i) => { 
+                if (Lang.isUndefined(shortcutMetadata)) return false
+                return shortcutMetadata["knownParentContexts"] === context.metadata.id && Lang.isUndefined(shortcutMetadata["shortcutGroupName"])
+            }).length !== 0
+        );
         return (
             <section
-                className={'section-active'}
+                className={'context-options-section'}
             >
                 <div className='context-options-list'>
-                    {filterBar}
-
+                    {/* Group child shortcuts with parentContext as header if this group doesn't have a groupName */}
+                    {(isCurrentContextAGroupName) && 
+                        <div 
+                            className={`context-options-header`}
+                            title={context.text}
+                        > 
+                            {context.text} 
+                        </div>
+                    }
+                    {/* Put pseudo header above parent context */}
+                    {(Lang.isUndefined(context.metadata)) && 
+                        <div className={`context-options-header`}></div>
+                    }
+                    {/* Render all the shortcuts in each group */}
                     {groupList.map((groupObj, i) => {
                         return (
                         <div key={`group-${i}`}>
-                            {groupObj.groupName != null ?
-                                <div id="data-element-description">{groupObj.groupName}</div>
-                            :
-                                <div className="hidden"></div>
+                            {/* Use group name if available */}
+                            {groupObj.groupName != null &&
+                                <div 
+                                    className="context-options-header"
+                                    title={groupObj.groupName}
+                                >
+                                    {groupObj.groupName}
+                                </div>
                             }
 
                             <div key={i}>
                                 {groupObj.triggers.map((trigger, i) => {
                                     const largeTrigger = trigger.description.length > 100;
                                     const text = <span>{trigger.description}</span>
-                                    const selected = activeContextTriggers.indexOf(trigger.name) > -1;
-
                                     return (
                                         <Tooltip
                                             key={trigger.name}
@@ -168,7 +164,7 @@ export default class ContextOptions extends Component {
                                             onMouseLeave={this.mouseLeave}
                                         >
                                             <div
-                                                className={`context-option${selected ? ' selected' : ''}`}
+                                                className="context-option"
                                                 key={trigger.name}
                                                 onClick={(e) => this.handleClick(e, trigger.name)}
                                             >

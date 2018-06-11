@@ -5,8 +5,11 @@
     color: #555
 }
 
-.context-option:hover,
-.context-option.selected {
+.context-option:last-of-type { 
+    margin-bottom: 0;
+}
+
+.context-option:hover {
     color: #555;
     font-weight: bold;
 }
@@ -17,42 +20,13 @@
     font-weight: normal;
 }
 
-.section-active{
-    /*border-left: 3px solid #eee;*/
-    margin-left: 5px;
-}
-
-#shortcut-search {
-    padding: 15px 0;
-    background-color: #ffffff;
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-.shortcut-search-container {
-    position: relative;
-    display: inline-block;
-}
-
-.shortcut-search-title {
-    font-size: 0.9em;
-}
-
-.shortcut-search-title .count {
-    font-style: italic;
-}
-
-.shortcut-search-text {
-    font-size: 0.8em;
-}
-
 .hidden {
     display: none;
 }
 
 /*
- * Tooltip Styling
- */
+* Tooltip Styling
+*/
 
 .context-panel-tooltip .rc-tooltip-inner{
     width: 150px;
@@ -65,7 +39,8 @@
     width: 220px;
 }
 
-#data-element-description {
-    margin: 10px 20px;
+.context-options-header {
+    margin-top: 15px;
+    font-style: italic;
     font-size: 0.9em;
 }

@@ -141,7 +141,7 @@ class ProgressionForm extends Component {
             referenceDateDescription = (
                 <div>
                     <h4 className="header-spacing">Reference Date</h4>
-                    <p id="data-element-description">
+                    <p className="data-element-description">
                         {progressionLookup.getDescription("referenceDate")}
                         <span className="helper-text"> mm/dd/yyyy</span>
                     </p>
@@ -180,21 +180,21 @@ class ProgressionForm extends Component {
                 <Divider className="divider"/>
                 
                 <h4 className="header-spacing">Disease Status</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {progressionLookup.getDescription("progression")}
                 </p>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
                     href="diseaseStatusSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Status</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {progressionLookup.getDescription("status")}
                 </p>
 
                 <h4 className="header-spacing">Rationale for status</h4>
-                <p id="data-element-description">
+                <p className="data-element-description">
                     {progressionLookup.getDescription("reason")}
                 </p>
 

@@ -282,7 +282,6 @@ describe('FluxNotesEditor', function() {
 
         const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');
         expect(conditionSection).to.have.lengthOf(1);
-        expect(conditionSection.hasClass('selected')).to.be.true;
 
         expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
