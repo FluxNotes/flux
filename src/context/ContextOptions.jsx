@@ -43,7 +43,7 @@ export default class ContextOptions extends Component {
                         className="context-options-header"
                         title={groupObj.groupName}
                     >
-                        {parentContext.getLabel()} - {groupObj.groupName}
+                        {capitalizeFirstLetter(parentContext.getLabel())} - {groupObj.groupName}
                     </div>
                 }
 
@@ -187,6 +187,10 @@ export default class ContextOptions extends Component {
             </section>
         );
     }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 ContextOptions.proptypes = {
