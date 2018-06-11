@@ -223,6 +223,7 @@ export class FullApp extends Component {
     }
 
     addEnrollmentToEditor = (item) => {
+        console.log(item.value);
         this.setState({ summaryItemToInsert: `#enrollment #${item.value}`});
     }
 

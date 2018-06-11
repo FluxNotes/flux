@@ -151,14 +151,14 @@ export default class TabularListVisualizer extends Component {
             });
             headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
-        console.log(transformedSubsection.name);
-        const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
 
+        const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
+        // Add trasformedSubsection.actions to line 164
         return (
             <div key={subsectionindex}>
                 {preTableCount}
                 {subsectionname}
-
+    
                 <TabularListVisualizerTable
                     headers={headings}
                     rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name)} />
@@ -189,10 +189,10 @@ export default class TabularListVisualizer extends Component {
         return list;
     }
 
+    // pass in the actions here
     // Render all list items
     renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname) {
         let onClick, hoverClass, rowClass, itemClass = "";
-
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
@@ -215,6 +215,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedPostTableList(itemsFunction, subsectionname) {
+
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -241,6 +242,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedStructuredData(item, element, elementId, elementText, subsectionname) {
+        
         return (
             <div>
                 <span
@@ -367,6 +369,7 @@ export default class TabularListVisualizer extends Component {
         );
     }
 
+    // pass in actions here and render 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionname) => {
@@ -378,7 +381,7 @@ export default class TabularListVisualizer extends Component {
             }
             this.closeInsertionMenu(callback);
         }
-
+        //create a var that is this.props.actions concatenated with the new actions from summary metadata
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         // Filter actions by whenToDisplay property on action
