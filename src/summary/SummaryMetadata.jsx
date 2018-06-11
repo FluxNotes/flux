@@ -843,19 +843,10 @@ export default class SummaryMetadata {
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
         let trialsList = new ClinicalTrialsList();
-        let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
+        let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility(patient, currentConditionEntry);
         let eligibleTrials = [];
-        let enrolledTrials = this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry);
-        let enrolledTrialsName = [];
-        if (enrolledTrials[0]) {
-            enrolledTrialsName = enrolledTrials.map(trial => {
-                return trial[0].value[0];
-            });
-        }
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            if (enrolledTrialsName.indexOf(trial.info.name) === -1) {
-                eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
-            }
+            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
         });
         return eligibleTrials;
     }
