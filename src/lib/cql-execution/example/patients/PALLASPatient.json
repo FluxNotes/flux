@@ -247,6 +247,25 @@
                     "code": "mm3"
                 }
             }
+        },
+        {
+            "resource": {
+                "resourceType": "MedicationOrder",
+                "id": "bS9-3ADp-oiQOWnS-mJJjos",
+                "status": "active",
+                "medication":[{
+                    "resourceType": "Medication",
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                "code": "224905",
+                                "display": "Trastuzumab"
+                            }
+                        ]
+                    }
+                }]
+            }
         }
     ]
 }
