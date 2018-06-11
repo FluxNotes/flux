@@ -189,7 +189,7 @@ export default class TabularListVisualizer extends Component {
         return list;
     }
 
-    // pass in the actions here
+    
     // Render all list items
     renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname) {
         let onClick, hoverClass, rowClass, itemClass = "";
@@ -369,7 +369,6 @@ export default class TabularListVisualizer extends Component {
         );
     }
 
-    // pass in actions here and render 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionname) => {
@@ -381,7 +380,7 @@ export default class TabularListVisualizer extends Component {
             }
             this.closeInsertionMenu(callback);
         }
-        //create a var that is this.props.actions concatenated with the new actions from summary metadata
+
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         // Filter actions by whenToDisplay property on action
