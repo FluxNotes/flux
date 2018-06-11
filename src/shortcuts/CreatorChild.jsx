@@ -23,14 +23,37 @@ export default class CreatorChild extends Shortcut {
                 this.setText(text);
             }
         }
-        //let entryType = this.metadata["contextValueObjectEntryType"];
-
+        // figure out parent context for this shortcut. Use following:
+        //   (1) use known parent context if attribute exists
+        //   (2) use parent with correct parent attribute
+        //   (3) use current context (maybe this should just be an error?)
         const knownParent = this.metadata["knownParentContexts"];
-
         if (knownParent) {
             this.parentContext = contextManager.getActiveContextOfType(knownParent);
         } else {
-            this.parentContext = contextManager.getCurrentContext();
+            const parentAttribute = this.metadata["parentAttribute"];
+            console.log(parentAttribute);
+            let foundParentContext = null;
+            if (parentAttribute) {
+                let contexts = contextManager.getActiveContexts();
+                console.log(contexts.length);
+                let index = 0;
+                while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
+                    console.log(index);
+                    console.log(contexts[index].isAttributeSupported(parentAttribute));
+                    index++;
+                }
+                console.log("ending index: " + index);
+                if (index < contexts.length) {
+                    foundParentContext = contexts[index];
+                    console.log(foundParentContext);
+                }
+            }
+            if (Lang.isNull(foundParentContext)) {
+                this.parentContext = contextManager.getCurrentContext();
+            } else {
+                this.parentContext = foundParentContext;
+            }
         }
 
         //console.log("set parent context to " + this.parentContext);

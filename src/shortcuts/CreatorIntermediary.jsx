@@ -110,6 +110,10 @@ export default class CreatorIntermediary extends Shortcut {
         }
     }
 
+    isAttributeSupported(name) {
+        return !Lang.isUndefined(this.valueObjectAttributes[name]);
+    }
+
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voaList = this.metadata["valueObjectAttributes"];
         let result = voaList.filter(function (item) {
