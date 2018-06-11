@@ -423,14 +423,6 @@ class FluxNotesEditor extends React.Component {
         this.editorHasFocus = true;
     }
 
-    adjustActiveContexts = (selection, state) => {
-        this.contextManager.adjustActiveContexts((context) => {
-            // return true if context should be active because it's before selection
-            return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
-        });
-        this.contextManager.contextUpdated();
-    }
-
     onBlur = () => {
         this.editorHasFocus = false;
     }
@@ -463,6 +455,14 @@ class FluxNotesEditor extends React.Component {
 
     onSelectionChange = (selection, state) => {
         this.adjustActiveContexts(selection, state);
+    }
+
+    adjustActiveContexts = (selection, state) => {
+        this.contextManager.adjustActiveContexts((context) => {
+            // return true if context should be active because it's before selection
+            return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
+        });
+        this.contextManager.contextUpdated();
     }
 
     // When the editor in the modal first is triggered, insert the contextTrayItem when it mounts.

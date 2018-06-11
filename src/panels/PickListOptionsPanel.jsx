@@ -77,6 +77,7 @@ export default class PickListOptionsPanel extends Component {
     }
 
     handleOkButtonClick = () => {
+        this.props.contextManager.clearContexts();
         this.toggleView('context-tray');
         this.handleInsertChosenOption();
     }

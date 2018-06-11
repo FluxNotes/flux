@@ -94,7 +94,7 @@ class ContextManager {
             }
         }
         if (index === -1) {
-            this.contexts.push(shortcut);
+            this.contexts.unshift(shortcut);
         } else {
             this.contexts.splice(index, 0, shortcut);
         }
