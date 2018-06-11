@@ -106,6 +106,33 @@ class Shortcut extends Context {
     static getTriggerRegExp() {
         return null;
     }
+
+    determineParentContext(contextManager, knownParent, parentAttribute) {
+        // figure out parent context for this shortcut. Use following:
+        //   (1) use known parent context if attribute exists
+        //   (2) use parent with correct parent attribute
+        //   (3) use current context (maybe this should just be an error?)
+        if (knownParent) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else {
+            let foundParentContext = null;
+            if (parentAttribute) {
+                let contexts = contextManager.getActiveContexts();
+                let index = 0;
+                while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
+                    index++;
+                }
+                if (index < contexts.length) {
+                    foundParentContext = contexts[index];
+                }
+            }
+            if (Lang.isNull(foundParentContext)) {
+                this.parentContext = contextManager.getCurrentContext();
+            } else {
+                this.parentContext = foundParentContext;
+            }
+        }
+    }
 }
 
 export default Shortcut;

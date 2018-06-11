@@ -15,13 +15,14 @@ export default class CreatorIntermediary extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        const knownParent = this.metadata["knownParentContexts"];
+        // const knownParent = this.metadata["knownParentContexts"];
 
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else {
-            this.parentContext = contextManager.getCurrentContext();
-        }
+        // if (knownParent) {
+        //     this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        // } else {
+        //     this.parentContext = contextManager.getCurrentContext();
+        // }
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
@@ -111,7 +112,11 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     isAttributeSupported(name) {
-        return !Lang.isUndefined(this.valueObjectAttributes[name]);
+        const voaList = this.metadata["valueObjectAttributes"];
+        let result = voaList.filter(function (item) {
+            return item.name === name;
+        });
+        return (result && result[0]);
     }
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {

@@ -25,13 +25,14 @@ export default class Keyword extends Shortcut {
         }
         //let entryType = this.metadata["contextValueObjectEntryType"];
 
-        const knownParent = this.metadata["knownParentContexts"];
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        // const knownParent = this.metadata["knownParentContexts"];
 
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else {
-            this.parentContext = contextManager.getCurrentContext();
-        }
+        // if (knownParent) {
+        //     this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        // } else {
+        //     this.parentContext = contextManager.getCurrentContext();
+        // }
 
         //console.log("set parent context to " + this.parentContext);
         if (!Lang.isUndefined(this.parentContext)) {

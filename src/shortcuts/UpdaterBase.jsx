@@ -256,8 +256,6 @@ export default class UpdaterBase extends Shortcut {
     }
 
     isAttributeSupported(name) {
-        console.log("isAttributeSupported[updaterbase] " + this.metadata["name"]);
-        console.log(this.valueObjectAttributes[name]);
         return !Lang.isUndefined(this.valueObjectAttributes[name]);
     }
 

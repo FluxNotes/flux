@@ -228,8 +228,6 @@ export default class CreatorBase extends Shortcut {
     }
 
     isAttributeSupported(name) {
-        console.log("isAttributeSupported " + this.metadata["name"]);
-        console.log(this.valueObjectAttributes[name]);
         return !Lang.isUndefined(this.valueObjectAttributes[name]);
     }
 
