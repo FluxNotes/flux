@@ -10,6 +10,7 @@ codesystem "LOINC": 'http://loinc.org'
 // SOURCE : https://vsac.nlm.nih.gov/valueset/expansions?pr=all
 // value set to represent all breast cancer conditions.
 valueset "Breast Cancer": '2.16.840.1.113883.3.526.2.98'
+valueset "Trastuzumab": '2.16.840.1.113762.1.4.1116.57'
 
 // CODES : used to represent conditions, lab results, or other data fields to be entered for the clinical trial
 
@@ -25,7 +26,7 @@ code "Negative (qualifier value)": '260385009' from "SNOMEDCT" display 'Negative
 code "ECOG performance status grade Observed": '42800-3' from "LOINC" display 'ECOG performance status grade Observed'
 code "Neutrophils [#/volume] in Blood": '26499-4' from "LOINC" display 'Neutrophils [#/volume] in Blood'
 
-// CONCEPTS : Unsure why these are necessary to get the codes to work, but without them the 
+// CONCEPTS : Unsure why these are necessary, but without them the 
 // data retrieval for "Observation" wouldnt work.
 
 concept "Estrogen Receptor" : { "Estrogen receptor [Interpretation] Tissue" } display 'Estrogen Receptor [Interpretation]'
@@ -43,7 +44,7 @@ concept "Neutrophils": { "Neutrophils [#/volume] in Blood" } display 'Neutrophil
 
 context Patient
 
-define InDemographic:
+define InDemographic :
    AgeInYears() >= 18
    
 define HasBreastCancer:
@@ -64,11 +65,19 @@ define PRPositive:
         where O.interpretation.coding[0].code.value = '10828004'
   )
 
-define HER2Positive:
+define HER2Negative:
+  (exists(
+    [Observation: "HER2"] O
+      where O.interpretation.coding[0].code.value = '823735014' 
+  ) and 
+  (not exists ( [MedicationOrder: "Trastuzumab"] M )))
+  or 
   exists(
     [Observation: "HER2"] O
-      where O.interpretation.coding[0].code.value != '260385009'
+      where O.interpretation.coding[0].code.value = '260385009' 
   )
+  
+  
 
 define HemoglobinInRange:
   exists(
@@ -110,14 +119,76 @@ define NeutrophilsInRange:
         and O.valueQuantity.unit.value  = 'mm3'
   )
 
-define MeetsInclusionCriteria:
-  InDemographic and ERPositive 
+
+define ERCheckMissing:
+  not (exists( [Observation: "Estrogen Receptor"] O ) )
+
+define PRCheckMissing:
+  not (exists( [Observation: "Progesterone Receptor"] O ))
+
+define HER2CheckMissing:
+  not (exists(  [Observation: "HER2"] O ))
+
+define HemoglobinCheckMissing:
+  not (exists( [Observation: "Hemoglobin"] O ))
+
+define AJCCCheckMissing:
+  not (exists ( [Observation: "AJCC"] O ))
+
+define PregnancyCheckMissing:
+  not (exists( [Observation: "Pregnant"] O ))
+
+define ECOGCheckMissing:
+  not (exists( [Observation: "ECOG"] O))
+
+define NeutrophilsCheckMissing:
+  not (exists( [Observation: "Neutrophils"] O))
+
+define PlateletsCheckMissing:
+  not (exists ( [Observation: "Platelets"] O ))
+
+  
+define meetsInclusionCriteria:
+  InDemographic 
+  and ERPositive
   and PRPositive 
   and AJCCInRange
   and PlateletsInRange
-  and HER2Positive
+  and HER2Negative
   and HemoglobinInRange
   and HasBreastCancer
   and ECOGInRange 
   and NeutrophilsInRange
   and NotPregnant
+
+// This function will distinguish whether the given patient
+// is disqualified from the trial (they have data that meets exclusion criteria)
+// or if their data is missing, meaning that clinicians can get information
+// and determine further eligibility.
+
+define checkNotDisqualified:
+  (HER2Negative or HER2CheckMissing)
+  and (PRPositive or PRCheckMissing)
+  and (HemoglobinInRange or HemoglobinCheckMissing)
+  and (ERPositive or ERCheckMissing)
+  and (NotPregnant or PregnancyCheckMissing)
+  and (ECOGInRange or ECOGCheckMissing)
+  and (PlateletsInRange or PlateletsCheckMissing)
+  and (AJCCInRange or AJCCCheckMissing) 
+
+// Returns an array of missing data fields to determine
+// if a patient is eligible for a given trial.
+define findMissingData:
+  Tuple {
+    "Progesterone receptor": PRCheckMissing, 
+    "Estrogen receptor": ERCheckMissing,
+    "Hemoglobin": HemoglobinCheckMissing,
+    "HER2": HER2CheckMissing,
+    "Pregnant/Not Pregnant": PregnancyCheckMissing,
+    "ECOG": ECOGCheckMissing,
+    "Platelets": PlateletsCheckMissing,
+    "AJCC": AJCCCheckMissing
+  }
+
+  
+

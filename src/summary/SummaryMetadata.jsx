@@ -1,9 +1,7 @@
 import Lang from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
-import PALLAScql from '../lib/cql-execution/example/cql/PALLASpatient.json';
-import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/exampleFHIRPatient1.json';
+import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 
 /*
     Each section has the following properties:
@@ -530,13 +528,13 @@ export default class SummaryMetadata {
                         notFiltered: true,
                         data: [
                             {
-                                name: "",
+                                name: "Enrolled",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
                             },
                             {
-                                name: "Eligible Clinical Trials",
-                                headings: ["Name", "Description", "Eligibility"],
+                                name: "Potential to Enroll",
+                                headings: ["Name", "Criteria Fit", "Opened", "Description"],
                                 itemsFunction: this.getItemListForClinicalTrialEligibility
 
                             }
@@ -844,12 +842,14 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = () => {
-        const result = CQLExecutionEngine.getCQLResults(PALLAScql, [PALLAS_eligiblePatient]);
-        let eligibility = "Not eligible";
-        if (result.patientResults['93d8b432-f097-4c82-b111-8577e1d9d89f'].MeetsInclusionCriteria) {
-            eligibility = "Potentially eligible";
-        }
-        return [[{ value: 'PALLAS' }, 'Palbociclib Collaborative Adjuvant Study', eligibility]];
+        let trialsList = new ClinicalTrialsList();
+        let clinicalTrialsAndCriteriaList = trialsList.findPatientEligibility();
+        let eligibleTrials = []
+
+        clinicalTrialsAndCriteriaList.forEach((trial) => {
+            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
+        });
+        return eligibleTrials;
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
