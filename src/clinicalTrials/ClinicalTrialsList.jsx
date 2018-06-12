@@ -1,9 +1,9 @@
-/*import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
 import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
 import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json'
-*/
+
 
 class ClinicalTrialsList {
     constructor() {
@@ -70,7 +70,7 @@ class ClinicalTrialsList {
         }
     }
 
-  /*  findPatientEligibility(patient, currentCondition) {
+    getListOfEligibleClinicalTrials(patient, currentCondition) {
         let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
         let enrolledTrials = patient.getEnrolledClinicalTrials();
@@ -108,7 +108,7 @@ class ClinicalTrialsList {
             }
         }
         return missingFields;
-    }*/
+    }
 
     getClinicalTrialByName(name) {
         let clinicalTrials = this.clinicalTrials.filter((trial) => {
