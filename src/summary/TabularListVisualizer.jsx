@@ -153,18 +153,18 @@ export default class TabularListVisualizer extends Component {
         }
 
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
-
+        
         return (
             <div key={subsectionindex}>
                 {preTableCount}
                 {subsectionname}
-
+    
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings)} />
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name)} />
 
                 <ul>
-                    {this.renderedPostTableList(transformedSubsection.postTableList)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name)}
                 </ul>
             </div>
         );
@@ -189,10 +189,10 @@ export default class TabularListVisualizer extends Component {
         return list;
     }
 
+    
     // Render all list items
-    renderedListItems(subsectionindex, list, numberOfHeadings) {
+    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname) {
         let onClick, hoverClass, rowClass, itemClass = "";
-
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
@@ -210,11 +210,12 @@ export default class TabularListVisualizer extends Component {
                 hoverClass = "list-button-hover";
             }
 
-            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass);
+            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname);
         });
     }
 
-    renderedPostTableList(itemsFunction) {
+    renderedPostTableList(itemsFunction, subsectionname) {
+
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -225,7 +226,7 @@ export default class TabularListVisualizer extends Component {
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
-                        {this.renderedStructuredData(elementText, element, elementId, elementText)}
+                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionname)}
                     </li>
                 );
             } else {
@@ -240,7 +241,8 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText) {
+    renderedStructuredData(item, element, elementId, elementText, subsectionname) {
+        
         return (
             <div>
                 <span
@@ -249,13 +251,13 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText)}
+                {this.renderedMenu(element, elementId, elementText, subsectionname)}
             </div>
         );
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass) {
+    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname) {
         // Array of all columns
         const renderedColumns = [];
 
@@ -308,7 +310,7 @@ export default class TabularListVisualizer extends Component {
                         className={itemClass}
                         key={elementId}
                     >
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText)}
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionname)}
                     </TableCell>
 
                 );
@@ -369,9 +371,9 @@ export default class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText) => {
+    renderedMenu = (element, elementId, elementText, subsectionname) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
+        
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);
@@ -385,6 +387,7 @@ export default class TabularListVisualizer extends Component {
         const filteredActions = this.props.actions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
+            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionname)) return false;
             return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
 

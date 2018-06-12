@@ -83,9 +83,10 @@ export class FullApp extends Component {
          *      text             Text to display for this action in the Menu
          *      icon             FontAwesome(?) icon to display
          *      whenToDisplay    Criteria on when to display the action.  Currently has the following properties:
-         *                          valueExists         Boolean value indicating whether value should exist.
-         *                          existingValueSigned Boolean value indicating whether value should be signed.  Can be string value "either".
-         *                          editableNoteOpen    Boolean value indicating whether note should be open or string "either" if it doesn't matter.
+         *                          valueExists          Boolean value indicating whether value should exist.
+         *                          existingValueSigned  Boolean value indicating whether value should be signed.  Can be string value "either".
+         *                          editableNoteOpen     Boolean value indicating whether note should be open or string "either" if it doesn't matter.
+         *                          displayInSubsections Array of strings that define in which subsections the action should be displayed.  Can be left out.
          */
         this.actions = [
             {
@@ -95,7 +96,7 @@ export class FullApp extends Component {
                 whenToDisplay: {
                     valueExists: true,
                     existingValueSigned: "either",
-                    editableNoteOpen: true
+                    editableNoteOpen: true,
                 }
             },
             {
@@ -106,6 +107,17 @@ export class FullApp extends Component {
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: "either"
+                }
+            },
+            {
+                handler: this.addEnrollmentToEditor,
+                text: "Enroll patient",
+                icon: "check",
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: true,
+                    displayInSubsections: ["Potential to enroll"]
                 }
             }
         ]
@@ -197,9 +209,9 @@ export class FullApp extends Component {
             if (Lang.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
                 if(Lang.isObject(item[arrayIndex])){
-                    this.setState({ SummaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` });
+                    this.setState({ summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` });
                 } else {
-                    this.setState({ SummaryItemToInsert: item[arrayIndex]});
+                    this.setState({ summaryItemToInsert: item[arrayIndex]});
                 }
             } else if (item.shortcut) {
                 this.setState({ summaryItemToInsert: `${item.shortcut}[[${item.value}]]` });
@@ -209,6 +221,11 @@ export class FullApp extends Component {
                 this.setState({ summaryItemToInsert: item });
             }
         }
+    }
+
+    // Enrolls the patient in the selected trial
+    addEnrollmentToEditor = (item) => {  
+        this.setState({ summaryItemToInsert: `#enrollment #${item.value}`});
     }
 
     handleSnackbarClose = () => {
