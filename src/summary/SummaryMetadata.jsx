@@ -128,29 +128,32 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy",
-                                dataMissingTemplate: "",
+                                defaultTemplate: "Key toxicities include as follows",
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy",
+                                dataMissingTemplate: "No peripheral motor neuropathy",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Peripheral motor neuropathy"
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Blood clots} blood clots",
-                                dataMissingTemplate: "",
+                                defaultTemplate: "${Key Toxicities.Blood clots} blood clots",
+                                dataMissingTemplate: "No blood clots",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Blood clots"
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Neutropenia} neutropenia",
-                                dataMissingTemplate: "",
+                                defaultTemplate: "${Key Toxicities.Neutropenia} neutropenia",
+                                dataMissingTemplate: "No neutropenia",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Neutropenia"
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Nausea/Vomiting} nausea/vomiting",
-                                dataMissingTemplate: "",
+                                defaultTemplate: "${Key Toxicities.Nausea/Vomiting} nausea/vomiting",
+                                dataMissingTemplate: "No nausea/vomiting",
                                 useDataMissingTemplateCriteria: [
                                     "Key Toxicities.Nausea/Vomiting"
                                 ]
