@@ -70,37 +70,62 @@ class ClinicalTrialsList {
         }
     }
 
-    getListOfEligibleClinicalTrials(patient, currentCondition) {
-        let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+    getListOfEligibleClinicalTrials() {
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
-        let enrolledTrials = patient.getEnrolledClinicalTrials();
-        enrolledTrials = enrolledTrials.map((trial) => {
-            return trial.title;
+
+        this.clinicalTrials.forEach((trial) => {
+            if (trial.inclusionCriteriaCQL != null) {
+                const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+                const satisfiedCriteria = this.getNumberSatisfiedCriteria
+                const totalCriteria = satisfiedCriteria + trial.additionalCriteria.length;
+                const trialEligiblity = this.getPatientEligibility;
+                eligibleTrials.push({ info: trial, eligibility: trialEligiblity, totalCriteria: totalCriteria, satisfiedCriteria: satisfiedCriteria});
+            }    
         });
-        for (let n in this.clinicalTrials) {
-            let trial = this.clinicalTrials[n];
-            let missingCriteria = ["None"];
-            if ((trial.inclusionCriteriaCQL != null) && (enrolledTrials.indexOf(trial.name) === -1)) {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
-                let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
-                let additionalCriteriaNumber = trial.additionalCriteria.length;
-                let totalCriteriaNumber = checkedCriteriaNumber + additionalCriteriaNumber;
-                if (result.patientResults[patient_id].meetsInclusionCriteria) {
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
-                }
-                else if (result.patientResults[patient_id].checkNotDisqualified) {
-                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
-                    let missingCriteriaNumber = missingCriteria.length;
-                    checkedCriteriaNumber -= missingCriteriaNumber;
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
-                }
-            }
-        }
+        // for (let n in this.clinicalTrials) {
+        //     let trial = this.clinicalTrials[n];
+        //     let missingCriteria = ["None"];
+        //     if (trial.inclusionCriteriaCQL != null) {
+        //         let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+        //         let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
+        //         let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
+        //         let extraCriteriaNumber = trial.additionalCriteria.length;
+        //         let totalCriteriaNumber = checkedCriteriaNumber + extraCriteriaNumber;
+                
+        //         if (result.patientResults[patient_id].meetsInclusionCriteria) {
+        //             eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
+        //         }
+        //         else if (result.patientResults[patient_id].checkNotDisqualified) {
+        //             missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
+        //             let missingCriteriaNumber = missingCriteria.length;
+        //             checkedCriteriaNumber -= missingCriteriaNumber;
+        //             eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
+        //         }
+
+        //     }
+        // }
         return eligibleTrials;
     }
 
-    getMissingCriteriaListTrialEligibility(missingCriteria) {
+    getNumberSatisfiedCriteria() {
+
+    }
+
+    getTotalCriteriaNumber() {
+
+    }
+
+    getPatientEligibility() {
+
+    }
+
+
+    getMissingCriteriaListTrialEligibility() {
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+        const missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
+
         let missingFields = [];
         for (let property in missingCriteria) {
             if (missingCriteria[property] === true) {
