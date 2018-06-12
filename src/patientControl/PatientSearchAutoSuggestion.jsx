@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
-import Paper from 'material-ui/Paper';
 import SearchSuggestion from './SearchSuggestion.jsx';
 import Lang from 'lodash';
 
