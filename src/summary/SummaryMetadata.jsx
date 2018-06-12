@@ -128,9 +128,33 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities include Peripheral motor neurpathy: ${Key Toxicities.Peripheral motor neuropathy}, Blood clots: ${Key Toxicities.Blood clots}, Neutropenia: ${Key Toxicities.Neutropenia}, Nausea/Vomiting: ${Key Toxicities.Nausea/Vomiting}",
+                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy",
+                                dataMissingTemplate: "",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Peripheral motor neuropathy"
+                                ]
                             },
-
+                            {
+                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Blood clots} blood clots",
+                                dataMissingTemplate: "",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Blood clots"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Neutropenia} neutropenia",
+                                dataMissingTemplate: "",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Neutropenia"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Key toxicities includes ${Key Toxicities.Nausea/Vomiting} nausea/vomiting",
+                                dataMissingTemplate: "",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Nausea/Vomiting"
+                                ]
+                            },
                         ],
                         data: [
                             {
