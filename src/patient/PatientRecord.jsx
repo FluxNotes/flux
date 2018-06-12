@@ -556,12 +556,22 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
             const medBeforeChange = this.getEntryFromReference(change.medicationBeforeChange.reference);
-            const medAfterChange = this.getEntryFromReference(change.medicationAfterChange.reference);
-            const eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
-            }) || medAfterChange.reasons.some((r) => {
-                return r.value.entryId && r.value.entryId === conditionEntryId;
-            });
+            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.reference) : null;
+
+
+            let eitherChangeIsRelated;
+
+            if (medAfterChange) {
+                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+                        return r.value.entryId && r.value.entryId === conditionEntryId;
+                    }) || medAfterChange.reasons.some((r) => {
+                        return r.value.entryId && r.value.entryId === conditionEntryId;
+                    });
+            } else {
+                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+                    return r.value.entryId && r.value.entryId === conditionEntryId;
+                });
+            }
             return change instanceof FluxMedicationChange && eitherChangeIsRelated;
         });
         return medicationsChanges;
@@ -650,9 +660,14 @@ class PatientRecord {
             return p;
         }
     }
-    _medChangesTimeSorter (a, b) {
-        const a_medicationAfter_performanceTime = this.getEntryFromReference(a.medicationAfterChange.value).expectedPerformanceTime;
-        const b_medicationAfter_performanceTime = this.getEntryFromReference(b.medicationAfterChange.value).expectedPerformanceTime;
+
+
+    // TODO: use medication change.entry info.creationTime
+    // TODO fix variable names to a time b tim
+
+    _medChangesTimeSorter(a, b) {
+        const a_medicationAfter_performanceTime = a.entryInfo.creationTime.dateTime;
+        const b_medicationAfter_performanceTime = b.entryInfo.creationTime.dateTime;
         const a_startTime = new moment(a_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {

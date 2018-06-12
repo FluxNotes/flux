@@ -862,26 +862,33 @@ export default class SummaryMetadata {
         let meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
         medicationChanges.forEach(change => {
-            const medAfterChangeRef = change.medicationAfterChange.reference;
-            // Determine if there the medAfterChange corresponds to an med
-            // Get that med if it exists, undefined otherwise
-            const medAfterChange = meds.find((med) => { 
-                return med.entryId === medAfterChangeRef.entryId;
-            });
-            if (medAfterChange) { 
-                // Add the medBeforeChange to the med, for use in visualization
-                const medBeforeChangeRef = change.medicationBeforeChange.reference;
-                const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                medAfterChange.medicationBeforeChange = medBeforeChange;
-                medAfterChange.medicationChange = { 
-                    type: change.type,
-                    date: change.whenChanged,
+
+            if (change.medicationAfterChange) {
+                const medAfterChangeRef = change.medicationAfterChange.reference;
+                // Determine if there the medAfterChange corresponds to an med
+                // Get that med if it exists, undefined otherwise
+                const medAfterChange = meds.find((med) => {
+                    return med.entryId === medAfterChangeRef.entryId;
+                });
+
+                if (medAfterChange) {
+                    // Add the medBeforeChange to the med, for use in visualization
+                    const medBeforeChangeRef = change.medicationBeforeChange.reference;
+                    const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
+                    medAfterChange.medicationBeforeChange = medBeforeChange;
+                    medAfterChange.medicationChange = {
+                        type: change.type,
+                        date: change.whenChanged,
+                    }
+                    // Remove the before-medication from vis
+                    meds = meds.filter((med) => {
+                        return med.entryId !== medBeforeChangeRef.entryId;
+                    })
                 }
-                // Remove before medication from vis
-                meds = meds.filter((med) => { 
-                    return med.entryId !== medBeforeChangeRef.entryId;
-                })
             }
+
+
+
         });
         return meds;
     }

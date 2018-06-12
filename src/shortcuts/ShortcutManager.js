@@ -251,6 +251,8 @@ class ShortcutManager {
 
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
+        console.log("current context id: " + currentContextId);
+
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -259,12 +261,16 @@ class ShortcutManager {
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
         if (Lang.isUndefined(result)) return [];
+
+        console.log(result);
+
         result = result.filter((shortcutId) => {
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
             contextValueObjectEntryType = this.shortcuts[shortcutId]["contextValueObjectEntryType"];
 
+            console.log("context value object entry tupe: " + contextValueObjectEntryType);
             if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.value === contextValueObjectEntryType) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;

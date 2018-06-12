@@ -446,26 +446,27 @@
 
   { "type": "CreatorBase",
     "id": "MedicationChangeStopCreator",
-    "name": "medication change stop",
+    "name": "stop medication",
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
     "valueObjectAttributes": [
-      {"name":"medicationBeforeChange", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "MedicationCreator"}
+      {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"}
     ],
     "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "stop"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#stop medication", "description": "Support specifying medication change to stop for a medication."}],
     "regexpTrigger": null,
-    "structuredPhrase": "#"
+    "structuredPhrase": "#",
+    "knownParentContexts": "Patient"
   },
-  { "type": "CreatorChild",
-    "id": "MedicationCreator",
-    "parentAttribute": "MedicationChangeStopCreator",
-    "stringTriggers": [ {"object":"patient", "method":"getActiveMedications", "prefix": "#"},
-      { "name": "#medication", "description": "Pick list for medications", "picker": true }],
-    "picker": { "object": "patient", "method": "getActiveMedications", "prefix": "#"},
-    "description":"Allows selection of the medication.",
-    "shortcutGroupName":"Medication"
+
+  { "type": "InsertValue",
+    "id": "ActiveMedicationInserter",
+    "parentAttribute": "medication",
+    "getData": {"object": "patient", "method": "getActiveMedications", "itemKey": "entryInfo.entryId", "itemContext":"medication", "dateLabel": "startDate"},
+    "isContext": true,
+    "stringTriggers": [{"name":"@active medication", "description": "Select an active medication to insert"}],
+    "knownParentContexts": "MedicationChangeStopCreator"
   }
 ]

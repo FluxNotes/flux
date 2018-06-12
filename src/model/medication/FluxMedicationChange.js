@@ -1,10 +1,18 @@
 import MedicationChange from '../shr/medication/MedicationChange';
 import Type from "../shr/entity/Type";
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 
 class FluxMedicationChange {
     constructor(json) {
         this._medicationChange = MedicationChange.fromJSON(json);
+        if (!this._medicationChange.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationChange';
+            this._medicationChange.entryInfo = entry;
+        }
     }
     /**
      * Get the entry information.
@@ -18,8 +26,8 @@ class FluxMedicationChange {
      * Returns medicaitonRequested object
      */
     get medicationBeforeChange() {
-        console.log(this._medicationChange);
-        console.log(this._medicationChange.medicationBeforeChange);
+        // console.log(this._medicationChange);
+        // console.log(this._medicationChange.medicationBeforeChange);
       return this._medicationChange.medicationBeforeChange;
     }
 

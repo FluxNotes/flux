@@ -23,6 +23,7 @@ export default class InsertValue extends Shortcut {
             const portalOptions = this.getValueSelectionOptions();
             portalOptions.forEach((option) => {
                 if (option.context === shortcutData) {
+                    console.log(option);
                     this.setValueObject(option.object);
                 }
             });
