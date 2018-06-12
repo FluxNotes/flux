@@ -929,21 +929,15 @@ export default class SummaryMetadata {
         const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
+            eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
         });
         return eligibleTrials;
     }
 
     getItemListMissingCriteria = (trialname) => {
         let trialsList = new ClinicalTrialsList();
-        let missingcriteria = {};
-        let eligibleTrials = trialsList.getListOfEligibleClinicalTrials();
-        eligibleTrials.forEach((trial) => {
-            if (trial.info.name === trialname) {
-                missingcriteria = trial.criteria;
-            }
-        });
-        return trialsList.getMissingCriteriaListTrialEligibility(missingcriteria);
+        console.log(trialsList.getMissingCriteriaListTrialEligibility(trialname));
+        return trialsList.getMissingCriteriaListTrialEligibility(trialname);
 
     }
 
@@ -1196,8 +1190,9 @@ export default class SummaryMetadata {
         return subset;
     }
 
-    test = () => {
-        return ["Testing"];
+    test = (item) => {
+        console.log(item);
+        return [];
     }
 }
 
