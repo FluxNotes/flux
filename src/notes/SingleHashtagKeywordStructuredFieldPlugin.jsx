@@ -111,9 +111,19 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
 	// Filter our mappings to only shorcuts who are directly next to our current text-node  
 	function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, currentNodeKey) {
-		return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => { 
+		return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
+			let closestBlock;
+
+			// Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
+			// returns false to filter out if error occurs
+			try {
+				closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
+			} catch (error) {
+				return false;
+			}
+
 			// We want to get the closest block to the keyword's 
-			return state.document.getClosestBlock(Object.keys(mapping)[0]).key === currentNodeKey;
+			return closestBlock.key === currentNodeKey;
 		});
 	}
 
