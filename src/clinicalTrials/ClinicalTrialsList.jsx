@@ -70,19 +70,22 @@ class ClinicalTrialsList {
         }
     }
 
-    findPatientEligibility() {
+    findPatientEligibility(patient, currentCondition) {
         let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
-
+        let enrolledTrials = patient.getEnrolledClinicalTrials();
+        enrolledTrials = enrolledTrials.map((trial) => {
+            return trial.title;
+        });
         for (let n in this.clinicalTrials) {
             let trial = this.clinicalTrials[n];
             let missingCriteria = ["None"];
-            if (trial.inclusionCriteriaCQL != null) {
+            if ((trial.inclusionCriteriaCQL != null) && (enrolledTrials.indexOf(trial.name) === -1)) {
                 let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
                 let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
                 let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
-                let extraCriteriaNumber = trial.additionalCriteria.length;
-                let totalCriteriaNumber = checkedCriteriaNumber + extraCriteriaNumber;
+                let additionalCriteriaNumber = trial.additionalCriteria.length;
+                let totalCriteriaNumber = checkedCriteriaNumber + additionalCriteriaNumber;
                 if (result.patientResults[patient_id].meetsInclusionCriteria) {
                     eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
                 }
@@ -92,7 +95,6 @@ class ClinicalTrialsList {
                     checkedCriteriaNumber -= missingCriteriaNumber;
                     eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
                 }
-
             }
         }
         return eligibleTrials;
