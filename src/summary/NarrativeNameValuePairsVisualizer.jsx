@@ -1,4 +1,4 @@
-    import { ListItemIcon, ListItemText } from 'material-ui/List';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
