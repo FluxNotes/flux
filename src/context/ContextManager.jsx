@@ -94,6 +94,11 @@ class ContextManager {
             }
         }
         if (index === -1) {
+            /*  Changed this from push to unshift to fix context ordering when loading in a note.
+             *  This seems to work since the cursor is always at the beginning when loading in a note.
+             *  Also tested copy and pasting and normal insertion of shortcuts into the note and those actions do not seem to be affected.
+             *  If unintended consequences are found in the future, this change can be reversed and we can find a new solution.
+             */  
             this.contexts.unshift(shortcut);
         } else {
             this.contexts.splice(index, 0, shortcut);
@@ -148,6 +153,15 @@ class ContextManager {
         this.contexts = [];
         this.activeContexts = [];
         this.onContextUpdate();
+    }
+
+    // Clears all non active contexts from this.contexts
+    // Only used after picking options from template modal
+    // When choosing options, many unncessary contexts get added
+    clearNonActiveContexts() {
+        this.contexts = this.contexts.filter((context) => {
+            return this.activeContexts.includes(context);
+        });
     }
 }
 

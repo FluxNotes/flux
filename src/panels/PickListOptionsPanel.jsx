@@ -49,7 +49,6 @@ export default class PickListOptionsPanel extends Component {
     // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
         this.props.updateContextTrayItemToInsert(null);
-        this.props.contextManager.clearContexts();
         this.toggleView('context-tray')
     }
 
@@ -77,7 +76,6 @@ export default class PickListOptionsPanel extends Component {
     }
 
     handleOkButtonClick = () => {
-        this.props.contextManager.clearContexts();
         this.toggleView('context-tray');
         this.handleInsertChosenOption();
     }
