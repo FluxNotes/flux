@@ -30,7 +30,6 @@ export default class TabularListVisualizer extends Component {
 
     render() {
         const subsections = this.getSubsections();
-
         return (
             <div className="tabular-list">
                 {this.renderedSubsections(subsections)}
@@ -48,13 +47,12 @@ export default class TabularListVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-
         return subsections;
     }
 
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
-
+        console.log(subsections);
         const { patient, condition, sectionTransform } = this.props;
         const isSingleColumn = !this.props.isWide;
 

@@ -603,7 +603,20 @@ export default class SummaryMetadata {
                             {
                                 name: "Potential to enroll",
                                 headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                                itemsFunction: this.getItemListForClinicalTrialEligibility
+                                itemsFunction: this.getItemListForClinicalTrialEligibility,
+                                actions: [
+                                    {
+                                        handler: this.addEnrollmentToEditor,
+                                        text: "Enroll patient",
+                                        icon: "check",
+                                        whenToDisplay: {
+                                            valueExists: true,
+                                            existingValueSigned: "either",
+                                            editableNoteOpen: true,
+                                            displayInSubsections: ["Potential to Enroll"]
+                                        }
+                                    }
+                                ]
 
                             }
                         ]
