@@ -531,13 +531,13 @@ export default class SummaryMetadata {
                                 name: "Enrolled",
                                 headings: ["Name", "When Enrolled", "When Left", "Description"],
                                 itemsFunction: this.getItemListForEnrolledClinicalTrials
-                            },
+                            } /*,
                             {
                                 name: "Potential to enroll",
                                 headings: ["Name", "Criteria Fit", "Opened", "Description"],
                                 itemsFunction: this.getItemListForClinicalTrialEligibility
 
-                            }
+                            }*/
                         ]
                     },
                     {
