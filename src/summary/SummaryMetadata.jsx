@@ -842,8 +842,8 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        let trialsList = new ClinicalTrialsList();
-        let clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
+        const trialsList = new ClinicalTrialsList();
+        const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);

@@ -153,7 +153,7 @@ export default class TabularListVisualizer extends Component {
         }
 
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
-        // Add trasformedSubsection.actions to line 164
+        
         return (
             <div key={subsectionindex}>
                 {preTableCount}
