@@ -305,7 +305,7 @@ class PatientRecord {
         return result + ".";
     }
 
-    getClinicalTrials(){
+    getEnrolledClinicalTrials(){
         let clinicalTrialList = new ClinicalTrialsList();
         let result = this.getEntriesOfType(FluxResearchSubject);
 

@@ -818,7 +818,7 @@ export default class SummaryMetadata {
     getItemListForEnrolledClinicalTrials = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
 
-        const clinicalTrials = patient.getClinicalTrials(currentConditionEntry);
+        const clinicalTrials = patient.getEnrolledClinicalTrials();
         if (clinicalTrials.length === 0) {
             return [];
         } else {

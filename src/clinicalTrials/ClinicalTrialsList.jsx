@@ -73,7 +73,7 @@ class ClinicalTrialsList {
     findPatientEligibility(patient, currentCondition) {
         let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
-        let enrolledTrials = patient.getClinicalTrials(currentCondition);
+        let enrolledTrials = patient.getEnrolledClinicalTrials();
         enrolledTrials = enrolledTrials.map((trial) => {
             return trial.title;
         });
