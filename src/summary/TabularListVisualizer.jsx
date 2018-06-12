@@ -67,6 +67,7 @@ export default class TabularListVisualizer extends Component {
         let list = this.getList(transformedSubsections[0]);
         const numColumns = (list.length === 0) ? 1 : list[0].length;
 
+
         // currently including 2 column sections with a single subsection to use full width. could change to only use left side
         // easily if we get feedback that people don't like this.
         if (isSingleColumn || numColumns > 2 || transformedSubsections.length === 1) {
@@ -149,7 +150,12 @@ export default class TabularListVisualizer extends Component {
             });
             headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
-        console.log(transformedSubsection.name);
+        
+        let subsectionactions = [];
+        if (transformedSubsection.actions != null) {
+            subsectionactions = transformedSubsection.actions;
+        }
+
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
         
         return (
@@ -159,10 +165,10 @@ export default class TabularListVisualizer extends Component {
     
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name)} />
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name, subsectionactions)} />
 
                 <ul>
-                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name, subsectionactions)}
                 </ul>
             </div>
         );
@@ -189,7 +195,7 @@ export default class TabularListVisualizer extends Component {
 
     
     // Render all list items
-    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname) {
+    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname, subsectionactions) {
         let onClick, hoverClass, rowClass, itemClass = "";
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
@@ -208,11 +214,12 @@ export default class TabularListVisualizer extends Component {
                 hoverClass = "list-button-hover";
             }
 
-            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname);
+            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname, subsectionactions);
         });
     }
 
-    renderedPostTableList(itemsFunction, subsectionname) {
+    renderedPostTableList(itemsFunction, subsectionname, subsectionactions) {
+
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -223,7 +230,7 @@ export default class TabularListVisualizer extends Component {
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
-                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionname)}
+                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionname, subsectionactions)}
                     </li>
                 );
             } else {
@@ -238,7 +245,7 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText, subsectionname) {
+    renderedStructuredData(item, element, elementId, elementText, subsectionname, subsectionactions) {
         
         return (
             <div>
@@ -248,13 +255,13 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText, subsectionname)}
+                {this.renderedMenu(element, elementId, elementText, subsectionname, subsectionactions)}
             </div>
         );
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname) {
+    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname, subsectionactions) {
         // Array of all columns
         const renderedColumns = [];
 
@@ -307,7 +314,7 @@ export default class TabularListVisualizer extends Component {
                         className={itemClass}
                         key={elementId}
                     >
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionname)}
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionname, subsectionactions)}
                     </TableCell>
 
                 );
@@ -368,7 +375,7 @@ export default class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText, subsectionname) => {
+    renderedMenu = (element, elementId, elementText, subsectionname, subsectionactions) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
         
         const onMenuItemClicked = (fn, element) => {
@@ -378,10 +385,12 @@ export default class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
+        let combinedActions = this.props.actions.concat(subsectionactions); 
         let isSigned = true;
+        
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         // Filter actions by whenToDisplay property on action
-        const filteredActions = this.props.actions.filter((a) => {
+        const filteredActions = combinedActions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
             if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionname)) return false;

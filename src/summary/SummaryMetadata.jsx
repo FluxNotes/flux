@@ -606,18 +606,20 @@ export default class SummaryMetadata {
                                 itemsFunction: this.getItemListForClinicalTrialEligibility,
                                 actions: [
                                     {
-                                        handler: this.addEnrollmentToEditor,
-                                        text: "Enroll patient",
-                                        icon: "check",
+                                        handler: this.getItemListMissingCriteria,
+                                        text: "Missing Criteria",
+                                        icon: "clipboard",
                                         whenToDisplay: {
                                             valueExists: true,
                                             existingValueSigned: "either",
-                                            editableNoteOpen: true,
-                                            displayInSubsections: ["Potential to Enroll"]
+                                            editableNoteOpen: false
                                         }
                                     }
                                 ]
-
+                            },
+                            {   name: "Missing Criteria",
+                                headings: ["Name"],
+                                itemsFunction: this.test
                             }
                         ]
                     },
@@ -932,6 +934,19 @@ export default class SummaryMetadata {
         return eligibleTrials;
     }
 
+    getItemListMissingCriteria = (trialname) => {
+        let trialsList = new ClinicalTrialsList();
+        let missingcriteria = {};
+        let eligibleTrials = trialsList.getListOfEligibleClinicalTrials();
+        eligibleTrials.forEach((trial) => {
+            if (trial.info.name === trialname) {
+                missingcriteria = trial.criteria;
+            }
+        });
+        return trialsList.getMissingCriteriaListTrialEligibility(missingcriteria);
+
+    }
+
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
@@ -1180,4 +1195,10 @@ export default class SummaryMetadata {
 
         return subset;
     }
+
+    test = () => {
+        return ["Testing"];
+    }
 }
+
+
