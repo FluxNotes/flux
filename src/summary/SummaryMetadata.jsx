@@ -158,6 +158,9 @@ export default class SummaryMetadata {
                                     "Key Toxicities.Nausea/Vomiting"
                                 ]
                             },
+                            {
+                                defaultTemplate: "ER-${Receptor Data.Receptor Status ER} PR-${Receptor Data.Receptor Status PR} HER2-${Receptor Data.Receptor Status HER2}",
+                            }
                         ],
                         data: [
                             {
@@ -276,6 +279,44 @@ export default class SummaryMetadata {
                                             } else {
                                                 return ["N/A", patient.isUnsigned(currentConditionEntry)];
                                             } // TODO: actually get date once we know where it is in SHR
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Receptor Data",
+                                items: [
+                                    {
+                                        name: "Receptor Status ER",
+                                        value: (patient, currentConditionEntry) => {
+                                            let er = currentConditionEntry.getMostRecentERReceptorStatus();
+                                            if (Lang.isNull(er)) {
+                                                return null;
+                                            } else {
+                                                return [er.status, patient.isUnsigned(er), er.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "Receptor Status PR",
+                                        value: (patient, currentConditionEntry) => {
+                                            let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                                            if (Lang.isNull(pr)) {
+                                                return null;
+                                            } else {
+                                                return [pr.status, patient.isUnsigned(pr), pr.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "Receptor Status HER2",
+                                        value: (patient, currentConditionEntry) => {
+                                            let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                                            if (Lang.isNull(her2)) {
+                                                return null;
+                                            } else {
+                                                return [her2.status, patient.isUnsigned(her2), her2.sourceClinicalNoteReference];
+                                            }
                                         }
                                     }
                                 ]
