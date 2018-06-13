@@ -9,7 +9,26 @@ class ContextManager {
         this.contexts = []; // patient context is kept separately
 		this.activeContexts = []; // patient context is always active
 		this.onContextUpdate = onContextUpdate;
-	}
+    }
+    
+    endNonGlobalContexts() {
+        let contextsToKeep = [];
+        this.contexts.forEach((item, i) => {
+            if (item.isGlobalContext()) {
+                contextsToKeep.push(item);
+            }
+        });
+
+        this.contexts = contextsToKeep;
+
+        contextsToKeep = [];
+        this.activeContexts.forEach((item, i) => {
+            if (item.isGlobalContext()) {
+                contextsToKeep.push(item);
+            }
+        });
+        this.activeContexts = contextsToKeep;
+    }
 
     setIsBlock1BeforeBlock2(isBlock1BeforeBlock2) {
         this.isBlock1BeforeBlock2 = isBlock1BeforeBlock2;
