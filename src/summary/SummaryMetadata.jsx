@@ -1191,7 +1191,6 @@ export default class SummaryMetadata {
     }
 
     test = (item) => {
-        console.log(item);
         return [];
     }
 }
