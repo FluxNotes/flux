@@ -200,7 +200,6 @@ class PatientSearch extends React.Component {
 }
 
 PatientSearch.propTypes = {
-    classes: PropTypes.object.isRequired,
     setFullAppState: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
 };
