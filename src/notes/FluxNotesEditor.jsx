@@ -439,10 +439,44 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
+    isNodeTypeBetween(key1, key2, typeToFind, state) {
+        if (Lang.isUndefined(state)) {
+            state = this.state.state;
+        }
+        if (Lang.isNull(key1)) {
+            key1 = state.selection.endKey;
+        }
+        let beforeKey1 = true;
+        let foundTypeBetween = false;
+        state.document.forEachDescendant((n) => {
+            if (beforeKey1) {
+                if (n.key === key1) {
+                    beforeKey1 = false;
+                } else if (n.key === key2) {
+                    return false; // break out of foreach
+                }
+            } else {
+                if (n.key === key2) return false;
+                if (n.type === typeToFind) {
+                    foundTypeBetween = true;
+                    return false;
+                }
+            }
+        });
+        return foundTypeBetween;
+    }
+
     onSelectionChange = (selection, state) => {
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
-            return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
+            // also need to make sure context is in current paragraph or global
+            const isBeforeSelection = this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
+            if (isBeforeSelection) {
+                // need to see if we have a paragraph between them now
+                if (context.isGlobalContext()) return true;
+                return !this.isNodeTypeBetween(context.getKey(), selection.endKey, 'line', state);
+            }
+            return false;
         });
         this.contextManager.contextUpdated();
     }
