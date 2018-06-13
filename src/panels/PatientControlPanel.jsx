@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 // import Input from 'material-ui/Input';
-import PatientSearchAutoSuggestion from '../patientControl/PatientSearchAutoSuggestion'
+import PatientSearch from '../patientControl/PatientSearch'
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -55,7 +55,7 @@ class PatientControlPanel extends Component {
                                     </Col>
                                     <Col sm={11}>
                                         <div className="search-wrapper">
-                                            <PatientSearchAutoSuggestion
+                                            <PatientSearch
                                                 patient={this.props.patient}
                                                 setFullAppState={this.props.setFullAppState}
                                             />
