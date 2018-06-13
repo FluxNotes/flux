@@ -50,7 +50,7 @@ export class FullApp extends Component {
         }
 
         let patient = this.dataAccess.getPatient(patientId);
-        this.summaryMetadata = new SummaryMetadata();
+        this.summaryMetadata = new SummaryMetadata(this.setFullAppState);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
@@ -75,6 +75,7 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
+            actionSelected: false
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -258,6 +259,7 @@ export class FullApp extends Component {
                         <CurrentDashboard
                             // App default settings
                             actions={this.actions}
+                            actionSelected={this.state.actionSelected}
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}

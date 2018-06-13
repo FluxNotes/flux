@@ -167,11 +167,13 @@ export default class ClinicianDashboard extends Component {
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         actions={this.props.actions}
+                        actionSelected={this.props.actionSelected}
                         appState={this.props.appState}
                         isNoteViewerEditable={isNoteViewerEditable}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
                         summaryMetadata={this.props.summaryMetadata}
+                        setFullAppState={this.props.setFullAppState}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                     />
                 </div>

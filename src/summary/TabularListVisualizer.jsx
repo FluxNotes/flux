@@ -48,7 +48,7 @@ export default class TabularListVisualizer extends Component {
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
-        console.log(subsections);
+
         return subsections;
     }
 
@@ -68,7 +68,6 @@ export default class TabularListVisualizer extends Component {
 
         let list = this.getList(transformedSubsections[0]);
         const numColumns = (list.length === 0) ? 1 : list[0].length;
-
 
         // currently including 2 column sections with a single subsection to use full width. could change to only use left side
         // easily if we get feedback that people don't like this.
@@ -152,21 +151,24 @@ export default class TabularListVisualizer extends Component {
             });
             headings = <TableRow>{renderedColumnHeadings}</TableRow>;
         }
-        
 
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
-        
+        let subsectionactions = [];
+        if (transformedSubsection.actions != null) {
+            subsectionactions = transformedSubsection.actions;
+        }
+
         return (
             <div key={subsectionindex}>
                 {preTableCount}
                 {subsectionname}
-    
+
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name, transformedSubsection.actions)} />
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name, subsectionactions)} />
 
                 <ul>
-                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name, transformedSubsection.actions)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name, subsectionactions)}
                 </ul>
             </div>
         );
@@ -191,10 +193,10 @@ export default class TabularListVisualizer extends Component {
         return list;
     }
 
-    
     // Render all list items
     renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname, subsectionactions) {
         let onClick, hoverClass, rowClass, itemClass = "";
+
         return list.map((item, index) => {
             // Handles case where this method is passed a NameValuePair or other type accidentally, or null
             if(!Lang.isArray(item) || Lang.isEmpty(item)){
@@ -217,7 +219,6 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedPostTableList(itemsFunction, subsectionname, subsectionactions) {
-
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -244,7 +245,6 @@ export default class TabularListVisualizer extends Component {
     }
 
     renderedStructuredData(item, element, elementId, elementText, subsectionname, subsectionactions) {
-        
         return (
             <div>
                 <span
@@ -373,9 +373,9 @@ export default class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText, subsectionname, subsectionactions) => {
+    renderedMenu = (element, elementId, elementText, subsectionname, subsectionActions) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-        
+
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);
@@ -383,12 +383,10 @@ export default class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
-        let combinedActions = this.props.actions.concat(subsectionactions); 
         let isSigned = true;
-        console.log(combinedActions);
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         // Filter actions by whenToDisplay property on action
-        const filteredActions = combinedActions.filter((a) => {
+        const filteredActions = subsectionActions.concat(this.props.actions).filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
             if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionname)) return false;

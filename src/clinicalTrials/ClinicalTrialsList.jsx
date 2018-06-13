@@ -90,7 +90,7 @@ class ClinicalTrialsList {
 
     getMissingCriteriaListTrialEligibility(trialName) {
         const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
-        const trial = this.getClinicalTrialByName("pallas");
+        const trial = this.getClinicalTrialByName("patina");
         console.log(trial);
         const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
         const missingCriteria = result.patientResults[patient_id].findMissingData;

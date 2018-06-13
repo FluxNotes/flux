@@ -31,13 +31,15 @@ export default class TargetedDataPanel extends Component {
                     <div id="summary-subpanel">
                         <div className="summary-section">
                             <TargetedDataSubpanel
+                                actions={this.props.actions}
+                                actionSelected={this.props.actionSelected}
+                                allowItemClick={this.props.isNoteViewerEditable}
+                                clinicalEvent={this.props.appState.clinicalEvent}
+                                condition={this.props.appState.condition}
                                 isWide={this.props.isWide}
                                 patient={this.props.appState.patient}
-                                condition={this.props.appState.condition}
-                                clinicalEvent={this.props.appState.clinicalEvent}
+                                setFullAppState={this.props.setFullAppState}                                                                
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
-                                allowItemClick={this.props.isNoteViewerEditable}
-                                actions={this.props.actions}
                             />
                         </div>
                     </div>

@@ -19,16 +19,18 @@ export default class TargetedDataSubpanel extends Component {
         this._currentAllowItemClick = null;
         this._currentConditionString = "";
         this._visualizerManager = new VisualizerManager();
+        this._actionSelected = false;
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Six current reasons to update:
+        // Seven current reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
         // - isWide has changed
         // - Condition has changed
         // - allowItemClick has changed
+        // - actionSelected changes from false to true
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
@@ -101,12 +103,19 @@ export default class TargetedDataSubpanel extends Component {
             this._currentAllowItemClick = newAllowItemClick;
         }
 
+        // Case 7: actionSelected
+        const changesToActionSelected = (this._actionSelected === false && nextProps.actionSelected === true)
+        if (changesToActionSelected) {
+            this.props.setFullAppState('actionSelected', false);
+        }
+        console.log(this.props);
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
             || changesToClinicalEvent 
             || changesToIsWide
             || changesToConditionString
-            || changesToAllowItemClick;
+            || changesToAllowItemClick
+            || changesToActionSelected;
     }
 
     getConditionMetadata() {
@@ -168,6 +177,7 @@ export default class TargetedDataSubpanel extends Component {
 }
 
 TargetedDataSubpanel.propTypes = {
+    actionSelected: PropTypes.bool,
     className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,
