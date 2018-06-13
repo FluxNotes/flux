@@ -3,6 +3,8 @@ import Slate from '../lib/slate';
 import Lang from 'lodash';
 import getWindow from 'get-window';
 
+const ENTER_KEY = 13
+
 function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
@@ -269,10 +271,18 @@ function StructuredFieldPlugin(opts) {
         return state;
     }
 
+    function onKeyDown(e, data, state, editor) {
+        const keyCode = e.keyCode
+        if (keyCode === ENTER_KEY) {
+            contextManager.endNonGlobalContexts();
+        }
+    }
+
 	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
 	return {
+        onKeyDown,
 	    clearStructuredFieldMap,
         onChange,
         onCut,
