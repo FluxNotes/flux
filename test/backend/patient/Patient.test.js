@@ -41,7 +41,7 @@ describe('getMostRecentEntryFromList', function () {
             .to.not.be.null;
     });
 
-    it('should return the first element from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
+    it('should return an element (could be multiple) with the most recent last updated date from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () { 
         //slice to clone obj
         const sortedList = hardCodedPatientEntries.slice().sort(function (a,b) { 
             const a_lastUpdateDate = new Moment(a.entryInfo.lastUpdated.instant, "D MMM YYYY");
@@ -51,8 +51,8 @@ describe('getMostRecentEntryFromList', function () {
             return 0;
         });
         const firstElem = sortedList[0];
-        expect(PatientRecord.getMostRecentEntryFromList(hardCodedPatientEntries))
-            .to.eql(firstElem);
+        expect(PatientRecord.getMostRecentEntryFromList(hardCodedPatientEntries).entryInfo.lastUpdated)
+            .to.eql(firstElem.entryInfo.lastUpdated);
     });
 });
 
