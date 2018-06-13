@@ -621,6 +621,18 @@ export default class SummaryMetadata {
                                 headings: ["Name"],
                                 itemsFunction: this.test
                             }
+                        ],
+                        actions: [
+                            {
+                                handler: this.test,
+                                text: "Testing Functionality",
+                                icon: "check",
+                                whenToDisplay: {
+                                    valueExists: true,
+                                    existingValueSigned: "either",
+                                    editableNoteOpen: true
+                                }
+                            }
                         ]
                     },
                     {
