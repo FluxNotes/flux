@@ -155,7 +155,7 @@ export default class PickListOptionsPanel extends Component {
                                 overlayClassName={`option-tooltip`}
                                 overlay={`${option.context} ${option.date}`}
                                 destroyTooltipOnHide={true}
-                                mouseEnterDelay={0.5}
+                                mouseEnterDelay={1.0}
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseLeave}
                             >
