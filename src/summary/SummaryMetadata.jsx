@@ -159,7 +159,7 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "Patient is ER ${Receptor Status.Receptor Status ER}, PR ${Receptor Status.Receptor Status PR}, and HER2 ${Receptor Status.Receptor Status HER2}.",
+                                defaultTemplate: "Patient is ER ${Receptor Status.ER}, PR ${Receptor Status.PR}, and HER2 ${Receptor Status.HER2}.",
                             }
                         ],
                         data: [
@@ -287,7 +287,7 @@ export default class SummaryMetadata {
                                 name: "Receptor Status",
                                 items: [
                                     {
-                                        name: "Receptor Status ER",
+                                        name: "ER",
                                         value: (patient, currentConditionEntry) => {
                                             let er = currentConditionEntry.getMostRecentERReceptorStatus();
                                             if (Lang.isNull(er)) {
@@ -298,7 +298,7 @@ export default class SummaryMetadata {
                                         }
                                     },
                                     {
-                                        name: "Receptor Status PR",
+                                        name: "PR",
                                         value: (patient, currentConditionEntry) => {
                                             let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
                                             if (Lang.isNull(pr)) {
@@ -309,7 +309,7 @@ export default class SummaryMetadata {
                                         }
                                     },
                                     {
-                                        name: "Receptor Status HER2",
+                                        name: "HER2",
                                         value: (patient, currentConditionEntry) => {
                                             let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
                                             if (Lang.isNull(her2)) {
