@@ -533,7 +533,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertNewLine = (transform) => {
-        console.log("insertNewLine");
         return transform
             .splitBlock();
     }
