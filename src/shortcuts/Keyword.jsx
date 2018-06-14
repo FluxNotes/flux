@@ -23,29 +23,14 @@ export default class Keyword extends Shortcut {
                 this.setText(text);
             }
         }
-        //let entryType = this.metadata["contextValueObjectEntryType"];
 
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
-        // const knownParent = this.metadata["knownParentContexts"];
-
-        // if (knownParent) {
-        //     this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        // } else {
-        //     this.parentContext = contextManager.getCurrentContext();
-        // }
-
-        //console.log("set parent context to " + this.parentContext);
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
         var found = false;
         var picker = false;
-        //console.log(trigger);
-        /*        const triggerNoPrefix = trigger.substring(1);
-         console.log("trigger no prefix = " + triggerNoPrefix);*/
-         //console.log(this.metadata.keywords);
         for (var i = 0; i < this.metadata.keywords.length; i++) {
-            //console.log("  is keywords? " + this.metadata.keywords[i].name);
             if (this.metadata.keywords[i].name === trigger) {
                 found = true;
                 if (this.metadata.keywords[i].picker) {
@@ -55,7 +40,6 @@ export default class Keyword extends Shortcut {
             }
         }
         if (!found || !picker) {
-            //console.log("not found: " + trigger);
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
@@ -65,7 +49,6 @@ export default class Keyword extends Shortcut {
         let result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
             if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
-                //console.log("onBeforeDeleted of a list item");
                 const parentAttributeName = this.metadata.parentAttribute;
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
@@ -84,7 +67,6 @@ export default class Keyword extends Shortcut {
     // This returns a placeholder object to trigger opening the Context Portal.
     // return 'date-id' opens calendar.
     determineText(contextManager) {
-        //console.log("determine text" + this.metadata.picker);
         if (!Lang.isObject(this.metadata.picker)) {
             return this.metadata.picker;
         } else if (Lang.isArray(this.metadata.picker)) {
@@ -101,10 +83,8 @@ export default class Keyword extends Shortcut {
         let category = spec["category"];
         let valueSet = spec["valueSet"];
         if (args) {
-            //console.log(category + "/" + valueSet + " with " + args);
             return ValueSetManager.getValueList(category, valueSet, ...args);
         } else {
-            //console.log(category + "/" + valueSet);
             return ValueSetManager.getValueList(category, valueSet);
         }
     }
@@ -115,13 +95,11 @@ export default class Keyword extends Shortcut {
             text = text.substring(prefix.length);
         }
         this.text = text;
-        //console.log("Keyword.setText: " + this.metadata.picker);
         let value = text;
         if (this.metadata.picker === 'date-id') {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
-            //console.log("set " + this.metadata.parentAttribute + " to " + value);
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient);
         }
     }
@@ -132,8 +110,6 @@ export default class Keyword extends Shortcut {
 
     getShortcutType() {
         return this.metadata["id"];
-        //throw new Error("getShortcutType on Keyword called.");
-        //return "#" + this.metadata.stringTriggers[0].name;
     }
 
     validateInCurrentContext(contextManager) {
