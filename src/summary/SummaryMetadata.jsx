@@ -109,11 +109,11 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}"
+                                defaultTemplate: "Patient has ${Current Diagnosis.Name} laterality ${Current Diagnosis.Laterality} stage ${Current Diagnosis.Stage} diagnosed on ${Key Dates.Diagnosis}."
                             },
                             {
-                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}",
-                                dataMissingTemplate: "No recent ${disease status}",
+                                defaultTemplate: "As of ${Current Diagnosis.As Of Date}, disease is ${Current Diagnosis.Disease Status} based on ${Current Diagnosis.Rationale}.",
+                                dataMissingTemplate: "No recent ${disease status}.",
                                 useDataMissingTemplateCriteria: [
                                     "Current Diagnosis.As Of Date",
                                     "Current Diagnosis.Disease Status",
@@ -121,16 +121,46 @@ export default class SummaryMetadata {
                                 ]
                             },
                             {
-                                defaultTemplate: "Recent lab results include ${Recent Lab Results}",
-                                dataMissingTemplate: "No recent ${lab results}",
+                                defaultTemplate: "Recent lab results include ${Recent Lab Results}.",
+                                dataMissingTemplate: "No recent ${lab results}.",
                                 useDataMissingTemplateCriteria: [
                                     "Recent Lab Results"
                                 ]
                             },
                             {
-                                defaultTemplate: "Key toxicities include Peripheral motor neurpathy: ${Key Toxicities.Peripheral motor neuropathy}, Blood clots: ${Key Toxicities.Blood clots}, Neutropenia: ${Key Toxicities.Neutropenia}, Nausea/Vomiting: ${Key Toxicities.Nausea/Vomiting}",
+                                defaultTemplate: "Key toxicities include",
                             },
-
+                            {
+                                defaultTemplate: "${Key Toxicities.Peripheral motor neuropathy} peripheral motor neuropathy,",
+                                dataMissingTemplate: "no peripheral motor neuropathy,",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Peripheral motor neuropathy"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Blood clots} blood clots,",
+                                dataMissingTemplate: "no blood clots,",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Blood clots"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Neutropenia} neutropenia,",
+                                dataMissingTemplate: "no neutropenia,",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Neutropenia"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "${Key Toxicities.Nausea/Vomiting} nausea/vomiting.",
+                                dataMissingTemplate: "no nausea/vomiting.",
+                                useDataMissingTemplateCriteria: [
+                                    "Key Toxicities.Nausea/Vomiting"
+                                ]
+                            },
+                            {
+                                defaultTemplate: "Patient is ER ${Receptor Status.ER}, PR ${Receptor Status.PR}, and HER2 ${Receptor Status.HER2}.",
+                            }
                         ],
                         data: [
                             {
@@ -249,6 +279,44 @@ export default class SummaryMetadata {
                                             } else {
                                                 return ["N/A", patient.isUnsigned(currentConditionEntry)];
                                             } // TODO: actually get date once we know where it is in SHR
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                name: "Receptor Status",
+                                items: [
+                                    {
+                                        name: "ER",
+                                        value: (patient, currentConditionEntry) => {
+                                            let er = currentConditionEntry.getMostRecentERReceptorStatus();
+                                            if (Lang.isNull(er)) {
+                                                return null;
+                                            } else {
+                                                return [er.status, patient.isUnsigned(er), er.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "PR",
+                                        value: (patient, currentConditionEntry) => {
+                                            let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                                            if (Lang.isNull(pr)) {
+                                                return null;
+                                            } else {
+                                                return [pr.status, patient.isUnsigned(pr), pr.sourceClinicalNoteReference];
+                                            }
+                                        }
+                                    },
+                                    {
+                                        name: "HER2",
+                                        value: (patient, currentConditionEntry) => {
+                                            let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                                            if (Lang.isNull(her2)) {
+                                                return null;
+                                            } else {
+                                                return [her2.status, patient.isUnsigned(her2), her2.sourceClinicalNoteReference];
+                                            }
                                         }
                                     }
                                 ]
@@ -404,13 +472,13 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}"
+                                defaultTemplate: "Primary tumor color is ${.Color}, weight is ${.Weight}, and size is ${.Size}."
                             },
                             {
-                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}"
+                                defaultTemplate: "Tumor margins are ${.Tumor Margins}. Histological grade is ${.Histological Grade}."
                             },
                             {
-                                defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}"
+                                defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
                             }
                         ],
                         data: [
@@ -490,10 +558,10 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}"
+                                defaultTemplate: "Oncotype DX Recurrence Score is ${.Oncotype DX Recurrence Score}."
                             },
                             {
-                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}"
+                                defaultTemplate: "Genetic Testing is ${.Genetic Testing}."
                             }
                         ],
                         data: [
@@ -590,7 +658,7 @@ export default class SummaryMetadata {
                         /*eslint no-template-curly-in-string: "off"*/
                         narrative: [
                             {
-                                defaultTemplate: "Patient has ${.Name} diagnosed on ${.Diagnosis Date}"
+                                defaultTemplate: "Patient has ${.Name} diagnosed on ${.Diagnosis Date}."
                             }
                         ],
                         data: [

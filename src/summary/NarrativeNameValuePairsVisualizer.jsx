@@ -1,4 +1,4 @@
-    import { ListItemIcon, ListItemText } from 'material-ui/List';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
@@ -31,7 +31,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
             return sentenceObject.defaultTemplate;
         }
 
-        // Check if every object in useDataMissingTemplateCriteria is null, empty, or undefined
+        // Check if every object in useDataMissingTemplateCriteria is null, empty, undefined, or equals to "None"
         const allNull = sentenceObject.useDataMissingTemplateCriteria.every((data) => {
 
             const index = data.indexOf(".");
@@ -53,7 +53,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                 return it.name === valueName;
             });
 
-            return (Lang.isUndefined(item) || Lang.isNull(item.value));
+            return (Lang.isUndefined(item) || Lang.isNull(item.value) || (item.value==="None"));
         });
 
         return allNull ? sentenceObject.dataMissingTemplate : sentenceObject.defaultTemplate;
@@ -204,7 +204,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
         }
         conditionSection.narrative.forEach((sentenceObject) => {
             const template = this.getTemplate(subsections, sentenceObject);
-            narrativeTemplate = narrativeTemplate.concat(template).concat(". ");
+            narrativeTemplate = narrativeTemplate.concat(template).concat(" ");
         });
         return this.buildNarrativeSnippetList(narrativeTemplate, subsections);
     }
