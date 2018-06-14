@@ -619,7 +619,7 @@ export default class SummaryMetadata {
                                     }
                                 ]
                             },
-                            {   nameFunction: this.getAdditionalCriteriaSubsectionName, 
+                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
                                 itemsFunction: this.getItemListToDisplayMissingCriteria
                             }
                         ],
@@ -954,7 +954,7 @@ export default class SummaryMetadata {
         this.onActionSelect('actionSelected', true);
     }
 
-    getAdditionalCriteriaSubsectionName = () => {
+    getMissingCriteriaSubsectionName = () => {
         return `Missing ${this.trialDisplayMissingCriteria} Criteria`;
     }
 
