@@ -955,16 +955,18 @@ export default class SummaryMetadata {
         // let trialsList = new ClinicalTrialsList();
         // this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(item.value);
         // console.log(this.missingEligibleTrialData);
-        //this.onActionSelect('actionSelected', true);
+        this.onActionSelect('actionSelected', true);
     }
 
     getItemListToDisplayMissingCriteria = () => {
         let trialsList = new ClinicalTrialsList();
-        this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
+        if (this.trialDisplayMissingCriteria !== "") {
+            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
                 return [{value : data}]
-       });
-    
+            });
+        }
+        return [];
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
