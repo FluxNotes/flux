@@ -108,7 +108,7 @@ export default class TargetedDataSubpanel extends Component {
         if (changesToActionSelected) {
             this.props.setFullAppState('actionSelected', false);
         }
-        console.log(this.props);
+        
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
             || changesToClinicalEvent 

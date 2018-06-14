@@ -952,9 +952,6 @@ export default class SummaryMetadata {
 
     handleViewMissingCriteria = (item) => {
         this.trialDisplayMissingCriteria = item.value;
-        // let trialsList = new ClinicalTrialsList();
-        // this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(item.value);
-        // console.log(this.missingEligibleTrialData);
         this.onActionSelect('actionSelected', true);
     }
 
