@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import MaterialButton from 'material-ui/Button';
+import Modal from 'material-ui/Modal';
+import FluxNotesEditor from './FluxNotesEditor';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -277,21 +280,65 @@ export default class NoteAssistant extends Component {
 
             // Render the pick list options panel which allows users to select options for the pick lists
             case "pick-list-options-panel":
-                return (
-                    <div>
-                        <PickListOptionsPanel
-                            updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-                            arrayOfPickLists={this.props.arrayOfPickLists}
-                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                            updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
-                        />
-                    </div>
-                )
+                return this.renderPickListOptionsModal(noteAssistantMode);
 
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
                 return "";
         }
+    }
+
+    renderPickListOptionsModal(noteAssistantMode) {
+        return (
+            <Modal open={noteAssistantMode === 'pick-list-options-panel'}>
+                <Grid id="pick-list-options-modal">
+                    <Row center="xs">
+                        <Col sm={7} md={8} lg={9}>
+                            <FluxNotesEditor
+                                closeNote={this.props.closeNote}
+                                contextManager={this.props.contextManager}
+                                currentViewMode={'pre-encounter'}
+                                documentText={this.props.documentText}
+                                errors={this.props.errors}
+                                handleUpdateEditorWithNote={this.props.handleUpdateEditorWithNote}
+                                isNoteViewerEditable={false}
+                                inModal={true}
+                                itemInserted={this.props.itemInserted}
+                                newCurrentShortcut={this.props.newCurrentShortcut}
+                                noteAssistantMode={this.props.noteAssistantMode}
+                                patient={this.props.patient}
+                                saveNoteUponKeypress={this.props.saveNoteUponKeypress}
+                                selectedNote={this.props.selectedNote}
+                                setFullAppState={this.props.setFullAppState}
+                                setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                                shortcutManager={this.props.shortcutManager}
+                                shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
+                                structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                summaryItemToInsert={this.props.summaryItemToInsert}
+                                contextTrayItemToInsert={this.props.contextTrayItemToInsert}
+                                // Pass in note that the editor is to be updated with
+                                updatedEditorNote={this.props.updatedEditorNote}
+                                updateErrors={this.props.updateErrors}
+                                updateSelectedNote={this.props.updateSelectedNote}
+                                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                                arrayOfPickLists={this.props.arrayOfPickLists}
+                                handleUpdateArrayOfPickLists={this.props.handleUpdateArrayOfPickLists}
+                                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            />
+                        </Col>
+                        <Col sm={5} md={4} lg={3}>
+                            <PickListOptionsPanel
+                                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+                                arrayOfPickLists={this.props.arrayOfPickLists}
+                                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                                updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
+                                contextManager={this.props.contextManager}
+                            />
+                        </Col>
+                    </Row>
+                </Grid>
+            </Modal>
+        );
     }
 
     renderNewNote() {
@@ -520,7 +567,11 @@ export default class NoteAssistant extends Component {
     render() {
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
-        const noteAssistantMode = (this.props.isNoteViewerEditable ? this.props.noteAssistantMode : "clinical-notes")
+        // If the editor is read only because we need to select picklists, then we need the note assistant mode to open the portal
+        let noteAssistantMode = "clinical-notes";
+        if (this.props.isNoteViewerEditable || this.props.noteAssistantMode === 'pick-list-options-panel') {
+            noteAssistantMode = this.props.noteAssistantMode;
+        }
         return (
             <div className="note-assistant-wrapper">
                 {this.renderToggleButtons()}
@@ -536,24 +587,34 @@ NoteAssistant.propTypes = {
     closeNote: PropTypes.func.isRequired,
     currentlyEditingEntryId: PropTypes.number.isRequired,
     contextManager: PropTypes.object.isRequired,
+    contextTrayItemToInsert: PropTypes.string,
     deleteSelectedNote: PropTypes.func.isRequired,
     documentText: PropTypes.string.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
+    handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
+    handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     loadNote: PropTypes.func.isRequired,
     loginUser: PropTypes.string.isRequired,
+    newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     noteClosed: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
+    saveNoteUponKeypress: PropTypes.func.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
+    setFullAppStateWithCallback: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
+    shouldEditorContentUpdate: PropTypes.bool.isRequired,
+    structuredFieldMapManager: PropTypes.object.isRequired,
     updateCurrentlyEditingEntryId: PropTypes.func.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    updatedEditorNote: PropTypes.object,
+    updateErrors: PropTypes.func.isRequired
 };

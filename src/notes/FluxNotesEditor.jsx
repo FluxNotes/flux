@@ -235,7 +235,7 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true) => {
+    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -247,7 +247,7 @@ class FluxNotesEditor extends React.Component {
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
+            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, shouldPortalOpen);
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
@@ -291,11 +291,22 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, shouldPortalOpen = true) {
+        // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
+        if (!shouldPortalOpen) {
+            this.setState({
+                isPortalOpen: shouldPortalOpen,
+                needToDelete: needToDelete,
+            });
+            this.selectingForShortcut = null;
+            this.insertPlainText(transform, shortcut.initiatingTrigger);
+            return transform.blur();
+        }
+        
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: true,
+            isPortalOpen: shouldPortalOpen,
             portalOptions: portalOptions,
             needToDelete: needToDelete,
         });
@@ -406,6 +417,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     onFocus = () => {
+        const state = this.state.state;
+        const selection = state.selection;
+        this.adjustActiveContexts(selection, state);
         this.editorHasFocus = true;
     }
 
@@ -440,6 +454,10 @@ class FluxNotesEditor extends React.Component {
     }
 
     onSelectionChange = (selection, state) => {
+        this.adjustActiveContexts(selection, state);
+    }
+
+    adjustActiveContexts = (selection, state) => {
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
             return this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
@@ -447,23 +465,31 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.contextUpdated();
     }
 
+    // When the editor in the modal first is triggered, insert the contextTrayItem when it mounts.
+    componentDidMount = () => {
+        if (this.props.inModal) {
+            this.insertContextTrayItem(this.props.contextTrayItemToInsert);
+        }
+    }
+
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
+        // Only update text if the shouldEditorContentUpdate is true. For example, this will be false in the main editor if the modal is also open.
 
         // Check if the item to be inserted is updated
-        if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
+        if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
                 this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert);
                 this.props.itemInserted();
             }
         }
 
-        if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+        if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
        // Check if the updatedEditorNote property has been updated
-        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
+        if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
 
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
@@ -477,7 +503,8 @@ class FluxNotesEditor extends React.Component {
 
                 this.resetEditorAndContext();
 
-                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false);
+                let shouldPortalOpen = this.props.noteAssistantMode !== 'pick-list-options-panel';
+                this.insertTextWithStructuredPhrases(nextProps.updatedEditorNote.content, undefined, false, shouldPortalOpen);
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
@@ -489,12 +516,27 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Check if the current view mode changes
-        if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
+        if (nextProps.shouldEditorContentUpdate && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
             this.resetEditorAndContext();
             this.props.handleUpdateEditorWithNote(null);
             this.structuredFieldMapManager.clearStructuredFieldMap();
             this.contextManager.clearContexts();
             this.props.updateSelectedNote(null);
+        }
+
+        // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
+        // This means user either clicked the OK or Cancel button on the modal
+        if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
+            this.adjustActiveContexts(this.state.state.selection, this.state.state); 
+            this.props.contextManager.clearNonActiveContexts();
+            // User clicked cancel button
+            if (nextProps.contextTrayItemToInsert === null) {
+                this.props.setFullAppState('isNoteViewerEditable', true);    
+            } else { // User clicked OK button so insert text
+                this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
+                this.props.updateContextTrayItemToInsert(null);
+                this.props.setFullAppState('isNoteViewerEditable', true);
+            }
         }
     }
 
@@ -746,7 +788,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
         let state;
         const currentState = this.state.state;
 
@@ -796,8 +838,7 @@ class FluxNotesEditor extends React.Component {
                 } else {
                     after = "";
                 }
-
-                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient);
+                transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, shouldPortalOpen);
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
@@ -858,11 +899,19 @@ class FluxNotesEditor extends React.Component {
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
+            this.props.setFullAppState('isNoteViewerEditable', false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
-        }
-        // If the text to be inserted does not contain any pick lists, insert the text
-        else {
+            if (this.props.inModal) {
+                this.resetEditorState();
+                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            }
+        } else if (this.props.noteAssistantMode === 'pick-list-options-panel') {
+            if (this.props.inModal) {
+                this.resetEditorState();
+                this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, false);
+            }
+        } else { // If the text to be inserted does not contain any pick lists, insert the text
             this.insertTextWithStructuredPhrases(contextTrayItem);
             this.props.updateContextTrayItemToInsert(null);
             this.props.updateNoteAssistantMode('context-tray');
@@ -1019,32 +1068,33 @@ class FluxNotesEditor extends React.Component {
                             <p className="note-description-detail-value">{signedString}</p>
                         </Col>
                         <Col xs={4}>
-                            <Button
-                                raised 
-                                className="close-note-btn"
-                                disabled={this.context_disabled}
-                                onClick={this.props.closeNote}
-                                style={{
-                                    float: "right",
-                                    lineHeight: "2.1rem"
-                                }}
-                            >
-                                <FontAwesome 
-                                    name="times"
+                            { !this.props.inModal &&
+                                <Button
+                                    raised 
+                                    className="close-note-btn"
+                                    disabled={this.context_disabled}
+                                    onClick={this.props.closeNote}
                                     style={{
-                                        color: "red",
-                                        marginRight: "5px"
+                                        float: "right",
+                                        lineHeight: "2.1rem"
                                     }}
-                                /> 
-                                <span>
-                                    Close
-                                </span>
-                            </Button>
-                           
+                                >
+                                    <FontAwesome 
+                                        name="times"
+                                        style={{
+                                            color: "red",
+                                            marginRight: "5px"
+                                        }}
+                                    /> 
+                                    <span>
+                                        Close
+                                    </span>
+                                </Button>
+                            }
                         </Col>
                     </Row>
 
-                    <Divider className="divider"/>
+                    <Divider className="note-description-divider"/>
                 </div>
             );
         }
@@ -1060,6 +1110,7 @@ class FluxNotesEditor extends React.Component {
         }
         const callback = {}
         let editor = null;
+        let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
@@ -1069,15 +1120,17 @@ class FluxNotesEditor extends React.Component {
             }}>
                 {noteDescriptionContent}
                 <div className="MyEditor-root">
-                    <EditorToolbar
-                        isReadOnly={!this.props.isNoteViewerEditable}
-                        onBlockCheck={this.handleBlockCheck}
-                        onBlockUpdate={this.handleBlockUpdate}
-                        onMarkCheck={this.handleMarkCheck}
-                        onMarkUpdate={this.handleMarkUpdate}
-                        patient={this.props.patient}
-                    />
-                    <div className="editor-content">
+                    { !this.props.inModal &&
+                        <EditorToolbar
+                            isReadOnly={!this.props.isNoteViewerEditable}
+                            onBlockCheck={this.handleBlockCheck}
+                            onBlockUpdate={this.handleBlockUpdate}
+                            onMarkCheck={this.handleMarkCheck}
+                            onMarkUpdate={this.handleMarkUpdate}
+                            patient={this.props.patient}
+                        />
+                    }
+                    <div className={editorClassName}>
                         <Slate.Editor
                             className="editor-panel"
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
@@ -1133,14 +1186,17 @@ FluxNotesEditor.proptypes = {
     errors: PropTypes.array.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isNoteViewerEditable: PropTypes.bool.isRequired,
+    inModal: PropTypes.bool.isRequired,
     itemInserted: PropTypes.object,
     newCurrentShortcut: PropTypes.func.isRequired,
+    noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
     saveNoteUponKeypress: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
+    shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
     contextTrayItemToInsert: PropTypes.string.isRequired,

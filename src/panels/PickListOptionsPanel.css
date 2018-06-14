@@ -1,7 +1,15 @@
-.pickList-options-panel {
+#pickList-options-panel {
     margin-top: 20px;
     margin-bottom: 10px;
     color: #777;
+}
+
+/* ------------------------- OPTIONS ------------------------------ */
+#pickList-options {
+    /* 80vh for modal,  40px for modal padding, 20 for panel margin, 40px for action buttons height  */
+    height: calc(80vh - 40px - 20px - 40px);
+    max-height: calc(80vh - 40px - 20px - 40px);
+    overflow-y: auto;
 }
 
 /* ------------------------- SHORTCUT OPTIONS ------------------------------ */
@@ -22,9 +30,9 @@
 
 .shortcut-options-container .option-btn span {
     display: block;
-    text-align: left;
+    text-align: center;
     text-overflow: ellipsis;
-    width: 130px;
+    width: 85%;
     white-space: nowrap;
     overflow: hidden;
     line-height: 30px;
@@ -43,21 +51,24 @@
 
 /* ------------------------- SELECT OPTIONS -------------------------------- */
 
+
 .option-select-container {
     margin-bottom: 20px;
-    max-width: 184px;
     color: #777;
 }
 
 .option-select {
     width: 100%;
-    max-width: 200px;
     margin-top: 15px;
 }
 
 .option-select-container .option-select {
     font-size: 0.8em;
     width: 95%;
+}
+
+.option-tooltip {
+    z-index: 9999 !important;
 }
 
 .option-tooltip .rc-tooltip-inner{
@@ -78,12 +89,13 @@
 
 /* ------------------------- OK/CANCEL BUTTONS ----------------------------- */
 
-.pickList-options-panel .pickList-options-buttons {
+#pickList-options-panel #pickList-action-buttons {
     display: flex;
     margin-top: 30px;
+    max-height: 40px;
 }
 
-.pickList-options-panel .pickList-options-buttons button {
+#pickList-options-panel #pickList-action-buttons button {
     border: 2px solid #E6E6E6;
     border-radius: 5px;
     box-shadow: none;
@@ -93,24 +105,24 @@
     margin-right: 8px;
 }
 
-.pickList-options-panel button#cancel-btn {
+#pickList-options-panel button#cancel-btn {
     border: 2px solid #E6E6E6;
     min-width: 60px;
     background-color: #fff;
 }
 
-.pickList-options-panel button#ok-btn {
+#pickList-options-panel button#ok-btn {
     border: 2px solid #777;
     background-color: #777;
     color: #fff;
 }
 
-.pickList-options-panel button#cancel-btn:hover {
+#pickList-options-panel button#cancel-btn:hover {
     background-color: #E6E6E6;
     border-color: #E6E6E6;
 }
 
-.pickList-options-panel button#ok-btn:hover {
+#pickList-options-panel button#ok-btn:hover {
     background-color: #555;
     border-color: #555;
 }

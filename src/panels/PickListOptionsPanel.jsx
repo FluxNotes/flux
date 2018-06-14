@@ -29,6 +29,7 @@ export default class PickListOptionsPanel extends Component {
         this.state = {
             triggerSelections,
             tooltipVisibility: 'visible',
+            isAllSelected: false
         };
     }
 
@@ -45,37 +46,45 @@ export default class PickListOptionsPanel extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
-    // Cancels insertion of text
+    // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
         this.props.updateContextTrayItemToInsert(null);
         this.toggleView('context-tray')
     }
 
     // Pass array of select of pick list options to be used in updating the contextTrayItem to be inserted
-    handleOkButtonClick = () => {
+    handleInsertChosenOption = () => {
         // Verify that we have an option for each pick list
         const isAllSelected = this.state.triggerSelections.every((triggerSelection) => {
            return !Lang.isUndefined(triggerSelection.selectedOption);
         });
 
-        if (!isAllSelected) return;
+        this.setState({ isAllSelected });
 
         let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
             let underScoreIndex = triggerSelection.trigger.indexOf("_");
+            let selectedOption = triggerSelection.selectedOption
+                ? triggerSelection.selectedOption.context
+                : triggerSelection.selectedOption;
             return {
                 trigger: triggerSelection.trigger.slice(0, underScoreIndex),
-                selectedOption: triggerSelection.selectedOption.context
+                selectedOption: selectedOption
             }
         });
 
         this.props.updateContextTrayItemWithSelectedPickListOptions(triggerSelections);
     }
 
+    handleOkButtonClick = () => {
+        this.toggleView('context-tray');
+        this.handleInsertChosenOption();
+    }
+
     handleOptionButtonClick(option, trigger) {
         this.updateSelectedOptions(option, trigger);
         // Only one selection required from the user so just send results back to NotesPanel after selection
         if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleOkButtonClick();
+            this.handleInsertChosenOption();
         }
     }
 
@@ -86,7 +95,7 @@ export default class PickListOptionsPanel extends Component {
         
         // Only one selection required from the user so just send results back to NotesPanel after selection
         if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleOkButtonClick();
+            this.handleInsertChosenOption();
         }
     }
 
@@ -102,13 +111,14 @@ export default class PickListOptionsPanel extends Component {
             let triggerSelections = [...this.state.triggerSelections];
             triggerSelections[index].selectedOption = selectedOption;
             this.setState({ triggerSelections });
+            this.handleInsertChosenOption();
         } else {
             console.error(`Trigger ${trigger} is not in triggerSelections array.`);
         }
     }
 
-    // Render pick list option panel
-    renderPanel(pickLists, i) {
+    // Render pick list options
+    renderOptions(pickLists, i) {
         // Loop through each shortcut in the array and render the options
         return (
             pickLists.map((shortcut, i) => {
@@ -145,7 +155,7 @@ export default class PickListOptionsPanel extends Component {
                                 overlayClassName={`option-tooltip`}
                                 overlay={`${option.context} ${option.date}`}
                                 destroyTooltipOnHide={true}
-                                mouseEnterDelay={0.5}
+                                mouseEnterDelay={1.0}
                                 onMouseEnter={this.mouseEnter}
                                 onMouseLeave={this.mouseLeave}
                             >
@@ -212,10 +222,13 @@ export default class PickListOptionsPanel extends Component {
 
     render() {
         return (
-            <div className="pickList-options-panel">
-                {this.renderPanel(this.arrayOfPickLists)}
+            <div id="pickList-options-panel">
 
-                <div className="pickList-options-buttons">
+                <div id="pickList-options">
+                    {this.renderOptions(this.arrayOfPickLists)}
+                </div>
+
+                <div id="pickList-action-buttons">
                     <MaterialButton
                         raised
                         id="cancel-btn"
@@ -223,7 +236,7 @@ export default class PickListOptionsPanel extends Component {
                         Cancel
                     </MaterialButton>
 
-                    {this.state.triggerSelections.length > 1 ?
+                    {this.state.isAllSelected ?
                         <MaterialButton
                             raised
                             id="ok-btn"
@@ -242,5 +255,6 @@ PickListOptionsPanel.proptypes = {
     updateNoteAssistantMode: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired
+    updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
+    contextManager: PropTypes.object.isRequired
 };

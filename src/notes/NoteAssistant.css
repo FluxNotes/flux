@@ -199,3 +199,14 @@ li.sort-item:hover {
     border-width: 2px;
     border-color: #9ecfef;
 }
+
+#pick-list-options-modal {
+    height: 80%;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background: white;
+    padding: 20px;
+}
