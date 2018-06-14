@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-// import Input from 'material-ui/Input';
 import PatientSearch from '../patientControl/PatientSearch'
 
 import SummaryHeader from '../summary/SummaryHeader';

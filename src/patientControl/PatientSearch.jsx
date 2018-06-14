@@ -39,11 +39,11 @@ class PatientSearch extends React.Component {
         if(metadataMatches) {
             // Determine what we matched with -- track that in suggestions metadata.
             let matchedMetaData; 
-            if (note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+            if (note.date && note.date.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                 matchedMetaData = "date";
-            } else if (note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+            } else if (note.subject && note.subject.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                 matchedMetaData = "subject";
-            } else if (note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
+            } else if (note.hospital && note.hospital.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1) {
                 matchedMetaData = "hospital";
             }
             // Add additional metadata, push to suggestions
@@ -125,24 +125,24 @@ class PatientSearch extends React.Component {
     // and they are initially empty because the Autosuggest is closed.
   
     onChange = (event, { newValue }) => {
-      this.setState({
-        value: newValue
-      });
+        this.setState({
+            value: newValue
+        });
     };
   
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
-      this.setState({
-        suggestions: this.getSuggestions(value)
-      });
+        this.setState({
+            suggestions: this.getSuggestions(value)
+        });
     };
   
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
-      this.setState({
-        suggestions: []
-      });
+        this.setState({
+            suggestions: []
+        });
     };
   
 

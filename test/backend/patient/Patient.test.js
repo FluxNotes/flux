@@ -30,7 +30,6 @@ const hardCodedPerson = hardCodedPatientObj.getPerson();
 // } 
 
 describe('getMostRecentEntryFromList', function () { 
-
     it('should return null when the list is empty', function () { 
         expect(PatientRecord.getMostRecentEntryFromList(emptyPatient))
             .to.be.null;
@@ -148,15 +147,15 @@ describe('getGender', function () {
 describe('getConditions', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getConditions())
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 
     const conditions = hardCodedPatientObj.getConditions();
     it('should return a non empty array when there are conditions', function () { 
         expect(conditions)
-                .to.be.an('array')
-                .that.is.not.empty;
+            .to.be.an('array')
+            .that.is.not.empty;
     });
 });
 
@@ -164,8 +163,8 @@ describe('getConditions', function () {
 describe('getKeyEventsChronologicalOrder', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getKeyEventsChronologicalOrder())
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 });
 
@@ -174,15 +173,15 @@ describe('getKeyEventsForConditionChronologicalOrder', function () {
     const condition = hardCodedPatientObj.getConditions()[0];
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getKeyEventsForConditionChronologicalOrder(condition))
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 
     const events = hardCodedPatientObj.getKeyEventsForConditionChronologicalOrder(condition);
     it('should return a non empty array when there are key events', function () { 
         expect(events)
-                .to.be.an('array')
-                .that.is.not.empty;
+            .to.be.an('array')
+            .that.is.not.empty;
     });
 
     // test that the array is sorted in chronological order
@@ -198,45 +197,65 @@ describe('getKeyEventsForConditionChronologicalOrder', function () {
 describe('getMedications', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getMedications())
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 
     const medications = hardCodedPatientObj.getMedications();
     it('should return a non empty array on when there are medication entries', function () { 
         expect(medications)
-                .to.be.an('array')
-                .that.is.not.empty;
+            .to.be.an('array')
+            .that.is.not.empty;
     });
 });
 
 describe('getProcedures', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getProcedures())
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 
     const procedures = hardCodedPatientObj.getProcedures();
     it('should return a non empty array on when there are procedure entries', function () { 
         expect(procedures)
-                .to.be.an('array')
-                .that.is.not.empty;
+            .to.be.an('array')
+            .that.is.not.empty;
     });
 });
 
 describe('getProgressions', function () { 
     it('should return an empty array on empty patient object', function () { 
         expect(emptyPatientObj.getProgressions())
-                .to.be.an('array')
-                .that.is.empty;
+            .to.be.an('array')
+            .that.is.empty;
     });
 
     const progressions = hardCodedPatientObj.getProgressions();
     it('should return a non empty array on when there are progression entries', function () { 
         expect(progressions)
-                .to.be.an('array')
-                .that.is.not.empty;
+            .to.be.an('array')
+            .that.is.not.empty;
+    });
+});
+
+describe('getNotes', function () { 
+    it('should return an array on empty patient object', function () { 
+        expect(emptyPatientObj.getNotes())
+            .to.be.an('array')
+            .that.is.empty;
+    });
+
+    it('should return a non empty array from hardCodedPatientObject, who themselves have a "content" property', function () { 
+        const notes = hardCodedPatientObj.getNotes();
+        expect(notes)
+            .to.be.an('array')
+            .that.is.not.empty;
+        for (let index = 0; index < notes.length; index++) {
+            const note = notes[index];
+            expect(note)
+                .to.have.property('content')
+        }   
     });
 });
 
@@ -269,14 +288,6 @@ describe('getProgressions', function () {
 //     it('should return null', function () { 
 //         const expected = "";
 //         expect(hardCodedPatientObj.getLastBreastCancerCondition()).to.equal();
-//     });
-// });
-
-// describe('getNotes', function () { 
-
-//     it('should return null', function () { 
-//         const expected = "";
-//         expect(hardCodedPatientObj.getNotes()).to.equal();
 //     });
 // });
 
