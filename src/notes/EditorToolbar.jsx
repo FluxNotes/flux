@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
 import './EditorToolbar.css';
+import EditorToolbarBreadcrumbs from './EditorToolbarBreadcrumbs.jsx';
 
 class EditorToolbar extends React.Component {
 
@@ -132,6 +133,7 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('underlined', 'fa-underline')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
+                <EditorToolbarBreadcrumbs/>
                 {content}
             </div>
         )
