@@ -27,14 +27,15 @@ const testPatientEntries = testPatientObj.entries;
 const testPatientRecord = testPatientObj.getPatient();
 const hardCodedPerson = testPatientObj.getPerson();
 
-function setFullAppState(anything) { 
-    
-}
-
 describe('PatientSearch', function () { 
     // Input used in searching and expected length of suggestiosn
     const inputValue = "pre";
     const expectedLength = 4
+    let didSetFullAppStateFunctionTrigger = false;
+    // Should just set the higher-scoped variable to be true
+    function setFullAppState(anything) { 
+        didSetFullAppStateFunctionTrigger = true
+    }
 
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
@@ -82,5 +83,28 @@ describe('PatientSearch', function () {
         const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
         expect(suggestionList)
             .to.have.lengthOf.at.least(expectedLength)
+    });
+
+    it('Should fire setFullAppState when you click on a suggestions ', function () { 
+        // We'll expect this to be true after clicking on a suggestion
+        didSetFullAppStateFunctionTrigger = false;
+        const wrapper = mount(<PatientSearch
+            patient={testPatientObj}
+            setFullAppState={setFullAppState}
+        />);        
+        const inputField = wrapper.find('input.react-autosuggest__input')
+        inputField.simulate('change', { target: {value: inputValue}}); 
+        inputField.simulate('focus'); 
+        // Assumes we're testing against TestPatient
+        expect(testPatientObj.shrId)
+            .to.equal(testPatientShrId)
+
+        const suggestionList = wrapper.find('li.react-autosuggest__suggestion');
+        const firstSuggestion = suggestionList.first()
+        firstSuggestion.simulate('click');
+
+        // After clicking this should be true
+        expect(didSetFullAppStateFunctionTrigger)
+            .to.be.true
     });
 });
