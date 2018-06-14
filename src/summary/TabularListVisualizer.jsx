@@ -134,13 +134,21 @@ export default class TabularListVisualizer extends Component {
             preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
         }
 
-        let subsectionname = null;
-        if (transformedSubsection.name && transformedSubsection.name.length > 0) {
-            subsectionname = <h2 className="subsection list-subsection-header"><span>{transformedSubsection.name}</span></h2>;
+
+        let subsectionName = null;
+        let subsectionNameHTML = null;
+        if (transformedSubsection.nameFunction) {
+            subsectionName = transformedSubsection.nameFunction();
+        } else {
+            subsectionName = transformedSubsection.name;
+        }
+
+        if (subsectionName && subsectionName.length > 0) {
+            subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span></h2>;
         }
 
         if (list.length <= 0) {
-            return <div key={subsectionindex}>{subsectionname}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
 
         let headings = null;
@@ -153,22 +161,22 @@ export default class TabularListVisualizer extends Component {
         }
 
         const numberOfHeadings = transformedSubsection.headings ? transformedSubsection.headings.length : list[0].length;
-        let subsectionactions = [];
+        let subsectionActions = [];
         if (transformedSubsection.actions != null) {
-            subsectionactions = transformedSubsection.actions;
+            subsectionActions = transformedSubsection.actions;
         }
 
         return (
             <div key={subsectionindex}>
                 {preTableCount}
-                {subsectionname}
+                {subsectionNameHTML}
 
                 <TabularListVisualizerTable
                     headers={headings}
-                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, transformedSubsection.name, subsectionactions)} />
+                    rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions)} />
 
                 <ul>
-                    {this.renderedPostTableList(transformedSubsection.postTableList, transformedSubsection.name, subsectionactions)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions)}
                 </ul>
             </div>
         );
@@ -194,7 +202,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     // Render all list items
-    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionname, subsectionactions) {
+    renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions) {
         let onClick, hoverClass, rowClass, itemClass = "";
 
         return list.map((item, index) => {
@@ -214,11 +222,11 @@ export default class TabularListVisualizer extends Component {
                 hoverClass = "list-button-hover";
             }
 
-            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname, subsectionactions);
+            return this.renderedListItem(item.slice(0, numberOfHeadings), subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions);
         });
     }
 
-    renderedPostTableList(itemsFunction, subsectionname, subsectionactions) {
+    renderedPostTableList(itemsFunction, subsectionName, subsectionActions) {
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -229,7 +237,7 @@ export default class TabularListVisualizer extends Component {
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
-                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionname, subsectionactions)}
+                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionName, subsectionActions)}
                     </li>
                 );
             } else {
@@ -244,7 +252,7 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText, subsectionname, subsectionactions) {
+    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions) {
         return (
             <div>
                 <span
@@ -253,13 +261,13 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText, subsectionname, subsectionactions)}
+                {this.renderedMenu(element, elementId, elementText, subsectionName, subsectionActions)}
             </div>
         );
     }
 
     // Render a given list item as a row in a table
-    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionname, subsectionactions) {
+    renderedListItem(item, subsectionindex, index, rowClass, itemClass, onClick, hoverClass, subsectionName, subsectionActions) {
         // Array of all columns
         const renderedColumns = [];
 
@@ -312,7 +320,7 @@ export default class TabularListVisualizer extends Component {
                         className={itemClass}
                         key={elementId}
                     >
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionname, subsectionactions)}
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionName, subsectionActions)}
                     </TableCell>
 
                 );
@@ -373,7 +381,7 @@ export default class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText, subsectionname, subsectionActions) => {
+    renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
 
         const onMenuItemClicked = (fn, element) => {
@@ -390,7 +398,7 @@ export default class TabularListVisualizer extends Component {
         const filteredActions = subsectionActions.concat(this.props.actions).filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionname)) return false;
+            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionName)) return false;
             return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
 
