@@ -50,6 +50,10 @@ export default class Context {
 
 	setValueObject(valueObject) {
 		this.valueObject = valueObject;
+    }
+    
+    isAttributeSupported(name) {
+        return false;
 	}
 
 	getAttributeValue(name) {

@@ -23,15 +23,8 @@ export default class CreatorChild extends Shortcut {
                 this.setText(text);
             }
         }
-        //let entryType = this.metadata["contextValueObjectEntryType"];
 
-        const knownParent = this.metadata["knownParentContexts"];
-
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else {
-            this.parentContext = contextManager.getCurrentContext();
-        }
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
         //console.log("set parent context to " + this.parentContext);
         if (!Lang.isUndefined(this.parentContext)) {

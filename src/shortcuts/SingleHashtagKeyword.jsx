@@ -227,6 +227,10 @@ export default class SingleHashtagKeyword extends Shortcut {
         return this.isSet[name];
     }
 
+    isAttributeSupported(name) {
+        return !Lang.isUndefined(this.valueObjectAttributes[name]);
+    }
+
     getAttributeValue(name) {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isNull(voa["attributePath"])) {
