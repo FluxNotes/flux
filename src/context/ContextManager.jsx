@@ -52,17 +52,17 @@ class ContextManager {
     }
 
 	getCurrentlyValidShortcuts(shortcutManager) {
-		//let result = this.patientContext.getValidChildShortcuts(true);
         let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
         let childResults;
 		this.activeContexts.forEach((shortcut) => {
-			//result = result.concat(shortcut.getValidChildShortcuts(true));
-            //result = result.concat(shortcutManager.getValidChildShortcutsInContext(shortcut, true));
-            childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, true);
+            // GQ changed the recurse argument (2nd) to false below. Don't want it to get child shortcuts of each context unless
+            // they are in context too. If a shortcut is in context, it will be a separate entry in the active contexts list
+            // so we'll get the correct shortcuts that way
+            childResults = shortcutManager.getValidChildShortcutsInContext(shortcut, false);
             childResults.forEach((child) => {
                 if (!result.includes(child)) result.push(child);
             });
-		});
+        });
 		return result;
 	}
 
