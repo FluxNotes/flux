@@ -1,5 +1,5 @@
 .toolbar-breadcrumbs {
-    color: lightgray;
+    color: #ccc;
     font-size: 0.9em;
     font-style: italic;
     display: inline;
@@ -9,7 +9,7 @@
     display: inline;
 }
 
-.toolbar-separator {
+.breadcrumb-separator {
     padding: 0 15px 0 15px;
     display: inline;
 }

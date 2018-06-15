@@ -20,7 +20,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
                         className="toolbar-breadcrumbs"
                         key={`context-options-item-${index}`}
                     >
-                        <div className="toolbar-separator"> | </div> 
+                        <div className="breadcrumb-separator"> | </div> 
                         <div className="toolbar-breadcrumb"> {breadcrumb} </div>
                     </div>
                 )
