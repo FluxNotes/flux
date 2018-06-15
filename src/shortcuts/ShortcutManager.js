@@ -262,7 +262,7 @@ class ShortcutManager {
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
         if (Lang.isUndefined(result)) return [];
 
-        console.log(result);
+        // console.log(result);
 
         result = result.filter((shortcutId) => {
             // to determine if a shortcut should be valid right now, we need to get its value
@@ -270,7 +270,7 @@ class ShortcutManager {
             // valid if it is set!
             contextValueObjectEntryType = this.shortcuts[shortcutId]["contextValueObjectEntryType"];
 
-            console.log("context value object entry tupe: " + contextValueObjectEntryType);
+            // console.log("context value object entry tupe: " + contextValueObjectEntryType);
             if (Lang.isUndefined(contextValueObjectEntryType) || context.getValueObject().entryInfo.entryType.value === contextValueObjectEntryType) {
                 parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;

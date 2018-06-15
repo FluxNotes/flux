@@ -555,7 +555,7 @@ class PatientRecord {
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
-            const medBeforeChange = this.getEntryFromReference(change.medicationBeforeChange.reference);
+            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.reference) : null;
             const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.reference) : null;
 
 
@@ -567,10 +567,12 @@ class PatientRecord {
                     }) || medAfterChange.reasons.some((r) => {
                         return r.value.entryId && r.value.entryId === conditionEntryId;
                     });
-            } else {
+            } else if (medBeforeChange){
                 eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
                 });
+            } else {
+                return false;
             }
             return change instanceof FluxMedicationChange && eitherChangeIsRelated;
         });

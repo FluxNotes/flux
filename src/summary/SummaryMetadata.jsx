@@ -857,40 +857,72 @@ export default class SummaryMetadata {
         });
     }
 
+    // TODO: fix bug. not displaying medication change in targeted data panel. make sure we are getting medication
     getItemListForMedications = (patient, condition) => {
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         let meds = patient.getMedicationsForConditionChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition);
+
+        // For every medication in meds, create a new medToVisualize object that has the medication object and a medicationChange object
+        let medsToVisualize = meds.map((med) => {
+           return {
+                "medication": med,
+                "medicationChange": null
+            };
+        })
+
         medicationChanges.forEach(change => {
 
-            if (change.medicationAfterChange) {
+            // this is just the change. want the meds
+            console.log("change");
+            console.log(change);
+
+            // If medicationChange has both medicationAfterChange and medicationBeforeChange
+            if (change.medicationAfterChange && change.medicationBeforeChange) {
+
                 const medAfterChangeRef = change.medicationAfterChange.reference;
-                // Determine if there the medAfterChange corresponds to an med
+                // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medAfterChange = meds.find((med) => {
-                    return med.entryId === medAfterChangeRef.entryId;
+                const medToViz = medsToVisualize.find((medToVizObject) => {
+                    return medToVizObject.medication.entryId === medAfterChangeRef.entryId;
                 });
 
-                if (medAfterChange) {
+                if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
                     const medBeforeChangeRef = change.medicationBeforeChange.reference;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
-                    medAfterChange.medicationBeforeChange = medBeforeChange;
-                    medAfterChange.medicationChange = {
+                    // medAfterChange.medicationBeforeChange = medBeforeChange;
+                    medToViz.medicationChange = {
                         type: change.type,
                         date: change.whenChanged,
+                        medBeforeChange: medBeforeChange,
+                        medAfterChange: medToViz.medication
                     }
                     // Remove the before-medication from vis
-                    meds = meds.filter((med) => {
-                        return med.entryId !== medBeforeChangeRef.entryId;
+                    medsToVisualize = medsToVisualize.filter((medToVizObject) => {
+                        return medToVizObject.medication.entryId !== medBeforeChangeRef.entryId;
                     })
                 }
             }
+            // If medication change only has medicationBeforeChange (does not have medicationAfterChange)
+            else if (change.medicationBeforeChange && !change.medicationAfterChange) {
+                const medBeforeChangeRef = change.medicationBeforeChange.reference;
+                const medToViz = medsToVisualize.find((medToVizObject) => {
+                    return medToVizObject.medication.entryId === medBeforeChangeRef.entryId;
+                });
 
-
-
+                if (medToViz) {
+                    medToViz.medicationChange = {
+                        type: change.type,
+                        date: change.whenChanged,
+                        medBeforeChange: medToViz.medication
+                    }
+                }
+            }
         });
-        return meds;
+
+        // instead of returning meds, return list of medsToVisualize
+        return medsToVisualize;
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {

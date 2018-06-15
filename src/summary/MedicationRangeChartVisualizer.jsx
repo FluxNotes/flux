@@ -68,12 +68,26 @@ class MedicationRangeChartVisualizer extends Component {
     renderedSubsection(subsection, index) {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
+
+
+        console.log("items");
+        console.log(items);
+
+
+        // NICOLE: items contains all of the medications. If there is a change, the medication object also has a medicationChange field.
+        // NICOLE: medicationChange should contain both medBeforechange and medAfterChange
+
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
     }
 
-    renderMedicationChange = (medChange, medBefore) => { 
+    renderMedicationChange = (medChange, medBefore) => {
+        console.log("medChange:");
+        console.log(medChange);
+        // console.log("medBefore");
+        // console.log(medBefore);
+
         return (
             <Row center="xs">
                 <Col xs={12} className="medication-change">
@@ -136,7 +150,7 @@ class MedicationRangeChartVisualizer extends Component {
             case "swap":
                 return `with ${medBefore.medication}}`;
             case "stop":
-                return ``;
+                return ` `;
             default:
                 return `${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
         }
@@ -144,20 +158,31 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedication = (med, i) => {
         // Grab range values based on medication
-        let rangeValues = MedicationInformationService.getRangeValues(med.code, (med.amountPerDose ? med.amountPerDose.units : null));
+        let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
         // Set the values needed to render the range chart
         const lowerValue = rangeValues ? rangeValues.lowerValue : null;
         const upperValue = rangeValues ? rangeValues.upperValue : null;
         const typicalValue = rangeValues ? rangeValues.typicalValue : null;
         // Only want want the number part of the value, not the unit
-        const value = med.amountPerDose ? med.amountPerDose.value : null;
-        const unit = med.amountPerDose ? med.amountPerDose.units : null;
-        const name = med.medication;
+        const value = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
+        const unit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
+        const name = med.medication.name;
 
         const numColsChart = this.state.medicationVisWide ? 5 : 12;
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
-        const medicationIsChange = med.medicationChange !== undefined;
+        const medicationIsChange = (med.medicationChange ? true : false);
+
+        console.log("[chart vis] medication");
+        console.log(med);
+
+
+        console.log("medicationIsChange");
+        console.log(medicationIsChange);
+
+
+
+
         return (
             <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
                 <Grid className="FullApp-content" fluid>
@@ -175,14 +200,14 @@ class MedicationRangeChartVisualizer extends Component {
                             </div>
                         </Col>
                         <Col sm={numColsInfo}>
-                            {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationBeforeChange) : null}
+                            {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
                             <Row center='xs'>
                                 <Col sm={3}>
                                     <div className='medication-info-heading'>
                                         Route
                                     </div>
                                     <div className='medication-info'>
-                                        {med.routeIntoBody}
+                                        {med.medication.routeIntoBody}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -190,7 +215,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Prescribed
                                     </div>
                                     <div className='medication-info'>
-                                        {med.whenPrescribed}
+                                        {med.medication.whenPrescribed}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -198,7 +223,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Prescribed By
                                     </div>
                                     <div className='medication-info'>
-                                        {med.prescribedBy}
+                                        {med.medication.prescribedBy}
                                     </div>
                                 </Col>
                                 <Col sm={3}>
@@ -206,7 +231,7 @@ class MedicationRangeChartVisualizer extends Component {
                                         Number of Refills
                                     </div>
                                     <div className='medication-info'>
-                                        {med.numberOfRefillsAllowed}
+                                        {med.medication.numberOfRefillsAllowed}
                                     </div>
                                 </Col>
                             </Row>

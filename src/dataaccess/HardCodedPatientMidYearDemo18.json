@@ -1430,12 +1430,12 @@
                 ]
             }
         },
-        "MedicationBeforeChange": { 
-            "EntryType": { 
+        "MedicationBeforeChange": {
+            "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationBeforeChange"
             },
             "Value": {
-                "EntryType": { 
+                "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
                 },
                 "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
