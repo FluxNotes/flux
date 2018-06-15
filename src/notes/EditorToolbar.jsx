@@ -133,7 +133,9 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('underlined', 'fa-underline')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
-                <EditorToolbarBreadcrumbs/>
+                <EditorToolbarBreadcrumbs
+                    contextManager={this.props.contextManager}
+                />
                 {content}
             </div>
         )
@@ -141,6 +143,7 @@ class EditorToolbar extends React.Component {
 }
 
 EditorToolbar.proptypes = { 
+    contextManager: PropTypes.object.isRequired,
     isReadOnly: PropTypes.bool.isRequired,
     onBlockCheck: PropTypes.func.isRequired,
     onBlockUpdate: PropTypes.func.isRequired,

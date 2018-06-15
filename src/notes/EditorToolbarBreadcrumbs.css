@@ -1,3 +1,8 @@
 .toolbar-breadcrumbs > * {
-    /* display: block; */
+    color: grey;
+    font-size: 12px;
+}
+
+.toolbar-breadcrumbs-crumb {
+    display: inline;
 }
