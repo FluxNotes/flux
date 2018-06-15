@@ -34,6 +34,7 @@ export default class TargetedDataSubpanel extends Component {
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
+
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
         const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
             if (currentEntry._patientRecord) { 
@@ -102,9 +103,9 @@ export default class TargetedDataSubpanel extends Component {
         if (changesToAllowItemClick) {
             this._currentAllowItemClick = newAllowItemClick;
         }
-
+        
         // Case 7: forceRefresh
-        const changesToForceRefresh = (this.forceRefresh === false && nextProps.forceRefresh === true)
+        const changesToForceRefresh = (this._forceRefresh === false && nextProps.forceRefresh === true)
         if (changesToForceRefresh) {
             this.props.stopForceRefresh();
         }

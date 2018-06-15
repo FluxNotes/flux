@@ -141,12 +141,10 @@ export class FullApp extends Component {
     }
 
     setForceRefresh = () => {
-        console.log("SETTING FORCE REFRESH");
         this.setFullAppState('forceRefresh', true)
     }
 
     stopForceRefresh = () => {
-        console.log("STOPPING REFRESH");
         this.setFullAppState('forceRefresh', false);
     }
 
