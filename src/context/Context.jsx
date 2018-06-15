@@ -116,5 +116,9 @@ export default class Context {
 
 	isContext() {
 		return true;
-	}
+    }
+
+    isGlobalContext() {
+        return false;
+    }
 }

@@ -167,4 +167,9 @@ export default class InsertValue extends Shortcut {
     setText(text) {
         this.text = text;
     }
+
+    isGlobalContext() {
+        const isGlobalContext = this.metadata["isGlobalContext"];
+        return Lang.isUndefined(isGlobalContext) ? false : isGlobalContext;
+    }
 }
