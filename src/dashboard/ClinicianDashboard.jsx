@@ -198,6 +198,8 @@ export default class ClinicianDashboard extends Component {
                         searchSelectedItem={this.props.searchSelectedItem}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                        setNoteViewerEditable={this.props.setNoteViewerEditable}
+                        setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -225,6 +227,8 @@ ClinicianDashboard.proptypes = {
     searchSelectedItem: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setNoteViewerEditable: PropTypes.func.isRequired,
+    setNoteViewerNotEditable: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object,

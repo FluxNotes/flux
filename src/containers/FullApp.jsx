@@ -148,6 +148,14 @@ export class FullApp extends Component {
         this.setFullAppState('forceRefresh', false);
     }
 
+    setNoteViewerEditable = () => {
+        this.setFullAppState('isNoteViewerEditable', true);
+    }
+
+    setNoteViewerNotEditable = () => {
+        this.setFullAppState('isNoteViewerEditable', false);
+    }
+
     // Same function as 'setFullAppState' except this function uses a callback
     setFullAppStateWithCallback = (state, callback) => {
         this.setState(state, callback);
@@ -282,6 +290,8 @@ export class FullApp extends Component {
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setFullAppState={this.setFullAppState}
+                            setNoteViewerEditable={this.setNoteViewerEditable}
+                            setNoteViewerNotEditable={this.setNoteViewerNotEditable}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                             setOpenClinicalNote={this.setOpenClinicalNote}
                             shortcutManager={this.shortcutManager}

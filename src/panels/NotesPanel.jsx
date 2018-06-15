@@ -259,6 +259,8 @@ export default class NotesPanel extends Component {
                     selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -303,6 +305,8 @@ export default class NotesPanel extends Component {
                     selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -346,6 +350,8 @@ NotesPanel.propTypes = {
     searchSelectedItem: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setNoteViewerEditable: PropTypes.func.isRequired,
+    setNoteViewerNotEditable: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

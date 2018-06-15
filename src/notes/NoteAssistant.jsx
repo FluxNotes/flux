@@ -311,6 +311,8 @@ export default class NoteAssistant extends Component {
                                 selectedNote={this.props.selectedNote}
                                 setFullAppState={this.props.setFullAppState}
                                 setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                                setNoteViewerEditable={this.props.setNoteViewerEditable}
+                                setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                                 shortcutManager={this.props.shortcutManager}
                                 shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
                                 structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -606,6 +608,8 @@ NoteAssistant.propTypes = {
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setNoteViewerEditable: PropTypes.func.isRequired,
+    setNoteViewerNotEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
