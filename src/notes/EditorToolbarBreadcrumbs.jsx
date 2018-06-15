@@ -11,14 +11,17 @@ class EditorToolbarBreadcrumbs extends React.Component {
             return null;
         }
         else {
-            const contextOptions = activeContexts.map((context, i) => {
-                const uniqueIndex = activeContexts.length - (i + 1);
+            const contextOptions = activeContexts.reverse().map((context, i) => {
+                const index = activeContexts.length - (i + 1);
+                const breadcrumb = context.text.replace("#","");
+                
                 return (
                     <div 
-                        key={`context-options-list-${uniqueIndex}`}
-                        className="toolbar-breadcrumbs-crumb"
+                        className="toolbar-breadcrumbs"
+                        key={`context-options-item-${index}`}
                     >
-                        | {context.text} 
+                        <div className="toolbar-separator"> | </div> 
+                        <div className="toolbar-breadcrumb"> {breadcrumb} </div>
                     </div>
                 )
             })

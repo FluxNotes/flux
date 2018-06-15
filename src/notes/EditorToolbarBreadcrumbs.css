@@ -1,8 +1,15 @@
-.toolbar-breadcrumbs > * {
-    color: grey;
-    font-size: 12px;
+.toolbar-breadcrumbs {
+    color: lightgray;
+    font-size: 0.9em;
+    font-style: italic;
+    display: inline;
 }
 
-.toolbar-breadcrumbs-crumb {
+.toolbar-breadcrumb {
+    display: inline;
+}
+
+.toolbar-separator {
+    padding: 0 15px 0 15px;
     display: inline;
 }
