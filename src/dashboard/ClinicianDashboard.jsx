@@ -6,7 +6,7 @@ import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
 
 export default class ClinicianDashboard extends Component {
-    constructor(forceRefresh) {
+    constructor() {
         super();
 
         this.state = {
