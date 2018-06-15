@@ -255,6 +255,10 @@ export default class UpdaterBase extends Shortcut {
         }
     }
 
+    isAttributeSupported(name) {
+        return !Lang.isUndefined(this.valueObjectAttributes[name]);
+    }
+
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.text + "'");

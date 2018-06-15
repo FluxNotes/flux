@@ -30,9 +30,9 @@ _Pull requests into Flux require the following. Submitter and reviewer should :w
 **Tests**
 
 - [ ] Existing tests passed
-- [ ] Added UI tests for slim mode 
-- [ ] Added UI tests for full mode
-- [ ] Added backend tests for fluxNotes code
+- [ ] Added Enzyme-UI tests for slim mode 
+- [ ] Added Enzyme-UI tests for full mode
+- [ ] Added backend tests for new functionality added
 - [ ] Added note parser examples to test new functionality
 
 
