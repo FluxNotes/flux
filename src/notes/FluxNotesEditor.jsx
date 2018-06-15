@@ -405,10 +405,13 @@ class FluxNotesEditor extends React.Component {
         };
         const docText = this.structuredFieldPlugin.convertToText(state, entireNote);
 
-        this.props.setFullAppState('documentText', docText);
+        this.props.setFullAppStateWithCallback({
+            documentText: docText,
+        }, () => {
+            // save note after documentText gets set
+            this.props.saveNoteUponKeypress();
+        });
 
-        // save
-        this.props.saveNoteUponKeypress();
         this.setState({
             state: state
         });
