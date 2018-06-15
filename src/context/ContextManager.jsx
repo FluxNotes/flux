@@ -3,12 +3,12 @@ import Collection from 'lodash'
 import PatientContext from './PatientContext';
 
 class ContextManager {
-	constructor(patient, onContextUpdate) {
-		this.patient = patient;
-		this.patientContext = new PatientContext(patient);
+    constructor(patient, onContextUpdate) {
+        this.patient = patient;
+        this.patientContext = new PatientContext(patient);
         this.contexts = []; // patient context is kept separately
-		this.activeContexts = []; // patient context is always active
-		this.onContextUpdate = onContextUpdate;
+        this.activeContexts = []; // patient context is always active
+        this.onContextUpdate = onContextUpdate;
     }
     
     endNonGlobalContexts() {
@@ -38,8 +38,8 @@ class ContextManager {
         return this.isBlock1BeforeBlock2;
     }
 
-	getActiveContexts() {
-		return this.activeContexts;
+    getActiveContexts() {
+        return this.activeContexts;
     }
     
     getActiveSingleHashtagKeywordShortcuts(shortcutManager) { 
@@ -51,10 +51,10 @@ class ContextManager {
         }, [])
     }
 
-	getCurrentlyValidShortcuts(shortcutManager) {
+    getCurrentlyValidShortcuts(shortcutManager) {
         let result = shortcutManager.getValidChildShortcutsInContext(this.patientContext, true);
         let childResults;
-		this.activeContexts.forEach((shortcut) => {
+        this.activeContexts.forEach((shortcut) => {
             // GQ changed the recurse argument (2nd) to false below. Don't want it to get child shortcuts of each context unless
             // they are in context too. If a shortcut is in context, it will be a separate entry in the active contexts list
             // so we'll get the correct shortcuts that way
@@ -63,32 +63,32 @@ class ContextManager {
                 if (!result.includes(child)) result.push(child);
             });
         });
-		return result;
-	}
+        return result;
+    }
 
-	isContextOfTypeActive(contextType) {
-		return !Lang.isUndefined(this.getActiveContextOfType(contextType));
-	}
+    isContextOfTypeActive(contextType) {
+        return !Lang.isUndefined(this.getActiveContextOfType(contextType));
+    }
 
-	isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
-		let shortcut = this.getActiveContextOfType(contextType);
-		if (Lang.isUndefined(shortcut)) return false;
-		let object = shortcut.getValueObject();
-		return (object.entryInfo.entryType[0] === valueType);
-	}
+    isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
+        let shortcut = this.getActiveContextOfType(contextType);
+        if (Lang.isUndefined(shortcut)) return false;
+        let object = shortcut.getValueObject();
+        return (object.entryInfo.entryType[0] === valueType);
+    }
 
-	// returns undefined if not found
-	getActiveContextOfType(contextType) {
-		let context = Collection.find(this.activeContexts, (item) => {
-			return (item.getShortcutType() === contextType);
-		});
+    // returns undefined if not found
+    getActiveContextOfType(contextType) {
+        let context = Collection.find(this.activeContexts, (item) => {
+            return (item.getShortcutType() === contextType);
+        });
 
-		return context;
-	}
+        return context;
+    }
 
-	contextUpdated() {
-		this.onContextUpdate();
-	}
+    contextUpdated() {
+        this.onContextUpdate();
+    }
 
     adjustActiveContexts(shouldContextBeActive) {
         this.activeContexts = [];
@@ -99,7 +99,7 @@ class ContextManager {
         });
     }
 
-	addShortcutToContext(shortcut) {
+    addShortcutToContext(shortcut) {
         if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
         //console.log("adding shortcut to context: " + shortcut.getShortcutType());
         const numContexts = this.contexts.length;
@@ -119,11 +119,11 @@ class ContextManager {
         }
 
         //when adding a new shortcut to context, we assume cursor ends up after it so its active
-		this.activeContexts.unshift(shortcut);
-		if (!shortcut.needToSelectValueFromMultipleOptions()) {
-			if (this.onContextUpdate) { this.onContextUpdate(); }
-		}
-	}
+        this.activeContexts.unshift(shortcut);
+        if (!shortcut.needToSelectValueFromMultipleOptions()) {
+            if (this.onContextUpdate) { this.onContextUpdate(); }
+        }
+    }
 
     removeShortcutFromContext(shortcut) {
         var index = -1;
@@ -146,13 +146,13 @@ class ContextManager {
         this.activeContexts.splice(index, 1);
     }
 
-	getPatient() {
-		return this.patient;
-	}
+    getPatient() {
+        return this.patient;
+    }
 
-	getPatientContext() {
-		return this.patientContext;
-	}
+    getPatientContext() {
+        return this.patientContext;
+    }
 
     getCurrentContext() {
         const mostRecentContext = this.activeContexts[0];
