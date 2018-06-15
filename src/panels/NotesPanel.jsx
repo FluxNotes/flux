@@ -27,11 +27,11 @@ export default class NotesPanel extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        if (Lang.isNull(nextProps.openClinicalNote) && !Lang.isNull(this.props.openClinicalNote) && !this.props.openClinicalNote.signed && nextProps.documentText !== this.props.documentText) {
-            this.props.openClinicalNote.content = nextProps.documentText;
-        }
-
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
+            if (this.props.openClinicalNote !== null && this.props.openClinicalNote.signed === false) {
+                this.props.openClinicalNote.content = this.props.documentText;
+            }
+            
             const note = nextProps.openClinicalNote;
             this.handleUpdateEditorWithNote(note);
         }

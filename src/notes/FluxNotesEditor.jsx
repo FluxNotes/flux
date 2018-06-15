@@ -397,17 +397,15 @@ class FluxNotesEditor extends React.Component {
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
         // state.selection only has a getter for these values so create a new object
-        let entireNote = {
+        const entireNote = {
             startKey: "0",
             startOffset: 0,
             endKey: endOfNoteKey,
             endOffset: endOfNoteOffset
         };
-        let docText = this.structuredFieldPlugin.convertToText(state, entireNote); 
-        
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            return {documentText: docText};
-        });
+        const docText = this.structuredFieldPlugin.convertToText(state, entireNote);
+
+        this.props.setFullAppState('documentText', docText);
 
         // save
         this.props.saveNoteUponKeypress();
