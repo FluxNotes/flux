@@ -1,0 +1,101 @@
+
+#patient-search .react-autosuggest__container {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+#patient-search .react-autosuggest__input {
+    display:inline-block;
+    width: 85%;
+    height: 30px;
+    font-weight: 300;
+    font-size: 16px;
+    border: 0px;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#patient-search .react-autosuggest__input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#patient-search .react-autosuggest__input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#patient-search .react-autosuggest__input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#patient-search .react-autosuggest__input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#patient-search .react-autosuggest__input::-ms-input-placeholder { /* Microsoft Edge */
+    font-family: 'Roboto', sans-serif;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+#patient-search .react-autosuggest__input--focused {
+    outline: none;
+}
+
+#patient-search .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#patient-search .react-autosuggest__suggestions-container::-webkit-scrollbar-track {
+    background-color: #FAFAFA;
+}
+
+#patient-search .react-autosuggest__suggestions-container {
+    display: none;
+    width: 30vw;
+    max-height: 309px;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 2;
+    overflow-y: auto;
+    background-color: #FAFAFA;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+#patient-search .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 51px;
+}
+
+#patient-search .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    list-style-type: none;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    overflow-y: auto;
+}
+
+#patient-search .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px;
+}
+
+#patient-search .react-autosuggest__suggestion--highlighted {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.search-icon { 
+    display: inline-block;
+    margin-right: 10px;
+}
