@@ -1,7 +1,15 @@
-.toolbar-breadcrumbs {
+.toolbar-breadcrumbs-container {
+    position: absolute;
+    vertical-align: middle;
+    padding-left: 20px;
     color: #ccc;
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-style: italic;
+    display: inline;
+    white-space: nowrap;
+}
+
+.toolbar-breadcrumbs {
     display: inline;
 }
 

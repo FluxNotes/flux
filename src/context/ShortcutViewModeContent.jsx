@@ -28,7 +28,6 @@ export default class ShortcutViewModeContent extends Component {
     // Update context state and scroll to newest ContextOption section
     updateContextAndScroll = () => {
         let activeContexts = this.getActiveContexts();
-        // console.log("getActiveContexts() from updateContextAndScroll() from ShortcutViewmodeContent", activeContexts);
 
         if (this.state.lastActiveContextCount !== activeContexts.length) {
             this.setState({

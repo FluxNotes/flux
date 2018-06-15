@@ -13,7 +13,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
         else {
             const contextOptions = activeContexts.reverse().map((context, i) => {
                 const index = activeContexts.length - (i + 1);
-                const breadcrumb = context.text.replace("#","");
+                const breadcrumb = context.text.replace("#", "");
                 
                 return (
                     <div 
@@ -37,7 +37,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
         const activeContexts = this.props.contextManager.getActiveContexts();
 
         return (
-            <div className="menu toolbar-breadcrumbs">
+            <div className="toolbar-breadcrumbs-container">
                 {this.renderActiveContexst(activeContexts)}
             </div>
         )
