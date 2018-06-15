@@ -36,8 +36,8 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 */
 
 export default class SummaryMetadata {
-    constructor(onActionSelect) {
-        this.onActionSelect = onActionSelect;
+    constructor(setForceRefresh) {
+        this.setForceRefresh = setForceRefresh;
         this.trialDisplayMissingCriteria = "";
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": {
@@ -951,7 +951,7 @@ export default class SummaryMetadata {
 
     handleViewMissingCriteria = (item) => {
         this.trialDisplayMissingCriteria = item.value;
-        this.onActionSelect('actionSelected', true);
+        this.setForceRefresh();
     }
 
     getMissingCriteriaSubsectionName = () => {

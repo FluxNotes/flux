@@ -6,7 +6,7 @@ import NotesPanel from '../panels/NotesPanel';
 import './ClinicianDashboard.css';
 
 export default class ClinicianDashboard extends Component {
-    constructor() {
+    constructor(forceRefresh) {
         super();
 
         this.state = {
@@ -167,7 +167,9 @@ export default class ClinicianDashboard extends Component {
                 <div className="right-border-box" style={targetedDataPanelStyles}>
                     <TargetedDataPanel
                         actions={this.props.actions}
-                        actionSelected={this.props.actionSelected}
+                        forceRefresh={this.props.forceRefresh}
+                        setForceRefresh={this.props.setForceRefresh}
+                        stopForceRefresh={this.props.stopForceRefresh}
                         appState={this.props.appState}
                         isNoteViewerEditable={isNoteViewerEditable}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}

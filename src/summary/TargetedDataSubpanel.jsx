@@ -19,7 +19,7 @@ export default class TargetedDataSubpanel extends Component {
         this._currentAllowItemClick = null;
         this._currentConditionString = "";
         this._visualizerManager = new VisualizerManager();
-        this._actionSelected = false;
+        this._forceRefresh= false;
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
@@ -30,7 +30,7 @@ export default class TargetedDataSubpanel extends Component {
         // - isWide has changed
         // - Condition has changed
         // - allowItemClick has changed
-        // - actionSelected changes from false to true
+        // - forceRefresh changes from false to true
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
@@ -103,10 +103,10 @@ export default class TargetedDataSubpanel extends Component {
             this._currentAllowItemClick = newAllowItemClick;
         }
 
-        // Case 7: actionSelected
-        const changesToActionSelected = (this._actionSelected === false && nextProps.actionSelected === true)
-        if (changesToActionSelected) {
-            this.props.setFullAppState('actionSelected', false);
+        // Case 7: forceRefresh
+        const changesToForceRefresh = (this.forceRefresh === false && nextProps.forceRefresh === true)
+        if (changesToForceRefresh) {
+            this.props.stopForceRefresh();
         }
         
         return changesToRelevantEntries 
@@ -115,7 +115,7 @@ export default class TargetedDataSubpanel extends Component {
             || changesToIsWide
             || changesToConditionString
             || changesToAllowItemClick
-            || changesToActionSelected;
+            || changesToForceRefresh;
     }
 
     getConditionMetadata() {
@@ -177,7 +177,7 @@ export default class TargetedDataSubpanel extends Component {
 }
 
 TargetedDataSubpanel.propTypes = {
-    actionSelected: PropTypes.bool,
+    forceRefresh: PropTypes.bool,
     className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,

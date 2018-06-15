@@ -77,10 +77,12 @@ class ClinicalTrialsList {
         this.clinicalTrials.forEach((trial) => {
             if (trial.inclusionCriteriaCQL != null) {
                 const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                if (( result.patientResults[patientID].meetsInclusionCriteria ) || (result.patientResults[patientID].checkNotDisqualified)) {
-                    eligibleTrials.push({ info: trial,
-                                          numTotalCriteria: Object.keys(result.patientResults[patientID].findMissingData).length + trial.additionalCriteria.length, 
-                                          numSatisfiedCriteria: Object.keys(result.patientResults[patientID].findMissingData).length });
+                if ((result.patientResults[patientID].meetsInclusionCriteria) || (result.patientResults[patientID].checkNotDisqualified)) {
+                    eligibleTrials.push({
+                        info: trial,
+                        numTotalCriteria: Object.keys(result.patientResults[patientID].findMissingData).length + trial.additionalCriteria.length,
+                        numSatisfiedCriteria: Object.keys(result.patientResults[patientID].findMissingData).length
+                    });
                 }
             }
         });
@@ -100,7 +102,7 @@ class ClinicalTrialsList {
                 missingFields.push(property);
             }
         }
-        return missingFields;
+        return missingFields.concat(this.getClinicalTrialByName(trialName).additionalCriteria);
     }
 
     getClinicalTrialByName(name) {

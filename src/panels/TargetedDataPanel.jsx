@@ -32,7 +32,9 @@ export default class TargetedDataPanel extends Component {
                         <div className="summary-section">
                             <TargetedDataSubpanel
                                 actions={this.props.actions}
-                                actionSelected={this.props.actionSelected}
+                                forceRefresh={this.props.forceRefresh}
+                                setForceRefresh={this.props.setForceRefresh}
+                                stopForceRefresh={this.props.stopForceRefresh}
                                 allowItemClick={this.props.isNoteViewerEditable}
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 condition={this.props.appState.condition}

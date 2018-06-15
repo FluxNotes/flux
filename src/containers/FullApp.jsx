@@ -50,7 +50,7 @@ export class FullApp extends Component {
         }
 
         let patient = this.dataAccess.getPatient(patientId);
-        this.summaryMetadata = new SummaryMetadata(this.setFullAppState);
+        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
@@ -75,7 +75,7 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
-            actionSelected: false
+            forceRefresh: false
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -138,6 +138,16 @@ export class FullApp extends Component {
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
         this.setState({[state]: value});
+    }
+
+    setForceRefresh = () => {
+        console.log("SETTING FORCE REFRESH");
+        this.setFullAppState('forceRefresh', true)
+    }
+
+    stopForceRefresh = () => {
+        console.log("STOPPING REFRESH");
+        this.setFullAppState('forceRefresh', false);
     }
 
     // Same function as 'setFullAppState' except this function uses a callback
@@ -259,7 +269,9 @@ export class FullApp extends Component {
                         <CurrentDashboard
                             // App default settings
                             actions={this.actions}
-                            actionSelected={this.state.actionSelected}
+                            forceRefresh={this.state.forceRefresh}
+                            setForceRefresh={this.setForceRefresh}
+                            stopForceRefresh={this.stopForceRefresh}
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
