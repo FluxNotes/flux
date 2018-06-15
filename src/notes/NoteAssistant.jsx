@@ -195,7 +195,7 @@ export default class NoteAssistant extends Component {
 
     // save the note after every keypress. Invoked by FluxNotesEditor.
     saveNoteOnKeypress = () => {
-        // Don't start saving until there is content in the editor
+        // Only save if note is currently open
         if (this.props.currentlyEditingEntryId !== -1) {
             this.updateExistingNote();
         }

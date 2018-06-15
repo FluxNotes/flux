@@ -386,10 +386,10 @@ class FluxNotesEditor extends React.Component {
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if(Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)){
+        if (Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)) {
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
-        } else{
-            if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
+        } else {
+            if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
                 endOfNoteOffset = this.props.documentText.length;
             }
         }
