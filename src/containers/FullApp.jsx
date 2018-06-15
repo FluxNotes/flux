@@ -156,6 +156,22 @@ export class FullApp extends Component {
         this.setFullAppState('isNoteViewerEditable', false);
     }
 
+    setLayout = (layoutView) => {
+        this.setFullAppState('layout', layoutView);
+    }
+
+    setDocumentText = (documentText) => {
+        this.setFullAppState('documentText', documentText);
+    }
+
+    setNoteViewerVisible = () => {
+        this.setFullAppState('isNoteViewerVisible', true);
+    }
+
+    setNoteViewerNotVisible = () => {
+        this.setFullAppState('isNoteViewerVisible', false)
+    }
+
     // Same function as 'setFullAppState' except this function uses a callback
     setFullAppStateWithCallback = (state, callback) => {
         this.setState(state, callback);
@@ -267,6 +283,7 @@ export class FullApp extends Component {
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
                                     setFullAppState={this.setFullAppState}
+                                    setLayout={this.setLayout}
                                     supportLogin={true}
                                 />
                             </Col>
@@ -276,7 +293,6 @@ export class FullApp extends Component {
                             // App default settings
                             actions={this.actions}
                             forceRefresh={this.state.forceRefresh}
-                            setForceRefresh={this.setForceRefresh}
                             stopForceRefresh={this.stopForceRefresh}
                             appState={this.state}
                             contextManager={this.contextManager}
@@ -292,7 +308,10 @@ export class FullApp extends Component {
                             setFullAppState={this.setFullAppState}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerNotEditable={this.setNoteViewerNotEditable}
+                            setNoteViewerVisible={this.setNoteViewerEditable}
+                            setNoteViewerNotVisible={this.setNoteViewerNotEditable}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                            setLayout={this.setLayout}
                             setOpenClinicalNote={this.setOpenClinicalNote}
                             shortcutManager={this.shortcutManager}
                             structuredFieldMapManager={this.structuredFieldMapManager}

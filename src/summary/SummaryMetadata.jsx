@@ -614,7 +614,8 @@ export default class SummaryMetadata {
                                         whenToDisplay: {
                                             valueExists: true,
                                             existingValueSigned: "either",
-                                            editableNoteOpen: false
+                                            editableNoteOpen: false, 
+                                            displayForColumns: [0]
                                         }
                                     }
                                 ]

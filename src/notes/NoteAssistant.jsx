@@ -182,7 +182,7 @@ export default class NoteAssistant extends Component {
         // Select note in the clinical notes view
         this.props.updateSelectedNote(found);
         this.props.loadNote(found);
-        this.props.setFullAppState('isNoteViewerEditable', true);
+        this.props.setNoteViewerEditable();
         this.toggleView("context-tray");
     }
 
@@ -201,8 +201,8 @@ export default class NoteAssistant extends Component {
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
         this.props.setFullAppState("noteClosed", false);
-        this.props.setFullAppState('layout', "split");
-        this.props.setFullAppState('isNoteViewerVisible', true);
+        this.props.setLayout("split");
+        this.props.setNoteViewerVisible();
 
         // Don't start saving until there is content in the editor
         if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
@@ -215,10 +215,10 @@ export default class NoteAssistant extends Component {
 
         // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
         if (isInProgressNote) {
-            this.props.setFullAppState('isNoteViewerEditable', true);
+            this.props.setNoteViewerEditable();
             this.toggleView("context-tray");
         } else {
-            this.props.setFullAppState('isNoteViewerEditable', false);
+            this.props.setNoteViewerNotEditable()
             this.toggleView("clinical-notes");
         }
     }
@@ -227,9 +227,9 @@ export default class NoteAssistant extends Component {
     // removes the editor, deselects the selected note, expands right panel
     closeNote = () => {
         this.props.setFullAppState("noteClosed", true);
-        this.props.setFullAppState('layout', "right-collapsed");
-        this.props.setFullAppState('isNoteViewerVisible', false);
-        this.props.setFullAppState('isNoteViewerEditable', false);
+        this.props.setLayout("right-collapsed");
+        this.props.setNoteViewerNotVisible();
+        this.props.setNoteViewerEditable();
         this.props.setFullAppState('openClinicalNote', null);
     }
 
@@ -608,8 +608,11 @@ NoteAssistant.propTypes = {
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setLayout: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerNotEditable: PropTypes.func.isRequired,
+    setNoteViewerVisible: PropTypes.func,
+    setNoteViewerNotVisible: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

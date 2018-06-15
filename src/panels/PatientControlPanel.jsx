@@ -44,6 +44,7 @@ class PatientControlPanel extends Component {
                                     photo={patient.getMostRecentPhoto()}
                                     possibleClinicalEvents={this.props.possibleClinicalEvents}
                                     setFullAppState={this.props.setFullAppState}
+                                    setLayout={this.props.setLayout}
                                 />
                             </Col>
 
@@ -77,6 +78,7 @@ PatientControlPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
+    setLayout: PropTypes.func,
     supportLogin: PropTypes.bool.isRequired,
 };
 

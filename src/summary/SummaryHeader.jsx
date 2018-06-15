@@ -57,7 +57,7 @@ class SummaryHeader extends Component {
 
     // Given a newLayout, change FullApp's layout accordingly
     handleLayoutChange = (newLayout) => {
-        this.props.setFullAppState('layout', newLayout);
+        this.props.setLayout(newLayout);
     }
 
     render() {
@@ -173,6 +173,7 @@ SummaryHeader.propTypes = {
     }),
     setFullAppState: PropTypes.func.isRequired,
     layout: PropTypes.string,
+    setLayout: PropTypes.func
 };
 
 export default SummaryHeader;

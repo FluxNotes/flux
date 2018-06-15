@@ -176,7 +176,7 @@ export default class TabularListVisualizer extends Component {
                     rows={this.renderedListItems(subsectionindex, list, numberOfHeadings, subsectionName, subsectionActions)} />
 
                 <ul>
-                    {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions)}
+                    {this.renderedPostTableList(transformedSubsection.postTableList, subsectionName, subsectionActions, -1)}
                 </ul>
             </div>
         );
@@ -226,7 +226,7 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedPostTableList(itemsFunction, subsectionName, subsectionActions) {
+    renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
 
@@ -237,7 +237,7 @@ export default class TabularListVisualizer extends Component {
             if (this.props.allowItemClick) {
                 return (
                     <li key={elementId}>
-                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionName, subsectionActions)}
+                        {this.renderedStructuredData(elementText, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
                     </li>
                 );
             } else {
@@ -252,7 +252,7 @@ export default class TabularListVisualizer extends Component {
         });
     }
 
-    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions) {
+    renderedStructuredData(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) {
         return (
             <div>
                 <span
@@ -261,7 +261,7 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText, subsectionName, subsectionActions)}
+                {this.renderedMenu(element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
     }
@@ -320,7 +320,7 @@ export default class TabularListVisualizer extends Component {
                         className={itemClass}
                         key={elementId}
                     >
-                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionName, subsectionActions)}
+                        {this.renderedStructuredData(item[0].value, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
                     </TableCell>
 
                 );
@@ -381,7 +381,7 @@ export default class TabularListVisualizer extends Component {
 
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions) => {
+    renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
 
         const onMenuItemClicked = (fn, element) => {
@@ -399,6 +399,7 @@ export default class TabularListVisualizer extends Component {
             if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
             if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
             if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionName)) return false;
+            if (a.whenToDisplay.displayForColumns && !a.whenToDisplay.displayForColumns.includes(arrayIndex)) return false;
             return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
         });
 

@@ -1052,7 +1052,7 @@ class FluxNotesEditor extends React.Component {
             "targetedDataPanelSize": "50%",
             "notesPanelSize": "10%"
         });
-        this.props.setFullAppState('layout', "right-collapsed");
+        this.props.setLayout("right-collapsed");
     }
 
     render = () => {
@@ -1229,6 +1229,7 @@ FluxNotesEditor.proptypes = {
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setLayout: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerNotEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
