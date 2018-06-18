@@ -6,7 +6,7 @@ import './EditorToolbarBreadcrumbs.css';
 
 class EditorToolbarBreadcrumbs extends React.Component {
 
-    renderActiveContexst = (activeContexts) => {
+    renderActiveContexts = (activeContexts) => {
         if (activeContexts.length === 0) {
             return null;
         }
@@ -14,19 +14,33 @@ class EditorToolbarBreadcrumbs extends React.Component {
             const contextOptions = activeContexts.reverse().map((context, i) => {
                 const index = activeContexts.length - (i + 1);
                 const breadcrumb = context.text.replace("#", "");
+
+                // Return breadcrumb with separator if breadcrumb isn't the last one of the list.
+                if ((activeContexts.length - i - 1) === 0) {
+                    return (
+                        <div 
+                            className="breadcrumbs"
+                            key={`context-options-item-${index}`}
+                        >
+                            <div className="breadcrumb"> {breadcrumb} </div>
+                        </div>
+                    )
+                }
+                else {
+                    return (
+                        <div 
+                            className="breadcrumbs"
+                            key={`context-options-item-${index}`}
+                        >
+                            <div className="breadcrumb"> {breadcrumb} </div>
+                            <div className="breadcrumb-separator"> | </div>
+                        </div>
+                    )
+                }
                 
-                return (
-                    <div 
-                        className="toolbar-breadcrumbs"
-                        key={`context-options-item-${index}`}
-                    >
-                        <div className="breadcrumb-separator"> | </div> 
-                        <div className="toolbar-breadcrumb"> {breadcrumb} </div>
-                    </div>
-                )
             })
             return (
-                <div>
+                <div className="breadcrumbs-container">
                     {contextOptions}
                 </div>
             )
@@ -38,7 +52,8 @@ class EditorToolbarBreadcrumbs extends React.Component {
 
         return (
             <div className="toolbar-breadcrumbs-container">
-                {this.renderActiveContexst(activeContexts)}
+                <hr className="toolbar-breadcrumbs-separator"/>
+                {this.renderActiveContexts(activeContexts)}
             </div>
         )
     }
