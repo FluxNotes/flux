@@ -67,7 +67,8 @@
     "testcafe": "0.17.1"
   },
   "resolutions": {
-    "moment": "2.22.0"
+    "moment": "2.22.0",
+    "ucum": "cmoesel/ucum.js#es5-friendly"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
