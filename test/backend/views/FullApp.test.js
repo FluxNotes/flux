@@ -121,6 +121,12 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
     });
 });
 
+describe('FullApp', function() {
+    it('Selecting a condition changes the active condition', () => {
+        const wrapper = mount(<FullApp display='Flux Notes' dataSource='HardCodedReadOnlyDataSource' patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+    });
+});
+
 describe('FluxNotesEditor', function() {
     beforeEach(() => {
       // Set up window and document to be used by Slate in test
