@@ -223,6 +223,10 @@ export class FullApp extends Component {
         });
     }
 
+    setDocumentTextWithCallback = (documentText, callback) => {
+        this.setFullAppStateWithCallback({ documentText }, callback);
+    }
+
     openReferencedNote = (item, arrayIndex = -1) => {
         if (!item.value || !Lang.isArray(item.value) || item.value.length < 3 || Lang.isUndefined(item.value[2])) {
             this.setState({
@@ -307,6 +311,7 @@ export class FullApp extends Component {
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setDocumentText={this.setDocumentText}
+                            setDocumentTextWithCallback={this.setDocumentTextWithCallback}
                             setNoteClosed={this.setNoteClosed}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerVisible={this.setNoteViewerVisible}

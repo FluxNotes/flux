@@ -183,8 +183,6 @@ class FluxNotesEditor extends React.Component {
             isPortalOpen: false,
             portalOptions: null,
         };
-
-        // this.props.setFullAppState('isNoteViewerEditable', true);
     }
 
     // Reset editor state and clear context
@@ -403,18 +401,14 @@ class FluxNotesEditor extends React.Component {
             endKey: endOfNoteKey,
             endOffset: endOfNoteOffset
         };
-        const docText = this.structuredFieldPlugin.convertToText(state, entireNote);
+        const documentText = this.structuredFieldPlugin.convertToText(state, entireNote);
 
-        this.props.setFullAppStateWithCallback({
-            documentText: docText,
-        }, () => {
+        this.props.setDocumentTextWithCallback(documentText, () => {
             // save note after documentText gets set
             this.props.saveNoteOnChange();
         });
 
-        this.setState({
-            state: state
-        });
+        this.setState({ state });
     }
 
     onFocus = () => {
@@ -1228,6 +1222,7 @@ FluxNotesEditor.proptypes = {
     patient: PropTypes.object.isRequired,
     saveNoteOnChange: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
+    setDocumentTextWithCallback: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
