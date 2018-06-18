@@ -274,6 +274,7 @@ describe('FluxNotesEditor', function() {
             loginUser={''}
             noteClosed={false}
             setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
