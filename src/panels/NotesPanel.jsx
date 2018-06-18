@@ -113,8 +113,8 @@ export default class NotesPanel extends Component {
         this.setState({arrayOfPickLists: array})
     }
 
-    // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
-    saveNoteUponKeypress = () => {
+    // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
+    saveNoteOnChange = () => {
         this.saveNoteChild();
     }
 
@@ -251,7 +251,7 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    saveNoteOnChange={this.saveNoteOnChange}
                     selectedNote={this.state.selectedNote}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -295,7 +295,7 @@ export default class NotesPanel extends Component {
                     noteClosed={this.props.noteClosed}
                     patient={this.props.patient}
                     saveNote={click => this.saveNoteChild = click}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    saveNoteOnChange={this.saveNoteOnChange}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}

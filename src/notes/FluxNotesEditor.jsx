@@ -409,7 +409,7 @@ class FluxNotesEditor extends React.Component {
             documentText: docText,
         }, () => {
             // save note after documentText gets set
-            this.props.saveNoteUponKeypress();
+            this.props.saveNoteOnChange();
         });
 
         this.setState({
@@ -1226,7 +1226,7 @@ FluxNotesEditor.proptypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
-    saveNoteUponKeypress: PropTypes.func.isRequired,
+    saveNoteOnChange: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
