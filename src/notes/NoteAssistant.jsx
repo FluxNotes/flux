@@ -182,7 +182,7 @@ export default class NoteAssistant extends Component {
         // Select note in the clinical notes view
         this.props.updateSelectedNote(found);
         this.props.loadNote(found);
-        this.props.setNoteViewerEditable();
+        this.props.setNoteViewerEditable(true);
         this.toggleView("context-tray");
     }
 
@@ -215,10 +215,10 @@ export default class NoteAssistant extends Component {
 
         // If the note selected is an In-Progress note, switch to the context tray else use the clinical-notes view
         if (isInProgressNote) {
-            this.props.setNoteViewerEditable();
+            this.props.setNoteViewerEditable(true);
             this.toggleView("context-tray");
         } else {
-            this.props.setNoteViewerNotEditable()
+            this.props.setNoteViewerEditable(false)
             this.toggleView("clinical-notes");
         }
     }
@@ -227,9 +227,9 @@ export default class NoteAssistant extends Component {
     // removes the editor, deselects the selected note, expands right panel
     closeNote = () => {
         this.props.setFullAppState("noteClosed", true);
-        this.props.setLayout("right-collapsed");
-        this.props.setNoteViewerNotVisible();
-        this.props.setNoteViewerEditable();
+        this.props.setFullAppState('layout', "right-collapsed");
+        this.props.setFullAppState('isNoteViewerVisible', false);
+        this.props.setNoteViewerEditable(true);
         this.props.setFullAppState('openClinicalNote', null);
     }
 
@@ -312,7 +312,6 @@ export default class NoteAssistant extends Component {
                                 setFullAppState={this.props.setFullAppState}
                                 setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
-                                setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                                 shortcutManager={this.props.shortcutManager}
                                 shouldEditorContentUpdate={this.props.shouldEditorContentUpdate}
                                 structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -610,7 +609,6 @@ NoteAssistant.propTypes = {
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
-    setNoteViewerNotEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func,
     setNoteViewerNotVisible: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,

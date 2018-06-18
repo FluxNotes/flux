@@ -171,6 +171,8 @@ describe('FluxNotesEditor', function() {
             setFullAppStateWithCallback={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -222,6 +224,8 @@ describe('FluxNotesEditor', function() {
             noteClosed={false}
             setFullAppStateWithCallback={jest.fn()}
             setOpenClinicalNote={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
         />);
@@ -319,6 +323,8 @@ describe('FluxNotesEditor', function() {
             setFullAppStateWithCallback={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change
@@ -372,6 +378,8 @@ describe('FluxNotesEditor', function() {
             setFullAppStateWithCallback={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
         />);
         expect(wrapper).to.exist;
         // wrapper.find('.editor-content').simulate('click'); //goes into on change

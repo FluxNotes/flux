@@ -107,7 +107,7 @@ export default class TargetedDataSubpanel extends Component {
         // Case 7: forceRefresh
         const changesToForceRefresh = (this._forceRefresh === false && nextProps.forceRefresh === true)
         if (changesToForceRefresh) {
-            this.props.stopForceRefresh();
+            this.props.setForceRefresh(false);
         }
         
         return changesToRelevantEntries 
@@ -184,6 +184,7 @@ TargetedDataSubpanel.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     summaryMetadata: PropTypes.object,
+    setForceRefresh: PropTypes.func,
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func,
     actions: PropTypes.array

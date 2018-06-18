@@ -140,20 +140,12 @@ export class FullApp extends Component {
         this.setState({[state]: value});
     }
 
-    setForceRefresh = () => {
-        this.setFullAppState('forceRefresh', true)
+    setForceRefresh = (value) => {
+        this.setFullAppState('forceRefresh', value);
     }
 
-    stopForceRefresh = () => {
-        this.setFullAppState('forceRefresh', false);
-    }
-
-    setNoteViewerEditable = () => {
-        this.setFullAppState('isNoteViewerEditable', true);
-    }
-
-    setNoteViewerNotEditable = () => {
-        this.setFullAppState('isNoteViewerEditable', false);
+    setNoteViewerEditable = (value) => {
+        this.setFullAppState('isNoteViewerEditable', value);
     }
 
     setLayout = (layoutView) => {
@@ -293,7 +285,6 @@ export class FullApp extends Component {
                             // App default settings
                             actions={this.actions}
                             forceRefresh={this.state.forceRefresh}
-                            stopForceRefresh={this.stopForceRefresh}
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
@@ -307,9 +298,9 @@ export class FullApp extends Component {
                             searchSelectedItem={this.state.searchSelectedItem}
                             setFullAppState={this.setFullAppState}
                             setNoteViewerEditable={this.setNoteViewerEditable}
-                            setNoteViewerNotEditable={this.setNoteViewerNotEditable}
-                            setNoteViewerVisible={this.setNoteViewerEditable}
-                            setNoteViewerNotVisible={this.setNoteViewerNotEditable}
+                            setNoteViewerVisible={this.setNoteViewerVisible}
+                            setNoteViewerNotVisible={this.setNoteViewerNotVisible}
+                            setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                             setLayout={this.setLayout}
                             setOpenClinicalNote={this.setOpenClinicalNote}

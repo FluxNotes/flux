@@ -542,9 +542,9 @@ class FluxNotesEditor extends React.Component {
 
                 // If the note is in progress, set isNoteViewerEditable to true. If the note is an existing note, set isNoteViewerEditable to false
                 if (nextProps.updatedEditorNote.signed) {
-                    this.props.setNoteViewerNotEditable();
+                    this.props.setNoteViewerEditable(false);
                 } else {
-                    this.props.setNoteViewerEditable();
+                    this.props.setNoteViewerEditable(true);
                 }
             }
         }
@@ -565,11 +565,11 @@ class FluxNotesEditor extends React.Component {
             this.props.contextManager.clearNonActiveContexts();
             // User clicked cancel button
             if (nextProps.contextTrayItemToInsert === null) {
-                this.props.setNoteViewerEditable();   
+                this.props.setNoteViewerEditable(true);   
             } else { // User clicked OK button so insert text
                 this.insertTextWithStructuredPhrases(this.props.contextTrayItemToInsert);
                 this.props.updateContextTrayItemToInsert(null);
-                this.props.setNoteViewerEditable();
+                this.props.setNoteViewerEditable(true);
             }
         }
     }
@@ -933,7 +933,7 @@ class FluxNotesEditor extends React.Component {
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
-            this.props.setNoteViewerNotEditable();
+            this.props.setNoteViewerEditable(false);
             // Switch note assistant view to the pick list options panel
             this.props.updateNoteAssistantMode('pick-list-options-panel');
             if (this.props.inModal) {
@@ -1047,7 +1047,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     onCloseClick = () => {
-        this.props.setNoteViewerNotEditable();
+        this.props.setNoteViewerEditable(false);
         this.setState({
             "targetedDataPanelSize": "50%",
             "notesPanelSize": "10%"
@@ -1231,7 +1231,6 @@ FluxNotesEditor.proptypes = {
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
-    setNoteViewerNotEditable: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

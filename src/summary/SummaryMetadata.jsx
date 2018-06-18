@@ -952,7 +952,7 @@ export default class SummaryMetadata {
 
     handleViewMissingCriteria = (item) => {
         this.trialDisplayMissingCriteria = item.value;
-        this.setForceRefresh();
+        this.setForceRefresh(true);
     }
 
     getMissingCriteriaSubsectionName = () => {

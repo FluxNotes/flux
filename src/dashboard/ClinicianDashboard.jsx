@@ -113,17 +113,17 @@ export default class ClinicianDashboard extends Component {
     noteEditableBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
             case "pre-encounter":
-                this.props.setNoteViewerNotEditable();
+                this.props.setNoteViewerEditable(false);
                 break;
             case "encounter":
-                this.props.setNoteViewerEditable();
+                this.props.setNoteViewerEditable(true);
                 break;
             case "post-encounter":
-                this.props.setNoteViewerEditable();
+                this.props.setNoteViewerEditable(true);
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteEditableBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerNotEditable();
+                this.props.setNoteViewerEditable(false);
                 return;
         }
     }
@@ -168,13 +168,13 @@ export default class ClinicianDashboard extends Component {
                     <TargetedDataPanel
                         actions={this.props.actions}
                         forceRefresh={this.props.forceRefresh}
-                        stopForceRefresh={this.props.stopForceRefresh}
                         appState={this.props.appState}
                         isNoteViewerEditable={isNoteViewerEditable}
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
                         summaryMetadata={this.props.summaryMetadata}
                         setFullAppState={this.props.setFullAppState}
+                        setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                     />
                 </div>
@@ -199,7 +199,6 @@ export default class ClinicianDashboard extends Component {
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         setLayout={this.setLayout}
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
-                        setNoteViewerNotEditable={this.props.setNoteViewerNotEditable}
                         setNoteViewerVisible={this.props.setNoteViewerVisible}
                         setNoteViewerNotVisible={this.props.setNoteViewerNotVisible}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
@@ -228,12 +227,11 @@ ClinicianDashboard.proptypes = {
     onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
-    stopForceRefresh: PropTypes.func.isRequired,
+    setForceRefresh: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
-    setNoteViewerNotEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func,
     setNoteViewerNotVisible: PropTypes.func,
     setOpenClinicalNote: PropTypes.func.isRequired,
