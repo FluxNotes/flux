@@ -41,6 +41,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);
         expect(wrapper).to.exist;
         const inputField = wrapper.find('input.react-autosuggest__input')
@@ -55,6 +56,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -72,6 +74,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -91,6 +94,7 @@ describe('PatientSearch', function () {
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
             setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
