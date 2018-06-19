@@ -203,7 +203,7 @@ export default class ClinicianDashboard extends Component {
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
                         setNoteViewerVisible={this.props.setNoteViewerVisible}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
-                        setSearchSelectedItem={this.setSearchSelectedItem}
+                        setSearchSelectedItem={this.props.setSearchSelectedItem}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
@@ -229,15 +229,15 @@ ClinicianDashboard.proptypes = {
     onContextUpdate: PropTypes.func.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
-    setForceRefresh: PropTypes.func,
+    setForceRefresh: PropTypes.func.isRequired,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
-    setLayout: PropTypes.func,
-    setNoteClosed: PropTypes.func,
+    setLayout: PropTypes.func.isRequired,
+    setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
-    setNoteViewerVisible: PropTypes.func,
+    setNoteViewerVisible: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
-    setSearchSelectedItem: PropTypes.func,
+    setSearchSelectedItem: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object,
     summaryMetadata: PropTypes.object.isRequired,

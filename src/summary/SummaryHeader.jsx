@@ -173,7 +173,7 @@ SummaryHeader.propTypes = {
     }),
     setFullAppState: PropTypes.func.isRequired,
     layout: PropTypes.string,
-    setLayout: PropTypes.func
+    setLayout: PropTypes.func.isRequired
 };
 
 export default SummaryHeader;

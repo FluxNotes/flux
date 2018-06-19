@@ -118,7 +118,8 @@ export class FullApp extends Component {
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: true,
-                    displayInSubsections: ["Potential to enroll"]
+                    displayInSubsections: ["Potential to enroll"],
+                    displayForColumns: [0]
                 }
             }
         ]

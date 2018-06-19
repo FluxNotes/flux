@@ -184,7 +184,7 @@ TargetedDataSubpanel.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     summaryMetadata: PropTypes.object,
-    setForceRefresh: PropTypes.func,
+    setForceRefresh: PropTypes.func.isRequired,
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func,
     actions: PropTypes.array

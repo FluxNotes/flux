@@ -230,6 +230,7 @@ describe('FluxNotesEditor', function() {
             setNoteClosed={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
         />);

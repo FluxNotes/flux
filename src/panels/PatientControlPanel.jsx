@@ -79,8 +79,8 @@ PatientControlPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
-    setLayout: PropTypes.func,
-    setSearchSelectedItem: PropTypes.func,
+    setLayout: PropTypes.func.isRequired,
+    setSearchSelectedItem: PropTypes.func.isRequired,
     supportLogin: PropTypes.bool.isRequired,
 };
 
