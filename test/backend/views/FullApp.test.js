@@ -169,6 +169,7 @@ describe('FluxNotesEditor', function() {
             isNoteViewerEditable={true}
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
@@ -222,8 +223,11 @@ describe('FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
+            setDocumentText={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             summaryItemToInsert={''}
@@ -321,6 +325,7 @@ describe('FluxNotesEditor', function() {
             isNoteViewerEditable={true}
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
@@ -376,6 +381,7 @@ describe('FluxNotesEditor', function() {
             isNoteViewerEditable={true}
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
             saveNoteUponKeypress={jest.fn()}
             shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}

@@ -103,7 +103,7 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
-                this.props.setFullAppState("documentText", note.content);
+                this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
         }
@@ -125,7 +125,7 @@ export default class NotesPanel extends Component {
     // invokes closing logic in NoteAssistant
     closeNote = () => {
         this.closeNoteChild();
-        this.props.setFullAppState("documentText", "");
+        this.props.setDocumentText("");
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,
@@ -305,8 +305,11 @@ export default class NotesPanel extends Component {
                     selectedNote={this.state.selectedNote}
                     setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                    setLayout={this.props.setLayout}
+                    setLayout={this.props.setLayout} 
+                    setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setNoteViewerVisible={this.props.setNoteViewerVisible}
+                    setSearchSelectedItem={this.setSearchSelectedItem}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -348,13 +351,15 @@ NotesPanel.propTypes = {
     openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
+    setDocumentText: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
+    setNoteClosed: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func,
-    setNoteViewerNotVisible: PropTypes.func,
     setLayout: PropTypes.func,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setSearchSelectedItem: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,

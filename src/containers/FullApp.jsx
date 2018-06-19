@@ -156,12 +156,16 @@ export class FullApp extends Component {
         this.setFullAppState('documentText', documentText);
     }
 
-    setNoteViewerVisible = () => {
-        this.setFullAppState('isNoteViewerVisible', true);
+    setNoteViewerVisible = (value) => {
+        this.setFullAppState('isNoteViewerVisible', value);
     }
 
-    setNoteViewerNotVisible = () => {
-        this.setFullAppState('isNoteViewerVisible', false)
+    setNoteClosed = (value) => {
+        this.setFullAppState('noteClosed', value);
+    }
+
+    setSearchSelectedItem = (value) => {
+        this.setFullAppState('searchSelectedItem', null);
     }
 
     // Same function as 'setFullAppState' except this function uses a callback
@@ -276,6 +280,7 @@ export class FullApp extends Component {
                                     possibleClinicalEvents={this.possibleClinicalEvents}
                                     setFullAppState={this.setFullAppState}
                                     setLayout={this.setLayout}
+                                    setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                 />
                             </Col>
@@ -296,14 +301,16 @@ export class FullApp extends Component {
                             onContextUpdate={this.onContextUpdate}
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
+                            setDocumentText={this.setDocumentText}
                             setFullAppState={this.setFullAppState}
+                            setNoteClosed={this.setNoteClosed}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerVisible={this.setNoteViewerVisible}
-                            setNoteViewerNotVisible={this.setNoteViewerNotVisible}
                             setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
                             setLayout={this.setLayout}
                             setOpenClinicalNote={this.setOpenClinicalNote}
+                            setSearchSelectedItem={this.setSearchSelectedItem}
                             shortcutManager={this.shortcutManager}
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}

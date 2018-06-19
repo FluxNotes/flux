@@ -60,7 +60,7 @@ export default class NoteAssistant extends Component {
         if (nextProps.searchSelectedItem) {
             const newNote = nextProps.searchSelectedItem;
             this.openNote(newNote.signed, newNote)
-            this.props.setFullAppState("searchSelectedItem", null);
+            this.props.setSearchSelectedItem(null);
         }
     }
 
@@ -161,8 +161,7 @@ export default class NoteAssistant extends Component {
 
     // creates blank new note and puts it on the screen
     createBlankNewNote = () => {
-        this.props.setFullAppState("noteClosed", false);
-
+        this.props.setNoteClosed(false);
         // Create info to be set for new note
         let date = new moment().format("D MMM YYYY");
         let subject = "New Note";
@@ -200,9 +199,9 @@ export default class NoteAssistant extends Component {
 
     // Gets called when clicking on one of the notes in the clinical notes view
     openNote = (isInProgressNote, note) => {
-        this.props.setFullAppState("noteClosed", false);
+        this.props.setNoteClosed(false);
         this.props.setLayout("split");
-        this.props.setNoteViewerVisible();
+        this.props.setNoteViewerVisible(true);
 
         // Don't start saving until there is content in the editor
         if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText) && this.props.documentText.length > 0) {
@@ -226,10 +225,10 @@ export default class NoteAssistant extends Component {
     // invoked by FluxNotesEditor when the Close Note button is pressed
     // removes the editor, deselects the selected note, expands right panel
     closeNote = () => {
-        this.props.setFullAppState("noteClosed", true);
-        this.props.setFullAppState('layout', "right-collapsed");
-        this.props.setFullAppState('isNoteViewerVisible', false);
-        this.props.setNoteViewerEditable(true);
+        this.props.setNoteClosed(true);
+        this.props.setLayout("right-collapsed");
+        this.props.setNoteViewerVisible(false);
+        this.props.setNoteViewerEditable(false);
         this.props.setFullAppState('openClinicalNote', null);
     }
 
@@ -608,9 +607,10 @@ NoteAssistant.propTypes = {
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
+    setNoteClosed: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func,
-    setNoteViewerNotVisible: PropTypes.func,
+    setSearcbSelectedItem: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,

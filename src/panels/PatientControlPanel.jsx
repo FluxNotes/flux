@@ -57,6 +57,7 @@ class PatientControlPanel extends Component {
                                         <div className="search-wrapper">
                                             <PatientSearch
                                                 patient={this.props.patient}
+                                                setSearchSelectedItem={this.props.setSearchSelectedItem}
                                                 setFullAppState={this.props.setFullAppState}
                                             />
                                         </div>
@@ -79,6 +80,7 @@ PatientControlPanel.propTypes = {
     possibleClinicalEvents: PropTypes.array.isRequired,
     setFullAppState: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
+    setSearchSelectedItem: PropTypes.func,
     supportLogin: PropTypes.bool.isRequired,
 };
 

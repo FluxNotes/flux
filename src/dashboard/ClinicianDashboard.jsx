@@ -94,17 +94,17 @@ export default class ClinicianDashboard extends Component {
     noteViewerBasedOnClinicalEvent = (currentClinicalEvent) => {
         switch (currentClinicalEvent) {
             case "pre-encounter":
-                this.props.setNoteViewerNotVisible();
+                this.props.setNoteViewerVisible(false);
                 break;
             case "encounter":
-                this.props.setNoteViewerVisible();
+                this.props.setNoteViewerVisible(true);
                 break;
             case "post-encounter":
-                this.props.setNoteViewerVisible();
+                this.props.setNoteViewerVisible(true);
                 break;
             default:
                 console.warn(`The task provided, ${currentClinicalEvent}, does not have a defined noteViewerBasedOnClinicalEvent value.`);
-                this.props.setNoteViewerNotVisible();
+                this.props.setNoteViewerVisible(false);
                 return;
         }
     }
@@ -195,13 +195,15 @@ export default class ClinicianDashboard extends Component {
                         openClinicalNote={this.props.appState.openClinicalNote}
                         patient={this.props.appState.patient}
                         searchSelectedItem={this.props.searchSelectedItem}
+                        setDocumentText={this.props.setDocumentText}
                         setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
-                        setLayout={this.setLayout}
+                        setLayout={this.props.setLayout}
+                        setNoteClosed={this.props.setNoteClosed}
                         setNoteViewerEditable={this.props.setNoteViewerEditable}
                         setNoteViewerVisible={this.props.setNoteViewerVisible}
-                        setNoteViewerNotVisible={this.props.setNoteViewerNotVisible}
                         setOpenClinicalNote={this.props.setOpenClinicalNote}
+                        setSearchSelectedItem={this.setSearchSelectedItem}
                         shortcutManager={this.props.shortcutManager}
                         structuredFieldMapManager={this.props.structuredFieldMapManager}
                         summaryItemToInsert={this.props.appState.summaryItemToInsert}
@@ -231,10 +233,11 @@ ClinicianDashboard.proptypes = {
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func,
+    setNoteClosed: PropTypes.func,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func,
-    setNoteViewerNotVisible: PropTypes.func,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setSearchSelectedItem: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object,
     summaryMetadata: PropTypes.object.isRequired,
