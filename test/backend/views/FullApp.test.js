@@ -122,8 +122,17 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
 });
 
 describe('FullApp', function() {
-    it('Selecting a condition changes the active condition', () => {
-        const wrapper = mount(<FullApp display='Flux Notes' dataSource='HardCodedReadOnlyDataSource' patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+    it.only('Selecting a condition changes the active condition', () => {
+        const wrapper = mount(<FullApp 
+                display='Flux Notes' 
+                dataSource='HardCodedReadOnlyDataSource' 
+                patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+        //const conditionSelector = wrapper.find('.condition-select');
+        const conditionSelector = wrapper.find('SelectInput');
+        //console.log(conditionSelector.debug());
+        expect(conditionSelector.exists()).to.equal(true);
+        expect(conditionSelector.text())
+            .to.equal('Invasive ductal carcinoma of breast');
     });
 });
 
