@@ -62,6 +62,6 @@ TargetedDataPanel.proptypes = {
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
-    setForceRefresh: PropTypes.func,
+    setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
 }
