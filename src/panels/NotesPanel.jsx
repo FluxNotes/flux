@@ -309,7 +309,7 @@ export default class NotesPanel extends Component {
                     setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setNoteViewerVisible={this.props.setNoteViewerVisible}
-                    setSearchSelectedItem={this.setSearchSelectedItem}
+                    setSearchSelectedItem={this.props.setSearchSelectedItem}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
