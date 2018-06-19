@@ -306,8 +306,7 @@ function insertStructuredField(opts, transform, shortcut) {
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
     shortcut.setKey(sf.key);
-    console.log('shortcut kind')
-    console.log(sf.kind)
+
     if (sf.kind === 'block') {
 		return [transform.insertBlock(sf), sf.key];
 	} else {

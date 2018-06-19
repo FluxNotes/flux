@@ -6,7 +6,7 @@ import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 
 export default class FluxMedicationObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.medication') {
             throw new Error(`Unsupported type in ShrMedicationObjectFactory: ${type}`);
@@ -14,7 +14,7 @@ export default class FluxMedicationObjectFactory {
         // returns Flux wrapper class if found, otherwise use ShrMedicationObjectFactory
         switch (elementName) {
             case 'MedicationRequested': return new FluxMedicationRequested(json);
-            case 'MedicationChange': return new FluxMedicationChange(json);
+            case 'MedicationChange': return new FluxMedicationChange(json, patientRecord);
             case 'MedicationAfterChange': return new FluxMedicationAfterChange(json);
             case 'MedicationBeforeChange': return new FluxMedicationBeforeChange(json);
             

@@ -1419,12 +1419,12 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Value": "stop",
+                        "Value": "reduced",
                         "DisplayText": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             },
-                            "Value": "stop"
+                            "Value": "Dose reduced"
                         }
                     }
                 ]
@@ -1442,7 +1442,18 @@
                 "EntryId": "14"
             }
         },
-
+        "MedicationAfterChange": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationAfterChange"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"
+                },
+                "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+                "EntryId": "19"
+            }
+        },
         "ActionContext": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"

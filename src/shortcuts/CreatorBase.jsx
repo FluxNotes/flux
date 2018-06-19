@@ -11,7 +11,7 @@ export default class CreatorBase extends Shortcut {
         this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
         if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
-            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+            this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             this.isObjectNew = true;
         } else {
             const dataObj = JSON.parse(shortcutData);
@@ -19,7 +19,7 @@ export default class CreatorBase extends Shortcut {
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
             if (!this.object) { 
-                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"]);
+                this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             }
         }
         this.setValueObject(this.object);

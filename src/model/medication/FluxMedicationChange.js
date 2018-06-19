@@ -1,12 +1,14 @@
 import MedicationChange from '../shr/medication/MedicationChange';
+import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
 import Type from "../shr/entity/Type";
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import codeableConceptUtils from '../CodeableConceptUtils.jsx';
 
 class FluxMedicationChange {
-    constructor(json) {
+    constructor(json, patientRecord) {
         this._medicationChange = MedicationChange.fromJSON(json);
+        this._patientRecord = patientRecord;
         if (!this._medicationChange.entryInfo) {
             let entry = new Entry();
             entry.entryType = new EntryType();
@@ -25,14 +27,25 @@ class FluxMedicationChange {
      * Get the MedicationBeforeChange object.
      * Returns medicaitonRequested object
      */
-    get medicationBeforeChange() {
-        // console.log(this._medicationChange);
-        // console.log(this._medicationChange.medicationBeforeChange);
+    get medicationBeforeChange() {     
       return this._medicationChange.medicationBeforeChange;
     }
 
     set medicationBeforeChange(medication) {
-        this._medicationChange.medicationBeforeChange = medication;
+    
+        if (medication) {
+            let medObject = this._patientRecord.getMedications().filter((m) => {
+                return (m.medication === medication);
+            });
+
+            this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
+            this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medObject[0]);
+
+            console.log(this._medicationChange.medicationBeforeChange.value);
+        } else {
+            this._medicationChange.medicationBeforeChange = null;
+        }
+
     }
 
     /**

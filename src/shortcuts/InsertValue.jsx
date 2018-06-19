@@ -11,21 +11,19 @@ export default class InsertValue extends Shortcut {
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
         super.initialize(contextManager, trigger, updatePatient);
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+
+        console.log(this.parentContext);
+        console.log("shortcut data: " + shortcutData);
         let text = this.determineText(contextManager);
-        if (Lang.isArray(text)) {
+        if (Lang.isArray(text) && shortcutData.length === 0) {
             this.flagForTextSelection(text);
         } else {
             if (shortcutData.length > 0) this.setText(shortcutData);
             else this.setText(text);
         }
 
-        const knownParent = this.metadata["knownParentContexts"];
 
-        if (knownParent) {
-            this.parentContext = contextManager.getActiveContextOfType(knownParent);
-        } else {
-            this.parentContext = contextManager.getCurrentContext();
-        }
 
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
             this.text = shortcutData;
@@ -177,8 +175,22 @@ export default class InsertValue extends Shortcut {
     setText(text) {
         this.text = text;
 
+
+        const parentAttribute = this.metadata["parentAttribute"];
+
+        // console.log("parent attribute: " + parentAttribute);
+        //
+        // console.log("parent context is creator base?" + (this.parentContext instanceof CreatorBase));
+        //
+        // console.log(this.parentContext.isAttributeSupported(parentAttribute));
+
         // check parent of shortcut
-        if (this.parentContext instanceOf CreatorBase && this.parentContext  )
+        if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
+           console.log("set text to: " + text);
+            this.parentContext.setAttributeValue(parentAttribute, text);
+        }
+
+        console.log("*********** done with inser value set text");
     }
 
     isGlobalContext() {

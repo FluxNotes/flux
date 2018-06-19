@@ -25,6 +25,7 @@ import Guid from 'guid';
 import _ from 'lodash';
 
 class PatientRecord {
+
     constructor(shrJson = null) {
         this.enrolledClinicalTrials = [];
         this.missingEligibleTrialData = [];
@@ -144,7 +145,6 @@ class PatientRecord {
     }
 
     addEntryToPatientWithPatientFocalSubject(entry, clinicalNote) {
-        //entry.personOfRecord = this.patientReference;
         return this.addEntryToPatient(entry, clinicalNote);
     }
 
@@ -555,9 +555,8 @@ class PatientRecord {
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
-            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.reference) : null;
-            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.reference) : null;
-
+            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
+            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.value) : null;
 
             let eitherChangeIsRelated;
 
@@ -862,6 +861,9 @@ class PatientRecord {
     }
 
     getEntryFromReference(ref) {
+        // console.log("ref");
+        // console.log(ref);
+
         return this.entries.find((item) => {
             if (!Lang.isUndefined(item.entryInfo.entryId.id)) return item.entryInfo.entryId.id === ref.entryId;
             return item.entryInfo.entryId === ref.entryId;
@@ -873,6 +875,11 @@ class PatientRecord {
             return entry.entryInfo.entryId === entryId;
         });
     }
+
+    getEntries() {
+        return this.entries;
+    }
+
 
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;

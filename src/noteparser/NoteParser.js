@@ -1,8 +1,8 @@
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
-import Lang from 'lodash'
-import util from 'util';
+import PatientRecord from '../patient/PatientRecord';
+import Lang from 'lodash';
 
 export default class NoteParser {
     constructor(shortcutManager = undefined, contextManager = undefined) {
@@ -50,9 +50,7 @@ export default class NoteParser {
 
     createShortcut(triggerOrKeywordObject) {
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
-
-        // console.log(util.inspect(triggerOrKeywordObject, false, null));
-        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText); //, onUpdate, object
+        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText, this.patientRecord); //, onUpdate, object
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
         shortcut.setKey("1");
         return shortcut;
@@ -96,21 +94,15 @@ export default class NoteParser {
                     unrecognizedTriggers.push(substr);
                 }
             } else {
-                //console.log(match[0]);
-                // this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
-
-                // check for [[
                 let possibleValue = substr.substring(match[0].length);
                 let selectedValue = null;
 
+                 // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
                 if (possibleValue.startsWith("[[")) {
                     let posOfEndBrackets = possibleValue.indexOf("]]");
                     selectedValue = possibleValue.substring(2, posOfEndBrackets);
                 }
-
-
-                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue}); // new line that sets definition
-                // matches.push({trigger: match[0], definition: null}); // Original line
+                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue});
             }
             pos = hashPos + 1;
             hashPos = nextPos;
@@ -188,7 +180,7 @@ export default class NoteParser {
     }
     
     parse(note) {
-        this.patientRecord = [];
+        this.patientRecord = new PatientRecord();
         // console.log("parse: " + note);
         const result = this.getListOfTriggersFromText(note);
         const structuredPhrases = result[0];
@@ -200,15 +192,11 @@ export default class NoteParser {
         // console.log(data)
         let dataObj;
         data.forEach((item) => {
-            //
-            // console.log("item");
-            // console.log(item);
             dataObj = item.getValueObject();
             if (!Lang.isUndefined(dataObj)) {
-                // console.log(util.inspect(dataObj, false, null));
-                this.patientRecord.push(dataObj);
+                this.patientRecord.addEntryToPatient(dataObj);
             }
         });
-        return [this.patientRecord, result[1]];
+        return [this.patientRecord.getEntries(), result[1]];
     }
 }

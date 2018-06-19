@@ -1,5 +1,7 @@
 import MedicationRequested from '../shr/medication/MedicationRequested';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
+import Entry from '../shr/base/Entry';
+import EntryType from '../shr/base/EntryType';
 import TimePeriod from '../shr/core/TimePeriod';
 import Timing from '../shr/core/Timing';
 import moment from 'moment';
@@ -7,6 +9,12 @@ import moment from 'moment';
 class FluxMedicationRequested {
     constructor(json) {
         this._medicationRequested = MedicationRequested.fromJSON(json);
+        if (!this._medicationRequested.entryInfo) {
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested';
+            this._medicationRequested.entryInfo = entry;
+        }
     }
 
     /*
