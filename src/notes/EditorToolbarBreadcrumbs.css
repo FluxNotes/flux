@@ -2,18 +2,29 @@
     display: block;
     margin-left: 15px;
     width: 70%;
-    /* background-color: lightgoldenrodyellow; */
+}
+
+@media only screen and (max-width: 1400px) {
+    .toolbar-breadcrumbs-container {
+        width: 65%;
+    }
 }
 
 @media only screen and (max-width: 1200px) {
     .toolbar-breadcrumbs-container {
-        width: 60%;
+        width: 55%;
+    }
+    .breadcrumbs-container {
+        max-width: 75%;
     }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
     .toolbar-breadcrumbs-container {
         width: 40%;
+    }
+    .breadcrumbs-container {
+        max-width: 70%;
     }
 }
 
@@ -28,10 +39,9 @@
 }
 
 .breadcrumbs-container {
-    /* background-color: lightcyan; */
     display: inline-block;
     direction: rtl;
-    max-width: 95%;
+    max-width: 90%;
     vertical-align: bottom;
     white-space: nowrap;
     overflow: hidden;
