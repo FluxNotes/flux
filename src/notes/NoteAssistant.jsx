@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'material-ui/Select';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import MaterialButton from 'material-ui/Button';
 import Modal from 'material-ui/Modal';
 import FluxNotesEditor from './FluxNotesEditor';
-import {Grid, Row, Col} from 'react-flexbox-grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
@@ -21,6 +21,10 @@ export default class NoteAssistant extends Component {
         // this.maxNotesToDisplay = 100;
         this.state = {
             sortIndex: 0,
+            // insertingTemplate indicates whether a shortcut or template is being inserted
+            // false indicates a shortcut is being inserted
+            // true indicates a template is being inserted
+            insertingTemplate: false,
         };
         // On creating of NoteAssistant, check if the note viewer is editable
         if (this.props.isNoteViewerEditable) {
@@ -83,6 +87,10 @@ export default class NoteAssistant extends Component {
         this.props.updateNoteAssistantMode(mode);
     }
 
+    setInsertingTemplate = (insertingTemplate) => {
+        this.setState({ insertingTemplate });
+    }
+
     onNotesToggleButtonClicked() {
         this.notes_btn_classname = "toggle-button-selected";
         this.notes_stroke = "#FFFFFF";
@@ -112,7 +120,7 @@ export default class NoteAssistant extends Component {
 
     // Update the selected index for the sort drop down
     selectSort(sortIndex) {
-        this.setState({sortIndex: sortIndex});
+        this.setState({ sortIndex });
     }
 
     // Gets called when clicking on the "new note" button
@@ -251,6 +259,7 @@ export default class NoteAssistant extends Component {
                             contextManager={this.props.contextManager}
                             onShortcutClicked={this.props.updateContextTrayItemToInsert}
                             patient={this.props.patient}
+                            setInsertingTemplate={this.setInsertingTemplate}
                             shortcutManager={this.props.shortcutManager}
                         />
                         {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
@@ -278,9 +287,10 @@ export default class NoteAssistant extends Component {
                 );
 
             // Render the pick list options panel which allows users to select options for the pick lists
-            case "pick-list-options-panel":
-                return this.renderPickListOptionsModal(noteAssistantMode);
-
+            case "pick-list-options-panel": {
+                if (this.state.insertingTemplate) return this.renderPickListOptionsModal(noteAssistantMode);
+                return this.renderPickListOptions();
+            }
             default:
                 console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
                 return "";
@@ -326,13 +336,7 @@ export default class NoteAssistant extends Component {
                             />
                         </Col>
                         <Col sm={5} md={4} lg={3}>
-                            <PickListOptionsPanel
-                                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-                                arrayOfPickLists={this.props.arrayOfPickLists}
-                                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                                updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
-                                contextManager={this.props.contextManager}
-                            />
+                            {this.renderPickListOptions()}
                         </Col>
                     </Row>
                 </Grid>
@@ -340,11 +344,24 @@ export default class NoteAssistant extends Component {
         );
     }
 
+    renderPickListOptions() {
+        return (
+            <PickListOptionsPanel
+                arrayOfPickLists={this.props.arrayOfPickLists}
+                contextManager={this.props.contextManager}
+                setInsertingTemplate={this.setInsertingTemplate}
+                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
+                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
+            />
+        );
+    }
+
     renderNewNote() {
         return (
             <div className="note note-new" onClick={() => this.handleOnNewNoteButtonClick()}>
                 <div className="note-new-text">
-                    <FontAwesome name="plus"/>
+                    <FontAwesome name="plus" />
                     <span>New note</span>
                 </div>
             </div>
@@ -416,7 +433,7 @@ export default class NoteAssistant extends Component {
         return (
             <div id="delete-note-container">
                 <Button raised id="delete-note-button" onClick={this.deleteSelectedNote}>
-                    <FontAwesome name="trash" id="trash-icon"/>
+                    <FontAwesome name="trash" id="trash-icon" />
                     <span>Delete Note</span>
                 </Button>
             </div>
@@ -528,13 +545,13 @@ export default class NoteAssistant extends Component {
                     <svg width="19px" height="20px" viewBox="0 0 19 17">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                             <g id="Group-Copy" transform="translate(0.003906, 0.007812)" stroke={this.notes_stroke}
-                               strokeWidth="1.62">
+                                strokeWidth="1.62">
                                 <path
                                     d="M1.1248514,1.1248514 L1.1248514,9.91423446 L6.40096349,15.2473495 L17.6880469,15.2473495 L17.6880469,1.1248514 L1.1248514,1.1248514 Z"
                                     id="Rectangle-12-Copy-4"
                                     transform="translate(9.406449, 8.186100) rotate(-180.000000) translate(-9.406449, -8.186100) "></path>
                                 <polyline id="Path-2"
-                                          points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
+                                    points="12.3745117 0.874511719 12.3745117 6.63727788 17.8869466 6.63727788"></polyline>
                             </g>
                         </g>
                     </svg>
@@ -549,8 +566,8 @@ export default class NoteAssistant extends Component {
                     }}>
                     <svg width="15px" height="20px" viewBox="0 0 15 16">
                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"
-                           fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
-                           letterSpacing="0.172221214">
+                            fontFamily="OpenSans-Semibold, Open Sans" fontSize="19" fontWeight="500"
+                            letterSpacing="0.172221214">
                             <text id="@-copy" fill={this.context_fill}>
                                 <tspan x="-0.844039108" y="16.2245462">@</tspan>
                             </text>
