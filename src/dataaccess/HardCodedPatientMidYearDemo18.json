@@ -1442,7 +1442,7 @@
                 "EntryId": "14"
             }
         },
-        
+
         "ActionContext": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/action/PerformedContext"

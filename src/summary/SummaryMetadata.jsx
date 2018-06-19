@@ -874,8 +874,8 @@ export default class SummaryMetadata {
         medicationChanges.forEach(change => {
 
             // this is just the change. want the meds
-            console.log("change");
-            console.log(change);
+            // console.log("change");
+            // console.log(change);
 
             // If medicationChange has both medicationAfterChange and medicationBeforeChange
             if (change.medicationAfterChange && change.medicationBeforeChange) {

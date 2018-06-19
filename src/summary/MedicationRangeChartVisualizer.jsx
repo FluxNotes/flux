@@ -70,8 +70,8 @@ class MedicationRangeChartVisualizer extends Component {
         const items = subsection.itemsFunction(patient, condition, subsection);
 
 
-        console.log("items");
-        console.log(items);
+        // console.log("items");
+        // console.log(items);
 
 
         // NICOLE: items contains all of the medications. If there is a change, the medication object also has a medicationChange field.
@@ -83,8 +83,8 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     renderMedicationChange = (medChange, medBefore) => {
-        console.log("medChange:");
-        console.log(medChange);
+        // console.log("medChange:");
+        // console.log(medChange);
         // console.log("medBefore");
         // console.log(medBefore);
 
@@ -167,20 +167,35 @@ class MedicationRangeChartVisualizer extends Component {
         // Only want want the number part of the value, not the unit
         const value = med.medication.amountPerDose ? med.medication.amountPerDose.value : null;
         const unit = med.medication.amountPerDose ? med.medication.amountPerDose.units : null;
-        const name = med.medication.name;
+        const name = med.medication.medication;
 
         const numColsChart = this.state.medicationVisWide ? 5 : 12;
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
         const medicationIsChange = (med.medicationChange ? true : false);
 
-        console.log("[chart vis] medication");
-        console.log(med);
+        // console.log("[chart vis] medication");
+        // console.log(med);
+        //
+        //
+        // console.log("medicationIsChange");
+        // console.log(medicationIsChange);
+        //
+        //
+        // console.log("name");
+        // console.log(name);
 
-
-        console.log("medicationIsChange");
-        console.log(medicationIsChange);
-
-
+        {/*console.log("med change type");*/}
+        {/*if (med.medicationChange) {*/}
+            {/*if (med.medicationChange.type === "stop") {*/}
+                {/*console.log("change type is stop");*/}
+        //     }
+        //     else {
+        //         console.log("change type is NOT stop");
+        //     }
+        // } else {
+        //     console.log("no change");
+        // }
+        //
 
 
         return (
@@ -189,6 +204,9 @@ class MedicationRangeChartVisualizer extends Component {
                     <Row top="xs">
                         <Col sm={numColsChart}>
                             <div className="range-chart-container">
+                                {/*<svg width="100%" height="6em" viewBox="0 0 340 100">*/}
+                                    {/*<text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>*/}
+                                {/*</svg>*/}
                                 <RangeChart
                                     lowerValue={lowerValue}
                                     upperValue={upperValue}

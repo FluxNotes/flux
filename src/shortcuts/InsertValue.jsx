@@ -1,5 +1,6 @@
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
+import CreatorBase from './CreatorBase';
 
 export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
@@ -16,6 +17,14 @@ export default class InsertValue extends Shortcut {
         } else {
             if (shortcutData.length > 0) this.setText(shortcutData);
             else this.setText(text);
+        }
+
+        const knownParent = this.metadata["knownParentContexts"];
+
+        if (knownParent) {
+            this.parentContext = contextManager.getActiveContextOfType(knownParent);
+        } else {
+            this.parentContext = contextManager.getCurrentContext();
         }
 
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
@@ -167,6 +176,9 @@ export default class InsertValue extends Shortcut {
 
     setText(text) {
         this.text = text;
+
+        // check parent of shortcut
+        if (this.parentContext instanceOf CreatorBase && this.parentContext  )
     }
 
     isGlobalContext() {

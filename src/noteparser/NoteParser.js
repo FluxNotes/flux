@@ -2,7 +2,7 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
 import Lang from 'lodash'
-//import util from 'util';
+import util from 'util';
 
 export default class NoteParser {
     constructor(shortcutManager = undefined, contextManager = undefined) {
@@ -51,8 +51,9 @@ export default class NoteParser {
     createShortcut(triggerOrKeywordObject) {
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
 
+        // console.log(util.inspect(triggerOrKeywordObject, false, null));
         const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText); //, onUpdate, object
-        shortcut.initialize(this.contextManager, triggerOrKeywordText);
+        shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
         shortcut.setKey("1");
         return shortcut;
     }
@@ -97,7 +98,18 @@ export default class NoteParser {
             } else {
                 //console.log(match[0]);
                 // this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
-                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0])}); // new line that sets definition
+
+                // check for [[
+                let possibleValue = substr.substring(match[0].length);
+                let selectedValue = null;
+
+                if (possibleValue.startsWith("[[")) {
+                    let posOfEndBrackets = possibleValue.indexOf("]]");
+                    selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                }
+
+
+                matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue}); // new line that sets definition
                 // matches.push({trigger: match[0], definition: null}); // Original line
             }
             pos = hashPos + 1;
@@ -182,14 +194,18 @@ export default class NoteParser {
         const structuredPhrases = result[0];
         //console.log(structuredPhrases);
         let data = structuredPhrases.map(this.createShortcut.bind(this));
+
         const foundKeywords = this.getAllKeywordsFromText(note);
         data = data.concat(foundKeywords.map(this.createShortcut.bind(this)));
         // console.log(data)
         let dataObj;
         data.forEach((item) => {
+            //
+            // console.log("item");
+            // console.log(item);
             dataObj = item.getValueObject();
             if (!Lang.isUndefined(dataObj)) {
-                //console.log(util.inspect(dataObj, false, null));
+                // console.log(util.inspect(dataObj, false, null));
                 this.patientRecord.push(dataObj);
             }
         });
