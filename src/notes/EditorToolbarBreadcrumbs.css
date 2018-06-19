@@ -1,22 +1,27 @@
 .toolbar-breadcrumbs-container {
-    position: absolute;
     display: inline-block;
     padding-left: 15px;
+    width: 70%;
+    color: #ccc;
+    font-size: 0.8em;
+    font-style: italic;
 }
 
 .toolbar-breadcrumbs-separator {
     display: inline-block;
+    vertical-align: bottom;
     padding: 0px 10px;
     border: none;
     border-left: 1px solid;
     height: 19px;
     width: 1px;
     margin: 0;
-    color: #ccc;
 }
 
 .breadcrumbs-container {
     display: inline-block;
+    width: 95%;
+    vertical-align: bottom;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -26,9 +31,6 @@
 
 .breadcrumbs {
     display: inline;
-    color: #ccc;
-    font-size: 0.8em;
-    font-style: italic;
 }
 
 .breadcrumb {
