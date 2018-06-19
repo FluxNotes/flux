@@ -13,8 +13,6 @@ export default class InsertValue extends Shortcut {
         super.initialize(contextManager, trigger, updatePatient);
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
-        console.log(this.parentContext);
-        console.log("shortcut data: " + shortcutData);
         let text = this.determineText(contextManager);
         if (Lang.isArray(text) && shortcutData.length === 0) {
             this.flagForTextSelection(text);
@@ -174,23 +172,12 @@ export default class InsertValue extends Shortcut {
 
     setText(text) {
         this.text = text;
-
-
         const parentAttribute = this.metadata["parentAttribute"];
-
-        // console.log("parent attribute: " + parentAttribute);
-        //
-        // console.log("parent context is creator base?" + (this.parentContext instanceof CreatorBase));
-        //
-        // console.log(this.parentContext.isAttributeSupported(parentAttribute));
-
-        // check parent of shortcut
+  
+        // Check parent of shortcut and setAttributeValue 
         if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
-           console.log("set text to: " + text);
             this.parentContext.setAttributeValue(parentAttribute, text);
         }
-
-        console.log("*********** done with inser value set text");
     }
 
     isGlobalContext() {
