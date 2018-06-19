@@ -1,43 +1,57 @@
 .toolbar-breadcrumbs-container {
-    display: inline-block;
-    padding-left: 15px;
+    display: block;
+    margin-left: 15px;
     width: 70%;
-    color: #ccc;
-    font-size: 0.8em;
-    font-style: italic;
+    /* background-color: lightgoldenrodyellow; */
+}
+
+@media only screen and (max-width: 1200px) {
+    .toolbar-breadcrumbs-container {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .toolbar-breadcrumbs-container {
+        width: 40%;
+    }
 }
 
 .toolbar-breadcrumbs-separator {
+    color: #ddd;
     display: inline-block;
     vertical-align: bottom;
-    padding: 0px 10px;
+    margin: 0px 10px;
     border: none;
     border-left: 1px solid;
     height: 19px;
-    width: 1px;
-    margin: 0;
 }
 
 .breadcrumbs-container {
+    /* background-color: lightcyan; */
     display: inline-block;
-    width: 95%;
+    direction: rtl;
+    max-width: 95%;
     vertical-align: bottom;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: left;
-    direction: rtl;
 }
 
+
 .breadcrumbs {
-    display: inline;
+    display: inline-block;
 }
 
 .breadcrumb {
-    display: inline;
+    color: #ccc;
+    font-size: 0.8em;
+    font-style: italic;
+    display: inline-block;
 }
 
 .breadcrumb-separator {
-    display: inline;
+    color: #ccc;
+    display: inline-block;
     padding: 0px 10px;
 }

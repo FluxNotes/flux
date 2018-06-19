@@ -11,7 +11,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
             return null;
         }
         else {
-            const contextOptions = activeContexts.reverse().map((context, i) => {
+            const contextOptions = activeContexts.map((context, i) => {
                 const index = activeContexts.length - (i + 1);
                 const breadcrumb = context.text.replace("#", "");
 
