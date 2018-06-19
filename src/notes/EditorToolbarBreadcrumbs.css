@@ -20,7 +20,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 500px;
     text-align: left;
     direction: rtl;
 }
