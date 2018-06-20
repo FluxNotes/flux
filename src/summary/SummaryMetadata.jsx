@@ -623,19 +623,7 @@ export default class SummaryMetadata {
                             {   nameFunction: this.getMissingCriteriaSubsectionName, 
                                 itemsFunction: this.getItemListToDisplayMissingCriteria
                             }
-                        ],
-                        actions: [
-                            {
-                                handler: this.test,
-                                text: "Testing Functionality",
-                                icon: "check",
-                                whenToDisplay: {
-                                    valueExists: true,
-                                    existingValueSigned: "either",
-                                    editableNoteOpen: true
-                                }
-                            }
-                        ]
+                        ]   
                     },
                     {
                         name: "Allergies",
