@@ -51,6 +51,7 @@ function StructuredFieldPlugin(opts) {
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
             } else if (node.characters && node.characters.length > 0) {
+                console.log(node.characters)
                 node.characters.forEach(char => {
                     const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
                     const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
