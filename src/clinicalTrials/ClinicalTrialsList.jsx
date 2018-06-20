@@ -85,7 +85,7 @@ class ClinicalTrialsList {
                     eligibleTrials.push({
                         info: trial,
                         numTotalCriteria: Object.keys(result.patientResults[patientID].findMissingData).length + trial.additionalCriteria.length,
-                        numSatisfiedCriteria: Object.keys(result.patientResults[patientID].findMissingData).length - this.getMissingCriteriaListTrialEligibility(trial.id).length
+                        numSatisfiedCriteria: (trial.additionalCriteria.length + Object.keys(result.patientResults[patientID].findMissingData).length) - this.getMissingCriteriaListTrialEligibility(trial.id).length
                     });
                 }
             }
