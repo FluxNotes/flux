@@ -100,13 +100,8 @@ export default class NoteParser {
 
                  // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
                 if (possibleValue.startsWith("[[")) {
-
-                    console.log("found an inserter");
                     let posOfEndBrackets = possibleValue.indexOf("]]");
-                    selectedValue = possibleValue.substring(2, posOfEndBrackets);
-                    console.log("selected value");
-                    console.log(selectedValue);
-
+                    selectedValue = possibleValue.substring(2, posOfEndBrackets);                 
                 }
                 matches.push({trigger: match[0], definition: this.shortcutManager.getMetadataForTrigger(match[0]), selectedValue: selectedValue});
             }
@@ -186,9 +181,7 @@ export default class NoteParser {
     }
     
     parse(note) {
-        this.patientRecord = new PatientRecord();
-        // let med = new FluxMedicationRequested();
-        // this.patientRecord.addEntryToPatient(med);
+        this.patientRecord = new PatientRecord();       
         // console.log("parse: " + note);
         const result = this.getListOfTriggersFromText(note);
         const structuredPhrases = result[0];
