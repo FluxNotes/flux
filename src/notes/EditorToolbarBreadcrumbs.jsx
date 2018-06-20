@@ -18,7 +18,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
                 // Return breadcrumb with separator if breadcrumb isn't the last one of the list.
                 if ((activeContexts.length - i - 1) === 0) {
                     return (
-                        <div 
+                        <div
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
@@ -28,7 +28,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
                 }
                 else {
                     return (
-                        <div 
+                        <div
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
@@ -37,7 +37,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
                         </div>
                     )
                 }
-                
+
             })
             return (
                 <div className="breadcrumbs-container">
@@ -59,7 +59,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
 
 }
 
-EditorToolbarBreadcrumbs.proptypes = { 
+EditorToolbarBreadcrumbs.proptypes = {
     contextManager: PropTypes.object.isRequired,
 };
 
