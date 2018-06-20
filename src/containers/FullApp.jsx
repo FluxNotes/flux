@@ -170,7 +170,7 @@ export class FullApp extends Component {
     }
 
     setSearchSelectedItem = (value) => {
-        this.setFullAppState('searchSelectedItem', null);
+        this.setFullAppState('searchSelectedItem', value);
     }
 
     // Same function as 'setFullAppState' except this function uses a callback
