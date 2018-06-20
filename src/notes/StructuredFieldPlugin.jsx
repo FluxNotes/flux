@@ -91,10 +91,6 @@ function StructuredFieldPlugin(opts) {
         return `${convertSlateNodesToText(editorValue.document.toJSON().nodes)}`;
     }
 
-
-    // ATTEMPT 3: 
-    //
-    // Old implementation 
     function onCopy(event, change, editor) {
         const state = change.value;
         let { selection } = state;
@@ -184,13 +180,8 @@ function StructuredFieldPlugin(opts) {
     }
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
     function onPaste(event, change, editor) {
-        console.log(event.clipboardData)
         const html = event.clipboardData.getData('text/html') || null;
         const text = event.clipboardData.getData('text/plain') || null;
-        console.log("html")
-        console.log(html)
-        console.log("text")
-        console.log(text)
         if (
             html &&
             ~html.indexOf(' flux-string="')
