@@ -52,7 +52,6 @@ class EditorToolbarBreadcrumbs extends React.Component {
 
         return (
             <div className="toolbar-breadcrumbs-container">
-                <hr className="toolbar-breadcrumbs-separator"/>
                 {this.renderActiveContexts(activeContexts)}
             </div>
         )

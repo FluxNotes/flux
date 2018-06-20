@@ -1,21 +1,17 @@
 .toolbar-breadcrumbs-container {
     display: block;
-    margin-left: 15px;
-    width: 70%;
+    width: 65%;
 }
 
 @media only screen and (max-width: 1400px) {
     .toolbar-breadcrumbs-container {
-        width: 65%;
+        width: 55%;
     }
 }
 
 @media only screen and (max-width: 1200px) {
     .toolbar-breadcrumbs-container {
-        width: 55%;
-    }
-    .breadcrumbs-container {
-        max-width: 75%;
+        width: 50%;
     }
 }
 
@@ -23,25 +19,12 @@
     .toolbar-breadcrumbs-container {
         width: 40%;
     }
-    .breadcrumbs-container {
-        max-width: 70%;
-    }
-}
-
-.toolbar-breadcrumbs-separator {
-    color: #ddd;
-    display: inline-block;
-    vertical-align: bottom;
-    margin: 0px 10px;
-    border: none;
-    border-left: 1px solid;
-    height: 19px;
 }
 
 .breadcrumbs-container {
     display: inline-block;
+    width: 100%;
     direction: rtl;
-    max-width: 90%;
     vertical-align: bottom;
     white-space: nowrap;
     overflow: hidden;

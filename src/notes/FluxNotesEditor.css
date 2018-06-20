@@ -39,10 +39,6 @@
     font-family: 'Georgia', serif;
 }
 
-.MyEditor-root .toolbar-menu > * + * {
-    margin-left: 15px;
-}
-
 .MyEditor-root .toolbar-menu > * {
     display: inline-block;
 }

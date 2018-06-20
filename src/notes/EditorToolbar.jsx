@@ -133,6 +133,7 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('underlined', 'fa-underline')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
+                 <hr className="toolbar-breadcrumbs-separator"/>
                 <EditorToolbarBreadcrumbs
                     contextManager={this.props.contextManager}
                 />
