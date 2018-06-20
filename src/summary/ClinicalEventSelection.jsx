@@ -55,7 +55,6 @@ function titlecase(label) {
 ClinicalEventSelection.propTypes = {
     possibleClinicalEvents: PropTypes.arrayOf(PropTypes.string).isRequired,
     clinicalEvent: PropTypes.string.isRequired,
-    setFullAppState: PropTypes.func.isRequired
 };
 
 export default ClinicalEventSelection;

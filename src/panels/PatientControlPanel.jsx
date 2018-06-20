@@ -43,7 +43,7 @@ class PatientControlPanel extends Component {
                                     patientName={patient.getName()}
                                     photo={patient.getMostRecentPhoto()}
                                     possibleClinicalEvents={this.props.possibleClinicalEvents}
-                                    setFullAppState={this.props.setFullAppState}
+                                    setCondition={this.props.setCondition}
                                     setLayout={this.props.setLayout}
                                 />
                             </Col>
@@ -58,7 +58,6 @@ class PatientControlPanel extends Component {
                                             <PatientSearch
                                                 patient={this.props.patient}
                                                 setSearchSelectedItem={this.props.setSearchSelectedItem}
-                                                setFullAppState={this.props.setFullAppState}
                                             />
                                         </div>
                                     </Col>
@@ -78,7 +77,7 @@ PatientControlPanel.propTypes = {
     layout: PropTypes.string,
     patient: PropTypes.object.isRequired,
     possibleClinicalEvents: PropTypes.array.isRequired,
-    setFullAppState: PropTypes.func.isRequired,
+    setCondition: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setSearchSelectedItem: PropTypes.func.isRequired,
     supportLogin: PropTypes.bool.isRequired,

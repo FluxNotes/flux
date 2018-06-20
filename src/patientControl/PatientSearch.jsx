@@ -148,7 +148,7 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
-        this.props.setFullAppState('searchSelectedItem', suggestion.note);
+        this.props.setSearchSelectedItem(suggestion.note);
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
@@ -200,7 +200,6 @@ class PatientSearch extends React.Component {
 }
 
 PatientSearch.propTypes = {
-    setFullAppState: PropTypes.func.isRequired,
     setSearchSelectedItem: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
 };

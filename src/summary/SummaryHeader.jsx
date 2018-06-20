@@ -103,7 +103,7 @@ class SummaryHeader extends Component {
                                                 <Col sm={12}>
                                                     <ConditionSelection
                                                         conditions={this.props.patientConditions}
-                                                        setFullAppState={this.props.setFullAppState}
+                                                        setCondition={this.props.setCondition}
                                                     />
                                                 </Col>
                                             </Row>
@@ -171,7 +171,7 @@ SummaryHeader.propTypes = {
             value: PropTypes.state
         })
     }),
-    setFullAppState: PropTypes.func.isRequired,
+    setCondition: PropTypes.func.isRequired,
     layout: PropTypes.string,
     setLayout: PropTypes.func.isRequired
 };

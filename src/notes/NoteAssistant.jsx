@@ -229,7 +229,7 @@ export default class NoteAssistant extends Component {
         this.props.setLayout("right-collapsed");
         this.props.setNoteViewerVisible(false);
         this.props.setNoteViewerEditable(false);
-        this.props.setFullAppState('openClinicalNote', null);
+        this.props.setOpenClinicalNote(null);
     }
 
     deleteSelectedNote = () => {
@@ -308,7 +308,6 @@ export default class NoteAssistant extends Component {
                                 patient={this.props.patient}
                                 saveNoteUponKeypress={this.props.saveNoteUponKeypress}
                                 selectedNote={this.props.selectedNote}
-                                setFullAppState={this.props.setFullAppState}
                                 setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
                                 shortcutManager={this.props.shortcutManager}
@@ -604,12 +603,12 @@ NoteAssistant.propTypes = {
     saveNoteUponKeypress: PropTypes.func.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
-    setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setNoteViewerVisible: PropTypes.func.isRequired,
+    setOpenClinicalNote: PropTypes.func.isRequired,
     setSearcbSelectedItem: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
     shouldEditorContentUpdate: PropTypes.bool.isRequired,

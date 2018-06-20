@@ -22,7 +22,7 @@ class ConditionSelection extends Component {
 
     selectCondition(conditionIndex) {
         const condition = this.props.conditions[conditionIndex];
-        this.props.setFullAppState('condition', condition);
+        this.props.setCondition(condition);
         this.setState({ conditionIndex });
     }
 
@@ -65,7 +65,7 @@ ConditionSelection.propTypes = {
             display: PropTypes.string
         }))
     })),
-    setFullAppState: PropTypes.func.isRequired
+    setCondition: PropTypes.func.isRequired,
 };
 
 export default ConditionSelection;

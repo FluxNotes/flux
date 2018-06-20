@@ -173,7 +173,6 @@ export default class ClinicianDashboard extends Component {
                         isTargetedDataSubpanelVisible={isTargetedDataSubpanelVisible}
                         isWide={isTargetedDataPanelWide}
                         summaryMetadata={this.props.summaryMetadata}
-                        setFullAppState={this.props.setFullAppState}
                         setForceRefresh={this.props.setForceRefresh}
                         targetedDataPanelSize={this.state.targetedDataPanelSize}
                     />
@@ -196,7 +195,6 @@ export default class ClinicianDashboard extends Component {
                         patient={this.props.appState.patient}
                         searchSelectedItem={this.props.searchSelectedItem}
                         setDocumentText={this.props.setDocumentText}
-                        setFullAppState={this.props.setFullAppState}
                         setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                         setLayout={this.props.setLayout}
                         setNoteClosed={this.props.setNoteClosed}
@@ -230,7 +228,6 @@ ClinicianDashboard.proptypes = {
     possibleClinicalEvents: PropTypes.array.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
-    setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,

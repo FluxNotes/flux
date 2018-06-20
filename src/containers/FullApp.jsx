@@ -153,6 +153,10 @@ export class FullApp extends Component {
         this.setFullAppState('layout', layoutView);
     }
 
+    setCondition = (condition) => {
+        this.setFullAppState('condition', condition)
+    }
+
     setDocumentText = (documentText) => {
         this.setFullAppState('documentText', documentText);
     }
@@ -279,7 +283,7 @@ export class FullApp extends Component {
                                     loginUser={this.state.loginUser}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
-                                    setFullAppState={this.setFullAppState}
+                                    setCondition={this.setCondition}
                                     setLayout={this.setLayout}
                                     setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
@@ -303,7 +307,6 @@ export class FullApp extends Component {
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
                             setDocumentText={this.setDocumentText}
-                            setFullAppState={this.setFullAppState}
                             setNoteClosed={this.setNoteClosed}
                             setNoteViewerEditable={this.setNoteViewerEditable}
                             setNoteViewerVisible={this.setNoteViewerVisible}

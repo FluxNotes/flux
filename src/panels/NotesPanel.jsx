@@ -257,7 +257,6 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     selectedNote={this.state.selectedNote}
-                    setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.setLayout}
@@ -303,12 +302,12 @@ export default class NotesPanel extends Component {
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
-                    setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setLayout={this.props.setLayout} 
                     setNoteClosed={this.props.setNoteClosed}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setNoteViewerVisible={this.props.setNoteViewerVisible}
+                    setOpenClinicalNote={this.props.setOpenClinicalNote}
                     setSearchSelectedItem={this.props.setSearchSelectedItem}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
@@ -352,7 +351,6 @@ NotesPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setDocumentText: PropTypes.func.isRequired,
-    setFullAppState: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,

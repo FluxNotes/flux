@@ -37,8 +37,7 @@ export default class TargetedDataPanel extends Component {
                                 clinicalEvent={this.props.appState.clinicalEvent}
                                 condition={this.props.appState.condition}
                                 isWide={this.props.isWide}
-                                patient={this.props.appState.patient}
-                                setFullAppState={this.props.setFullAppState}  
+                                patient={this.props.appState.patient} 
                                 setForceRefresh={this.props.setForceRefresh}                                                              
                                 summaryMetadata={this.props.summaryMetadata.getMetadata()}
                             />
