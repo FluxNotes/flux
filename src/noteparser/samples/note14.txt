@@ -1,1 +1,1 @@
-#stop medication @active medication[[PACLitaxel]]
+#stop medication @active medication[[ibuprofen 600mg tablet]]

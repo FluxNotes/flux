@@ -520,7 +520,12 @@ class PatientRecord {
         const allmeds = this.getMedications();
         const today = new moment();
         return allmeds.filter((med) => {
-            return med.isActiveAsOf(today);
+            let medChanges = this.getMedicationChanges();
+            let stopMedicationFound = medChanges.some((medChange) => { 
+                return ((medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value)) && (medChange.type === "stop"));
+            });
+
+            return med.isActiveAsOf(today) && !stopMedicationFound;
         });
     }
 
@@ -861,9 +866,6 @@ class PatientRecord {
     }
 
     getEntryFromReference(ref) {
-        // console.log("ref");
-        // console.log(ref);
-
         return this.entries.find((item) => {
             if (!Lang.isUndefined(item.entryInfo.entryId.id)) return item.entryInfo.entryId.id === ref.entryId;
             return item.entryInfo.entryId === ref.entryId;

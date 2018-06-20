@@ -14,13 +14,13 @@ export default class InsertValue extends Shortcut {
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
         let text = this.determineText(contextManager);
+       
         if (Lang.isArray(text) && shortcutData.length === 0) {
             this.flagForTextSelection(text);
         } else {
             if (shortcutData.length > 0) this.setText(shortcutData);
             else this.setText(text);
         }
-
 
 
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
@@ -172,16 +172,33 @@ export default class InsertValue extends Shortcut {
 
     setText(text) {
         this.text = text;
+       
+    }
+
+    setValueObject(valueObject) {
+        this.valueObject = valueObject;
         const parentAttribute = this.metadata["parentAttribute"];
   
         // Check parent of shortcut and setAttributeValue 
         if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
-            this.parentContext.setAttributeValue(parentAttribute, text);
+            this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
         }
+     
     }
 
     isGlobalContext() {
         const isGlobalContext = this.metadata["isGlobalContext"];
         return Lang.isUndefined(isGlobalContext) ? false : isGlobalContext;
+    }
+
+    onBeforeDeleted() {
+        let result = super.onBeforeDeleted();
+        if (result && !Lang.isUndefined(this.parentContext)) {
+
+            this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
+
+            this.parentContext.removeChild(this);
+        }
+        return result;
     }
 }

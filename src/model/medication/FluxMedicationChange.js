@@ -32,20 +32,13 @@ class FluxMedicationChange {
     }
 
     set medicationBeforeChange(medication) {
-    
-        if (medication) {
-            let medObject = this._patientRecord.getMedications().filter((m) => {
-                return (m.medication === medication);
-            });
 
+        if (medication) {        
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
-            this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medObject[0]);
-
-            console.log(this._medicationChange.medicationBeforeChange.value);
+            this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
         } else {
             this._medicationChange.medicationBeforeChange = null;
         }
-
     }
 
     /**
