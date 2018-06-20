@@ -349,6 +349,7 @@ export default class NoteAssistant extends Component {
             <PickListOptionsPanel
                 arrayOfPickLists={this.props.arrayOfPickLists}
                 contextManager={this.props.contextManager}
+                insertingTemplate={this.state.insertingTemplate}
                 setInsertingTemplate={this.setInsertingTemplate}
                 updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                 updateContextTrayItemWithSelectedPickListOptions={this.props.updateContextTrayItemWithSelectedPickListOptions}
