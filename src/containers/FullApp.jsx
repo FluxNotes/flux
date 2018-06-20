@@ -50,7 +50,7 @@ export class FullApp extends Component {
         }
 
         let patient = this.dataAccess.getPatient(patientId);
-        this.summaryMetadata = new SummaryMetadata();
+        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.contextManager = new ContextManager(patient, this.onContextUpdate);
@@ -75,6 +75,7 @@ export class FullApp extends Component {
             snackbarMessage: "",
             superRole: 'Clinician', // possibly add that to security manager too
             summaryItemToInsert: '',
+            forceRefresh: false
         };
 
         /*  actions is a list of actions passed to the visualizers
@@ -117,7 +118,8 @@ export class FullApp extends Component {
                     valueExists: true,
                     existingValueSigned: "either",
                     editableNoteOpen: true,
-                    displayInSubsections: ["Potential to enroll"]
+                    displayInSubsections: ["Potential to enroll"],
+                    displayForColumns: [0]
                 }
             }
         ]
@@ -137,6 +139,38 @@ export class FullApp extends Component {
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
         this.setState({[state]: value});
+    }
+
+    setForceRefresh = (value) => {
+        this.setFullAppState('forceRefresh', value);
+    }
+
+    setNoteViewerEditable = (value) => {
+        this.setFullAppState('isNoteViewerEditable', value);
+    }
+
+    setLayout = (layoutView) => {
+        this.setFullAppState('layout', layoutView);
+    }
+
+    setCondition = (condition) => {
+        this.setFullAppState('condition', condition)
+    }
+
+    setDocumentText = (documentText) => {
+        this.setFullAppState('documentText', documentText);
+    }
+
+    setNoteViewerVisible = (value) => {
+        this.setFullAppState('isNoteViewerVisible', value);
+    }
+
+    setNoteClosed = (value) => {
+        this.setFullAppState('noteClosed', value);
+    }
+
+    setSearchSelectedItem = (value) => {
+        this.setFullAppState('searchSelectedItem', value);
     }
 
     // Same function as 'setFullAppState' except this function uses a callback
@@ -249,7 +283,9 @@ export class FullApp extends Component {
                                     loginUser={this.state.loginUser}
                                     patient={this.state.patient}
                                     possibleClinicalEvents={this.possibleClinicalEvents}
-                                    setFullAppState={this.setFullAppState}
+                                    setCondition={this.setCondition}
+                                    setLayout={this.setLayout}
+                                    setSearchSelectedItem={this.setSearchSelectedItem}
                                     supportLogin={true}
                                 />
                             </Col>
@@ -258,6 +294,7 @@ export class FullApp extends Component {
                         <CurrentDashboard
                             // App default settings
                             actions={this.actions}
+                            forceRefresh={this.state.forceRefresh}
                             appState={this.state}
                             contextManager={this.contextManager}
                             dataAccess={this.dataAccess}
@@ -269,9 +306,15 @@ export class FullApp extends Component {
                             onContextUpdate={this.onContextUpdate}
                             possibleClinicalEvents={this.possibleClinicalEvents}
                             searchSelectedItem={this.state.searchSelectedItem}
-                            setFullAppState={this.setFullAppState}
+                            setDocumentText={this.setDocumentText}
+                            setNoteClosed={this.setNoteClosed}
+                            setNoteViewerEditable={this.setNoteViewerEditable}
+                            setNoteViewerVisible={this.setNoteViewerVisible}
+                            setForceRefresh={this.setForceRefresh}
                             setFullAppStateWithCallback={this.setFullAppStateWithCallback}
+                            setLayout={this.setLayout}
                             setOpenClinicalNote={this.setOpenClinicalNote}
+                            setSearchSelectedItem={this.setSearchSelectedItem}
                             shortcutManager={this.shortcutManager}
                             structuredFieldMapManager={this.structuredFieldMapManager}
                             summaryMetadata={this.summaryMetadata}

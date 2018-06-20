@@ -31,13 +31,15 @@ export default class TargetedDataPanel extends Component {
                     <div id="summary-subpanel">
                         <div className="summary-section">
                             <TargetedDataSubpanel
-                                isWide={this.props.isWide}
-                                patient={this.props.appState.patient}
-                                condition={this.props.appState.condition}
-                                clinicalEvent={this.props.appState.clinicalEvent}
-                                summaryMetadata={this.props.summaryMetadata.getMetadata()}
-                                allowItemClick={this.props.isNoteViewerEditable}
                                 actions={this.props.actions}
+                                forceRefresh={this.props.forceRefresh}
+                                allowItemClick={this.props.isNoteViewerEditable}
+                                clinicalEvent={this.props.appState.clinicalEvent}
+                                condition={this.props.appState.condition}
+                                isWide={this.props.isWide}
+                                patient={this.props.appState.patient} 
+                                setForceRefresh={this.props.setForceRefresh}                                                              
+                                summaryMetadata={this.props.summaryMetadata.getMetadata()}
                             />
                         </div>
                     </div>
@@ -54,9 +56,11 @@ TargetedDataPanel.proptypes = {
         clinicalEvent: PropTypes.object.isRequired,
         condition: PropTypes.object,
     }).isRequired,
+    forceRefresh: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
+    setForceRefresh: PropTypes.func.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired,
 }

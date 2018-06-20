@@ -19,19 +19,22 @@ export default class TargetedDataSubpanel extends Component {
         this._currentAllowItemClick = null;
         this._currentConditionString = "";
         this._visualizerManager = new VisualizerManager();
+        this._forceRefresh= false;
     }
 
     shouldComponentUpdate(nextProps, nextState) { 
-        // Six current reasons to update:
+        // Seven current reasons to update:
         // - There is a change to the entries this component cares about
         // - A note has been signed and our representation of the data should reflect it's new signedness
         // - Clinical event has shifted
         // - isWide has changed
         // - Condition has changed
         // - allowItemClick has changed
+        // - forceRefresh changes from false to true
         // Case 1: Entries
         // Need to ignore patientRecords on entries, as they reference the clinical notes ignored above. 
         // Solution: Remove them during comparison, restore those value after comparison.
+
         const newRelevantPatientEntries = nextProps.patient.getEntriesOtherThanNotes();
         const arrayOfPatientRecords = newRelevantPatientEntries.reduce((accumulator, currentEntry, currentIndex) => { 
             if (currentEntry._patientRecord) { 
@@ -100,13 +103,20 @@ export default class TargetedDataSubpanel extends Component {
         if (changesToAllowItemClick) {
             this._currentAllowItemClick = newAllowItemClick;
         }
-
+        
+        // Case 7: forceRefresh
+        const changesToForceRefresh = (this._forceRefresh === false && nextProps.forceRefresh === true)
+        if (changesToForceRefresh) {
+            this.props.setForceRefresh(false);
+        }
+        
         return changesToRelevantEntries 
             || changesToSignedNotesCount 
             || changesToClinicalEvent 
             || changesToIsWide
             || changesToConditionString
-            || changesToAllowItemClick;
+            || changesToAllowItemClick
+            || changesToForceRefresh;
     }
 
     getConditionMetadata() {
@@ -168,11 +178,13 @@ export default class TargetedDataSubpanel extends Component {
 }
 
 TargetedDataSubpanel.propTypes = {
+    forceRefresh: PropTypes.bool,
     className: PropTypes.string,
     isWide: PropTypes.bool.isRequired,
     patient: PropTypes.object,
     condition: PropTypes.object,
     summaryMetadata: PropTypes.object,
+    setForceRefresh: PropTypes.func.isRequired,
     allowItemClick: PropTypes.bool,
     onItemClicked: PropTypes.func,
     actions: PropTypes.array

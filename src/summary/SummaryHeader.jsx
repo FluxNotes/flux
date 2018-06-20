@@ -57,7 +57,7 @@ class SummaryHeader extends Component {
 
     // Given a newLayout, change FullApp's layout accordingly
     handleLayoutChange = (newLayout) => {
-        this.props.setFullAppState('layout', newLayout);
+        this.props.setLayout(newLayout);
     }
 
     render() {
@@ -103,7 +103,7 @@ class SummaryHeader extends Component {
                                                 <Col sm={12}>
                                                     <ConditionSelection
                                                         conditions={this.props.patientConditions}
-                                                        setFullAppState={this.props.setFullAppState}
+                                                        setCondition={this.props.setCondition}
                                                     />
                                                 </Col>
                                             </Row>
@@ -171,8 +171,9 @@ SummaryHeader.propTypes = {
             value: PropTypes.state
         })
     }),
-    setFullAppState: PropTypes.func.isRequired,
+    setCondition: PropTypes.func.isRequired,
     layout: PropTypes.string,
+    setLayout: PropTypes.func.isRequired
 };
 
 export default SummaryHeader;

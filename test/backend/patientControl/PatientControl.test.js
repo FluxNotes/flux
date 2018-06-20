@@ -33,14 +33,14 @@ describe('PatientSearch', function () {
     const expectedLength = 4
     let didSetFullAppStateFunctionTrigger = false;
     // Should just set the higher-scoped variable to be true
-    function setFullAppState(anything) { 
+    function setSearchSelectedItem(anything) { 
         didSetFullAppStateFunctionTrigger = true
     }
 
     it('Should update state.value when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);
         expect(wrapper).to.exist;
         const inputField = wrapper.find('input.react-autosuggest__input')
@@ -54,7 +54,7 @@ describe('PatientSearch', function () {
     it('Should update state.suggestions when input is entered ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -71,7 +71,7 @@ describe('PatientSearch', function () {
     it('Should provide suggestions in a list when input is entered and inputBox is focused ', function () { 
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setFullAppState={setFullAppState}
+            setSearchSelectedItem={jest.fn()}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 
@@ -90,7 +90,8 @@ describe('PatientSearch', function () {
         didSetFullAppStateFunctionTrigger = false;
         const wrapper = mount(<PatientSearch
             patient={testPatientObj}
-            setFullAppState={setFullAppState}
+            setSearchSelectedItem={setSearchSelectedItem}
+            setCondition={jest.fn()}
         />);        
         const inputField = wrapper.find('input.react-autosuggest__input')
         inputField.simulate('change', { target: {value: inputValue}}); 

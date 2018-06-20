@@ -103,7 +103,7 @@ export default class NotesPanel extends Component {
                     noteAssistantMode: mode,
                     currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10)
                 });
-                this.props.setFullAppState("documentText", note.content);
+                this.props.setDocumentText(note.content);
                 this.props.setOpenClinicalNote(note);
             });
         }
@@ -125,7 +125,7 @@ export default class NotesPanel extends Component {
     // invokes closing logic in NoteAssistant
     closeNote = () => {
         this.closeNoteChild();
-        this.props.setFullAppState("documentText", "");
+        this.props.setDocumentText("");
         this.props.setOpenClinicalNote(null);
         this.setState({
             updatedEditorNote: null,
@@ -257,8 +257,9 @@ export default class NotesPanel extends Component {
                     patient={this.props.patient}
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     selectedNote={this.state.selectedNote}
-                    setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setLayout={this.setLayout}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -301,8 +302,13 @@ export default class NotesPanel extends Component {
                     saveNoteUponKeypress={this.saveNoteUponKeypress}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
-                    setFullAppState={this.props.setFullAppState}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
+                    setLayout={this.props.setLayout} 
+                    setNoteClosed={this.props.setNoteClosed}
+                    setNoteViewerEditable={this.props.setNoteViewerEditable}
+                    setNoteViewerVisible={this.props.setNoteViewerVisible}
+                    setOpenClinicalNote={this.props.setOpenClinicalNote}
+                    setSearchSelectedItem={this.props.setSearchSelectedItem}
                     shortcutManager={this.props.shortcutManager}
                     shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
@@ -344,9 +350,14 @@ NotesPanel.propTypes = {
     openClinicalNote: PropTypes.object,
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
-    setFullAppState: PropTypes.func.isRequired,
+    setDocumentText: PropTypes.func.isRequired,
+    setNoteClosed: PropTypes.func.isRequired,
+    setNoteViewerEditable: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
+    setNoteViewerVisible: PropTypes.func.isRequired,
+    setLayout: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
+    setSearchSelectedItem: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,

@@ -2,7 +2,7 @@ import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
 import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
-import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json'
+import PATINA_eligiblePatient from '../lib/cql-execution/example/patients/PATINAPatient.json';
 
 
 class ClinicalTrialsList {
@@ -71,49 +71,49 @@ class ClinicalTrialsList {
     }
 
     getListOfEligibleClinicalTrials(patient, currentCondition) {
-        let patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        const patientID = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
         let enrolledTrials = patient.getEnrolledClinicalTrials();
         enrolledTrials = enrolledTrials.map((trial) => {
             return trial.title;
         });
-        for (let n in this.clinicalTrials) {
-            let trial = this.clinicalTrials[n];
-            let missingCriteria = ["None"];
-            if ((trial.inclusionCriteriaCQL != null) && (enrolledTrials.indexOf(trial.name) === -1)) {
-                let result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                let checkedCriteriaList = result.patientResults[patient_id].findMissingData;
-                let checkedCriteriaNumber = Object.keys(checkedCriteriaList).length;
-                let additionalCriteriaNumber = trial.additionalCriteria.length;
-                let totalCriteriaNumber = checkedCriteriaNumber + additionalCriteriaNumber;
-                if (result.patientResults[patient_id].meetsInclusionCriteria) {
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
-                }
-                else if (result.patientResults[patient_id].checkNotDisqualified) {
-                    missingCriteria = this.getMissingCriteriaListTrialEligibility(result.patientResults[patient_id].findMissingData);
-                    let missingCriteriaNumber = missingCriteria.length;
-                    checkedCriteriaNumber -= missingCriteriaNumber;
-                    eligibleTrials.push({ info: trial, criteria: missingCriteria, eligibility: "Potentially eligible, but missing necessary data fields", criteriaFit: checkedCriteriaNumber + " of " + totalCriteriaNumber });
+
+        this.clinicalTrials.forEach((trial) => {
+            if (trial.inclusionCriteriaCQL != null) {
+                const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+                if ((enrolledTrials.indexOf(trial.name) === -1) && (result.patientResults[patientID].checkNotDisqualified)) {
+                    eligibleTrials.push({
+                        info: trial,
+                        numTotalCriteria: Object.keys(result.patientResults[patientID].findMissingData).length + trial.additionalCriteria.length,
+                        numSatisfiedCriteria: (trial.additionalCriteria.length + Object.keys(result.patientResults[patientID].findMissingData).length) - this.getMissingCriteriaListTrialEligibility(trial.id).length
+                    });
                 }
             }
-        }
+        });
         return eligibleTrials;
     }
 
-    getMissingCriteriaListTrialEligibility(missingCriteria) {
+
+    getMissingCriteriaListTrialEligibility(trialName) {
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        const trial = this.getClinicalTrialByName(trialName.toLowerCase());
+        const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+        const missingCriteria = result.patientResults[patient_id].findMissingData;
+
         let missingFields = [];
         for (let property in missingCriteria) {
             if (missingCriteria[property] === true) {
                 missingFields.push(property);
             }
         }
-        return missingFields;
+        return missingFields.concat(this.getClinicalTrialByName(trialName).additionalCriteria);
     }
 
     getClinicalTrialByName(name) {
         let clinicalTrials = this.clinicalTrials.filter((trial) => {
             return trial.name.toUpperCase() === name.toUpperCase();
         });
+        
         if (clinicalTrials.length === 0) {
             return null;
         }

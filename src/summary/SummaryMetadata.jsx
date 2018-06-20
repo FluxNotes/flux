@@ -36,7 +36,9 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 */
 
 export default class SummaryMetadata {
-    constructor() {
+    constructor(setForceRefresh) {
+        this.setForceRefresh = setForceRefresh;
+        this.trialDisplayMissingCriteria = "";
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": {
                 sections: [
@@ -603,10 +605,25 @@ export default class SummaryMetadata {
                             {
                                 name: "Potential to enroll",
                                 headings: ["Name", "Criteria Fit", "Opened", "Description"],
-                                itemsFunction: this.getItemListForClinicalTrialEligibility
-
+                                itemsFunction: this.getItemListForClinicalTrialEligibility,
+                                actions: [
+                                    {
+                                        handler: this.handleViewMissingCriteria,
+                                        text: "Missing Criteria",
+                                        icon: "clipboard",
+                                        whenToDisplay: {
+                                            valueExists: true,
+                                            existingValueSigned: "either",
+                                            editableNoteOpen: "either", 
+                                            displayForColumns: [0]
+                                        }
+                                    }
+                                ]
+                            },
+                            {   nameFunction: this.getMissingCriteriaSubsectionName, 
+                                itemsFunction: this.getItemListToDisplayMissingCriteria
                             }
-                        ]
+                        ]   
                     },
                     {
                         name: "Allergies",
@@ -797,6 +814,8 @@ export default class SummaryMetadata {
                 ]
             }
         };
+
+        this.missingEligibleTrialData = null;
     }
 
     getMetadata = () => {
@@ -914,9 +933,29 @@ export default class SummaryMetadata {
         const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
-            eligibleTrials.push([{ value: trial.info.name }, trial.criteriaFit, trial.info.studyStartDate, trial.info.description]);
+            eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
         });
         return eligibleTrials;
+    }
+
+    handleViewMissingCriteria = (item) => {
+        this.trialDisplayMissingCriteria = item.value;
+        this.setForceRefresh(true);
+    }
+
+    getMissingCriteriaSubsectionName = () => {
+        return `Missing ${this.trialDisplayMissingCriteria} Criteria`;
+    }
+
+    getItemListToDisplayMissingCriteria = () => {
+        let trialsList = new ClinicalTrialsList();
+        if (this.trialDisplayMissingCriteria !== "") {
+            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
+            return this.missingEligibleTrialData.map((data) => {
+                return [{value : data}]
+            });
+        }
+        return [];
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
@@ -1168,3 +1207,4 @@ export default class SummaryMetadata {
         return subset;
     }
 }
+
