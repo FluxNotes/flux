@@ -13,15 +13,15 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
 
-	function onBeforeInput (e, data, editorState) { 
+	function onBeforeInput (e, change, editor) { 
 		// Insert text and replace relevant keywords in results
-		const curTransform  = editorState.transform().insertText(e.data);
-		const curNode = curTransform.state.endBlock;
+		const curTransform  = editor.value.change().insertText(e.data);
+		const curNode = curTransform.value.endBlock;
 		// Apply transform operations if there were matches; else nothing
 		const [newTransform, isTransformNew] = replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state)
 		if (isTransformNew) { 
 			e.preventDefault()
-			return newTransform.apply()
+			return newTransform.value
 		}
 	}
 

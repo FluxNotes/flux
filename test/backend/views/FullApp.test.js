@@ -11,7 +11,6 @@ import SummaryMetadata from '../../../src/summary/SummaryMetadata';
 import VisualizerManager from '../../../src/summary/VisualizerManager';
 import TabularNameValuePairsVisualizer from '../../../src/summary/NarrativeNameValuePairsVisualizer';
 
-import Slate from '../../../src/lib/slate';
 import DataAccess from '../../../src/dataaccess/DataAccess';
 import ContextManager from '../../../src/context/ContextManager';
 import ShortcutManager from '../../../src/shortcuts/ShortcutManager';

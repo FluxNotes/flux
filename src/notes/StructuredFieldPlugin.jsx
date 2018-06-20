@@ -1,27 +1,23 @@
 import React from 'react';
-import Slate from '../lib/slate';
+import { Inline } from 'slate';
+import { findDOMNode, getEventTransfer, setEventTransfer, cloneFragment } from 'slate-react'
+import { IS_SAFARI, IS_CHROME, IS_IE } from 'slate-dev-environment'
 import Lang from 'lodash';
 import getWindow from 'get-window';
 
-function createOpts(opts) {
-    opts = opts || {};
-    opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
-	return opts;
-}
-
-
 function StructuredFieldPlugin(opts) {
-    opts = createOpts(opts);
     let contextManager = opts.contextManager;
     let updateErrors = opts.updateErrors;
     let insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
 
-    function onChange(state, editor) {
+    function onChange(change) {
+        const editorValue = change.value
+
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
-        const nodes = state.document.getInlines();
+        const nodes = editorValue.document.getInlinesAtRange(editorValue.selection);
         if (nodes.size !== keyToShortcutMap.size) {
             var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
@@ -33,7 +29,7 @@ function StructuredFieldPlugin(opts) {
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a)
         var shortcut;
-        let result = state;
+        let result = editorValue;
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
@@ -41,53 +37,17 @@ function StructuredFieldPlugin(opts) {
                 idToShortcutMap.delete(shortcut.metadata.id)
                 contextManager.contextUpdated();
             } else {
-                result = editor.getState(); // don't allow state change
                 updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
             }
         });
         return result;
     }
 
-    const schema = {
-		nodes: {
-			structured_field:      props => {
-				let shortcut = props.node.get('data').get('shortcut');
-				return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
-			},
-		},
-		rules: [
-			{
-				match: (node) => {
-					return node.kind === 'block' && node.type === 'inline'
-				},
-				render: (props) => {
-					return (
-						<span {...props.attributes} style={{ position: 'relative', width:'100%', height:'100%'}}>
-							{props.children}
-							{props.editor.props.placeholder
-								? <Slate.Placeholder
-									className={props.editor.props.placeholderClassName}
-									node={props.node}
-									parent={props.state.document}
-									state={props.state}
-									style={{position: 'relative',top:'-18px',width:'100%', height:'100%',opacity:'0.333',...props.editor.props.placeholderStyle}}
-								  >{props.editor.props.placeholder}
-								  </Slate.Placeholder>
-								: null}
-						</span>
-					);
-				}
-			}
-		]
-	};
-
     function convertSlateNodesToText(nodes) {
         let result = '';
         let localStyle = [];
         let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         nodes.forEach((node, index) => {
-            // console.log("node")
-            // console.log(node)
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
             } else if (node.characters && node.characters.length > 0) {
@@ -112,7 +72,7 @@ function StructuredFieldPlugin(opts) {
                         result += `</${markToHTMLTag[mark.type]}>`;
                     });
                 }
-            } else if (node.type === 'structured_field') {
+            } else if (node.type === getStructuredFieldType()) {
                 let shortcut = node.data.shortcut;
                 result += shortcut.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -127,11 +87,16 @@ function StructuredFieldPlugin(opts) {
         return result;
     }
 
-    function convertToText(state, selection) {
-        return `${convertSlateNodesToText(state.document.toJSON().nodes)}`;
+    function convertToText(editorValue, selection) {
+        return `${convertSlateNodesToText(editorValue.document.toJSON().nodes)}`;
     }
 
-    function onCopy(event, data, state, editor) {
+
+    // ATTEMPT 3: 
+    //
+    // Old implementation 
+    function onCopy(event, change, editor) {
+        const state = change.value;
         let { selection } = state;
 
         const window = getWindow(event.target);
@@ -145,7 +110,7 @@ function StructuredFieldPlugin(opts) {
         if (native.isCollapsed && !isVoid) return;
 
         let fluxString = convertToText(state, selection);
-        // console.log("copy: " + fluxString);
+        console.log("copy: " + fluxString);
         const encoded = window.btoa(window.encodeURIComponent(fluxString));
         const range = native.getRangeAt(0);
         let contents = range.cloneContents();
@@ -156,7 +121,7 @@ function StructuredFieldPlugin(opts) {
         if (isVoid) {
             //console.log("isVoid: " + isVoid);
             const r = range.cloneRange();
-            const node = Slate.Utils.findDOMNode(isVoidBlock ? endBlock : endInline);
+            const node = findDOMNode(isVoidBlock ? endBlock : endInline);
             r.setEndAfter(node);
             contents = r.cloneContents();
             attach = contents.childNodes[contents.childNodes.length - 1].firstChild;
@@ -170,7 +135,7 @@ function StructuredFieldPlugin(opts) {
         // COMPAT: In Chrome and Safari, if the last element in the selection to
         // copy has `contenteditable="false"` the copy will fail, and nothing will
         // be put in the clipboard. So we remove them all. (2017/05/04)
-        if (Slate.IS_CHROME || Slate.IS_SAFARI) {
+        if (IS_CHROME || IS_SAFARI) {
             const els = [].slice.call(contents.querySelectorAll('[contenteditable="false"]'));
             els.forEach(el => el.removeAttribute('contenteditable'));
         }
@@ -217,11 +182,15 @@ function StructuredFieldPlugin(opts) {
         })
         return state;
     }
-
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
-
-    function onPaste(event, data, state, editor) {
-        const html = data.html || null; //event.clipboardData.getData('text/html') || null;)
+    function onPaste(event, change, editor) {
+        console.log(event.clipboardData)
+        const html = event.clipboardData.getData('text/html') || null;
+        const text = event.clipboardData.getData('text/plain') || null;
+        console.log("html")
+        console.log(html)
+        console.log("text")
+        console.log(text)
         if (
             html &&
             ~html.indexOf(' flux-string="')
@@ -229,8 +198,8 @@ function StructuredFieldPlugin(opts) {
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
-            // console.log("decoded")
-            // console.log(decoded)
+            console.log("decoded")
+            console.log(decoded)
 
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -242,11 +211,11 @@ function StructuredFieldPlugin(opts) {
             insertText(decoded);
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
-            return state;
-        } else if (data.text) {
+            return change;
+        } else if (text) {
             event.preventDefault();
-            insertText(data.text);
-            return state;
+            insertText(text);
+            return change;
         }
     }
 
@@ -259,10 +228,10 @@ function StructuredFieldPlugin(opts) {
         let next;
         window.requestAnimationFrame(() => {
             next = editor
-                .getState()
-                .transform()
+                .value
+                .change()
                 .delete()
-                .apply();
+                .value;
 
             editor.onChange(next);
         });
@@ -278,15 +247,18 @@ function StructuredFieldPlugin(opts) {
         onCut,
         onCopy,
         onPaste,
-        schema,
-        convertToText,
-
-        utils: {
-            //isSelectionInStructuredField
+        
+        helpers: {
+            convertToText: convertToText,
             convertSlateNodesToText: convertSlateNodesToText,
+            getStructuredFieldType: getStructuredFieldType,
         },
 
-        transforms: {
+        components: {
+            StructuredField: StructuredField,
+        },
+
+        changes: {
             insertStructuredField:     	insertStructuredField.bind(null, opts)
         }
     };
@@ -296,49 +268,75 @@ function StructuredFieldPlugin(opts) {
  * Insert a new structured field
  *
  * @param {Object} opts
- * @param {Slate.Transform} transform
- * @return {Slate.Transform}
+ * @param {Slate.Change} change
+ * @return {Array} 
  */
-function insertStructuredField(opts, transform, shortcut) {
-    const { state } = transform;
-    if (!state.selection.startKey) return false;
+function insertStructuredField(opts, change, shortcut) {
+    const { value } = change;
+    console.log('insertSrtcutred Field')
+    if (!value.selection.startKey) return false;
 
     // Create the structured-field node
     const sf = createStructuredField(opts, shortcut);
     shortcut.setKey(sf.key);
-    // console.log('shortcut kind')
-    // console.log(sf.kind)
-    if (sf.kind === 'block') {
-		return [transform.insertBlock(sf), sf.key];
+    if (sf.object === 'block') {
+		return [change.insertBlock(sf), sf.key];
 	} else {
-		return [transform.insertInline(sf), sf.key];
+		return [change.insertInline(sf), sf.key];
 	}
 }
 
 /**
  * Create a structured field
  *
- * @param {Slate.State} state
+ * @param {Slate.Value} value
  * @param {Object} opts
  * @param {Object} shortcut
- * @return {State.Block}
+ * @return {Slate.Inline}
  */
 function createStructuredField(opts, shortcut) {
-	let nodes = [];
+    let nodes = [];
+    const structuredFieldType = getStructuredFieldType();
+    // console.log('structuredFieldType')
+    // console.log(structuredFieldType )
     const properties = {
-        type:  opts.typeStructuredField,
+        type:  structuredFieldType,
         nodes: nodes,
         isVoid: true,
         data: {
-            shortcut: shortcut
+            shortcut: shortcut,
+            anything: "present",
         }
     };
-    let sf = Slate.Inline.create(properties);
+    let sf = Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.metadata.id, shortcut);
-    // console.log("sf")
-    // console.log(sf)
 	return sf;
+}
+
+/**
+ * Defines how to render StructuredFieldNodes
+ *
+ * @param {Object} props
+ * @return {React.Component}
+ */
+
+function StructuredField (props) { 
+    let shortcut = props.node.get('data').get('shortcut'); 
+    return (
+        <span 
+            contentEditable={false} 
+            className={getStructuredFieldType()}
+            {...props.attributes}
+        >
+            {shortcut.getText()}            
+            {props.children}
+        </span>
+    )
+}
+
+function getStructuredFieldType () { 
+    return 'structured-field'
 }
 
 export default StructuredFieldPlugin
