@@ -70,14 +70,18 @@ class ClinicalTrialsList {
         }
     }
 
-    getListOfEligibleClinicalTrials() {
+    getListOfEligibleClinicalTrials(patient, currentCondition) {
         const patientID = '3cb09ecb-e927-4946-82b3-89957e193215';
         let eligibleTrials = [];
+        let enrolledTrials = patient.getEnrolledClinicalTrials();
+        enrolledTrials = enrolledTrials.map((trial) => {
+            return trial.title;
+        });
 
         this.clinicalTrials.forEach((trial) => {
             if (trial.inclusionCriteriaCQL != null) {
                 const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                if ((result.patientResults[patientID].meetsInclusionCriteria) || (result.patientResults[patientID].checkNotDisqualified)) {
+                if ((enrolledTrials.indexOf(trial.name) === -1) && (result.patientResults[patientID].checkNotDisqualified)) {
                     eligibleTrials.push({
                         info: trial,
                         numTotalCriteria: Object.keys(result.patientResults[patientID].findMissingData).length + trial.additionalCriteria.length,
