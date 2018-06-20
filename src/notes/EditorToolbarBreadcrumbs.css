@@ -3,6 +3,8 @@
     width: 65%;
 }
 
+/* Allows for respnsive width styling according to size of window.
+Width percentages chosen arbitrarily.*/
 @media only screen and (max-width: 1400px) {
     .toolbar-breadcrumbs-container {
         width: 55%;
