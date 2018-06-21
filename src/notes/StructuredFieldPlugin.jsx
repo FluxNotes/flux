@@ -50,11 +50,13 @@ function StructuredFieldPlugin(opts) {
         nodes.forEach((node, index) => {
             if (node.type === 'line') {
                 result += `<div>${convertSlateNodesToText(node.nodes)}</div>`;
-            } else if (node.characters && node.characters.length > 0) {
-                console.log(node.characters)
-                node.characters.forEach(char => {
-                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
-                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+            } else if (node.type === getStructuredFieldType()) {
+                let shortcut = node.data.shortcut;
+                result += shortcut.getResultText();
+            } else if (node.object === "text" ) {
+                node.leaves.forEach(leaf => {
+                    const inMarksNotLocal = Lang.differenceBy(leaf.marks, localStyle, 'type');
+                    const inLocalNotMarks = Lang.differenceBy(localStyle, leaf.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
                             result += `<${markToHTMLTag[mark.type]}>`;
@@ -65,17 +67,14 @@ function StructuredFieldPlugin(opts) {
                             result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
-                    localStyle = char.marks;
-                    result += char.text;
+                    localStyle = leaf.marks;
+                    result += leaf.text;
                 });
                 if (localStyle.length > 0) {
                     Lang.reverse(localStyle).forEach(mark => {
                         result += `</${markToHTMLTag[mark.type]}>`;
                     });
                 }
-            } else if (node.type === getStructuredFieldType()) {
-                let shortcut = node.data.shortcut;
-                result += shortcut.getResultText();
             } else if (node.type === 'bulleted-list') {
                 result += `<ul>${convertSlateNodesToText(node.nodes)}</ul>`;
             } else if (node.type === 'numbered-list') {
@@ -95,7 +94,6 @@ function StructuredFieldPlugin(opts) {
     function onCopy(event, change, editor) {
         const state = change.value;
         let { selection } = state;
-
         const window = getWindow(event.target);
         const native = window.getSelection();
         const { endBlock, endInline } = state;
@@ -181,17 +179,22 @@ function StructuredFieldPlugin(opts) {
     }
     const FRAGMENT_MATCHER = / flux-string="([^\s]+)"/;
     function onPaste(event, change, editor) {
+        // console.log('in paste')
+        // console.log(event.clipboardData.getData('Text'))
         const html = event.clipboardData.getData('text/html') || null;
         const text = event.clipboardData.getData('text/plain') || null;
+        // console.log(text)
+        // console.log(html)
         if (
             html &&
             ~html.indexOf(' flux-string="')
         ) {
+            // console.log('case 1')
             const matches = FRAGMENT_MATCHER.exec(html);
             const [ full, encoded ] = matches; // eslint-disable-line no-unused-vars
             const decoded = window.decodeURIComponent(window.atob(encoded));
-            console.log("decoded")
-            console.log(decoded)
+            // console.log("decoded")
+            // console.log(decoded)
 
             // because insertion of shortcuts into the context relies on the current selection, during a paste
             // we override the routine that checks the location of a structured field relative to the selection
@@ -203,11 +206,15 @@ function StructuredFieldPlugin(opts) {
             insertText(decoded);
             contextManager.setIsBlock1BeforeBlock2(saveIsBlock1BeforeBlock2);
             event.preventDefault();
-            return change;
+            return change.value;
         } else if (text) {
+            // console.log('case 2')
             event.preventDefault();
             insertText(text);
-            return change;
+            return change.value;
+        } else { 
+            // console.log('case 3')
+            return null;
         }
     }
 
@@ -265,7 +272,7 @@ function StructuredFieldPlugin(opts) {
  */
 function insertStructuredField(opts, change, shortcut) {
     const { value } = change;
-    console.log('insertSrtcutred Field')
+    // console.log('insertSrtcutred Field')
     if (!value.selection.startKey) return false;
 
     // Create the structured-field node
