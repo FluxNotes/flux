@@ -36,7 +36,7 @@ class VisualizerManager {
         });
         return newsection;
     };
-    
+
     transformNameValuePairToColumns = (patient, condition, subsection) => {
         let newsection = {};
 

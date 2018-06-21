@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from '../elements/Button';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
+import FontAwesome from 'react-fontawesome';
+import { ListItemIcon, ListItemText } from 'material-ui/List';
 
 export default class TargetedDataSection extends Component {
     constructor(props) {
         super(props);
-
         const optionsForSection = this.getOptions(props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(props.section, props.clinicalEvent, optionsForSection);
 
@@ -27,6 +28,50 @@ export default class TargetedDataSection extends Component {
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
             this.setState({ defaultVisualizer, chosenVisualizer: null });
         }
+    }
+
+    filterAndDisplayActions = (unfilteredActions, isSigned, arrayIndex, subsectionName, element, elementText, closeInsertionMenu, onMenuItemClicked, elementDisplayingMenu, positionLeft, positionTop) => {
+        
+        const filteredActions = unfilteredActions.filter((a) => {
+            if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
+            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionName)) return false;
+            if (a.whenToDisplay.displayForColumns && !a.whenToDisplay.displayForColumns.includes(arrayIndex)) return false;
+            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
+            // Is allow item clicked going to update properly?
+            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
+        });
+        if (filteredActions.length === 0) return null;
+        return (
+            <Menu
+                open={elementDisplayingMenu === subsectionName}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: positionTop, left: positionLeft }}
+                onClose={(event) => closeInsertionMenu()}
+                className="narrative-inserter-tooltip"
+            >
+                {
+                    // map filterActions to MenuItems
+                    filteredActions.map((a, index) => {
+                        const icon = a.icon ? (
+                            <ListItemIcon>
+                                <FontAwesome name={a.icon} />
+                            </ListItemIcon>
+                        ) : null;
+                        const text = a.text.replace("{elementText}", elementText);
+                        return (
+                            <MenuItem
+                                key={`${subsectionName}-${index}`}
+                                onClick={() => onMenuItemClicked(a.handler, element)}
+                                className="narrative-inserter-box"
+                            >
+                                {icon}
+                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
+                            </MenuItem>
+                        )
+                    })
+                }
+            </Menu>
+        );
     }
 
     determineDefaultVisualizer = (section, clinicalEvent, optionsForSection) => {
@@ -138,6 +183,7 @@ export default class TargetedDataSection extends Component {
             <Visualizer
                 patient={patient}
                 condition={condition}
+                filterAndDisplayActions={this.filterAndDisplayActions}
                 conditionSection={section}
                 sectionTransform={sectionTransform}
                 allowItemClick={allowItemClick}
@@ -177,7 +223,7 @@ TargetedDataSection.propTypes = {
     condition: PropTypes.object,
     onItemClicked: PropTypes.func,
     actions: PropTypes.array,
-    allowItemClick: PropTypes.bool,
+    allowItemClick: PropTypes.bool.isRequired,
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired
 }

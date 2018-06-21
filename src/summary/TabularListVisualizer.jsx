@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
-import { ListItemIcon, ListItemText } from 'material-ui/List';
-import Menu, { MenuItem } from 'material-ui/Menu';
+//import { ListItemIcon, ListItemText } from 'material-ui/List';
+//import Menu, { MenuItem } from 'material-ui/Menu';
 import { TableCell, TableRow } from 'material-ui/Table';
-import FontAwesome from 'react-fontawesome';
+//import FontAwesome from 'react-fontawesome';
 import Tooltip from 'rc-tooltip';
 
 import TabularListVisualizerTable from './TabularListVisualizerTable';
@@ -393,48 +393,8 @@ export default class TabularListVisualizer extends Component {
 
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
-        
-        // Filter actions by whenToDisplay property on action
-        const filteredActions = subsectionActions.concat(this.props.actions).filter((a) => {
-            if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
-            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionName)) return false;
-            if (a.whenToDisplay.displayForColumns && !a.whenToDisplay.displayForColumns.includes(arrayIndex)) return false;
-            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
-        });
-
-        if (filteredActions.length === 0) return null;
-        return (
-            <Menu
-                open={elementToDisplayMenu === elementId}
-                anchorReference="anchorPosition"
-                anchorPosition={{ top: positionTop, left: positionLeft }}
-                onClose={(event) => this.closeInsertionMenu()}
-                className="narrative-inserter-tooltip"
-            >
-                {
-                    // map filteredActions to MenuItems
-                    filteredActions.map((a, index) => {
-                        const icon = a.icon ? (
-                            <ListItemIcon>
-                                <FontAwesome name={a.icon} />
-                            </ListItemIcon>
-                        ) : null;
-                        const text = a.text.replace("{elementText}", elementText);
-                        return (
-                            <MenuItem
-                                key={`${elementId}-${index}`}
-                                onClick={() => onMenuItemClicked(a.handler, element)}
-                                className="narrative-inserter-box"
-                            >
-                                {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
-                            </MenuItem>
-                        )
-                    })
-                }
-            </Menu>
-        );
+        return this.props.filterAndDisplayActions((subsectionActions.concat(this.props.actions)), isSigned, arrayIndex, elementId,
+                                           element, elementText, this.closeInsertionMenu, onMenuItemClicked, elementToDisplayMenu, positionLeft, positionTop);
     }
 
     // Opens the insertion menu for the given element id, based on cursor location
@@ -466,6 +426,7 @@ TabularListVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
+    filterAndDisplayActions: PropTypes.func.isRequired,
     sectionTransform: PropTypes.func,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,
