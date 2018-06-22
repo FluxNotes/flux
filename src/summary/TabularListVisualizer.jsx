@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
-//import { ListItemIcon, ListItemText } from 'material-ui/List';
-//import Menu, { MenuItem } from 'material-ui/Menu';
 import { TableCell, TableRow } from 'material-ui/Table';
-//import FontAwesome from 'react-fontawesome';
 import Tooltip from 'rc-tooltip';
 
 import TabularListVisualizerTable from './TabularListVisualizerTable';
