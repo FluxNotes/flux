@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import { TableCell, TableRow } from 'material-ui/Table';
 import Tooltip from 'rc-tooltip';
-
 import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
 import VisualizerMenu from './VisualizerMenu.jsx';
