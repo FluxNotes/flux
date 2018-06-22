@@ -10,7 +10,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     opts = createOpts(opts);
     const shortcutManager = opts.shortcutManager;
 	const createShortcut = opts.createShortcut;
-	const insertStructuredFieldTransform = opts.insertStructuredFieldTransform;
+	const insertStructuredFieldChange = opts.insertStructuredFieldChange;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
 
 	function onBeforeInput (e, change, editor) { 
@@ -58,7 +58,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 					// Remove keyword from block, using first character as the prefix
 					curTransform = curTransform.select(keywordRange).delete();
 					// Add shortcut to text; update curNode and curText
-					curTransform = insertStructuredFieldTransform(curTransform, newKeywordShortcut)
+					curTransform = insertStructuredFieldChange(curTransform, newKeywordShortcut)
 					curNode = curTransform.state.endBlock
 				} 
 			}

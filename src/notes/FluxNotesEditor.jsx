@@ -81,7 +81,7 @@ class FluxNotesEditor extends React.Component {
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
-            insertStructuredFieldTransform: this.insertStructuredFieldTransform,
+            insertStructuredFieldChange: this.insertStructuredFieldChange,
         };
 
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
@@ -126,7 +126,7 @@ class FluxNotesEditor extends React.Component {
             "trigger": /[\s\r\n.!?;,)}\]"']/,
             // "trigger": 'space',
             "before": this.autoReplaceBeforeRegExp,
-            "transform": this.autoReplaceTransform.bind(this, null)
+            "transform": this.autoReplaceChange.bind(this, null)
         }));
 
         // let's see if we have any regular expression shortcuts
@@ -143,7 +143,7 @@ class FluxNotesEditor extends React.Component {
                     "trigger": /[\s\r\n.!?;,)}\]"']/,
                     // "trigger": 'space',
                     "before": triggerRegExpModified,
-                    "transform": this.autoReplaceTransform.bind(this, def)
+                    "transform": this.autoReplaceChange.bind(this, def)
                 }));
             }
         });
@@ -185,7 +185,7 @@ class FluxNotesEditor extends React.Component {
     // Reset the editor to the initial state when the app is first constructed.
     resetEditorState() {
         this.state = {
-            state: initialState,
+            editorValue: initialState,
             isPortalOpen: false,
             portalOptions: null,
         };
@@ -233,40 +233,40 @@ class FluxNotesEditor extends React.Component {
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             this.openPortalToSelectValueForShortcut(shortcut, true, change);
         } else {
-            const changeBeforeInsert = this.suggestionDeleteExistingTransform(change, shortcut.getPrefixCharacter());
-            const changeAfterInsert = this.insertStructuredFieldTransform(changeBeforeInsert, shortcut).collapseToStartOfNextText().focus();
+            const changeBeforeInsert = this.suggestionDeleteExistingChange(change, shortcut.getPrefixCharacter());
+            const changeAfterInsert = this.insertStructuredFieldChange(changeBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return changeAfterInsert.value;
         }
     }
 
-    insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        if (Lang.isUndefined(transform)) {
-            transform = this.state.state.transform();
+    insertShortcut = (shortcutC, shortcutTrigger, text, change = undefined, updatePatient = true, shouldPortalOpen = true) => {
+        if (Lang.isUndefined(change)) {
+            change = this.state.editorValue.change();
         }
 
         // check if shortcutTrigger is currently valid
         if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
-            return this.insertPlainText(transform, shortcutTrigger);
+            return this.insertPlainText(change, shortcutTrigger);
         }
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform, shouldPortalOpen);
+            return this.openPortalToSelectValueForShortcut(shortcut, false, change, shouldPortalOpen);
         }
-        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+        return this.insertStructuredFieldChange(change, shortcut).collapseToStartOfNextText().focus();
     }
 
-    autoReplaceTransform(def, transform, e, matches) {
+    autoReplaceChange(def, change, e, matches) {
         // get keycode as a fallback if browser doesn't define e.key
         const keyCode = e.keyCode || e.which || 0;
         const characterToAppend = e.key ? e.key : String.fromCharCode(keyCode);
-        return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
+        return this.insertShortcut(def, matches.before[0], "", change).insertText(characterToAppend);
     }
 
     getTextCursorPosition = () => {
         const positioningUsingSlateNodes = () => { 
             const pos = {};
-            const parentNode = this.state.state.document.getParent(this.state.state.selection.startKey);
+            const parentNode = this.state.editorValue.document.getParent(this.state.editorValue.selection.startKey);
             const el = findDOMNode(parentNode);
             console.log(el)
             const children = el.childNodes;
@@ -297,7 +297,7 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform, shouldPortalOpen = true) {
+    openPortalToSelectValueForShortcut(shortcut, needToDelete, change, shouldPortalOpen = true) {
         // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
         if (!shouldPortalOpen) {
             this.setState({
@@ -305,8 +305,8 @@ class FluxNotesEditor extends React.Component {
                 needToDelete: needToDelete,
             });
             this.selectingForShortcut = null;
-            this.insertPlainText(transform, shortcut.initiatingTrigger);
-            return transform.blur();
+            this.insertPlainText(change, shortcut.initiatingTrigger);
+            return change.blur();
         }
         
         let portalOptions = shortcut.getValueSelectionOptions();
@@ -317,7 +317,7 @@ class FluxNotesEditor extends React.Component {
             needToDelete: needToDelete,
         });
         this.selectingForShortcut = shortcut;
-        return transform.blur();
+        return change.blur();
     }
 
     // called from portal when an item is selected (selection is not null) or if portal is closed without
@@ -339,27 +339,27 @@ class FluxNotesEditor extends React.Component {
             shortcut.setValueObject(selection.object);
         }
         this.contextManager.contextUpdated();
-        let transform;
+        let change;
         if (this.state.needToDelete) {
-            transform = this.suggestionDeleteExistingTransform(null, shortcut.getPrefixCharacter());
+            change = this.suggestionDeleteExistingChange(null, shortcut.getPrefixCharacter());
         } else {
-            transform = this.state.state.transform();
+            change = this.state.editorValue.change();
         }
         // Return change
-        return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
+        return this.insertStructuredFieldChange(change, shortcut).collapseToStartOfNextText().focus();
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
-    suggestionDeleteExistingTransform = (change = null, prefixCharacter) => {
-        const {state} = this.state;
+    suggestionDeleteExistingChange = (change = null, prefixCharacter) => {
+        const {editorValue} = this.state;
         if (Lang.isNull(change)) {
-            change = state.change();
+            change = editorValue.change();
         }
-        let {anchorText, anchorOffset} = state;
-        let anchorKey = state.anchorBlock.key;
+        let {anchorText, anchorOffset} = editorValue;
+        let anchorKey = editorValue.anchorBlock.key;
         let text = anchorText.text
         if (text.length === 0) {
-            const block = state.document.getPreviousSibling(anchorKey);
+            const block = editorValue.document.getPreviousSibling(anchorKey);
             if (block) {
                 text = block.getFirstText().text;
                 anchorOffset = text.length;
@@ -380,9 +380,9 @@ class FluxNotesEditor extends React.Component {
             .deleteBackward(charactersInStructuredPhrase);
     }
 
-    insertStructuredFieldTransform = (transform, shortcut) => {
-        if (Lang.isNull(shortcut)) return transform.focus();
-        let result = this.structuredFieldPlugin.changes.insertStructuredField(transform, shortcut);
+    insertStructuredFieldChange = (change, shortcut) => {
+        if (Lang.isNull(shortcut)) return change.focus();
+        let result = this.structuredFieldPlugin.changes.insertStructuredField(change, shortcut);
         // console.log("result[0]");
         // console.log(result[0]);
         return result[0];
@@ -420,12 +420,12 @@ class FluxNotesEditor extends React.Component {
         });
         // save
         this.setState({
-            state: editorValue
+            editorValue: editorValue
         });
     }
 
     onFocus = () => {
-        const state = this.state.state;
+        const state = this.state.editorValue;
         const selection = state.selection;
         this.adjustActiveContexts(selection, state);
         this.editorHasFocus = true;
@@ -437,7 +437,7 @@ class FluxNotesEditor extends React.Component {
 
     onInput = (event, data) => {
         // Create an updated state with the text replaced.
-        var deletionChange = this.state.state.change().select({
+        var deletionChange = this.state.editorValue.change().select({
             anchorKey: data.anchorKey,
             anchorOffset: data.anchorOffset,
             focusKey: data.focusKey,
@@ -449,7 +449,7 @@ class FluxNotesEditor extends React.Component {
 
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
         if (Lang.isUndefined(state)) {
-            state = this.state.state;
+            state = this.state.editorValue;
         }
         if (Lang.isNull(key1)) {
             key1 = state.selection.endKey;
@@ -463,7 +463,7 @@ class FluxNotesEditor extends React.Component {
 
     isNodeTypeBetween(key1, key2, typeToFind, state) {
         if (Lang.isUndefined(state)) {
-            state = this.state.state;
+            state = this.state.editorValue;
         }
         if (Lang.isNull(key1)) {
             key1 = state.selection.endKey;
@@ -569,7 +569,7 @@ class FluxNotesEditor extends React.Component {
         // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
         // This means user either clicked the OK or Cancel button on the modal
         if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
-            this.adjustActiveContexts(this.state.state.selection, this.state.state); 
+            this.adjustActiveContexts(this.state.editorValue.selection, this.state.editorValue); 
             this.props.contextManager.clearNonActiveContexts();
             // User clicked cancel button
             if (nextProps.contextTrayItemToInsert === null) {
@@ -831,7 +831,7 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentChange = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        const currentValue = this.state.state;
+        const currentValue = this.state.editorValue;
 
         let change = (currentChange) ? currentChange : currentValue.change();
         let remainder = textToBeInserted;
@@ -886,7 +886,7 @@ class FluxNotesEditor extends React.Component {
             change = this.insertPlainText(change, remainder);
         }
 
-        this.setState({state: change.value});
+        this.setState({editorValue: change.value});
     }
 
     /**
@@ -985,18 +985,17 @@ class FluxNotesEditor extends React.Component {
      * Check if the current selection has a mark with `type` in it.
      */
     handleMarkCheck = (type) => {
-        const {state} = this.state;
-        return state.marks.some(mark => mark.type === type);
+        const {editorValue} = this.state;
+        return editorValue.marks.some(mark => mark.type === type);
     }
 
     /**
      * Check if the any of the currently selected blocks are of `type`.
      */
     handleBlockCheck = (type) => {
-        const {state} = this.state;
-        return state.blocks.some((node) => {
+        const {editorValue} = this.state;
+        return editorValue.blocks.some((node) => {
             return node.type === type;
-
         });
     }
 
@@ -1004,28 +1003,28 @@ class FluxNotesEditor extends React.Component {
      * Handle any changes to the current mark type.
      */
     handleMarkUpdate = (type) => {
-        let {state} = this.state
-        const editorValue = state
+        let {editorValue} = this.state
+        const newEditorValue = editorValue
             .change()
             .toggleMark(type)
             .value;
-        this.setState({state: editorValue});
+        this.setState({editorValue: newEditorValue});
     }
 
     /**
      * Handle any changes to the current block type.
      */
     handleBlockUpdate = (type) => {
-        const {state} = this.state;
-        const change = state.change();
-        const { document } = state;
+        const {editorValue} = this.state;
+        const change = editorValue.change();
+        const { document } = editorValue;
         const DEFAULT_NODE = "line";
 
         // Handle list buttons.
         if (type === 'bulleted-list' || type === 'numbered-list') {
             const isList = this.handleBlockCheck(type + '-item')
 
-            const isType = state.blocks.some((block) => {
+            const isType = editorValue.blocks.some((block) => {
                 return !!document.getClosest(block.key, parent => parent.type === type)
             });
 
@@ -1047,8 +1046,8 @@ class FluxNotesEditor extends React.Component {
             // We don't handle any other kinds of block style formatting right now, but if we did it would go here.
         }
 
-        const editorValue = change.value
-        this.setState({state: editorValue});
+        const newEditorValue = change.value
+        this.setState({editorValue: newEditorValue});
 
     }
 
@@ -1186,19 +1185,19 @@ class FluxNotesEditor extends React.Component {
                             }}
                             renderMark={this.renderMark}
                             renderNode={this.renderNode}
-                            value={this.state.state}
+                            value={this.state.editorValue}
                         />
                     </div>
 
                     <CreatorsPortal
                         contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}
-                        state={this.state.state}
+                        state={this.state.editorValue}
                     />
                     <InsertersPortal
                         contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}
-                        state={this.state.state}
+                        state={this.state.editorValue}
                     />
                     <ContextPortal
                         capture={/@([\w]*)/}
@@ -1209,7 +1208,7 @@ class FluxNotesEditor extends React.Component {
                         isOpened={this.state.isPortalOpen}
                         onChange={this.onChange}
                         onSelected={this.onPortalSelection}
-                        state={this.state.state}
+                        state={this.state.editorValue}
                         trigger={"@"}
                     />
                 </div>
