@@ -1,6 +1,6 @@
-.toolbar-menu > * {
+/* .toolbar-menu > * {
     display: inline-block;
-}
+} */
 
 .toolbar-menu {
     padding: 1px 0 17px 5px;
@@ -14,6 +14,7 @@
     color: #ccc;
     margin-left: 10px;
     cursor: pointer;
+    display: inline;
 }
 
 .toolbar-menu .button:nth-child(1) {
@@ -25,6 +26,7 @@
 }
 
 .toolbar-breadcrumbs-separator {
+    /* display: inline; */
     color: #ddd;
     vertical-align: bottom;
     margin: 0px 40px;

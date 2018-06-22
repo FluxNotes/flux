@@ -11,7 +11,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
             return null;
         }
         else {
-            const contextOptions = activeContexts.map((context, i) => {
+            const contextOptions = activeContexts.reverse().map((context, i) => {
                 const index = activeContexts.length - (i + 1);
                 const breadcrumb = context.text.replace("#", "");
 
@@ -22,7 +22,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
-                            <span className="breadcrumb">{breadcrumb}</span>
+                            <div className="breadcrumb">{breadcrumb}</div>
                         </div>
                     )
                 }
@@ -32,8 +32,8 @@ class EditorToolbarBreadcrumbs extends React.Component {
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
-                            <span className="breadcrumb">{breadcrumb}</span>
-                            <span className="breadcrumb-separator">|</span>
+                            <div className="breadcrumb">{breadcrumb}</div>
+                            <div className="breadcrumb-separator">|</div>
                         </div>
                     )
                 }
@@ -60,7 +60,7 @@ class EditorToolbarBreadcrumbs extends React.Component {
 }
 
 EditorToolbarBreadcrumbs.proptypes = {
-    contextManager: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired
 };
 
 
