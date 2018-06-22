@@ -230,7 +230,6 @@ export default class TabularListVisualizer extends Component {
     renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
-
         const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;
@@ -390,7 +389,6 @@ export default class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
-        //console.log(this.props.actions.concat(subsectionActions));
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
         return (

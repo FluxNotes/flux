@@ -213,17 +213,10 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // renders Menu for snippet and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
-        // const {
-        //     snippetDisplayingMenu,
-        //     positionLeft,
-        //     positionTop,
-        // } = this.state;
 
         const onMenuItemClicked = (fn, element) => {
-            console.log("On Menu Item Clicked");
             const callback = () => {
                 // convert element to format action is expecting
-                console.log("On Menu Item Clicked Callback");
                 const transformedElement = {
                     shortcut: element.shortcut,
                     value: [

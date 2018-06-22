@@ -174,7 +174,7 @@ TargetedDataSection.propTypes = {
     condition: PropTypes.object,
     onItemClicked: PropTypes.func,
     actions: PropTypes.array,
-    allowItemClick: PropTypes.bool.isRequired,
+    allowItemClick: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     clinicalEvent: PropTypes.string.isRequired
 }
