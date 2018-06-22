@@ -10,6 +10,7 @@ import Tooltip from 'rc-tooltip';
 
 import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
+import VisualizerMenu from './VisualizerMenu.jsx';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
@@ -382,8 +383,6 @@ export default class TabularListVisualizer extends Component {
     // renders Menu for element and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
-        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);
@@ -391,10 +390,25 @@ export default class TabularListVisualizer extends Component {
             this.closeInsertionMenu(callback);
         }
 
+        //console.log(this.props.actions.concat(subsectionActions));
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
-        return this.props.filterAndDisplayActions((subsectionActions.concat(this.props.actions)), isSigned, arrayIndex, elementId,
-                                           element, elementText, this.closeInsertionMenu, onMenuItemClicked, elementToDisplayMenu, positionLeft, positionTop);
+        return (
+            <VisualizerMenu
+                allowItemClick={this.props.allowItemClick}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={element}
+                elementDisplayingMenu={this.state.elementToDisplayMenu}
+                elementId={elementId}
+                elementText={elementText}
+                isSigned={isSigned}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={this.state.positionLeft}
+                positionTop={this.state.positionTop}
+                subsectionName={subsectionName}
+                unfilteredActions={this.props.actions.concat(subsectionActions)}
+            />);
     }
 
     // Opens the insertion menu for the given element id, based on cursor location
@@ -426,7 +440,6 @@ TabularListVisualizer.propTypes = {
     patient: PropTypes.object,
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
-    filterAndDisplayActions: PropTypes.func.isRequired,
     sectionTransform: PropTypes.func,
     isWide: PropTypes.bool,
     allowItemClick: PropTypes.bool,

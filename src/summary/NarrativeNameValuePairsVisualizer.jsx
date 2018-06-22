@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
+import VisualizerMenu from './VisualizerMenu.jsx';
 
 /*
  A narrative view of one or more data summary items.
@@ -212,15 +213,17 @@ class NarrativeNameValuePairsVisualizer extends Component {
     // renders Menu for snippet and associated actions as Menu items
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
-        const {
-            snippetDisplayingMenu,
-            positionLeft,
-            positionTop,
-        } = this.state;
-        
+        // const {
+        //     snippetDisplayingMenu,
+        //     positionLeft,
+        //     positionTop,
+        // } = this.state;
+
         const onMenuItemClicked = (fn, element) => {
+            console.log("On Menu Item Clicked");
             const callback = () => {
                 // convert element to format action is expecting
+                console.log("On Menu Item Clicked Callback");
                 const transformedElement = {
                     shortcut: element.shortcut,
                     value: [
@@ -237,9 +240,22 @@ class NarrativeNameValuePairsVisualizer extends Component {
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
         isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
-     
-        return this.props.filterAndDisplayActions(this.props.actions, isSigned, arrayIndex, snippetId, snippet, snippetText, 
-                                                 this.closeInsertionMenu, onMenuItemClicked,  snippetDisplayingMenu, positionLeft, positionTop);
+    
+       return( 
+         <VisualizerMenu
+            allowItemClick={this.props.allowItemClick}
+            arrayIndex={arrayIndex}
+            closeInsertionMenu={this.closeInsertionMenu}
+            element={snippet}
+            elementDisplayingMenu={this.state.snippetDisplayingMenu}
+            elementId={snippetId}
+            elementText={snippetText}
+            isSigned={isSigned}
+            onMenuItemClicked={onMenuItemClicked}
+            positionLeft={this.state.positionLeft}
+            positionTop={this.state.positionTop}
+            unfilteredActions={this.props.actions}
+       /> );
     }
 
     // Opens the insertion menu for the given snippet id, based on cursor location
@@ -311,7 +327,6 @@ NarrativeNameValuePairsVisualizer.propTypes = {
     condition: PropTypes.object,
     conditionSection: PropTypes.object,
     isWide: PropTypes.bool,
-    filterAndDisplayActions: PropTypes.func.isRequired,
     allowItemClick: PropTypes.bool,
     actions: PropTypes.array
 };
