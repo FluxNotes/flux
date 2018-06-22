@@ -57,7 +57,6 @@ function StructuredFieldPlugin(opts) {
     }
     
     function convertToText(editorValue, selection) {
-        console.log(selection)
         // If there is a selection obj, use it to make a range and get a fragment accordingly
         const subsectionOfText = selection ? editorValue.document.getFragmentAtRange(Range.create(selection)) : editorValue.document;
         return `${convertSlateNodesToText(subsectionOfText.toJSON().nodes)}`;
@@ -511,8 +510,6 @@ function insertStructuredField(opts, change, shortcut) {
 function createStructuredField(opts, shortcut) {
     let nodes = [];
     const structuredFieldType = getStructuredFieldType();
-    console.log("shortcut")
-    console.log(shortcut)
     const properties = {
         type:  structuredFieldType,
         nodes: nodes,
