@@ -1,11 +1,10 @@
 .toolbar-breadcrumbs-container {
+    color: #ccc;
+    font-size: 0.8em;
+    font-style: italic;
+    display: inline-block;
     vertical-align: bottom;
     width: 65%;
-    direction: rtl;
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: left;
-    text-overflow:  ellipsis;
 }
 
 /* Allows for respnsive width styling according to size of window.
@@ -28,25 +27,42 @@ Width percentages chosen arbitrarily.*/
     }
 }
 
-.breadcrumbs-container {
-    padding-left: 3px;
-    display: inline-block;
-    vertical-align: bottom;
-    color: #ccc;
-    font-size: 0.8em;
-    font-style: italic;
+.breadcrumbs-container:after {
+    content:"..........................";
+    background-color: white;
+    color: transparent;
+    position: relative;
+    z-index: 2;
 }
 
+.breadcrumbs-container {
+    vertical-align: bottom;
+    direction: rtl;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.breadcrumbs-container:before {
+    content:"...";
+    background-color: white;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
 
 .breadcrumbs {
     display: inline-block;
 }
 
 .breadcrumb {
-    display: inline-block;
+    display: inline;
 }
 
 .breadcrumb-separator {
-    display: inline-block;
+    display: inline;
     padding: 0px 10px;
 }
