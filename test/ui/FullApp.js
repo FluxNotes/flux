@@ -95,52 +95,52 @@ fixture('Patient Mode - Patient Control Panel')
 fixture('Patient Mode - Editor')
     .page(startPage);
 
-test('Clicking clinical notes toggle button in Note Assistance switches view to clinical notes', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
-    const clinicalNotesButton = Selector('#notes-btn');
-    const newNoteButton = Selector('.note-new');
+// test('Clicking clinical notes toggle button in Note Assistance switches view to clinical notes', async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+//     const clinicalNotesButton = Selector('#notes-btn');
+//     const newNoteButton = Selector('.note-new');
 
-    // clinical notes button is selected
-    await t
-        .click(clinicalNotesButton)
+//     // clinical notes button is selected
+//     await t
+//         .click(clinicalNotesButton)
 
-    const buttonText = await newNoteButton.textContent;
+//     const buttonText = await newNoteButton.textContent;
 
-    await t
-        .expect(buttonText.toString().toLowerCase())
-        .eql("new note");
-});
+//     await t
+//         .expect(buttonText.toString().toLowerCase())
+//         .eql("new note");
+// });
 
-test('Clicking context toggle button in Note Assistance switches view to context tray', async t=> {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test('Clicking context toggle button in Note Assistance switches view to context tray', async t=> {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    const clinicalNotesButton = Selector('#notes-btn');
-    const contextButton = Selector('#context-btn');
-    const contextTray = Selector('.context-tray');
+//     const clinicalNotesButton = Selector('#notes-btn');
+//     const contextButton = Selector('#context-btn');
+//     const contextTray = Selector('.context-tray');
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    // Select clinical notes
-    await t
-        .click(clinicalNotesButton)
+//     // Select clinical notes
+//     await t
+//         .click(clinicalNotesButton)
 
-    // Select context button
-    await t
-        .click(contextButton)
+//     // Select context button
+//     await t
+//         .click(contextButton)
 
-    await t
-        .expect(contextTray.exists)
-        .ok()
-});
+//     await t
+//         .expect(contextTray.exists)
+//         .ok()
+// });
 
 
 // test('In post-encounter mode, clicking the "New Note" button clears the editor content', async t => {

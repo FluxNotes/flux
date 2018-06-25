@@ -164,6 +164,57 @@ describe('FullApp', function() {
         const e2 = wrapper.find('div.editor-content');
         expect(e2.exists()).to.equal(true);
     });
+    it('Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+        // Click on new note button to open the editor
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+
+        // no new note button now
+        const newNoteButton2 = wrapper.find('.note-new');
+        expect(newNoteButton2.exists()).to.equal(false);
+
+        // clinical notes button is selected
+        const clinicalNotesButton = wrapper.find('#notes-btn');
+        expect(clinicalNotesButton.exists()).to.equal(true);
+        clinicalNotesButton.at(0).props().onClick();
+        wrapper.update();
+
+        // do we have new note button available?
+        const newNoteButton3 = wrapper.find('.note-new');
+        expect(newNoteButton3.exists()).to.equal(true);
+    });
+    it.only('Clicking context toggle button in Note Assistant switches view to context tray', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+        // Mimic post-encounter view
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+
+        // Select clinical notes
+        const clinicalNotesButton = wrapper.find('#notes-btn');
+        clinicalNotesButton.at(0).props().onClick();
+        wrapper.update();
+    
+        // Select context button
+        const contextButton = wrapper.find('#context-btn');
+        contextButton.at(0).props().onClick();
+        wrapper.update();
+
+        // context tray should be showing
+        const contextTray = wrapper.find('.context-tray');
+        expect(contextTray.exists()).to.equal(true);
+    });
+        
 });
 
 describe('FluxNotesEditor', function() {
