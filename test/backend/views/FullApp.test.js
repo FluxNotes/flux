@@ -189,7 +189,7 @@ describe('FullApp', function() {
         const newNoteButton3 = wrapper.find('.note-new');
         expect(newNoteButton3.exists()).to.equal(true);
     });
-    it.only('Clicking context toggle button in Note Assistant switches view to context tray', () => {
+    it('Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes' 
             dataSource='HardCodedReadOnlyDataSource' 
@@ -214,7 +214,46 @@ describe('FullApp', function() {
         const contextTray = wrapper.find('.context-tray');
         expect(contextTray.exists()).to.equal(true);
     });
-        
+    it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+
+        // click new note button
+        const newNoteButton = wrapper.find('.note-new');
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+
+        // Select clinical notes
+        const clinicalNotesButton = wrapper.find('#notes-btn');
+        clinicalNotesButton.at(0).props().onClick();
+        wrapper.update();
+
+        // editor
+        const e1 = wrapper.find('div.editor-content');
+        expect(e1.exists()).to.equal(true);
+
+        console.log(e1);
+        const clinicalNotesButton = Selector('#notes-btn');
+        const newNoteButton = Selector('.note-new');
+           
+        // Enter some text in the editor
+        await t
+            .typeText(editor, "@name ")
+    
+        // Switch to clinical notes view
+        await t
+            .click(clinicalNotesButton)
+    
+        // Click on new note button to clear the editor
+        await t
+            .click(newNoteButton)
+    
+        await t
+            .expect(editor.textContent)
+            .eql("Enter your clinical note here or choose a template to start from...");
+    });
 });
 
 describe('FluxNotesEditor', function() {
