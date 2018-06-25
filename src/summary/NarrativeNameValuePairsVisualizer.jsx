@@ -211,7 +211,6 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // renders Menu for snippet and associated actions as Menu items
-    // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
 
         const onMenuItemClicked = (fn, element) => {

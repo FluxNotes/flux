@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 
 export default class VisualizerMenu extends Component {
 
+    // Filter Actions by whenToDisplay property on an actions.
     filterActions = () => {
         const filteredActions = this.props.unfilteredActions.filter((a) => {
             if (a.whenToDisplay.valueExists && Lang.isNull(this.props.element)) return false;
@@ -18,6 +19,7 @@ export default class VisualizerMenu extends Component {
         return filteredActions;
     }
     
+    // Renders a menu for an element with its associated meny items.
     render() {
         const filteredActions = this.filterActions(this.props.unfilteredActions);
         if (filteredActions.length === 0) return null;

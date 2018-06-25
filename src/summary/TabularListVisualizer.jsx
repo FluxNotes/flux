@@ -376,7 +376,6 @@ export default class TabularListVisualizer extends Component {
     }
 
     // renders Menu for element and associated actions as Menu items
-    // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
