@@ -82,27 +82,43 @@ class MedicationRangeChartVisualizer extends Component {
         return rows;
     }
 
-    renderMedicationChange = (medChange, medBefore) => {
-        // console.log("medChange:");
-        // console.log(medChange);
-        // console.log("medBefore");
-        // console.log(medBefore);
+    renderMedicationChange = (medChange, medBefore) => {     
 
-        return (
-            <Row center="xs">
-                <Col xs={12} className="medication-change">
-                    <span className='medication-change-type'>
-                        {this.stringForMedicationChangeType(medChange.type)}
-                    </span>
-                    <span className='medication-change-prior-amount'>
-                        {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
-                    </span>
-                    <span className='medication-change-date'>
-                        {this.stringForMedicationChangeDate(medChange.date)}
-                    </span>
-                </Col>
-            </Row>
-        );
+        if (medChange.type === "stop") {
+            return (
+                <Row center="xs">
+                    <Col xs={12} className="medication-change">
+                        <span className='medication-change-type'>
+                            {this.stringForMedicationChangeType(medChange.type)}
+                        </span>                         
+                        <span className='medication-change-date'>
+                            {this.stringForMedicationChangeDate(medChange.date)}
+                        </span> 
+                        <span className='medication-change-prior-amount'>
+                            {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
+                        </span>            
+                    </Col>
+                </Row>  
+            );
+        } else {
+            return (
+                <Row center="xs">
+                    <Col xs={12} className="medication-change">
+                        <span className='medication-change-type'>
+                            {this.stringForMedicationChangeType(medChange.type)}
+                        </span>
+                        <span className='medication-change-prior-amount'>
+                            {this.stringForMedicationChangePriorAmount(medChange.type, medBefore)}
+                        </span>
+                        <span className='medication-change-date'>
+                            {this.stringForMedicationChangeDate(medChange.date)}
+                        </span>
+                    </Col>
+                </Row>
+            );
+        }
+
+       
     }
 
     /**
@@ -110,7 +126,7 @@ class MedicationRangeChartVisualizer extends Component {
      * returns a string for displaying the medChange date
      */
     stringForMedicationChangeDate(date) { 
-        return `on ${date}`
+        return ` on ${date}`
     }
 
     /**
@@ -150,10 +166,16 @@ class MedicationRangeChartVisualizer extends Component {
             case "swap":
                 return `with ${medBefore.medication}}`;
             case "stop":
-                return ` `;
+                return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
             default:
                 return `${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
         }
+    }
+
+    stringForMedicationStoppedDosageBefore(medBefore) {
+        console.log('in string');
+        console.log(medBefore);
+        return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
     }
 
     renderMedication = (med, i) => {
@@ -173,48 +195,18 @@ class MedicationRangeChartVisualizer extends Component {
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
         const medicationIsChange = (med.medicationChange ? true : false);
 
-        // console.log("[chart vis] medication");
-        // console.log(med);
-        //
-        //
-        // console.log("medicationIsChange");
-        // console.log(medicationIsChange);
-        //
-        //
-        // console.log("name");
-        // console.log(name);
 
-        {/*console.log("med change type");*/}
-        {/*if (med.medicationChange) {*/}
-            {/*if (med.medicationChange.type === "stop") {*/}
-                {/*console.log("change type is stop");*/}
-        //     }
-        //     else {
-        //         console.log("change type is NOT stop");
-        //     }
-        // } else {
-        //     console.log("no change");
-        // }
-        //
-
-
-        return (
-            <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
+        if (med.medicationChange && med.medicationChange.type === 'stop') {
+            return (
+                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
                 <Grid className="FullApp-content" fluid>
                     <Row top="xs">
                         <Col sm={numColsChart}>
                             <div className="range-chart-container">
-                                {/*<svg width="100%" height="6em" viewBox="0 0 340 100">*/}
-                                    {/*<text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>*/}
-                                {/*</svg>*/}
-                                <RangeChart
-                                    lowerValue={lowerValue}
-                                    upperValue={upperValue}
-                                    typicalValue={typicalValue}
-                                    value={value}
-                                    unit={unit}
-                                    name={name}
-                                />
+                                <svg width="100%" height="6em" viewBox="0 0 340 100">
+                                    <text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
+                                </svg>
+                                
                             </div>
                         </Col>
                         <Col sm={numColsInfo}>
@@ -257,7 +249,72 @@ class MedicationRangeChartVisualizer extends Component {
                     </Row>
                 </Grid>
             </div>
-        );
+            );
+        } else {
+            return (
+                <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
+                    <Grid className="FullApp-content" fluid>
+                        <Row top="xs">
+                            <Col sm={numColsChart}>
+                                <div className="range-chart-container">
+                                    {/*<svg width="100%" height="6em" viewBox="0 0 340 100">*/}
+                                        {/*<text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>*/}
+                                    {/*</svg>*/}
+                                    <RangeChart
+                                        lowerValue={lowerValue}
+                                        upperValue={upperValue}
+                                        typicalValue={typicalValue}
+                                        value={value}
+                                        unit={unit}
+                                        name={name}
+                                    />
+                                </div>
+                            </Col>
+                            <Col sm={numColsInfo}>
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
+                                <Row center='xs'>
+                                    <Col sm={3}>
+                                        <div className='medication-info-heading'>
+                                            Route
+                                        </div>
+                                        <div className='medication-info'>
+                                            {med.medication.routeIntoBody}
+                                        </div>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <div className='medication-info-heading'>
+                                            Prescribed
+                                        </div>
+                                        <div className='medication-info'>
+                                            {med.medication.whenPrescribed}
+                                        </div>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <div className='medication-info-heading'>
+                                            Prescribed By
+                                        </div>
+                                        <div className='medication-info'>
+                                            {med.medication.prescribedBy}
+                                        </div>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <div className='medication-info-heading'>
+                                            Number of Refills
+                                        </div>
+                                        <div className='medication-info'>
+                                            {med.medication.numberOfRefillsAllowed}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </div>
+            );
+        }
+
+
+        
     }
 
     render() {

@@ -197,10 +197,9 @@ export default class NoteParser {
         this.note = note; 
         const result = this.getListOfTriggersFromText(note);
         const structuredPhrases = result[0];      
-        let data = structuredPhrases.map(this.createShortcut.bind(this));
+        structuredPhrases.map(this.createShortcut.bind(this));
         const foundKeywords = this.getAllKeywordsFromText(note);
-        
-        data = data.concat(foundKeywords.map(this.createShortcut.bind(this)));
+        foundKeywords.map(this.createShortcut.bind(this));
 
         return [this.patient.getEntries(), result[1]];
     }
