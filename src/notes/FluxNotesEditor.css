@@ -63,9 +63,9 @@
     margin:0;
 }
 
-/* .MyEditor-root span {
+.MyEditor-root span {
     display: inline;
-} */
+}
 
 .clear{
     clear: both;
