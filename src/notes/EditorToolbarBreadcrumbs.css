@@ -28,7 +28,7 @@ Width percentages chosen arbitrarily.*/
 }
 
 .breadcrumbs-container:after {
-    content:"..........................";
+    content:"...";
     background-color: white;
     color: transparent;
     position: relative;
