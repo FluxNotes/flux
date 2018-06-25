@@ -6,6 +6,7 @@ const pageRoute = "/patina"
 
 const startPage = `${pageDomain}:${pagePort}${pageRoute}`;
 
+// NOTE: The Toxicity page test has been implemented in backend/views/SlimApp. Others in this fixture will be similar.
 fixture('Lite Mode - Landing')
     .page(startPage);
 test('Clicking progression button puts us in progression mode', async t => {
@@ -13,12 +14,6 @@ test('Clicking progression button puts us in progression mode', async t => {
         .click("#Disease\\ Status")
         .expect(Selector("#shortcut-viewer").find('h1').innerText)
         .eql("Disease Status", `Current header doesn't reflect expected progression page header`);
-})
-test('Clicking toxicity button puts us in toxicity mode', async t => {
-    await t
-        .click("#Toxicity")
-        .expect(Selector("#shortcut-viewer").find('h1').innerText)
-        .eql("Toxicity", `Current header doesn't reflect expected toxicity page header`);
 })
 test('Clicking enrollment button puts us in enrollment mode', async t => {
     await t
@@ -47,6 +42,7 @@ test('Clicking about button puts us back on landing page', async t => {
 })
 
 
+// NOTE: Tests for typing in adverse events, for clicking a button to update copy content, and choosing a date have been implemented in backend/views/SlimApp. Use as references.
 fixture('Lite Mode - Progression')
     .page(startPage)
     .beforeEach( async t => {
@@ -79,14 +75,6 @@ fixture('Lite Mode - Toxicity')
     .beforeEach( async t => {
         await t.click("#Toxicity");
     });
-test('Typing an adverseEvent updates copy-content', async t => {
-    const adverseEventInput = Selector('.react-autosuggest__input').nth(0);
-    await t
-        .typeText(adverseEventInput, "Anemia")
-        .pressKey('enter')
-        .expect(Selector("#copy-content").innerText)
-        .contains(await adverseEventInput.value);
-});
 test('Selecting adverseEvent, then selecting a valid grade updates copy-content', async t => {
     const adverseEventInput = Selector('.react-autosuggest__input').nth(0);
     const gradeButtons = Selector('#grade-menu').find("div[class='grade-menu-item-name']");
@@ -100,16 +88,6 @@ test('Selecting adverseEvent, then selecting a valid grade updates copy-content'
             .click(gradeButtons.nth(i))
             .expect(Selector("#copy-content").innerText)
             .contains(await gradeButtons.nth(i).innerText);
-    }
-});
-test('Changing adverseEvent via button updates copy-content', async t => {
-    const adverseEventButtons = Selector('.btn-group-adverse-event').find("span[class^='MuiButton-label']");
-    const numButtons = await adverseEventButtons.count;
-    for(let i = 0; i < numButtons; i++) {
-        await t
-            .click(adverseEventButtons.nth(i))
-            .expect(Selector("#copy-content").innerText)
-            .contains(await adverseEventButtons.nth(i).innerText);
     }
 });
 test('Changing attribution via button updates copy-content', async t => {
@@ -138,20 +116,6 @@ test('Selecting a clinical trial for enrollment updates copy-content', async t =
             .expect(copyButton.innerText)
             .contains(await trialButtons.nth(i).innerText);
     }
-});
-test('Selecting a date for enrollment updates copy-content', async t => {
-    const copyButton = Selector("#copy-content");
-    // Date only appears if a trial is selected
-    const firstTrial = Selector('.btn-group-trial-clinical-trial').find("span[class^='MuiButton-label']").nth(0);
-    await t
-        .click(firstTrial)
-
-    const enrollmentDatePicker = await Selector("#enrollment-date");
-    await t
-        .typeText(enrollmentDatePicker, '10/06/2017');
-    await t
-        .expect(copyButton.innerText)
-        .contains(`#${await enrollmentDatePicker.value}`);
 });
 
 fixture('Lite Mode - Unenrolled')
