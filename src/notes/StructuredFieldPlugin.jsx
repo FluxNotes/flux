@@ -420,14 +420,18 @@ function StructuredFieldPlugin(opts) {
     }
     
     function onChange(change) {
+        // Only care if changes have happened in the editor
+        if (change.operations.size === 0) return
         const editorValue = change.value
 
         var deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
-        const nodes = editorValue.document.getInlinesAtRange(editorValue.selection);
+        const nodes = editorValue.document.getInlinesAsArray();
         if (nodes.size !== keyToShortcutMap.size) {
-            var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
+            var currentNodesMap = new Map(nodes.map((i) => {
+                return [i.key, i]
+            }));
             keyToShortcutMap.forEach((value, key) => {
                 if (!currentNodesMap.has(key)) {
                     deletedKeys.push(key);

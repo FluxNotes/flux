@@ -56,12 +56,10 @@ class FluxNotesEditor extends React.Component {
         this.contextManager.setIsBlock1BeforeBlock2(this.isBlock1BeforeBlock2.bind(this));
 
         this.didFocusChange = false;
-        this.editorHasFocus = false;
         this.lastPosition = { top: 0, left: 0 };
 
         this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
-        this.onSelectionChange = this.onSelectionChange.bind(this);
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
@@ -118,7 +116,6 @@ class FluxNotesEditor extends React.Component {
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
-        console.log()
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         // can switch to the commented out trigger to support non-space characters but need to put
         // character used instead of always space when inserting the structured field. 
@@ -248,7 +245,6 @@ class FluxNotesEditor extends React.Component {
         if (!this.shortcutTriggerCheck(shortcutC, shortcutTrigger)) {
             return this.insertPlainText(change, shortcutTrigger);
         }
-
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient);
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, change, shouldPortalOpen);
@@ -268,7 +264,6 @@ class FluxNotesEditor extends React.Component {
             const pos = {};
             const parentNode = this.state.editorValue.document.getParent(this.state.editorValue.selection.startKey);
             const el = findDOMNode(parentNode);
-            console.log(el)
             const children = el.childNodes;
 
             for (const child of children) {
@@ -280,19 +275,12 @@ class FluxNotesEditor extends React.Component {
             }
             return pos;
         }
-
-        if (!this.editorHasFocus) {
-            if (this.lastPosition.top === 0 && this.lastPosition.left === 0) {   
-                this.lastPosition = positioningUsingSlateNodes();
-            } 
+        const pos = position();
+        // If position is null, an empty object, or calculated to be 0, 0, use our old method of calculating position.
+        if (Lang.isNull(pos) || (pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+            this.lastPosition = positioningUsingSlateNodes();
         } else {
-            const pos = position();
-            // If position is calculated to be 0, 0, use our old method of calculating position.
-            if ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
-                this.lastPosition = positioningUsingSlateNodes();
-            } else {
-                this.lastPosition = pos;
-            }
+            this.lastPosition = pos;
         }
         return this.lastPosition;
     }
@@ -322,15 +310,17 @@ class FluxNotesEditor extends React.Component {
 
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
+    // Returns: A change, either that has done nothing or that has 
     onPortalSelection = (state, selection) => {
-
         let shortcut = this.selectingForShortcut;
+        let change = this.state.editorValue.change();
         this.selectingForShortcut = null;
         this.setState({isPortalOpen: false});
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
-            return state;
+            // Return a change with no operations
+            return change
         }
 
         shortcut.clearValueSelectionOptions();
@@ -339,11 +329,8 @@ class FluxNotesEditor extends React.Component {
             shortcut.setValueObject(selection.object);
         }
         this.contextManager.contextUpdated();
-        let change;
         if (this.state.needToDelete) {
-            change = this.suggestionDeleteExistingChange(null, shortcut.getPrefixCharacter());
-        } else {
-            change = this.state.editorValue.change();
+            change = this.suggestionDeleteExistingChange(change, shortcut.getPrefixCharacter());
         }
         // Return change
         return this.insertStructuredFieldChange(change, shortcut).collapseToStartOfNextText().focus();
@@ -381,6 +368,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertStructuredFieldChange = (change, shortcut) => {
+        // console.log('inserting sturtcured field change')
         if (Lang.isNull(shortcut)) return change.focus();
         let result = this.structuredFieldPlugin.changes.insertStructuredField(change, shortcut);
         // console.log("result[0]");
@@ -390,7 +378,6 @@ class FluxNotesEditor extends React.Component {
 
     onChange = (change) => {
         const editorValue = change.value
-
         let indexOfLastNode = editorValue.toJSON().document.nodes.length - 1;
         let endOfNoteKey = editorValue.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
@@ -414,11 +401,11 @@ class FluxNotesEditor extends React.Component {
         };
         const docText = this.structuredFieldPlugin.helpers.convertToText(editorValue, entireNote); 
 
-        this.props.setDocumentTextWithCallback(documentText, () => {
+        this.props.setDocumentTextWithCallback(docText, () => {
             // save note after documentText gets set
             this.props.saveNoteOnChange();
-        });
-        // save
+        });    
+        this.adjustActiveContexts(editorValue.selection, editorValue);
         this.setState({
             editorValue: editorValue
         });
@@ -428,11 +415,6 @@ class FluxNotesEditor extends React.Component {
         const state = this.state.editorValue;
         const selection = state.selection;
         this.adjustActiveContexts(selection, state);
-        this.editorHasFocus = true;
-    }
-
-    onBlur = () => {
-        this.editorHasFocus = false;
     }
 
     onInput = (event, data) => {
@@ -488,19 +470,15 @@ class FluxNotesEditor extends React.Component {
         return foundTypeBetween;
     }
 
-    onSelectionChange = (selection, state) => {
-        this.adjustActiveContexts(selection, state);
-    }
-
-    adjustActiveContexts = (selection, state) => {
+    adjustActiveContexts = (selection, editorValue) => {
         this.contextManager.adjustActiveContexts((context) => {
             // return true if context should be active because it's before selection
             // also need to make sure context is in current paragraph or global
-            const isBeforeSelection = this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, state);
+            const isBeforeSelection = this.isBlock1BeforeBlock2(context.getKey(), 0, selection.endKey, selection.endOffset, editorValue);
             if (isBeforeSelection) {
                 // need to see if we have a paragraph between them now
                 if (context.isGlobalContext()) return true;
-                return !this.isNodeTypeBetween(context.getKey(), selection.endKey, 'line', state);
+                return !this.isNodeTypeBetween(context.getKey(), selection.endKey, 'line', editorValue);
             }
             return false;
         });
@@ -1154,9 +1132,11 @@ class FluxNotesEditor extends React.Component {
          * Render the editor, toolbar, dropdown and description for note
          */
         return (
-            <div id="clinical-notes" className="dashboard-panel" onClick={(event) => {
-                editor.focus();
-            }}>
+            <div id="clinical-notes" className="dashboard-panel" 
+                onClick={(event) => {
+                    this['editor'].focus();
+                }}
+            >
                 {noteDescriptionContent}
                 <div className="MyEditor-root">
                     { !this.props.inModal &&
@@ -1174,14 +1154,12 @@ class FluxNotesEditor extends React.Component {
                             className="editor-panel"
                             onChange={this.onChange}
                             onInput={this.onInput}
-                            onBlur={this.onBlur}
                             onFocus={this.onFocus}
-                            onSelectionChange={this.onSelectionChange}
                             placeholder={'Enter your clinical note here or choose a template to start from...'}
                             plugins={this.plugins}
                             readOnly={!this.props.isNoteViewerEditable}
-                            ref={function (c) {
-                                editor = c;
+                            ref={(editorElement) => {
+                                this['editor'] = editorElement;
                             }}
                             renderMark={this.renderMark}
                             renderNode={this.renderNode}

@@ -60,7 +60,7 @@ class SuggestionPortal extends React.Component {
     }
 
     // Given # positions changed, return new index, wrapping if overflow
-    getNewMenuPostion = (change) => { 
+    getNewMenuPostion = (change) => {
         const filteredSuggestions  = this.getFilteredSuggestions();
         if(filteredSuggestions.length === 0) { 
             return 0;
@@ -74,6 +74,8 @@ class SuggestionPortal extends React.Component {
 
     // Use new key-presses to update the current suggestion
     onKeyDown = (event) => {
+        // Adjust position every keypress
+        this.adjustPosition()
         // Handles browsers that use either keyCode or which, and handles case where which === 0 and triggers false neg in 1st case.
         const keyCode = event.which || event.keyCode || 0;
         if (keyCode === DOWN_ARROW_KEY || keyCode === UP_ARROW_KEY) {
@@ -247,7 +249,6 @@ class SuggestionPortal extends React.Component {
         const { menu } = this.state;
         // If there is no menu, return
         if (!menu) return;
-
         // Prevent portal from opening when Context Portal is open
         if (this.props.contextPortalOpen) {
             this.closePortal();
@@ -304,8 +305,6 @@ class SuggestionPortal extends React.Component {
     render = () => {
         const filteredSuggestions = this.getFilteredSuggestions();
         this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
-        
-        this.adjustPosition()
         
         return (
             <Portal isOpened closeOnEsc closeOnOutsideClick onOpen={this.openPortal}>

@@ -13,29 +13,24 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	const insertStructuredFieldChange = opts.insertStructuredFieldChange;
 	const structuredFieldMapManager = opts.structuredFieldMapManager;
 
-	function onBeforeInput (e, change, editor) { 
-		// Insert text and replace relevant keywords in results
-		const curTransform  = editor.value.change().insertText(e.data);
-		const curNode = curTransform.value.endBlock;
-		// Apply transform operations if there were matches; else nothing
-		const [newTransform, isTransformNew] = replaceAllRelevantKeywordsInBlock(curNode, curTransform, curTransform.state)
-		if (isTransformNew) { 
-			e.preventDefault()
-			return newTransform.value
-		}
+	function onChange (curChange) { 
+		const curNode = curChange.value.endBlock;
+		const editorValue = curChange.value
+		// Apply change operations if there were matches; else nothing
+		replaceAllRelevantKeywordsInBlock(curNode, curChange, editorValue)
 	}
 
-	function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) { 
+	function replaceAllRelevantKeywordsInBlock(curNode, curChange, editorValue) { 
 		const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
 		const curKey = curNode.key;
 		// To track if additional operations are done later
-		const startingNumberOfOperations = curTransform.operations.length;
+		const startingNumberOfOperations = curChange.operations.size;
 
 		// get all shortcuts relevant for this block key 
-		const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey)
-		if (relevantSingleHashtagKeywordMappings.length !== 0) {
+		const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, editorValue, curKey)
+		if (relevantSingleHashtagKeywordMappings.size !== 0) {
 			// Get all relevant keywordShortcuts, 
-			const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+			const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut), []);
 			for (const keywordClass of listOfKeywordShortcutClasses) {
 				// Scan text to find any necessary replacements 
 				const keywords = getKeywordsBasedOnShortcutClass(keywordClass)
@@ -56,19 +51,19 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 						keywordRange = getRangeForKeyword(curNode, keywordText)
 					}
 					// Remove keyword from block, using first character as the prefix
-					curTransform = curTransform.select(keywordRange).delete();
+					curChange = curChange.select(keywordRange).delete();
 					// Add shortcut to text; update curNode and curText
-					curTransform = insertStructuredFieldChange(curTransform, newKeywordShortcut)
-					curNode = curTransform.state.endBlock
+					curChange = insertStructuredFieldChange(curChange, newKeywordShortcut)
+					curNode = curChange.value.endBlock
 				} 
 			}
 		}
 		// If operations have been done, put selection at the end of recent insertion
-		const isNewOperations = curTransform.operations.length > startingNumberOfOperations
+		const isNewOperations = curChange.operations.size > startingNumberOfOperations
 		if (isNewOperations) { 
-			curTransform = curTransform.collapseToEndOf(curNode).focus()
+			curChange = curChange.collapseToEndOf(curNode).focus()
 		}
-		return [curTransform, isNewOperations]
+		return [curChange, isNewOperations]
 	}
 
 	// Get the slate Range of the freeText associated with a given keywordText
@@ -108,16 +103,16 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 		}
 	}
 
-	// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
+	// Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor editorValue and current text-node key,
 	// Filter our mappings to only shorcuts who are directly next to our current text-node  
-	function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, currentNodeKey) {
+	function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, editorValue, currentNodeKey) {
 		return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
 			let closestBlock;
 
-			// Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
+			// Added try catch editorValuement to catch error when adding template after SingleHashtagKeyword shortcut
 			// returns false to filter out if error occurs
 			try {
-				closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
+				closestBlock = editorValue.document.getClosestBlock(Object.keys(mapping)[0]);
 			} catch (error) {
 				return false;
 			}
@@ -164,7 +159,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 	}
 
 	return {
-		onBeforeInput,
+		onChange,
 		
         utils: {
 			replaceAllRelevantKeywordsInBlock: replaceAllRelevantKeywordsInBlock
