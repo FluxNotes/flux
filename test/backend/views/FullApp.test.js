@@ -1,5 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai'
 
@@ -22,6 +22,7 @@ import NotesPanel from '../../../src/panels/NotesPanel';
 import NoteAssistant from '../../../src/notes/NoteAssistant';
 import hardCodedPatient from '../../../src/dataaccess/HardCodedPatient.json';
 import PatientRecord from '../../../src/patient/PatientRecord.jsx';
+import FluxInjury from '../../../src/model/condition/FluxInjury';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -122,17 +123,46 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
 });
 
 describe('FullApp', function() {
-    it.only('Selecting a condition changes the active condition', () => {
+    beforeEach(() => {
+        window.getSelection = () => {
+          return {
+            removeAllRanges: () => {}
+          };
+        }
+    });
+    it('Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp 
                 display='Flux Notes' 
                 dataSource='HardCodedReadOnlyDataSource' 
                 patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
-        //const conditionSelector = wrapper.find('.condition-select');
         const conditionSelector = wrapper.find('SelectInput');
-        //console.log(conditionSelector.debug());
         expect(conditionSelector.exists()).to.equal(true);
-        expect(conditionSelector.text())
-            .to.equal('Invasive ductal carcinoma of breast');
+        expect(conditionSelector.text()).to.equal('Invasive ductal carcinoma of breast');
+
+        conditionSelector.at(0).props().onChange({target: { value: 1}});
+        expect(conditionSelector.text()).to.equal('Fracture');
+
+        expect(wrapper.state('condition') instanceof FluxInjury);
+        //const conditionName = wrapper.find('[data-test-summary-section="Summary"] [data-test-summary-item="Name"]');
+       //expect(conditionName.exists()).to.equal(true);
+       //expect(conditionName.text()).to.equal('Fracture');
+    });
+    it('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
+        const wrapper = mount(<FullApp 
+            display='Flux Notes' 
+            dataSource='HardCodedReadOnlyDataSource' 
+            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+        const e1 = wrapper.find('div.editor-content');
+        expect(e1.exists()).to.equal(false);
+    
+        const newNoteButton = wrapper.find('.note-new');
+    
+        // Click on new note button to open the editor
+        newNoteButton.at(0).props().onClick();
+        wrapper.update();
+        //const editor = wrapper.find("div[data-slate-editor='true']");
+        const e2 = wrapper.find('div.editor-content');
+        expect(e2.exists()).to.equal(true);
     });
 });
 

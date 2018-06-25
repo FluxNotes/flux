@@ -49,47 +49,47 @@ fixture('Patient Mode - Patient Control Panel')
 //         .ok();
 // });
 
-test('Selecting a condition changes the active condition', async t => {
-    const conditionSelector = Selector('.condition-select');
+// test('Selecting a condition changes the active condition', async t => {
+//     const conditionSelector = Selector('.condition-select');
 
-    // first condition is selected by default
-    await t
-        .expect(await conditionSelector.textContent)
-        .eql("Invasive ductal carcinoma of breast");
+//     // first condition is selected by default
+//     await t
+//         .expect(await conditionSelector.textContent)
+//         .eql("Invasive ductal carcinoma of breast");
 
-    // clicking on Fracture changes the condition
-    await t
-        .click(conditionSelector)
-        .click(Selector('[data-test-condition-selector-item=Fracture]'));
+//     // clicking on Fracture changes the condition
+//     await t
+//         .click(conditionSelector)
+//         .click(Selector('[data-test-condition-selector-item=Fracture]'));
 
-    await t
-        .expect(await conditionSelector.textContent)
-        .eql("Fracture");
+//     await t
+//         .expect(await conditionSelector.textContent)
+//         .eql("Fracture");
 
-    const conditionName = Selector('[data-test-summary-section="Condition"] [data-test-summary-item="Name"]')
+//     const conditionName = Selector('[data-test-summary-section="Condition"] [data-test-summary-item="Name"]')
 
-    await t
-        .expect(await conditionName.textContent)
-        .eql("Fracture");
-});
+//     await t
+//         .expect(await conditionName.textContent)
+//         .eql("Fracture");
+// });
 
-test('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    const editor = Selector("div[data-slate-editor='true']");
-    const newNoteButton = Selector('.note-new');
+// test('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     const editor = Selector("div[data-slate-editor='true']");
+//     const newNoteButton = Selector('.note-new');
 
-    // // Select pre-encounter mode
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
+//     // // Select pre-encounter mode
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Pre-encounter"]'));
 
-    // Click on new note button to open the editor
-    await t
-        .click(newNoteButton)
+//     // Click on new note button to open the editor
+//     await t
+//         .click(newNoteButton)
 
-    await t
-        .expect(editor.exists).ok();
-});
+//     await t
+//         .expect(editor.exists).ok();
+// });
 
 
 fixture('Patient Mode - Editor')
