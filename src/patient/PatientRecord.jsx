@@ -69,11 +69,6 @@ class PatientRecord {
             return !clinicalNote.signed;
         }
         return false;
-/*        var key = this.shrId + ":" + entry.entryInfo.entryId;
-        if(!Lang.isUndefined(this.unsignedEntries[key]) && Lang.isEqual(this.unsignedEntries[key], true)){
-            return true;
-        }
-        return false;*/
     }
 
 	fromFHIR(fhirJson) {
@@ -127,7 +122,7 @@ class PatientRecord {
         this.entries.push(entry);
     }
 
-    addEntryToPatient(entry, clinicalNote) {
+    addEntryToPatient(entry, clinicalNote) {       
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
@@ -159,7 +154,7 @@ class PatientRecord {
     }
 
     setDeceased(deceased) {
-        this.patient.deceased = deceased;
+        if (this.patient) this.patient.deceased = deceased;       
     }
 
     static isEntryOfType(entry, type) {
@@ -248,8 +243,6 @@ class PatientRecord {
         let encounters = this.getEntriesOfType(FluxEncounterRequested);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
-
-
     }
 
     getNextEncounterReasonAsText() {
@@ -341,7 +334,6 @@ class PatientRecord {
 
         return result;
     }
-
 
     getConditions() {
         return this.getEntriesIncludingType(FluxCondition);
@@ -446,7 +438,6 @@ class PatientRecord {
                 "signed": signed
             }
         );
-
 
         return this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null).entryInfo.entryId;
     }
@@ -583,6 +574,14 @@ class PatientRecord {
         return medicationsChanges;
     }
 
+    createActiveMedication(selectedValue) {       
+        let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
+        medication.medication = selectedValue;
+        medication.startDate = new Date();
+     
+        return medication;
+    }
+
     getProcedures() {
         return this.getEntriesOfType(FluxProcedureRequested);
     }
@@ -669,7 +668,7 @@ class PatientRecord {
 
 
     // TODO: use medication change.entry info.creationTime
-    // TODO fix variable names to a time b tim
+    // TODO fix variable names to a time b time
 
     _medChangesTimeSorter(a, b) {
         const a_medicationAfter_performanceTime = a.entryInfo.creationTime.dateTime;
@@ -881,7 +880,6 @@ class PatientRecord {
     getEntries() {
         return this.entries;
     }
-
 
     static getMostRecentEntryFromList(list) {
         if (list.length === 0) return null;

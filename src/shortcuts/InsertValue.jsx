@@ -18,17 +18,18 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text) && shortcutData.length === 0) {
             this.flagForTextSelection(text);
         } else {
+            // console.log("[1] shortcut data: " + shortcutData);
             if (shortcutData.length > 0) this.setText(shortcutData);
             else this.setText(text);
         }
 
 
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
+            // console.log("[2] shortcut data: " + shortcutData);
             this.text = shortcutData;
             const portalOptions = this.getValueSelectionOptions();
             portalOptions.forEach((option) => {
                 if (option.context === shortcutData) {
-                    console.log(option);
                     this.setValueObject(option.object);
                 }
             });
@@ -47,7 +48,7 @@ export default class InsertValue extends Shortcut {
         return result;
     }
 
-    _resolveCallSpec(callSpec, contextManager) {
+    _resolveCallSpec(callSpec, contextManager, selectedValue) {
         let result;
         const callObject = callSpec["object"];
         const string = callSpec["string"];
@@ -78,7 +79,13 @@ export default class InsertValue extends Shortcut {
             }
         } else if (callObject === "patient") {
             //"getData": [ {"object": "patient", "method": "getAge"}]
-            result = contextManager.getPatient()[callSpec["method"]]();
+            let args = callSpec["args"] || [];
+            args = args.map((arg) => {
+                if (arg === "$selectedValue") {
+                    return selectedValue;
+                }
+            })
+            result = contextManager.getPatient()[callSpec["method"]](...args);
             if (Lang.isArray(result)) {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {
                     const itemKey = callSpec["itemKey"].split(".");
@@ -170,6 +177,14 @@ export default class InsertValue extends Shortcut {
         return `${this.initiatingTrigger}[[${text}]]`;
     }
 
+    createObjectForParsing(selectedValue, contextManager) {
+        const callSpec = this.metadata["createObjectForParsing"];
+
+        const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
+        // this.setValueObject(object);
+        return object;    
+    }
+
     setText(text) {
         this.text = text;
        
@@ -177,13 +192,12 @@ export default class InsertValue extends Shortcut {
 
     setValueObject(valueObject) {
         this.valueObject = valueObject;
-        const parentAttribute = this.metadata["parentAttribute"];
-  
+        const parentAttribute = this.metadata["parentAttribute"]; 
+        
         // Check parent of shortcut and setAttributeValue 
         if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
-        }
-     
+        }     
     }
 
     isGlobalContext() {
@@ -194,9 +208,7 @@ export default class InsertValue extends Shortcut {
     onBeforeDeleted() {
         let result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
-
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
-
             this.parentContext.removeChild(this);
         }
         return result;

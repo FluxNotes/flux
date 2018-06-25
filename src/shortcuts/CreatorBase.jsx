@@ -307,7 +307,13 @@ export default class CreatorBase extends Shortcut {
         const argSpecs = spec["args"];
         let args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
-            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
+            if (argSpec === "$parentValueObject") {
+               
+                if(!this.parentContext){
+                    return null;
+                } 
+                return this.parentContext.getValueObject();
+            } 
             if (argSpec === "$clinicalNote") return clinicalNote;
             return argSpec;
         });

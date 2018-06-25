@@ -32,7 +32,6 @@ class FluxMedicationChange {
     }
 
     set medicationBeforeChange(medication) {
-
         if (medication) {        
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
             this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
@@ -58,12 +57,10 @@ class FluxMedicationChange {
     }
 
     set type(code) {
-
         if (!this._medicationChange.type) {
             this._medicationChange.type = new Type();
         }
         this._medicationChange.type.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
-
     }
 
     /**

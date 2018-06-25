@@ -129,8 +129,14 @@ class FluxDiseaseProgression extends FluxEntry {
     }
     
     setFocalSubjectReference(obj) {
-        let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-        this.focalSubjectReference = ref;
+
+        if (!obj) {
+            this.focalSubjectReference = null;
+        } else {
+            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+            this.focalSubjectReference = ref;
+        }
+        
     }
 
     toJSON() {

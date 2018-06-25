@@ -1,3 +1,19 @@
+import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+
+// TODO: Add more medications
+const medications = [
+    {
+        name: 'ibuprofen 600mg tablet', 
+        description: "",
+        code: "316077",
+        codeSystem: ""
+    }
+];    
+
+exports.getCodeableConceptFromName = (name) => {
+    return codeableConceptUtils.getCodeableConceptFromOptions(name, medications);
+}
+
 exports.getRangeValues = (medication, units) => {
     if (typeof(medication) !== 'string') {return null;}
 

@@ -1,11 +1,13 @@
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
-import PatientRecord from '../patient/PatientRecord';
-import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import Lang from 'lodash';
+import InsertValue from '../shortcuts/InsertValue';
+import CreatorBase from '../shortcuts/CreatorBase';
+import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword';
 
 export default class NoteParser {
+
     constructor(shortcutManager = undefined, contextManager = undefined) {
         if (Lang.isUndefined(shortcutManager)) {
             this.shortcutManager = new ShortcutManager();
@@ -14,8 +16,8 @@ export default class NoteParser {
         }
         if (Lang.isUndefined(contextManager)) {
             let dataAccess = new DataAccess("NewPatientOnlyDataSource");
-            let patient = dataAccess.newPatient();
-            this.contextManager = new ContextManager(patient);
+            this.patient = dataAccess.newPatient();
+            this.contextManager = new ContextManager(this.patient);
             this.contextManager.setIsBlock1BeforeBlock2(() => {
                 return true;
             });
@@ -41,21 +43,32 @@ export default class NoteParser {
                 this.allTriggersRegExps.push({regexp: regexp, definition: def});
             }
         });
-
-        this.patientRecord = [];
     }
 
     getAllTriggersRegularExpression() {
         return this.allStringTriggersRegExp;
     }
 
-    createShortcut(triggerOrKeywordObject) {
+    createShortcut(triggerOrKeywordObject) {     
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
-        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText, this.patientRecord); //, onUpdate, object
+        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient); //, onUpdate, object
+       
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
+     
+        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword) {
+            shortcut.updatePatient(this.patient, this.contextManager, null);
+        }
+        
+        if (shortcut instanceof InsertValue ) {          
+            const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.contextManager);       
+            this.patient.addEntryToPatient(object);
+            shortcut.setValueObject(object);
+        }
+               
         shortcut.setKey("1");
+        
         return shortcut;
-    }
+    }    
 
     // This method takes in a trigger. If the trigger is a pick list (a shortcut that has multiple options) return true, otherwise return false
     isPickList(trigger) {
@@ -180,24 +193,15 @@ export default class NoteParser {
         return this.shortcutManager.getValidChildShortcutsInContext(singleHashtagKeywordShortcut)
     }
     
-    parse(note) {
-        this.patientRecord = new PatientRecord();       
-        // console.log("parse: " + note);
+    parse(note) {         
+        this.note = note; 
         const result = this.getListOfTriggersFromText(note);
-        const structuredPhrases = result[0];
-        //console.log(structuredPhrases);
+        const structuredPhrases = result[0];      
         let data = structuredPhrases.map(this.createShortcut.bind(this));
-
         const foundKeywords = this.getAllKeywordsFromText(note);
+        
         data = data.concat(foundKeywords.map(this.createShortcut.bind(this)));
-        // console.log(data)
-        let dataObj;
-        data.forEach((item) => {
-            dataObj = item.getValueObject();
-            if (!Lang.isUndefined(dataObj)) {
-                this.patientRecord.addEntryToPatient(dataObj);
-            }
-        });
-        return [this.patientRecord.getEntries(), result[1]];
+
+        return [this.patient.getEntries(), result[1]];
     }
 }
