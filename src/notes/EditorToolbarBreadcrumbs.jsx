@@ -11,18 +11,18 @@ class EditorToolbarBreadcrumbs extends React.Component {
             return null;
         }
         else {
-            const contextOptions = activeContexts.reverse().map((context, i) => {
+            const contextOptions = activeContexts.map((context, i) => {
                 const index = activeContexts.length - (i + 1);
                 const breadcrumb = context.text.replace("#", "");
 
-                // Return breadcrumb with separator if breadcrumb isn't the last one of the list.
+                //Return breadcrumb with separator if breadcrumb isn't the last one of the list.
                 if ((activeContexts.length - i - 1) === 0) {
                     return (
                         <div
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
-                            <div className="breadcrumb">{breadcrumb}</div>
+                            <span className="breadcrumb">{breadcrumb}</span>
                         </div>
                     )
                 }
@@ -32,12 +32,11 @@ class EditorToolbarBreadcrumbs extends React.Component {
                             className="breadcrumbs"
                             key={`context-options-item-${index}`}
                         >
-                            <div className="breadcrumb">{breadcrumb}</div>
-                            <div className="breadcrumb-separator">|</div>
+                            <span className="breadcrumb">{breadcrumb}</span>
+                            <span className="breadcrumb-separator">|</span>
                         </div>
                     )
                 }
-
             })
             return (
                 <div className="breadcrumbs-container">

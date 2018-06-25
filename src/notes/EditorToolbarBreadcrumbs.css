@@ -39,14 +39,14 @@ Width percentages chosen arbitrarily.*/
 
 
 .breadcrumbs {
-    display: inline;
+    display: inline-block;
 }
 
 .breadcrumb {
-    display: inline;
+    display: inline-block;
 }
 
 .breadcrumb-separator {
-    display: inline;
+    display: inline-block;
     padding: 0px 10px;
 }
