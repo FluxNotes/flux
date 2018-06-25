@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MaterialButton from 'material-ui/Button';
 import SingleChoiceButton from '../forms/SingleChoiceButton';
@@ -33,12 +33,22 @@ export default class PickListOptionsPanel extends Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // Only one selection required from the user so just send results back to NotesPanel after selection
+        if (!nextProps.insertingTemplate && nextState.isAllSelected) {
+            this.handleOkButtonClick();
+            return false;
+        }
+
+        return true;
+    }
+
     mouseLeave = () => {
-        this.setState({tooltipVisibility: 'hidden'})
+        this.setState({ tooltipVisibility: 'hidden' })
     }
 
     mouseEnter = () => {
-        this.setState({tooltipVisibility: 'visible'})
+        this.setState({ tooltipVisibility: 'visible' })
     }
 
     // Switch view (i.e clinical notes view or context tray)
@@ -49,6 +59,7 @@ export default class PickListOptionsPanel extends Component {
     // Cancels insertion of text and clears any context
     handleCancelButtonClick = () => {
         this.props.updateContextTrayItemToInsert(null);
+        this.props.setInsertingTemplate(false);
         this.toggleView('context-tray')
     }
 
@@ -56,7 +67,7 @@ export default class PickListOptionsPanel extends Component {
     handleInsertChosenOption = () => {
         // Verify that we have an option for each pick list
         const isAllSelected = this.state.triggerSelections.every((triggerSelection) => {
-           return !Lang.isUndefined(triggerSelection.selectedOption);
+            return !Lang.isUndefined(triggerSelection.selectedOption);
         });
 
         this.setState({ isAllSelected });
@@ -77,25 +88,17 @@ export default class PickListOptionsPanel extends Component {
 
     handleOkButtonClick = () => {
         this.toggleView('context-tray');
+        this.props.setInsertingTemplate(false);
         this.handleInsertChosenOption();
     }
 
     handleOptionButtonClick(option, trigger) {
         this.updateSelectedOptions(option, trigger);
-        // Only one selection required from the user so just send results back to NotesPanel after selection
-        if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleInsertChosenOption();
-        }
     }
 
     handleOptionDropDownSelection(index, options, trigger) {
         if (index >= 0) {
             this.updateSelectedOptions(options[index], trigger);
-        }
-        
-        // Only one selection required from the user so just send results back to NotesPanel after selection
-        if (this.state.triggerSelections.length === 1 && !Lang.isUndefined(this.state.triggerSelections[0].selectedOption)) {
-            this.handleInsertChosenOption();
         }
     }
 
@@ -150,7 +153,7 @@ export default class PickListOptionsPanel extends Component {
                         <div key={i}>
                             <Tooltip
                                 key={i}
-                                overlayStyle={{'visibility': this.state.tooltipVisibility}}
+                                overlayStyle={{ 'visibility': this.state.tooltipVisibility }}
                                 placement="left"
                                 overlayClassName={`option-tooltip`}
                                 overlay={`${option.context} ${option.date}`}
@@ -214,8 +217,8 @@ export default class PickListOptionsPanel extends Component {
                 </span>
                 <span className="right-aligned">
                     {option.date}
-                </span>                
-                
+                </span>
+
             </MenuItem>
         );
     }
@@ -241,7 +244,7 @@ export default class PickListOptionsPanel extends Component {
                             raised
                             id="ok-btn"
                             onClick={this.handleOkButtonClick}
-                            >
+                        >
                             Ok
                         </MaterialButton> : null
                     }
@@ -252,9 +255,11 @@ export default class PickListOptionsPanel extends Component {
 }
 
 PickListOptionsPanel.proptypes = {
-    updateNoteAssistantMode: PropTypes.func.isRequired,
     arrayOfPickLists: PropTypes.array.isRequired,
+    contextManager: PropTypes.object.isRequired,
+    insertingTemplate: PropTypes.bool.isRequired,
+    setInsertingTemplate: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateContextTrayItemWithSelectedPickListOptions: PropTypes.func.isRequired,
-    contextManager: PropTypes.object.isRequired
+    updateNoteAssistantMode: PropTypes.func.isRequired,
 };

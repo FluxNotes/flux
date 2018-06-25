@@ -242,7 +242,6 @@ describe('FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
     });
 
-    /*
     it('renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -274,7 +273,14 @@ describe('FluxNotesEditor', function() {
             itemInserted={jest.fn()}
             loginUser={''}
             noteClosed={false}
+            setDocumentText={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
             setOpenClinicalNote={jest.fn()}
             summaryItemToInsert={''}
             updateErrors={jest.fn()}
@@ -287,8 +293,9 @@ describe('FluxNotesEditor', function() {
         expect(conditionButton).to.have.lengthOf(1);
         conditionButton.simulate('click');
 
-        const optionsForm = notesPanelWrapper.find('.pickList-options-panel').find('.option-btn').find('span');
+        const optionsForm = notesPanelWrapper.find('#pickList-options-panel').find('.option-btn').find('span');
         const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 13 JAN 2012' });
+        expect(invasiveButton).to.have.lengthOf(1);
         invasiveButton.simulate('click');
 
         const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');
@@ -296,8 +303,7 @@ describe('FluxNotesEditor', function() {
 
         expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
-    });
-    */
+    });    
     
     it('captures staging data using singleKeywordHashtag method', () => {
         // Set up Managers that are needed by FluxNotesEditor

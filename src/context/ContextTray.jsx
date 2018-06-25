@@ -55,6 +55,7 @@ export default class ContextTray extends Component {
                     <TemplateViewModeContent
                         onShortcutClicked={this.props.onShortcutClicked}
                         patient={this.props.patient}
+                        setInsertingTemplate={this.props.setInsertingTemplate}
                     />
                 }
 
@@ -75,5 +76,6 @@ ContextTray.proptypes = {
     contextManager: PropTypes.object.isRequired,
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
+    setInsertingTemplate: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
 }

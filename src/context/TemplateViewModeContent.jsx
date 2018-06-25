@@ -14,6 +14,7 @@ export default class TemplateViewModeContent extends Component {
 
     // Insert the content of the template as you would a shortcut
     insertTemplate = (i) => {
+        this.props.setInsertingTemplate(true);
         this.props.onShortcutClicked(this.templates[i].content);
     }
 
@@ -33,4 +34,5 @@ export default class TemplateViewModeContent extends Component {
 TemplateViewModeContent.proptypes = {
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
+    setInsertingTemplate: PropTypes.func.isRequired,
 }
