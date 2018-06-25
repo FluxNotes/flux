@@ -183,8 +183,6 @@ class FluxNotesEditor extends React.Component {
             isPortalOpen: false,
             portalOptions: null,
         };
-
-        // this.props.setFullAppState('isNoteViewerEditable', true);
     }
 
     // Reset editor state and clear context
@@ -386,10 +384,10 @@ class FluxNotesEditor extends React.Component {
         let endOfNoteKey = state.toJSON().document.nodes[indexOfLastNode].key;
         let endOfNoteOffset = 0;
         // If the editor has no structured phrases, use the number of characters in the first 'node'
-        if(Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)){
+        if (Lang.isEqual(indexOfLastNode, 0) && !Lang.isUndefined(state.toJSON().document.nodes["0"].nodes["0"].characters)) {
             endOfNoteOffset = state.toJSON().document.nodes["0"].nodes["0"].characters.length;
-        } else{
-            if(!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)){
+        } else {
+            if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
                 endOfNoteOffset = this.props.documentText.length;
             }
         }
@@ -397,23 +395,20 @@ class FluxNotesEditor extends React.Component {
         // 'copy' the text every time into the note
         // Need to artificially set selection to the whole document
         // state.selection only has a getter for these values so create a new object
-        let entireNote = {
+        const entireNote = {
             startKey: "0",
             startOffset: 0,
             endKey: endOfNoteKey,
             endOffset: endOfNoteOffset
         };
-        let docText = this.structuredFieldPlugin.convertToText(state, entireNote); 
-        
-        this.props.setFullAppStateWithCallback(function(prevState, props){
-            return {documentText: docText};
+        const documentText = this.structuredFieldPlugin.convertToText(state, entireNote);
+
+        this.props.setDocumentTextWithCallback(documentText, () => {
+            // save note after documentText gets set
+            this.props.saveNoteOnChange();
         });
 
-        // save
-        this.props.saveNoteUponKeypress();
-        this.setState({
-            state: state
-        });
+        this.setState({ state });
     }
 
     onFocus = () => {
@@ -1225,8 +1220,9 @@ FluxNotesEditor.proptypes = {
     newCurrentShortcut: PropTypes.func.isRequired,
     noteAssistantMode: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
-    saveNoteUponKeypress: PropTypes.func.isRequired,
+    saveNoteOnChange: PropTypes.func.isRequired,
     selectedNote: PropTypes.object,
+    setDocumentTextWithCallback: PropTypes.func,
     setFullAppState: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setLayout: PropTypes.func.isRequired,

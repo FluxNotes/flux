@@ -27,13 +27,9 @@ export default class NotesPanel extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        if (Lang.isNull(nextProps.openClinicalNote) && !Lang.isNull(this.props.openClinicalNote) && !this.props.openClinicalNote.signed && nextProps.documentText !== this.props.documentText) {
-            this.props.openClinicalNote.content = nextProps.documentText;
-        }
-
+        // Logic to handle switching notes
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
-            const note = nextProps.openClinicalNote;
-            this.handleUpdateEditorWithNote(note);
+            this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
     }
 
@@ -117,8 +113,8 @@ export default class NotesPanel extends Component {
         this.setState({arrayOfPickLists: array})
     }
 
-    // Save the note after every keypress. This function invokes the note saving logic in NoteAssistant
-    saveNoteUponKeypress = () => {
+    // Save the note after every editor change. This function invokes the note saving logic in NoteAssistant
+    saveNoteOnChange = () => {
         this.saveNoteChild();
     }
 
@@ -255,8 +251,9 @@ export default class NotesPanel extends Component {
                     newCurrentShortcut={this.props.newCurrentShortcut}
                     noteAssistantMode={this.state.noteAssistantMode}
                     patient={this.props.patient}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    saveNoteOnChange={this.saveNoteOnChange}
                     selectedNote={this.state.selectedNote}
+                    setDocumentTextWithCallback={this.props.setDocumentTextWithCallback}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setLayout={this.setLayout}
@@ -299,7 +296,7 @@ export default class NotesPanel extends Component {
                     noteClosed={this.props.noteClosed}
                     patient={this.props.patient}
                     saveNote={click => this.saveNoteChild = click}
-                    saveNoteUponKeypress={this.saveNoteUponKeypress}
+                    saveNoteOnChange={this.saveNoteOnChange}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
                     setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
@@ -351,6 +348,7 @@ NotesPanel.propTypes = {
     patient: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setDocumentText: PropTypes.func.isRequired,
+    setDocumentTextWithCallback: PropTypes.func.isRequired,
     setNoteClosed: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,

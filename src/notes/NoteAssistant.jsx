@@ -56,7 +56,7 @@ export default class NoteAssistant extends Component {
 
     componentDidMount() {
         // set callback so the editor can signal a change and this class can save the note
-        this.props.saveNote(this.saveNoteOnKeypress);
+        this.props.saveNote(this.saveNoteOnChange);
         this.props.closeNote(this.closeNote);
     }
 
@@ -148,25 +148,6 @@ export default class NoteAssistant extends Component {
         }
     }
 
-    saveEditorContentsToNewNote = () => {
-        // Create info to be set for new note
-        let date = new moment().format("D MMM YYYY");
-        let subject = "New Note";
-        let hospital = "Dana Farber";
-        let clinician = this.props.loginUser;
-        let signed = false;
-
-        // Add new unsigned note to patient record
-        var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, this.props.documentText, signed);
-        this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
-
-        var found = this.props.patient.getNotes().find(function (element) {
-            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
-        });
-
-        this.props.updateSelectedNote(found);
-    }
-
     // creates blank new note and puts it on the screen
     createBlankNewNote = () => {
         this.props.setNoteClosed(false);
@@ -193,15 +174,11 @@ export default class NoteAssistant extends Component {
         this.toggleView("context-tray");
     }
 
-    // save the note after every keypress. Invoked by FluxNotesEditor.
-    saveNoteOnKeypress = () => {
-        // Don't start saving until there is content in the editor
-        if (!Lang.isNull(this.props.documentText) && !Lang.isUndefined(this.props.documentText)) {
-            if (Lang.isEqual(this.props.currentlyEditingEntryId, -1)) {
-                this.saveEditorContentsToNewNote();
-            } else {
-                this.updateExistingNote();
-            }
+    // save the note after every editor change. Invoked by FluxNotesEditor.
+    saveNoteOnChange = () => {
+        // Only save if note is currently open
+        if (this.props.currentlyEditingEntryId !== -1) {
+            this.updateExistingNote();
         }
     }
 
@@ -316,7 +293,7 @@ export default class NoteAssistant extends Component {
                                 newCurrentShortcut={this.props.newCurrentShortcut}
                                 noteAssistantMode={this.props.noteAssistantMode}
                                 patient={this.props.patient}
-                                saveNoteUponKeypress={this.props.saveNoteUponKeypress}
+                                saveNoteOnChange={this.props.saveNoteOnChange}
                                 selectedNote={this.props.selectedNote}
                                 setFullAppStateWithCallback={this.props.setFullAppStateWithCallback}
                                 setNoteViewerEditable={this.props.setNoteViewerEditable}
@@ -618,7 +595,7 @@ NoteAssistant.propTypes = {
     noteClosed: PropTypes.bool.isRequired,
     patient: PropTypes.object.isRequired,
     saveNote: PropTypes.func.isRequired,
-    saveNoteUponKeypress: PropTypes.func.isRequired,
+    saveNoteOnChange: PropTypes.func.isRequired,
     searchSelectedItem: PropTypes.object,
     selectedNote: PropTypes.object,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
