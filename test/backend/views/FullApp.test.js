@@ -126,8 +126,15 @@ describe('FullApp', function() {
     beforeEach(() => {
         window.getSelection = () => {
           return {
-            removeAllRanges: () => {}
+            removeAllRanges: () => {},
+            addRange: () => {}
           };
+        },
+        window.document.createRange = () => {
+            return {
+                setStart: () => {}
+            };
+        }
         }
     });
     it('Selecting a condition changes the active condition', () => {
@@ -226,12 +233,13 @@ describe('FullApp', function() {
         wrapper.update();
 
         // editor
-        const e1 = wrapper.find('div.editor-content');
+        //const e1 = wrapper.find('div.editor-content');
+        const e1 = wrapper.find('Editor.editor-panel');
         expect(e1.exists()).to.equal(true);
-        console.log(e1);
+        // console.log(e1.at(0).debug());
            
         // Enter some text in the editor
-        e1.at(0).props().onInput("@name ");
+        e1.at(0).props().onInput(null, "@name ");
     
         // Select clinical notes
         const clinicalNotesButton = wrapper.find('#notes-btn');
@@ -242,7 +250,7 @@ describe('FullApp', function() {
         newNoteButton.at(0).props().onClick();
         wrapper.update();
 
-        console.log(e1.debug());
+        //console.log(e1.at(0).debug());
         // await t
         //     .expect(editor.textContent)
         //     .eql("Enter your clinical note here or choose a template to start from...");
