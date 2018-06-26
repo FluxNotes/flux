@@ -135,7 +135,6 @@ describe('FullApp', function() {
                 setStart: () => {}
             };
         }
-        }
     });
     it('Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp 
@@ -221,40 +220,40 @@ describe('FullApp', function() {
         const contextTray = wrapper.find('.context-tray');
         expect(contextTray.exists()).to.equal(true);
     });
-    it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
-        const wrapper = mount(<FullApp 
-            display='Flux Notes' 
-            dataSource='HardCodedReadOnlyDataSource' 
-            patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
+    // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
+    //     const wrapper = mount(<FullApp 
+    //         display='Flux Notes' 
+    //         dataSource='HardCodedReadOnlyDataSource' 
+    //         patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
-        // click new note button
-        const newNoteButton = wrapper.find('.note-new');
-        newNoteButton.at(0).props().onClick();
-        wrapper.update();
+    //     // click new note button
+    //     const newNoteButton = wrapper.find('.note-new');
+    //     newNoteButton.at(0).props().onClick();
+    //     wrapper.update();
 
-        // editor
-        //const e1 = wrapper.find('div.editor-content');
-        const e1 = wrapper.find('Editor.editor-panel');
-        expect(e1.exists()).to.equal(true);
-        // console.log(e1.at(0).debug());
+    //     // editor
+    //     //const e1 = wrapper.find('div.editor-content');
+    //     const e1 = wrapper.find('Editor.editor-panel');
+    //     expect(e1.exists()).to.equal(true);
+    //     // console.log(e1.at(0).debug());
            
-        // Enter some text in the editor
-        e1.at(0).props().onInput(null, "@name ");
+    //     // Enter some text in the editor
+    //     e1.at(0).props().onInput(null, "@name ");
     
-        // Select clinical notes
-        const clinicalNotesButton = wrapper.find('#notes-btn');
-        clinicalNotesButton.at(0).props().onClick();
-        wrapper.update();
+    //     // Select clinical notes
+    //     const clinicalNotesButton = wrapper.find('#notes-btn');
+    //     clinicalNotesButton.at(0).props().onClick();
+    //     wrapper.update();
     
-        // Click on new note button to clear the editor
-        newNoteButton.at(0).props().onClick();
-        wrapper.update();
+    //     // Click on new note button to clear the editor
+    //     newNoteButton.at(0).props().onClick();
+    //     wrapper.update();
 
-        //console.log(e1.at(0).debug());
-        // await t
-        //     .expect(editor.textContent)
-        //     .eql("Enter your clinical note here or choose a template to start from...");
-    });
+    //     //console.log(e1.at(0).debug());
+    //     // await t
+    //     //     .expect(editor.textContent)
+    //     //     .eql("Enter your clinical note here or choose a template to start from...");
+    // });
 });
 
 describe('FluxNotesEditor', function() {
