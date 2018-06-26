@@ -1,6 +1,6 @@
-/* .toolbar-menu > * {
+.toolbar-menu > * {
     display: inline-block;
-} */
+}
 
 .toolbar-menu {
     padding: 1px 0 17px 5px;
