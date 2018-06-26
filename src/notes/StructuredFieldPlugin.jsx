@@ -1,8 +1,7 @@
 import React from 'react';
 import { Inline, Range } from 'slate';
-import Base64 from 'slate-base64-serializer';
-import { findDOMNode, getEventTransfer, setEventTransfer } from 'slate-react'
-import { IS_SAFARI, IS_CHROME, IS_IE } from 'slate-dev-environment'
+import { findDOMNode } from 'slate-react'
+import { IS_IE } from 'slate-dev-environment'
 import Lang from 'lodash';
 import getWindow from 'get-window';
 
@@ -72,7 +71,7 @@ function StructuredFieldPlugin(opts) {
         // If the selection is collapsed, and it isn't inside a void node, abort.
         if (native.isCollapsed && !startVoid) return
         
-        // Create a fake selection so that we can add a Base64-encoded copy of the
+        // Create a fake selection so that we can add an encoded copy of the
         // fragment to the HTML, to decode on future pastes.
         const encoded = window.btoa(window.encodeURIComponent(fragment));
         // console.log(encoded)
@@ -117,7 +116,7 @@ function StructuredFieldPlugin(opts) {
         // Set a `data-slate-fragment` attribute on a non-empty node, so it shows up
         // in the HTML, and can be used for intra-Slate pasting. If it's a text
         // node, wrap it in a `<span>` so we have something to set an attribute on.
-        if (attach.nodeType == 3) {
+        if (attach.nodeType === 3) {
             const span = window.document.createElement('span')
             
             // COMPAT: In Chrome and Safari, if we don't add the `white-space` style
@@ -212,6 +211,16 @@ function StructuredFieldPlugin(opts) {
             return null;
         }
     }
+    
+    /**
+     * The transfer types that Slate recognizes.
+     *
+     */
+    const FRAGMENT = 'application/x-slate-fragment';
+    const HTML = 'text/html';
+    const NODE = 'application/x-slate-node';
+    const RICH = 'text/rtf';
+    const TEXT = 'text/plain';
     /**
      * Get one of types `TYPES.FRAGMENT`, `TYPES.NODE`, `text/html`, `text/rtf` or
      * `text/plain` from transfers's `data` if possible, otherwise return null.
@@ -225,7 +234,7 @@ function StructuredFieldPlugin(opts) {
         if (!transfer.types || !transfer.types.length) {
         // COMPAT: In IE 11, there is no `types` field but `getData('Text')`
         // is supported`. (2017/06/23)
-        return type == TEXT ? transfer.getData('Text') || null : null
+        return type === TEXT ? transfer.getData('Text') || null : null
         }
     
         // COMPAT: In Edge, transfer.types doesn't respond to `indexOf`. (2017/10/25)
@@ -233,16 +242,6 @@ function StructuredFieldPlugin(opts) {
     
         return types.indexOf(type) !== -1 ? transfer.getData(type) || null : null
     }
-    /**
-     * The transfer types that Slate recognizes.
-     *
-     */
-    const FRAGMENT = 'application/x-slate-fragment';
-    const HTML = 'text/html';
-    const NODE = 'application/x-slate-node';
-    const RICH = 'text/rtf';
-    const TEXT = 'text/plain';
-
     /**
      * Get the type of a transfer from its `data`.
      *
@@ -277,7 +276,7 @@ function StructuredFieldPlugin(opts) {
     function getEmbeddedTypes(text) {
         const prefix = 'SLATE-DATA-EMBED::'
     
-        if (text.substring(0, prefix.length) != prefix) {
+        if (text.substring(0, prefix.length) !== prefix) {
             return { TEXT: text }
         }
     
@@ -342,7 +341,7 @@ function StructuredFieldPlugin(opts) {
             // Get and normalize files if they exist.
             if (transfer.items && transfer.items.length) {
             files = Array.from(transfer.items)
-                .map(item => (item.kind == 'file' ? item.getAsFile() : null))
+                .map(item => (item.kind === 'file' ? item.getAsFile() : null))
                 .filter(exists => exists)
             } else if (transfer.files && transfer.files.length) {
             files = Array.from(transfer.files)

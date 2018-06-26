@@ -163,11 +163,14 @@ class FluxNotesEditor extends React.Component {
             case this.structuredFieldPlugin.helpers.getStructuredFieldType(): 
                 const StructuredField = this.structuredFieldPlugin.components.StructuredField;
                 return <StructuredField {...props}/>
+            default: 
+                console.error(`trying to render node of type ${props.node.type}; we don't recognize that type`)
+                return null;
         }
     }
     
     renderMark = (props) => {   
-        const { mark, attributes } = props
+        const { mark } = props
         switch (mark.type) {
             case "bold":
                 return <strong>{props.children}</strong>
@@ -175,6 +178,9 @@ class FluxNotesEditor extends React.Component {
                 return <em>{props.children}</em>
             case "underlined":
                 return <u>{props.children}</u>
+            default: 
+                console.error(`trying to render mark of type ${mark.type}; type not recognized`)
+                return null;
         }
     }
     
@@ -1126,7 +1132,6 @@ class FluxNotesEditor extends React.Component {
             );
         }
         const callback = {}
-        let editor = null;
         let editorClassName = this.props.inModal ? 'editor-content-modal' : 'editor-content';
         /**
          * Render the editor, toolbar, dropdown and description for note
@@ -1165,6 +1170,7 @@ class FluxNotesEditor extends React.Component {
                             renderNode={this.renderNode}
                             value={this.state.editorValue}
                         />
+                        {errorDisplay}
                     </div>
 
                     <CreatorsPortal
