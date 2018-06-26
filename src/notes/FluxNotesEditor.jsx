@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
 import Plain from 'slate-plain-serializer'
 import { Editor, findDOMNode } from 'slate-react'
@@ -261,6 +262,7 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldChange(change, shortcut).collapseToStartOfNextText().focus();
     }
 
+    // The change to apply when auto-replacing
     autoReplaceChange(def, change, e, matches) {
         // get keycode as a fallback if browser doesn't define e.key
         const keyCode = e.keyCode || e.which || 0;
@@ -268,6 +270,18 @@ class FluxNotesEditor extends React.Component {
         return this.insertShortcut(def, matches.before[0], "", change).insertText(characterToAppend);
     }
 
+    isPositionOutsideOfEditor (pos) { 
+        const editor = this["editor"]
+        const editorElementInDOM = ReactDOM.findDOMNode(editor)
+        const editorRect = editorElementInDOM.getBoundingClientRect()
+        // Is out of the editor if 
+        return pos.top < editorRect.y ||                    // 1. pos.top is less than the rect.y -- above the editor
+            pos.top > editorRect.y + editorRect.height ||   // 2. pos.top is greater than rect.y + rect.height -- below the editor 
+            pos.left < editorRect.x ||                      // 3. pos.left is less than the rect.x -- left of  the editor
+            pos.left > editorRect.x + editorRect.width;     // 4. pos.left is greater than rect.x + rect.width -- right of the editor 
+    }
+
+    // Return a best-approximation of where the selector of the editor is, in pixels
     getTextCursorPosition = () => {
         const positioningUsingSlateNodes = () => { 
             const pos = {};
@@ -285,10 +299,14 @@ class FluxNotesEditor extends React.Component {
             return pos;
         }
         const pos = position();
-        // If position is null, an empty object, or calculated to be 0, 0, use our old method of calculating position.
+        // console.log(pos)
         if (Lang.isNull(pos) || (pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+            // If position is null, an empty object, or calculated to be 0, 0, use our old method of calculating position
             this.lastPosition = positioningUsingSlateNodes();
+        } else if (this.isPositionOutsideOfEditor(pos)) {
+            // If the position isn't valid -- not in the editor -- just use the old position -- do nothing
         } else {
+            // Else, its a valid new position -- replace the previous value
             this.lastPosition = pos;
         }
         return this.lastPosition;
