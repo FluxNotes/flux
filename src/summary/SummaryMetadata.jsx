@@ -933,7 +933,7 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        if (this.eligibleTrials.length > 0) {
+        if (!this.refreshClinicalTrials) {
             return this.eligibleTrials;
         }
         
