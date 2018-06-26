@@ -14,8 +14,7 @@ export default class InsertValue extends Shortcut {
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
         let text = this.determineText(contextManager);
-       
-        if (Lang.isArray(text) && shortcutData.length === 0) {
+        if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
             if (shortcutData.length > 0) this.setText(shortcutData);
