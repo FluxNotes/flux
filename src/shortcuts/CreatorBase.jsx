@@ -10,7 +10,7 @@ export default class CreatorBase extends Shortcut {
         this.metadata = metadata;
         this.text = this.getPrefixCharacter() + this.metadata["name"];
         this.patient = patient;
-        if (Lang.isUndefined(shortcutData) || shortcutData.length === 0) {
+        if (Lang.isUndefined(shortcutData) || !shortcutData || shortcutData.length === 0) {
             this.object = FluxObjectFactory.createInstance({}, this.metadata["valueObject"], patient);
             this.isObjectNew = true;
         } else {

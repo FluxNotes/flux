@@ -4,6 +4,7 @@ import DataAccess from '../dataaccess/DataAccess';
 import Lang from 'lodash';
 import InsertValue from '../shortcuts/InsertValue';
 import CreatorBase from '../shortcuts/CreatorBase';
+import UpdaterBase from '../shortcuts/UpdaterBase';
 import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword';
 
 export default class NoteParser {
@@ -49,13 +50,20 @@ export default class NoteParser {
         return this.allStringTriggersRegExp;
     }
 
+    // Update shortcuts and update patients accordingly
+    handleShortcutUpdate = (s) => {
+        s.updatePatient(this.patient, this.contextManager, null);
+    }
+    
     createShortcut(triggerOrKeywordObject) {     
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger
-        const shortcut = this.shortcutManager.createShortcut(triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient); //, onUpdate, object
+        const shortcut = this.shortcutManager.createShortcut(
+            triggerOrKeywordObject.definition, triggerOrKeywordText, this.patient, 
+            triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
        
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
      
-        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword) {
+        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {
             shortcut.updatePatient(this.patient, this.contextManager, null);
         }
         
