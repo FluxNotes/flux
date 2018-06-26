@@ -1151,6 +1151,7 @@ class FluxNotesEditor extends React.Component {
                 <div className="MyEditor-root">
                     { !this.props.inModal &&
                         <EditorToolbar
+                            contextManager={this.props.contextManager}
                             isReadOnly={!this.props.isNoteViewerEditable}
                             onBlockCheck={this.handleBlockCheck}
                             onBlockUpdate={this.handleBlockUpdate}

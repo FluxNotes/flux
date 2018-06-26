@@ -1,7 +1,3 @@
-.toolbar-menu > * + * {
-    margin-left: 15px;
-}
-
 .toolbar-menu > * {
     display: inline-block;
 }
@@ -10,15 +6,33 @@
     padding: 1px 0 17px 5px;
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .toolbar-menu .button {
     color: #ccc;
+    margin-left: 10px;
     cursor: pointer;
+    display: inline;
+}
+
+.toolbar-menu .button:nth-child(1) {
+    margin-left: 0px;
 }
 
 .toolbar-menu .button[data-active="true"] {
   color: black;
+}
+
+.toolbar-breadcrumbs-separator {
+    display: inline-block;
+    color: #ddd;
+    vertical-align: bottom;
+    margin: 0px 40px;
+    border: none;
+    border-left: 1px solid;
+    height: 19px;
 }
 
 .MyEditor-root .autocomplete-menu { 
@@ -43,7 +57,7 @@
 
 .MyEditor-root p {
     display: inline;
-    margin:0;
+    margin: 0;
 }
 
 .MyEditor-root span {

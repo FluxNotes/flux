@@ -1,0 +1,68 @@
+.toolbar-breadcrumbs-container {
+    color: #ccc;
+    font-size: 0.8em;
+    font-style: italic;
+    display: inline-block;
+    vertical-align: bottom;
+    width: 65%;
+}
+
+/* Allows for respnsive width styling according to size of window.
+Width percentages chosen arbitrarily.*/
+@media only screen and (max-width: 1400px) {
+    .toolbar-breadcrumbs-container {
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .toolbar-breadcrumbs-container {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .toolbar-breadcrumbs-container {
+        width: 40%;
+    }
+}
+
+.breadcrumbs-container:after {
+    content:"...";
+    background-color: white;
+    color: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.breadcrumbs-container {
+    vertical-align: bottom;
+    direction: rtl;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.breadcrumbs-container:before {
+    content:"...";
+    background-color: white;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+.breadcrumbs {
+    display: inline-block;
+}
+
+.breadcrumb {
+    display: inline;
+}
+
+.breadcrumb-separator {
+    display: inline;
+    padding: 0px 10px;
+}

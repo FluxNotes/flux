@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
 import './EditorToolbar.css';
+import ActiveContextsBreadcrumbs from './ActiveContextsBreadcrumbs.jsx';
 
 class EditorToolbar extends React.Component {
 
@@ -132,6 +133,10 @@ class EditorToolbar extends React.Component {
                 {this.renderMarkButton('underlined', 'fa-underline')}
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
+                 <hr className="toolbar-breadcrumbs-separator"/>
+                <ActiveContextsBreadcrumbs
+                    contextManager={this.props.contextManager}
+                />
                 {content}
             </div>
         )
@@ -139,6 +144,7 @@ class EditorToolbar extends React.Component {
 }
 
 EditorToolbar.proptypes = { 
+    contextManager: PropTypes.object.isRequired,
     isReadOnly: PropTypes.bool.isRequired,
     onBlockCheck: PropTypes.func.isRequired,
     onBlockUpdate: PropTypes.func.isRequired,
