@@ -2,10 +2,10 @@ import moment from 'moment';
 const today = new moment().format("D MMM YYYY");
 
 export const stagingJSON = {
-  "EntryType": {
-      "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage"
-  },
-  "Value": {
+    "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/oncology/TNMStage"
+    }, 
+    "Value": {
       "EntryType": {
           "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
       },
@@ -195,6 +195,7 @@ export const diseaseStatusJSON = {
             "Value": "Stable"
         }
     },
+    "FocalSubjectReference": null,
     "Evidence": [
         {
             "EntryType": {
@@ -318,6 +319,7 @@ export const diseaseStatus2JSON = {
             "Value": "Stable"
         }
     },
+    "FocalSubjectReference": null,
     "Evidence": [
         {
             "EntryType": {

@@ -11,7 +11,7 @@ import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
 
-const noteParser = new NoteParser();
+
 
 const today = new moment().format("D MMM YYYY");
 
@@ -41,8 +41,16 @@ const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
 const expectedOutputClinicalTrialUnenrolledMinimal = [[ new FluxResearchSubject(clinicalTrialUnenrolledMinimalJSON) ], []];
 
-describe('getAllTriggersRegularExpression', function () { 
+let noteParser;
 
+beforeEach(function() {
+    noteParser = new NoteParser();
+});
+
+
+
+describe('getAllTriggersRegularExpression', function () { 
+   
     it('should return allStringTriggersRegExp of the parser used', function () { 
         const expectedTriggers = noteParser.allStringTriggersRegExp; 
         expect(noteParser.getAllTriggersRegularExpression())
@@ -78,14 +86,15 @@ describe('parse', function() {
         const record = noteParser.parse(sampleTextStaging);
         // This test is different from the others because Observation sets the _value property which we cannot set in TNMStage using getters and setters.
         // Instead this test will compare all the properties in each object expect _value property.
+
         expect(record)
             .to.be.an('array');
         expect(record[0][1])
             .eql(expectedOutputStaging[0][1]);
         expect(record[0][0].stage)
             .eql(expectedOutputStaging[0][0].stage);
-        expect(record[0][0].entryInfo)
-            .eql(expectedOutputStaging[0][0].entryInfo);
+        expect(record[0][0].entryType)
+            .eql(expectedOutputStaging[0][0].entryType);         
         expect(record[0][0].t_Stage)
             .eql(expectedOutputStaging[0][0].t_Stage);
         expect(record[0][0].n_Stage)
@@ -96,12 +105,20 @@ describe('parse', function() {
 
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
+
+        delete record[0][0]._diseaseProgression.entryInfo._shrId;
+        delete record[0][0]._diseaseProgression.entryInfo._entryId;
+ 
         expect(record)
             .to.be.an('array')
-            .and.to.eql(expectedOutputDiseaseStatus);
+            .and.to.eql(expectedOutputDiseaseStatus);      
     });
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus2);
+       
+        delete record[0][0]._diseaseProgression.entryInfo._shrId;
+        delete record[0][0]._diseaseProgression.entryInfo._entryId;
+        
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus2);
