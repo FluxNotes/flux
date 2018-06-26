@@ -143,6 +143,12 @@ export default class TabularListVisualizer extends Component {
             subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span></h2>;
         }
 
+        // Hides Missing Criteria table if no trial selected.
+        if (subsectionName==="Missing Criteria") {
+            return <h2 className="subsection list-subsection-header"><span></span></h2>;
+        }
+
+        // Displays "None" if returned list is empty. Displays alternative text if list is empty because no trial selected yet.
         if (list.length <= 0) {
             let emptyListText = (subsectionName!=="Missing Criteria" ? "None" : "Select trial to view missing data.");
             return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>{emptyListText}</h2></div>;
