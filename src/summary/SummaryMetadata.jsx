@@ -605,7 +605,6 @@ export default class SummaryMetadata {
                             {
                                 name: "Potential to enroll",
                                 headings: ["Name", "Criteria Fit", "Opened", "Description"],
-<<<<<<< HEAD
                                 itemsFunction: this.getItemListForClinicalTrialEligibility,
                                 actions: [
                                     {
@@ -625,12 +624,6 @@ export default class SummaryMetadata {
                                 itemsFunction: this.getItemListToDisplayMissingCriteria
                             }
                         ]   
-=======
-                                itemsFunction: this.getItemListForClinicalTrialEligibility
-
-                            }
-                        ]
->>>>>>> 7a11c87d... Added clinical trial code back
                     },
                     {
                         name: "Allergies",
