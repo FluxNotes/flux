@@ -3,6 +3,7 @@ import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 
+
 /*
     Each section has the following properties:
         name                Displayed at the top of the section and in the mini-map
@@ -38,6 +39,9 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 export default class SummaryMetadata {
     constructor(setForceRefresh) {
         this.setForceRefresh = setForceRefresh;
+        this.missingEligibleTrialData = [];
+        this.eligibleTrials = [];
+        this.refreshClinicalTrials = true;
         this.trialDisplayMissingCriteria = "";
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": {
@@ -929,13 +933,19 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
+        if (this.eligibleTrials.length > 0) {
+            return this.eligibleTrials;
+        }
+        
         const trialsList = new ClinicalTrialsList();
         const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
         });
-        return eligibleTrials;
+        this.eligibleTrials = eligibleTrials;
+        this.refreshClinicalTrials = false;
+        return this.eligibleTrials;
     }
 
     handleViewMissingCriteria = (item) => {
@@ -948,14 +958,14 @@ export default class SummaryMetadata {
     }
 
     getItemListToDisplayMissingCriteria = () => {
-        let trialsList = new ClinicalTrialsList();
+       let trialsList = new ClinicalTrialsList();
         if (this.trialDisplayMissingCriteria !== "") {
-            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
+            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility("PATINA");
             return this.missingEligibleTrialData.map((data) => {
                 return [{value : data}]
             });
-        }
-        return [];
+       }
+       return [];
     }
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
