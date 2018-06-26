@@ -18,14 +18,11 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text) && shortcutData.length === 0) {
             this.flagForTextSelection(text);
         } else {
-            // console.log("[1] shortcut data: " + shortcutData);
             if (shortcutData.length > 0) this.setText(shortcutData);
             else this.setText(text);
         }
 
-
         if (this.needToSelectValueFromMultipleOptions() && shortcutData.length > 0) {
-            // console.log("[2] shortcut data: " + shortcutData);
             this.text = shortcutData;
             const portalOptions = this.getValueSelectionOptions();
             portalOptions.forEach((option) => {
@@ -34,6 +31,9 @@ export default class InsertValue extends Shortcut {
                 }
             });
         }
+
+        console.log("----value object");
+        console.log(this.valueObject);
     }
 
     getPrefixCharacter() {
@@ -80,11 +80,14 @@ export default class InsertValue extends Shortcut {
         } else if (callObject === "patient") {
             //"getData": [ {"object": "patient", "method": "getAge"}]
             let args = callSpec["args"] || [];
+
             args = args.map((arg) => {
                 if (arg === "$selectedValue") {
                     return selectedValue;
-                }
-            })
+                }                
+                return arg;            
+            });
+
             result = contextManager.getPatient()[callSpec["method"]](...args);
             if (Lang.isArray(result)) {
                 if (!Lang.isUndefined(callSpec["itemKey"])) {

@@ -199,56 +199,21 @@ class MedicationRangeChartVisualizer extends Component {
         if (med.medicationChange && med.medicationChange.type === 'stop') {
             return (
                 <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>
-                <Grid className="FullApp-content" fluid>
-                    <Row top="xs">
-                        <Col sm={numColsChart}>
-                            <div className="range-chart-container">
-                                <svg width="100%" height="6em" viewBox="0 0 340 100">
-                                    <text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
-                                </svg>
-                                
-                            </div>
-                        </Col>
-                        <Col sm={numColsInfo}>
-                            {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}
-                            <Row center='xs'>
-                                <Col sm={3}>
-                                    <div className='medication-info-heading'>
-                                        Route
-                                    </div>
-                                    <div className='medication-info'>
-                                        {med.medication.routeIntoBody}
-                                    </div>
-                                </Col>
-                                <Col sm={3}>
-                                    <div className='medication-info-heading'>
-                                        Prescribed
-                                    </div>
-                                    <div className='medication-info'>
-                                        {med.medication.whenPrescribed}
-                                    </div>
-                                </Col>
-                                <Col sm={3}>
-                                    <div className='medication-info-heading'>
-                                        Prescribed By
-                                    </div>
-                                    <div className='medication-info'>
-                                        {med.medication.prescribedBy}
-                                    </div>
-                                </Col>
-                                <Col sm={3}>
-                                    <div className='medication-info-heading'>
-                                        Number of Refills
-                                    </div>
-                                    <div className='medication-info'>
-                                        {med.medication.numberOfRefillsAllowed}
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                </Grid>
-            </div>
+                    <Grid className="FullApp-content" fluid>
+                        <Row top="xs">
+                            <Col sm={numColsChart}>
+                                <div className="range-chart-container">
+                                    <svg width="100%" height="6em" viewBox="0 0 340 100">
+                                        <text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>
+                                    </svg>                                
+                                </div>
+                            </Col>
+                            <Col sm={numColsInfo}>
+                                {medicationIsChange ? this.renderMedicationChange(med.medicationChange, med.medicationChange.medBeforeChange) : null}                            
+                            </Col>
+                        </Row>
+                    </Grid>
+                </div>
             );
         } else {
             return (
@@ -256,10 +221,7 @@ class MedicationRangeChartVisualizer extends Component {
                     <Grid className="FullApp-content" fluid>
                         <Row top="xs">
                             <Col sm={numColsChart}>
-                                <div className="range-chart-container">
-                                    {/*<svg width="100%" height="6em" viewBox="0 0 340 100">*/}
-                                        {/*<text x="40" y="20" fontFamily="sans-serif" fontSize="0.9em" fill="#333">{name}</text>*/}
-                                    {/*</svg>*/}
+                                <div className="range-chart-container">                                    
                                     <RangeChart
                                         lowerValue={lowerValue}
                                         upperValue={upperValue}
@@ -311,10 +273,7 @@ class MedicationRangeChartVisualizer extends Component {
                     </Grid>
                 </div>
             );
-        }
-
-
-        
+        }        
     }
 
     render() {
