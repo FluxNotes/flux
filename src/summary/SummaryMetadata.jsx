@@ -1000,7 +1000,7 @@ export default class SummaryMetadata {
     }
 
     getMissingCriteriaSubsectionName = () => {
-        return `Missing ${this.trialDisplayMissingCriteria} Criteria`;
+        return (this.trialDisplayMissingCriteria !== "") ? (`Missing ${this.trialDisplayMissingCriteria} Criteria`) : "Missing Criteria";
     }
 
     getItemListToDisplayMissingCriteria = () => {

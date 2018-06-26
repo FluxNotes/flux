@@ -144,7 +144,8 @@ export default class TabularListVisualizer extends Component {
         }
 
         if (list.length <= 0) {
-            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
+            let emptyListText = (subsectionName!=="Missing Criteria" ? "None" : "Select trial to view missing data.");
+            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>{emptyListText}</h2></div>;
         }
 
         let headings = null;

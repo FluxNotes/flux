@@ -147,6 +147,55 @@
         {
             "resource": {
                 "resourceType": "Observation",
+                "id": "222",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16113-3",
+                            "display": "Progesterone Receptor"
+                        }
+                    ]
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
+                "id": "58b3663f3425def0f0f6c031",
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "16112-5",
+                            "display": "Estrogen Receptor"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/93d8b432-f097-4c82-b111-8577e1d9d89f"
+                },
+                "interpretation": {
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "code": "10828004",
+                        "display": "Positive (qualifier value)"
+                    }]
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Observation",
                 "id": "QiIN-pzz-IlHLVeqXc-NCUv",
                 "status": "final",
                 "code": {
@@ -185,28 +234,6 @@
                     "unit": "mm3",
                     "system": "http://loinc.org",
                     "code": "mm3"
-                }
-            }
-        },
-        {
-            "resource": {
-                "resourceType": "Observation",
-                "id": "bS9-3ADp-oiQOWnS-mJJjos",
-                "status": "final",
-                "code": {
-                    "coding": [
-                        {
-                            "system": "http://loinc.org",
-                            "code": "41995-2",
-                            "display": "Hemoglobin"
-                        }
-                    ]
-                },
-                "valueQuantity": {
-                    "value": 12,
-                    "unit": "g/dL",
-                    "system": "http://loinc.org",
-                    "code": "g/dL"
                 }
             }
         }
