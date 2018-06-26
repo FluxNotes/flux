@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import 'font-awesome/css/font-awesome.min.css';
 import './EditorToolbar.css';
-import EditorToolbarBreadcrumbs from './EditorToolbarBreadcrumbs.jsx';
+import ActiveContextsBreadcrumbs from './ActiveContextsBreadcrumbs.jsx';
 
 class EditorToolbar extends React.Component {
 
@@ -134,7 +134,7 @@ class EditorToolbar extends React.Component {
                 {this.renderBlockButton('bulleted-list', 'fa-list')}
                 {this.renderBlockButton('numbered-list', 'fa-list-ol')}
                  <hr className="toolbar-breadcrumbs-separator"/>
-                <EditorToolbarBreadcrumbs
+                <ActiveContextsBreadcrumbs
                     contextManager={this.props.contextManager}
                 />
                 {content}

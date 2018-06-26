@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import 'font-awesome/css/font-awesome.min.css';
-import './EditorToolbar.css';
-import './EditorToolbarBreadcrumbs.css';
+import './ActiveContextsBreadcrumbs.css';
 
-class EditorToolbarBreadcrumbs extends React.Component {
+class ActiveContextsBreadcrumbs extends React.Component {
 
     renderActiveContexts = (activeContexts) => {
         if (activeContexts.length === 0) {
@@ -58,9 +56,9 @@ class EditorToolbarBreadcrumbs extends React.Component {
 
 }
 
-EditorToolbarBreadcrumbs.proptypes = {
+ActiveContextsBreadcrumbs.proptypes = {
     contextManager: PropTypes.object.isRequired
 };
 
 
-export default EditorToolbarBreadcrumbs;
+export default ActiveContextsBreadcrumbs;
