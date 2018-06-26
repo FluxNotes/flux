@@ -163,6 +163,9 @@ class FluxNotesEditor extends React.Component {
             case this.structuredFieldPlugin.helpers.getStructuredFieldType(): 
                 const StructuredField = this.structuredFieldPlugin.components.StructuredField;
                 return <StructuredField {...props}/>
+            case 'line': 
+                // We don't want any special styling for lines
+                return null 
             default: 
                 console.error(`trying to render node of type ${props.node.type}; we don't recognize that type`)
                 return null;
