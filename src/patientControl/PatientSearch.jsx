@@ -80,15 +80,15 @@ class PatientSearch extends React.Component {
     }
 
     getNotesWithoutStyle = (notes) => {
-        const notesCopy = Lang.cloneDeep(notes)
+        const notesCopy = Lang.cloneDeep(notes);
         notesCopy.forEach((note) => {
             let noteContent = note.content;
             // Remove HTML tags
             noteContent = noteContent.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
             // Remove brackets from @ structured phrases
-            noteContent = noteContent.replace(/@(.*?)\[\[(.*?)\]\]/g, function(match, g1, g2) { return g2; });
+            noteContent = noteContent.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
             // Removed brackets from # structured phrases
-            noteContent = noteContent.replace(/#(.*?)\[\[(.*?)\]\]/g, function(match, g1, g2) { return `#${g1}`; });
+            noteContent = noteContent.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
             note.content = noteContent;
         });
         return notesCopy;
