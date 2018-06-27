@@ -1,7 +1,6 @@
 import NoteParser from '../../../src/noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
-    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON,
-    clinicalTrialUnenrolledMinimalJSON } from './NoteParserUtils';
+    clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON } from './NoteParserUtils';
 import FluxDiseaseProgression from '../../../src/model/condition/FluxDiseaseProgression';
 import FluxTNMStage from '../../../src/model/oncology/FluxTNMStage';
 import FluxToxicReaction from '../../../src/model/adverse/FluxToxicReaction';
@@ -10,8 +9,6 @@ import FluxResearchSubject from '../../../src/model/research/FluxResearchSubject
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
-
-
 
 const today = new moment().format("D MMM YYYY");
 
@@ -39,7 +36,6 @@ const expectedOutputDeceased = [[ new FluxDeceased(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
 const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
-const expectedOutputClinicalTrialUnenrolledMinimal = [[ new FluxResearchSubject(clinicalTrialUnenrolledMinimalJSON) ], []];
 
 let noteParser;
 
@@ -47,10 +43,23 @@ beforeEach(function() {
     noteParser = new NoteParser();
 });
 
-// function outputTest() {
-//     console.log("output test");
-// }
+// This function takes in a patient record and an entry then removes the following attributes from the record:
+// shrId, entryId, creationTime, lastUpdated 
+function removeAttributes(record, entry) {    
 
+    if (record && record[entry].entryInfo._shrId) {
+        delete record[entry].entryInfo._shrId;
+    }
+    if (record && record[entry].entryInfo._entryId) {
+        delete record[entry].entryInfo._entryId;
+    } 
+    if (record && record[entry].entryInfo._creationTime) {
+        delete record[entry].entryInfo._creationTime;
+    }
+    if (record && record[entry].entryInfo._lastUpdated && entry !== "_deceased") {
+        delete record[entry].entryInfo._lastUpdated;
+    } 
+}
 
 describe('getAllTriggersRegularExpression', function () { 
    
@@ -60,7 +69,6 @@ describe('getAllTriggersRegularExpression', function () {
             .to.eql(expectedTriggers);
     });
 });
-
 
 describe('parse', function() { 
 
@@ -109,18 +117,16 @@ describe('parse', function() {
     it('should return a patient record with disease status data when parsing a note with disease status phrases', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus);
 
-        delete record[0][0]._diseaseProgression.entryInfo._shrId;
-        delete record[0][0]._diseaseProgression.entryInfo._entryId;
- 
+        removeAttributes(record[0][0], "_diseaseProgression");
+
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputDiseaseStatus);      
     });
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
         const record = noteParser.parse(sampleTextDiseaseStatus2);
-       
-        delete record[0][0]._diseaseProgression.entryInfo._shrId;
-        delete record[0][0]._diseaseProgression.entryInfo._entryId;
+      
+        removeAttributes(record[0][0], "_diseaseProgression");
         
         expect(record)
             .to.be.an('array')
@@ -129,11 +135,8 @@ describe('parse', function() {
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
 
-        delete record[0][0]._adverseEvent.entryInfo._shrId;
-        delete record[0][0]._adverseEvent.entryInfo._entryId;
-        delete record[0][0]._adverseEvent.entryInfo._creationTime;
-        delete record[0][0]._adverseEvent.entryInfo._lastUpdated;
-
+        removeAttributes(record[0][0], "_adverseEvent");
+       
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputToxicity);
@@ -141,9 +144,7 @@ describe('parse', function() {
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);
     
-        delete record[0][0]._deceased.entryInfo._shrId;
-        delete record[0][0]._deceased.entryInfo._entryId;
-        delete record[0][0]._deceased.entryInfo._creationTime;
+        removeAttributes(record[0][0], "_deceased");
 
         expect(record)
             .to.be.an('array')
@@ -152,11 +153,8 @@ describe('parse', function() {
     it('should return a patient record with study enrollment data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollment);
 
-        delete record[0][0]._researchSubject.entryInfo._shrId;
-        delete record[0][0]._researchSubject.entryInfo._entryId;
-        delete record[0][0]._researchSubject.entryInfo._creationTime;
-        delete record[0][0]._researchSubject.entryInfo._lastUpdated;
-
+        removeAttributes(record[0][0], "_researchSubject");
+       
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollment);
@@ -164,11 +162,8 @@ describe('parse', function() {
     it('should return a patient record with study enrollment data correctly defaulted when parsing a note with only #enrollment', function () {
         const record = noteParser.parse(sampleTextClinicalTrialEnrollmentMinimal);
         
-        delete record[0][0]._researchSubject.entryInfo._shrId;
-        delete record[0][0]._researchSubject.entryInfo._entryId;
-        delete record[0][0]._researchSubject.entryInfo._creationTime;
-        delete record[0][0]._researchSubject.entryInfo._lastUpdated;        
-      
+        removeAttributes(record[0][0], "_researchSubject");
+          
         expect(record)
             .to.be.an('array')
             .and.to.eql(expectedOutputClinicalTrialEnrollmentMinimal);
@@ -176,10 +171,7 @@ describe('parse', function() {
     it('should return a patient record with study unenrolled data when parsing a note with clinical trial phrases', function () {
         const record = noteParser.parse(sampleTextClinicalTrialUnenrolled);
        
-        delete record[0][0]._researchSubject.entryInfo._shrId;
-        delete record[0][0]._researchSubject.entryInfo._entryId;
-        delete record[0][0]._researchSubject.entryInfo._creationTime;
-        delete record[0][0]._researchSubject.entryInfo._lastUpdated;        
+        removeAttributes(record[0][0], "_researchSubject");
 
         expect(record)
             .to.be.an('array')

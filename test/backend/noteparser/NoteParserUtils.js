@@ -152,18 +152,6 @@ export const diseaseStatusJSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
     },
-    "CreationTime": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-        },
-        "Value": today
-    },
-    "LastUpdated": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-        },
-        "Value": today
-    },
     "Value": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
@@ -275,18 +263,6 @@ export const diseaseStatusJSON = {
 export const diseaseStatus2JSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/condition/DiseaseProgression"
-    },
-    "CreationTime": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
-        },
-        "Value": "5 Oct 2017"
-    },
-    "LastUpdated": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-        },
-        "Value": today
     },
     "Value": {
         "EntryType": {
@@ -734,9 +710,4 @@ export const clinicalTrialUnenrolledJSON = {
             }
         }
     }
-}
-
-export const clinicalTrialUnenrolledMinimalJSON = {
-    
-    
 }
