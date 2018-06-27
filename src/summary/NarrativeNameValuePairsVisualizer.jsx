@@ -1,6 +1,3 @@
-//import { ListItemIcon, ListItemText } from 'material-ui/List';
-//import Menu, { MenuItem } from 'material-ui/Menu';
-//import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
