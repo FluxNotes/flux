@@ -163,13 +163,13 @@ export default class NoteAssistant extends Component {
         var currentlyEditingEntryId = this.props.patient.addClinicalNote(date, subject, hospital, clinician, content, signed);
         this.props.updateCurrentlyEditingEntryId(currentlyEditingEntryId);
 
-        var found = this.props.patient.getNotes().find(function (element) {
-            return Lang.isEqual(element.entryInfo.entryId, currentlyEditingEntryId);
+        var newNote = this.props.patient.getNotes().find(function (curNote) {
+            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
         });
 
         // Select note in the clinical notes view
-        this.props.updateSelectedNote(found);
-        this.props.loadNote(found);
+        this.props.updateSelectedNote(newNote);
+        this.props.loadNote(newNote);
         this.props.setNoteViewerEditable(true);
         this.toggleView("context-tray");
     }
