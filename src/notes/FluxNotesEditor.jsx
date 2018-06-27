@@ -116,20 +116,27 @@ class FluxNotesEditor extends React.Component {
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
-            capture: /#([\w\s\-,]*)/,
+            capture: /#([\w\s\-,?<>]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
-            capture: /@([\w\s\-,]*)/,
+            capture: /@([\w\s\-,?<>]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
+        this.suggestionsPluginPlaceholders = SuggestionsPlugin({
+            capture: /<\?([\w\s\-,?<>]*)/,
+            onEnter: this.choseSuggestedShortcut.bind(this),
+            suggestions: this.suggestionFunction.bind(this, '<?'),
+            trigger: '<?',
+        });
 
         this.plugins.push(this.suggestionsPluginCreators)
         this.plugins.push(this.suggestionsPluginInserters)
+        this.plugins.push(this.suggestionsPluginPlaceholders)
         this.plugins.push(this.structuredFieldPlugin)
         this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
         // The logic below that builds the regular expression could possibly be replaced by the regular
@@ -138,13 +145,24 @@ class FluxNotesEditor extends React.Component {
         this.autoReplaceBeforeRegExp = undefined;
         let autoReplaceAfters = [];
         // Get all non-keyword shortcuts for autoreplace
-        let allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        const allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
+        console.log(allNonKeywordShortcuts)
         allNonKeywordShortcuts.forEach((def) => {
-            let triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
-            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
+            let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+            // console.log(shortcutNamesList)
+            if (def.type === 'CreatorBase') {
+                console.log(triggers)
+                const placeHolderList = triggers.map(trigger => `<?${trigger.name.slice(1)}>$`);
+                shortcutNamesList = shortcutNamesList.concat(placeHolderList);
+                console.log(shortcutNamesList)
+            }
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+            console.log(autoReplaceAfters)
         });
-        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
+        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|").replace("?", "\\?") + ")", 'i');
+        console.log('auto replace before reg exp')
+        console.log(this.autoReplaceBeforeRegExp)
 
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         // can switch to the commented out trigger to support non-space characters but need to put
@@ -200,10 +218,12 @@ class FluxNotesEditor extends React.Component {
     }
 
     suggestionFunction(initialChar, text) {
+        console.log('suggestion function')
         if (Lang.isUndefined(text)) return [];
         let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
+        console.log(initialChar, text)
         shortcuts.forEach((shortcut) => {
             //const triggers = shortcut.getStringTriggers();
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
@@ -234,6 +254,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
+        console.log('insert shortcut')
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -251,6 +272,8 @@ class FluxNotesEditor extends React.Component {
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {
+        console.log('auto replace transform')
+        console.log(def, transform, e, data, matches)
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
@@ -815,6 +838,7 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
+        console.log('insert text with structured phrases')
         let state;
         const currentState = this.state.state;
 
@@ -1050,6 +1074,7 @@ class FluxNotesEditor extends React.Component {
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
+        const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;
 
         // Preset note header information
         let noteTitle = "New Note";
@@ -1183,6 +1208,11 @@ class FluxNotesEditor extends React.Component {
                         state={this.state.state}
                     />
                     <InsertersPortal
+                        contextPortalOpen={this.state.isPortalOpen}
+                        getPosition={this.getTextCursorPosition}
+                        state={this.state.state}
+                    />
+                    <PlaceholdersPortal
                         contextPortalOpen={this.state.isPortalOpen}
                         getPosition={this.getTextCursorPosition}
                         state={this.state.state}
