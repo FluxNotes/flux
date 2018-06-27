@@ -123,6 +123,7 @@ export default class TabularListVisualizer extends Component {
 
     // Render each subsection as a table of values
     renderedSubsection(transformedSubsection, subsectionindex) {
+        // console.log(transformedSubsection);
         const list = this.getList(transformedSubsection);
 
         let preTableCount = null;
@@ -139,19 +140,24 @@ export default class TabularListVisualizer extends Component {
             subsectionName = transformedSubsection.name;
         }
 
+        // Hides table is display boolean is set to false.
+        let display = null;
+        if (transformedSubsection.displayFunction) {
+            display = transformedSubsection.displayFunction();
+        } else {
+            display = true;
+        }
+        if (!display) {
+            return <h2 className="subsection list-subsection-header" key={subsectionindex}></h2>;
+        }
+
+
         if (subsectionName && subsectionName.length > 0) {
             subsectionNameHTML = <h2 className="subsection list-subsection-header"><span>{subsectionName}</span></h2>;
         }
 
-        // Hides Missing Criteria table if no trial selected.
-        if (subsectionName==="Missing Criteria") {
-            return <h2 className="subsection list-subsection-header"><span></span></h2>;
-        }
-
-        // Displays "None" if returned list is empty. Displays alternative text if list is empty because no trial selected yet.
         if (list.length <= 0) {
-            let emptyListText = (subsectionName!=="Missing Criteria" ? "None" : "Select trial to view missing data.");
-            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>{emptyListText}</h2></div>;
+            return <div key={subsectionindex}>{subsectionNameHTML}<h2 style={{paddingTop: '10px'}}>None</h2></div>;
         }
 
         let headings = null;
