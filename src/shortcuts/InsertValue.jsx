@@ -30,9 +30,6 @@ export default class InsertValue extends Shortcut {
                 }
             });
         }
-
-        console.log("----value object");
-        console.log(this.valueObject);
     }
 
     getPrefixCharacter() {
