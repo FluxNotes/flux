@@ -381,6 +381,7 @@ export default class TabularListVisualizer extends Component {
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
 
+        // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
