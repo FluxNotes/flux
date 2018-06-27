@@ -258,7 +258,7 @@ export default class TabularListVisualizer extends Component {
                 >
                     {elementText}
                 </span>
-                {this.renderedMenu(element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
+                {this.renderedMenu(item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex)}
             </div>
         );
     }
@@ -377,10 +377,13 @@ export default class TabularListVisualizer extends Component {
     }
 
     // renders Menu for element and associated actions as Menu items
-    renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
-        const onMenuItemClicked = (fn, element) => {
+    // Will check whether an action should be rendered as a Menu item based on criteria of each action
+    renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
+        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
+
+        const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
-                fn(element);
+                fn(element, item);
             }
             this.closeInsertionMenu(callback);
         }

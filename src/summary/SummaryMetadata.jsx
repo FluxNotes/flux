@@ -618,7 +618,7 @@ export default class SummaryMetadata {
                                             valueExists: true,
                                             existingValueSigned: "either",
                                             editableNoteOpen: "either", 
-                                            displayForColumns: [0]
+                                            displayForColumns: [0, 1]
                                         }
                                     }
                                 ]
@@ -942,8 +942,8 @@ export default class SummaryMetadata {
         return this.eligibleTrials;
     }
 
-    handleViewMissingCriteria = (item) => {
-        this.trialDisplayMissingCriteria = item.value;
+    handleViewMissingCriteria = (item, rowId) => {
+        this.trialDisplayMissingCriteria = rowId;
         this.setForceRefresh(true);
     }
 
