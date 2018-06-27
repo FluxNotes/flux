@@ -78,11 +78,27 @@ class PatientSearch extends React.Component {
         const regex = new RegExp(inputPattern, "gim");
         return regex
     }
+
+    getNotesWithoutStyle = (notes) => {
+        const notesCopy = Lang.cloneDeep(notes);
+        notesCopy.forEach((note) => {
+            let noteContent = note.content;
+            // Remove HTML tags
+            noteContent = noteContent.replace(/<(div|\/div|strong|\/strong|em|\/em|u|\/u|ul|\/ul|ol|\/ol|li|\/li){0,}>/g, "");
+            // Remove brackets from @ structured phrases
+            noteContent = noteContent.replace(/@(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => g2);
+            // Removed brackets from # structured phrases
+            noteContent = noteContent.replace(/#(.*?)\[\[(.*?)\]\]/g, (match, g1, g2) => `#${g1}`);
+            note.content = noteContent;
+        });
+        return notesCopy;
+    }
     
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
         const notes = this.props.patient.getNotes();
-        const suggestions =  notes.reduce((suggestions, note) => {
+        const notesWithoutStyle = this.getNotesWithoutStyle(notes);
+        const suggestions =  notesWithoutStyle.reduce((suggestions, note) => {
             // If we have long-enough input and there is content in the note
             if (note.content && inputValue && inputValue.length >= 2) {
                 const regex = this.createRegexForSearching(inputValue)
@@ -148,7 +164,10 @@ class PatientSearch extends React.Component {
 
     // Will be called every time suggestion is selected via mouse or keyboard.
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => { 
-        this.props.setSearchSelectedItem(suggestion.note);
+        const contextNotes = this.props.patient.getNotes();
+        const selectedNote = contextNotes.find(function(note){ return note.entryInfo.entryId === suggestion.note.entryInfo.entryId});
+
+        this.props.setSearchSelectedItem(selectedNote);
     }
 
     // When the input is focused, Autosuggest will consult this function when to render suggestions
