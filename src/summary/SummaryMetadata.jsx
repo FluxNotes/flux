@@ -943,6 +943,7 @@ export default class SummaryMetadata {
     }
 
     handleViewMissingCriteria = (item, rowId) => {
+        // rowId is the name of the current section or item - in this case the name of the clinical trial displayed)
         this.trialDisplayMissingCriteria = rowId;
         this.setForceRefresh(true);
     }
