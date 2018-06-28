@@ -118,6 +118,7 @@ class PatientRecord {
             return this.addEntryToPatientWithPatientFocalSubject(entry, clinicalNote);
         }
     }
+
     reAddEntryToPatient(entry){
         this.entries.push(entry);
     }
@@ -666,15 +667,11 @@ class PatientRecord {
         }
     }
 
-
-    // TODO: use medication change.entry info.creationTime
-    // TODO fix variable names to a time b time
-
     _medChangesTimeSorter(a, b) {
-        const a_medicationAfter_performanceTime = a.entryInfo.creationTime.dateTime;
-        const b_medicationAfter_performanceTime = b.entryInfo.creationTime.dateTime;
-        const a_startTime = new moment(a_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
-        const b_startTime = new moment(b_medicationAfter_performanceTime.timePeriodStart, "D MMM YYYY");
+        const a_time = a.entryInfo.creationTime.dateTime;
+        const b_time = b.entryInfo.creationTime.dateTime;
+        const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
+        const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
             return -1;
         }

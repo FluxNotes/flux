@@ -69,14 +69,6 @@ class MedicationRangeChartVisualizer extends Component {
         const {patient, condition} = this.props;
         const items = subsection.itemsFunction(patient, condition, subsection);
 
-
-        // console.log("items");
-        // console.log(items);
-
-
-        // NICOLE: items contains all of the medications. If there is a change, the medication object also has a medicationChange field.
-        // NICOLE: medicationChange should contain both medBeforechange and medAfterChange
-
         if (items.length === 0) return <h2 key={index}>None</h2>;
         const rows = items.map((med, i) => this.renderMedication(med, i));
         return rows;
@@ -84,6 +76,7 @@ class MedicationRangeChartVisualizer extends Component {
 
     renderMedicationChange = (medChange, medBefore) => {     
 
+        // If the medication change type is "stop", change how the medication change string is displayed
         if (medChange.type === "stop") {
             return (
                 <Row center="xs">
@@ -173,8 +166,6 @@ class MedicationRangeChartVisualizer extends Component {
     }
 
     stringForMedicationStoppedDosageBefore(medBefore) {
-        console.log('in string');
-        console.log(medBefore);
         return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
     }
 
@@ -195,7 +186,7 @@ class MedicationRangeChartVisualizer extends Component {
         const numColsInfo = this.state.medicationVisWide ? 7 : 12;
         const medicationIsChange = (med.medicationChange ? true : false);
 
-
+        // If there is a medication change and it is of type "stop", don't render the medication chart or the table
         if (med.medicationChange && med.medicationChange.type === 'stop') {
             return (
                 <div key={i} className="medication-chart-item" ref={(parent) => {this.parent = parent}}>

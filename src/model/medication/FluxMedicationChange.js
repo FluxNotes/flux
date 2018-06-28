@@ -31,8 +31,13 @@ class FluxMedicationChange {
       return this._medicationChange.medicationBeforeChange;
     }
 
+    /**
+     * Set the MedicationBeforeChange object
+     */
     set medicationBeforeChange(medication) {
+
         if (medication) {        
+            // Create a new Flux Medicaion Before Change object to add the medication value to
             this._medicationChange.medicationBeforeChange = new FluxMedicationBeforeChange();
             this._medicationChange.medicationBeforeChange.value = this._patientRecord.createEntryReferenceTo(medication);
         } else {

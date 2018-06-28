@@ -1,5 +1,6 @@
 import codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
 
+// List of medications 
 // TODO: Add more medications
 const medications = [
     {

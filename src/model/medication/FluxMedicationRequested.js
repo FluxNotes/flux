@@ -50,6 +50,9 @@ class FluxMedicationRequested {
         return this.expectedPerformanceTime.timePeriodStart || null;
     }
 
+    /**
+     *  Set the start date and create new objects on medicationRequested object if none exist so that the timePeriodStart can be set
+     */
     set startDate(date) {
         if (!this._medicationRequested.actionContext) {
             this._medicationRequested.actionContext = new ActionContext();
@@ -93,6 +96,9 @@ class FluxMedicationRequested {
         return this._displayTextOrCode(this._medicationRequested.medicationOrCode.value.coding[0]);
     }
 
+    /**
+     *  Setter for medication
+     */
     set medication(medicationName) {
         this._medicationRequested.medicationOrCode = new MedicationOrCode();
         this._medicationRequested.medicationOrCode.value = lookup.getCodeableConceptFromName(medicationName);
