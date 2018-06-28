@@ -7,7 +7,7 @@ import TimePeriod from '../shr/core/TimePeriod';
 import Timing from '../shr/core/Timing';
 import ExpectedPerformanceTime from '../shr/action/ExpectedPerformanceTime';
 import moment from 'moment';
-import lookup from '../../lib/MedicationInformationService';
+import lookup from '../../lib/MedicationInformationService.jsx';
 import ActionContext from '../shr/action/ActionContext';
 class FluxMedicationRequested {
     constructor(json) {
