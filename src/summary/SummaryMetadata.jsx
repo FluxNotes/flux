@@ -936,10 +936,6 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        // Ensures that the results aren't loaded too often - this.refreshClinicalTrials can
-        // be set to true whenever data is updated or the trials need to be refreshed.
-        // Set to false automatically after updating.
-
         // Ensuring that the eligible trials are refreshed when enrolled trials are updated.
         if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, patient.getEnrolledClinicalTrials()))) {
             return this.eligibleTrials;
