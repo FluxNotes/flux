@@ -18,7 +18,6 @@ class SuggestionPortal extends React.Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { portalId, openedPortal } = nextProps;
 
-        if (portalId === "PlaceholdersPortal") return true;
         if (openedPortal !== null && openedPortal !== portalId) return false;
 
         return true;
@@ -296,7 +295,7 @@ class SuggestionPortal extends React.Component {
     // Closes portal
     closePortal = () => {
         const { menu } = this.state;
-        const { setOpenedPortal } = this.props;
+
         // No menu to close: return
         if (!menu) return;
 
@@ -305,7 +304,6 @@ class SuggestionPortal extends React.Component {
         menu.style.display = 'none';
         // Reset default suggestion for elements
         this.setDefaultSuggestion();
-        setOpenedPortal(null);
 
         return;
     }

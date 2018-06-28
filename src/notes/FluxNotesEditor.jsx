@@ -146,7 +146,7 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         // Get all non-keyword shortcuts for autoreplace
         const allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
-        console.log(allNonKeywordShortcuts)
+        
         allNonKeywordShortcuts.forEach((def) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
@@ -214,12 +214,11 @@ class FluxNotesEditor extends React.Component {
     }
 
     suggestionFunction(initialChar, text) {
-        console.log('suggestion function')
         if (Lang.isUndefined(text)) return [];
         let shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
         let suggestionsShortcuts = [];
         const textLowercase = text.toLowerCase();
-        console.log(initialChar, text)
+        
         shortcuts.forEach((shortcut) => {
             //const triggers = shortcut.getStringTriggers();
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
@@ -235,7 +234,7 @@ class FluxNotesEditor extends React.Component {
             });
         });
         const placeHolderShortcuts = this.props.shortcutManager.getAllCreatorBaseShortcutsWithTriggers();
-
+        
         placeHolderShortcuts.forEach((shortcut) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);
             triggers.forEach((trigger) => {
@@ -362,10 +361,13 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
-
         let shortcut = this.selectingForShortcut;
+
         this.selectingForShortcut = null;
-        this.setState({ openedPortal: null });
+        this.setState({ 
+            openedPortal: null,
+            portalOptions: null, 
+        });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -384,6 +386,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             transform = this.state.state.transform();
         }
+        
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 
@@ -1231,23 +1234,23 @@ class FluxNotesEditor extends React.Component {
                     </div>
 
                     <CreatorsPortal
-                        portalId={"CreatorsPortal"}
-                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"CreatorsPortal"}
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <InsertersPortal
-                        portalId={"InsertersPortal"}
-                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"InsertersPortal"}
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <PlaceholdersPortal
-                        portalId={"PlaceholdersPortal"}
-                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        openedPortal={this.state.openedPortal}
+                        portalId={"PlaceholdersPortal"}
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
@@ -1257,8 +1260,8 @@ class FluxNotesEditor extends React.Component {
                         contextManager={this.contextManager}
                         contexts={this.state.portalOptions}
                         getPosition={this.getTextCursorPosition}
-                        isOpened={this.state.isPortalOpen}
                         onChange={this.onChange}
+                        openedPortal={this.state.openedPortal}
                         onSelected={this.onPortalSelection}
                         state={this.state.state}
                         trigger={"@"}
