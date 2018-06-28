@@ -1,3 +1,4 @@
+/* eslint-disable */
 import getWindow from 'get-window'
 
 import { Range } from 'slate'

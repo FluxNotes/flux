@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Debug from 'debug'
 import ImmutableTypes from 'react-immutable-proptypes'
 import React from 'react'

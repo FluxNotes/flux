@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Set } from 'immutable'
 
 /**

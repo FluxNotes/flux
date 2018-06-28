@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Debug from 'debug'
 import Portal from 'react-portal'
 import React from 'react'

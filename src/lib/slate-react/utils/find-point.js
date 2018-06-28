@@ -1,3 +1,4 @@
+/* eslint-disable */
 import getWindow from 'get-window'
 
 import OffsetKey from './offset-key'

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Debug from 'debug'
 import React from 'react'
 import SlateTypes from 'slate-prop-types'

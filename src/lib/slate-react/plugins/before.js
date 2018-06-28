@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Debug from 'debug'
 import getWindow from 'get-window'
 import { findDOMNode } from 'react-dom'

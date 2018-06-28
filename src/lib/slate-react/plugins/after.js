@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Base64 from 'slate-base64-serializer'
 import Debug from 'debug'
 import Plain from 'slate-plain-serializer'

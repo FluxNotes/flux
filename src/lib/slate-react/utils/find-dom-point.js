@@ -1,3 +1,4 @@
+/* eslint-disable */
 import findDOMNode from './find-dom-node'
 
 /**

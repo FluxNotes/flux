@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Base64 from 'slate-base64-serializer'
 import TRANSFER_TYPES from '../constants/transfer-types'
 import getWindow from 'get-window'
