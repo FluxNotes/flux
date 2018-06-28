@@ -153,14 +153,14 @@ class FluxNotesEditor extends React.Component {
             // console.log(shortcutNamesList)
             if (def.type === 'CreatorBase') {
                 console.log(triggers)
-                const placeHolderList = triggers.map(trigger => `<?${trigger.name.slice(1)}>$`);
+                const placeHolderList = triggers.map(trigger => `<${trigger.name}>$`);
                 shortcutNamesList = shortcutNamesList.concat(placeHolderList);
                 console.log(shortcutNamesList)
             }
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
             console.log(autoReplaceAfters)
         });
-        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|").replace("?", "\\?") + ")", 'i');
+        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
         console.log('auto replace before reg exp')
         console.log(this.autoReplaceBeforeRegExp)
 
@@ -276,6 +276,12 @@ class FluxNotesEditor extends React.Component {
         console.log(def, transform, e, data, matches)
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+        if (matches.before[0].startsWith("<#")) {
+            let result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, matches.before[0]);
+            // console.log("result[0]");
+            // console.log(result[0]);
+            return result[0].collapseToStartOfNextText().focus().insertText(characterToAppend);
+        }
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
 

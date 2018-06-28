@@ -9,6 +9,10 @@
     background-color: #d9ebf9;
 }
 
+.placeholder {
+    color: #aaaaaa;
+}
+
 #clinical-notes #note-description p.note-description-detail-name {
     text-align: left;
     padding-bottom:2px;
