@@ -455,6 +455,7 @@ describe('FluxNotesEditor', function() {
             loginUser={''}
             noteClosed={false}
             setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
             setOpenClinicalNote={jest.fn()}
@@ -537,7 +538,7 @@ describe('FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
     });
 
-    it.only('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
+    it('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -587,7 +588,6 @@ describe('FluxNotesEditor', function() {
 
         // Check full text
         const editorContent = wrapper.find('.editor-content');
-        console.log(editorContent.text());
         expect(editorContent.text()).to.contain("");
     });    
     
