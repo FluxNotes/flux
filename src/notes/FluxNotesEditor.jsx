@@ -116,29 +116,29 @@ class FluxNotesEditor extends React.Component {
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
-            capture: /#([\w\s\-,?<>]*)/,
+            capture: /#([\w\s\-,?]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
-            capture: /@([\w\s\-,?<>]*)/,
+            capture: /@([\w\s\-,?]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
-            capture: /<\?([\w\s\-,?<>]*)/,
+            capture: /<([\w\s\-,?>#]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
-            suggestions: this.suggestionFunction.bind(this, '<?'),
-            trigger: '<?',
+            suggestions: this.suggestionFunction.bind(this, '<'),
+            trigger: '<',
         });
 
-        this.plugins.push(this.suggestionsPluginCreators)
-        this.plugins.push(this.suggestionsPluginInserters)
-        this.plugins.push(this.suggestionsPluginPlaceholders)
-        this.plugins.push(this.structuredFieldPlugin)
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
+        this.plugins.push(this.suggestionsPluginCreators);
+        this.plugins.push(this.suggestionsPluginInserters);
+        this.plugins.push(this.suggestionsPluginPlaceholders);
+        this.plugins.push(this.structuredFieldPlugin);
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
@@ -194,7 +194,7 @@ class FluxNotesEditor extends React.Component {
     resetEditorState() {
         this.state = {
             state: initialState,
-            isPortalOpen: false,
+            openedPortal: null,
             portalOptions: null,
         };
     }
@@ -229,11 +229,27 @@ class FluxNotesEditor extends React.Component {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
                         "value": trigger,
-                        "suggestion": triggerNoPrefix
+                        "suggestion": triggerNoPrefix,
                     });
                 }
             });
         });
+        const placeHolderShortcuts = this.props.shortcutManager.getAllCreatorBaseShortcutsWithTriggers();
+
+        placeHolderShortcuts.forEach((shortcut) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);
+            triggers.forEach((trigger) => {
+                const triggerNoPrefix = trigger.name.substring(1);
+                if (initialChar === "<" && text.substring(0, 1) === "#" && triggerNoPrefix.toLowerCase().includes(textLowercase.substring(1))) {
+                    suggestionsShortcuts.push({
+                        "key": triggerNoPrefix,
+                        "value": trigger,
+                        "suggestion": triggerNoPrefix,
+                    });
+                }
+            });
+        });
+        
         return suggestionsShortcuts.slice(0, 10);
     }
 
@@ -324,7 +340,7 @@ class FluxNotesEditor extends React.Component {
         // If the portal should not open, insert the plain text trigger instead. Will eventually be replaced.
         if (!shouldPortalOpen) {
             this.setState({
-                isPortalOpen: shouldPortalOpen,
+                openedPortal: null,
                 needToDelete: needToDelete,
             });
             this.selectingForShortcut = null;
@@ -335,7 +351,7 @@ class FluxNotesEditor extends React.Component {
         let portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
-            isPortalOpen: shouldPortalOpen,
+            openedPortal: "ContextPortal",
             portalOptions: portalOptions,
             needToDelete: needToDelete,
         });
@@ -349,7 +365,7 @@ class FluxNotesEditor extends React.Component {
 
         let shortcut = this.selectingForShortcut;
         this.selectingForShortcut = null;
-        this.setState({isPortalOpen: false});
+        this.setState({ openedPortal: null });
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -1079,6 +1095,10 @@ class FluxNotesEditor extends React.Component {
         this.props.setLayout("right-collapsed");
     }
 
+    setOpenedPortal = (openedPortal) => {
+        this.setState({ openedPortal });
+    }
+
     render = () => {
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
@@ -1211,18 +1231,24 @@ class FluxNotesEditor extends React.Component {
                     </div>
 
                     <CreatorsPortal
-                        contextPortalOpen={this.state.isPortalOpen}
+                        portalId={"CreatorsPortal"}
+                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <InsertersPortal
-                        contextPortalOpen={this.state.isPortalOpen}
+                        portalId={"InsertersPortal"}
+                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <PlaceholdersPortal
-                        contextPortalOpen={this.state.isPortalOpen}
+                        portalId={"PlaceholdersPortal"}
+                        openedPortal={this.state.openedPortal}
                         getPosition={this.getTextCursorPosition}
+                        setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
                     <ContextPortal
