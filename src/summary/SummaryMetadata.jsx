@@ -963,7 +963,7 @@ export default class SummaryMetadata {
     getItemListToDisplayMissingCriteria = () => {
        let trialsList = new ClinicalTrialsList();
         if (this.trialDisplayMissingCriteria !== "") {
-            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility("PATINA");
+            this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
                 return [{value : data}]
             });
