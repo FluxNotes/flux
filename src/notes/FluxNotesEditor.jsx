@@ -150,19 +150,15 @@ class FluxNotesEditor extends React.Component {
         allNonKeywordShortcuts.forEach((def) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
-            // console.log(shortcutNamesList)
+            
             if (def.type === 'CreatorBase') {
-                console.log(triggers)
                 const placeHolderList = triggers.map(trigger => `<${trigger.name}>$`);
                 shortcutNamesList = shortcutNamesList.concat(placeHolderList);
-                console.log(shortcutNamesList)
             }
+
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
-            console.log(autoReplaceAfters)
         });
         this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
-        console.log('auto replace before reg exp')
-        console.log(this.autoReplaceBeforeRegExp)
 
         // now add an AutoReplace plugin instance for each shortcut we're supporting as well
         // can switch to the commented out trigger to support non-space characters but need to put
@@ -271,16 +267,22 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
+    insertPlaceholder = (transform = undefined, placeholderText) => {
+        if (Lang.isUndefined(transform)) {
+            transform = this.state.state.transform();
+        }
+
+        return this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+    }
+
     autoReplaceTransform(def, transform, e, data, matches) {
         console.log('auto replace transform')
         console.log(def, transform, e, data, matches)
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+        // if text starts with '<#', insert placeholder
         if (matches.before[0].startsWith("<#")) {
-            let result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, matches.before[0]);
-            // console.log("result[0]");
-            // console.log(result[0]);
-            return result[0].collapseToStartOfNextText().focus().insertText(characterToAppend);
+            return this.insertPlaceholder(transform, matches.before[0]).insertText(characterToAppend);
         }
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
