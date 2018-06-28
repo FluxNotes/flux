@@ -19,6 +19,7 @@ import SuggestionsPlugin from '../lib/slate-suggestions-dist'
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin'
+import NLPHashtagPlugin from './NLPHashtagPlugin'
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 
@@ -90,7 +91,8 @@ class FluxNotesEditor extends React.Component {
 
         // Set the initial state when the app is first constructed.
         this.resetEditorState();
-
+        
+        
         // setup structured field plugin
         const structuredFieldPluginOptions = {
             contextManager: this.contextManager,
@@ -98,48 +100,62 @@ class FluxNotesEditor extends React.Component {
             updateErrors: this.updateErrors,
             insertText: this.insertTextWithStructuredPhrases
         };
-
         structuredFieldTypes.forEach((type) => {
             const typeName = type.name;
             const typeValue = type.value;
             structuredFieldPluginOptions[typeName] = typeValue;
         });
-
+        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.plugins.push(this.structuredFieldPlugin)
+        
+        // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
         };
-
-        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
         this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
+        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin)
 
-        // setup suggestions plugin (autocomplete)
+        // setup NLPHashtagPlugin
+        const NLPHashtagPluginOptions = {
+            shortcutManager: this.props.shortcutManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            createShortcut: this.props.newCurrentShortcut,
+            insertStructuredFieldTransform: this.insertStructuredFieldTransform,
+            editorValue: this.state.state,
+        };
+        this.NLPHashtagPlugin = NLPHashtagPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
+        this.plugins.push(this.NLPHashtagPlugin)
+        
+        // setup creator suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
+        this.plugins.push(this.suggestionsPluginCreators)
+        
+        // setup inserter suggestions plugin (autocomplete)
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
+        this.plugins.push(this.suggestionsPluginInserters)
+
+        // Setup suggestions plugin
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: this.suggestionFunction.bind(this, '<'),
             trigger: '<',
         });
-
-        this.plugins.push(this.suggestionsPluginCreators);
-        this.plugins.push(this.suggestionsPluginInserters);
         this.plugins.push(this.suggestionsPluginPlaceholders);
-        this.plugins.push(this.structuredFieldPlugin);
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
+
         // The logic below that builds the regular expression could possibly be replaced by the regular
         // expression stored in NoteParser (this.noteParser is instance variable). Only difference is
         // global flag it looks like? TODO: evaluate
