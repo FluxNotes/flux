@@ -1,4 +1,5 @@
 import Lang from 'lodash'
+import _ from 'lodash'
 import moment from 'moment';
 import FluxTumorDimensions from '../model/oncology/FluxTumorDimensions';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
@@ -14,6 +15,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
         data                Provides the retrieval of the source data to be displayed in the section in the format dictated by the type property
                             above. The data is a list of subsections which each have the following possible properties:
                                 name            The name of the subsection. Some visualizers display the subsection names.
+                                nameFunction    Used to dynamically name the subsection.  Tabular list visualizer uses this when included.
                                 items           The list of data items in the format dictated by the type
                                 itemsFunction   A function that returns the list of data items in the format dictated by the type
                                 headings        Indicates the a set of column heading labels for tabular visualizers
@@ -38,6 +40,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 
 export default class SummaryMetadata {
     constructor(setForceRefresh) {
+        this.enrolledClinicalTrials = [];
         this.setForceRefresh = setForceRefresh;
         this.missingEligibleTrialData = [];
         this.eligibleTrials = [];
@@ -936,10 +939,13 @@ export default class SummaryMetadata {
         // Ensures that the results aren't loaded too often - this.refreshClinicalTrials can
         // be set to true whenever data is updated or the trials need to be refreshed.
         // Set to false automatically after updating.
-        if (!this.refreshClinicalTrials) {
+
+        // Ensuring that the eligible trials are refreshed when enrolled trials are updated.
+        if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, patient.getEnrolledClinicalTrials()))) {
             return this.eligibleTrials;
         }
         
+        this.enrolledClinicalTrials = patient.getEnrolledClinicalTrials();
         const trialsList = new ClinicalTrialsList();
         const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
         let eligibleTrials = [];
