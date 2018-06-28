@@ -207,7 +207,6 @@ function StructuredFieldPlugin(opts) {
             event.preventDefault();
             return change.value;
         } else { 
-            console.log('not going to copy')
             return null;
         }
     }
