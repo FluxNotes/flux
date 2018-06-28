@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-flexbox-grid';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
-import { ListItemIcon, ListItemText } from 'material-ui/List';
-import Menu, { MenuItem } from 'material-ui/Menu';
 import { TableCell, TableRow } from 'material-ui/Table';
-import FontAwesome from 'react-fontawesome';
 import Tooltip from 'rc-tooltip';
-
 import TabularListVisualizerTable from './TabularListVisualizerTable';
 import './TabularListVisualizer.css';
+import VisualizerMenu from './VisualizerMenu.jsx';
 
 /*
  A table view of one or more data summary items. Items could be pathology-related,
@@ -229,7 +226,6 @@ export default class TabularListVisualizer extends Component {
     renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
         if (patient == null || condition == null || Lang.isUndefined(itemsFunction)) return [];
-
         const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;
@@ -380,10 +376,7 @@ export default class TabularListVisualizer extends Component {
     }
 
     // renders Menu for element and associated actions as Menu items
-    // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
-        const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 fn(element);
@@ -393,48 +386,22 @@ export default class TabularListVisualizer extends Component {
 
         let isSigned = true;
         if (Lang.isArray(element.value)) isSigned = !element.value[1];
-        
-        // Filter actions by whenToDisplay property on action
-        const filteredActions = subsectionActions.concat(this.props.actions).filter((a) => {
-            if (a.whenToDisplay.valueExists && Lang.isNull(element)) return false;
-            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            if (a.whenToDisplay.displayInSubsections &&  !a.whenToDisplay.displayInSubsections.includes(subsectionName)) return false;
-            if (a.whenToDisplay.displayForColumns && !a.whenToDisplay.displayForColumns.includes(arrayIndex)) return false;
-            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
-        });
-
-        if (filteredActions.length === 0) return null;
         return (
-            <Menu
-                open={elementToDisplayMenu === elementId}
-                anchorReference="anchorPosition"
-                anchorPosition={{ top: positionTop, left: positionLeft }}
-                onClose={(event) => this.closeInsertionMenu()}
-                className="narrative-inserter-tooltip"
-            >
-                {
-                    // map filteredActions to MenuItems
-                    filteredActions.map((a, index) => {
-                        const icon = a.icon ? (
-                            <ListItemIcon>
-                                <FontAwesome name={a.icon} />
-                            </ListItemIcon>
-                        ) : null;
-                        const text = a.text.replace("{elementText}", elementText);
-                        return (
-                            <MenuItem
-                                key={`${elementId}-${index}`}
-                                onClick={() => onMenuItemClicked(a.handler, element)}
-                                className="narrative-inserter-box"
-                            >
-                                {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
-                            </MenuItem>
-                        )
-                    })
-                }
-            </Menu>
-        );
+            <VisualizerMenu
+                allowItemClick={this.props.allowItemClick}
+                arrayIndex={arrayIndex}
+                closeInsertionMenu={this.closeInsertionMenu}
+                element={element}
+                elementDisplayingMenu={this.state.elementToDisplayMenu}
+                elementId={elementId}
+                elementText={elementText}
+                isSigned={isSigned}
+                onMenuItemClicked={onMenuItemClicked}
+                positionLeft={this.state.positionLeft}
+                positionTop={this.state.positionTop}
+                subsectionName={subsectionName}
+                unfilteredActions={this.props.actions.concat(subsectionActions)}
+            />);
     }
 
     // Opens the insertion menu for the given element id, based on cursor location

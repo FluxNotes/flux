@@ -1,10 +1,8 @@
-import { ListItemIcon, ListItemText } from 'material-ui/List';
-import Menu, { MenuItem } from 'material-ui/Menu';
-import FontAwesome from 'react-fontawesome';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Lang from 'lodash';
 import './NarrativeNameValuePairsVisualizer.css';
+import VisualizerMenu from './VisualizerMenu.jsx';
 
 /*
  A narrative view of one or more data summary items.
@@ -210,13 +208,8 @@ class NarrativeNameValuePairsVisualizer extends Component {
     }
 
     // renders Menu for snippet and associated actions as Menu items
-    // Will check whether an action should be rendered as a Menu item based on criteria of each action
-    renderedMenu = (snippet, snippetId, snippetText) => {
-        const {
-            snippetDisplayingMenu,
-            positionLeft,
-            positionTop,
-        } = this.state;
+    renderedMenu = (snippet, snippetId, snippetText, arrayIndex) => {
+
         const onMenuItemClicked = (fn, element) => {
             const callback = () => {
                 // convert element to format action is expecting
@@ -232,48 +225,26 @@ class NarrativeNameValuePairsVisualizer extends Component {
             }
             this.closeInsertionMenu(callback);
         }
-
+        
         let isSigned = true;
         const checkSnippetUnsigned = Lang.isUndefined(snippet.unsigned) ? isSigned : !snippet.unsigned;
         isSigned = Lang.isArray(snippet.value) ? !snippet.value[1] : checkSnippetUnsigned;
-        // Filter actions by whenToDisplay property on action
-        const filteredActions = this.props.actions.filter((a) => {
-            if (a.whenToDisplay.valueExists && Lang.isNull(snippet)) return false;
-            if (a.whenToDisplay.existingValueSigned !== "either" && a.whenToDisplay.existingValueSigned !== isSigned) return false;
-            return a.whenToDisplay.editableNoteOpen === "either" || String(a.whenToDisplay.editableNoteOpen) === String(this.props.allowItemClick);
-        });
-        if (filteredActions.length === 0) return null;
-        return (
-            <Menu
-                open={snippetDisplayingMenu === snippetId}
-                anchorReference="anchorPosition"
-                anchorPosition={{ top: positionTop, left: positionLeft }}
-                onClose={(event) => this.closeInsertionMenu()}
-                className="narrative-inserter-tooltip"
-            >
-                {
-                    // map filterActions to MenuItems
-                    filteredActions.map((a, index) => {
-                        const icon = a.icon ? (
-                            <ListItemIcon>
-                                <FontAwesome name={a.icon} />
-                            </ListItemIcon>
-                        ) : null;
-                        const text = a.text.replace("{elementText}", snippetText);
-                        return (
-                            <MenuItem
-                                key={`${snippetId}-${index}`}
-                                onClick={() => onMenuItemClicked(a.handler, snippet)}
-                                className="narrative-inserter-box"
-                            >
-                                {icon}
-                                <ListItemText className='narrative-inserter-menu-item' inset primary={text} />
-                            </MenuItem>
-                        )
-                    })
-                }
-            </Menu>
-        );
+    
+       return( 
+         <VisualizerMenu
+            allowItemClick={this.props.allowItemClick}
+            arrayIndex={arrayIndex}
+            closeInsertionMenu={this.closeInsertionMenu}
+            element={snippet}
+            elementDisplayingMenu={this.state.snippetDisplayingMenu}
+            elementId={snippetId}
+            elementText={snippetText}
+            isSigned={isSigned}
+            onMenuItemClicked={onMenuItemClicked}
+            positionLeft={this.state.positionLeft}
+            positionTop={this.state.positionTop}
+            unfilteredActions={this.props.actions}
+       /> );
     }
 
     // Opens the insertion menu for the given snippet id, based on cursor location
@@ -321,7 +292,7 @@ class NarrativeNameValuePairsVisualizer extends Component {
                         >
                             {snippet.text}
                         </span>
-                        {this.renderedMenu(snippet.item, snippetId, snippet.text)}
+                        {this.renderedMenu(snippet.item, snippetId, snippet.text, index)}
                     </span>
                 );
             } else if (snippet.type !== 'plain') {

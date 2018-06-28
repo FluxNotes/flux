@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Button from '../elements/Button';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
@@ -8,7 +7,6 @@ import Lang from 'lodash';
 export default class TargetedDataSection extends Component {
     constructor(props) {
         super(props);
-
         const optionsForSection = this.getOptions(props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(props.section, props.clinicalEvent, optionsForSection);
 
@@ -130,7 +128,6 @@ export default class TargetedDataSection extends Component {
 
         const viz = this.props.visualizerManager.getVisualizer(type, visualization);
         if (Lang.isNull(viz)) return null;
-
         const sectionTransform = viz.transform;
         const Visualizer = viz.visualizer;
 
