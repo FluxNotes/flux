@@ -1,6 +1,6 @@
 import React from 'react';
 import { Inline, Range } from 'slate';
-import { findDOMNode } from 'slate-react'
+import { findDOMNode } from '../lib/slate-react'
 import { IS_IE } from 'slate-dev-environment'
 import Lang from 'lodash';
 import getWindow from 'get-window';

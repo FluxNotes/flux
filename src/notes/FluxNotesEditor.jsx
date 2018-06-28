@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
 import Plain from 'slate-plain-serializer'
-import { Editor, findDOMNode } from 'slate-react'
+import { Editor, findDOMNode } from '../lib/slate-react'
 import Moment from 'moment'
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
