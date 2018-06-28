@@ -68,7 +68,8 @@ class ContextPortal extends React.Component {
      */
     onClose = () => {
         if (this.props.isOpened) {
-            this.props.onChange(this.props.onSelected(this.props.state, null));
+            const selectedResult = this.props.onSelected(this.props.state, null);
+            this.props.onChange(selectedResult);
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
@@ -100,7 +101,8 @@ class ContextPortal extends React.Component {
             this.refs.contextPortal.scrollTop = (this.state.selectedIndex - (numberOfElementsVisible - 1)) * 32 + 10;
         } else if (keyCode === ENTER_KEY) {
             this.setState({ active: false, justActive: false });
-            this.props.onChange(this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]));
+            const selectedResult = this.props.onSelected(this.props.state, this.props.contexts[this.state.selectedIndex]);
+            this.props.onChange(selectedResult);
         }
     }
     /*
