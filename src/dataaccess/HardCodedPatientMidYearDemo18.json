@@ -1424,7 +1424,7 @@
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             },
-                            "Value": "Dose reduced"
+                            "Value": "Dose Reduced"
                         }
                     }
                 ]
