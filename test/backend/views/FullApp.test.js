@@ -258,24 +258,39 @@ describe('FullApp', function() {
 
 describe('FluxNotesEditor', function() {
     beforeEach(() => {
-      // Set up window and document to be used by Slate in test
-      window.getSelection = () => {
-          return {
-              addRange: () => {},
-              extend: () => {},
-              removeAllRanges: () => {}
-          }
-      }
-      // window.document.createRange = jest.fn();
-      document.createRange = function() {
-          return {
-              setEnd: function(){},
-              setStart: function(){},
-              getBoundingClientRect: function(){
-                  return {right: 0};
-              }
-          }
-      };
+        let range = {
+            cloneRange: () => { return range; },
+            setStart: () => {},
+            getBoundingClientRect: () => {
+                return {
+                    left: 0,
+                    right: 0,
+                    width: 0,
+                    height: 0
+                };
+            }
+        };
+        // Set up window and document to be used by Slate in test
+        window.getSelection = () => {
+            return {
+                addRange: () => {},
+                extend: () => {},
+                removeAllRanges: () => {},
+                getRangeAt: () => {
+                    return range;
+                }
+            };
+        }
+        // window.document.createRange = jest.fn();
+        document.createRange = function() {
+            return {
+                setEnd: function(){},
+                setStart: function(){},
+                getBoundingClientRect: function(){
+                    return {right: 0};
+                }
+            }
+        };
     })
     it('inserts supplied text for inserter shortcuts', () => {
         // Set up Managers that are needed by FluxNotesEditor
@@ -520,6 +535,60 @@ describe('FluxNotesEditor', function() {
 
         expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
+    });
+
+    it.only('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
+        // Set up Managers that are needed by FluxNotesEditor
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const shortcutManager = new ShortcutManager();
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const wrapper = mount(<FluxNotesEditor
+            closeNote={() => {}}
+            updatedEditorNote={{ content: '' }}
+            shortcutManager={shortcutManager}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            updatedEditorNote={null}
+            handleUpdateEditorWithNote={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            setFullAppState={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            saveNoteUponKeypress={jest.fn()}
+            shouldEditorContentUpdate={true}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+        />);
+        expect(wrapper).to.exist;
+        // wrapper.find('.editor-content').simulate('click'); //goes into on change
+
+        // let noteContent = '#imaging ';
+        const arrayOfStructuredDataToEnter = ["#imaging "]
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        wrapper.instance().onFocus();
+        wrapper.setProps({ updatedEditorNote });
+
+        // Check structured phrases
+        const structuredField = wrapper.find('.structured-field');
+        expect(structuredField).to.have.lengthOf(0)
+
+        // Check full text
+        const editorContent = wrapper.find('.editor-content');
+        console.log(editorContent.text());
+        expect(editorContent.text()).to.contain("");
     });    
     
     it('captures staging data using singleKeywordHashtag method', () => {
