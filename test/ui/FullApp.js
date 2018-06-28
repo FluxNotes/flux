@@ -221,26 +221,26 @@ test('In pre-encounter mode, clicking the "New Note" button clears the editor co
 //         .expect(structuredField.exists).notOk();
 // });
 
-test('Typing a date in the editor results in a structured data insertion ', async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test('Typing a date in the editor results in a structured data insertion ', async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    const editor = Selector("div[data-slate-editor='true']");
-    await t
-        .typeText(editor, "#12/20/2015 ")
+//     const editor = Selector("div[data-slate-editor='true']");
+//     await t
+//         .typeText(editor, "#12/20/2015 ")
 
-    const structuredField = editor.find("span[class='structured-field']");
-    await t
-        .expect(structuredField.innerText)
-        .contains("#12/20/2015");
-});
+//     const structuredField = editor.find("span[class='structured-field']");
+//     await t
+//         .expect(structuredField.innerText)
+//         .contains("#12/20/2015");
+// });
 
 test('Typing "#enroll" and selecting "enrollment" from the portal in the editor results \
 in a structured data insertion and the context panel updates', async t => {
