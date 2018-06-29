@@ -40,11 +40,7 @@ import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx';
 
 export default class SummaryMetadata {
     constructor(setForceRefresh) {
-        this.enrolledClinicalTrials = [];
         this.setForceRefresh = setForceRefresh;
-        this.missingEligibleTrialData = [];
-        this.eligibleTrials = [];
-        this.refreshClinicalTrials = true;
         this.trialDisplayMissingCriteria = "";
         this.hardCodedMetadata = {
             "http://snomed.info/sct/408643008": {
@@ -936,14 +932,7 @@ export default class SummaryMetadata {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        // Ensuring that the eligible trials are refreshed when enrolled trials are updated.
-        if (!this.refreshClinicalTrials && (_.isEqual(this.enrolledClinicalTrials, patient.getEnrolledClinicalTrials()))) {
-            return this.eligibleTrials;
-        }
-        
-        this.enrolledClinicalTrials = patient.getEnrolledClinicalTrials();
-        const trialsList = new ClinicalTrialsList();
-        const clinicalTrialsAndCriteriaList = trialsList.getListOfEligibleClinicalTrials(patient, currentConditionEntry);
+        let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
         let eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([{ value: trial.info.name }, (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria), trial.info.studyStartDate, trial.info.description]);
