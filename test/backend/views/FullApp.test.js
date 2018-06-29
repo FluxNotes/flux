@@ -701,8 +701,98 @@ describe('FluxNotesEditor', function() {
         for (let index = 0; index < arrayOfExpectedStructuredData.length; index++) {
             expect(editorContent.text()).to.contain(arrayOfExpectedStructuredData[index]);
         }
-    });    
+    });
 
+    it.only("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
+        let patient = new PatientRecord(hardCodedPatient);
+        const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            documentText={''}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUser={''}
+            noteClosed={false}
+            setDocumentText={jest.fn()}
+            setDocumentTextWithCallback={jest.fn()}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+        />);
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+        expect(fluxNotesEditor).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const arrayOfStructuredDataToEnter = ["#deceased "];
+        const updatedEditorNote = { content: arrayOfStructuredDataToEnter.join(' ') };
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        //fluxNotesEditor.setProps({ updatedEditorNote });
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+
+        console.log(notesPanelWrapper.debug());
+        const contextPanelElements = notesPanelWrapper.find('.context-options-list .context-option');
+        const conditionButton = contextPanelElements.find({ children: '@condition' });
+        expect(conditionButton).to.have.lengthOf(1);
+        conditionButton.simulate('click');
+
+        const optionsForm = notesPanelWrapper.find('#pickList-options-panel').find('.option-btn').find('span');
+        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 13 JAN 2012' });
+        expect(invasiveButton).to.have.lengthOf(1);
+        invasiveButton.simulate('click');
+
+        const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');
+        expect(conditionSection).to.have.lengthOf(1);
+
+        expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
+
+        
+        // Mimic post-encounter view
+    
+        // const structuredField = editor.find("span[class='structured-field']");
+        // await t
+        //     .expect(structuredField.innerText)
+        //     .contains('#deceased');
+    
+        // const contextPanelElement = Selector('.context-tray section:last-child .context-option');
+        // const deceasedChild = '#DATE';
+        // const contextPanelElementInnerText = await contextPanelElement.innerText;
+        // const contextPanelElementUpper = contextPanelElementInnerText.toUpperCase();
+        // await t
+        //     .expect(contextPanelElementUpper)
+        //     .contains(deceasedChild);
+    });
+    
     it('Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
