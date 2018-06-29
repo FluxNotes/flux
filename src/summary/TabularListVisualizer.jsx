@@ -131,7 +131,6 @@ export default class TabularListVisualizer extends Component {
             preTableCount = `${list.length} total ${transformedSubsection.preTableCount}`;
         }
 
-
         let subsectionName = null;
         let subsectionNameHTML = null;
 
@@ -380,7 +379,6 @@ export default class TabularListVisualizer extends Component {
     // Will check whether an action should be rendered as a Menu item based on criteria of each action
     renderedMenu = (item, element, elementId, elementText, subsectionName, subsectionActions, arrayIndex) => {
         const { elementToDisplayMenu, positionLeft, positionTop } = this.state;
-
         // Item represents the name of the row/section of the current element.
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
@@ -404,7 +402,7 @@ export default class TabularListVisualizer extends Component {
                 onMenuItemClicked={onMenuItemClicked}
                 positionLeft={positionLeft}
                 positionTop={positionTop}
-                subsectionName={subsectionName}
+                subsectionName={item}
                 unfilteredActions={this.props.actions.concat(subsectionActions)}
             />);
     }
