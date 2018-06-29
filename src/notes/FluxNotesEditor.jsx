@@ -116,19 +116,19 @@ class FluxNotesEditor extends React.Component {
 
         // setup suggestions plugin (autocomplete)
         this.suggestionsPluginCreators = SuggestionsPlugin({
-            capture: /#([\w\s\-,?]*)/,
+            capture: /#([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '#'),
             trigger: '#',
         });
         this.suggestionsPluginInserters = SuggestionsPlugin({
-            capture: /@([\w\s\-,?]*)/,
+            capture: /@([\w\s\-,]*)/,
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: this.suggestionFunction.bind(this, '@'),
             trigger: '@',
         });
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
-            capture: /<([\w\s\-,?>]*)/,
+            capture: /<([\w\s\-,>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: this.suggestionFunction.bind(this, '<'),
             trigger: '<',
@@ -224,7 +224,7 @@ class FluxNotesEditor extends React.Component {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase) && this.state.openedPortal !== "PlaceholdersPortal") {
+                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
                         "value": trigger,
@@ -239,7 +239,7 @@ class FluxNotesEditor extends React.Component {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (initialChar === "<" && triggerNoPrefix.toLowerCase().includes(textLowercase.substring(1))) {
+                if (initialChar === "<" && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
                         "value": `${initialChar}${triggerNoPrefix}>`,
