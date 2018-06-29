@@ -109,7 +109,6 @@ class ShortcutManager {
     }
 
     getAllPlaceholderShortcuts() {
-        console.log(this.shortcutDefinitions)
         return this.shortcutDefinitions.filter((s) => {
             return s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase";
         });

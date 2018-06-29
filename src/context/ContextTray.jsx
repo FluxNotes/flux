@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import TemplateViewModeContent from "./TemplateViewModeContent";
 import ShortcutViewModeContent from "./ShortcutViewModeContent";
+import PlaceholderViewModeContent from "./PlaceholderViewModeContent";
 import "./ContextTray.css";
 
 export default class ContextTray extends Component {
@@ -42,6 +43,7 @@ export default class ContextTray extends Component {
 
     render() {
         const { viewMode } = this.state;
+        const { contextManager, onShortcutClicked, patient, setInsertingTemplate, shortcutManager } = this.props;
 
         return (
             <div className="context-tray">
@@ -84,18 +86,25 @@ export default class ContextTray extends Component {
 
                 {viewMode === this.TEMPLATE_VIEW && (
                     <TemplateViewModeContent
-                        onShortcutClicked={this.props.onShortcutClicked}
-                        patient={this.props.patient}
-                        setInsertingTemplate={this.props.setInsertingTemplate}
+                        onShortcutClicked={onShortcutClicked}
+                        patient={patient}
+                        setInsertingTemplate={setInsertingTemplate}
                     />
                 )}
 
                 {viewMode === this.SHORTCUT_VIEW && (
                     <ShortcutViewModeContent
-                        contextManager={this.props.contextManager}
+                        contextManager={contextManager}
                         handleClick={this.handleShortcutClick}
-                        onShortcutClicked={this.props.onShortcutClicked}
-                        shortcutManager={this.props.shortcutManager}
+                        onShortcutClicked={onShortcutClicked}
+                        shortcutManager={shortcutManager}
+                    />
+                )}
+
+                {viewMode === this.PLACEHOLDER_VIEW && (
+                    <PlaceholderViewModeContent
+                        onClick={onShortcutClicked}
+                        placeholders={shortcutManager.getAllPlaceholderShortcuts()}
                     />
                 )}
             </div>
@@ -103,7 +112,7 @@ export default class ContextTray extends Component {
     }
 }
 
-ContextTray.proptypes = {
+ContextTray.propTypes = {
     contextManager: PropTypes.object.isRequired,
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,

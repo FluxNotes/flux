@@ -56,10 +56,6 @@ function StructuredFieldPlugin(opts) {
                 return <span contentEditable={false} className='structured-field' {...props.attributes}>{shortcut.getText()}{props.children}</span>;
             },
             placeholder: props => {
-                console.log('placeholder props')
-                console.log(props)
-                console.log(props.node.get('data').get('text'))
-                console.log(props.node.data.text)
                 const placeholderText = props.node.get('data').get('text');
                 return <span contentEditable={false} className='placeholder'>{placeholderText}</span>;
             },

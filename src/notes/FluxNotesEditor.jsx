@@ -146,15 +146,17 @@ class FluxNotesEditor extends React.Component {
         let autoReplaceAfters = [];
         // Get all non-keyword shortcuts for autoreplace
         const allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
-        
+        const placeholderShortcuts = this.props.shortcutManager.getAllPlaceholderShortcuts();
+
         allNonKeywordShortcuts.forEach((def) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
             let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
-            
-            if (def.type === 'CreatorBase') {
-                const placeHolderList = triggers.map(trigger => `<${trigger.name}>$`);
-                shortcutNamesList = shortcutNamesList.concat(placeHolderList);
-            }
+
+            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+        });
+        placeholderShortcuts.forEach((def) => {
+            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
+            const shortcutNamesList = triggers.map(trigger => `<${trigger.name.slice(1)}>`);
 
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
@@ -268,11 +270,10 @@ class FluxNotesEditor extends React.Component {
         const {state} = this.state;
         
         const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), "<");
-        return this.insertPlaceholder(transformBeforeInsert, suggestion.value).apply();
+        return this.insertPlaceholder(suggestion.value, transformBeforeInsert).apply();
     }
 
     insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        console.log('insert shortcut')
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -289,7 +290,7 @@ class FluxNotesEditor extends React.Component {
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
     }
 
-    insertPlaceholder = (transform = undefined, placeholderText) => {
+    insertPlaceholder = (placeholderText, transform = undefined) => {
         if (Lang.isUndefined(transform)) {
             transform = this.state.state.transform();
         }
@@ -299,14 +300,14 @@ class FluxNotesEditor extends React.Component {
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {
-        console.log('auto replace transform')
-        console.log(def, transform, e, data, matches)
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
+
         // if text starts with '<#', insert placeholder
-        if (matches.before[0].startsWith("<#")) {
-            return this.insertPlaceholder(transform, matches.before[0]).insertText(characterToAppend);
+        if (matches.before[0].startsWith("<")) {
+            return this.insertPlaceholder(matches.before[0], transform).insertText(characterToAppend);
         }
+
         return this.insertShortcut(def, matches.before[0], "", transform).insertText(characterToAppend);
     }
 
@@ -869,11 +870,11 @@ class FluxNotesEditor extends React.Component {
             return newTransform.deleteBackward(1).focus();
         }
     }
+
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, shouldPortalOpen = true) => {
-        console.log('insert text with structured phrases')
         let state;
         const currentState = this.state.state;
 
@@ -888,6 +889,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
+
         if (!Lang.isNull(triggers)) {
             triggers.forEach((trigger) => {
 
@@ -927,7 +929,11 @@ class FluxNotesEditor extends React.Component {
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            transform = this.insertPlainText(transform, remainder);
+            if (remainder.startsWith("<") && remainder.endsWith(">")) {
+                transform = this.insertPlaceholder(remainder, transform);
+            } else {
+                transform = this.insertPlainText(transform, remainder);
+            }
         }
 
         state = transform.apply();
