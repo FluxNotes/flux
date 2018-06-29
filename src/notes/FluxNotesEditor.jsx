@@ -233,7 +233,7 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         });
-        const placeHolderShortcuts = this.props.shortcutManager.getAllCreatorBaseShortcutsWithTriggers();
+        const placeHolderShortcuts = this.props.shortcutManager.getAllPlaceholderShortcuts();
         
         placeHolderShortcuts.forEach((shortcut) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);

@@ -108,8 +108,11 @@ class ShortcutManager {
         return this.shortcutDefinitions.filter((s) => s.keywords !== undefined);
     }
 
-    getAllCreatorBaseShortcutsWithTriggers() {
-        return this.getAllShortcutsWithTriggers().filter((s) => s.type === "CreatorBase");
+    getAllPlaceholderShortcuts() {
+        console.log(this.shortcutDefinitions)
+        return this.shortcutDefinitions.filter((s) => {
+            return s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase";
+        });
     }
     
     getAllStringTriggers() {
