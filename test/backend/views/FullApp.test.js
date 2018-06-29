@@ -26,8 +26,8 @@ import FluxInjury from '../../../src/model/condition/FluxInjury';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('UpdateErrors', function () {
-    it('should set state.errors to equal the provided argument', function () {
+describe('1 UpdateErrors', function () {
+    it('1.1 should set state.errors to equal the provided argument', function () {
         const wrapper = shallow(<FullApp display='test' />);
         const emptyErrors = [];
         wrapper.instance().updateErrors(emptyErrors);
@@ -42,8 +42,8 @@ describe('UpdateErrors', function () {
     });
 });
 
-describe('setFullAppState', function() {
-    it('sets the state on the component', function() {
+describe('2 setFullAppState', function() {
+    it('2.1 sets the state on the component', function() {
         const wrapper = shallow(<FullApp display='test'/>);
 
         wrapper.instance().setFullAppState('testKey', 'testValue');
@@ -68,8 +68,8 @@ describe('setFullAppState', function() {
 //     });
 // });
 
-describe('TargetedDataControl', function() {
-    it('noteDisplayMode buttons update state', function() {
+describe('3 TargetedDataControl', function() {
+    it('3.1 noteDisplayMode buttons update state', function() {
         const summaryMetadata = new SummaryMetadata();
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
@@ -102,8 +102,8 @@ describe('TargetedDataControl', function() {
             .to.eq('narrative');
     });
 });
-describe('TargetedDataControl - correct default visualizer Medications', function() {
-    it('correct default visualizer', function() {
+describe('4 TargetedDataControl - correct default visualizer Medications', function() {
+    it('4.1 correct default visualizer', function() {
         const summaryMetadata = new SummaryMetadata();
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = summaryMetadata.hardCodedMetadata["http://snomed.info/sct/408643008"].sections.find((section) => {
@@ -122,7 +122,7 @@ describe('TargetedDataControl - correct default visualizer Medications', functio
     });
 });
 
-describe('FullApp', function() {
+describe('5 FullApp', function() {
     beforeEach(() => {
         window.getSelection = () => {
           return {
@@ -136,7 +136,7 @@ describe('FullApp', function() {
             };
         }
     });
-    it('Selecting a condition changes the active condition', () => {
+    it('5.1 Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp 
                 display='Flux Notes' 
                 dataSource='HardCodedReadOnlyDataSource' 
@@ -153,7 +153,7 @@ describe('FullApp', function() {
        //expect(conditionName.exists()).to.equal(true);
        //expect(conditionName.text()).to.equal('Fracture');
     });
-    it('Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
+    it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the note editor', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes' 
             dataSource='HardCodedReadOnlyDataSource' 
@@ -170,7 +170,7 @@ describe('FullApp', function() {
         const e2 = wrapper.find('div.editor-content');
         expect(e2.exists()).to.equal(true);
     });
-    it('Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
+    it('5.3 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes' 
             dataSource='HardCodedReadOnlyDataSource' 
@@ -195,7 +195,7 @@ describe('FullApp', function() {
         const newNoteButton3 = wrapper.find('.note-new');
         expect(newNoteButton3.exists()).to.equal(true);
     });
-    it('Clicking context toggle button in Note Assistant switches view to context tray', () => {
+    it('5.4 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp 
             display='Flux Notes' 
             dataSource='HardCodedReadOnlyDataSource' 
@@ -256,7 +256,7 @@ describe('FullApp', function() {
     // });
 });
 
-describe('FluxNotesEditor', function() {
+describe('6 FluxNotesEditor', function() {
     beforeEach(() => {
         let range = {
             cloneRange: () => { return range; },
@@ -292,7 +292,7 @@ describe('FluxNotesEditor', function() {
             }
         };
     })
-    it('inserts supplied text for inserter shortcuts', () => {
+    it('6.1 inserts supplied text for inserter shortcuts', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -423,7 +423,7 @@ describe('FluxNotesEditor', function() {
     //         contain("Enter your clinical note here or choose a template o start from...");
     // });    
 
-    it('renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
+    it('6.2 renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -474,7 +474,7 @@ describe('FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
     });
 
-    it('renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
+    it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -538,7 +538,7 @@ describe('FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field').text()).to.contain('Invasive ductal carcinoma of breast');
     });
 
-    it('Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
+    it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -591,7 +591,7 @@ describe('FluxNotesEditor', function() {
         expect(editorContent.text()).to.contain("");
     });    
     
-    it('captures staging data using singleKeywordHashtag method', () => {
+    it('6.5 captures staging data using singleKeywordHashtag method', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -647,7 +647,7 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it('Typing a date in the editor results in a structured data insertion ', () => {
+    it('6.6 Typing a date in the editor results in a structured data insertion ', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
@@ -703,7 +703,7 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
+    it("6.7 Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -766,7 +766,7 @@ describe('FluxNotesEditor', function() {
         expect(deceasedChild).to.have.lengthOf(1);
     });
 
-    it("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    it("6.8 Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -835,7 +835,7 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it("Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    it("6.9 Typing #ER into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -904,7 +904,7 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it("Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
+    it("6.10 Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", () => {
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();
@@ -973,7 +973,7 @@ describe('FluxNotesEditor', function() {
         }
     });
 
-    it('Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
+    it('6.11 Switches contexts without closing a context chooses the correct parent context and successfully enters information in editor', () => {
         // Set up Managers that are needed by FluxNotesEditor
         let patient = new PatientRecord(hardCodedPatient);
         const contextManager = new ContextManager(patient, () => {});
