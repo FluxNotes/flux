@@ -77,10 +77,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        const { onChange, openedPortal, onSelected } = this.props;
+        const { onChange, openedPortal, onSelected, state } = this.props;
 
         if (openedPortal === this.portalId) {
-            onChange(onSelected(this.props.state, null));
+            onChange(onSelected(state, null));
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }
@@ -218,7 +218,7 @@ class ContextPortal extends React.Component {
     render = () => {
         const TYPE_LIST = 0;
         const TYPE_CALENDAR = 1;
-        const { contexts } = this.props;
+        const { contexts, openedPortal } = this.props;
         let type;
         let className = "context-portal";
         if (Lang.isNull(contexts)) return null;
@@ -236,7 +236,7 @@ class ContextPortal extends React.Component {
             <Portal 
                 closeOnEsc 
                 closeOnOutsideClick 
-                isOpened={this.props.openedPortal === this.portalId} 
+                isOpened={openedPortal === this.portalId} 
                 onOpen={this.onOpen} 
                 onClose={this.onClose}
             >

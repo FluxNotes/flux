@@ -1,17 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-
-import TemplateViewModeContent from "./TemplateViewModeContent";
-import ShortcutViewModeContent from "./ShortcutViewModeContent";
-import PlaceholderViewModeContent from "./PlaceholderViewModeContent";
-import "./ContextTray.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import TemplateViewModeContent from './TemplateViewModeContent';
+import ShortcutViewModeContent from './ShortcutViewModeContent';
+import PlaceholderViewModeContent from './PlaceholderViewModeContent';
+import './ContextTray.css';
 
 export default class ContextTray extends Component {
     //these are the possible view mode constants
     TEMPLATE_VIEW = 0;
     SHORTCUT_VIEW = 1;
     PLACEHOLDER_VIEW = 2;
-    
+
     constructor(props) {
         super(props);
 

@@ -303,7 +303,7 @@ class FluxNotesEditor extends React.Component {
         // need to use Transform object provided to this method, which AutoReplace .apply()s after return.
         const characterToAppend = e.data ? e.data : String.fromCharCode(data.code);
 
-        // if text starts with '<#', insert placeholder
+        // if text starts with '<', insert placeholder
         if (matches.before[0].startsWith("<")) {
             return this.insertPlaceholder(matches.before[0], transform).insertText(characterToAppend);
         }
