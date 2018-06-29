@@ -107,6 +107,10 @@ class ShortcutManager {
     getAllShortcutsWithKeywords() {
         return this.shortcutDefinitions.filter((s) => s.keywords !== undefined);
     }
+
+    getAllCreatorBaseShortcutsWithTriggers() {
+        return this.getAllShortcutsWithTriggers().filter((s) => s.type === "CreatorBase");
+    }
     
     getAllStringTriggers() {
         return Object.keys(this.shortcutMap);

@@ -129,7 +129,7 @@ class FluxNotesEditor extends React.Component {
         });
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,?>#]*)/,
-            onEnter: this.choseSuggestedShortcut.bind(this),
+            onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: this.suggestionFunction.bind(this, '<'),
             trigger: '<',
         });
@@ -224,7 +224,7 @@ class FluxNotesEditor extends React.Component {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase)) {
+                if (trigger.name.substring(0, 1) === initialChar && triggerNoPrefix.toLowerCase().includes(textLowercase) && this.state.openedPortal !== "PlaceholdersPortal") {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
                         "value": trigger,
@@ -242,7 +242,7 @@ class FluxNotesEditor extends React.Component {
                 if (initialChar === "<" && text.substring(0, 1) === "#" && triggerNoPrefix.toLowerCase().includes(textLowercase.substring(1))) {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
-                        "value": trigger,
+                        "value": `${initialChar}#${triggerNoPrefix}>`,
                         "suggestion": triggerNoPrefix,
                     });
                 }
@@ -262,6 +262,13 @@ class FluxNotesEditor extends React.Component {
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             return transformAfterInsert.apply();
         }
+    }
+
+    choseSuggestedPlaceholder(suggestion) {
+        const {state} = this.state;
+        
+        const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), "<");
+        return this.insertPlaceholder(transformBeforeInsert, suggestion.value).apply();
     }
 
     insertShortcut = (shortcutC, shortcutTrigger, text, transform = undefined, updatePatient = true, shouldPortalOpen = true) => {
@@ -287,7 +294,8 @@ class FluxNotesEditor extends React.Component {
             transform = this.state.state.transform();
         }
 
-        return this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+        const result = this.structuredFieldPlugin.transforms.insertPlaceholder(transform, placeholderText);
+        return result[0].collapseToStartOfNextText().focus();
     }
 
     autoReplaceTransform(def, transform, e, data, matches) {
@@ -326,7 +334,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             const pos = position();
             // If position is calculated to be 0, 0, use our old method of calculating position.
-            if ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined)) {
+            if (pos === null || ((pos.top === 0 && pos.left === 0) || (pos.top === undefined && pos.left === undefined))) {
                 this.lastPosition = positioningUsingSlateNodes();
             } else {
                 this.lastPosition = pos;
@@ -386,7 +394,7 @@ class FluxNotesEditor extends React.Component {
         } else {
             transform = this.state.state.transform();
         }
-        
+
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus().apply();
     }
 

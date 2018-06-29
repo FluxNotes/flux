@@ -304,6 +304,7 @@ class SuggestionPortal extends React.Component {
         menu.style.display = 'none';
         // Reset default suggestion for elements
         this.setDefaultSuggestion();
+        this.setSelectedIndex(0);
 
         return;
     }

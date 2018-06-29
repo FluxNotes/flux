@@ -30,7 +30,7 @@ class ContextPortal extends React.Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { openedPortal } = nextProps;
 
-        if (openedPortal !== null && openedPortal !== this.portalId) return false;
+        if (openedPortal !== this.portalId) return false;
         
         return true;
     }
