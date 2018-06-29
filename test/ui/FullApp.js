@@ -317,155 +317,155 @@ in a structured data insertion and the context panel updates', async t => {
 });
 
 
-test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test("Typing '#deceased' in the editor results in a structured data insertion and the context panel updates", async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    const editor = Selector("div[data-slate-editor='true']");
-    await t
-        .typeText(editor, "#deceased ");
+//     const editor = Selector("div[data-slate-editor='true']");
+//     await t
+//         .typeText(editor, "#deceased ");
 
-    const structuredField = editor.find("span[class='structured-field']");
-    await t
-        .expect(structuredField.innerText)
-        .contains('#deceased');
+//     const structuredField = editor.find("span[class='structured-field']");
+//     await t
+//         .expect(structuredField.innerText)
+//         .contains('#deceased');
 
-    const contextPanelElement = Selector('.context-tray section:last-child .context-option');
-    const deceasedChild = '#DATE';
-    const contextPanelElementInnerText = await contextPanelElement.innerText;
-    const contextPanelElementUpper = contextPanelElementInnerText.toUpperCase();
-    await t
-        .expect(contextPanelElementUpper)
-        .contains(deceasedChild);
-});
+//     const contextPanelElement = Selector('.context-tray section:last-child .context-option');
+//     const deceasedChild = '#DATE';
+//     const contextPanelElementInnerText = await contextPanelElement.innerText;
+//     const contextPanelElementUpper = contextPanelElementInnerText.toUpperCase();
+//     await t
+//         .expect(contextPanelElementUpper)
+//         .contains(deceasedChild);
+// });
 
-test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test("Typing #PR into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('.context-option');
-    const structuredField = editor.find("span[class='structured-field']");
-    const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const textToType = ["#PR ", "#Positive "];
+//     const editor = Selector("div[data-slate-editor='true']");
+//     const contextPanelElements = Selector(".context-options-list").find('.context-option');
+//     const structuredField = editor.find("span[class='structured-field']");
+//     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+//     const textToType = ["#PR ", "#Positive "];
 
-    await t
-        .click(conditionButton);
+//     await t
+//         .click(conditionButton);
 
-    const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
-    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+//     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
+//     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
-    await t
-        .click(invasiveButton);
+//     await t
+//         .click(invasiveButton);
 
-    for (let i = 0; i < textToType.length; i++) {
-        await t
-            .typeText(editor, textToType[i]);
-    };
+//     for (let i = 0; i < textToType.length; i++) {
+//         await t
+//             .typeText(editor, textToType[i]);
+//     };
 
-    textToType.splice(0, 0, 'condition placeholder');
-    const structuredFieldCount = await structuredField.count;
-    for (let i = 1; i < structuredFieldCount; i++) {
-        await t
-            .expect(structuredField.nth(i).innerText)
-            .contains(textToType[i]);
-    }
-});
+//     textToType.splice(0, 0, 'condition placeholder');
+//     const structuredFieldCount = await structuredField.count;
+//     for (let i = 1; i < structuredFieldCount; i++) {
+//         await t
+//             .expect(structuredField.nth(i).innerText)
+//             .contains(textToType[i]);
+//     }
+// });
 
-test("Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test("Typing #HER2 into the editor followed by #Positive results in structured data insertion and context panel updates", async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('.context-option');
-    const structuredField = editor.find("span[class='structured-field']");
-    const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const textToType = ["#HER2 ", "#Positive "];
+//     const editor = Selector("div[data-slate-editor='true']");
+//     const contextPanelElements = Selector(".context-options-list").find('.context-option');
+//     const structuredField = editor.find("span[class='structured-field']");
+//     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+//     const textToType = ["#HER2 ", "#Positive "];
 
-    await t
-        .click(conditionButton);
+//     await t
+//         .click(conditionButton);
 
-    const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
-    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+//     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
+//     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
-    await t
-        .click(invasiveButton);
+//     await t
+//         .click(invasiveButton);
 
-    for (let i = 0; i < textToType.length; i++) {
-        await t
-            .typeText(editor, textToType[i]);
-    };
+//     for (let i = 0; i < textToType.length; i++) {
+//         await t
+//             .typeText(editor, textToType[i]);
+//     };
 
-    textToType.splice(0, 0, 'condition placeholder');
-    const structuredFieldCount = await structuredField.count;
-    for (let i = 1; i < structuredFieldCount; i++) {
-        await t
-            .expect(structuredField.nth(i).innerText)
-            .contains(textToType[i]);
-    }
-});
+//     textToType.splice(0, 0, 'condition placeholder');
+//     const structuredFieldCount = await structuredField.count;
+//     for (let i = 1; i < structuredFieldCount; i++) {
+//         await t
+//             .expect(structuredField.nth(i).innerText)
+//             .contains(textToType[i]);
+//     }
+// });
 
-test("Typing #ER into the editor followed by #Positive results in structured data insertsion and context panel updates", async t => {
-    // const clinicalEventSelector = Selector('.clinical-event-select');
-    // await t
-    //     .click(clinicalEventSelector)
-    //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
+// test("Typing #ER into the editor followed by #Positive results in structured data insertsion and context panel updates", async t => {
+//     // const clinicalEventSelector = Selector('.clinical-event-select');
+//     // await t
+//     //     .click(clinicalEventSelector)
+//     //     .click(Selector('[data-test-clinical-event-selector-item="Post-encounter"]'));
 
-    // Mimic post-encounter view
-    const newNoteButton = Selector('.note-new');
-    await t
-        .click(newNoteButton)
+//     // Mimic post-encounter view
+//     const newNoteButton = Selector('.note-new');
+//     await t
+//         .click(newNoteButton)
 
-    const editor = Selector("div[data-slate-editor='true']");
-    const contextPanelElements = Selector(".context-options-list").find('.context-option');
-    const structuredField = editor.find("span[class='structured-field']");
-    const conditionButton = await contextPanelElements.withText(/@condition/ig);
-    const textToType = ["#ER ", "#Positive "];
+//     const editor = Selector("div[data-slate-editor='true']");
+//     const contextPanelElements = Selector(".context-options-list").find('.context-option');
+//     const structuredField = editor.find("span[class='structured-field']");
+//     const conditionButton = await contextPanelElements.withText(/@condition/ig);
+//     const textToType = ["#ER ", "#Positive "];
 
-    await t
-        .click(conditionButton);
+//     await t
+//         .click(conditionButton);
 
-    const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
-    const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
+//     const optionsForm = Selector("#pickList-options-panel").find(".option-btn");
+//     const invasiveButton = await optionsForm.withText(/Invasive ductal carcinoma of breast/ig);
 
-    await t
-        .click(invasiveButton);
+//     await t
+//         .click(invasiveButton);
 
-    for (let i = 0; i < textToType.length; i++) {
-        await t
-            .typeText(editor, textToType[i]);
-    };
+//     for (let i = 0; i < textToType.length; i++) {
+//         await t
+//             .typeText(editor, textToType[i]);
+//     };
 
-    // We will skip checking for the inserted condition. Add a placeholder so indexes line up.
-    textToType.splice(0, 0, 'condition placeholder');
-    const structuredFieldCount = await structuredField.count;
-    for (let i = 1; i < structuredFieldCount; i++) {
-        await t
-            .expect(structuredField.nth(i).innerText)
-            .contains(textToType[i]);
-    }
-});
+//     // We will skip checking for the inserted condition. Add a placeholder so indexes line up.
+//     textToType.splice(0, 0, 'condition placeholder');
+//     const structuredFieldCount = await structuredField.count;
+//     for (let i = 1; i < structuredFieldCount; i++) {
+//         await t
+//             .expect(structuredField.nth(i).innerText)
+//             .contains(textToType[i]);
+//     }
+// });
 
 fixture('Patient Mode - Context Panel')
     .page(startPage);
