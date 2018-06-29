@@ -397,13 +397,13 @@ export default class TabularListVisualizer extends Component {
                 arrayIndex={arrayIndex}
                 closeInsertionMenu={this.closeInsertionMenu}
                 element={element}
-                elementDisplayingMenu={this.state.elementToDisplayMenu}
+                elementDisplayingMenu={elementToDisplayMenu}
                 elementId={elementId}
                 elementText={elementText}
                 isSigned={isSigned}
                 onMenuItemClicked={onMenuItemClicked}
-                positionLeft={this.state.positionLeft}
-                positionTop={this.state.positionTop}
+                positionLeft={positionLeft}
+                positionTop={positionTop}
                 subsectionName={subsectionName}
                 unfilteredActions={this.props.actions.concat(subsectionActions)}
             />);
