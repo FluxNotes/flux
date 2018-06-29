@@ -929,7 +929,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
         if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            if (remainder.startsWith("<") && remainder.endsWith(">")) {
+            if (this.placeholderCheck(remainder)) {
                 transform = this.insertPlaceholder(remainder, transform);
             } else {
                 transform = this.insertPlainText(transform, remainder);
@@ -1028,6 +1028,28 @@ class FluxNotesEditor extends React.Component {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut);
             return triggers.some((trigger) => {
                 return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
+            });
+        });
+    }
+
+    /**
+     *  Check if text is a placeholder
+     *  text should begin with '<' and end with '>'
+     *  text within the brackets should match text from placeholder shortcuts
+     */
+    placeholderCheck = (text) => {
+        const { shortcutManager } = this.props;
+
+        if (!text.startsWith("<") || !text.endsWith(">")) return false;
+        const placeholderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+        const remainderText = text.slice(1, -1).toLowerCase();
+
+        return placeholderShortcuts.some((placeholderShortcut) => {
+            const triggers = shortcutManager.getTriggersForShortcut(placeholderShortcut.id);
+
+            return triggers.some((trigger) => {
+                const triggerNoPrefix = trigger.name.slice(1);
+                return triggerNoPrefix.toLowerCase() === remainderText;
             });
         });
     }
