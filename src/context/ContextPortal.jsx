@@ -30,7 +30,7 @@ class ContextPortal extends React.Component {
     shouldComponentUpdate = (nextProps, nextState) => {
         const { openedPortal } = nextProps;
 
-        if (openedPortal !== this.portalId) return false;
+        if (openedPortal !== null && openedPortal !== this.portalId) return false;
         
         return true;
     }
@@ -77,10 +77,10 @@ class ContextPortal extends React.Component {
      * Call onSelected with null context to indicate nothing selected and just clean up state
      */
     onClose = () => {
-        const { openedPortal } = this.props;
+        const { onChange, openedPortal, onSelected } = this.props;
 
         if (openedPortal === this.portalId) {
-            this.props.onChange(this.props.onSelected(this.props.state, null));
+            onChange(onSelected(this.props.state, null));
         }
         this.setState({ active: false, justActive: false }); // TEST: menu: null, 
     }

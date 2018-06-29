@@ -128,7 +128,7 @@ class FluxNotesEditor extends React.Component {
             trigger: '@',
         });
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
-            capture: /<([\w\s\-,?>#]*)/,
+            capture: /<([\w\s\-,?>]*)/,
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: this.suggestionFunction.bind(this, '<'),
             trigger: '<',
@@ -239,10 +239,10 @@ class FluxNotesEditor extends React.Component {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcut.id);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
-                if (initialChar === "<" && text.substring(0, 1) === "#" && triggerNoPrefix.toLowerCase().includes(textLowercase.substring(1))) {
+                if (initialChar === "<" && triggerNoPrefix.toLowerCase().includes(textLowercase.substring(1))) {
                     suggestionsShortcuts.push({
                         "key": triggerNoPrefix,
-                        "value": `${initialChar}#${triggerNoPrefix}>`,
+                        "value": `${initialChar}${triggerNoPrefix}>`,
                         "suggestion": triggerNoPrefix,
                     });
                 }
